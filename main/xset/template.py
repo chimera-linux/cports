@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
-    "libxmu-devel",
     "libxext-devel",
-    "libxxf86misc-devel",
     "libxfontcache-devel",
+    "libxmu-devel",
+    "libxxf86misc-devel",
 ]
 pkgdesc = "X11 user preferences utility"
 license = "MIT"

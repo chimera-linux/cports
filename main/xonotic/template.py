@@ -5,8 +5,8 @@ build_style = "makefile"
 make_use_env = True
 makedepends = [
     "alsa-lib-devel",
-    "gmp-devel",
     "curl-devel",
+    "gmp-devel",
     "libjpeg-turbo-devel",
     "libmodplug-devel",
     "libvorbis-devel",

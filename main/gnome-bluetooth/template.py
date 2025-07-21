@@ -7,20 +7,20 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "libxml2-progs",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
-    "libxml2-progs",
-    "gettext",
 ]
 makedepends = [
+    "gsound-devel",
     "gtk4-devel",
     "libadwaita-devel",
-    "libnotify-devel",
     "libcanberra-devel",
+    "libnotify-devel",
     "udev-devel",
-    "gsound-devel",
     "upower-devel",
 ]
 checkdepends = ["python-dbus"]

@@ -5,10 +5,10 @@ build_style = "meson"
 configure_args = ["-Dman=enabled"]
 hostmakedepends = [
     "docbook-xsl-nons",
+    "libxslt-progs",
     "meson",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = ["glib-devel"]
 checkdepends = ["dbus"]

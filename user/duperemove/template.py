@@ -9,10 +9,10 @@ make_build_env = {
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "glib-devel",
+    "linux-headers",
     "musl-bsd-headers",
     "sqlite-devel",
     "xxhash-devel",
-    "linux-headers",
 ]
 pkgdesc = "Tools for deduplicating extents in filesystems like Btrfs"
 license = "GPL-2.0-only"

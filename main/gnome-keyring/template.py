@@ -20,11 +20,11 @@ hostmakedepends = [
     "gettext-devel",
     "glib-devel",
     "libtasn1-progs",
+    "libxslt-progs",
     "meson",
     "openssh",
     "pkgconf",
     "python",
-    "libxslt-progs",
 ]
 makedepends = [
     "gcr3-devel",

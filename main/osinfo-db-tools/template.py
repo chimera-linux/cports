@@ -7,9 +7,9 @@ makedepends = [
     "glib-devel",
     "json-glib-devel",
     "libarchive-devel",
+    "libsoup-devel",
     "libxml2-devel",
     "libxslt-devel",
-    "libsoup-devel",
 ]
 checkdepends = ["python-pytest", "python-requests"]
 pkgdesc = "Tools for managing osinfo database files"

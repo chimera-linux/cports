@@ -28,6 +28,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "cairo-devel",
+    "curl-devel",
     "elogind-devel",
     "flashrom-devel",
     "gcab-devel",
@@ -36,7 +37,6 @@ makedepends = [
     "json-glib-devel",
     "libarchive-devel",
     "libcbor-devel",
-    "curl-devel",
     "libdrm-devel",
     "libjcat-devel",
     "libmbim-devel",

@@ -19,10 +19,10 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "perl",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = ["duktape-devel", "elogind-devel", "linux-pam-devel"]
 depends = ["dinit-dbus"]

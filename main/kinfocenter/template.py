@@ -16,10 +16,10 @@ makedepends = [
     "kcmutils-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
-    "kirigami-addons-devel",
     "kdoctools-devel",
     "ki18n-devel",
     "kio-devel",
+    "kirigami-addons-devel",
     "libusb-devel",
     "qt6-qtbase-devel",
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)

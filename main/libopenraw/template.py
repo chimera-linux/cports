@@ -12,8 +12,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
-    "gdk-pixbuf-devel",
     "curl-devel",
+    "gdk-pixbuf-devel",
     "libjpeg-turbo-devel",
     "libxml2-devel",
     "rust-std",

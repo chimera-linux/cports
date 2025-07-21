@@ -4,9 +4,9 @@ pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
-    "meson",
     "gettext",
     "gobject-introspection",
+    "meson",
     "pkgconf",
 ]
 makedepends = [

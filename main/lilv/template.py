@@ -5,11 +5,11 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "libsndfile-devel",
+    "lv2",
     "python-devel",
     "serd-devel",
     "sord-devel",
     "sratom-devel",
-    "lv2",
 ]
 pkgdesc = "C API for using LV2 plugins"
 license = "ISC"

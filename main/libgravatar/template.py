@@ -13,11 +13,11 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "ki18n-devel",
     "kconfig-devel",
-    "kwidgetsaddons-devel",
-    "ktextwidgets-devel",
+    "ki18n-devel",
     "kio-devel",
+    "ktextwidgets-devel",
+    "kwidgetsaddons-devel",
     "pimcommon-devel",
     "qt6-qtdeclarative-devel",
 ]

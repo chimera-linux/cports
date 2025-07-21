@@ -5,18 +5,18 @@ build_style = "cmake"
 configure_args = ["-DENABLE_GUI=OFF"]
 hostmakedepends = ["cmake", "ninja", "gettext", "pkgconf"]
 makedepends = [
-    "python-devel",
-    "libedit-devel",
-    "zlib-ng-compat-devel",
-    "giflib-devel",
-    "libpng-devel",
-    "libjpeg-turbo-devel",
-    "libtiff-devel",
-    "libxml2-devel",
     "freetype-devel",
+    "giflib-devel",
+    "libedit-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
     "libspiro-devel",
+    "libtiff-devel",
     "libuninameslist-devel",
+    "libxml2-devel",
+    "python-devel",
     "woff2-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["!fontforge"]  # conflicts with gui version
 pkgdesc = "Create and modify PostScript, TrueType and SVG fonts"

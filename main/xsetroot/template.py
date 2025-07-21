@@ -4,11 +4,11 @@ pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
-    "xbitmaps",
+    "libxcursor-devel",
+    "libxfixes-devel",
     "libxmu-devel",
     "libxrender-devel",
-    "libxfixes-devel",
-    "libxcursor-devel",
+    "xbitmaps",
 ]
 pkgdesc = "X root window parameter setting utility"
 license = "MIT"

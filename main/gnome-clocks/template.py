@@ -3,26 +3,26 @@ pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
+    "desktop-file-utils",
     "gettext",
-    "vala",
-    "itstool",
+    "glib-devel",
     "gobject-introspection",
     "gtk+3-update-icon-cache",
-    "desktop-file-utils",
+    "itstool",
+    "meson",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
-    "gtk4-devel",
-    "glib-devel",
-    "gnome-desktop-devel",
-    "libadwaita-devel",
-    "libnotify-devel",
-    "gsound-devel",
-    "libgweather-devel",
     "geoclue-devel",
     "geocode-glib-devel",
+    "glib-devel",
+    "gnome-desktop-devel",
+    "gsound-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "libgweather-devel",
+    "libnotify-devel",
 ]
 depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME clock application"

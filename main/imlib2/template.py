@@ -11,14 +11,14 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 # mp3 loader is disabled because libid3tag is old and busted
 makedepends = [
     "freetype-devel",
-    "libpng-devel",
-    "libjpeg-turbo-devel",
-    "libwebp-devel",
-    "libtiff-devel",
     "giflib-devel",
-    "libxcb-devel",
     "libheif-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
     "librsvg-devel",
+    "libtiff-devel",
+    "libwebp-devel",
+    "libxcb-devel",
 ]
 pkgdesc = "Image manipulation library"
 license = "Imlib2"

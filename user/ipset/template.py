@@ -7,8 +7,8 @@ make_dir = "."
 make_check_target = "tests"
 hostmakedepends = [
     "automake",
-    "libtool-devel",
     "libtool",
+    "libtool-devel",
     "pkgconf",
 ]
 makedepends = [

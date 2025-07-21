@@ -41,10 +41,10 @@ hostmakedepends = ["pkgconf", "python", "gettext"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
 depends = [
     "!avahi",
-    "!avahi-devel",
-    "!avahi-libs",
     "!avahi-compat-devel",
     "!avahi-compat-libs",
+    "!avahi-devel",
+    "!avahi-libs",
 ]
 provides = [
     "so:libavahi-client.so.3=0",

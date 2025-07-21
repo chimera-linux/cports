@@ -6,8 +6,8 @@ make_build_args = ["DOCBOOKXSL=/usr/share/xsl-nons/docbook"]
 hostmakedepends = [
     "docbook-xsl-nons",
     "libxml2-progs",
-    "perl",
     "libxslt-progs",
+    "perl",
 ]
 makedepends = ["linux-headers"]
 depends = ["perl-ipc-run"]

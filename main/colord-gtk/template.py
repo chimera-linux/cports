@@ -13,10 +13,10 @@ hostmakedepends = [
     "docbook-xsl",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "vala-devel",
-    "libxslt-progs",
 ]
 makedepends = ["colord-devel", "gtk4-devel", "gtk+3-devel"]
 pkgdesc = "Gtk+ support library for colord"

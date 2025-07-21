@@ -16,9 +16,9 @@ hostmakedepends = [
     "gettext-devel",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "glib-devel",

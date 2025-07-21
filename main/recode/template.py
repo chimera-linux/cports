@@ -7,8 +7,8 @@ hostmakedepends = [
     "bison",
     "flex",
     "gettext-devel",
-    "libtool-devel",
     "libtool",
+    "libtool-devel",
     "python",
     "texinfo",
 ]

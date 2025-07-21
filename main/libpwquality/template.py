@@ -9,10 +9,10 @@ configure_args = [
 ]
 make_dir = "."
 hostmakedepends = [
-    "pkgconf",
     "automake",
-    "libtool",
     "gettext-devel",
+    "libtool",
+    "pkgconf",
     "python-setuptools",
 ]
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]

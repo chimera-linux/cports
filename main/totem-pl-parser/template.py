@@ -9,18 +9,18 @@ configure_args = [
     "-Dintrospection=true",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
-    "gettext",
 ]
 makedepends = [
     "glib-devel",
+    "libarchive-devel",
+    "libgcrypt-devel",
     "libxml2-devel",
     "uchardet-devel",
-    "libgcrypt-devel",
-    "libarchive-devel",
 ]
 # transitional
 provides = [self.with_pkgver("libtotem-plparser-mini")]

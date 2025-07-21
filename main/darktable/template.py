@@ -27,9 +27,9 @@ hostmakedepends = [
     "cmake",
     "intltool",
     "iso-codes",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "clang-devel",
@@ -37,6 +37,7 @@ makedepends = [
     "colord-devel",
     "colord-gtk-devel",
     "cups-devel",
+    "curl-devel",
     "exiv2-devel",
     "gmic-devel",
     "graphicsmagick-devel",
@@ -46,7 +47,6 @@ makedepends = [
     "lcms2-devel",
     "lensfun-devel",
     "libavif-devel",
-    "curl-devel",
     "libedit-devel",
     "libgphoto2-devel",
     "libheif-devel",

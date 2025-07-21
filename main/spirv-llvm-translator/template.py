@@ -11,10 +11,10 @@ configure_args = [
 ]
 make_build_target = "llvm-spirv"
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
     "ninja",
     "pkgconf",
-    "clang-tools-extra",
     "spirv-headers",
     "spirv-tools-devel",
 ]

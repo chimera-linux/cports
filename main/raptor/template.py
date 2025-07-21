@@ -9,11 +9,11 @@ make_check_args = ["-j1"]  # racey tests
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "curl-devel",
+    "icu-devel",
     "libxml2-devel",
     "libxslt-devel",
-    "icu-devel",
-    "zlib-ng-compat-devel",
     "xz-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Raptor RDF syntax library"
 license = "Apache-2.0 OR LGPL-2.1-or-later OR GPL-2.0-or-later"

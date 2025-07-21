@@ -6,34 +6,34 @@ configure_args = [
     "-Denable-python=no",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
     "gettext",
-    "itstool",
-    "gstreamer",
+    "glib-devel",
+    "gobject-introspection",
     "gst-plugins-base",
     "gst-plugins-good",
+    "gstreamer",
+    "itstool",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
     "glib-devel",
-    "gtk+3-devel",
-    "libhandy-devel",
-    "gstreamer-devel",
-    "gst-plugins-base-devel",
-    "gst-plugins-good",
-    "libpeas-devel",
-    "totem-pl-parser-devel",
-    "gsettings-desktop-schemas-devel",
     "gnome-desktop-devel",
     "grilo-devel",
+    "gsettings-desktop-schemas-devel",
+    "gst-plugins-base-devel",
+    "gst-plugins-good",
+    "gstreamer-devel",
+    "gtk+3-devel",
+    "libhandy-devel",
+    "libpeas-devel",
+    "totem-pl-parser-devel",
 ]
 depends = [
     "grilo-plugins",
-    "gst-plugins-good",
-    "gst-libav",
     "gsettings-desktop-schemas",
+    "gst-libav",
+    "gst-plugins-good",
 ]
 pkgdesc = "GNOME media player"
 license = "GPL-2.0-or-later"

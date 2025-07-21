@@ -8,14 +8,14 @@ make_check_args = ["-E", "ut_repeat-backspace"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
 makedepends = [
-    "qt6-qtdeclarative-devel",
-    "qt6-qtmultimedia-devel",
-    "qt6-qt5compat-devel",
-    "maliit-framework-devel",
     "glib-devel",
     "hunspell-devel",
-    "libpinyin-devel",
     "libchewing-devel",
+    "libpinyin-devel",
+    "maliit-framework-devel",
+    "qt6-qt5compat-devel",
+    "qt6-qtdeclarative-devel",
+    "qt6-qtmultimedia-devel",
 ]
 pkgdesc = "Virtual keyboard for Wayland and X11"
 license = "LGPL-3.0-only AND BSD-3-Clause"

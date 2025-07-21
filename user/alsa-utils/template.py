@@ -7,8 +7,8 @@ make_dir = "."
 hostmakedepends = [
     "alsa-lib-devel",
     "automake",
-    "libtool",
     "gettext-devel",
+    "libtool",
     "pkgconf",
 ]
 makedepends = ["alsa-lib-devel", "linux-headers", "ncurses-devel"]

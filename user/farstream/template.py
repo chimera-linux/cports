@@ -15,8 +15,8 @@ hostmakedepends = [
 makedepends = [
     "gst-plugins-base-devel",
     "gstreamer-devel",
-    "gupnp-igd-devel",
     "gupnp-devel",
+    "gupnp-igd-devel",
     "libnice-devel",
 ]
 pkgdesc = "Audio/video communications framework"

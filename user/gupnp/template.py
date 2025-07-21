@@ -6,9 +6,9 @@ hostmakedepends = ["gobject-introspection", "libxslt-progs", "meson", "pkgconf"]
 makedepends = [
     "glib-devel",
     "gssdp-devel",
+    "libsoup-devel",
     "libxml2-devel",
     "linux-headers",
-    "libsoup-devel",
     "vala-devel",
 ]
 pkgdesc = "Framework for creating UPnP devices and control points"

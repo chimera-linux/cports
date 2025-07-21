@@ -14,15 +14,15 @@ hostmakedepends = [
     "bison",
     "flex",
     "python",
-    "swig",
     "python-devel",
     "python-setuptools",
+    "swig",
 ]
 makedepends = [
-    "openssl3-devel",
-    "linux-headers",
     "gnutls-devel",
+    "linux-headers",
     "ncurses-libtinfo-devel",
+    "openssl3-devel",
     "python-devel",
     "util-linux-uuid-devel",
 ]

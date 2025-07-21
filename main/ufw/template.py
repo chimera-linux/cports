@@ -10,10 +10,10 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
-    "iptables",
-    "python",
     "cmd:modprobe!kmod",
     "cmd:sysctl!procps",
+    "iptables",
+    "python",
 ]
 pkgdesc = "Uncomplicated Firewall"
 license = "GPL-3.0-only"

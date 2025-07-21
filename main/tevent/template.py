@@ -10,17 +10,17 @@ configure_args = [
     "--bundled-libraries=NONE",
 ]
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext",
+    "libxslt-progs",
     "pkgconf",
     "python",
-    "gettext",
-    "docbook-xsl-nons",
-    "libxslt-progs",
 ]
 makedepends = [
-    "python-devel",
-    "talloc-devel",
     "cmocka-devel",
     "gettext-devel",
+    "python-devel",
+    "talloc-devel",
 ]
 pkgdesc = "Event system based on talloc"
 license = "LGPL-3.0-or-later"

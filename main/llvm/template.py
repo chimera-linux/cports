@@ -38,8 +38,8 @@ configure_args = [
 hostmakedepends = [
     "cmake",
     "ninja",
-    "pkgconf",
     "perl",
+    "pkgconf",
     "python",
     "zlib-ng-compat-devel",
 ]

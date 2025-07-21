@@ -3,12 +3,12 @@ pkgver = "0.18"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
-    "pkgconf",
     "automake",
-    "libtool",
-    "libxslt-progs",
     "docbook-xsl-nons",
     "gettext-devel",
+    "libtool",
+    "libxslt-progs",
+    "pkgconf",
 ]
 pkgdesc = "Tool to help manage user directories"
 license = "GPL-2.0-or-later"

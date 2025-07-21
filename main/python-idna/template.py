@@ -5,8 +5,8 @@ build_style = "python_pep517"
 make_check_target = "tests"
 hostmakedepends = [
     "python-build",
-    "python-installer",
     "python-flit_core",
+    "python-installer",
 ]
 checkdepends = ["python-pytest"]
 depends = ["python"]

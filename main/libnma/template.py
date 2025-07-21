@@ -7,20 +7,20 @@ configure_args = [
     "-Dlibnma_gtk4=true",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "vala",
-    "glib-devel",
-    "gettext",
 ]
 makedepends = [
-    "networkmanager-devel",
     "gcr-devel",
     "gtk+3-devel",
     "gtk4-devel",
-    "mobile-broadband-provider-info",
     "iso-codes",
+    "mobile-broadband-provider-info",
+    "networkmanager-devel",
 ]
 depends = ["networkmanager", "iso-codes"]
 pkgdesc = "NetworkManager GNOME applet runtime library"

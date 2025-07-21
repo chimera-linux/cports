@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
-    "tree-sitter-cli",
     "pkgconf",
+    "tree-sitter-cli",
 ]
 pkgdesc = "Lua grammar for tree-sitter"
 license = "MIT"

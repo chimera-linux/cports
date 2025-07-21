@@ -8,12 +8,12 @@ make_check_args = ["-E", "ft_mimpluginmanager"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "extra-cmake-modules",
+    "libxcb-devel",
     "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
-    "wayland-protocols",
     "wayland-devel",
-    "libxcb-devel",
+    "wayland-protocols",
 ]
 pkgdesc = "Core libraries and server of Maliit input method framework"
 license = "LGPL-2.1-only"

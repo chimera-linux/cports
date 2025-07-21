@@ -14,8 +14,8 @@ hostmakedepends = [
     "extra-cmake-modules",
     "gettext",
     "ninja",
-    "qt6-qtbase",
     "pkgconf",
+    "qt6-qtbase",
     "wayland-progs",
 ]
 makedepends = [

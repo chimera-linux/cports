@@ -9,17 +9,17 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "itstool",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "python-pygments",
-    "libxslt-progs",
 ]
 depends = [
     "docbook-xml",
     "docbook-xsl-nons",
+    "libxslt-progs",
     "python-lxml",
     "python-pygments",
-    "libxslt-progs",
 ]
 pkgdesc = "Documentation tool for public library API"
 license = "GPL-2.0-or-later AND GFDL-1.1-or-later"

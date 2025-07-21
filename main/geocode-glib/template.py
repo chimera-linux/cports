@@ -9,10 +9,10 @@ configure_args = [
     "-Denable-introspection=true",
 ]
 hostmakedepends = [
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
 ]
 makedepends = [
     "json-glib-devel",

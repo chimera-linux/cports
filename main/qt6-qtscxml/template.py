@@ -10,8 +10,8 @@ make_check_args = [
 hostmakedepends = [
     "cmake",
     "ninja",
-    "pkgconf",
     "perl",
+    "pkgconf",
     "qt6-qtbase",
     "qt6-qtdeclarative-devel",
 ]

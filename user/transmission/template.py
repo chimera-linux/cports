@@ -25,9 +25,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "curl-devel",
     "gtest-devel",
     "gtkmm-devel",
-    "curl-devel",
     "libdeflate-devel",
     "libevent-devel",
     "libpsl-devel",

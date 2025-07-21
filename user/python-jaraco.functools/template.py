@@ -11,8 +11,8 @@ hostmakedepends = [
 ]
 depends = ["python-more-itertools"]
 checkdepends = [
-    "python-pytest",
     "python-jaraco.classes",
+    "python-pytest",
     *depends,
 ]
 pkgdesc = "Functools like those found in stdlib"

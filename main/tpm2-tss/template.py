@@ -12,15 +12,15 @@ configure_args = [
 hostmakedepends = [
     "automake",
     "cmocka",
-    "libtool-devel",  # ltdl.m4
     "libtool",
+    "libtool-devel",  # ltdl.m4
     "perl",
     "pkgconf",
 ]
 makedepends = [
     "cmocka-devel",
-    "json-c-devel",
     "curl-devel",
+    "json-c-devel",
     "libftdi1-devel",
     "libusb-devel",
     "linux-headers",

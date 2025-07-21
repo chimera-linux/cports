@@ -13,8 +13,8 @@ makedepends = [
     "assimp-devel",
     "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
-    "qt6-qtshadertools-devel",
     "qt6-qtquicktimeline-devel",
+    "qt6-qtshadertools-devel",
 ]
 pkgdesc = "Qt6 Quick 3D component"
 license = (

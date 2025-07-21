@@ -15,11 +15,11 @@ configure_args = [
     "-Dtest=true",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "gettext",
     "gtk-doc-tools",
     "libtasn1-progs",
+    "meson",
+    "pkgconf",
 ]
 makedepends = ["libtasn1-devel", "libffi8-devel"]
 pkgdesc = "Provides a way to load and enumerate PKCS#11 modules"

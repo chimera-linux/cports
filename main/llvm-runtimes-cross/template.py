@@ -30,9 +30,9 @@ makedepends = [
     "clang-devel",
     "clang-rt-crt-cross",
     "libatomic-chimera-cross",
+    "linux-headers-cross",
     "llvm-devel",
     "musl-cross",
-    "linux-headers-cross",
 ]
 depends = [self.with_pkgver("llvm-runtimes-cross-libcxx")]
 pkgdesc = "Cross-toolchain LLVM runtimes"

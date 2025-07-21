@@ -11,10 +11,10 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     # no ffmpeg here, not compatible with ffmpeg 6
     "collada-dom-devel",
+    "curl-devel",
     "giflib-devel",
     "gst-plugins-base-devel",
     "jasper-devel",
-    "curl-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libxinerama-devel",

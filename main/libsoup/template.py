@@ -11,23 +11,23 @@ configure_args = [
     "-Dsysprof=disabled",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "vala",
-    "glib-devel",
-    "gettext",
 ]
 makedepends = [
-    "glib-devel",
-    "libxml2-devel",
-    "sqlite-devel",
-    "nghttp2-devel",
     "brotli-devel",
-    "libpsl-devel",
-    "vala-devel",
-    "heimdal-devel",
+    "glib-devel",
     "glib-networking",
+    "heimdal-devel",
+    "libpsl-devel",
+    "libxml2-devel",
+    "nghttp2-devel",
+    "sqlite-devel",
+    "vala-devel",
 ]
 depends = ["glib-networking"]
 pkgdesc = "HTTP library for glib"

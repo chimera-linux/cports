@@ -30,11 +30,11 @@ hostmakedepends = [
     "swig",
 ]
 makedepends = [
+    "curl-devel",
     "ffmpeg-devel",
     "fontconfig-devel",
     "freetype-devel",
     "jansson-devel",
-    "curl-devel",
     "libdatachannel-devel",
     "libpulse-devel",
     "librist-devel",

@@ -15,8 +15,8 @@ make_check_args = [
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["zstd-devel"]
 checkdepends = [
-    "openssl3-devel",
     "curl",  # test case: cant_navigate_up_the_root
+    "openssl3-devel",
 ]
 pkgdesc = "CLI tool to serve files and dirs over HTTP"
 license = "MIT"

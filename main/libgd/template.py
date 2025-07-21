@@ -6,13 +6,13 @@ build_style = "gnu_configure"
 configure_args = ["--without-xpm"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
-    "libjpeg-turbo-devel",
-    "libpng-devel",
-    "libwebp-devel",
-    "libtiff-devel",
     "fontconfig-devel",
     "libavif-devel",
     "libheif-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libtiff-devel",
+    "libwebp-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "Graphics library for the dynamic creation of images"

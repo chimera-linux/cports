@@ -17,10 +17,10 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "vala",
-    "libxslt-progs",
 ]
 makedepends = [
     "bash-completion",

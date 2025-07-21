@@ -18,20 +18,20 @@ hostmakedepends = [
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",
-    "pkgconf",
     "libxslt-progs",
+    "pkgconf",
 ]
 makedepends = [
+    "curl-devel",
     "e2fsprogs-devel",
     "fuse-devel",
     "glib-devel",
     "gpgme-devel",
-    "curl-devel",
+    "libarchive-devel",
     "libgpg-error-devel",
     "linux-headers",
     "openssl3-devel",
     "xz-devel",
-    "libarchive-devel",
 ]
 checkdepends = ["attr-progs", "libarchive-progs", "gnupg", "xz"]
 pkgdesc = "Operating system and container binary deployment and upgrades"

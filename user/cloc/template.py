@@ -8,9 +8,9 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = [
     "perl-algorithm-diff",
-    "perl-regexp-common",
     "perl-digest-md5",
     "perl-parallel-forkmanager",
+    "perl-regexp-common",
 ]
 checkdepends = [
     *depends,

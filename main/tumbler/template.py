@@ -11,11 +11,11 @@ hostmakedepends = [
     "xfce4-dev-tools",
 ]
 makedepends = [
+    "curl-devel",
     "freetype-devel",
     "gdk-pixbuf-devel",
     "glib-devel",
     "gst-plugins-base-devel",
-    "curl-devel",
     "libgsf-devel",
     "libjpeg-turbo-devel",
     "libopenraw-devel",

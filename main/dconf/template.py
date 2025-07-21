@@ -5,10 +5,10 @@ build_style = "meson"
 hostmakedepends = [
     "docbook-xsl-nons",
     "glib-devel",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "vala",
-    "libxslt-progs",
 ]
 makedepends = [
     "bash-completion",

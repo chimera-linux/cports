@@ -8,8 +8,8 @@ hostmakedepends = [
     "extra-cmake-modules",
     "gettext",
     "ninja",
-    "sassc",
     "python-cairo",
+    "sassc",
 ]
 makedepends = ["breeze-devel", "qt6-qtbase-devel"]
 pkgdesc = "KDE Breeze widget theme for GTK"

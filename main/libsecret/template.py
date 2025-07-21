@@ -4,12 +4,12 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "glib-devel",
+    "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "libxslt-progs",
-    "docbook-xsl-nons",
-    "gobject-introspection",
     "vala",
 ]
 makedepends = ["glib-devel", "libgcrypt-devel", "vala"]

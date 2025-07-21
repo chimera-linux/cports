@@ -24,11 +24,11 @@ hostmakedepends = [
 ]
 makedepends = [
     "alsa-lib-devel",
+    "curl-devel",
     "faad2-devel",
     "flac-devel",
     "gtk+3-devel",
     "jansson-devel",
-    "curl-devel",
     "libdispatch-devel",
     "libsamplerate-devel",
     "libsndfile-devel",

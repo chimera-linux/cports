@@ -16,9 +16,9 @@ make_check_args = ["-j1"]
 hostmakedepends = [
     "cmake",
     "docbook-xsl-nons",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "qt6-qtbase-devel",

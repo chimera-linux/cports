@@ -11,10 +11,10 @@ hostmakedepends = [
 depends = [
     "glib",
     "libsoup",
+    "python-gobject",
     "python-idna",
     "python-packaging",
     "python-precis-i18n",
-    "python-gobject",
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "XMPP Library"

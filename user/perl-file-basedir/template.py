@@ -5,8 +5,8 @@ build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = [
-    "perl-ipc-system-simple",
     "perl-file-which",
+    "perl-ipc-system-simple",
 ]
 checkdepends = [*depends]
 pkgdesc = "Parses streams to create MIME entities"

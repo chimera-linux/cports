@@ -5,12 +5,12 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]
 # FIXME: mpg123 is cyclic (pipewire->sbc->sndfile)
 makedepends = [
-    "libvorbis-devel",
     "flac-devel",
+    "lame-devel",
+    "libvorbis-devel",
+    "linux-headers",
     "opus-devel",
     "sqlite-devel",
-    "lame-devel",
-    "linux-headers",
 ]
 pkgdesc = "C library for reading and writing files containing sampled sound"
 license = "LGPL-2.1-or-later"

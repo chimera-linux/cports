@@ -6,15 +6,15 @@ build_style = "cmake"
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
 makedepends = [
+    "kcmutils-devel",
     "kcolorscheme-devel",
     "kcoreaddons-devel",
+    "kdecoration-devel",
     "ki18n-devel",
-    "kcmutils-devel",
     "knewstuff-devel",
     "kpackage-devel",
     "ksvg-devel",
     "kwindowsystem-devel",
-    "kdecoration-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]

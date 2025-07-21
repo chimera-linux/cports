@@ -8,10 +8,10 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "libsamplerate-devel",
-    "libsndfile-devel",
     "fftw-devel",
     "ladspa-sdk",
+    "libsamplerate-devel",
+    "libsndfile-devel",
     "lv2",
     "vamp-plugin-sdk-devel",
 ]

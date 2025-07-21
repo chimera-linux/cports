@@ -4,14 +4,14 @@ pkgrel = 2
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
+    "curl-devel",
     "fluidsynth-devel",
     "fontconfig-devel",
     "freetype-devel",
     "harfbuzz-devel",
-    "curl-devel",
+    "icu-devel",
     "libpng-devel",
     "lzo-devel",
-    "icu-devel",
     "sdl2-compat-devel",
     "xz-devel",
     "zlib-ng-devel",

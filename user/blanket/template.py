@@ -11,8 +11,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 depends = [
-    "gtk4",
     "gst-plugins-base",
+    "gtk4",
     "libadwaita",
     "python-gobject",
 ]

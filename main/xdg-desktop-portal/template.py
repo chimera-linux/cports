@@ -23,8 +23,8 @@ makedepends = [
 checkdepends = [
     "bash",
     "dbus",
-    "gstreamer",
     "gst-plugins-good",
+    "gstreamer",
     "python-dbus",
     "python-dbusmock",
     "python-gobject",

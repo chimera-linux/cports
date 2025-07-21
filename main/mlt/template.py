@@ -38,10 +38,10 @@ makedepends = [
     "opencv-devel",
     "pipewire-jack-devel",
     "python-devel",
-    "rubberband-devel",
     "qt6-qt5compat-devel",
     "qt6-qtbase-devel",
     "qt6-qtsvg-devel",
+    "rubberband-devel",
     "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]

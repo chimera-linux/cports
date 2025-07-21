@@ -11,9 +11,9 @@ make_build_args = [
 make_check_target = "test"
 make_use_env = True
 makedepends = [
+    "curl-devel",
     "file-devel",
     "imlib2-devel",
-    "curl-devel",
     "libexif-devel",
     "libpng-devel",
     "libx11-devel",

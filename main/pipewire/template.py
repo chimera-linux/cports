@@ -58,8 +58,8 @@ makedepends = [
 ]
 depends = [
     "dinit-dbus",
-    "virtual:pipewire-session-manager!pipewire-session-manager-none",
     "rtkit",
+    "virtual:pipewire-session-manager!pipewire-session-manager-none",
 ]
 provides = [
     self.with_pkgver("libspa-aec"),

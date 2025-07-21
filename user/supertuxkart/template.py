@@ -6,10 +6,10 @@ configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "bluez-devel",
+    "curl-devel",
     # "enet-devel",  # system enet does not allow for ipv6
     "freetype-devel",
     "harfbuzz-devel",
-    "curl-devel",
     "libjpeg-turbo-devel",
     "libopenglrecorder-devel",
     "libpng-devel",

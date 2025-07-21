@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dvapi=enabled"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
     "vala",
 ]
 makedepends = ["glib-devel", "udev-devel", "vala-devel"]

@@ -11,13 +11,13 @@ configure_args = [
     "-Dkerberos=true",
 ]
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext-devel",
+    "glib-devel",
+    "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "gettext-devel",
-    "docbook-xsl-nons",
-    "glib-devel",
-    "libxslt-progs",
-    "gobject-introspection",
     "vala",
 ]
 makedepends = [

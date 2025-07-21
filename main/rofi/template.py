@@ -20,9 +20,9 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
     "xcb-imdkit-devel",
-    "xcb-util-keysyms-devel",
     "xcb-util-cursor-devel",
     "xcb-util-devel",
+    "xcb-util-keysyms-devel",
     "xcb-util-wm-devel",
 ]
 pkgdesc = "Window switcher, run dialog, and dmenu replacement"

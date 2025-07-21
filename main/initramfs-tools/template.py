@@ -5,17 +5,17 @@ build_style = "makefile"
 make_install_args = [f"VERSION={pkgver}"]
 depends = [
     "base-kernel",
+    "cmd:awk!chimerautils",
+    "cmd:cpio!libarchive-progs",
+    "cmd:ischroot!debianutils",
+    "cmd:logsave!e2fsprogs",
+    "cmd:run-parts!debianutils",
+    "cmd:setupcon!console-setup",
+    "cmd:ugetopt!ugetopt",
+    "cmd:zstd!zstd",
     "dracut-install",
     "klibc-kinit-standalone",
     "klibc-utils-standalone",
-    "cmd:ischroot!debianutils",
-    "cmd:run-parts!debianutils",
-    "cmd:zstd!zstd",
-    "cmd:cpio!libarchive-progs",
-    "cmd:ugetopt!ugetopt",
-    "cmd:setupcon!console-setup",
-    "cmd:awk!chimerautils",
-    "cmd:logsave!e2fsprogs",
 ]
 pkgdesc = "Generic modular initramfs generator"
 license = "GPL-2.0-or-later"

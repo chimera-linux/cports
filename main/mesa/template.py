@@ -33,35 +33,35 @@ hostmakedepends = [
 ]
 makedepends = [
     "clang-devel",
-    "llvm-devel",
+    # misc libs
+    "elfutils-devel",
+    "libarchive-devel",
     # base driver/platform stuff
     "libdrm-devel",
-    # wayland
-    "wayland-devel",
-    "wayland-protocols",
+    "libexpat-devel",
+    "libffi8-devel",
+    # video accel
+    "libva-bootstrap",
     # x11
     "libx11-devel",
     "libxcb-devel",
     "libxdamage-devel",
     "libxext-devel",
     "libxfixes-devel",
+    "libxml2-devel",
     "libxrandr-devel",
     "libxshmfence-devel",
     "libxv-devel",
     "libxxf86vm-devel",
-    # misc libs
-    "elfutils-devel",
-    "libarchive-devel",
-    "libexpat-devel",
-    "libffi8-devel",
-    "libxml2-devel",
+    "llvm-devel",
     "lm-sensors-devel",
     "lua5.4-devel",
     "ncurses-devel",
+    # wayland
+    "wayland-devel",
+    "wayland-protocols",
     "zlib-ng-compat-devel",
     "zstd-devel",
-    # video accel
-    "libva-bootstrap",
 ]
 provider_priority = 999
 pkgdesc = "Mesa 3D Graphics Library"

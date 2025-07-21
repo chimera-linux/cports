@@ -13,8 +13,8 @@ hostmakedepends = [
     "vala",
 ]
 makedepends = [
-    "gst-plugins-base-devel",
     "glib-devel",
+    "gst-plugins-base-devel",
     "gstreamer-devel",
     "libadwaita-devel",
     "libmicrodns-devel",

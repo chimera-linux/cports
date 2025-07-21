@@ -5,8 +5,8 @@ archs = ["aarch64"]
 depends = [
     "firmware-ap6256",
     "firmware-linux-rockchip",
-    "u-boot-pinebook-pro-rk3399",
     "u-boot-menu",
+    "u-boot-pinebook-pro-rk3399",
 ]
 pkgdesc = "Chimera base package for Pinebook Pro"
 license = "custom:none"

@@ -15,9 +15,9 @@ makedepends = [
     "geoclue-devel",
     "glib-devel",
     "libdrm-devel",
+    "libx11-devel",
     "libxcb-devel",
     "libxxf86vm-devel",
-    "libx11-devel",
     "wayland-devel",
 ]
 depends = ["gtk+3", "libayatana-appindicator", "python-gobject", "python-pyxdg"]

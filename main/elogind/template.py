@@ -19,11 +19,11 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "gperf",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "python-jinja2",
     "shadow",
-    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

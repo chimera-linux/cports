@@ -9,8 +9,8 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "flex",
     "libtool",
-    "ugetopt",
     "libxslt-progs",
+    "ugetopt",
 ]
 depends = ["bash", "ugetopt", "libxslt-progs", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"

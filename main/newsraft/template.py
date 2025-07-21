@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "gumbo-parser-devel",
     "curl-devel",
+    "gumbo-parser-devel",
     "libexpat-devel",
     "sqlite-devel",
 ]

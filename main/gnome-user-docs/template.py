@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = [
-    "pkgconf",
     "gettext",
     "itstool",
     "libxml2-progs",
+    "pkgconf",
 ]
 makedepends = ["yelp"]
 depends = ["yelp"]

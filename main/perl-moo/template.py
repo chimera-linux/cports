@@ -8,8 +8,8 @@ hostmakedepends = [
 makedepends = ["perl"]
 depends = [
     "perl-class-method-modifiers",
-    "perl-sub-quote",
     "perl-role-tiny",
+    "perl-sub-quote",
 ]
 checkdepends = [*depends]
 pkgdesc = "Moose-compatible object oriented library for perl"

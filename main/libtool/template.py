@@ -4,10 +4,10 @@ pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = [
-    "gm4",
-    "perl",
     "automake",
+    "gm4",
     "help2man",
+    "perl",
     "texinfo",
 ]
 depends = ["gm4", "cmd:tar!base-files"]

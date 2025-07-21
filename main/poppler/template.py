@@ -24,10 +24,10 @@ hostmakedepends = [
 makedepends = [
     "boost-devel",
     "cairo-devel",
+    "curl-devel",
     "glib-devel",
     "gpgme-devel",
     "lcms2-devel",
-    "curl-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libtiff-devel",

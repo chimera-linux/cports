@@ -15,11 +15,11 @@ hostmakedepends = [
     "itstool",
     "libhandy-devel",
     "libsecret-devel",
+    "libxslt-progs",
     "meson",
     "openssh",
     "pkgconf",
     "vala",
-    "libxslt-progs",
 ]
 makedepends = [
     "avahi-devel",

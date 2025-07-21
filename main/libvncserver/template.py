@@ -18,8 +18,8 @@ makedepends = [
     "ffmpeg-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
-    "openssl3-devel",
     "lzo-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC client/server libraries"

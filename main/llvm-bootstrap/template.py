@@ -47,9 +47,9 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python"]
 makedepends = [
-    "zlib-ng-compat-devel",
     "libatomic-chimera-devel",
     "linux-headers",
+    "zlib-ng-compat-devel",
 ]
 depends = ["fortify-headers", "libatomic-chimera-devel"]
 pkgdesc = "Low Level Virtual Machine"

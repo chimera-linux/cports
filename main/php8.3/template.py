@@ -104,11 +104,11 @@ hostmakedepends = [
 ]
 makedepends = [
     "argon2-devel",
+    "curl-devel",
     "freetype-devel",
     "gettext-devel",
     "gmp-devel",
     "icu-devel",
-    "curl-devel",
     "libedit-devel",
     "libffi8-devel",
     "libgd-devel",

@@ -13,10 +13,10 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "ki18n-devel",
-    "kconfig-devel",
-    "kcmutils-devel",
     "kauth-devel",
+    "kcmutils-devel",
+    "kconfig-devel",
+    "ki18n-devel",
     "libplasma-devel",
     "qt6-qtdeclarative-devel",
 ]

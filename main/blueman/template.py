@@ -25,8 +25,8 @@ depends = [
     "bluez",
     "gtk+3",
     "iproute2",
-    "networkmanager-libs",
     "libpulse",
+    "networkmanager-libs",
     "python-cairo",
     "python-gobject",
 ]

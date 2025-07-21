@@ -11,11 +11,11 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "curl-devel",
     "hiredis-devel",
     "i2c-tools-devel",
-    "jansson-devel",
-    "curl-devel",
     "iptables-devel",
+    "jansson-devel",
     "libdbi-devel",
     "libmicrohttpd-devel",
     "libmnl-devel",

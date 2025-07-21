@@ -3,9 +3,9 @@ pkgver = "48.0.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "gettext",
     "meson",
     "pkgconf",
-    "gettext",
 ]
 makedepends = [
     "gtk4-devel",

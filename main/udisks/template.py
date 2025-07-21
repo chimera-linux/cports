@@ -13,27 +13,27 @@ configure_args = [
     "--enable-introspection",
 ]
 hostmakedepends = [
-    "pkgconf",
+    "automake",
     "bash",
-    "gobject-introspection",
     "docbook-xsl-nons",
     "gettext-devel",
     "glib-devel",
-    "libxslt-progs",
-    "polkit",
-    "automake",
-    "libtool",
+    "gobject-introspection",
     "gtk-doc-tools",
+    "libtool",
+    "libxslt-progs",
+    "pkgconf",
+    "polkit",
 ]
 makedepends = [
     "acl-devel",
     "btrfs-progs-devel",
-    "libatasmart-devel",
-    "libgudev-devel",
-    "polkit-devel",
     "elogind-devel",
+    "libatasmart-devel",
     "libblockdev-devel",
+    "libgudev-devel",
     "lvm2-devel",
+    "polkit-devel",
 ]
 pkgdesc = "Daemon, tools and libraries for disk manipulation"
 license = "GPL-2.0-or-later"

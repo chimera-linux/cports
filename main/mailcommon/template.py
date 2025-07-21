@@ -10,9 +10,9 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "gettext",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "akonadi-contacts-devel",

@@ -28,10 +28,10 @@ configure_args = [
 hostmakedepends = [
     "cmake",
     "docbook-xsl",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
     "wayland-progs",
-    "libxslt-progs",
 ]
 makedepends = [
     "cairo-devel",

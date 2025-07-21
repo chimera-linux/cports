@@ -20,9 +20,9 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "itstool",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "appstream-devel",

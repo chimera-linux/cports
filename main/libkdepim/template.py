@@ -11,9 +11,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "kldap-devel",
     "kcompletion-devel",
     "ki18n-devel",
+    "kldap-devel",
     "kwidgetsaddons-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",

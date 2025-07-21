@@ -4,11 +4,11 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./bootstrap"]
 hostmakedepends = [
-    "pkgconf",
-    "ruby",
     "asciidoc",
     "automake",
     "libtool",
+    "pkgconf",
+    "ruby",
 ]
 makedepends = ["opencl-headers"]
 pkgdesc = "Generic OpenCL ICD loader"

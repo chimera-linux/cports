@@ -41,9 +41,9 @@ makedepends = [
     "wayland-devel",
 ]
 depends = [
+    "so:libGL.so.1!mesa-gl-libs",
     # dynamically loaded
     "so:libGLESv2.so.2!mesa-gles2-libs",
-    "so:libGL.so.1!mesa-gl-libs",
 ]
 pkgdesc = "Simple DirectMedia Layer version 3"
 license = "Zlib"

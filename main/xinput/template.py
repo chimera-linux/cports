@@ -7,8 +7,8 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "libxext-devel",
     "libxi-devel",
-    "libxrandr-devel",
     "libxinerama-devel",
+    "libxrandr-devel",
 ]
 pkgdesc = "X input device configuration utility"
 license = "MIT"

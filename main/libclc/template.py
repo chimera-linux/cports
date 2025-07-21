@@ -4,17 +4,17 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
-    "ninja",
-    "pkgconf",
-    "llvm-devel",
-    "python",
     "libedit-devel",
     "libffi8-devel",
+    "llvm-devel",
     "ncurses-devel",
-    "zlib-ng-compat-devel",
+    "ninja",
+    "pkgconf",
+    "python",
     "spirv-llvm-translator",
-    "clang-tools-extra",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Open implementation of the OpenCL C programming language"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"

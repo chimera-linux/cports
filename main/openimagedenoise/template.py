@@ -9,8 +9,8 @@ hostmakedepends = [
     "python",
 ]
 makedepends = [
-    "onetbb-devel",
     "ispc-devel",
+    "onetbb-devel",
 ]
 pkgdesc = "Ray-tracing denoising library"
 license = "Apache-2.0"

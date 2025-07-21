@@ -16,8 +16,8 @@ hostmakedepends = [
     "vala",
 ]
 makedepends = [
-    "glib-devel",
     "gjs-devel",
+    "glib-devel",
     "gtk+3-devel",
     "lua5.1-devel",
     "mozjs128-devel",

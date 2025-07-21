@@ -45,6 +45,7 @@ hostmakedepends = [
     "gettext-devel",
     "heimdal",
     "libtasn1-progs",
+    "libxslt-progs",
     "perl",
     "perl-parse-yapp",
     "pkgconf",
@@ -52,7 +53,6 @@ hostmakedepends = [
     "rpcsvc-proto",
     "tdb-python",
     "tevent-python",
-    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

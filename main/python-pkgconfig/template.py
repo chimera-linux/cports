@@ -5,9 +5,9 @@ build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-poetry-core", "python-installer"]
 depends = ["pkgconf", "python"]
 checkdepends = [
-    "python-setuptools",
-    "python-pytest",
     "openssl3-devel",
+    "python-pytest",
+    "python-setuptools",
     *depends,
 ]
 pkgdesc = "Python interface to pkg-config"

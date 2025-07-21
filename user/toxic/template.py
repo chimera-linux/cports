@@ -16,9 +16,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "c-toxcore-devel",
+    "curl-devel",
     "freealut-devel",
     "libconfig-devel",
-    "curl-devel",
     "libnotify-devel",
     "libpng-devel",
     "libx11-devel",

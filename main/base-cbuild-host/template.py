@@ -4,10 +4,10 @@ pkgrel = 3
 build_style = "meta"
 depends = [
     "apk-tools",
-    "openssl3",
-    "git",
     "bubblewrap",
     "chimerautils",
+    "git",
+    "openssl3",
     "python",
 ]
 pkgdesc = "Everything one needs to use cbuild and cports"

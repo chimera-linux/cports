@@ -8,9 +8,9 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "glib-devel",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "elogind-devel",

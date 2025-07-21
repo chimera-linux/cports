@@ -4,8 +4,8 @@ pkgrel = 2
 archs = ["aarch64"]
 depends = [
     "firmware-linux-rockchip",
-    "u-boot-quartzpro64-rk3588",
     "u-boot-menu",
+    "u-boot-quartzpro64-rk3588",
 ]
 pkgdesc = "Chimera base package for QuartzPro64"
 license = "custom:none"

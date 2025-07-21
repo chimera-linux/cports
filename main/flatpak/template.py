@@ -18,7 +18,6 @@ configure_args = [
     "-Dwayland_security_context=enabled",
 ]
 hostmakedepends = [
-    "meson",
     "bison",
     "bubblewrap",
     "docbook-xml",
@@ -26,6 +25,7 @@ hostmakedepends = [
     "gobject-introspection",
     "gtk-doc-tools",
     "libxml2-progs",
+    "meson",
     "pkgconf",
     "python-pyparsing",
     "xdg-dbus-proxy",
@@ -34,6 +34,7 @@ hostmakedepends = [
 makedepends = [
     "appstream-devel",
     "appstream-glib-devel",
+    "curl-devel",
     "dconf-devel",
     "fuse-devel",
     "gcab-devel",
@@ -43,7 +44,6 @@ makedepends = [
     "json-glib-devel",
     "libarchive-devel",
     "libcap-devel",
-    "curl-devel",
     "libseccomp-devel",
     "libxau-devel",
     "libxml2-devel",

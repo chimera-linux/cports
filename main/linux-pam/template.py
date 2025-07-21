@@ -12,9 +12,9 @@ configure_args = [
 hostmakedepends = [
     "docbook-xsl",
     "gettext-devel",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = ["flex-devel-static", "gettext-devel", "linux-headers"]
 checkdepends = ["linux-pam-base"]

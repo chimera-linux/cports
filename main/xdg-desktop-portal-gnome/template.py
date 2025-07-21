@@ -5,10 +5,10 @@ build_style = "meson"
 configure_args = ["-Dsystemduserunitdir=/tmp/delete_me"]
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 makedepends = [
-    "xdg-desktop-portal-devel",
-    "libadwaita-devel",
-    "gsettings-desktop-schemas-devel",
     "gnome-desktop-devel",
+    "gsettings-desktop-schemas-devel",
+    "libadwaita-devel",
+    "xdg-desktop-portal-devel",
 ]
 depends = ["xdg-desktop-portal-gtk"]
 pkgdesc = "Backend implementation for xdg-desktop-portal for GNOME"

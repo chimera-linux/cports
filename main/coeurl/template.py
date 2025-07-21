@@ -9,8 +9,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "doctest",
     "curl-devel",
+    "doctest",
     "libevent-devel",
     "spdlog-devel",
 ]

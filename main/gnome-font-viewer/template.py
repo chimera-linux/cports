@@ -3,19 +3,19 @@ pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
 ]
 makedepends = [
-    "gtk4-devel",
-    "libadwaita-devel",
-    "glib-devel",
     "fontconfig-devel",
-    "harfbuzz-devel",
     "freetype-devel",
+    "glib-devel",
     "gnome-desktop-devel",
+    "gtk4-devel",
+    "harfbuzz-devel",
+    "libadwaita-devel",
 ]
 pkgdesc = "Font viewer for GNOME"
 license = "GPL-2.0-or-later"

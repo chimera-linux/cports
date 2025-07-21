@@ -30,9 +30,9 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "gettext",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "kaccounts-integration-devel",

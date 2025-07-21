@@ -4,8 +4,8 @@ pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
-    "python-meson",
     "python-installer",
+    "python-meson",
 ]
 makedepends = ["linux-headers", "python-devel"]
 depends = ["python"]

@@ -5,8 +5,8 @@ build_style = "python_pep517"
 hostmakedepends = [
     "gtar",
     "python-build",
-    "python-poetry-core",
     "python-installer",
+    "python-poetry-core",
 ]
 depends = ["gpgme-python", "gtar", "python-six"]
 checkdepends = ["python-pytest", "python-six", *depends]

@@ -11,9 +11,9 @@ hostmakedepends = [
     "automake",
     "doxygen",
     "libtool",
+    "libxslt-progs",
     "pkgconf",
     "python-sphinx",
-    "libxslt-progs",
 ]
 makedepends = [
     "cmocka-devel",

@@ -42,11 +42,11 @@ hostmakedepends = [
     "python-setuptools",
 ]
 makedepends = [
+    "curl-devel",
     "glib-devel",
     "hiredis-devel",
     "ivykis-devel",
     "json-c-devel",
-    "curl-devel",
     "libdbi-devel",
     "linux-headers",
     "openssl3-devel",

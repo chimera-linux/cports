@@ -8,9 +8,9 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "vala",
 ]
 makedepends = ["libcanberra-devel", "vala"]

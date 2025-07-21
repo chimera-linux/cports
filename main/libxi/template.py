@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = [
-    "pkgconf",
-    "xmlto",
     "automake",
     "libtool",
+    "pkgconf",
+    "xmlto",
     "xorg-util-macros",
 ]
 makedepends = ["xorgproto", "libxfixes-devel", "libxext-devel"]

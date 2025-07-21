@@ -16,9 +16,9 @@ hostmakedepends = [
     "wayland-progs",
 ]
 makedepends = [
-    "gstreamer-devel",
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
+    "gstreamer-devel",
     "gtk+3-devel",
     "libva-devel",
     "libxrandr-devel",

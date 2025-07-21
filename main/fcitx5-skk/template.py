@@ -3,8 +3,8 @@ pkgver = "5.1.7"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
-    "extra-cmake-modules",
     "cmake",
+    "extra-cmake-modules",
     "gettext",
     "ninja",
     "pkgconf",

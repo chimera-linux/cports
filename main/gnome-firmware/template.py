@@ -13,9 +13,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "elogind-devel",
+    "fwupd-devel",
     "libadwaita-devel",
     "libxmlb-devel",
-    "fwupd-devel",
 ]
 pkgdesc = "GNOME firmware updater"
 license = "GPL-2.0-or-later"

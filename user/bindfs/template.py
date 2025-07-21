@@ -5,8 +5,8 @@ build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "slibtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "fuse-devel",

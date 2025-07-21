@@ -10,15 +10,15 @@ configure_args = [
     "--bundled-libraries=NONE",
 ]
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext",
+    "libxslt-progs",
     "pkgconf",
     "python",
-    "gettext",
-    "docbook-xsl-nons",
-    "libxslt-progs",
 ]
 makedepends = [
-    "python-devel",
     "gettext-devel",
+    "python-devel",
 ]
 pkgdesc = "Hierarchical pool based memory allocator with destructors"
 license = "LGPL-3.0-or-later"

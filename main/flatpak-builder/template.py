@@ -11,22 +11,22 @@ hostmakedepends = [
     "xmlto",
 ]
 makedepends = [
+    "curl-devel",
     "elfutils-devel",
     "flatpak-devel",
     "json-glib-devel",
-    "curl-devel",
     "libxml2-devel",
     "libyaml-devel",
     "linux-headers",
 ]
 checkdepends = ["bash"]
 depends = [
+    "cmd:patch!chimerautils-extra",
     "debugedit",
     "elfutils",
     "flatpak",
     "git",
     "llvm-binutils",
-    "cmd:patch!chimerautils-extra",
 ]
 pkgdesc = "Tool to build flatpaks from source"
 license = "LGPL-2.1-or-later"

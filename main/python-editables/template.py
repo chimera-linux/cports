@@ -4,8 +4,8 @@ pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
-    "python-installer",
     "python-flit_core",
+    "python-installer",
     "python-wheel",
 ]
 checkdepends = ["python-pytest"]

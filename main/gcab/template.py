@@ -4,12 +4,12 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Ddocs=false"]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "glib-devel",
     "vala",
-    "gobject-introspection",
-    "gettext",
 ]
 makedepends = ["glib-devel", "vala"]
 pkgdesc = "GObject library to create cabinet files"

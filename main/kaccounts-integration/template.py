@@ -22,9 +22,9 @@ makedepends = [
     "signond-devel",
 ]
 depends = [
+    "signon-kwallet-extension",
     # TODO: maybe these should go elsewhere
     "signon-plugin-oauth2",
-    "signon-kwallet-extension",
 ]
 pkgdesc = "KDE integration for Accounts-SSO and SignOn-SSO"
 license = "GPL-2.0-or-later"

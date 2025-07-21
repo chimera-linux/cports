@@ -4,11 +4,11 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
+    "libpng-devel",
     "libx11-devel",
     "libxcursor-devel",
-    "libxrender-devel",
     "libxfixes-devel",
-    "libpng-devel",
+    "libxrender-devel",
 ]
 pkgdesc = "X cursor generator"
 license = "MIT"

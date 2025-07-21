@@ -3,9 +3,9 @@ pkgver = "1.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
-    "pkgconf",
     "automake",
     "libtool",
+    "pkgconf",
     "xorg-util-macros",
     "xtrans",
 ]

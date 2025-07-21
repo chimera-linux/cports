@@ -98,14 +98,14 @@ configure_args = [
     "-Dpamconfdir=no",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "perl",
-    "gperf",
     "bash",
     "docbook-xsl-nons",
-    "python-jinja2",
+    "gperf",
     "libxslt-progs",
+    "meson",
+    "perl",
+    "pkgconf",
+    "python-jinja2",
 ]
 makedepends = [
     "acl-devel",

@@ -5,12 +5,12 @@ build_style = "meson"
 configure_args = ["-Dwith_glx=yes", "-Dwith_wayland=yes"]
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = [
-    "libxfixes-devel",
-    "libxext-devel",
     "libdrm-devel",
     "libffi8-devel",
-    "wayland-devel",
+    "libxext-devel",
+    "libxfixes-devel",
     "mesa-devel",
+    "wayland-devel",
 ]
 pkgdesc = "Video Acceleration API"
 license = "MIT"

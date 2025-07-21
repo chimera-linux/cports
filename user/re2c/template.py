@@ -8,8 +8,8 @@ hostmakedepends = [
     "bison",
     "gm4",
     "python",
-    "slibtool",
     "python-docutils",
+    "slibtool",
 ]
 pkgdesc = "Regular Expressions to Code, lexer generator"
 license = "custom:none"  # Public Domain dedication

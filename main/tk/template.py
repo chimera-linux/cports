@@ -13,11 +13,11 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
-    "zlib-ng-compat-devel",
-    "tcl-devel",
     "libxext-devel",
-    "libxscrnsaver-devel",
     "libxft-devel",
+    "libxscrnsaver-devel",
+    "tcl-devel",
+    "zlib-ng-compat-devel",
 ]
 provides = ["so:libtk8.6.so=0"]
 pkgdesc = "TK graphical user interface toolkit for TCL"

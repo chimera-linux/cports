@@ -12,8 +12,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "ki18n-devel",
     "kholidays-devel",
+    "ki18n-devel",
     "qt6-qtbase-devel",
     "qt6-qtpositioning-devel",
 ]

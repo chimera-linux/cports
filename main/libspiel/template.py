@@ -6,8 +6,8 @@ configure_args = ["-Ddocs=false"]
 hostmakedepends = ["gobject-introspection", "meson", "pkgconf"]
 makedepends = [
     "glib-devel",
-    "gstreamer-devel",
     "gst-plugins-base-devel",
+    "gstreamer-devel",
     "libspeechprovider-devel",
 ]
 checkdepends = [

@@ -11,8 +11,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "gtk4-devel",
     "glib-devel",
+    "gtk4-devel",
     "libadwaita-devel",
     "libnotify-devel",
     "libx11-devel",

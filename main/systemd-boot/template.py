@@ -106,15 +106,15 @@ configure_args = [
     f"-Dsbat-distro-version={self.full_pkgver}",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "perl",
-    "gperf",
     "bash",
     "docbook-xsl-nons",
+    "gperf",
+    "libxslt-progs",
+    "meson",
+    "perl",
+    "pkgconf",
     "python-jinja2",
     "python-pyelftools",
-    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

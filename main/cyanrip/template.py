@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = [
+    "curl-devel",
     "ffmpeg-devel",
     "libcdio-devel",
     "libcdio-paranoia-devel",
-    "curl-devel",
     "libmusicbrainz-devel",
 ]
 pkgdesc = "Bule-ish CD ripper"

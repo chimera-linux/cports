@@ -4,11 +4,11 @@ pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "docbook-xsl-nons",
+    "libxslt-progs",
     "python-build",
     "python-installer",
     "python-setuptools",
     "python-wheel",
-    "libxslt-progs",
 ]
 depends = ["python", "docbook-xsl-nons", "libxslt-progs", "libxml2-progs"]
 pkgdesc = "Text-based document generation"

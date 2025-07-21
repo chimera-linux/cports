@@ -15,8 +15,8 @@ hostmakedepends = [
 makedepends = [
     "baloo-devel",
     "kconfig-devel",
-    "kio-devel",
     "ki18n-devel",
+    "kio-devel",
     "kservice-devel",
 ]
 checkdepends = ["xwayland-run"]

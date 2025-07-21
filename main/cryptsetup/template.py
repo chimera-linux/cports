@@ -18,11 +18,11 @@ hostmakedepends = [
 makedepends = [
     "json-c-devel-static",
     "libatomic-chimera-devel-static",
-    "lvm2-devel-static",
-    "util-linux-uuid-devel-static",
     "linux-headers",
+    "lvm2-devel-static",
     "openssl3-devel-static",
     "popt-devel-static",
+    "util-linux-uuid-devel-static",
 ]
 checkdepends = ["procps", "xz"]
 pkgdesc = "Open source Linux disk encryption setup"

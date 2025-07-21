@@ -5,13 +5,13 @@ build_style = "gnu_configure"
 configure_args = ["--without-dmx"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "xorg-util-macros"]
 makedepends = [
-    "libxext-devel",
-    "libxtst-devel",
-    "libxxf86vm-devel",
-    "libxxf86misc-devel",
-    "libxrender-devel",
     "libxcomposite-devel",
+    "libxext-devel",
     "libxinerama-devel",
+    "libxrender-devel",
+    "libxtst-devel",
+    "libxxf86misc-devel",
+    "libxxf86vm-devel",
 ]
 pkgdesc = "X display information utility"
 license = "MIT"

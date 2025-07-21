@@ -17,9 +17,9 @@ hostmakedepends = [
     "automake",
     "docbook-xsl-nons",
     "gettext",
+    "libxslt-progs",
     "pkgconf",
     "slibtool",
-    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

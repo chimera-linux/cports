@@ -8,9 +8,9 @@ make_check_args = [
 ]
 hostmakedepends = [
     "python-build",
+    "python-installer",
     "python-setuptools",
     "python-wheel",
-    "python-installer",
 ]
 checkdepends = ["python-pytest"]
 depends = ["python"]

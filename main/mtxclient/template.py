@@ -15,14 +15,14 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
-    "gtest-devel",
-    "olm-devel",
-    "nlohmann-json",
     "coeurl-devel",
-    "libevent-devel",
     "curl-devel",
-    "re2-devel",
+    "gtest-devel",
+    "libevent-devel",
+    "nlohmann-json",
+    "olm-devel",
     "openssl3-devel",
+    "re2-devel",
 ]
 pkgdesc = "Client API library for the Matrix protocol"
 license = "MIT"

@@ -8,10 +8,10 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "gtk+3-update-icon-cache",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "vala",
-    "libxslt-progs",
 ]
 makedepends = [
     "evolution-data-server-devel",

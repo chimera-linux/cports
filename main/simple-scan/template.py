@@ -3,21 +3,21 @@ pkgver = "48.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "itstool",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
     "vala",
-    "itstool",
 ]
 makedepends = [
-    "gtk4-devel",
-    "glib-devel",
-    "libadwaita-devel",
     "cairo-devel",
-    "gdk-pixbuf-devel",
-    "libgusb-devel",
     "colord-devel",
+    "gdk-pixbuf-devel",
+    "glib-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "libgusb-devel",
     "libwebp-devel",
     "sane-backends-devel",
     "zlib-ng-compat-devel",

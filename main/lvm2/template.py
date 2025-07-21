@@ -36,14 +36,14 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
-    "udev-devel-static",
     "libaio-devel-static",
-    "libedit-devel-static",
-    "musl-devel-static",
-    "libunwind-devel-static",
     "libatomic-chimera-devel-static",
-    "ncurses-devel-static",
+    "libedit-devel-static",
+    "libunwind-devel-static",
     "linux-headers",
+    "musl-devel-static",
+    "ncurses-devel-static",
+    "udev-devel-static",
     "util-linux-blkid-devel-static",
 ]
 pkgdesc = "Logical Volume Manager"

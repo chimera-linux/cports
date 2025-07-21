@@ -11,10 +11,10 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "kcmutils-devel",
     "kcoreaddons-devel",
     "ki18n-devel",
     "kservice-devel",
-    "kcmutils-devel",
     "qt6-qtbase-devel",
     "qt6-qtwebsockets-devel",
 ]

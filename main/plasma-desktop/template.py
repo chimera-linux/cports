@@ -71,18 +71,15 @@ checkdepends = [
     "iso-codes",
 ]
 depends = [
-    "plasma-welcome",  # welcome!
+    # very default base stuff
+    "accountsservice",
     # default themes, icons, sounds and wallpapers
     "breeze",
     "breeze-icons",
-    "ocean-sound-theme",
-    "plasma-workspace-wallpapers",
     # default KDE fonts
     "fonts-hack-ttf",
     "fonts-noto",
     "fonts-noto-emoji-ttf",
-    # very default base stuff
-    "accountsservice",
     "kactivitymanagerd",
     "kded",  # bg services
     "kio-admin",
@@ -92,9 +89,12 @@ depends = [
     "ksystemstats",
     "kwallet-pam",
     "kwalletmanager",
+    "ocean-sound-theme",
     "plasma-integration",
     "plasma-nm",
     "plasma-pa",
+    "plasma-welcome",  # welcome!
+    "plasma-workspace-wallpapers",
     "polkit-kde-agent-1",
     "powerdevil",
     "qqc2-breeze-style",

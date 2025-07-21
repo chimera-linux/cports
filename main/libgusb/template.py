@@ -6,9 +6,9 @@ configure_args = ["-Ddocs=false", "-Dintrospection=true"]
 hostmakedepends = ["meson", "pkgconf", "vala", "gobject-introspection"]
 makedepends = [
     "glib-devel",
-    "libusb-devel",
-    "libgudev-devel",
     "json-glib-devel",
+    "libgudev-devel",
+    "libusb-devel",
     "vala-devel",
 ]
 pkgdesc = "GLib wrapper around libusb"

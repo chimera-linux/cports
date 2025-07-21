@@ -14,18 +14,18 @@ make_check_wrapper = [
     "--",
 ]
 hostmakedepends = [
+    "docbook-xsl",
+    "glib-devel",
+    "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "libxslt-progs",
-    "docbook-xsl",
-    "gobject-introspection",
 ]
 makedepends = [
-    "glib-devel",
-    "libpng-devel",
     "gdk-pixbuf-devel",
+    "glib-devel",
     "gtk+3-devel",
+    "libpng-devel",
 ]
 checkdepends = ["xwayland-run", "dbus"]
 pkgdesc = "Desktop notification library"

@@ -34,15 +34,15 @@ configure_args = [
 hostmakedepends = [
     "clang-tools-extra",
     "cmake",
-    "ninja",
     "llvm-devel",
+    "ninja",
     "python",
 ]
 makedepends = [
     "clang-rt-crt-cross",
-    "llvm-runtimes-cross",
     "libffi8-devel",
     "linux-headers-cross",
+    "llvm-runtimes-cross",
     "zlib-ng-compat-devel",
 ]
 depends = ["clang-rt-crt-cross", "llvm-runtimes-cross"]

@@ -7,24 +7,24 @@ configure_args = [
     "-Ddefault_library=shared",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
+    "desktop-file-utils",
     "gettext",
-    "vala",
-    "itstool",
+    "glib-devel",
     "gobject-introspection",
     "gtk+3-update-icon-cache",
-    "desktop-file-utils",
+    "itstool",
+    "meson",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
-    "gtk4-devel",
-    "libadwaita-devel",
-    "gtksourceview-devel",
-    "libgee-devel",
-    "mpc-devel",
-    "libsoup-devel",
     "gsettings-desktop-schemas-devel",
+    "gtk4-devel",
+    "gtksourceview-devel",
+    "libadwaita-devel",
+    "libgee-devel",
+    "libsoup-devel",
+    "mpc-devel",
 ]
 depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME calculator"

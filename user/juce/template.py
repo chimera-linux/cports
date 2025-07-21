@@ -6,11 +6,11 @@ configure_args = ["-DJUCE_BUILD_EXTRAS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "alsa-lib-devel",
+    "curl-devel",
     "flac-devel",
     "freetype-devel",
     "gtk+3-devel",
     "ladspa-sdk",
-    "curl-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libvorbis-devel",

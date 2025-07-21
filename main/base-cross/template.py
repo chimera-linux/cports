@@ -4,10 +4,10 @@ pkgrel = 4
 build_style = "meta"
 depends = [
     "clang-rt-cross",
-    "musl-cross",
+    "fortify-headers",
     "libatomic-chimera-cross",
     "llvm-runtimes-cross",
-    "fortify-headers",
+    "musl-cross",
 ]
 pkgdesc = "Base metapackage for cross-compiling"
 license = "custom:meta"

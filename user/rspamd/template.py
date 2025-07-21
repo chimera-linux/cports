@@ -21,8 +21,8 @@ hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
     "elfutils-devel",
     "fasttext-devel",
-    "glib-devel",
     "fmt-devel",
+    "glib-devel",
     "hiredis-devel",
     "icu-devel",
     "libarchive-devel",

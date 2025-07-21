@@ -4,18 +4,18 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-test=false", "-Ddisable-introspection=false"]
 hostmakedepends = [
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
 ]
 makedepends = [
-    "glib-devel",
     "cairo-devel",
     "freetype-devel",
-    "libarchive-devel",
-    "libpng-devel",
+    "glib-devel",
     "lcms2-devel",
+    "libarchive-devel",
     "libjpeg-turbo-devel",
+    "libpng-devel",
     "libtiff-devel",
 ]
 pkgdesc = "GObject library for XPS documents"

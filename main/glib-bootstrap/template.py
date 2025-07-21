@@ -11,8 +11,8 @@ configure_args = [
     "-Dtests=false",
 ]
 hostmakedepends = [
-    "meson",
     "gettext",
+    "meson",
     "pkgconf",
     "python-packaging",
 ]

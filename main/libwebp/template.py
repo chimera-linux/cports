@@ -5,10 +5,10 @@ build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
+    "freeglut-devel",
     "giflib-devel",
     "libpng-devel",
     "libtiff-devel",
-    "freeglut-devel",
 ]
 pkgdesc = "WebP image format library"
 license = "BSD-3-Clause"

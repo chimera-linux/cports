@@ -9,21 +9,21 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
-    "gtk-doc-tools",
     "gettext-devel",
+    "glib-devel",
     "gobject-introspection",
-    "vala",
+    "gtk-doc-tools",
+    "meson",
     "openssh",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
     "gtk+3-devel",
     "libgcrypt-devel",
     "libsecret-devel",
-    "p11-kit-devel",
     "libxslt-devel",
+    "p11-kit-devel",
     "vala",
 ]
 pkgdesc = "GNOME crypto package 3.x"

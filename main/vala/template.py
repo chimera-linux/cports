@@ -7,9 +7,9 @@ hostmakedepends = [
     "bison",
     "docbook-xml",
     "flex",
+    "libxslt-progs",
     "pkgconf",
     "slibtool",
-    "libxslt-progs",
 ]
 makedepends = ["flex-devel-static", "glib-devel", "graphviz-devel"]
 checkdepends = ["dbus", "gobject-introspection-devel", "bash"]

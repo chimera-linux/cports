@@ -10,18 +10,18 @@ make_build_args = [
 make_check_args = [*make_build_args]
 hostmakedepends = [
     "cargo-auditable",
-    "cmake",
     "cbindgen",
+    "cmake",
     "pkgconf",
     "rust-bindgen",
 ]
 makedepends = [
-    "libpulse-devel",
     "dbus-devel",
-    "sdl2-compat-devel",
-    "openssl3-devel",
+    "libpulse-devel",
     "libsixel-devel",
+    "openssl3-devel",
     "rust-std",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "Spotify player in the terminal with full feature parity"
 license = "MIT"

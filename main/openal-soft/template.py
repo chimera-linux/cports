@@ -5,12 +5,12 @@ build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
-    "zlib-ng-compat-devel",
+    "ffmpeg-devel",
     "libpulse-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
     "sdl3-devel",
-    "ffmpeg-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Cross-platform 3D audio API"
 license = "LGPL-2.1-or-later"

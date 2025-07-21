@@ -10,11 +10,11 @@ hostmakedepends = [
     # "docbook2x",
 ]
 makedepends = [
+    "curl-devel",
     "fuse-devel",
     "glib-devel",
     "glib-networking",
     "gobject-introspection",
-    "curl-devel",
     "libsodium-devel",
     "openssl3-devel",
 ]

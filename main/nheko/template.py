@@ -12,10 +12,10 @@ hostmakedepends = [
 makedepends = [
     "cmark-devel",
     "coeurl-devel",
+    "curl-devel",
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "kdsingleapplication-devel",
-    "curl-devel",
     "libevent-devel",
     "lmdb-devel",
     "lmdbxx",

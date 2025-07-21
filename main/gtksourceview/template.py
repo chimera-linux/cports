@@ -8,11 +8,11 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "pcre2-devel",
     "pkgconf",
     "vala",
-    "libxslt-progs",
 ]
 makedepends = [
     "glib-devel",

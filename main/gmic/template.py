@@ -13,8 +13,8 @@ hostmakedepends = [
     "qt6-qtbase",
 ]
 makedepends = [
-    "fftw-devel",
     "curl-devel",
+    "fftw-devel",
     "libomp-devel",
     "libpng-devel",
     "libtiff-devel",

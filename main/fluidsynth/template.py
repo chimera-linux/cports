@@ -12,13 +12,13 @@ makedepends = [
     "alsa-lib-devel",
     "dbus-devel",
     "glib-devel",
+    "libedit-readline-devel",
+    "libpulse-devel",
+    "libsndfile-devel",
+    "linux-headers",
     "pipewire-devel",
     "pipewire-jack-devel",
-    "libpulse-devel",
     "sdl2-compat-devel",
-    "libsndfile-devel",
-    "libedit-readline-devel",
-    "linux-headers",
 ]
 pkgdesc = "Software synthesizer based on the SoundFont 2 specifications"
 license = "LGPL-2.1-or-later"

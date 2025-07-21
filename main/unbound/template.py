@@ -30,8 +30,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "hiredis-devel",
-    "libexpat-devel",
     "libevent-devel",
+    "libexpat-devel",
     "libsodium-devel",
     "nghttp2-devel",
     "openssl3-devel",

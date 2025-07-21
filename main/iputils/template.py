@@ -10,9 +10,9 @@ hostmakedepends = [
     "docbook-xsl",
     "iproute2",
     "libcap-progs",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = ["libcap-devel"]
 pkgdesc = "Useful utilities for Linux networking"

@@ -10,10 +10,10 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
-    "solid-devel",
     "ki18n-devel",
     "phonon-devel",
+    "qt6-qtbase-devel",
+    "solid-devel",
 ]
 pkgdesc = "KDE library for interfacing with CDs"
 license = "GPL-2.0-or-later"

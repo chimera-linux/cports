@@ -63,6 +63,7 @@ hostmakedepends = [
 makedepends = [
     "bzip2-devel",
     "capstone-devel",
+    "curl-devel",
     "dtc-devel",
     "elfutils-devel",
     "fuse-devel",
@@ -75,7 +76,6 @@ makedepends = [
     "libcacard-devel",
     "libcap-ng-devel",
     "libcbor-devel",
-    "curl-devel",
     "libdrm-devel",
     "libiscsi-devel",
     "libjpeg-turbo-devel",

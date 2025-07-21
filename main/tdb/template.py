@@ -10,11 +10,11 @@ configure_args = [
     "--bundled-libraries=NONE",
 ]
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext",
+    "libxslt-progs",
     "pkgconf",
     "python",
-    "gettext",
-    "docbook-xsl-nons",
-    "libxslt-progs",
 ]
 makedepends = ["python-devel", "gettext-devel"]
 pkgdesc = "Simple database API similar to gdbm"

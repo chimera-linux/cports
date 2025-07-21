@@ -12,9 +12,9 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "librtas-devel",
-    "zlib-ng-compat-devel",
     "linux-headers",
     "numactl-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["bash"]
 pkgdesc = "Suite of utilities for Linux on Power systems"

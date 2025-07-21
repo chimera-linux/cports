@@ -5,8 +5,8 @@ build_style = "makefile"
 make_build_args = ["LINKTYPE=dynamic", "USELZO=on", "USEZSTD=on"]
 make_use_env = True
 makedepends = [
-    "elfutils-devel",
     "bzip2-devel",
+    "elfutils-devel",
     "linux-headers",
     "lzo-devel",
     "zlib-ng-compat-devel",

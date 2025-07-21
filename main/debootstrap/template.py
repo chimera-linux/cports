@@ -3,7 +3,6 @@ pkgver = "1.0.141"
 pkgrel = 0
 build_style = "makefile"
 depends = [
-    "debian-archive-keyring",
     "cmd:ar!llvm-binutils",
     "cmd:gpgv!gnupg",
     "cmd:mount!util-linux-mount",
@@ -11,6 +10,7 @@ depends = [
     "cmd:wget!wget2",
     "cmd:xzcat!xz",
     "cmd:zstdcat!zstd-progs",
+    "debian-archive-keyring",
 ]
 pkgdesc = "Debian bootstrapping tool"
 license = "MIT"

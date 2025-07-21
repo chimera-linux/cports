@@ -9,13 +9,13 @@ configure_args = [
     "-Dgtk_doc=true",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "gtk-doc-tools",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
     "vala",
-    "gtk-doc-tools",
-    "gobject-introspection",
 ]
 makedepends = ["gtk+3-devel", "libarchive-devel"]
 pkgdesc = "Archiving functions and widgets for GNOME"

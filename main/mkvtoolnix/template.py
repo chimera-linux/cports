@@ -15,10 +15,10 @@ hostmakedepends = [
     "automake",
     "docbook-xsl-nons",
     "gettext",
+    "libxslt-progs",
     "pkgconf",
     "qt6-qtbase",
     "ruby",
-    "libxslt-progs",
 ]
 makedepends = [
     "boost-devel",

@@ -3,11 +3,11 @@ pkgver = "4.1"
 pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
-    "python-setuptools",
     "python-build",
-    "python-installer",
-    "python-wheel",
     "python-flit_core",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
 ]
 depends = ["python", "python-sphinx"]
 pkgdesc = "Extension to include jQuery on newer Sphinx releases"

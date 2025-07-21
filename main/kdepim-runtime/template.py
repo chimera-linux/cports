@@ -8,9 +8,9 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "gettext",
+    "libxslt-progs",
     "ninja",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "akonadi-calendar-devel",
@@ -41,13 +41,13 @@ makedepends = [
     "kwindowsystem-devel",
     "libkgapi-devel",
     "libsasl-devel",
+    "pimcommon-devel",
     "qca-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtnetworkauth-devel",
     "qt6-qtspeech-devel",
     "qt6-qtwebengine-devel",
     "qtkeychain-devel",
-    "pimcommon-devel",
     "shared-mime-info",
 ]
 depends = ["shared-mime-info"]

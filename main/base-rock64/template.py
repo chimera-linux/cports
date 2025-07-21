@@ -4,8 +4,8 @@ pkgrel = 1
 archs = ["aarch64"]
 depends = [
     "firmware-linux-rockchip",
-    "u-boot-rock64-rk3328",
     "u-boot-menu",
+    "u-boot-rock64-rk3328",
 ]
 pkgdesc = "Chimera base package for Rock64"
 license = "custom:none"

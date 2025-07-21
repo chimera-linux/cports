@@ -29,29 +29,29 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "nasm", "wayland-progs"]
 makedepends = [
     "dbus-devel",
-    "udev-devel",
-    "libusb-devel",
-    "libsamplerate-devel",
     "glu-devel",
-    "wayland-devel",
-    "wayland-protocols",
     "libdecor-devel",
-    "libxkbcommon-devel",
-    "libxcursor-devel",
-    "libxinerama-devel",
-    "libxscrnsaver-devel",
-    "libxrandr-devel",
-    "libxi-devel",
+    "libsamplerate-devel",
     "libsm-devel",
-    "vulkan-headers",
-    "vulkan-loader-devel",
+    "libusb-devel",
+    "libxcursor-devel",
+    "libxi-devel",
+    "libxinerama-devel",
+    "libxkbcommon-devel",
+    "libxrandr-devel",
+    "libxscrnsaver-devel",
     "mesa-devel",
     "pipewire-devel",
+    "udev-devel",
+    "vulkan-headers",
+    "vulkan-loader-devel",
+    "wayland-devel",
+    "wayland-protocols",
 ]
 depends = [
+    "so:libGL.so.1!mesa-gl-libs",
     # dynamically loaded
     "so:libGLESv2.so.2!mesa-gles2-libs",
-    "so:libGL.so.1!mesa-gl-libs",
 ]
 # transitional
 provides = [self.with_pkgver("sdl")]

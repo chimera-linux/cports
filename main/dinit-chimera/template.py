@@ -14,8 +14,6 @@ makedepends = [
     "udev-devel",
 ]
 depends = [
-    "dinit",
-    "tzdb",
     "cmd:awk!chimerautils",
     "cmd:fsck!util-linux-mount",
     "cmd:grep!chimerautils",
@@ -27,6 +25,8 @@ depends = [
     "cmd:sulogin!shadow",
     "cmd:systemd-tmpfiles!sd-tools",
     "cmd:udevadm>=256.6-r1!udev",
+    "dinit",
+    "tzdb",
 ]
 replaces = ["systemd-utils<255", "base-kernel<0.2"]
 triggers = [

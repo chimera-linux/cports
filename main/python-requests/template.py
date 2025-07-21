@@ -10,10 +10,10 @@ hostmakedepends = [
 ]
 depends = [
     "ca-certificates",
-    "python-charset-normalizer",
-    "python-urllib3",
-    "python-idna",
     "python",
+    "python-charset-normalizer",
+    "python-idna",
+    "python-urllib3",
 ]
 pkgdesc = "Python HTTP library for human beings"
 license = "Apache-2.0"

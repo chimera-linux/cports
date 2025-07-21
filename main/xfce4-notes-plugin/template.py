@@ -5,8 +5,8 @@ build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "slibtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [

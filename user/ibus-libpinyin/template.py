@@ -9,17 +9,17 @@ configure_args = [
 ]
 hostmakedepends = ["intltool", "libtool", "pkgconf", "automake", "gsed"]
 makedepends = [
+    "boost-devel",
     "gettext-devel",
-    "sqlite-devel",
-    "opencc-devel",
-    "lua5.4-devel",
     "ibus-devel",
+    "json-glib-devel",
     "libnotify-devel",
     "libpinyin-devel",
     "libsoup-devel",
-    "json-glib-devel",
-    "boost-devel",
+    "lua5.4-devel",
+    "opencc-devel",
     "python-gobject-devel",
+    "sqlite-devel",
     "util-linux-uuid-devel",
 ]
 depends = ["ibus"]

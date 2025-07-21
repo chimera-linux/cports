@@ -8,15 +8,15 @@ make_install_args = ["training-install"]
 hostmakedepends = [
     "asciidoc",
     "automake",
+    "libxslt-progs",
     "pkgconf",
     "slibtool",
-    "libxslt-progs",
 ]
 makedepends = [
+    "curl-devel",
     "icu-devel",
     "leptonica-devel",
     "libarchive-devel",
-    "curl-devel",
     "pango-devel",
 ]
 depends = [

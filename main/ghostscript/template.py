@@ -31,14 +31,14 @@ makedepends = [
     "cups-devel",
     "dbus-devel",
     "fontconfig-devel",
+    "ijs-devel",
     "jasper-devel",
     "jbig2dec-devel",
-    "openjpeg-devel",
     "lcms2-devel",
+    "libpaper-devel",
     "libxext-devel",
     "libxt-devel",
-    "libpaper-devel",
-    "ijs-devel",
+    "openjpeg-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "PostScript and PDF language interpreter"

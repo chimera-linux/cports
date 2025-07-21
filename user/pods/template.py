@@ -15,8 +15,8 @@ hostmakedepends = [
 makedepends = [
     "appstream-glib-devel",
     "glib-devel",
-    "gtksourceview-devel",
     "gtk4-devel",
+    "gtksourceview-devel",
     "libadwaita-devel",
     "rust-std",
     "vte-gtk4-devel",

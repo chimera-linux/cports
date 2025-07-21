@@ -11,11 +11,11 @@ make_install_args = make_build_args
 make_check_args = ["--features", "external-harfbuzz"]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
+    "curl-devel",
     "freetype-devel",
     "graphite2-devel",
     "harfbuzz-devel",
     "icu-devel",
-    "curl-devel",
     "openssl3-devel",
     "rust-std",
 ]

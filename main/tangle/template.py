@@ -7,10 +7,10 @@ hostmakedepends = [
     "bash",
     "docbook-xsl-nons",
     "gperf",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "python-jinja2",
-    "libxslt-progs",
 ]
 makedepends = ["libcap-devel"]
 checkdepends = ["dbus"]

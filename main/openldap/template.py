@@ -28,9 +28,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "libevent-devel",
-    "libtool-devel",
     "libsasl-devel",
     "libsodium-devel",
+    "libtool-devel",
     "openssl3-devel",
 ]
 pkgdesc = "FOSS implementation of the Lightweight Directory Access Protocol"

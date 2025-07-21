@@ -10,17 +10,17 @@ configure_args = [
     "-Dca_certificates_path=/etc/ssl/certs/ca-certificates.crt",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
     "vala",
-    "gettext",
 ]
 makedepends = [
     "glib-devel",
-    "libsoup-devel",
     "json-glib-devel",
+    "libsoup-devel",
     "libxml2-devel",
 ]
 pkgdesc = "GNOME RESTful library"

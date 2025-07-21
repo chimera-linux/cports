@@ -10,20 +10,20 @@ configure_args = [
 hostmakedepends = ["automake", "flex", "libtool", "pkgconf"]
 makedepends = [
     "flex-devel-static",
-    "libpcap-devel",
     "libmnl-devel",
-    "libnfnetlink-devel",
     "libnetfilter_conntrack-devel",
+    "libnfnetlink-devel",
     "libnftnl-devel",
+    "libpcap-devel",
     "linux-headers",
 ]
 depends = [
-    "cmd:iptables!iptables-nft",
-    "cmd:iptables-save!iptables-nft",
-    "cmd:iptables-restore!iptables-nft",
     "cmd:ip6tables!iptables-nft",
-    "cmd:ip6tables-save!iptables-nft",
     "cmd:ip6tables-restore!iptables-nft",
+    "cmd:ip6tables-save!iptables-nft",
+    "cmd:iptables!iptables-nft",
+    "cmd:iptables-restore!iptables-nft",
+    "cmd:iptables-save!iptables-nft",
 ]
 checkdepends = ["python", "bash"]
 pkgdesc = "Linux packet filtering system"

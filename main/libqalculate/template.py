@@ -11,9 +11,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "curl-devel",
     "gmp-devel",
     "icu-devel",
-    "curl-devel",
     "libxml2-devel",
     "mpfr-devel",
     "readline-devel",

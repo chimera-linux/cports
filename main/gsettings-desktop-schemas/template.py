@@ -5,10 +5,10 @@ build_style = "meson"
 configure_args = ["-Dintrospection=true"]
 hostmakedepends = [
     "gettext",
-    "meson",
-    "pkgconf",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
 ]
 makedepends = ["glib-devel"]
 depends = [

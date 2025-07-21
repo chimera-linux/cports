@@ -28,6 +28,7 @@ hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
     "gtk+3-update-icon-cache",
+    "libxslt-progs",
     "meson",
     "perl",
     "pkgconf",
@@ -36,7 +37,6 @@ hostmakedepends = [
     "shaderc-progs",
     "wayland-progs",
     "wayland-protocols",
-    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

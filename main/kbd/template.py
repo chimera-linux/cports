@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-tests"]  # tests force autom4te
 hostmakedepends = [
-    "pkgconf",
     "automake",
-    "libtool",
     "gettext-devel",
+    "libtool",
+    "pkgconf",
 ]
 makedepends = ["linux-pam-devel", "linux-headers"]
 pkgdesc = "Linux keyboard utilities"

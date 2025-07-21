@@ -11,9 +11,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "abseil-cpp-devel",
-    "protobuf-devel",
     "ncurses-devel",
     "openssl3-devel",
+    "protobuf-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["perl"]

@@ -7,8 +7,8 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = [
     "linux-headers",
     "musl-bsd-headers",
-    "util-linux-uuid-devel",
     "util-linux-blkid-devel",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "F2FS (Flash-Friendly File System) utilities"
 license = "GPL-2.0-only"

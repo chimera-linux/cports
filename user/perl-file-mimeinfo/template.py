@@ -4,9 +4,9 @@ pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = [
+    "perl-encode-locale",
     "perl-file-basedir",
     "perl-file-desktopentry",
-    "perl-encode-locale",
 ]
 depends = [*makedepends, "shared-mime-info"]
 checkdepends = [

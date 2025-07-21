@@ -13,11 +13,11 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "glib-devel",
+    "libxslt-progs",
     "meson",
     "openssh",
     "pkgconf",
     "polkit-devel",
-    "libxslt-progs",
 ]
 makedepends = [
     "avahi-glib-devel",

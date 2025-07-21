@@ -11,8 +11,8 @@ configure_args = [
 ]
 hostmakedepends = [
     "automake",
-    "libtool-devel",
     "libtool",
+    "libtool-devel",
     "pkgconf",
 ]
 makedepends = [

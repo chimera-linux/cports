@@ -42,8 +42,8 @@ makedepends = [
     "libkscreen-devel",
     "libplasma-devel",
     "plasma-activities-devel",
-    "plasma-workspace-devel",
     "plasma-wayland-protocols",
+    "plasma-workspace-devel",
     "qcoro-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtwayland-devel",

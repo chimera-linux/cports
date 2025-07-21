@@ -7,8 +7,8 @@ make_check_args = ["LUA=lua5.1"]
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
-    "gobject-introspection-freedesktop",
     "glib-devel",
+    "gobject-introspection-freedesktop",
     "libffi8-devel",
     "lua5.1-devel",
 ]

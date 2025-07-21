@@ -9,19 +9,19 @@ configure_args = [
     "-Dsoup3=true",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
-    "gettext",
     "vala",
 ]
 makedepends = [
     "glib-devel",
-    "libxml2-devel",
-    "libsoup-devel",
     "gtk+3-devel",
     "liboauth-devel",
+    "libsoup-devel",
+    "libxml2-devel",
     "totem-pl-parser-devel",
 ]
 pkgdesc = "Framework for media discovery"

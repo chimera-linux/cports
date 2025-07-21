@@ -15,12 +15,12 @@ hostmakedepends = [
     "gjs-devel",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "perl",
     "pkgconf",
     "python-docutils",
     "sassc",
-    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

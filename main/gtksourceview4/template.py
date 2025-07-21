@@ -9,18 +9,18 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "gtk+3-devel",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "vala",
-    "glib-devel",
-    "gtk+3-devel",
-    "gettext",
-    "libxslt-progs",
 ]
 makedepends = [
-    "gtk+3-devel",
     "glib-devel",
+    "gtk+3-devel",
     "libxml2-devel",
     "vala",
 ]

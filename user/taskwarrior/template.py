@@ -5,11 +5,11 @@ build_style = "cmake"
 configure_args = ["-DSYSTEM_CORROSION=ON"]
 make_dir = "."
 hostmakedepends = [
-    "cmake",
-    "ninja",
     "cargo",
+    "cmake",
     "corrosion",
     "cxxbridge",
+    "ninja",
     "rust-bindgen",
 ]
 makedepends = ["util-linux-uuid-devel", "rust-std", "sqlite-devel"]

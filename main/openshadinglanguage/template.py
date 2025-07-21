@@ -42,8 +42,8 @@ makedepends = [
     "openimageio-progs",
     "pugixml-devel",
     "python-pybind11-devel",
-    "robin-map",
     "qt6-qtbase-devel",
+    "robin-map",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Shading language library for renderers"

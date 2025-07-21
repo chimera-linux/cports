@@ -21,11 +21,11 @@ hostmakedepends = [
     "gettext-devel",
     "glib-devel",
     "gobject-introspection",
+    "libxslt-progs",
     "meson",
     "perl",
     "pkgconf",
     "wayland-progs",
-    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

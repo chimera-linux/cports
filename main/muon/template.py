@@ -16,8 +16,8 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
-    "libarchive-devel",
     "curl-devel",
+    "libarchive-devel",
     "pkgconf-devel",
 ]
 depends = ["ninja"]

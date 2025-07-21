@@ -3,11 +3,11 @@ pkgver = "1.2.0"
 pkgrel = 1
 hostmakedepends = ["python", "python-flit_core", "python-installer"]
 checkdepends = [
-    "python-pytest-xdist",
-    "python-testpath",
-    "python-setuptools",
     "python-flit_core",
     "python-pip",
+    "python-pytest-xdist",
+    "python-setuptools",
+    "python-testpath",
 ]
 depends = ["python"]
 pkgdesc = "Low-level library for calling Python build backends"

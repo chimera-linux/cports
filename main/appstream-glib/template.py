@@ -8,22 +8,22 @@ configure_args = [
     "-Drpm=false",
 ]
 hostmakedepends = [
+    "curl-devel",
     "glib-devel",
     "gobject-introspection",
     "gperf",
-    "curl-devel",
     "libyaml-devel",
     "meson",
     "pkgconf",
     "vala",
 ]
 makedepends = [
+    "curl-devel",
     "gcab-devel",
     "glib-devel",
     "gtk+3-devel",
     "json-glib-devel",
     "libarchive-devel",
-    "curl-devel",
     "libyaml-devel",
 ]
 pkgdesc = "AppStream metadata library"

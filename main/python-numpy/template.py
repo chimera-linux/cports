@@ -7,8 +7,8 @@ hostmakedepends = [
     "pkgconf",
     "python-build",
     "python-cython",
-    "python-meson",
     "python-installer",
+    "python-meson",
 ]
 makedepends = ["python-devel", "openblas-devel"]
 depends = ["python"]

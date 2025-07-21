@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
-    "ninja",
     "gettext",
+    "ninja",
     "pkgconf",
 ]
 makedepends = [

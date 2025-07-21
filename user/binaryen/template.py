@@ -13,9 +13,9 @@ hostmakedepends = [
 ]
 makedepends = ["gtest-devel"]
 checkdepends = [
-    "nodejs",
     "lit",
     "llvm-tools",
+    "nodejs",
 ]
 pkgdesc = "Optimizer and compiler/toolchain library for WebAssembly"
 license = "Apache-2.0"

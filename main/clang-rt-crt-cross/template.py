@@ -33,8 +33,8 @@ configure_args = [
 hostmakedepends = [
     "clang-tools-extra",
     "cmake",
-    "ninja",
     "llvm-devel",
+    "ninja",
     "python",
 ]
 makedepends = ["zlib-ng-compat-devel", "libffi8-devel"]

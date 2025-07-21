@@ -19,9 +19,9 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = [
     "python-numpy",
+    "python-pytest",
     # "python-pandas",
     "python-simplejson",
-    "python-pytest",
 ]
 pkgdesc = "Serializing any arbitrary object graph into JSON"
 license = "BSD-3-Clause"

@@ -13,16 +13,16 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "kcoreaddons-devel",
-    "kdbusaddons-devel",
-    "knotifications-devel",
-    "ki18n-devel",
-    "solid-devel",
-    "kservice-devel",
-    "kio-devel",
     "kauth-devel",
     "kcmutils-devel",
+    "kcoreaddons-devel",
+    "kdbusaddons-devel",
+    "ki18n-devel",
+    "kio-devel",
+    "knotifications-devel",
+    "kservice-devel",
     "qt6-qtdeclarative-devel",
+    "solid-devel",
 ]
 depends = ["smartmontools"]
 checkdepends = ["xwayland-run"]

@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
-    "libx11-devel",
     "libvncserver-devel",
+    "libx11-devel",
     "libxtst-devel",
     "openssl3-devel",
     "zlib-ng-compat-devel",

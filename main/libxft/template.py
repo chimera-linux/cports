@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = [
-    "xorgproto",
-    "libxrender-devel",
-    "freetype-devel",
     "fontconfig-devel",
+    "freetype-devel",
+    "libxrender-devel",
+    "xorgproto",
 ]
 pkgdesc = "X font library"
 license = "MIT"

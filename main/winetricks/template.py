@@ -11,8 +11,8 @@ depends = [
     "cmd:unzip!unzip",
     "cmd:wine!wine",
     "cmd:xdg-open!xdg-utils",
-    "cmd:zenity!zenity",
     "cmd:xz!xz",
+    "cmd:zenity!zenity",
 ]
 pkgdesc = "Helper script for Wine"
 license = "LGPL-2.1-or-later"

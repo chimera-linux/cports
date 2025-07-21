@@ -4,12 +4,12 @@ pkgver = "2.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
-    "bash",
-    "gsed",
     "automake",
-    "slibtool",
+    "bash",
     "gperf",
+    "gsed",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "High level interface to seccomp"

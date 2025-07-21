@@ -10,9 +10,9 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "itstool",
+    "libxslt-progs",
     "meson",
     "pkgconf",
-    "libxslt-progs",
 ]
 makedepends = [
     "glib-devel",

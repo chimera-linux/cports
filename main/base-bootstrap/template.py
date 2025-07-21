@@ -3,8 +3,8 @@ pkgver = "0.1"
 pkgrel = 2
 build_style = "meta"
 depends = [
-    "chimerautils",
     "apk-tools",
+    "chimerautils",
 ]
 pkgdesc = "Minimal set of packages suitable for containers"
 license = "custom:meta"

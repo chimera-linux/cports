@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
+    "libxslt-progs",
     "meson",
     "pkgconf",
     "slibtool",
-    "libxslt-progs",
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "Xfce development tools"

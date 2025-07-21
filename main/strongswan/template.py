@@ -64,11 +64,11 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 makedepends = [
+    "curl-devel",
     "gettext-devel",
     "gmp-devel",
-    "libcap-devel",
-    "curl-devel",
     "ldns-devel",
+    "libcap-devel",
     "linux-headers",
     "linux-pam-devel",
     "openldap-devel",

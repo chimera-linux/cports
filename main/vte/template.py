@@ -9,28 +9,28 @@ configure_args = [
     "-Dgtk4=true",
 ]
 hostmakedepends = [
+    "bash",
+    "gettext-devel",
+    "glib-devel",
+    "gobject-introspection",
+    "gperf",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext-devel",
-    "gperf",
-    "gobject-introspection",
     "vala",
-    "bash",
 ]
 makedepends = [
+    "fribidi-devel",
     "glib-devel",
     "gnutls-devel",
     "gtk+3-devel",
     "gtk4-devel",
+    "icu-devel",
+    "linux-headers",
+    "lz4-devel",
+    "pango-devel",
     "pcre2-devel",
     "vala-devel",
-    "pango-devel",
-    "fribidi-devel",
-    "icu-devel",
-    "lz4-devel",
     "zlib-ng-compat-devel",
-    "linux-headers",
 ]
 renames = ["vte-common"]
 pkgdesc = "Gtk terminal widget"

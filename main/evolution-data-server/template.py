@@ -12,15 +12,15 @@ configure_args = [
 make_check_args = ["-j1"]
 hostmakedepends = [
     "cmake",
-    "ninja",
-    "pkgconf",
     "flex",
-    "glib-devel",
-    "gperf",
-    "gobject-introspection",
     "gettext",
-    "vala",
+    "glib-devel",
+    "gobject-introspection",
+    "gperf",
+    "ninja",
     "perl",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
     "glib-devel",

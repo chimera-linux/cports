@@ -14,11 +14,11 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libgd-devel",
     "libexif-devel",
+    "libgd-devel",
+    "libtool-devel",
     "libusb-devel",
     "libxml2-devel",
-    "libtool-devel",
 ]
 pkgdesc = "Digital camera access library"
 license = "LGPL-2.1-or-later"

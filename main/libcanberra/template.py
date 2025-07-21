@@ -21,13 +21,13 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "gtk+3-devel",
     "gstreamer-devel",
-    "libvorbis-devel",
+    "gtk+3-devel",
     "libpulse-devel",
-    "udev-devel",
     "libtool-devel",
+    "libvorbis-devel",
     "tdb-devel",
+    "udev-devel",
 ]
 pkgdesc = "Portable sound event API"
 license = "LGPL-2.1-or-later"

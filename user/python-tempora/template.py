@@ -14,8 +14,8 @@ depends = [
     "python-pytz",
 ]
 checkdepends = [
-    "python-pytest",
     "python-freezegun",
+    "python-pytest",
 ]
 pkgdesc = "Objects and routines pertaining to date and time"
 license = "MIT"

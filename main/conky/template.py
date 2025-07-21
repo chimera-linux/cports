@@ -27,9 +27,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "cairo-devel",
+    "curl-devel",
     "freetype-devel",
     "imlib2-devel",
-    "curl-devel",
     "libmicrohttpd-devel",
     "libmpdclient-devel",
     "libpulse-devel",

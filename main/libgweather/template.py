@@ -9,19 +9,19 @@ configure_args = [
     "-Dzoneinfo_dir=/usr/share/zoneinfo",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
-    "gettext",
-    "vala",
     "python-gobject-devel",
+    "vala",
 ]
 makedepends = [
     "geocode-glib-devel",
+    "json-glib-devel",
     "libsoup-devel",
     "libxml2-devel",
-    "json-glib-devel",
 ]
 depends = ["tzdb"]
 pkgdesc = "GNOME Weather information access library"

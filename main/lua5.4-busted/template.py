@@ -2,12 +2,12 @@ pkgname = "lua5.4-busted"
 pkgver = "2.2.0"
 pkgrel = 1
 depends = [
+    "lua5.4-lua-term",
     "lua5.4-lua_cliargs",
-    "lua5.4-mediator_lua",
-    "lua5.4-penlight",
     "lua5.4-luassert",
     "lua5.4-luasystem",
-    "lua5.4-lua-term",
+    "lua5.4-mediator_lua",
+    "lua5.4-penlight",
 ]
 pkgdesc = "Lua unit testing"
 license = "MIT"

@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
-    "python-hatchling",
     "python-hatch_vcs",
+    "python-hatchling",
     "python-installer",
 ]
 depends = ["cmake", "python-pathspec", "python-packaging"]
