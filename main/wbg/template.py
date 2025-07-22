@@ -1,5 +1,5 @@
 pkgname = "wbg"
-pkgver = "1.2.0"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -9,6 +9,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libjpeg-turbo-devel",
+    "libjxl-devel",
     "libpng-devel",
     "libwebp-devel",
     "pixman-devel",
@@ -20,7 +21,7 @@ pkgdesc = "Wallpaper application for Wayland compositors"
 license = "MIT"
 url = "https://codeberg.org/dnkl/wbg"
 source = f"{url}/releases/download/{pkgver}/wbg-{pkgver}.tar.gz"
-sha256 = "a176576f3ca8d0494a5ce60a06970c093dcb46020ca678e5a327034ad8477a5e"
+sha256 = "5e23555c599e58f8fc76f2f8a697149c9fe96702a337a3e0457d503becb307a5"
 
 
 def post_install(self):
