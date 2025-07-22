@@ -1,0 +1,10 @@
+diff --git a/data/dbus/com.feralinteractive.GameMode.service.in b/data/dbus/com.feralinteractive.GameMode.service.in
+index ff737ea..d4833f7 100644
+--- a/data/dbus/com.feralinteractive.GameMode.service.in
++++ b/data/dbus/com.feralinteractive.GameMode.service.in
+@@ -1,4 +1,4 @@
+ [D-BUS Service]
+ Name=com.feralinteractive.GameMode
+-Exec=@BINDIR@/gamemoded -d
++Exec=/usr/bin/dinitctl --quiet start gamemoded
+ SystemdService=gamemoded.service
