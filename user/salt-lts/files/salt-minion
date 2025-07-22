@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-minion
+logfile = /var/log/salt/minion
+restart = yes
+before: login.target
+depends-on: network.target
