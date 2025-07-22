@@ -93,8 +93,6 @@ flens = []
 
 
 def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
-    global fmtx, fstatus, flens
-
     # ensure the response if what we expect, otherwise error
     # it may be None for FTP and so on though
     if rqf.status is not None:
@@ -169,8 +167,6 @@ def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
 
 
 def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
-    global fmtx, fstatus, flens
-
     try:
         hdrs = dict(dhdrs)
         if ehdrs:
@@ -197,7 +193,7 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
 
 
 def invoke(pkg):
-    global fmtx, fstatus, flens
+    global fstatus, flens
 
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
 

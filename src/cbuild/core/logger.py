@@ -86,5 +86,4 @@ def init(colors, timing):
 
 
 def get():
-    global logger_inst
     return logger_inst

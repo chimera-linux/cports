@@ -8,8 +8,6 @@ _tcache = {}
 
 
 def _srcpkg_ver(pkgn, pkgb):
-    global _tcache
-
     if pkgn in _tcache:
         return _tcache[pkgn]
 

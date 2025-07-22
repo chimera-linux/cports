@@ -83,7 +83,6 @@ _ops = {
 
 
 def _op_find(pat):
-    global _ops
     opid = _ops.get(pat[0:2], None)
     if not opid:
         opid = _ops.get(pat[0], None)

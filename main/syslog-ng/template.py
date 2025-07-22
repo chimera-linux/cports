@@ -114,14 +114,9 @@ def _(self):
 def _genmod(modn, modl):
     @subpackage(f"syslog-ng-{modn}_module")
     def _(self):
-        nonlocal modn, modl
-
         self.subdesc = f"{modn} module"
 
-        if not modl:
-            modl = modn
-
-        return [f"usr/lib/syslog-ng/lib{modl}.so"]
+        return [f"usr/lib/syslog-ng/lib{modl if modl else modn}.so"]
 
 
 for _modn, _modl in [

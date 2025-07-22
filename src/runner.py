@@ -109,7 +109,7 @@ def handle_options():
     global parser
 
     global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont, opt_timing
-    global opt_arch, opt_cflags, opt_cxxflags, opt_fflags, opt_tltocache
+    global opt_arch, opt_tltocache
     global opt_harch, opt_gen_dbg, opt_check, opt_ccache, opt_tltocachesize
     global opt_sccache, opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
     global opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
