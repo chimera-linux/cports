@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.52.0"
+pkgver = "1.52.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -89,7 +89,7 @@ pkgdesc = "Network management daemon"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/{pkgver}.tar.gz"
-sha256 = "2652070b59cd480ae50e346ed865f614cd3c0b080551c6fe3d021c84e7e5d2d1"
+sha256 = "cc30a5787253981a4acc894cb63ff55a7fcd9b342a8201b2ffb54d10e8694ec3"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross", "linkundefver"]
 
