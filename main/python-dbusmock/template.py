@@ -1,5 +1,5 @@
 pkgname = "python-dbusmock"
-pkgver = "0.35.0"
+pkgver = "0.36.0"
 pkgrel = 0
 build_style = "python_pep517"
 # needs upower
@@ -26,4 +26,4 @@ url = "https://github.com/martinpitt/python-dbusmock"
 source = (
     f"{url}/releases/download/{pkgver}/dist.python_dbusmock-{pkgver}.tar.gz"
 )
-sha256 = "8651c2074d117cc84bf3ca7f0a648c215363b763761f2a8d79bc4ace5a1b3ae9"
+sha256 = "2d3812ee6c1e15607bca882ed5dfcabaac449c1a3b9627080bbab3deefd56fd2"
