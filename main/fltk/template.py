@@ -1,5 +1,5 @@
 pkgname = "fltk"
-pkgver = "1.4.3"
+pkgver = "1.4.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -38,7 +38,7 @@ pkgdesc = "Cross-platform C++ GUI toolkit"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"https://github.com/fltk/fltk/releases/download/release-{pkgver}/fltk-{pkgver}-source.tar.gz"
-sha256 = "19725f687146610976a1a43ef448feeba212a7eca88ad5897d22f6adaf3af45b"
+sha256 = "94b464cce634182c8407adac1be5fc49678986ca93285699b444352af89b4efe"
 hardening = ["vis", "!cfi"]
 
 
