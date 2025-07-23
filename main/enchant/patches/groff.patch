@@ -45,4 +45,4 @@ index 5b47714..7ea4382 100644
  
  EXTRA_DIST = $(libenchant_data_DATA) $(VAPIS)
  
- loc:
+ loc-local:

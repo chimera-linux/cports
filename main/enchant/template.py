@@ -1,5 +1,5 @@
 pkgname = "enchant"
-pkgver = "2.8.10"
+pkgver = "2.8.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
@@ -22,7 +22,7 @@ pkgdesc = "Generic spell checking library"
 license = "LGPL-2.1-or-later"
 url = "http://rrthomas.github.io/enchant"
 source = f"https://github.com/rrthomas/enchant/releases/download/v{pkgver}/enchant-{pkgver}.tar.gz"
-sha256 = "6db791265ace652c63a6d24f376f4c562b742284d70d3ccb9e1ce8be45b288c9"
+sha256 = "fc6694a496848fb1204169c0cc6b844beec49fddd547bbf2bd2a7e33322c55d9"
 
 
 @subpackage("enchant-devel")
