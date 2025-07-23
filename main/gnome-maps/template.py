@@ -1,5 +1,5 @@
 pkgname = "gnome-maps"
-pkgver = "48.4"
+pkgver = "48.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -44,5 +44,5 @@ pkgdesc = "GNOME maps"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0"
 url = "https://apps.gnome.org/Maps"
 source = f"$(GNOME_SITE)/gnome-maps/{pkgver.split('.')[0]}/gnome-maps-{pkgver}.tar.xz"
-sha256 = "ae8716b8b0b3febd3ed22c17e9062eb80f6d6d25c50501c04d4230b97cee45ca"
+sha256 = "541d16f1cf3c450c17df713be62377a3bf5807a78b4517e09484d1a1bf44ab32"
 options = ["!cross"]
