@@ -1,5 +1,5 @@
 pkgname = "faust"
-pkgver = "2.79.3"
+pkgver = "2.81.2"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "makefile"
@@ -10,7 +10,7 @@ pkgdesc = "Functional programming language for real-time signal processing"
 license = "GPL-2.0-or-later"
 url = "https://faust.grame.fr"
 source = f"https://github.com/grame-cncm/faust/releases/download/{pkgver}/faust-{pkgver}.tar.gz"
-sha256 = "ca2171cb136f135960be10fee2c1728304865a5d5190e9a03cace88b4936c558"
+sha256 = "c91afe17cc01f1f75e4928dc2d2971dd83b37d10be991dda7e8b94ffab1f1ac9"
 # skip execinfo
 tool_flags = {"CXXFLAGS": ["-DALPINE"]}
 # no check target
