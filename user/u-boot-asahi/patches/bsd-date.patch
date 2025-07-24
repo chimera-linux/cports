@@ -1,0 +1,46 @@
+From 377dc5d0beb68cb89405f17e5045a5893ffe5b08 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 9 Apr 2022 19:39:08 +0200
+Subject: [PATCH] fix up timestamp stuff for BSD date
+
+---
+ Makefile | 21 ++++-----------------
+ 1 file changed, 4 insertions(+), 17 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index ad83d60d..31e4c4e2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1969,25 +1969,12 @@ define filechk_version.h
+ 	echo \#define LD_VERSION_STRING \"$$(LC_ALL=C $(LD) --version | head -n 1)\"; )
+ endef
+ 
+-# The SOURCE_DATE_EPOCH mechanism requires a date that behaves like GNU date.
+-# The BSD date on the other hand behaves different and would produce errors
+-# with the misused '-d' switch.  Respect that and search a working date with
+-# well known pre- and suffixes for the GNU variant of date.
+ define filechk_timestamp.h
+ 	(if test -n "$${SOURCE_DATE_EPOCH}"; then \
+-		SOURCE_DATE="@$${SOURCE_DATE_EPOCH}"; \
+-		DATE=""; \
+-		for date in gdate date.gnu date; do \
+-			$${date} -u -d "$${SOURCE_DATE}" >/dev/null 2>&1 && DATE="$${date}"; \
+-		done; \
+-		if test -n "$${DATE}"; then \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TIME "%T"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TZ "%z"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_EPOCH %s'; \
+-		else \
+-			return 42; \
+-		fi; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TIME "%T"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TZ "%z"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_EPOCH %s'; \
+ 	else \
+ 		LC_ALL=C date +'#define U_BOOT_DATE "%b %d %C%y"'; \
+ 		LC_ALL=C date +'#define U_BOOT_TIME "%T"'; \
+-- 
+2.35.1
+
