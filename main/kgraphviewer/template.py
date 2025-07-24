@@ -1,6 +1,6 @@
 pkgname = "kgraphviewer"
 pkgver = "25.04.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
