@@ -1,6 +1,6 @@
 pkgname = "gjs"
 pkgver = "1.84.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # disable tests that need X/dbus
 configure_args = [
@@ -22,7 +22,7 @@ makedepends = [
     "dbus-devel",
     "glib-devel",
     "libedit-readline-devel",
-    "mozjs128-devel",
+    "mozjs140-devel",
 ]
 checkdepends = ["gobject-introspection-freedesktop", "gtk+3"]
 pkgdesc = "JavaScript bindings for GNOME"
