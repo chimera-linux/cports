@@ -1,5 +1,5 @@
 pkgname = "xbps"
-pkgver = "0.60.3"
+pkgver = "0.60.4"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -15,7 +15,7 @@ pkgdesc = "XBPS package manager"
 license = "BSD-2-Clause AND BSD-3-Clause AND MIT"
 url = "https://github.com/void-linux/xbps"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "01ba4b7faad994560c6be5aeb50e39b6950e1d304e2d91c2668f0a9406d6af68"
+sha256 = "4f9ff9299d0b196963bd8fc878ee897002b02b69bf5920f94967f306f3fea09c"
 # one bashcomp for all
 options = ["!lintcomp"]
 
