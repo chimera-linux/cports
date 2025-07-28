@@ -6,7 +6,6 @@ Subject: [PATCH 8/8] force ugetopt
 ---
  lsinitramfs      | 2 +-
  mkinitramfs      | 2 +-
- unmkinitramfs    | 2 +-
  update-initramfs | 2 +-
  4 files changed, 4 insertions(+), 4 deletions(-)
 
@@ -36,19 +35,6 @@ index 6b5e2c6..325f54b 100755
  
  eval set -- "$OPTIONS"
  
-diff --git a/unmkinitramfs b/unmkinitramfs
-index 9c7090f..f0205d6 100755
---- a/unmkinitramfs
-+++ b/unmkinitramfs
-@@ -175,7 +175,7 @@ splitinitramfs()
- 		"${dir:+$dir/$subdir}" -di "$@"
- }
- 
--OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
-+OPTIONS=$(ugetopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
- 
- cpio_opts="--preserve-modification-time --quiet"
- expected_args=2
 diff --git a/update-initramfs b/update-initramfs
 index 6db6aa1..579e521 100755
 --- a/update-initramfs

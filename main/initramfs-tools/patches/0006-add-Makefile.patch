@@ -33,7 +33,7 @@ index 0000000..9f945f0
 +INSTALL_HOOKS = fsck keymap resume thermal
 +
 +all:
-+	@echo "Nothing to be done here."
++	$(CC) unmkinitramfs.c -o unmkinitramfs -Wall -Wextra $(CFLAGS) $(LDFLAGS)
 +
 +install:
 +	# make directories
