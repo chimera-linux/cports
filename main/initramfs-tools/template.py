@@ -1,6 +1,6 @@
 pkgname = "initramfs-tools"
 pkgver = "0.148.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = [f"VERSION={pkgver}"]
 depends = [
