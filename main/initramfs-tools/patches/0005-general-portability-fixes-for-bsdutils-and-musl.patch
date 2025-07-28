@@ -1,3 +1,4 @@
+
 From cedc4b27f5d0746769ba8b6dd9db29d93f0b7260 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 22 Apr 2025 16:21:48 +0200
@@ -6,7 +7,6 @@ Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 ---
  hook-functions   | 35 ++++++++---------------------------
  mkinitramfs      | 33 ++++++++++++---------------------
- unmkinitramfs    | 21 ++++++++++-----------
  update-initramfs |  2 +-
  4 files changed, 31 insertions(+), 60 deletions(-)
 
@@ -147,73 +147,36 @@ index 2102d1d..6b5e2c6 100755
  				{ echo "E: mkinitramfs failure cpio $?" >&2; echo 1 >&3; exit; }
  		} | $compress -c ||
  			{ echo "E: mkinitramfs failure $compress $?" >&2; echo 1 >&3; exit; }
-diff --git a/unmkinitramfs b/unmkinitramfs
-index 9bce38a..9c7090f 100755
---- a/unmkinitramfs
-+++ b/unmkinitramfs
-@@ -121,8 +121,8 @@ splitinitramfs()
- 		# kernel looks for in an early initramfs begin with
- 		# kernel/ subdirectory, but we should never create
- 		# this in the main initramfs.
--		if dd < "$initramfs" skip=$start count=$((end - start)) \
--			iflag=skip_bytes,count_bytes 2> /dev/null |
-+		if dd < "$initramfs" ibs=4 skip=$((start / 4)) count=$(((end - start) / 4)) \
-+			2> /dev/null |
- 		   cpio -i --list 2> /dev/null |
- 		   grep -q ^kernel/; then
- 			# Extract to early, early2, ... subdirectories
-@@ -132,22 +132,21 @@ splitinitramfs()
- 			else
- 				subdir=early$count
- 			fi
--			dd < "$initramfs" skip=$start count=$((end - start)) \
--				iflag=skip_bytes,count_bytes 2> /dev/null |
-+			dd < "$initramfs" ibs=4 skip=$((start / 4)) count=$(((end - start) / 4)) \
-+				2> /dev/null |
- 			(
- 				if [ -n "$dir" ]; then
- 					mkdir -p -- "$dir/$subdir"
- 					cd -- "$dir/$subdir"
- 				fi
--				cpio -i "$@"
-+				cpio -di "$@"
- 			)
- 		else
- 			# Append to main-uncomp.cpio, excluding the
- 			# trailer so cpio won't stop before the
- 			# (de)compressed part.
--			dd < "$initramfs" skip=$start \
--				count=$((headoff - start)) \
--				iflag=skip_bytes,count_bytes \
-+			dd < "$initramfs" ibs=4 skip=$((start / 4)) \
-+				count=$(((headoff - start) / 4)) \
- 				>> "$tempdir/main-uncomp.cpio" 2> /dev/null
- 		fi
+diff --git a/unmkinitramfs.c b/unmkinitramfs.c
+index d69fd7a..b7a0a2a 100644
+--- a/unmkinitramfs.c
++++ b/unmkinitramfs.c
+@@ -155,7 +155,7 @@ static void warn_after_fread_failure(FILE *file, const char *name)
+  */
+ static bool cpio_parse_hex(const char *field, uint32_t *value_p)
+ {
+-	const char digits[] = "0123456789ABCDEF", *p;
++	const char digits[] = "0123456789abcdef", *p;
+ 	uint32_t value = 0;
+ 	unsigned int i;
+ 	bool found_digit = false;
+@@ -166,7 +166,7 @@ static bool cpio_parse_hex(const char *field, uint32_t *value_p)
  
-@@ -157,7 +156,7 @@ splitinitramfs()
- 	# Split out final archive if necessary
- 	if [ "$end" -gt 0 ]; then
- 		subarchive="$tempdir/main-comp.cpio"
--		dd < "$initramfs" skip="$end" iflag=skip_bytes 2> /dev/null \
-+		dd < "$initramfs" ibs=4 skip=$((end / 4)) 2> /dev/null \
- 			> "$subarchive"
- 	else
- 		subarchive="$initramfs"
-@@ -173,12 +172,12 @@ splitinitramfs()
- 	fi
- 
- 	xcpio "$tempdir/main-uncomp.cpio" "$subarchive" \
--		"${dir:+$dir/$subdir}" -i "$@"
-+		"${dir:+$dir/$subdir}" -di "$@"
- }
- 
- OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
- 
--cpio_opts="--preserve-modification-time --no-absolute-filenames --quiet"
-+cpio_opts="--preserve-modification-time --quiet"
- expected_args=2
- eval set -- "$OPTIONS"
- 
+ 	/* Parse digits up to end of field or null */
+ 	for (; i < 8 && field[i] != 0; ++i) {
+-		p = strchr(digits, field[i]);
++		p = strchr(digits, field[i] | 32);
+ 		if (!p)
+ 			return false;
+ 		value = (value << 4) | (p - digits);
+@@ -431,7 +431,6 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
+ 	argv[argc++] = "cpio";
+ 	argv[argc++] = "-i";
+ 	argv[argc++] = "--preserve-modification-time";
+-	argv[argc++] = "--no-absolute-filenames";
+ 	argv[argc++] = "--quiet";
+ 	assert(argc + optc < sizeof(argv) / sizeof(argv[0]));
+ 	while (optc--)
 diff --git a/update-initramfs b/update-initramfs
 index 30131e0..6db6aa1 100755
 --- a/update-initramfs
