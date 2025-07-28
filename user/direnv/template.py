@@ -1,5 +1,5 @@
 pkgname = "direnv"
-pkgver = "2.37.0"
+pkgver = "2.37.1"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -7,7 +7,7 @@ pkgdesc = "Environment variables loader"
 license = "MIT"
 url = "https://github.com/direnv/direnv"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6302f3eb824ae5f7d33475c6e9ac0ec46a228e282fca7dba881f3536575a25c8"
+sha256 = "4142fbb661f3218913fac08d327c415e87b3e66bd0953185294ff8f3228ead24"
 
 
 def post_install(self):
