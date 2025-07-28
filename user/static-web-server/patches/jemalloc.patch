@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index cac7cdd..40ae9fc 100644
+index 60b9ce1..c98abb0 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2175,7 +2175,6 @@ dependencies = [
+@@ -2180,7 +2180,6 @@ dependencies = [
   "shadow-rs",
   "signal-hook",
   "signal-hook-tokio",
@@ -10,8 +10,8 @@ index cac7cdd..40ae9fc 100644
   "tokio",
   "tokio-metrics-collector",
   "tokio-rustls",
-@@ -2295,26 +2294,6 @@ dependencies = [
-  "once_cell",
+@@ -2299,26 +2298,6 @@ dependencies = [
+  "cfg-if",
  ]
  
 -[[package]]
@@ -38,7 +38,7 @@ index cac7cdd..40ae9fc 100644
  name = "time"
  version = "0.3.41"
 diff --git a/Cargo.toml b/Cargo.toml
-index 6ecdfaf..49bd386 100644
+index 4dba33c..f10b1e6 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -100,8 +100,6 @@ toml = "0.8"
@@ -64,3 +64,4 @@ index 4cdd82b..f13bce7 100644
  
  use static_web_server::{
      settings::{cli::General, Commands},
+
