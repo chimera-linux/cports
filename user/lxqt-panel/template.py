@@ -1,5 +1,5 @@
 pkgname = "lxqt-panel"
-pkgver = "2.2.0"
+pkgver = "2.2.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,6 +23,7 @@ makedepends = [
     "lm-sensors-devel",
     "lxqt-globalkeys-devel",
     "lxqt-menu-data",
+    "qt6-qtbase-private-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",
     "solid-devel",
@@ -33,4 +34,4 @@ pkgdesc = "LXQt desktop panel"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"
-sha256 = "e5011840140fe1c06cfe4deadbb1a88c0395b33d274c2a68d7e657b6622f1adb"
+sha256 = "5d150e7a4e8818715b8f4eec7f4bb26c98f740cd56f972199b35fc7c81da1969"
