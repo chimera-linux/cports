@@ -9,7 +9,7 @@
 +        # their crypttab manually (marked initramfs); as the / filesystem
 +        # may refer to a pool of multiple devices, we fundamentally cannot
 +        # resolve just one of them
-+        case $(findmnt -n -o FSTYPE "$spec" 2>/dev/null) in
++        case $(awk "{if (\$1 == \"$spec\") print \$3}" /proc/mounts 2>/dev/null) in
 +            zfs|btrfs) return 1 ;;
 +        esac
          cryptsetup_message "ERROR: Couldn't resolve device $spec"
