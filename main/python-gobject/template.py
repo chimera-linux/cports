@@ -1,5 +1,6 @@
+# do NOT upgrade to 3.52 for now (see downgrade commit)
 pkgname = "python-gobject"
-pkgver = "3.52.3"
+pkgver = "3.50.1"
 pkgrel = 0
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
@@ -27,7 +28,7 @@ pkgdesc = "Python bindings for GObject"
 license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.gz"
-sha256 = "00e427d291e957462a8fad659a9f9c8be776ff82a8b76bdf402f1eaeec086d82"
+sha256 = "a4df4e7adef7f4f01685a763d138eac9396585bfc68a7d31bbe4fbca2de0d7cb"
 # cyclic + gtk3 does not handle seatless displays
 options = ["!check"]
 
