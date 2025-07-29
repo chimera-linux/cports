@@ -1,0 +1,218 @@
+From 46a407510054da0d0e4bd34b95fe59aded9fefab Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Tue, 24 Jun 2025 05:51:02 +1000
+Subject: [PATCH] Linux 6.16: remove writepage and readahead_page
+
+Reviewed-by: Alexander Motin <mav@FreeBSD.org>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Closes #17443
+---
+ config/kernel-pagemap-readahead-page.m4       | 23 ++++++++++++
+ ...l-readpages.m4 => kernel-vfs-readpages.m4} |  0
+ config/kernel-vfs-writepage.m4                | 24 +++++++++++++
+ config/kernel.m4                              |  4 +++
+ include/os/linux/Makefile.am                  |  1 +
+ .../os/linux/kernel/linux/pagemap_compat.h    | 36 +++++++++++++++++++
+ module/os/linux/zfs/zpl_file.c                |  9 ++---
+ 7 files changed, 93 insertions(+), 4 deletions(-)
+ create mode 100644 config/kernel-pagemap-readahead-page.m4
+ rename config/{kernel-readpages.m4 => kernel-vfs-readpages.m4} (100%)
+ create mode 100644 config/kernel-vfs-writepage.m4
+ create mode 100644 include/os/linux/kernel/linux/pagemap_compat.h
+
+diff --git a/config/kernel-pagemap-readahead-page.m4 b/config/kernel-pagemap-readahead-page.m4
+new file mode 100644
+index 000000000000..30f3d56682fb
+--- /dev/null
++++ b/config/kernel-pagemap-readahead-page.m4
+@@ -0,0 +1,23 @@
++dnl #
++dnl # Linux 6.16 removed readahead_page
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_PAGEMAP_READAHEAD_PAGE], [
++	ZFS_LINUX_TEST_SRC([pagemap_has_readahead_page], [
++		#include <linux/pagemap.h>
++	], [
++		struct page *p __attribute__ ((unused)) = NULL;
++		struct readahead_control *ractl __attribute__ ((unused)) = NULL;
++		p = readahead_page(ractl);
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_PAGEMAP_READAHEAD_PAGE], [
++	AC_MSG_CHECKING([whether readahead_page() exists])
++	ZFS_LINUX_TEST_RESULT([pagemap_has_readahead_page], [
++		AC_MSG_RESULT([yes])
++		AC_DEFINE(HAVE_PAGEMAP_READAHEAD_PAGE, 1,
++			[readahead_page() exists])
++	],[
++		AC_MSG_RESULT([no])
++	])
++])
+diff --git a/config/kernel-readpages.m4 b/config/kernel-vfs-readpages.m4
+similarity index 100%
+rename from config/kernel-readpages.m4
+rename to config/kernel-vfs-readpages.m4
+diff --git a/config/kernel-vfs-writepage.m4 b/config/kernel-vfs-writepage.m4
+new file mode 100644
+index 000000000000..d438e85b457c
+--- /dev/null
++++ b/config/kernel-vfs-writepage.m4
+@@ -0,0 +1,24 @@
++dnl #
++dnl # Linux 6.16 removes address_space_operations ->writepage
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_VFS_WRITEPAGE], [
++	ZFS_LINUX_TEST_SRC([vfs_has_writepage], [
++		#include <linux/fs.h>
++
++		static const struct address_space_operations
++		    aops __attribute__ ((unused)) = {
++			.writepage = NULL,
++		};
++	],[])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_VFS_WRITEPAGE], [
++	AC_MSG_CHECKING([whether aops->writepage exists])
++	ZFS_LINUX_TEST_RESULT([vfs_has_writepage], [
++		AC_MSG_RESULT([yes])
++		AC_DEFINE(HAVE_VFS_WRITEPAGE, 1,
++			[address_space_operations->writepage exists])
++	],[
++		AC_MSG_RESULT([no])
++	])
++])
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index c99aed357fb7..7e6af62dede5 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -82,6 +82,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_VFS_MIGRATEPAGE
+ 	ZFS_AC_KERNEL_SRC_VFS_FSYNC_2ARGS
+ 	ZFS_AC_KERNEL_SRC_VFS_READPAGES
++	ZFS_AC_KERNEL_SRC_VFS_WRITEPAGE
+ 	ZFS_AC_KERNEL_SRC_VFS_SET_PAGE_DIRTY_NOBUFFERS
+ 	ZFS_AC_KERNEL_SRC_VFS_IOV_ITER
+ 	ZFS_AC_KERNEL_SRC_VFS_GENERIC_COPY_FILE_RANGE
+@@ -111,6 +112,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_STANDALONE_LINUX_STDARG
+ 	ZFS_AC_KERNEL_SRC_STRLCPY
+ 	ZFS_AC_KERNEL_SRC_PAGEMAP_FOLIO_WAIT_BIT
++	ZFS_AC_KERNEL_SRC_PAGEMAP_READAHEAD_PAGE
+ 	ZFS_AC_KERNEL_SRC_ADD_DISK
+ 	ZFS_AC_KERNEL_SRC_KTHREAD
+ 	ZFS_AC_KERNEL_SRC_ZERO_PAGE
+@@ -197,6 +199,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_VFS_MIGRATEPAGE
+ 	ZFS_AC_KERNEL_VFS_FSYNC_2ARGS
+ 	ZFS_AC_KERNEL_VFS_READPAGES
++	ZFS_AC_KERNEL_VFS_WRITEPAGE
+ 	ZFS_AC_KERNEL_VFS_SET_PAGE_DIRTY_NOBUFFERS
+ 	ZFS_AC_KERNEL_VFS_IOV_ITER
+ 	ZFS_AC_KERNEL_VFS_GENERIC_COPY_FILE_RANGE
+@@ -226,6 +229,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_STANDALONE_LINUX_STDARG
+ 	ZFS_AC_KERNEL_STRLCPY
+ 	ZFS_AC_KERNEL_PAGEMAP_FOLIO_WAIT_BIT
++	ZFS_AC_KERNEL_PAGEMAP_READAHEAD_PAGE
+ 	ZFS_AC_KERNEL_ADD_DISK
+ 	ZFS_AC_KERNEL_KTHREAD
+ 	ZFS_AC_KERNEL_ZERO_PAGE
+diff --git a/include/os/linux/Makefile.am b/include/os/linux/Makefile.am
+index b7bdd892ec1d..4fe6705defe5 100644
+--- a/include/os/linux/Makefile.am
++++ b/include/os/linux/Makefile.am
+@@ -8,6 +8,7 @@ kernel_linux_HEADERS = \
+ 	%D%/kernel/linux/mm_compat.h \
+ 	%D%/kernel/linux/mod_compat.h \
+ 	%D%/kernel/linux/page_compat.h \
++	%D%/kernel/linux/pagemap_compat.h \
+ 	%D%/kernel/linux/simd.h \
+ 	%D%/kernel/linux/simd_aarch64.h \
+ 	%D%/kernel/linux/simd_arm.h \
+diff --git a/include/os/linux/kernel/linux/pagemap_compat.h b/include/os/linux/kernel/linux/pagemap_compat.h
+new file mode 100644
+index 000000000000..a0465ede0105
+--- /dev/null
++++ b/include/os/linux/kernel/linux/pagemap_compat.h
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: CDDL-1.0
++/*
++ * CDDL HEADER START
++ *
++ * The contents of this file are subject to the terms of the
++ * Common Development and Distribution License (the "License").
++ * You may not use this file except in compliance with the License.
++ *
++ * You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
++ * or https://opensource.org/licenses/CDDL-1.0.
++ * See the License for the specific language governing permissions
++ * and limitations under the License.
++ *
++ * When distributing Covered Code, include this CDDL HEADER in each
++ * file and include the License file at usr/src/OPENSOLARIS.LICENSE.
++ * If applicable, add the following below this CDDL HEADER, with the
++ * fields enclosed by brackets "[]" replaced with your own identifying
++ * information: Portions Copyright [yyyy] [name of copyright owner]
++ *
++ * CDDL HEADER END
++ */
++
++/*
++ * Copyright (c) 2025, Rob Norris <robn@despairlabs.com>
++ */
++
++#ifndef _ZFS_PAGEMAP_COMPAT_H
++#define	_ZFS_PAGEMAP_COMPAT_H
++
++#include <linux/pagemap.h>
++
++#ifndef HAVE_PAGEMAP_READAHEAD_PAGE
++#define	readahead_page(ractl) (&(__readahead_folio(ractl)->page))
++#endif
++
++#endif
+diff --git a/module/os/linux/zfs/zpl_file.c b/module/os/linux/zfs/zpl_file.c
+index 5e7b6403f374..1a82c13e1523 100644
+--- a/module/os/linux/zfs/zpl_file.c
++++ b/module/os/linux/zfs/zpl_file.c
+@@ -36,10 +36,7 @@
+ #include <sys/zfs_vfsops.h>
+ #include <sys/zfs_vnops.h>
+ #include <sys/zfs_project.h>
+-#if defined(HAVE_VFS_SET_PAGE_DIRTY_NOBUFFERS) || \
+-    defined(HAVE_VFS_FILEMAP_DIRTY_FOLIO)
+-#include <linux/pagemap.h>
+-#endif
++#include <linux/pagemap_compat.h>
+ #include <linux/fadvise.h>
+ #ifdef HAVE_VFS_FILEMAP_DIRTY_FOLIO
+ #include <linux/writeback.h>
+@@ -555,6 +552,7 @@ zpl_writepages(struct address_space *mapping, struct writeback_control *wbc)
+ 	return (result);
+ }
+ 
++#ifdef HAVE_VFS_WRITEPAGE
+ /*
+  * Write out dirty pages to the ARC, this function is only required to
+  * support mmap(2).  Mapped pages may be dirtied by memory operations
+@@ -571,6 +569,7 @@ zpl_writepage(struct page *pp, struct writeback_control *wbc)
+ 
+ 	return (zpl_putpage(pp, wbc, &for_sync));
+ }
++#endif
+ 
+ /*
+  * The flag combination which matches the behavior of zfs_space() is
+@@ -1063,7 +1062,9 @@ const struct address_space_operations zpl_address_space_operations = {
+ #else
+ 	.readpage	= zpl_readpage,
+ #endif
++#ifdef HAVE_VFS_WRITEPAGE
+ 	.writepage	= zpl_writepage,
++#endif
+ 	.writepages	= zpl_writepages,
+ 	.direct_IO	= zpl_direct_IO,
+ #ifdef HAVE_VFS_SET_PAGE_DIRTY_NOBUFFERS
