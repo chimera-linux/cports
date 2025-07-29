@@ -3,10 +3,10 @@ our tooling relies on versioning matching the pkgver
 +++ b/Makefile
 @@ -2,7 +2,7 @@
  VERSION = 6
- PATCHLEVEL = 8
- SUBLEVEL = 12
--EXTRAVERSION =-valve12
+ PATCHLEVEL = 11
+ SUBLEVEL = 11
+-EXTRAVERSION =-valve20
 +EXTRAVERSION =
- NAME = Hurr durr I'ma ninja sloth
+ NAME = Baby Opossum Posse
  
  # *DOCUMENTATION*
