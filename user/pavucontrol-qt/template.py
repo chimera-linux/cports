@@ -1,6 +1,6 @@
 pkgname = "pavucontrol-qt"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
