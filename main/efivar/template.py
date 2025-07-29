@@ -1,6 +1,6 @@
 pkgname = "efivar"
 pkgver = "39"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_target = "all"
 make_build_args = ["libdir=/usr/lib", "ERRORS="]
