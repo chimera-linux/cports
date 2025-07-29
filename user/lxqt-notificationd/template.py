@@ -1,6 +1,6 @@
 pkgname = "lxqt-notificationd"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DLXQT_NOTIFICATION_BUILD_TESTS=ON"]
 hostmakedepends = [
