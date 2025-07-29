@@ -1,6 +1,6 @@
 pkgname = "cryptsetup"
-pkgver = "2.7.5"
-pkgrel = 2
+pkgver = "2.8.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-crypto_backend=openssl",
@@ -31,7 +31,7 @@ url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = (
     f"$(KERNEL_SITE)/utils/cryptsetup/v{pkgver[:-2]}/cryptsetup-{pkgver}.tar.xz"
 )
-sha256 = "d2be4395b8f503b0ebf4b2d81db90c35a97050a358ee21fe62a0dfb66e5d5522"
+sha256 = "cc9e2d37c25a871cea37520b28d532207b0c1670fb10fc54d68071f63f5243a2"
 
 if not self.has_lto(force=True):
     # udev static library weirdness
