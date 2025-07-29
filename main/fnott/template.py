@@ -1,5 +1,5 @@
 pkgname = "fnott"
-pkgver = "1.7.1"
+pkgver = "1.8.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "Keyboard driven wayland notification daemon"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fnott"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "39c732f2ac57d18f24ef9112524d71090e2b68b72a892f4a44f3a77a1f067487"
+sha256 = "7e784133bec7cc197bbeed18daf92192f297f7c60d1c25cce318ae09f70ab0e1"
 hardening = ["vis", "cfi"]
 
 
