@@ -1,6 +1,6 @@
 pkgname = "libpeas2"
 pkgver = "2.0.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dvapi=true"]
 make_check_args = ["--timeout-multiplier=5"]
@@ -20,7 +20,7 @@ makedepends = [
     "glib-devel",
     "gtk+3-devel",
     "lua5.1-devel",
-    "mozjs128-devel",
+    "mozjs140-devel",
     "python-devel",
     "python-gobject-devel",
 ]
