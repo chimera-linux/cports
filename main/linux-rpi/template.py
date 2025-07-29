@@ -3,7 +3,7 @@ pkgname = "linux-rpi"
 pkgver = "6.12.35"
 pkgrel = 0
 archs = ["aarch64"]
-build_style = "linux-kernel"
+build_style = "linux_kernel"
 configure_args = ["FLAVOR=rpi", f"RELEASE={pkgrel}"]
 make_dir = "build"
 # necessary for efistub

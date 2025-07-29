@@ -11,7 +11,7 @@ archs = [
     "riscv64",
     "x86_64",
 ]
-build_style = "linux-kernel"
+build_style = "linux_kernel"
 configure_args = ["FLAVOR=generic", f"RELEASE={pkgrel}"]
 make_dir = "build"
 make_install_env = {"ZSTD_CLEVEL": "9"}

@@ -4,7 +4,7 @@ pkgver = "6.11.11"
 pkgrel = 0
 _vver = 20
 archs = ["x86_64"]
-build_style = "linux-kernel"
+build_style = "linux_kernel"
 configure_args = ["FLAVOR=valve", f"RELEASE={pkgrel}"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
