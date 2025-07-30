@@ -1,15 +1,14 @@
 pkgname = "topgrade"
-pkgver = "16.0.3"
-pkgrel = 1
+pkgver = "16.0.4"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Multiple package-manager system updater"
 license = "GPL-3.0-or-later"
 url = "https://github.com/topgrade-rs/topgrade"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "97df1c06f9489ce842756fd27c7a309db952bee16001a7a2e7a337d45904731c"
+sha256 = "62cfb4eacfe96ba74d510159812fb87076a31c595efd43eb44cb610ca11f5c9d"
 # generates completions with host binary
 options = ["!cross"]
 
