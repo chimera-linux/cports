@@ -1373,8 +1373,28 @@ class Template(Package):
                     hint="run 'cbuild relink-subpkgs' to rebuild them",
                 )
 
-        if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
+        verstr = f"{self.pkgver}-r{self.pkgrel}"
+
+        if not cli.check_version(verstr):
             self.error("pkgver has an invalid format")
+
+        iifstr = f"={verstr}"
+
+        def validate_iif(pkg):
+            if len(pkg.install_if) == 0:
+                return
+            for iif in pkg.install_if:
+                if not isinstance(iif, str) or iif.endswith(iifstr):
+                    break
+            else:
+                self.error(
+                    f"install_if for '{pkg.pkgname}' must have at least one exact '{iifstr}'"
+                )
+
+        validate_iif(self)
+
+        for sp in self.subpkg_list:
+            validate_iif(sp)
 
         self.validate_spdx()
 
