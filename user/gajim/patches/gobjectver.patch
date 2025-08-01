@@ -1,0 +1,38 @@
+diff --git a/gajim/main.py b/gajim/main.py
+index 64ebcf1fe..efcc51ea1 100644
+--- a/gajim/main.py
++++ b/gajim/main.py
+@@ -23,7 +23,7 @@
+ _MIN_GTK_VER = "4.17.5"
+ _MIN_ADW_VER = "1.7.0"
+ _MIN_CAIRO_VER = "1.16.0"
+-_MIN_PYGOBJECT_VER = "3.52.0"
++_MIN_PYGOBJECT_VER = "3.50.1"
+ _MIN_GLIB_VER = "2.80.0"
+ _MIN_PANGO_VER = "1.50.0"
+ _MIN_SQLITE_VER = "3.35.0"
+@@ -67,7 +67,10 @@ def _check_required_deps() -> None:
+ 
+     check_version("pygobject", gi.__version__, _MIN_PYGOBJECT_VER)
+ 
+-    gi.disable_legacy_autoinit()
++    try:
++        gi.disable_legacy_autoinit()
++    except AttributeError:
++        pass
+ 
+     try:
+         import nbxmpp
+diff --git a/pyproject.toml b/pyproject.toml
+index e92cbb69e..60ff4ba4b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -34,7 +34,7 @@ dependencies = [
+   "pillow>=9.1.0",
+   "precis-i18n>=1.0.0",
+   "pycairo>=1.16.0",
+-  "PyGObject>=3.52.0",
++  "PyGObject>=3.50.1",
+   "pystray; platform_system == 'Windows'",
+   "qrcode>=7.3.1",
+   "SQLAlchemy>=2.0.0",
