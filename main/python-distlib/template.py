@@ -1,6 +1,6 @@
 pkgname = "python-distlib"
-pkgver = "0.3.9"
-pkgrel = 1
+pkgver = "0.4.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_locators.py::LocatorTestCase",
@@ -18,7 +18,7 @@ pkgdesc = "Functions for packaging and distribution of Python software"
 license = "PSF-2.0"
 url = "https://github.com/vsajip/distlib"
 source = f"$(PYPI_SITE)/d/distlib/distlib-{pkgver}.tar.gz"
-sha256 = "a60f20dea646b8a33f3e7772f74dc0b2d0772d2837ee1342a00645c81edf9403"
+sha256 = "feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d"
 
 
 def post_install(self):
