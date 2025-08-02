@@ -1,5 +1,5 @@
 pkgname = "ddcutil"
-pkgver = "2.2.0"
+pkgver = "2.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -26,7 +26,7 @@ url = "https://www.ddcutil.com"
 source = (
     f"https://github.com/rockowitz/ddcutil/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "2a9a994b885974423a5b765aaa2c17159f7341881d15f9cb430c0bf1842185ee"
+sha256 = "ff8eb39b4559fcbc83de7b16834a010262dfa825938625272212fcaeefaef692"
 # breaks symbols
 hardening = ["!vis"]
 # no tests
