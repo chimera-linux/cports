@@ -1,5 +1,5 @@
 pkgname = "glycin"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ pkgdesc = "Sandboxed and extendable image decoding"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
-sha256 = "4ab446d58b10c76283227a65487b8bbdb74ba5009e9ed23045fcfa8ba3fb2861"
+sha256 = "380aafe2bfb4eca0c45b42660ebff449600d00a43b609d5b1c83f795f5c8fb3c"
 # gobject-introspection
 # check: for some divine reason, it always passes locally and never on the builders (??)
 options = ["!cross", "!check"]
