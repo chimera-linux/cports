@@ -1,5 +1,5 @@
 pkgname = "debugedit"
-pkgver = "5.1"
+pkgver = "5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "bash", "help2man", "pkgconf"]
@@ -10,7 +10,7 @@ url = "https://sourceware.org/debugedit"
 source = (
     f"https://sourceware.org/pub/debugedit/{pkgver}/debugedit-{pkgver}.tar.xz"
 )
-sha256 = "ee9b688b2ed8fa62551c54cb5dc31aaa05853e7dedbd9e1237c77894ea5e3626"
+sha256 = "705296803cc4403f38764e891b4ed38f8d8d4f8a9164bd4f86c9d4bedcac68dd"
 # CFI: check
 hardening = ["vis", "!cfi"]
 # check: most of them fail (TODO)
