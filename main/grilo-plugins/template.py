@@ -1,5 +1,5 @@
 pkgname = "grilo-plugins"
-pkgver = "0.3.17"
+pkgver = "0.3.18"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -40,7 +40,7 @@ url = "https://gitlab.gnome.org/GNOME/grilo-plugins"
 source = (
     f"$(GNOME_SITE)/grilo-plugins/{pkgver[:-3]}/grilo-plugins-{pkgver}.tar.xz"
 )
-sha256 = "483c03f2ce06f96d42b85768fdc494c076d58474bf8e3c326f5a050fd4a2f03c"
+sha256 = "8e3ce74ee717c3c322d0cb0f8df26bb0914028a5d016e28055ffb49cc9a46c5e"
 # FIXME: Two tests fail
 options = ["!check"]
 
