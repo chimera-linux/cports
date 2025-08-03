@@ -1,5 +1,5 @@
 pkgname = "swaylock"
-pkgver = "1.8.2"
+pkgver = "1.8.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Screen locker for Wayland"
 license = "MIT"
 url = "https://github.com/swaywm/swaylock"
 source = f"{url}/releases/download/v{pkgver}/swaylock-{pkgver}.tar.gz"
-sha256 = "cf236356351af22679fdfbe107187a149aca154915737fdbc3ca5669ef35dca3"
+sha256 = "c9edc022cefc84d5762df9e480eed16627776897def52d630c0348de53f04f94"
 hardening = ["vis", "cfi"]
 
 
