@@ -1,15 +1,16 @@
---- a/numpy/_core/src/highway/hwy/detect_targets.h
-+++ b/numpy/_core/src/highway/hwy/detect_targets.h
-@@ -287,7 +287,7 @@
+diff -ruN a/numpy/_core/src/highway/hwy/detect_targets.h b/numpy/_core/src/highway/hwy/detect_targets.h
+--- a/numpy/_core/src/highway/hwy/detect_targets.h	2025-07-04 11:59:30.000000000 +0200
++++ b/numpy/_core/src/highway/hwy/detect_targets.h	2025-08-03 06:45:59.164954410 +0200
+@@ -325,7 +325,7 @@
       (HWY_COMPILER_GCC_ACTUAL && HWY_COMPILER_GCC_ACTUAL < 1300))
  #define HWY_BROKEN_RVV (HWY_RVV)
  #else
 -#define HWY_BROKEN_RVV 0
 +#define HWY_BROKEN_RVV (HWY_RVV)
  #endif
+ #endif  // HWY_BROKEN_RVV
  
- // HWY_LSX/HWY_LASX require GCC 14 or Clang 18.
-@@ -786,9 +786,9 @@
+@@ -846,9 +846,9 @@
  #endif
  
  #if HWY_ARCH_RISCV && HWY_HAVE_RUNTIME_DISPATCH
