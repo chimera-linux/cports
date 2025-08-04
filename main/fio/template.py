@@ -1,5 +1,5 @@
 pkgname = "fio"
-pkgver = "3.39"
+pkgver = "3.40"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -21,5 +21,5 @@ pkgdesc = "Flexible I/O tester"
 license = "GPL-2.0-only"
 url = "https://github.com/axboe/fio"
 source = f"https://github.com/axboe/fio/archive/refs/tags/fio-{pkgver}.tar.gz"
-sha256 = "e2f4ff137061b44ceb83a55eb9ca8856fe188db6d9b00cb59f8629c9162afe0a"
+sha256 = "9fc81e3a490a53fe821d76dd759d64f229d0ac6b4d2c711837bcad158242e3b2"
 hardening = ["cfi", "vis"]
