@@ -1,5 +1,5 @@
 pkgname = "php8.3"
-pkgver = "8.3.23"
+pkgver = "8.3.24"
 _majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 0
 _apiver = "20230831"
@@ -132,7 +132,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "ac9f3d6e9bcf1d5c4d66d2d954f89852c17fd4c5eba5811a3a8db08f38c908c7"
+sha256 = "b827c512b59270c3dc7e19614314fc345022c423e6443c960746310792d0de82"
 
 if self.profile().arch in ["loongarch64"]:
     makedepends += ["libucontext-devel"]
