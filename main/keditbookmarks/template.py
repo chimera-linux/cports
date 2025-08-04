@@ -1,6 +1,6 @@
 pkgname = "keditbookmarks"
 pkgver = "25.04.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
@@ -29,7 +29,7 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE bookmarks editor"
 license = "GPL-2.0-only"
-url = "https://github.com/KDE/keditbookmarks"
+url = "https://invent.kde.org/utilities/keditbookmarks"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/keditbookmarks-{pkgver}.tar.xz"
 )
