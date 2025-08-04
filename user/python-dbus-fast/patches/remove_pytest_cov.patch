@@ -1,12 +1,12 @@
-diff --color -ruN python-dbus-fast-2.44.1/pyproject.toml python-dbus-fast-2.44.1-patched/pyproject.toml
---- python-dbus-fast-2.44.1/pyproject.toml	2025-04-03 19:07:06.000000000 +0000
-+++ python-dbus-fast-2.44.1-patched/pyproject.toml	2025-05-01 02:05:34.467281868 +0000
+diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pyproject.toml
+--- python-dbus-fast/pyproject.toml	2025-08-04 22:33:04.437995264 +0000
++++ python-dbus-fast-patched/pyproject.toml	2025-08-04 22:32:07.799066057 +0000
 @@ -46,7 +46,6 @@
  
  [tool.poetry.group.dev.dependencies]
  pytest = ">=7,<9"
 -pytest-cov = ">=3,<7"
- pytest-asyncio = ">=0.19,<0.27"
+ pytest-asyncio = ">=0.19,<1.2"
  pycairo = "^1.21.0"
  PyGObject = {version = ">=3.50,<3.51", python = "<4"}
 @@ -63,7 +62,7 @@
