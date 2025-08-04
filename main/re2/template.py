@@ -1,5 +1,5 @@
 pkgname = "re2"
-pkgver = "2025.06.26"
+pkgver = "2025.07.22"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "C++ regular expression library"
 license = "BSD-3-Clause"
 url = "https://github.com/google/re2"
 source = f"{url}/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"
-sha256 = "6090fc23a189e1a04a0e751b4f285922a794a39b6ecc6670b6141af74c82fe08"
+sha256 = "f54c29f1c3e13e12693e3d6d1230554df3ab3a1066b2e1f28c5330bfbf6db1e3"
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 
 
