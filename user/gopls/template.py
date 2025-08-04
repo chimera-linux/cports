@@ -1,5 +1,5 @@
 pkgname = "gopls"
-pkgver = "0.19.1"
+pkgver = "0.20.0"
 pkgrel = 0
 build_wrksrc = "gopls"
 build_style = "go"
@@ -11,7 +11,7 @@ url = "https://github.com/golang/tools/tree/master/gopls"
 source = (
     f"https://github.com/golang/tools/archive/refs/tags/gopls/v{pkgver}.tar.gz"
 )
-sha256 = "11fc066d0ad6627668ab4dc4d4a34e6e0b47de51bfcc86c3f58018a020e7a071"
+sha256 = "1ff2a83be8be5a61b97fc5d72eab66f368ec20b52c513cc6656fc2e502e46f19"
 # regtest/marker fails with go1.22
 options = ["!check"]
 
