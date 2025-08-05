@@ -1,5 +1,5 @@
 pkgname = "iir1"
-pkgver = "1.9.5"
+pkgver = "1.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DIIR1_BUILD_DEMO=OFF", "-DIIR1_INSTALL_STATIC=OFF"]
@@ -12,7 +12,7 @@ pkgdesc = "DSP IIR realtime filter library written in C++"
 license = "MIT"
 url = "https://berndporr.github.io/iir1"
 source = f"https://github.com/berndporr/iir1/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "beb16142e08e5f68010c6e5014dea2276ea49b71a258439eff09c5ee3f781d88"
+sha256 = "13b53f14d276adf6cafd3564fcda1d4b3e72342108d1c40ec4b4f0c7fc3ac95a"
 # vis breaks symbols
 hardening = ["!vis"]
 
