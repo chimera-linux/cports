@@ -1,0 +1,49 @@
+From 4a9027ede5df8ea68d4af9494e40a3a7608076b8 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Tue, 5 Aug 2025 04:31:48 +0200
+Subject: [PATCH] Fix LITEST_* constants on 32-bit targets
+
+Prior to this change, the constants were defined to be 32-bit on 32-bit
+targets, but the test suite treated them as 64-bit, resulting in a
+couple of asserts being triggered because e.g. the value of
+LITEST_DEVICELESS was not in fact -2 as an int64_t.
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ src/util-bits.h | 2 +-
+ test/litest.h   | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/util-bits.h b/src/util-bits.h
+index c0c39ce8..f8d1c447 100644
+--- a/src/util-bits.h
++++ b/src/util-bits.h
+@@ -33,7 +33,7 @@
+ #include <stddef.h>
+ #include <stdint.h>
+ 
+-#define bit(x_) (1UL << (x_))
++#define bit(x_) (1ULL << (x_))
+ #define NBITS(b) (b * 8)
+ #define LONG_BITS (sizeof(long) * 8)
+ #define NLONGS(x) (((x) + LONG_BITS - 1) / LONG_BITS)
+diff --git a/test/litest.h b/test/litest.h
+index 4b310146..6aabe6bf 100644
+--- a/test/litest.h
++++ b/test/litest.h
+@@ -532,9 +532,9 @@ enum litest_device_type {
+ 	LITEST_WALTOP,
+ };
+ 
+-#define LITEST_DEVICELESS	-2
+-#define LITEST_DISABLE_DEVICE	-1
+-#define LITEST_ANY		0
++#define LITEST_DEVICELESS	(-2LL)
++#define LITEST_DISABLE_DEVICE	(-1LL)
++#define LITEST_ANY		(0LL)
+ #define LITEST_TOUCHPAD		bit(0)
+ #define LITEST_CLICKPAD		bit(1)
+ #define LITEST_BUTTON		bit(2)
+-- 
+2.50.1
+

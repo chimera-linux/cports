@@ -1,0 +1,30 @@
+From 931dad76a90c46036374196c617ca6aca0d27fe9 Mon Sep 17 00:00:00 2001
+From: Adam Sampson <ats@offog.org>
+Date: Fri, 1 Aug 2025 13:11:50 +0100
+Subject: [PATCH] test: correct value type in atou64_test
+
+This needs to be an unsigned 64-bit value, given the constants that are
+stored in this field below; unsigned long is 32 bits on some platforms
+(e.g. ia32).
+
+Part-of: <https://gitlab.freedesktop.org/libinput/libinput/-/merge_requests/1288>
+---
+ test/test-utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/test-utils.c b/test/test-utils.c
+index 55a2e156..7c938b0a 100644
+--- a/test/test-utils.c
++++ b/test/test-utils.c
+@@ -1445,7 +1445,7 @@ END_TEST
+ struct atou64_test {
+ 	char *str;
+ 	bool success;
+-	unsigned long val;
++	uint64_t val;
+ };
+ 
+ START_TEST(safe_atou64_test)
+-- 
+GitLab
+
