@@ -1,0 +1,44 @@
+From c92b0d2cf48c2d88a8a277d083cfe277b03a6656 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Tue, 5 Aug 2025 05:30:34 +0200
+Subject: [PATCH] Use libclang_rt.builtins
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ configure.ac | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index eaa0ddc9..99add992 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -76,17 +76,15 @@ AC_CHECK_TYPES([struct elf_prstatus, struct prstatus, procfs_status, elf_fpregse
+ 
+ dnl Checks for libraries.
+ AC_MSG_NOTICE([--- Checking for libraries ---])
+-save_LDFLAGS="$LDFLAGS"
+-save_LIBS="$LIBS"
+-LDFLAGS="${LDFLAGS} -nostdlib"
+-AC_SEARCH_LIBS([_Unwind_Resume], [gcc_s gcc],
+-               [AS_IF([test "$ac_cv_search__Unwind_Resume" != "none required"],
+-                      [AC_SUBST([LIBCRTS], ["$ac_cv_search__Unwind_Resume"])])],
+-               [],
+-               [-lc]
+-)
+-LIBS="$save_LIBS"
+-LDFLAGS="$save_LDFLAGS"
++
++AC_CACHE_CHECK([for GCC runtime library],
++               [ac_cv_gcc_runtime],
++               [ac_cv_gcc_runtime=`$CC -print-libgcc-file-name 2>/dev/null`])
++
++AS_IF([test -n "$ac_cv_gcc_runtime" -a -f "$ac_cv_gcc_runtime"],
++      [AC_SUBST([LIBCRTS], ["$ac_cv_gcc_runtime"])],
++      [AC_MSG_ERROR([Could not determine GCC runtime library path])])
++
+ AC_SEARCH_LIBS([__uc_get_grs], [uca])
+ 
+ dnl Checks for library functions.
+-- 
+2.50.1
+
