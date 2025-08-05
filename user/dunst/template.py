@@ -1,10 +1,14 @@
 pkgname = "dunst"
-pkgver = "1.12.2"
+pkgver = "1.13.0"
 pkgrel = 0
-build_style = "makefile"
+build_style = "meson"
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["perl", "pkgconf", "wayland-progs"]
+hostmakedepends = [
+    "meson",
+    "pkgconf",
+    "wayland-progs",
+]
 makedepends = [
     "cairo-devel",
     "dbus-devel",
@@ -26,7 +30,7 @@ url = "https://dunst-project.org"
 source = (
     f"https://github.com/dunst-project/dunst/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "8f7664bd4e6083e9604e282145fe5b8dee7655fa0b099a5b682a2549e1f33d32"
+sha256 = "7a8a1813977ad5941488c66b914501703fc0f6e12e631dc18506ad617242e7a0"
 env = {"SYSCONFDIR": "/etc"}
 hardening = ["vis", "cfi"]
 
