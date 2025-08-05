@@ -1,6 +1,6 @@
 pkgname = "dosbox-staging"
 pkgver = "0.82.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Duse_zlib_ng=false"]
 hostmakedepends = ["bash", "meson", "pkgconf"]
