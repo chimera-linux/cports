@@ -1,5 +1,5 @@
 pkgname = "labwc"
-pkgver = "0.8.4"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -7,6 +7,7 @@ configure_args = [
     "-Dxwayland=enabled",
 ]
 hostmakedepends = [
+    "gettext",
     "meson",
     "pkgconf",
     "scdoc",
@@ -23,7 +24,8 @@ makedepends = [
     "pango-devel",
     "wayland-devel",
     "wayland-protocols",
-    "wlroots0.18-devel",
+    "wlroots0.19-devel",
+    "xcb-util-wm-devel",
     "xwayland-devel",
 ]
 depends = ["xwayland"]
@@ -31,4 +33,4 @@ pkgdesc = "Stacking wayland compositor"
 license = "GPL-2.0-only"
 url = "https://github.com/labwc/labwc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2d3ded90f78efb5060f7057ea802c78a79dc9b2e82ae7a2ad902af957b8b9797"
+sha256 = "bf7a245d5fc5665329b3f5c9cb589eb33e658b8eb638cf4f4c9ad68f4b5979f0"
