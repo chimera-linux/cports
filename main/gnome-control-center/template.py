@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "48.3"
+pkgver = "48.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -70,7 +70,7 @@ pkgdesc = "GNOME control center"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/gnome-control-center/{pkgver.split('.')[0]}/gnome-control-center-{pkgver}.tar.xz"
-sha256 = "c0698245a6420badd077c16ffb218860e457cd7300612718eabf9aba47222bae"
+sha256 = "2a20eee6e05c8d3addaeefa524dce1ee9f88a77d838e3fd1edef3c0c2e467ad2"
 
 
 @subpackage("gnome-control-center-devel")
