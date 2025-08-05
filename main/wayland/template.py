@@ -1,6 +1,6 @@
 pkgname = "wayland"
-pkgver = "1.23.1"
-pkgrel = 1
+pkgver = "1.24.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
@@ -16,7 +16,7 @@ url = "https://wayland.freedesktop.org"
 source = (
     f"https://gitlab.freedesktop.org/wayland/wayland/-/archive/{pkgver}.tar.gz"
 )
-sha256 = "a7e4678a71cfdbf095673c894362accaebd0c4ba0618b5f4f6ce04acc13275b0"
+sha256 = "82eab21b355ba2b0b5c2b7e6bfa7335ef9eaf52e874d4e4884e5ba18423b0d3b"
 
 if self.profile().cross:
     hostmakedepends += ["wayland-progs"]
