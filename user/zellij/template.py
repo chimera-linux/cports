@@ -1,22 +1,25 @@
 pkgname = "zellij"
-pkgver = "0.42.2"
+pkgver = "0.43.0"
 pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
 # check fails because of wasm target
 # https://github.com/zellij-org/zellij/blob/c25166c30af05a39f189c7520e3ab0e6a50905be/zellij-utils/src/consts.rs#L96
-make_build_args = ["--no-default-features", "--features=plugins_from_target"]
+make_build_args = [
+    "--no-default-features",
+    "--features=plugins_from_target,web_server_capability",
+]
 make_install_args = [*make_build_args]
 make_check_args = [*make_build_args, "--release"]
-hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["curl-devel", "rust-std", "zstd-devel"]
+hostmakedepends = ["cargo-auditable", "cmake", "pkgconf", "rust-bindgen"]
+makedepends = ["curl-devel", "rust-std", "sqlite-devel", "zstd-devel"]
 pkgdesc = "Terminal workspace with batteries included"
 license = "MIT"
 url = "https://zellij.dev"
 source = (
     f"https://github.com/zellij-org/zellij/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "f1cd4b36775dd367b839e394b54e91042b0cd0f2b9e0901b1dec8517ff3929c0"
+sha256 = "fd1cb54df0453f7f1340bb293a2682bbeacbd307156aab919acdf715e36b6ee1"
 # generates completions with host bin
 options = ["!cross"]
 
