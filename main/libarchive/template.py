@@ -1,5 +1,5 @@
 pkgname = "libarchive"
-pkgver = "3.8.0"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Library to read/write several different streaming archive formats"
 license = "BSD-2-Clause"
 url = "https://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
-sha256 = "191b5b24811499d5c2e5efa3248975fa6daa5e6a227700cc7b8e54d6d7c06eef"
+sha256 = "bde832a5e3344dc723cfe9cc37f8e54bde04565bfe6f136bc1bd31ab352e9fab"
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 
