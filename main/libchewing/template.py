@@ -1,11 +1,11 @@
 pkgname = "libchewing"
-pkgver = "0.9.1"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "cmake"
 # The test fails when run in parallel.
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "cmake",
     "corrosion",
     "ninja",
@@ -16,7 +16,7 @@ pkgdesc = "Intelligent phonetic input method library"
 license = "LGPL-2.1-or-later"
 url = "https://chewing.im"
 source = f"https://github.com/chewing/libchewing/releases/download/v{pkgver}/libchewing-{pkgver}.tar.zst"
-sha256 = "e98b76c306552148b7d85f0e596860751d9eef4bc8f2dfc053177b14f421c31f"
+sha256 = "4f2538affadd0c09738166d8a700853866811c4094fc256c05585f443e50b842"
 tool_flags = {"CFLAGS": ["-DHAVE_NCURSES_H"]}
 
 
