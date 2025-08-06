@@ -56,7 +56,6 @@ for _pkg in [
     "libmagick-perl",
     "libmount",
     "libnftables",
-    "libnm",
     "libnss_winbind",
     "libntfs-3g",
     "libnuma",
