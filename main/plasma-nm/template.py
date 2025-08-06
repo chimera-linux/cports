@@ -1,5 +1,5 @@
 pkgname = "plasma-nm"
-pkgver = "6.4.3"
+pkgver = "6.4.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,5 +35,5 @@ pkgdesc = "KDE Plasma NetworkManager integration"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"
-sha256 = "67c38e3c0a54e90ae1237991142b9206463d43c2ead8edf5dd5bb7a16a46a13e"
+sha256 = "850638d1f4cc3b0a1012f049af5e1203ef57a1ef1fc21e5082c82bdf13bcb657"
 hardening = ["vis"]

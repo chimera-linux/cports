@@ -1,5 +1,5 @@
 pkgname = "kglobalacceld"
-pkgver = "6.4.3"
+pkgver = "6.4.4"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -24,7 +24,7 @@ pkgdesc = "KDE Daemon for global keyboard shortcut functionality"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
-sha256 = "a69c787e1b133ad5e99f3f83d1a195721f27e5200cc60cdba70d8dc03acc4378"
+sha256 = "89f72bbfb520b0dc8dfc6cbc81bdcfcf3b74217551b3ca81d0b96d9d35a09bcf"
 hardening = ["vis"]
 
 
