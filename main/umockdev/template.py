@@ -1,5 +1,5 @@
 pkgname = "umockdev"
-pkgver = "0.19.1"
+pkgver = "0.19.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -14,8 +14,8 @@ checkdepends = ["libgudev-devel", "udev"]
 pkgdesc = "Mock hardware devices"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/martinpitt/umockdev"
-source = f"https://github.com/martinpitt/umockdev/releases/download/{pkgver}/umockdev-{pkgver}.tar.xz"
-sha256 = "2cece0e8e366b89b4070be74f3389c9f7fa21aca56d8a5357e96e30cd8d4f426"
+source = f"{url}/releases/download/{pkgver}/umockdev-{pkgver}.tar.xz"
+sha256 = "46e45eab6f656bfc092438d7e0e5df4c5f51d18e3a83360c2be680b207a1a0b7"
 # see below
 options = ["!cross"]
 
