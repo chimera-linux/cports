@@ -1,6 +1,6 @@
 pkgname = "bpftool"
-pkgver = "7.5.0"
-pkgrel = 2
+pkgver = "7.6.0"
+pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
 make_build_args = [
@@ -29,12 +29,12 @@ url = "https://github.com/libbpf/bpftool"
 source = [
     f"{url}/archive/refs/tags/v{pkgver}.tar.gz",
     # bpftool uses libbpf internals
-    "https://github.com/libbpf/libbpf/archive/09b9e83102eb8ab9e540d36b4559c55f3bcdb95d.tar.gz",
+    "https://github.com/libbpf/libbpf/archive/58dd1f58b57294b2e59482245b29e46f1812b82d.tar.gz",
 ]
 source_paths = [".", "libbpf"]
 sha256 = [
-    "a126f8cb06f887741ce45cd4f823583ae70aebc3f615cc4ed2a5eec8676a9681",
-    "f94a66ab80e79aa11e15409479d8bc2572649f0ef25dbd2daf503ea5b05067ad",
+    "66ffaadb3043b300ce94c08a10d9a5e41e5f0bc5d221d8d19a4518e35ae6448c",
+    "9d8960f81a8e08d112ba3ad83d3c676ec4b2d6aaf6969781a16213e6a8f3d4ed",
 ]
 # nope
 options = ["!check"]
