@@ -1,5 +1,5 @@
 pkgname = "python-ytmusicapi"
-pkgver = "1.10.3"
+pkgver = "1.11.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Python library for the Youtube Music API"
 license = "MIT"
 url = "https://github.com/sigma67/ytmusicapi"
 source = f"$(PYPI_SITE)/y/ytmusicapi/ytmusicapi-{pkgver}.tar.gz"
-sha256 = "7235361ac9d5958d49a29f586eec55b1c83e90f7b063361e8a206e1cf4f76216"
+sha256 = "2f7620a3ee1e216c1661ff316ce42a2d69d2067f855ea900f375baf274c4799d"
 # like all tests need net
 options = ["!check"]
 
