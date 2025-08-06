@@ -1,6 +1,6 @@
 pkgname = "fnott"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
