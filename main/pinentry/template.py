@@ -1,7 +1,6 @@
 pkgname = "pinentry"
-# Keep pkgver in sync with main/pinentry-qt
-pkgver = "1.3.1"
-pkgrel = 1
+pkgver = "1.3.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
@@ -28,7 +27,7 @@ pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/pinentry/pinentry-{pkgver}.tar.bz2"
-sha256 = "bc72ee27c7239007ab1896c3c2fae53b076e2c9bd2483dc2769a16902bce8c04"
+sha256 = "8e986ed88561b4da6e9efe0c54fa4ca8923035c99264df0b0464497c5fb94e9e"
 options = ["empty"]
 
 
