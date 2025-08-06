@@ -1,6 +1,6 @@
 pkgname = "python-build"
-pkgver = "1.2.2"
-pkgrel = 1
+pkgver = "1.3.0"
+pkgrel = 0
 hostmakedepends = [
     "python-flit_core",
     "python-installer",
@@ -12,7 +12,7 @@ pkgdesc = "Simple PEP 517 build frontend"
 license = "MIT"
 url = "https://pypa-build.readthedocs.io"
 source = f"$(PYPI_SITE)/b/build/build-{pkgver}.tar.gz"
-sha256 = "119b2fb462adef986483438377a13b2f42064a2a3a4161f24a0cca698a07ac8c"
+sha256 = "698edd0ea270bde950f53aed21f3a0135672206f3911e0176261a31e0e07b397"
 # no tests
 options = ["!check"]
 
