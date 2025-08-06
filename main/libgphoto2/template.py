@@ -1,6 +1,6 @@
 pkgname = "libgphoto2"
-pkgver = "2.5.31"
-pkgrel = 1
+pkgver = "2.5.32"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -24,7 +24,7 @@ pkgdesc = "Digital camera access library"
 license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
 source = f"https://github.com/gphoto/libgphoto2/releases/download/v{pkgver}/libgphoto2-{pkgver}.tar.xz"
-sha256 = "8fc7bf40f979459509b87dd4ff1aae9b6c1c2b4724d37db576081eec15406ace"
+sha256 = "495a347be21b8f970607a81e739aa91513a8479cbd73b79454a339c73e2b860e"
 options = ["linkundefver"]
 
 if self.profile().cross:
