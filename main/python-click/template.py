@@ -1,5 +1,5 @@
 pkgname = "python-click"
-pkgver = "8.2.1"
+pkgver = "8.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Python module for command line interfaces"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/click"
 source = f"$(PYPI_SITE)/c/click/click-{pkgver}.tar.gz"
-sha256 = "27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202"
+sha256 = "068616e6ef9705a07b6db727cb9c248f4eb9dae437a30239f56fa94b18b852ef"
 
 
 def post_install(self):
