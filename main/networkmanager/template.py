@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.52.1"
+pkgver = "1.54.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -65,6 +65,7 @@ makedepends = [
     "libgudev-devel",
     "libndp-devel",
     "libnl-devel",
+    "libnvme-devel",
     "libpsl-devel",
     "linux-headers",
     "mobile-broadband-provider-info",
@@ -87,9 +88,9 @@ depends = [
 checkdepends = ["python-dbus"]
 pkgdesc = "Network management daemon"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
-url = "https://wiki.gnome.org/Projects/NetworkManager"
-source = f"https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/{pkgver}.tar.gz"
-sha256 = "cc30a5787253981a4acc894cb63ff55a7fcd9b342a8201b2ffb54d10e8694ec3"
+url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager"
+source = f"{url}/-/archive/{pkgver}/NetworkManager-{pkgver}.tar.gz"
+sha256 = "c5356e5a86b351dc79d23c8685d02b91917d1f107628c97d370c6441a8322a93"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross", "linkundefver"]
 
@@ -121,8 +122,7 @@ def post_install(self):
 
 @subpackage("networkmanager-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libnm")]
+    self.renames = ["libnm"]
 
     return self.default_libs()
 
