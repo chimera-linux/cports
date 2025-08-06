@@ -1,6 +1,6 @@
 pkgname = "qalculate-qt"
 # match to libqalculate
-pkgver = "5.6.0"
+pkgver = "5.7.0"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -18,7 +18,7 @@ pkgdesc = "Qt frontend for libqalculate"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/qalculate-qt/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "209af79ffe415ce8f25f40ab8d99d44cf9a101cd717ebefbfc53eaf83a9b27b0"
+sha256 = "2b44b6a3cfb90450e3cecf7c986baec6ad4f26bc53ba19f2b3955c23de9bd367"
 
 
 def configure(self):
