@@ -1,6 +1,6 @@
 pkgname = "mtr"
-pkgver = "0.95"
-pkgrel = 3
+pkgver = "0.96"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-gtk"]
 configure_gen = ["./bootstrap.sh"]
@@ -12,7 +12,7 @@ url = "https://www.bitwizard.nl/mtr"
 source = (
     f"https://github.com/traviscross/mtr/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "12490fb660ba5fb34df8c06a0f62b4f9cbd11a584fc3f6eceda0a99124e8596f"
+sha256 = "73e6aef3fb6c8b482acb5b5e2b8fa7794045c4f2420276f035ce76c5beae632d"
 file_modes = {
     "usr/bin/mtr-packet": ("root", "root", 0o755),
 }
