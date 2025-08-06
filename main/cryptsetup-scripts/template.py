@@ -1,5 +1,5 @@
 pkgname = "cryptsetup-scripts"
-pkgver = "2.8.0.1"
+pkgver = "2.8.6.2"
 _debver = "-".join(pkgver.rsplit(".", 1))
 pkgrel = 0
 build_style = "makefile"
@@ -13,7 +13,7 @@ pkgdesc = "Supporting infrastructure for cryptsetup from Debian"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/cryptsetup-team/cryptsetup"
 source = f"{url}/-/archive/debian/2%25{_debver}/cryptsetup-debian-2%25{_debver}.tar.gz"
-sha256 = "2cc5d6240e190007546a05d58d8a3e37275bb937f116e2d5e2d3abaed9b65b5c"
+sha256 = "f5cabd772d3ebef995eb6d36777b4222045a6344907892742f6bcdac9670545d"
 # no test suite
 options = ["etcfiles", "!check"]
 

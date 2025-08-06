@@ -1,0 +1,23 @@
+diff --git a/debian/functions b/debian/functions
+index 63ecf5d2..c745bbc8 100644
+--- a/debian/functions
++++ b/debian/functions
+@@ -637,8 +637,16 @@ get_mnt_devno() {
+         }' </proc/mounts)" || out=""
+ 
+     spec="$(printf '%b' "${out%	*}")"
+-    if [ -n "$out" ] && _resolve_device "$spec"; then # _resolve_device() already warns on error
+-        fstype="${out##*	}"
++    fstype="${out##*	}"
++    if [ "$fstype" = "zfs" ]; then
++        while IFS='	' read -r vdev _; do
++            [ -n "$vdev" ] || continue
++            _resolve_device "$vdev" || continue
++            devnos="${devnos:+$devnos }$MAJ:$MIN"
++        done <<EOF
++$(zpool list -HPv -- "${spec%%/*}" 2>/dev/null | tail -n +2)
++EOF
++    elif [ -n "$out" ] && _resolve_device "$spec"; then # _resolve_device() already warns on error
+         if [ "$fstype" = "btrfs" ]; then
+             # btrfs can span over multiple devices
+             if uuid="$(_device_uuid "$DEV")"; then
