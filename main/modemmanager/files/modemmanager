@@ -1,6 +1,6 @@
 type = process
 command = /usr/bin/ModemManager
-before = network.target
-depends-on = dbus
-depends-on = pre-network.target
 smooth-recovery = true
+before: network.target
+depends-on: dbus
+depends-on: pre-network.target
