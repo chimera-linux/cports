@@ -1,5 +1,5 @@
 pkgname = "modemmanager"
-pkgver = "1.24.0"
+pkgver = "1.24.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -43,7 +43,7 @@ pkgdesc = "Mobile broadband modem management service"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/ModemManager"
 source = f"https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/{pkgver}/ModemManager-{pkgver}.tar.gz"
-sha256 = "50e166bb24acb00bcaed814483920dfbc5b26d5424faee974b54c702e425a7c7"
+sha256 = "fbc75adcc0d7b0565f256e7ff4e8872b0a37c4413ff576665f7470932d9c1b68"
 
 
 def post_install(self):
