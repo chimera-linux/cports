@@ -1,5 +1,5 @@
 pkgname = "python-maturin"
-pkgver = "1.9.0"
+pkgver = "1.9.3"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
@@ -21,7 +21,7 @@ pkgdesc = "Tool for building and publishing Rust-based Python packages"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "84a74988960a19f4e6ffa6f3a349803403496ced10dd3ff83baf4feed88c3fd8"
+sha256 = "1a4a87224a34a97a4322bd123487e9c6f2d2091bac4fe469618b92a06aad3492"
 # yeah no
 options = ["!check"]
 
