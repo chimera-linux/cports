@@ -1,5 +1,5 @@
 pkgname = "milou"
-pkgver = "6.4.3"
+pkgver = "6.4.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,5 +21,5 @@ pkgdesc = "KDE Dedicated search application"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/milou"
 source = f"$(KDE_SITE)/plasma/{pkgver}/milou-{pkgver}.tar.xz"
-sha256 = "d679c95b62aeb8149bd368af1d831fee79ebaaac3ee479da67c450e80fd35ff1"
+sha256 = "a644e5965b33c20f82ce51660fa3b7c2d41810b068cf21f77658824cb3ea6b1e"
 hardening = ["vis"]

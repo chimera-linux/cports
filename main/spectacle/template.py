@@ -1,5 +1,5 @@
 pkgname = "spectacle"
-pkgver = "6.4.3"
+pkgver = "6.4.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -40,7 +40,7 @@ pkgdesc = "KDE Screenshot capture utility"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/plasma/{pkgver}/spectacle-{pkgver}.tar.xz"
-sha256 = "9986fc091f913a3f0e1520bd8b3a33e9c174e03f48b4b2af3192bd8a31bb29d8"
+sha256 = "9108a739c1acc43b23e0a6aa17ba4194a564ab1548c6887328c76a073bf3d373"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "libplasma"
-pkgver = "6.4.3"
+pkgver = "6.4.4"
 pkgrel = 0
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
@@ -42,7 +42,7 @@ pkgdesc = "Foundational libraries, components, and tools for Plasma workspaces"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"
-sha256 = "f508ceced32a114462e5e31195600ee440a1a21b8eb77ba20033cfb892bb0cc8"
+sha256 = "ab0f4b426829821e0abf479052f326a5ce01c3b604e890c9f79949c3eb5fdebe"
 hardening = ["vis"]
 
 
