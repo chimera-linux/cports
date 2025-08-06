@@ -1,6 +1,6 @@
 pkgname = "python-twisted"
-pkgver = "24.11.0"
-pkgrel = 1
+pkgver = "25.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "tests"
 hostmakedepends = [
@@ -39,7 +39,7 @@ pkgdesc = "Asynchronous framework for Python"
 license = "MIT"
 url = "https://twistedmatrix.com"
 source = f"$(PYPI_SITE)/t/twisted/twisted-{pkgver}.tar.gz"
-sha256 = "695d0556d5ec579dcc464d2856b634880ed1319f45b10d19043f2b57eb0115b5"
+sha256 = "1deb272358cb6be1e3e8fc6f9c8b36f78eb0fa7c2233d2dbe11ec6fee04ea316"
 # unpackaged checkdepends etc.
 options = ["!check"]
 
