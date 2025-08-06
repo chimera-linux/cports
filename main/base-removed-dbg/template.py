@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 18
+pkgrel = 19
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -56,7 +56,6 @@ for _pkg in [
     "libmagick-perl",
     "libmount",
     "libnftables",
-    "libnm",
     "libnss_winbind",
     "libntfs-3g",
     "libnuma",
