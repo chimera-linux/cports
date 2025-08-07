@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 18
+pkgrel = 19
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -63,9 +63,6 @@ for _pkg in [
     "libpcre2",
     "libpkgconf",
     "libplist++",
-    "libpoppler-cpp",
-    "libpoppler-glib",
-    "libpoppler-qt6",
     "libpq",
     "libpytalloc-util",
     "libroken",
