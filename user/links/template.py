@@ -1,9 +1,10 @@
 pkgname = "links"
 pkgver = "2.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # TODO: configure fails with 'conditional "am__fastdepCXX" was never defined.'???
 configure_gen = []
+make_install_args = ["install", "mandir=/usr/share/man"]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "libjpeg-turbo-devel",
