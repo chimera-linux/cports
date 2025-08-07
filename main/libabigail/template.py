@@ -1,5 +1,5 @@
 pkgname = "libabigail"
-pkgver = "2.7"
+pkgver = "2.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -36,7 +36,7 @@ pkgdesc = "Library and tooling for ABI-related tasks"
 license = "Apache-2.0 WITH LLVM-exception"
 url = "https://sourceware.org/libabigail"
 source = f"https://mirrors.kernel.org/sourceware/libabigail/libabigail-{pkgver}.tar.xz"
-sha256 = "467c5b91b655fe82c54f92b35a7c2155e0dd9f5f052a4e4e21caf245e092c2ca"
+sha256 = "0f52b1ab7997ee2f7895afb427f24126281f66a4756ba2c62bce1a17b546e153"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
