@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.8.0.1"
+pkgver = "25.8.0.2"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -156,6 +156,7 @@ makedepends = [
     "unixodbc-devel",
     "xmlsec1-devel",
     "zlib-ng-compat-devel",
+    "zstd-devel",
     "zxing-cpp-devel",
 ]
 pkgdesc = "Free office suite"
@@ -206,10 +207,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "0d7cfce9a93edeeee425f20fe051fa269c3426391638bba0c328608998691192",
-    "aea001c8d031310e3932f46df8b74cddfe0f67743adcc4e47e5e8a2dd0c334da",
-    "a37ef22d20fa944ff7544d96fbb56ac4902bd228e6240759559521bd4f1d619d",
-    "29f797023d3759d2d7032d78ca54f1dfcdfbf21894fc67a8afc492698122eceb",
+    "ea5379810768c30e9fd5d05349163c948ddae92380ac3d5bc2fad26a337935bc",
+    "e630caef4b995230916f230ea70b6c30618eeacd06cfe9db37566b44c9f3a97b",
+    "36d1ea78a4159a497ffc4618f20d6343aaecdb172c4a8ed7b6770e5936808875",
+    "5214cd33fd6f85668dd450ea9b7d66c4706ebf0bc82776e377182887e39e12f6",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
