@@ -1,11 +1,11 @@
 pkgname = "debianutils"
-pkgver = "5.23.1"
+pkgver = "5.23.2"
 pkgrel = 0
 pkgdesc = "Miscellaneous utilities from Debian"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
 source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.tar.xz"
-sha256 = "206c669cbf431da30904d4f9e69d049cb711714f5c137b66bf0b1f66d58710bc"
+sha256 = "79e524b7526dba2ec5c409d0ee52ebec135815cf5b2907375d444122e0594b69"
 compression = "deflate"
 hardening = ["vis", "cfi"]
 options = ["bootstrap"]
