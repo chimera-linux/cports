@@ -1,6 +1,6 @@
 pkgname = "libgcrypt"
-pkgver = "1.11.1"
-pkgrel = 1
+pkgver = "1.11.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",
@@ -18,7 +18,7 @@ pkgdesc = "GNU cryptographic library"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/libgcrypt/libgcrypt-{pkgver}.tar.bz2"
-sha256 = "24e91c9123a46c54e8371f3a3a2502f1198f2893fbfbf59af95bc1c21499b00e"
+sha256 = "6ba59dd192270e8c1d22ddb41a07d95dcdbc1f0fb02d03c4b54b235814330aac"
 options = ["linkundefver"]
 
 
