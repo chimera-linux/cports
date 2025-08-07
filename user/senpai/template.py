@@ -1,6 +1,6 @@
 pkgname = "senpai"
 pkgver = "0.4.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = ["./cmd/senpai"]
 hostmakedepends = ["go", "scdoc"]

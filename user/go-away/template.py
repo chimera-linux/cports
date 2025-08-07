@@ -1,6 +1,6 @@
 pkgname = "go-away"
 pkgver = "0.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.internalMainVersion={pkgver}",

@@ -1,6 +1,6 @@
 pkgname = "go-task"
 pkgver = "3.43.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [
     "./cmd/task",

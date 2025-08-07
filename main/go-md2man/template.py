@@ -1,6 +1,6 @@
 pkgname = "go-md2man"
 pkgver = "2.0.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Markdown to manpage converter"

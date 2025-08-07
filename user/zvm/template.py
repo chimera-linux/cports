@@ -1,6 +1,6 @@
 pkgname = "zvm"
 pkgver = "0.8.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Zig version manager"

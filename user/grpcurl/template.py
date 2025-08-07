@@ -1,6 +1,6 @@
 pkgname = "grpcurl"
 pkgver = "1.9.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version=v{pkgver}",
