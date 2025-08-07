@@ -1,6 +1,6 @@
 pkgname = "libkkc"
 # abandoned repo, easier to build with all fixes
-pkgver = "0.3.5_git20210928"
+pkgver = "0.3.5_git20240902"
 pkgrel = 0
 build_style = "gnu_configure"
 # otherwise doesn't find .vapi from inside build
@@ -24,9 +24,9 @@ depends = ["libkkc-data"]
 pkgdesc = "Japanese kana-kanji conversion library"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ueno/libkkc"
-_gitrev = "cdcaf4dceaf273bfe7b018a4a651a92f786c6ec6"
+_gitrev = "ce17a35d3dca32706ae2dd48c7859a36531a9b59"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "7ea73e568cf551f756f0bc6721484ba901623d4c73b027ff36cd14e0dee66996"
+sha256 = "4169cbd51a9223d70f6621632894b56e40b6883787d5c07c968eb51855f04e70"
 tool_flags = {
     "CFLAGS": [
         "-Wno-incompatible-function-pointer-types",
