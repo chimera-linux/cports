@@ -1,5 +1,5 @@
 pkgname = "poppler"
-pkgver = "25.07.0"
+pkgver = "25.08.0"
 _test_commit = "c79c6839e859dbee6b73ac260788fa2de8618ba4"
 pkgrel = 0
 build_style = "cmake"
@@ -44,7 +44,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "c504a9066dbdfebe377ad53cec641fd971ee96c4e1e8ca74e6c9c03d46d817ae",
+    "425ed4d4515a093bdcdbbaac6876f20617451edc710df6a4fd6c45dd67eb418d",
     "08d9f88782ae3888ce6c8802ec9fbbe85efd9b2db7b29a15fa402f3f1d30a3f3",
 ]
 # check_qt6_goostring crashes
@@ -58,8 +58,7 @@ def init_configure(self):
 @subpackage("poppler-cpp-libs")
 def _(self):
     self.subdesc = "C++ binding"
-    # transitional
-    self.provides = [self.with_pkgver("libpoppler-cpp")]
+    self.renames = ["libpoppler-cpp"]
 
     return ["usr/lib/libpoppler-cpp.so.*"]
 
@@ -67,11 +66,7 @@ def _(self):
 @subpackage("poppler-qt6-libs")
 def _(self):
     self.subdesc = "Qt6 binding"
-    # transitional
-    self.provides = [
-        self.with_pkgver("libpoppler-qt6"),
-        self.with_pkgver("poppler-qt"),
-    ]
+    self.renames = ["libpoppler-qt6", "poppler-qt"]
 
     return ["usr/lib/libpoppler-qt6.so.*"]
 
@@ -79,8 +74,7 @@ def _(self):
 @subpackage("poppler-glib-libs")
 def _(self):
     self.subdesc = "GLib binding"
-    # transitional
-    self.provides = [self.with_pkgver("libpoppler-glib")]
+    self.renames = ["libpoppler-glib"]
 
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
 
@@ -88,18 +82,13 @@ def _(self):
 @subpackage("poppler-libs")
 def _(self):
     self.depends = ["poppler-data"]
-    # transitional
-    self.provides = [self.with_pkgver("libpoppler")]
+    self.renames = ["libpoppler"]
 
     return self.default_libs()
 
 
 @subpackage("poppler-devel")
 def _(self):
-    # transitional
-    self.provides = [
-        self.with_pkgver("libpoppler-devel"),
-        self.with_pkgver("poppler-qt-devel"),
-    ]
+    self.renames = ["libpoppler-devel", "poppler-qt-devel"]
 
     return self.default_devel()
