@@ -1,5 +1,5 @@
 pkgname = "crun"
-pkgver = "1.21"
+pkgver = "1.23.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -24,7 +24,7 @@ pkgdesc = "Fast and lightweight OCI runtime"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"
-sha256 = "d3a4ce8af89125851b2bbfe2375f4050c7eca837021043c5628172feacdb88a4"
+sha256 = "6cea8d41e4be425ba2fa55587e16e44ddbe2fa333b367024e68235b922e26056"
 
 
 def post_install(self):
