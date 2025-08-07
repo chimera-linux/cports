@@ -1,6 +1,6 @@
 pkgname = "go-swagger"
 pkgver = "0.31.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 make_build_args = ["./cmd/swagger"]
 hostmakedepends = ["go"]

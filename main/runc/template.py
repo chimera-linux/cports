@@ -1,6 +1,6 @@
 pkgname = "runc"
 pkgver = "1.2.6"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
 make_install_args = ["BINDIR=/usr/bin", "install-bash", "install-man"]

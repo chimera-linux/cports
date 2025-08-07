@@ -1,6 +1,6 @@
 pkgname = "zrepl"
 pkgver = "0.9.8"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["zfs"]

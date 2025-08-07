@@ -1,6 +1,6 @@
 pkgname = "gotosocial"
 pkgver = "0.19.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.Version={pkgver}", "./cmd/gotosocial"]
 make_check_env = {"GTS_DB_TYPE": "sqlite", "GTS_DB_ADDRESS": ":memory:"}

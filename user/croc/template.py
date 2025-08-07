@@ -1,6 +1,6 @@
 pkgname = "croc"
 pkgver = "10.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "File transfer tool"
