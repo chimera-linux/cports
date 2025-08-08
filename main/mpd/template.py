@@ -1,5 +1,5 @@
 pkgname = "mpd"
-pkgver = "0.24.4"
+pkgver = "0.24.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -146,7 +146,7 @@ pkgdesc = "Music player daemon"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://www.musicpd.org"
 source = f"{url}/download/mpd/{pkgver[: pkgver.rfind('.')]}/mpd-{pkgver}.tar.xz"
-sha256 = "86035d6c63af32afa77fd5eb5ecd1c6afaef7cc352b28064edf51eea60f40d66"
+sha256 = "69dfcba5c99c8d828d8f35dfb31eb0a4e34ce3813f54666af4d8247558160a13"
 
 
 def post_install(self):
