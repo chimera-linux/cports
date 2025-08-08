@@ -10,7 +10,7 @@ hostmakedepends = [
 pkgdesc = "C HTTP/3 library"
 license = "MIT"
 url = "https://nghttp2.org/nghttp3"
-source = f"{url}/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"
+source = f"https://github.com/ngtcp2/nghttp3/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"
 sha256 = "27d084518f06d78279b050cc9cdff2418f80fb753da019427ce853cec920f33f"
 
 
