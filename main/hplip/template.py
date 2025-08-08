@@ -1,5 +1,5 @@
 pkgname = "hplip"
-pkgver = "3.25.2"
+pkgver = "3.25.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -37,7 +37,7 @@ pkgdesc = "Drivers for HP printers"
 license = "GPL-2.0-only AND BSD-3-Clause AND MIT"
 url = "https://developers.hp.com/hp-linux-imaging-and-printing"
 source = f"https://downloads.sourceforge.net/hplip/hplip-{pkgver}.tar.gz"
-sha256 = "e872ff28eb2517705a95f6e1839efa1e50a77a33aae8905278df2bd820919653"
+sha256 = "a6af314a7af0572f2ab6967b2fe68760e64d74628ef0e6237f8504d81047edbe"
 # nuh uh
 hardening = ["!vis"]
 # TODO: probably ignores CC
