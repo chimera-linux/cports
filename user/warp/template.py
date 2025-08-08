@@ -7,6 +7,7 @@ hostmakedepends = [
     "cargo-auditable",
     "desktop-file-utils",
     "gettext",
+    "gtk+3-update-icon-cache",
     "itstool",
     "meson",
     "pkgconf",
@@ -29,10 +30,14 @@ sha256 = [
 ]
 
 
-def post_patch(self):
+def post_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc=".").vendor()
+    cargo.clear_vendor_checksums(self, "zvariant")
+
+
+def post_patch(self):
     # excellent ecosystems :|
     self.mv("license-list-data", "vendor/license")
 
