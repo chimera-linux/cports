@@ -1,5 +1,5 @@
 pkgname = "python-rpds-py"
-pkgver = "0.26.0"
+pkgver = "0.27.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Python bindings to the Rust rpds crate"
 license = "MIT"
 url = "https://github.com/crate-py/rpds"
 source = f"$(PYPI_SITE)/r/rpds-py/rpds_py-{pkgver}.tar.gz"
-sha256 = "20dae58a859b0906f0685642e591056f1e787f3a8b39c8e8749a45dc7d26bdb0"
+sha256 = "8b23cf252f180cda89220b378d917180f29d313cd6a07b2431c0d3b776aae86f"
 
 
 def post_patch(self):
