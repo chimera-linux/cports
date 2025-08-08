@@ -1,5 +1,5 @@
 pkgname = "perl-path-tiny"
-pkgver = "0.148"
+pkgver = "0.150"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -9,4 +9,4 @@ pkgdesc = "Perl module for using extensions during the build"
 license = "Apache-2.0"
 url = "https://metacpan.org/pod/Path::Tiny"
 source = f"https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Path-Tiny-{pkgver}.tar.gz"
-sha256 = "818aed754b74f399e42c238bea738e20a52af89a6e3feb58bec9d0130eea4746"
+sha256 = "ff20713d1a14d257af9c78209001f40dc177e4b9d1496115cbd8726d577946c7"
