@@ -11,6 +11,9 @@ source = f"https://framagit.org/ppom/reaction/-/archive/v{pkgver}/reaction-v{pkg
 sha256 = "894cededfa22d8e1058830828ccedba21bd9ce2f744bbd539b224f9e71f95eea"
 hardening = ["vis", "cfi"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomicu64"
+
 
 def post_build(self):
     from cbuild.util import compiler
