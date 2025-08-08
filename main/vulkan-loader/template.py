@@ -26,7 +26,7 @@ url = "https://www.khronos.org/vulkan"
 source = (
     f"https://github.com/KhronosGroup/Vulkan-Loader/archive/v{pkgver}.tar.gz"
 )
-sha256 = ["e4e18585fe902ee04e86c1cdb2996b686bffef2cab02cb6079221fe69df05af8"]
+sha256 = "e4e18585fe902ee04e86c1cdb2996b686bffef2cab02cb6079221fe69df05af8"
 hardening = ["vis", "!cfi"]
 # tests disabled
 options = ["!check"]

@@ -20,8 +20,8 @@ makedepends = ["linux-headers"]
 pkgdesc = "Reference implementation of the AV1 codec"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
-source = [f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"]
-sha256 = ["9e9775180dec7dfd61a79e00bda3809d43891aee6b2e331ff7f26986207ea22e"]
+source = f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"
+sha256 = "9e9775180dec7dfd61a79e00bda3809d43891aee6b2e331ff7f26986207ea22e"
 # requires a testdata download, tests take long
 options = ["!check"]
 

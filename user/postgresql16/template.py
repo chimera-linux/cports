@@ -43,10 +43,8 @@ provides = ["postgresql-runtime"]
 pkgdesc = "Sophisticated object-relational DBMS, version 16.x"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
-source = [
-    f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
-]
-sha256 = ["9468083a56ce0ee7d294601b74dad3dd9fc69d87aff61f0a9fb63c813ff7efd8"]
+source = f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
+sha256 = "9468083a56ce0ee7d294601b74dad3dd9fc69d87aff61f0a9fb63c813ff7efd8"
 # checks depend on libpq already being installed
 options = ["!check"]
 
