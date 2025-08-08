@@ -1,6 +1,6 @@
 pkgname = "python-treq"
-pkgver = "24.9.1"
-pkgrel = 1
+pkgver = "25.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     # needs python-httpbin
@@ -10,8 +10,8 @@ make_check_args = [
 ]
 hostmakedepends = [
     "python-build",
+    "python-hatchling",
     "python-installer",
-    "python-setuptools",
 ]
 depends = [
     "python-attrs",
@@ -25,7 +25,7 @@ pkgdesc = "Python requests-like API build on top of Twisted"
 license = "MIT"
 url = "https://github.com/twisted/treq"
 source = f"$(PYPI_SITE)/t/treq/treq-{pkgver}.tar.gz"
-sha256 = "15da7fc404f3e4ed59d0abe5f8eef4966fabbe618039a2a23bc7c15305cefea8"
+sha256 = "25dde3a55ae85ec2f2c56332c99aef255ab14f997d0d00552ebff13538a9804a"
 
 
 def post_install(self):
