@@ -1,5 +1,5 @@
 pkgname = "nss"
-pkgver = "3.113.1"
+pkgver = "3.114"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
@@ -16,7 +16,7 @@ pkgdesc = "Mozilla Network Security Services"
 license = "MPL-2.0"
 url = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_RTM/src/nss-{pkgver}.tar.gz"
-sha256 = "b8c586cc0ac60b76477f62483f664f119c26000a8189dd9ef417df7dbd33a2cc"
+sha256 = "cac3c0d67028804fb316e9695f81749fa4dc118e731d674b4c4c347bd849c2f1"
 tool_flags = {"CFLAGS": []}
 env = {
     "LIBRUNPATH": "",
