@@ -1,5 +1,5 @@
 pkgname = "tinymist"
-pkgver = "0.13.18"
+pkgver = "0.13.22"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--features=cli", "--bin", "tinymist", "--bin", "typlite"]
@@ -10,7 +10,7 @@ pkgdesc = "Language server for Typst"
 license = "Apache-2.0"
 url = "https://myriad-dreamin.github.io/tinymist"
 source = f"https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "84ff7b3812dbe9c57a6cfb2844aea3c61282f94514767e956a1c3c65d1d66dac"
+sha256 = "810d570ca1da24cf3eb4410d143211483a24b9d914214a8794658da7d697810b"
 # check: takes forever
 options = ["!check", "!cross"]
 
