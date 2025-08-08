@@ -1,5 +1,5 @@
 pkgname = "jasper"
-pkgver = "4.2.5"
+pkgver = "4.2.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Reference implementation of the JPEG-2000 codec"
 license = "JasPer-2.0"
 url = "https://ece.engr.uvic.ca/~frodo/jasper"
 source = f"https://github.com/jasper-software/jasper/releases/download/version-{pkgver}/jasper-{pkgver}.tar.gz"
-sha256 = "6e49075b47204a9879600f85628a248cdb19abc1bb74d0b7a2177bcdb87c95eb"
+sha256 = "98058a94fbff57ec6e31dcaec37290589de0ba6f47c966f92654681a56c71fae"
 
 
 def post_install(self):
