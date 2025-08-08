@@ -1,5 +1,5 @@
 pkgname = "opensubdiv"
-pkgver = "3.6.0"
+pkgver = "3.6.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "Surface subdivision library"
 license = "Apache-2.0"
 url = "https://graphics.pixar.com/opensubdiv/docs/intro.html"
 source = f"https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "bebfd61ab6657a4f4ff27845fb66a167d00395783bfbd253254d87447ed1d879"
+sha256 = "e9d99a480d80e999667643747c76eb0138d36c418fc154fd71b4bd65be103d52"
 
 
 @subpackage("opensubdiv-devel")
