@@ -1,5 +1,5 @@
 pkgname = "knotifyconfig"
-pkgver = "6.16.0"
+pkgver = "6.17.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
@@ -19,7 +19,7 @@ pkgdesc = "KDE Configuration dialog for desktop notifications"
 license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/knotifyconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knotifyconfig-{pkgver}.tar.xz"
-sha256 = "90d828dfd56c09653bc95c91e72c90c019d4021437759d41e5e09acbb183ca98"
+sha256 = "e5a08f7872ffb836fbfe9726eb86c104e30afc55996138d965731f5794981263"
 hardening = ["vis"]
 
 
