@@ -1,5 +1,5 @@
 pkgname = "warp"
-pkgver = "0.8.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dqr-code-scanning=disabled"]
@@ -20,12 +20,12 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/warp"
 source = [
     f"{url}/-/archive/v{pkgver}/warp-{pkgver}.tar.gz",
-    "https://github.com/spdx/license-list-data/archive/refs/tags/v3.25.0.tar.gz",
+    "https://github.com/spdx/license-list-data/archive/refs/tags/v3.27.0.tar.gz",
 ]
 source_paths = [".", "license-list-data"]
 sha256 = [
-    "8da6871aca17873264639817c8ba903c96a193d89cbcec46edf64d95d1e143e5",
-    "f3114e9f3fbf27b9768a5fc2ab427e9bc4282d30fea0abc9272456d6abf26fae",
+    "3b553c2f5a6331e4edaf8747d7b5e782400731e889e16dfdd2019147e5a3e61c",
+    "7a1eade71449d2ff3ae42957452f6e3a660a3704b477d0e72afc2b43be94c907",
 ]
 
 
