@@ -1,5 +1,5 @@
 pkgname = "libmpdclient"
-pkgver = "2.22"
+pkgver = "2.23"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtest=true"]
@@ -9,7 +9,7 @@ pkgdesc = "Asynchronous API library for interfacing with MPD"
 license = "BSD-2-Clause AND BSD-3-Clause"
 url = "https://musicpd.org/libs/libmpdclient"
 source = f"https://www.musicpd.org/download/libmpdclient/2/libmpdclient-{pkgver}.tar.xz"
-sha256 = "eac15b82b5ba5ed0648af580221eb74657394f7fe768e966d9e9ebb27435429f"
+sha256 = "4a1b6c7f783d8cac3d3b8e4cbe9ad021c45491e383de3b893ea4eedefbc71607"
 # vis breaks symbols
 hardening = ["!vis"]
 
