@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "25.1.7"
+pkgver = "25.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -81,12 +81,13 @@ _subproject_list = [
     "proc-macro2",
     "quote",
     "roxmltree",
+    "rustc-hash",
     "syn",
     "ucd-trie",
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "4afd26a3cc93c3dd27183d4c4845f1ca7d683f6343900b54995809b3271ebed6"
+sha256 = "7c726b21c074d14d31d253d638b741422f3c0a497ce7f1b4aaaa917d10bd8d4f"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -121,7 +122,6 @@ _have_virgl = True
 # these change with platforms
 _have_intel_igpu = False
 _have_vmware = False
-_have_nine = False
 _have_arm = False
 _have_loong = False
 _have_opencl = False
@@ -133,7 +133,6 @@ match self.profile().arch:
         _have_intel = True
         _have_intel_igpu = True
         _have_vmware = True
-        _have_nine = True
     case "aarch64":
         _have_arm = True
     case "loongarch64":
@@ -185,14 +184,8 @@ if _have_virgl:
     _gallium_drivers += ["virgl"]
     _vulkan_drivers += ["virtio"]
 
-if _have_nine:
-    configure_args += ["-Dgallium-nine=true"]
-
 if _have_vmware:
     _gallium_drivers += ["svga"]
-    configure_args += ["-Dgallium-xa=enabled"]
-else:
-    configure_args += ["-Dgallium-xa=disabled"]
 
 if _have_opencl:
     makedepends += [
@@ -201,7 +194,6 @@ if _have_opencl:
         "spirv-tools-devel",
     ]
     configure_args += [
-        "-Dgallium-opencl=icd",
         "-Dgallium-rusticl=true",
     ]
 
@@ -309,23 +301,6 @@ def _(self):
     return ["usr/lib/libGL.so.*"]
 
 
-@subpackage("mesa-xatracker-libs", _have_vmware)
-def _(self):
-    self.pkgdesc = "X acceleration library"
-    self.depends += [self.parent]
-    self.renames = ["libxatracker"]
-
-    return ["usr/lib/libxatracker*.so.*"]
-
-
-@subpackage("mesa-gallium-nine", _have_nine)
-def _(self):
-    self.pkgdesc = "Mesa implementation of D3D9"
-    self.depends += [self.parent]
-
-    return ["usr/lib/d3d"]
-
-
 @subpackage("mesa-opencl", _have_opencl)
 def _(self):
     self.pkgdesc = "Mesa implementation of OpenCL"
@@ -333,8 +308,6 @@ def _(self):
 
     return [
         "etc/OpenCL",
-        "usr/lib/gallium-pipe",
-        "usr/lib/libMesaOpenCL.so.*",
         "usr/lib/libRusticlOpenCL.so.*",
     ]
 
