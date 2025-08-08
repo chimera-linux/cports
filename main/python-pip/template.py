@@ -1,5 +1,5 @@
 pkgname = "python-pip"
-pkgver = "25.1.1"
+pkgver = "25.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Python package manager"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
-sha256 = "3de45d411d308d5054c2168185d8da7f9a2cd753dbac8acbfa88a8909ecd9077"
+sha256 = "578283f006390f85bb6282dffb876454593d637f5d1be494b5202ce4877e71f2"
 # unpackaged dependencies
 options = ["!check"]
 
