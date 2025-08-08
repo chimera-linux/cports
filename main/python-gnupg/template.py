@@ -1,6 +1,6 @@
 pkgname = "python-gnupg"
-pkgver = "0.5.4"
-pkgrel = 1
+pkgver = "0.5.5"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_env = {"NO_EXTERNAL_TESTS": "1"}
 hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
@@ -12,7 +12,7 @@ url = "https://docs.red-dove.com/python-gnupg"
 source = (
     f"https://github.com/vsajip/python-gnupg/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "d3c0b385ec07b7447622b920d43c0ed07a0323ab893e68752324c5735004c146"
+sha256 = "c87d223fad6dca55a6006a38bc43142fea274c832730c00eac71421c5b4c06ec"
 
 
 def post_install(self):
