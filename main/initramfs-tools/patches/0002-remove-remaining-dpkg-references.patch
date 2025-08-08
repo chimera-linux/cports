@@ -1,4 +1,4 @@
-From 38b954a7a059c81ca74b16f0c700f0952a1e7a02 Mon Sep 17 00:00:00 2001
+From d34824ae144cd6d13675e94eaa5257e0e29bab58 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 22 Apr 2025 15:56:28 +0200
 Subject: [PATCH 2/8] remove remaining dpkg references
@@ -25,13 +25,17 @@ diff --git a/update-initramfs b/update-initramfs
 index ff8286d..30131e0 100755
 --- a/update-initramfs
 +++ b/update-initramfs
-@@ -11,13 +11,6 @@ set -e
+@@ -11,17 +11,6 @@ set -e
  
  [ -r ${CONF} ] && . ${CONF}
  
 -if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ] && [ $# = 1 ] && [ "$1" = -u ]; then
 -	if dpkg-trigger --no-await update-initramfs; then
 -		echo "update-initramfs: deferring update (trigger activated)"
+-		# The /run/update-initramfs.dpkg-trigger file is just a workaround.
+-		# The timestamp should be provided directly by the dpkg trigger.
+-		# See https://bugs.debian.org/1099136
+-		touch /run/update-initramfs.dpkg-trigger
 -		exit 0
 -	fi
 -fi
@@ -58,5 +62,5 @@ index ff8286d..30131e0 100755
  	# first time run thus no backup
  	[ ! -r "${initramfs_bak}" ] && return 0
 -- 
-2.49.0
+2.50.1
 
