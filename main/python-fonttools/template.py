@@ -1,5 +1,5 @@
 pkgname = "python-fonttools"
-pkgver = "4.58.5"
+pkgver = "4.59.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "Library to manipulate font files from Python"
 license = "MIT AND OFL-1.1 AND BSD-3-Clause AND Apache-2.0"
 url = "https://github.com/fonttools/fonttools"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "c428ec89304b448f2632990df0c2e837ba8ad118169018903db77b666b0eb17f"
+sha256 = "cf7d72742235f72485e0fe5bfa839902e7275fbe3e6f203f3c63b38bd8880f56"
 
 
 def init_check(self):
