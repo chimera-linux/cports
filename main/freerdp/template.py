@@ -1,5 +1,5 @@
 pkgname = "freerdp"
-pkgver = "3.15.0"
+pkgver = "3.16.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -69,7 +69,7 @@ pkgdesc = "RDP clients and libraries"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
-sha256 = "e8cd58decef4c970faea2fbea675970eea60e440ebe8033c54889acb83787371"
+sha256 = "385af54245560493698730b688b5e6e5d56d5c7ecf2fa7c1d7cedfde8a4ba456"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
