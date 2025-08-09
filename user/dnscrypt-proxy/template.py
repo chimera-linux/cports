@@ -1,5 +1,5 @@
 pkgname = "dnscrypt-proxy"
-pkgver = "2.1.12"
+pkgver = "2.1.14"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./dnscrypt-proxy"]
@@ -8,7 +8,7 @@ pkgdesc = "Tool for securing communications between a client and a DNS resolver"
 license = "ISC"
 url = "https://dnscrypt.info"
 source = f"https://github.com/DNSCrypt/dnscrypt-proxy/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "95fe29ed03dad0cdd34d47316ecb15c25f7ef5fab21d9ec52cbfc4743bcf5198"
+sha256 = "495c4f494d40068e5e3ddcb8748d91b90e99f2516060e3b59520b9f3d6148a9e"
 # no tests included
 options = ["!check"]
 
