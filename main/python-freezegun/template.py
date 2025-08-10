@@ -1,5 +1,5 @@
 pkgname = "python-freezegun"
-pkgver = "1.5.4"
+pkgver = "1.5.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,4 +16,4 @@ pkgdesc = "Let your python tests travel through time"
 license = "Apache-2.0"
 url = "https://github.com/spulec/freezegun"
 source = f"$(PYPI_SITE)/f/freezegun/freezegun-{pkgver}.tar.gz"
-sha256 = "798b9372fdd4d907f33e8b6a58bc64e682d9ffa8d494ce60f780197ee81faed1"
+sha256 = "ac7742a6cc6c25a2c35e9292dfd554b897b517d2dec26891a2e8debf205cb94a"
