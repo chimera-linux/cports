@@ -19,10 +19,10 @@ makedepends = [
     "libadwaita-devel",
     "libgweather-devel",
     "libportal-devel",
+    "librest-devel",
     "librsvg-devel",
     "libshumate-devel",
     "libxml2-devel",
-    "rest-devel",
 ]
 depends = [
     "gdk-pixbuf",
@@ -33,11 +33,11 @@ depends = [
     "libadwaita",
     "libgweather",
     "libportal",
+    "librest",
     "libsecret",
     "libshumate",
     "libsoup",
     "pango",
-    "rest",
 ]
 checkdepends = ["libsecret"]
 pkgdesc = "GNOME maps"
