@@ -1,18 +1,15 @@
 pkgname = "soundtouch"
-pkgver = "2.3.3"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "cmake"
-configure_args = [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
-    "-DBUILD_SHARED_LIBS=ON",
-]
+configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = []
 pkgdesc = "SoundTouch audio processing library"
 license = "LGPL-2.1-only"
 url = "https://www.surina.net/soundtouch"
 source = f"{url}/soundtouch-{pkgver}.tar.gz"
-sha256 = "43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99"
+sha256 = "3dda3c9ab1e287f15028c010a66ab7145fa855dfa62763538f341e70b4d10abd"
 
 if self.profile().arch in [
     "aarch64",
