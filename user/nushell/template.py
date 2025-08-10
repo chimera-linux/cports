@@ -32,6 +32,10 @@ _plugins = [
     "inc",
 ]
 
+if self.profile().wordsize == 32:
+    # TODO: probably fixable
+    broken = "needs atomicu64"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/nu")
