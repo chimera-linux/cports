@@ -1,37 +1,43 @@
+diff --git a/configure.ac b/configure.ac
+index 1fc0d9d..fd849d1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -94,7 +94,7 @@ PKG_CHECK_MODULES(XFCE_SCREENSAVER,
-         x11 >= $X11_REQUIRED_VERSION
-         xscrnsaver
-         gtk+-3.0 >= $GTK_REQUIRED_VERSION
--        dbus-glib-1 >= $DBUS_REQUIRED_VERSION
-+        dbus-1 >= $DBUS_REQUIRED_VERSION
-         gio-2.0 >= $GLIB_REQUIRED_VERSION
-         libxklavier >= $LIBXKLAVIER_REQUIRED
-         libxfconf-0 >= $LIBXFCONF_REQUIRED
+@@ -73,7 +73,7 @@ m4_define([libxfce4windowing_min_version], [4.19.2])
+ XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
+ XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
+ XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_min_version])
+-XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [dbus_glib_min_version])
++XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-1], [dbus_glib_min_version])
+ XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfconf_min_version])
+ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [libxfce4ui_min_version])
+ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 8a89b9b..2cd8ae4 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -196,6 +196,7 @@ xfce4_screensaver_SOURCES = \
+@@ -282,6 +282,7 @@ xfce4_screensaver_SOURCES = \
+ 	subprocs.h                  \
+ 	xfce-desktop-utils.c        \
  	xfce-desktop-utils.h        \
- 	xfcekbd-indicator.c         \
- 	xfcekbd-indicator.h         \
-+	dbus-gmain.c                \
++	dbus-gmain.c \
  	$(BUILT_SOURCES)            \
  	$(NULL)
  
+diff --git a/src/gs-listener-dbus.c b/src/gs-listener-dbus.c
+index 6d96781..b0626b9 100644
 --- a/src/gs-listener-dbus.c
 +++ b/src/gs-listener-dbus.c
-@@ -30,8 +30,7 @@
- #include <unistd.h>
+@@ -38,8 +38,7 @@
+ #include <elogind/sd-login.h>
+ #endif
  
- #include <dbus/dbus.h>
--#include <dbus/dbus-glib.h>
 -#include <dbus/dbus-glib-lowlevel.h>
+-#include <dbus/dbus-glib.h>
 +#include <dbus-gmain/dbus-gmain.h>
- 
+ #include <dbus/dbus.h>
  #include <libxfce4util/libxfce4util.h>
  
-@@ -1704,7 +1703,7 @@ gs_listener_dbus_init (GSListener *listener) {
+@@ -1703,7 +1702,7 @@ gs_listener_dbus_dbus_init (GSListenerDBus *listener) {
              return FALSE;
          }
  
@@ -40,7 +46,7 @@
          dbus_connection_set_exit_on_disconnect (listener->priv->connection, FALSE);
      }
  
-@@ -1719,7 +1718,7 @@ gs_listener_dbus_init (GSListener *listener) {
+@@ -1718,7 +1717,7 @@ gs_listener_dbus_dbus_init (GSListenerDBus *listener) {
              return FALSE;
          }
  
