@@ -1,5 +1,5 @@
 type = process
 command = /usr/bin/thinkfan -n -q
-before = login.target
-depends-on = local.target
 smooth-recovery = true
+before: login.target
+depends-on: local.target
