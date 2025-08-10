@@ -29,10 +29,10 @@ makedepends = [
     "json-glib-devel",
     "keyutils-devel",
     "libadwaita-devel",
+    "librest-devel",
     "libsecret-devel",
     "libsoup-devel",
     "libxml2-devel",
-    "rest-devel",
     "webkitgtk-devel",
 ]
 pkgdesc = "GNOME service to access online accounts"
