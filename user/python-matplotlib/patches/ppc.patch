@@ -1,0 +1,27 @@
+../src/_backend_agg_wrapper.cpp:253:17: error: non-constant-expression cannot be narrowed from type 'unsigned int' to 'int' in initializer list [-Wc++11-narrowing]
+ 253 | renderer->get_height(),
+     | ^~~~~~~~~~~~~~~~~~~~~~
+../src/_backend_agg_wrapper.cpp:253:17: note: insert an explicit cast to silence this issue
+ 253 | renderer->get_height(),
+     | ^~~~~~~~~~~~~~~~~~~~~~
+     | static_cast<int>( )
+
+diff -ruN a/src/_backend_agg_wrapper.cpp b/src/_backend_agg_wrapper.cpp
+--- a/src/_backend_agg_wrapper.cpp	2025-07-31 19:00:28.000000000 +0200
++++ b/src/_backend_agg_wrapper.cpp	2025-08-10 21:50:30.146295804 +0200
+@@ -250,12 +250,12 @@
+ 
+         .def_buffer([](RendererAgg *renderer) -> py::buffer_info {
+             std::vector<py::ssize_t> shape {
+-                renderer->get_height(),
+-                renderer->get_width(),
++                static_cast<py::ssize_t>(renderer->get_height()),
++                static_cast<py::ssize_t>(renderer->get_width()),
+                 4
+             };
+             std::vector<py::ssize_t> strides {
+-                renderer->get_width() * 4,
++                static_cast<py::ssize_t>(renderer->get_width() * 4),
+                 4,
+                 1
+             };
