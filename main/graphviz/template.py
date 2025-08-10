@@ -1,5 +1,5 @@
 pkgname = "graphviz"
-pkgver = "13.1.1"
+pkgver = "13.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
@@ -37,7 +37,7 @@ pkgdesc = "Graph visualization software"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/graphviz/graphviz/-/archive/{pkgver}/graphviz-{pkgver}.tar.gz"
-sha256 = "2183297bc5030951fed6c0511b39712057126d2098baa02fd914b09b5a19b820"
+sha256 = "0e79b8402e8ea13f05c0fc0e30604f1d0731cd3f60f85850cedac7e0ee420ef8"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
