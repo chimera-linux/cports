@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/swaync
+log-type = buffer
+depends-on: dbus
+depends-on: graphical.target

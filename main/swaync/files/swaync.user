@@ -1,4 +1,0 @@
-type = process
-command = /usr/bin/swaync
-depends-on = dbus
-depends-on = graphical.target

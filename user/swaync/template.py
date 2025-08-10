@@ -1,9 +1,9 @@
 pkgname = "swaync"
-pkgver = "0.11.0"
+pkgver = "0.12.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "gobject-introspection",
+    "blueprint-compiler",
     "meson",
     "pkgconf",
     "sassc",
@@ -12,18 +12,21 @@ hostmakedepends = [
 ]
 makedepends = [
     "granite-devel",
-    "gtk+3-devel",
-    "gtk-layer-shell-devel",
+    "gtk4-devel",
+    "gtk4-layer-shell-devel",
     "json-glib-devel",
+    "libadwaita-devel",
+    "libgee-devel",
     "libhandy-devel",
     "libpulse-devel",
+    "wayland-devel",
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Notification daemon for sway"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ErikReider/SwayNotificationCenter"
 source = f"https://github.com/ErikReider/SwayNotificationCenter/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7f69fe248994404af4115d335929b3bd2faf8c6321374b5b3e3fa2c97d169c90"
+sha256 = "8a6475bfdd8abf5be1267ede0a233266b3f14311b169047bde599752a3ac981c"
 
 
 def post_install(self):
