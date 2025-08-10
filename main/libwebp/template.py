@@ -1,5 +1,5 @@
 pkgname = "libwebp"
-pkgver = "1.5.0"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -16,7 +16,7 @@ url = "https://chromium.googlesource.com/webm/libwebp"
 source = (
     f"http://downloads.webmproject.org/releases/webp/libwebp-{pkgver}.tar.gz"
 )
-sha256 = "7d6fab70cf844bf6769077bd5d7a74893f8ffd4dfb42861745750c63c2a5c92c"
+sha256 = "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 hardening = ["vis"]
 
