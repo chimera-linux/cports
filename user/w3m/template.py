@@ -1,6 +1,6 @@
 pkgname = "w3m"
 pkgver = "0.5.3_git20230121"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."
