@@ -1,0 +1,12 @@
+diff -ruN a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2025-05-07 12:48:02.000000000 +0200
++++ b/pyproject.toml	2025-08-11 08:43:31.625257159 +0200
+@@ -75,7 +75,7 @@
+ 
+ [tool.pytest.ini_options]
+ minversion = "6.0"
+-addopts = "-vvvv --doctest-modules -s --cov=urwid"
++addopts = "-vvvv --doctest-modules -s"
+ doctest_optionflags = ["ELLIPSIS", "IGNORE_EXCEPTION_DETAIL"]
+ testpaths = ["urwid"]
+ 
