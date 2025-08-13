@@ -1,0 +1,55 @@
+Patch-Source: https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/710
+---
+From ae154735323dcbb991dc8dd44d6f66c0d9d328b1 Mon Sep 17 00:00:00 2001
+From: fossdd <fossdd@pwned.life>
+Date: Sun, 23 Mar 2025 18:26:55 +0100
+Subject: [PATCH] build: Use debug option to detect development versions
+
+meson's buildtype option contains not only if the build is not using debug,
+but also configures the optimization option.
+
+Ref: https://mesonbuild.com/Builtin-options.html#details-for-buildtype
+---
+ meson.build | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index c33a2be4..00ad2076 100644
+--- a/meson.build
++++ b/meson.build
+@@ -36,10 +36,6 @@ add_project_arguments(
+ 
+ i18n = import('i18n')
+ 
+-if get_option('buildtype').startswith('debug')
+-    add_project_arguments('-DDEBUG=1', language : 'c')
+-endif
+-
+ if get_option('strict')
+     add_project_arguments(
+         [
+@@ -52,10 +48,11 @@ endif
+ if get_option('buildtype') != 'plain'
+     add_project_arguments('-fstack-protector-strong', language: 'c')
+ endif
+-if get_option('buildtype') == 'release'
+-    cargo_build_flags = ['--release'] # for artifacts
+-else
++if get_option('debug')
++    add_project_arguments('-DDEBUG=1', language : 'c')
+     cargo_build_flags = []
++else
++    cargo_build_flags = ['--release'] # for artifacts
+ endif
+ 
+ prefix = get_option('prefix')
+@@ -115,4 +112,4 @@ subdir('tests')
+ 
+ gnome.post_install(
+     glib_compile_schemas: true,
+-)
+\ No newline at end of file
++)
+-- 
+GitLab
+

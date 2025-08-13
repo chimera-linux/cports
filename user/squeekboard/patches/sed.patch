@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index c33a2be..100b5a3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -90,7 +90,7 @@ message('\n'.join(summary))
+ cp = find_program('cp')
+ sed = find_program('sed')
+ copy_cargo_toml = run_command('cp', 'Cargo.toml', 'meson_Cargo.toml.in', check: true)
+-prepare_cargo_toml = run_command('sed', '-i', 's/path = "/path = "@path@\//', 'meson_Cargo.toml.in', check: true)
++prepare_cargo_toml = run_command('sed', '-i', '', 's/path = "/path = "@path@\//', 'meson_Cargo.toml.in', check: true)
+ 
+ path_data = configuration_data()
+ path_data.set('path', meson.project_source_root())
