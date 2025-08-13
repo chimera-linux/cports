@@ -586,7 +586,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR__llseek:
  #endif
-@@ -604,27 +608,27 @@ bool SyscallSets::IsAllowedGeneralIo(int sysno) {
+@@ -604,19 +604,19 @@
      case __NR_read:
      case __NR_readv:
      case __NR_pread64:
@@ -609,14 +609,19 @@ index f6e77d1..5e3cbfe 100644
 +#if defined(__i386__) || defined(__arm__) || defined(__mips__) || defined(__powerpc64__)
      case __NR__newselect:
  #endif
+     case __NR_write:
+@@ -632,12 +632,12 @@
+     case __NR_recvmmsg_time64:  // Could specify source.
+ #endif
+ // send* syscalls need their flags filtered.
 -#if defined(__arm__) || \
 +#if defined(__arm__) || defined(__powerpc64__) || \
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_send:
  #endif
- #if defined(__x86_64__) || defined(__arm__) || defined(__mips__) || \
--    defined(__aarch64__)
-+    defined(__aarch64__) || defined(__powerpc64__)
+ #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
+-    defined(__mips__) || defined(__aarch64__)
++    defined(__mips__) || defined(__aarch64__) || defined(__powerpc64__)
      case __NR_sendmsg:  // Could specify destination.
      case __NR_sendto:   // Could specify destination.
  #endif
