@@ -1,5 +1,5 @@
 pkgname = "python-virtualenv"
-pkgver = "20.33.1"
+pkgver = "20.34.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_env = {
@@ -26,7 +26,7 @@ pkgdesc = "Tool for creating isolated 'virtual' Python environments"
 license = "MIT"
 url = "https://virtualenv.pypa.io/en/stable"
 source = f"https://github.com/pypa/virtualenv/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e81c6c66297f4bb4f60d4c34e9045963e7871b4fca421781eceb7de484dae392"
+sha256 = "39f8865ad52a14089e1301b111bcb2ed59febf5cdb04ad90148882ba2d518e32"
 # bizarre meta error I'm too frustrated to investigate
 options = ["!check"]
 
