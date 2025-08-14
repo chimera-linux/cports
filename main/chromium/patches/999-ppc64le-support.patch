@@ -2,12 +2,12 @@ diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/alloc
 index 00de65d..98882cd 100644
 --- a/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/base/allocator/partition_allocator/partition_alloc.gni
-@@ -70,7 +70,7 @@
-   has_64_bit_pointers = false
- } else if (current_cpu == "x64" || current_cpu == "arm64" ||
-            current_cpu == "arm64e" || current_cpu == "loong64" ||
--           current_cpu == "riscv64") {
-+           current_cpu == "riscv64" || current_cpu == "ppc64") {
+@@ -66,7 +66,7 @@
+ # Whether 64-bit pointers are used.
+ # A static_assert in partition_alloc_config.h verifies that.
+ if (current_cpu == "x64" || current_cpu == "arm64" || current_cpu == "arm64e" ||
+-    current_cpu == "loong64" || current_cpu == "riscv64") {
++    current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
    assert(current_cpu != "arm64e" || (is_ios && target_environment == "device"))
    has_64_bit_pointers = true
  } else if (current_cpu == "x86" || current_cpu == "arm" ||
@@ -214,23 +214,14 @@ index d7286c4..5db9ada 100644
           SyscallSets::IsSocketCall(sysno) ||
  #endif
 @@ -260,7 +260,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
-   }
  
+   // TODO(crbug.com/40528912): should i386 really be in this list?
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
 -    defined(__aarch64__)
 +    defined(__aarch64__) || defined(__powerpc64__)
    if (sysno == __NR_mmap)
      return RestrictMmapFlags();
  #endif
-@@ -281,7 +281,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
-     return RestrictPrctl();
- 
- #if defined(__x86_64__) || defined(__arm__) || defined(__mips__) || \
--    defined(__aarch64__)
-+    defined(__aarch64__) || defined(__powerpc64__)
-   if (sysno == __NR_socketpair) {
-     // Only allow AF_UNIX, PF_UNIX. Crash if anything else is seen.
-     static_assert(AF_UNIX == PF_UNIX,
 @@ -344,7 +344,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
      return Error(EPERM);
    }
