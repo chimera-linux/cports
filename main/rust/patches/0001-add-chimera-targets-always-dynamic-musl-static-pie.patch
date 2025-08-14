@@ -1,4 +1,4 @@
-From db41555bd0e924c4f1b0ce1becfaf07f9a484150 Mon Sep 17 00:00:00 2001
+From a9d8cb7cb32154bc262c67413a8eb4928a7eaa25 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
 Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
@@ -70,10 +70,10 @@ index 1bef60240..9a2fc4bba 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 303be54a6..812f9e080 100644
+index 7a49f0040..b20979d13 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1736,6 +1736,15 @@ macro_rules! supported_targets {
+@@ -1746,6 +1746,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -106,10 +106,10 @@ index 000000000..ff2c140aa
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
-index 58ba06e12..da6487ae6 100644
+index 58daaa036..f8f3a5baf 100644
 --- a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
-@@ -12,9 +12,6 @@ pub(crate) fn target() -> Target {
+@@ -14,9 +14,6 @@ pub(crate) fn target() -> Target {
          | SanitizerSet::MEMORY
          | SanitizerSet::THREAD;
  
@@ -324,7 +324,7 @@ index 000000000..5953e1565
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-index 49413d27a..b2c5751ff 100644
+index e205aef82..b66430c01 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
 @@ -10,8 +10,6 @@ pub(crate) fn target() -> Target {
@@ -333,9 +333,9 @@ index 49413d27a..b2c5751ff 100644
      base.stack_probes = StackProbeType::Inline;
 -    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
 -    base.crt_static_default = true;
+     base.llvm_abiname = "elfv2".into();
  
      Target {
-         llvm_target: "powerpc64-unknown-linux-musl".into(),
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 new file mode 100644
 index 000000000..29a7459b7
@@ -353,7 +353,7 @@ index 000000000..29a7459b7
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
-index 9e2bfe2c5..c70c9d740 100644
+index f145c5b8c..f477f78b8 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 @@ -8,8 +8,6 @@ pub(crate) fn target() -> Target {
@@ -362,9 +362,9 @@ index 9e2bfe2c5..c70c9d740 100644
      base.stack_probes = StackProbeType::Inline;
 -    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
 -    base.crt_static_default = true;
+     base.llvm_abiname = "elfv2".into();
  
      Target {
-         llvm_target: "powerpc64le-unknown-linux-musl".into(),
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
 new file mode 100644
 index 000000000..65b2d62ba
@@ -437,7 +437,7 @@ index 000000000..8c26403ce
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-index 47050c1f7..b57eb1c88 100644
+index e9522ac76..0cdbb6267 100644
 --- a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
 @@ -13,8 +13,6 @@ pub(crate) fn target() -> Target {
@@ -492,5 +492,5 @@ index cc5f88862..0203c776a 100644
      Target {
          llvm_target: "x86_64-unknown-linux-musl".into(),
 -- 
-2.49.0
+2.50.1
 
