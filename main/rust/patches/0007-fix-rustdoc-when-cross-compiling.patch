@@ -1,4 +1,4 @@
-From 8514b985c7dbba4d1b28d4fbe9136366e8a17ce8 Mon Sep 17 00:00:00 2001
+From 80b8db177ddc3bd7d54bb50f0f54b963d0191ce5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:54:43 +0200
 Subject: [PATCH 07/14] fix rustdoc when cross-compiling
@@ -40,5 +40,5 @@ index a338b9c80..f23fb64ac 100644
          );
          eprintln!("sysroot: {sysroot:?}");
 -- 
-2.49.0
+2.50.1
 

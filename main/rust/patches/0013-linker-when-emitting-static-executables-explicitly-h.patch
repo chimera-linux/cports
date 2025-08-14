@@ -1,4 +1,4 @@
-From 77cedf7231c42df22e7ce4c1b2a8de1a2d0cbe1a Mon Sep 17 00:00:00 2001
+From 7e087ae0439fc537007cd413a4dc623bfa72ba9d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Jul 2024 15:04:38 +0200
 Subject: [PATCH 13/14] linker: when emitting static executables, explicitly
@@ -52,5 +52,5 @@ index 8fc83908e..66b64cf11 100644
                  self.build_dylib(crate_type, out_filename);
              }
 -- 
-2.49.0
+2.50.1
 

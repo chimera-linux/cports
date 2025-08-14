@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.88.0"
+pkgver = "1.89.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -12,7 +12,7 @@ hostmakedepends = [
     "ncurses-devel",
     "pkgconf",
     "python",
-    "wasi-libc",
+    "wasi-clang",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "0c1dcbb4f762513d021e1a282c0ac58c0a423642b3a6bf581cafb5414df4193e"
+sha256 = "0b9d55610d8270e06c44f459d1e2b7918a5e673809c592abed9b9c600e33d95a"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -41,6 +41,7 @@ env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
     "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
+    "WASI_SDK_PATH": "/usr",
 }
 # disable check at least for now
 # lto always breaks across major llvm vers because of consumer/reader mismatch,
@@ -73,21 +74,15 @@ if self.current_target == "custom:bootstrap":
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.158")
     # nice fucking meme
-    cargo.clear_vendor_checksums(self, "libc-0.2.94")
-    cargo.clear_vendor_checksums(self, "libc-0.2.97")
-    cargo.clear_vendor_checksums(self, "libc-0.2.107")
-    cargo.clear_vendor_checksums(self, "libc-0.2.112")
-    cargo.clear_vendor_checksums(self, "libc-0.2.119")
-    cargo.clear_vendor_checksums(self, "libc-0.2.121")
-    cargo.clear_vendor_checksums(self, "libc-0.2.124")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
+    cargo.clear_vendor_checksums(self, "libc-0.2.158")
+    cargo.clear_vendor_checksums(self, "libc-0.2.164")
     cargo.clear_vendor_checksums(self, "libc-0.2.168")
     cargo.clear_vendor_checksums(self, "libc-0.2.169")
-    cargo.clear_vendor_checksums(self, "libc-0.2.170")
     cargo.clear_vendor_checksums(self, "libc-0.2.171")
     cargo.clear_vendor_checksums(self, "libc-0.2.172")
+    cargo.clear_vendor_checksums(self, "libc-0.2.174")
 
 
 def configure(self):
@@ -172,7 +167,7 @@ unsafe extern "C" {}
     with open(self.cwd / "bootstrap.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 140732
+change-id = 142379
 
 [llvm]
 ninja = false
