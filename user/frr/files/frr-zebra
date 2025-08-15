@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/frr/zebra -A 127.0.0.1
+depends-on = local.target
+logfile = /var/log/frr/zebra.log
+restart = true
