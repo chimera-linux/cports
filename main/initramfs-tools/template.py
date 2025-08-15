@@ -1,6 +1,6 @@
 pkgname = "initramfs-tools"
-pkgver = "0.148.3"
-pkgrel = 1
+pkgver = "0.149"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [f"VERSION={pkgver}"]
 depends = [
@@ -21,7 +21,7 @@ pkgdesc = "Generic modular initramfs generator"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"
-sha256 = "8285e6a5557aba74cf745737319f0af2d4df4d48aba65e1a6fb67d1117bf1662"
+sha256 = "6dc0c03b28c9f05d5576db07798b4cb0156b5ae2148f3d8ee7db77b8904734a3"
 # no tests
 options = ["!check"]
 
