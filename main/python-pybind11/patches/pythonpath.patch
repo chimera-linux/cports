@@ -1,12 +1,13 @@
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -44,6 +44,9 @@
-   "unused-argument",  # covered by Ruff ARG
+diff -Nurp a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2025-08-22 19:57:09.000000000 +0000
++++ b/pyproject.toml	2025-08-30 19:32:03.112450401 +0000
+@@ -143,6 +143,9 @@ messages_control.disable = [
+   "consider-using-f-string", # triggers in _version.py incorrectly
  ]
  
 +[tool.pytest.ini_options]
 +pythonpath = "build-tests/tests"
 +
- [tool.ruff]
- target-version = "py37"
- src = ["src"]
+ [tool.ruff.lint]
+ extend-select = [
+   "B",           # flake8-bugbear
