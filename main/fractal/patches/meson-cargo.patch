@@ -1,22 +1,23 @@
 diff --git a/src/meson.build b/src/meson.build
-index 0210c295..290cd9c6 100644
+index 4f7c3c2b..af70dd9c 100644
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -40,24 +40,17 @@ else
+@@ -40,8 +40,6 @@ else
    message('Building in release mode')
  endif
  
 -cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
 -
- custom_target(
-   'cargo-build',
-   build_by_default: true,
+ if build_env_only
+   depends = []
+ else
+@@ -54,16 +52,11 @@ custom_target(
    build_always_stale: true,
    output: meson.project_name(),
    console: true,
 -  install: true,
    install_dir: bindir,
-   depends: [resources, ui_resources],
+   depends: depends,
    command: [
 -    'env',
 -    cargo_env,
@@ -27,7 +28,7 @@ index 0210c295..290cd9c6 100644
    ]
  )
  
-@@ -98,7 +91,7 @@ custom_target(
+@@ -104,7 +97,7 @@ custom_target(
      output: 'doc',
      console: true,
      command: [
