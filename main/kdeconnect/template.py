@@ -1,10 +1,10 @@
 pkgname = "kdeconnect"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 # needs more setup
 make_check_args = ["-E", "mdnstest"]
-make_check_wrapper = ["wlheadless-run", "--"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -38,7 +38,6 @@ makedepends = [
     "qqc2-desktop-style-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtconnectivity-devel",
-    "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtwayland-devel",
     "solid-devel",
@@ -48,14 +47,14 @@ depends = [
     "kirigami-addons",
     "sshfs",
 ]
-checkdepends = ["xwayland-run", *depends]
+checkdepends = [*depends]
 pkgdesc = "KDE plugin for communicating with a smartphone device"
-license = " GPL-2.0-only OR GPL-3.0-only"
+license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "c44994e896e17be19fb93173143a8c1196e6d064d3b0d897d4172b9b48bde342"
+sha256 = "edc6d8d5bb3aab53208a229528ef36a5bc959bfaec17512b5621502d1d37d260"
 
 
 def post_install(self):

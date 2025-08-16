@@ -1,5 +1,5 @@
 pkgname = "tokodon"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -25,6 +25,7 @@ makedepends = [
     "knotifications-devel",
     "kunifiedpush-devel",
     "purpose-devel",
+    "qcoro-devel",
     "qqc2-desktop-style-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",
@@ -41,4 +42,4 @@ pkgdesc = "KDE Mastodon client"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-or-later"
 url = "https://apps.kde.org/tokodon"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/tokodon-{pkgver}.tar.xz"
-sha256 = "7effbc67ecc2f6c013898b4e391924674f411892e513c7e8f5bde56a545e3317"
+sha256 = "8cf3458f07def1cbcddb3e42707cec1da28034cacef0dbc179a77a2e35c6ae6a"

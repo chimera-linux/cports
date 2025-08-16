@@ -1,5 +1,5 @@
 pkgname = "kosmindoormap"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,6 +14,7 @@ hostmakedepends = [
 makedepends = [
     "kcoreaddons-devel",
     "ki18n-devel",
+    "kirigami-addons-devel",
     "kopeninghours-devel",
     "kpublictransport-devel",
     "kservice-devel",
@@ -28,7 +29,7 @@ url = "https://invent.kde.org/libraries/kosmindoormap"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kosmindoormap-{pkgver}.tar.xz"
 )
-sha256 = "9ac040ce4339bc5e715de07137e79bcaea6ba459e3049a57ce27a750381422da"
+sha256 = "46151160bfce5f855e4df6febbdf9e4887f4addd745749dd0888aa9a12d121cb"
 
 
 @subpackage("kosmindoormap-devel")
