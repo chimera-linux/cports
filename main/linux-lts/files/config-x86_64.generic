@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 6.12.39 Kernel Configuration
+# Linux/x86_64 6.12.42 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 20.1.8"
 CONFIG_GCC_VERSION=0
@@ -9131,6 +9131,7 @@ CONFIG_VHOST_SCSI=m
 CONFIG_VHOST_VSOCK=m
 CONFIG_VHOST_VDPA=m
 # CONFIG_VHOST_CROSS_ENDIAN_LEGACY is not set
+CONFIG_VHOST_ENABLE_FORK_OWNER_CONTROL=y
 
 #
 # Microsoft Hyper-V guest support

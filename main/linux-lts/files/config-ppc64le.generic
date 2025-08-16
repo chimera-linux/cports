@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.12.39 Kernel Configuration
+# Linux/powerpc 6.12.42 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 20.1.8"
 CONFIG_GCC_VERSION=0
@@ -8606,6 +8606,7 @@ CONFIG_VHOST_SCSI=m
 CONFIG_VHOST_VSOCK=m
 CONFIG_VHOST_VDPA=m
 CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y
+CONFIG_VHOST_ENABLE_FORK_OWNER_CONTROL=y
 
 #
 # Microsoft Hyper-V guest support
@@ -10479,7 +10480,6 @@ CONFIG_CRYPTO_VPMSUM_TESTER=m
 CONFIG_CRYPTO_MD5_PPC=m
 CONFIG_CRYPTO_SHA1_PPC=m
 CONFIG_CRYPTO_CHACHA20_P10=m
-CONFIG_CRYPTO_POLY1305_P10=m
 CONFIG_CRYPTO_DEV_VMX=y
 CONFIG_CRYPTO_DEV_VMX_ENCRYPT=m
 # end of Accelerated Cryptographic Algorithms for CPU (powerpc)
