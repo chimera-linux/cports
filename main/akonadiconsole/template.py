@@ -1,5 +1,5 @@
 pkgname = "akonadiconsole"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -44,4 +44,4 @@ url = "https://techbase.kde.org/KDE_PIM/Akonadi/Development_Tools"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadiconsole-{pkgver}.tar.xz"
 )
-sha256 = "b2f535c93d8a560d8f6ab9ac9fb8111eea216c8c1f07095a52619ace7b5b14b5"
+sha256 = "fd9203e29a438eb686d33b0ef89b566bd0a3b2e0367057c936aaf20237ae7d10"

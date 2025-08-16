@@ -1,5 +1,5 @@
 pkgname = "libkcompactdisc"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ url = "https://api.kde.org/libkcompactdisc/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/libkcompactdisc-{pkgver}.tar.xz"
 )
-sha256 = "ee0be866b6f941cdf6b3c87a45861bc7685a5ba9875caf8e5f46841d8322d37f"
+sha256 = "a56355f676edcd1c9c143f03b29cf9b97c49cc2ae952fa5c1004fab2be50472f"
 
 
 @subpackage("libkcompactdisc-devel")

@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=OFF", "-DFETCH_OTIO=OFF"]
@@ -49,7 +49,7 @@ pkgdesc = "KDE video editor"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "36f8927e59ed997b1f9584b570bda5b5aa34dc1316b20e5d48f13181731abc89"
+sha256 = "f86206b9f86fe5693121723d0bb1750f96c295e9b6c7eb1fea2b408f56cc30d6"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
@@ -57,3 +57,8 @@ hardening = ["vis", "!int"]
 # TODO
 # check: takes forever to build + sometimes hangs etc
 options = ["!cross", "!check"]
+
+
+def post_install(self):
+    # unused post-build artifact of kdenliveLib's ecm_add_qml_module()
+    self.uninstall("usr/lib/libkdenliveLibplugin.a")
