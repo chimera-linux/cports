@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/kanidm_unixd_tasks
+
+waits-for: kanidm-unixd
