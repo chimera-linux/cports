@@ -1,6 +1,6 @@
 pkgname = "syncthing"
-pkgver = "1.30.0"
-pkgrel = 1
+pkgver = "2.0.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/syncthing/syncthing/lib/build.Version=v{pkgver}",
@@ -20,7 +20,7 @@ pkgdesc = "Continuous file synchronization program"
 license = "MPL-2.0"
 url = "https://syncthing.net"
 source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
-sha256 = "1e9eb93be73960f748fe85d2738793b5a11c88e63839254057d4fd86cd4321a3"
+sha256 = "b5f61ee87bf999480522b872ab5f9c7246c7818e792d1e2984940c4f3213d572"
 
 
 if self.profile().wordsize == 32:
@@ -37,6 +37,14 @@ def post_install(self):
     self.install_license("cmd/strelaysrv/LICENSE", pkgname="syncthing-relaysrv")
     self.install_file(
         "etc/firewall-ufw/syncthing", "usr/lib/ufw/applications.d"
+    )
+    self.install_file(
+        "cmd/stdiscosrv/etc/firewall-ufw/stdiscosrv",
+        "usr/lib/ufw/applications.d",
+    )
+    self.install_file(
+        "cmd/strelaysrv/etc/firewall-ufw/strelaysrv",
+        "usr/lib/ufw/applications.d",
     )
     self.install_file(
         "etc/linux-desktop/*.desktop", "usr/share/applications", glob=True
@@ -67,6 +75,7 @@ def _(self):
 
     return [
         "cmd:strelaysrv",
+        "usr/lib/ufw/applications.d/strelaysrv",
         "usr/share/licenses/syncthing-relaysrv",
     ]
 
@@ -75,4 +84,4 @@ def _(self):
 def _(self):
     self.subdesc = "discovery server"
 
-    return ["cmd:stdiscosrv"]
+    return ["cmd:stdiscosrv", "usr/lib/ufw/applications.d/stdiscosrv"]
