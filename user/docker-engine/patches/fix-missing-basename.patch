@@ -1,0 +1,14 @@
+Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/a84e604860396f8194e0b0154efd2f94f47517ed/community/tini/fix-missing-basename.patch
+diff --git a/tini/src/tini.c b/tini/src/tini.c
+index eb62015..0e7d5da 100644
+--- a/tini/src/tini.c
++++ b/tini/src/tini.c
+@@ -18,6 +18,8 @@
+ #include "tiniConfig.h"
+ #include "tiniLicense.h"
+ 
++#define basename(name) (strrchr((name),'/') ? strrchr((name),'/')+1 : (name))
++
+ #if TINI_MINIMAL
+ #define PRINT_FATAL(...)                         fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n");
+ #define PRINT_WARNING(...)  if (verbosity > 0) { fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n"); }
