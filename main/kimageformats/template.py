@@ -1,6 +1,6 @@
 pkgname = "kimageformats"
 pkgver = "6.17.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
 # jpegxr; exr write fails on ppc64le
