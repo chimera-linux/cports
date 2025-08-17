@@ -1,6 +1,6 @@
 pkgname = "audiotube"
 pkgver = "25.04.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 _deps = [
     "kirigami-addons",
