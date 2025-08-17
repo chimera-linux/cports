@@ -1,6 +1,6 @@
 pkgname = "python-matplotlib"
 pkgver = "3.10.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = [
     "-Csetup-args=-Dsystem-freetype=true",
