@@ -1,6 +1,6 @@
 pkgname = "ufw"
 pkgver = "0.36.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "python_pep517"
 hostmakedepends = [
     "iptables",
@@ -30,6 +30,7 @@ def post_install(self):
         self.mv("usr/share", self.destdir / "usr")
         self.mv("usr/lib/ufw", self.destdir / "usr/lib")
         self.mv("usr/bin", self.destdir / "usr")
+        self.mv("etc/ufw/applications.d", self.destdir / "usr/lib/ufw")
         self.mv("etc", self.destdir)
 
     self.install_service(self.files_path / "ufw")
