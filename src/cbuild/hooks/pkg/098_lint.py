@@ -235,6 +235,7 @@ def invoke(pkg):
         "tmpfiles.d",
         "udev/rules.d",
         "udev/hwdb.d",
+        "ufw/applications.d",
     ]:
         if d == "modprobe.d" and pkg.pkgname == "kmod":
             continue
