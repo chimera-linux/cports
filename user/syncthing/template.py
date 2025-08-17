@@ -35,7 +35,9 @@ def pre_build(self):
 
 def post_install(self):
     self.install_license("cmd/strelaysrv/LICENSE", pkgname="syncthing-relaysrv")
-    self.install_file("etc/firewall-ufw/syncthing", "usr/lib/ufw/applications.d")
+    self.install_file(
+        "etc/firewall-ufw/syncthing", "usr/lib/ufw/applications.d"
+    )
     self.install_file(
         "etc/linux-desktop/*.desktop", "usr/share/applications", glob=True
     )
