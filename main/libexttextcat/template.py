@@ -1,8 +1,10 @@
 pkgname = "libexttextcat"
 pkgver = "3.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
+# out of tree builds don't install .lm files
+make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 checkdepends = ["bash"]
 pkgdesc = "N-Gram-Based Text Categorization library"
