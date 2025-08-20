@@ -1500,8 +1500,6 @@ class Template(Package):
         dstr = self.pkgdesc
         if re.search(r"\.$", dstr):
             self.error("pkgdesc should not end with a period")
-        if re.search(r"\s$", dstr):
-            self.error("pkgdesc should not end with whitespace")
         if re.search(r"^\s", dstr):
             self.error("pkgdesc should not start with whitespace")
         if re.search(r"\s$", dstr):
