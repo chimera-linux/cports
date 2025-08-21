@@ -1,0 +1,11 @@
+--- a/third_party/rust/chromium_crates_io/vendor/qr_code-v2/src/lib.rs
++++ b/third_party/rust/chromium_crates_io/vendor/qr_code-v2/src/lib.rs
+@@ -4,8 +4,6 @@
+ //! This crate provides a [QrCode](crate::QrCode) encoder and decoder
+ //!
+ 
+-#![deny(missing_docs)]
+-#![deny(warnings)]
+ #![allow(
+     clippy::must_use_candidate, // This is just annoying.
+     clippy::use_self, // Rust 1.33 doesn't support Self::EnumVariant, let's try again in 1.37.
