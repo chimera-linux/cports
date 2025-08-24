@@ -1,5 +1,5 @@
 pkgname = "liburing"
-pkgver = "2.9"
+pkgver = "2.12"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--mandir=/usr/share/man", "--use-libc"]
@@ -13,7 +13,7 @@ pkgdesc = "Linux kernel io_uring access library"
 license = "LGPL-2.1-or-later OR MIT"
 url = "https://github.com/axboe/liburing"
 source = f"{url}/archive/refs/tags/liburing-{pkgver}.tar.gz"
-sha256 = "897b1153b55543e8b92a5a3eb9b906537a5fedcf8afaf241f8b8787940c79f8d"
+sha256 = "f1d10cb058c97c953b4c0c446b11e9177e8c8b32a5a88b309f23fdd389e26370"
 # vis breaks symbols
 hardening = ["!vis", "!cfi"]
 # FIXME: run into timeout
