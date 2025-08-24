@@ -1,6 +1,6 @@
 pkgname = "kanshi"
-pkgver = "1.7.0"
-pkgrel = 3
+pkgver = "1.8.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -14,9 +14,9 @@ makedepends = [
 ]
 pkgdesc = "Dynamic display configuration for wayland"
 license = "MIT"
-url = "https://sr.ht/~emersion/kanshi"
-source = f"https://git.sr.ht/~emersion/kanshi/archive/v{pkgver}.tar.gz"
-sha256 = "d35b2a0b41a36cc55066320ae7ae5b176450546a4ed67ee09e7241ecd36bfc73"
+url = "https://gitlab.freedesktop.org/emersion/kanshi"
+source = f"{url}/-/archive/v{pkgver}/kanshi-{pkgver}.tar.gz"
+sha256 = "4b2c004c6adfa181b1e8f68de216d9b71f449727ae2712226302c14972230030"
 hardening = ["vis", "cfi"]
 
 
