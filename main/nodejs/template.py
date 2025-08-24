@@ -1,5 +1,5 @@
 pkgname = "nodejs"
-pkgver = "24.5.0"
+pkgver = "24.6.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -36,7 +36,7 @@ pkgdesc = "JavaScript runtime based on V8"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "27a05a6925c1d9f023856513c93e4b4d34344fe95e19e0204d182f903fb120dc"
+sha256 = "eba12bb7a8bcd8d5e0bebb9d7733f34d3e4854db4e890702c32f1060151097ed"
 debug_level = 1  # allow LTO build to not run out of mem
 hardening = ["!vis", "!cfi"]
 options = ["!cross"]
