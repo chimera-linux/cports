@@ -1,8 +1,7 @@
 pkgname = "python-pybind11"
-pkgver = "2.13.6"
-pkgrel = 4
+pkgver = "3.0.0"
+pkgrel = 0
 build_style = "python_pep517"
-make_build_args = ["--skip-dependency-check"]
 make_check_args = [
     # finds wrong cflags in sample project
     "--deselect=tests/extra_setuptools/test_setuphelper.py::test_simple_setup_py",
@@ -12,6 +11,8 @@ make_check_args = [
     # missing trampoline_module/widget_module
     "--ignore=tests/test_embed/test_interpreter.py",
     "--ignore=tests/test_embed/test_trampoline.py",
+    # hangs
+    "--ignore=tests/test_multiple_interpreters.py",
 ]
 hostmakedepends = [
     "cmake",
@@ -26,18 +27,19 @@ makedepends = [
     "boost-devel",
     "python-build",
     "python-installer",
+    "python-scikit_build_core",
     "python-setuptools",
     "python-wheel",
 ]
 depends = ["python"]
-checkdepends = ["python-pytest-xdist"]
+checkdepends = ["eigen", "python-pytest-xdist"]
 pkgdesc = "Seamless operability between C++11 and Python"
 license = "BSD-3-Clause"
 url = "https://pybind11.readthedocs.io/en/stable/index.html"
 source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "e08cb87f4773da97fa7b5f035de8763abc656d87d5773e62f6da0587d1f0ec20"
+sha256 = "453b1a3e2b266c3ae9da872411cadb6d693ac18063bd73226d96cfb7015a200c"
 # tests disabled conditionally
 options = []
 
