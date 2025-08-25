@@ -1,5 +1,5 @@
 pkgname = "fnf"
-pkgver = "0.3.1"
+pkgver = "0.4"
 pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers"]
@@ -7,7 +7,7 @@ pkgdesc = "CLI fuzzy finder"
 license = "MIT"
 url = "https://github.com/leo-arch/fnf"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "3a65de45f68419528e5fa57d9857aa208f4802ba85de267a09734d7231b6d1eb"
+sha256 = "13aa1c1bddfa6be4f458af3e077ed0c1bbd91400d89cf670c1a10cafd525c8f5"
 
 
 def post_install(self):
