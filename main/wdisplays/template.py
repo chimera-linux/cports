@@ -1,6 +1,6 @@
 pkgname = "wdisplays"
-pkgver = "1.1.1"
-pkgrel = 1
+pkgver = "1.1.3"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "glib-devel",
@@ -20,4 +20,4 @@ pkgdesc = "GUI display configuration tool for wlroots compositors"
 license = "GPL-3.0-or-later"
 url = "https://github.com/artizirk/wdisplays"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "2df2c56db494c8450b1c7746b0ed2af11bf637fe2838f7412146fcc5cc1a2605"
+sha256 = "6b8674598d50cb56a3acb79bd563c1d7a7d7781a8ce8dcc83a240916024b7070"
