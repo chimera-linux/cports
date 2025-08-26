@@ -1,6 +1,6 @@
 pkgname = "tlp"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = [
     "-j1",
