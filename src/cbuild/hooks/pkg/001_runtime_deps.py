@@ -304,6 +304,9 @@ def _scan_svc(pkg):
                     continue
                 match key:
                     case "depends-on" | "depends-ms" | "waits-for":
+                        atsig = val.find("@")
+                        if atsig > 0:
+                            val = val[0:atsig]
                         svcreq[val] = pfx
                     case _:
                         pass
