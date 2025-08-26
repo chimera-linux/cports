@@ -14,6 +14,7 @@ you should not rely on them or expect them to be stable.
 * [Quality Requirements](#quality_requirements)
   * [Correct Style](#correct_style)
   * [Writing Correct Templates](#correct_templates)
+    * [Handling /etc](#handling_etc)
     * [Hardening Templates](#template_hardening)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
@@ -273,6 +274,62 @@ files are considered ephemeral. In practice this means:
    `/var` directory is forbidden in packages. This results in a system where
    deletion of these dirs/files will result in them being re-created from
    scratch upon next boot.
+
+<a id="handling_etc"></a>
+#### Handling /etc
+
+Frequently, properly dealing with `/etc` paths in packages can become
+non-trivial. Currently there is a lot of templates that do not follow
+the expected style, typically due to little support from the upstream
+software.
+
+The expectation in Chimera packages is that software does not install
+default configuration files in `/etc`, this being the user's responsibility.
+If possible however, software should still work by default.
+
+There are multiple types of configuration handling that can affect the
+way things can be packaged:
+
+1) Software does not expect a configuration file to be in place by default,
+   having builtin default settings. The user can create a configuration file
+   in `/etc/somewhere` to alter the settings. Optionally, if upstream provides
+   one, the package may install a sample in `/usr/share/etc/somewhere`.
+2) Software expects a configuration file, but will not work or is not expected
+   to work when used with a sample and requires user-supplied settings.
+   In this case, it can be handled the same as case 1.
+3) Software expects a configuration file in `/etc` and will not work without
+   one, but a default sample is typically good enough to run a service, and
+   does not expect it to be altered. In this case, the default configuration
+   should be installed in `/usr/share/etc/somewhere` and the software should
+   be made to use it preferentially when the `/etc` one does not exist already.
+   For instance, if the software takes a command line argument or an environment
+   variable to provide a config file path, a small wrapper script can be written
+   for the purpose of a `dinit` service that checks for existence of the user
+   file in `/etc` and if it does not exist, passes the argument or so on to
+   make it use the systemwide default.
+4) A case like the above, but with no way to externally handle this. In this
+   case, patching the software downstream and/or convincing upstream to fix
+   this properly should be considered. This is the worst case scenario. If
+   everything else fails, it can be treated like case 2, and require user
+   intervention before using it (with `/usr/share/etc` having a canonical
+   tree).
+5) Software that already does the right thing. A particular desired pattern
+   is with `.d` directories that preferentially scan `/etc/foo.d` and then
+   `/usr/lib/foo.d` or similar. Nothing to do here except making sure that
+   packaging installs in the correct `/usr` paths.
+
+There are some things not to do:
+
+1) Install in random `/usr` paths. Things that require a systemwide config
+   to be installed should mirror a proper `/etc` tree in `/usr/share/etc`,
+   unless they already have their own builtin path that is expected by upstream.
+2) Use `tmpfiles.d` to alter paths in `/usr`. This path is immutable, and should
+   contain only world-readable, root-owned files.
+3) Use `tmpfiles.d` to copy to `/etc` using the `C` command. This may seem like
+   a good idea for the purpose of populating the path but has the major drawback
+   of not tracking packaging changes; once copied once, it will not get updated,
+   even if the package updates its files and the user has not altered the copy
+   at all.
 
 <a id="template_hardening"></a>
 #### Hardening Templates
