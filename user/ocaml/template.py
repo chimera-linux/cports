@@ -16,7 +16,13 @@ source = f"https://github.com/ocaml/ocaml/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "eb9eab2f21758d3cfb1e78c7f83f0b4dd6302824316aba4abee047a5a4f85029"
 tools = {"ASPP": "cc -c", "AS": "cc -c"}
 hardening = ["!int"]
+# may be disabled
 options = ["!cross", "!lintstatic"]
+
+
+if self.profile().arch in ["ppc64le", "ppc64"]:
+    # takes an eternity + a bunch of them fail
+    options += ["!check"]
 
 
 def post_extract(self):
