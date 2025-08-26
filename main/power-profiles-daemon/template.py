@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
 pkgver = "0.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -20,7 +20,7 @@ makedepends = [
     "polkit-devel",
     "upower-devel",
 ]
-depends = ["dinit-dbus", "!tlp", "python-gobject"]
+depends = ["dinit-dbus", "python-gobject"]
 checkdepends = ["python-dbusmock", "umockdev"]
 install_if = [self.with_pkgver("power-profiles-daemon-meta")]
 pkgdesc = "D-Bus daemon for power management control"
