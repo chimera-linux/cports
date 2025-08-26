@@ -13,6 +13,9 @@ sha256 = "7be3ce6c2cddd3bc5fef7a0ca935fba0490b8e621e2e8188b4e88a85af1c8351"
 # no tests defined
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "atomic64 shenanigans"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/iwmenu")
