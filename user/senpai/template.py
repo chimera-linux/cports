@@ -1,6 +1,6 @@
 pkgname = "senpai"
 pkgver = "0.4.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = ["./cmd/senpai"]
 hostmakedepends = ["go", "scdoc"]
@@ -20,3 +20,13 @@ def post_install(self):
     self.install_man("doc/senpai.1")
     self.install_man("doc/senpai.5")
     self.install_file("contrib/senpai.desktop", "usr/share/applications")
+    self.install_file(
+        "res/icon.48.png",
+        "usr/share/icons/hicolor/48x48/apps",
+        name="senpai.png",
+    )
+    self.install_file(
+        "res/icon.svg",
+        "usr/share/icons/hicolor/scalable/apps",
+        name="senpai.svg",
+    )
