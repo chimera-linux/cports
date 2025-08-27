@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "142.0"
+pkgver = "142.0.1"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -63,7 +63,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "2808e1f10f3b6c593f96f3745a55d12c98107886daef00f1e354c24203a64b0f"
+sha256 = "b0adb44ed4c3383e752a5947adbfb0d03f24172cb468831bd49978de25e810c0"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
