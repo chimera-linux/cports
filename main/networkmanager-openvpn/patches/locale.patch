@@ -1,0 +1,11 @@
+diff --color -ruN networkmanager-openvpn/auth-dialog/main.c networkmanager-openvpn-patched/auth-dialog/main.c
+--- networkmanager-openvpn/auth-dialog/main.c	2025-08-26 12:12:05.000000000 +0000
++++ networkmanager-openvpn-patched/auth-dialog/main.c	2025-08-27 04:08:32.264061060 +0000
+@@ -24,6 +24,7 @@
+ 
+ #include "nm-default.h"
+ 
++#include <locale.h>
+ #include <errno.h>
+ #include <string.h>
+ #include <stdlib.h>
