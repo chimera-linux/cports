@@ -1,0 +1,24 @@
+From 5635089a92a706b0eb60be9301b32240f00406d5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Tue, 27 May 2025 10:03:46 +0200
+Subject: [PATCH 2/2] newer setuptools
+
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index b30a42f326..8b1040635c 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["setuptools >= 66.1.0, <= 80.9.0", "wheel == 0.45.1"]  # lower bound to support controller Python versions, upper bound for latest version tested at release
++requires = ["setuptools >= 66.1.0", "wheel >= 0.45.1"]
+ build-backend = "setuptools.build_meta"
+ 
+ [project]
+-- 
+2.50.1
+
