@@ -1,0 +1,21 @@
+type = internal
+depends-ms: frr-daemon@babeld
+depends-ms: frr-daemon@bfdd
+depends-ms: frr-daemon@bgpd
+depends-ms: frr-daemon@eigrpd
+depends-ms: frr-daemon@fabricd
+depends-ms: frr-daemon@isisd
+depends-ms: frr-daemon@ldpd
+depends-ms: frr-daemon@mgmtd
+depends-ms: frr-daemon@nhrpd
+depends-ms: frr-daemon@ospf6d
+depends-ms: frr-daemon@ospfd
+depends-ms: frr-daemon@pathd
+depends-ms: frr-daemon@pbrd
+depends-ms: frr-daemon@pim6d
+depends-ms: frr-daemon@pimd
+depends-ms: frr-daemon@ripd
+depends-ms: frr-daemon@ripngd
+depends-ms: frr-daemon@ssd
+depends-ms: frr-daemon@staticd
+depends-ms: frr-daemon@vrrpd
