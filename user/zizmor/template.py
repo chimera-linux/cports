@@ -1,5 +1,5 @@
 pkgname = "zizmor"
-pkgver = "1.11.0"
+pkgver = "1.12.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -10,7 +10,7 @@ url = "https://docs.zizmor.sh"
 source = (
     f"https://github.com/zizmorcore/zizmor/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "e60c8c280bee3b3a7eba32a961f6aa23d229f7a9db754715b7c98362a7c6dc7f"
+sha256 = "1caa4b9884d7755cd5679f629ecbfe7d028cbb508fae9ed423129b48f7f3dbaf"
 # Generates completions using host binaries
 options = ["!cross"]
 
