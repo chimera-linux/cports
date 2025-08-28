@@ -255,6 +255,7 @@ def invoke(pkg):
         "polkit-1/rules.d",
         "X11/xorg.conf.d",
         "gconf/schemas",
+        "iproute2",
     ]:
         if (pkg.destdir / "etc" / d).exists():
             pkg.log_red(f"{d} should go in /usr/share, not /etc")
