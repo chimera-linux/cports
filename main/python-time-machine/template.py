@@ -1,5 +1,5 @@
 pkgname = "python-time-machine"
-pkgver = "2.17.0"
+pkgver = "2.19.0"
 pkgrel = 0
 build_style = "python_pep517"
 # missing tokenize-rt
@@ -16,7 +16,7 @@ pkgdesc = "Python library for mocking the current time"
 license = "MIT"
 url = "https://github.com/adamchainz/time-machine"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1cd8965cdd841a24d5f8e9c35a49c56f15a02e273186300360cfec621c0c5ef6"
+sha256 = "1f255174a36d89e8791d0cd22ebdec28e683480c967e58085c8bd1b70b9207f2"
 
 
 def post_install(self):
