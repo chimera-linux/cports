@@ -1,0 +1,10 @@
+pkgname = "git-credential-oauth"
+pkgver = "0.15.1"
+pkgrel = 0
+build_style = "go"
+hostmakedepends = ["go"]
+pkgdesc = "Oauth credential manager for git"
+license = "Apache-2.0"
+url = "https://github.com/hickford/git-credential-oauth"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "0a0aea60bfeb19c9fa9d8bc2428c71a8b08c2b20b939a16b0709baf24d2ec7fa"
