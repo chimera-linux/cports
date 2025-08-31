@@ -1,5 +1,5 @@
 pkgname = "limine"
-pkgver = "9.6.1"
+pkgver = "9.6.5"
 pkgrel = 0
 # these targets implemented
 archs = ["aarch64", "loongarch64", "riscv64", "x86_64"]
@@ -9,8 +9,8 @@ hostmakedepends = ["automake", "mtools", "nasm"]
 pkgdesc = "Multiprotocol EFI bootloader"
 license = "BSD-2-Clause AND 0BSD"
 url = "https://limine-bootloader.org"
-source = f"https://github.com/limine-bootloader/limine/releases/download/v{pkgver}/limine-{pkgver}.tar.zst"
-sha256 = "730fc68ef7d068cb370420f8783a14c021a0c45e864dff7e1f4df6e9d2cfea7e"
+source = f"https://codeberg.org/Limine/Limine/releases/download/v{pkgver}/limine-{pkgver}.tar.zst"
+sha256 = "8751f0418d2ed6c1a99874a8925491f53b963b008ef4a51ecd0725dd812dfff3"
 # no test suite
 options = ["!check"]
 
