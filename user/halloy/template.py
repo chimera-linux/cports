@@ -1,5 +1,5 @@
 pkgname = "halloy"
-pkgver = "2025.6"
+pkgver = "2025.8"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "IRC client"
 license = "GPL-3.0-or-later"
 url = "https://halloy.chat"
 source = f"https://github.com/squidowl/halloy/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "aedab3b6919d2fa43577b7a5e91a22eb9fced3ad8b31222770c42dc6088295ce"
+sha256 = "3d05105457408f63046bf7108a1938e8bac5b8e3017457da94873025e4550ea5"
 
 if self.profile().arch in ["loongarch64", "ppc", "ppc64", "ppc64le", "riscv64"]:
     broken = "ring 0.16.20 fails to build"
