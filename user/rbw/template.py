@@ -1,5 +1,5 @@
 pkgname = "rbw"
-pkgver = "1.14.0"
+pkgver = "1.14.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Unofficial Bitwarden CLI"
 license = "MIT"
 url = "https://github.com/doy/rbw"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e754da1cca32593e8af6b5d24d7a1eb82bf00e9811a8e42fd7293a6e36724f1d"
+sha256 = "c551ec4665d26f6282ba6a5f46c71df79304f8c618a836c653f0289ff3ebb94e"
 
 
 def post_build(self):
