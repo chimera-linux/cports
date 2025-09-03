@@ -1,0 +1,11 @@
+--- a/diff-so-fancy	2023-06-09 11:05:43.000000000 -0700
++++ b/diff-so-fancy	2025-07-12 14:25:40.960896422 -0700
+@@ -11,7 +11,7 @@
+ use File::Spec;                                             # For catdir
+ use File::Basename;                                         # For dirname
+ use Cwd qw(abs_path);                                       # For realpath()
+-use lib dirname(abs_path(File::Spec->catdir($0))) . "/lib"; # Add the local lib/ to @INC
++use lib "/usr/share/diff-so-fancy";
+ use DiffHighlight;
+ 
+ my $remove_file_add_header     = 1;
