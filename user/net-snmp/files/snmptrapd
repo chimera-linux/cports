@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/snmptrapd -LOw -f udp:162 udp6:162
+logfile = /var/log/net-snmp.log
+depends-on: local.target
+before: login.target
