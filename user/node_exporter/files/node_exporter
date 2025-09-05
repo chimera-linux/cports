@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/node_exporter
+run-as = _node_exporter
+working-dir = /var/lib/node_exporter
+logfile = /var/log/node_exporter.log
+capabilities = ^cap_net_bind_service
+depends-on: local.target
+load-options: export-passwd-vars
