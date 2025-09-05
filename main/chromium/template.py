@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "139.0.7258.154"
+pkgver = "140.0.7339.80"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -136,7 +136,7 @@ pkgdesc = "Web browser"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "bb83f7425e33f2a94179c4704335fbad14d4707dce9f58abe90d862b746f3d9f"
+sha256 = "2a58c3d8b46bb9bbce5cf47d6582545b5116bc0746979d526ad4cd0b924b98c0"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -196,7 +196,6 @@ def configure(self):
         "freetype",
         "harfbuzz-ng",
         "highway",
-        "icu",
         "libjpeg",
         "libpng",
         "libsecret",

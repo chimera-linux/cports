@@ -1,0 +1,22 @@
+undefined symbol in our build
+
+--- a/v8/src/sandbox/testing.cc
++++ b/v8/src/sandbox/testing.cc
+@@ -578,7 +578,7 @@ void UninstallCrashFilter() {
+   // We should also uninstall the sanitizer death callback as our crash filter
+   // may hand a crash over to sanitizers, which should then not enter our crash
+   // filtering logic a second time.
+-#ifdef V8_USE_ANY_SANITIZER
++#if 0
+   __sanitizer_set_death_callback(nullptr);
+ #endif  // V8_USE_ANY_SANITIZER
+ }
+@@ -782,7 +782,7 @@ void InstallCrashFilter() {
+   success &= (sigaction(SIGSEGV, &action, &g_old_sigsegv_handler) == 0);
+   CHECK(success);
+ 
+-#ifdef V8_USE_ANY_SANITIZER
++#if 0
+   // We install sanitizer specific crash handlers. These can only check for
+   // in-sandbox crashes on certain configurations.
+   //

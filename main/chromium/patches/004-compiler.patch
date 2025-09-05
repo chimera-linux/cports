@@ -2,9 +2,9 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
 --- a/build/config/compiler/BUILD.gn
 +++ b/build/config/compiler/BUILD.gn
 @@ -1234,8 +1234,8 @@
+     # simplicity we always explicitly set the architecture.
      if (current_cpu == "x64") {
-       if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
-           !is_chromeos_device) {
+       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
 -        cflags += [ "--target=x86_64-unknown-linux-gnu" ]
 -        ldflags += [ "--target=x86_64-unknown-linux-gnu" ]
 +        cflags += [ "--target=x86_64-chimera-linux-musl" ]
@@ -13,26 +13,26 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
          cflags += [ "-m64" ]
          ldflags += [ "-m64" ]
 @@ -1257,8 +1257,8 @@
-       }
+       ]
      } else if (current_cpu == "arm") {
-       if (is_clang && !is_android && !is_nacl && !is_chromeos_device) {
+       if (is_clang && !is_android && !is_chromeos_device) {
 -        cflags += [ "--target=arm-linux-gnueabihf" ]
 -        ldflags += [ "--target=arm-linux-gnueabihf" ]
 +        cflags += [ "--target=arm-chimera-linux-musleabihf" ]
 +        ldflags += [ "--target=arm-chimera-linux-musleabihf" ]
        }
-       if (!is_nacl) {
-         cflags += [
+       cflags += [
+         "-march=$arm_arch",
 @@ -1272,8 +1272,8 @@
+       }
      } else if (current_cpu == "arm64") {
-       if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
-           !is_chromeos_device) {
+       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
 -        cflags += [ "--target=aarch64-linux-gnu" ]
 -        ldflags += [ "--target=aarch64-linux-gnu" ]
 +        cflags += [ "--target=aarch64-chimera-linux-musl" ]
 +        ldflags += [ "--target=aarch64-chimera-linux-musl" ]
        }
-     } else if (current_cpu == "mipsel" && !is_nacl) {
+     } else if (current_cpu == "mipsel") {
        ldflags += [ "-Wl,--hash-style=sysv" ]
 @@ -1517,22 +1517,22 @@
            ldflags += [ "-maix64" ]
