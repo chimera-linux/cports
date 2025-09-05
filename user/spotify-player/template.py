@@ -1,5 +1,5 @@
 pkgname = "spotify-player"
-pkgver = "0.20.6"
+pkgver = "0.21.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -27,7 +27,7 @@ pkgdesc = "Spotify player in the terminal with full feature parity"
 license = "MIT"
 url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "87c3529a5b711a9c79bb0bac21fb65d280eec943f836920e0c02e8d9d17c75dd"
+sha256 = "a1bc03ff6b1788283a38808745098d551f0d86b87a2fffabc61ceaaa17cfa93d"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
