@@ -1,0 +1,58 @@
+From 1acd2bb1785ecb24f22d76d970ac070a01c6c46d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Wed, 27 Aug 2025 22:02:52 +0200
+Subject: [PATCH 1/2] support supplying a path for the tv binary for tests
+
+---
+ tests/cli/special.rs | 2 +-
+ tests/common/mod.rs  | 7 +++++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/tests/cli/special.rs b/tests/cli/special.rs
+index d09dce2..09230a9 100644
+--- a/tests/cli/special.rs
++++ b/tests/cli/special.rs
+@@ -113,7 +113,7 @@ fn test_tv_pipes_correctly() -> io::Result<()> {
+         dbg!("Skipping test_tv_pipes_correctly in CI environment");
+         return Ok(());
+     }
+-    let mut tv_command = Command::new(TV_BIN_PATH)
++    let mut tv_command = Command::new(*TV_BIN_PATH)
+         .args(LOCAL_CONFIG_AND_CABLE)
+         .args(["--input", "Cargo.toml"])
+         .arg("--take-1")
+diff --git a/tests/common/mod.rs b/tests/common/mod.rs
+index 3618d19..a8384e1 100644
+--- a/tests/common/mod.rs
++++ b/tests/common/mod.rs
+@@ -1,5 +1,6 @@
+ #![allow(dead_code)]
+ 
++use std::cell::LazyCell;
+ use std::path::PathBuf;
+ use std::time::Duration;
+ use std::{fs, io};
+@@ -364,7 +365,9 @@ pub fn f(c: u8) -> String {
+ pub const ENTER: &str = "\r";
+ pub const ESC: &str = "\x1b";
+ 
+-pub const TV_BIN_PATH: &str = "./target/debug/tv";
++pub const TV_BIN_PATH: LazyCell<&str> = LazyCell::new(|| {
++    option_env!("TV_BIN_PATH").unwrap_or("./target/debug/tv")
++});
+ pub const LOCAL_CONFIG_AND_CABLE: &[&str] = &[
+     "--cable-dir",
+     DEFAULT_CABLE_DIR,
+@@ -374,7 +377,7 @@ pub const LOCAL_CONFIG_AND_CABLE: &[&str] = &[
+ 
+ /// A command builder initialized with the tv binary path.
+ pub fn tv() -> CommandBuilder {
+-    CommandBuilder::new(TV_BIN_PATH)
++    CommandBuilder::new(*TV_BIN_PATH)
+ }
+ 
+ /// A command builder initialized with the tv binary path and the provided arguments.
+-- 
+2.50.1
+
