@@ -1,5 +1,5 @@
 pkgname = "ark"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 # kerfuffle-extracttest: needs arj/unar etc
@@ -37,7 +37,7 @@ pkgdesc = "KDE archive manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ark"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ark-{pkgver}.tar.xz"
-sha256 = "f93a428c88226d61e5a632e0660391189731f80adb574825108015a07bb1051c"
+sha256 = "391fae7a08757dd5cc2b0081251c513859345e49d30ce7f10c3da5f4ce4ba3a0"
 
 
 @subpackage("ark-computils")
@@ -50,6 +50,7 @@ def _(self):
         # there's also arj/lzop but seems pointless
         # "lrzip",
         # "unar",
+        "unrar",
         # "unzip",  # pointless with 7z (in code), also it uses libzip anyway?
         "zstd",
     ]

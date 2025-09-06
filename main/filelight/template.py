@@ -1,5 +1,5 @@
 pkgname = "filelight"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 # can segfault in parallel
@@ -26,8 +26,8 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE disk usage visualizer"
-license = " GPL-2.0-only OR GPL-3.0-only"
+license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"
-sha256 = "0f6d96addcdcc6a4ed6a19539547a8a80bdc098fffb768885a3464e441a91acd"
+sha256 = "6080649ed7621178a7aeff1d3070629caa3d91da4978bcc5b568c75bedf53185"
 hardening = ["vis"]

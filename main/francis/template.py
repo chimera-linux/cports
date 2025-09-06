@@ -1,5 +1,5 @@
 pkgname = "francis"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -26,4 +26,4 @@ pkgdesc = "KDE pomodoro time tracker"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/francis"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/francis-{pkgver}.tar.xz"
-sha256 = "4df41d2c9bc0afc33e744c5a1876ef32aa9ad02dec9858915ebc91153cbbd158"
+sha256 = "8b28509554084de37034961d1ec24408556cbb8630e55b74af2839521687dd1b"

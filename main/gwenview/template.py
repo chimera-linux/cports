@@ -1,5 +1,5 @@
 pkgname = "gwenview"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -38,6 +38,7 @@ makedepends = [
     "plasma-activities-devel",
     "purpose-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
+    "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
     "wayland-devel",
@@ -47,7 +48,7 @@ pkgdesc = "KDE image viewer"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/gwenview"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/gwenview-{pkgver}.tar.xz"
-sha256 = "59bf9fc4a4be87260781ccb5872212484b697caa53fa0ee7e128bdb08eaf5e87"
+sha256 = "5bf1bfccedef659f4df913adddd64a2c964d39b84cf1427104bb15dbaa86f08e"
 # avoid crash in raw thumbnailer
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]

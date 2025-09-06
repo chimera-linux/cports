@@ -1,5 +1,5 @@
 pkgname = "akonadi"
-pkgver = "25.04.3"
+pkgver = "25.08.0"
 pkgrel = 0
 build_style = "cmake"
 # TODO: add mariadb since it's usually the default
@@ -43,6 +43,7 @@ makedepends = [
     "ki18n-devel",
     "kiconthemes-devel",
     "kitemmodels-devel",
+    "kwindowsystem-devel",
     "kxmlgui-devel",
     "libaccounts-qt-devel",
     "qt6-qtdeclarative-devel",
@@ -56,7 +57,7 @@ pkgdesc = "KDE storage service for PIM data"
 license = "LGPL-2.1-or-later"
 url = "https://userbase.kde.org/Akonadi"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-{pkgver}.tar.xz"
-sha256 = "042cd3319eadfb82547773e52ce7d41d361d58c4e92fe75a5179c1574ed4f5df"
+sha256 = "d7b79d8ad021f3bbe1410bbd2c1755d3fa54a727c70eb9008dccf94e642a664e"
 tool_flags = {
     # disable debug mode
     "CXXFLAGS": ["-DNDEBUG"],
