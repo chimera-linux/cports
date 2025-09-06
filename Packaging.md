@@ -1880,6 +1880,11 @@ for subpackages separately if needed:
   if they resolve to a matching command.
 * `lintstatic` *(true)* Normally, static libraries are not allowed to be in
   the main package. In specific rare cases, this may be overridden.
+* `lintpixmaps` *(true)* Normally, the `/usr/share/pixmaps` path is not
+  allowed as it's frequently used for application icons that should go in
+  `/usr/share/icons/hicolor` (typically in scalable and bitmap versions).
+  However, some packages use it privately and not for standard application
+  icons, so it may be disabled.
 * `scantrigdeps` *(true)* This specifies whether trigger dependencies should
   be scanned. See the `src/cbuild/hooks/pre_pkg/007_trigger_deps.py` for
   detailed list.

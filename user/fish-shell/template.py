@@ -11,6 +11,8 @@ license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
 sha256 = "6e1ecdb164285fc057b2f35acbdc20815c1623099e7bb47bbfc011120adf7e83"
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 
 def prepare(self):

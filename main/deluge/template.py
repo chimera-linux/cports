@@ -55,6 +55,8 @@ def _(self):
     self.subdesc = "Gtk+3 frontend"
     self.depends = [self.parent, "python-gobject", "gtk+3"]
     self.install_if = [self.parent, "gtk+3"]
+    # FIXME lintpixmaps
+    self.options = ["!lintpixmaps"]
 
     return [
         "usr/bin/deluge",

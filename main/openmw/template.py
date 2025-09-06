@@ -51,7 +51,8 @@ sha256 = [
     "baa642c906576d4d98d041d0acb80d85dd6eff6e3c16a009b1abf1ccd2bc0a61",
 ]
 # unit tests are off
-options = ["!check"]
+# FIXME lintpixmaps
+options = ["!check", "!lintpixmaps"]
 
 if self.profile().endian == "big":
     broken = "esm loader is not ready etc."
@@ -67,6 +68,8 @@ else:
 def _(self):
     self.pkgdesc = "Open implementation of Morrowind Creation Set"
     self.depends = [self.parent]
+    # FIXME lintpixmaps
+    self.options = ["!lintpixmaps"]
 
     return [
         "etc/openmw/defaults-cs.bin",

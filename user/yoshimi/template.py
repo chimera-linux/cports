@@ -26,3 +26,5 @@ license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "2ab49688c42038863a6e5807055d0911ac069ca1527afbbbb93eb50595820d40"
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]

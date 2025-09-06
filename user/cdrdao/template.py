@@ -28,6 +28,9 @@ sha256 = "b347189ab550ae5bd1a19d323cdfd8928039853c23aa5e33d7273ab8c750692a"
 def _(self):
     self.subdesc = "(GTK interface)"
     self.depends = [self.parent]
+    # FIXME lintpixmaps
+    self.options = ["!lintpixmaps"]
+
     return [
         "cmd:gcdmaster",
         "usr/share/application*",

@@ -10,3 +10,5 @@ url = "https://launchpad.net/sakura"
 source = f"{url}/trunk/{pkgver}/+download/sakura-{pkgver}.tar.gz"
 sha256 = "0bf1151b08c05e3d151e827ee3f8f68639133f5462e3e0761f82946aa3fe50df"
 hardening = ["cfi", "vis"]
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]

@@ -38,6 +38,8 @@ url = "http://software.schmorp.de/pkg/rxvt-unicode.html"
 source = f"http://dist.schmorp.de/rxvt-unicode/rxvt-unicode-{pkgver}.tar.bz2"
 sha256 = "aaa13fcbc149fe0f3f391f933279580f74a96fd312d6ed06b8ff03c2d46672e8"
 hardening = ["vis", "!cfi"]
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 
 def init_configure(self):

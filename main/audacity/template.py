@@ -63,7 +63,8 @@ sha256 = "b33ad9f8b53e8ddf3ee0a6ba920ce9a2fd47915e329388729900ec6c0c49567f"
 # vis breaks symbols
 hardening = []
 # check: dont care
-options = ["!check", "linkundefver"]
+# FIXME lintpixmaps
+options = ["!check", "linkundefver", "!lintpixmaps"]
 
 tool_flags = {
     # disarm debug

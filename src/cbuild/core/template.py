@@ -337,6 +337,7 @@ default_options = {
     "autosplit": (True, False),
     "lintcomp": (True, False),
     "lintstatic": (True, False),
+    "lintpixmaps": (True, False),
     "distlicense": (True, False),
     "empty": (False, False),
     # actually true by default for -devel

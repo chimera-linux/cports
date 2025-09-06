@@ -71,6 +71,7 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/gnome-control-center/{pkgver.split('.')[0]}/gnome-control-center-{pkgver}.tar.xz"
 sha256 = "2a20eee6e05c8d3addaeefa524dce1ee9f88a77d838e3fd1edef3c0c2e467ad2"
+options = ["!lintpixmaps"]
 
 
 @subpackage("gnome-control-center-devel")

@@ -54,6 +54,8 @@ file_modes = {
 }
 # FIXME int: janky codebase
 hardening = ["!int"]
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 
 def post_install(self):

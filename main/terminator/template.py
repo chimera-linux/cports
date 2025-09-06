@@ -39,4 +39,5 @@ source = f"https://github.com/gnome-terminator/terminator/releases/download/v{pk
 sha256 = "f0219cd8bd3db45d5173d850619145d55f9e864fe2106f6ceb9e736c575d0e03"
 hardening = ["vis"]
 # testsuite fails within container and xvfb
-options = ["!check"]
+# FIXME lintpixmaps
+options = ["!check", "!lintpixmaps"]

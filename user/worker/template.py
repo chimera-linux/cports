@@ -20,4 +20,5 @@ source = (
 sha256 = "c6559e08e38f5e59bbd6758ffd4abd8b5c6cc163a0cd7d319a4c19c263164e5d"
 hardening = ["cfi", "vis"]
 # no tests
-options = ["!check"]
+# FIXME lintpixmaps
+options = ["!check", "!lintpixmaps"]

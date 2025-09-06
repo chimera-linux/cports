@@ -34,6 +34,8 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfdesktop/start"
 source = f"$(XFCE_SITE)/xfce/xfdesktop/{pkgver[:-2]}/xfdesktop-{pkgver}.tar.bz2"
 sha256 = "acccde849265bbf4093925ba847977b7abf70bb2977e4f78216570e887c157b8"
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 
 @subpackage("xfdesktop-backgrounds")

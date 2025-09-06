@@ -214,6 +214,15 @@ def invoke(pkg):
             lintfail = True
 
     if (
+        pkg.options["lintpixmaps"]
+        and (pkg.destdir / "usr/share/pixmaps").exists()
+    ):
+        pkg.log_red(
+            "'/usr/share/pixmaps' exists, '/usr/share/icons' is preferred for application icons"
+        )
+        lintfail = True
+
+    if (
         dirempty
         and pkg.build_style != "meta"
         and not pkg.options["empty"]

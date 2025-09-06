@@ -21,7 +21,8 @@ source = (
 )
 sha256 = "e9fd24190869be6e9e8d731df2ccd0b3b1dd368ae9dbb9d620ec905b83e325ec"
 # generates completions with host bin
-options = ["!cross"]
+# FIXME lintpixmaps
+options = ["!cross", "!lintpixmaps"]
 
 
 def post_build(self):

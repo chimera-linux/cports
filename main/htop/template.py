@@ -31,3 +31,5 @@ source = f"https://github.com/htop-dev/htop/releases/download/{pkgver}/htop-{pkg
 sha256 = "904f7d4580fc11cffc7e0f06895a4789e0c1c054435752c151e812fead9f6220"
 # CFI cannot work with libsensors dlsym() stuff
 hardening = ["vis", "!cfi"]
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]

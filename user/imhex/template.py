@@ -58,6 +58,8 @@ sha256 = [
     "711481cc8dfc368d1b88f5d3e8a44d65f23fa43eb9db092599924f3a4cf1aaa2",
     "541eddc8cc427d1aeb749bc455911fccc87f64a7784bd4bbc35ecb7b56c03ad5",
 ]
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 if self.profile().wordsize == 32:
     broken = "uses int128"

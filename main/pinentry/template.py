@@ -42,6 +42,9 @@ def _frontend(name):
         self.subdesc = f"{name} frontend"
 
         if name == "qt":
+            # FIXME lintpixmaps
+            self.options = ["!lintpixmaps"]
+
             return [
                 "usr/bin/pinentry-qt",
                 "usr/share/applications/org.gnupg.pinentry-qt.desktop",

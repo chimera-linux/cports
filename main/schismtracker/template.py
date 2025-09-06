@@ -24,3 +24,5 @@ tool_flags = {
         "-U_FORTIFY_SOURCE",
     ],
 }
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]

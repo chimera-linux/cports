@@ -24,7 +24,8 @@ sha256 = "2c14c8f01f44148c4f2c88c169a30abcdb002eb128a92b9adb76baa76b013494"
 # SetBitIterator tests (src/tests/bitmath_func.cpp) fail with int enabled (and the game crashes when the tests are skipped)
 hardening = ["!int"]
 # can't cross compile due to https://github.com/OpenTTD/OpenTTD/issues/8249
-options = ["!cross"]
+# FIXME lintpixmaps
+options = ["!cross", "!lintpixmaps"]
 
 
 def check(self):

@@ -40,7 +40,8 @@ url = "https://guitarix.org"
 source = f"https://github.com/brummer10/guitarix/releases/download/V{pkgver}/guitarix2-{pkgver}.tar.xz"
 sha256 = "c660beb3f16cdc455d99e6f074cd6ea2b1f10c1dfc480e84210461637dc98c44"
 # no tests
-options = ["!check"]
+# FIXME lintpixmaps
+options = ["!check", "!lintpixmaps"]
 
 
 match self.profile().arch:

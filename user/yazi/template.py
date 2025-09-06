@@ -13,6 +13,8 @@ license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "4d005e7c3f32b5574d51ab105597f3da3a4be2f7b5cd1bcb284143ad38253ed4"
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
