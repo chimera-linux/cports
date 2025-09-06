@@ -1,0 +1,8 @@
+--- a/src/launch/CMakeLists.txt
++++ b/src/launch/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-find_package(CLI11 CONFIG REQUIRED)
++add_subdirectory(CLI11)
+ 
+ qt_add_library(quickshell-launch STATIC
+ 	parsecommand.cpp

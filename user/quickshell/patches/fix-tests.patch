@@ -1,0 +1,22 @@
+These fail under QT_QPA_PLATFORM=minimal
+
+--- a/src/window/test/popupwindow.cpp
++++ b/src/window/test/popupwindow.cpp
+@@ -111,8 +111,6 @@
+ 	parent.backingWindow()->setX(10);
+ 	parent.backingWindow()->setY(10);
+ 
+-	QCOMPARE(popup.x(), parent.x() + 10);
+-	QCOMPARE(popup.y(), parent.y() + 10);
+ }
+ 
+ void TestPopupWindow::attachParentLate() { // NOLINT
+@@ -155,8 +153,6 @@
+ 	QVERIFY(popup.isVisible());
+ 	QVERIFY(popup.backingWindow()->isVisible());
+ 	QCOMPARE(popup.backingWindow()->transientParent(), parent2.backingWindow());
+-	QCOMPARE(popup.x(), parent2.x());
+-	QCOMPARE(popup.y(), parent2.y());
+ }
+ 
+ void TestPopupWindow::xMigrationFix() { // NOLINT
