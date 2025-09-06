@@ -1,5 +1,5 @@
 pkgname = "python-identify"
-pkgver = "2.6.13"
+pkgver = "2.6.14"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "File identification library for Python"
 license = "MIT"
 url = "https://github.com/pre-commit/identify"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "93a51afb4721ebbcc46045af64e26b063fd691cfb966b26c21999e028eeeb12e"
+sha256 = "14bbd7da84110b4bbeab623b32ed61848c4e1d75dc74a95d933832e7ce5a1453"
 
 
 def post_install(self):
