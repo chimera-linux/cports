@@ -1,15 +1,16 @@
 pkgname = "racket"
-pkgver = "8.17"
-pkgrel = 1
+pkgver = "8.18"
+pkgrel = 0
 build_wrksrc = "src"
-build_style = "gnu_configure"
+build_style = "configure"
 configure_args = [
+    "--prefix=/usr",
+    "--sysconfdir=/etc",
     "--disable-strip",
     "--enable-scheme=/usr/bin/scheme",
     "--enable-csonly",
     "--enable-csdefault",
 ]
-configure_gen = []
 hostmakedepends = [
     "automake",
     "chez-scheme",
@@ -25,7 +26,7 @@ pkgdesc = "Language-oriented programming language"
 license = "MIT OR Apache-2.0"
 url = "https://racket-lang.org"
 source = f"https://download.racket-lang.org/installers/{pkgver}/racket-{pkgver}-src-builtpkgs.tgz"
-sha256 = "bb98bd8b6d9eba56bd5107fe29be50ad8cd4fb7bb32fbd762c5bd259c15e706f"
+sha256 = "59036cdc218ade49f1890349345f3cb470425d9edc0c677ea28690ce12d6cf2b"
 # no tests, cross requires chezscheme version to match exactly
 options = ["!check", "!cross"]
 
