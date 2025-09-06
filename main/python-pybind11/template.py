@@ -42,12 +42,15 @@ source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "741633da746b7c738bb71f1854f957b9da660bcd2dce68d71949037f0969d0ca"
+tool_flags = {"CXXFLAGS": []}
 # tests disabled conditionally
 options = []
 
 if self.profile().arch == "ppc":
     # tests fail to build
     options += ["!check"]
+elif self.profile().arch == "ppc64":
+    tool_flags["CXXFLAGS"] += ["-DEIGEN_DONT_VECTORIZE"]
 
 
 def post_build(self):
