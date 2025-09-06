@@ -1,14 +1,11 @@
 pkgname = "kea"
-pkgver = "2.6.3"
+pkgver = "3.0.1"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = [
-    "--disable-static",
-    "--enable-shell",
-]
+build_style = "meson"
+configure_args = ["-Drunstatedir=run"]
 hostmakedepends = [
-    "automake",
-    "slibtool",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
     "boost-devel",
@@ -21,8 +18,8 @@ checkdepends = ["procps"]
 pkgdesc = "Alternative DHCP implementation by ISC"
 license = "MPL-2.0"
 url = "https://kea.isc.org"
-source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[: pkgver.rfind('.')]}/kea-{pkgver}.tar.gz"
-sha256 = "00241a5955ffd3d215a2c098c4527f9d7f4b203188b276f9a36250dd3d9dd612"
+source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[: pkgver.rfind('.')]}/kea-{pkgver}.tar.xz"
+sha256 = "ec84fec4bb7f6b9d15a82e755a571e9348eb4d6fbc62bb3f6f1296cd7a24c566"
 
 
 def post_install(self):
