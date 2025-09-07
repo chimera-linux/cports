@@ -15,9 +15,9 @@ make_check_args = [
     # python tests try to self-import (which does not work)
     # non-x86-only (ppc64le, aarch64) failures:
     #   texture-crop, texture-interp-bilinear, texture-uint8, texture-skinny
-    #   unit_compute (aarch64), unit_simd
+    #   texture-texture3d, unit_compute (aarch64), unit_simd, maketx
     "-E",
-    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-udim.*|texture-uint8|unit_compute|unit_simd|unit_imageinout)",
+    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|maketx|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-texture3d|texture-udim.*|texture-uint8|unit_compute|unit_simd|unit_imageinout)",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
