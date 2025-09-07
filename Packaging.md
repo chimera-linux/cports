@@ -3098,7 +3098,7 @@ Usage:
 self.install_dir("usr/include")
 ```
 
-##### def install_file(self, src, dest, mode = 0o644, name = None, glob = False, follow_symlinks = True)
+##### def install_file(self, src, dest, mode = 0o644, name = None, glob = False, follow_symlinks = True, template = None, pattern = None)
 
 Installs `src` into `dest`, where `src` refers to a file (absolute or
 relative to `cwd`) and `dest` refers to a directory (must exist and be
@@ -3113,6 +3113,11 @@ The `dest` is created if non-existent.
 If `glob` is set to `True`, the `src` must be a string specifying a relative
 glob pattern to `self.cwd` and `name` must not be specified. In this case,
 multiple files may be installed, but at least one must be matched.
+
+If `template` is a dictionary, the source file will be searched for `pattern`,
+which is implicitly `@(\w+)@` and if its capture matches any key in `template`,
+will be substituted as a whole for the value in the dictionary. If a key does
+not exist, it will be kept as is.
 
 ##### def install_bin(self, src, mode = 0o755, name = None, glob = False)
 

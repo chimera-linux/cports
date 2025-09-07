@@ -80,6 +80,17 @@ def _submove(src, dest, root):
             raise FileExistsError(f"'{fsrc}' and '{fdest}' overlap")
 
 
+def _replace_fpat(inp, repldict, pattern=None):
+    def repl(mobj):
+        grp = mobj.group(1)
+        if grp in repldict:
+            return repldict[grp]
+        else:
+            return mobj.group(0)
+
+    return re.sub(pattern or r"@(\w+)@", repl, inp)
+
+
 tmpl_hooks = {
     "fetch",
     "extract",
@@ -2046,7 +2057,15 @@ class Template(Package):
             dirp.chmod(mode)
 
     def install_file(
-        self, src, dest, mode=0o644, name=None, glob=False, follow_symlinks=True
+        self,
+        src,
+        dest,
+        mode=0o644,
+        name=None,
+        glob=False,
+        follow_symlinks=True,
+        template=None,
+        pattern=None,
     ):
         if not glob:
             srcs = [self.cwd / _subst_path(self, src)]
@@ -2073,7 +2092,15 @@ class Template(Package):
                     f"install_file: destination file '{dfn}' already exists"
                 )
             self.install_dir(dest)
-            shutil.copy2(self.cwd / src, dfn, follow_symlinks=follow_symlinks)
+            if template:
+                with open(dfn, "w") as outf:
+                    with (self.cwd / src).open() as inpf:
+                        for ln in inpf:
+                            outf.write(_replace_fpat(ln, template, pattern))
+            else:
+                shutil.copy2(
+                    self.cwd / src, dfn, follow_symlinks=follow_symlinks
+                )
             if mode is not None and (follow_symlinks or not dfn.is_symlink()):
                 dfn.chmod(mode)
 
