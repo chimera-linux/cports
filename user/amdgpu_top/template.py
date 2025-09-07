@@ -1,5 +1,5 @@
 pkgname = "amdgpu_top"
-pkgver = "0.10.4"
+pkgver = "0.11.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=package"]
@@ -15,7 +15,7 @@ pkgdesc = "AMDGPU usage monitor"
 license = "MIT"
 url = "https://github.com/Umio-Yasuno/amdgpu_top"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b371e8ef1f7f9352009321f5251dc395dbd870541b8153065b34d7c0603361ac"
+sha256 = "a56152d738a0bfc3757d9587aaed409ecb05ccc3ec81861cbc9e4af84aa9fd46"
 # no tests
 options = ["!check"]
 
