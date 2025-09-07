@@ -1,6 +1,6 @@
 pkgname = "ark"
 pkgver = "25.08.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # kerfuffle-extracttest: needs arj/unar etc
 # kerfuffle-loadtest: fails to open some archives
@@ -50,7 +50,7 @@ def _(self):
         # there's also arj/lzop but seems pointless
         # "lrzip",
         # "unar",
-        "unrar",
+        # "unrar",
         # "unzip",  # pointless with 7z (in code), also it uses libzip anyway?
         "zstd",
     ]
