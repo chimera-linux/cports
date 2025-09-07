@@ -1,11 +1,11 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -546,7 +546,7 @@ if (ENABLE_GPGME)
+@@ -556,7 +556,7 @@ if (ENABLE_GPGME)
    set(poppler_SRCS ${poppler_SRCS}
      poppler/GPGMECryptoSignBackend.cc
    )
 -  set(poppler_LIBS ${poppler_LIBS} Gpgmepp)
 +  set(poppler_LIBS ${poppler_LIBS} gpgmepp)
- endif()
- if (OpenJPEG_FOUND)
-   set(poppler_SRCS ${poppler_SRCS}
+   if (Gpgmepp_VERSION VERSION_GREATER_EQUAL 1.24.0)
+     set(PC_REQUIRES_PRIVATE "${PC_REQUIRES_PRIVATE} gpgmepp >= ${GPGME_VERSION}")
+   endif()
