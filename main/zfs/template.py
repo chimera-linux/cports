@@ -1,7 +1,6 @@
-# don't forget to update files/ckms.ini when bumping
 # also update linux-*-zfs-bin
 pkgname = "zfs"
-pkgver = "2.3.3"
+pkgver = "2.3.4"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
@@ -37,7 +36,7 @@ source = [
     f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
 ]
 sha256 = [
-    "844122118f0ea81205a01753bbcb1315330f8967c1f866dcd10155273131f071",
+    "9ec397cf360133161a1180035f3e7d6962186ed2b3457953a28d45aa883fa495",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
 hardening = ["!vis", "!cfi"]
@@ -81,7 +80,9 @@ def post_install(self):
         self.chroot_cwd / f"{pkgname}-{pkgver}.tar",
         wrksrc=self.chroot_destdir / srcp,
     )
-    self.install_file(self.files_path / "ckms.ini", srcp)
+    self.install_file(
+        self.files_path / "ckms.ini", srcp, template={"VERSION": pkgver}
+    )
 
     self.install_service(self.files_path / "zed")
     # just say no to hardlinks
