@@ -1,4 +1,3 @@
-# remember to update files/ckms.ini
 pkgname = "v4l2loopback"
 pkgver = "0.13.2"
 pkgrel = 1
@@ -17,17 +16,15 @@ options = ["!check"]
 
 
 def post_install(self):
-    # install ckms source tree
-    self.install_dir(f"usr/src/{pkgname}-{pkgver}")
-    for file in (
-        "Kbuild",
-        "Makefile",
-        "v4l2loopback.c",
-        "v4l2loopback.h",
-        "v4l2loopback_formats.h",
-        self.files_path / "ckms.ini",
-    ):
-        self.install_file(file, f"usr/src/{pkgname}-{pkgver}")
+    destp = f"usr/src/{pkgname}-{pkgver}"
+    self.install_file(
+        self.files_path / "ckms.ini", destp, template={"VERSION": pkgver}
+    )
+    self.install_file("Kbuild", destp)
+    self.install_file("Makefile", destp)
+    self.install_file("v4l2loopback.c", destp)
+    self.install_file("v4l2loopback.h", destp)
+    self.install_file("v4l2loopback_formats.h", destp)
 
 
 @subpackage("v4l2loopback-devel")

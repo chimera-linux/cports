@@ -1,4 +1,3 @@
-# remember to update files/ckms.ini
 pkgname = "ryzen_smu"
 pkgver = "0.1.5"
 pkgrel = 3
@@ -17,15 +16,14 @@ options = ["!check"]
 
 def install(self):
     self.install_bin("userspace/monitor_cpu")
-    self.install_dir(f"usr/src/{pkgname}-{pkgver}")
-    for file in [
-        "Makefile",
-        "drv.c",
-        "smu.c",
-        "smu.h",
-        self.files_path / "ckms.ini",
-    ]:
-        self.install_file(file, f"usr/src/{pkgname}-{pkgver}")
+    destp = f"usr/src/{pkgname}-{pkgver}"
+    self.install_file(
+        self.files_path / "ckms.ini", destp, template={"VERSION": pkgver}
+    )
+    self.install_file("Makefile", destp)
+    self.install_file("drv.c", destp)
+    self.install_file("smu.c", destp)
+    self.install_file("smu.h", destp)
 
 
 @subpackage("ryzen_smu-ckms")
