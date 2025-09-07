@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.8.0.4"
+pkgver = "25.8.1.1"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -204,13 +204,13 @@ source = [
     f"{_aurl}/skia-m136-28685d899b0a35894743e2cedad4c9f525e90e1e.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
     f"{_aurl}/frozen-1.2.0.tar.gz",
-    f"{_aurl}/zxcvbn-c-2.5.tar.gz",
+    f"{_aurl}/zxcvbn-c-2.6.tar.gz",
 ]
 sha256 = [
-    "353bd6f2dab04f47dfdb94ec063e1f45746ee0548d6478ee7288a6b411e3cb12",
-    "4e5d8f0c61b7d0660ac51f78682a372b21aa417c4bc38a88c620ae05b63655b1",
-    "bb481127c368afa3e87972f71db87923b043ae81c69782565dc354e131bc9a52",
-    "74d0e0d6fbbbb627e8ecabc66e6918131684a8ddaec640631ede2fe802222d23",
+    "5b4e2c6c2abe9480a49c33543b57e0226c6cf9c966088b8e713d1b23490a2f3e",
+    "b733ef589c97428b1784839e9842cb90654bf008b284f00399557da1f38c643f",
+    "14d3b7dacb8104dcb4c7ccf89de2a01853b0917756497b9c8b49a966d2f3f0b5",
+    "055da09b5d3998864f016e101ffd11706b64fa2fb03608a5c3844fc48fe83b74",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -240,7 +240,7 @@ sha256 = [
     "2384f5f44a0b714d8dc78923fdf17453ab5a1808ca638154e3e27b361531db25",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
     "ed8339c017d7c5fe019ac2c642477f435278f0dc643c1d69d3f3b1e95915e823",
-    "77d6c6ecb35952a8d8ce7f736b7a2bf466275c48210e309b73782d6b7e84dffd",
+    "11e39f6776f9c82c68b2acb94336e32697d4ab6cdb4ac16f9583ccbdd735113a",
 ]
 tool_flags = {
     "CXXFLAGS": ["-DGLM_ENABLE_EXPERIMENTAL", "-DU_USING_ICU_NAMESPACE=1"]
