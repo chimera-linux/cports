@@ -1,10 +1,9 @@
 Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/e71cc12f98ab3e42e0c2736ef41bc784e360da1c/testing/hashcat/0001-fix-modules-path.patch
 
-diff --git a/src/Makefile b/src/Makefile
-index e538b6c28..bc741ea8b 100644
---- a/src/Makefile
-+++ b/src/Makefile
-@@ -532,9 +532,9 @@ install_kernels: install_shared
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2025-08-23 10:43:56.000000000 +0200
++++ b/src/Makefile	2025-09-07 14:54:40.368790546 +0200
+@@ -658,15 +658,15 @@
  
  .PHONY: install_modules
  install_modules: install_shared modules
@@ -15,13 +14,36 @@ index e538b6c28..bc741ea8b 100644
 +	$(FIND) modules/  -mindepth 1 -type d -execdir $(INSTALL) -m 755 -d     $(DESTDIR)$(LIBRARY_FOLDER)/hashcat/modules/{} \;
 +	$(FIND) modules/  -mindepth 1 -type f -execdir $(INSTALL) -m 644 {}     $(DESTDIR)$(LIBRARY_FOLDER)/hashcat/modules/{} \;
  
+ .PHONY: install_bridges
+ install_bridges: install_shared bridges
+-	$(INSTALL) -m 755 -d                                                    $(DESTDIR)$(SHARED_FOLDER)/bridges
+-	$(FIND) bridges/  -mindepth 1 -type d -execdir $(INSTALL) -m 755 -d     $(DESTDIR)$(SHARED_FOLDER)/bridges/{} \;
+-	$(FIND) bridges/  -mindepth 1 -type f -execdir $(INSTALL) -m 644 {}     $(DESTDIR)$(SHARED_FOLDER)/bridges/{} \;
++	$(INSTALL) -m 755 -d                                                    $(DESTDIR)$(LIBRARY_FOLDER)/bridges
++	$(FIND) bridges/  -mindepth 1 -type d -execdir $(INSTALL) -m 755 -d     $(DESTDIR)$(LIBRARY_FOLDER)/bridges/{} \;
++	$(FIND) bridges/  -mindepth 1 -type f -execdir $(INSTALL) -m 644 {}     $(DESTDIR)$(LIBRARY_FOLDER)/bridges/{} \;
+ 
  .PHONY: install_library
  install_library: $(HASHCAT_LIBRARY)
-diff --git a/src/interface.c b/src/interface.c
-index d81b4ec97..5bf3e091a 100644
---- a/src/interface.c
-+++ b/src/interface.c
-@@ -21,9 +21,9 @@ int module_filename (const folder_config_t *folder_config, const int hash_mode,
+diff -ruN a/src/bridges.c b/src/bridges.c
+--- a/src/bridges.c	2025-08-23 10:43:56.000000000 +0200
++++ b/src/bridges.c	2025-09-07 14:56:02.068139453 +0200
+@@ -22,9 +22,9 @@
+ {
+   // native compiled
+   #if defined (_WIN) || defined (__CYGWIN__)
+-  return snprintf (out_buf, out_size, "%s/bridges/bridge_%s.dll", folder_config->shared_dir, bridge_name);
++  return snprintf (out_buf, out_size, "/usr/lib/hashcat/bridges/bridge_%s.dll", bridge_name);
+   #else
+-  return snprintf (out_buf, out_size, "%s/bridges/bridge_%s.so", folder_config->shared_dir, bridge_name);
++  return snprintf (out_buf, out_size, "/usr/lib/hashcat/bridges/bridge_%s.so", bridge_name);
+   #endif
+ }
+ 
+diff -ruN a/src/interface.c b/src/interface.c
+--- a/src/interface.c	2025-08-23 10:43:56.000000000 +0200
++++ b/src/interface.c	2025-09-07 14:53:37.182294123 +0200
+@@ -21,9 +21,9 @@
  {
    // native compiled
    #if defined (_WIN) || defined (__CYGWIN__)
