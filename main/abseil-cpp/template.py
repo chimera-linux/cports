@@ -1,5 +1,5 @@
 pkgname = "abseil-cpp"
-pkgver = "20250512.1"
+pkgver = "20250814.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,7 +17,7 @@ url = "https://abseil.io"
 source = (
     f"https://github.com/abseil/abseil-cpp/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "9b7a064305e9fd94d124ffa6cc358592eb42b5da588fb4e07d09254aa40086db"
+sha256 = "9b2b72d4e8367c0b843fa2bcfa2b08debbe3cee34f7aaa27de55a6cbb3e843db"
 
 
 @subpackage("abseil-cpp-testing")

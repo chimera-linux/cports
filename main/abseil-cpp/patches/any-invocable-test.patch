@@ -10,7 +10,7 @@ diff --git a/absl/functional/CMakeLists.txt b/absl/functional/CMakeLists.txt
 index 602829c..573bf5e 100644
 --- a/absl/functional/CMakeLists.txt
 +++ b/absl/functional/CMakeLists.txt
-@@ -32,23 +32,6 @@ absl_cc_library(
+@@ -32,24 +32,6 @@ absl_cc_library(
    PUBLIC
  )
  
@@ -24,6 +24,7 @@ index 602829c..573bf5e 100644
 -    ${ABSL_TEST_COPTS}
 -  DEPS
 -    absl::any_invocable
+-    absl::base
 -    absl::config
 -    absl::core_headers
 -    absl::type_traits
