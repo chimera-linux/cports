@@ -1,6 +1,6 @@
 pkgname = "mtxclient"
-pkgver = "0.10.0"
-pkgrel = 7
+pkgver = "0.10.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_LIB_EXAMPLES=OFF"]
 make_check_args = [
@@ -28,7 +28,7 @@ pkgdesc = "Client API library for the Matrix protocol"
 license = "MIT"
 url = "https://github.com/nheko-reborn/mtxclient"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9502e0a999d2873172d50bb80371c061266126c7d4db8e44447eb70c977b0230"
+sha256 = "203be46a08e1dc6cfc068d0911f3b09976f48e4cc4302c3517b9c0f4e53631e3"
 
 
 def post_install(self):
