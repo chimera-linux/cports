@@ -1,24 +1,16 @@
 --- a/cmake/external/tde2e/CMakeLists.txt
 +++ b/cmake/external/tde2e/CMakeLists.txt
-@@ -7,21 +7,6 @@
+@@ -7,12 +7,6 @@
  add_library(external_tde2e INTERFACE IMPORTED GLOBAL)
  add_library(desktop-app::external_tde2e ALIAS external_tde2e)
  
--if (DESKTOP_APP_USE_PACKAGED)
+-if (DESKTOP_APP_USE_PACKAGED OR LINUX)
 -    find_package(tde2e REQUIRED)
 -    target_link_libraries(external_tde2e INTERFACE tde2e::tde2e)
--    return()
--endif()
--
--if (LINUX)
--    target_link_static_libraries(external_tde2e
--    INTERFACE
--        tde2e
--        tdutils
--    )
 -    return()
 -endif()
 -
  set(tde2e_loc ${libs_loc}/tde2e)
  set(tde2e_build_loc ${tde2e_loc}/out/$<IF:$<CONFIG:Debug>,Debug,Release>)
  if (WIN32)
+
