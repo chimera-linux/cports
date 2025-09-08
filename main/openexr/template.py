@@ -1,5 +1,5 @@
 pkgname = "openexr"
-pkgver = "3.3.5"
+pkgver = "3.4.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,12 +14,13 @@ makedepends = [
     "boost-devel",
     "imath-devel",
     "libdeflate-devel",
+    "openjph-devel",
 ]
 pkgdesc = "Reference implementation of the EXR format"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
-sha256 = "cb0c88710c906c9bfc59027eb147e780d508c7be1a90b43af3ec9e3c2987b70d"
+sha256 = "d7b31637d7adc359f5e5a7517ba918cb5997bc1a4ae7a808ec874cdf91da93c0"
 # CIF: has a bunch of test failures
 hardening = ["vis", "!cfi"]
 
