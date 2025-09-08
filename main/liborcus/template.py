@@ -1,6 +1,6 @@
 pkgname = "liborcus"
-pkgver = "0.20.1"
-pkgrel = 1
+pkgver = "0.20.2"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "Library for processing spreadsheets"
 license = "MPL-2.0"
 url = "https://gitlab.com/orcus/orcus"
 source = f"{url}/-/archive/{pkgver}/liborcus-{pkgver}.tar.gz"
-sha256 = "bd7942cf43d3d62770be79a257c9d07a120c5b9cb0b3dc1799514cb83aa68f02"
+sha256 = "c2406650b6592774035f1e6aec3252e1c0c2677602076b66cd421861ab90fddc"
 
 
 @subpackage("liborcus-progs")
