@@ -1,6 +1,6 @@
 pkgname = "botan"
 pkgver = "3.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_script = "./configure.py"
 configure_args = [

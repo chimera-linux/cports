@@ -1,6 +1,6 @@
 pkgname = "mygui"
 pkgver = "3.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DMYGUI_BUILD_DEMOS=OFF",

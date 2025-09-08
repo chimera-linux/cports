@@ -1,6 +1,6 @@
 pkgname = "strawberry"
 pkgver = "1.2.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DENABLE_GPOD=OFF", "-DENABLE_STREAMTAGREADER=OFF"]
 hostmakedepends = [

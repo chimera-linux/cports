@@ -1,6 +1,6 @@
 pkgname = "imath"
 pkgver = "3.1.12"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",

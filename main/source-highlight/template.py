@@ -1,6 +1,6 @@
 pkgname = "source-highlight"
 pkgver = "3.1.9"
-pkgrel = 8
+pkgrel = 9
 build_style = "gnu_configure"
 configure_args = [
     "--with-bash-completion=/usr/share/bash-completion/completions"

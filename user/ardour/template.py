@@ -1,6 +1,6 @@
 pkgname = "ardour"
 pkgver = "8.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_args = [
     "--configdir=/etc",

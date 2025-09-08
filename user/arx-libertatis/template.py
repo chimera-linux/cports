@@ -2,7 +2,7 @@ pkgname = "arx-libertatis"
 # latest stable version has known crashes, e.g. in the first
 # dungeon near the cobweb, due to c++ vector length-related bugs
 pkgver = "1.2.1_git20240822"
-pkgrel = 1
+pkgrel = 2
 _gitrev = "5b95e4c5ca9d583f1b11c085326979772645e0f3"
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "python"]

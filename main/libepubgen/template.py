@@ -1,6 +1,6 @@
 pkgname = "libepubgen"
 pkgver = "0.1.1"
-pkgrel = 6
+pkgrel = 7
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]

@@ -1,6 +1,6 @@
 pkgname = "librime"
 pkgver = "1.13.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [

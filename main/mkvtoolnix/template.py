@@ -1,11 +1,13 @@
 pkgname = "mkvtoolnix"
 pkgver = "93.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
     "--disable-update-check",
     "--with-docbook-xsl-root=/usr/share/xsl-nons/docbook",
+    # boost 1.89: work around custom build macros
+    "--with-boost-system=c",
 ]
 make_cmd = "rake"
 make_dir = "."

@@ -1,6 +1,6 @@
 pkgname = "supertux2"
 pkgver = "0.6.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",

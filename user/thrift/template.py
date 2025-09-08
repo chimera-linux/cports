@@ -1,6 +1,6 @@
 pkgname = "thrift"
 pkgver = "0.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DWITH_AS3=OFF",

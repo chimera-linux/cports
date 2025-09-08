@@ -1,6 +1,6 @@
 pkgname = "libqxp"
 pkgver = "0.0.2"
-pkgrel = 10
+pkgrel = 11
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]

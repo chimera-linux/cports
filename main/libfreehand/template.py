@@ -1,6 +1,6 @@
 pkgname = "libfreehand"
 pkgver = "0.1.2"
-pkgrel = 6
+pkgrel = 7
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

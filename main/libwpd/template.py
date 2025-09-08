@@ -1,6 +1,6 @@
 pkgname = "libwpd"
 pkgver = "0.10.3"
-pkgrel = 6
+pkgrel = 7
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

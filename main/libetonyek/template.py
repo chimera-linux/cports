@@ -1,6 +1,6 @@
 pkgname = "libetonyek"
 pkgver = "0.1.12"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

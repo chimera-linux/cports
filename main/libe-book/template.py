@@ -1,6 +1,6 @@
 pkgname = "libe-book"
 pkgver = "0.1.3"
-pkgrel = 11
+pkgrel = 12
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
