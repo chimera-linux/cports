@@ -1,7 +1,7 @@
 --- a/waftools/lv2.py
 +++ b/waftools/lv2.py
 @@ -43,7 +43,7 @@
-     tg = bld.shlib(features='strip', *k, **kw)
+     tg = bld.shlib(features=strip, *k, **kw)
      cxxflags = []
      if not bld.env['OPT'] and bld.env['SSE2']:
 -        cxxflags = [ "-msse2", "-mfpmath=sse"]

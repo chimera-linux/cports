@@ -1,11 +1,11 @@
 --- a/src/LV2/xputty/resources/wscript
 +++ b/src/LV2/xputty/resources/wscript
 @@ -43,7 +43,7 @@
-     before = ['xcairo']
-     src = " ".join(["'%s'" % os.path.splitext(v.name)[0] for v in task.inputs[0:]])
-     # win32: fix dir-separator, remove non-existing flag
--    ld_cmd = env.LD[0]
-+    ld_cmd = 'ld.bfd'
-     noexecstack = task.env['OS_RESOURCES_LDFLAGS']
-     if task.env['OS'] == 'win32':
-         ld_cmd = ld_cmd.replace('\\','/')
+     else:
+         before = ['xcairo']
+         src = " ".join(["'%s'" % os.path.splitext(v.name)[0] for v in task.inputs])
+-        ld_cmd = env.LD[0]
++        ld_cmd = 'ld.bfd'
+         noexecstack = env['OS_RESOURCES_LDFLAGS']
+
+         if env['OS'] == 'win32':

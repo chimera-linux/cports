@@ -1,0 +1,57 @@
+diff --git a/src/gx_head/wscript b/src/gx_head/wscript
+index b46a372..7585a86 100644
+--- a/src/gx_head/wscript
++++ b/src/gx_head/wscript
+@@ -207,7 +207,7 @@ def build(bld):
+         sources_engine.append("engine/avahi_register.cpp")
+     sources = sources_engine + sources_engine_shared + sources_gui
+     uselib = ['JACK', 'SNDFILE', 'GTHREAD', 'GMODULE_EXPORT', 'CURL', 'LIBLO',
+-              'GTK2', 'GTKMM', 'GIOMM', 'FFTW3', 'LRDF', 'LILV', 'BOOST_SYSTEM','BOOST_IOSTREAMS',
++              'GTK2', 'GTKMM', 'GIOMM', 'FFTW3', 'LRDF', 'LILV', 'BOOST_IOSTREAMS',
+               'ZITA_CONVOLVER','ZITA_RESAMPLER']
+     if bld.env.HAVE_AVAHI:
+         uselib += ['AVAHI_GOBJECT', 'AVAHI_GLIB', 'AVAHI_CLIENT']
+diff --git a/src/ladspa/wscript b/src/ladspa/wscript
+index d036f2c..982ecd9 100644
+--- a/src/ladspa/wscript
++++ b/src/ladspa/wscript
+@@ -25,7 +25,7 @@ def build(bld):
+     incl = ['../headers', '..']
+     lib = []
+     uselib = ['JACK', 'SNDFILE', 'GTHREAD', 'GMODULE_EXPORT',
+-              'GLIBMM', 'GIOMM', 'FFTW3', 'BOOST_SYSTEM', 'LILV',
++              'GLIBMM', 'GIOMM', 'FFTW3', 'LILV',
+               'gxwmm_inc']
+     ladspa_plugin = bld.shlib(
+         features='test_loadable',
+diff --git a/wscript b/wscript
+index 066d3f0..f1dd217 100644
+--- a/wscript
++++ b/wscript
+@@ -182,12 +182,6 @@ def define_with_env(self, varname, value):
+ # configuration helper functions
+ #
+ def check_boost(conf):
+-    code="""
+-    #include <boost/system/error_code.hpp>
+-    int main() { boost::system::error_code c; }
+-    """
+-    msg = "Checking for boost-system "
+-    conf.check_cxx(msg = msg, fragment=code, lib="boost_system", uselib_store="BOOST_SYSTEM", mandatory=1,includes='/opt/local/include', libpath='/opt/local/lib')
+     # some boost (>1.49) versions depend on boost-system so we will check for it first
+     # and later link against boost_system were boost headers are included.
+     boost_atleast_version = 104200
+@@ -202,11 +196,11 @@ def check_boost(conf):
+     int main(){ return 0; }
+     """ % boost_atleast_version
+     msg = "Checking for boost >= %s" % boost_atleast_vermsg
+-    conf.check_cxx(msg = msg, fragment=code, lib="boost_system", mandatory=1)
++    conf.check_cxx(msg = msg, fragment=code, mandatory=1)
+     #conf.check_cxx(msg = msg, fragment=code, lib="boost_system-mt", mandatory=1,includes='/opt/local/include', libpath='/opt/local/lib')
+ 
+     msg = "Checking for boost_iostreams >= %s" % boost_atleast_vermsg
+-    conf.check_cxx(msg = msg, fragment=code, lib=["boost_iostreams","boost_system"], uselib_store="BOOST_IOSTREAMS", mandatory=1)
++    conf.check_cxx(msg = msg, fragment=code, lib=["boost_iostreams"], uselib_store="BOOST_IOSTREAMS", mandatory=1)
+     #conf.check_cxx(msg = msg, fragment=code, lib=["boost_iostreams","boost_system-mt"], uselib_store="BOOST_IOSTREAMS", mandatory=1, includes='/opt/local/include', libpath='/opt/local/lib')
+  
+     #try:

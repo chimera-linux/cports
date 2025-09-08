@@ -1,6 +1,6 @@
 pkgname = "guitarix"
-pkgver = "0.46.0"
-pkgrel = 4
+pkgver = "0.47.0"
+pkgrel = 0
 build_style = "waf"
 hostmakedepends = [
     "binutils",
@@ -38,7 +38,7 @@ pkgdesc = "Virtual guitar amplifier"
 license = "GPL-2.0-or-later"
 url = "https://guitarix.org"
 source = f"https://github.com/brummer10/guitarix/releases/download/V{pkgver}/guitarix2-{pkgver}.tar.xz"
-sha256 = "c660beb3f16cdc455d99e6f074cd6ea2b1f10c1dfc480e84210461637dc98c44"
+sha256 = "f18abd3bd2cb05960d00f15f36c63f97eb1759f9571977e3e42191ff16b9b467"
 # no tests
 # FIXME lintpixmaps
 options = ["!check", "!lintpixmaps"]
