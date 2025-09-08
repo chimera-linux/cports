@@ -1,6 +1,6 @@
 pkgname = "strawberry"
-pkgver = "1.2.10"
-pkgrel = 2
+pkgver = "1.2.13"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GPOD=OFF", "-DENABLE_STREAMTAGREADER=OFF"]
 hostmakedepends = [
@@ -41,4 +41,4 @@ pkgdesc = "Audio player and organizer"
 license = "GPL-3.0-or-later"
 url = "https://www.strawberrymusicplayer.org"
 source = f"https://files.strawberrymusicplayer.org/strawberry-{pkgver}.tar.xz"
-sha256 = "fa545aad28ff7bb2733cfeecbe41e4f0be15f36fac430251acb9c1465426aa2e"
+sha256 = "8b7eea3f22b354b529f62e27072030a85ef13a4b3fcac77c0f04e452be6f41ae"
