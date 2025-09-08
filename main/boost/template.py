@@ -1,5 +1,5 @@
 pkgname = "boost"
-pkgver = "1.88.0"
+pkgver = "1.89.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Free peer-reviewed portable C++ source libraries"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://archives.boost.io/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4"
+sha256 = "9de758db755e8330a01d995b0a24d09798048400ac25c03fc5ea9be364b13c93"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
@@ -50,7 +50,6 @@ _libs = [
     "stacktrace_addr2line",
     "stacktrace_basic",
     "stacktrace_noop",
-    "system",
     "thread",
     "timer",
     "type_erasure",
