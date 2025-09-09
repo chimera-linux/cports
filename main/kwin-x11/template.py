@@ -1,6 +1,6 @@
 pkgname = "kwin-x11"
-pkgver = "6.4.4"
-pkgrel = 1
+pkgver = "6.4.5"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -80,7 +80,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin-x11"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-x11-{pkgver}.tar.xz"
-sha256 = "987e207c2f2ab60e51421b5846ca03e69ef875ac20698022f5e8bdd1e1055ed9"
+sha256 = "cea91879467afdfa2caf0ec6dd7256eae78defa970cdc9a947fefd85d417acb1"
 hardening = ["vis"]
 
 

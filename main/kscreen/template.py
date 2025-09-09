@@ -1,6 +1,6 @@
 pkgname = "kscreen"
-pkgver = "6.4.4"
-pkgrel = 1
+pkgver = "6.4.5"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -36,7 +36,7 @@ pkgdesc = "KDE screen management"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
-sha256 = "5890d24614ac6f93cc97964f9ca8b1bef95ec14508408dc87f3904d03b3af876"
+sha256 = "b92bde8238b1e7f3d6521cc4b1ba8bba60047a64fff129b2011dff5ff3431037"
 hardening = ["vis"]
 
 

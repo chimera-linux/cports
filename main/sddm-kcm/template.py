@@ -1,5 +1,5 @@
 pkgname = "sddm-kcm"
-pkgver = "6.4.4"
+pkgver = "6.4.5"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -21,4 +21,4 @@ pkgdesc = "KDE Login Screen (SDDM) KCM"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/sddm-kcm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/sddm-kcm-{pkgver}.tar.xz"
-sha256 = "83366c4d58042d1c0993d8e3197c19c33a7eedccde642263a26812b5c4b16bfb"
+sha256 = "04523f382bfce9259c473c57da4472be4faf92f98b6ed40ab24ab663a337c9ad"
