@@ -2,6 +2,7 @@ pkgname = "woff2"
 pkgver = "1.0.2"
 pkgrel = 1
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["brotli-devel"]
 pkgdesc = "Web Open Font Format 2 reference implementation"
