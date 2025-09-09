@@ -1,6 +1,6 @@
 pkgname = "qcoro"
 pkgver = "0.12.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DQCORO_BUILD_EXAMPLES=OFF"]
 hostmakedepends = [

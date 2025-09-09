@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
 pkgver = "5.1.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DSTACKTRACE=OFF"]
 hostmakedepends = [

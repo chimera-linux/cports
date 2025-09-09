@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-good"
 pkgver = "1.26.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
