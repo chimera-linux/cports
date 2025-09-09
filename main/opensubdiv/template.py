@@ -1,6 +1,6 @@
 pkgname = "opensubdiv"
 pkgver = "3.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DNO_CLEW=ON",
@@ -33,6 +33,8 @@ license = "Apache-2.0"
 url = "https://graphics.pixar.com/opensubdiv/docs/intro.html"
 source = f"https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "e9d99a480d80e999667643747c76eb0138d36c418fc154fd71b4bd65be103d52"
+# for some reason libomp does not make it in?
+tool_flags = {"LDFLAGS": ["-lomp"]}
 
 
 @subpackage("opensubdiv-devel")
