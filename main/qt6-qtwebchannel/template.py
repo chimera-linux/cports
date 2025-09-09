@@ -1,5 +1,5 @@
 pkgname = "qt6-qtwebchannel"
-pkgver = "6.9.1"
+pkgver = "6.9.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebchannel-everywhere-src-{pkgver}.tar.xz"
-sha256 = "19b401d9210afc416c4080b189b0c9940e90d1f7444f5d046f3d8b1ab5fcf9c0"
+sha256 = "878a6337ad4d2c2a1de5bedb28c36b05b2733242d10f6c3d0eae55c5433c8e65"
 # FIXME
 hardening = ["!int"]
 # literally doesn't find itself for some byzantine reason

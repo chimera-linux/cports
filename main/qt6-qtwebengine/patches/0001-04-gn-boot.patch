@@ -43,7 +43,7 @@ be a straight forward to use as an alternative and be fragile.
  file(MAKE_DIRECTORY ${GN_BINARY_DIR})
  
  if((UNIX AND NOT APPLE) AND
-@@ -70,11 +71,13 @@ add_custom_command(
+@@ -79,12 +79,14 @@
          --platform ${platform}
          --ar ${CMAKE_AR}
          --qt-version "${QT_REPO_MODULE_VERSION}.qtwebengine.qt.io"
@@ -53,8 +53,10 @@ be a straight forward to use as an alternative and be fragile.
          $<$<AND:$<PLATFORM_ID:Darwin>,$<BOOL:${CMAKE_OSX_SYSROOT}>>:${CMAKE_OSX_SYSROOT}>
          $<$<AND:$<PLATFORM_ID:Darwin>,$<BOOL:${OSX_ARCH}>>:--osx-architectures>
          $<$<AND:$<PLATFORM_ID:Darwin>,$<BOOL:${OSX_ARCH}>>:${OSX_ARCH}>
--    COMMAND Ninja::ninja -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
-+    COMMAND Ninja::ninja ${NINJAFLAGS} -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
+         ${GN_GCC_LEGACY_SUPPORT}
+-    COMMAND Ninja::ninja ${ninja_flags} -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
++    COMMAND Ninja::ninja ${NINJAFLAGS} ${ninja_flags} -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
      VERBATIM
      USES_TERMINAL
      COMMAND_EXPAND_LISTS
+

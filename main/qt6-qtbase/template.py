@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.9.1"
+pkgver = "6.9.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -60,6 +60,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "xcb-util-cursor-devel",
+    "xcb-util-devel",
     "xcb-util-image-devel",
     "xcb-util-keysyms-devel",
     "xcb-util-renderutil-devel",
@@ -74,7 +75,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "40caedbf83cc9a1959610830563565889878bc95f115868bbf545d1914acf28e"
+sha256 = "44be9c9ecfe04129c4dea0a7e1b36ad476c9cc07c292016ac98e7b41514f2440"
 # FIXME
 hardening = ["!int"]
 # TODO
