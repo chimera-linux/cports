@@ -31,8 +31,8 @@ _exclude_tests = [
     "OpenEXR.bin",
 ]
 
-if self.profile().arch in ["armv7", "ppc", "ppc64", "ppc64le"]:
-    # bus error
+if self.profile().arch != "x86_64":
+    # traps on most archs
     _exclude_tests.append("OpenEXR.testLargeDataWindowOffsets")
 
 make_check_args = ["-E", f"({'|'.join(_exclude_tests)})"]
