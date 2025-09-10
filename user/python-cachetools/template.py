@@ -1,5 +1,5 @@
 pkgname = "python-cachetools"
-pkgver = "6.1.0"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Extensible memoizing collections and decorators"
 license = "MIT"
 url = "https://github.com/tkem/cachetools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "356b6354ceef47bc31466654343cf4250084f53b6ef04aa3fd3b583d4a16871c"
+sha256 = "f2b8a896891276a3b3dda4f78d49c93e5dbdb08757c02098d4757c8d6cec2fc1"
 
 
 def post_install(self):
