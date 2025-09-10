@@ -1,5 +1,5 @@
 pkgname = "python-tornado"
-pkgver = "6.5.1"
+pkgver = "6.5.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -52,7 +52,7 @@ pkgdesc = "Python3 web framework and asynchronous networking library"
 license = "Apache-2.0"
 url = "https://www.tornadoweb.org"
 source = f"$(PYPI_SITE)/t/tornado/tornado-{pkgver}.tar.gz"
-sha256 = "84ceece391e8eb9b2b95578db65e920d2a61070260594819589609ba9bc6308c"
+sha256 = "ab53c8f9a0fa351e2c0741284e06c7a45da86afb544133201c5cc8578eb076a0"
 
 
 def post_install(self):
