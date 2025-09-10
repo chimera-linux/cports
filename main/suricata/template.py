@@ -1,6 +1,6 @@
 pkgname = "suricata"
-pkgver = "7.0.8"
-pkgrel = 2
+pkgver = "8.0.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-gccmarch-native",
@@ -39,14 +39,9 @@ url = "https://suricata.io"
 source = (
     f"https://www.openinfosecfoundation.org/download/suricata-{pkgver}.tar.gz"
 )
-sha256 = "492928c622e170bd9c45d3530bc2b1033c5582dc18085c436fceafb62829d3ce"
+sha256 = "51f36ef492cbee8779d6018e4f18b98a08e677525851251279c1f851654f451f"
 
 
 def post_install(self):
     self.install_service(self.files_path / "suricata")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
-
-
-@subpackage("suricata-devel")
-def _(self):
-    return self.default_devel()
