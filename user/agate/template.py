@@ -1,5 +1,5 @@
 pkgname = "agate"
-pkgver = "3.3.17"
+pkgver = "3.3.19"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Server for the Gemini Protocol"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/mbrubeck/agate"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "51d9eb747adfa125d1b19db4e94e235455524547961cdbfbac19f32943e454ff"
+sha256 = "b820b56463bcc335e57c565c23db3aa4f8dc06f3131a5d7ce77407fe783fd3be"
 
 
 def install(self):
