@@ -610,13 +610,22 @@ index f6e77d1..5e3cbfe 100644
      case __NR__newselect:
  #endif
      case __NR_write:
-@@ -632,12 +632,12 @@
+@@ -635,12 +639,12 @@
      case __NR_recvmmsg_time64:  // Could specify source.
  #endif
  // send* syscalls need their flags filtered.
 -#if defined(__arm__) || \
 +#if defined(__arm__) || defined(__powerpc64__) || \
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
+     case __NR_send:
+ #endif
+ #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
+-    defined(__mips__) || defined(__aarch64__)
++    defined(__mips__) || defined(__aarch64__) || defined(__powerpc64__)
+     case __NR_sendmsg:  // Could specify destination.
+     case __NR_sendto:   // Could specify destination.
+ #endif
+@@ -661,7 +661,7 @@
      case __NR_send:
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
