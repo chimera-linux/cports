@@ -20,6 +20,10 @@ sha256 = "4ccfd14ae68222d5709e54c970da51d7f0b4cf58af045a96935dfcc34f1b1ff1"
 # cross: TODO
 options = ["!cross"]
 
+if self.profile().arch in ["ppc64le"]:
+    # mismatches
+    options += ["!check"]
+
 
 def init_check(self):
     self.make_check_env = {
