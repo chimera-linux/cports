@@ -1,5 +1,5 @@
 pkgname = "fish-shell"
-pkgver = "4.0.2"
+pkgver = "4.0.8"
 pkgrel = 0
 build_style = "cmake"
 make_check_target = "fish_run_tests"
@@ -10,7 +10,7 @@ pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "6e1ecdb164285fc057b2f35acbdc20815c1623099e7bb47bbfc011120adf7e83"
+sha256 = "7f779d13aa55d2fa3afc17364c61ab9edc16faa1eac5851badeffb4e73692240"
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
 
