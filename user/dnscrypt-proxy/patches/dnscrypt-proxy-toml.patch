@@ -1,6 +1,6 @@
-diff --git c/dnscrypt-proxy/example-dnscrypt-proxy.toml w/dnscrypt-proxy/example-dnscrypt-proxy.toml
-index 796e30aa..7014faec 100644
---- c/dnscrypt-proxy/example-dnscrypt-proxy.toml
+diff --git i/dnscrypt-proxy/example-dnscrypt-proxy.toml w/dnscrypt-proxy/example-dnscrypt-proxy.toml
+index f305e8ba..4d08d6a3 100644
+--- i/dnscrypt-proxy/example-dnscrypt-proxy.toml
 +++ w/dnscrypt-proxy/example-dnscrypt-proxy.toml
 @@ -45,17 +45,17 @@ listen_addresses = ['127.0.0.1:53']
  max_clients = 250
@@ -303,7 +303,7 @@ index 796e30aa..7014faec 100644
  ### Quad9
  
  # [sources.quad9-resolvers]
- #   urls = ['https://www.quad9.net/quad9-resolvers.md']
+ #   urls = ['https://quad9.net/dnscrypt/quad9-resolvers.md', 'https://raw.githubusercontent.com/Quad9DNS/dnscrypt-settings/main/dnscrypt/quad9-resolvers.md']
  #   minisign_key = 'RWQBphd2+f6eiAqBsvDZEBXBGHQBJfeG6G+wJPPKxCZMoEQYpmoysKUN'
 -#   cache_file = 'quad9-resolvers.md'
 +#   cache_file = '/var/cache/dnscrypt-proxy/quad9-resolvers.md'
