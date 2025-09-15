@@ -7,6 +7,17 @@ import os
 import pathlib
 
 
+def _match_skipdep(pkg, f, norel=False):
+    if norel:
+        rf = f
+    else:
+        rf = f.relative_to(pkg.destdir)
+    for mf in pkg.skip_dependencies:
+        if rf.match(mf):
+            return None
+    return rf
+
+
 def _scan_so(pkg):
     verify_deps = {}
     pkg.so_requires = []
@@ -25,6 +36,9 @@ def _scan_so(pkg):
             curso[fp.name] = pname
 
         if pname != pkg.pkgname:
+            continue
+
+        if not _match_skipdep(pkg, fp, True):
             continue
 
         if foreign:
@@ -186,6 +200,8 @@ def _scan_pc(pkg):
     def scan_pc(v):
         if not v.exists():
             return
+        if not _match_skipdep(pkg, v):
+            return
         # analyze the .pc file
         pcc = chroot.enter(
             "pkg-config",
@@ -284,6 +300,8 @@ def _scan_svc(pkg):
 
     def scan_svc(v, pfx):
         if not v.is_file():
+            return
+        if not _match_skipdep(pkg, v):
             return
         with v.open() as df:
             for ln in df:
@@ -387,6 +405,10 @@ def _scan_symlinks(pkg):
         # skip non-symlinks
         if not f.is_symlink():
             continue
+        # relativize
+        ssrc = _match_skipdep(pkg, f)
+        if not ssrc:
+            continue
         # resolve
         starg = f.readlink()
         # normalize to absolute path within destdir
@@ -399,7 +421,6 @@ def _scan_symlinks(pkg):
             continue
         # otherwise it's a broken symlink, relativize to destdir
         sdest = sdest.relative_to(pkg.destdir)
-        ssrc = f.relative_to(pkg.destdir)
         # check each subpackage for the file
         for sp in pkg.rparent.subpkg_list:
             np = sp.destdir / sdest

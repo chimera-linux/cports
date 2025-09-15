@@ -461,6 +461,8 @@ core_fields = [
     ("file_modes", {}, dict, False, True, False),
     ("file_xattrs", {}, dict, False, True, False),
     ("broken_symlinks", [], list, False, True, False),
+    ("skip_providers", [], list, False, True, False),
+    ("skip_dependencies", [], list, False, True, False),
     ("compression", None, "comp", False, True, True),
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
@@ -547,6 +549,8 @@ core_fields_priority = [
     ("file_modes", True),
     ("file_xattrs", True),
     ("broken_symlinks", True),
+    ("skip_dependencies", True),
+    ("skip_providers", True),
     ("compression", True),
     ("hardening", True),
     ("options", True),
@@ -2403,6 +2407,8 @@ class Subpackage(Package):
         if auto:
             asfx = self.pkgname.removeprefix(parent.pkgname)
             self.options = parent.options
+            self.skip_dependencies = parent.skip_dependencies
+            self.skip_providers = parent.skip_providers
             for rep in parent.replaces:
                 sn, sv, sop = autil.split_pkg_name(rep)
                 if sn:

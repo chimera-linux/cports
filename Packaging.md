@@ -1050,6 +1050,18 @@ Keep in mind that default values may be overridden by build styles.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
+* `skip_dependencies` *(list)* A list of relative patterns (may be globbed)
+  that are matched when scanning dependencies (does not matter which type).
+  Any file in the package matching any of the patterns is skipped for the
+  purpose of dependendency scan (whether it's shared library dependencies,
+  service dependencies, or anything). For practicality this is inherited
+  into automatic subpackages (e.g. `-dinit`).
+* `skip_providers` *(list)* A list of relative patterns (may be globbed) that
+  are matched when scanning providers (does not matter which type). Any file
+  in the package matching any of the patterns is skipped for the purpose of
+  being a provider (e.g. matched shared libraries will not emit `so:` providers
+  and so on). For practicality this is inherited into automatic subpackages
+  (e.g. `-dinit`).
 * `source` *(list or str)* A list of URLs to download and extract (by default).
   If there is only one source, this can be one string, which is equivalent to
   having a list with the string. Prefixing the string with `!` will prevent

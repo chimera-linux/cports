@@ -5,6 +5,17 @@ import re
 import pathlib
 
 
+def _match_skipprov(pkg, f, norel=False):
+    if norel:
+        rf = f
+    else:
+        rf = f.relative_to(pkg.destdir)
+    for mf in pkg.skip_providers:
+        if rf.match(mf):
+            return None
+    return rf
+
+
 def _invoke_cmd(pkg):
     if not pkg.options["scancmd"] or pkg.autopkg:
         return
@@ -27,6 +38,8 @@ def _invoke_cmd(pkg):
 
     for f in pkg.destdir.glob("usr/bin/*"):
         if f.name in cmdset:
+            continue
+        if not _match_skipprov(pkg, f):
             continue
         # forbidden characters
         if any(v in f.name for v in "[]=<>~"):
@@ -70,6 +83,8 @@ def _invoke_pc(pkg):
 
     def scan_pc(v):
         if not v.exists():
+            return
+        if not _match_skipprov(pkg, f):
             return
         fn = v.name
         sn = v.stem
@@ -184,6 +199,9 @@ def _invoke_so(pkg):
         if pname != pkg.pkgname:
             continue
 
+        if not _match_skipprov(pkg, fp, True):
+            continue
+
         # foreign-machine elfs are not scanned
         if foreign:
             continue
@@ -246,6 +264,8 @@ def _invoke_svc(pkg):
     def _scan_svc(f, pfx):
         # only consider files...
         if not f.is_file():
+            return
+        if not _match_skipprov(pkg, f):
             return
         # explicitly provided
         if f"{pfx}:{f.name}" in svcset:
