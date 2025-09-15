@@ -2,7 +2,11 @@ pkgname = "double-conversion"
 pkgver = "3.3.1"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_TESTING=ON", "-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DBUILD_TESTING=ON",
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+]
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "Efficient binary-decimal and decimal-binary routines for doubles"
 license = "BSD-3-Clause"
