@@ -1,3 +1,5 @@
+# not abi-stable in patch versions
+# rebuild library consumers on updates (mesa)
 pkgname = "spirv-llvm-translator"
 pkgver = "20.1.6"
 pkgrel = 0
