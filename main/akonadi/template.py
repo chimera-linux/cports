@@ -1,6 +1,6 @@
 pkgname = "akonadi"
 pkgver = "25.08.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: add mariadb since it's usually the default
 configure_args = [
@@ -53,6 +53,8 @@ makedepends = [
 ]
 depends = ["qt6-qtbase-sql"]
 checkdepends = ["dbus", "xwayland-run", *depends]
+# org.kde.akonadi QML module now here
+replaces = ["merkuro<25.08.0"]
 pkgdesc = "KDE storage service for PIM data"
 license = "LGPL-2.1-or-later"
 url = "https://userbase.kde.org/Akonadi"
