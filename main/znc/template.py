@@ -18,6 +18,7 @@ hostmakedepends = [
 makedepends = [
     "argon2-devel",
     "boost-devel",
+    "dinit-chimera",
     "icu-devel",
     "libsasl-devel",
     "openssl3-devel",

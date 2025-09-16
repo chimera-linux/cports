@@ -12,6 +12,7 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "gnutls-devel",
     "libcap-devel",
     "libedit-devel",

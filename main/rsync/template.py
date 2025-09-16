@@ -15,6 +15,7 @@ make_dir = "."
 hostmakedepends = ["perl"]
 makedepends = [
     "acl-devel",
+    "dinit-chimera",
     "lz4-devel",
     "openssl3-devel",
     "popt-devel",

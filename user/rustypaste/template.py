@@ -17,6 +17,7 @@ make_check_args = [
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "openssl3-devel",
     "rust-std",
     "zstd-devel",

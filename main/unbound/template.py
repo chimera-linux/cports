@@ -43,6 +43,7 @@ license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
 sha256 = "6a6b117c799d8de3868643397e0fd71591f6d42f4473f598bdb22609ff362590"
+skip_dependencies = ["usr/lib/dinit.d/*"]
 
 
 def post_install(self):

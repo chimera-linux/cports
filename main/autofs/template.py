@@ -14,6 +14,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "heimdal-devel",
     "libsasl-devel",
     "libtirpc-devel",

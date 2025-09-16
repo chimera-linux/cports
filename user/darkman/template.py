@@ -10,6 +10,7 @@ hostmakedepends = [
     "go",
     "scdoc",
 ]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Control dark-mode and light-mode transitions"
 license = "ISC"
 url = "https://gitlab.com/WhyNotHugo/darkman"

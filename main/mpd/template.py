@@ -110,6 +110,7 @@ makedepends = [
     "bzip2-devel",
     "chromaprint-devel",
     "curl-devel",
+    "dinit-chimera",
     "ffmpeg-devel",
     "flac-devel",
     "fluidsynth-devel",

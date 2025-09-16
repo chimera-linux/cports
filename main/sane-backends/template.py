@@ -22,6 +22,7 @@ hostmakedepends = [
 makedepends = [
     "avahi-bootstrap",
     "curl-devel",
+    "dinit-chimera",
     "libgphoto2-devel",
     "libjpeg-turbo-devel",
     "libtiff-devel",

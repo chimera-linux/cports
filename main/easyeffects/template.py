@@ -13,6 +13,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "appstream-glib-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "fftw-devel",
     "fmt-devel",
     "glib-devel",

@@ -36,6 +36,7 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
+    "dinit-chimera",
     "libaio-devel-static",
     "libatomic-chimera-devel-static",
     "libedit-devel-static",

@@ -505,6 +505,8 @@ def _(self):
     self.install_if = [self.with_pkgver("util-linux-uuid-libs")]
     # transitional
     self.provides = [self.with_pkgver("libuuid-progs")]
+    # skip depscan to avoid cycle
+    self.skip_dependencies = ["usr/lib/dinit.d/*"]
 
     return [
         "usr/lib/dinit.d",

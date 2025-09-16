@@ -6,6 +6,7 @@ configure_args = ["PREFIX=/usr", "MANDIR=/usr/share/man"]
 make_check_target = "regress"
 hostmakedepends = ["flex", "pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "libevent-devel",
     "libretls-devel",
     "openssl3-devel",

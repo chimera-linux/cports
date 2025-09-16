@@ -7,6 +7,8 @@ hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "alsa-lib-devel",
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "glib-devel",
     "libdrm-devel",
     "libxfixes-devel",

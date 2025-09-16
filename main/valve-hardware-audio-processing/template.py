@@ -8,7 +8,7 @@ make_build_args = ["FAUST_COMPILER=clang++"]
 make_install_args = ["SHELL=/usr/bin/bash"]
 make_use_env = True
 hostmakedepends = ["bash", "faust"]
-makedepends = ["boost-devel", "lv2"]
+makedepends = ["boost-devel", "dinit-chimera", "lv2"]
 depends = ["bash", "dmidecode", "pipewire", "noise-suppression-for-voice"]
 pkgdesc = "Steam Deck audio processing"
 license = "GPL-2.0-or-later"

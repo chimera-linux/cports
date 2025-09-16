@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 make_install_args = ["USE_SYSTEMD=0", "USE_NFTABLES=1"]
 hostmakedepends = ["python"]
+makedepends = ["dinit-chimera"]
 depends = [
     "dnsmasq",
     "lxc",

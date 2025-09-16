@@ -45,6 +45,8 @@ sha256 = "a9725ae3f73f8d910de84c108bc11bfd4c782bef6a4190b2ec70c5d2f22344db"
 # crashes in find_suitable_hibernation_device_full -> btrfs_get_file_physical_offset_fd
 # when logging into plasma from gdm
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
+# skip cycle with polkit... providers are ok of course
+skip_dependencies = ["usr/lib/dinit.d/*"]
 
 
 def post_install(self):

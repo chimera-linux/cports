@@ -9,6 +9,7 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "flex", "libtool", "pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "flex-devel-static",
     "libmnl-devel",
     "libnetfilter_conntrack-devel",

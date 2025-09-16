@@ -6,6 +6,7 @@ configure_env = {"YACC": "bison"}
 configure_gen = []
 make_dir = "."
 hostmakedepends = ["flex", "bison"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "NSS to NSCD bridge for musl"
 license = "MIT"
 url = "https://github.com/pikhq/musl-nscd"

@@ -19,6 +19,7 @@ make_install_args = ["install", "install-conf"]
 hostmakedepends = ["automake", "cargo", "libtool", "linux-headers", "pkgconf"]
 makedepends = [
     "cbindgen",
+    "dinit-chimera",
     "hiredis-devel",
     "jansson-devel",
     "libevent-devel",

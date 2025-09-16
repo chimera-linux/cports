@@ -2,4 +2,5 @@ type = process
 command = /usr/bin/buildkitd
 logfile = /var/log/buildkitd.log
 working-dir = /var/lib/buildkit
+depends-on: local.target
 depends-on: network.target

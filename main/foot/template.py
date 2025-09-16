@@ -9,6 +9,7 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "dinit-chimera",
     "fcft-devel",
     "fontconfig-devel",
     "freetype-devel",

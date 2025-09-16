@@ -15,6 +15,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
+    "dinit-dbus",
     "glib-devel",
     "libevdev-devel",
     "libxml2-devel",

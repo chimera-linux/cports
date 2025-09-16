@@ -3,6 +3,7 @@ pkgver = "0.9.8"
 pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 depends = ["zfs"]
 pkgdesc = "ZFS backup and replication tool - dsh2dsh's enhanced fork"
 license = "MIT"

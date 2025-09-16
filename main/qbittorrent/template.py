@@ -11,6 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
+    "dinit-chimera",
     "libtorrent-rasterbar-devel",
     "openssl3-devel",
     "qt6-qtbase-private-devel",  # qtcore-config_p.h

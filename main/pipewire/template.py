@@ -37,6 +37,8 @@ makedepends = [
     "alsa-lib-devel",
     "avahi-devel",
     "bluez-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "elogind-devel",
     "fdk-aac-devel",
     "gst-plugins-base-devel",

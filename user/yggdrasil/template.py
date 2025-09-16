@@ -11,6 +11,7 @@ make_build_args = [
 ]
 make_check_args = ["./src/..."]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Experiment in scalable routing as an encrypted IPv6 overlay network"
 license = "LGPL-3.0-only"
 url = "https://yggdrasil-network.github.io"

@@ -33,6 +33,7 @@ hostmakedepends = [
 ]
 # TODO: reenable openssl once we've figured out the openssl 3.x regressions
 makedepends = [
+    "dinit-chimera",
     "e2fsprogs-devel",
     "gettext-devel",
     "libcap-ng-devel",

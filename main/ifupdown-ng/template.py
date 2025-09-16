@@ -6,6 +6,7 @@ make_build_target = "all"
 make_build_args = ["docs"]
 make_install_args = ["install_docs"]
 hostmakedepends = ["scdoc"]
+makedepends = ["dinit-chimera"]
 checkdepends = ["atf", "kyua"]
 pkgdesc = "Network configuration manager"
 license = "ISC"

@@ -26,6 +26,7 @@ makedepends = [
 depends = [
     "acl-progs",
     "attr-progs",
+    "dinit-chimera",
     "dnsmasq",
     "gtar",
     "iptables",

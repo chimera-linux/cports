@@ -13,6 +13,7 @@ hostmakedepends = [
     "texinfo",
 ]
 makedepends = [
+    "dinit-chimera",
     "flex-devel-static",
     "linux-headers",
     "ncurses-devel",

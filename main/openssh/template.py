@@ -30,6 +30,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "heimdal-devel",
     "ldns-devel",
     "libedit-devel",

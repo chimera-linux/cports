@@ -8,6 +8,7 @@ make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["automake", "bison", "flex", "pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "libevent-devel",
     "openssl3-devel",
 ]

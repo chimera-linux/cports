@@ -1,6 +1,7 @@
 pkgname = "initramfs-tools-growrootfs"
 pkgver = "0.1"
 pkgrel = 0
+makedepends = ["dinit-chimera"]
 depends = ["initramfs-tools", "util-linux-mount"]
 pkgdesc = "Resize your root filesystem on first boot"
 license = "custom:meta"

@@ -14,6 +14,7 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "brotli-devel",
+    "dinit-chimera",
     "libdeflate-devel",
     "libxml2-devel",
     "lua5.4-devel",

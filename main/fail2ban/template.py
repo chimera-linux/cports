@@ -7,6 +7,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
+makedepends = ["dinit-chimera"]
 depends = ["python-pyasynchat"]
 pkgdesc = "Daemon to ban hosts that cause multiple auth errors"
 license = "GPL-2.0-only"

@@ -7,6 +7,7 @@ configure_args = [
 ]
 hostmakedepends = ["automake"]
 makedepends = [
+    "dinit-chimera",
     "libcap-ng-devel",
     "linux-headers",
 ]

@@ -9,6 +9,7 @@ configure_args = [
 ]
 hostmakedepends = ["glib-devel", "meson", "pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "glib-devel",
     "libgudev-devel",
     "linux-headers",

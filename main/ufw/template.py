@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+makedepends = ["dinit-chimera"]
 depends = [
     "cmd:modprobe!kmod",
     "cmd:sysctl!procps",

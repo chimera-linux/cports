@@ -58,6 +58,8 @@ hostmakedepends = [
 makedepends = [
     "curl-devel",
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "elogind-devel",
     "gobject-introspection-devel",
     "jansson-devel",

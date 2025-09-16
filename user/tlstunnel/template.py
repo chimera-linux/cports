@@ -9,6 +9,7 @@ make_build_args = [
     "./cmd/tlstunnel",
 ]
 hostmakedepends = ["go", "scdoc", "libcap-progs"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "TLS reverse proxy"
 license = "MIT"
 url = "https://codeberg.org/emersion/tlstunnel"

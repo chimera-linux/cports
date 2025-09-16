@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "go"
 make_build_args = ["./dnscrypt-proxy"]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Tool for securing communications between a client and a DNS resolver"
 license = "ISC"
 url = "https://dnscrypt.info"

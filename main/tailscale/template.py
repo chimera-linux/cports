@@ -10,6 +10,7 @@ make_build_args = [
     "./cmd/tailscaled",
 ]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 depends = ["iptables", "ca-certificates"]
 pkgdesc = "Mesh VPN daemon based on WireGuard"
 license = "BSD-3-Clause"

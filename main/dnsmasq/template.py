@@ -6,6 +6,8 @@ make_install_args = ["BINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "libidn2-devel",
     "libnetfilter_conntrack-devel",
     "linux-headers",

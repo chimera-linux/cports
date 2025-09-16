@@ -16,6 +16,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "bash-completion",
+    "dinit-chimera",
+    "dinit-dbus",
     "libgudev-devel",
     "polkit-devel",
     "upower-devel",

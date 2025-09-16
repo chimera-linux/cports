@@ -9,7 +9,7 @@ configure_args = [
     "-Dusb=true",
 ]
 hostmakedepends = ["flex", "meson", "perl", "pkgconf"]
-makedepends = ["libusb-devel", "udev-devel", "polkit-devel"]
+makedepends = ["dinit-chimera", "libusb-devel", "udev-devel", "polkit-devel"]
 pkgdesc = "Middleware to access PC/SC smart cards using SCard API"
 license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"

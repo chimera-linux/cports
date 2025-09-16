@@ -11,6 +11,7 @@ hostmakedepends = [
     "python-requests",
     "python-setuptools",
 ]
+makedepends = ["dinit-chimera"]
 depends = [
     "!chrony-dinit-links",  # cloud-init wants to manage that
     "cloud-utils-growpart",

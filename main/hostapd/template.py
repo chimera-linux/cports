@@ -6,7 +6,12 @@ build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]
 make_use_env = True
 hostmakedepends = ["pkgconf"]
-makedepends = ["libnl-devel", "linux-headers", "openssl3-devel"]
+makedepends = [
+    "dinit-chimera",
+    "libnl-devel",
+    "linux-headers",
+    "openssl3-devel",
+]
 pkgdesc = "IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
 license = "BSD-3-Clause"
 url = "https://w1.fi/hostapd"

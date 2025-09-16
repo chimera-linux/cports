@@ -10,6 +10,8 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "libcap-devel",
     "polkit-devel",
     "zlib-ng-compat-devel",

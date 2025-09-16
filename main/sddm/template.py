@@ -21,6 +21,8 @@ hostmakedepends = [
     "python-docutils",
 ]
 makedepends = [
+    "dinit-chimera",
+    "dinit-dbus",
     "elogind-devel",
     "linux-pam-devel",
     "qt6-qtdeclarative-devel",

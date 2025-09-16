@@ -358,30 +358,28 @@ def _scan_svc(pkg):
             continue
         # provided by one of ours or by a dependency
         in_subpkg = subpkg_provides_svc(sv, pfx)
-        if not in_subpkg:
-            info = cli.call(
-                "search",
-                ["--from", "none", "-q", "-e", f"{pfx}:" + sv],
-                pkg,
-                capture_output=True,
-                allow_untrusted=True,
-            )
-            if info.returncode == 0:
-                prov = info.stdout.strip().decode().split("\n")
-                if len(prov) >= 1:
-                    prov = prov[0]
-                else:
-                    prov = None
-        else:
-            prov = in_subpkg
-        if prov:
-            log.out_plain(
-                f"  \f[cyan]{pfx}: \f[orange]{sv}\f[] (provider: \f[green]{prov}\f[])"
-            )
+        if in_subpkg or cli.is_installed(f"{pfx}:" + sv, pkg):
             pkg.svc_requires.append(f"{pfx}:{sv}")
+            # locate the explicit provider
+            if not in_subpkg:
+                prov = cli.get_provider(f"{pfx}:{sv}", pkg)
+            else:
+                prov = in_subpkg
+            if not prov:
+                pkg.error(f"  {pfx}: {sv} (unknown provider)")
+            else:
+                log.out_plain(
+                    f"  \f[cyan]{pfx}: \f[orange]{sv}\f[] (provider: \f[green]{prov}\f[])"
+                )
+            # warn about redundancy
+            if prov in pkg.depends and prov != "dinit-chimera":
+                pkg.log_warn(f"redundant runtime dependency '{prov}'")
             continue
         # no provider found
-        pkg.error(f"  {pfx}: {sv} (unknown provider)")
+        pkg.error(
+            f"  {pfx}: {sv} (unknown provider)",
+            hint=f"add package providing '{sv}' to 'makedepends'",
+        )
 
 
 def _scan_symlinks(pkg):

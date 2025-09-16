@@ -26,6 +26,7 @@ makedepends = [
     "boost-devel",
     "btrfs-progs-devel",
     "dbus-devel",
+    "dinit-chimera",
     "e2fsprogs-devel",
     "json-c-devel",
     "libxml2-devel",

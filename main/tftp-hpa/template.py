@@ -7,7 +7,7 @@ configure_args = [
 ]
 make_dir = "."
 hostmakedepends = ["automake"]
-makedepends = ["libedit-readline-devel"]
+makedepends = ["dinit-chimera", "libedit-readline-devel"]
 pkgdesc = "TFTP client and server"
 license = "BSD-3-Clause"
 url = "https://www.kernel.org"

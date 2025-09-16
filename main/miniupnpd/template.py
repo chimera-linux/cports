@@ -19,6 +19,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "iptables-devel",
     "libmnl-devel",
     "libnftnl-devel",

@@ -14,6 +14,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "gmp-devel",
     "jansson-devel",
     "libedit-devel",

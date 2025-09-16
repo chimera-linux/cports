@@ -5,7 +5,7 @@ build_style = "makefile"
 make_build_args = ["CWFLAGS=", "BINDIR=/usr/bin"]
 make_install_args = ["STRIP=", "PREFIX=/usr", "BINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf"]
-makedepends = ["linux-headers", "udev-devel"]
+makedepends = ["dinit-chimera", "linux-headers", "udev-devel"]
 checkdepends = ["bash", "e2fsprogs", "udev"]
 pkgdesc = "Tool for handling Linux md arrays"
 license = "GPL-2.0-or-later"

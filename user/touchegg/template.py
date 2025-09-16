@@ -6,6 +6,7 @@ configure_args = ["-DUSE_SYSTEMD=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "cairo-devel",
+    "dinit-chimera",
     "glib-devel",
     "gtk+3-devel",
     "libinput-devel",

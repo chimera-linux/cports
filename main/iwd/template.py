@@ -15,7 +15,13 @@ make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = ["pkgconf", "python-docutils", "automake", "libtool"]
 # TODO: look into porting to libedit later
 # iwd's usage of readline is very fucky and we don't wanna break it
-makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
+makedepends = [
+    "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
+    "linux-headers",
+    "readline-devel",
+]
 checkdepends = ["python", "dbus"]
 depends = ["dinit-dbus", "resolvconf"]
 pkgdesc = "Wireless daemon that replaces wpa_supplicant"

@@ -5,6 +5,7 @@ build_style = "go"
 make_build_args = [f"-ldflags=-X main.Version={pkgver}", "./cmd/gotosocial"]
 make_check_env = {"GTS_DB_TYPE": "sqlite", "GTS_DB_ADDRESS": ":memory:"}
 hostmakedepends = ["go", "go-swagger", "yarn"]
+makedepends = ["dinit-chimera"]
 checkdepends = []
 depends = []
 go_build_tags = ["netgo", "osusergo", "kvformat"]

@@ -65,6 +65,7 @@ configure_args = [
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 makedepends = [
     "curl-devel",
+    "dinit-chimera",
     "gettext-devel",
     "gmp-devel",
     "ldns-devel",

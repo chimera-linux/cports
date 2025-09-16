@@ -8,7 +8,7 @@ configure_args = [
     "-Dpamdir=/usr/lib/pam.d",
 ]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
-makedepends = ["linux-pam-devel"]
+makedepends = ["dinit-chimera", "linux-pam-devel"]
 depends = ["dinit-chimera"]
 provides = [
     self.with_pkgver("usvc:graphical.target"),

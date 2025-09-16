@@ -10,6 +10,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "fcft-devel",
     "linux-headers",
     "pixman-devel",

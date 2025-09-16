@@ -58,6 +58,7 @@ configure_args = [
 make_dir = "."
 # cross will need both sets of dependencies in the future
 hostmakedepends = [
+    "dinit-chimera",
     "libgd-devel",
     "libxml2-devel",
     "libxslt-devel",

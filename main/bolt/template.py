@@ -17,7 +17,12 @@ hostmakedepends = [
     "meson",
     "pkgconf",
 ]
-makedepends = ["udev-devel", "glib-devel", "polkit-devel"]
+makedepends = [
+    "dinit-chimera",
+    "glib-devel",
+    "polkit-devel",
+    "udev-devel",
+]
 checkdepends = ["dbus"]
 depends = ["dinit-dbus"]
 pkgdesc = "Thunderbolt device manager"

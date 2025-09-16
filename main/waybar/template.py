@@ -33,6 +33,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "catch2-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "fmt-devel",
     "gobject-introspection-devel",
     "gtk-layer-shell-devel",

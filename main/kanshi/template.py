@@ -8,6 +8,7 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "dinit-chimera",
     "libscfg-devel",
     "varlink-devel",
     "wayland-devel",

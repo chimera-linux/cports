@@ -5,6 +5,7 @@ build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
 makedepends = [
+    "dinit-chimera",
     "icu-devel",
     "libidn2-devel",
     "linux-headers",

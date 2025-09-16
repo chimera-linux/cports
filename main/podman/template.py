@@ -19,6 +19,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "btrfs-progs-devel",
+    "dinit-chimera",
     "gpgme-devel",
     "libassuan-devel",
     "libseccomp-devel",

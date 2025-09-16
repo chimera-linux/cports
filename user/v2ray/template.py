@@ -4,6 +4,7 @@ pkgrel = 5
 build_style = "go"
 make_build_args = ["./main"]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Platform for building proxies to bypass network restrictions"
 license = "MIT"
 url = "https://v2fly.org"

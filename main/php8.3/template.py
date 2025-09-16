@@ -105,6 +105,7 @@ hostmakedepends = [
 makedepends = [
     "argon2-devel",
     "curl-devel",
+    "dinit-chimera",
     "freetype-devel",
     "gettext-devel",
     "gmp-devel",

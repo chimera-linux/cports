@@ -25,6 +25,7 @@ configure_gen = []
 make_build_target = "world"
 hostmakedepends = ["pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "e2fsprogs-devel",
     "icu-devel",
     "libxml2-devel",

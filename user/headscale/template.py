@@ -7,6 +7,7 @@ make_build_args = [
     "./cmd/headscale",
 ]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Open source implementation of the tailscale control server"
 license = "BSD-3-Clause"
 url = "https://github.com/juanfont/headscale"

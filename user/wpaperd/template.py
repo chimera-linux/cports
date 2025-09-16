@@ -9,7 +9,13 @@ hostmakedepends = [
     "pkgconf",
     "scdoc",
 ]
-makedepends = ["dav1d-devel", "mesa-devel", "rust-std", "wayland-devel"]
+makedepends = [
+    "dav1d-devel",
+    "dinit-chimera",
+    "mesa-devel",
+    "rust-std",
+    "wayland-devel",
+]
 pkgdesc = "Wallpaper daemon for Wayland"
 license = "GPL-3.0-or-later"
 url = "https://github.com/danyspin97/wpaperd"

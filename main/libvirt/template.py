@@ -48,6 +48,7 @@ makedepends = [
     "attr-devel",
     "bash-completion",
     "curl-devel",
+    "dinit-chimera",
     "fuse-devel",
     "glib-devel",
     "gnutls-devel",

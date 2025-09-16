@@ -37,6 +37,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "accountsservice-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "elogind-devel",
     "gettext-devel",
     "glib-devel",

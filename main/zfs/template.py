@@ -18,6 +18,7 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
     "attr-devel",
+    "dinit-chimera",
     "libtirpc-devel",
     "linux-headers",
     "linux-pam-devel",

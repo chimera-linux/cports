@@ -17,6 +17,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "cmocka-devel",
+    "dinit-chimera",
     "heimdal-devel",
     "jemalloc-devel",
     "json-c-devel",

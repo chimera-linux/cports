@@ -5,6 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--without-systemd"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
+    "dinit-chimera",
     "libimobiledevice-devel",
     "libusb-devel",
 ]

@@ -9,7 +9,7 @@ configure_args = [
     "--with-systemdsystemunitdir=no",
 ]
 hostmakedepends = ["automake", "pkgconf"]
-makedepends = ["libtirpc-devel", "musl-bsd-headers"]
+makedepends = ["dinit-chimera", "libtirpc-devel", "musl-bsd-headers"]
 pkgdesc = "Universal addresses to RPC program number mapper"
 license = "BSD-3-Clause"
 url = "https://linux-nfs.org"

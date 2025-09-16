@@ -11,7 +11,13 @@ hostmakedepends = [
     "pkgconf",
     "python-setuptools",
 ]
-makedepends = ["glib-devel", "libxml2-devel", "pango-devel", "python-devel"]
+makedepends = [
+    "dinit-chimera",
+    "glib-devel",
+    "libxml2-devel",
+    "pango-devel",
+    "python-devel",
+]
 pkgdesc = "Round Robin Database Tool"
 license = "GPL-2.0-or-later AND custom:FLOSS-License-Exception"
 url = "https://oss.oetiker.ch/rrdtool"

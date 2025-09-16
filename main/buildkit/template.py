@@ -4,6 +4,7 @@ pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 depends = ["containerd", "rootlesskit"]
 pkgdesc = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
 license = "Apache-2.0"

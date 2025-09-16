@@ -15,7 +15,7 @@ configure_args = [
 ]
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
-makedepends = ["udev-devel", "linux-headers"]
+makedepends = ["dinit-chimera", "udev-devel", "linux-headers"]
 depends = ["resolvconf"]
 pkgdesc = "RFC2131 compliant DHCP client"
 license = "BSD-2-Clause"

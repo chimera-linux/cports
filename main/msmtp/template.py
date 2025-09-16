@@ -8,6 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "gnutls-devel",
     "libidn2-devel",
     "libsecret-devel",

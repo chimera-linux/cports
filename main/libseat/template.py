@@ -7,7 +7,7 @@ configure_args = [
     "-Dlibseat-logind=elogind",
 ]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
-makedepends = ["elogind-devel", "linux-headers"]
+makedepends = ["dinit-chimera", "elogind-devel", "linux-headers"]
 pkgdesc = "Universal seat management library"
 license = "MIT"
 url = "https://sr.ht/~kennylevinsen/seatd"

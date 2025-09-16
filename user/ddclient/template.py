@@ -6,6 +6,7 @@ hostmakedepends = [
     "automake",
     "curl",
 ]
+makedepends = ["dinit-chimera"]
 depends = [
     "curl",
     "perl",

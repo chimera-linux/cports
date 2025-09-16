@@ -8,6 +8,7 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "dinit-chimera",
     "lz4-devel",
     "rust-std",
     "wayland-devel",

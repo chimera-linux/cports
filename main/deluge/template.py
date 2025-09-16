@@ -10,6 +10,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+makedepends = ["dinit-chimera"]
 depends = [
     "libtorrent-rasterbar-python",
     "python-chardet",

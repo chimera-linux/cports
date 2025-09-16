@@ -125,6 +125,8 @@ source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "5038424744b2ed8c1d7ecc75b00eeffe68528f9789411da60f199d65762d9ba5"
+# early services, skip depscan to avoid cycle
+skip_dependencies = ["usr/lib/dinit.d/*"]
 # the tests that can run are mostly useless
 options = ["!splitudev", "!check"]
 

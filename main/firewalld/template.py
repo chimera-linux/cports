@@ -15,6 +15,7 @@ hostmakedepends = [
     "python",
 ]
 makedepends = [
+    "dinit-chimera",
     "gettext-devel",
     "glib-devel",
 ]

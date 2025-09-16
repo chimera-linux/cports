@@ -20,6 +20,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
+    "dinit-dbus",
     "elfutils-devel",
     "elogind-devel",
     "gtk4-devel",

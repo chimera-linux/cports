@@ -12,6 +12,7 @@ hostmakedepends = [
     "wayland-progs",
 ]
 makedepends = [
+    "dinit-chimera",
     "geoclue-devel",
     "glib-devel",
     "libdrm-devel",

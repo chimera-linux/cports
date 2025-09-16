@@ -9,6 +9,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
+    "dinit-chimera",
     "gtest-devel",
     "log4cplus",
     "openssl3-devel",

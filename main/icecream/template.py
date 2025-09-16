@@ -10,6 +10,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "libarchive-devel",
     "libcap-ng-devel",
     "lzo-devel",

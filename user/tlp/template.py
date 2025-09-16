@@ -11,6 +11,7 @@ make_install_args = [
     "TLP_WITH_ELOGIND=1",
     "TLP_WITH_SYSTEMD=0",
 ]
+makedepends = ["dinit-chimera"]
 depends = ["perl", "ethtool", "hdparm"]
 pkgdesc = "Battery life optimization utility"
 license = "GPL-2.0-or-later"

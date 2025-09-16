@@ -12,6 +12,8 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "glib-devel",
     "libnotify-devel",
     "libxinerama-devel",

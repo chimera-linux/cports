@@ -18,6 +18,7 @@ hostmakedepends = [
     "rpcsvc-proto",
 ]
 makedepends = [
+    "dinit-chimera",
     "heimdal-devel",
     "heimdal-devel-static",
     "keyutils-devel",

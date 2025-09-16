@@ -15,7 +15,13 @@ hostmakedepends = [
     "pkgconf",
     "python-lxml",
 ]
-makedepends = ["pipewire-devel", "glib-devel", "lua5.4-devel"]
+makedepends = [
+    "dinit-chimera",
+    "dinit-dbus",
+    "glib-devel",
+    "lua5.4-devel",
+    "pipewire-devel",
+]
 checkdepends = ["pipewire", "dbus"]
 depends = ["pipewire"]
 renames = ["pipewire-session-manager"]

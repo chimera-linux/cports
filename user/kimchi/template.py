@@ -4,6 +4,7 @@ pkgrel = 3
 build_style = "go"
 make_build_args = ["-ldflags=-X main.configPath=/etc/kimchi/config"]
 hostmakedepends = ["go", "scdoc", "libcap-progs"]
+makedepends = ["dinit-chimera"]
 pkgdesc = "Bare-bones HTTP server"
 license = "MIT"
 url = "https://codeberg.org/emersion/kimchi"

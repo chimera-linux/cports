@@ -19,6 +19,7 @@ make_build_args = ["--target", "all", "check"]
 make_check_args = ["-R", "rspamd-test-cxx"]
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
+    "dinit-chimera",
     "elfutils-devel",
     "fasttext-devel",
     "fmt-devel",

@@ -15,6 +15,7 @@ make_check_args = [
     "./cmd/syncthing",
 ]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 go_build_tags = ["noupgrade"]
 pkgdesc = "Continuous file synchronization program"
 license = "MPL-2.0"

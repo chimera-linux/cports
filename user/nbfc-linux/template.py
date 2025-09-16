@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 make_build_args = ["confdir=/etc"]
 make_install_args = ["confdir=/etc"]
-makedepends = ["curl-devel", "linux-headers", "openssl3-devel"]
+makedepends = ["curl-devel", "dinit-chimera", "linux-headers", "openssl3-devel"]
 pkgdesc = "NoteBook FanControl for Linux"
 license = "GPL-3.0-or-later"
 url = "https://github.com/nbfc-linux/nbfc-linux"

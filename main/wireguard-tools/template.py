@@ -9,7 +9,7 @@ make_install_args = [
     "WITH_SYSTEMDUNITS=no",
 ]
 hostmakedepends = ["pkgconf", "bash"]
-makedepends = ["linux-headers"]
+makedepends = ["dinit-chimera", "linux-headers"]
 checkdepends = ["clang-analyzer", "perl"]
 pkgdesc = "Next generation secure network tunnel - tools for configuration"
 license = "GPL-2.0-only"

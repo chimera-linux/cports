@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
     "scdoc",
 ]
-makedepends = ["tangle-devel"]
+makedepends = ["dinit-chimera", "tangle-devel"]
 depends = ["upower"]
 pkgdesc = "UPower-powered power alerter"
 license = "GPL-3.0-only"

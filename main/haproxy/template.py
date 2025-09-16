@@ -28,6 +28,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "dinit-chimera",
     "linux-headers",
     "lua5.4-devel",
     "openssl3-devel",

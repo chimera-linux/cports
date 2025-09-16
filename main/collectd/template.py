@@ -12,6 +12,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "curl-devel",
+    "dinit-chimera",
     "hiredis-devel",
     "i2c-tools-devel",
     "iptables-devel",

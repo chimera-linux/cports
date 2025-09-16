@@ -27,6 +27,8 @@ hostmakedepends = [
 makedepends = [
     "cups-devel",
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "glib-devel",
     "libical-devel",
     "linux-headers",

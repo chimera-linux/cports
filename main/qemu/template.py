@@ -64,6 +64,7 @@ makedepends = [
     "bzip2-devel",
     "capstone-devel",
     "curl-devel",
+    "dinit-chimera",
     "dtc-devel",
     "elfutils-devel",
     "fuse-devel",

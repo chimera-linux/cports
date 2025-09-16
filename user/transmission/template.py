@@ -26,6 +26,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "curl-devel",
+    "dinit-chimera",
     "gtest-devel",
     "gtkmm-devel",
     "libdeflate-devel",

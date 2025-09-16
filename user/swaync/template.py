@@ -12,6 +12,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "granite-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "gtk4-devel",
     "gtk4-layer-shell-devel",
     "json-glib-devel",

@@ -8,6 +8,7 @@ make_build_args = [
 ]
 make_check_args = ["-p", "1", "./..."]
 hostmakedepends = ["go"]
+makedepends = ["dinit-chimera"]
 depends = ["shared-mime-info"]
 pkgdesc = "Extensible HTTP server with automatic HTTPS"
 license = "Apache-2.0"

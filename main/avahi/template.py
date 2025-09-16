@@ -47,6 +47,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus-devel",
+    "dinit-chimera",
+    "dinit-dbus",
     "gtk+3-devel",
     "libcap-devel",
     "libdaemon-devel",

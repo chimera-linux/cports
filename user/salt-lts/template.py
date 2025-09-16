@@ -7,6 +7,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
+makedepends = ["dinit-chimera"]
 depends = [
     "python-certifi",
     "python-croniter",
