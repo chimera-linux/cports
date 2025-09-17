@@ -20,9 +20,9 @@ configure_args = [
 hostmakedepends = ["gperf", "meson", "pkgconf", "xmlto"]
 makedepends = [
     "dinit-chimera",
+    "libcap-devel",
     "libexpat-devel",
     "libx11-devel",
-    "libcap-devel",
 ]
 triggers = ["/usr/share/dbus-1/system.d"]
 pkgdesc = "Message bus system"
