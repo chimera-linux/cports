@@ -15,9 +15,9 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "docbook-xsl-nons",
     "dinit-chimera",
     "dinit-dbus",
+    "docbook-xsl-nons",
     "gettext",
     "glib-devel",
     "gobject-introspection",
