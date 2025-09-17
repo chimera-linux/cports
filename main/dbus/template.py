@@ -18,7 +18,12 @@ configure_args = [
     "-Dxml_docs=enabled",
 ]
 hostmakedepends = ["gperf", "meson", "pkgconf", "xmlto"]
-makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
+makedepends = [
+    "dinit-chimera",
+    "libexpat-devel",
+    "libx11-devel",
+    "libcap-devel",
+]
 triggers = ["/usr/share/dbus-1/system.d"]
 pkgdesc = "Message bus system"
 license = "GPL-2.0-or-later"
