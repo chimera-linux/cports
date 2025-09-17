@@ -1,8 +1,8 @@
 Patch-Source: https://dev.gentoo.org/~juippis/mozilla/patchsets/firefox-124-patches-04.tar.xz
---
---- a/build/moz.configure/toolchain.configure	2024-03-16 22:53:15.409390707 +0000
-+++ b/build/moz.configure/toolchain.configure	2024-03-16 22:57:02.661805132 +0000
-@@ -2282,10 +2282,10 @@
+
+--- a/build/moz.configure/toolchain.configure
++++ b/build/moz.configure/toolchain.configure
+@@ -2454,10 +2454,10 @@ set_define("_LIBCPP_ALWAYS_INLINE", libcxx_override_visibility.empty)
  set_define("_LIBCPP_HIDE_FROM_ABI", libcxx_override_visibility.hide_from_abi)
  
  
@@ -11,8 +11,8 @@ Patch-Source: https://dev.gentoo.org/~juippis/mozilla/patchsets/firefox-124-patc
 +@depends(target, build_environment, c_compiler)
 +def visibility_flags(target, env, c_compiler):
      if target.os != "WINNT":
--        if target.kernel == "Darwin":
-+        if target.kernel == "Darwin" or (c_compiler.type == "clang" and c_compiler.version >= "17.0.0"):
+-        if target.kernel in ("Darwin", "FreeBSD", "OpenBSD"):
++        if target.kernel in ("Darwin", "FreeBSD", "OpenBSD") or (c_compiler.type == "clang" and c_compiler.version >= "17.0.0"):
              return ("-fvisibility=hidden", "-fvisibility-inlines-hidden")
          return (
              "-I%s/system_wrappers" % os.path.join(env.dist),

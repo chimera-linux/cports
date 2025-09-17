@@ -1,0 +1,17 @@
+having the depend cflags like -MF .deps/whatever in the
+host flags just completely wrecks cc-rs ability to compile
+anything, so like half the crates fail to build lol
+
+--- a/config/config.mk
++++ b/config/config.mk
+@@ -180,8 +180,8 @@ COMPILE_CMMFLAGS = $(MOZ_LTO_CFLAGS) $(OS_COMPILE_CMMFLAGS) $(MOZBUILD_CMMFLAGS)
+ ASFLAGS = $(COMPUTED_ASFLAGS)
+ SFLAGS = $(COMPUTED_SFLAGS)
+ 
+-HOST_CFLAGS = $(COMPUTED_HOST_CFLAGS) $(_HOST_DEPEND_CFLAGS)
+-HOST_CXXFLAGS = $(COMPUTED_HOST_CXXFLAGS) $(_HOST_DEPEND_CFLAGS)
++HOST_CFLAGS = $(COMPUTED_HOST_CFLAGS)
++HOST_CXXFLAGS = $(COMPUTED_HOST_CXXFLAGS)
+ HOST_C_LDFLAGS = $(COMPUTED_HOST_C_LDFLAGS)
+ HOST_CXX_LDFLAGS = $(COMPUTED_HOST_CXX_LDFLAGS)
+ 
