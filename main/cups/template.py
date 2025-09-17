@@ -1,5 +1,5 @@
 pkgname = "cups"
-pkgver = "2.4.12"
+pkgver = "2.4.14"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -52,7 +52,7 @@ pkgdesc = "Common Unix Printing System"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/cups-{pkgver}-source.tar.gz"
-sha256 = "b1dde191a4ae2760c47220c82ca6155a28c382701e6c1a0159d1054990231d59"
+sha256 = "660288020dd6f79caf799811c4c1a3207a48689899ac2093959d70a3bdcb7699"
 # build system is bad
 tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
