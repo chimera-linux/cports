@@ -38,6 +38,7 @@ makedepends = [
     "acl-devel",
     "avahi-bootstrap",
     "dbus-devel",
+    "dinit-chimera",
     "libpaper-devel",
     "libpng-devel",
     "libtiff-devel",
