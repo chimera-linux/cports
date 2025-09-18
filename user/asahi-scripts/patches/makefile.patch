@@ -1,0 +1,44 @@
+diff --git a/Makefile b/Makefile
+index 1beb8e3..856b8fc 100644
+--- a/Makefile
++++ b/Makefile
+@@ -27,10 +27,9 @@ clean:
+ install: all
+ 	install -d $(DESTDIR)$(BIN_DIR)/
+ 	install -m0755 -t $(DESTDIR)$(BIN_DIR)/ $(BUILD_SCRIPTS)
+-	install -dD $(DESTDIR)/etc
+-	install -dD $(DESTDIR)$(PREFIX)/share/asahi-scripts
++	install -d $(DESTDIR)/etc
++	install -d $(DESTDIR)$(PREFIX)/share/asahi-scripts
+ 	install -m0644 -t $(DESTDIR)$(PREFIX)/share/asahi-scripts functions.sh
+-	install -dD $(DESTDIR)/$(SYS_PREFIX)/lib/firmware/vendor
+ 
+ install-mkinitcpio: install
+ 	install -dD $(DESTDIR)$(PREFIX)/lib/initcpio/install
+@@ -49,14 +48,14 @@ install-dracut: install
+ 	install -m0755 -t $(DESTDIR)$(DRACUT_MODULES_DIR)/99asahi-firmware dracut/modules.d/99asahi-firmware/module-setup.sh
+ 
+ install-macsmc-battery: install
+-	install -dD $(DESTDIR)$(SYSTEMD_UNIT_DIR)
+-	install -dD $(DESTDIR)$(UDEV_RULES_DIR)
++	install -d $(DESTDIR)$(SYSTEMD_UNIT_DIR)
++	install -d $(DESTDIR)$(UDEV_RULES_DIR)
+ 	install -m0755 -t $(DESTDIR)$(SYSTEMD_UNIT_DIR) macsmc-battery/systemd/macsmc-battery-charge-control-end-threshold.path
+ 	install -m0755 -t $(DESTDIR)$(SYSTEMD_UNIT_DIR) macsmc-battery/systemd/macsmc-battery-charge-control-end-threshold.service
+ 	install -m0644 -t $(DESTDIR)$(UDEV_RULES_DIR) macsmc-battery/udev/93-macsmc-battery-charge-control.rules
+ 
+ install-udev-hwdb: install
+-	install -dD $(DESTDIR)$(UDEV_HWDB_DIR)
++	install -d $(DESTDIR)$(UDEV_HWDB_DIR)
+ 	install -m0644 -t $(DESTDIR)$(UDEV_HWDB_DIR) udev/hwdb.d/65-autosuspend-override-asahi-sdhci.hwdb
+ 
+ install-initramfs:
+@@ -78,6 +77,8 @@ install-arch: install install-mkinitcpio install-macsmc-battery install-udev-hwd
+ 	install -dD $(DESTDIR)$(PREFIX)/share/libalpm/hooks
+ 	install -m0644 -t $(DESTDIR)$(PREFIX)/share/libalpm/hooks libalpm/hooks/95-m1n1-install.hook
+ 
++install-chimera: install install-initramfs install-macsmc-battery install-udev-hwdb
++
+ install-fedora: install install-dracut install-macsmc-battery install-udev-hwdb
+ 
+ uninstall:
