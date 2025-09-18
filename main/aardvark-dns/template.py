@@ -1,5 +1,5 @@
 pkgname = "aardvark-dns"
-pkgver = "1.15.0"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Authoritative DNS server for A/AAAA container records"
 license = "Apache-2.0"
 url = "https://github.com/containers/aardvark-dns"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "4ecc3996eeb8c579fbfe50901a2d73662441730ca4101e88983751a96b9fc010"
+sha256 = "6c84a3371087d6af95407b0d3de26cdc1e720ae8cd983a9bdaec8883e2216959"
 
 
 def install(self):
