@@ -4,7 +4,10 @@ pkgrel = 0
 build_style = "cmake"
 # fails on aarch64 at least
 # newkeyapprovaldialogtest has wayland die
-make_check_args = ["-E", "(keycachetest|newkeyapprovaldialogtest|keyselectioncombotest)"]
+make_check_args = [
+    "-E",
+    "(keycachetest|newkeyapprovaldialogtest|keyselectioncombotest)",
+]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
