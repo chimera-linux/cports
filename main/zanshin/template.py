@@ -1,6 +1,6 @@
 pkgname = "zanshin"
-pkgver = "25.08.0"
-pkgrel = 1
+pkgver = "25.08.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -37,4 +37,4 @@ pkgdesc = "KDE time management assistant"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://zanshin.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/zanshin-{pkgver}.tar.xz"
-sha256 = "16cc15f22657e56914d1637830f8b7cb465004ee8aa73930439f97efacc74345"
+sha256 = "931c87f44a7ca96ebc24df922c220b6e64b0a374195927ea8ed22848d6abceb7"

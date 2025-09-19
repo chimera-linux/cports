@@ -1,6 +1,6 @@
 pkgname = "kopeninghours"
-pkgver = "25.08.0"
-pkgrel = 1
+pkgver = "25.08.1"
+pkgrel = 0
 build_style = "cmake"
 # make_check_wrapper = ["wlheadless-run", "--"]
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -27,7 +27,7 @@ url = "https://api.kde.org/kopeninghours/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kopeninghours-{pkgver}.tar.xz"
 )
-sha256 = "94bae44259d7566b2a7c26411f3200fc40298bb1fc65d48060aa6a210afc4d50"
+sha256 = "3cdafbf4c2c360ca3d1b63d6b08c0b7107edcee0904daf6b6fa589162e9dad0b"
 
 
 @subpackage("kopeninghours-devel")

@@ -1,5 +1,5 @@
 pkgname = "dolphin-plugins"
-pkgver = "25.08.0"
+pkgver = "25.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,5 +27,5 @@ url = "https://apps.kde.org/dolphin_plugins"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-plugins-{pkgver}.tar.xz"
 )
-sha256 = "4e7552525dc3a30d6e521b9ce5d7e34deb0bac3474c621894b11567a743ecccf"
+sha256 = "77f422d5fd85df540707cfdaaf042083841a2b8fa78ba74fffaf27f6d31c19cb"
 hardening = ["vis"]

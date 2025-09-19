@@ -3,7 +3,7 @@ https://bugs.kde.org/show_bug.cgi?id=373891
 --- a/org.kde.kgpg.desktop
 +++ b/org.kde.kgpg.desktop
 @@ -219,6 +219,7 @@
- Name[x-test]=xxKGpgxx
+ Name[wa]=KGpg
  Name[zh_CN]=KGpg
  Name[zh_TW]=KGpg
 +OnlyShowIn=KDE;

@@ -1,5 +1,5 @@
 pkgname = "kpmcore"
-pkgver = "25.08.0"
+pkgver = "25.08.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -23,7 +23,7 @@ pkgdesc = "KDE library for partition management"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpmcore-{pkgver}.tar.xz"
-sha256 = "a40ece939182770665eb1a963e962c1e896d0639d7e04fe7780b44c44f903569"
+sha256 = "2f49fcb150d3baa451e570c23becf7fa56d919a37d7fc52bac5d9fa6b76cf760"
 hardening = ["vis"]
 
 

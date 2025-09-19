@@ -1,5 +1,5 @@
 pkgname = "akonadi-import-wizard"
-pkgver = "25.08.0"
+pkgver = "25.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -33,7 +33,7 @@ pkgdesc = "KDE Akonadi assistant for importing data into KDEPIM"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/akonadi-import-wizard"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-import-wizard-{pkgver}.tar.xz"
-sha256 = "5735c6b19819d5738d70a0d51feee35da1fec85f83b9c9cff547912863655baf"
+sha256 = "3f0309ec3b649387c6cf19475e98ab06b52ccaa2ca9c0d95fe5a6bfce9302712"
 
 
 @subpackage("akonadi-import-wizard-devel")

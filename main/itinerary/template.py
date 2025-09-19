@@ -1,6 +1,6 @@
 pkgname = "itinerary"
-pkgver = "25.08.0"
-pkgrel = 1
+pkgver = "25.08.1"
+pkgrel = 0
 build_style = "cmake"
 # fails with no output
 make_check_args = ["-E", "itinerary-self-test"]
@@ -56,4 +56,4 @@ pkgdesc = "KDE digital travel assistant"
 license = "LGPL-2.0-or-later"
 url = "https://apps.kde.org/itinerary"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/itinerary-{pkgver}.tar.xz"
-sha256 = "1f2c10c1f47a5919f447accdf60997038a528a66b8ee172fcc184dd2bd2f2716"
+sha256 = "3b95d019e9ea0c61253f768f5c802242dbde062c87e42b2f178735b042e73853"

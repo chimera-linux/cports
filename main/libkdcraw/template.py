@@ -1,5 +1,5 @@
 pkgname = "libkdcraw"
-pkgver = "25.08.0"
+pkgver = "25.08.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ pkgdesc = "KDE wrapper around libraw"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkdcraw/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdcraw-{pkgver}.tar.xz"
-sha256 = "4640d1740dbb85487e57a5f07a65aca90093ec107cdc32430fea88fbea0797be"
+sha256 = "b5f112ced53a76b1414bd904b7ac7c8d9b743592e25a6c44c42dd6df7b0feb81"
 hardening = ["vis"]
 
 

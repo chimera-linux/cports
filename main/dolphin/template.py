@@ -1,6 +1,6 @@
 pkgname = "dolphin"
-pkgver = "25.08.0"
-pkgrel = 1
+pkgver = "25.08.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -48,7 +48,7 @@ pkgdesc = "KDE File Manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/dolphin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-{pkgver}.tar.xz"
-sha256 = "ddd5e5622594792490695999188c6215c3a0821787c71dfb57dbfdd08e1ce935"
+sha256 = "08b051c0696724fd8d620ffa6afc1bff080592a356b79ce2bb50bc841071eacd"
 # fixes copy/pasting file segfault in kio_file.so (KIO::WorkerThread) https://bugs.kde.org/show_bug.cgi?id=470763
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]
