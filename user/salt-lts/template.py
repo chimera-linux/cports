@@ -1,5 +1,5 @@
 pkgname = "salt-lts"
-pkgver = "3006.13"
+pkgver = "3006.15"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -31,7 +31,7 @@ pkgdesc = "Distributed remote execution and configuration management system"
 license = "Apache-2.0"
 url = "http://github.com/saltstack/salt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "07df83e6b861981d3097a77423f084250fa6945d0804845c1ad33b2a6fb7222d"
+sha256 = "f295475ae90a90dc9cc23bf3687243664c14534ab454089b33a1b8f04e96d2c5"
 # depends on pytestsalt
 options = ["!check"]
 
