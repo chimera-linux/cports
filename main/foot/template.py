@@ -18,6 +18,7 @@ makedepends = [
     "ncurses-devel",
     "pixman-devel",
     "tllist",
+    "turnstile",
     "utf8proc-devel",
     "wayland-devel",
     "wayland-protocols",
