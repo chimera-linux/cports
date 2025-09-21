@@ -127,6 +127,9 @@ match self.profile().arch:
             "-DENABLE_WEBASSEMBLY=OFF",
         ]
 
+if self.profile().wordsize == 32:
+    broken = "llint instanceof debugging needed"
+
 if self.profile().arch == "loongarch64":
     tool_flags["CXXFLAGS"] += ["-DSIMDE_FLOAT16_API=SIMDE_FLOAT16_API_PORTABLE"]
 

@@ -136,6 +136,9 @@ match self.profile().arch:
 if self.profile().arch == "loongarch64":
     tool_flags["CXXFLAGS"] += ["-DSIMDE_FLOAT16_API=SIMDE_FLOAT16_API_PORTABLE"]
 
+if self.profile().wordsize == 32:
+    broken = "llint instanceof debugging needed"
+
 # LTO broken on aarch64 (JIT segfault)
 if self.has_lto(force=True) and self.profile().arch != "aarch64":
     configure_args += ["-DLTO_MODE=thin"]
