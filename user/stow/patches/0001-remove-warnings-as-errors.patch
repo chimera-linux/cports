@@ -1,0 +1,25 @@
+From ca63af3d775aa406ca77c15c13c8f48c60db1c8a Mon Sep 17 00:00:00 2001
+From: Enzo Moser <irlenzom@gmail.com>
+Date: Sun, 21 Sep 2025 22:40:49 +0100
+Subject: [PATCH] remove warnings as errors
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index d79a4e7..e86de16 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,7 +21,7 @@ AC_CONFIG_AUX_DIR([automake])
+ # Unfortunately we have to disable warnings for overrides, because we
+ # need to override the built-in `check-TESTS' rule and also the TEXI2DVI
+ # variable.
+-AM_INIT_AUTOMAKE([-Wall -Werror -Wno-override dist-bzip2 foreign])
++AM_INIT_AUTOMAKE([-Wall -Wno-override dist-bzip2 foreign])
+ AC_PROG_INSTALL
+ 
+ dnl Check for perl on our system.
+-- 
+2.51.0
+
