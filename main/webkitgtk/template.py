@@ -130,6 +130,10 @@ match self.profile().arch:
 if self.profile().arch == "loongarch64":
     tool_flags["CXXFLAGS"] += ["-DSIMDE_FLOAT16_API=SIMDE_FLOAT16_API_PORTABLE"]
 
+if self.profile().arch == "riscv64":
+    # libpas/bmalloc link errors
+    configure_args += ["-DUSE_SYSTEM_MALLOC=ON"]
+
 # LTO broken on aarch64 (JIT segfault)
 if self.has_lto(force=True) and self.profile().arch != "aarch64":
     configure_args += ["-DLTO_MODE=thin"]
