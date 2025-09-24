@@ -1,5 +1,5 @@
 pkgname = "openssl3"
-pkgver = "3.5.2"
+pkgver = "3.5.3"
 pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
@@ -30,7 +30,7 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://github.com/openssl/openssl/releases/download/openssl-{pkgver}/openssl-{pkgver}.tar.gz"
-sha256 = "c53a47e5e441c930c3928cf7bf6fb00e5d129b630e0aa873b08258656e7345ec"
+sha256 = "c9489d2abcf943cdc8329a57092331c598a402938054dc3a22218aea8a8ec3bf"
 compression = "deflate"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
