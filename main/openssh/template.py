@@ -1,5 +1,5 @@
 pkgname = "openssh"
-pkgver = "10.0_p1"
+pkgver = "10.0_p2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
