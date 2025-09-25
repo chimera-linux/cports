@@ -1,0 +1,72 @@
+From 37d90666033a3581edad2e72df722eeef4c5caf5 Mon Sep 17 00:00:00 2001
+From: Herman Semenoff <GermanAizek@yandex.ru>
+Date: Fri, 3 Jul 2026 01:51:09 +0300
+Subject: [PATCH] Add modern method get boottime modern Linux kernel
+
+The old method is left in case /proc/stat doesn't work, but modern kernel advises against using this hack as it causes an expensive fork() system interrupt.
+
+References:
+- https://www.linuxhowtos.org/System/procstat.htm
+- https://man7.org/linux/man-pages/man5/proc_stat.5.html
+---
+ various.c | 39 ++++++++++++++++++++++++++-------------
+ 1 file changed, 26 insertions(+), 13 deletions(-)
+
+diff --git a/various.c b/various.c
+index 7353a52..a6ecc14 100644
+--- a/various.c
++++ b/various.c
+@@ -757,27 +757,40 @@ getboot(void)
+ static unsigned long long
+ getbootlinux(long hertz)
+ {
+-	int    		 	cpid;
+-	char  	  		tmpbuf[1280];
+-	FILE    		*fp;
+-	unsigned long 		startticks;
+-	unsigned long long	bootjiffies = 0;
+-	struct timespec		ts;
++	FILE			*fp;
++	char			linebuf[256];
++	unsigned long long	btime = 0;
++
++	if ((fp = fopen("/proc/stat", "r"))) {
++		while (fgets(linebuf, sizeof(linebuf), fp)) {
++			if (strncmp(linebuf, "btime ", 6) == 0) {
++				btime = atoll(linebuf + 6);
++				break;
++			}
++		}
++		fclose(fp);
++	}
++
++	if (btime)
++		return btime * hertz;
+ 
+ 	/*
+-	** dirty hack to get the boottime, since the
+-	** Linux 2.6 kernel (2.6.5) does not return a proper
++	** fallback for old kernels: dirty hack to get the boottime,
++	** since some Linux 2.6 kernels do not return a proper
+ 	** boottime-value with the times() system call   :-(
+ 	*/
+-	if ( (cpid = fork()) == 0 )
+-	{
++	int			cpid;
++	char			tmpbuf[1280];
++	unsigned long		startticks;
++	unsigned long long	bootjiffies = 0;
++	struct timespec		ts;
++
++	if ((cpid = fork()) == 0) {
+ 		/*
+ 		** child just waiting to be killed by parent
+ 		*/
+ 		pause();
+-	}
+-	else
+-	{
++	} else if (cpid > 0) {
+ 		/*
+ 		** parent determines start-time (in jiffies since boot) 
+ 		** of the child and calculates the boottime in jiffies
