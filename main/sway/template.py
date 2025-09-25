@@ -1,6 +1,6 @@
 pkgname = "sway"
 pkgver = "1.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "libcap-progs",
