@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/nebula -config /etc/nebula/config.yml
+before = pre-network.target
+depends-on = pre-local.target
+logfile = /var/log/nebula.log
