@@ -1,5 +1,5 @@
 pkgname = "snort"
-pkgver = "3.9.1.0"
+pkgver = "3.9.5.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,7 +26,7 @@ pkgdesc = "Network intrusion prevention and detection system"
 license = "GPL-2.0-or-later"
 url = "https://www.snort.org"
 source = f"https://github.com/snort3/snort3/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "fc19f20cd34192eb78f28d7f128c79c5d0096733277f2b630a8cf892b10f33ce"
+sha256 = "e2e36a8db2c4c26a6ff58ea58839339260319eba25d0eb901ddb7210f4fa4b4c"
 
 
 @subpackage("snort-devel")
