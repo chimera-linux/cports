@@ -1,9 +1,9 @@
-diff -Nurp a/rspamd-3.7.4/CMakeLists.txt b/rspamd-3.7.4/CMakeLists.txt
---- a/CMakeLists.txt	2023-11-14 15:01:02.000000000 +0000
-+++ b/CMakeLists.txt	2023-12-08 23:15:23.526119003 +0000
-@@ -165,7 +165,7 @@ ELSE (ENABLE_LUAJIT MATCHES "ON")
+diff -Nurp a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2025-06-09 10:11:16.000000000 +0000
++++ b/CMakeLists.txt	2025-06-14 12:40:50.464198971 +0000
+@@ -180,7 +180,7 @@ else ()
  
-     IF (NOT WITH_LIBLUA)
+     if (NOT WITH_LIBLUA)
          ProcessPackage(LIBLUA LIBRARY "lua"
 -                "lua-5.4"
 +                "lua-5.4" "lua5.4"
