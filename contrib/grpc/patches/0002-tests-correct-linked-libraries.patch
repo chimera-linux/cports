@@ -1,0 +1,870 @@
+From de8d1618b4bbb4989c41541895b39a4cb91cba5a Mon Sep 17 00:00:00 2001
+From: sonata-chen <sonatachen39@gmail.com>
+Date: Sun, 18 Aug 2024 23:14:44 +0800
+Subject: [PATCH 2/4] tests correct linked libraries
+
+several tests crash before main function
+---
+ CMakeLists.txt | 192 +++----------------------------------------------
+ 1 file changed, 8 insertions(+), 184 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0549c30e6a..c5ed876bf4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8087,8 +8087,6 @@ target_include_directories(bad_ping_test
+ target_link_libraries(bad_ping_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -8563,8 +8561,6 @@ target_include_directories(binary_metadata_test
+ target_link_libraries(binary_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9053,8 +9049,6 @@ target_include_directories(call_creds_test
+ target_link_libraries(call_creds_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9254,8 +9248,6 @@ target_include_directories(call_host_override_test
+ target_link_libraries(call_host_override_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9758,8 +9750,6 @@ target_include_directories(cancel_after_accept_test
+ target_link_libraries(cancel_after_accept_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9821,8 +9811,6 @@ target_include_directories(cancel_after_client_done_test
+ target_link_libraries(cancel_after_client_done_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9884,8 +9872,6 @@ target_include_directories(cancel_after_invoke_test
+ target_link_libraries(cancel_after_invoke_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -9947,8 +9933,6 @@ target_include_directories(cancel_after_round_trip_test
+ target_link_libraries(cancel_after_round_trip_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -10057,8 +10041,6 @@ target_include_directories(cancel_before_invoke_test
+ target_link_libraries(cancel_before_invoke_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -10197,8 +10179,6 @@ target_include_directories(cancel_in_a_vacuum_test
+ target_link_libraries(cancel_in_a_vacuum_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -10260,8 +10240,6 @@ target_include_directories(cancel_with_status_test
+ target_link_libraries(cancel_with_status_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -11964,8 +11942,6 @@ target_include_directories(client_streaming_test
+ target_link_libraries(client_streaming_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -12303,8 +12279,6 @@ target_include_directories(compressed_payload_test
+ target_link_libraries(compressed_payload_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -12641,8 +12615,6 @@ target_include_directories(connectivity_test
+ target_link_libraries(connectivity_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -13070,8 +13042,6 @@ target_include_directories(default_host_test
+ target_link_libraries(default_host_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -13278,8 +13248,6 @@ target_include_directories(disappearing_server_test
+ target_link_libraries(disappearing_server_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -13634,8 +13602,6 @@ target_include_directories(empty_batch_test
+ target_link_libraries(empty_batch_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -15013,8 +14979,6 @@ target_include_directories(filter_causes_close_test
+ target_link_libraries(filter_causes_close_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -15076,8 +15040,6 @@ target_include_directories(filter_init_fails_test
+ target_link_libraries(filter_init_fails_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -15126,7 +15088,6 @@ target_include_directories(filter_test_test
+ target_link_libraries(filter_test_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_unsecure
+   ${_gRPC_PROTOBUF_LIBRARIES}
+   grpc_test_util
+ )
+@@ -15189,8 +15150,6 @@ target_include_directories(filtered_metadata_test
+ target_link_libraries(filtered_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -16007,8 +15966,6 @@ target_include_directories(graceful_server_shutdown_test
+ target_link_libraries(graceful_server_shutdown_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -16248,8 +16205,9 @@ target_include_directories(grpc_authorization_policy_provider_test
+ target_link_libraries(grpc_authorization_policy_provider_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+   grpc_test_util
++  grpc
++  grpc_authorization_provider
+ )
+ 
+ 
+@@ -16311,8 +16269,11 @@ target_include_directories(grpc_authz_end2end_test
+ target_link_libraries(grpc_authz_end2end_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+   grpc++_test_util
++  grpc_test_util
++  grpc++
++  grpc
++  grpc_authorization_provider
+ )
+ 
+ 
+@@ -16373,9 +16334,9 @@ target_include_directories(grpc_authz_test
+ target_link_libraries(grpc_authz_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
++  grpc
++  grpc_authorization_provider
+ )
+ 
+ 
+@@ -17765,8 +17726,6 @@ target_include_directories(high_initial_seqno_test
+ target_link_libraries(high_initial_seqno_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -18074,8 +18033,6 @@ target_include_directories(hpack_size_test
+ target_link_libraries(hpack_size_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -18230,8 +18187,6 @@ target_include_directories(http2_stats_test
+ target_link_libraries(http2_stats_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -19162,8 +19117,6 @@ target_include_directories(invoke_large_request_test
+ target_link_libraries(invoke_large_request_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -19553,8 +19506,6 @@ target_include_directories(keepalive_timeout_test
+ target_link_libraries(keepalive_timeout_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -19659,8 +19610,6 @@ target_include_directories(large_metadata_test
+ target_link_libraries(large_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -20383,8 +20332,6 @@ target_include_directories(max_concurrent_streams_test
+ target_link_libraries(max_concurrent_streams_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -20446,8 +20393,6 @@ target_include_directories(max_connection_age_test
+ target_link_libraries(max_connection_age_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -20509,8 +20454,6 @@ target_include_directories(max_connection_idle_test
+ target_link_libraries(max_connection_idle_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -20572,8 +20515,6 @@ target_include_directories(max_message_length_test
+ target_link_libraries(max_message_length_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -21261,8 +21202,6 @@ target_include_directories(negative_deadline_test
+ target_link_libraries(negative_deadline_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -21356,8 +21295,6 @@ target_include_directories(no_logging_test
+ target_link_libraries(no_logging_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -21419,8 +21356,6 @@ target_include_directories(no_op_test
+ target_link_libraries(no_op_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -22355,8 +22290,6 @@ target_include_directories(payload_test
+ target_link_libraries(payload_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -22720,8 +22653,6 @@ target_include_directories(ping_pong_streaming_test
+ target_link_libraries(ping_pong_streaming_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -22834,8 +22765,6 @@ target_include_directories(ping_test
+ target_link_libraries(ping_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -23833,8 +23762,6 @@ target_include_directories(proxy_auth_test
+ target_link_libraries(proxy_auth_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -24409,8 +24336,6 @@ target_include_directories(registered_call_test
+ target_link_libraries(registered_call_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -24516,8 +24441,6 @@ target_include_directories(request_with_flags_test
+ target_link_libraries(request_with_flags_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -24579,8 +24502,6 @@ target_include_directories(request_with_payload_test
+ target_link_libraries(request_with_payload_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -24913,8 +24834,6 @@ target_include_directories(resource_quota_server_test
+ target_link_libraries(resource_quota_server_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25018,8 +24937,6 @@ target_include_directories(retry_cancel_after_first_attempt_starts_test
+ target_link_libraries(retry_cancel_after_first_attempt_starts_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25081,8 +24998,6 @@ target_include_directories(retry_cancel_during_delay_test
+ target_link_libraries(retry_cancel_during_delay_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25144,8 +25059,6 @@ target_include_directories(retry_cancel_with_multiple_send_batches_test
+ target_link_libraries(retry_cancel_with_multiple_send_batches_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25207,8 +25120,6 @@ target_include_directories(retry_cancellation_test
+ target_link_libraries(retry_cancellation_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25270,8 +25181,6 @@ target_include_directories(retry_disabled_test
+ target_link_libraries(retry_disabled_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25333,8 +25242,6 @@ target_include_directories(retry_exceeds_buffer_size_in_delay_test
+ target_link_libraries(retry_exceeds_buffer_size_in_delay_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25396,8 +25303,6 @@ target_include_directories(retry_exceeds_buffer_size_in_initial_batch_test
+ target_link_libraries(retry_exceeds_buffer_size_in_initial_batch_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25459,8 +25364,6 @@ target_include_directories(retry_exceeds_buffer_size_in_subsequent_batch_test
+ target_link_libraries(retry_exceeds_buffer_size_in_subsequent_batch_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25522,8 +25425,6 @@ target_include_directories(retry_lb_drop_test
+ target_link_libraries(retry_lb_drop_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25585,8 +25486,6 @@ target_include_directories(retry_lb_fail_test
+ target_link_libraries(retry_lb_fail_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25648,8 +25547,6 @@ target_include_directories(retry_non_retriable_status_before_trailers_test
+ target_link_libraries(retry_non_retriable_status_before_trailers_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25711,8 +25608,6 @@ target_include_directories(retry_non_retriable_status_test
+ target_link_libraries(retry_non_retriable_status_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25774,8 +25669,6 @@ target_include_directories(retry_per_attempt_recv_timeout_on_last_attempt_test
+ target_link_libraries(retry_per_attempt_recv_timeout_on_last_attempt_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25837,8 +25730,6 @@ target_include_directories(retry_per_attempt_recv_timeout_test
+ target_link_libraries(retry_per_attempt_recv_timeout_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25900,8 +25791,6 @@ target_include_directories(retry_recv_initial_metadata_test
+ target_link_libraries(retry_recv_initial_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -25963,8 +25852,6 @@ target_include_directories(retry_recv_message_replay_test
+ target_link_libraries(retry_recv_message_replay_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26026,8 +25913,6 @@ target_include_directories(retry_recv_message_test
+ target_link_libraries(retry_recv_message_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26089,8 +25974,6 @@ target_include_directories(retry_recv_trailing_metadata_error_test
+ target_link_libraries(retry_recv_trailing_metadata_error_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26152,8 +26035,6 @@ target_include_directories(retry_send_initial_metadata_refs_test
+ target_link_libraries(retry_send_initial_metadata_refs_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26215,8 +26096,6 @@ target_include_directories(retry_send_op_fails_test
+ target_link_libraries(retry_send_op_fails_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26278,8 +26157,6 @@ target_include_directories(retry_send_recv_batch_test
+ target_link_libraries(retry_send_recv_batch_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26341,8 +26218,6 @@ target_include_directories(retry_server_pushback_delay_test
+ target_link_libraries(retry_server_pushback_delay_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26404,8 +26279,6 @@ target_include_directories(retry_server_pushback_disabled_test
+ target_link_libraries(retry_server_pushback_disabled_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26509,8 +26382,6 @@ target_include_directories(retry_streaming_after_commit_test
+ target_link_libraries(retry_streaming_after_commit_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26572,8 +26443,6 @@ target_include_directories(retry_streaming_succeeds_before_replay_finished_test
+ target_link_libraries(retry_streaming_succeeds_before_replay_finished_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26635,8 +26504,6 @@ target_include_directories(retry_streaming_test
+ target_link_libraries(retry_streaming_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26698,8 +26565,6 @@ target_include_directories(retry_test
+ target_link_libraries(retry_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26803,8 +26668,6 @@ target_include_directories(retry_throttled_test
+ target_link_libraries(retry_throttled_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26866,8 +26729,6 @@ target_include_directories(retry_too_many_attempts_test
+ target_link_libraries(retry_too_many_attempts_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26929,8 +26790,6 @@ target_include_directories(retry_transparent_goaway_test
+ target_link_libraries(retry_transparent_goaway_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -26992,8 +26851,6 @@ target_include_directories(retry_transparent_max_concurrent_streams_test
+ target_link_libraries(retry_transparent_max_concurrent_streams_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -27055,8 +26912,6 @@ target_include_directories(retry_transparent_not_sent_on_wire_test
+ target_link_libraries(retry_transparent_not_sent_on_wire_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -27118,8 +26973,6 @@ target_include_directories(retry_unref_before_finish_test
+ target_link_libraries(retry_unref_before_finish_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -27181,8 +27034,6 @@ target_include_directories(retry_unref_before_recv_test
+ target_link_libraries(retry_unref_before_recv_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -28224,8 +28075,6 @@ target_include_directories(server_finishes_request_test
+ target_link_libraries(server_finishes_request_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -28508,8 +28357,6 @@ target_include_directories(server_streaming_test
+ target_link_libraries(server_streaming_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -28770,8 +28617,6 @@ target_include_directories(shutdown_finishes_calls_test
+ target_link_libraries(shutdown_finishes_calls_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -28833,8 +28678,6 @@ target_include_directories(shutdown_finishes_tags_test
+ target_link_libraries(shutdown_finishes_tags_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -28959,8 +28802,6 @@ target_include_directories(simple_delayed_request_test
+ target_link_libraries(simple_delayed_request_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -29022,8 +28863,6 @@ target_include_directories(simple_metadata_test
+ target_link_libraries(simple_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -29129,8 +28968,6 @@ target_include_directories(simple_request_test
+ target_link_libraries(simple_request_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -30057,8 +29894,6 @@ target_include_directories(streaming_error_response_test
+ target_link_libraries(streaming_error_response_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -30833,8 +30668,6 @@ target_include_directories(test_core_end2end_channelz_test
+ target_link_libraries(test_core_end2end_channelz_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -31785,7 +31618,6 @@ target_include_directories(thread_pool_test
+ target_link_libraries(thread_pool_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc
+   grpc_test_util_unsecure
+ )
+ 
+@@ -32094,8 +31926,6 @@ target_include_directories(timeout_before_request_call_test
+ target_link_libraries(timeout_before_request_call_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -32640,8 +32470,6 @@ target_include_directories(trailing_metadata_test
+ target_link_libraries(trailing_metadata_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -33904,8 +33732,6 @@ target_include_directories(write_buffering_at_end_test
+ target_link_libraries(write_buffering_at_end_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+@@ -33967,8 +33793,6 @@ target_include_directories(write_buffering_test
+ target_link_libraries(write_buffering_test
+   ${_gRPC_ALLTARGETS_LIBRARIES}
+   gtest
+-  grpc_authorization_provider
+-  grpc_unsecure
+   grpc_test_util
+ )
+ 
+-- 
+2.46.0
+
