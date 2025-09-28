@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/iocaine start
+restart = on-failure
+smooth-recovery = true
+log-type = buffer
+run-as = _iocaine
+depends-on: network.target
+options: no-new-privs
