@@ -1,6 +1,6 @@
 pkgname = "openpgp-card-tool-git"
-pkgver = "0.1.5"
-pkgrel = 1
+pkgver = "0.1.6"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Drop in replacement for gpg in git for usage with OpenPGP cards"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/tool-git"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "4d8bba39568c5bdad36cc987f4acd5faa958fde595693a049182eb88b9821d01"
+sha256 = "fc0f3ba974a5020f844580781cc52c342a9ff93ab877a3a7e2a281d0d2899737"
 
 
 def post_install(self):
