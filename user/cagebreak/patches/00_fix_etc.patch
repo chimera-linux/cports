@@ -1,0 +1,45 @@
+diff --git a/cagebreak.c b/cagebreak.c
+index 878d5b9..b513d74 100644
+--- a/cagebreak.c
++++ b/cagebreak.c
+@@ -682,6 +682,14 @@ main(int argc, char *argv[]) {
+ 			conf_ret = set_configuration(&server, default_conf);
+ 		}
+ 
++		// Fallback Chimera
++		if(conf_ret == 1) {
++			char *default_conf = "/usr/share/etc/cagebreak/config";
++			wlr_log(WLR_INFO, "Loading fallback distro config: \"%s\"",
++			        default_conf);
++			conf_ret = set_configuration(&server, default_conf);
++		}
++
+ 		if(conf_ret != 0 || !server.running) {
+ 			ret = 1;
+ 			goto end;
+diff --git a/man/cagebreak-config.5.md b/man/cagebreak-config.5.md
+index f6de22a..d3500db 100644
+--- a/man/cagebreak-config.5.md
++++ b/man/cagebreak-config.5.md
+@@ -8,6 +8,8 @@ cagebreak-config(5) "Version 3.1.0" "Cagebreak Manual"
+ 
+ *\$XDG_CONFIG_PATH/cagebreak/config*
+ 
++Default fallback config at */usr/share/etc/cagebreak/config*.
++
+ # DESCRIPTION
+ 
+ The cagebreak configuration is a plain text file.
+diff --git a/man/cagebreak.1.md b/man/cagebreak.1.md
+index f89c063..b9c8d80 100644
+--- a/man/cagebreak.1.md
++++ b/man/cagebreak.1.md
+@@ -22,6 +22,8 @@ the keyboard.
+ 
+ Configuration of this behaviour is specified in the
+ *\$XDG_CONFIG_PATH/cagebreak/config* file (See *cagebreak-config(5)*).
++A default configuration is needed to run cagebreak. It can be found at
++*/usr/share/etc/cagebreak/config*.
+ 
+ Scripting support is provided through the IPC
+ socket specified in the environment variable *\$CAGEBREAK_SOCKET*.
