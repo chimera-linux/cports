@@ -1,0 +1,19 @@
+diff --git a/cagebreak.c b/cagebreak.c
+index 878d5b9..b513d74 100644
+--- a/cagebreak.c
++++ b/cagebreak.c
+@@ -682,6 +682,14 @@ main(int argc, char *argv[]) {
+ 			conf_ret = set_configuration(&server, default_conf);
+ 		}
+ 
++		// Fallback Chimera
++		if(conf_ret == 1) {
++			char *default_conf = "/usr/share/etc/cagebreak/config";
++			wlr_log(WLR_INFO, "Loading fallback distro config: \"%s\"",
++			        default_conf);
++			conf_ret = set_configuration(&server, default_conf);
++		}
++
+ 		if(conf_ret != 0 || !server.running) {
+ 			ret = 1;
+ 			goto end;
