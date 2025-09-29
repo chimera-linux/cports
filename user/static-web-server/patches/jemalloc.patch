@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 60b9ce1..c98abb0 100644
+index fd25df9..ecd703e 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2180,7 +2180,6 @@ dependencies = [
+@@ -2207,7 +2207,6 @@ dependencies = [
   "shadow-rs",
   "signal-hook",
   "signal-hook-tokio",
@@ -10,7 +10,7 @@ index 60b9ce1..c98abb0 100644
   "tokio",
   "tokio-metrics-collector",
   "tokio-rustls",
-@@ -2299,26 +2298,6 @@ dependencies = [
+@@ -2326,26 +2325,6 @@ dependencies = [
   "cfg-if",
  ]
  
@@ -36,12 +36,12 @@ index 60b9ce1..c98abb0 100644
 -
  [[package]]
  name = "time"
- version = "0.3.41"
+ version = "0.3.43"
 diff --git a/Cargo.toml b/Cargo.toml
-index 4dba33c..f10b1e6 100644
+index 5a26eef..49e006a 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -100,8 +100,6 @@ toml = "0.8"
+@@ -100,8 +100,6 @@ toml = "0.9"
  tracing = { version = "0.1", default-features = false, features = ["std"] }
  tracing-subscriber = { version = "0.3", default-features = false, features = ["smallvec", "registry", "parking_lot", "fmt", "ansi", "tracing-log"] }
  
@@ -51,17 +51,17 @@ index 4dba33c..f10b1e6 100644
  [target.'cfg(unix)'.dependencies]
  signal-hook = { version = "0.3", features = ["extended-siginfo"] }
 diff --git a/src/bin/server.rs b/src/bin/server.rs
-index 4cdd82b..f13bce7 100644
+index 4cdd82b..8c564c0 100644
 --- a/src/bin/server.rs
 +++ b/src/bin/server.rs
-@@ -8,9 +8,6 @@
+@@ -8,10 +8,6 @@
  #![deny(rust_2018_idioms)]
  #![deny(dead_code)]
  
 -#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
 -#[global_allocator]
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
- 
+-
  use static_web_server::{
      settings::{cli::General, Commands},
-
+     Result, Settings,
