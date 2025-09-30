@@ -1,5 +1,5 @@
 type = process
 command = /usr/bin/haproxy -Ws -f /etc/haproxy/haproxy.cfg
 logfile = /var/log/haproxy.log
-depends-on = network.target
 ready-notification = pipevar:HAPROXY_READY_FD
+depends-on: network.target
