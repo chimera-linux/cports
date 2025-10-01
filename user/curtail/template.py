@@ -1,5 +1,5 @@
 pkgname = "curtail"
-pkgver = "1.12.0"
+pkgver = "1.13.0"
 pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
@@ -23,4 +23,4 @@ pkgdesc = "GTK image compressor"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Huluti/Curtail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7ca6f13012d7cb3ddc94b625c5cad5aefc9d535511dec67e55774c0429c43fb0"
+sha256 = "5794d466ff58805a68249b0b8e27bef8e7470d24d930c4211dcee905d05e728e"
