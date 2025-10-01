@@ -1,5 +1,5 @@
 pkgname = "miniserve"
-pkgver = "0.31.0"
+pkgver = "0.32.0"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -22,7 +22,7 @@ pkgdesc = "CLI tool to serve files and dirs over HTTP"
 license = "MIT"
 url = "https://github.com/svenstaro/miniserve"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"
-sha256 = "df6f4c8adc171c6dd5578264f540d09b47f254641c7d5a91733e3a046f99f25b"
+sha256 = "15195ad68fc88dccdf5653dad9a432be3067cf69d9c75d6d3350da6d11c3d3cf"
 # generates completions and manpage with host binary
 options = ["!cross"]
 
