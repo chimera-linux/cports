@@ -1,6 +1,6 @@
 pkgname = "newsflash"
-pkgver = "3.3.5"
-pkgrel = 1
+pkgver = "4.1.4"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
@@ -22,7 +22,7 @@ pkgdesc = "Feed reader designed for the GNOME desktop"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
-sha256 = "7333e88187f022c0a6ba72e0d6943c1602acde19b646c38e202606cac3a965f7"
+sha256 = "25a940e59cf118b1ef818225f748981a0ef089cff54774cd9e8ac0436eeec932"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
