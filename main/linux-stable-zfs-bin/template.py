@@ -1,5 +1,5 @@
 pkgname = "linux-stable-zfs-bin"
-pkgver = "2.3.4.6.16.5"
+pkgver = "2.3.4.6.17.1"
 _zfsver = ".".join(pkgver.split(".")[0:3])
 _kernver = pkgver[len(_zfsver) + 1 :]
 pkgrel = 0
