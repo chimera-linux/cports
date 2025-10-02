@@ -1,0 +1,26 @@
+From 56a6184427c170186ce0d7ed511d2840434ea8c1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Sat, 20 Sep 2025 10:24:19 +0200
+Subject: [PATCH 2/2] extend FRAME_STABILITY_TIMEOUT for slow CI
+
+---
+ tests/common/mod.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/common/mod.rs b/tests/common/mod.rs
+index a8384e1..a33726f 100644
+--- a/tests/common/mod.rs
++++ b/tests/common/mod.rs
+@@ -220,7 +220,7 @@ impl PtyTester {
+     }
+ 
+     /// How long to wait for the TUI to stabilize before asserting its output.
+-    const FRAME_STABILITY_TIMEOUT: Duration = Duration::from_millis(3000);
++    const FRAME_STABILITY_TIMEOUT: Duration = Duration::from_millis(10000);
+ 
+     /// Gets the current TUI frame, ensuring it has stabilized.
+     ///
+-- 
+2.51.0
+
