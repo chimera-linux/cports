@@ -1,7 +1,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.3.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -34,10 +34,12 @@ url = "https://openzfs.github.io/openzfs-docs"
 source = [
     f"https://github.com/openzfs/zfs/releases/download/zfs-{pkgver}/zfs-{pkgver}.tar.gz",
     # not shipped in tarballs? why
+    f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/config/kernel-dentry-operations.m4>kernel-dentry-operations-{pkgver}.m4",
     f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
 ]
 sha256 = [
     "9ec397cf360133161a1180035f3e7d6962186ed2b3457953a28d45aa883fa495",
+    "4071c1f9e2136d5df77b68a944c4988c3aca78faf1e6cb87f74d420d38c2d4e2",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
 hardening = ["!vis", "!cfi"]
@@ -45,6 +47,10 @@ hardening = ["!vis", "!cfi"]
 
 def post_extract(self):
     self.cp(self.sources_path / f"zdev-{pkgver}", ".")
+    self.cp(
+        self.sources_path / f"kernel-dentry-operations-{pkgver}.m4",
+        "config/kernel-dentry-operations.m4",
+    )
 
 
 def pre_configure(self):
