@@ -1,0 +1,23 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 15f32f846..7f139e078 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -42,17 +42,17 @@ endif()
+ # Define a function to build and link dependencies.
+ function(CREATE_TARGET target)
+   add_custom_target(
+     ${target} ALL
+     COMMAND
+       "${CMAKE_COMMAND}" -E
+         env ${VARS_FOR_CARGO}
+           ${Rust_CARGO}
+-            build --bin ${target}
++            auditable build --bin ${target}
+             $<$<CONFIG:Release>:--release>
+             $<$<CONFIG:RelWithDebInfo>:--profile=release-with-debug>
+             --target ${Rust_CARGO_TARGET}
+             --no-default-features
+             --features=${FISH_CARGO_FEATURES}
+             ${CARGO_FLAGS}
+       &&
+       "${CMAKE_COMMAND}" -E
