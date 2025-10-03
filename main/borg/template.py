@@ -1,6 +1,6 @@
 pkgname = "borg"
 pkgver = "1.4.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 make_check_args = [
@@ -66,3 +66,4 @@ def post_install(self):
     self.install_completion("scripts/shell_completions/bash/borg", "bash")
     self.install_completion("scripts/shell_completions/fish/borg.fish", "fish")
     self.install_completion("scripts/shell_completions/zsh/_borg", "zsh")
+    self.install_man("docs/man/*", glob=True)
