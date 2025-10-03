@@ -11,21 +11,20 @@ diff --git a/extensions/common/extension_features.cc b/extensions/common/extensi
 index ca9167ef757bc..268800796efa1 100644
 --- a/extensions/common/extension_features.cc
 +++ b/extensions/common/extension_features.cc
-@@ -84,7 +84,7 @@ BASE_FEATURE(kExtensionManifestV2ExceptionList,
+@@ -62,14 +62,14 @@
+ BASE_FEATURE(ExtensionManifestV2ExceptionList,
+              base::FEATURE_DISABLED_BY_DEFAULT);
  
- BASE_FEATURE(kExtensionManifestV2Disabled,
-              "ExtensionManifestV2Disabled",
--             base::FEATURE_ENABLED_BY_DEFAULT);
-+             base::FEATURE_DISABLED_BY_DEFAULT);
+-BASE_FEATURE(ExtensionManifestV2Disabled, base::FEATURE_ENABLED_BY_DEFAULT);
++BASE_FEATURE(ExtensionManifestV2Disabled, base::FEATURE_DISABLED_BY_DEFAULT);
  
  const base::FeatureParam<std::string> kExtensionManifestV2ExceptionListParam(
      &kExtensionManifestV2ExceptionList,
-@@ -93,7 +93,7 @@ const base::FeatureParam<std::string> kExtensionManifestV2ExceptionListParam(
+     /*name=*/"mv2_exception_list",
+     /*default_value=*/"");
  
- BASE_FEATURE(kAllowLegacyMV2Extensions,
-              "AllowLegacyMV2Extensions",
--             base::FEATURE_DISABLED_BY_DEFAULT);
-+             base::FEATURE_ENABLED_BY_DEFAULT);
+-BASE_FEATURE(AllowLegacyMV2Extensions, base::FEATURE_DISABLED_BY_DEFAULT);
++BASE_FEATURE(AllowLegacyMV2Extensions, base::FEATURE_ENABLED_BY_DEFAULT);
  
- BASE_FEATURE(kExtensionProtocolHandlers,
-              "ExtensionProtocolHandlers",
+ BASE_FEATURE(ExtensionProtocolHandlers, base::FEATURE_DISABLED_BY_DEFAULT);
+ 

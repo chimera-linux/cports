@@ -256,8 +256,8 @@ index cfc37e2..e448a8f 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -34,7 +34,7 @@
- #include "sandbox/linux/system_headers/linux_syscalls.h"
- #include "sandbox/linux/system_headers/linux_time.h"
+ #define MAP_DROPPABLE 0x08  // Zero memory under memory pressure.
+ #endif
  
 -#if BUILDFLAG(IS_LINUX) && !defined(__arm__) && !defined(__aarch64__) && \
 +#if BUILDFLAG(IS_LINUX) && !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc64__) && \
@@ -927,15 +927,15 @@ diff --git a/sandbox/linux/services/credentials.cc b/sandbox/linux/services/cred
 index 993a9ee..25e7bd9 100644
 --- a/sandbox/linux/services/credentials.cc
 +++ b/sandbox/linux/services/credentials.cc
-@@ -87,7 +87,7 @@ bool ChrootToSafeEmptyDir() {
-   alignas(16) char stack_buf[PTHREAD_STACK_MIN_CONST];
+@@ -85,7 +85,7 @@
+   alignas(16) std::array<char, PTHREAD_STACK_MIN_CONST> stack_buf;
  
  #if defined(ARCH_CPU_X86_FAMILY) || defined(ARCH_CPU_ARM_FAMILY) || \
 -    defined(ARCH_CPU_MIPS_FAMILY)
-+    defined(ARCH_CPU_MIPS_FAMILY) || defined(ARCH_CPU_PPC64_FAMILY)
-   // The stack grows downward.
-   void* stack = stack_buf + sizeof(stack_buf);
- #else
++    defined(ARCH_CPU_MIPS_FAMILY) || defined(ARCH_CU_PPC64_FAMILY)
+   // SAFETY: This is the `stack` argument of `clone(2)`. Because the stack grows
+   // downward on these architectures, this is the topmost address of the memory
+   // space for the stack, and the address will not be dereferenced.
 @@ -96,7 +96,7 @@ bool ChrootToSafeEmptyDir() {
  
    int clone_flags = CLONE_FS | LINUX_SIGCHLD;
