@@ -1,5 +1,6 @@
+# run testsuites for python-cffi and gjs on all archs on updates
 pkgname = "libffi8"
-pkgver = "3.4.8"
+pkgver = "3.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +31,7 @@ pkgdesc = "Library supporting Foreign Function Interfaces"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
-sha256 = "bc9842a18898bfacb0ed1252c4febcc7e78fa139fd27fdc7a3e30d9d9356119b"
+sha256 = "f3a3082a23b37c293a4fcd1053147b371f2ff91fa7ea1b2a52e335676bac82dc"
 # dejagnu
 options = ["!check", "linkundefver"]
 
