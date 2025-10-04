@@ -1,0 +1,13 @@
+pkgname = "perl-capture-tiny"
+pkgver = "0.50"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Capture program output from Perl"
+license = "Apache-2.0"
+url = "https://metacpan.org/pod/Capture::Tiny"
+source = f"https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Capture-Tiny-{pkgver}.tar.gz"
+sha256 = "ca6e8d7ce7471c2be54e1009f64c367d7ee233a2894cacf52ebe6f53b04e81e5"
