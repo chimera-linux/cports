@@ -12,23 +12,23 @@ index 9796854..4e9c6e5 100644
 --- a/Modules/GNUInstallDirs.cmake
 +++ b/Modules/GNUInstallDirs.cmake
 @@ -266,6 +266,8 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR OR (_libdir_set
-     if(NOT __system_type_for_install)
-       if (EXISTS "/etc/alpine-release")
-         set(__system_type_for_install "alpine")
-+      elseif (EXISTS "/etc/chimera-release")
-+        set(__system_type_for_install "chimera")
-       elseif (EXISTS "/etc/arch-release")
-         set(__system_type_for_install "arch linux")
-       elseif (EXISTS "/etc/debian_version")
+   if(NOT ${out_var})
+     if (EXISTS "/etc/alpine-release")
+       set(${out_var} "alpine")
++    elseif (EXISTS "/etc/chimera-release")
++      set(${out_var} "chimera")
+     elseif (EXISTS "/etc/arch-release")
+       set(${out_var} "arch linux")
+     elseif (EXISTS "/etc/debian_version")
 @@ -284,7 +286,7 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR OR (_libdir_set
          endif()
        endif()
-     elseif(NOT DEFINED __system_type_for_install)
+     elseif(NOT DEFINED system_type)
 -      # not debian, alpine, arch, or conda so rely on CMAKE_SIZEOF_VOID_P:
 +      # not debian, alpine, arch, chimera or conda so rely on CMAKE_SIZEOF_VOID_P:
        if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
-         set(_LIBDIR_DEFAULT "lib64")
-         if(DEFINED _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX)
+         set(${out_var} "lib64")
+       endif()
 -- 
 2.39.0
 
