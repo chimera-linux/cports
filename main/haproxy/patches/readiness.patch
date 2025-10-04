@@ -1,8 +1,13 @@
-diff --git a/doc/haproxy.1 b/doc/haproxy.1
+diff --git c/doc/haproxy.1 w/doc/haproxy.1
 index 4c2d78677..26f19f9e9 100644
---- a/doc/haproxy.1
-+++ b/doc/haproxy.1
-@@ -85,7 +85,7 @@ mode.
+--- c/doc/haproxy.1
++++ w/doc/haproxy.1
+@@ -80,17 +80,17 @@ Start in daemon mode.
+ 
+ .TP
+ \fB\-W\fP
+ Start in master-worker mode. Could be used either with foreground or daemon
+ mode.
  
  .TP
  \fB\-Ws\fP
@@ -11,11 +16,21 @@ index 4c2d78677..26f19f9e9 100644
  the process is ready. This mode forces foreground.
  
  .TP
-diff --git a/src/cli.c b/src/cli.c
-index 4ab8713fa..a66eb392d 100644
---- a/src/cli.c
-+++ b/src/cli.c
-@@ -2634,8 +2634,16 @@ static int _send_status(char **args, char *payload, struct appctx *appctx, void
+ \fB\-q\fP
+ Disable messages on output.
+ 
+ .TP
+ \fB\-V\fP
+diff --git c/src/cli.c w/src/cli.c
+index 5f0f6bc80..c585a9c13 100644
+--- c/src/cli.c
++++ w/src/cli.c
+@@ -2638,18 +2638,26 @@ static int _send_status(char **args, char *payload, struct appctx *appctx, void
+ 		}
+ 		close(daemon_fd[1]);
+ 		daemon_fd[1] = -1;
+ 	}
+ 
  	load_status = 1;
  	ha_notice("Loading success.\n");
  
@@ -34,14 +49,24 @@ index 4ab8713fa..a66eb392d 100644
  
  	/* master and worker have successfully started, now we can set quiet mode
  	 * if MODE_DAEMON
-diff --git a/src/mworker.c b/src/mworker.c
-index 0d084b8fd..2faa3e5a8 100644
---- a/src/mworker.c
-+++ b/src/mworker.c
-@@ -504,10 +504,13 @@ static void mworker_on_new_child_failure()
+ 	 */
+ 	if ((!(global.mode & MODE_QUIET) || (global.mode & MODE_VERBOSE)) &&
+ 		(global.mode & MODE_DAEMON)) {
+ 		/* detach from the tty, this is required to properly daemonize. */
+ 		if ((getenv("HAPROXY_MWORKER_REEXEC") == NULL))
+diff --git c/src/mworker.c w/src/mworker.c
+index 0b979d8dd..a8220ea04 100644
+--- c/src/mworker.c
++++ w/src/mworker.c
+@@ -499,20 +499,23 @@ static void mworker_on_new_child_failure(int exitpid, int status)
+ 	}
+ 
+ 	/* do not keep unused FDs retrieved from the previous process */
+ 	sock_drop_unused_old_sockets();
+ 
  	usermsgs_clr(NULL);
  	load_status = 0;
- 	ha_warning("Failed to load worker!\n");
+ 	ha_warning("Failed to load worker (%d) exited with code %d (%s)\n", exitpid, status, (status >= 128) ? strsignal(status - 128): "Exit");
 -	/* the sd_notify API is not able to send a reload failure signal. So
 -	 * the READY=1 signal still need to be sent */
 +	/* the reexec is transparent to the supervisor and the fd that was
@@ -54,3 +79,8 @@ index 0d084b8fd..2faa3e5a8 100644
  }
  
  /*
+  * Wait for every children to exit
+  */
+ 
+ void mworker_catch_sigchld(struct sig_handler *sh)
+ {
