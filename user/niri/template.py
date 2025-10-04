@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "25.05.1"
+pkgver = "25.08"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -8,7 +8,7 @@ make_build_args = [
     "dbus,dinit,xdp-gnome-screencast",
 ]
 make_check_args = [*make_build_args]
-make_check_env = {"XDG_RUNTIME_DIR": "/tmp"}
+make_check_env = {"XDG_RUNTIME_DIR": "/tmp", "RAYON_NUM_THREADS": "2"}
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -27,15 +27,13 @@ makedepends = [
     "rust-std",
     "udev-devel",
 ]
-depends = [
-    "so:libEGL.so.1!mesa-egl-libs",
-]
+depends = ["so:libEGL.so.1!mesa-egl-libs", "xwayland-satellite"]
 checkdepends = ["xkeyboard-config"]
 pkgdesc = "Scrollable-tiling wayland compositor"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2df192fa85adbb0eabcfddbd8aa812c3d3329a582a7e62212ea9fcddafa79b00"
+sha256 = "69f8227d621ee6389bcd5368a250c189e672d02528472dc5ef0e3eccf80cf0b8"
 # cross: generates completions using host binary
 options = ["!cross"]
 
