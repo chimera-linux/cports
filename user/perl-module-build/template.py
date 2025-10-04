@@ -1,0 +1,13 @@
+pkgname = "perl-module-build"
+pkgver = "0.4234"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Build and install Perl modules"
+license = "Artistic-1.0-Perl"
+url = "https://metacpan.org/pod/Module::Build"
+source = f"$(CPAN_SITE)/Module/Module-Build-{pkgver}.tar.gz"
+sha256 = "66aeac6127418be5e471ead3744648c766bd01482825c5b66652675f2bc86a8f"
