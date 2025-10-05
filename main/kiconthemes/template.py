@@ -1,6 +1,6 @@
 pkgname = "kiconthemes"
 pkgver = "6.17.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # flaky tests when parallel
 make_check_args = ["-j1"]

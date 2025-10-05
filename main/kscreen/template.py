@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.4.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]

@@ -1,6 +1,6 @@
 pkgname = "qt6ct"
 pkgver = "0.9"
-pkgrel = 10
+pkgrel = 11
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "qt6-qttools", "qt6-qtbase"]
 makedepends = [

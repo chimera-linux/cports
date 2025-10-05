@@ -1,6 +1,6 @@
 pkgname = "kwindowsystem"
 pkgver = "6.17.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",

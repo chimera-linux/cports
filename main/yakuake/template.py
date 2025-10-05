@@ -1,6 +1,6 @@
 pkgname = "yakuake"
 pkgver = "25.08.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
