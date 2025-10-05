@@ -1,5 +1,5 @@
 pkgname = "ktextwidgets"
-pkgver = "6.17.0"
+pkgver = "6.18.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -23,7 +23,7 @@ pkgdesc = "KDE Text editing widgets"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktextwidgets/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktextwidgets-{pkgver}.tar.xz"
-sha256 = "33d46ecdd03ff68582da5cef251921a8c6e7a5db7ad9bfd0432cb00712ac29e3"
+sha256 = "9afb136806e8b95c34211e1dae66e4cf14d7aac2ab244d5264caac4e823d8edf"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "kservice"
-pkgver = "6.17.0"
+pkgver = "6.18.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -17,7 +17,7 @@ pkgdesc = "KDE Plugin framework for desktop services"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kservice/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"
-sha256 = "b014697ea3ba359f46a6e9cf950d7bbd7a9cf09e95b36718c36b6605a9424aee"
+sha256 = "d08aca74dcc54da29dd2b7bc404ed9e6ec688acc77839b4b8fbc372b5ea350b8"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "sonnet"
-pkgver = "6.17.0"
+pkgver = "6.18.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -22,7 +22,7 @@ pkgdesc = "KDE Multi-language spell checker"
 license = "LGPL-2.1-only"
 url = "https://develop.kde.org/docs/features/spellchecking"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"
-sha256 = "4afef6e9ca72edb6c22800b4acfb450df7121e5077c85213aca5f56ab9f4160b"
+sha256 = "2d94c957a3c5f2232653ad782b291e2b959eea6dca83cc09cae621bc9834ab25"
 hardening = ["vis"]
 
 

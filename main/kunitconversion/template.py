@@ -1,5 +1,5 @@
 pkgname = "kunitconversion"
-pkgver = "6.17.0"
+pkgver = "6.18.0"
 pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
@@ -12,7 +12,7 @@ pkgdesc = "KDE Converting physical units"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
-sha256 = "f2625a4ba25b3329fb9730249073bcd349b7a346362148c7fa97989efc7e5cca"
+sha256 = "23a4a5d994666f9db2a5a3c251038f2ef1d978411950925702fb79060ced31c8"
 hardening = ["vis"]
 
 
