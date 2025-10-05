@@ -1,6 +1,6 @@
 pkgname = "age"
 pkgver = "1.2.1"
-pkgrel = 8
+pkgrel = 9
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.Version={pkgver}", "./cmd/..."]
 hostmakedepends = ["go"]

@@ -1,6 +1,6 @@
 pkgname = "k9s"
 pkgver = "0.50.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [f"-ldflags= -X github.com/derailed/k9s/cmd.version={pkgver}"]
 hostmakedepends = ["go"]

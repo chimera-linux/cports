@@ -1,6 +1,6 @@
 pkgname = "darkman"
 pkgver = "2.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.Version=v{pkgver}",
@@ -10,7 +10,7 @@ hostmakedepends = [
     "go",
     "scdoc",
 ]
-makedepends = ["dinit-chimera"]
+makedepends = ["dinit-chimera", "turnstile"]
 pkgdesc = "Control dark-mode and light-mode transitions"
 license = "ISC"
 url = "https://gitlab.com/WhyNotHugo/darkman"

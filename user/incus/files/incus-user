@@ -1,5 +1,5 @@
 # note that this isn't a user service
 type = process
 command = /usr/bin/incus-user --group _incus
-depends-on = incus
-depends-on = local.target
+depends-on: incus
+depends-on: local.target

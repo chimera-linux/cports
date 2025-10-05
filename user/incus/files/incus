@@ -1,4 +1,4 @@
 type = process
 command = /usr/bin/incusd --group _incus-admin --syslog
-depends-on = local.target
 env-file = /etc/default/incus
+depends-on: local.target

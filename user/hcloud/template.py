@@ -1,6 +1,6 @@
 pkgname = "hcloud"
 pkgver = "1.53.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags="

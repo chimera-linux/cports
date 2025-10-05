@@ -1,6 +1,6 @@
 pkgname = "delve"
 pkgver = "1.25.1"
-pkgrel = 1
+pkgrel = 2
 # supported archs
 archs = ["aarch64", "x86_64"]
 build_style = "go"

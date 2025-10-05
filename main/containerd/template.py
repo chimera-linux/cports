@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "2.1.4"
-pkgrel = 1
+pkgrel = 2
 _rootless_ver = "2.1.3"
 build_style = "makefile"
 make_build_args = [
@@ -25,6 +25,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "btrfs-progs-devel",
+    "dinit-chimera",
     "libseccomp-devel",
     "linux-headers",
 ]

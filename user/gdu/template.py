@@ -1,6 +1,6 @@
 pkgname = "gdu"
 pkgver = "5.31.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/dundee/gdu/v5/build.Version={pkgver}",

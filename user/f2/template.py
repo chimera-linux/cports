@@ -1,6 +1,6 @@
 pkgname = "f2"
 pkgver = "2.0.3"
-pkgrel = 8
+pkgrel = 9
 build_style = "go"
 make_build_args = ["./cmd/f2"]
 hostmakedepends = ["go"]

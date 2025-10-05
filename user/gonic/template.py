@@ -1,6 +1,6 @@
 pkgname = "gonic"
 pkgver = "0.16.4"
-pkgrel = 11
+pkgrel = 12
 build_style = "go"
 make_build_args = ["./cmd/gonic"]
 hostmakedepends = ["go", "pkgconf"]

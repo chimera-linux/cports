@@ -1,3 +1,3 @@
 type = process
 command = /usr/bin/containerd-rootless
-before = login.target
+before: login.target

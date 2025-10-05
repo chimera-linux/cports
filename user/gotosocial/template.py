@@ -1,7 +1,8 @@
 pkgname = "gotosocial"
 pkgver = "0.19.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
+prepare_after_patch = True
 make_build_args = [f"-ldflags=-X main.Version={pkgver}", "./cmd/gotosocial"]
 make_check_env = {"GTS_DB_TYPE": "sqlite", "GTS_DB_ADDRESS": ":memory:"}
 hostmakedepends = ["go", "go-swagger", "yarn"]
@@ -37,6 +38,7 @@ def post_extract(self):
 
 
 def post_prepare(self):
+    self.do("go", "mod", "vendor", allow_network=True)
     self.do(
         "yarn",
         "--cwd",

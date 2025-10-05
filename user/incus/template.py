@@ -1,6 +1,6 @@
 pkgname = "incus"
 pkgver = "6.14.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/..."]
 make_check_args = ["-skip", "TestConvertNetworkConfig", "./..."]
@@ -11,6 +11,7 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "cowsql-devel",
+    "dinit-chimera",
     "libatomic-chimera-devel-static",
     "libcap-devel",
     "libseccomp-devel",
@@ -26,7 +27,6 @@ makedepends = [
 depends = [
     "acl-progs",
     "attr-progs",
-    "dinit-chimera",
     "dnsmasq",
     "gtar",
     "iptables",

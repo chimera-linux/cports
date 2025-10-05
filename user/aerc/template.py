@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.20.1"
-pkgrel = 7
+pkgrel = 8
 build_style = "makefile"
 make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
 make_install_args = [*make_build_args]
@@ -22,6 +22,8 @@ url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
 sha256 = "fbfbf2cc4f6e251731698d6d1b7be4e88835b4e089d55e3254d37d450700db07"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
+# fails with go 1.25 due to golang.org/x/tools@v0.24.0
+options = ["!check"]
 
 
 def post_prepare(self):

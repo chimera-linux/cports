@@ -1,6 +1,6 @@
 pkgname = "massren"
 pkgver = "1.5.7"
-pkgrel = 7
+pkgrel = 8
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["sqlite-devel"]

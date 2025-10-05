@@ -1,4 +1,5 @@
 type = process
 command = /usr/bin/containerd
-depends-on = network.target
 logfile = /var/log/containerd.log
+depends-on: local.target
+depends-on: network.target

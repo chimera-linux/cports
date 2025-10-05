@@ -1,6 +1,6 @@
 pkgname = "grpcurl"
 pkgver = "1.9.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version=v{pkgver}",
@@ -12,6 +12,8 @@ license = "MIT"
 url = "https://github.com/fullstorydev/grpcurl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "bb555087f279af156159c86d4d3d5dd3f2991129e4cd6b09114e6851a679340d"
+# accesses network
+options = ["!check"]
 
 
 def post_install(self):

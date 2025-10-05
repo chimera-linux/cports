@@ -1,6 +1,6 @@
 pkgname = "kimchi"
 pkgver = "0.1.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = ["-ldflags=-X main.configPath=/etc/kimchi/config"]
 hostmakedepends = ["go", "scdoc", "libcap-progs"]

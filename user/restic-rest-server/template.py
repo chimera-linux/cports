@@ -1,6 +1,6 @@
 pkgname = "restic-rest-server"
 pkgver = "0.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/rest-server"]
 hostmakedepends = ["go"]

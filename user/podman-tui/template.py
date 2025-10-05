@@ -1,6 +1,6 @@
 pkgname = "podman-tui"
 pkgver = "1.5.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = [
