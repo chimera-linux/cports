@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.9.2"
+pkgver = "6.9.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -75,7 +75,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "44be9c9ecfe04129c4dea0a7e1b36ad476c9cc07c292016ac98e7b41514f2440"
+sha256 = "c5a1a2f660356ec081febfa782998ae5ddbc5925117e64f50e4be9cd45b8dc6e"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -99,6 +99,7 @@ def init_configure(self):
 
 def init_check(self):
     excl_list = [
+        "RunCMake.Sbom",  # fails with latest cmake
         "tst_selftests",  # requires valgrind
         "tst_qmake",  # Could not find qmake spec 'linux-clang'.
         "tst_moc",  # tst_Moc::initTestCase() 'fi.exists()' returned FALSE. ()

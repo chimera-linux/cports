@@ -1,7 +1,7 @@
-From 039b889643c9d84be54baa4a0039995d202dd276 Mon Sep 17 00:00:00 2001
+From 3cc88e0f85113e38ccb1bfdadb7d150c2389b1bc Mon Sep 17 00:00:00 2001
 From: Moss Heim <moss.heim@qt.io>
 Date: Thu, 11 Sep 2025 13:47:04 +0200
-Subject: [PATCH] Return to supporting eglCreateImage for dmabuf check
+Subject: [PATCH] Return to supporting eglCreateImage in EGLHelper::queryDmaBuf
 
 eglCreateDRMImageMESA was removed in mesa 25.2.
 Keep using it where we can since this fixes support for
@@ -13,17 +13,33 @@ This reverts commit 2ed5f9632292c6e531f353dae800cb12274af91a.
 Revert "Remove leftover QOffscreenSurface from EGLHelper"
 This reverts commit bcee2dbf412cc655c1b467091b581c696d234e3f.
 
-Pick-to: 6.9 6.10
+Pick-to: 6.9 6.10 6.10.0
 Task-number: QTBUG-136257
 Task-number: QTBUG-139424
 Change-Id: Ie115bd6373ce0a80651781aa568405477010ee25
+Reviewed-by: Peter Varga <pvarga@inf.u-szeged.hu>
 ---
 
 diff --git a/src/core/ozone/egl_helper.cpp b/src/core/ozone/egl_helper.cpp
-index 76e1c2a..d5b4222 100644
+index 76e1c2a..68e45ff 100644
 --- a/src/core/ozone/egl_helper.cpp
 +++ b/src/core/ozone/egl_helper.cpp
-@@ -57,6 +59,84 @@
+@@ -3,10 +3,14 @@
+ // Qt-Security score:significant reason:default
+ 
+ #include "egl_helper.h"
++
++#include "compositor/compositor.h"
+ #include "ozone_util_qt.h"
+ #include "web_engine_context.h"
+ 
++#include <QtCore/qthread.h>
+ #include <QtGui/qguiapplication.h>
++#include <QtGui/qoffscreensurface.h>
+ #include <QtGui/qopenglcontext.h>
+ #include <QtGui/qopenglfunctions.h>
+ #include <qpa/qplatformnativeinterface.h>
+@@ -57,6 +61,84 @@
  
  QT_BEGIN_NAMESPACE
  
@@ -108,22 +124,32 @@ index 76e1c2a..d5b4222 100644
  EGLHelper::EGLFunctions::EGLFunctions()
  {
      QOpenGLContext *context = OzoneUtilQt::getQOpenGLContext();
-@@ -117,8 +197,13 @@
+@@ -117,8 +199,23 @@
          const char *displayExtensions = m_functions->eglQueryString(m_eglDisplay, EGL_EXTENSIONS);
          m_isDmaBufSupported = strstr(displayExtensions, "EGL_EXT_image_dma_buf_import")
                  && strstr(displayExtensions, "EGL_EXT_image_dma_buf_import_modifiers")
 -                && strstr(displayExtensions, "EGL_MESA_drm_image")
                  && strstr(displayExtensions, "EGL_MESA_image_dma_buf_export");
 +        m_isCreateDRMImageMesaSupported = strstr(displayExtensions, "EGL_MESA_drm_image");
-+        if (!m_isCreateDRMImageMesaSupported) {
++        if (!m_isDmaBufSupported) {
++            qCDebug(QtWebEngineCore::lcWebEngineCompositor,
++                    "EGL: MESA extensions not found, will not use dma-buf");
++        } else if (!m_isCreateDRMImageMesaSupported) {
++            qCDebug(QtWebEngineCore::lcWebEngineCompositor,
++                    "EGL: MESA extensions found but missing EGL_MESA_drm_image, will use dma-buf, "
++                    "some older graphics cards may not be supported");
 +            m_offscreenSurface.reset(new QOffscreenSurface());
 +            Q_ASSERT(QThread::currentThread() == qApp->thread());
 +            m_offscreenSurface->create();
++        } else {
++            qCDebug(QtWebEngineCore::lcWebEngineCompositor,
++                    "EGL: MESA extensions and EGL_MESA_drm_image found, will use dma-buf with GEM "
++                    "buffer allocation");
 +        }
      }
  
      // Try to create dma-buf.
-@@ -138,17 +223,36 @@
+@@ -138,17 +235,38 @@
      if (!m_isDmaBufSupported)
          return;
  
@@ -137,6 +163,8 @@ index 76e1c2a..d5b4222 100644
 -    };
 -    // clang-format on
 +    EGLImage eglImage = EGL_NO_IMAGE;
++    // Probably doesn't need to live to the end of the function, but just in case.
++    std::unique_ptr<ScopedGLContext> glContext;
 +    if (m_isCreateDRMImageMesaSupported) {
 +        // This approach is slightly worse for security and no longer supported in mesa 25.2,
 +        // but it allows us to keep support for the Panthor driver prior to that mesa version.
@@ -151,18 +179,18 @@ index 76e1c2a..d5b4222 100644
 +        // clang-format on
 +        eglImage = m_functions->eglCreateDRMImageMESA(m_eglDisplay, attribs);
 +    } else {
-+        ScopedGLContext context(m_offscreenSurface.get(), m_functions.get());
-+        if (!context.isValid())
++        glContext = std::make_unique<ScopedGLContext>(m_offscreenSurface.get(), m_functions.get());
++        if (!glContext->isValid())
 +            return;
  
 -    EGLImage eglImage = m_functions->eglCreateDRMImageMESA(m_eglDisplay, attribs);
-+        EGLContext eglContext = context.eglContext();
++        EGLContext eglContext = glContext->eglContext();
 +        if (!eglContext) {
 +            qWarning("EGL: No EGLContext.");
 +            return;
 +        }
 +
-+        uint64_t textureId = context.createTexture(width, height);
++        uint64_t textureId = glContext->createTexture(width, height);
 +        eglImage = m_functions->eglCreateImage(m_eglDisplay, eglContext, EGL_GL_TEXTURE_2D,
 +                                                    (EGLClientBuffer)textureId, NULL);
 +    }
@@ -174,12 +202,22 @@ diff --git a/src/core/ozone/egl_helper.h b/src/core/ozone/egl_helper.h
 index 6233ef8..6e059baec 100644
 --- a/src/core/ozone/egl_helper.h
 +++ b/src/core/ozone/egl_helper.h
-@@ -62,6 +62,7 @@
+@@ -25,6 +25,8 @@
+ 
+ QT_BEGIN_NAMESPACE
+ 
++class QOffscreenSurface;
++
+ class EGLHelper
+ {
+ public:
+@@ -59,7 +61,9 @@
+ 
+     EGLDisplay m_eglDisplay = EGL_NO_DISPLAY;
      QScopedPointer<EGLFunctions> m_functions;
-     QScopedPointer<QOffscreenSurface> m_offscreenSurface;
++    QScopedPointer<QOffscreenSurface> m_offscreenSurface;
      bool m_isDmaBufSupported = false;
 +    bool m_isCreateDRMImageMesaSupported = false;
  };
  
  QT_END_NAMESPACE
-

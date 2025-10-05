@@ -1,5 +1,5 @@
 pkgname = "qt6-qtimageformats"
-pkgver = "6.9.2"
+pkgver = "6.9.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtimageformats-everywhere-src-{pkgver}.tar.xz"
-sha256 = "8a023f7e2f57dedc02e2ab10c975f7cb3cccac9b8f0823c12fd6824834549139"
+sha256 = "4fb26bdbfbd4b8e480087896514e11c33aba7b6b39246547355ea340c4572ffe"
 # cross: TODO
 options = ["!cross"]
 
