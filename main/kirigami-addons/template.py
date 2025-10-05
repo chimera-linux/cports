@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.9.0"
+pkgver = "1.10.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -18,11 +18,14 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "kcolorscheme-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
     "kglobalaccel-devel",
     "kguiaddons-devel",
     "ki18n-devel",
+    "kiconthemes-devel",
     "kirigami-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
@@ -33,7 +36,7 @@ pkgdesc = "Add-ons for the Kirigami framework"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kirigami-addons/html/index.html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "21314a91f26b1c962def3fd7ff2e762d3358b075f63f4d7e0144fb2c63b7ebc7"
+sha256 = "c98f92bf7c452e12f6dc403404215413db3959fe904ad830ead0db6bb09b3d11"
 hardening = ["vis"]
 
 
