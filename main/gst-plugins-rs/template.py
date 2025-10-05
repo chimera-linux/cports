@@ -1,12 +1,13 @@
 pkgname = "gst-plugins-rs"
 # separate versioning from main gst
-pkgver = "0.13.6"
+pkgver = "0.14.2"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Ddefault_library=shared"]
+configure_args = ["-Ddefault_library=shared", "-Dskia=disabled"]
 hostmakedepends = [
     "cargo",
     "cargo-c",
+    "git",
     "meson",
     "nasm",
     "pkgconf",
@@ -25,7 +26,7 @@ pkgdesc = "GStreamer rust plugins"
 license = "(MIT OR Apache-2.0) AND MPL-2.0 AND LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/{pkgver}.tar.gz"
-sha256 = "9d7dd50aebc24e00a39729c88ca2c60b4c58425a6bc884de3248d6506a952410"
+sha256 = "4d620454b44b5a8ab2bbf38b996d458f089d49f286b0a1f80af70a394cd2e08a"
 # takes forever
 options = ["!check"]
 
@@ -48,6 +49,7 @@ def init_build(self):
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
+    self.install_file("build/*.pc", "usr/lib/pkgconfig", glob=True)
 
 
 @subpackage("gst-plugins-rs-gtk4")

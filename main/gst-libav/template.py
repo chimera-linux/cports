@@ -1,5 +1,5 @@
 pkgname = "gst-libav"
-pkgver = "1.26.2"
+pkgver = "1.26.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -15,6 +15,6 @@ pkgdesc = "GStreamer FFmpeg plugin"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-libav/gst-libav-{pkgver}.tar.xz"
-sha256 = "2eceba9cae4c495bb4ea134c27f010356036f1fa1972db5f54833f5f6c9f8db0"
+sha256 = "6e50a6222d509c52b19143f9a7bd3581e22c745d0c4bc27ddb07e1229bcc11b8"
 # FIXME int
 hardening = ["!int"]

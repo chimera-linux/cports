@@ -1,5 +1,5 @@
 pkgname = "gstreamer-vaapi"
-pkgver = "1.26.2"
+pkgver = "1.26.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,4 +28,4 @@ pkgdesc = "GStreamer VA-API plugins"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer-vaapi/gstreamer-vaapi-{pkgver}.tar.xz"
-sha256 = "0e24194236ed3b7f06f90e90efdf17f3f5ee39132e20081189a6c7690601051a"
+sha256 = "d87c57244cecbd17bb030b698dcb67a66225de639f7c5b837391c4a8e5477667"
