@@ -31,10 +31,3 @@
  custom_target(
    'cargo-doc',
    build_by_default: false,
-@@ -78,4 +61,4 @@ test(
-   ],
-   is_parallel: false,
-   timeout: 1800,
--)
-\ No newline at end of file
-+)

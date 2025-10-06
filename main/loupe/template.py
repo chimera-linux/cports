@@ -1,5 +1,5 @@
 pkgname = "loupe"
-pkgver = "48.1"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -25,7 +25,7 @@ pkgdesc = "GNOME image viewer"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Loupe"
 source = f"$(GNOME_SITE)/loupe/{pkgver[:-2]}/loupe-{pkgver}.tar.xz"
-sha256 = "10713d3e96789d077ae7d3389452a5f6c397ddf43a50c071cbfe2d12725970de"
+sha256 = "a2ce554e8e5e1d16b836e46f1652767db2bb3bd4f7dcaa87f2569af10b863938"
 # Runs `cargo test` but doesn't actually have any rust tests for that to execute
 options = ["!check"]
 
