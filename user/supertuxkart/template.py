@@ -1,6 +1,6 @@
 pkgname = "supertuxkart"
 pkgver = "1.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
