@@ -1,0 +1,22 @@
+kgx starts with whatever TERM was present in the
+environment that started it, which can be something
+like "linux" and we don't really want that
+
+especially as with latest vte, it breaks spawning
+in the cwd of the previous tab, leaving you always
+in the home dir
+
+this is fine though...
+
+--- a/src/kgx-depot.c
++++ b/src/kgx-depot.c
+@@ -350,6 +350,9 @@ kgx_depot_spawn (KgxDepot                 *self,
+   spawn_data->envv = g_environ_setenv (spawn_data->envv,
+                                        "TERM_PROGRAM_VERSION", PACKAGE_VERSION,
+                                        TRUE);
++  spawn_data->envv = g_environ_setenv (spawn_data->envv,
++                                       "TERM", "xterm-256color",
++                                       TRUE);
+ 
+   kgx_proxy_info_apply_to_environ (self->proxy_info, &spawn_data->envv);
+ 
