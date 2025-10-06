@@ -7,7 +7,7 @@ configure_args = [
     "-Ddocumentation=false",
     "-Dtiff=enabled",
     "-Ddjvu=enabled",
-    "-Dtests=disabled",
+    "-Dtests=false",
 ]
 hostmakedepends = [
     "blueprint-compiler",
