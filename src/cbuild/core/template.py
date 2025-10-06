@@ -582,7 +582,7 @@ sites = {
     "xorg": "https://www.x.org/releases/individual",
     "cpan": "https://www.cpan.org/modules/by-module",
     "pypi": "https://files.pythonhosted.org/packages/source",
-    "gnu": "https://ftp.gnu.org/gnu",
+    "gnu": "https://ftpmirror.gnu.org/gnu",
     "kde": "https://download.kde.org/stable",
     "xfce": "https://archive.xfce.org/src",
 }
