@@ -1,5 +1,5 @@
 pkgname = "decibels"
-pkgver = "48.0"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -11,7 +11,7 @@ hostmakedepends = [
     "pkgconf",
     "typescript",
 ]
-makedepends = ["gjs-devel"]
+makedepends = ["gjs-devel", "libadwaita-devel"]
 depends = ["gjs", "libadwaita", "gst-plugins-base"]
 pkgdesc = "GNOME audio player"
 license = "GPL-3.0-or-later"
@@ -22,6 +22,6 @@ source = [
 ]
 source_paths = [".", "gi-types"]
 sha256 = [
-    "1ffe2c4ab2502314c74f017f2b58b9d110548a9cbc237096e6712e67c03b2e10",
+    "6d4f1281be520a83782c96b07e355f6467610a3285c02054a6908dfdcc8c5994",
     "6c625c8a01bd15e9f35fd6ea6823b5afb2288e6a40e34d852d37b6fa0fa51e57",
 ]
