@@ -1,5 +1,5 @@
 pkgname = "json-glib"
-pkgver = "1.10.6"
+pkgver = "1.10.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dinstalled_tests=false"]
@@ -15,7 +15,7 @@ pkgdesc = "JSON parser for glib-based projects"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/action/show/Projects/JsonGlib"
 source = f"$(GNOME_SITE)/json-glib/{pkgver[:-2]}/json-glib-{pkgver}.tar.xz"
-sha256 = "77f4bcbf9339528f166b8073458693f0a20b77b7059dbc2db61746a1928b0293"
+sha256 = "55c5c141a564245b8f8fbe7698663c87a45a7333c2a2c56f06f811ab73b212dd"
 
 
 @subpackage("json-glib-devel")
