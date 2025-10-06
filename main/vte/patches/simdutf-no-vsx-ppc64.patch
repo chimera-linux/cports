@@ -1,0 +1,17 @@
+siiigh
+
+project no 99999 where we have to deal with this
+because simdutf does not understand ppc64 may not
+have vsx
+
+--- a/subprojects/simdutf/include/simdutf/portability.h
++++ b/subprojects/simdutf/include/simdutf/portability.h
+@@ -106,7 +106,7 @@
+ #elif defined(__aarch64__) || defined(_M_ARM64) || defined(_M_ARM64EC)
+   #define SIMDUTF_IS_ARM64 1
+ #elif defined(__PPC64__) || defined(_M_PPC64)
+-  #if defined(__VEC__) && defined(__ALTIVEC__)
++  #if defined(__VEC__) && defined(__ALTIVEC__) && !defined(__BIG_ENDIAN__)
+     #define SIMDUTF_IS_PPC64 1
+   #endif
+ #elif defined(__s390__)
