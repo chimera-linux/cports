@@ -1,6 +1,6 @@
 pkgname = "binutils-aarch64-none-elf"
 _trip = pkgname.removeprefix("binutils-")
-pkgver = "2.44"
+pkgver = "2.45"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -36,7 +36,7 @@ pkgdesc = "GNU binutils for AArch64 bare metal targets"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz"
-sha256 = "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237"
+sha256 = "c50c0e7f9cb188980e2cc97e4537626b1672441815587f1eab69d2a1bfbef5d2"
 # resistance is futile
 options = ["!check", "!lto", "linkundefver"]
 
