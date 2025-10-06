@@ -1,6 +1,6 @@
 pkgname = "nautilus-python"
-pkgver = "4.0.1"
-pkgrel = 1
+pkgver = "4.1.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -19,4 +19,4 @@ pkgdesc = "Python plugin support for Nautilus"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/nautilus-python"
 source = f"{url}/-/archive/{pkgver}/nautilus-python-{pkgver}.tar.gz"
-sha256 = "68c2cb1435addaccf19b8926bda2caf492e4e4273dfcf800acd87e967b8aaec0"
+sha256 = "02803bb8dc7eb8dd14ccdf3e042010d8c20750fbbac8c15702e9774ec7a3eeb6"
