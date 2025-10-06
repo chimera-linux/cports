@@ -1,5 +1,5 @@
 pkgname = "gnome-desktop"
-pkgver = "44.3"
+pkgver = "44.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -41,7 +41,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
 source = (
     f"$(GNOME_SITE)/gnome-desktop/{pkgver[:-2]}/gnome-desktop-{pkgver}.tar.xz"
 )
-sha256 = "40efa9aa8d50effed9227a3d70671e32e9dc35e20f331cab3b562975978f4f8d"
+sha256 = "1d8cb9c6a328eb689b0c1269cf53834cc84d851d7e71970cdabba82706b44984"
 # needs graphical environment
 options = ["!check", "!cross"]
 
