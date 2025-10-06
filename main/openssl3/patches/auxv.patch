@@ -8,8 +8,8 @@ index 33b9dd4..04e402c 100644
 --- a/crypto/armcap.c
 +++ b/crypto/armcap.c
 @@ -66,11 +66,9 @@ uint32_t OPENSSL_rdtsc(void)
- void OPENSSL_cpuid_setup(void) __attribute__ ((constructor));
- # endif
+ 
+  /* First determine if getauxval() is available (OSSL_IMPLEMENT_GETAUXVAL) */
  
 -# if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
 -#  if __GLIBC_PREREQ(2, 16)
