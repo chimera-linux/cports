@@ -1,5 +1,5 @@
---- a/shell/src/meson.build	2024-09-11 00:07:27.984662989 -0300
-+++ b/shell/src/meson.build	2024-09-11 00:07:49.580379578 -0300
+--- a/shell/src/meson.build
++++ b/shell/src/meson.build
 @@ -51,21 +51,6 @@
    ]
  )
@@ -22,3 +22,35 @@
  custom_target(
    'cargo-doc',
    build_by_default: false,
+--- a/thumbnailer/meson.build
++++ b/thumbnailer/meson.build
+@@ -34,22 +34,6 @@ cargo_build = custom_target(
+   ],
+ )
+ 
+-copy = custom_target(
+-  'cp-binary',
+-  depends: cargo_build,
+-  build_by_default: true,
+-  build_always_stale: true,
+-  install: true,
+-  install_dir: get_option('bindir'),
+-  output: meson.project_name() + '-thumbnailer',
+-  command: [
+-    'cp',
+-    meson.current_build_dir() / rust_target / meson.project_name()
+-    + '-thumbnailer',
+-    '@OUTPUT@',
+-  ],
+-)
+-
+ pps_library_path = '@0@/libview:@0@/libdocument:@0@/shell'.format(build_root)
+ test_env = backend_env
+ test_env.set('DYLD_LIBRARY_PATH', pps_library_path)
+@@ -51,6 +51,5 @@ if get_option('tests')
+     args: [meson.project_source_root() / 'libview' / 'tests' / 'utf16le-annot.pdf'],
+     env: test_env,
+     workdir: meson.current_build_dir(),
+-    depends: [copy],
+   )
+ endif

@@ -1,11 +1,21 @@
 --- a/shell/src/meson.build
 +++ b/shell/src/meson.build
-@@ -9,7 +9,7 @@ source_root = meson.current_source_dir()
- 
+@@ -1,6 +1,6 @@
  cargo = find_program('cargo', required: true)
  
 -cargo_options = [ '--manifest-path', shell_rs_root / 'Cargo.toml' ]
 +cargo_options = [ '--offline', '--config', shell_rs_root / '.cargo/config.toml', '--manifest-path', shell_rs_root / 'Cargo.toml' ]
  cargo_options += [ '--target-dir', meson.current_build_dir() ]
  
- if get_option('optimization') == '0'
+ if rust_target == 'release'
+--- a/thumbnailer/meson.build
++++ b/thumbnailer/meson.build
+@@ -11,7 +11,7 @@ configure_file(
+ cargo = find_program('cargo', required: true)
+ 
+ thumbnailer_root = meson.current_source_dir()
+-cargo_options = ['--manifest-path', thumbnailer_root / 'Cargo.toml']
++cargo_options = ['--offline', '--config', thumbnailer_root / '.cargo/config.toml', '--manifest-path', thumbnailer_root / 'Cargo.toml']
+ cargo_options += ['--target-dir', meson.current_build_dir()]
+ 
+ if rust_target == 'release'
