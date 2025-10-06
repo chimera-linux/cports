@@ -1,6 +1,6 @@
 pkgname = "geoclue"
 pkgver = "2.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddbus-srv-user=_geoclue",
@@ -34,6 +34,7 @@ sha256 = "c07aeb35cccf959ec1dc2e8f9a71a9d8bdd643879ef0a8d37926499541da1685"
 
 def post_install(self):
     self.install_sysusers(self.files_path / "geoclue.conf")
+    self.uninstall("usr/lib/sysusers.d/geoclue-sysusers.conf")
 
 
 @subpackage("geoclue-devel")
