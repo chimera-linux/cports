@@ -1,5 +1,5 @@
 pkgname = "pcre2"
-pkgver = "10.45"
+pkgver = "10.46"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Perl Compatible Regular Expressions v2"
 license = "BSD-3-Clause"
 url = "https://www.pcre.org"
 source = f"https://github.com/PCRE2Project/pcre2/releases/download/pcre2-{pkgver}/pcre2-{pkgver}.tar.gz"
-sha256 = "0e138387df7835d7403b8351e2226c1377da804e0737db0e071b48f07c9d12ee"
+sha256 = "8d28d7f2c3b970c3a4bf3776bcbb5adfc923183ce74bc8df1ebaad8c1985bd07"
 
 match self.profile().arch:
     # aarch64 FIXME: segfault in pcre2_jit_neon_inc.h during testing
