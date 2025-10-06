@@ -1,6 +1,6 @@
 pkgname = "gom"
-pkgver = "0.5.3"
-pkgrel = 1
+pkgver = "0.5.4"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",
@@ -13,7 +13,7 @@ pkgdesc = "GObject data mapper"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gom"
 source = f"$(GNOME_SITE)/gom/{pkgver[:-2]}/gom-{pkgver}.tar.xz"
-sha256 = "069d0909fbdc6b4d27edf7a879366194e3ab508b03548bf5b89ff63546d20177"
+sha256 = "57ba806fe080a937d5664178d21bad7653b2c561ea128187a7b10bc1762b7f65"
 options = ["!cross"]
 
 
