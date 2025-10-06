@@ -1,6 +1,6 @@
 pkgname = "gvfs"
-pkgver = "1.56.1"
-pkgrel = 3
+pkgver = "1.58.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -56,7 +56,7 @@ pkgdesc = "GNOME virtual file system"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/gvfs/{pkgver[:-2]}/gvfs-{pkgver}.tar.xz"
-sha256 = "86731ccec679648f8734e237b1de190ebdee6e4c8c0f56f454c31588e509aa10"
+sha256 = "dd9be36873d0fcb309eb89a8d274770ce576287628a2cf111bd387e1c34f182f"
 
 
 @subpackage("gvfs-afc")
