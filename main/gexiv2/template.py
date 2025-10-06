@@ -1,5 +1,5 @@
 pkgname = "gexiv2"
-pkgver = "0.14.6"
+pkgver = "0.16.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Dvapi=true"]
@@ -16,7 +16,7 @@ pkgdesc = "GObject wrapper for exiv2"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gexiv2"
 source = f"$(GNOME_SITE)/gexiv2/{pkgver[:-2]}/gexiv2-{pkgver}.tar.xz"
-sha256 = "606c28aaae7b1f3ef5c8eabe5e7dffd7c5a1c866d25b7671fb847fe287a72b8b"
+sha256 = "d96f895f24539f966f577b2bb2489ae84f8232970a8d0c064e4a007474a77bbb"
 
 
 @subpackage("gexiv2-devel")
