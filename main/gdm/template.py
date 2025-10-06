@@ -39,6 +39,7 @@ makedepends = [
     "accountsservice-devel",
     "dinit-chimera",
     "dinit-dbus",
+    "elogind",
     "elogind-devel",
     "gettext-devel",
     "glib-devel",
@@ -49,6 +50,7 @@ makedepends = [
     "libx11-devel",
     "libxau-devel",
     "linux-pam-devel",
+    "openrc-settingsd",
 ]
 checkdepends = ["check-devel"]
 depends = [
