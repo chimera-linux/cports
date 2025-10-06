@@ -1,0 +1,37 @@
+Due to removal of compat symbols from gio, we no longer have giounix
+stuff accessible in the GIR bindings here. Since this is probably
+tricky to fix and I don't really have the time or energy to figure
+out a clean fix, fall back to using C glib API which we have access
+to.
+
+https://gitlab.gnome.org/GNOME/glib/-/issues/3744
+
+--- a/Telegram/lib_base/base/platform/linux/base_url_scheme_linux.cpp
++++ b/Telegram/lib_base/base/platform/linux/base_url_scheme_linux.cpp
+@@ -16,6 +16,7 @@
+ 
+ #include <gio/gio.hpp>
+ #include <snapcraft/snapcraft.hpp>
++#include <gio/gdesktopappinfo.h>
+ 
+ namespace base::Platform {
+ namespace {
+@@ -117,12 +118,15 @@ void RegisterUrlScheme(const UrlSchemeDescriptor &descriptor) {
+ 
+ 	const auto appId = QGuiApplication::desktopFileName().toStdString();
+ 	if (!appId.empty()) {
+-		Gio::AppInfo appInfo = Gio::DesktopAppInfo::new_(appId + ".desktop");
++		auto idname = appId + ".desktop";
++		auto *appInfo = g_desktop_app_info_new (idname.c_str());
+ 		if (appInfo) {
+-			if (appInfo.get_commandline() == commandlineForCreator + " %u") {
+-				appInfo.set_as_default_for_type(handlerType);
++			if (g_app_info_get_commandline((GAppInfo *)appInfo) == commandlineForCreator + " %u") {
++				g_app_info_set_as_default_for_type ((GAppInfo *)appInfo, handlerType.c_str(), NULL);
++				g_object_unref((void *)appInfo);
+ 				return;
+ 			}
++			g_object_unref((void *)appInfo);
+ 		}
+ 	}
+ 
