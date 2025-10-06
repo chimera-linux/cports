@@ -1,5 +1,5 @@
 pkgname = "blender"
-pkgver = "4.5.2"
+pkgver = "4.5.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -74,7 +74,7 @@ pkgdesc = "3D creation suite"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "ff225337b6695631b82008e94a45f0b53711d2d52497b86063d3c86880627d1f"
+sha256 = "f92af47f3761eb68bc70b74d7dddcb72fcb3038b76d847c6441e5b90b6f19275"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
