@@ -5,7 +5,7 @@ our tooling relies on versioning matching the pkgver
  VERSION = 6
  PATCHLEVEL = 11
  SUBLEVEL = 11
--EXTRAVERSION =-valve20
+-EXTRAVERSION =-valve24
 +EXTRAVERSION =
  NAME = Baby Opossum Posse
  
