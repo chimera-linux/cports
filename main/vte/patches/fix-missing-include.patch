@@ -1,0 +1,24 @@
+diff --git a/src/boxed.hh b/src/boxed.hh
+index 4d4b07b..a526b59 100644
+--- a/src/boxed.hh
++++ b/src/boxed.hh
+@@ -19,6 +19,7 @@
+ // but we need this for non-enum/integral/floating types.
+ 
+ #include <type_traits>
++#include <utility>
+ 
+ namespace vte {
+ 
+diff --git a/src/parser.hh b/src/parser.hh
+index 071e506..f8d4a2a 100644
+--- a/src/parser.hh
++++ b/src/parser.hh
+@@ -22,6 +22,7 @@
+ #include <cstdio>
+ #include <optional>
+ #include <string_view>
++#include <algorithm>
+ 
+ #include "parser-arg.hh"
+ #include "parser-string.hh"
