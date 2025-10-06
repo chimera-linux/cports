@@ -1,6 +1,6 @@
 pkgname = "openrc-settingsd"
 pkgver = "1.5.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
