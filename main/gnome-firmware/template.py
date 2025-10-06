@@ -1,5 +1,5 @@
 pkgname = "gnome-firmware"
-pkgver = "47.0"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Delogind=true", "-Dconsolekit=false", "-Dsystemd=false"]
@@ -21,5 +21,5 @@ pkgdesc = "GNOME firmware updater"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/World/gnome-firmware"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "b39534a0aab3c0d8b8c27152af7a02b7f7c8082d87b9d5cf8ebdd9b520f03bb3"
+sha256 = "19d443e1639245bcfa7fe0fb9dd86ceb32d8d354c4e1b4c8ffebbaa9b7133c85"
 options = ["!cross"]
