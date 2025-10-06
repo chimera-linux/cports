@@ -1,5 +1,5 @@
 pkgname = "at-spi2-core"
-pkgver = "2.56.4"
+pkgver = "2.58.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,13 +30,9 @@ url = "https://gitlab.gnome.org/GNOME/at-spi2-core"
 source = (
     f"$(GNOME_SITE)/at-spi2-core/{pkgver[:-2]}/at-spi2-core-{pkgver}.tar.xz"
 )
-sha256 = "dbe35b951499e1d6f1fb552c2e0a09cea7cba2adf6c2eba0b2c85b6c094a3a02"
+sha256 = "dfdd3300da2783a21969ffade2889817fb7c1906a4ef92497eba65969b3dab5a"
 # non-trivial dbus setup
 options = ["!check", "!cross"]
-
-
-def post_install(self):
-    self.uninstall("usr/lib/systemd")
 
 
 @subpackage("at-spi2-core-devel")
