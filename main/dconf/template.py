@@ -1,6 +1,6 @@
 pkgname = "dconf"
-pkgver = "0.40.0"
-pkgrel = 1
+pkgver = "0.49.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "docbook-xsl-nons",
@@ -23,7 +23,7 @@ pkgdesc = "Low-level configuration system for GNOME"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/dconf"
 source = f"$(GNOME_SITE)/dconf/{pkgver[:-2]}/dconf-{pkgver}.tar.xz"
-sha256 = "cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533"
+sha256 = "16a47e49a58156dbb96578e1708325299e4c19eea9be128d5bd12fd0963d6c36"
 options = ["linkundefver"]
 
 
