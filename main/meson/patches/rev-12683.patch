@@ -6,9 +6,9 @@ default system config does not count as a default compiler define?)
 --
 --- a/mesonbuild/compilers/cpp.py
 +++ b/mesonbuild/compilers/cpp.py
-@@ -311,25 +311,6 @@ class ClangCPPCompiler(_StdCPPLibMixin, ClangCPPStds, ClangCompiler, CPPCompiler
-             return libs
-         return []
+@@ -314,25 +314,6 @@ class ClangCPPCompiler(_StdCPPLibMixin, ClangCPPStds, ClangCompiler, CPPCompiler
+     def is_libcpp_enable_assertions_deprecated(self) -> bool:
+         return version_compare(self.version, ">=18")
  
 -    def get_assert_args(self, disable: bool, env: 'Environment') -> T.List[str]:
 -        if disable:
@@ -22,7 +22,7 @@ default system config does not count as a default compiler define?)
 -        if self.language_stdlib_provider(env) == 'stdc++':
 -            return ['-D_GLIBCXX_ASSERTIONS=1']
 -        else:
--            if version_compare(self.version, '>=18'):
+-            if self.is_libcpp_enable_assertions_deprecated():
 -                return ['-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST']
 -            elif version_compare(self.version, '>=15'):
 -                return ['-D_LIBCPP_ENABLE_ASSERTIONS=1']
@@ -32,7 +32,7 @@ default system config does not count as a default compiler define?)
      def get_pch_use_args(self, pch_dir: str, header: str) -> T.List[str]:
          args = super().get_pch_use_args(pch_dir, header)
          if version_compare(self.version, '>=11'):
-@@ -521,25 +502,6 @@ class GnuCPPCompiler(_StdCPPLibMixin, GnuCPPStds, GnuCompiler, CPPCompiler):
+@@ -530,25 +511,6 @@ class GnuCPPCompiler(_StdCPPLibMixin, GnuCPPStds, GnuCompiler, CPPCompiler):
              return libs
          return []
  
