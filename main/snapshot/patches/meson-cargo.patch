@@ -21,10 +21,10 @@ index 98e5156..efcf3c1 100644
 -  timeout: 400, # cargo might take a bit of time sometimes
 -)
 diff --git a/src/meson.build b/src/meson.build
-index 458c89c..8f3af8a 100644
+index 67c5037..4dc517d 100644
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -52,33 +52,14 @@ cargo_build = custom_target(
+@@ -48,15 +48,10 @@ cargo_build = custom_target(
    build_always_stale: true,
    output: meson.project_name(),
    console: true,
@@ -39,30 +39,4 @@ index 458c89c..8f3af8a 100644
 -    '&&',
 -    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
    ]
- )
- 
--test (
--  'Cargo clippy',
--  cargo,
--  args: [
--    'clippy',
--    '--no-deps',
--    cargo_options,
--  ],
--  env: [
--    cargo_env,
--  ],
--  timeout: 400, # cargo might take a bit of time sometimes
--)
--
- test (
-   'Cargo tests',
-   cargo,
-@@ -87,7 +68,4 @@ test (
-     cargo_options,
-   ],
-   timeout: 400, # cargo might take a bit of time sometimes
--  env: [
--    cargo_env,
--  ],
  )

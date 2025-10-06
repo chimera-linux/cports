@@ -1,6 +1,6 @@
 pkgname = "snapshot"
-pkgver = "48.0.1"
-pkgrel = 1
+pkgver = "49.0"
+pkgrel = 0
 build_style = "meson"
 make_check_args = ["--timeout-multiplier=5"]
 hostmakedepends = [
@@ -17,6 +17,7 @@ makedepends = [
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "gstreamer-devel",
+    "lcms2-devel",
     "libadwaita-devel",
     "libseccomp-devel",
     "rust-std",
@@ -35,7 +36,7 @@ url = "https://apps.gnome.org/Snapshot"
 source = (
     f"$(GNOME_SITE)/snapshot/{pkgver.split('.')[0]}/snapshot-{pkgver}.tar.xz"
 )
-sha256 = "393176859a20b7d235dfc303031ba20c686441106988dc911dd91b7b6d66e1fd"
+sha256 = "5f96193d2919c7355745d26a1b01f23c3cb30a93c742d583ec42927c4a45ae18"
 
 
 def init_build(self):
