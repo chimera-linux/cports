@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "48.0"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
