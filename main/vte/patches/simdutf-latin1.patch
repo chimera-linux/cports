@@ -1,0 +1,14 @@
+the latin1 sources contain some conversion
+routines for ppc64 which are required by the
+other ones on the platform
+
+--- a/subprojects/simdutf/meson.build
++++ b/subprojects/simdutf/meson.build
+@@ -46,6 +46,7 @@ simdutf_amalgamate = [
+   # '--with-base64',
+   # '--with-detect-enc',
+   '--with-ascii',
++  '--with-latin1',
+ ]
+ 
+ if get_option('debug')
