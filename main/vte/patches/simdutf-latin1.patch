@@ -4,7 +4,13 @@ other ones on the platform
 
 --- a/subprojects/simdutf/meson.build
 +++ b/subprojects/simdutf/meson.build
-@@ -46,6 +46,7 @@ simdutf_amalgamate = [
+@@ -41,11 +41,12 @@ simdutf_amalgamate = [
+   '--no-zip',
+   '--no-readme',
+   '--with-utf8',
+-  # '--with-utf16',
++  '--with-utf16',
+   '--with-utf32',
    # '--with-base64',
    # '--with-detect-enc',
    '--with-ascii',
