@@ -1,0 +1,130 @@
+yay, more fun
+
+diff --git a/src/Backends/WaylandBackend.cpp b/src/Backends/WaylandBackend.cpp
+index f5cb4cc..72f2fd9 100644
+--- a/src/Backends/WaylandBackend.cpp
++++ b/src/Backends/WaylandBackend.cpp
+@@ -2820,7 +2820,12 @@ namespace gamescope
+ 
+     void CWaylandInputThread::SetRelativePointer( bool bRelative )
+     {
+-        if ( bRelative == !!m_pRelativePointer.load() )
++        bool val;
++        {
++            std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
++            val = !!m_pRelativePointer;
++        }
++        if ( bRelative == val )
+             return;
+         // This constructors/destructors the display's mutex, so should be safe to do across threads.
+         if ( !bRelative )
+diff --git a/src/steamcompmgr.cpp b/src/steamcompmgr.cpp
+index c1d49fd..fdcfb29 100644
+--- a/src/steamcompmgr.cpp
++++ b/src/steamcompmgr.cpp
+@@ -143,7 +143,8 @@ std::atomic<uint32_t> g_unCurrentVRSceneAppId;
+ gamescope_color_mgmt_tracker_t g_ColorMgmt{};
+ 
+ static gamescope_color_mgmt_luts g_ColorMgmtLutsOverride[ EOTF_Count ];
+-std::atomic<std::shared_ptr<lut3d_t>> g_ColorMgmtLooks[EOTF_Count];
++std::mutex g_ColorMgmtMtx;
++std::shared_ptr<lut3d_t> g_ColorMgmtLooks[EOTF_Count];
+ 
+ 
+ gamescope_color_mgmt_luts g_ColorMgmtLuts[ EOTF_Count ];
+@@ -353,7 +354,11 @@ create_color_mgmt_luts(const gamescope_color_mgmt_t& newColorMgmt, gamescope_col
+ 
+ 			EOTF inputEOTF = static_cast<EOTF>( nInputEOTF );
+ 			float flGain = 1.f;
+-			std::shared_ptr<lut3d_t> pSharedLook = g_ColorMgmtLooks[ nInputEOTF ];
++			std::shared_ptr<lut3d_t> pSharedLook;
++			{
++				std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
++				pSharedLook = g_ColorMgmtLooks[ nInputEOTF ];
++			}
+ 			lut3d_t * pLook = pSharedLook && pSharedLook->lutEdgeSize > 0 ? pSharedLook.get() : nullptr;
+ 
+ 			if ( inputEOTF == EOTF_Gamma22 )
+@@ -775,6 +780,7 @@ bool set_color_shaperlut_override(const char *path)
+ bool set_color_look_pq(const char *path)
+ {
+ 	bool bRaisesBlackLevelFloor = false;
++	std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 	g_ColorMgmtLooks[EOTF_PQ] = LoadCubeLut( path, bRaisesBlackLevelFloor );
+ 	cv_overlay_unmultiplied_alpha = bRaisesBlackLevelFloor;
+ 	g_ColorMgmt.pending.externalDirtyCtr++;
+@@ -784,6 +790,7 @@ bool set_color_look_pq(const char *path)
+ bool set_color_look_g22(const char *path)
+ {
+ 	bool bRaisesBlackLevelFloor = false;
++	std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 	g_ColorMgmtLooks[EOTF_Gamma22] = LoadCubeLut( path, bRaisesBlackLevelFloor );
+ 	cv_overlay_unmultiplied_alpha = bRaisesBlackLevelFloor;
+ 	g_ColorMgmt.pending.externalDirtyCtr++;
+diff --git a/src/wlserver.cpp b/src/wlserver.cpp
+index 4d8546e..b18a2dc 100644
+--- a/src/wlserver.cpp
++++ b/src/wlserver.cpp
+@@ -1061,7 +1061,8 @@ static void gamescope_control_display_sleep( struct wl_client *client, struct wl
+ }
+ 
+ extern gamescope::ConVar<bool> cv_overlay_unmultiplied_alpha;
+-extern std::atomic<std::shared_ptr<lut3d_t>> g_ColorMgmtLooks[EOTF_Count];
++extern std::shared_ptr<lut3d_t> g_ColorMgmtLooks[EOTF_Count];
++extern std::mutex g_ColorMgmtMtx;
+ 
+ static gamescope::ConCommand cc_set_look("set_look", "Set a look for a specific EOTF. Eg. set_look mylook.cube (g22 only), set_look pq mylook.cube, set_look mylook_g22.cube mylook_pq.cube",
+ []( std::span<std::string_view> args )
+@@ -1070,6 +1071,7 @@ static gamescope::ConCommand cc_set_look("set_look", "Set a look for a specific
+ 	{
+ 		std::string arg1 = std::string{ args[1] };
+ 		bool bRaisesBlackLevelFloor = false;
++		std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 		g_ColorMgmtLooks[ EOTF_Gamma22 ] = LoadCubeLut( arg1.c_str(), bRaisesBlackLevelFloor );
+ 		cv_overlay_unmultiplied_alpha = bRaisesBlackLevelFloor;
+ 		g_ColorMgmt.pending.externalDirtyCtr++;
+@@ -1082,10 +1084,12 @@ static gamescope::ConCommand cc_set_look("set_look", "Set a look for a specific
+ 		bool bRaisesBlackLevelFloor = false;
+ 		if ( args[1] == "g22" || args[1] == "G22")
+ 		{
++			std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 			g_ColorMgmtLooks[ EOTF_Gamma22 ] = LoadCubeLut( arg2.c_str(), bRaisesBlackLevelFloor );
+ 		}
+ 		else if ( args[1] == "pq" || args[1] == "PQ" )
+ 		{
++			std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 			g_ColorMgmtLooks[ EOTF_PQ ] = LoadCubeLut( arg2.c_str(), bRaisesBlackLevelFloor );
+ 		}
+ 		else
+@@ -1099,6 +1103,7 @@ static gamescope::ConCommand cc_set_look("set_look", "Set a look for a specific
+ 			pG22LUT = LoadCubeLut( arg1.c_str(), bRaisesBlackLevelFloor );
+ 			pPQLUT = LoadCubeLut( arg2.c_str(), bDummy );
+ 
++			std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 			g_ColorMgmtLooks[ EOTF_Gamma22 ] = pG22LUT;
+ 			g_ColorMgmtLooks[ EOTF_PQ ] = pPQLUT;
+ 		}
+@@ -1109,6 +1114,7 @@ static gamescope::ConCommand cc_set_look("set_look", "Set a look for a specific
+ 	else
+ 	{
+ 		cv_overlay_unmultiplied_alpha = false;
++		std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 		g_ColorMgmtLooks[ EOTF_Gamma22 ] = nullptr;
+ 		g_ColorMgmtLooks[ EOTF_PQ ] = nullptr;
+ 		g_ColorMgmt.pending.externalDirtyCtr++;
+@@ -1158,6 +1164,7 @@ static void gamescope_control_set_look( struct wl_client *client, struct wl_reso
+ 	}
+ 
+ 	cv_overlay_unmultiplied_alpha = bRaisesBlackLevelFloor;
++	std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 	g_ColorMgmtLooks[ EOTF_Gamma22 ] = pG22LUT;
+ 	g_ColorMgmtLooks[ EOTF_PQ ] = pPQLUT;
+ 	g_ColorMgmt.pending.externalDirtyCtr++;
+@@ -1167,6 +1174,7 @@ static void gamescope_control_set_look( struct wl_client *client, struct wl_reso
+ static void gamescope_control_unset_look( struct wl_client *client, struct wl_resource *resource )
+ {
+ 	cv_overlay_unmultiplied_alpha = false;
++	std::lock_guard<std::mutex> g{g_ColorMgmtMtx};
+ 	g_ColorMgmtLooks[ EOTF_Gamma22 ] = nullptr;
+ 	g_ColorMgmtLooks[ EOTF_PQ ] = nullptr;
+ 	g_ColorMgmt.pending.externalDirtyCtr++;
