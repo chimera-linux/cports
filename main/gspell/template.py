@@ -1,6 +1,6 @@
 pkgname = "gspell"
-pkgver = "1.14.0"
-pkgrel = 2
+pkgver = "1.14.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false", "-Dinstall_tests=false"]
 hostmakedepends = [
@@ -20,8 +20,8 @@ makedepends = [
 pkgdesc = "Spell-checking library for Gtk+"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gspell"
-source = f"$(GNOME_SITE)/gspell/{pkgver[:-2]}/gspell-{pkgver}.tar.xz"
-sha256 = "64ea1d8e9edc1c25b45a920e80daf67559d1866ffcd7f8432fecfea6d0fe8897"
+source = f"https://gitlab.gnome.org/GNOME/gspell/-/archive/{pkgver}/gspell-{pkgver}.tar.gz"
+sha256 = "1ecdc789e4f798e63cf49fc1718541e7974e5f67034ce152ae052a2b8f337e8e"
 # check: needs seatful headless
 # cross: gobject-introspection
 options = ["!check", "!cross"]
