@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.84.4"
+pkgver = "2.86.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -42,7 +42,7 @@ pkgdesc = "GLib library of C routines"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"
-sha256 = "8a9ea10943c36fc117e253f80c91e477b673525ae45762942858aef57631bb90"
+sha256 = "b5739972d737cfb0d6fd1e7f163dfe650e2e03740bb3b8d408e4d1faea580d6d"
 # FIXME int - strfuncs failure
 hardening = ["!int"]
 
