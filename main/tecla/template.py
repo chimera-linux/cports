@@ -1,5 +1,5 @@
 pkgname = "tecla"
-pkgver = "48.0.2"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,4 +16,4 @@ pkgdesc = "GNOME keyboard layout viewer"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/tecla"
 source = f"$(GNOME_SITE)/tecla/{pkgver.split('.')[0]}/tecla-{pkgver}.tar.xz"
-sha256 = "783d3464d2a2cf7eb1507649dbd9ff09ce24852c2a6c9a0d365db84063d3d401"
+sha256 = "2ca424e402baf60cd6b13777703b701ebb1faf8f3d0f2f971144d823f651249f"
