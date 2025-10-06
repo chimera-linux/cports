@@ -1,5 +1,5 @@
 pkgname = "curl"
-pkgver = "8.14.1"
+pkgver = "8.16.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -47,7 +47,7 @@ pkgdesc = "Command line tool for transferring data with URL syntax"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/curl-{pkgver}.tar.xz"
-sha256 = "f4619a1e2474c4bbfedc88a7c2191209c8334b48fa1f4e53fd584cc12e9120dd"
+sha256 = "40c8cddbcb6cc6251c03dea423a472a6cea4037be654ba5cf5dec6eb2d22ff1d"
 hardening = ["vis", "!cfi"]
 
 
