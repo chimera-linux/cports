@@ -1,7 +1,8 @@
 pkgname = "gnome-console"
-pkgver = "48.0.1"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",
@@ -19,10 +20,13 @@ makedepends = [
     "pcre2-devel",
     "vte-gtk4-devel",
 ]
+checkdepends = ["xwayland-run"]
 pkgdesc = "GNOME console"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/console"
 source = (
-    f"$(GNOME_SITE)/gnome-console/{pkgver[:-4]}/gnome-console-{pkgver}.tar.xz"
+    f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
 )
-sha256 = "018e908e4daebcfcb150d4f1bb28d98272aa9d14d6815eaf8da45f889db05c49"
+sha256 = "9e8e9646f473d01f4b4a7bce2c47ad226b4ae83fabf24cbbb4ac94f6ac5d5cc2"
+# tries to open gpu
+options = ["!check"]
