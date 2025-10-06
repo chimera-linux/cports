@@ -1,5 +1,5 @@
 pkgname = "libwpe"
-pkgver = "1.16.2"
+pkgver = "1.16.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -9,7 +9,7 @@ pkgdesc = "General-purpose library for WPE WebKit"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/libwpe-{pkgver}.tar.xz"
-sha256 = "960bdd11c3f2cf5bd91569603ed6d2aa42fd4000ed7cac930a804eac367888d7"
+sha256 = "c880fa8d607b2aa6eadde7d6d6302b1396ebc38368fe2332fa20e193c7ee1420"
 # CFI: wpe_view_backend_create_with_backend_interface
 hardening = ["vis", "!cfi"]
 
