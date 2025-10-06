@@ -1,7 +1,8 @@
 pkgname = "massren"
 pkgver = "1.5.7"
-pkgrel = 8
+pkgrel = 9
 build_style = "go"
+prepare_after_patch = True
 hostmakedepends = ["go"]
 makedepends = ["sqlite-devel"]
 go_build_tags = ["libsqlite3"]
@@ -16,3 +17,7 @@ options = ["!distlicense"]
 
 def post_extract(self):
     self.rm("vendor", recursive=True)
+
+
+def post_prepare(self):
+    self.do("go", "mod", "vendor", allow_network=True)
