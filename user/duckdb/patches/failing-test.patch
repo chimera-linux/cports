@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------
+test/ossfuzz/cases/clusterfuzz-test-59
+-------------------------------------------------------------------------------
+test/ossfuzz/test_ossfuzz.cpp:46
+...............................................................................
+
+test/ossfuzz/test_ossfuzz.cpp:46: FAILED:
+due to a fatal error condition:
+  SIGILL - Illegal instruction signal
+
+===============================================================================
+diff --git a/test/ossfuzz/cases/clusterfuzz-test-59 b/test/ossfuzz/cases/clusterfuzz-test-59
+deleted file mode 100644
+index 23d2e88..0000000
+--- a/test/ossfuzz/cases/clusterfuzz-test-59
++++ /dev/null
+@@ -1 +0,0 @@
+-SELECT?46000000000066300137,?
+\ No newline at end of file
