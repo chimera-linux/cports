@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
-pkgver = "7.1.1"
-pkgrel = 12
+pkgver = "7.1.2"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -143,7 +143,7 @@ pkgdesc = "Decoding, encoding and streaming software"
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/ffmpeg-{pkgver}.tar.xz"
-sha256 = "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
+sha256 = "089bc60fb59d6aecc5d994ff530fd0dcb3ee39aa55867849a2bbc4e555f9c304"
 # some conf checks like for some pthread functions don't detect interfaces
 # without it
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
