@@ -6,7 +6,7 @@ as the results look exactly the same.
 --- a/testsuite/gsk/meson.build
 +++ b/testsuite/gsk/meson.build
 @@ -474,7 +474,7 @@
- endif
+ ]
  
  foreach test : node_parser_tests
 -  if test.endswith('.node') and not test.endswith('.ref.node')

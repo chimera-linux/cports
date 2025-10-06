@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.18.6"
+pkgver = "4.20.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -49,6 +49,7 @@ makedepends = [
     "iso-codes",
     "libcloudproviders-devel",
     "libepoxy-devel",
+    "librsvg-devel",
     "libxcomposite-devel",
     "libxcursor-devel",
     "libxdamage-devel",
@@ -83,11 +84,13 @@ checkdepends = [
     "python-gobject",
     "xwayland-run",
 ]
+# transitional
+provides = [self.with_pkgver("gtk4-cups")]
 pkgdesc = "Gimp Toolkit version 4"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "e1817c650ddc3261f9a8345b3b22a26a5d80af154630dedc03cc7becefffd0fa"
+sha256 = "5e8240edecafaff2b8baf4663bdceaa668ef10a207bee4d7f90e010e10bddc5c"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
@@ -146,11 +149,3 @@ def _(self):
         "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.gtk4.NodeEditor-symbolic.svg",
     ]
-
-
-@subpackage("gtk4-cups")
-def _(self):
-    self.subdesc = "CUPS print backend"
-    self.install_if = [self.parent, "cups"]
-
-    return ["usr/lib/gtk-4.0/4.0.0/printbackends/libprintbackend-cups.so"]
