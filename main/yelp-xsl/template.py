@@ -1,5 +1,5 @@
 pkgname = "yelp-xsl"
-pkgver = "42.4"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -17,4 +17,4 @@ subdesc = "XSL and misc files"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp/Xsl"
 source = f"$(GNOME_SITE)/yelp-xsl/{pkgver[:-2]}/yelp-xsl-{pkgver}.tar.xz"
-sha256 = "fdebb07eb2e66a7fb7a0dce6ad8248ad29a4bbb134ba829128ca104f58abd7d1"
+sha256 = "59d43a8f8fe67b784f14f9a04dd4a7a092a7f4a64a65e71b90fe02a47a50fbec"
