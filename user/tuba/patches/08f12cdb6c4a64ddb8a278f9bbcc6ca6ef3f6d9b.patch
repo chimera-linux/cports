@@ -1,0 +1,61 @@
+From 08f12cdb6c4a64ddb8a278f9bbcc6ca6ef3f6d9b Mon Sep 17 00:00:00 2001
+From: Arnaud Ferraris <a-wai@users.noreply.github.com>
+Date: Mon, 29 Sep 2025 17:38:39 +0200
+Subject: [PATCH] fix: allow building with Vala 0.56 (#1553)
+
+Vala 0.56 seems to be stricter about ownership, leading builds to fail
+with errors such as the following one:
+
+  ../../src/Views/TabbedBase.vala:104.40-104.48: error: duplicating
+      `BreakpointCondition' instance, use unowned variable or explicitly
+      invoke copy method
+
+This is fixed by explicitly transferring ownership of the breakpoint
+condition to the breakpoint itself.
+
+Co-authored-by: Arnaud Ferraris <aferraris@debian.org>
+---
+ src/Dialogs/Composer/Dialog.vala    | 2 +-
+ src/Views/Admin/Pages/Accounts.vala | 2 +-
+ src/Views/TabbedBase.vala           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/Dialogs/Composer/Dialog.vala b/src/Dialogs/Composer/Dialog.vala
+index 192cf559a..4c7fbd912 100644
+--- a/src/Dialogs/Composer/Dialog.vala
++++ b/src/Dialogs/Composer/Dialog.vala
+@@ -341,7 +341,7 @@ public class Tuba.Dialogs.Composer.Dialog : Adw.Dialog {
+ 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+ 			400, Adw.LengthUnit.SP
+ 		);
+-		var breakpoint = new Adw.Breakpoint (condition);
++		var breakpoint = new Adw.Breakpoint ((owned) condition);
+ 		breakpoint.add_setter (this, "is-narrow", true);
+ 		add_breakpoint (breakpoint);
+ 
+diff --git a/src/Views/Admin/Pages/Accounts.vala b/src/Views/Admin/Pages/Accounts.vala
+index f97b33655..8d2b171ec 100644
+--- a/src/Views/Admin/Pages/Accounts.vala
++++ b/src/Views/Admin/Pages/Accounts.vala
+@@ -53,7 +53,7 @@ public class Tuba.Views.Admin.Page.Accounts : Views.Admin.Page.Base {
+ 			Adw.BreakpointConditionLengthType.MAX_WIDTH,
+ 			450, Adw.LengthUnit.SP
+ 		);
+-		var breakpoint = new Adw.Breakpoint (condition);
++		var breakpoint = new Adw.Breakpoint ((owned) condition);
+ 		breakpoint.add_setter (revealer_box, "halign", Gtk.Align.FILL);
+ 		breakpoint.add_setter (entry_box_1, "orientation", Gtk.Orientation.VERTICAL);
+ 		breakpoint.add_setter (entry_box_2, "orientation", Gtk.Orientation.VERTICAL);
+diff --git a/src/Views/TabbedBase.vala b/src/Views/TabbedBase.vala
+index b4a65bd35..e44fa5918 100644
+--- a/src/Views/TabbedBase.vala
++++ b/src/Views/TabbedBase.vala
+@@ -101,7 +101,7 @@ public class Tuba.Views.TabbedBase : Views.Base {
+ 
+ 		if (this.current_breakpoint != null) remove_breakpoint (this.current_breakpoint);
+ 		this.small = true;
+-		var breakpoint = new Adw.Breakpoint (condition);
++		var breakpoint = new Adw.Breakpoint ((owned) condition);
+ 		breakpoint.add_setter (this, "title-stack-page-visible", true);
+ 		breakpoint.add_setter (switcher_bar, "reveal", true);
+ 		add_breakpoint (breakpoint);

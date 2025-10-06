@@ -1,6 +1,6 @@
 pkgname = "tuba"
 pkgver = "0.10.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddistro=true",
