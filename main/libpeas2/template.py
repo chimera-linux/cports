@@ -1,6 +1,6 @@
 pkgname = "libpeas2"
-pkgver = "2.0.7"
-pkgrel = 1
+pkgver = "2.2.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dvapi=true"]
 make_check_args = ["--timeout-multiplier=5"]
@@ -29,7 +29,7 @@ pkgdesc = "GObject application plugin library 2.x"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
 source = f"$(GNOME_SITE)/libpeas/{pkgver[:-2]}/libpeas-{pkgver}.tar.xz"
-sha256 = "1e9a9d69761d2109eff5b7c11d8c96b4867ccfaca2b921eded49401192769ec9"
+sha256 = "c2887233f084a69fabfc7fa0140d410491863d7050afb28677f9a553b2580ad9"
 # fails
 options = ["!cross"]
 
