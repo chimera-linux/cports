@@ -1,6 +1,6 @@
 pkgname = "fractal"
 pkgver = "12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",
