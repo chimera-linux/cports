@@ -1,0 +1,12 @@
+this clearly tries to open DISPLAY so it's not displayless
+
+--- a/test/automated/displayless/meson.build
++++ b/test/automated/displayless/meson.build
+@@ -22,7 +22,6 @@ tests = {
+   'test-nautilus-search-engine-model': {},
+   'test-nautilus-search-engine-simple': {},
+   'test-ui-utilities': {},
+-  'test-thumbnails': {},
+ }
+ 
+ foreach test_name, extra_args : tests
