@@ -1,5 +1,5 @@
 pkgname = "libadwaita"
-pkgver = "1.7.6"
+pkgver = "1.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,12 +25,12 @@ makedepends = [
     "gtk4-devel",
     "harfbuzz-devel",
 ]
-checkdepends = ["fonts-cantarell-otf", "xwayland-run"]
+checkdepends = ["fonts-dejavu-otf", "xwayland-run"]
 pkgdesc = "GTK4 building blocks for modern adaptive applications"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libadwaita"
 source = f"$(GNOME_SITE)/libadwaita/{pkgver[:-2]}/libadwaita-{pkgver}.tar.xz"
-sha256 = "5eacc5550f0bdbba6a1568aebf25a3d88f5ee07d6b558becc6fd9487579c9a29"
+sha256 = "2836d2c0c0f46dcdb52f94019477f537810283c710802d8e6671efdebe2637c9"
 options = ["!cross"]
 
 
