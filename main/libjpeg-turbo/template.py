@@ -1,5 +1,5 @@
 pkgname = "libjpeg-turbo"
-pkgver = "3.1.1"
+pkgver = "3.1.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -12,7 +12,7 @@ pkgdesc = "Derivative of libjpeg which uses SIMD instructions"
 license = "IJG AND BSD-3-Clause AND Zlib"
 url = "https://libjpeg-turbo.org"
 source = f"https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/{pkgver}/libjpeg-turbo-{pkgver}.tar.gz"
-sha256 = "aadc97ea91f6ef078b0ae3a62bba69e008d9a7db19b34e4ac973b19b71b4217c"
+sha256 = "8f0012234b464ce50890c490f18194f913a7b1f4e6a03d6644179fa0f867d0cf"
 
 # tests segfault with altivec simd
 # also some floattest12 tests fail
