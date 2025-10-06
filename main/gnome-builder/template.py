@@ -1,5 +1,5 @@
 pkgname = "gnome-builder"
-pkgver = "48.2"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
@@ -35,6 +35,7 @@ makedepends = [
     "libsoup-devel",
     "libspelling-devel",
     "libxml2-devel",
+    "libyaml-devel",
     "ostree-devel",
     "sysprof-capture",
     "template-glib-devel",
@@ -55,7 +56,7 @@ pkgdesc = "Developer-oriented editor for GNOME"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"
-sha256 = "ec1280d47e814a313b74cb927d5a059380544aa0f56e87552978397d6c74cc63"
+sha256 = "d45990db681f95ee2277be4fa9f2964982707dbdf30130a0bde70234b379f562"
 # gobject-introspection
 options = ["!cross"]
 
