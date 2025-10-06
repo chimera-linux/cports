@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=GNOME Software
+Exec=/usr/bin/gnome-software --gapplication-service
+OnlyShowIn=GNOME;Unity;
+NotShowIn=Budgie
+NoDisplay=true

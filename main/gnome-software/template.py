@@ -1,5 +1,5 @@
 pkgname = "gnome-software"
-pkgver = "48.4"
+pkgver = "49.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -46,9 +46,17 @@ url = "https://gitlab.gnome.org/GNOME/gnome-software"
 source = (
     f"$(GNOME_SITE)/gnome-software/{pkgver[:-2]}/gnome-software-{pkgver}.tar.xz"
 )
-sha256 = "9cd130bc62cd08b63a222eb26661bcc717e75d58ee1b3c1880c4d1b76ccd263b"
+sha256 = "369cd7543f0a4be9a33733de0af156348266c3b5cacaa4e4737959e7d14e041f"
 # Most tests need system dbus
 options = ["!check"]
+
+
+def post_install(self):
+    self.uninstall("usr/lib/systemd")
+    # install autostart file again
+    self.install_file(
+        self.files_path / "org.gnome.Software.desktop", "etc/xdg/autostart"
+    )
 
 
 @subpackage("gnome-software-devel")
