@@ -1,6 +1,6 @@
 pkgname = "gnome-tweaks"
-pkgver = "46.1"
-pkgrel = 1
+pkgver = "49.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "desktop-file-utils",
@@ -31,4 +31,4 @@ url = "https://wiki.gnome.org/Apps/Tweaks"
 source = (
     f"$(GNOME_SITE)/gnome-tweaks/{pkgver[:-2]}/gnome-tweaks-{pkgver}.tar.xz"
 )
-sha256 = "2f192a7085fbd6843ecf825716d9da21ec9272029149ea35f3e159e0ac309b80"
+sha256 = "b3909bdcb4905b68427d6ab581e01f436dff8e5c0a389b1e0b14500f18806ebb"
