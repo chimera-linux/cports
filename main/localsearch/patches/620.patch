@@ -1,0 +1,254 @@
+From 3731844b5a528299dc070fa30a07f437c3f5a1fc Mon Sep 17 00:00:00 2001
+From: Carlos Garnacho <carlosg@gnome.org>
+Date: Thu, 18 Sep 2025 11:11:11 +0200
+Subject: [PATCH] extractor: Port RAW extractor to gexiv2 0.16, with backwards
+ compat paths
+
+Gexiv2 0.16 contains incompatible API changes, and even though it is
+parallel installable with < 0.16, we do not want to hold its adoption.
+
+So this commit changes the RAW extractor code to use the API as defined
+in gexiv2 0.16, and makes meson prefer gexiv2 0.16 over older versions.
+Since we do not mandate any specific gexiv2 version, the RAW extractor
+was also added #define glue for backwards compatibility with older
+gexiv2 versions, for the pre-0.12.2 metadata getters with no errors
+(that we used so far), and for the "try" variants with GError arguments
+that deprecated this API between 0.12.2 and 0.16.0. This makes us
+support all gexiv2 API flavors.
+
+Regarding the new GError arguments, these are of no use for us since
+we want to try all metadata there is to be extracted, we would neither
+bail out nor log/propagate the error, so NULL is passed everywhere
+and missing values are handled as they should.
+
+Closes: https://gitlab.gnome.org/GNOME/localsearch/-/issues/238
+---
+ meson.build                                |  5 +-
+ src/extractor/tracker-extract-raw.c        | 75 ++++++++++++----------
+ src/extractor/utils/tracker-gexiv-compat.h | 53 +++++++++++++++
+ 3 files changed, 98 insertions(+), 35 deletions(-)
+ create mode 100644 src/extractor/utils/tracker-gexiv-compat.h
+
+diff --git a/meson.build b/meson.build
+index e5f3d1b66..ee5162d04 100644
+--- a/meson.build
++++ b/meson.build
+@@ -20,7 +20,10 @@ glib_required = '2.76.0'
+ tracker_sparql = dependency('tinysparql-3.0', version: '>=3.8')
+ dbus = dependency('dbus-1', version: '>= 1.3.1')
+ exempi = dependency('exempi-2.0', version: '>= 2.1.0', required: get_option('xmp'))
+-gexiv2 = dependency('gexiv2', required: get_option('raw'))
++gexiv2 = dependency('gexiv2-0.16', required: false)
++if not gexiv2.found()
++  gexiv2 = dependency('gexiv2', required: get_option('raw'))
++endif
+ gio = dependency('gio-2.0', version: '>=' + glib_required)
+ gio_unix = dependency('gio-unix-2.0', version: '>=' + glib_required)
+ glib = dependency('glib-2.0', version: '>=' + glib_required)
+diff --git a/src/extractor/tracker-extract-raw.c b/src/extractor/tracker-extract-raw.c
+index c91ce6bab..e59d5d35e 100644
+--- a/src/extractor/tracker-extract-raw.c
++++ b/src/extractor/tracker-extract-raw.c
+@@ -19,6 +19,7 @@
+ 
+ #include "config-miners.h"
+ 
++#include <math.h>
+ #include <string.h>
+ 
+ #include <gexiv2/gexiv2.h>
+@@ -26,6 +27,7 @@
+ #include <tracker-common.h>
+ 
+ #include "utils/tracker-extract.h"
++#include "utils/tracker-gexiv-compat.h"
+ 
+ #include "tracker-main.h"
+ 
+@@ -240,77 +242,82 @@ parse_exif_data (GExiv2Metadata *metadata)
+ 	glong flash = G_MAXLONG;
+ 	glong metering_mode = G_MAXLONG;
+ 	glong white_balance = G_MAXLONG;
++	 /* Necessary for gexiv2 compat paths, see support for older versions on top of file */
++	G_GNUC_UNUSED double tmp_gps;
+ 
+ 	ed = raw_exif_data_new ();
+ 
+ 	if (!gexiv2_metadata_has_exif (metadata))
+ 		goto out;
+ 
+-	ed->document_name = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DocumentName");
++	ed->document_name = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DocumentName", NULL);
+ 
+-	time = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DateTime");
++	time = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DateTime", NULL);
+ 	if (time != NULL)
+ 		ed->time = tracker_date_format_to_iso8601 (time, EXIF_DATE_FORMAT);
+ 
+-	time_original = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DateTimeOriginal");
++	time_original = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.DateTimeOriginal", NULL);
+ 	if (time_original == NULL)
+-		time_original = gexiv2_metadata_get_tag_string (metadata, "Exif.Photo.DateTimeOriginal");
++		time_original = gexiv2_metadata_get_tag_string (metadata, "Exif.Photo.DateTimeOriginal", NULL);
+ 	if (time_original != NULL)
+ 		ed->time_original = tracker_date_format_to_iso8601 (time_original, EXIF_DATE_FORMAT);
+ 
+-	ed->artist = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Artist");
+-	ed->user_comment = gexiv2_metadata_get_tag_string (metadata, "Exif.Photo.UserComment");
+-	ed->description = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.ImageDescription");
+-	ed->make = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Make");
+-	ed->model = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Model");
++	ed->artist = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Artist", NULL);
++	ed->user_comment = gexiv2_metadata_get_tag_string (metadata, "Exif.Photo.UserComment", NULL);
++	ed->description = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.ImageDescription", NULL);
++	ed->make = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Make", NULL);
++	ed->model = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Model", NULL);
+ 
+-	if (gexiv2_metadata_get_exposure_time (metadata, &exposure_time_nom, &exposure_time_den))
++	if (gexiv2_metadata_get_exposure_time (metadata, &exposure_time_nom, &exposure_time_den, NULL))
+ 		ed->exposure_time = (gdouble) exposure_time_nom / (double) exposure_time_den;
+ 
+-	ed->fnumber = gexiv2_metadata_get_fnumber (metadata);
++	ed->fnumber = gexiv2_metadata_get_fnumber (metadata, NULL);
+ 
+-	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.Flash"))
+-		flash = gexiv2_metadata_get_tag_long (metadata, "Exif.Image.Flash");
+-	else if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.Flash"))
+-		flash = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.Flash");
++	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.Flash", NULL))
++		flash = gexiv2_metadata_get_tag_long (metadata, "Exif.Image.Flash", NULL);
++	else if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.Flash", NULL))
++		flash = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.Flash", NULL);
+ 	if (flash != G_MAXLONG)
+ 		ed->flash = parse_flash ((gushort) flash);
+ 
+-	ed->focal_length = gexiv2_metadata_get_focal_length (metadata);
++	ed->focal_length = gexiv2_metadata_get_focal_length (metadata, NULL);
+ 
+-	if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.ISOSpeedRatings"))
+-		ed->iso_speed_ratings = (gdouble) gexiv2_metadata_get_iso_speed (metadata);
++	if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.ISOSpeedRatings", NULL))
++		ed->iso_speed_ratings = (gdouble) gexiv2_metadata_get_iso_speed (metadata, NULL);
+ 
+-	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.MeteringMode"))
+-		metering_mode = gexiv2_metadata_get_tag_long (metadata, "Exif.Image.MeteringMode");
+-	else if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.MeteringMode"))
+-		metering_mode = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.MeteringMode");
++	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.MeteringMode", NULL))
++		metering_mode = gexiv2_metadata_get_tag_long (metadata, "Exif.Image.MeteringMode", NULL);
++	else if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.MeteringMode", NULL))
++		metering_mode = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.MeteringMode", NULL);
+ 	if (metering_mode != G_MAXLONG)
+ 		ed->metering_mode = parse_metering_mode ((gushort) metering_mode);
+ 
+-	if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.WhiteBalance"))
+-		white_balance = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.WhiteBalance");
++	if (gexiv2_metadata_has_tag (metadata, "Exif.Photo.WhiteBalance", NULL))
++		white_balance = gexiv2_metadata_get_tag_long (metadata, "Exif.Photo.WhiteBalance", NULL);
+ 	if (white_balance != G_MAXLONG)
+ 		ed->white_balance = parse_white_balance ((gushort) white_balance);
+ 
+-	ed->copyright = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Copyright");
++	ed->copyright = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.Copyright", NULL);
+ 
+-	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.ResolutionUnit"))
+-		ed->resolution_unit = (gint) gexiv2_metadata_get_tag_long (metadata, "Exif.Image.ResolutionUnit");
++	if (gexiv2_metadata_has_tag (metadata, "Exif.Image.ResolutionUnit", NULL))
++		ed->resolution_unit = (gint) gexiv2_metadata_get_tag_long (metadata, "Exif.Image.ResolutionUnit", NULL);
+ 
+-	ed->x_resolution = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.XResolution");
+-	ed->y_resolution = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.YResolution");
++	ed->x_resolution = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.XResolution", NULL);
++	ed->y_resolution = gexiv2_metadata_get_tag_string (metadata, "Exif.Image.YResolution", NULL);
+ 
+-	if (gexiv2_metadata_get_gps_altitude (metadata, &gps_altitude))
++	gps_altitude = gexiv2_metadata_get_gps_altitude (metadata, NULL);
++	if (!isnan (gps_altitude) && !isinf (gps_altitude))
+ 		ed->gps_altitude = g_strdup_printf ("%f", gps_altitude);
+ 
+-	if (gexiv2_metadata_get_gps_latitude (metadata, &gps_latitude))
++	gps_latitude = gexiv2_metadata_get_gps_latitude (metadata, NULL);
++	if (!isnan (gps_latitude) && !isinf (gps_latitude))
+ 		ed->gps_latitude = g_strdup_printf ("%f", gps_latitude);
+ 
+-	if (gexiv2_metadata_get_gps_longitude (metadata, &gps_longitude))
++	gps_longitude = gexiv2_metadata_get_gps_longitude (metadata, NULL);
++	if (!isnan (gps_longitude) && !isinf (gps_longitude))
+ 		ed->gps_longitude = g_strdup_printf ("%f", gps_longitude);
+ 
+-	ed->gps_direction = gexiv2_metadata_get_tag_string (metadata, "Exif.GPSInfo.GPSImgDirection");
++	ed->gps_direction = gexiv2_metadata_get_tag_string (metadata, "Exif.GPSInfo.GPSImgDirection", NULL);
+ 
+ out:
+ 	g_free (time);
+@@ -356,7 +363,7 @@ tracker_extract_get_metadata (TrackerExtractInfo  *info,
+ 	height = gexiv2_metadata_get_pixel_height (metadata);
+ 	tracker_resource_set_int (resource, "nfo:height", height);
+ 
+-	orientation = gexiv2_metadata_get_orientation (metadata);
++	orientation = gexiv2_metadata_get_orientation (metadata, NULL);
+ 	nfo_orientation = convert_exiv2_orientation_to_nfo (orientation);
+ 	tracker_resource_set_uri (resource, "nfo:orientation", nfo_orientation);
+ 
+diff --git a/src/extractor/utils/tracker-gexiv-compat.h b/src/extractor/utils/tracker-gexiv-compat.h
+new file mode 100644
+index 000000000..e997de53d
+--- /dev/null
++++ b/src/extractor/utils/tracker-gexiv-compat.h
+@@ -0,0 +1,53 @@
++/*
++ * Copyright (C) 2025 Red Hat, Inc.
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public
++ * License as published by the Free Software Foundation; either
++ * version 2 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public
++ * License along with this library; if not, write to the
++ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
++ * Boston, MA  02110-1301, USA.
++ *
++ * Author: Carlos Garnacho <carlosg@gnome.org>
++ */
++#pragma once
++
++#include "config-miners.h"
++
++#include <gexiv2/gexiv2.h>
++
++/* Compatibility defines for older versions of gexiv2 */
++
++#if !GEXIV2_CHECK_VERSION (0, 12, 2)
++#define gexiv2_metadata_get_tag_string(m,s,e) (gexiv2_metadata_get_tag_string ((m), (s)))
++#define gexiv2_metadata_get_exposure_time(m,n,d,e) (gexiv2_metadata_get_exposure_time ((m), (n), (d)))
++#define gexiv2_metadata_get_fnumber(m,e) (gexiv2_metadata_get_fnumber ((m)))
++#define gexiv2_metadata_has_tag(m,t,e) (gexiv2_metadata_has_tag ((m), (t)))
++#define gexiv2_metadata_get_tag_long(m,t,e) (gexiv2_metadata_get_tag_long ((m), (t)))
++#define gexiv2_metadata_get_focal_length(m,e) (gexiv2_metadata_get_focal_length ((m)))
++#define gexiv2_metadata_get_iso_speed(m,e) (gexiv2_metadata_get_iso_speed ((m)))
++#define gexiv2_metadata_get_orientation(m,e) (gexiv2_metadata_get_orientation ((m)))
++#define gexiv2_metadata_get_gps_altitude(m,e) (gexiv2_metadata_get_gps_altitude ((m), &tmp_gps) ? tmp_gps : NAN)
++#define gexiv2_metadata_get_gps_latitude(m,e) (gexiv2_metadata_get_gps_latitude ((m), &tmp_gps) ? tmp_gps : NAN)
++#define gexiv2_metadata_get_gps_longitude(m,e) (gexiv2_metadata_get_gps_longitude ((m), &tmp_gps) ? tmp_gps : NAN)
++#elif !GEXIV2_CHECK_VERSION (0, 16, 0)
++#define gexiv2_metadata_get_tag_string(m,s,e) (gexiv2_metadata_try_get_tag_string ((m), (s), (e)))
++#define gexiv2_metadata_get_exposure_time(m,n,d,e) (gexiv2_metadata_try_get_exposure_time ((m), (n), (d), (e)))
++#define gexiv2_metadata_get_fnumber(m,e) (gexiv2_metadata_try_get_fnumber ((m), (e)))
++#define gexiv2_metadata_has_tag(m,t,e) (gexiv2_metadata_try_has_tag ((m), (t), (e)))
++#define gexiv2_metadata_get_tag_long(m,t,e) (gexiv2_metadata_try_get_tag_long ((m), (t), (e)))
++#define gexiv2_metadata_get_focal_length(m,e) (gexiv2_metadata_try_get_focal_length ((m), (e)))
++#define gexiv2_metadata_get_iso_speed(m,e) (gexiv2_metadata_try_get_iso_speed ((m), (e)))
++#define gexiv2_metadata_get_orientation(m,e) (gexiv2_metadata_try_get_orientation ((m), (e)))
++#define gexiv2_metadata_get_gps_altitude(m,e) (gexiv2_metadata_try_get_gps_altitude ((m), &tmp_gps, (e)) ? tmp_gps : NAN)
++#define gexiv2_metadata_get_gps_latitude(m,e) (gexiv2_metadata_try_get_gps_latitude ((m), &tmp_gps, (e)) ? tmp_gps : NAN)
++#define gexiv2_metadata_get_gps_longitude(m,e) (gexiv2_metadata_try_get_gps_longitude ((m), &tmp_gps, (e)) ? tmp_gps : NAN)
++#endif
+-- 
+GitLab
+

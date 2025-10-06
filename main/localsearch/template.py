@@ -1,6 +1,6 @@
 pkgname = "localsearch"
-pkgver = "3.9.0"
-pkgrel = 2
+pkgver = "3.10.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -67,7 +67,7 @@ pkgdesc = "Data miners for tinysparql"
 license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/localsearch/{pkgver[:-2]}/localsearch-{pkgver}.tar.xz"
-sha256 = "d42f408dc3fb28fe54f5a9abbf5f1decf5818db9c2e9ec51c09464bdfd0c14b9"
+sha256 = "58d66ea44aee1649c8d981f934373b83e1ab4a4a1a84ba0304f5af391e7e0080"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
