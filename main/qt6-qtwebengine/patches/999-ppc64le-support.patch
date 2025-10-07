@@ -62,28 +62,30 @@ index d38db0a..038ffeb 100644
  
  class PA_LOCKABLE Lock;
  
+--- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
++++ b/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
+@@ -138,7 +138,7 @@
+ //     PA_MUSTTAIL return Func1(d + 1);  // `Func1()` will be tail-called.
+ //   }
+ // ```
+-#if PA_HAS_CPP_ATTRIBUTE(clang::musttail)
++#if PA_HAS_CPP_ATTRIBUTE(clang::musttail) && !defined(__powerpc__)
+ #define PA_MUSTTAIL [[clang::musttail]]
+ #else
+ #define PA_MUSTTAIL
 diff --git a/base/compiler_specific.h b/base/compiler_specific.h
 index 7f8d9ae..07043d8 100644
 --- a/src/3rdparty/chromium/base/compiler_specific.h
 +++ b/src/3rdparty/chromium/base/compiler_specific.h
-@@ -88,7 +88,7 @@
- // Can be used only on return statements, even for functions returning void.
- // Caller and callee must have the same number of arguments and its types must
- // be "similar".
--#if defined(__clang__) && HAS_ATTRIBUTE(musttail)
-+#if defined(__clang__) && HAS_ATTRIBUTE(musttail) && !defined(__powerpc__)
+@@ -152,7 +152,7 @@
+ //     MUSTTAIL return Func1(d + 1);  // `Func1()` will be tail-called.
+ //   }
+ // ```
+-#if __has_cpp_attribute(clang::musttail)
++#if __has_cpp_attribute(clang::musttail) && !defined(__powerpc__)
  #define MUSTTAIL [[clang::musttail]]
  #else
  #define MUSTTAIL
-@@ -387,7 +387,7 @@ inline constexpr bool AnalyzerAssumeTrue(bool arg) {
- // Clang only supports preserve_most on X86-64 and AArch64 for now.
- // See https://clang.llvm.org/docs/AttributeReference.html#preserve-most for
- // more details.
--#if (defined(ARCH_CPU_ARM64) || defined(ARCH_CPU_X86_64)) && \
-+#if !defined(ARCH_CPU_PPC64) && (defined(ARCH_CPU_ARM64) || defined(ARCH_CPU_X86_64)) && \
-     !(BUILDFLAG(IS_WIN) && defined(ARCH_CPU_ARM64)) &&       \
-     !defined(COMPONENT_BUILD) && defined(__clang__) &&       \
-     __clang_major__ >= 17 && HAS_ATTRIBUTE(preserve_most)
 diff --git a/build/download_nacl_toolchains.py b/build/download_nacl_toolchains.py
 index 1b86a4b..bc95083 100755
 --- a/src/3rdparty/chromium/build/download_nacl_toolchains.py
@@ -294,7 +296,7 @@ index cfc37e2..e448a8f 100644
 +++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -36,7 +36,7 @@
  #endif
- 
+
  #if (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)) && \
 -    !defined(__arm__) && !defined(__aarch64__) &&             \
 +    !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc64__) && \
@@ -1098,7 +1100,7 @@ index 6b67cbc..ab376c4 100644
 +
  #endif  // SANDBOX_LINUX_SYSTEM_HEADERS_LINUX_SYSCALLS_H_
  
-diff --git a/src/3rdparty/chromium/sandbox/linux/system_headers/ppc64_linux_syscalls.h b/src/3rdparty/chromium/sandbox/linux/system_headers/ppc64_linux_syscalls.h
+diff --git a/sandbox/linux/system_headers/ppc64_linux_syscalls.h b/sandbox/linux/system_headers/ppc64_linux_syscalls.h
 new file mode 100644
 index 0000000..ccacffe
 --- /dev/null
@@ -1186,7 +1188,7 @@ index bf6df88..d8360ef 100644
 --- a/src/3rdparty/chromium/third_party/angle/src/compiler/translator/InfoSink.h
 +++ b/src/3rdparty/chromium/third_party/angle/src/compiler/translator/InfoSink.h
 @@ -93,7 +93,16 @@ class TInfoSinkBase
-             stream.precision(8);
+             stream.precision(9);
              stream << f;
          }
 -        sink.append(stream.str());
@@ -3325,7 +3327,7 @@ index df63a77..d91ae3f 100644
  #else
  #error Port
  #endif
-diff --git a/src/3rdparty/chromium/third_party/dav1d/config/linux/ppc64/config.h b/src/3rdparty/chromium/third_party/dav1d/config/linux/ppc64/config.h
+diff --git a/third_party/dav1d/config/linux/ppc64/config.h b/third_party/dav1d/config/linux/ppc64/config.h
 new file mode 100644
 index 0000000..7834eee
 --- /dev/null
@@ -3535,33 +3537,6 @@ index bdac4d7..51e0f2c 100644
  typedef vector float v4sf;
  #  define SIMD_SZ 4
  #  define VZERO() ((vector float) vec_splat_u8(0))
-diff --git a/third_party/skia/modules/skcms/src/skcms_internals.h b/third_party/skia/modules/skcms/src/skcms_internals.h
-index f3f0a2d6..cf4ae54 100644
---- a/src/3rdparty/chromium/third_party/skia/modules/skcms/src/skcms_internals.h
-+++ b/src/3rdparty/chromium/third_party/skia/modules/skcms/src/skcms_internals.h
-@@ -48,7 +48,8 @@ extern "C" {
-                                                  && !defined(__arm__) \
-                                                  && !defined(__riscv) \
-                                                  && !defined(__loongarch__) \
--                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
-+                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
-+                                                 && !defined(__powerpc__)
-             #define SKCMS_HAS_MUSTTAIL 1
-         #endif
-     #endif
-diff --git a/third_party/skia/src/core/SkRasterPipeline.h b/third_party/skia/src/core/SkRasterPipeline.h
-index 5592061..43c4ebd 100644
---- a/src/3rdparty/chromium/third_party/skia/src/core/SkRasterPipeline.h
-+++ b/src/3rdparty/chromium/third_party/skia/src/core/SkRasterPipeline.h
-@@ -27,7 +27,7 @@ struct SkImageInfo;
- struct skcms_TransferFunction;
- 
- #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
--        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK))
-+        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK)) && !defined(__powerpc__)
-     // [[clang::musttail]] is disabled for the Android version of Skia running on Windows as it
-     // causes crashes (This is probably related to http://crbug.com/1505442).
-     #define SK_HAS_MUSTTAIL 1
 diff --git a/third_party/sqlite/src/amalgamation/sqlite3.c b/third_party/sqlite/src/amalgamation/sqlite3.c
 index d6e5bc7..2279cdf 100644
 --- a/src/3rdparty/chromium/third_party/sqlite/src/amalgamation/sqlite3.c
@@ -3686,7 +3661,7 @@ index 245959e..8d3ffa2 100644
 --- a/src/3rdparty/chromium/ui/gl/features.gni
 +++ b/src/3rdparty/chromium/ui/gl/features.gni
 @@ -30,5 +30,5 @@ declare_args() {
-        is_fuchsia) &&
+       (is_win || is_linux || is_chromeos || is_mac || is_fuchsia) &&
        (target_cpu == "x86" || target_cpu == "x64" || target_cpu == "arm" ||
         target_cpu == "arm64" || target_cpu == "mipsel" ||
 -       target_cpu == "mips64el" || target_cpu == "riscv64")

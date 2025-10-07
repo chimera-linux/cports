@@ -1,5 +1,5 @@
 pkgname = "qt6-qtsvg"
-pkgver = "6.9.3"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -13,7 +13,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtsvg-everywhere-src-{pkgver}.tar.xz"
-sha256 = "db76aa3358cbbe6fce7da576ff4669cb9801920188c750d3b12783bbe97026e2"
+sha256 = "5ed2c0e04d5e73ff75c2a2ed92db5dc1788ba70f704fc2b71bc21644beda2533"
 # FIXME
 hardening = ["!int"]
 

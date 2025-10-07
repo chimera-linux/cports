@@ -1,0 +1,26 @@
+From edb29f9b38bc6c13d98eefe378f2c4c116a66b7f Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Sun, 15 Dec 2024 13:00:48 +0100
+Subject: [PATCH] Revert "[cppgc] Decommit pooled pages by default"
+
+This breaks arm devices with 16K page size.
+https://social.treehouse.systems/@marcan/113656361610223289
+
+This reverts commit 1ab1a14ad97394d384d8dc6de51bb229625e66d6.
+---
+ src/flags/flag-definitions.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/v8/src/flags/flag-definitions.h b/v8/src/flags/flag-definitions.h
+index ae310fff519..8d875836a52 100644
+--- a/src/3rdparty/chromium/v8/src/flags/flag-definitions.h
++++ b/src/3rdparty/chromium/v8/src/flags/flag-definitions.h
+@@ -828,7 +828,7 @@ DEFINE_BOOL(trace_block_coverage, false,
+             "trace collected block coverage information")
+ DEFINE_BOOL(trace_protector_invalidation, false,
+             "trace protector cell invalidations")
+-DEFINE_BOOL(decommit_pooled_pages, true,
++DEFINE_BOOL(decommit_pooled_pages, false,
+             "decommit, rather than discard pooled pages")
+ DEFINE_BOOL(
+     zero_unused_memory, false,

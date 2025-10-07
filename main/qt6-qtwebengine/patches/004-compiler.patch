@@ -1,21 +1,10 @@
 re: removing safe - hardened is enabled somewhere, and it can't be both.
---- a/src/3rdparty/chromium/build_overrides/build.gni
-+++ b/src/3rdparty/chromium/build_overrides/build.gni
-@@ -24,7 +24,7 @@
- #
- # Note that setting this to true only has an effect when also building with
- # `use_custom_libcxx = true`.
--enable_safe_libcxx = true
-+enable_safe_libcxx = false
- 
- # Features used by //base/trace_event and //services/tracing.
- declare_args() {
 --- a/src/3rdparty/chromium/build/config/compiler/BUILD.gn
 +++ b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
-@@ -1175,8 +1151,8 @@
+@@ -1242,8 +1242,8 @@ config("compiler_cpu_abi") {
+       }
      } else if (current_cpu == "arm") {
-       if (is_clang && !is_android && !is_nacl &&
-           !(is_chromeos_lacros && is_chromeos_device)) {
+       if (is_clang && !is_android && !is_nacl && !is_chromeos_device) {
 -        cflags += [ "--target=arm-linux-gnueabihf" ]
 -        ldflags += [ "--target=arm-linux-gnueabihf" ]
 +        cflags += [ "--target=arm-chimera-linux-musleabihf" ]
@@ -23,10 +12,10 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
        if (!is_nacl) {
          cflags += ["-mfloat-abi=$arm_float_abi"]
-@@ -1190,8 +1166,8 @@
+@@ -1257,8 +1257,8 @@ config("compiler_cpu_abi") {
      } else if (current_cpu == "arm64") {
        if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
-           !(is_chromeos_lacros && is_chromeos_device)) {
+           !is_chromeos_device) {
 -        cflags += [ "--target=aarch64-linux-gnu" ]
 -        ldflags += [ "--target=aarch64-linux-gnu" ]
 +        cflags += [ "--target=aarch64-chimera-linux-musl" ]
@@ -34,7 +23,7 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
      } else if (current_cpu == "mipsel" && !is_nacl) {
        ldflags += [ "-Wl,--hash-style=sysv" ]
-@@ -1411,8 +1411,8 @@ config("compiler_cpu_abi") {
+@@ -1502,8 +1502,8 @@ config("compiler_cpu_abi") {
        }
      } else if (current_cpu == "riscv64") {
        if (is_clang && !is_android) {
@@ -45,3 +34,14 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
        cflags += [ "-mabi=lp64d" ]
      } else if (current_cpu == "loong64") {
+--- a/src/3rdparty/chromium/build_overrides/build.gni
++++ b/src/3rdparty/chromium/build_overrides/build.gni
+@@ -27,7 +27,7 @@ build_with_v8_embedder = build_with_chromium
+ #
+ # Note that setting this to true only has an effect when also building with
+ # `use_custom_libcxx = true`.
+-enable_safe_libcxx = true
++enable_safe_libcxx = false
+ 
+ # Features used by //base/trace_event and //services/tracing.
+ declare_args() {

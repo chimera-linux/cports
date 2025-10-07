@@ -1,18 +1,31 @@
 --- a/src/3rdparty/chromium/build/config/rust.gni
 +++ b/src/3rdparty/chromium/build/config/rust.gni
-@@ -186,11 +186,13 @@
+@@ -198,14 +198,17 @@
  rust_abi_target = ""
  if (is_linux || is_chromeos) {
    if (current_cpu == "arm64") {
 -    rust_abi_target = "aarch64-unknown-linux-gnu"
 +    rust_abi_target = "aarch64-chimera-linux-musl"
+     cargo_target_abi = ""
    } else if (current_cpu == "x86") {
      rust_abi_target = "i686-unknown-linux-gnu"
+     cargo_target_abi = ""
    } else if (current_cpu == "x64") {
 -    rust_abi_target = "x86_64-unknown-linux-gnu"
 +    rust_abi_target = "x86_64-chimera-linux-musl"
+     cargo_target_abi = ""
 +  } else if (current_cpu == "ppc64") {
 +    rust_abi_target = "powerpc64le-chimera-linux-musl"
++    cargo_target_abi = ""
    } else if (current_cpu == "arm") {
      if (arm_float_abi == "hard") {
        float_suffix = "hf"
+@@ -221,7 +223,7 @@
+       cargo_target_abi = "eabi" + float_suffix
+     }
+   } else if (current_cpu == "riscv64") {
+-    rust_abi_target = "riscv64gc-unknown-linux-gnu"
++    rust_abi_target = "riscv64gc-chimera-linux-musl"
+     cargo_target_abi = ""
+   } else {
+     # Best guess for other future platforms.

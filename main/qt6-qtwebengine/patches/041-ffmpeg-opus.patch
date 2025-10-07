@@ -5,7 +5,7 @@ also add mp3float as it's the default mp3 decoder ffmpeg picks and breaks mp3 so
 --
 --- a/src/3rdparty/chromium/media/ffmpeg/ffmpeg_common.cc
 +++ b/src/3rdparty/chromium/media/ffmpeg/ffmpeg_common.cc
-@@ -1065,7 +1065,7 @@ const char* GetAllowedAudioDecoders() {
+@@ -142,7 +142,7 @@ const char* FFmpegGlue::GetAllowedAudioDecoders() {
    static const base::NoDestructor<std::string> kAllowedAudioCodecs([]() {
      // This should match the configured lists in //third_party/ffmpeg.
      std::string allowed_decoders(

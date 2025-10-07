@@ -4,7 +4,7 @@ to account for that
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc ./sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 index ff5a1c0..da56b9b 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-+++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
++++ ./sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -139,21 +139,11 @@ namespace sandbox {
  // present (as in newer versions of posix_spawn).
  ResultExpr RestrictCloneToThreadsAndEPERMFork() {
@@ -44,7 +44,7 @@ index ff5a1c0..da56b9b 100644
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc ./sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 index d9d1882..0567557 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
-+++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
++++ ./sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 @@ -392,6 +392,7 @@ bool SyscallSets::IsAllowedProcessStartOrDeath(int sysno) {
  #if defined(__i386__)
      case __NR_waitpid:

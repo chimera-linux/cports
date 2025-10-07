@@ -1,5 +1,5 @@
 pkgname = "qt6-qt5compat"
-pkgver = "6.9.3"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: times out after 5 minutes on aarch64
@@ -12,7 +12,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qt5compat-everywhere-src-{pkgver}.tar.xz"
-sha256 = "091dac2124c2291c3566408720f89b1796cd458897c6acabd11f03976ad04461"
+sha256 = "d025c59d658b5e1f5fa1650bf01f23ddec15ce8f4c6ae5f6bc343f8427b02b7e"
 
 
 def post_install(self):
