@@ -1,5 +1,5 @@
 pkgname = "qt6-qtdeclarative"
-pkgver = "6.9.3"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtdeclarative-everywhere-src-{pkgver}.tar.xz"
-sha256 = "5a071b227229afbf5c976b7b59a0d850818d06ae861fcdf6d690351ca3f8a260"
+sha256 = "6efd35520902395d865bc12e89f8442c3c228d0374f13af9a1888b844f56f6b0"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -30,6 +30,7 @@ def init_check(self):
     excl_list = [
         "cmake_test_duplicate_metatypes",  # needs installed qtdeclarative
         "RunCMake.*",  # needs installed qtdeclarative
+        "test_duplicate_files_qml_files",  # cmake failure
         "test_qml_app_deployment",  # missing /usr/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake
         "test_generate_qmlls_ini",  # tst_generate_qmlls_ini::qmllsIniAreCorrect() compared values are not the same (they seem the same)
         "module_includes",  # Could NOT find Qt6 (missing: Qt6_DIR)

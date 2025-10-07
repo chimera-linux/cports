@@ -4,7 +4,7 @@ clone(3) will EINVAL on this use
 diff --git a/sandbox/linux/services/credentials.cc b/sandbox/linux/services/credentials.cc
 index 7f925cc..993a9ee 100644
 --- a/src/3rdparty/chromium/sandbox/linux/services/credentials.cc
-+++ b/src/3rdparty/chromium/sandbox/linux/services/credentials.cc
++++ a/src/3rdparty/chromium/sandbox/linux/services/credentials.cc
 @@ -104,7 +104,7 @@ bool ChrootToSafeEmptyDir() {
    // glibc performs syscalls by calling a function pointer in TLS, so we do not
    // attempt this optimization.
@@ -12,5 +12,5 @@ index 7f925cc..993a9ee 100644
 -  clone_flags |= CLONE_VM | CLONE_VFORK | CLONE_SETTLS;
 +  clone_flags |= CLONE_VM | CLONE_VFORK;
  
-   char tls_buf[PTHREAD_STACK_MIN_CONST] = {0};
+   char tls_buf[PTHREAD_STACK_MIN_CONST] = {};
    tls = tls_buf;

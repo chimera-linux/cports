@@ -1,0 +1,96 @@
+From cacf3472ad17d0bdcb2fb44f60abaed8170f1cc3 Mon Sep 17 00:00:00 2001
+From: "lauren n. liberda" <lauren@selfisekai.rocks>
+Date: Thu, 17 Oct 2024 11:11:36 +0200
+Subject: [PATCH] crabbyavif: do not use allowlist-item in bindgen
+
+this was only added in rust-bindgen 0.68 and fails with earlier versions
+---
+ third_party/crabbyavif/BUILD.gn | 68 ---------------------------------
+ 1 file changed, 68 deletions(-)
+
+diff --git a/third_party/crabbyavif/BUILD.gn b/third_party/crabbyavif/BUILD.gn
+index 5b01e6f24462f..be7da051f483c 100644
+--- a/src/3rdparty/chromium/third_party/crabbyavif/BUILD.gn
++++ b/src/3rdparty/chromium/third_party/crabbyavif/BUILD.gn
+@@ -13,15 +13,6 @@ rust_bindgen_generator("crabbyavif_dav1d_bindings") {
+   bindgen_flags = [
+     "no-doc-comments",
+     "generate=functions,types,vars,methods,constructors,destructors",
+-    "allowlist-item=dav1d_close",
+-    "allowlist-item=dav1d_data_unref",
+-    "allowlist-item=dav1d_data_wrap",
+-    "allowlist-item=dav1d_default_settings",
+-    "allowlist-item=dav1d_error",
+-    "allowlist-item=dav1d_get_picture",
+-    "allowlist-item=dav1d_open",
+-    "allowlist-item=dav1d_picture_unref",
+-    "allowlist-item=dav1d_send_data",
+   ]
+ }
+ 
+@@ -42,65 +33,6 @@ rust_bindgen_generator("crabbyavif_libyuv_bindings") {
+   bindgen_flags = [
+     "no-doc-comments",
+     "generate=functions,types,vars,methods,constructors,destructors",
+-    "allowlist-item=AR30ToAB30",
+-    "allowlist-item=ARGBToABGR",
+-    "allowlist-item=ARGBAttenuate",
+-    "allowlist-item=ARGBUnattenuate",
+-    "allowlist-item=Convert16To8Plane",
+-    "allowlist-item=FilterMode",
+-    "allowlist-item=FilterMode_kFilterBilinear",
+-    "allowlist-item=FilterMode_kFilterBox",
+-    "allowlist-item=FilterMode_kFilterNone",
+-    "allowlist-item=HalfFloatPlane",
+-    "allowlist-item=I010AlphaToARGBMatrix",
+-    "allowlist-item=I010AlphaToARGBMatrixFilter",
+-    "allowlist-item=I010ToARGBMatrix",
+-    "allowlist-item=I010ToARGBMatrixFilter",
+-    "allowlist-item=I012ToARGBMatrix",
+-    "allowlist-item=I210AlphaToARGBMatrix",
+-    "allowlist-item=I210AlphaToARGBMatrixFilter",
+-    "allowlist-item=I210ToARGBMatrix",
+-    "allowlist-item=I210ToARGBMatrixFilter",
+-    "allowlist-item=I400ToARGBMatrix",
+-    "allowlist-item=I410AlphaToARGBMatrix",
+-    "allowlist-item=I410ToARGBMatrix",
+-    "allowlist-item=I420AlphaToARGBMatrix",
+-    "allowlist-item=I420AlphaToARGBMatrixFilter",
+-    "allowlist-item=I420ToARGBMatrix",
+-    "allowlist-item=I420ToARGBMatrixFilter",
+-    "allowlist-item=I420ToRGB24Matrix",
+-    "allowlist-item=I420ToRGB24MatrixFilter",
+-    "allowlist-item=I420ToRGB565Matrix",
+-    "allowlist-item=I420ToRGBAMatrix",
+-    "allowlist-item=I422AlphaToARGBMatrix",
+-    "allowlist-item=I422AlphaToARGBMatrixFilter",
+-    "allowlist-item=I422ToARGBMatrix",
+-    "allowlist-item=I422ToARGBMatrixFilter",
+-    "allowlist-item=I422ToRGB24MatrixFilter",
+-    "allowlist-item=I422ToRGB565Matrix",
+-    "allowlist-item=I422ToRGBAMatrix",
+-    "allowlist-item=I444AlphaToARGBMatrix",
+-    "allowlist-item=I444ToARGBMatrix",
+-    "allowlist-item=I444ToRGB24Matrix",
+-    "allowlist-item=NV12ToARGBMatrix",
+-    "allowlist-item=NV21ToARGBMatrix",
+-    "allowlist-item=P010ToAR30Matrix",
+-    "allowlist-item=P010ToARGBMatrix",
+-    "allowlist-item=ScalePlane",
+-    "allowlist-item=ScalePlane_12",
+-    "allowlist-item=YuvConstants",
+-    "allowlist-item=kYuv2020Constants",
+-    "allowlist-item=kYuvF709Constants",
+-    "allowlist-item=kYuvH709Constants",
+-    "allowlist-item=kYuvI601Constants",
+-    "allowlist-item=kYuvJPEGConstants",
+-    "allowlist-item=kYuvV2020Constants",
+-    "allowlist-item=kYvu2020Constants",
+-    "allowlist-item=kYvuF709Constants",
+-    "allowlist-item=kYvuH709Constants",
+-    "allowlist-item=kYvuI601Constants",
+-    "allowlist-item=kYvuJPEGConstants",
+-    "allowlist-item=kYvuV2020Constants",
+   ]
+ }
+ 

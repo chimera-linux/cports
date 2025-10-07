@@ -1,17 +1,6 @@
 our clang libs are built with PIE + it links the -cpp solib instead of the .a's
 anyway
 --
---- a/src/linguist/lupdate/CMakeLists.txt
-+++ b/src/linguist/lupdate/CMakeLists.txt
-@@ -95,7 +95,7 @@
-         WrapLibClang::WrapLibClang
- )
- 
--if(QT_FEATURE_clangcpp)
-+if(0)
-     # If libclangTooling.a is not built with -fPIE enabled we cannot link it to lupdate.
-     # TODO: Re-enable PIE once clang is built with PIE in provisioning.
-     set_target_properties(${target_name} PROPERTIES POSITION_INDEPENDENT_CODE FALSE)
 --- a/src/qdoc/qdoc/CMakeLists.txt
 +++ b/src/qdoc/qdoc/CMakeLists.txt
 @@ -101,7 +101,7 @@

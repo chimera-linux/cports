@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.9.3"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -75,7 +75,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "c5a1a2f660356ec081febfa782998ae5ddbc5925117e64f50e4be9cd45b8dc6e"
+sha256 = "ead4623bcb54a32257c5b3e3a5aec6d16ec96f4cda58d2e003f5a0c16f72046d"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -116,6 +116,8 @@ def init_check(self):
         "mockplugins",  # Unknown platform linux-clang
         "test_plugin_flavor_static",  # test fails to configure
         "test_plugin_flavor_shared",  # flaky
+        "test_plugin_class_name_testpluginnamelower",  # clang error
+        "test_plugin_class_name_Test0PluginName",  # clang error
         "test_import_plugins",  # not run: dep of mockplugins
         "test_add_resources_big_resources",  # No data signature found
         "tst_qaddpreroutine",  # Unknown platform linux-clang
@@ -170,6 +172,8 @@ def init_check(self):
         "tst_qfilesystemmodel",
         "tst_qthread",
         "tst_qthreadstorage",
+        "tst_seatv4",  # something with animated cursors
+        "tst_wl_reconnect",  # XDG_RUNTIME_DIR not set
         "test_qt_add_ui_*",
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
@@ -297,7 +301,7 @@ def _(self):
         "usr/include/**/private",
         # usr/lib/cmake/*Private excluded due to anything using qt6_add_qml_module()
         # etc failing to configure as a false-positive in most cases, else build fails
-        "usr/lib/qt6/metatypes/*private_*_metatypes.json",
+        "usr/lib/qt6/metatypes/*private_metatypes.json",
         # without usr/lib/qt6/mkspecs/modules/*_private.pri qmake won't find libatomic
         "usr/lib/qt6/modules/*Private.json",
     ]

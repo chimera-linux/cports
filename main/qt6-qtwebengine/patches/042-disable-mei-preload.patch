@@ -9,14 +9,14 @@ diff --git a/chrome/BUILD.gn b/chrome/BUILD.gn
 index 19c940ccf3..9b45db7d91 100644
 --- a/src/3rdparty/chromium/chrome/BUILD.gn
 +++ b/src/3rdparty/chromium/chrome/BUILD.gn
-@@ -386,7 +386,6 @@ if (!is_android && !is_mac) {
-       }
+@@ -368,7 +368,6 @@ if (!is_android && !is_mac) {
+     }
  
-       data_deps += [
--        "//chrome/browser/resources/media/mei_preload:component",
-         "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
-         "//third_party/widevine/cdm",
-       ]
+     data_deps += [
+-      "//chrome/browser/resources/media/mei_preload:component",
+       "//chrome/browser/web_applications/isolated_web_apps/key_distribution/preload:component",
+       "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
+       "//third_party/widevine/cdm",
 diff --git a/chrome/installer/linux/BUILD.gn b/chrome/installer/linux/BUILD.gn
 index 51f7c978a0..e4bd1692d6 100644
 --- a/src/3rdparty/chromium/chrome/installer/linux/BUILD.gn

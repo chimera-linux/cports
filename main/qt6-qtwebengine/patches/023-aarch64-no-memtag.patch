@@ -4,21 +4,21 @@ to make the partalloc support code for it work.
 note: also disables bti
 --
 diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/allocator/partition_allocator/partition_alloc.gni
-index e7f2f679b5..bafdbde410 100644
+index 17da329..3e14faa 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc.gni
-@@ -30,8 +30,7 @@ if (is_nacl) {
- # Increases the size of the empty slot span ring.
- use_large_empty_slot_span_ring = is_mac
+@@ -37,8 +37,7 @@ if (is_nacl) {
+ # TODO(crbug.com/329199197): Clean this up when experiments are complete.
+ use_large_empty_slot_span_ring = true
  
 -has_memory_tagging =
 -    current_cpu == "arm64" && is_clang && !is_asan && (is_linux || is_android)
 +has_memory_tagging = false
  
  declare_args() {
-   # Causes all the allocations to be routed via allocator_shim.cc. Usually,
+   # Debug configuration.
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/aarch64_support.h b/base/allocator/partition_allocator/src/partition_alloc/aarch64_support.h
-index 600d4ed784..37defaa364 100644
+index 600d4ed..37defaa 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/aarch64_support.h
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/aarch64_support.h
 @@ -10,7 +10,7 @@
@@ -31,17 +31,18 @@ index 600d4ed784..37defaa364 100644
  #endif
  
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc
-index 295d0ce..9381363 100644
+index 8511f72..c3b411e 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc
-@@ -8,8 +8,8 @@
- #include "partition_alloc/buildflags.h"
- #include "partition_alloc/page_allocator.h"
+@@ -37,9 +37,9 @@ uint32_t SecTaskGetCodeSignStatus(SecTaskRef task) API_AVAILABLE(macos(10.12));
  
--#if PA_BUILDFLAG(HAS_MEMORY_TAGGING) || \
--    (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1))
-+#if 0 && (PA_BUILDFLAG(HAS_MEMORY_TAGGING) || \
-+    (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1)))
+ #endif  // PA_BUILDFLAG(IS_MAC)
+ 
+-#if PA_BUILDFLAG(HAS_MEMORY_TAGGING) ||                                        \
++#if 0 && (PA_BUILDFLAG(HAS_MEMORY_TAGGING) ||                                        \
+     (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1) && \
+-     __has_include(<sys/ifunc.h>))
++     __has_include(<sys/ifunc.h>)))
  struct __ifunc_arg_t;
  
  #include "partition_alloc/aarch64_support.h"
