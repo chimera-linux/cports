@@ -1,6 +1,6 @@
 pkgname = "alembic"
-pkgver = "1.8.8"
-pkgrel = 4
+pkgver = "1.8.9"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUSE_HDF5=ON"]
 # flaky in parallel
@@ -19,7 +19,7 @@ pkgdesc = "Computer graphics interchange framework"
 license = "BSD-3-Clause"
 url = "https://www.alembic.io"
 source = f"https://github.com/alembic/alembic/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ba1f34544608ef7d3f68cafea946ec9cc84792ddf9cda3e8d5590821df71f6c6"
+sha256 = "8c59c10813feee917d262c71af77d6fa3db1acaf7c5fecfd4104167077403955"
 hardening = ["vis", "!cfi"]
 
 if self.profile().endian == "big":
