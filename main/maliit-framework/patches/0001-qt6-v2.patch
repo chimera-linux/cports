@@ -42,7 +42,7 @@ index 7d4d1f2..3a92fc7 100644
 -find_package(Qt5Gui REQUIRED PRIVATE)
 -find_package(Qt5Quick)
 +if(BUILD_WITH_QT6)
-+  find_package(Qt6 6.0 REQUIRED COMPONENTS Core DBus Gui Quick)
++  find_package(Qt6 6.0 REQUIRED COMPONENTS Core DBus Gui GuiPrivate Quick)
 +endif()
 +
 +if(Qt6_FOUND)
@@ -73,7 +73,7 @@ index 7d4d1f2..3a92fc7 100644
  
  if(enable-wayland)
 +    if (Qt6_FOUND)
-+      find_package(Qt6 REQUIRED COMPONENTS WaylandClient WaylandGlobalPrivate)
++      find_package(Qt6 REQUIRED COMPONENTS WaylandClient WaylandClientPrivate WaylandGlobalPrivate)
 +    else()
 +      find_package(Qt5 5.14 REQUIRED COMPONENTS WaylandClient XkbCommonSupport)
 +    endif()
@@ -86,7 +86,7 @@ index 7d4d1f2..3a92fc7 100644
  endif()
  
 +if (Qt6_FOUND)
-+  include_directories(PRIVATE ${Qt6Gui_PRIVATE_INCLUDE_DIRS})
++  include_directories(PRIVATE ${Qt6Gui_PRIVATE_INCLUDE_DIRS} ${Qt6GuiPrivate_PRIVATE_INCLUDE_DIRS})
 +else()
 +  include_directories(PRIVATE ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 +endif()
@@ -131,7 +131,7 @@ index 7d4d1f2..3a92fc7 100644
  add_library(maliit-connection STATIC ${CONNECTION_SOURCES})
 -target_link_libraries(maliit-connection Qt5::Core Qt5::DBus Qt5::Gui maliit-common)
 +target_link_libraries(maliit-connection
-+    Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::DBus Qt${QT_VERSION_MAJOR}::Gui maliit-common)
++    Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::DBus Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::GuiPrivate maliit-common)
  if(enable-wayland)
      target_link_libraries(maliit-connection Wayland::Client PkgConfig::XKBCOMMON)
 -    target_include_directories(maliit-connection PRIVATE ${Qt5WaylandClient_PRIVATE_INCLUDE_DIRS})
@@ -150,7 +150,7 @@ index 7d4d1f2..3a92fc7 100644
 +set_target_properties(maliit-plugins PROPERTIES OUTPUT_NAME "maliit${MALIIT_LIB_SUFFIX}-plugins")
  target_link_libraries(maliit-plugins PRIVATE maliit-common maliit-connection ${PLUGINS_LIBRARIES})
 -target_link_libraries(maliit-plugins PUBLIC Qt5::Core Qt5::Gui Qt5::Quick)
-+target_link_libraries(maliit-plugins PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Quick)
++target_link_libraries(maliit-plugins PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::GuiPrivate Qt${QT_VERSION_MAJOR}::Quick)
  target_include_directories(maliit-plugins PRIVATE ${PLUGINS_INCLUDE_DIRS})
  
  set_target_properties(maliit-plugins PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
@@ -201,10 +201,10 @@ index 7d4d1f2..3a92fc7 100644
      add_library(inputpanel-shell MODULE ${INPUT_PANEL_SHELL_SOURCES})
 -    target_link_libraries(inputpanel-shell Qt5::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
 -    target_include_directories(inputpanel-shell PRIVATE ${Qt5WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt5XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
-+    target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
++    target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient Qt${QT_VERSION_MAJOR}::WaylandClientPrivate PkgConfig::XKBCOMMON Wayland::Client)
 +    if (Qt6_FOUND)
 +      target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandGlobalPrivate)
-+      target_include_directories(inputpanel-shell PRIVATE ${Qt6WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt6WaylandGlobalPrivate_PRIVATE_INCLUDE_DIRS} ${Qt6XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
++      target_include_directories(inputpanel-shell PRIVATE ${Qt6WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt6WaylandClientPrivate_PRIVATE_INCLUDE_DIRS} ${Qt6WaylandGlobalPrivate_PRIVATE_INCLUDE_DIRS} ${Qt6XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
 +    else()
 +      target_include_directories(inputpanel-shell PRIVATE ${Qt5WaylandClient_PRIVATE_INCLUDE_DIRS} ${Qt5XkbCommonSupport_PRIVATE_INCLUDE_DIRS})
 +    endif()
@@ -219,7 +219,7 @@ index 7d4d1f2..3a92fc7 100644
              examples/apps/plainqt/plainqt.cpp)
 -    target_link_libraries(maliit-exampleapp-plainqt Qt5::Gui Qt5::Widgets)
 +    set_target_properties(maliit-exampleapp-plainqt PROPERTIES OUTPUT_NAME "maliit${MALIIT_EXE_SUFFIX}-exampleapp-plainqt")
-+    target_link_libraries(maliit-exampleapp-plainqt Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
++    target_link_libraries(maliit-exampleapp-plainqt Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::GuiPrivate Qt${QT_VERSION_MAJOR}::Widgets)
  
      add_library(cxxhelloworldplugin MODULE
              examples/plugins/cxx/helloworld/helloworldinputmethod.cpp
@@ -385,7 +385,7 @@ index 7d4d1f2..3a92fc7 100644
              tests/utils/gui-utils.cpp
              tests/utils/gui-utils.h)
 -    target_link_libraries(test-utils PUBLIC Qt5::Core Qt5::Gui Qt5::Test maliit-connection)
-+    target_link_libraries(test-utils PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Test maliit-connection)
++    target_link_libraries(test-utils PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::GuiPrivate Qt${QT_VERSION_MAJOR}::Test maliit-connection)
      target_include_directories(test-utils INTERFACE tests/utils)
      target_compile_definitions(test-utils PUBLIC
              -DMALIIT_TEST_PLUGINS_DIR="${CMAKE_INSTALL_FULL_LIBDIR}/maliit-framework-tests/plugins"

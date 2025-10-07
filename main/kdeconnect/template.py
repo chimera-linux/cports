@@ -1,6 +1,6 @@
 pkgname = "kdeconnect"
 pkgver = "25.08.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # needs more setup
 make_check_args = ["-E", "mdnstest"]

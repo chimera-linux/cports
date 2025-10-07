@@ -44,7 +44,7 @@ index 3a92fc7..ff02227 100644
 +    ecm_add_qtwayland_client_protocol(INPUT_PANEL_SHELL_SOURCES PROTOCOL ${WaylandProtocols_DATADIR}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
  
      add_library(inputpanel-shell MODULE ${INPUT_PANEL_SHELL_SOURCES})
-     target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
+     target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient Qt${QT_VERSION_MAJOR}::WaylandClientPrivate PkgConfig::XKBCOMMON Wayland::Client)
 diff --git a/src/mimonscreenplugins.cpp b/src/mimonscreenplugins.cpp
 index cd500f2..aa8f418 100644
 --- a/src/mimonscreenplugins.cpp

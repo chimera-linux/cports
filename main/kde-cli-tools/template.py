@@ -1,6 +1,6 @@
 pkgname = "kde-cli-tools"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]

@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = [

@@ -1,6 +1,6 @@
 pkgname = "plasma-integration"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
 make_check_args = [

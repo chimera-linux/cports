@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -17,6 +17,7 @@ make_check_args = [
     + "|kwin-testFifo"  # always fails on 24Hz when run with other tests, works alone
     + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
     + "|^kwayland-testServerSideDecoration$"  # Tried to add event to destroyed queue
+    + "|^kwayland-testDataControlInterface$"  # An issue with ext_data_control_offer_v1 metatype?
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",

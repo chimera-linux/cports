@@ -1,0 +1,11 @@
+--- a/src/qt/plugins/shellintegration/inputpanelshellplugin.cpp
++++ b/src/qt/plugins/shellintegration/inputpanelshellplugin.cpp
+@@ -20,7 +20,7 @@ namespace QtWaylandClient
+ class QWaylandInputPanelShellIntegrationPlugin: public QWaylandShellIntegrationPlugin
+ {
+ Q_OBJECT
+-    Q_PLUGIN_METADATA(IID QWaylandShellIntegrationFactoryInterface_iid FILE "inputpanelshell.json")
++    Q_PLUGIN_METADATA(IID "QWaylandShellIntegrationFactoryInterface_iid" FILE "inputpanelshell.json")
+ 
+ public:
+     virtual QWaylandShellIntegration *create(const QString &key, const QStringList &paramList) override;

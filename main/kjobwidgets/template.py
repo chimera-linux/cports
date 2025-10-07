@@ -1,6 +1,6 @@
 pkgname = "kjobwidgets"
 pkgver = "6.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]

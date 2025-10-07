@@ -1,6 +1,6 @@
 pkgname = "libplasma"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
 make_check_args = [

@@ -1,6 +1,6 @@
 pkgname = "wacomtablet"
 pkgver = "6.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # X*: fail outside x11
 make_check_args = ["-E", "(XInputAdaptor|XsetWacomAdaptor|DBusTabletService)"]

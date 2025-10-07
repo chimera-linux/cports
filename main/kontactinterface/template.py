@@ -1,6 +1,6 @@
 pkgname = "kontactinterface"
 pkgver = "25.08.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

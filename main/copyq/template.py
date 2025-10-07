@@ -1,6 +1,6 @@
 pkgname = "copyq"
 pkgver = "10.0.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DWITH_NATIVE_NOTIFICATIONS=OFF",

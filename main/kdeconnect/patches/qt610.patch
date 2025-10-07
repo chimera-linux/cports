@@ -1,0 +1,26 @@
+--- a/interfaces/conversationmessage.h
++++ b/interfaces/conversationmessage.h
+@@ -114,10 +114,7 @@ public:
+         return type() == MessageTypeInbox;
+     }
+     bool isOutgoing() const;
+-    bool containsAttachment() const
+-    {
+-        return !attachments().isEmpty();
+-    }
++    bool containsAttachment() const;
+ 
+     /**
+      * Return the address of the other party of a single-target conversation
+@@ -225,6 +222,11 @@ private:
+     QString m_uniqueIdentifier; // unique name of the attachment
+ };
+ 
++inline bool ConversationMessage::containsAttachment() const
++{
++    return !attachments().isEmpty();
++}
++
+ inline QDBusArgument &operator<<(QDBusArgument &argument, const ConversationMessage &message)
+ {
+     argument.beginStructure();

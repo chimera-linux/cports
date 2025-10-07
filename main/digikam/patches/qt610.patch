@@ -1,0 +1,60 @@
+diff --git a/core/cmake/rules/RulesQtFramework.cmake b/core/cmake/rules/RulesQtFramework.cmake
+index 1faad05..dffe012 100644
+--- a/core/cmake/rules/RulesQtFramework.cmake
++++ b/core/cmake/rules/RulesQtFramework.cmake
+@@ -10,6 +10,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED
+              Concurrent
+              Widgets
+              Gui
++             GuiPrivate
+              Sql
+              Xml
+              PrintSupport
+diff --git a/core/libs/autorotator/autorotator.cpp b/core/libs/autorotator/autorotator.cpp
+index 4d9c1b5..1484858 100644
+--- a/core/libs/autorotator/autorotator.cpp
++++ b/core/libs/autorotator/autorotator.cpp
+@@ -17,6 +17,7 @@
+ // Qt includes
+ 
+ #include <QException>
++#include <QElapsedTimer>
+ 
+ // digiKam includes
+ 
+diff --git a/core/libs/dimg/CMakeLists.txt b/core/libs/dimg/CMakeLists.txt
+index 7ca444e..803d72e 100644
+--- a/core/libs/dimg/CMakeLists.txt
++++ b/core/libs/dimg/CMakeLists.txt
+@@ -215,6 +215,7 @@ endif()
+ if(X11_FOUND)
+ 
+     include_directories(${Qt${QT_VERSION_MAJOR}Gui_PRIVATE_INCLUDE_DIRS})
++    include_directories(${Qt${QT_VERSION_MAJOR}GuiPrivate_PRIVATE_INCLUDE_DIRS})
+ 
+ endif()
+ 
+diff --git a/core/libs/facesengine/recognition/faceclassifier.cpp b/core/libs/facesengine/recognition/faceclassifier.cpp
+index 048f86b..39f7e57 100644
+--- a/core/libs/facesengine/recognition/faceclassifier.cpp
++++ b/core/libs/facesengine/recognition/faceclassifier.cpp
+@@ -27,6 +27,7 @@
+ #include <QTimer>
+ #include <QFile>
+ #include <QApplication>
++#include <QElapsedTimer>
+ 
+ // KDE includes
+ 
+diff --git a/core/libs/mlfoundation/mlpipelinefoundation.h b/core/libs/mlfoundation/mlpipelinefoundation.h
+index 500b1f9..d9cf158 100644
+--- a/core/libs/mlfoundation/mlpipelinefoundation.h
++++ b/core/libs/mlfoundation/mlpipelinefoundation.h
+@@ -25,6 +25,7 @@
+ #include <QThreadPool>
+ #include <QFuture>
+ #include <QFutureWatcher>
++#include <QElapsedTimer>
+ 
+ // Local includes
+ 

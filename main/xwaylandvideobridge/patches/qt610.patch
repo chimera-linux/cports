@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,7 +32,7 @@ else()
+ endif()
+ 
+ 
+-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Quick DBus)
++find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Quick DBus GuiPrivate)
+ if (QT_MAJOR_VERSION STREQUAL "5")
+     find_package(Qt5X11Extras ${QT_MIN_VERSION} REQUIRED)
+ endif()
