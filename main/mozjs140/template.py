@@ -1,5 +1,5 @@
 pkgname = "mozjs140"
-pkgver = "140.1.0"
+pkgver = "140.3.1"
 pkgrel = 0
 hostmakedepends = [
     "cargo",
@@ -23,7 +23,7 @@ pkgdesc = "Mozilla JavaScript interpreter and library, version 140.x"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "d15c65d790e0c371b5c95332141b1bdeb29fefc27f852d22a5f542b6d1bc1922"
+sha256 = "0b43b3a1c4f40765d96eb2094d38838f5d01b7280ad8b9b0a17612bed9c36735"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
