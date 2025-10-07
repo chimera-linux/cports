@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
 pkgver = "2.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = []
 hostmakedepends = [
