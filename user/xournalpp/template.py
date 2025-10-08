@@ -1,5 +1,5 @@
 pkgname = "xournalpp"
-pkgver = "1.2.7"
+pkgver = "1.2.8"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ pkgdesc = "Handwriting notetaking software with PDF annotation support"
 license = "GPL-2.0-or-later"
 url = "https://github.com/xournalpp/xournalpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd20608417fef374e5360ec96c9f56c61236d45e0d35d33b48346ed39eaf025d"
+sha256 = "f42d81e9509d4bd2d4c2cb2c54049c8518381aa9500c0671febd6c518010e0a7"
 # known overflow in tablet handling thread
 tool_flags = {
     "CXXFLAGS": ["-DNDEBUG"],
