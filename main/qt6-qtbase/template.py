@@ -119,6 +119,7 @@ def init_check(self):
         "test_plugin_class_name_testpluginnamelower",  # clang error
         "test_plugin_class_name_Test0PluginName",  # clang error
         "test_plugin_class_name_TestPluginNameUpper",  # clang error
+        "test_plugin_class_name_Test_Plugin_Name",  # clang error
         "test_plugin_class_name__Test_plugin_name",  # clang error
         "test_import_plugins",  # not run: dep of mockplugins
         "test_add_resources_big_resources",  # No data signature found
