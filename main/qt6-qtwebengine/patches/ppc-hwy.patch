@@ -12,16 +12,3 @@
  #endif
  #if HWY_HAVE_AUXV
  #include <sys/auxv.h>
---- a/src/3rdparty/chromium/third_party/highway/src/hwy/detect_targets.h
-+++ b/src/3rdparty/chromium/third_party/highway/src/hwy/detect_targets.h
-@@ -121,6 +121,10 @@
- #define HWY_SCALAR (1LL << 62)
- #define HWY_HIGHEST_TARGET_BIT_SCALAR 62
- 
-+#ifdef __powerpc64__
-+#define HWY_COMPILE_ONLY_SCALAR 1
-+#endif
-+
- // Do not use bit 63 - would be confusing to have negative numbers.
- 
- //------------------------------------------------------------------------------
