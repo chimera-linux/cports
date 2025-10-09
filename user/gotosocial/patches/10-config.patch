@@ -1,26 +1,56 @@
-diff --git a/example/config.yaml b/example/config.yaml
-index ea33e4c..50bc030 100644
---- a/example/config.yaml
-+++ b/example/config.yaml
-@@ -142,7 +142,7 @@ trusted-proxies:
- # String. Database type.
- # Options: ["postgres","sqlite"]
- # Default: "postgres"
--db-type: "postgres"
-+db-type: "sqlite"
- 
- # String. Database address or parameters.
- #
-@@ -157,7 +157,7 @@ db-type: "postgres"
+diff --git i/example/config.yaml w/example/config.yaml
+index 25bb09068..c0f608de9 100644
+--- i/example/config.yaml
++++ w/example/config.yaml
+@@ -167,17 +167,17 @@ db-type: "sqlite"
+ # If the file doesn't exist at the specified path, it will be created.
+ # If just a filename is provided (no directory) then the database will be created in the same directory
+ # as the GoToSocial binary.
+ # If address is set to :memory: then an in-memory database will be used (no file).
+ # WARNING: :memory: should NOT BE USED except for testing purposes.
  #
  # Examples: ["localhost","my.db.host","127.0.0.1","192.111.39.110",":memory:", "sqlite.db"]
  # Default: ""
--db-address: ""
+-db-address: "sqlite.db"
 +db-address: "/var/lib/gotosocial/sqlite.db"
  
- # Int. Port for database connection.
+ # Int. Port for postgres database connection; ignored for sqlite.
  # Examples: [5432, 1234, 6969]
-@@ -329,12 +329,12 @@ cache:
+ # Default: 5432
+ db-port: 5432
+ 
+ # String. Username for postgres database connection.
+ # Examples: ["mydbuser","postgres","gotosocial"]
+@@ -269,45 +269,45 @@ db-sqlite-cache-size: "8MiB"
+ # See: https://www.sqlite.org/pragma.html#pragma_busy_timeout
+ # Examples: ["0s", "1s", "30s", "1m", "5m"]
+ # Default: "30m"
+ db-sqlite-busy-timeout: "30m"
+ 
+ # String. Full Database connection string
+ #
+ # This connection string is only applicable for Postgres. When this field is defined, all other database related configuration field will be ignored. This field allow you to fine tune connection with Postgres
+-# 
++#
+ # Examples: ["postgres://user:pass@localhost/db?search_path=gotosocial", "postgres://user:pass@localhost:9999/db"]
+ # Default: ""
+ db-postgres-connection-string: ""
+ 
+ cache:
+   # cache.memory-target sets a target limit that
+   # the application will try to keep it's caches
+   # within. This is based on estimated sizes of
+   # in-memory objects, and so NOT AT ALL EXACT.
+   # Examples: ["100MiB", "200MiB", "500MiB", "1GiB"]
+   # Default: "100MiB"
+   memory-target: "100MiB"
+ 
+ ######################
+ ##### WEB CONFIG #####
+ ######################
+ 
+ # Config pertaining to templating and serving of web pages/email notifications and the like
+ 
  # String. Directory from which gotosocial will attempt to load html templates (.tmpl files).
  # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
  # Default: "./web/template/"
@@ -35,7 +65,17 @@ index ea33e4c..50bc030 100644
  
  ###########################
  ##### INSTANCE CONFIG #####
-@@ -593,7 +593,7 @@ storage-backend: "local"
+ ###########################
+ 
+ # Config pertaining to instance federation settings, pages to hide/expose, etc.
+ 
+ # Array of string. BCP47 language tags to indicate preferred languages of users on this instance.
+@@ -740,17 +740,17 @@ media-cleanup-every: "24h"
+ storage-backend: "local"
+ 
+ # String. Directory to use as a base path for storing files.
+ # Make sure whatever user/group gotosocial is running as has permission to access
+ # this directory, and create new subdirectories and files within it.
  # Only required when running with the local storage backend.
  # Examples: ["/home/gotosocial/storage", "/opt/gotosocial/datastorage"]
  # Default: "/gotosocial/storage"
@@ -44,7 +84,17 @@ index ea33e4c..50bc030 100644
  
  # String. API endpoint of the S3 compatible service.
  # Only required when running with the s3 storage backend.
-@@ -733,7 +733,7 @@ letsencrypt-port: 80
+ # Examples: ["minio:9000", "s3.nl-ams.scw.cloud", "s3.us-west-002.backblazeb2.com"]
+ # GoToSocial uses "DNS-style" when accessing buckets.
+ # If you are using Scaleways object storage, please remove the "bucket name" from the endpoint address
+ # Default: ""
+ storage-s3-endpoint: ""
+@@ -903,17 +903,17 @@ letsencrypt-enabled: false
+ letsencrypt-port: 80
+ 
+ # String. Directory in which to store LetsEncrypt certificates.
+ # It is a good move to make this a sub-path within your storage directory, as it makes
+ # backup easier, but you might wish to move them elsewhere if they're also accessed by other services.
  # In any case, make sure GoToSocial has permissions to write to / read from this directory.
  # Examples: ["/home/gotosocial/storage/certs", "/acmecerts"]
  # Default: "/gotosocial/storage/certs"
@@ -53,3 +103,8 @@ index ea33e4c..50bc030 100644
  
  # String. Email address to use when registering LetsEncrypt certs.
  # Most likely, this will be the email address of the instance administrator.
+ # LetsEncrypt will send notifications about expiring certificates etc to this address.
+ # Examples: ["admin@example.org"]
+ # Default: ""
+ letsencrypt-email-address: ""
+ 
