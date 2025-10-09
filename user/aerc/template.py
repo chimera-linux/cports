@@ -1,6 +1,6 @@
 pkgname = "aerc"
-pkgver = "0.20.1"
-pkgrel = 8
+pkgver = "0.21.0"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
 make_install_args = [*make_build_args]
@@ -20,10 +20,8 @@ pkgdesc = "Terminal email client"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
-sha256 = "fbfbf2cc4f6e251731698d6d1b7be4e88835b4e089d55e3254d37d450700db07"
+sha256 = "3f1469bbaea982fc58352f2682932ecc2fb50c705994d96b2343e771747745a7"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
-# fails with go 1.25 due to golang.org/x/tools@v0.24.0
-options = ["!check"]
 
 
 def post_prepare(self):
