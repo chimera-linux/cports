@@ -1,6 +1,6 @@
 pkgname = "calcurse"
-pkgver = "4.8.1"
-pkgrel = 1
+pkgver = "4.8.2"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Calendar and scheduling application for the command line"
 license = "BSD-2-Clause"
 url = "https://calcurse.org"
 source = f"https://calcurse.org/files/calcurse-{pkgver}.tar.gz"
-sha256 = "d86bb37014fd69b8d83ccb904ac979c6b8ddf59ee3dbc80f5a274525e4d5830a"
+sha256 = "849ba852c7f37b6772365cb0c42a94cde0fe75efba91363e96a0e7ef797ba565"
 
 
 def post_install(self):
