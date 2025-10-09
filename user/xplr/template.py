@@ -1,5 +1,5 @@
 pkgname = "xplr"
-pkgver = "1.0.0"
+pkgver = "1.0.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features"]
@@ -18,7 +18,7 @@ url = "https://xplr.dev"
 source = (
     f"https://github.com/sayanarijit/xplr/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "72e9b53552b4fce61805c32c739d8d7db4723f80b4586c9eb5e9921e1ae32ce0"
+sha256 = "6d766bc52c49782e3ca8ba7130f1cab95c69e42ff3c15eec2b0ac823ab7a36b3"
 # needs rebuild with non-release to use bin from debug/
 options = ["!check"]
 
