@@ -1,5 +1,5 @@
 pkgname = "yoshimi"
-pkgver = "2.3.4.1"
+pkgver = "2.3.5.1"
 pkgrel = 0
 build_style = "cmake"
 cmake_dir = "src"
@@ -25,6 +25,6 @@ pkgdesc = "Software synthesizer"
 license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2ab49688c42038863a6e5807055d0911ac069ca1527afbbbb93eb50595820d40"
+sha256 = "f9676ee9a37a21e736f3a215dfd8098b428a156d74f681c354505b5e3e9a3bdc"
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
