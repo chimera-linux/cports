@@ -1,11 +1,11 @@
 pkgname = "spotify-player"
-pkgver = "0.21.3"
+pkgver = "0.22.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
     "--features",
-    "sdl-backend,streaming,media-control,image,sixel,notify",
+    "pulseaudio-backend,streaming,media-control,image,sixel,notify",
 ]
 make_check_args = [*make_build_args]
 hostmakedepends = [
@@ -21,13 +21,12 @@ makedepends = [
     "libsixel-devel",
     "openssl3-devel",
     "rust-std",
-    "sdl2-compat-devel",
 ]
 pkgdesc = "Spotify player in the terminal with full feature parity"
 license = "MIT"
 url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1f7e42ebb340b7c83c0ab96a8ef21bce5acae9ef899ff9ecd377570fdd1f1dbe"
+sha256 = "b09ae88647758003eb7c666d3c2f60e1ff7624a14f9e8244332afe2b46167c4f"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
