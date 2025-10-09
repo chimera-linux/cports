@@ -1,5 +1,5 @@
 pkgname = "eza"
-pkgver = "0.23.0"
+pkgver = "0.23.4"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -14,10 +14,11 @@ url = "https://eza.rocks"
 source = (
     f"https://github.com/eza-community/eza/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "119973d58aef7490f6c553f818cfde142998f5e93205f53f94981a9631b50310"
+sha256 = "9fbcad518b8a2095206ac385329ca62d216bf9fdc652dde2d082fcb37c309635"
 
 
 def post_install(self):
     self.install_completion("completions/bash/eza", "bash")
     self.install_completion("completions/zsh/_eza", "zsh")
     self.install_completion("completions/fish/eza.fish", "fish")
+    self.install_completion("completions/nush/eza.nu", "nushell")
