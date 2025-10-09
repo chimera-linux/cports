@@ -1,5 +1,5 @@
 pkgname = "timg"
-pkgver = "1.6.1"
+pkgver = "1.6.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -21,4 +21,4 @@ pkgdesc = "Terminal image viewer"
 license = "GPL-2.0-only"
 url = "https://github.com/hzeller/timg"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "08147c41ce4cea61b6c494ad746e743b7c4501cfd247bec5134e8ede773bf2af"
+sha256 = "59c908867f18c81106385a43065c232e63236e120d5b2596b179ce56340d7b01"
