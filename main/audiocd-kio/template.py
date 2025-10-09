@@ -1,5 +1,5 @@
 pkgname = "audiocd-kio"
-pkgver = "25.08.1"
+pkgver = "25.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -28,7 +28,7 @@ pkgdesc = "KDE bookmarks editor"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_audiocd"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiocd-kio-{pkgver}.tar.xz"
-sha256 = "672bc1dfff4d228705d499a5fd818d8bdb5946e74f623a9ce1f22d460aecc070"
+sha256 = "ae758ddd6fabea2d807f4a8b71b98b1ad2f0b530aeebe3b5794b5187162f90bf"
 
 
 @subpackage("audiocd-kio-devel")

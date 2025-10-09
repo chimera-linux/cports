@@ -1,6 +1,6 @@
 pkgname = "kio-extras"
-pkgver = "25.08.1"
-pkgrel = 2
+pkgver = "25.08.2"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -52,7 +52,7 @@ pkgdesc = "KDE KIO additional plugins"
 license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"
-sha256 = "aac4752f2b7c978fb6e6ae0e688a63a10ca4831b97d9f6947ce7b49c648b6cd8"
+sha256 = "868f9f2e0f572725387ea311f199d2fa044acc03656f3751e7ca26400861375f"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

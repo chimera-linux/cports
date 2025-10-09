@@ -1,5 +1,5 @@
 pkgname = "incidenceeditor"
-pkgver = "25.08.1"
+pkgver = "25.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -41,7 +41,7 @@ url = "https://invent.kde.org/pim/incidenceeditor"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/incidenceeditor-{pkgver}.tar.xz"
 )
-sha256 = "e15675399975b73617af51b7ad5ca07f105908d2abeda8627e7ec1bdc3e40bd5"
+sha256 = "096581fd768c5b071ac4afe67c9eb3741e309b600a724bbac12af69746c68098"
 
 
 @subpackage("incidenceeditor-devel")
