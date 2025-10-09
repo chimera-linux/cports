@@ -1,5 +1,5 @@
 pkgname = "riff"
-pkgver = "3.3.10"
+pkgver = "3.4.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Diff filter highlighting which line parts have changed"
 license = "MIT"
 url = "https://github.com/walles/riff"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "6db6ac7525f00c4a4cb45351b9a229e253b3e9053ab365d6f881c0144159f8da"
+sha256 = "d209e5b5a68907382cc91061d2e0570789293214b402c1b344008760fe298302"
 # check may be disabled
 options = []
 
