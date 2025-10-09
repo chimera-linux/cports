@@ -1,6 +1,6 @@
 pkgname = "gnome-shell"
 pkgver = "49.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -47,6 +47,7 @@ depends = [
     "cmd:unzip!unzip",
     "gnome-control-center",
     "gsettings-desktop-schemas",
+    "ibus",
     "upower",
 ]
 checkdepends = ["xwayland-run"]
