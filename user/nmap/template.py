@@ -1,6 +1,6 @@
 pkgname = "nmap"
 pkgver = "7.98"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-openssl=yes",

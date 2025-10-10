@@ -1,0 +1,14 @@
+nbase_addrset.c:218:29: runtime error: signed integer overflow: -2147483648 - 1 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior nbase_addrset.c:218:29
+
+--- a/nbase/nbase_addrset.c
++++ b/nbase/nbase_addrset.c
+@@ -215,7 +215,7 @@ static u32 common_mask(u32 a, u32 b)
+     return 0;
+   }
+   else {
+-    return ~((1 << (r + 1)) - 1);
++    return ~((1U << (r + 1)) - 1);
+   }
+ }
+ 
