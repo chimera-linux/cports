@@ -1,5 +1,5 @@
 pkgname = "python-pycurl"
-pkgver = "7.45.6"
+pkgver = "7.45.7"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Python3 interface to libcurl"
 license = "LGPL-2.0-or-later AND MIT"
 url = "http://pycurl.io"
 source = f"$(PYPI_SITE)/p/pycurl/pycurl-{pkgver}.tar.gz"
-sha256 = "2b73e66b22719ea48ac08a93fc88e57ef36d46d03cb09d972063c9aa86bb74e6"
+sha256 = "9d43013002eab2fd6d0dcc671cd1e9149e2fc1c56d5e796fad94d076d6cb69ef"
 
 
 def post_install(self):
