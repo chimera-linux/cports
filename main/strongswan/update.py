@@ -1,1 +1,1 @@
-ignore = ["*alpha*", "*beta*", "*rc*"]
+ignore = ["*alpha*", "*beta*", "*dr*", "*rc*"]
