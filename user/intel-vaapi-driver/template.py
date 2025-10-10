@@ -1,5 +1,5 @@
 pkgname = "intel-vaapi-driver"
-pkgver = "2.4.1"
+pkgver = "2.4.4"
 pkgrel = 0
 # only usable here
 archs = ["x86_64"]
@@ -8,10 +8,10 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libdrm-devel", "libva-devel", "libx11-devel"]
 pkgdesc = "VA-API driver for Haswell and older Intel GPUs"
 license = "MIT"
-url = "https://github.com/intel/intel-vaapi-driver"
-source = f"{url}/releases/download/{pkgver}/intel-vaapi-driver-{pkgver}.tar.bz2"
-sha256 = "0081fce08eb3a83f7d99c3b853c8fdfa0af437b8f5b0fb7c66faeb83bcbe0c19"
+url = "https://github.com/irql-notlessorequal/intel-vaapi-driver"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "ddb13866c399622d95fa2d8b372f8f8d7dc738432cc20dff52a74159fac12b9c"
 
 
 def post_install(self):
-    self.install_license("COPYING")
+    self.install_license("LICENSE")
