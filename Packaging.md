@@ -459,17 +459,24 @@ UBSan is available on all targets Chimera currently supports.
 
 Sometimes it is possible to reproduce a crash with a production package in
 Chimera. If you can recompile your program with sanitizer instrumentation,
-it's usually very easy to tell what's going on. However, sometimes this may
-not be possible.
+it's usually very easy to tell what's going on. The `cbuild` system provides
+an easy way to recompile a template with instrumentation on:
+
+```
+options = ["sanruntime"]
+```
 
 The sanitizer checks in packaged binaries are compiled in trapping mode, i.e.
 without a runtime. That means when you run into a bug, you will get a vague
 crash. On supported architectures, this will typically be a `SIGILL` in the
 better case, but maybe `SIGABRT` elsewhere, where specific code has not been
-implemented.
+implemented. With instrumentation on, you will instead get a more helpful
+error message with a source file, line number, and reason.
 
-In either case, you will need debug symbols for the package available (usually
-you can install the `-dbg` package, don't forget about `musl-dbg` as well)
+However, sometimes instrumentation may not be possible, very often for libraries
+and projects with strange/complicated build systems. In these cases identifying
+the issue becomes more difficult. You will need debug symbols for the package
+(usually you can install the `-dbg` package, don't forget about `musl-dbg` too)
 and a debugger (`lldb`). Then you can run your program in the debugger, or
 you can capture a core dump and open it in the debugger.
 
