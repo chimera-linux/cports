@@ -6,6 +6,7 @@ def get_go_env(pkg):
         pkg.error("unknown architecture for golang")
 
     env = {
+        "GOCACHE": "/cbuild_cache/golang/cache",
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
         "CGO_CFLAGS": pkg.get_cflags(shell=True),
