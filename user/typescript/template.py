@@ -1,12 +1,12 @@
 pkgname = "typescript"
-pkgver = "5.7.3"
+pkgver = "5.9.3"
 pkgrel = 0
 depends = ["nodejs"]
 pkgdesc = "Superset of JavaScript that compiles to JavaScript output"
 license = "Apache-2.0"
 url = "https://github.com/microsoft/TypeScript"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f421dc7195ab14d1af7b637d010ec936676f9646723f71663042c53e24433450"
+sha256 = "d371a2430d6305290d1bddaf195fdd629d1a8708cda08f4a72fc923b65d36c4a"
 
 
 def install(self):
