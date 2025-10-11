@@ -1,6 +1,6 @@
 pkgname = "thin-provisioning-tools"
-pkgver = "1.1.0"
-pkgrel = 1
+pkgver = "1.2.2"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",
@@ -18,7 +18,7 @@ pkgdesc = "Tools for manipulating the metadata of dm-thin targets"
 license = "GPL-3.0-or-later"
 url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "fef778119046e6057aabcc087685aafefe62eb3a65febba639482e72c85a59ed"
+sha256 = "8ac15a068e6a6aec0cf0343d3d76f88c397d5fb2d6bd6202e9f13a490a9f3e22"
 # too long
 options = ["!check"]
 
