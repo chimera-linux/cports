@@ -1,5 +1,5 @@
 pkgname = "swayfx"
-pkgver = "0.5"
+pkgver = "0.5.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=static", "-Dscenefx:examples=false"]
@@ -18,7 +18,7 @@ makedepends = [
     "pcre2-devel",
     "wayland-devel",
     "wayland-protocols",
-    "wlroots0.18-devel",
+    "wlroots0.19-devel",
 ]
 depends = ["!sway"]
 pkgdesc = "Fork of sway with more graphical effects"
@@ -27,12 +27,12 @@ url = "https://github.com/WillPower3309/swayfx"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
     # until 1.0
-    "https://github.com/wlrfx/scenefx/archive/refs/tags/0.2.1.tar.gz",
+    "https://github.com/wlrfx/scenefx/archive/refs/tags/0.4.1.tar.gz",
 ]
 source_paths = [".", "subprojects/scenefx"]
 sha256 = [
-    "68bff05a89da702bbca7df3c5c633a149cc59e9e8158c1bd60f0e9fe768f86b3",
-    "e50cd8cbeb6564233dced39f21e78d755701fa7fe67f5b354f033f397b69a2b8",
+    "e6345e198f128520cf422b458ac8ad9759c3a6c8f633d7b722655309f8a14b9e",
+    "fa23f6ff509168d4a5eb0c5a7ef3b8cf3d39e3fba18320c28256e6c91c85d9ff",
 ]
 file_modes = {
     "usr/bin/sway": ("root", "root", 0o755),
