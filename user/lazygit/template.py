@@ -1,6 +1,6 @@
 pkgname = "lazygit"
-pkgver = "0.52.0"
-pkgrel = 2
+pkgver = "0.55.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ pkgdesc = "Terminal UI for git commands"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazygit"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "2d6b045105cca36fb4a9ea9fa8834bab70f99a71dcb6f7a1aea11184ac1f66f8"
+sha256 = "6c11d02c61767aea1b3f2956797f9b4b3fccc526668a3f211d4e6071195ceb2c"
 # need to be in git checkout
 options = ["!check"]
 
