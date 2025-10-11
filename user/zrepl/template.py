@@ -1,6 +1,6 @@
 pkgname = "zrepl"
-pkgver = "0.9.8"
-pkgrel = 5
+pkgver = "1.0.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["dinit-chimera"]
@@ -9,9 +9,21 @@ pkgdesc = "ZFS backup and replication tool - dsh2dsh's enhanced fork"
 license = "MIT"
 url = "https://github.com/dsh2dsh/zrepl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "069646e929c5440191d3240310a9fdb95b1258ac5ab2c15ab1eaee2022cb34fa"
-# check needs to run zfs command
-options = ["!check"]
+sha256 = "33f5c42b423bb0c38ecab909d3a641a3218a6baae97e5c70ebf70b2b9b346017"
+# check: needs to run zfs command
+# cross: generates completions with built binary
+options = ["!check", "!cross"]
+
+
+def post_build(self):
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"zrepl.{shell}", "w") as cf:
+            self.do(
+                "build/zrepl",
+                "completion",
+                shell,
+                stdout=cf,
+            )
 
 
 def install(self):
@@ -25,3 +37,6 @@ def install(self):
     self.install_service(self.files_path / "zrepl")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_license("LICENSE")
+
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"zrepl.{shell}", shell)
