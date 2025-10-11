@@ -1,5 +1,5 @@
 pkgname = "xfce4-session"
-pkgver = "4.20.2"
+pkgver = "4.20.3"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -29,4 +29,4 @@ pkgdesc = "Xfce desktop session"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-session/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-session/{pkgver[:-2]}/xfce4-session-{pkgver}.tar.bz2"
-sha256 = "a0b80b7136515bc3c0c54fa859ad420365e29b715b6da0b58a2d2781bfbe73c3"
+sha256 = "dbf00672c5316a30b7001fe852e6a5ba9f889afeab8a247545a160d4302f1fa2"
