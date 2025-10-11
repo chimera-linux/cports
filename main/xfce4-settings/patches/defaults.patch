@@ -13,18 +13,6 @@ index d0528de9..c7189347 100644
      <property name="DoubleClickTime" type="int" value="400"/>
      <property name="DoubleClickDistance" type="int" value="5"/>
      <property name="DndDragThreshold" type="int" value="8"/>
-@@ -19,9 +19,9 @@
-   </property>
-   <property name="Xft" type="empty">
-     <property name="DPI" type="int" value="96"/>
--    <property name="Antialias" type="int" value="-1"/>
-+    <property name="Antialias" type="int" value="1"/>
-     <property name="Hinting" type="int" value="-1"/>
--    <property name="HintStyle" type="string" value="hintnone"/>
-+    <property name="HintStyle" type="string" value="hintfull"/>
-     <property name="RGBA" type="string" value="none"/>
-   </property>
-   <property name="Gtk" type="empty">
 @@ -34,7 +34,7 @@
      <property name="MenuImages" type="bool" value="true"/>
      <property name="ButtonImages" type="bool" value="true"/>
