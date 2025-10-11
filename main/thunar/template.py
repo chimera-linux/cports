@@ -1,5 +1,5 @@
 pkgname = "thunar"
-pkgver = "4.20.4"
+pkgver = "4.20.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -28,7 +28,7 @@ pkgdesc = "Xfce file manager"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/thunar/start"
 source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[: pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"
-sha256 = "c4f2fc55d285deef134859847ef6f0e9096ed7987ef7aa066de5a9e347a15fd9"
+sha256 = "da299babd233a079a443e527fa38cba3899b6131ef056593de9451178d812f2a"
 options = ["!cross"]
 
 
