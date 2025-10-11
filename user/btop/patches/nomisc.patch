@@ -2,8 +2,8 @@ fstack-protector overwrites fstack-protector=strong and the others are already p
 --
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -100,15 +100,12 @@
- endif()
+@@ -108,15 +108,12 @@
+ target_compile_options(btop PRIVATE -Wall -Wextra -Wpedantic)
  
  if(NOT APPLE)
 -  target_compile_options(btop PRIVATE -fstack-clash-protection)
