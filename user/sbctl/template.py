@@ -1,10 +1,10 @@
 pkgname = "sbctl"
-pkgver = "0.16"
-pkgrel = 10
+pkgver = "0.18"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
-hostmakedepends = ["asciidoc", "go"]
-checkdepends = ["openssl3-devel"]
+hostmakedepends = ["asciidoc", "go", "pkgconf"]
+checkdepends = ["openssl3-devel", "pcsc-lite-devel"]
 depends = [
     "llvm-binutils",  # required to generate EFI bundles
 ]
@@ -12,7 +12,7 @@ pkgdesc = "Secure Boot key manager"
 license = "MIT"
 url = "https://github.com/Foxboron/sbctl"
 source = f"{url}/releases/download/{pkgver}/sbctl-{pkgver}.tar.gz"
-sha256 = "528f852285cea2c96175db8872aa83427f5e200e2d09ea9383037432d45965be"
+sha256 = "d274451b145b0aaecfdf2d01ad45473b61ab40f3f58e4735cee50aa7573c584d"
 # fails
 options = ["!cross"]
 
