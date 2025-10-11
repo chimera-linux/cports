@@ -1,13 +1,14 @@
 pkgname = "hut"
-pkgver = "0.6.0"
-pkgrel = 16
+pkgver = "0.7.0"
+pkgrel = 0
 build_style = "go"
+make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go", "scdoc"]
 pkgdesc = "CLI tool for sr.ht"
 license = "AGPL-3.0-only"
 url = "https://git.sr.ht/~xenrox/hut"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "f6abe54b433c30557c49aa41d351ec97ef24b4bee3f9dbc91e7db8f366592f99"
+sha256 = "5975f940740dd816057ab3cf20cebde3ece3250891952a566f8555f73fb67b21"
 # completions are generated with built artifact
 options = ["!cross"]
 
