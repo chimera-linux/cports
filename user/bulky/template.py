@@ -1,13 +1,12 @@
 pkgname = "bulky"
-pkgver = "3.6"
-pkgrel = 2
+pkgver = "3.9"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["gettext"]
 depends = [
     "base-files-doc",
     "gtk+3",
     "python-gobject",
-    "python-magic",
     "python-setproctitle",
     "python-unidecode",
 ]
@@ -15,7 +14,7 @@ pkgdesc = "Bulk renamer"
 license = "GPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/bulky/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f98e412cf5f15839ee2d143c0bf733982a5cd12725cfffb94c1f66bb46a00874"
+sha256 = "f3edbe183be3e5e341e5cc64e9a85d87b47a83a1701902426e4ff1c22995534f"
 # Test script requires write access to the cbuild container's root
 options = ["!check"]
 

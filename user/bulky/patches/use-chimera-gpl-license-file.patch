@@ -1,12 +1,12 @@
 diff -ru a/usr/lib/bulky/bulky.py b/usr/lib/bulky/bulky.py
 --- a/usr/lib/bulky/bulky.py	2024-07-21 17:26:01.000000000 +0800
 +++ b/usr/lib/bulky/bulky.py	2024-09-06 20:17:54.321978118 +0800
-@@ -393,7 +393,7 @@
+@@ -438,7 +438,7 @@
          dlg.set_program_name("Bulky")
          dlg.set_comments(_("Rename Files"))
          try:
--            h = open('/usr/share/common-licenses/GPL', encoding="utf-8")
-+            h = open('/usr/share/licenses/GPL-3', encoding="utf-8")
-             s = h.readlines()
-             gpl = ""
-             for line in s:
+-            with open('/usr/share/common-licenses/GPL', encoding="utf-8") as h:
++            with open('/usr/share/licenses/GPL-3', encoding="utf-8") as h:
+                 gpl= h.read()
+             dlg.set_license(gpl)
+         except Exception as e:
