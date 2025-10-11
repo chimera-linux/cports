@@ -1,5 +1,5 @@
 pkgname = "ada"
-pkgver = "3.2.1"
+pkgver = "3.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -18,7 +18,7 @@ pkgdesc = "URL parser library"
 license = "MIT OR Apache-2.0"
 url = "https://www.ada-url.com"
 source = f"https://github.com/ada-url/ada/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2530b601224d96554333ef2e1504cebf040e86b79a4166616044f5f79c47eaa5"
+sha256 = "75565e2d4cc8e3ce2dd7927f5c75cc5ebbd3b620468cb0226501dae68d8fe1cd"
 
 
 def post_install(self):
