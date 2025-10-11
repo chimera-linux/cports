@@ -1,5 +1,5 @@
 pkgname = "gtk4-layer-shell"
-pkgver = "1.0.4"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,8 +13,8 @@ makedepends = ["gtk4-devel", "wayland-protocols"]
 pkgdesc = "Library to create panels and other desktop components for Wayland"
 license = "MIT"
 url = "https://github.com/wmww/gtk4-layer-shell"
-source = f"https://github.com/wmww/gtk4-layer-shell/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7fe327dc3740e4b6f5edfd855e23f84b1ac1ec6854b731047b95df7feb46498b"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "4e04711fec80afbcd0a1e6e39c07ae263d2c3400181791b7826f3e5317b33567"
 # vis breaks symbols
 hardening = ["!vis"]
 # a few tests fail
