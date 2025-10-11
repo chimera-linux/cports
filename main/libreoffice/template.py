@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "25.8.1.1"
-pkgrel = 1
+pkgver = "25.8.2.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -178,7 +178,7 @@ source = [
     f"{_aurl}/rhino-1.7.15.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
-    f"{_aurl}/language-subtag-registry-2025-07-15.tar.bz2",
+    f"{_aurl}/language-subtag-registry-2025-08-25.tar.bz2",
     f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip",
     f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip",
     f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip",
@@ -207,14 +207,14 @@ source = [
     f"{_aurl}/zxcvbn-c-2.6.tar.gz",
 ]
 sha256 = [
-    "5b4e2c6c2abe9480a49c33543b57e0226c6cf9c966088b8e713d1b23490a2f3e",
-    "b733ef589c97428b1784839e9842cb90654bf008b284f00399557da1f38c643f",
-    "14d3b7dacb8104dcb4c7ccf89de2a01853b0917756497b9c8b49a966d2f3f0b5",
-    "055da09b5d3998864f016e101ffd11706b64fa2fb03608a5c3844fc48fe83b74",
+    "002ca2eec3df818d3655bc5ab5702263194febc0212f02e12df1eee11bd7c15e",
+    "1fc67d410c48c8215562d9fd84d27b1cab67b1fb2502a457e6fbbd91c3298516",
+    "bb9fde2c035c757581f49545ccbfb046fc31f72968b53b28d0987f1c5547eb5f",
+    "fb01188fd7258b4da36782618d790e4073769097c0597e103eb814963e272830",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
-    "2689f0a9a1fc21442d8097951fbca6d7013f9f9847f0b5e87144bd8e1355e052",
+    "9b008d21f97bbf37c5aefd07805ff5500524bccbe8c39d623e184b1ed425ff39",
     "d30b13f4ba2e3b6a2d4f020c0dee0a9fb9fc6fbcc2d561f36b78da4bf3802370",
     "1b5b24f7bc543c0362b667692f78db8bab4ed6dafc6172f104d0bd3757d8a133",
     "233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd",
