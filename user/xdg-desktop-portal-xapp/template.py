@@ -1,17 +1,17 @@
 pkgname = "xdg-desktop-portal-xapp"
-pkgver = "1.1.0"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "meson"
 # XXX: drop libexec
 configure_args = ["--libexecdir=/usr/lib", "-Dsystemduserunitdir=/tmp"]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["glib-devel", "xdg-desktop-portal-devel"]
+makedepends = ["gtk+3-devel", "xdg-desktop-portal-devel"]
 depends = ["xapp", "xdg-desktop-portal"]
 pkgdesc = "Backend implementation for xdg-desktop-portal for Cinnamon and Xfce"
 license = "LGPL-2.1-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xdg-desktop-portal-xapp/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2d0746ad1021d8848fb60f1444d09c81c5a4da90df334b44418d6533e6811c13"
+sha256 = "7bd4d0439218d00d9fe55c308292b1dc70716cb8464970fe8d2245769a7dd18a"
 hardening = ["vis"]
 
 
