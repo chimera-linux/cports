@@ -1,5 +1,5 @@
 pkgname = "libatomic_ops"
-pkgver = "7.8.2"
+pkgver = "7.8.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-static", "--enable-shared"]
@@ -8,7 +8,7 @@ pkgdesc = "Library for atomic operations"
 license = "MIT AND GPL-2.0-or-later"
 url = "https://github.com/ivmai/libatomic_ops"
 source = f"{url}/releases/download/v{pkgver}/libatomic_ops-{pkgver}.tar.gz"
-sha256 = "d305207fe207f2b3fb5cb4c019da12b44ce3fcbc593dfd5080d867b1a2419b51"
+sha256 = "2356e002e80ef695875e971d6a4fd8c61ca5c6fa4fd1bf31cce54a269c8bfcd5"
 
 
 def post_install(self):
