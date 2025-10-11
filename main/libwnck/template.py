@@ -1,5 +1,5 @@
 pkgname = "libwnck"
-pkgver = "43.2"
+pkgver = "43.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Window Navigator Construction Kit"
 license = "LGPL-2.0-only"
 url = "https://gitlab.gnome.org/GNOME/libwnck"
 source = f"$(GNOME_SITE)/libwnck/{pkgver[:-2]}/libwnck-{pkgver}.tar.xz"
-sha256 = "55a7444ec1fbb95c086d40967388f231b5c0bbc8cffaa086bf9290ae449e51d5"
+sha256 = "6af8ac41a8f067ade1d3caaed254a83423b5f61ad3f7a460fcacbac2e192bdf7"
 options = ["!cross"]
 
 
