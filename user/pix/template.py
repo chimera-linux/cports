@@ -1,5 +1,5 @@
 pkgname = "pix"
-pkgver = "3.4.5"
+pkgver = "3.4.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlibbrasero=false", "-Dwebservices=false"]
@@ -28,7 +28,7 @@ pkgdesc = "Image management application"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/pix/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d0fc194e404a199518ca3f507468788041162ce31286aa45dff56df15635d44d"
+sha256 = "6bb240ebc8b058aa3e165d6e128dbced3248e561860ab50b7f958a4b20c5ec29"
 
 
 @subpackage("pix-devel")
