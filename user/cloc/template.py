@@ -1,5 +1,5 @@
 pkgname = "cloc"
-pkgver = "2.04"
+pkgver = "2.06"
 pkgrel = 0
 build_style = "makefile"
 make_dir = "Unix"
@@ -21,4 +21,4 @@ pkgdesc = "Count lines of source code"
 license = "GPL-2.0-or-later"
 url = "https://github.com/AlDanial/cloc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3e6f25000d920fdee1a57575c185236286ab5e05fda7b6ab2e36c34f1bb6afbc"
+sha256 = "10d78427fda66aaa10ec733adb03d910c49376fe9068aacebb17aa657a7a3a05"
