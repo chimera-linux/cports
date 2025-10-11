@@ -1,6 +1,6 @@
 pkgname = "xed"
-pkgver = "3.8.2"
-pkgrel = 2
+pkgver = "3.8.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared", "-Ddocs=true"]
 hostmakedepends = [
@@ -28,7 +28,7 @@ pkgdesc = "X-Apps text editor"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xed/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1ca2dd0917e634b9d85d91e0957e0628082ee392121ee42cb64619e8b0765eb2"
+sha256 = "1660fd85506ff1c12ff09953f70abcd67e425d5a7a0c3f6ba7f49a0a38458c4f"
 # Tests require the "dogtail" Python module
 options = ["!check", "!cross"]
 
