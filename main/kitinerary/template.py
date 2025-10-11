@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
 pkgver = "25.08.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -22,7 +22,6 @@ makedepends = [
     "kmime-devel",
     "kpkpass-devel",
     "libphonenumber-devel",
-    "libphonenumber-devel-static",
     "libxml2-devel",
     "openssl3-devel",
     "poppler-devel",
