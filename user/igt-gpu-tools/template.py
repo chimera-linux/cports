@@ -1,6 +1,6 @@
 pkgname = "igt-gpu-tools"
-pkgver = "1.30"
-pkgrel = 1
+pkgver = "2.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -26,7 +26,7 @@ pkgdesc = "Tooling for Intel GPUs"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/drm/igt-gpu-tools"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "a3e61ac583fb7849e9543ba5e74b86b68baa3b902702c9f507c9956763a46bb9"
+sha256 = "674dd5ee3421e658ae0cf5b12932b07ea9ab47705dc5351ec180a47ab9a2e5dc"
 # need fancy setup for integration tests
 options = ["!check"]
 
