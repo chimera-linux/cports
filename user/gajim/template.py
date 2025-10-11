@@ -1,5 +1,5 @@
 pkgname = "gajim"
-pkgver = "2.3.4"
+pkgver = "2.3.6"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -50,7 +50,7 @@ pkgdesc = "XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://gajim.org"
 source = f"{url}/downloads/{pkgver[: pkgver.rfind('.')]}/gajim-{pkgver}.tar.gz"
-sha256 = "99acd07022575630d94b49ab6d7bef51f64df7dfcabc3d9a71c2641f1e6c5dd3"
+sha256 = "5f34ac3d420bc0519c5c98dda4136b34f5333775a04d253f93eb9bcbeb898d48"
 
 
 def post_build(self):
