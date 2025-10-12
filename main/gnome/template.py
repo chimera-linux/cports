@@ -1,6 +1,6 @@
 pkgname = "gnome"
 pkgver = "49.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
 # some of them are here anyway, for clarity but no other purpose
@@ -71,7 +71,6 @@ def _(self):
         "gnome-tour",
         "gnome-user-docs",
         # "gnome-user-share",
-        "gnome-weather",
         "orca",
         # "phodav",
         "simple-scan",
@@ -79,5 +78,5 @@ def _(self):
         "totem",
     ]
     if self.rparent.profile().wordsize != 32:
-        self.depends += ["snapshot"]
+        self.depends += ["gnome-weather", "snapshot"]
     return []
