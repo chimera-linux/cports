@@ -63,7 +63,7 @@ def post_install(self):
         self.files_path / "ckms.ini", srcp, template={"VERSION": pkgver}
     )
 
-@subpackage("bcachefs-ckms")
+@subpackage("bcachefs-tools-ckms")
 def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]
