@@ -1,5 +1,5 @@
 pkgname = "purpose"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -34,7 +34,7 @@ pkgdesc = "KDE purpose-specific integrations"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
-sha256 = "a428e4f495658240899e02f15b7a9230e3c33069723b43e1734c21fa1a23b825"
+sha256 = "799ff3e69872400d2fa6e5e2c91fed66ed6bd0d7a9163efc004eee0bf6d093a2"
 hardening = ["vis"]
 
 

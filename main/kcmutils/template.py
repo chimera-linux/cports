@@ -1,5 +1,5 @@
 pkgname = "kcmutils"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -21,7 +21,7 @@ pkgdesc = "Utilities for KDE System Settings modules"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcmutils/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
-sha256 = "6114c1ec8eb73734619a99e4956dce449828af336c2cd91d19bfeb03e221528f"
+sha256 = "3760a46ccf196cc50d0d0b00d4471bec7468f136be57a190358bc3e437a48f53"
 hardening = ["vis"]
 
 

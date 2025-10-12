@@ -1,5 +1,5 @@
 pkgname = "kpeople"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: off by one in rows after merging people
@@ -19,7 +19,7 @@ pkgdesc = "KDE contact api"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpeople/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
-sha256 = "09ba29efeb612eef4e54814f1f91e2d07c8942e6cf2c23176d9f306d68544d2b"
+sha256 = "540fc643997c4a1c4d07e6c3c5bb2bc5e11f5ad6102e0957f943422aa922f731"
 hardening = ["vis"]
 
 

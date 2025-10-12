@@ -1,5 +1,5 @@
 pkgname = "kcalendarcore"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -16,7 +16,7 @@ pkgdesc = "KDE calendar access library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcalendarcore/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcalendarcore-{pkgver}.tar.xz"
-sha256 = "4d2330af35d56c59ee69f08f3845babee9896d00012bccfbb143bdc571bc58e7"
+sha256 = "9e65636c32cd4bc8cbf660c4dd81b0732197ef6f593f6ba0af8a61788708b6fc"
 # a ton of failures due to different sort order and whatnot
 options = ["!check"]
 

@@ -1,6 +1,6 @@
 pkgname = "kglobalaccel"
-pkgver = "6.18.0"
-pkgrel = 1
+pkgver = "6.19.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -16,7 +16,7 @@ pkgdesc = "KDE Global desktop keyboard shortcuts"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kglobalaccel/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kglobalaccel-{pkgver}.tar.xz"
-sha256 = "cb9a7b0ee933656207958fb295bf14fbfbc828d5d968f601fd28ad6877fdb438"
+sha256 = "1bbe7502658319767c048039e8dac2bd17bc120422d8e58ef6f22ba63840ae49"
 hardening = ["vis"]
 
 

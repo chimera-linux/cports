@@ -1,5 +1,5 @@
 pkgname = "kuserfeedback"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 # fails without gl
@@ -22,7 +22,7 @@ pkgdesc = "KDE user feedback integration"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
-sha256 = "b623ab51a5b692b1b385d940cb4c00ae010dcdd8c2a2d6e23159ff815b8f1e52"
+sha256 = "6768e73fd21a290f928b8d5714f6231ca5df8a72df625f43ac8f7ab6bb711f9f"
 hardening = ["vis"]
 
 

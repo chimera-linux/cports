@@ -1,5 +1,5 @@
 pkgname = "kimageformats"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
@@ -27,4 +27,4 @@ pkgdesc = "Image format plugins for Qt6"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kimageformats/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kimageformats-{pkgver}.tar.xz"
-sha256 = "9d373ef5362aa8d71541cec2895415c95ca914626dcb0dd6b0ceef491dcbae46"
+sha256 = "fc825326aa6b8c1321947ff523d3d006eef4c65fde40f379c6900d06967fae1c"

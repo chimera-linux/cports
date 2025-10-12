@@ -1,5 +1,5 @@
 pkgname = "kwidgetsaddons"
-pkgver = "6.18.0"
+pkgver = "6.19.0"
 pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
@@ -26,7 +26,7 @@ pkgdesc = "KDE addons to QtWidgets"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
-sha256 = "0c2fb00744ffd9ecb7531ee5a79c1db4b406753f250565122f3add93cf200afb"
+sha256 = "622a96f697f83b8cf0e2abe870b3648afce10150cbebfb46cb3769b77a69867a"
 hardening = ["vis"]
 # fails
 options = ["!cross"]
