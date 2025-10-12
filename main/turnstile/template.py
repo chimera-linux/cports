@@ -1,6 +1,6 @@
 pkgname = "turnstile"
-pkgver = "0.1.10"
-pkgrel = 6
+pkgver = "0.1.11"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX libexec
@@ -18,7 +18,7 @@ pkgdesc = "Chimera user service manager and session tracker"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/turnstile"
 source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "186adf1402f3c63eecdbed241145cb029b7b1268c701a87381522d5b64583f2d"
+sha256 = "04904eff68a726bed281820b3497e018ede55a5d745f31ceb9a502f905d0ed56"
 file_modes = {
     "+usr/lib/dinit.d/user/boot.d": ("root", "root", 0o755, True),
 }
