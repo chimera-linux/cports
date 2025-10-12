@@ -1,6 +1,6 @@
 pkgname = "typescript"
 pkgver = "5.9.3"
-pkgrel = 0
+pkgrel = 1
 depends = ["nodejs"]
 pkgdesc = "Superset of JavaScript that compiles to JavaScript output"
 license = "Apache-2.0"
