@@ -1,8 +1,10 @@
 from cbuild.core import paths
 
 import os
+import ssl
 import math
 import hashlib
+import pathlib
 import threading
 from time import time as timer
 from urllib import request
@@ -90,6 +92,7 @@ def get_nameurl(pkg, d):
 fmtx = threading.Lock()
 fstatus = []
 flens = []
+fctx = None
 
 
 def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
@@ -183,7 +186,7 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
             data=None,
             headers=hdrs,
         )
-        with request.urlopen(rq) as rqf:
+        with request.urlopen(rq, context=fctx) as rqf:
             return fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf)
     except Exception as e:
         if ntry > 3:
@@ -193,7 +196,7 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
 
 
 def invoke(pkg):
-    global fstatus, flens
+    global fstatus, flens, fctx
 
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
 
@@ -211,6 +214,17 @@ def invoke(pkg):
             if len(hdrl) != 2:
                 pkg.error(f"invalid request header: '{hdr}'")
             dhdrs[hdrl[0].strip().title()] = hdrl[1].lstrip()
+
+    caenv = os.getenv("CBUILD_FETCH_CAFILE")
+    if caenv:
+        capath = pathlib.Path(caenv)
+    else:
+        # if bldroot exists and we have a cert bundle, use it
+        capath = paths.bldroot() / "etc/ssl/certs.pem"
+
+    # if we have a valid ca file, create a context for it
+    if capath.is_file():
+        fctx = ssl.create_default_context(cafile=capath)
 
     if len(pkg.source) != len(pkg.sha256):
         pkg.error("sha256sums do not match sources")
