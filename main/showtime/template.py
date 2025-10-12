@@ -1,6 +1,6 @@
 pkgname = "showtime"
 pkgver = "49.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
