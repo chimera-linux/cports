@@ -225,6 +225,8 @@ def invoke(pkg):
     # if we have a valid ca file, create a context for it
     if capath.is_file():
         fctx = ssl.create_default_context(cafile=capath)
+    else:
+        fctx = None
 
     if len(pkg.source) != len(pkg.sha256):
         pkg.error("sha256sums do not match sources")
