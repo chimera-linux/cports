@@ -1,6 +1,6 @@
 pkgname = "gnome"
 pkgver = "49.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
 # some of them are here anyway, for clarity but no other purpose
@@ -48,7 +48,6 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "baobab",
-        "eog",
         "epiphany",
         "evince",
         "gnome-browser-connector",
@@ -71,12 +70,17 @@ def _(self):
         "gnome-tour",
         "gnome-user-docs",
         # "gnome-user-share",
+        "loupe",
         "orca",
         # "phodav",
         "simple-scan",
         "sushi",
-        "totem",
     ]
     if self.rparent.profile().wordsize != 32:
-        self.depends += ["gnome-weather", "snapshot"]
+        self.depends += [
+            "decibels",
+            "gnome-weather",
+            "showtime",
+            "snapshot",
+        ]
     return []
