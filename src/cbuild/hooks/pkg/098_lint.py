@@ -258,6 +258,7 @@ def invoke(pkg):
 
     # stuff in /etc that should go in /usr/share
     for d in [
+        "bash/bashrc.d",
         "dbus-1/session.d",
         "dbus-1/system.d",
         "fonts/conf.avail",
