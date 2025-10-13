@@ -1,0 +1,23 @@
+does not compile:
+
+../tests/SelfTest/UsageTests/Misc.tests.cpp:391:1: error: no matching function for call to 'get_wrapper'
+  391 | TEMPLATE_PRODUCT_TEST_CASE("Product with differing arities", "[template][product]", std::tuple, (int, (int, double), (int, double, float))) {
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/catch2/catch_template_test_macros.hpp:80:47: note: expanded from macro 'TEMPLATE_PRODUCT_TEST_CASE'
+   80 |     #define TEMPLATE_PRODUCT_TEST_CASE( ... ) INTERNAL_CATCH_TEMPLATE_PRODUCT_TEST_CASE( __VA_ARGS__ )
+
+seems to be https://github.com/catchorg/Catch2/issues/2991
+
+--- a/tests/SelfTest/UsageTests/Misc.tests.cpp
++++ b/tests/SelfTest/UsageTests/Misc.tests.cpp
+@@ -388,10 +388,6 @@ TEMPLATE_PRODUCT_TEST_CASE_SIG("A Template product test case with array signatur
+     REQUIRE(x.size() > 0);
+ }
+ 
+-TEMPLATE_PRODUCT_TEST_CASE("Product with differing arities", "[template][product]", std::tuple, (int, (int, double), (int, double, float))) {
+-    REQUIRE(std::tuple_size<TestType>::value >= 1);
+-}
+-
+ using MyTypes = std::tuple<int, char, float>;
+ TEMPLATE_LIST_TEST_CASE("Template test case with test types specified inside std::tuple", "[template][list]", MyTypes)
+ {
