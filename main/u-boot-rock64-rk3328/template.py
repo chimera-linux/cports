@@ -1,5 +1,5 @@
 pkgname = "u-boot-rock64-rk3328"
-pkgver = "2025.04"
+pkgver = "2025.10"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "u_boot"
@@ -28,7 +28,7 @@ pkgdesc = "U-Boot for Rock64"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "439d3bef296effd54130be6a731c5b118be7fddd7fcc663ccbc5fb18294d8718"
+sha256 = "b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a"
 env = {
     "U_BOOT_TRIPLET": "aarch64-none-elf",
     "U_BOOT_TARGETS": "idbloader.img:64 u-boot.itb:16384",
