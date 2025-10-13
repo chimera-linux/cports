@@ -1,8 +1,9 @@
 pkgname = "cjson"
-pkgver = "1.7.18"
-pkgrel = 1
+pkgver = "1.7.19"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_SHARED_AND_STATIC_LIBS=ON",
     # only warnings and werror
     "-DENABLE_CUSTOM_COMPILER_FLAGS=OFF",
@@ -16,7 +17,7 @@ pkgdesc = "Lightweight C JSON parser"
 license = "MIT"
 url = "https://github.com/DaveGamble/cJSON"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3aa806844a03442c00769b83e99970be70fbef03735ff898f4811dd03b9f5ee5"
+sha256 = "7fa616e3046edfa7a28a32d5f9eacfd23f92900fe1f8ccd988c1662f30454562"
 
 
 def post_install(self):
