@@ -1,6 +1,6 @@
 pkgname = "python-cffi"
-pkgver = "1.17.1"
-pkgrel = 2
+pkgver = "2.0.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "libffi8-devel",
@@ -15,7 +15,7 @@ pkgdesc = "C FFI for Python"
 license = "MIT"
 url = "https://cffi.readthedocs.io"
 source = f"$(PYPI_SITE)/c/cffi/cffi-{pkgver}.tar.gz"
-sha256 = "1c39c6016c32bc48dd54561950ebd6836e1670f2ae46128f67cf49e789c52824"
+sha256 = "44d1b5909021139fe36001ae048dbdde8214afa20200eda0f64c068cac5d5529"
 # tests crash on loongarch64
 hardening = ["!int"]
 
