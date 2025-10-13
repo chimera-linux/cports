@@ -1,5 +1,5 @@
 pkgname = "cargo-c"
-pkgver = "0.10.14"
+pkgver = "0.10.16"
 pkgrel = 0
 build_style = "cargo"
 # no tests in others
@@ -24,8 +24,8 @@ source = [
 ]
 source_paths = [".", "."]
 sha256 = [
-    "eb6d09e871516083448f77b8677dbefc1dcc14e88d73eea82bcee903343e19c1",
-    "0af99496210d7e5cb70de6643b571a8882120148e628d7a75327937b64fd9841",
+    "c0ebb3175393da5b55c3cd83ba1ae9d42d32e2aece6ceff1424239ffb68eb3e3",
+    "5b4201d68d52bd9cbf928d48ae9274131c604fe7b21149841fd07cc78a50b36e",
 ]
 # mfs be like rebuild literally everything and then run
 # test_semver_one_zero_zero and test_semver_zero_zero_zero
