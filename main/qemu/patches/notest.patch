@@ -14,11 +14,15 @@ halve the build time by just skipping them
  # accel modules
  target_modules += { 'accel' : { 'qtest': qtest_module_ss }}
  
-@@ -4094,7 +4090,6 @@
+@@ -4612,11 +4612,6 @@
  subdir('tools')
  subdir('pc-bios')
  subdir('docs')
--subdir('tests')
+-# Tests are disabled on emscripten because they rely on host features that aren't
+-# supported by emscripten (e.g. fork and unix socket).
+-if host_os != 'emscripten'
+-  subdir('tests')
+-endif
  if gtk.found()
    subdir('po')
  endif
