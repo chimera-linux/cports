@@ -3,9 +3,9 @@
 # really bad ones) and sometimes we cannot just replace it
 pkgname = "readline"
 # use a git revision so we don't have to deal with the stupid patches
-_gitrev = "037d85f199a8c6e5b16689a46c8bc31b586a0c94"
-pkgver = "8.2.013"
-pkgrel = 1
+_gitrev = "15970c431517a046099d8294c91d778b1da9b29d"
+pkgver = "8.3.001"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -21,7 +21,7 @@ pkgdesc = "GNU Readline library"
 license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-{_gitrev}.tar.gz"
-sha256 = "86959fc06a4ad8a3852b68ce67f5bb2f98d7d95548bbfc5c87e806042a8567e1"
+sha256 = "cbf75f73fd1bbdfd75b3988c401d6769aad6057ac79241127a7b44a79d89ae0c"
 
 
 def post_install(self):
