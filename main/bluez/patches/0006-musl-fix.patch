@@ -23,7 +23,7 @@ index 8bc7596b6..6b3956cfa 100644
  #include <glib.h>
  
 @@ -51,6 +50,9 @@
- #include "lib/bnep.h"
+ #include "bluetooth/bnep.h"
  #include "profiles/network/bnep.h"
  
 +/* From <linux/if_bridge.h> */
