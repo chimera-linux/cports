@@ -1,6 +1,6 @@
 pkgname = "base-files"
 pkgver = "0.2"
-pkgrel = 0
+pkgrel = 1
 _netbase_ver = "6.5"
 replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner

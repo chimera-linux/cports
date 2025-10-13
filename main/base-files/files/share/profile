@@ -16,9 +16,9 @@ elif [ -r /usr/share/base-files/profile.path ]; then
 fi
 
 # Additional profile scripts
-if [ -x /usr/bin/run-parts -a -d /etc/profile.d -a ! -r /etc/profile.custom ]; then
+if [ -x /usr/bin/run-parts -a ! -r /etc/profile.custom ]; then
     while read -r profile_d; do
-        . "$profile_d"
+        [ -e "$profile_d" ] && . "$profile_d"
     done <<EOS
 $(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/profile.d /usr/lib/profile.d)
 EOS
