@@ -1,5 +1,5 @@
 pkgname = "slibtool"
-pkgver = "0.6.1"
+pkgver = "0.7.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -7,7 +7,7 @@ pkgdesc = "Alternative libtool implementation"
 license = "MIT"
 url = "https://dev.midipix.org/cross/slibtool"
 source = f"https://dl.foss21.org/slibtool/slibtool-{pkgver}.tar.xz"
-sha256 = "61b07f9f371ca05dc5b1259b27e73d8d7a2ef15e2a6adc9bac9816c5a4beacc4"
+sha256 = "2e7a4ae528c49c82743ae91260d3fa24bee3d91d9a87066e3491a24ba745a948"
 # no tests?
 options = ["!check"]
 
