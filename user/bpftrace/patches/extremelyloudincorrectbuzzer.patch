@@ -10,4 +10,4 @@
 -endif()
  
  if (BUILD_ASAN)
-   target_compile_options(${BPFTRACE} PUBLIC "-fsanitize=address")
+   target_compile_options(bpftrace PUBLIC "-fsanitize=address")
