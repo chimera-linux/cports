@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2025.04"
+pkgver = "2025.10"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "tools-all"
@@ -30,7 +30,7 @@ pkgdesc = "Das U-Boot tools"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "439d3bef296effd54130be6a731c5b118be7fddd7fcc663ccbc5fb18294d8718"
+sha256 = "b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a"
 hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
