@@ -3,6 +3,7 @@
 
 def _handle_svc(pkg, svcp):
     had_cl = False
+    had_opt = False
     lintfail = False
     with svcp.open() as df:
         for ln in df:
@@ -44,6 +45,18 @@ def _handle_svc(pkg, svcp):
                         pkg.log_warn(
                             f"service '{svcp.name}' has a dependency field with '='",
                             # hint="dependencies should look like 'depends-on: foo', not 'depends-on = foo'",
+                        )
+                    if had_opt:
+                        pkg.log_warn(
+                            f"service '{svcp.name}' has a dependency field after options or load-options",
+                            # hint="dependencies should be specified before options and load-options",
+                        )
+                case "options" | "load-options":
+                    had_opt = True
+                    if eq > 0:
+                        pkg.log_warn(
+                            f"service '{svcp.name}' has an options field '='",
+                            # hint="options should look like 'options: foo', not 'options = foo'",
                         )
     if lintfail:
         pkg.error("service files have failed lint")
