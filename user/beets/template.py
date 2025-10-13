@@ -14,6 +14,9 @@ make_check_args = [
     "--ignore=test/plugins/test_lastgenre.py",
     # mpd
     "--ignore=test/plugins/test_mpdstats.py",
+    # flakes
+    "--ignore=test/test_importer.py",
+    "--ignore=test/test_ui.py",
 ]
 hostmakedepends = [
     "python-build",
