@@ -1,5 +1,5 @@
 pkgname = "bind"
-pkgver = "9.20.11"
+pkgver = "9.20.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
@@ -36,13 +36,9 @@ pkgdesc = "ISC DNS server"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "4da2d532e668bc21e883f6e6d9d3d81794d9ec60b181530385649a56f46ee17a"
+sha256 = "151f9376ead317e646a5d0c9f01c060386d891118d7437a7f829bb9727c7b34c"
 # lto: some udp tests fail otherwise
 options = ["!lto"]
-
-if self.profile().arch in ["loongarch64"]:
-    # rwlock test timeout, otherwise good
-    options += ["!check"]
 
 
 def post_install(self):
