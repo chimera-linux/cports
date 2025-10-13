@@ -1,5 +1,5 @@
 pkgname = "openvdb"
-pkgver = "12.1.0"
+pkgver = "12.1.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Sparse volume data tools"
 license = "MPL-2.0"
 url = "https://www.openvdb.org"
 source = f"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ebb9652ad1d67274e2c85e6736cced5f04e313c5671ae1ae548f174cc76e9e64"
+sha256 = "ccd0ea1669a53c7c13087a08ac5a1351041c4cdd308f6d6f591074a106fcb565"
 # suboverflow in PCA, annoying abstractions make it hard to debug
 hardening = ["!int"]
 # 4 unittests fail outside of x86_64 with no easy way to skip them
