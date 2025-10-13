@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "6.15"
+pkgver = "6.17"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
@@ -35,7 +35,7 @@ pkgdesc = "Btrfs file system utilities"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.readthedocs.io/en/latest"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.tar.xz"
-sha256 = "57da428dd2199fd88d83ecf1cad05678ce78640ef7e52d7633be9887cef674bb"
+sha256 = "277d696c9d79713ff5afb53c7efebdcead2e6a6007789b1742ec411f4e4ca229"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
 options = ["!check"]
