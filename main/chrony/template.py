@@ -1,5 +1,5 @@
 pkgname = "chrony"
-pkgver = "4.7"
+pkgver = "4.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "NTP client and server"
 license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
 source = f"https://chrony-project.org/releases/chrony-{pkgver}.tar.gz"
-sha256 = "c0de41a8c051e5d32b101b5f7014b98ca978b18e592f30ce6840b6d4602d947b"
+sha256 = "33ea8eb2a4daeaa506e8fcafd5d6d89027ed6f2f0609645c6f149b560d301706"
 
 
 def post_install(self):
