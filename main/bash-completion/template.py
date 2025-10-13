@@ -1,9 +1,9 @@
 pkgname = "bash-completion"
 pkgver = "2.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_install_args = [
-    "profiledir=/etc/bash/bashrc.d",
+    "profiledir=/usr/share/bash/bashrc.d",
 ]
 hostmakedepends = ["automake", "pkgconf"]
 checkdepends = ["bash", "python-pytest", "python-pexpect"]
