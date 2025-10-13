@@ -1,7 +1,7 @@
 pkgname = "libedit"
-pkgver = "20240711"
-pkgrel = 1
-_gitrev = "e75a2de6592b919b5da2384509cd3b9a5c501fe4"
+pkgver = "20250614"
+pkgrel = 0
+_gitrev = "b280b361724a60fa8b740150950a59c4f4edcf15"
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
@@ -9,7 +9,7 @@ pkgdesc = "Port of the NetBSD command line editing library"
 license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/libedit-chimera"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "a631168496d232ad7170cc99d9ece95f3d9202c31cdf74bd4e99c5143cd8760e"
+sha256 = "aa0fcba24403e002b3f7f6e9cf41616d8f637ce5a5708a36450f1127887f412c"
 options = ["bootstrap"]
 
 
