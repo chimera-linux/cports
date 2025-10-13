@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 4cec6db..232f489 100644
+index c55edaf..bbbd72b 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -49,6 +49,7 @@ if (WITH_QT6)
@@ -9,7 +9,7 @@ index 4cec6db..232f489 100644
 +    find_package(Qt6 6.10.0 REQUIRED COMPONENTS Gui GuiPrivate)
  else()
      set(QT_DEFAULT_MAJOR_VERSION 5)
-     find_package(Qt5Widgets 5.8.0 REQUIRED)
+     find_package(Qt5Widgets 5.15.0 REQUIRED)
 diff --git a/src/common/server.cpp b/src/common/server.cpp
 index b86ba0b..80337fc 100644
 --- a/src/common/server.cpp
