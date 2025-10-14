@@ -1,6 +1,6 @@
 pkgname = "bash"
 pkgver = "5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -32,16 +32,16 @@ hardening = ["vis", "!cfi", "!int"]
 
 
 def post_install(self):
+    # remove devel files
+    self.uninstall("usr/lib")
+    self.uninstall("usr/include")
+
     # register with shells
     self.install_shell("/usr/bin/bash")
 
     self.uninstall("usr/share/doc")
 
     self.install_link("usr/bin/rbash", "bash")
-
-    # remove devel files
-    self.uninstall("usr/lib")
-    self.uninstall("usr/include")
 
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
