@@ -1,5 +1,5 @@
 pkgname = "spdlog"
-pkgver = "1.15.3"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "C++ logging library"
 license = "MIT"
 url = "https://github.com/gabime/spdlog"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "15a04e69c222eb6c01094b5c7ff8a249b36bb22788d72519646fb85feb267e67"
+sha256 = "8741753e488a78dd0d0024c980e1fb5b5c85888447e309d9cb9d949bdb52aa3e"
 
 
 def post_install(self):
