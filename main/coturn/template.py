@@ -8,6 +8,7 @@ make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 makedepends = [
+    "dinit-chimera",
     "hiredis-devel",
     "libevent-devel",
     "linux-headers",
