@@ -1,6 +1,6 @@
 pkgname = "hotspot"
 pkgver = "1.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DQT6_BUILD=ON"]
 # broken when building out of tree as testdata isn't found relatively
