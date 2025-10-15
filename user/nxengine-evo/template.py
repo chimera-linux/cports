@@ -1,7 +1,7 @@
 pkgname = "nxengine-evo"
 # change source on update
 pkgver = "2.6.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = [
