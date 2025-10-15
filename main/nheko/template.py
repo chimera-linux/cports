@@ -1,6 +1,6 @@
 pkgname = "nheko"
-pkgver = "0.12.0"
-pkgrel = 12
+pkgver = "0.12.1"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "asciidoctor",
@@ -44,6 +44,6 @@ url = "https://nheko-reborn.github.io"
 source = (
     f"https://github.com/Nheko-Reborn/nheko/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "a3a7578bd9386a0b9a4188fa1296fdddb7df0f846c39728b80a998f9d06f36d1"
+sha256 = "81cc613ee2420b1289c9cc7aeee81cae69a153971fd3112225e48d1c7b224ea5"
 # big stack usage
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
