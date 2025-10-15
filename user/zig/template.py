@@ -1,5 +1,5 @@
 pkgname = "zig"
-pkgver = "0.13.0"
+pkgver = "0.15.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,7 +26,7 @@ pkgdesc = "Zig programming language toolchain"
 license = "MIT"
 url = "https://github.com/ziglang/zig"
 source = f"https://ziglang.org/download/{pkgver}/zig-{pkgver}.tar.xz"
-sha256 = "06c73596beeccb71cc073805bdb9c0e05764128f16478fa53bf17dfabc1d4318"
+sha256 = "d9b30c7aa983fcff5eed2084d54ae83eaafe7ff3a84d8fb754d854165a6e521c"
 # lighten up the build, only applies to bootstrap and just slows down the build
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
 hardening = ["!int", "!scp", "!ssp", "!var-init"]
