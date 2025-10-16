@@ -1,6 +1,6 @@
 pkgname = "podman-tui"
-pkgver = "1.5.0"
-pkgrel = 4
+pkgver = "1.9.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = [
@@ -25,7 +25,7 @@ pkgdesc = "Podman terminal UI"
 license = "Apache-2.0"
 url = "https://github.com/containers/podman-tui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d9ba16d37f959d7ae5ca6650c3ccc7b0e1a726215791c99604f8f5955ee8f61d"
+sha256 = "7a0e89d71a18527f01be061c8d449823770cff768b6d716cef96b979f3672de7"
 
 
 def post_extract(self):
