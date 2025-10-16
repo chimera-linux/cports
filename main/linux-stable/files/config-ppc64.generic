@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.17.1 Kernel Configuration
+# Linux/powerpc 6.17.3 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 20.1.8"
 CONFIG_GCC_VERSION=0
@@ -582,6 +582,7 @@ CONFIG_ARCH_FORCE_MAX_ORDER=12
 # CONFIG_PPC_PROT_SAO_LPAR is not set
 CONFIG_PPC_COPRO_BASE=y
 CONFIG_SCHED_SMT=y
+CONFIG_SCHED_MC=y
 CONFIG_PPC_DENORMALISATION=y
 CONFIG_CMDLINE="console=hvsi0 console=hvc0 console=ttyS0,9600 console=tty0"
 CONFIG_CMDLINE_FROM_BOOTLOADER=y
