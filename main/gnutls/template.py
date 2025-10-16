@@ -18,8 +18,8 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "gtk-doc-tools",
+    "libtool",
     "pkgconf",
-    "slibtool",
     "trousers-devel",
 ]
 makedepends = [
