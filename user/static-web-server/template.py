@@ -14,6 +14,9 @@ sha256 = "fce33a832f2ad3f9a96ced59e44a8aeb6c01a804e9cfe8fb9879979c27bbd5f1"
 # generates completions using host binary
 options = ["!cross"]
 
+if self.profile().arch == "loongarch64":
+    broken = "busted rustix"
+
 
 def post_build(self):
     self.do(
