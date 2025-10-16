@@ -2,6 +2,7 @@ pkgname = "libmicrohttpd"
 pkgver = "1.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = ["--disable-doc"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["gnutls-devel", "linux-headers"]
 checkdepends = ["curl-devel"]
