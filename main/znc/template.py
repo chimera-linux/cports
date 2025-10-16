@@ -29,7 +29,7 @@ makedepends = [
 pkgdesc = "IRC bouncer with module support"
 license = "Apache-2.0"
 url = "https://znc.in"
-source = f"{url}/releases/znc-{pkgver}.tar.gz"
+source = f"{url}/releases/archive/znc-{pkgver}.tar.gz"
 sha256 = "e8a7cf80e19aad510b4e282eaf61b56bc30df88ea2e0f64fadcdd303c4894f3c"
 
 
