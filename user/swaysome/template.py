@@ -1,5 +1,5 @@
 pkgname = "swaysome"
-pkgver = "2.1.2"
+pkgver = "2.3.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Workspace namespace navigation"
 license = "MIT"
 url = "https://gitlab.com/hyask/swaysome"
 source = f"{url}/-/archive/{pkgver}/swaysome-{pkgver}.tar.gz"
-sha256 = "162e6118be952fe66eac070e57a25f68f8ffe274cdd6cab7bfe64de36d33b409"
+sha256 = "fb3c23bb1a07e9b4f1c6510287086228f0e0aaee4e63690b0b197725a24a4891"
 # no tests defined
 options = ["!check"]
 
