@@ -11,6 +11,9 @@ url = "https://github.com/bensadeh/tailspin"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "e9d7cefb865585bb048a2ccbfcc1f900ae344134d71132a7c48ee0d5af09cdaf"
 
+if self.profile().arch == "loongarch64":
+    broken = "busted rustix"
+
 
 def post_install(self):
     self.install_license("LICENCE")
