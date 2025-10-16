@@ -1,8 +1,6 @@
 pkgname = "wasmtime"
-pkgver = "31.0.0"
+pkgver = "37.0.2"
 pkgrel = 0
-# no implementation for other architectures
-archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
 make_check_args = [
     "--",
@@ -24,9 +22,7 @@ pkgdesc = "Runtime for webassembly"
 license = "Apache-2.0"
 url = "https://wasmtime.dev"
 source = f"https://github.com/bytecodealliance/wasmtime/releases/download/v{pkgver}/wasmtime-v{pkgver}-src.tar.gz"
-sha256 = "7f58f9a5b398ed6d8ef3682e60729320e2cc671da387e8f97de8dc021e154a64"
-# wast tests take like an hour
-options = ["!check"]
+sha256 = "df4b9b77cc607728b20fac730531c8dbe2039989f8e2654dce901228c51d65b1"
 
 
 def post_extract(self):
