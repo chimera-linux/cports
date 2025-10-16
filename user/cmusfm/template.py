@@ -1,0 +1,11 @@
+pkgname = "cmusfm"
+pkgver = "0.5.0"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["autoconf", "automake", "pkgconf"]
+makedepends = ["cmus", "curl-devel"]
+pkgdesc = "Last.fm standalone scrobbler for the cmus music player"
+license = "GPL-3.0-or-later"
+url = "https://github.com/arkq/cmusfm"
+source = f"{url}/archive/v{pkgver}.tar.gz"
+sha256 = "17aae8fc805e79b367053ad170854edceee5f4c51a9880200d193db9862d8363"
