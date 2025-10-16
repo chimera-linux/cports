@@ -1,0 +1,14 @@
+prevents an integer ubsan trap when max_y equals LONG_MIN
+
+diff -ruN a/src/autofit/aflatin.c b/src/autofit/aflatin.c
+--- a/src/autofit/aflatin.c	2025-09-08 04:48:18.000000000 +0200
++++ b/src/autofit/aflatin.c	2025-10-16 08:00:37.246981724 +0200
+@@ -3705,7 +3705,7 @@
+         /* We also check that the y minimum of the 'other' contour */
+         /* is below the high contour to avoid potential false hits */
+         /* with contours enclosed in the high one.                 */
+-        distance = high_min_y - max_y;
++        distance = (max_y == FT_LONG_MIN ? FT_LONG_MAX : high_min_y - max_y);
+         if ( distance < 64           &&
+              distance < min_distance &&
+              min_y < high_min_y      )
