@@ -31,6 +31,8 @@ sha256 = "a1bc03ff6b1788283a38808745098d551f0d86b87a2fffabc61ceaaa17cfa93d"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
+elif self.profile().arch == "loongarch64":
+    broken = "busted rustix"
 
 
 def install(self):
