@@ -13,7 +13,7 @@ makedepends = [
     "libidn2-devel",
     "libsecret-devel",
 ]
-checkdepends = ["bash"]
+checkdepends = ["bash", "texinfo"]
 pkgdesc = "SMTP client"
 license = "GPL-3.0-or-later"
 url = "https://marlam.de/msmtp"
