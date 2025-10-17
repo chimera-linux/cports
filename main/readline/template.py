@@ -5,7 +5,7 @@ pkgname = "readline"
 # use a git revision so we don't have to deal with the stupid patches
 _gitrev = "15970c431517a046099d8294c91d778b1da9b29d"
 pkgver = "8.3.001"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
