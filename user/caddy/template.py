@@ -16,7 +16,7 @@ url = "https://caddyserver.com"
 source = f"https://github.com/caddyserver/caddy/archive/v{pkgver}.tar.gz"
 sha256 = "f63f46b7ae68ced0a5c2e31df1b6dfc7656117d162a1bc7fed4bd4afd14ddc8f"
 # generates completions with host binary
-options = ["!check"]
+options = ["!cross"]
 
 
 def post_build(self):
