@@ -25,6 +25,8 @@ options = ["!check", "!cross"]
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
+elif self.profile().arch == "loongarch64":
+    broken = "busted rustix"
 
 
 def prepare(self):
