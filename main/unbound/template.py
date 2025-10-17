@@ -1,5 +1,5 @@
 pkgname = "unbound"
-pkgver = "1.23.1"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -24,9 +24,9 @@ configure_args = [
 make_dir = "."  # fails to build otherwise
 hostmakedepends = [
     "automake",
+    "libtool",
     "pkgconf",
     "protobuf-c-devel",
-    "slibtool",
 ]
 makedepends = [
     "hiredis-devel",
@@ -42,7 +42,7 @@ pkgdesc = "Validating, recursive, and caching DNS resolver"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "6a6b117c799d8de3868643397e0fd71591f6d42f4473f598bdb22609ff362590"
+sha256 = "147b22983cc7008aa21007e251b3845bfcf899ffd2d3b269253ebf2e27465086"
 skip_dependencies = ["usr/lib/dinit.d/*"]
 
 
