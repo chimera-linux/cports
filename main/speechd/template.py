@@ -26,6 +26,7 @@ makedepends = [
     "libpulse-devel",
     "libsndfile-devel",
 ]
+checkdepends = ["texinfo"]
 depends = ["python-pyxdg"]
 install_if = [self.with_pkgver("speechd-meta")]
 pkgdesc = "High level interface to speech synthesis"
