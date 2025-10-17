@@ -1,6 +1,7 @@
 type = process
 command = /usr/lib/iwd
-before = network.target
-depends-on = pre-network.target
-depends-on = dbus
 logfile = /var/log/iwd.log
+before: network.target
+depends-on: local.target
+depends-on: pre-network.target
+depends-on: dbus
