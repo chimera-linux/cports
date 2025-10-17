@@ -16,6 +16,7 @@ makedepends = [
     "linux-headers",
     "pixman-devel",
     "tllist",
+    "turnstile",
     "wayland-devel",
     "wayland-protocols",
 ]
