@@ -18,8 +18,8 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "gtk-doc-tools",
+    "libtool",
     "pkgconf",
-    "slibtool",
     "trousers-devel",
 ]
 makedepends = [
@@ -37,6 +37,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+checkdepends = ["texinfo"]
 # dlopened
 depends = ["trousers-libs"]
 pkgdesc = "GNU Transport Layer Security library"

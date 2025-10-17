@@ -16,6 +16,9 @@ sha256 = "cd093a71d383988252428ebc08ee83f9db204e95074138264f9c8bd5fa06369a"
 # TODO
 options = ["!check"]
 
+if self.profile().arch == "loongarch64":
+    broken = "busted rustix"
+
 
 def post_install(self):
     self.install_license("LICENSE-MIT")

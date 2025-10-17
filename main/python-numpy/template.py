@@ -36,29 +36,11 @@ if self.profile().arch in ["aarch64", "loongarch64", "riscv64"]:
     ]
 
 
-# this is identical to the default check, we just have to change cwd
 def check(self):
-    whl = list(
-        map(
-            lambda p: str(p.relative_to(self.cwd)),
-            self.cwd.glob("dist/*.whl"),
-        )
-    )
+    from cbuild.util import python
 
-    self.rm(".cbuild-checkenv", recursive=True, force=True)
-    self.do(
-        "python3",
-        "-m",
-        "venv",
-        "--without-pip",
-        "--system-site-packages",
-        "--clear",
-        ".cbuild-checkenv",
-    )
+    envpy = python.setup_wheel_venv(self, ".cbuild-checkenv")
 
-    envpy = self.chroot_cwd / ".cbuild-checkenv/bin/python3"
-
-    self.do(envpy, "-m", "installer", *whl)
     self.do(
         envpy,
         "-m",

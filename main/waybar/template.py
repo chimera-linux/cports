@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -50,6 +50,7 @@ makedepends = [
     "pipewire-devel",
     "playerctl-devel",
     "spdlog-devel",
+    "turnstile",
     "udev-devel",
     "upower-devel",
     "wayland-devel",

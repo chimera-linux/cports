@@ -10,6 +10,7 @@ hostmakedepends = [
 makedepends = [
     "dinit-chimera",
     "libscfg-devel",
+    "turnstile",
     "varlink-devel",
     "wayland-devel",
 ]

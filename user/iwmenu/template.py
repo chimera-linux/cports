@@ -9,7 +9,7 @@ pkgdesc = "Menu-driven Wi-Fi management interface"
 license = "GPL-3.0-or-later"
 url = "https://github.com/e-tho/iwmenu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7be3ce6c2cddd3bc5fef7a0ca935fba0490b8e621e2e8188b4e88a85af1c8351"
+sha256 = "bc178eb9bdb63b4221a539fc8a2b3710528623f3b4ba87c54b21f0bf6132ba0e"
 # no tests defined
 options = ["!check"]
 

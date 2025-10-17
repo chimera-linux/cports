@@ -1,0 +1,11 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,7 @@
+ 
+ [build-system]
+ requires = [
+-    "setuptools == 78.1.1",
++    "setuptools",
+     "wheel",
+ ]
+ build-backend = "setuptools.build_meta"
