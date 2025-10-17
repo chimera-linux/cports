@@ -14,6 +14,7 @@ makedepends = [
     "dinit-chimera",
     "mesa-devel",
     "rust-std",
+    "turnstile",
     "wayland-devel",
 ]
 pkgdesc = "Wallpaper daemon for Wayland"
