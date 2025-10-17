@@ -10,6 +10,7 @@ makedepends = [
     "dbus-devel",
     "dinit-chimera",
     "linux-headers",
+    "turnstile",
     "udev-devel",
     "v4l-utils-devel",
     "vulkan-loader-devel",
