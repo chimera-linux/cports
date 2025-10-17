@@ -21,6 +21,7 @@ makedepends = [
     "libxscrnsaver-devel",
     "linux-headers",
     "pango-devel",
+    "turnstile",
     "wayland-devel",
     "wayland-protocols",
 ]
