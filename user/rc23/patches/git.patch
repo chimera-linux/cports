@@ -1,0 +1,19 @@
+diff --git a/Makefile b/Makefile
+index a81197c..8c79fca 100644
+--- a/Makefile
++++ b/Makefile
+@@ -69,12 +69,10 @@ config.h: config.def.h detect.sh
+ 	cp config.def.h $@
+ 	sh detect.sh >> $@
+ 
+-version.h: VERSION .git/index
++version.h: VERSION
+ 	@echo "GEN $@"
+ 	printf '\043define VERSION "%s"\n' "`cat VERSION`" >$@
+-	printf '\043define DESCRIPTION "%s"\n' "$$(git describe --abbrev=10 --long --dirty --always || echo `cat VERSION`-release)" >>$@
+-
+-.git/index:
++	printf '\043define DESCRIPTION "%s"\n' "echo `cat VERSION`-release" >>$@
+ 
+ lex.o parse.o: parse.c
+ 
