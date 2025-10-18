@@ -1,0 +1,34 @@
+From 788488d765a69dc35c7dc10d3811540aa261e6ad Mon Sep 17 00:00:00 2001
+From: Guilhem Baccialone <guilhem.baccialone@zaclys.net>
+Date: Sun, 26 Jan 2025 23:14:33 +0100
+Subject: [PATCH 1/1] Change systemctl for dinit for Chimera Linux
+
+---
+ lact-gui/src/app.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lact-gui/src/app.rs b/lact-gui/src/app.rs
+index 6d3428e..9b38dba 100644
+--- a/lact-gui/src/app.rs
++++ b/lact-gui/src/app.rs
+@@ -172,7 +172,7 @@ impl AsyncComponent for AppModel {
+             .expect("Could not list devices");
+ 
+         if system_info.version != GUI_VERSION || system_info.commit.as_deref() != Some(GIT_COMMIT) {
+-            let err = anyhow!("Version mismatch between GUI and daemon ({GUI_VERSION}-{GIT_COMMIT} vs {}-{})! If you have updated LACT, you need to restart the service with `sudo systemctl restart lactd`.", system_info.version, system_info.commit.as_deref().unwrap_or_default());
++            let err = anyhow!("Version mismatch between GUI and daemon ({GUI_VERSION}-{GIT_COMMIT} vs {}-{})! If you have updated LACT, you need to restart the service with `doas dinitctl restart lactd`.", system_info.version, system_info.commit.as_deref().unwrap_or_default());
+             sender.input(AppMsg::Error(err.into()));
+         }
+ 
+@@ -887,7 +887,7 @@ fn show_embedded_info(parent: &ApplicationWindow, err: anyhow::Error) {
+ 
+     let text_label = gtk::Label::new(Some(&text));
+     let enable_label = gtk::Entry::builder()
+-        .text("sudo systemctl enable --now lactd")
++        .text("doas dinitctl enable lactd")
+         .editable(false)
+         .build();
+ 
+-- 
+2.48.1
+
