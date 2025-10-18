@@ -1,18 +1,17 @@
 pkgname = "fish-shell"
-pkgver = "4.0.8"
+pkgver = "4.1.2"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 make_check_target = "fish_run_tests"
-hostmakedepends = ["cargo-auditable", "cmake", "ninja", "pkgconf", "gettext"]
+hostmakedepends = ["cargo-auditable", "cmake", "gettext", "ninja", "pkgconf"]
 makedepends = ["pcre2-devel", "rust-std"]
-checkdepends = ["python", "procps"]
+checkdepends = ["procps", "python", "python-pexpect"]
 pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "7f779d13aa55d2fa3afc17364c61ab9edc16faa1eac5851badeffb4e73692240"
-# FIXME lintpixmaps
-options = ["!lintpixmaps"]
+sha256 = "52873934fc1ee21a1496e9f4521409013e540f77cbf29142a1b17ab93ffaafac"
 
 
 def prepare(self):
@@ -29,4 +28,7 @@ def init_build(self):
 
 
 def post_install(self):
+    for fishbin in ["fish_indent", "fish_key_reader"]:
+        self.uninstall(f"usr/bin/{fishbin}")
+        self.install_link(f"usr/bin/{fishbin}", "fish")
     self.install_shell("/usr/bin/fish")
