@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20250410"
+pkgver = "20251011"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -9,7 +9,7 @@ url = "https://www.kernel.org"
 # stuck and eventually generates 502
 # source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
-sha256 = "ab9e5db4e0538bf25bed5cf4ae5e082949003ce48c1e896a2ed69bfb40c46284"
+sha256 = "96d11031a0dac837fd05ac711d5515ce35e18851b79fc61f0fce4de35553915e"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -53,6 +53,7 @@ _pkgs = [
     ("ath12k", "ath12k WLAN", None, "network", ["ath12k"]),
     ("atwilc", "Atmel WILC WLAN", None, "network", ["atmel"]),
     ("atusb", "ATUSB IEEE 802.15.4 transceiver", None, "network", ["atusb"]),
+    ("bmi260", "BMI260 Inertial Measurement Unit", None, "misc", ["bmi260*"]),
     ("bnx2", "BNX2 1Gb Ethernet", None, "network", ["bnx2"]),
     ("bnx2x", "BNX2 10Gb Ethernet", None, "network", ["bnx2x"]),
     ("brcm", "Broadcom WLAN/Bluetooth", None, "network", ["brcm", "cypress"]),
@@ -160,11 +161,18 @@ _pkgs = [
         ["intel/ipu/ipu6*.bin*"],
     ),
     (
+        "intel-ipu7",
+        "Intel IPU7",
+        _arch_x86,
+        "misc",
+        ["intel/ipu/ipu7*.bin*"],
+    ),
+    (
         "intel-ish",
         "Intel Integrated Sensor Hub",
         _arch_x86,
         "misc",
-        ["intel/ish"],
+        ["HP/ish", "LENOVO/ish", "dell/ish", "intel/ish"],
     ),
     (
         "intel-ivsc",
@@ -188,7 +196,7 @@ _pkgs = [
         ["inside-secure"],
     ),
     ("isci", "Intel C600 SAS controller", _arch_x86, "storage", ["isci"]),
-    ("iwlwifi", "Intel WLAN", None, "network", ["iwlwifi*"]),
+    ("iwlwifi", "Intel WLAN", None, "network", ["intel/iwlwifi", "iwlwifi*"]),
     ("ixp4xx", "IXP4xx", None, "network", ["ixp4xx"]),
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
@@ -276,10 +284,22 @@ _pkgs = [
             "nxp/uartuart*",
         ],
     ),
-    ("nvidia-gsp", "Nvidia GSP", None, "gpu", ["nvidia/*/gsp"]),
+    (
+        "nvidia-gsp",
+        "Nvidia GSP",
+        None,
+        "gpu",
+        ["nvidia/*/gsp"],
+    ),
     ("nvidia", "Nvidia GPUs", None, "gpu", ["nvidia"]),
     ("powervr", "PowerVR GPUs", None, "gpu", ["powervr"]),
-    ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
+    (
+        "qat",
+        "Intel QuickAssist Technology",
+        _arch_x86,
+        "misc",
+        ["intel/qat", "qat*"],
+    ),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
     ("qcom", "Qualcomm SoCs", _arch_arm64, "soc", ["a300_*.fw*", "qcom"]),
     (
@@ -382,6 +402,7 @@ _pkgs = [
     ),
     ("vxge", "Exar X3100 10Gb Ethernet", None, "network", ["vxge"]),
     ("wave521c", "WAVE521C encoder IP", None, "misc", ["cnm/wave521c*"]),
+    ("wave633c", "WAVE633C codec IP", None, "misc", ["cnm/wave633c*"]),
     ("whiteheat", "WhiteHEAT USB-Serial", None, "misc", ["whiteheat*"]),
     ("wil6210", "Qualcomm wil6210 60GHz WLAN", None, "network", ["wil6210*"]),
     ("wfx", "Silicon Laboratories WFx WLAN", None, "network", ["wfx"]),
@@ -441,6 +462,26 @@ def post_install(self):
     self.uninstall("usr/lib/firmware/usbduxfast_firmware.bin*", glob=True)
     self.uninstall("usr/lib/firmware/usbduxsigma_firmware.bin*", glob=True)
     self.uninstall("usr/lib/firmware/yam")
+
+    # fix up nvidia gsp firmware links to allow take() to function correctly
+    def _fixup_gsp(f):
+        # base path
+        if not f.is_symlink():
+            return
+        # read what it should be pointing to
+        bp = f.readlink()
+        # remove the symlink and replace it with a directory
+        f.unlink()
+        f.mkdir(mode=0o755)
+        # make the gsp symlink inside, using the base path
+        (f / "gsp").symlink_to(f"../{bp}/gsp")
+
+    # now do the fixups for relevant firmware, only stuff that *only* has
+    # gsp has toplevel links that we want to replace to avoid confusing apk
+    for f in (self.destdir / "usr/lib/firmware/nvidia").glob("ad*"):
+        _fixup_gsp(f)
+    for f in (self.destdir / "usr/lib/firmware/nvidia").glob("gb*"):
+        _fixup_gsp(f)
 
 
 @subpackage("firmware-linux-audio")
