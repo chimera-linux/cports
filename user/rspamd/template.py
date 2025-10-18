@@ -1,6 +1,6 @@
 pkgname = "rspamd"
-pkgver = "3.11.1"
-pkgrel = 4
+pkgver = "3.13.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
@@ -8,10 +8,10 @@ configure_args = [
     "-DENABLE_URI_INCLUDE=ON",
     "-DRSPAMD_GROUP=_rspamd",
     "-DRSPAMD_USER=_rspamd",
-    "-DSYSTEM_FMT=ON",
     "-DSYSTEM_XXHASH=ON",
     "-DSYSTEM_ZSTD=ON",
     "-D_CAN_RUN=0",
+    "-DHAVE_BUILTIN_CPU_SUPPORTS_EXITCODE=0",
     "-DHAVE_ATOMIC_BUILTINS_EXITCODE=0",
 ]
 make_build_args = ["--target", "all", "check"]
@@ -41,7 +41,7 @@ pkgdesc = "Spam filtering system"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "09c3b90397142539052c826763de4ed8c502976843b5ea9d7ebdc603e23d253b"
+sha256 = "6d71b689fc31747b1851993ff1a933a3225129dd4a6898e17651dea03a0574e7"
 
 
 match self.profile().arch:
@@ -51,6 +51,15 @@ match self.profile().arch:
     case _:
         configure_args += ["-DENABLE_LUAJIT=OFF"]
         makedepends += ["lua5.4-devel"]
+
+
+def post_patch(self):
+    self.rm("contrib/hiredis", recursive=True)
+    self.rm("contrib/fmt", recursive=True)
+    self.mkdir("contrib/fmt/include", parents=True)
+    self.ln_s(
+        self.profile().sysroot / "usr/include/fmt", "contrib/fmt/include/fmt"
+    )
 
 
 def post_install(self):
