@@ -53,6 +53,7 @@ makedepends = [
     "pipewire-jack-devel",
     "python-devel",
     "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtsvg-devel",
     "rnnoise-devel",
     "speexdsp-devel",
