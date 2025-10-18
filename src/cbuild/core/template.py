@@ -408,8 +408,6 @@ core_fields = [
     ("archs", None, list, False, False, False),
     # build directory and patches
     ("build_wrksrc", "", str, False, False, False),
-    ("patch_style", None, str, False, False, False),
-    ("patch_args", [], list, False, False, False),
     ("prepare_after_patch", False, bool, False, False, False),
     # dependency lists
     ("checkdepends", [], list, False, False, False),
@@ -538,8 +536,6 @@ core_fields_priority = [
     ("source_paths", True),
     ("sha256", True),
     ("debug_level", True),
-    ("patch_style", True),
-    ("patch_args", True),
     ("tools", True),
     ("tool_flags", True),
     ("env", True),

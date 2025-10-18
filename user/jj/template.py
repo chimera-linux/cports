@@ -19,7 +19,7 @@ def post_prepare(self):
     from cbuild.util import cargo, patch
 
     # done separately because we need to patch lockfile before vendoring :/
-    patch.patch_git(self, [self.files_path / "bser.patch"])
+    patch.patch(self, [self.files_path / "bser.patch"])
 
     cargo.clear_vendor_checksums(self, "serde_bser")
 

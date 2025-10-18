@@ -272,7 +272,6 @@ The system must contain an initial toolchain. It consists of these:
 * `clang` with `lld`, `libc++`, `compiler-rt` and LLVM `libunwind`
 * `cmake`
 * `meson`
-* `patch`
 * `pkg-config` (`pkgconf` or the regular one)
 * GNU `make` (called `make`)
 * `ninja`
