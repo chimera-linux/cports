@@ -44,7 +44,7 @@ def post_build(self):
 
 def post_install(self):
     # uninstall the scuffed thing first
-    self.uninstall("usr/lib/python*/site-packages/*.egg", glob=True)
+    self.uninstall("usr/lib/python*/site-packages", glob=True)
     whl = (list((self.cwd / "lang/python/dist").glob("*.whl"))[0]).relative_to(
         self.cwd
     )
