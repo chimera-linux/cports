@@ -1,6 +1,6 @@
 pkgname = "systeroid"
-pkgver = "0.4.5"
-pkgrel = 1
+pkgver = "0.4.6"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
@@ -10,7 +10,7 @@ url = "https://systeroid.cli.rs"
 source = (
     f"https://github.com/orhun/systeroid/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "ed8bea7d111de32d0885fd36664bed8a4acb77775a0cc0034d29b5aa5db255e1"
+sha256 = "756b341dc86553ce8df583d55e6d01517bf52721a556713a4fb6056c0f823f3b"
 # needs kernel docs to exist
 options = ["!check"]
 
