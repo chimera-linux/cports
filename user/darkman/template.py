@@ -1,6 +1,6 @@
 pkgname = "darkman"
-pkgver = "2.0.1"
-pkgrel = 1
+pkgver = "2.1.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.Version=v{pkgver}",
@@ -15,7 +15,7 @@ pkgdesc = "Control dark-mode and light-mode transitions"
 license = "ISC"
 url = "https://gitlab.com/WhyNotHugo/darkman"
 source = f"{url}/-/archive/v{pkgver}/darkman-v{pkgver}.tar.gz"
-sha256 = "4d87ee5dcefcd237be43d2b3d27bea658d23ebe14b5b5951bc67942f1ec839e5"
+sha256 = "2007ed5600fb9a484b99876bb1f7c1ae6f93e711c9f5359536a0efa6b6321cd7"
 # builds completions with generated binary
 options = ["!cross"]
 
