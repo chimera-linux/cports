@@ -1,5 +1,5 @@
 pkgname = "alacritty"
-pkgver = "0.15.1"
+pkgver = "0.16.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Cross-platform, GPU-accelerated terminal emulator"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/alacritty/alacritty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b814e30c6271ae23158c66e0e2377c3600bb24041fa382a36e81be564eeb2e36"
+sha256 = "7baaf26acd80f6b7ceceb2c984b0d43b4089af2d12db3cbaa60ad1243d712e72"
 
 
 def install(self):
