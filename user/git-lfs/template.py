@@ -1,6 +1,6 @@
 pkgname = "git-lfs"
-pkgver = "3.6.1"
-pkgrel = 8
+pkgver = "3.7.1"
+pkgrel = 0
 build_style = "go"
 make_dir = "bin"  # needed for tests
 make_build_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Git extension for versioning large files"
 license = "MIT"
 url = "https://git-lfs.com"
 source = f"https://github.com/git-lfs/git-lfs/releases/download/v{pkgver}/git-lfs-v{pkgver}.tar.gz"
-sha256 = "1417b7ee9a8fba8d649a89f070fdcde8b2593ca2caa74e3e808d2bb35d5ca5f7"
+sha256 = "8f56058622edfea1d111e50e9844ef2f5ce670b2dbe4d55d48e765c943af4351"
 # a test fails after go bump
 options = ["!check"]
 
