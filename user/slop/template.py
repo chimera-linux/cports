@@ -1,6 +1,6 @@
 pkgname = "slop"
-pkgver = "7.6"
-pkgrel = 2
+pkgver = "7.7"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -18,7 +18,7 @@ pkgdesc = "Select region of X11 display"
 license = "GPL-3.0-or-later"
 url = "https://github.com/naelstrof/slop"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ec45f9a69d7a24df621f5c634d202451ddca987d550cf588c5c427b99106fb6b"
+sha256 = "a69a6e5c41d7fff1c6aa35b367a5c5a6dc98e621fa9a1908808d6308c2b40f4e"
 
 
 @subpackage("slop-devel")
