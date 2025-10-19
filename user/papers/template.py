@@ -1,5 +1,5 @@
 pkgname = "papers"
-pkgver = "49.0"
+pkgver = "49.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,9 +36,9 @@ makedepends = [
 ]
 pkgdesc = "GNOME document viewer"
 license = "GPL-2.0-or-later"
-url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
+url = "https://gitlab.gnome.org/GNOME/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "6cb48dca9d938620ed9e0b5af1f3c7f95820fee997f63ba38674edd62e7091ea"
+sha256 = "13c60125f8d58ac0e4f0a7bd391fd41193ab6bcd1055b0f6827fc8eb21b1753e"
 # needs thumbnailer copied etc, whatever don't care
 options = ["!check"]
 
