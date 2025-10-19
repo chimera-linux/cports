@@ -71,6 +71,7 @@ sha256 = [
     "1c6a531abf106d5f4b6d9179fc802f93cb8ab62630cc07e73d64688780125869",
     "f69525e46856f65ecf207af85ca7250c7cd472af7b545614cc969a49212adb00",
 ]
+tool_flags = {"CXXFLAGS": [], "CFLAGS": []}
 # crashes
 hardening = ["!int"]
 
@@ -78,6 +79,12 @@ if self.profile().endian == "big":
     broken = "broken at protocol level"
 elif self.profile().arch == "riscv64":
     broken = "compiler segfault"
+
+# relocation R_LARCH_B26 out of range
+if self.profile().arch == "loongarch64":
+    broken = "can't link due to Scrt1/crtbegin/crtend"
+    tool_flags["CXXFLAGS"] += ["-mcmodel=medium"]
+    tool_flags["CFLAGS"] += ["-mcmodel=medium"]
 
 
 def pre_configure(self):
