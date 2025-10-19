@@ -1,8 +1,7 @@
 pkgname = "lsd"
-pkgver = "1.1.5"
-pkgrel = 3
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std"]
 checkdepends = ["git"]
@@ -10,7 +9,7 @@ pkgdesc = "Alternative to ls command"
 license = "Apache-2.0"
 url = "https://github.com/lsd-rs/lsd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "120935c7e98f9b64488fde39987154a6a5b2236cb65ae847917012adf5e122d1"
+sha256 = "dae8d43087686a4a1de0584922608e9cbab00727d0f72e4aa487860a9cbfeefa"
 
 
 def pre_prepare(self):
