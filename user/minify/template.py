@@ -1,5 +1,5 @@
 pkgname = "minify"
-pkgver = "2.24.3"
+pkgver = "2.24.4"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/minify"]
@@ -8,7 +8,7 @@ pkgdesc = "Minifier for web formats"
 license = "MIT"
 url = "https://github.com/tdewolff/minify"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "27cac242fa5efc35079d09ec7fe00cff4e61678b9a433653db09b97fdaaec1e6"
+sha256 = "0e5d728bbbe594389598d35c351c787619dc47fd23a01268e38b5d75c1a1c721"
 
 
 def post_install(self):
