@@ -1,5 +1,5 @@
 pkgname = "python-kiwisolver"
-pkgver = "1.4.8"
+pkgver = "1.4.9"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Cassowary constraint solver"
 license = "BSD-3-Clause"
 url = "https://kiwisolver.readthedocs.io"
 source = f"https://github.com/nucleic/kiwi/releases/download/{pkgver}/kiwisolver-{pkgver}.tar.gz"
-sha256 = "23d5f023bdc8c7e54eb65f03ca5d5bb25b601eac4d7f1a042888a1f45237987e"
+sha256 = "c3b22c26c6fd6811b0ae8363b95ca8ce4ea3c202d3d0975b2914310ceb1bcc4d"
 
 
 def post_install(self):
