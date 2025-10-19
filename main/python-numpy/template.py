@@ -10,7 +10,7 @@ hostmakedepends = [
     "python-installer",
     "python-meson",
 ]
-makedepends = ["python-devel", "openblas-devel"]
+makedepends = ["linux-headers", "python-devel", "openblas-devel"]
 depends = ["python"]
 checkdepends = [
     "python-hypothesis",
