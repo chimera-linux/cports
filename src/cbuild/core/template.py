@@ -1317,7 +1317,13 @@ class Template(Package):
         )
 
         def _gitlog(fmt, tgt, pkg):
-            bargs = ["git", "log", "-n1", f"--format={fmt}"]
+            bargs = [
+                "git",
+                "log",
+                "-n1",
+                f"--format={fmt}",
+                "--no-show-signature",
+            ]
             if pkg:
                 bargs += ["--", tgt]
             else:
