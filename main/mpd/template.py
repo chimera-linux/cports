@@ -137,6 +137,7 @@ makedepends = [
     "pipewire-jack-devel",
     "soxr-devel",
     "sqlite-devel",
+    "turnstile",
     "twolame-devel",
     "udisks-devel",
     "wavpack-devel",
