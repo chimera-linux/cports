@@ -1,6 +1,6 @@
 pkgname = "python-precis-i18n"
-pkgver = "1.1.1"
-pkgrel = 1
+pkgver = "1.1.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "Internationalized usernames and passwords"
 license = "MIT"
 url = "https://github.com/byllyfish/precis_i18n"
 source = f"$(PYPI_SITE)/p/precis_i18n/precis_i18n-{pkgver}.tar.gz"
-sha256 = "369fe3bcc29ea56ce0b5603e26165d0aabd885168512d92fc08e4f60d716bb31"
+sha256 = "78ef37bff7a8f8374aa65040aac1cedcd60bf97bf4a8113ee713cf72300517b9"
 
 
 def post_install(self):
