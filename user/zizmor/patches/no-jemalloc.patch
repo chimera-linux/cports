@@ -1,0 +1,86 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 9cbf539..790ea9a 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -2636,26 +2636,6 @@ dependencies = [
+  "once_cell",
+ ]
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "time"
+ version = "0.3.41"
+@@ -3818,7 +3798,6 @@ dependencies = [
+  "tar",
+  "terminal-link",
+  "thiserror 2.0.17",
+- "tikv-jemallocator",
+  "tokio",
+  "tower-lsp-server",
+  "tracing",
+diff --git a/Cargo.toml b/Cargo.toml
+index 6668002..7bafbfb 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -70,7 +70,6 @@ tree-sitter-powershell = "0.25.9"
+ yamlpath = { path = "crates/yamlpath", version = "0.25.0" }
+ yamlpatch = { path = "crates/yamlpatch", version = "0.3.0" }
+ tree-sitter-yaml = "0.7.1"
+-tikv-jemallocator = "0.6"
+ 
+ [workspace.lints.clippy]
+ dbg_macro = "warn"
+diff --git a/crates/zizmor/Cargo.toml b/crates/zizmor/Cargo.toml
+index 85125ce..8e69a4d 100644
+--- a/crates/zizmor/Cargo.toml
++++ b/crates/zizmor/Cargo.toml
+@@ -71,9 +71,6 @@ tree-sitter-powershell.workspace = true
+ yamlpath.workspace = true
+ yamlpatch.workspace = true
+ 
+-[target.'cfg(not(target_env = "msvc"))'.dependencies]
+-tikv-jemallocator.workspace = true
+-
+ [build-dependencies]
+ csv.workspace = true
+ fst.workspace = true
+diff --git a/crates/zizmor/src/main.rs b/crates/zizmor/src/main.rs
+index d4d7384..99b6b99 100644
+@@ -45,18 +45,6 @@ mod registry;
+ mod state;
+ mod utils;
+ 
+-#[cfg(all(
+-    not(target_env = "msvc"),
+-    any(
+-        target_arch = "x86_64",
+-        target_arch = "aarch64",
+-        // NOTE(ww): Not a build we currently support.
+-        // target_arch = "powerpc64"
+-    )
+-))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+-
+ // TODO: Dedupe this with the top-level `sponsors.json` used by the
+ // README + docs site.
+ const THANKS: &[(&str, &str)] = &[("Grafana Labs", "https://grafana.com")];
