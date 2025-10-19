@@ -1,5 +1,5 @@
 pkgname = "riff"
-pkgver = "3.4.1"
+pkgver = "3.5.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Diff filter highlighting which line parts have changed"
 license = "MIT"
 url = "https://github.com/walles/riff"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d209e5b5a68907382cc91061d2e0570789293214b402c1b344008760fe298302"
+sha256 = "6fa7491053abd5fdd1fd247596ea3bdde18309a52470b1c9a9eb6ed84ed8e1ad"
 # check may be disabled
 options = []
 
@@ -31,5 +31,6 @@ def pre_prepare(self):
     )
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/riff")
     self.install_license("LICENSE")
