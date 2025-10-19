@@ -1,57 +1,57 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 5ca69a0..0f0a13c 100644
+index 37912e1..35a5206 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -222,26 +222,6 @@ version = "1.0.11"
+@@ -401,7 +401,6 @@ dependencies = [
+  "serde_json",
+  "termcolor",
+  "textwrap",
+- "tikv-jemallocator",
+  "walkdir",
+ ]
+ 
+@@ -494,26 +493,6 @@ version = "0.16.2"
  source = "registry+https://github.com/rust-lang/crates.io-index"
- checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
+ checksum = "c13547615a44dc9c452a8a534638acdf07120d4b6847c8178705da06306a3057"
  
 -[[package]]
--name = "jemalloc-sys"
--version = "0.5.4+5.3.0-patched"
+-name = "tikv-jemalloc-sys"
+-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
 -source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "ac6c1946e1cea1788cbfde01c993b52a10e2da07f4bac608228d1bed20bfebf2"
+-checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
 -dependencies = [
 - "cc",
 - "libc",
 -]
 -
 -[[package]]
--name = "jemallocator"
--version = "0.5.4"
+-name = "tikv-jemallocator"
+-version = "0.6.0"
 -source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "a0de374a9f8e63150e6f5e8a60cc14c668226d7a347d8aee1a45766e3c4dd3bc"
+-checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
 -dependencies = [
-- "jemalloc-sys",
 - "libc",
+- "tikv-jemalloc-sys",
 -]
 -
  [[package]]
- name = "jobserver"
- version = "0.1.32"
-@@ -367,7 +347,6 @@ dependencies = [
-  "bstr",
-  "grep",
-  "ignore",
-- "jemallocator",
-  "lexopt",
-  "log",
-  "serde",
+ name = "unicode-ident"
+ version = "1.0.19"
 diff --git a/Cargo.toml b/Cargo.toml
-index 2ec69c9..1aa4881 100644
+index 4e0fe73..0980b52 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -59,8 +59,6 @@ serde_json = "1.0.23"
+@@ -60,8 +60,6 @@ serde_json = "1.0.23"
  termcolor = "1.1.0"
  textwrap = { version = "0.16.0", default-features = false }
  
--[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.jemallocator]
--version = "0.5.0"
+-[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
+-version = "0.6.0"
  
  [dev-dependencies]
  serde = "1.0.77"
 diff --git a/crates/core/main.rs b/crates/core/main.rs
-index 64f35ce..5d40eaf 100644
+index 46aac26..8450a12 100644
 --- a/crates/core/main.rs
 +++ b/crates/core/main.rs
 @@ -35,9 +35,6 @@ mod search;
@@ -60,7 +60,7 @@ index 64f35ce..5d40eaf 100644
  // i686.
 -#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
 -#[global_allocator]
--static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
+-static ALLOC: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
  
  /// Then, as it was, then again it will be.
  fn main() -> ExitCode {

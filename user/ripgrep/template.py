@@ -1,6 +1,6 @@
 pkgname = "ripgrep"
-pkgver = "14.1.1"
-pkgrel = 1
+pkgver = "15.0.0"
+pkgrel = 0
 build_style = "cargo"
 # we patch lockfile
 prepare_after_patch = True
@@ -17,8 +17,8 @@ source = [
 ]
 source_paths = [".", "docs-prebuilt"]
 sha256 = [
-    "4dad02a2f9c8c3c8d89434e47337aa654cb0e2aa50e806589132f186bf5c2b66",
-    "4cf9f2741e6c465ffdb7c26f38056a59e2a2544b51f7cc128ef28337eeae4d8e",
+    "e6b2d35ff79c3327edc0c92a29dc4bb74e82d8ee4b8156fb98e767678716be7a",
+    "253ad0fd5fef0d64cba56c70dccdacc1916d4ed70ad057cc525fcdb0c3bbd2a7",
 ]
 
 
