@@ -1,5 +1,5 @@
 pkgname = "python-urwid"
-pkgver = "3.0.2"
+pkgver = "3.0.3"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -34,4 +34,4 @@ pkgdesc = "Console UI library"
 license = "LGPL-2.1-or-later"
 url = "https://urwid.org"
 source = f"$(PYPI_SITE)/u/urwid/urwid-{pkgver}.tar.gz"
-sha256 = "e7cb70ba1e7ff45779a5a57e43c57581ee7de6ceefb56c432491a4a6ce81eb78"
+sha256 = "300804dd568cda5aa1c5b204227bd0cfe7a62cef2d00987c5eb2e4e64294ed9b"
