@@ -1,5 +1,5 @@
 pkgname = "stgit"
-pkgver = "2.5.3"
+pkgver = "2.5.4"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -19,7 +19,7 @@ url = "https://stacked-git.github.io"
 source = (
     f"https://github.com/stacked-git/stgit/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "f37bfdef0f5006c88240e4eab5b6d07a1327a52745a0028323bad5b68399eb10"
+sha256 = "cae61785a59e9e0ac85045e41eb8e0ccfd831d6f67d16941e53bcf4a856cec5f"
 # generates completions with host bin
 options = ["!cross"]
 
