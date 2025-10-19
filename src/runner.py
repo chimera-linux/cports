@@ -2175,8 +2175,6 @@ def _collect_status(inf):
 
 def _collect_blist(pkgs):
     import sys
-    import shutil
-    from cbuild.core import errors
 
     rpkgs = []
     for pkg in pkgs:
