@@ -1,5 +1,5 @@
 pkgname = "oils-for-unix"
-pkgver = "0.33.0"
+pkgver = "0.36.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Unix shell with structured data"
 license = "Apache-2.0"
 url = "https://oils.pub"
 source = f"{url}/download/oils-for-unix-{pkgver}.tar.gz"
-sha256 = "1b0a89031d1c4d4302c51e253d7fbcd1d8b0131fcbd713372391376760ae9386"
+sha256 = "9b65fc7333708dc1dc777e8a6145ae868eac6fbe0c444a8b12bb6d6d29652902"
 # check: no tests in tarball
 options = ["!check"]
 
