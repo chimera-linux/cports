@@ -1,5 +1,5 @@
 pkgname = "megatools"
-pkgver = "1.11.4.20250411"
+pkgver = "1.11.5.20250706"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,5 +22,5 @@ pkgdesc = "Command line client for mega.nz"
 license = "GPL-2.0-or-later"
 url = "https://megatools.megous.com"
 source = f"{url}/builds/megatools-{pkgver}.tar.gz"
-sha256 = "f404ea598c9c5a67a966a007421945dc212460d673fa66bea44544fd82f8e7c9"
+sha256 = "51f78a03748a64b1066ce28a2ca75d98dbef5f00fe9789dc894827f9a913b362"
 hardening = ["vis", "cfi"]
