@@ -1,10 +1,10 @@
 pkgname = "nushell"
 pkgver = "0.108.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
-    "--features=plugin,trash-support,sqlite,native-tls",
+    "--features=plugin,trash-support,sqlite,native-tls,network",
     "--workspace",
 ]
 make_check_args = [
