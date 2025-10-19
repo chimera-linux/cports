@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, errors
+from cbuild.core import logger, paths, errors, git
 
 import re
 import time
@@ -43,15 +43,11 @@ def keygen(size, eaddr, cfgfile, cfgpath):
 
     if not keypath or eaddr:
         if not eaddr:
-            eaddr = subprocess.run(
-                ["git", "config", "--get", "user.email"], capture_output=True
-            )
-            if eaddr.returncode == 0:
-                eaddr = eaddr.stdout.strip().decode()
+            eaddr = git.call(["config", "--get", "user.email"], gitconfig=True)
+            if eaddr is not None:
+                eaddr = eaddr.strip().decode()
                 if len(eaddr) == 0:
                     eaddr = None
-            else:
-                eaddr = None
         if not eaddr:
             keyn = getpass.getuser()
         else:

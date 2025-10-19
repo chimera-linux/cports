@@ -16,7 +16,7 @@ def fire():
         sys.exit("Git is required")
 
     # additionally cports must be a git repo
-    rcmd = ["git", "rev-parse", "--is-inside-work-tree"]
+    rcmd = ["env", "-u", "HOME", "git", "rev-parse", "--is-inside-work-tree"]
     if subprocess.run(rcmd, capture_output=True).returncode != 0:
         sys.exit("You have to run cbuild from a git clone")
 

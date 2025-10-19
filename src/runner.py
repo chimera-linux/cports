@@ -2093,8 +2093,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
 
 
 def _collect_git(expr):
-    from cbuild.core import errors
-    import subprocess
+    from cbuild.core import errors, git
     import pathlib
 
     oexpr = expr
@@ -2109,7 +2108,7 @@ def _collect_git(expr):
     if ".." not in expr:
         expr = f"{expr}^1..{expr}"
     # make up arguments
-    cmd = ["git", "rev-list"]
+    cmd = ["rev-list"]
     # add grep if requested
     if len(gexpr) > 0:
         nocase = gexpr.startswith("^")
@@ -2128,21 +2127,20 @@ def _collect_git(expr):
     # add commit pattern
     cmd.append(expr)
     # locate the commit list
-    subp = subprocess.run(cmd, capture_output=True)
-    if subp.returncode != 0:
+    revs = git.call(cmd)
+    if revs is None:
         raise errors.CbuildException(f"failed to resolve commits for '{oexpr}'")
     # collect changed templates
     tmpls = set()
-    for commit in subp.stdout.strip().split():
-        subp = subprocess.run(
-            ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", commit],
-            capture_output=True,
+    for commit in revs.strip().split():
+        dift = git.call(
+            ["diff-tree", "--no-commit-id", "--name-only", "-r", commit]
         )
-        if subp.returncode != 0:
+        if dift is None:
             raise errors.CbuildException(
                 f"failed to resolve files for '{commit.decode()}'"
             )
-        for fname in subp.stdout.strip().split(b"\n"):
+        for fname in dift.strip().split(b"\n"):
             fname = fname.decode()
             tn = fname.removesuffix("/template.py")
             if tn == fname or len(tn.split("/")) != 2:
@@ -2468,8 +2466,7 @@ class InteractiveCompleter:
 
 
 def do_commit(tgt):
-    from cbuild.core import errors, chroot, paths, template, logger
-    import subprocess
+    from cbuild.core import errors, chroot, paths, template, logger, git
     import tempfile
     import os
 
@@ -2487,8 +2484,8 @@ def do_commit(tgt):
             tmpls.append(cmd)
 
     # collect files known to git...
-    subp = subprocess.run(["git", "status", "--porcelain"], capture_output=True)
-    if subp.returncode != 0:
+    gits = git.call(["status", "--porcelain"])
+    if gits is None:
         raise errors.CbuildException("failed to resolve git changes")
 
     # mew mew
@@ -2498,7 +2495,7 @@ def do_commit(tgt):
 
     # track changes in a set so we know what we can pass to commit
     changes = set()
-    for ln in subp.stdout.splitlines():
+    for ln in gits.splitlines():
         ln = ln.strip().split(b" ", 1)
         if len(ln) != 2:
             continue
@@ -2553,13 +2550,11 @@ def do_commit(tgt):
         sname = template.sanitize_pkgname(tmp)
         # try getting the HEAD contents of it
         relh = str(sname.relative_to(paths.distdir()) / "template.py")
-        subp = subprocess.run(
-            ["git", "show", f"HEAD:{relh}"], capture_output=True
-        )
+        head = git.call(["show", f"HEAD:{relh}"])
         # try building a template object of the old state
-        if subp.returncode == 0:
+        if head is not None:
             try:
-                otmpl = build_tmpl(sname, subp.stdout.decode())
+                otmpl = build_tmpl(sname, head.decode())
             except Exception:
                 # differentiate failure to parse and non-existence
                 otmpl = None
@@ -2632,23 +2627,24 @@ def do_commit(tgt):
         # now fill in the rest, build list
         xl = sorted(tfiles)
         # make all the files known to git, but don't add them
-        subprocess.run(["git", "add", "-N", *xl], capture_output=True)
+        git.call(["add", "-N", *xl])
         # and run it
         with tempfile.NamedTemporaryFile("w", delete_on_close=False) as nf:
             nf.write(msg)
             nf.write("\n")
             nf.close()
             # allow-empty-message because git is silly and complains if you do not edit
-            subprocess.run(
+            git.call(
                 [
-                    "git",
                     "commit",
                     "--allow-empty-message",
                     "-t",
                     nf.name,
                     *copts,
                     *xl,
-                ]
+                ],
+                foreground=True,
+                gitconfig=True,
             )
 
 

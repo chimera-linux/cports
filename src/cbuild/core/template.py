@@ -15,12 +15,11 @@ import importlib
 import importlib.util
 import pathlib
 import contextlib
-import subprocess
 import builtins
 import tempfile
 import stat
 
-from cbuild.core import logger, chroot, paths, profile, spdx, errors
+from cbuild.core import logger, chroot, paths, profile, spdx, errors, git
 from cbuild.util import compiler, flock
 from cbuild.apk import cli, util as autil
 
@@ -1282,51 +1281,39 @@ class Template(Package):
         self.source_date_epoch = int(time.time())
 
         # skip for shallow clones
-        shal = subprocess.run(
-            ["git", "rev-parse", "--is-shallow-repository"],
-            capture_output=True,
-            cwd=self.template_path,
+        shal = git.call(
+            ["rev-parse", "--is-shallow-repository"], cwd=self.template_path
         )
-
-        if shal.returncode != 0:
+        if shal is None:
             # not a git repository? should never happen (it's checked early)
             return
 
-        if shal.stdout.strip() == b"true":
+        if shal.strip() == b"true":
             # shallow clone
             return
 
         # also skip for treeless checkouts
-        tless = subprocess.run(
-            ["git", "config", "remote.origin.promisor"],
-            capture_output=True,
+        tless = git.call(
+            ["config", "remote.origin.promisor"],
             cwd=self.template_path,
         )
-        if tless.stdout.strip() == b"true":
+        if tless is not None and tless.strip() == b"true":
             return
 
         # find whether the template dir has local modifications
-        dirty = (
-            len(
-                subprocess.run(
-                    ["git", "status", "-s", "--", self.template_path],
-                    capture_output=True,
-                ).stdout.strip()
-            )
-            != 0
-        )
+        dval = git.call(["status", "-s", "--", self.template_path])
+        dirty = dval is not None and len(dval.strip()) != 0
 
         def _gitlog(fmt, tgt, pkg):
-            bargs = ["git", "log", "-n1", f"--format={fmt}"]
+            bargs = ["log", "-n1", f"--format={fmt}"]
             if pkg:
                 bargs += ["--", tgt]
             else:
                 bargs.append(tgt)
-            return (
-                subprocess.run(bargs, capture_output=True)
-                .stdout.strip()
-                .decode("ascii")
-            )
+            logv = git.call(bargs)
+            if logv is None:
+                return ""
+            return logv.strip().decode("ascii")
 
         # find the last revision modifying the template
         grev = _gitlog("%H", self.template_path, True)
