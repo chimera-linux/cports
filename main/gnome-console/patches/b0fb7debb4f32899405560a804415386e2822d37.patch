@@ -1,0 +1,216 @@
+From b0fb7debb4f32899405560a804415386e2822d37 Mon Sep 17 00:00:00 2001
+From: Zander Brown <zbrown@gnome.org>
+Date: Sun, 5 Oct 2025 22:29:07 +0100
+Subject: [PATCH] settings: infinite is represented by -1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This was an unfortunate regression in 49 stemming from tests failing on
+32-bit, combined with unintended type mismatches in Vte.
+
+:scrollback-lines, which represents the ‘resolved’ value to be passed to
+Vte, is now `int` as opposed to `int64_t` (used previously to align with
+_set_scrollback_lines).
+
+:scrollback-limit however, which represents the stored user-preference,
+remains int64_t to remain compatible with the settings schema, but
+values above G_MAXINT (or below -1) will now be clamped to be in the
+range of -1 to G_MAXINT.
+
+Hopefully nobody was actually dependant on a fixed-length scrollback
+between G_MAXINT and G_MAXINT64 in length.
+
+Fix: https://gitlab.gnome.org/GNOME/console/-/issues/434
+---
+ src/kgx-settings.c    | 23 +++++++++-----
+ tests/test-settings.c | 74 +++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 76 insertions(+), 21 deletions(-)
+
+diff --git a/src/kgx-settings.c b/src/kgx-settings.c
+index 70963352..b7e88ad6 100644
+--- a/src/kgx-settings.c
++++ b/src/kgx-settings.c
+@@ -44,7 +44,7 @@ struct _KgxSettings {
+   KgxTheme              theme;
+   PangoFontDescription *font;
+   double                scale;
+-  int64_t               scrollback_lines;
++  int                   scrollback_lines;
+   gboolean              audible_bell;
+   gboolean              visual_bell;
+   gboolean              use_system_font;
+@@ -144,7 +144,14 @@ kgx_settings_set_property (GObject      *object,
+       update_scale (self, g_value_get_double (value));
+       break;
+     case PROP_SCROLLBACK_LINES:
+-      kgx_set_int64_prop (object, pspec, &self->scrollback_lines, value);
++      {
++        int new_value = g_value_get_int (value);
++
++        if (new_value != self->scrollback_lines) {
++          self->scrollback_lines = new_value;
++          g_object_notify_by_pspec (object, pspec);
++        }
++      }
+       break;
+     case PROP_AUDIBLE_BELL:
+       kgx_set_boolean_prop (object,
+@@ -221,7 +228,7 @@ kgx_settings_get_property (GObject    *object,
+       g_value_set_boolean (value, self->scale > KGX_FONT_SCALE_MIN);
+       break;
+     case PROP_SCROLLBACK_LINES:
+-      g_value_set_int64 (value, self->scrollback_lines);
++      g_value_set_int (value, self->scrollback_lines);
+       break;
+     case PROP_AUDIBLE_BELL:
+       g_value_set_boolean (value, kgx_settings_get_audible_bell (self));
+@@ -255,12 +262,12 @@ kgx_settings_get_property (GObject    *object,
+ }
+ 
+ 
+-static int64_t
++static int
+ resolve_lines (GObject  *object,
+                gboolean  ignore_limit,
+                int64_t   limit)
+ {
+-  return ignore_limit ? 0 : limit;
++  return CLAMP (ignore_limit ? -1 : limit, -1, G_MAXINT);
+ }
+ 
+ 
+@@ -329,9 +336,9 @@ kgx_settings_class_init (KgxSettingsClass *klass)
+    * Bound to ‘scrollback-lines’ GSetting so changes persist
+    */
+   pspecs[PROP_SCROLLBACK_LINES] =
+-    g_param_spec_int64 ("scrollback-lines", NULL, NULL,
+-                        G_MININT64, G_MAXINT64, 512,
+-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
++    g_param_spec_int ("scrollback-lines", NULL, NULL,
++                      -1, G_MAXINT, 10000,
++                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+ 
+   pspecs[PROP_AUDIBLE_BELL] =
+     g_param_spec_boolean ("audible-bell", NULL, NULL,
+diff --git a/tests/test-settings.c b/tests/test-settings.c
+index 15bb9c37..48bec029 100644
+--- a/tests/test-settings.c
++++ b/tests/test-settings.c
+@@ -540,10 +540,11 @@ test_settings_livery (Fixture *fixture, gconstpointer unused)
+ 
+ 
+ static void
+-test_settings_scrollback (Fixture *fixture, gconstpointer unused)
++test_settings_scrollback_basic (Fixture *fixture, gconstpointer unused)
+ {
+   g_autoptr (KgxSettings) settings = g_object_new (KGX_TYPE_SETTINGS, NULL);
+-  int64_t lines;
++  int64_t limit;
++  int lines;
+ 
+   g_settings_set_boolean (fixture->settings, "ignore-scrollback-limit", FALSE);
+   g_settings_set_int64 (fixture->settings, "scrollback-lines", 10000);
+@@ -552,8 +553,8 @@ test_settings_scrollback (Fixture *fixture, gconstpointer unused)
+   g_object_get (settings, "scrollback-lines", &lines, NULL);
+   g_assert_cmpint (lines, ==, 10000);
+ 
+-  g_object_get (settings, "scrollback-limit", &lines, NULL);
+-  g_assert_cmpint (lines, ==, 10000);
++  g_object_get (settings, "scrollback-limit", &limit, NULL);
++  g_assert_cmpint (limit, ==, 10000);
+ 
+   /* When we change the limit */
+   kgx_expect_property_notify (settings, "scrollback-limit");
+@@ -576,24 +577,61 @@ test_settings_scrollback (Fixture *fixture, gconstpointer unused)
+   g_settings_set_boolean (fixture->settings, "ignore-scrollback-limit", TRUE);
+   kgx_assert_expected_notifies (settings);
+ 
+-  /* So the lines is now ‘0’ — infinate */
++  /* So the lines is now ‘-1’ — infinite */
+   g_object_get (settings, "scrollback-lines", &lines, NULL);
+-  g_assert_cmpint (lines, ==, 0);
++  g_assert_cmpint (lines, ==, -1);
+ 
+   /* But the stored limit should be unchanged */
+-  g_object_get (settings, "scrollback-limit", &lines, NULL);
+-  g_assert_cmpint (lines, ==, 20000);
++  g_object_get (settings, "scrollback-limit", &limit, NULL);
++  g_assert_cmpint (limit, ==, 20000);
+ 
+   /* Updating the limit with the limit disabled */
+   g_object_set (settings, "scrollback-limit", (int64_t) 5000, NULL);
+ 
+-  /* …the acutal lines value should remain 0 */
++  /* …the acutal lines value should remain -1 */
+   g_object_get (settings, "scrollback-lines", &lines, NULL);
+-  g_assert_cmpint (lines, ==, 0);
++  g_assert_cmpint (lines, ==, -1);
+ 
+   /* …even as we remember the new limit */
+-  g_object_get (settings, "scrollback-limit", &lines, NULL);
+-  g_assert_cmpint (lines, ==, 5000);
++  g_object_get (settings, "scrollback-limit", &limit, NULL);
++  g_assert_cmpint (limit, ==, 5000);
++}
++
++
++static struct resolve_lines_test {
++  gboolean ignore_limit;
++  int64_t limit;
++  int result;
++} resolve_lines_cases[] = {
++  { FALSE, 100000, 100000 },
++  { FALSE, G_MAXINT, G_MAXINT },
++  { FALSE, G_MAXINT + ((int64_t) 10), G_MAXINT },
++  { FALSE, G_MAXINT - ((int64_t) 10), G_MAXINT - 10 },
++  { FALSE, G_MININT + ((int64_t) 10), -1 },
++  { FALSE, G_MININT - ((int64_t) 10), -1 },
++  { TRUE, 100000, -1 },
++  { TRUE, G_MAXINT, -1 },
++  { TRUE, G_MAXINT + ((int64_t) 10), -1 },
++  { TRUE, G_MAXINT - ((int64_t) 10), -1 },
++  { TRUE, G_MININT + ((int64_t) 10), -1 },
++  { TRUE, G_MININT - ((int64_t) 10), -1 },
++};
++
++
++static void
++test_settings_scrollback_resolve (Fixture *fixture, gconstpointer user_data)
++{
++  g_autoptr (KgxSettings) settings = g_object_new (KGX_TYPE_SETTINGS, NULL);
++  const struct resolve_lines_test *test = user_data;
++  int lines;
++
++  g_settings_set_boolean (fixture->settings,
++                          "ignore-scrollback-limit",
++                          test->ignore_limit);
++  g_settings_set_int64 (fixture->settings, "scrollback-lines", test->limit);
++
++  g_object_get (settings, "scrollback-lines", &lines, NULL);
++  g_assert_cmpint (lines, ==, test->result);
+ }
+ 
+ 
+@@ -673,7 +711,17 @@ main (int argc, char *argv[])
+   fixtured_test ("/kgx/settings/audible-bell", NULL, test_settings_audible_bell);
+   fixtured_test ("/kgx/settings/visual-bell", NULL, test_settings_visual_bell);
+   fixtured_test ("/kgx/settings/livery", NULL, test_settings_livery);
+-  fixtured_test ("/kgx/settings/scrollback", NULL, test_settings_scrollback);
++
++  fixtured_test ("/kgx/settings/scrollback/basic", NULL, test_settings_scrollback_basic);
++  for (size_t i = 0; i < G_N_ELEMENTS (resolve_lines_cases); i++) {
++    g_autofree char *path =
++      g_strdup_printf ("/kgx/settings/scrollback/resolve/%s/%" G_GINT64_FORMAT,
++                       resolve_lines_cases[i].ignore_limit ? "not-limited" : "limited",
++                       resolve_lines_cases[i].limit);
++
++    fixtured_test (path, &resolve_lines_cases[i], test_settings_scrollback_resolve);
++  }
++
+   fixtured_test ("/kgx/settings/software-flow-control", NULL, test_settings_software_flow_control);
+   fixtured_test ("/kgx/settings/transparency", NULL, test_settings_transparency);
+ 
+-- 
+GitLab
+

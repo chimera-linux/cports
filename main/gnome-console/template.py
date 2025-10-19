@@ -1,6 +1,6 @@
 pkgname = "gnome-console"
 pkgver = "49.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
