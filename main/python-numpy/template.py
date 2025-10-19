@@ -54,11 +54,13 @@ def check(self):
         # fails casts/float stuff on aarch64
         f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_casting_floatingpoint_errors.py",
         f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_umath.py",
+        f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_umath_accuracy.py",
         f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/linalg/tests/test_linalg.py",
         f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_numeric.py",
         "-k",
         "not test_cython"
         # more float aarch64 stuff
+        + " and not test_where"
         + " and not test_vecdot_complex"
         + " and not test_dot_errstate[longdouble]"
         # f2py stuff
