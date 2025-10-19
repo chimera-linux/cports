@@ -1,5 +1,5 @@
 pkgname = "tea"
-pkgver = "0.11.0"
+pkgver = "0.11.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -11,7 +11,7 @@ pkgdesc = "CLI tool to interact with Gitea servers"
 license = "MIT"
 url = "https://gitea.com/gitea/tea"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "278bbdf2e197f6f80a838e09574e8a950de535f0ba0f53154d26930a3adfaaa6"
+sha256 = "1da6b6d2534bd6ffb0931400014bbdef26242cf4d35d4ba44c24928811825805"
 
 
 def post_install(self):
