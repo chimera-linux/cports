@@ -1,6 +1,6 @@
 pkgname = "python-wcwidth"
-pkgver = "0.2.13"
-pkgrel = 1
+pkgver = "0.2.14"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "Measure display width of unicode strings in a terminal"
 license = "MIT"
 url = "https://github.com/jquast/wcwidth"
 source = f"$(PYPI_SITE)/w/wcwidth/wcwidth-{pkgver}.tar.gz"
-sha256 = "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
+sha256 = "4d478375d31bc5395a3c55c40ccdf3354688364cd61c4f6adacaa9215d0b3605"
 
 
 def post_install(self):
