@@ -19,15 +19,8 @@ makedepends = [
 pkgdesc = "GTK-based magic wormhole client"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/warp"
-source = [
-    f"{url}/-/archive/v{pkgver}/warp-{pkgver}.tar.gz",
-    "https://github.com/spdx/license-list-data/archive/refs/tags/v3.27.0.tar.gz",
-]
-source_paths = [".", "license-list-data"]
-sha256 = [
-    "3b553c2f5a6331e4edaf8747d7b5e782400731e889e16dfdd2019147e5a3e61c",
-    "7a1eade71449d2ff3ae42957452f6e3a660a3704b477d0e72afc2b43be94c907",
-]
+source = f"{url}/-/archive/v{pkgver}/warp-{pkgver}.tar.gz"
+sha256 = "3b553c2f5a6331e4edaf8747d7b5e782400731e889e16dfdd2019147e5a3e61c"
 
 
 def post_prepare(self):
@@ -35,11 +28,6 @@ def post_prepare(self):
 
     cargo.Cargo(self, wrksrc=".").vendor()
     cargo.clear_vendor_checksums(self, "zvariant")
-
-
-def post_patch(self):
-    # excellent ecosystems :|
-    self.mv("license-list-data", "vendor/license")
 
 
 def init_build(self):
