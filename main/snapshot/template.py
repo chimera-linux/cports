@@ -39,6 +39,28 @@ source = (
 sha256 = "5f96193d2919c7355745d26a1b01f23c3cb30a93c742d583ec42927c4a45ae18"
 
 
+def post_extract(self):
+    # we'll be re-vendoring all sources
+    self.rm(".cargo/config.toml")
+
+
+def prepare(self):
+    from cbuild.util import cargo
+
+    # 0.2.175 is broken with rustix 1.0.8 on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+    )
+
+    cargo.Cargo(self).vendor(wrksrc=".")
+
+
 def init_build(self):
     from cbuild.util import cargo
 
