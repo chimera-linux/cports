@@ -1,5 +1,5 @@
 pkgname = "nlopt"
-pkgver = "2.9.1"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -7,7 +7,7 @@ pkgdesc = "Library for nonlinear optimization"
 license = "MIT"
 url = "https://nlopt.readthedocs.io"
 source = f"https://github.com/stevengj/nlopt/archive/v{pkgver}.tar.gz"
-sha256 = "1e6c33f8cbdc4138d525f3326c231f14ed50d99345561e85285638c49b64ee93"
+sha256 = "506f83a9e778ad4f204446e99509cb2bdf5539de8beccc260a014bd560237be1"
 
 
 def post_install(self):
