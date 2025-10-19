@@ -1,5 +1,5 @@
 pkgname = "gnome-podcasts"
-pkgver = "25.2"
+pkgver = "25.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "GTK-based podcast aggregator"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/podcasts"
 source = f"{url}/-/archive/{pkgver}/podcasts-{pkgver}.tar.gz"
-sha256 = "fb3f79cf4c5870d3debcbdf5a55e9f47ac22c1078cfcb76740262dfe77800949"
+sha256 = "b2d012e31f20385bbba9919dacf5783ea20fb3e60c86dfd21fdf7d8ea640d600"
 # check: broken tests due to sandboxing
 options = ["!check"]
 
