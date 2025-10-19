@@ -35,6 +35,7 @@ makedepends = [
     "rnnoise-devel",
     "soundtouch-devel",
     "speexdsp-devel",
+    "turnstile",
     "zita-convolver-devel",
 ]
 # most plugins are from here and it can crash without them (and at least prints
