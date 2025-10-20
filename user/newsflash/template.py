@@ -31,6 +31,17 @@ if self.profile().wordsize == 32:
 def post_patch(self):
     from cbuild.util import cargo
 
+    # 0.2.175 is broken with rustix 1.0.8 on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+    )
+
     cargo.Cargo(self, wrksrc=".").vendor()
 
 
