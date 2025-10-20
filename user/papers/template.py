@@ -46,6 +46,28 @@ options = ["!check"]
 def post_patch(self):
     from cbuild.util import cargo
 
+    # 0.2.175 is broken with rustix 1.0.8 on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+        wrksrc="shell",
+    )
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+        wrksrc="thumbnailer",
+    )
+
     cargo.Cargo(self, wrksrc="shell").vendor()
     cargo.Cargo(self, wrksrc="thumbnailer").vendor()
 
