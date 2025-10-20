@@ -1,7 +1,7 @@
-From a54c9bd07cfb7a86494c31fc5f402a30b668b51d Mon Sep 17 00:00:00 2001
+From f57806ea5c073774b909354a32ef3bafaa7ebda3 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
-Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
+Subject: [PATCH 11/15] drop -latomic on riscv and elsewhere
 
 ---
  compiler/rustc_llvm/build.rs               | 18 +-----------------
@@ -9,10 +9,10 @@ Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
  2 files changed, 1 insertion(+), 36 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 0c36bcc2f..96bf8a57a 100644
+index c20700dac..284dc59fa 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -241,15 +241,7 @@ fn main() {
+@@ -245,15 +245,7 @@ fn main() {
          println!("cargo:rustc-link-lib=kstat");
      }
  
@@ -29,7 +29,7 @@ index 0c36bcc2f..96bf8a57a 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -386,14 +378,6 @@ fn main() {
+@@ -390,14 +382,6 @@ fn main() {
          "stdc++"
      };
  
@@ -45,10 +45,10 @@ index 0c36bcc2f..96bf8a57a 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index c4aca0f5c..aac01c613 100644
+index 551715338..c82dcf5d4 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -387,25 +387,6 @@ impl Step for Llvm {
+@@ -396,25 +396,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
@@ -75,5 +75,5 @@ index c4aca0f5c..aac01c613 100644
              // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
              ldflags.exe.push(" -latomic");
 -- 
-2.50.1
+2.51.1
 

@@ -1,7 +1,7 @@
-From a9d8cb7cb32154bc262c67413a8eb4928a7eaa25 Mon Sep 17 00:00:00 2001
+From c4717c76fad748e220e07af4adb1279b73618a74 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
-Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
+Subject: [PATCH 01/15] add chimera targets, always dynamic musl + static pie
 
 ---
  compiler/rustc_target/src/spec/base/linux_musl.rs     | 11 +++++++----
@@ -15,27 +15,18 @@ Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
  .../spec/targets/armv7_chimera_linux_musleabihf.rs    | 10 ++++++++++
  .../src/spec/targets/armv7_unknown_linux_musleabi.rs  |  2 --
  .../spec/targets/armv7_unknown_linux_musleabihf.rs    |  2 --
- .../src/spec/targets/hexagon_unknown_linux_musl.rs    |  1 -
  .../src/spec/targets/i586_unknown_linux_musl.rs       |  2 --
  .../src/spec/targets/i686_unknown_linux_musl.rs       |  2 --
  .../spec/targets/loongarch64_chimera_linux_musl.rs    | 10 ++++++++++
  .../spec/targets/loongarch64_unknown_linux_musl.rs    |  1 -
- .../spec/targets/mips64_unknown_linux_muslabi64.rs    |  2 --
- .../spec/targets/mips64el_unknown_linux_muslabi64.rs  |  2 --
  .../src/spec/targets/powerpc64_chimera_linux_musl.rs  | 10 ++++++++++
- .../src/spec/targets/powerpc64_unknown_linux_musl.rs  |  2 --
  .../spec/targets/powerpc64le_chimera_linux_musl.rs    | 10 ++++++++++
  .../spec/targets/powerpc64le_unknown_linux_musl.rs    |  2 --
  .../src/spec/targets/powerpc_chimera_linux_musl.rs    | 10 ++++++++++
- .../src/spec/targets/powerpc_unknown_linux_musl.rs    |  2 --
- .../src/spec/targets/powerpc_unknown_linux_muslspe.rs |  2 --
- .../src/spec/targets/riscv32gc_unknown_linux_musl.rs  |  2 --
  .../src/spec/targets/riscv64_chimera_linux_musl.rs    | 10 ++++++++++
- .../src/spec/targets/s390x_unknown_linux_musl.rs      |  2 --
- .../targets/thumbv7neon_unknown_linux_musleabihf.rs   |  2 --
  .../src/spec/targets/x86_64_chimera_linux_musl.rs     | 10 ++++++++++
  .../src/spec/targets/x86_64_unknown_linux_musl.rs     |  2 --
- 31 files changed, 106 insertions(+), 43 deletions(-)
+ 22 files changed, 106 insertions(+), 26 deletions(-)
  create mode 100644 compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
  create mode 100644 compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
@@ -70,10 +61,10 @@ index 1bef60240..9a2fc4bba 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 7a49f0040..b20979d13 100644
+index 033590e01..af3e66e6c 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1746,6 +1746,15 @@ macro_rules! supported_targets {
+@@ -1895,6 +1895,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -91,13 +82,13 @@ index 7a49f0040..b20979d13 100644
      ("i686-unknown-linux-gnu", i686_unknown_linux_gnu),
 diff --git a/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..ff2c140aa
+index 000000000..f553bc173
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::aarch64_unknown_linux_musl::target();
 +
 +    base.llvm_target = "aarch64-chimera-linux-musl".into();
@@ -106,7 +97,7 @@ index 000000000..ff2c140aa
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
-index 58daaa036..f8f3a5baf 100644
+index 478726fbe..b7b345e56 100644
 --- a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
 @@ -14,9 +14,6 @@ pub(crate) fn target() -> Target {
@@ -121,13 +112,13 @@ index 58daaa036..f8f3a5baf 100644
          metadata: TargetMetadata {
 diff --git a/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
 new file mode 100644
-index 000000000..2a96971af
+index 000000000..7822cc7e4
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::arm_unknown_linux_musleabihf::target();
 +
 +    base.llvm_target = "arm-chimera-linux-musleabihf".into();
@@ -176,13 +167,13 @@ index e67573962..feb507a01 100644
      }
 diff --git a/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
 new file mode 100644
-index 000000000..8f44b8ec5
+index 000000000..de9b406b5
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::armv7_unknown_linux_musleabihf::target();
 +
 +    base.llvm_target = "armv7-chimera-linux-musleabihf".into();
@@ -216,18 +207,6 @@ index a3ac0223c..ec43eebfc 100644
              ..base::linux_musl::opts()
          },
      }
-diff --git a/compiler/rustc_target/src/spec/targets/hexagon_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/hexagon_unknown_linux_musl.rs
-index f7416a7e0..1abf0537c 100644
---- a/compiler/rustc_target/src/spec/targets/hexagon_unknown_linux_musl.rs
-+++ b/compiler/rustc_target/src/spec/targets/hexagon_unknown_linux_musl.rs
-@@ -7,7 +7,6 @@ pub(crate) fn target() -> Target {
-     // FIXME: HVX length defaults are per-CPU
-     base.features = "-small-data,+hvx-length128b".into();
- 
--    base.crt_static_default = false;
-     base.has_rpath = true;
-     base.linker_flavor = LinkerFlavor::Unix(Cc::Yes);
- 
 diff --git a/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs
 index 42babb90d..87628fcad 100644
 --- a/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs
@@ -255,13 +234,13 @@ index 47a7eb3d5..da1026485 100644
      // implementation, apparently relies on frame pointers existing... somehow.
 diff --git a/compiler/rustc_target/src/spec/targets/loongarch64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/loongarch64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..c9a76f8fa
+index 000000000..feb074cbb
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/loongarch64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::loongarch64_unknown_linux_musl::target();
 +
 +    base.llvm_target = "loongarch64-chimera-linux-musl".into();
@@ -281,79 +260,42 @@ index d9010b1e4..2dafe15ee 100644
              supported_sanitizers: SanitizerSet::ADDRESS
                  | SanitizerSet::CFI
                  | SanitizerSet::LEAK
-diff --git a/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs b/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
-index fd5095030..64de93bd8 100644
---- a/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
-+++ b/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
-@@ -23,8 +23,6 @@ pub(crate) fn target() -> Target {
-             abi: "abi64".into(),
-             endian: Endian::Big,
-             mcount: "_mcount".into(),
--            // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--            crt_static_default: true,
-             llvm_abiname: "n64".into(),
-             ..base
-         },
-diff --git a/compiler/rustc_target/src/spec/targets/mips64el_unknown_linux_muslabi64.rs b/compiler/rustc_target/src/spec/targets/mips64el_unknown_linux_muslabi64.rs
-index aa087b1a3..f8efb9c6a 100644
---- a/compiler/rustc_target/src/spec/targets/mips64el_unknown_linux_muslabi64.rs
-+++ b/compiler/rustc_target/src/spec/targets/mips64el_unknown_linux_muslabi64.rs
-@@ -5,8 +5,6 @@ pub(crate) fn target() -> Target {
-     base.cpu = "mips64r2".into();
-     base.features = "+mips64r2".into();
-     base.max_atomic_width = Some(64);
--    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--    base.crt_static_default = true;
-     Target {
-         // LLVM doesn't recognize "muslabi64" yet.
-         llvm_target: "mips64el-unknown-linux-musl".into(),
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..5953e1565
+index 000000000..1c7a4dac1
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,11 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::powerpc64_unknown_linux_musl::target();
 +
 +    base.llvm_target = "powerpc64-chimera-linux-musl".into();
++    base.abi = "".into(); // unfuck compilation of 90% of the ecosystem
 +    base.options.vendor = "chimera".into();
 +
 +    base
 +}
-diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-index e205aef82..b66430c01 100644
---- a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-+++ b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-@@ -10,8 +10,6 @@ pub(crate) fn target() -> Target {
-     base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m64"]);
-     base.max_atomic_width = Some(64);
-     base.stack_probes = StackProbeType::Inline;
--    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--    base.crt_static_default = true;
-     base.llvm_abiname = "elfv2".into();
- 
-     Target {
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..29a7459b7
+index 000000000..c4093e6fa
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,11 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::powerpc64le_unknown_linux_musl::target();
 +
 +    base.llvm_target = "powerpc64le-chimera-linux-musl".into();
++    base.abi = "".into(); // unfuck compilation of 90% of the ecosystem
 +    base.options.vendor = "chimera".into();
 +
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
-index f145c5b8c..f477f78b8 100644
+index 26ee6a68c..1e0792115 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 @@ -8,8 +8,6 @@ pub(crate) fn target() -> Target {
@@ -362,18 +304,18 @@ index f145c5b8c..f477f78b8 100644
      base.stack_probes = StackProbeType::Inline;
 -    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
 -    base.crt_static_default = true;
+     base.abi = "elfv2".into();
      base.llvm_abiname = "elfv2".into();
  
-     Target {
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..65b2d62ba
+index 000000000..2ccb40cda
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::powerpc_unknown_linux_musl::target();
 +
 +    base.llvm_target = "powerpc-chimera-linux-musl".into();
@@ -381,54 +323,15 @@ index 000000000..65b2d62ba
 +
 +    base
 +}
-diff --git a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
-index 316b62d94..f39142d01 100644
---- a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
-+++ b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
-@@ -9,8 +9,6 @@ pub(crate) fn target() -> Target {
-     base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m32"]);
-     base.max_atomic_width = Some(32);
-     base.stack_probes = StackProbeType::Inline;
--    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--    base.crt_static_default = true;
- 
-     Target {
-         llvm_target: "powerpc-unknown-linux-musl".into(),
-diff --git a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
-index 30d0d9cb6..8ddb45483 100644
---- a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
-+++ b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
-@@ -9,8 +9,6 @@ pub(crate) fn target() -> Target {
-     base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-mspe"]);
-     base.max_atomic_width = Some(32);
-     base.stack_probes = StackProbeType::Inline;
--    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--    base.crt_static_default = true;
- 
-     Target {
-         llvm_target: "powerpc-unknown-linux-muslspe".into(),
-diff --git a/compiler/rustc_target/src/spec/targets/riscv32gc_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/riscv32gc_unknown_linux_musl.rs
-index 938b39b10..eb592cca1 100644
---- a/compiler/rustc_target/src/spec/targets/riscv32gc_unknown_linux_musl.rs
-+++ b/compiler/rustc_target/src/spec/targets/riscv32gc_unknown_linux_musl.rs
-@@ -23,8 +23,6 @@ pub(crate) fn target() -> Target {
-             llvm_abiname: "ilp32d".into(),
-             max_atomic_width: Some(32),
-             supported_split_debuginfo: Cow::Borrowed(&[SplitDebuginfo::Off]),
--            // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--            crt_static_default: true,
-             ..base::linux_musl::opts()
-         },
-     }
 diff --git a/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..8c26403ce
+index 000000000..cad82f68b
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::riscv64gc_unknown_linux_musl::target();
 +
 +    base.llvm_target = "riscv64-chimera-linux-musl".into();
@@ -436,41 +339,15 @@ index 000000000..8c26403ce
 +
 +    base
 +}
-diff --git a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-index e9522ac76..0cdbb6267 100644
---- a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-+++ b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-@@ -13,8 +13,6 @@ pub(crate) fn target() -> Target {
-     base.stack_probes = StackProbeType::Inline;
-     base.supported_sanitizers =
-         SanitizerSet::ADDRESS | SanitizerSet::LEAK | SanitizerSet::MEMORY | SanitizerSet::THREAD;
--    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--    base.crt_static_default = true;
- 
-     Target {
-         llvm_target: "s390x-unknown-linux-musl".into(),
-diff --git a/compiler/rustc_target/src/spec/targets/thumbv7neon_unknown_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/thumbv7neon_unknown_linux_musleabihf.rs
-index 81c502bfe..e02659543 100644
---- a/compiler/rustc_target/src/spec/targets/thumbv7neon_unknown_linux_musleabihf.rs
-+++ b/compiler/rustc_target/src/spec/targets/thumbv7neon_unknown_linux_musleabihf.rs
-@@ -27,8 +27,6 @@ pub(crate) fn target() -> Target {
-             features: "+v7,+thumb-mode,+thumb2,+vfp3,+neon".into(),
-             max_atomic_width: Some(64),
-             mcount: "\u{1}mcount".into(),
--            // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
--            crt_static_default: true,
-             ..base::linux_musl::opts()
-         },
-     }
 diff --git a/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..9a94dd228
+index 000000000..a832e86bd
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
 +use crate::spec::Target;
 +
-+pub fn target() -> Target {
++pub(crate) fn target() -> Target {
 +    let mut base = super::x86_64_unknown_linux_musl::target();
 +
 +    base.llvm_target = "x86_64-chimera-linux-musl".into();
@@ -492,5 +369,5 @@ index cc5f88862..0203c776a 100644
      Target {
          llvm_target: "x86_64-unknown-linux-musl".into(),
 -- 
-2.50.1
+2.51.1
 
