@@ -1,11 +1,12 @@
 pkgname = "libkscreen"
-pkgver = "6.4.5"
-pkgrel = 2
+pkgver = "6.5.1"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
-make_check_args = ["-E", "testbackendloader", "-j1"]
+# testqscreenbackend & testinprocess broken (even on upstream CI) since v6.5.0 / e394a4c ("Drop QScreen backend")
+make_check_args = ["-E", "test(backendloader|qscreenbackend|inprocess)", "-j1"]
 # kscreen-testqscreenbackend needs X11
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["cmake", "extra-cmake-modules", "ninja", "pkgconf"]
@@ -23,7 +24,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "68d26e27656b450f15a78f44784c50a22034e57c14f96a402019d52bc5b3e2b4"
+sha256 = "938c0f46c33738673f76b64a6f752787778691fa4e1d14c7021e6e4cef826dca"
 hardening = ["vis"]
 
 

@@ -1,6 +1,6 @@
 pkgname = "kwin"
-pkgver = "6.4.5"
-pkgrel = 2
+pkgver = "6.5.1"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -8,7 +8,7 @@ make_check_args = [
     "-E",
     "(kwin-testClientMachine"  # initTestCase() segfaults in libc.so after 5s
     + "|kwin-testPlasmaWindow"  # libc++abi: terminating; testLockScreenNoPlasmaWindow() 'lockStateChangedSpy.wait()' returned FALSE, plasmawindow_test.cpp(262)
-    + "|kwin-testDrm"  # testAmsDetection() segfaults
+    + "|kwin-test(|Mock)Drm"  # no DRM device access / testAmsDetection() segfaults
     + "|kwin-testButtonRebind"  # ppc64le fail weirdness?
     + "|kwin-testColorspaces"  # out of range on ppc64le float accuracy
     + "|kwin-testX11Window"  # flaky testStack* subtests
@@ -18,6 +18,9 @@ make_check_args = [
     + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
     + "|^kwayland-testServerSideDecoration$"  # Tried to add event to destroyed queue
     + "|^kwayland-testDataControlInterface$"  # An issue with ext_data_control_offer_v1 metatype?
+    + "|^kwin-testLockScreen$"  # broken since 296b791614 (v6.5.0)
+    + "|^kwin-testStickyKeys$"  # broken since 837e084950 (v6.5.0)
+    + "|^kwin-testFractionalRepaint$"  # testBottomRow() segfault in cbuild chroot, passes on host
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
@@ -50,6 +53,7 @@ makedepends = [
     "kidletime-devel",
     "kirigami-devel",
     "knewstuff-devel",
+    "knighttime-devel",
     "knotifications-devel",
     "kpackage-devel",
     "kpipewire-devel",
@@ -86,7 +90,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "decf1cb79127c285c7eda768e7ff4f97c72f314735c82685758f0b956ac151f7"
+sha256 = "c436a00728842e92f65beb6558e057754845f4634e5bec2914a2d1b1b38bcafb"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

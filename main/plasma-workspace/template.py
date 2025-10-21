@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
-pkgver = "6.4.5"
-pkgrel = 2
+pkgver = "6.5.1"
+pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = [
@@ -27,6 +27,7 @@ make_check_args = [
     + "|servicerunnertest"  # fails to spawn stuff in sandbox somehow
     + "|lookandfeel-kcmTest"  # segfaults with our patch to default theme
     + "|dbuspropertiestest"  # flaky most of the time
+    + "|lookandfeelmanagertest"  # PackageJob::install() SEGFAULTs in initTestCase(), passes outside cbuild chroot
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
     + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
@@ -66,6 +67,7 @@ makedepends = [
     "kirigami-devel",
     "kitemmodels-devel",
     "knewstuff-devel",
+    "knighttime-devel",
     "knotifications-devel",
     "knotifyconfig-devel",
     "kparts-devel",
@@ -134,7 +136,7 @@ pkgdesc = "KDE Plasma Workspace"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "19999ebf3574f539145ba7074019b88d51f2ca952d121394daf6af2e632910fb"
+sha256 = "7beda270b4a9b5d9a8016bf0e373229af0fee024242318ae2f945cc32b807ca2"
 hardening = ["vis"]
 
 

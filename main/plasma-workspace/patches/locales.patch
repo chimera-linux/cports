@@ -1,13 +1,13 @@
-diff --git a/kcms/region_language/kcmregionandlang.cpp b/kcms/region_language/kcmregionandlang.cpp
-index cc486c1ca0..193de02045 100644
---- a/kcms/region_language/kcmregionandlang.cpp
-+++ b/kcms/region_language/kcmregionandlang.cpp
-@@ -128,7 +128,7 @@ QString KCMRegionAndLang::failedFindLocalesMessage()
+diff --git a/kcms/region_language/glibclocaleconstructor.cpp b/kcms/region_language/glibclocaleconstructor.cpp
+index 46af7879e5..391d9ff179 100644
+--- a/kcms/region_language/glibclocaleconstructor.cpp
++++ b/kcms/region_language/glibclocaleconstructor.cpp
+@@ -155,7 +155,7 @@ void GlibcLocaleConstructor::constructGlibcLocaleMap()
  
- QString KCMRegionAndLang::localeFileDirPath()
+ QString GlibcLocaleConstructor::localeFileDirPath()
  {
 -    return QStringLiteral("/usr/share/i18n/locales");
 +    return QStringLiteral("/usr/share/i18n/locales/musl");
  }
  
- void KCMRegionAndLang::save()
+ QString GlibcLocaleConstructor::failedFindLocalesMessage()

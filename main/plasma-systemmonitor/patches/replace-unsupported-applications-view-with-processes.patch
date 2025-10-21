@@ -1,8 +1,8 @@
 "Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
 --- a/src/page/systemmonitor.kcfg
 +++ b/src/page/systemmonitor.kcfg
-@@ -13,9 +13,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
-             <default>false</default>
+@@ -16,9 +16,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
+             <default>-1</default>
          </entry>
          <entry name="pageOrder" type="StringList">
 -            <default>overview.page,applications.page,history.page,processes.page</default>
@@ -15,7 +15,7 @@
              <default>overview.page</default>
 --- a/src/pages/overview.page
 +++ b/src/pages/overview.page
-@@ -250,57 +250,57 @@ Title[zh_TW]=硬碟
+@@ -259,57 +259,56 @@ Title[zh_TW]=硬碟
  highPrioritySensorIds=["disk/(?!all).*/used"]
  
  [Face-108592549200736][Appearance]
@@ -72,7 +72,7 @@
 -Title[zh_CN]=应用程序
 -Title[zh_TW]=應用程式
 +Title=Processes
-+Title[ar]=ﺎﻠﻌﻤﻠﻳﺎﺗ
++Title[ar]=العمليات
 +Title[ast]=Procesos
 +Title[az]=Proseslər
 +Title[be]=Працэсы
@@ -117,7 +117,6 @@
 +Title[ta]=பணிகள்s
 +Title[tr]=Süreçler
 +Title[uk]=Процеси
-+Title[x-test]=xxProcessesxx
 +Title[zh_CN]=进程列表
 +Title[zh_TW]=行程
  
