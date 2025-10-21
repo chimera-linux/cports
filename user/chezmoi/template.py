@@ -1,5 +1,5 @@
 pkgname = "chezmoi"
-pkgver = "2.66.0"
+pkgver = "2.66.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,13 +12,18 @@ pkgdesc = "Dotfiles manager"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "b76261f399ee828524713f2c83d13cd2d2592f20ff5b2536d6c15edc0483be86"
+sha256 = "97e130cb32af75d1385e9200fe6443c83b0380868e1d1f2b48e4a12432a7acd1"
 # may be disabled
 options = []
 
 if self.profile().arch in ["riscv64"]:
     # times out
     options += ["!check"]
+
+
+def post_extract(self):
+    # test needs network
+    self.rm("internal/cmd/testdata/scripts/issue4647.txtar")
 
 
 def check(self):
