@@ -1,5 +1,5 @@
 pkgname = "kanata"
-pkgver = "1.8.0"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Software keyboard remapper"
 license = "LGPL-3.0-only"
 url = "https://github.com/jtroo/kanata"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "396a379d7620001531b856913a2677baa56fa16c5c9d329f6937dfb57d3ac704"
+sha256 = "754bed4c7317ae14c228288f3a24d23ab6c245e067f996336fc03b58f71c34b6"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
