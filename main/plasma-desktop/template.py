@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
-pkgver = "6.4.5"
-pkgrel = 2
+pkgver = "6.5.1"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -109,7 +109,7 @@ pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "7552e4c7c7ccbf5b7756726bb9aaabd344630977aaf13f5f305b4477caa17bb7"
+sha256 = "554debdc435661450d22bbfe12a941c0bff8223aa662920bf5f01be0c2af3f1f"
 hardening = ["vis"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
@@ -152,7 +152,7 @@ def _(self):
         "kdialog",  # scripted message boxes
         "kio-gdrive",  # kio plugin for gdrive
         "kmenuedit",
-        # "krdp",  # (requires systemd): remote desktop server kcm for Plasma 6.2
+        "krdp",  # remote desktop server kcm
         "ksshaskpass",  # graphical askpass
         "markdownpart",  # markdown renderer kpart plugin
         "plasma-browser-integration",  # browser integration with plasma
