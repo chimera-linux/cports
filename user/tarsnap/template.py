@@ -1,5 +1,5 @@
 pkgname = "tarsnap"
-pkgver = "1.0.40"
+pkgver = "1.0.41"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -12,7 +12,7 @@ pkgdesc = "Online backups for the truly paranoid"
 license = "custom:tarsnap"
 url = "https://www.tarsnap.com"
 source = f"{url}/download/tarsnap-autoconf-{pkgver}.tgz"
-sha256 = "bccae5380c1c1d6be25dccfb7c2eaa8364ba3401aafaee61e3c5574203c27fd5"
+sha256 = "bebdbe1e6e91233755beb42ef0b4adbefd9573455258f009fb331556c799b3d0"
 
 
 def post_install(self):
