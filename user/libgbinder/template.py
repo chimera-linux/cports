@@ -1,5 +1,5 @@
 pkgname = "libgbinder"
-pkgver = "1.1.42"
+pkgver = "1.1.43"
 pkgrel = 0
 build_style = "makefile"
 make_install_target = "install-dev"
@@ -11,7 +11,7 @@ pkgdesc = "GLib-style interface to binder"
 license = "BSD-3-Clause"
 url = "https://github.com/mer-hybris/libgbinder"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "32dcf31c5dc823af11558d180ed5fabb160fdfafe60f01d3212fd200a0842aed"
+sha256 = "31e40d30b5624352681a0eb4e155708679b0349e084913e419f5b3c2c668ac76"
 
 
 def post_build(self):
