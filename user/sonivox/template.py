@@ -1,5 +1,5 @@
 pkgname = "sonivox"
-pkgver = "3.6.15"
+pkgver = "3.6.16"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SONIVOX_STATIC=OFF", "-DBUILD_TESTING=OFF"]
@@ -13,7 +13,7 @@ pkgdesc = "MIDI synthesizer library"
 license = "Apache-2.0"
 url = "https://github.com/pedrolcl/sonivox"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3e54cf11ecdc7ffd9fb24f0ba3319b6e0fe3df56f5e3082f2847666a31be3ff3"
+sha256 = "8e9adf39a5e60c5b9ce4d1b79c83680cfab97d6e8eec6ffb6a3d0bad41413531"
 
 
 @subpackage("sonivox-devel")
