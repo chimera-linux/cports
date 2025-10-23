@@ -29,7 +29,9 @@ def set_failed(pkg):
 
 
 def _remove_ro(f, path, _):
-    os.chmod(path, stat.S_IWRITE)
+    # Ensure the path is writable, and then try again
+    result = os.stat(path)
+    os.chmod(path, result.st_mode | stat.S_IWRITE)
     f(path)
 
 
