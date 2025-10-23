@@ -1,5 +1,5 @@
 pkgname = "wlroots0.19"
-pkgver = "0.19.1"
+pkgver = "0.19.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -40,7 +40,7 @@ pkgdesc = "Modular Wayland compositor library 0.19.x"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
 source = f"{url}/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"
-sha256 = "f6bace4eac8708010430411a64f42055249ee7742cac29efa1a4036988291b2b"
+sha256 = "09a0a8d60104c8b0772fee4f60ba76a89aed7e59dff7659d00960fba06bdf267"
 
 
 def post_install(self):
