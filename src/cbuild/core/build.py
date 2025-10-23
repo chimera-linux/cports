@@ -599,6 +599,7 @@ def _build(
     # in there) but not any other stage
     if not dirty and pkg.stage > 0:
         # clean up old state
+        pkg.log(f"cleaning build state ({dirty=}, stage={pkg.stage})")
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)
