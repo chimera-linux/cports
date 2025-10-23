@@ -1,5 +1,5 @@
 pkgname = "wf-shell"
-pkgver = "0.9.0"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "Desktop shell for Wayfire"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wf-shell/releases/download/v{pkgver}/wf-shell-{pkgver}.tar.xz"
-sha256 = "c8ac529b9fa6a4f65bd430140394b6b6a486c7b2def6c22b811396612ba94bb4"
+sha256 = "49a7fc861849051a3be5de353e3d7442a37170c990a3ffd8d83b67a369edca93"
 
 
 def post_install(self):
