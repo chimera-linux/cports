@@ -345,6 +345,7 @@ def summarize_repo(repopath, olist, quiet=False):
                     obsolete.append(ofn)
                 else:
                     obsolete.append(f.name)
+                continue
 
             if compare_version(tov, fromv, False) < 0 and not quiet:
                 logger.get().out(
