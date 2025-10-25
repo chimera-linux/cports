@@ -1,6 +1,6 @@
 # TODO: split devel, maybe the libs too? (may not be worth it)
 pkgname = "erlang"
-pkgver = "28.1"
+pkgver = "28.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -20,7 +20,7 @@ pkgdesc = "Erlang OTP"
 license = "Apache-2.0"
 url = "https://www.erlang.org"
 source = f"https://github.com/erlang/otp/archive/OTP-{pkgver}.tar.gz"
-sha256 = "327955f1232b2f11d46902f398e8b40e6f7a9df32f54000100638af186b93c60"
+sha256 = "69630ce5adcb3fc3ede136717c56f1dabff04d370451a27993f91a8f098fb339"
 # some staticlibs inside the runtime should be non-lto
 options = ["!cross", "!lto"]
 
