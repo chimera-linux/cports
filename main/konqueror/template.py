@@ -1,6 +1,6 @@
 pkgname = "konqueror"
 pkgver = "25.08.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
