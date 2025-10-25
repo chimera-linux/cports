@@ -1,5 +1,5 @@
 pkgname = "syft"
-pkgver = "1.34.2"
+pkgver = "1.36.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -11,7 +11,7 @@ pkgdesc = "SBOM generator CLI for container images, filesystems and binaries"
 license = "Apache-2.0"
 url = "https://github.com/anchore/syft"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "92b83e80041931ceb54af0283d9a09b4bb7474578c33903db20a8394b791ba3a"
+sha256 = "198965d7a6013936669a279dd3e97b744a5d068cc7454d2689dbdd3cb5967da3"
 # Test suite depends on docker
 # generates manpages/completions with host bins
 options = ["!check", "!cross"]
