@@ -1,5 +1,5 @@
 pkgname = "less"
-pkgver = "679"
+pkgver = "685"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
@@ -10,7 +10,7 @@ pkgdesc = "Pager program similar to more(1)"
 license = "custom:less OR GPL-3.0-or-later"
 url = "https://www.greenwoodsoftware.com/less"
 source = f"https://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"
-sha256 = "9b68820c34fa8a0af6b0e01b74f0298bcdd40a0489c61649b47058908a153d78"
+sha256 = "2701041e767e697ee420ce0825641cedc8f20b51576abe99d92c1666d332e9dc"
 hardening = ["vis", "cfi"]
 
 
