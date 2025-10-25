@@ -1,6 +1,6 @@
 type = process
 command = /usr/bin/gonic -config-path /etc/gonic/config
-depends-on = network.target
-depends-on = local.target 
 logfile = /var/log/gonic.log
 run-as = _gonic
+depends-on: network.target
+depends-on: local.target

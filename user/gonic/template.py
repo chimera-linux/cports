@@ -1,20 +1,18 @@
 pkgname = "gonic"
-pkgver = "0.16.4"
-pkgrel = 12
+pkgver = "0.19.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/gonic"]
 hostmakedepends = ["go", "pkgconf"]
-makedepends = ["dinit-chimera", "sqlite-devel", "taglib-devel"]
+makedepends = ["dinit-chimera", "sqlite-devel"]
 depends = ["ffmpeg"]
 checkdepends = [*depends]
-go_build_tags = ["libsqlite3"]
+go_build_tags = ["libsqlite3", "nowasm"]
 pkgdesc = "Music streaming server / subsonic server API implementation"
 license = "GPL-3.0-only"
 url = "https://github.com/sentriz/gonic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ba690a861a075bdf3f1f7e8131e45a5ca430ec90902a97faf955ec9f36799461"
-# taglib gomod can't cross
-options = ["!cross"]
+sha256 = "929169a79ff498e08f80e4ed9d0949e87cbbf75769a7d1c6bd4cedf322bbad71"
 
 
 def post_install(self):
