@@ -1,5 +1,5 @@
 pkgname = "flare"
-pkgver = "0.17.0"
+pkgver = "0.17.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -29,12 +29,12 @@ url = "https://mobile.schmidhuberj.de/flare"
 source = [
     f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz",
     # https://github.com/flathub/de.schmidhuberj.Flare/blob/09faecd07f1b2069c993e38fb50662768947c490/de.schmidhuberj.Flare.json#L129
-    "https://github.com/whisperfish/presage/archive/123c1f926e359c21b34d099279ee8a92462ce96d.tar.gz",
+    "https://github.com/whisperfish/presage/archive/ed011688fc8d9c0ee07c3d44743c138c1fa4dfda.tar.gz",
 ]
 source_paths = [".", "presage"]
 sha256 = [
-    "c8657ed46ecf536364d8e464aca557f1b6146cf5dc6d8b22a7e15a40ba396b7c",
-    "df68e0ea9620c42878c036561595e90548872ffc037068f019bb7de1d24eabc9",
+    "07862d03f8317d7229bb5dee3809ce2de47c5c84f0afdf699a4369b6592b544f",
+    "4e142d8f2bed05d2a085dae24f8b29929a21e0c6fb28d8515e9110a8c5507974",
 ]
 
 if self.profile().wordsize == 32:
