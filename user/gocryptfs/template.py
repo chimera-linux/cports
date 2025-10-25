@@ -1,6 +1,6 @@
 pkgname = "gocryptfs"
-pkgver = "2.5.4"
-pkgrel = 4
+pkgver = "2.6.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -18,7 +18,7 @@ url = "https://github.com/rfjakob/gocryptfs"
 source = (
     f"{url}/releases/download/v{pkgver}/gocryptfs_v{pkgver}_src-deps.tar.gz"
 )
-sha256 = "0db47fe41f46d1ff5b3ff4f1cc1088ab324a95af03995348435dcc20a5ff0282"
+sha256 = "9a966c1340a1a1d92073091643687b1205c46b57017c5da2bf7e97e3f5729a5a"
 # requires fuse kernel module
 options = ["!check"]
 
