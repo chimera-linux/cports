@@ -1,6 +1,6 @@
 pkgname = "kio-fuse"
-pkgver = "5.1.0"
-pkgrel = 5
+pkgver = "5.1.1"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DBUILD_WITH_QT6=ON", "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -21,7 +21,7 @@ pkgdesc = "KDE KIO fuse interface"
 license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/system/kio-fuse"
 source = f"$(KDE_SITE)/kio-fuse/kio-fuse-{pkgver}.tar.xz"
-sha256 = "7d104581227d5a19b424b33f4168d181556b1015d6df2218e01a88d64449e94b"
+sha256 = "adf6aa7ce055c0987e716a93ac01f3c0a97c1280421443cd6b21e0e71d763d14"
 hardening = ["vis"]
 # needs real fuse mounted
 options = ["!check"]
