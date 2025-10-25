@@ -1,5 +1,5 @@
 pkgname = "zizmor"
-pkgver = "1.15.2"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -11,7 +11,7 @@ url = "https://docs.zizmor.sh"
 source = (
     f"https://github.com/zizmorcore/zizmor/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "a3d3a062ffd79f3958c7d428a9aeb8b6332d57bc3fb15bed242d519aa11e2f42"
+sha256 = "8c0f9ef81c6d5b12d2c85a5ede787c8588ed40100f8e1826251934f18f5e0755"
 # Generates completions using host binaries
 options = ["!cross"]
 
