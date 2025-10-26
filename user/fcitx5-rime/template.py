@@ -1,5 +1,5 @@
 pkgname = "fcitx5-rime"
-pkgver = "5.1.11"
+pkgver = "5.1.12"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DRIME_DATA_DIR=/usr/share/rime-data"]
@@ -19,4 +19,4 @@ pkgdesc = "RIME support for Fcitx5"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fcitx/fcitx5-rime"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "3f3e69cd46ab1b955d1470876da405333e954ca6df198894fa17c1a7c0fd2b88"
+sha256 = "43c61bfadd6d64813636ccd104e48ce84d7623542a7dfec0517fdbd87de36ef0"
