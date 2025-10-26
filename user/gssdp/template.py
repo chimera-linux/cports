@@ -1,5 +1,5 @@
 pkgname = "gssdp"
-pkgver = "1.6.3"
+pkgver = "1.6.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Dmanpages=false"]
@@ -15,7 +15,7 @@ pkgdesc = "Resource discovery and announcement over SSDP"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GUPnP"
 source = f"$(GNOME_SITE)/gssdp/{pkgver[:-2]}/gssdp-{pkgver}.tar.xz"
-sha256 = "2fedb5afdb22cf14d5498a39a773ca89788a250fcf70118783df821e1f3f3446"
+sha256 = "ff97fdfb7f561d3e6813b4f6a2145259e7c2eff43cc0e63f3fd031d0b6266032"
 
 
 @subpackage("gssdp-devel")
