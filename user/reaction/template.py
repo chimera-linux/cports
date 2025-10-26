@@ -1,5 +1,5 @@
 pkgname = "reaction"
-pkgver = "2.1.2"
+pkgver = "2.2.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Scans logs for repeated patterns and takes action"
 license = "AGPL-3.0-or-later"
 url = "https://reaction.ppom.me"
 source = f"https://framagit.org/ppom/reaction/-/archive/v{pkgver}/reaction-v{pkgver}.tar.gz"
-sha256 = "894cededfa22d8e1058830828ccedba21bd9ce2f744bbd539b224f9e71f95eea"
+sha256 = "e2b1c6927a1fa4da10e2e356aeafa00bbcbf7a4228355f944bb96d79532d3bf0"
 hardening = ["vis", "cfi"]
 
 if self.profile().wordsize == 32:
