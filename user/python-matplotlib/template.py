@@ -1,5 +1,5 @@
 pkgname = "python-matplotlib"
-pkgver = "3.10.6"
+pkgver = "3.10.7"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_args = [
@@ -35,6 +35,6 @@ pkgdesc = "Python plotting library"
 license = "PSF-2.0"
 url = "https://matplotlib.org"
 source = f"https://github.com/matplotlib/matplotlib/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b553f599f639a9e19074c7e4f8f4343443483da6cd8819fbfcf6506f155ddf0e"
+sha256 = "0678f04e55c839c543a3803a7a13ab427f488ff396d85ffbad7d427f6fdcbbc3"
 # check: ImportError: cannot import name '_c_internal_utils' from 'matplotlib'
 options = ["!check"]
