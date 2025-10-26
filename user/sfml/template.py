@@ -1,5 +1,5 @@
 pkgname = "sfml"
-pkgver = "3.0.1"
+pkgver = "3.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "C++ multimedia Library"
 license = "Zlib"
 url = "https://www.sfml-dev.org"
 source = f"https://github.com/SFML/SFML/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f99f71bb2f2608835b1a37e078512b75dd39d52b89e13e12246603a950da3c1f"
+sha256 = "0034e05f95509e5d3fb81b1625713e06da7b068f210288ce3fd67106f8f46995"
 
 
 @subpackage("sfml-devel")
