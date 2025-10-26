@@ -1,5 +1,5 @@
 pkgname = "scrcpy"
-pkgver = "3.1"
+pkgver = "3.3.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,8 +26,8 @@ source = [
     f"!{url}/releases/download/v{pkgver}/scrcpy-server-v{pkgver}",
 ]
 sha256 = [
-    "beaa5050a3c45faa77cedc70ad13d88ef26b74d29d52f512b7708671e037d24d",
-    "958f0944a62f23b1f33a16e9eb14844c1a04b882ca175a738c16d23cb22b86c0",
+    "87fcd360a6bb6ca070ffd217bd33b33fb808b0a1572b464da51dde3fd3f6f60e",
+    "7e70323ba7f259649dd4acce97ac4fefbae8102b2c6d91e2e7be613fd5354be0",
 ]
 
 
