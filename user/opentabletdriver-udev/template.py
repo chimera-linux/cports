@@ -1,12 +1,12 @@
 pkgname = "opentabletdriver-udev"
-pkgver = "0.6.5.1"
+pkgver = "0.6.6.2"
 pkgrel = 0
 hostmakedepends = ["bash", "jq"]
 pkgdesc = "Udev rules for OpenTabletDriver"
 license = "LGPL-3.0-or-later"
 url = "https://opentabletdriver.net"
 source = f"https://github.com/OpenTabletDriver/OpenTabletDriver/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "682cea127a583b9e4a2fceaf8ec92557502a25ce7d34b18b085ba790c911f0cb"
+sha256 = "1602f3291bad333be56671933e5ba6fb17144432729c10b2a0b40626e8c9dd28"
 
 
 def build(self):
