@@ -1,5 +1,5 @@
 pkgname = "atuin"
-pkgver = "18.9.0"
+pkgver = "18.10.0"
 pkgrel = 0
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
@@ -11,7 +11,7 @@ pkgdesc = "Sync, search and backup tool for shell history"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a410fc85d3b11b804ba24f73f4a655ea8252f0198b9208a79474b4d9779f32ea"
+sha256 = "02228929976142f63b4464a35b8b29b29155e1814cf03e99c95381954c5d9e37"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
