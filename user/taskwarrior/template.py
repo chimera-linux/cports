@@ -1,5 +1,5 @@
 pkgname = "taskwarrior"
-pkgver = "3.4.1"
+pkgver = "3.4.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DSYSTEM_CORROSION=ON"]
@@ -17,7 +17,7 @@ pkgdesc = "TODO list manager for the command line"
 license = "MIT"
 url = "https://taskwarrior.org"
 source = f"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v{pkgver}/task-{pkgver}.tar.gz"
-sha256 = "23eb60f73e42f16111cc3912b44ee12be6768860a2db2a9c6a47f8ac4786bac3"
+sha256 = "d302761fcd1268e4a5a545613a2b68c61abd50c0bcaade3b3e68d728dd02e716"
 
 if self.profile().wordsize == 32:
     broken = "atomic64 assumptions"
@@ -48,4 +48,4 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_license("COPYING")
+    self.install_license("LICENSE")
