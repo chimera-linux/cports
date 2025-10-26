@@ -3,7 +3,7 @@ index a3e77b08e..f8c3503a2 100644
 --- a/test/signal/test-signalhandler.cpp
 +++ b/test/signal/test-signalhandler.cpp
 @@ -52,17 +52,13 @@
-     ++*(int*)nullptr;
+     ++*static_cast<int*>(nullptr); // NOLINT(clang-analyzer-core.NullDereference)
  }
  
 -#if !defined(__APPLE__)

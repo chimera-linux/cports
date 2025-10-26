@@ -1,6 +1,6 @@
 pkgname = "cppcheck"
-pkgver = "2.17.1"
-pkgrel = 2
+pkgver = "2.18.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DUSE_MATCHCOMPILER=ON",
@@ -30,7 +30,7 @@ pkgdesc = "Static analysis of C/C++ code"
 license = "GPL-3.0-or-later"
 url = "https://cppcheck.sourceforge.io"
 source = f"https://github.com/danmar/cppcheck/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bfd681868248ec03855ca7c2aea7bcb1f39b8b18860d76aec805a92a967b966c"
+sha256 = "e37c94e190cdddc65682649b02b72939761585bddd8ada595f922e190a26a2be"
 # TestSymbolDatabase::enum14 test failed
 # (0x7FFFFFFFFFFFFFFF + 1 cause signed overflow)
 hardening = ["!int"]
