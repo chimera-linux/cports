@@ -1,5 +1,5 @@
 pkgname = "starship"
-pkgver = "1.23.0"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -25,15 +25,9 @@ url = "https://starship.rs"
 source = (
     f"https://github.com/starship/starship/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "be3ba025a64bd808899dce256e1511145b55cc5eefc5fca82bf5537cd8e09c72"
+sha256 = "3d98e2c57dcfea36c6035e2ad812f91cfe33099e4b67f6ea7728e2294f02ca61"
 # generates completions with host binary
 options = ["!cross"]
-
-
-def post_prepare(self):
-    from cbuild.util import cargo
-
-    cargo.clear_vendor_checksums(self, "zvariant")
 
 
 def post_build(self):
@@ -47,7 +41,8 @@ def post_build(self):
             )
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/starship")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"starship.{shell}", shell)
