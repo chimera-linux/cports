@@ -1,6 +1,6 @@
 pkgname = "forgejo"
-pkgver = "12.0.4"
-pkgrel = 1
+pkgver = "13.0.1"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -12,7 +12,7 @@ pkgdesc = "Git forge"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
 source = f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz"
-sha256 = "a4029f056dd69c33cd7e63925885ef0227644d61e0c992380370a5a9e295944c"
+sha256 = "de44be7c701db431f83201ccbfa677aa8a9d31ef8c3b74026b2365d978136c06"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
