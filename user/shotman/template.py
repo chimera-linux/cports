@@ -1,6 +1,6 @@
 pkgname = "shotman"
-pkgver = "0.4.7"
-pkgrel = 1
+pkgver = "0.4.10"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
 makedepends = ["libxkbcommon-devel", "rust-std"]
@@ -9,7 +9,7 @@ pkgdesc = "Screenshot GUI for Wayland"
 license = "ISC"
 url = "https://sr.ht/~whynothugo/shotman"
 source = f"https://git.sr.ht/~whynothugo/shotman/archive/v{pkgver}.tar.gz"
-sha256 = "8a2239b37bababcc10db787d931f5d83c3eb254a0f1b30fa5e2d4dd31eff4cc5"
+sha256 = "acb87715eb98521dda3de44851d4ef6e4cc7eae399bb2dfc4d501b8c8bb2308a"
 env = {
     "SHOTMAN_VERSION": f"v{pkgver}",
 }
