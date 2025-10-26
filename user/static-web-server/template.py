@@ -1,5 +1,5 @@
 pkgname = "static-web-server"
-pkgver = "2.38.1"
+pkgver = "2.39.0"
 pkgrel = 0
 build_style = "cargo"
 # We patch Cargo.toml and Cargo.lock
@@ -10,7 +10,7 @@ pkgdesc = "Web server for static files serving"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/static-web-server/static-web-server"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fce33a832f2ad3f9a96ced59e44a8aeb6c01a804e9cfe8fb9879979c27bbd5f1"
+sha256 = "da5906ed28eb47ebe6fae782b20a2f99f69c094e7885c66612e2c03d7911631a"
 # generates completions using host binary
 options = ["!cross"]
 
