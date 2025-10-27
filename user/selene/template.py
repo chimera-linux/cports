@@ -11,9 +11,6 @@ url = "https://github.com/Kampfkarren/selene"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "9882007e7b2d16023cd2c69d64d72afbee65dce7c3ab44a1527f5318667ed2a1"
 
-if self.profile().arch == "loongarch64":
-    broken = "busted rustix"
-
 
 def pre_prepare(self):
     # unsafe-libyaml 0.2.5 does not have the fix for
@@ -25,6 +22,16 @@ def pre_prepare(self):
         "unsafe-libyaml",
         "--precise",
         "0.2.10",
+        allow_network=True,
+    )
+    # rustix loongarch64
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
         allow_network=True,
     )
 
