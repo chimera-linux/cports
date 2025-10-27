@@ -31,8 +31,19 @@ sha256 = "f4679325c06967ce28a697f05d7ca181dbbd832b0aa2a1ca1ec41512157347b1"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
-elif self.profile().arch == "loongarch64":
-    broken = "busted rustix"
+
+
+def pre_prepare(self):
+    # rustix loongarch64
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+    )
 
 
 def install(self):
