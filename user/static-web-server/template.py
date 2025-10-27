@@ -15,19 +15,6 @@ sha256 = "da5906ed28eb47ebe6fae782b20a2f99f69c094e7885c66612e2c03d7911631a"
 options = ["!cross"]
 
 
-def pre_prepare(self):
-    # rustix loongarch64
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "libc",
-        "--precise",
-        "0.2.174",
-        allow_network=True,
-    )
-
-
 def post_build(self):
     self.do(
         f"target/{self.profile().triplet}/release/static-web-server",
