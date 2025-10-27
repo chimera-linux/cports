@@ -11,6 +11,10 @@ source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver
 sha256 = "2e4e1b61ea4d426bbfa615cffb847ed866ee8b8477f114c648567fc7750c482e"
 
 
+if self.profile().arch == "loongarch64":
+    broken = "busted rustix"
+
+
 def post_install(self):
     self.install_license("LICENSE")
     self.install_completion("completions/bash/neocmakelsp", "bash")
