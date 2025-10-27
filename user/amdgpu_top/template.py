@@ -22,8 +22,19 @@ options = ["!check"]
 
 if self.profile().wordsize == 32:
     broken = "64-bit assumptions in libdrm_amdgpu_sys"
-elif self.profile().arch == "loongarch64":
-    broken = "broken statx in rustix"
+
+
+def pre_prepare(self):
+    # rustix loongarch64
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+    )
 
 
 def install(self):
