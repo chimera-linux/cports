@@ -17,18 +17,5 @@ sha256 = "d04cb7b0b9f75c483dc37d72970a8c759674d1a7b882aaae2c56a60fe18361ab"
 options = ["!check"]
 
 
-def pre_prepare(self):
-    # rustix loongarch64
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "libc",
-        "--precise",
-        "0.2.174",
-        allow_network=True,
-    )
-
-
 def post_install(self):
     self.install_license("LICENSE-MIT")
