@@ -33,19 +33,6 @@ if self.profile().wordsize == 32:
     broken = "needs atomic64"
 
 
-def pre_prepare(self):
-    # rustix loongarch64
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "libc",
-        "--precise",
-        "0.2.174",
-        allow_network=True,
-    )
-
-
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/spotify_player")
     self.install_license("LICENSE")
