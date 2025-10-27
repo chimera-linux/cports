@@ -11,8 +11,17 @@ source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver
 sha256 = "2e4e1b61ea4d426bbfa615cffb847ed866ee8b8477f114c648567fc7750c482e"
 
 
-if self.profile().arch == "loongarch64":
-    broken = "busted rustix"
+def pre_prepare(self):
+    # rustix loongarch64
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.174",
+        allow_network=True,
+    )
 
 
 def post_install(self):
