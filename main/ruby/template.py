@@ -1,5 +1,5 @@
 pkgname = "ruby"
-pkgver = "3.4.5"
+pkgver = "3.4.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +30,7 @@ url = "https://www.ruby-lang.org/en"
 source = (
     f"https://cache.ruby-lang.org/pub/ruby/{pkgver[:-2]}/ruby-{pkgver}.tar.xz"
 )
-sha256 = "7b3a905b84b8777aa29f557bada695c3ce108390657e614d2cc9e2fb7e459536"
+sha256 = "db425a86f6e07546957578f4946cc700a91e7fd51115a86c56e096f30e0530c7"
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues
