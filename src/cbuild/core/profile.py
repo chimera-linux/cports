@@ -69,7 +69,7 @@ def get_hardening(prof, tmpl, hlist=None):
 
 # stuff that should go in both regular and linker flags, as it
 # involves linking an extra runtime component (from compiler-rt)
-def _get_archflags(prof, tmpl, hard):
+def _get_archflags(prof, tmpl, hard, name):
     sflags = []
     ubsan = False
     lto = tmpl.options["lto"] and prof._has_lto(tmpl.stage)
@@ -92,12 +92,12 @@ def _get_archflags(prof, tmpl, hard):
     # the existing compiler-rt implementation (unstable abi and so on)
     #
     # that means we stick with local cfi for hidden symbols for now
-    if lto and hard["cfi"]:
+    if lto and hard["cfi"] and name != "FFLAGS":
         sflags.append("-fsanitize=cfi")
         if sanrt:
             sflags.append("-fno-sanitize-trap=cfi")
 
-    if hard["int"]:
+    if hard["int"] and name != "FFLAGS":
         sflags.append(
             "-fsanitize=signed-integer-overflow,integer-divide-by-zero"
         )
@@ -120,24 +120,24 @@ def _get_archflags(prof, tmpl, hard):
     return sflags
 
 
-def _get_hcflags(prof, tmpl, tharden):
+def _get_hcflags(prof, tmpl, tharden, name):
     hard = get_hardening(prof, tmpl, tharden)
 
-    if tmpl.stage > 0:
+    if tmpl.stage > 0 and name != "FFLAGS":
         hflags = [f"-ffile-prefix-map={tmpl.chroot_srcdir}=."]
     else:
         hflags = []
 
-    if hard["format"]:
+    if hard["format"] and name != "FFLAGS":
         hflags += ["-Wformat", "-Werror=format-security"]
 
-    if tmpl.stage > 0 and hard["var-init"]:
+    if tmpl.stage > 0 and hard["var-init"] and name != "FFLAGS":
         hflags.append("-ftrivial-auto-var-init=zero")
 
     if not hard["pie"]:
         hflags.append("-fno-PIE")
 
-    if hard["scp"]:
+    if hard["scp"] and name != "FFLAGS":
         hflags.append("-fstack-clash-protection")
 
     if hard["cet"]:
@@ -150,7 +150,7 @@ def _get_hcflags(prof, tmpl, tharden):
     elif hard["bti"]:
         hflags.append("-mbranch-protection=bti")
 
-    hflags += _get_archflags(prof, tmpl, hard)
+    hflags += _get_archflags(prof, tmpl, hard, name)
 
     return hflags
 
@@ -181,7 +181,7 @@ def _get_hldflags(prof, tmpl, tharden):
 
     hflags += ["-Wl,-O2"]
 
-    hflags += _get_archflags(prof, tmpl, hard)
+    hflags += _get_archflags(prof, tmpl, hard, "LDFLAGS")
 
     return hflags
 
@@ -211,7 +211,7 @@ def _flags_ret(it, shell):
 
 
 def _get_gencflags(self, tmpl, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hcflags(self, tmpl, hardening)
+    hflags = _get_hcflags(self, tmpl, hardening, name)
 
     # bootstrap
     if not self._triplet:
