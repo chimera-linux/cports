@@ -1,4 +1,4 @@
-From a30a86b7eb59e7ec5baace8e7252d38d7f8e15ed Mon Sep 17 00:00:00 2001
+From 89e7bd3940941fc14589c8340b72df0d86d33a33 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:11:58 +0100
 Subject: [PATCH 19/29] clang: default to -fno-semantic-interposition
@@ -8,10 +8,10 @@ Subject: [PATCH 19/29] clang: default to -fno-semantic-interposition
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
-index 57b7d2bd4..417b85899 100644
+index 626133223..dbd3c5fd4 100644
 --- a/clang/lib/Driver/ToolChains/Clang.cpp
 +++ b/clang/lib/Driver/ToolChains/Clang.cpp
-@@ -5824,9 +5824,7 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
+@@ -5651,9 +5651,7 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
        // The supported targets need to call AsmPrinter::getSymbolPreferLocal.
        bool SupportsLocalAlias =
            Triple.isAArch64() || Triple.isRISCV() || Triple.isX86();
@@ -23,5 +23,5 @@ index 57b7d2bd4..417b85899 100644
        else if (!SupportsLocalAlias)
          CmdArgs.push_back("-fhalf-no-semantic-interposition");
 -- 
-2.49.0
+2.51.1
 

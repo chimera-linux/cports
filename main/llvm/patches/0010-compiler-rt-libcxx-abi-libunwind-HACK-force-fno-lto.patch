@@ -1,4 +1,4 @@
-From 223f5481951047fa74a74d57819bb082aa462447 Mon Sep 17 00:00:00 2001
+From e5e933347c3adbd5df6a489d94f16e777ad1525b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:42:37 +0200
 Subject: [PATCH 10/29] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
@@ -16,10 +16,10 @@ https://github.com/llvm/llvm-project/issues/76771
  4 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index f89cf87c7..51f59457a 100644
+index 8fabdb5d9..7a51084f4 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -756,7 +756,7 @@ if (APPLE)
+@@ -794,7 +794,7 @@ if (APPLE)
    add_subdirectory(macho_embedded)
    darwin_add_builtin_libraries(${BUILTIN_SUPPORTED_OS})
  else ()
@@ -29,10 +29,10 @@ index f89cf87c7..51f59457a 100644
  
    if (COMPILER_RT_HAS_FCF_PROTECTION_FLAG)
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index abe12c280..17cf7c7ed 100644
+index 85514cc75..d00558dd3 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -575,6 +575,10 @@ function(cxx_add_rtti_flags target)
+@@ -562,6 +562,10 @@ function(cxx_add_rtti_flags target)
        target_add_compile_flags_if_supported(${target} PUBLIC -fno-rtti)
      endif()
    endif()
@@ -44,10 +44,10 @@ index abe12c280..17cf7c7ed 100644
  
  # Modules flags ===============================================================
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index 6dcfc51e5..1d03714f5 100644
+index cf478bcee..5b2490e6c 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -331,6 +331,10 @@ else()
+@@ -338,6 +338,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
@@ -59,11 +59,11 @@ index 6dcfc51e5..1d03714f5 100644
  string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
  if (LIBCXXABI_ENABLE_ASSERTIONS)
 diff --git a/libunwind/src/CMakeLists.txt b/libunwind/src/CMakeLists.txt
-index ecbd019bb..ec4108bd9 100644
+index 71663a22c..02dfced1f 100644
 --- a/libunwind/src/CMakeLists.txt
 +++ b/libunwind/src/CMakeLists.txt
-@@ -136,6 +136,9 @@ if (HAIKU)
-   endif()
+@@ -108,6 +108,9 @@ if (HAIKU)
+   add_compile_flags("-DPT_GNU_EH_FRAME=PT_EH_FRAME")
  endif ()
  
 +add_compile_flags("-fno-lto -ftrivial-auto-var-init=uninitialized")
@@ -73,5 +73,5 @@ index ecbd019bb..ec4108bd9 100644
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
 -- 
-2.49.0
+2.51.1
 

@@ -1,4 +1,4 @@
-From c5c9ef16fd4a48f1131d319497fa16473f88d4da Mon Sep 17 00:00:00 2001
+From c2c6b0b1bb834a3dd1467b922bf10a882509c138 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:55:21 +0200
 Subject: [PATCH 26/29] clang: implicitly include stdc-predef.h
@@ -16,10 +16,10 @@ for both.
  1 file changed, 10 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
-index 417b85899..2e583c39c 100644
+index dbd3c5fd4..aba1f79ac 100644
 --- a/clang/lib/Driver/ToolChains/Clang.cpp
 +++ b/clang/lib/Driver/ToolChains/Clang.cpp
-@@ -1168,6 +1168,16 @@ void Clang::AddPreprocessingOptions(Compilation &C, const JobAction &JA,
+@@ -1004,6 +1004,16 @@ void Clang::AddPreprocessingOptions(Compilation &C, const JobAction &JA,
      }
    }
  
@@ -37,5 +37,5 @@ index 417b85899..2e583c39c 100644
    for (const Arg *A : Args.filtered(options::OPT_clang_i_Group)) {
      if (A->getOption().matches(options::OPT_include) &&
 -- 
-2.49.0
+2.51.1
 

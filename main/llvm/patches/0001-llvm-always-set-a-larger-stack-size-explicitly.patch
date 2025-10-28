@@ -1,4 +1,4 @@
-From cea7072189cb3a3743bcb8f032c6f6b70e90fe80 Mon Sep 17 00:00:00 2001
+From 9779b878973501138a7ac60671ea791dde0ea029 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:44:01 +0100
 Subject: [PATCH 01/29] llvm: always set a larger stack size explicitly
@@ -34,5 +34,5 @@ index 693de0e64..dd3e76fb8 100644
  #endif
  
 -- 
-2.49.0
+2.51.1
 

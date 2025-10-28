@@ -1,4 +1,4 @@
-From 943608475319da1db4f44b74862ef9e321d14825 Mon Sep 17 00:00:00 2001
+From 85160dab6840b8ad3c878296c3c7a5295245d422 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:14:35 +0100
 Subject: [PATCH 24/29] clang: link libcxxabi on linux when using libc++
@@ -9,10 +9,10 @@ Subject: [PATCH 24/29] clang: link libcxxabi on linux when using libc++
  2 files changed, 17 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 57056ee2c..68a7eae38 100644
+index 8efe8b20e..8d9303e5c 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -744,6 +744,21 @@ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+@@ -736,6 +736,21 @@ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
    }
  }
  
@@ -48,5 +48,5 @@ index 80a0b035c..cbb0032a8 100644
                            llvm::opt::ArgStringList &CC1Args) const override;
    void AddHIPIncludeArgs(const llvm::opt::ArgList &DriverArgs,
 -- 
-2.49.0
+2.51.1
 

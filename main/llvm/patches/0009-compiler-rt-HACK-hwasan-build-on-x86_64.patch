@@ -1,4 +1,4 @@
-From 104af6e2a6816af2448c668ab58d3dd28771e90a Mon Sep 17 00:00:00 2001
+From bd02f3872d0e4214d30ab5919554b829f3701fc7 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Apr 2022 00:58:39 +0200
 Subject: [PATCH 09/29] compiler-rt: HACK: hwasan build on x86_64
@@ -21,5 +21,5 @@ index bf700bf56..2c1f1b173 100644
  using namespace __hwasan;
  using namespace __sanitizer;
 -- 
-2.49.0
+2.51.1
 

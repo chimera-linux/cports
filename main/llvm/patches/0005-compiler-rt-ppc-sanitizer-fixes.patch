@@ -1,4 +1,4 @@
-From 682ad99f38c927c37c2c54d12f4084473d67a007 Mon Sep 17 00:00:00 2001
+From 83413a6b1f789cf2c78a2d90108faccf28c4f861 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:33:38 +0200
 Subject: [PATCH 05/29] compiler-rt: ppc sanitizer fixes
@@ -28,11 +28,11 @@ index d92bc0e71..caeed40e3 100644
        test_target_arch(s390x "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "sparc")
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index 7aa48d29d..a782d5221 100644
+index 16caf699a..2332d319a 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -82,6 +82,10 @@
- #    include <sys/personality.h>
+@@ -90,6 +90,10 @@
+ extern "C" SANITIZER_WEAK_ATTRIBUTE const char *strerrorname_np(int);
  #  endif
  
 +#  if SANITIZER_LINUX && defined(__powerpc__)
@@ -43,10 +43,10 @@ index 7aa48d29d..a782d5221 100644
  #    include <sys/sysmacros.h>
  #  endif
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
-index a5311d266..cd86b2383 100644
+index ea8cc3062..44237eba3 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
-@@ -96,7 +96,7 @@
+@@ -98,7 +98,7 @@
  # include <sys/ptrace.h>
  #    if defined(__mips64) || defined(__aarch64__) || defined(__arm__) ||       \
          defined(__hexagon__) || defined(__loongarch__) || SANITIZER_RISCV64 || \
@@ -56,7 +56,7 @@ index a5311d266..cd86b2383 100644
  #      ifdef __arm__
  typedef struct user_fpregs elf_fpregset_t;
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
-index 945da99d4..81822dbb1 100644
+index 24929b8c4..3620201b9 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 @@ -31,7 +31,7 @@
@@ -132,5 +132,5 @@ index 7e872b5b4..9616a09d8 100644
  
  inline bool probeRequiredCPUFeatures() XRAY_NEVER_INSTRUMENT {
 -- 
-2.49.0
+2.51.1
 

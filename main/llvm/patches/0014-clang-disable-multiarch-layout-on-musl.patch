@@ -1,4 +1,4 @@
-From a131432945a9183642bab22188f03969a3855e40 Mon Sep 17 00:00:00 2001
+From 76b0e429d07528cb9d53e5f19239b55ccb0810fb Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:08:54 +0100
 Subject: [PATCH 14/29] clang: disable multiarch layout on musl
@@ -8,10 +8,10 @@ Subject: [PATCH 14/29] clang: disable multiarch layout on musl
  1 file changed, 5 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 0767fe6c5..2ac0139dc 100644
+index 8ac8d4eb9..0211746c4 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -47,6 +47,11 @@ std::string Linux::getMultiarchTriple(const Driver &D,
+@@ -46,6 +46,11 @@ std::string Linux::getMultiarchTriple(const Driver &D,
    bool IsMipsR6 = TargetTriple.getSubArch() == llvm::Triple::MipsSubArch_r6;
    bool IsMipsN32Abi = TargetTriple.getEnvironment() == llvm::Triple::GNUABIN32;
  
@@ -24,5 +24,5 @@ index 0767fe6c5..2ac0139dc 100644
    // clever.
    switch (TargetTriple.getArch()) {
 -- 
-2.49.0
+2.51.1
 

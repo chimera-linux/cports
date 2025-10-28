@@ -1,5 +1,5 @@
 pkgname = "libclc"
-pkgver = "20.1.8"
+pkgver = "21.1.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
@@ -20,7 +20,7 @@ pkgdesc = "Open implementation of the OpenCL C programming language"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/libclc-{pkgver}.src.tar.xz"
-sha256 = "ecd83a52859742f71f4c332538f8bee54a6743374a233b5a85017de22d75c227"
+sha256 = "2311128b86ae95b4319341671a8ec93950928d0bc4fa13d0e6a97d7a65507aaa"
 hardening = ["vis", "!cfi"]
 # external-calls-clspv broken
 options = ["!check"]

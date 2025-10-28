@@ -1,6 +1,6 @@
 pkgname = "llvm"
-pkgver = "20.1.8"
-pkgrel = 1
+pkgver = "21.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -29,7 +29,6 @@ configure_args = [
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
     "-DCLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang",
     "-DLLVM_ENABLE_LIBXML2=OFF",
-    "-DLLVM_ENABLE_LLD=ON",
     "-DLLVM_ENABLE_LIBCXX=ON",
     "-DLIBUNWIND_ENABLE_ASSERTIONS=OFF",
     "-DLIBUNWIND_USE_COMPILER_RT=ON",
@@ -54,7 +53,7 @@ pkgdesc = "Low Level Virtual Machine"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6898f963c8e938981e6c4a302e83ec5beb4630147c7311183cf61069af16333d"
+sha256 = "a01ad7e5167780c945871d75c0413081d12067607a6de5cf71dc3e8d1a82112c"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -104,14 +103,24 @@ if self.stage > 0:
                 "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
                 "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
                 "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
+                "-DLLVM_USE_LINKER=/usr/lib/llvm-bootstrap/bin/ld.lld",
             ]
+            # not fun but stuff used during build may be using symbols from
+            # a newer version of libcxx so we need to point it to bootstrap
             tool_flags["LDFLAGS"] += [
-                "-fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld"
+                "--ld-path=/usr/lib/llvm-bootstrap/bin/ld.lld",
+                "-L/usr/lib/llvm-bootstrap/lib",
             ]
+            # this so it resolves at runtime too (e.g. -tblgen runs)
+            make_build_env = {"LD_LIBRARY_PATH": "/usr/lib/llvm-bootstrap/lib"}
         else:
+            configure_args += ["-DLLVM_ENABLE_LLD=ON"]
             hostmakedepends += ["llvm", "clang-tools-extra", "mlir"]
+    else:
+        configure_args += ["-DLLVM_ENABLE_LLD=ON"]
 else:
     configure_args += [
+        "-DLLVM_ENABLE_LLD=ON",
         "-DLLVM_ENABLE_LIBEDIT=OFF",
         "-DLLVM_ENABLE_LIBPFM=OFF",
         # for stage 0 bootstrap, avoid all the optional runtime

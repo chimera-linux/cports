@@ -1,4 +1,4 @@
-From da1c921a45908cd05aed5bd44245d2b424a8580a Mon Sep 17 00:00:00 2001
+From b5ef7fc8092c5b98195105e238ac4dfa55c7c403 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:41:14 +0200
 Subject: [PATCH 08/29] compiler-rt: lsan: basic musl fixes on various archs
@@ -8,7 +8,7 @@ Subject: [PATCH 08/29] compiler-rt: lsan: basic musl fixes on various archs
  1 file changed, 11 insertions(+)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
-index e11eff13c..96e823ae7 100644
+index 530ff90c4..6fbbd7ef5 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
 @@ -28,6 +28,14 @@
@@ -23,10 +23,10 @@ index e11eff13c..96e823ae7 100644
 +#define DTP_OFFSET 0
 +#endif
 +
- #  if SANITIZER_NETBSD
- #    define _RTLD_SOURCE  // for __lwp_gettcb_fast() / __lwp_getprivate_fast()
- #  endif
-@@ -467,6 +475,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
+ #  if SANITIZER_HAIKU
+ #    define _GNU_SOURCE
+ #    define _DEFAULT_SOURCE
+@@ -470,6 +478,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
      begin = (uptr)__tls_get_addr(mod_and_off);
  #    endif
    }
@@ -34,7 +34,7 @@ index e11eff13c..96e823ae7 100644
    for (unsigned i = 0; i != info->dlpi_phnum; ++i)
      if (info->dlpi_phdr[i].p_type == PT_TLS) {
        static_cast<InternalMmapVector<TlsBlock> *>(data)->push_back(
-@@ -624,9 +624,11 @@
+@@ -627,9 +636,11 @@ static void GetTls(uptr *addr, uptr *size) {
  #        elif SANITIZER_FREEBSD
    *size += 128;  // RTLD_STATIC_TLS_EXTRA
  #          if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64
@@ -46,7 +46,6 @@ index e11eff13c..96e823ae7 100644
  #          else
    // arm and aarch64 reserve two words at TP, so this underestimates the range.
    // However, this is sufficient for the purpose of finding the pointers to
-
 -- 
-2.49.0
+2.51.1
 

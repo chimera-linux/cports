@@ -1,4 +1,4 @@
-From 14dca6a04af1828917ab1602ff8b1d225411bf7b Mon Sep 17 00:00:00 2001
+From 6e5c8533e31c7eccfb9e840a8d9c408408aea848 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 16 Apr 2025 00:29:41 +0200
 Subject: [PATCH 29/29] libcxx: default to type 2
@@ -19,7 +19,7 @@ https://bugs.kde.org/show_bug.cgi?id=479679
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libcxx/include/typeinfo b/libcxx/include/typeinfo
-index 799c6ebd5..12572e646 100644
+index 24aaabf0a..7a01f1d17 100644
 --- a/libcxx/include/typeinfo
 +++ b/libcxx/include/typeinfo
 @@ -182,7 +182,7 @@ public:
@@ -32,5 +32,5 @@ index 799c6ebd5..12572e646 100644
  #      endif
  
 -- 
-2.49.0
+2.51.1
 

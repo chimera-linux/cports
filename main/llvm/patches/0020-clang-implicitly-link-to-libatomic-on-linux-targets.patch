@@ -1,4 +1,4 @@
-From fafc3e8c4ab398e17911563f25b3fa8415cca69e Mon Sep 17 00:00:00 2001
+From 2d1371bad6748daf38fe24b3349b52306ef3816b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:12:24 +0100
 Subject: [PATCH 20/29] clang: implicitly link to libatomic on linux targets
@@ -8,10 +8,10 @@ Subject: [PATCH 20/29] clang: implicitly link to libatomic on linux targets
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Gnu.cpp b/clang/lib/Driver/ToolChains/Gnu.cpp
-index 5230be404..8180d98c7 100644
+index da1843147..f61740605 100644
 --- a/clang/lib/Driver/ToolChains/Gnu.cpp
 +++ b/clang/lib/Driver/ToolChains/Gnu.cpp
-@@ -613,10 +613,12 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
+@@ -533,10 +533,12 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
  
        AddRunTimeLibs(ToolChain, D, CmdArgs, Args);
  
@@ -29,5 +29,5 @@ index 5230be404..8180d98c7 100644
          CmdArgs.push_back("--as-needed");
          CmdArgs.push_back("-latomic");
 -- 
-2.49.0
+2.51.1
 

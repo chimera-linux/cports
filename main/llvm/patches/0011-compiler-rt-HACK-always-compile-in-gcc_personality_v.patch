@@ -1,4 +1,4 @@
-From 89eaf55d6533d180e6eb9b58f36f19e70c1c03e4 Mon Sep 17 00:00:00 2001
+From 138ee6a3fd6bcca9426070e313a61e236f7f1d63 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:04:56 +0100
 Subject: [PATCH 11/29] compiler-rt: HACK: always compile in gcc_personality_v0
@@ -13,10 +13,10 @@ Unconditionally compile it in because some things use it.
  2 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index 51f59457a..20e4a6eb9 100644
+index 7a51084f4..4f3d35fc5 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -227,12 +227,10 @@ if(APPLE)
+@@ -234,12 +234,10 @@ if(APPLE)
    )
  endif()
  
@@ -47,5 +47,5 @@ index ef63a5fb8..5a0a90b38 100644
      !defined(__USING_SJLJ_EXCEPTIONS__)
  // When building with older compilers (e.g. clang <3.9), it is possible that we
 -- 
-2.49.0
+2.51.1
 

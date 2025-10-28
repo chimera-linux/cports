@@ -1,4 +1,4 @@
-From 194f8e7519bec165fefcaf2a4be82cfd4c271a7d Mon Sep 17 00:00:00 2001
+From 8cc2fde776703ece0c9fdb20b74461ab94e65b6e Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 16 Apr 2025 00:30:51 +0200
 Subject: [PATCH 13/29] llvm: fix isOSGlibc thinking musl is glibc
@@ -11,10 +11,10 @@ Subject: [PATCH 13/29] llvm: fix isOSGlibc thinking musl is glibc
  4 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/llvm/include/llvm/TargetParser/Triple.h b/llvm/include/llvm/TargetParser/Triple.h
-index 7d67966d1..721a7a3e1 100644
+index 657f42303..bb7df9b48 100644
 --- a/llvm/include/llvm/TargetParser/Triple.h
 +++ b/llvm/include/llvm/TargetParser/Triple.h
-@@ -737,7 +737,7 @@ public:
+@@ -753,7 +753,7 @@ public:
    bool isOSGlibc() const {
      return (getOS() == Triple::Linux || getOS() == Triple::KFreeBSD ||
              getOS() == Triple::Hurd) &&
@@ -24,10 +24,10 @@ index 7d67966d1..721a7a3e1 100644
  
    /// Tests whether the OS is AIX.
 diff --git a/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp b/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
-index 84bcdae52..b6a8ce0ee 100644
+index 32c7d2bfe..dc148eb8d 100644
 --- a/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
 +++ b/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
-@@ -1876,7 +1876,7 @@ bool X86DAGToDAGISel::matchLoadInAddress(LoadSDNode *N, X86ISelAddressMode &AM,
+@@ -1888,7 +1888,7 @@ bool X86DAGToDAGISel::matchLoadInAddress(LoadSDNode *N, X86ISelAddressMode &AM,
    // For more information see http://people.redhat.com/drepper/tls.pdf
    if (isNullConstant(Address) && AM.Segment.getNode() == nullptr &&
        !IndirectTlsSegRefs &&
@@ -37,10 +37,10 @@ index 84bcdae52..b6a8ce0ee 100644
      if (Subtarget->isTarget64BitILP32() && !AllowSegmentRegForX32)
        return true;
 diff --git a/llvm/lib/Target/X86/X86ISelLoweringCall.cpp b/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
-index 6835c7e33..50eb2384b 100644
+index b4639ac25..a0db0d240 100644
 --- a/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
 +++ b/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
-@@ -536,7 +536,7 @@ unsigned X86TargetLowering::getAddressSpace() const {
+@@ -546,7 +546,7 @@ unsigned X86TargetLowering::getAddressSpace() const {
  }
  
  static bool hasStackGuardSlotTLS(const Triple &TargetTriple) {
@@ -50,10 +50,10 @@ index 6835c7e33..50eb2384b 100644
  }
  
 diff --git a/llvm/lib/Target/X86/X86Subtarget.h b/llvm/lib/Target/X86/X86Subtarget.h
-index 722076ca8..c2fc60eff 100644
+index 38b8c246e..7678607b2 100644
 --- a/llvm/lib/Target/X86/X86Subtarget.h
 +++ b/llvm/lib/Target/X86/X86Subtarget.h
-@@ -295,6 +295,7 @@ public:
+@@ -298,6 +298,7 @@ public:
    bool isTargetLinux() const { return TargetTriple.isOSLinux(); }
    bool isTargetKFreeBSD() const { return TargetTriple.isOSKFreeBSD(); }
    bool isTargetGlibc() const { return TargetTriple.isOSGlibc(); }
@@ -62,5 +62,5 @@ index 722076ca8..c2fc60eff 100644
    bool isTargetNaCl() const { return TargetTriple.isOSNaCl(); }
    bool isTargetNaCl32() const { return isTargetNaCl() && !is64Bit(); }
 -- 
-2.49.0
+2.51.1
 

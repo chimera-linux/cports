@@ -1,4 +1,4 @@
-From 5b9530079f3623af96d47938adec11eefde65974 Mon Sep 17 00:00:00 2001
+From f60104d0845839b8767f5ab7bbd4ff23f94262fb Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:25:59 +0200
 Subject: [PATCH 22/29] clang: fix unwind chain inclusion
@@ -42,5 +42,5 @@ index 33e1792cd..a32e18cda 100644
  
 -#endif /* __CLANG_UNWIND_H */
 -- 
-2.49.0
+2.51.1
 

@@ -1,4 +1,4 @@
-From aef527f16bc8cf69f5253691c807881538597d5f Mon Sep 17 00:00:00 2001
+From 780757bf2964313c5478d437ab84a9f24131254a Mon Sep 17 00:00:00 2001
 From: Erica Z <zerica@callcc.eu>
 Date: Fri, 29 Nov 2024 19:49:16 +0100
 Subject: [PATCH 27/29] 32-bit musl sanitizer fixes
@@ -8,10 +8,10 @@ Subject: [PATCH 27/29] 32-bit musl sanitizer fixes
  1 file changed, 7 insertions(+), 41 deletions(-)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index a782d5221..6ebf10aa6 100644
+index 2332d319a..deedf1555 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -329,25 +329,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
+@@ -348,25 +348,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
    return res;
  }
  
@@ -37,7 +37,7 @@ index a782d5221..6ebf10aa6 100644
  #    if SANITIZER_LINUX && defined(__loongarch__)
  static void statx_to_stat(struct statx *in, struct stat *out) {
    internal_memset(out, 0, sizeof(*out));
-@@ -447,17 +428,11 @@ uptr internal_stat(const char *path, void *buf) {
+@@ -466,17 +447,11 @@ uptr internal_stat(const char *path, void *buf) {
    kernel_stat_to_stat(&buf64, (struct stat *)buf);
    return res;
  #      else
@@ -58,7 +58,7 @@ index a782d5221..6ebf10aa6 100644
  #    endif
  }
  
-@@ -486,17 +461,11 @@ uptr internal_lstat(const char *path, void *buf) {
+@@ -505,17 +480,11 @@ uptr internal_lstat(const char *path, void *buf) {
    kernel_stat_to_stat(&buf64, (struct stat *)buf);
    return res;
  #      else
@@ -79,7 +79,7 @@ index a782d5221..6ebf10aa6 100644
  #    endif
  }
  
-@@ -524,10 +493,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
+@@ -543,10 +512,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
    return internal_syscall(SYSCALL(fstat), fd, (uptr)buf);
  #      endif
  #    else
@@ -92,5 +92,5 @@ index a782d5221..6ebf10aa6 100644
  }
  
 -- 
-2.49.0
+2.51.1
 

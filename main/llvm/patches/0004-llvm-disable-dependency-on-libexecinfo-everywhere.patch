@@ -1,4 +1,4 @@
-From 4db989c74c1b837f218c253034bce2bbad7e5a54 Mon Sep 17 00:00:00 2001
+From f81ac83b0ffa42be69f9e3df2da710c3deda7129 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:33:12 +0100
 Subject: [PATCH 04/29] llvm: disable dependency on libexecinfo everywhere
@@ -11,7 +11,7 @@ Subject: [PATCH 04/29] llvm: disable dependency on libexecinfo everywhere
  4 files changed, 16 deletions(-)
 
 diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
-index cf729c3ad..2a8a424c0 100644
+index e3310b1ff..39b3874fc 100644
 --- a/compiler-rt/cmake/config-ix.cmake
 +++ b/compiler-rt/cmake/config-ix.cmake
 @@ -191,7 +191,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
@@ -23,10 +23,10 @@ index cf729c3ad..2a8a424c0 100644
  if (ANDROID AND COMPILER_RT_HAS_LIBDL)
    # Android's libstdc++ has a dependency on libdl.
 diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
-index 767774812..dbacb6127 100644
+index a8e4e5a63..db5935ec3 100644
 --- a/llvm/cmake/config-ix.cmake
 +++ b/llvm/cmake/config-ix.cmake
-@@ -297,8 +297,6 @@ endif()
+@@ -343,8 +343,6 @@ endif()
  # function checks
  check_symbol_exists(arc4random "stdlib.h" HAVE_DECL_ARC4RANDOM)
  find_package(Backtrace)
@@ -36,10 +36,10 @@ index 767774812..dbacb6127 100644
  # Prevent check_symbol_exists from using API that is not supported for a given
  # deployment target.
 diff --git a/llvm/include/llvm/Config/config.h.cmake b/llvm/include/llvm/Config/config.h.cmake
-index f6f10ea4f..578751766 100644
+index ce83de8e4..6a17819c0 100644
 --- a/llvm/include/llvm/Config/config.h.cmake
 +++ b/llvm/include/llvm/Config/config.h.cmake
-@@ -27,11 +27,6 @@
+@@ -23,11 +23,6 @@
     backslashes. */
  #cmakedefine01 LLVM_WINDOWS_PREFER_FORWARD_SLASH
  
@@ -52,7 +52,7 @@ index f6f10ea4f..578751766 100644
  #cmakedefine HAVE_CRASHREPORTERCLIENT_H
  
 diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
-index a6d8a2581..2178edb7d 100644
+index a579eaf7d..b813b782f 100644
 --- a/llvm/lib/Support/CMakeLists.txt
 +++ b/llvm/lib/Support/CMakeLists.txt
 @@ -49,14 +49,6 @@ elseif( CMAKE_HOST_UNIX )
@@ -71,5 +71,5 @@ index a6d8a2581..2178edb7d 100644
    set(system_libs ${system_libs} ${LLVM_PTHREAD_LIB})
    if( UNIX AND NOT (BEOS OR HAIKU) )
 -- 
-2.49.0
+2.51.1
 

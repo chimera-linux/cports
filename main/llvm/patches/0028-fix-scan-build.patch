@@ -1,6 +1,6 @@
-From 35970d6bd6bedb1f3db60d8da8c9bed63708a91b Mon Sep 17 00:00:00 2001
+From 57ddaa836e586c2e7e5f755fd997e77aff5bd6b4 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 29 Nov 2024 19:54:08 +0100
+Date: Tue, 28 Oct 2025 15:38:48 +0100
 Subject: [PATCH 28/29] fix scan-build
 
 ---
@@ -8,20 +8,20 @@ Subject: [PATCH 28/29] fix scan-build
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/clang/tools/scan-build/libexec/ccc-analyzer b/clang/tools/scan-build/libexec/ccc-analyzer
-index 74f812aef..72bbab742 100755
+index 00c34efa6..3d76802a4 100755
 --- a/clang/tools/scan-build/libexec/ccc-analyzer
 +++ b/clang/tools/scan-build/libexec/ccc-analyzer
-@@ -84,8 +84,8 @@ if (`uname -s` =~ m/Darwin/) {
-   $DefaultCCompiler = 'cc';
-   $DefaultCXXCompiler = 'c++';
- } else {
--  $DefaultCCompiler = 'gcc';
--  $DefaultCXXCompiler = 'g++';
-+  $DefaultCCompiler = 'clang';
-+  $DefaultCXXCompiler = 'clang++';
- }
+@@ -62,8 +62,8 @@ sub silent_system {
+     $DefaultCCompiler = 'cc';
+     $DefaultCXXCompiler = 'c++';
+   } else {
+-    $DefaultCCompiler = 'gcc';
+-    $DefaultCXXCompiler = 'g++';
++    $DefaultCCompiler = 'clang';
++    $DefaultCXXCompiler = 'clang++';
+   }
  
- if ($FindBin::Script =~ /c\+\+-analyzer/) {
+   sub DetermineCompiler {
 -- 
-2.49.0
+2.51.1
 

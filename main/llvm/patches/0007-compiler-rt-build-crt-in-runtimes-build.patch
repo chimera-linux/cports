@@ -1,19 +1,19 @@
-From ddba64ea50bc85499ccfae3f79ce7148eb3252bf Mon Sep 17 00:00:00 2001
+From b7be358219558e465f5c5e13d6390bfc9d731f6c Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 29 Nov 2024 19:40:34 +0100
+Date: Tue, 28 Oct 2025 15:31:37 +0100
 Subject: [PATCH 07/29] compiler-rt: build crt in runtimes build
 
 We need this because otherwise the in-tree clang binaries will
 not work, as we don't supply external gcc-style runtime.
 ---
  compiler-rt/CMakeLists.txt              | 117 +++++++++++++-----------
- compiler-rt/lib/builtins/CMakeLists.txt |  55 ++---------
- llvm/runtimes/CMakeLists.txt            |  12 ++-
+ compiler-rt/lib/builtins/CMakeLists.txt |  54 ++---------
+ llvm/runtimes/CMakeLists.txt            |  10 +-
  runtimes/CMakeLists.txt                 |   2 +-
- 4 files changed, 80 insertions(+), 106 deletions(-)
+ 4 files changed, 78 insertions(+), 105 deletions(-)
 
 diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
-index bad897a12..3ea1aac04 100644
+index b793dd4fd..24dee7ec2 100644
 --- a/compiler-rt/CMakeLists.txt
 +++ b/compiler-rt/CMakeLists.txt
 @@ -60,47 +60,6 @@ set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} --no-default-config")
@@ -155,16 +155,16 @@ index bad897a12..3ea1aac04 100644
  set(COMPILER_RT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
  
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index 19316c52d..f89cf87c7 100644
+index 3ab92403d..8fabdb5d9 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -7,54 +7,15 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+@@ -7,54 +7,16 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
  
    set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-   project(CompilerRTBuiltins C ASM)
+   project(CompilerRTBuiltins C CXX ASM)
 -  set(COMPILER_RT_STANDALONE_BUILD TRUE)
 -  set(COMPILER_RT_BUILTINS_STANDALONE_BUILD TRUE)
--
+ 
 -  set(COMPILER_RT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../..")
 -
 -  set(LLVM_COMMON_CMAKE_UTILS "${COMPILER_RT_SOURCE_DIR}/../cmake")
@@ -222,10 +222,10 @@ index 19316c52d..f89cf87c7 100644
  
  include(builtin-config-ix)
 diff --git a/llvm/runtimes/CMakeLists.txt b/llvm/runtimes/CMakeLists.txt
-index 70e85c123..7374074ac 100644
+index 94a43b96d..88e7d83db 100644
 --- a/llvm/runtimes/CMakeLists.txt
 +++ b/llvm/runtimes/CMakeLists.txt
-@@ -88,7 +88,7 @@ function(builtin_default_target compiler_rt_path)
+@@ -83,7 +83,7 @@ function(builtin_default_target compiler_rt_path)
    set_enable_per_target_runtime_dir()
  
    llvm_ExternalProject_Add(builtins
@@ -234,17 +234,15 @@ index 70e85c123..7374074ac 100644
                             DEPENDS ${ARG_DEPENDS}
                             CMAKE_ARGS -DLLVM_LIBRARY_OUTPUT_INTDIR=${LLVM_LIBRARY_DIR}
                                        -DLLVM_RUNTIME_OUTPUT_INTDIR=${LLVM_TOOLS_BINARY_DIR}
-@@ -96,7 +96,9 @@ function(builtin_default_target compiler_rt_path)
-                                       -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=${LLVM_ENABLE_PER_TARGET_RUNTIME_DIR}
-                                       -DLLVM_CMAKE_DIR=${CMAKE_BINARY_DIR}
+@@ -93,6 +93,7 @@ function(builtin_default_target compiler_rt_path)
                                        -DCMAKE_C_COMPILER_WORKS=ON
-+                                      -DCMAKE_CXX_COMPILER_WORKS=ON
+                                       -DCMAKE_CXX_COMPILER_WORKS=ON
                                        -DCMAKE_ASM_COMPILER_WORKS=ON
 +                                      -DCOMPILER_RT_BOOTSTRAP=ON
                                        ${COMMON_CMAKE_ARGS}
                                        ${BUILTINS_CMAKE_ARGS}
                             PASSTHROUGH_PREFIXES COMPILER_RT
-@@ -129,15 +131,17 @@ function(builtin_register_target compiler_rt_path name)
+@@ -125,7 +126,7 @@ function(builtin_register_target compiler_rt_path name)
    endforeach()
  
    llvm_ExternalProject_Add(builtins-${name}
@@ -253,17 +251,15 @@ index 70e85c123..7374074ac 100644
                             DEPENDS ${ARG_DEPENDS}
                             CMAKE_ARGS -DLLVM_LIBRARY_OUTPUT_INTDIR=${LLVM_LIBRARY_DIR}
                                        -DLLVM_RUNTIME_OUTPUT_INTDIR=${LLVM_TOOLS_BINARY_DIR}
-                                       -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
-                                       -DLLVM_CMAKE_DIR=${CMAKE_BINARY_DIR}
-                                       -DCMAKE_C_COMPILER_WORKS=ON
-+                                      -DCMAKE_CXX_COMPILER_WORKS=ON
+@@ -135,6 +136,7 @@ function(builtin_register_target compiler_rt_path name)
+                                       -DCMAKE_CXX_COMPILER_WORKS=ON
                                        -DCMAKE_ASM_COMPILER_WORKS=ON
                                        -DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON
 +                                      -DCOMPILER_RT_BOOTSTRAP=ON
                                        ${COMMON_CMAKE_ARGS}
                                        ${${name}_extra_args}
                             USE_TOOLCHAIN
-@@ -262,7 +266,8 @@ function(runtime_default_target)
+@@ -264,7 +266,8 @@ function(runtime_default_target)
                             ${CMAKE_CURRENT_SOURCE_DIR}/../../runtimes
                             DEPENDS ${ARG_DEPENDS}
                             # Builtins were built separately above
@@ -273,7 +269,7 @@ index 70e85c123..7374074ac 100644
                                        -DLLVM_INCLUDE_TESTS=${LLVM_INCLUDE_TESTS}
                                        -DLLVM_DEFAULT_TARGET_TRIPLE=${LLVM_TARGET_TRIPLE}
                                        -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
-@@ -399,6 +404,7 @@ function(runtime_register_target name)
+@@ -403,6 +406,7 @@ function(runtime_register_target name)
                             DEPENDS ${ARG_DEPENDS}
                             # Builtins were built separately above
                             CMAKE_ARGS -DCOMPILER_RT_BUILD_BUILTINS=OFF
@@ -282,7 +278,7 @@ index 70e85c123..7374074ac 100644
                                        -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
                                        -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=${LLVM_ENABLE_PER_TARGET_RUNTIME_DIR}
 diff --git a/runtimes/CMakeLists.txt b/runtimes/CMakeLists.txt
-index 4a6b317a0..cfbad056d 100644
+index e4dd4ebfc..1c06f4dcc 100644
 --- a/runtimes/CMakeLists.txt
 +++ b/runtimes/CMakeLists.txt
 @@ -177,7 +177,7 @@ include(HandleLLVMOptions)
@@ -295,5 +291,5 @@ index 4a6b317a0..cfbad056d 100644
  # Host triple is used by tests to check if they are running natively.
  include(GetHostTriple)
 -- 
-2.49.0
+2.51.1
 
