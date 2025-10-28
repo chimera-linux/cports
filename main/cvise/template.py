@@ -1,6 +1,6 @@
 pkgname = "cvise"
-pkgver = "2.11.0"
-pkgrel = 3
+pkgver = "2.12.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "clang-tools-extra",
@@ -27,7 +27,7 @@ pkgdesc = "Python port of C-Reduce, for program testcase minimisation"
 license = "NCSA"
 url = "https://github.com/marxin/cvise"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "7e3e473843aa79afb98f581d2e100efa47db80df3a961565b691d7b4a4ebd14b"
+sha256 = "d015050cfc4015460ca5793378c4899a36104ddcf084f29f0f5f6233f6187cb1"
 
 
 def check(self):
