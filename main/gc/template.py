@@ -1,6 +1,6 @@
 pkgname = "gc"
-pkgver = "8.2.8"
-pkgrel = 1
+pkgver = "8.2.10"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # static breaks symbol visibility
@@ -14,7 +14,7 @@ pkgdesc = "Boehm garbage collector for C/C++"
 license = "MIT"
 url = "https://www.hboehm.info/gc"
 source = f"https://github.com/ivmai/bdwgc/releases/download/v{pkgver}/gc-{pkgver}.tar.gz"
-sha256 = "7649020621cb26325e1fb5c8742590d92fb48ce5c259b502faf7d9fb5dabb160"
+sha256 = "832cf4f7cf676b59582ed3b1bbd90a8d0e0ddbc3b11cb3b2096c5177ce39cc47"
 
 
 def post_install(self):
