@@ -1,6 +1,6 @@
 pkgname = "bubblejail"
-pkgver = "0.9.5"
-pkgrel = 1
+pkgver = "0.10.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -15,6 +15,7 @@ depends = [
     "desktop-file-utils",
     "libnotify",
     "libseccomp",
+    "python-cattrs",
     "python-lxns",
     "python-pyqt6",
     "python-pyxdg",
@@ -26,4 +27,4 @@ pkgdesc = "Bubblewrap based sandboxing for desktop applications"
 license = "GPL-3.0-or-later"
 url = "https://github.com/igo95862/bubblejail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "cafaca440bf40e7069978a9f9e2c3c3199d01b3c9fa1af080f23cf072b06d188"
+sha256 = "f63800d38b2e63066546586476781563afe153ae9f570f817d78c49e797e5b2f"
