@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
 pkgver = "2506a"
-pkgrel = 1
+pkgrel = 2
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -48,6 +48,7 @@ makedepends = [
     "miniupnpc-devel",
     "minizip-ng-devel",
     "pugixml-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "sdl2-compat-devel",

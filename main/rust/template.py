@@ -1,6 +1,6 @@
 pkgname = "rust"
 pkgver = "1.90.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
