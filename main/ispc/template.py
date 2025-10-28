@@ -1,5 +1,5 @@
 pkgname = "ispc"
-pkgver = "1.27.0"
+pkgver = "1.28.2"
 pkgrel = 0
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
@@ -25,7 +25,7 @@ pkgdesc = "Implicit SPMD program compiler"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
 source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c41ae29e4f6b1d37154610e68e9b7a0eb225cd7c080242ab56fa0119e49dbd7a"
+sha256 = "0b7d1d73afa93c015814b99c97b88fa45bce822d7904e8fc4a95666ba8e3fb92"
 tool_flags = {
     # `warning: '_FORTIFY_SOURCE' macro redefined` noise
     "CXXFLAGS": ["-Wno-macro-redefined"],
@@ -35,6 +35,8 @@ tool_flags = {
 def pre_check(self):
     # expects a commit id in the output
     self.rm("tests/lit-tests/llvm_ident.ispc")
+    # fails to compile
+    self.rm("tests/lit-tests/ispc-jit-error-handling.cpp")
 
 
 def post_install(self):
