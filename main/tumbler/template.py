@@ -1,5 +1,5 @@
 pkgname = "tumbler"
-pkgver = "4.20.0"
+pkgver = "4.20.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -29,7 +29,7 @@ pkgdesc = "Xfce implementation of the thumbnail management D-Bus spec"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/tumbler/start"
 source = f"$(XFCE_SITE)/xfce/tumbler/{pkgver[:-2]}/tumbler-{pkgver}.tar.bz2"
-sha256 = "74b1647d55926547e98bfac70838ff63c5a84299a5e10c81c38d1fab90e25880"
+sha256 = "87b90df8f30144a292d70889e710c8619d8b8803f0e1db3280a4293367a42eae"
 
 
 def post_install(self):
