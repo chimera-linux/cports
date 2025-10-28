@@ -1,13 +1,27 @@
+From 9e8ce4822b90e292072e1f35c83308f9311f7eef Mon Sep 17 00:00:00 2001
+From: geemili <opensource@geemili.xyz>
+Date: Mon, 27 Oct 2025 23:00:17 -0600
+Subject: [PATCH] update install_dkms step to work with bsd tools
+
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 diff --git a/Makefile b/Makefile
-index 3a770390..d8310755 100644
+index f2031a37..11f06979 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -194,7 +194,7 @@ install_dkms: dkms/dkms.conf
+@@ -192,8 +192,8 @@ install_dkms: dkms/dkms.conf
+ 	$(INSTALL) -m0644 -D dkms/Makefile		-t $(DESTDIR)$(DKMSDIR)
+ 	$(INSTALL) -m0644 -D dkms/dkms.conf		-t $(DESTDIR)$(DKMSDIR)
  	$(INSTALL) -m0644 -D libbcachefs/Makefile	-t $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs
- 	$(INSTALL) -m0644 -D libbcachefs/*.[ch]		-t $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs
- 	$(INSTALL) -m0644 -D libbcachefs/vendor/*.[ch]	-t $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/vendor
+-	(cd libbcachefs; find -name '*.[ch]' -exec install -m0644 -D {} $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/{} \; )
 -	sed -i "s|^#define TRACE_INCLUDE_PATH \\.\\./\\.\\./fs/bcachefs$$|#define TRACE_INCLUDE_PATH .|" \
++	(cd libbcachefs; find . -name '*.[ch]' -exec install -m0644 -D {} $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/{} \; )
 +	sed -i .orig "s|^#define TRACE_INCLUDE_PATH \\.\\./\\.\\./fs/bcachefs$$|#define TRACE_INCLUDE_PATH .|" \
- 	  $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/trace.h
+ 	  $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/debug/trace.h
  
  .PHONY: clean
+-- 
+2.51.0
+
