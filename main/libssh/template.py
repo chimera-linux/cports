@@ -1,5 +1,5 @@
 pkgname = "libssh"
-pkgver = "0.11.2"
+pkgver = "0.11.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ pkgdesc = "Library for accessing ssh client services through C libraries"
 license = "LGPL-2.1-or-later WITH custom:openssl-exception AND BSD-2-Clause"
 url = "https://www.libssh.org"
 source = f"https://www.libssh.org/files/{pkgver[: pkgver.rfind('.')]}/libssh-{pkgver}.tar.xz"
-sha256 = "69529fc18f5b601f0baf0e5a4501a2bc26df5e2f116f5f8f07f19fafaa6d04e7"
+sha256 = "7d8a1361bb094ec3f511964e78a5a4dba689b5986e112afabe4f4d0d6c6125c3"
 hardening = ["vis", "cfi"]
 
 
