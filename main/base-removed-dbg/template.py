@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 19
+pkgrel = 20
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -105,7 +105,6 @@ for _pkg in [
     "tzutils",
     "valadoc",
     "xmlwf",
-    "xsltproc",
     "zramctl",
 ]:
     provides += [f"{_pkg}-dbg=9999"]
