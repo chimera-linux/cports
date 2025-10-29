@@ -69,11 +69,6 @@ hardening = ["!int"]
 if self.profile().endian == "big":
     broken = "tdesktop deosn't work on this anyway etc."
 
-# relocation R_LARCH_B26 out of range when linking tdesktop
-if self.profile().arch == "loongarch64":
-    tool_flags["CXXFLAGS"] += ["-mcmodel=medium"]
-    tool_flags["CFLAGS"] += ["-mcmodel=medium"]
-
 
 def post_install(self):
     self.install_license("LICENSE")

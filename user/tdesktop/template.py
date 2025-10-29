@@ -80,12 +80,6 @@ if self.profile().endian == "big":
 elif self.profile().arch == "riscv64":
     broken = "compiler segfault"
 
-# relocation R_LARCH_B26 out of range
-if self.profile().arch == "loongarch64":
-    broken = "can't link due to Scrt1/crtbegin/crtend"
-    tool_flags["CXXFLAGS"] += ["-mcmodel=medium"]
-    tool_flags["CFLAGS"] += ["-mcmodel=medium"]
-
 
 def pre_configure(self):
     from cbuild.util import cmake
