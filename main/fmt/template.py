@@ -1,6 +1,6 @@
 pkgname = "fmt"
 pkgver = "11.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
