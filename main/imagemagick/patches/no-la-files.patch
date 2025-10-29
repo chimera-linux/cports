@@ -8,16 +8,18 @@ diff --git a/MagickCore/module.c b/MagickCore/module.c
 index e36214d..c5ab960 100644
 --- a/MagickCore/module.c
 +++ b/MagickCore/module.c
-@@ -78,7 +78,7 @@ typedef void *ModuleHandle;
+@@ -78,8 +78,8 @@
    Define declarations.
  */
  #if defined(MAGICKCORE_LTDL_DELEGATE)
+-#  define FilterGlobExpression "*.la"
 -#  define ModuleGlobExpression "*.la"
++#  define FilterGlobExpression "*.so"
 +#  define ModuleGlobExpression "*.so"
  #else
  #  if defined(_DEBUG)
- #    define ModuleGlobExpression "IM_MOD_DB_*.dll"
-@@ -1475,7 +1475,7 @@ static void TagToCoderModuleName(const char *tag,char *name)
+ #    define FilterGlobExpression "FILTER_DB_*.dll"
+@@ -1486,7 +1486,7 @@
    if (IsEventLogging() != MagickFalse)
      (void) LogMagickEvent(TraceEvent,GetMagickModule(),"%s",tag);
  #if defined(MAGICKCORE_LTDL_DELEGATE)
@@ -26,7 +28,7 @@ index e36214d..c5ab960 100644
    (void) LocaleLower(name);
  #else
  #if defined(MAGICKCORE_WINDOWS_SUPPORT)
-@@ -1529,7 +1529,7 @@ static void TagToFilterModuleName(const char *tag,char *name)
+@@ -1544,7 +1544,7 @@
  #elif !defined(MAGICKCORE_LTDL_DELEGATE)
    (void) FormatLocaleString(name,MagickPathExtent,"%s.dll",tag);
  #else
