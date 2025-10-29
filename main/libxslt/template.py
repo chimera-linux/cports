@@ -1,6 +1,6 @@
 pkgname = "libxslt"
-pkgver = "1.1.42"
-pkgrel = 2
+pkgver = "1.1.43"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-python=no"]
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "GNOME XSLT parser library"
 license = "MIT"
 url = "http://xmlsoft.org/XSLT"
 source = f"$(GNOME_SITE)/libxslt/{pkgver[: pkgver.rfind('.')]}/libxslt-{pkgver}.tar.xz"
-sha256 = "85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb"
+sha256 = "5a3d6b383ca5afc235b171118e90f5ff6aa27e9fea3303065231a6d403f0183a"
 
 
 def post_extract(self):
@@ -23,7 +23,7 @@ def post_extract(self):
 
 
 def post_install(self):
-    self.install_license("COPYING")
+    self.install_license("Copyright")
 
 
 @subpackage("libxslt-devel")
@@ -33,7 +33,6 @@ def _(self):
 
 @subpackage("libxslt-progs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("xsltproc")]
+    self.renames = ["xsltproc"]
 
     return self.default_progs()
