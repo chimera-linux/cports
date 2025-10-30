@@ -16,7 +16,7 @@ make_check_args = [
     + "|kwin-testInputMethod"  # flakes
     + "|kwin-testFifo"  # always fails on 24Hz when run with other tests, works alone
     + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
-    + "|^testPointerInput$"  # flaky segfaults of testEdgeBarrier subtests on loongarch64
+    + "|kwin-testPointerInput"  # flaky segfaults of testEdgeBarrier subtests on loongarch64
     + "|^kwayland-testServerSideDecoration$"  # Tried to add event to destroyed queue
     + "|^kwayland-testDataControlInterface$"  # An issue with ext_data_control_offer_v1 metatype?
     + "|^kwin-testLockScreen$"  # broken since 296b791614 (v6.5.0)
