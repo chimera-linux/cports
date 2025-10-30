@@ -1,5 +1,5 @@
 pkgname = "bubblejail"
-pkgver = "0.10.0"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,4 +27,4 @@ pkgdesc = "Bubblewrap based sandboxing for desktop applications"
 license = "GPL-3.0-or-later"
 url = "https://github.com/igo95862/bubblejail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f63800d38b2e63066546586476781563afe153ae9f570f817d78c49e797e5b2f"
+sha256 = "c86c621dfce1a9ad14bd29a34aad6270f9099a7da38cc2dd99d304c64088d1cd"
