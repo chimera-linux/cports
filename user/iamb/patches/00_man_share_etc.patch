@@ -1,0 +1,13 @@
+diff --git a/docs/iamb.5 b/docs/iamb.5
+index 8357f96..cdfee31 100644
+--- a/docs/iamb.5
++++ b/docs/iamb.5
+@@ -575,7 +575,7 @@ loads by default.
+ A JSON configuration file that
+ .Sy iamb
+ will load if the TOML one is not found.
+-.It Pa /usr/share/iamb/config.example.toml
++.It Pa /usr/share/etc/iamb/config.example.toml
+ A sample configuration file with examples of how to set different values.
+ .El
+ .Sh "REPORTING BUGS"
