@@ -16,6 +16,7 @@ make_check_args = [
     + "|kwin-testInputMethod"  # flakes
     + "|kwin-testX11Window"  # flaky subtests (especially testStackAboveFromApplication)
     + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
+    + "|kwin-testPointerInput"  # flaky segfaults of testConfineToScreenGeometry subtests on loongarch64
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
