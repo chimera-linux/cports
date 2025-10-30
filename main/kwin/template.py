@@ -21,6 +21,7 @@ make_check_args = [
     + "|^kwin-testLockScreen$"  # broken since 296b791614 (v6.5.0)
     + "|^kwin-testStickyKeys$"  # broken since 837e084950 (v6.5.0)
     + "|^kwin-testFractionalRepaint$"  # testBottomRow() segfault in cbuild chroot, passes on host
+    + "|^kwin-testXwaylandSelection$"  # primarySelectionX11ToWayland* subtests fail only on builders with 'seatPrimarySelectionChangedSpy.wait()' returned FALSE
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
