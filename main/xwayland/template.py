@@ -1,5 +1,5 @@
 pkgname = "xwayland"
-pkgver = "24.1.8"
+pkgver = "24.1.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "Xwayland X server"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xwayland-{pkgver}/xserver-xwayland-{pkgver}.tar.gz"
-sha256 = "74cabefc337e2e4a50f3bea88d35867b089fa21ecb176f0e11022556e176a85c"
+sha256 = "27b2c92659eaf3fc3705998bcdc6a8a3953c990f83023069425343ac9a85ebe2"
 hardening = ["!vis", "!cfi"]
 # needs xtest repository
 options = ["!check"]
