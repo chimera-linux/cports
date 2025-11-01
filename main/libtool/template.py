@@ -1,6 +1,6 @@
 pkgname = "libtool"
 pkgver = "2.5.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = [
