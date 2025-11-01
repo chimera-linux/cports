@@ -1,6 +1,6 @@
 pkgname = "wlroots0.17"
 pkgver = "0.17.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     # all auto features are needed,

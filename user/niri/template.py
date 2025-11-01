@@ -1,7 +1,8 @@
 pkgname = "niri"
 pkgver = "25.08"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features",
@@ -48,6 +49,15 @@ if self.profile().arch in ["ppc64le", "riscv64"]:
     options += ["!check"]
 
 # TODO: dinit graphical user session service, --notify-fd, etc
+
+
+def post_prepare(self):
+    from cbuild.util import cargo, patch
+
+    cargo.clear_vendor_checksums(self, "smithay-drm-extras")
+
+    # done separately because we need to patch lockfile before vendoring :/
+    patch.patch(self, [self.files_path / "smithay-drm-extras.patch"])
 
 
 def post_build(self):

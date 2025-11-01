@@ -1,6 +1,6 @@
 pkgname = "libxfce4windowing"
 pkgver = "4.20.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-tests"]
 hostmakedepends = [
