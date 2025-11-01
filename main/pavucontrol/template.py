@@ -1,5 +1,5 @@
 pkgname = "pavucontrol"
-pkgver = "6.1"
+pkgver = "6.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -20,4 +20,4 @@ pkgdesc = "PulseAudio volume control"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/software/pulseaudio/pavucontrol"
 source = f"https://gitlab.freedesktop.org/pulseaudio/pavucontrol/-/archive/v{pkgver}.tar.gz"
-sha256 = "d6e529a0e44c25a24e461036ed366a59db6e87cd74eaa0e3c6422b40102ce171"
+sha256 = "b6c40918c0d4767f7cdbc04484adb7bbaacc41020678de6ac80d4b59640b94f8"
