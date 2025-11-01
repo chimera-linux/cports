@@ -1,0 +1,28 @@
+From 6242093933e04dff3d93ac7394529fad23f99746 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sun, 26 Oct 2025 21:53:45 +0100
+Subject: [PATCH 1/2] fix rpgpie backend
+
+---
+ lib/build.rs | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/lib/build.rs b/lib/build.rs
+index 0f94b36..43cd09f 100644
+--- a/lib/build.rs
++++ b/lib/build.rs
+@@ -12,6 +12,10 @@ fn main() {
+     }
+ 
+     // GPG cryptography
+-    #[cfg(any(feature = "backend-gpgme", feature = "backend-gnupg-bin",))]
++    #[cfg(any(
++        feature = "backend-gpgme",
++        feature = "backend-gnupg-bin",
++        feature = "backend-rpgpie",
++    ))]
+     println!("cargo:rustc-cfg=feature=\"_crypto-gpg\"");
+ }
+-- 
+2.51.1
+
