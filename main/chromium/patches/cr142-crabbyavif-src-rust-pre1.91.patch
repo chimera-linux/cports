@@ -42,12 +42,21 @@ diff --git a/third_party/crabbyavif/src/src/reformat/libyuv.rs b/third_party/cra
 index 9df874c..3f68c16 100644
 --- a/third_party/crabbyavif/src/src/reformat/libyuv.rs
 +++ b/third_party/crabbyavif/src/src/reformat/libyuv.rs
-@@ -367,7 +367,7 @@
+@@ -372,7 +372,7 @@ fn find_conversion_function(
+ // Returns Ok(Some(false)) if only YUV was converted and alpha
+ // needs to be imported separately.
+ // Returns Ok(None) if the conversion is not implemented.
+-#[cfg_attr(feature = "disable_cfi", sanitize(cfi = "off"))]
++#[cfg_attr(feature = "disable_cfi", no_sanitize(cfi))]
+ pub(crate) fn yuv_to_rgb(image: &image::Image, rgb: &mut rgb::Image) -> AvifResult<Option<bool>> {
+     if (rgb.depth != 8 && rgb.depth != 10) || !image.depth_valid() {
+         return Ok(None); // Not implemented.
+@@ -833,7 +833,7 @@ fn rgb_to_yuv_conversion_function(
      }
  }
  
 -#[cfg_attr(feature = "disable_cfi", sanitize(cfi = "off"))]
 +#[cfg_attr(feature = "disable_cfi", no_sanitize(cfi))]
- pub(crate) fn yuv_to_rgb(image: &image::Image, rgb: &mut rgb::Image) -> AvifResult<bool> {
-     if (rgb.depth != 8 && rgb.depth != 10) || !image.depth_valid() {
-         return Err(AvifError::NotImplemented);
+ pub(crate) fn rgb_to_yuv(rgb: &rgb::Image, image: &mut image::Image) -> AvifResult<Option<()>> {
+     let conversion_function = match rgb_to_yuv_conversion_function(rgb, image) {
+         Some(conversion_function) => conversion_function,

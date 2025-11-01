@@ -1051,7 +1051,7 @@ diff --git a/sandbox/linux/system_headers/linux_syscalls.h b/sandbox/linux/syste
 index 6b67cbc..ab376c4 100644
 --- a/sandbox/linux/system_headers/linux_syscalls.h
 +++ b/sandbox/linux/system_headers/linux_syscalls.h
-@@ -36,5 +36,9 @@
+@@ -44,4 +44,8 @@
  #include "sandbox/linux/system_headers/arm64_linux_syscalls.h"
  #endif
  
@@ -1060,7 +1060,6 @@ index 6b67cbc..ab376c4 100644
 +#endif
 +
  #endif  // SANDBOX_LINUX_SYSTEM_HEADERS_LINUX_SYSCALLS_H_
- 
 diff --git a/sandbox/linux/system_headers/ppc64_linux_syscalls.h b/sandbox/linux/system_headers/ppc64_linux_syscalls.h
 new file mode 100644
 index 0000000..ccacffe
