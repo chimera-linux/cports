@@ -1,5 +1,5 @@
 pkgname = "python-asgiref"
-pkgver = "3.9.1"
+pkgver = "3.10.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "ASGI specs, helper code, and adapters"
 license = "BSD-3-Clause"
 url = "https://github.com/django/asgiref"
 source = f"$(PYPI_SITE)/a/asgiref/asgiref-{pkgver}.tar.gz"
-sha256 = "a5ab6582236218e5ef1648f242fd9f10626cfd4de8dc377db215d5d5098e3142"
+sha256 = "d89f2d8cd8b56dada7d52fa7dc8075baa08fb836560710d38c292a7a3f78c04e"
 
 
 def post_install(self):
