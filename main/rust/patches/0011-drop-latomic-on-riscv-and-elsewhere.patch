@@ -1,22 +1,25 @@
-From f57806ea5c073774b909354a32ef3bafaa7ebda3 Mon Sep 17 00:00:00 2001
+From 361573e670a49a7cdeea46316fcb92b7edd302f5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
-Subject: [PATCH 11/15] drop -latomic on riscv and elsewhere
+Subject: [PATCH 11/16] drop -latomic on riscv and elsewhere
 
 ---
- compiler/rustc_llvm/build.rs               | 18 +-----------------
+ compiler/rustc_llvm/build.rs               | 21 +--------------------
  src/bootstrap/src/core/build_steps/llvm.rs | 19 -------------------
- 2 files changed, 1 insertion(+), 36 deletions(-)
+ 2 files changed, 1 insertion(+), 39 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index c20700dac..284dc59fa 100644
+index 75829c100..271981b5b 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -245,15 +245,7 @@ fn main() {
+@@ -254,18 +254,7 @@ fn main() {
          println!("cargo:rustc-link-lib=kstat");
      }
  
--    if (target.starts_with("arm") && !target.contains("freebsd")) && !target.contains("ohos")
+-    if (target.starts_with("arm")
+-        && !target.starts_with("arm64")
+-        && !target.contains("freebsd")
+-        && !target.contains("ohos"))
 -        || target.starts_with("mips-")
 -        || target.starts_with("mipsel-")
 -        || target.starts_with("powerpc-")
@@ -29,7 +32,7 @@ index c20700dac..284dc59fa 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -390,14 +382,6 @@ fn main() {
+@@ -402,14 +391,6 @@ fn main() {
          "stdc++"
      };
  
@@ -45,10 +48,10 @@ index c20700dac..284dc59fa 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index 551715338..c82dcf5d4 100644
+index 06eac7abc..a3e734118 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -396,25 +396,6 @@ impl Step for Llvm {
+@@ -384,25 +384,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
@@ -75,5 +78,5 @@ index 551715338..c82dcf5d4 100644
              // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
              ldflags.exe.push(" -latomic");
 -- 
-2.51.1
+2.51.2
 

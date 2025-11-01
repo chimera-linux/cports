@@ -1,7 +1,7 @@
-From c4717c76fad748e220e07af4adb1279b73618a74 Mon Sep 17 00:00:00 2001
+From 7f873e1cc6f9193a4632a8baad390b12eef3e8c6 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
-Subject: [PATCH 01/15] add chimera targets, always dynamic musl + static pie
+Subject: [PATCH 01/16] add chimera targets, always dynamic musl + static pie
 
 ---
  compiler/rustc_target/src/spec/base/linux_musl.rs     | 11 +++++++----
@@ -19,14 +19,14 @@ Subject: [PATCH 01/15] add chimera targets, always dynamic musl + static pie
  .../src/spec/targets/i686_unknown_linux_musl.rs       |  2 --
  .../spec/targets/loongarch64_chimera_linux_musl.rs    | 10 ++++++++++
  .../spec/targets/loongarch64_unknown_linux_musl.rs    |  1 -
- .../src/spec/targets/powerpc64_chimera_linux_musl.rs  | 10 ++++++++++
- .../spec/targets/powerpc64le_chimera_linux_musl.rs    | 10 ++++++++++
+ .../src/spec/targets/powerpc64_chimera_linux_musl.rs  | 11 +++++++++++
+ .../spec/targets/powerpc64le_chimera_linux_musl.rs    | 11 +++++++++++
  .../spec/targets/powerpc64le_unknown_linux_musl.rs    |  2 --
  .../src/spec/targets/powerpc_chimera_linux_musl.rs    | 10 ++++++++++
  .../src/spec/targets/riscv64_chimera_linux_musl.rs    | 10 ++++++++++
  .../src/spec/targets/x86_64_chimera_linux_musl.rs     | 10 ++++++++++
  .../src/spec/targets/x86_64_unknown_linux_musl.rs     |  2 --
- 22 files changed, 106 insertions(+), 26 deletions(-)
+ 22 files changed, 108 insertions(+), 26 deletions(-)
  create mode 100644 compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
  create mode 100644 compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
@@ -61,10 +61,10 @@ index 1bef60240..9a2fc4bba 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 033590e01..af3e66e6c 100644
+index 07fb1ce63..846c5691c 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1895,6 +1895,15 @@ macro_rules! supported_targets {
+@@ -1439,6 +1439,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -262,7 +262,7 @@ index d9010b1e4..2dafe15ee 100644
                  | SanitizerSet::LEAK
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..1c7a4dac1
+index 000000000..c6cbe01b1
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 @@ -0,0 +1,11 @@
@@ -279,7 +279,7 @@ index 000000000..1c7a4dac1
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..c4093e6fa
+index 000000000..464907708
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 @@ -0,0 +1,11 @@
@@ -369,5 +369,5 @@ index cc5f88862..0203c776a 100644
      Target {
          llvm_target: "x86_64-unknown-linux-musl".into(),
 -- 
-2.51.1
+2.51.2
 

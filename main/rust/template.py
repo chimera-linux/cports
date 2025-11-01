@@ -1,6 +1,6 @@
 pkgname = "rust"
-pkgver = "1.90.0"
-pkgrel = 1
+pkgver = "1.91.0"
+pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "6bfeaddd90ffda2f063492b092bfed925c4b8c701579baf4b1316e021470daac"
+sha256 = "9b94161dba3aa32192e0e75f7891912d98095ffb86087b07a05af35a0265a938"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -83,15 +83,16 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.171")
     cargo.clear_vendor_checksums(self, "libc-0.2.172")
     cargo.clear_vendor_checksums(self, "libc-0.2.174")
+    cargo.clear_vendor_checksums(self, "libc-0.2.175")
     cargo.clear_vendor_checksums(self, "cc-1.2.0")
     cargo.clear_vendor_checksums(self, "cc-1.2.13")
     cargo.clear_vendor_checksums(self, "cc-1.2.16")
     cargo.clear_vendor_checksums(self, "cc-1.2.19")
     cargo.clear_vendor_checksums(self, "cc-1.2.20")
-    cargo.clear_vendor_checksums(self, "cc-1.2.23")
     cargo.clear_vendor_checksums(self, "cc-1.2.26")
-    cargo.clear_vendor_checksums(self, "cc-1.2.27")
-    cargo.clear_vendor_checksums(self, "cc-1.2.30")
+    cargo.clear_vendor_checksums(self, "cc-1.2.28")
+    cargo.clear_vendor_checksums(self, "cc-1.2.33")
+    cargo.clear_vendor_checksums(self, "cc-1.2.35")
 
 
 def configure(self):
@@ -112,7 +113,7 @@ def configure(self):
         # while we'd love to build cargo and rust in one build, this is
         # unfortunately not possible as rustbuild is junk and breaks rather
         # hard when trying that
-        _tools += ["clippy", "src", "rustfmt"]
+        _tools += ["clippy", "src", "rustfmt", "wasm-component-ld"]
         # for rust-analyzer, only builds on these archs
         match self.profile().arch:
             case "aarch64" | "ppc64" | "ppc64le" | "x86_64":
@@ -176,7 +177,7 @@ unsafe extern "C" {}
     with open(self.cwd / "bootstrap.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 144675
+change-id = 146435
 
 [llvm]
 ninja = false
@@ -415,6 +416,13 @@ def install(self):
 
     self.log("unpacking rust-src...")
     _untar(self, "rust-src", False)
+
+    # move from a non-compliant path
+    self.rename(
+        "usr/etc/target-spec-json-schema.json",
+        "usr/share/rust/target-spec-json-schema.json",
+        relative=False,
+    )
 
     # remove rust copies of llvm tools
     self.log("cleaning up tools...")

@@ -1,25 +1,25 @@
-From db3b55fcd7f6f760962d5c3d2afae66a2b85f539 Mon Sep 17 00:00:00 2001
+From a8ccf825c26f81b4ce328289c135bcc412e990b1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 30 Jun 2025 12:13:44 +0200
-Subject: [PATCH 14/15] patch out some broken code
+Date: Sat, 1 Nov 2025 15:19:24 +0100
+Subject: [PATCH 14/16] patch out some broken code
 
 ---
  src/bootstrap/src/core/build_steps/dist.rs | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index d6c97637a..30b9c38d7 100644
+index 138f72b02..af6e8259f 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -469,7 +469,7 @@ impl Step for Rustc {
+@@ -531,7 +531,7 @@ impl Step for Rustc {
              t!(fs::create_dir_all(&dst_dir));
  
              // Copy over lld if it's there
 -            if builder.config.lld_enabled {
 +            if false {
-                 let src_dir = builder.sysroot_target_bindir(compiler, host);
-                 let rust_lld = exe("rust-lld", compiler.host);
+                 let src_dir = builder.sysroot_target_bindir(target_compiler, target);
+                 let rust_lld = exe("rust-lld", target_compiler.host);
                  builder.copy_link(
 -- 
-2.51.1
+2.51.2
 

@@ -1,7 +1,7 @@
-From 43c7efd0e2e72abeee0ed767d739c685f3941238 Mon Sep 17 00:00:00 2001
+From 3f78fd45b1429871b10f85eadcf9aed2a720bca1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 9 Jan 2025 22:39:56 +0100
-Subject: [PATCH 08/15] link stage 2 tools dynamically to libstd
+Subject: [PATCH 08/16] link stage 2 tools dynamically to libstd
 
 stage 2 tools are the ones that are distributed, and we distribute
 them together with the rust libs so there is no need to worry
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 3 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder/cargo.rs b/src/bootstrap/src/core/builder/cargo.rs
-index 6b3236ef4..e7f0f879d 100644
+index b7d2b7236..12aed5d83 100644
 --- a/src/bootstrap/src/core/builder/cargo.rs
 +++ b/src/bootstrap/src/core/builder/cargo.rs
-@@ -1268,6 +1268,9 @@ impl Builder<'_> {
+@@ -1307,6 +1307,9 @@ impl Builder<'_> {
          if matches!(mode, Mode::Rustc) && !self.link_std_into_rustc_driver(target) {
              rustflags.arg("-Cprefer-dynamic");
          }
@@ -25,5 +25,5 @@ index 6b3236ef4..e7f0f879d 100644
          cargo.env(
              "RUSTC_LINK_STD_INTO_RUSTC_DRIVER",
 -- 
-2.51.1
+2.51.2
 

@@ -1,7 +1,7 @@
-From e437a5b9aa4f31b1c47265e58f7bf14e41ffcfe9 Mon Sep 17 00:00:00 2001
+From 1525cfc9c3f1a0fa6b34a84de6b7a0c3641580dc Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Oct 2023 22:40:31 +0200
-Subject: [PATCH 04/15] fix shebang on install-template.sh
+Subject: [PATCH 04/16] fix shebang on install-template.sh
 
 ---
  src/tools/rust-installer/install-template.sh | 2 +-
@@ -18,5 +18,5 @@ index 337aaa95b..4e3dbc0e9 100644
  # No undefined variables
  set -u
 -- 
-2.51.1
+2.51.2
 

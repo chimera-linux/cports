@@ -1,7 +1,7 @@
-From 80ba2a47744184ddd7d5572bbc42ced52d45a4c6 Mon Sep 17 00:00:00 2001
+From 373124d2e580d3fda2470957174a857bc2829cb8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:53:26 +0200
-Subject: [PATCH 05/15] get rid of wrong linkage
+Subject: [PATCH 05/16] get rid of wrong linkage
 
 There is no good way to compute the clang builtins library
 path from inside the rust code, but there should be no harm
@@ -15,7 +15,8 @@ in just disabling nodefaultlibs for our platform.
  vendor/libc-0.2.171/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.172/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.174/src/unix/mod.rs | 15 +--------------
- 8 files changed, 8 insertions(+), 88 deletions(-)
+ vendor/libc-0.2.175/src/unix/mod.rs | 15 +--------------
+ 9 files changed, 9 insertions(+), 102 deletions(-)
 
 diff --git a/vendor/libc-0.2.155/src/unix/mod.rs b/vendor/libc-0.2.155/src/unix/mod.rs
 index 49984d3f0..76890a787 100644
@@ -201,6 +202,32 @@ index 96209e7e7..777f5f30e 100644
      } else if #[cfg(target_os = "emscripten")] {
          // Don't pass -lc to Emscripten, it breaks. See:
          // https://github.com/emscripten-core/emscripten/issues/22758
+diff --git a/vendor/libc-0.2.175/src/unix/mod.rs b/vendor/libc-0.2.175/src/unix/mod.rs
+index 941f2faa9..1906a869f 100644
+--- a/vendor/libc-0.2.175/src/unix/mod.rs
++++ b/vendor/libc-0.2.175/src/unix/mod.rs
+@@ -477,20 +477,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern "C" {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(
+-                name = "c",
+-                kind = "static",
+-                modifiers = "-bundle",
+-                cfg(target_feature = "crt-static")
+-            )
+-        )]
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(name = "c", cfg(not(target_feature = "crt-static")))
+-        )]
+-        extern "C" {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         // Don't pass -lc to Emscripten, it breaks. See:
+         // https://github.com/emscripten-core/emscripten/issues/22758
 -- 
-2.51.1
+2.51.2
 
