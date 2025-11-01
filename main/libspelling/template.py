@@ -1,5 +1,5 @@
 pkgname = "libspelling"
-pkgver = "0.4.8"
+pkgver = "0.4.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,7 @@ pkgdesc = "Spellcheck library for GTK 4"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libspelling"
 source = f"{url}/-/archive/{pkgver}/libspelling-{pkgver}.tar.gz"
-sha256 = "6da9c8e1a0da49cc2a0e4b7837a87d8d818c96019feee5af1f2f9b698cf9b1de"
+sha256 = "7fa6185d9fc621b890ef01b2bb7943951dc2ad94d31cbf6e16bc468589571e17"
 # introspection
 options = ["!cross"]
 
