@@ -1,8 +1,9 @@
 pkgname = "weston"
 pkgver = "14.0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Dsystemd=false",
     "-Dpipewire=true",
     "-Dremoting=false",
