@@ -1,5 +1,5 @@
 pkgname = "nautilus"
-pkgver = "49.0"
+pkgver = "49.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
@@ -31,7 +31,8 @@ pkgdesc = "GNOME file manager"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/nautilus/{pkgver[: pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
-sha256 = "b3129270434fc7c533f97ed7f8c442704f00a02d27a290802d8d16ab42a16bf8"
+sha256 = "add2a0e410fd22da2851ddd0c5b3d22c9e9d8c33111511f336961e3b461b535e"
+# introspection
 options = ["!cross"]
 
 
