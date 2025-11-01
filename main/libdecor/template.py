@@ -1,5 +1,5 @@
 pkgname = "libdecor"
-pkgver = "0.2.3"
+pkgver = "0.2.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Decorations library for Wayland clients"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/libdecor/libdecor"
 source = f"{url}/-/archive/{pkgver}/libdecor-{pkgver}.tar.gz"
-sha256 = "21a471e3f48088d3fd8ecc5999c45258a32198782c0157482f7ebe82de42f79c"
+sha256 = "1fb3ee6c7c9e238d240772517753bedb2e09e29d21514fb86f19724fccb58cc1"
 
 
 def post_install(self):
