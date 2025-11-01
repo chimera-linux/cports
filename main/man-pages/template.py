@@ -1,12 +1,12 @@
 pkgname = "man-pages"
-pkgver = "6.15"
+pkgver = "6.16"
 pkgrel = 0
-hostmakedepends = ["gsed", "bash"]
+hostmakedepends = ["bash", "gsed"]
 pkgdesc = "Linux Documentation Project manual pages"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/man-pages-{pkgver}.tar.xz"
-sha256 = "03d8ebf618bd5df57cb4bf355efa3f4cd3a00b771efd623d4fd042b5dceb4465"
+sha256 = "8e247abd75cd80809cfe08696c81b8c70690583b045749484b242fb43631d7a3"
 options = ["!autosplit"]
 
 
