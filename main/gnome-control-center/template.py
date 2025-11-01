@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "49.0"
+pkgver = "49.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -71,7 +71,7 @@ pkgdesc = "GNOME control center"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/gnome-control-center/{pkgver.split('.')[0]}/gnome-control-center-{pkgver}.tar.xz"
-sha256 = "a5d8dce2a028a0047e86743c277277de8b35a063d44833604aea3e89ea859f97"
+sha256 = "5402eff8f23163a755dec249366c1b3a65e80f0da60f0774a740d1e58746f869"
 options = ["!lintpixmaps"]
 
 
