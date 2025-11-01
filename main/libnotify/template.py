@@ -1,5 +1,5 @@
 pkgname = "libnotify"
-pkgver = "0.8.6"
+pkgver = "0.8.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,6 +25,7 @@ makedepends = [
     "gdk-pixbuf-devel",
     "glib-devel",
     "gtk+3-devel",
+    "gtk4-devel",
     "libpng-devel",
 ]
 checkdepends = ["xwayland-run", "dbus"]
@@ -32,7 +33,7 @@ pkgdesc = "Desktop notification library"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnotify"
 source = f"$(GNOME_SITE)/libnotify/{pkgver[:-2]}/libnotify-{pkgver}.tar.xz"
-sha256 = "c5540aaefb60e1d63b1c587c05f2284ebe72ece7d0c0e5e4a778cfd5844b6b58"
+sha256 = "4be15202ec4184fce1ac15997ece5530d2be32fe9573875aeb10e3b573858748"
 # cross: introspection
 # check: cycle with xwayland-run
 options = ["!cross", "!check"]
