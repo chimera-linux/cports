@@ -1,5 +1,5 @@
 pkgname = "orca"
-pkgver = "49.1"
+pkgver = "49.4"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -33,7 +33,7 @@ pkgdesc = "GNOME screen reader"
 license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-2]}/orca-{pkgver}.tar.xz"
-sha256 = "65329686cd15f62ab4e4c0d00ceb984d499b28ec2c5117508c3b82890d62e7e3"
+sha256 = "b6ba4cc5878411c34a7d5b7ee9b2c5c9b1d04add10bfd20f6e2331d594165207"
 
 
 def post_install(self):
