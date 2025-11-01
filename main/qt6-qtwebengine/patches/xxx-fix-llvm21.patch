@@ -1,0 +1,24 @@
+LLVM 21 complains here about something in the UMA_HISTOGRAM_ENUMERATION
+not being a constant expression, this code effectively doesn't do
+anything and is only used for reporting so disable the code
+
+diff --git a/src/3rdparty/chromium/sandbox/policy/linux/sandbox_linux.cc b/src/3rdparty/chromium/sandbox/policy/linux/sandbox_linux.cc
+index f793d20b40..c46ed56ea9 100644
+--- a/src/3rdparty/chromium/sandbox/policy/linux/sandbox_linux.cc
++++ b/src/3rdparty/chromium/sandbox/policy/linux/sandbox_linux.cc
+@@ -671,6 +671,7 @@ bool SandboxLinux::EngageNamespaceSandboxInternal(bool from_zygote) {
+ }
+ 
+ void SandboxLinux::ReportLandlockStatus() {
++#if 0
+   LandlockState landlock_state = LandlockState::kUnknown;
+   const int landlock_version =
+       landlock_create_ruleset(nullptr, 0, LANDLOCK_CREATE_RULESET_VERSION);
+@@ -698,6 +699,7 @@ void SandboxLinux::ReportLandlockStatus() {
+   }
+ 
+   UMA_HISTOGRAM_ENUMERATION("Security.Sandbox.LandlockState", landlock_state);
++#endif
+ }
+ 
+ }  // namespace policy
