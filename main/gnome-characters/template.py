@@ -1,5 +1,5 @@
 pkgname = "gnome-characters"
-pkgver = "49.0"
+pkgver = "49.1"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -26,6 +26,6 @@ pkgdesc = "GNOME character map utility"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Design/Apps/CharacterMap"
 source = f"$(GNOME_SITE)/gnome-characters/{pkgver[:-2]}/gnome-characters-{pkgver}.tar.xz"
-sha256 = "1b6e548a82e26aa4ec9afe409d69a25709362c037fa5c533186d6a1db29af6e3"
+sha256 = "795c0fe434e602dc783391fb5830dbc7d8e1ea05ca77210fb140e2f6f40a145c"
 # tries to access gpu
 options = ["!check"]
