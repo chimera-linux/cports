@@ -26,6 +26,8 @@ tool_flags = {
         "-Wno-compound-token-split-by-macro",
         "-DNO_POSIX_2008_LOCALE",
         "-D_GNU_SOURCE",
+        # https://github.com/llvm/llvm-project/issues/152241
+        "-fno-strict-aliasing",
     ],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
