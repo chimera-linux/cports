@@ -1,8 +1,9 @@
 pkgname = "udisks"
-pkgver = "2.10.1"
-pkgrel = 1
+pkgver = "2.10.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX libexecdir
     "--disable-static",
     "--with-udevdir=/usr/lib/udev",
     "--enable-lvm2",
@@ -39,7 +40,7 @@ pkgdesc = "Daemon, tools and libraries for disk manipulation"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/udisks"
 source = f"https://github.com/storaged-project/udisks/releases/download/udisks-{pkgver}/udisks-{pkgver}.tar.bz2"
-sha256 = "b75734ccf602540dedb4068bec206adcb508a4c003725e117ae8f994d92d8ece"
+sha256 = "6401c715d287ec84fe605e0cb90579e8da6c395bce5f42e419f205dd297e261f"
 
 
 def post_install(self):
