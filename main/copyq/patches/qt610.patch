@@ -1,37 +1,31 @@
+From 103903593c37c9db5406d276e0097fbf18d2a8c4 Mon Sep 17 00:00:00 2001
+From: BlackEagle <ike.devolder@gmail.com>
+Date: Wed, 22 Oct 2025 12:21:09 +0200
+Subject: [PATCH] when Qt6 is used make sure cmake variables are there
+
+When using `WITH_QT6` use
+`find_package(QT REQUIRED COMPONENTS Core NAMES Qt6)`
+to make sure the QT related cmake variables are there. There is a use of
+the variable `QT_VERSION` further down the line while checking for
+Qt::GuiPrivate in the `src/platform/x11/x11platform.cmake` file.
+
+This change makes that check work properly so we can build with Qt6 >=
+6.10.
+
+Signed-off-by: BlackEagle <ike.devolder@gmail.com>
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index c55edaf..bbbd72b 100644
+index 0661ddf5ae..3f62bbd1fd 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -49,6 +49,7 @@ if (WITH_QT6)
+@@ -45,6 +45,7 @@ set(CMAKE_AUTOMOC ON)
+ 
+ OPTION(WITH_QT6 "Enable Qt 6" ON)
+ if (WITH_QT6)
++    find_package(QT REQUIRED COMPONENTS Core NAMES Qt6)
+     set(QT_DEFAULT_MAJOR_VERSION 6)
      find_package(Qt6Widgets 6.1.0 REQUIRED)
      set(copyq_qt Qt6)
-     add_definitions( -DQT_DEPRECATED_WARNINGS_SINCE=0x051500 )
-+    find_package(Qt6 6.10.0 REQUIRED COMPONENTS Gui GuiPrivate)
- else()
-     set(QT_DEFAULT_MAJOR_VERSION 5)
-     find_package(Qt5Widgets 5.15.0 REQUIRED)
-diff --git a/src/common/server.cpp b/src/common/server.cpp
-index b86ba0b..80337fc 100644
---- a/src/common/server.cpp
-+++ b/src/common/server.cpp
-@@ -39,7 +39,7 @@ QString lockFilePath()
- 
- struct Server::PrivateData {
-     QLocalServer server;
--    QLockFile lockFile = lockFilePath();
-+    QLockFile lockFile{lockFilePath()};
-     int socketCount = 0;
-     QEventLoop *loop = nullptr;
- };
-diff --git a/src/platform/x11/systemclipboard/CMakeLists.txt b/src/platform/x11/systemclipboard/CMakeLists.txt
-index d729115..84f2cad 100644
---- a/src/platform/x11/systemclipboard/CMakeLists.txt
-+++ b/src/platform/x11/systemclipboard/CMakeLists.txt
-@@ -33,6 +33,7 @@ endif()
- 
- target_link_libraries(systemclipboard
-                       ${copyq_qt}::Gui
-+                      ${copyq_qt}::GuiPrivate
-                       ${copyq_qt}::WaylandClient
-                       Wayland::Client
- )
