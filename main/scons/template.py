@@ -1,5 +1,5 @@
 pkgname = "scons"
-pkgver = "4.9.1"
+pkgver = "4.10.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Build system nobody likes"
 license = "MIT"
 url = "https://scons.org"
 source = f"https://github.com/SCons/scons/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "810c3f82c23758f8eaa23f7263363e1ac1822253dc8719ffa897ee77604bbe02"
+sha256 = "d50b70e9a89e984cc0f4f4456fa4f8da6845c8dd284d8e833ab6baac9f84fbc6"
 # uhhh, nah
 options = ["!check"]
 
