@@ -1,5 +1,5 @@
 pkgname = "tk"
-pkgver = "8.6.16"
+pkgver = "8.6.17"
 pkgrel = 0
 build_wrksrc = "unix"
 build_style = "gnu_configure"
@@ -24,7 +24,7 @@ pkgdesc = "TK graphical user interface toolkit for TCL"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/tk{pkgver}-src.tar.gz"
-sha256 = "be9f94d3575d4b3099d84bc3c10de8994df2d7aa405208173c709cc404a7e5fe"
+sha256 = "e4982df6f969c08bf9dd858a6891059b4a3f50dc6c87c10abadbbe2fc4838946"
 # no check target
 options = ["!check", "!cross", "!lto"]
 
