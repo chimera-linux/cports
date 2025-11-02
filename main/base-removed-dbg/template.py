@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 21
+pkgrel = 22
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -74,7 +74,6 @@ for _pkg in [
     "libsysfs",
     "libtotem-plparser-mini",
     "libtspi",
-    "libunbound",
     "libuuid",
     "libuuid-progs",
     "libvala",
