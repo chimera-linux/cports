@@ -12,6 +12,7 @@ configure_args = [
     "--enable-newline-is-anycrlf",
     "--enable-jit",
     "--enable-static",
+    "--disable-symvers",
 ]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["zlib-ng-compat-devel", "bzip2-devel", "libedit-devel"]
