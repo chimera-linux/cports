@@ -1,5 +1,5 @@
 pkgname = "python-msgpack"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "MessagePack serializer for Python"
 license = "Apache-2.0"
 url = "https://msgpack.org"
 source = f"https://github.com/msgpack/msgpack-python/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "49f941903f385f1cd178f1b4c6c57e12e4f5539037b523be083178578ad6df49"
+sha256 = "b8c0dc52c93604d4f2d04c6bc19bfac0a10229ee06277e1140bacc75005fe85a"
 
 
 def pre_build(self):
