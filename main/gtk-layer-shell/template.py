@@ -1,5 +1,5 @@
 pkgname = "gtk-layer-shell"
-pkgver = "0.9.2"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "Library to create panels and other desktop components for Wayland"
 license = "LGPL-3.0-or-later AND MIT"
 url = "https://github.com/wmww/gtk-layer-shell"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "526dd95c083e2a73eafd8baa1f5d676a36cb80fc8e7b304cbe3efebd62f0600c"
+sha256 = "ed9bb801d6d9252defba41104820ace595dac824dc8972a758ee2ad134e10505"
 # vis breaks sumbols
 hardening = ["!vis"]
 # a few tests fail
