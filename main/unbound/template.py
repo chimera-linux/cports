@@ -1,5 +1,5 @@
 pkgname = "unbound"
-pkgver = "1.24.0"
+pkgver = "1.24.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -42,7 +42,7 @@ pkgdesc = "Validating, recursive, and caching DNS resolver"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "147b22983cc7008aa21007e251b3845bfcf899ffd2d3b269253ebf2e27465086"
+sha256 = "7f2b1633e239409619ae0527f67878b0f33ae0ec0ee5a3a51c042c359ba1eeab"
 skip_dependencies = ["usr/lib/dinit.d/*"]
 
 
@@ -59,8 +59,7 @@ def post_install(self):
 
 @subpackage("unbound-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libunbound")]
+    self.renames = ["libunbound"]
 
     return self.default_libs()
 
