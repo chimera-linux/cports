@@ -1,5 +1,5 @@
 pkgname = "python"
-pkgver = "3.13.7"
+pkgver = "3.13.9"
 _majver = pkgver[: pkgver.rfind(".")]
 pkgrel = 0
 build_style = "gnu_configure"
@@ -65,7 +65,7 @@ pkgdesc = "Python programming language"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "5462f9099dfd30e238def83c71d91897d8caa5ff6ebc7a50f14d4802cdaaa79a"
+sha256 = "ed5ef34cda36cfa2f3a340f07cac7e7814f91c7f3c411f6d3562323a866c5c66"
 # use a chunky stack; python by default does not use more than 1 thread
 # but anything dlopened from it will be stuck with the default stacksize
 # (e.g. python gtk programs, gtk loads icons from a threadpool and it may
