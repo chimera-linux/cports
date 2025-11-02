@@ -12,7 +12,7 @@ Signed-off-by: Jens Reidel <adrian@travitia.xyz>
  2 files changed, 6 deletions(-)
 
 diff --git a/textautogeneratetext/core/autotests/textautogeneratechattest.cpp b/textautogeneratetext/core/autotests/textautogeneratechattest.cpp
-index 9d023f1e..d35fdc16 100644
+index 081a515f..2924f3c6 100644
 --- a/textautogeneratetext/core/autotests/textautogeneratechattest.cpp
 +++ b/textautogeneratetext/core/autotests/textautogeneratechattest.cpp
 @@ -24,9 +24,6 @@ void TextAutoGenerateChatTest::shouldHaveDefaultValues()
@@ -26,16 +26,16 @@ index 9d023f1e..d35fdc16 100644
  
  void TextAutoGenerateChatTest::shouldSerializeDeserialize()
 diff --git a/textautogeneratetext/core/autotests/textautogeneratemessagetest.cpp b/textautogeneratetext/core/autotests/textautogeneratemessagetest.cpp
-index b387089b..1ed2a8fd 100644
+index 387a99c0..5e8ee051 100644
 --- a/textautogeneratetext/core/autotests/textautogeneratemessagetest.cpp
 +++ b/textautogeneratetext/core/autotests/textautogeneratemessagetest.cpp
-@@ -29,9 +29,6 @@ void TextAutoGenerateMessageTest::shouldHaveDefaultValues()
-     QVERIFY(msg.engineName().isEmpty());
+@@ -33,9 +33,6 @@ void TextAutoGenerateMessageTest::shouldHaveDefaultValues()
      QVERIFY(msg.modelName().isEmpty());
      QVERIFY(msg.instanceName().isEmpty());
+     QVERIFY(msg.tools().isEmpty());
 -
 -    // 10/05/2025 => size 224
--    QCOMPARE(sizeof(TextAutoGenerateText::TextAutoGenerateMessage), 184);
+-    QCOMPARE(sizeof(TextAutoGenerateText::TextAutoGenerateMessage), 152);
  }
  
  void TextAutoGenerateMessageTest::shouldCheckFromString()

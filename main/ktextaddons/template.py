@@ -1,5 +1,5 @@
 pkgname = "ktextaddons"
-pkgver = "1.7.1"
+pkgver = "1.8.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -40,7 +40,7 @@ pkgdesc = "KDE text handling addons library"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/libraries/ktextaddons"
 source = f"$(KDE_SITE)/ktextaddons/ktextaddons-{pkgver}.tar.xz"
-sha256 = "90cf25e298e095c40b3286a7153d04f961ef4e6598321bdeb00f2be7e998ae7e"
+sha256 = "159c605d3d031bf818e164ea410150103c5f9f87cea35e2979e42d86c3318c99"
 
 
 @subpackage("ktextaddons-devel")
