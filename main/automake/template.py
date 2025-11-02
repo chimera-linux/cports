@@ -1,6 +1,6 @@
 pkgname = "automake"
-pkgver = "1.18.1"
-pkgrel = 0
+pkgver = "1.18"
+pkgrel = 1
 build_style = "gnu_configure"
 # circle with itself
 configure_gen = []
@@ -11,7 +11,7 @@ pkgdesc = "GNU Standards-compliant Makefile generator"
 license = "GPL-2.0-or-later"
 url = "https://www.gnu.org/software/automake"
 source = f"$(GNU_SITE)/automake/automake-{pkgver}.tar.xz"
-sha256 = "168aa363278351b89af56684448f525a5bce5079d0b6842bd910fdd3f1646887"
+sha256 = "5bdccca96b007a7e344c24204b9b9ac12ecd17f5971931a9063bdee4887f4aaf"
 # flakey, a different set of tests fails every time
 options = ["!check"]
 
