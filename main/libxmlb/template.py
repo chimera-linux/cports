@@ -1,5 +1,5 @@
 pkgname = "libxmlb"
-pkgver = "0.3.23"
+pkgver = "0.3.24"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Library to help create and query binary XML blobs"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libxmlb"
 source = f"https://github.com/hughsie/libxmlb/releases/download/{pkgver}/libxmlb-{pkgver}.tar.xz"
-sha256 = "ab86eb2073592448a4e0263ab56e222de092c0a3964b66a8d696cac071c8ee3c"
+sha256 = "ded52667aac942bb1ff4d1e977e8274a9432d99033d86918feb82ade82b8e001"
 options = ["!cross"]
 
 
