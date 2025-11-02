@@ -1,8 +1,8 @@
 pkgname = "zlib-ng-compat"
-pkgver = "2.2.4"
+pkgver = "2.2.5"
 # compat version
 _cver = "1.3.1"
-pkgrel = 1
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -19,7 +19,7 @@ pkgdesc = "Implementation of zlib compression library"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a73343c3093e5cdc50d9377997c3815b878fd110bf6511c2c7759f2afb90f5a3"
+sha256 = "5b3b022489f3ced82384f06db1e13ba148cbce38c7941e424d6cb414416acd18"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 compression = "deflate"
 # sigh, carried over from zlib's old buildsystem
