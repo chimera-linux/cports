@@ -1,5 +1,5 @@
 pkgname = "openjph"
-pkgver = "0.22.0"
+pkgver = "0.25.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,11 +14,16 @@ pkgdesc = "Implementation of JPEG2000 Part-15"
 license = "BSD-2-Clause"
 url = "https://github.com/aous72/OpenJPH"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "c9c6e9ec82ee8770ede41eeffe8acaab1814724c698b258c3de160dc09cb7d12"
+sha256 = "376fe46b8234e48eff0d26ce0bb9d0ee73aab5714a8b72a31d73d166b75aa62a"
 
 
 def post_install(self):
     self.install_license("LICENSE")
+
+
+@subpackage("openjph-progs")
+def _(self):
+    return self.default_progs()
 
 
 @subpackage("openjph-devel")
