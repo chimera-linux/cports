@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.12.1"
+pkgver = "3.13.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Reference implementation of the AV1 codec"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
 source = f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"
-sha256 = "9e9775180dec7dfd61a79e00bda3809d43891aee6b2e331ff7f26986207ea22e"
+sha256 = "19e45a5a7192d690565229983dad900e76b513a02306c12053fb9a262cbeca7d"
 # requires a testdata download, tests take long
 options = ["!check"]
 
