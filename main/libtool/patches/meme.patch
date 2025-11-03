@@ -14,7 +14,7 @@ index 3e9c2b9..0bf5c06 100644
  dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
  dnl require some minimum version.  Point them to the right macro.
 -m4_if([$1], [1.17], [],
-+m4_if([$1], [1.18], [],
++m4_if([$1], [1.18.1], [],
        [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
  ])
  
@@ -23,7 +23,7 @@ index 3e9c2b9..0bf5c06 100644
  # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
  AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
 -[AM_AUTOMAKE_VERSION([1.17])dnl
-+[AM_AUTOMAKE_VERSION([1.18])dnl
++[AM_AUTOMAKE_VERSION([1.18.1])dnl
  m4_ifndef([AC_AUTOCONF_VERSION],
    [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
  _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
@@ -53,7 +53,7 @@ index b994333..7929f69 100644
  dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
  dnl require some minimum version.  Point them to the right macro.
 -m4_if([$1], [1.17], [],
-+m4_if([$1], [1.18], [],
++m4_if([$1], [1.18.1], [],
        [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
  ])
  
@@ -62,7 +62,7 @@ index b994333..7929f69 100644
  # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
  AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
 -[AM_AUTOMAKE_VERSION([1.17])dnl
-+[AM_AUTOMAKE_VERSION([1.18])dnl
++[AM_AUTOMAKE_VERSION([1.18.1])dnl
  m4_ifndef([AC_AUTOCONF_VERSION],
    [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
  _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
