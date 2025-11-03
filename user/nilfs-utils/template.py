@@ -9,6 +9,7 @@ hostmakedepends = [
     "slibtool",
 ]
 makedepends = [
+    "gnu-getopt",
     "linux-headers",
     "util-linux-blkid-devel",
     "util-linux-mount-devel",
@@ -19,6 +20,10 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://nilfs.sourceforge.io/en/index.html"
 source = f"https://github.com/nilfs-dev/nilfs-utils/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "6b6c0fcb3af420532192c96442133e82227012ee991a66788e7e00151ca6ee8a"
+tool_flags = {
+    "CFLAGS": ["-Dgetopt=gnu_getopt"],
+    "LDFLAGS": ["-lgnu_getopt"],
+}
 
 
 @subpackage("nilfs-utils-devel")
