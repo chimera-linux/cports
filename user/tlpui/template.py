@@ -1,6 +1,6 @@
 pkgname = "tlpui"
-pkgver = "1.8.0"
-pkgrel = 1
+pkgver = "1.8.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -19,4 +19,4 @@ pkgdesc = "GTK user interface for TLP"
 license = "GPL-2.0-or-later"
 url = "https://github.com/d4nj1/TLPUI"
 source = f"{url}/archive/refs/tags/tlpui-{pkgver}.tar.gz"
-sha256 = "3c1f10ac4a7bbc6041c7e57875457b916f8b312c2988c217bf9d60a19ec636ce"
+sha256 = "658f3dcfa8ea080226dd2ec1419868fe195514aeac2b1ec8f4a8d2a4546ee2de"
