@@ -1,8 +1,14 @@
 pkgname = "git-cliff"
 pkgver = "2.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+make_build_args = [
+    "--no-default-features",
+    "--features=integrations",
+]
+make_install_args = [*make_build_args]
 make_check_args = [
+    *make_build_args,
     "--",
     "--skip=repo::test::commit_search",
     "--skip=repo::test::get_latest_commit",
