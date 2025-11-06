@@ -1,7 +1,7 @@
 pkgname = "sqlite"
 pkgver = "3.51.0"
 _amalg = "3510000"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -45,12 +45,26 @@ _cflags = [
     "-DSQLITE_SECURE_DELETE",
 ]
 
+# compile the cli with DBPAGE to get .recover command
+# not enabled globally for security reasons: sqlite.org/dbpage.html
+_extra_cflags_cli = ["-DSQLITE_ENABLE_DBPAGE_VTAB"]
+
 if self.profile().endian == "big":
     _cflags += ["-DSHA3_BYTEORDER=4321", "-DSQLITE_BYTEORDER=4321"]
 else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]
 
 tool_flags = {"CFLAGS": _cflags}
+
+
+def build(self):
+    self.make.build(["libsqlite3.so", "libsqlite3.a"])
+    self.make.build(
+        [
+            "sqlite3",
+            f'CFLAGS="{" ".join(_extra_cflags_cli)}"',
+        ]
+    )
 
 
 @subpackage("sqlite-devel")
