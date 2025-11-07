@@ -1,6 +1,6 @@
 pkgname = "openjph"
 pkgver = "0.25.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -19,11 +19,6 @@ sha256 = "376fe46b8234e48eff0d26ce0bb9d0ee73aab5714a8b72a31d73d166b75aa62a"
 
 def post_install(self):
     self.install_license("LICENSE")
-
-
-@subpackage("openjph-progs")
-def _(self):
-    return self.default_progs()
 
 
 @subpackage("openjph-devel")
