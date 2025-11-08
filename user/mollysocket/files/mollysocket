@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/mollysocket server
+run-as = _molly
+log-type = buffer
+depends-on: local.target
+depends-on: network.target
