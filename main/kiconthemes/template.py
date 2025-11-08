@@ -1,6 +1,6 @@
 pkgname = "kiconthemes"
 pkgver = "6.19.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # flaky tests when parallel
 make_check_args = ["-j1"]
@@ -23,6 +23,7 @@ makedepends = [
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
 ]
+depends = ["qt6-qtsvg"]
 pkgdesc = "KDE Icon GUI utilities"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
