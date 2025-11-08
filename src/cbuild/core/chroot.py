@@ -29,7 +29,7 @@ def set_host(tgt):
 def _chroot_check(error):
     if error and not _chroot_ready:
         raise errors.CbuildException(
-            "working bldroot is required for this step (try binary-bootstrap)"
+            "working bldroot is required for this step (try bootstrap)"
         )
     return _chroot_ready
 
