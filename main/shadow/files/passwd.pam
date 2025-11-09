@@ -1,1 +1,2 @@
 password	required	pam_unix.so	sha512 shadow nullok
+password	optional	pam_gnome_keyring.so
