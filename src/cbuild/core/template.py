@@ -762,6 +762,7 @@ class Template(Package):
         self.current_sonames = {}
         self._license_install = False
         self._depends_setup = False
+        self.verbose = logger.verbose()
 
         # assorted inputs
         self.template_path = tmplp

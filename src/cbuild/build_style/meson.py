@@ -14,12 +14,16 @@ def configure(self):
 def build(self):
     renv = dict(self.make_env)
     renv.update(self.make_build_env)
+    eargs = []
+    if self.verbose:
+        eargs += ["--verbose"]
     self.do(
         *self.make_wrapper,
         *self.make_build_wrapper,
         self.make_cmd,
         "-j",
         str(self.make_jobs),
+        *eargs,
         self.make_build_target,
         *self.make_build_args,
         "meson-test-prereq",

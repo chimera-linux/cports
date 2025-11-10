@@ -478,6 +478,8 @@ only have an effect with specific commands.
   or failed) unless `--keep-temporary` is passed.
 * `--update-check` Do not permit a build for a template that has broken update
   checking or has newer versions available.
+* `-v`, `--verbose` Make builds verbose if supported by the build, and increase
+  verbosity of `cbuild`.
 
 <a id="commands"></a>
 ### Commands
@@ -620,8 +622,8 @@ The following commands are recognized:
   useful to check if you've missed some rebuilds locally when rebuilding
   for changed SONAMEs and so on.
 * `update-check` Check the given template for new versions. An extra argument
-  (may be any) makes the output verbose. See the relevant section inside the
-  packaging manual.
+  (may be any) makes the output verbose (so does `-v` or `--verbose`). See the
+  relevant section inside the packaging manual.
 * `zap` Remove the build root.
 
 <a id="config_file"></a>

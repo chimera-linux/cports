@@ -1,10 +1,13 @@
 from cbuild.util import gnu_configure, make
 
 
-def _get_libtool(self):
+def _get_eargs(self):
+    eargs = []
     if (self.bldroot_path / "usr/bin/slibtool").exists():
-        return ["LIBTOOL=rlibtool"]
-    return []
+        eargs += ["LIBTOOL=rlibtool"]
+    if self.verbose:
+        eargs += ["V=1"]
+    return eargs
 
 
 def configure(self):
@@ -13,15 +16,15 @@ def configure(self):
 
 
 def build(self):
-    self.make.build(_get_libtool(self))
+    self.make.build(_get_eargs(self))
 
 
 def check(self):
-    self.make.check(_get_libtool(self))
+    self.make.check(_get_eargs(self))
 
 
 def install(self):
-    self.make.install(_get_libtool(self))
+    self.make.install(_get_eargs(self))
 
 
 def use(tmpl):

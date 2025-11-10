@@ -119,6 +119,10 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 
 def build(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    eargs = []
+    if pkg.verbose:
+        eargs += ["--verbose"]
+
     pkg.do(
         *wrapper,
         "cmake",
@@ -126,6 +130,7 @@ def build(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
         ".",
         "--parallel",
         str(pkg.make_jobs),
+        *eargs,
         *extra_args,
         wrksrc=build_dir,
         env=env,
@@ -136,11 +141,16 @@ def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     renv = {"DESTDIR": str(pkg.chroot_destdir)}
     renv.update(env)
 
+    eargs = []
+    if pkg.verbose:
+        eargs += ["--verbose"]
+
     pkg.do(
         *wrapper,
         "cmake",
         "--install",
         ".",
+        *eargs,
         *extra_args,
         wrksrc=build_dir,
         env=renv,
@@ -154,9 +164,14 @@ def ctest(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     }
     renv.update(env)
 
+    eargs = []
+    if pkg.verbose:
+        eargs += ["--verbose"]
+
     pkg.do(
         *wrapper,
         "ctest",
+        *eargs,
         *extra_args,
         wrksrc=build_dir,
         env=renv,

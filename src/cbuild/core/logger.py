@@ -15,6 +15,9 @@ _colorstr = {
     "white": "37",
 }
 
+_verbose = False
+_logger = None
+
 
 def _replf(m):
     mstr = m.group(1)
@@ -80,10 +83,15 @@ class Logger:
         self.out_stream(f"\f[]{end}")
 
 
-def init(colors, timing):
-    global logger_inst
-    logger_inst = Logger(colors, timing, sys.stdout)
+def init(colors, timing, verbose):
+    global _logger, _verbose
+    _logger = Logger(colors, timing, sys.stdout)
+    _verbose = verbose
 
 
 def get():
-    return logger_inst
+    return _logger
+
+
+def verbose():
+    return _verbose
