@@ -1,5 +1,5 @@
 pkgname = "cli11"
-pkgver = "2.5.0"
+pkgver = "2.6.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Command line parser for C++11 and beyond"
 license = "custom:cli11"
 url = "https://github.com/CLIUtils/CLI11"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "17e02b4cddc2fa348e5dbdbb582c59a3486fa2b2433e70a0c3bacb871334fd55"
+sha256 = "377691f3fac2b340f12a2f79f523c780564578ba3d6eaf5238e9f35895d5ba95"
 
 
 def post_install(self):
