@@ -1,5 +1,5 @@
 pkgname = "quickshell"
-pkgver = "0.2.0"
+pkgver = "0.2.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [  # https://git.outfoxxed.me/quickshell/quickshell/src/branch/master/BUILD.md
@@ -60,7 +60,7 @@ pkgdesc = "Flexible QtQuick-based desktop shell toolkit"
 license = "LGPL-3.0-only"
 url = "https://git.outfoxxed.me/quickshell/quickshell"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "568291b2397e4859ebc8b1d5cdc60fead2ce2da2368342e5f35c19bb1e32834d"
+sha256 = "a7e0a1029ff69d0f3b5788e042463735bacafd5fc369b1382143ffbd9d497964"
 
 
 def post_install(self):
