@@ -1,6 +1,6 @@
 pkgname = "ffmpegthumbnailer"
 pkgver = "2.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DENABLE_THUMBNAILER=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]

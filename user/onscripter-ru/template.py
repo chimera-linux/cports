@@ -1,6 +1,6 @@
 pkgname = "onscripter-ru"
 pkgver = "3574"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

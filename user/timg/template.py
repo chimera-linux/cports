@@ -1,6 +1,6 @@
 pkgname = "timg"
 pkgver = "1.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DTIMG_VERSION_FROM_GIT=OFF",

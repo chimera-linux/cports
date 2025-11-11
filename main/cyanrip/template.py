@@ -1,6 +1,6 @@
 pkgname = "cyanrip"
 pkgver = "0.9.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = [

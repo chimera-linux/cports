@@ -1,6 +1,6 @@
 pkgname = "cmus"
 pkgver = "2.12.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "prefix=/usr",

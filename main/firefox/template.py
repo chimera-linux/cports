@@ -1,6 +1,6 @@
 pkgname = "firefox"
 pkgver = "145.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "automake",
     "cargo",

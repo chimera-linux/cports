@@ -1,6 +1,6 @@
 pkgname = "aubio"
 pkgver = "0.4.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "waf"
 hostmakedepends = [
     "doxygen",

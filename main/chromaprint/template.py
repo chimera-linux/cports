@@ -1,6 +1,6 @@
 pkgname = "chromaprint"
 pkgver = "1.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",

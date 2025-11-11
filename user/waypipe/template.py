@@ -1,6 +1,6 @@
 pkgname = "waypipe"
 pkgver = "0.10.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dwith_dmabuf=enabled",
@@ -33,7 +33,7 @@ makedepends = [
 ]
 # dynamically loaded
 depends = [
-    "so:libavcodec.so.61!ffmpeg-avcodec-libs",
+    "so:libavcodec.so.62!ffmpeg-avcodec-libs",
     "so:libgbm.so.1!mesa-gbm-libs",
 ]
 pkgdesc = "Proxy for wayland clients"

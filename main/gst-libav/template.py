@@ -1,6 +1,6 @@
 pkgname = "gst-libav"
 pkgver = "1.26.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = ["meson", "pkgconf"]

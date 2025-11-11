@@ -1,6 +1,6 @@
 pkgname = "rsgain"
 pkgver = "3.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_MANPAGE=ON",

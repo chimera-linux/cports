@@ -1,6 +1,6 @@
 pkgname = "tdesktop"
 pkgver = "6.1.3"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",

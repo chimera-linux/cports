@@ -1,6 +1,6 @@
 pkgname = "neatvnc"
 pkgver = "0.9.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

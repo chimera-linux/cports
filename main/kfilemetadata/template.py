@@ -1,6 +1,6 @@
 pkgname = "kfilemetadata"
 pkgver = "6.19.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # since 6.9 testMetadataSize() depends on fs specifics and fails on bldroot under f2fs/tmpfs
 make_check_args = ["-E", "usermetadatawritertest"]

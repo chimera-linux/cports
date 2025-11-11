@@ -1,6 +1,6 @@
 pkgname = "wine"
 pkgver = "10.14"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "x86_64"]
 build_style = "gnu_configure"
 configure_args = [
