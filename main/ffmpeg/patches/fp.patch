@@ -4,7 +4,7 @@
  set_default $PATHS_LIST
  set_default nm
  
--disabled optimizations || enabled ossfuzz || check_cflags -fomit-frame-pointer
+-disabled optimizations || enabled ossfuzz || echo "$CFLAGS" | grep -q -- '-fsanitize=' || check_cflags -fomit-frame-pointer
 +disabled optimizations || enabled ossfuzz
  
  enable_weak_pic() {

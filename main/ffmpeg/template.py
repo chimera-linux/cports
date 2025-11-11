@@ -1,5 +1,5 @@
 pkgname = "ffmpeg"
-pkgver = "7.1.2"
+pkgver = "8.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -65,7 +65,6 @@ configure_args = [
     "--enable-lv2",
     "--enable-opencl",
     "--enable-openssl",
-    "--enable-postproc",
     "--enable-runtime-cpudetect",
     "--enable-vaapi",
     "--enable-vapoursynth",
@@ -143,7 +142,7 @@ pkgdesc = "Decoding, encoding and streaming software"
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/ffmpeg-{pkgver}.tar.xz"
-sha256 = "089bc60fb59d6aecc5d994ff530fd0dcb3ee39aa55867849a2bbc4e555f9c304"
+sha256 = "b2751fccb6cc4c77708113cd78b561059b6fa904b24162fa0be2d60273d27b8e"
 # some conf checks like for some pthread functions don't detect interfaces
 # without it
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
@@ -207,7 +206,6 @@ for _lname, _ldesc in [
     ("avformat", "file format"),
     ("avutil", "utility"),
     ("avfilter", "audio/video filter"),
-    ("postproc", "video postprocessing"),
     ("swscale", "video scaling"),
     ("swresample", "video resampling"),
 ]:
