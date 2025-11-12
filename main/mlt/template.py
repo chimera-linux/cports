@@ -1,6 +1,6 @@
 pkgname = "mlt"
-pkgver = "7.32.0"
-pkgrel = 2
+pkgver = "7.34.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify
@@ -8,7 +8,9 @@ configure_args = [
     "-DBUILD_TESTS_WITH_QT6=OFF",
     "-DCLANG_FORMAT=OFF",
     "-DMOD_GLAXNIMATE_QT6=ON",
+    "-DMOD_MOVIT=OFF",
     "-DMOD_OPENCV=ON",
+    "-DMOD_SOX=OFF",
     "-DMOD_QT6=ON",
     "-DMOD_QT=OFF",
     "-DSWIG_PYTHON=ON",
@@ -49,7 +51,7 @@ pkgdesc = "Multimedia framework for video editors"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"
-sha256 = "1ca5aadfe27995c879b9253b3a48d1dcc3b1247ea0b5620b087d58f5521be028"
+sha256 = "4104b87db3e14389f81666938c131f723564773fec9aa18b6bff008761cc838b"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # suboverflow in find_first_pts for certain files
 hardening = ["!int"]
