@@ -1,5 +1,5 @@
 pkgname = "kate"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -33,7 +33,7 @@ pkgdesc = "KDE Advanced Text Editor"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"
-sha256 = "b5eefa519690983ef92be8cc30eaface1fc8c9f225d9d851a5c1819a52634770"
+sha256 = "c92eb8b5b81c9b5dc91b5c46d20b4f3ae0b7811114779fd8f92f153233fca90b"
 hardening = ["vis"]
 # no idea
 options = ["!check"]

@@ -1,5 +1,5 @@
 pkgname = "ktrip"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -25,4 +25,4 @@ pkgdesc = "KDE trip planner"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ktrip"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktrip-{pkgver}.tar.xz"
-sha256 = "0f0426dcb0fcb506b905a9134b363a5f57fd7ac2b3b1c54d041e5819801c957e"
+sha256 = "ebb5d68338e1291f343456917c1d277de957256463bf7f743005d452750220bf"

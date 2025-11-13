@@ -1,5 +1,5 @@
 pkgname = "kcalutils"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 # doesn't find its own text template plugin
@@ -29,7 +29,7 @@ pkgdesc = "KDE calendar access library"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/kdepim/kcalutils/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcalutils-{pkgver}.tar.xz"
-sha256 = "b7b60ad808da1777f6f905b33e874da77a06e0bd2355bf577a30e94e30c608a3"
+sha256 = "cea037b67a510ba4e3c0913a90ba2bff724070b29251248df23af5fb0bb18a2d"
 
 
 @subpackage("kcalutils-devel")

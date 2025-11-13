@@ -1,5 +1,5 @@
 pkgname = "kcachegrind"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,7 +26,7 @@ pkgdesc = "KDE profiling visualisation tool"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/kcachegrind"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcachegrind-{pkgver}.tar.xz"
-sha256 = "8d50c071a23db62acecdf22d6e94396aa03e4d5ff97acc7d2be84863b34fbfc8"
+sha256 = "aec838dfa806b438d198f5bb66a2a9925ecdb86d09da86c593a21302052b0bbe"
 hardening = ["vis"]
 
 

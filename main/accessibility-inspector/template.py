@@ -1,5 +1,5 @@
 pkgname = "accessibility-inspector"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -25,4 +25,4 @@ pkgdesc = "KDE application accessibility tree inspector"
 license = "LGPL-2.0-or-later"
 url = "https://apps.kde.org/accessibilityinspector"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/accessibility-inspector-{pkgver}.tar.xz"
-sha256 = "67c458897f862be6a8434cc8e71e41cb9f7be15b474f4b7b6b44f00bafb65261"
+sha256 = "aaee6ede40c03982007df2e8b952e7fe6c5314e141845094e28c755373447900"

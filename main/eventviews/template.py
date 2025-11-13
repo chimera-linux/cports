@@ -1,5 +1,5 @@
 pkgname = "eventviews"
-pkgver = "25.08.2"
+pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -36,7 +36,7 @@ pkgdesc = "KDE event views library"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/eventviews/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/eventviews-{pkgver}.tar.xz"
-sha256 = "6dc1388824fe5ab56d1be15b397e8884abe8e1dba37a5d7d3c6b1743c4d76235"
+sha256 = "ea16cd19939c7d4f5b9dafb9ef93763e8b2f26c2df22c670f6a5782dd10e383e"
 
 
 @subpackage("eventviews-devel")
