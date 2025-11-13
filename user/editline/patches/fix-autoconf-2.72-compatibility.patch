@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index 6f5b032..440c8fe 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -83,7 +83,7 @@ AS_IF([test "x$enable_terminal_bell" = "xyes"],
+    AC_DEFINE(CONFIG_TERMINAL_BELL, 1, [Define to enable terminal bell on completion.]))
+ 
+ # Check for a termcap compatible library if enabled
+-AS_IF([test "x$enable_termcap" = "xyes"],
++AS_IF([test "x$enable_termcap" = "xyes"], [
+    AC_DEFINE(CONFIG_USE_TERMCAP, 1, [Define to use the termcap library for terminal size.])
+    AC_CHECK_LIB(terminfo, tgetent, , [
+       AC_CHECK_LIB(termcap, tgetent, , [
+@@ -94,7 +94,7 @@ AS_IF([test "x$enable_termcap" = "xyes"],
+                ])
+             ])
+          ])
+-      ]))
++      ])])
+ 
+ # Generate all files
+ AC_OUTPUT
