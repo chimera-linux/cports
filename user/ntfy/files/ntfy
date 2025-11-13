@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/ntfy serve
+log-type = file
+logfile = /var/log/ntfy.log
+run-as = _ntfy
+depends-on: network.target
