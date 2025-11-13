@@ -621,9 +621,10 @@ The following commands are recognized:
   if the local packages would unstage cleanly in the remote repo. This is
   useful to check if you've missed some rebuilds locally when rebuilding
   for changed SONAMEs and so on.
-* `update-check` Check the given template for new versions. An extra argument
-  (may be any) makes the output verbose (so does `-v` or `--verbose`). See the
-  relevant section inside the packaging manual.
+* `update-check` Check the given template(s) for new versions. Using `-v` or
+  `--verbose` makes the output more detailed (not only printing newer versions
+  but also all versions that were found). See the relevant section inside the
+  packaging manual.
 * `zap` Remove the build root.
 
 <a id="config_file"></a>

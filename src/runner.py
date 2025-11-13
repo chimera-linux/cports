@@ -1652,7 +1652,6 @@ def do_update_check(tgt):
         print(s)
 
     pkgs = []
-    verbose = opt_verbose
 
     if len(cmdline.command) < 2:
         cats = opt_allowcat.strip().split()
@@ -1660,16 +1659,15 @@ def do_update_check(tgt):
         for cat in cats:
             pkgs += _collect_tmpls(None, cat)
     else:
-        pkgs.append(cmdline.command[1])
-        if len(cmdline.command) > 2:
-            verbose = True
+        for pkgn in cmdline.command[1:]:
+            pkgs.append(pkgn)
 
     tmpls = []
     for pkg in pkgs:
         tmpls.append(_do_readpkg(pkg))
 
     if len(tmpls) == 1:
-        cv = update_check.update_check(tmpls[0], verbose)
+        cv = update_check.update_check(tmpls[0], opt_verbose)
         for pv, nv in cv:
             _print_upd(tmpls[0].full_pkgname, pv, nv)
         return
@@ -1682,7 +1680,7 @@ def do_update_check(tgt):
         ),
     )
     for tmpl in stmpls:
-        cv = update_check.update_check(tmpl, verbose)
+        cv = update_check.update_check(tmpl, opt_verbose)
         # now we can actually print the versions
         for pv, nv in cv:
             _print_upd(tmpl.full_pkgname, pv, nv)

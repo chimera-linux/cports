@@ -3772,8 +3772,11 @@ llvm-12.0.0 -> llvm-12.0.1
 llvm-12.0.0 -> llvm-13.0.0
 ```
 
-If you pass an extra argument with any value, it will be verbose, printing
-extra messages along the way.
+Using `-v` or `--verbose` causes the output to be more detailed, not only
+showing updates but also all intermediate versions that were found by the
+checker.
+
+Multiple packages may be passed for the update check.
 
 The update checking can be tweaked by creating the file `update.py` in the
 same directory with the template. This file is a Python source file
