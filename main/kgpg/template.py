@@ -3,7 +3,10 @@ pkgver = "25.08.3"
 pkgrel = 0
 build_style = "cmake"
 # flaky
-make_check_args = ["-E", "(kgpg-import|kgpg-encrypt|kgpg-disable|kgpg-genkey)"]
+make_check_args = [
+    "-E",
+    "(kgpg-export|kgpg-import|kgpg-encrypt|kgpg-disable|kgpg-genkey)",
+]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
