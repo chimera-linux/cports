@@ -1,5 +1,5 @@
 pkgname = "simde"
-pkgver = "0.8.2"
+pkgver = "0.8.4_rc2"
 pkgrel = 0
 build_style = "meson"
 # fail to build by missing roundeven symbol
@@ -8,8 +8,8 @@ hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "SIMD wrapper implementation with non-native fallbacks"
 license = "MIT"
 url = "https://github.com/simd-everywhere/simde"
-source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ed2a3268658f2f2a9b5367628a85ccd4cf9516460ed8604eed369653d49b25fb"
+source = f"{url}/archive/refs/tags/v{pkgver.replace('_', '-')}.tar.gz"
+sha256 = "687364c96422334e45dc3db278a022934de5e611a740fae6bdfdd05627bbdb78"
 
 
 def post_install(self):
