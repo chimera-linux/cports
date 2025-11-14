@@ -74,9 +74,6 @@ hardening = ["vis", "!cfi"]
 # don't build with lto
 options = ["!check"]
 
-if self.profile().arch == "loongarch64":
-    broken = "some simde sse2 shenanigans"
-
 
 @subpackage("obs-studio-devel")
 def _(self):
