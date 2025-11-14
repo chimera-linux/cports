@@ -1,5 +1,5 @@
 pkgname = "plasma-activities-stats"
-pkgver = "6.5.1"
+pkgver = "6.5.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Library to access KDE activity manager statistics data"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-activities-stats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-stats-{pkgver}.tar.xz"
-sha256 = "1f6bdf8fd9974c0ab868ce367e4f6b9bf10ed48cd66a4e5b82eb09db12907017"
+sha256 = "b9a65b164ed7a3012118e0891670ca5e8287b2cb8f42f562dc7f649852f49000"
 hardening = ["vis"]
 
 

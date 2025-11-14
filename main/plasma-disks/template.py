@@ -1,5 +1,5 @@
 pkgname = "plasma-disks"
-pkgver = "6.5.1"
+pkgver = "6.5.2"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -30,5 +30,5 @@ pkgdesc = "KDE disk failure monitor"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-disks"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-disks-{pkgver}.tar.xz"
-sha256 = "fe0e8bb061bec225d8b3480d16c9d8bee9f0606f074fa5165757f48e720e4143"
+sha256 = "9ac9853f39d9d4da72b7fb0fd858a64af992b96a6bc25e81b5511988ddf51d7b"
 hardening = ["vis"]
