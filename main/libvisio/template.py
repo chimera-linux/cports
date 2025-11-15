@@ -1,6 +1,6 @@
 pkgname = "libvisio"
-pkgver = "0.1.8"
-pkgrel = 6
+pkgver = "0.1.10"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Library for reading and converting MS Visio diagrams"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio"
 source = f"http://dev-www.libreoffice.org/src/libvisio-{pkgver}.tar.xz"
-sha256 = "b4098ffbf4dcb9e71213fa0acddbd928f27bed30db2d80234813b15d53d0405b"
+sha256 = "9e9eff75112d4d92d92262ad7fc2599c21e26f8fc5ba54900efdc83c0501e472"
 
 
 @subpackage("libvisio-progs")
