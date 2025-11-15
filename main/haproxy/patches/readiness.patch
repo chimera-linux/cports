@@ -1,13 +1,8 @@
-diff --git c/doc/haproxy.1 w/doc/haproxy.1
+diff --git a/doc/haproxy.1 b/doc/haproxy.1
 index 4c2d78677..26f19f9e9 100644
---- c/doc/haproxy.1
-+++ w/doc/haproxy.1
-@@ -80,17 +80,17 @@ Start in daemon mode.
- 
- .TP
- \fB\-W\fP
- Start in master-worker mode. Could be used either with foreground or daemon
- mode.
+--- a/doc/haproxy.1
++++ b/doc/haproxy.1
+@@ -85,7 +85,7 @@ mode.
  
  .TP
  \fB\-Ws\fP
@@ -16,21 +11,11 @@ index 4c2d78677..26f19f9e9 100644
  the process is ready. This mode forces foreground.
  
  .TP
- \fB\-q\fP
- Disable messages on output.
- 
- .TP
- \fB\-V\fP
-diff --git c/src/cli.c w/src/cli.c
-index 5f0f6bc80..c585a9c13 100644
---- c/src/cli.c
-+++ w/src/cli.c
-@@ -2638,18 +2638,26 @@ static int _send_status(char **args, char *payload, struct appctx *appctx, void
- 		}
- 		close(daemon_fd[1]);
- 		daemon_fd[1] = -1;
- 	}
- 
+diff --git a/src/cli.c b/src/cli.c
+index 83d58f238..d4f2142ad 100644
+--- a/src/cli.c
++++ b/src/cli.c
+@@ -2648,8 +2648,16 @@ static int _send_status(char **args, char *payload, struct appctx *appctx, void
  	load_status = 1;
  	ha_notice("Loading success.\n");
  
@@ -47,23 +32,13 @@ index 5f0f6bc80..c585a9c13 100644
 +		}
 +	}
  
- 	/* master and worker have successfully started, now we can set quiet mode
- 	 * if MODE_DAEMON
- 	 */
- 	if ((!(global.mode & MODE_QUIET) || (global.mode & MODE_VERBOSE)) &&
- 		(global.mode & MODE_DAEMON)) {
- 		/* detach from the tty, this is required to properly daemonize. */
- 		if ((getenv("HAPROXY_MWORKER_REEXEC") == NULL))
-diff --git c/src/mworker.c w/src/mworker.c
-index 0b979d8dd..a8220ea04 100644
---- c/src/mworker.c
-+++ w/src/mworker.c
-@@ -499,20 +499,23 @@ static void mworker_on_new_child_failure(int exitpid, int status)
- 	}
+ 	mworker_unblock_signals();
  
- 	/* do not keep unused FDs retrieved from the previous process */
- 	sock_drop_unused_old_sockets();
- 
+diff --git a/src/mworker.c b/src/mworker.c
+index 33b2318da..94641f1ba 100644
+--- a/src/mworker.c
++++ b/src/mworker.c
+@@ -531,10 +531,13 @@ static void mworker_on_new_child_failure(int exitpid, int status)
  	usermsgs_clr(NULL);
  	load_status = 0;
  	ha_warning("Failed to load worker (%d) exited with code %d (%s)\n", exitpid, status, (status >= 128) ? strsignal(status - 128): "Exit");
@@ -79,8 +54,3 @@ index 0b979d8dd..a8220ea04 100644
  }
  
  /*
-  * Wait for every children to exit
-  */
- 
- void mworker_catch_sigchld(struct sig_handler *sh)
- {
