@@ -1,22 +1,24 @@
-commit 0b843d82f11c9e4f18c16d2dd6056fcaf156bc94
+commit 7ca3fead32f31e45f8cad81a2646e748623a9fc8
 Author: q66 <q66@chimera-linux.org>
-Date:   Mon Jun 5 15:27:08 2023 +0200
+Date:   Sat Nov 15 22:04:24 2025 +0100
 
     lol
 
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
-index 93abbfa..2ac0df3 100644
+index c250a78..9cbb853 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
-@@ -11,7 +11,6 @@
+@@ -22,9 +22,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
  	endif()
  
- 	if(NOT GLM_DISABLE_AUTO_DETECTION)
+ 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+-	if(NOT GLM_DISABLE_AUTO_DETECTION)
 -		add_compile_options(-Werror -Weverything)
- 	endif()
+-	endif()
  
  elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-@@ -20,12 +19,10 @@
+ 	if(NOT GLM_QUIET)
+@@ -32,12 +29,10 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
  	endif()
  
  	if(NOT GLM_DISABLE_AUTO_DETECTION)
