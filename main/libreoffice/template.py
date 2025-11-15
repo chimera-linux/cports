@@ -120,6 +120,7 @@ makedepends = [
     "libfreehand-devel",
     "libgcrypt-devel",
     "libjpeg-turbo-devel",
+    "liblangtag-devel",
     "libmspub-devel",
     "libmwaw-devel",
     "libnumbertext-devel",

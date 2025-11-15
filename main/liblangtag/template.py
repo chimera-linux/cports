@@ -1,11 +1,12 @@
 pkgname = "liblangtag"
-pkgver = "0.6.7"
-pkgrel = 1
+pkgver = "0.6.8"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "gobject-introspection",
+    "gsed",
     "gtk-doc-tools",
     "libtool",
     "pkgconf",
@@ -13,9 +14,11 @@ hostmakedepends = [
 makedepends = ["glib-devel", "libxml2-devel"]
 pkgdesc = "Interface library to access tags for identifying languages"
 license = "MPL-2.0 OR LGPL-3.0-or-later"
-url = "https://bitbucket.org/tagoh/liblangtag"
-source = f"{url}/downloads/liblangtag-{pkgver}.tar.bz2"
-sha256 = "5ed6bcd4ae3f3c05c912e62f216cd1a44123846147f729a49fb5668da51e030e"
+url = "https://gitlab.com/tagoh/liblangtag"
+source = f"{url}/-/releases/{pkgver}/downloads/liblangtag-{pkgver}.tar.gz"
+sha256 = "f98d15a2039a523e6ad7796bba0fb003f214db57cc4ad2e12e2f8ab12d309694"
+# bunch of nonportable fuckery
+exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 
 @subpackage("liblangtag-devel")
