@@ -1,3 +1,4 @@
+# apply useful changes to user/sqlcipher
 pkgname = "sqlite"
 pkgver = "3.53.3"
 _amalg = "3530300"
@@ -56,7 +57,7 @@ tool_flags = {"CFLAGS": _cflags}
 
 def post_build(self):
     # compile with extra flag to get .recover command
-    # this is security-sensitive so it should not be in the librar
+    # this is security-sensitive so it should not be in the library
     self.make.build(["sqlite3", "CFLAGS=-DSQLITE_ENABLE_DBPAGE_VTAB"])
 
 
