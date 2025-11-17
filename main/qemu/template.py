@@ -1,5 +1,5 @@
 pkgname = "qemu"
-pkgver = "10.1.1"
+pkgver = "10.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde
@@ -111,7 +111,7 @@ pkgdesc = "Generic machine emulator and virtualizer"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "e56b93d95953a9b6a64d1985dbcedfb07dc54d92c50b7912526693536c589923"
+sha256 = "9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
