@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.50.1"
+pkgver = "2.50.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -95,7 +95,7 @@ pkgdesc = "GTK port of the WebKit browser engine"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
-sha256 = "33e912ee6e3cdb4b9803715f50686af85a60af47f1cf72a6acc6a2db1bb3d9fe"
+sha256 = "19ab61f2d44e62cd443673943d2d5341b84d08405f67a7c37b7a77ad3550f880"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
