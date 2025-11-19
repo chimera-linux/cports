@@ -1,6 +1,6 @@
 pkgname = "scroll"
 pkgver = "1.11.8"
-pkgrel = 1
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "libcap-progs",
