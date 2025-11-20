@@ -1,0 +1,27 @@
+From 730bffd856d2a1e56dd3bd2a0702282f19c5242a Mon Sep 17 00:00:00 2001
+From: Adrian Perez de Castro <aperez@igalia.com>
+Date: Thu, 20 Nov 2025 00:52:19 +0200
+Subject: [PATCH] Unreviewed build fix after 298234.287@webkitglib/2.50
+
+* Source/WebCore/Modules/credentialmanagement/BasicCredential.idl:
+Remove the CustomToJSObject flag to avoid a link error due to an
+undefined toJS() symbol, letting the binding generator write the
+function is enough for the Google Accounts quirk to work.
+
+Canonical link: https://commits.webkit.org/298234.297@webkitglib/2.50
+---
+ Source/WebCore/Modules/credentialmanagement/BasicCredential.idl | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Source/WebCore/Modules/credentialmanagement/BasicCredential.idl b/Source/WebCore/Modules/credentialmanagement/BasicCredential.idl
+index 42114f65fff97..9643b59bf6909 100644
+--- a/Source/WebCore/Modules/credentialmanagement/BasicCredential.idl
++++ b/Source/WebCore/Modules/credentialmanagement/BasicCredential.idl
+@@ -25,7 +25,6 @@
+ 
+ [
+     InterfaceName=Credential,
+-    CustomToJSObject,
+     EnabledByQuirk=shouldExposeCredentialsContainer,
+     Exposed=Window,
+     SecureContext
