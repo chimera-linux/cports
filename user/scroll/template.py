@@ -7,6 +7,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "scdoc",
+    "wayland-progs"
 ]
 makedepends = [
     "cairo-devel",
