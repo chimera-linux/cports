@@ -1,5 +1,5 @@
 pkgname = "openvdb"
-pkgver = "12.1.1"
+pkgver = "13.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -21,11 +21,12 @@ makedepends = [
     "python-devel",
     "python-nanobind-devel",
 ]
+checkdepends = ["python-numpy"]
 pkgdesc = "Sparse volume data tools"
 license = "MPL-2.0"
 url = "https://www.openvdb.org"
 source = f"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ccd0ea1669a53c7c13087a08ac5a1351041c4cdd308f6d6f591074a106fcb565"
+sha256 = "4d6a91df5f347017496fe8d22c3dbb7c4b5d7289499d4eb4d53dd2c75bb454e1"
 # suboverflow in PCA, annoying abstractions make it hard to debug
 hardening = ["!int"]
 # 4 unittests fail outside of x86_64 with no easy way to skip them
@@ -49,7 +50,6 @@ def _(self):
 @subpackage("openvdb-python")
 def _(self):
     self.subdesc = "python bindings"
-    # transitional
-    self.provides = [self.with_pkgver("python-pyopenvdb")]
+    self.renames = ["python-pyopenvdb"]
 
     return ["usr/lib/python*"]

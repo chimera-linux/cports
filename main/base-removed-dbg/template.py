@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 22
+pkgrel = 23
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -95,7 +95,6 @@ for _pkg in [
     "pam_winbind",
     "projucer",
     "python-opencolorio",
-    "python-openvdb",
     "rename",
     "rfkill",
     "runuser",
