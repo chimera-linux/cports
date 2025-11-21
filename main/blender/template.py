@@ -29,6 +29,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "alembic-devel",
     "boost-devel",
     "clang-devel",
     "eigen",
@@ -87,14 +88,8 @@ hardening = ["!int", "!var-init"]
 # tests expect blender to be installed in /usr/bin
 options = ["!check", "linkundefver"]
 
-if self.profile().endian == "little":
-    makedepends += ["alembic-devel"]
-
-
-match self.profile().arch:
-    case "ppc64" | "ppc":
-        # vsx assumptions in altivec code
-        tool_flags = {"CXXFLAGS": ["-DEIGEN_DONT_VECTORIZE"]}
+if self.profile().endian == "big":
+    broken = "https://projects.blender.org/blender/blender/pulls/140138"
 
 if self.profile().arch in ["aarch64", "armv7", "x86_64"]:
     makedepends += ["openimagedenoise-devel"]
