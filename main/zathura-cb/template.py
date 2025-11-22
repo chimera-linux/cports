@@ -1,5 +1,5 @@
 pkgname = "zathura-cb"
-pkgver = "0.1.11"
+pkgver = "0.1.12"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Comic book support for zathura"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-cb"
 source = f"{url}/download/zathura-cb-{pkgver}.tar.xz"
-sha256 = "4e201ea54cdc20a93258c43556f6389441af99740de7dca6ca1ff524172fbd47"
+sha256 = "bc62dec4d04d51419192d370ecdf2afa66ba10554c2518abecee0dfce2aac96e"
 
 
 def post_install(self):
