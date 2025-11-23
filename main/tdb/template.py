@@ -1,6 +1,6 @@
 pkgname = "tdb"
-pkgver = "1.4.13"
-pkgrel = 1
+pkgver = "1.4.14"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Simple database API similar to gdbm"
 license = "LGPL-3.0-or-later"
 url = "https://tdb.samba.org"
 source = f"https://download.samba.org/pub/tdb/tdb-{pkgver}.tar.gz"
-sha256 = "5ee276e7644d713e19e4b6adc00b440afb5851ff21e65821ffaed89e15a5e167"
+sha256 = "144f407d42ed7a0ec1470a40ef17ad41133fe910bce865dd9fe084d49c907526"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 hardening = ["vis", "!cfi"]
