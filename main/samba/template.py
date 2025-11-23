@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.21.4"
-pkgrel = 2
+pkgver = "4.23.3"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -28,7 +28,7 @@ configure_args = [
     "--disable-rpath-install",
     "--disable-fault-handling",
     "--without-systemd",
-    "--bundled-libraries=NONE",
+    "--bundled-libraries=libquic,NONE",
     "--with-system-heimdalkrb5",
     "--with-cluster-support",
     "--with-automount",
@@ -78,6 +78,7 @@ makedepends = [
     "musl-bsd-headers",
     "musl-nscd",
     "ncurses-devel",
+    "ngtcp2-devel",
     "openldap-devel",
     "popt-devel",
     "python-devel",
@@ -95,7 +96,7 @@ pkgdesc = "SMB/CIFS file, print, and login server for Unix"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/samba-{pkgver}.tar.gz"
-sha256 = "50acf030db0ce6be1ee8a6c3a7636e54576c60a7f814e64becfa840f7b30eced"
+sha256 = "06cdbb27a6956978b045455fe0696d998ffbac8d24ba24de87a4ef8200813320"
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
