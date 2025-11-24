@@ -1,6 +1,6 @@
 pkgname = "xwaylandvideobridge"
 pkgver = "0.4.0"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
 hostmakedepends = [

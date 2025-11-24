@@ -1,6 +1,6 @@
 pkgname = "kdbusaddons"
 pkgver = "6.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [

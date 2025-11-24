@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
 pkgver = "2506a"
-pkgrel = 3
+pkgrel = 4
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"

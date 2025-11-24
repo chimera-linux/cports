@@ -1,6 +1,6 @@
 pkgname = "fcitx5-qt"
 pkgver = "5.1.10"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",

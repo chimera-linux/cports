@@ -1,6 +1,6 @@
 pkgname = "plasma5support"
 pkgver = "6.5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs plasma-workspace plugin and is circular with it
 make_check_args = ["-E", "pluginloadertest"]

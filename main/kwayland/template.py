@@ -1,6 +1,6 @@
 pkgname = "kwayland"
 pkgver = "6.5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
