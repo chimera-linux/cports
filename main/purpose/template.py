@@ -1,11 +1,12 @@
 pkgname = "purpose"
-pkgver = "6.19.0"
+pkgver = "6.20.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
-# ??
-make_check_args = ["-E", "(menutest)"]
+# menutest: ??
+# alternativesmodeltest: tries to reach remote url
+make_check_args = ["-E", "(menutest|alternativesmodeltest)"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
@@ -34,7 +35,7 @@ pkgdesc = "KDE purpose-specific integrations"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
-sha256 = "799ff3e69872400d2fa6e5e2c91fed66ed6bd0d7a9163efc004eee0bf6d093a2"
+sha256 = "3a33a069534f5cfcd751e67b7dc37785f3b8ec9d027cf1d7a0d42f0ffbfc9857"
 hardening = ["vis"]
 
 

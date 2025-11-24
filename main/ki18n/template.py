@@ -1,5 +1,5 @@
 pkgname = "ki18n"
-pkgver = "6.19.0"
+pkgver = "6.20.0"
 pkgrel = 0
 build_style = "cmake"
 # similar tests broken as alpine
@@ -12,7 +12,7 @@ pkgdesc = "KDE Gettext-based UI text internationalization"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-or-later)"
 url = "https://api.kde.org/frameworks/ki18n/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ki18n-{pkgver}.tar.xz"
-sha256 = "608ff2634cd19736a8091c750c71b23db0b33fd81e82fb9fc4bcce76712284a6"
+sha256 = "f29c805137af9cee6abab424b380fea964a59b089f90fb909601d9fc78df5f73"
 hardening = ["vis"]
 
 
