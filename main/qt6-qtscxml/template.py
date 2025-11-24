@@ -1,5 +1,5 @@
 pkgname = "qt6-qtscxml"
-pkgver = "6.10.0"
+pkgver = "6.10.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -25,7 +25,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtscxml-everywhere-src-{pkgver}.tar.xz"
-sha256 = "b5946c405fe1e568a8b0589695f9572dfabf85ac9ac8ec3778f9f791e76131e4"
+sha256 = "eb67a0e5d4c6d488e3013f8dbef859a00e10bb033472eb53688fce350e3a1869"
 
 
 def init_check(self):
