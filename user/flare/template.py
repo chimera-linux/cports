@@ -1,5 +1,5 @@
 pkgname = "flare"
-pkgver = "0.17.2"
+pkgver = "0.17.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -33,7 +33,7 @@ source = [
 ]
 source_paths = [".", "presage"]
 sha256 = [
-    "07862d03f8317d7229bb5dee3809ce2de47c5c84f0afdf699a4369b6592b544f",
+    "79f3a0e35e53b28810eb30abb832a6463b99ef00530441a06f42010db78fd74d",
     "4e142d8f2bed05d2a085dae24f8b29929a21e0c6fb28d8515e9110a8c5507974",
 ]
 
