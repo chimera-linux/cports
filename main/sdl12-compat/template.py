@@ -1,6 +1,6 @@
 pkgname = "sdl12-compat"
-pkgver = "1.2.68"
-pkgrel = 1
+pkgver = "1.2.70"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["glu-devel", "sdl2-compat-devel"]
@@ -10,7 +10,7 @@ pkgdesc = "Compatibility layer for SDL 1.2"
 license = "Zlib"
 url = "https://github.com/libsdl-org/sdl12-compat"
 source = f"{url}/archive/refs/tags/release-{pkgver}.tar.gz"
-sha256 = "63c6e4dcc1154299e6f363c872900be7f3dcb3e42b9f8f57e05442ec3d89d02d"
+sha256 = "b8350cc400b9605dd5e319f451f09d5d6e70bb1dfc22cd67f718b3ffc16ebb7c"
 
 
 @subpackage("sdl12-compat-devel")
