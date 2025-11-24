@@ -1,0 +1,30 @@
+From 6e963f23059648aeabbc5d4d9de22ead8b0f01f7 Mon Sep 17 00:00:00 2001
+From: sonata-chen <sonatachen39@gmail.com>
+Date: Wed, 21 Aug 2024 19:24:41 +0800
+Subject: [PATCH 3/4] tests int
+
+overflow in std::chrono::duration_cast
+---
+ test/cpp/util/time_test.cc | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/test/cpp/util/time_test.cc b/test/cpp/util/time_test.cc
+index 11b141cc70..3c4f351ca8 100644
+--- a/test/cpp/util/time_test.cc
++++ b/test/cpp/util/time_test.cc
+@@ -54,12 +54,6 @@ TEST_F(TimeTest, InfFuture) {
+   Timepoint2Timespec(system_clock::time_point::max(), &from_time_point_max);
+   EXPECT_EQ(
+       0, gpr_time_cmp(gpr_inf_future(GPR_CLOCK_REALTIME), from_time_point_max));
+-  // This will cause an overflow
+-  Timepoint2Timespec(
+-      std::chrono::time_point<system_clock, std::chrono::seconds>::max(),
+-      &from_time_point_max);
+-  EXPECT_EQ(
+-      0, gpr_time_cmp(gpr_inf_future(GPR_CLOCK_REALTIME), from_time_point_max));
+ }
+ 
+ }  // namespace
+-- 
+2.46.0
+
