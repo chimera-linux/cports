@@ -1,5 +1,5 @@
 pkgname = "kscreenlocker"
-pkgver = "6.5.2"
+pkgver = "6.5.3"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -39,7 +39,7 @@ pkgdesc = "KDE Library and components for secure lock screen architecture"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://invent.kde.org/plasma/kscreenlocker"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreenlocker-{pkgver}.tar.xz"
-sha256 = "d009894a88964a0c44370ddd5a83b7a95e64f6aad2f47b26fef7cc881d0d04b6"
+sha256 = "26464a461347305f2a2cb3b28e3a0e8fc602fca6ca8ab5d2ca71373b7d9da68e"
 hardening = ["vis"]
 
 

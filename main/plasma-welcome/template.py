@@ -1,5 +1,5 @@
 pkgname = "plasma-welcome"
-pkgver = "6.5.2"
+pkgver = "6.5.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,7 +35,7 @@ pkgdesc = "KDE onboarding wizard"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-welcome"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-welcome-{pkgver}.tar.xz"
-sha256 = "8098674a8fb4cb2725dc3c070e897d847047695936159b0048d5d5d1a0369563"
+sha256 = "646820fc693b388d706a67b6a1eb7f44095851f6b87e940bcb07ccd541aa9f39"
 
 
 def post_install(self):

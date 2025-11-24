@@ -1,5 +1,5 @@
 pkgname = "kwallet-pam"
-pkgver = "6.5.2"
+pkgver = "6.5.3"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -16,7 +16,7 @@ pkgdesc = "KDE KWallet PAM plugin"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kwallet-pam"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwallet-pam-{pkgver}.tar.xz"
-sha256 = "5fc3faa59411eed74283d6aa54c2debfc7e6a2b3088d7051ae62fdf6268ae876"
+sha256 = "36f1f829b7e89c976eede377e6c121ae9d1b44025ca27b55656f257d188d0c74"
 hardening = ["vis"]
 
 
