@@ -1,6 +1,6 @@
 pkgname = "android-tools"
 pkgver = "35.0.2"
-pkgrel = 25
+pkgrel = 26
 # only supports specific little-endian archs, particularly in boringssl
 archs = ["x86_64", "aarch64", "ppc64le", "riscv64"]
 build_style = "cmake"

@@ -1,6 +1,6 @@
 pkgname = "gofumpt"
 pkgver = "0.9.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [f"-ldflags= -X main.version=v{pkgver}"]
 hostmakedepends = ["go"]

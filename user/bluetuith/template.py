@@ -1,6 +1,6 @@
 pkgname = "bluetuith"
 pkgver = "0.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["bluez"]

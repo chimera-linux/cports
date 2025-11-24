@@ -1,6 +1,6 @@
 pkgname = "fzf"
 pkgver = "0.66.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["ncurses-devel"]

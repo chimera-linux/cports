@@ -1,6 +1,6 @@
 pkgname = "darkman"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.Version=v{pkgver}",

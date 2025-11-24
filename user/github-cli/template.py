@@ -1,6 +1,6 @@
 pkgname = "github-cli"
 pkgver = "2.83.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/cli/cli/v2/internal/build.Version=v{pkgver}",

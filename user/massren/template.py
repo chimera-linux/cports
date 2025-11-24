@@ -1,6 +1,6 @@
 pkgname = "massren"
 pkgver = "1.5.7"
-pkgrel = 9
+pkgrel = 10
 build_style = "go"
 prepare_after_patch = True
 hostmakedepends = ["go"]
