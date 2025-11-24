@@ -1,5 +1,5 @@
 pkgname = "git"
-pkgver = "2.51.2"
+pkgver = "2.52.0"
 pkgrel = 0
 hostmakedepends = [
     "asciidoc",
@@ -27,7 +27,7 @@ pkgdesc = "Fast, distributed version control system"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"
-sha256 = "233d7143a2d58e60755eee9b76f559ec73ea2b3c297f5b503162ace95966b4e3"
+sha256 = "3cd8fee86f69a949cb610fee8cd9264e6873d07fa58411f6060b3d62729ed7c5"
 hardening = ["cfi", "vis"]
 
 
