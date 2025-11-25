@@ -25,6 +25,9 @@ env = {
 # nah
 options = ["!check"]
 
+if self.profile().arch == "loongarch64":
+    broken = "PIC linking issues"
+
 
 def prepare(self):
     # figure out why this doesn't work otherwise anymore without net
