@@ -36,7 +36,10 @@ def init_build(self):
 
     self.env["GOPATH"] = str(self.chroot_cwd)
     self.env["GOBIN"] = str(self.chroot_cwd / "bin")
-    self.env["CGO_ENABLED"] = "1"
+    if self.profile().arch == "loongarch64":
+        self.env["CGO_ENABLED"] = "0"
+    else:
+        self.env["CGO_ENABLED"] = "1"
     self.env.update(golang.get_go_env(self))
 
 
