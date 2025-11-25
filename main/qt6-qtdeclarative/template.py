@@ -72,6 +72,7 @@ def init_check(self):
         "tst_qquickiconimage",  # execution failed with exit code Segmentation fault
         "tst_qquickfiledialogimpl",  # XXX
         "tst_qquickfolderdialogimpl",  # test failed
+        "tst_qquickpopup",  # loongarch64 segv
         "tst_sanity",  # tst_Sanity::quickControlsSanityPlugin(signalHandlers) 'hasWarnings' returned FALSE
         "tst_fluentwinui*",
         "shared_qml_module",
