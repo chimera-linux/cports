@@ -90,6 +90,9 @@ if self.profile().endian == "big":
 # crashes compiler in gl.c
 if self.profile().arch == "riscv64":
     tool_flags["CXXFLAGS"] = ["-U_FORTIFY_SOURCE"]
+elif self.profile().arch == "ppc64le":
+    # early profile build libxul takes 7 hours to link for some reason
+    options += ["eepy"]
 
 
 def post_extract(self):

@@ -8,6 +8,7 @@ import importlib
 import os
 import pty
 import sys
+import select
 import shutil
 import stat
 import termios
@@ -45,6 +46,7 @@ def redir_log(pkg):
     # child will do the logging for us through a pipe or pty
     prd, prw = None, None
     colors = logger.get().use_colors
+    eepy = pkg.options["eepy"]
     is_pty = False
     try:
         # use a pipe if colors are suppressed, no need for pty
@@ -71,13 +73,29 @@ def redir_log(pkg):
     if fpid == 0:
         os.close(prw)
         try:
+            # use a buffer so we don't keep allocating memory
             rarr = [bytearray(8192)]
+            # also set up a poll object to wait for data to read
+            pl = select.poll()
+            pl.register(prd, select.POLLIN | select.POLLHUP)
+            # we'll keep adding to this, if an hour without output
+            # elapses, we'll meow to the output
+            timer = 0
             while True:
+                plist = pl.poll(10000)
+                if len(plist) == 0:
+                    timer += 10
+                    if eepy and timer >= 3600:
+                        # proper timeout reached, meow
+                        os.write(1, b"meow\n")
+                        timer = 0
+                    continue
+                if (plist[0][1] & select.POLLHUP) != 0:
+                    # end the logigng process...
+                    break
                 # do this on each loop as the terminal may resize
                 sync_winsize(prd, is_pty)
                 rlen = os.readv(prd, rarr)
-                if rlen == 0:
-                    break
                 os.write(1, rarr[0][0:rlen])
         finally:
             # raw exit (no exception) since we forked
