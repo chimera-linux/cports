@@ -1,7 +1,7 @@
 # real flamegraph name is for the original perl project; this also has a cargo
 # plugin
 pkgname = "cargo-flamegraph"
-pkgver = "0.6.9"
+pkgver = "0.6.10"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -11,7 +11,7 @@ pkgdesc = "Perf-based flamegraph generator"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/flamegraph-rs/flamegraph"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dd9b83affab5f9c1eaad0de9034037780e634c96fef4dce8fa83900e58cc240c"
+sha256 = "36dcd88cf872b6d0206dd2b684b3d4b99158d2960f5aa4f84d97677ea5ef0ae9"
 # check: no tests
 # cross: generates completions with host binary
 options = ["!check", "!cross"]
