@@ -97,6 +97,7 @@ def redir_log(pkg):
                 sync_winsize(prd, is_pty)
                 rlen = os.readv(prd, rarr)
                 os.write(1, rarr[0][0:rlen])
+                timer = 0
         finally:
             # raw exit (no exception) since we forked
             # don't want to propagate back to the outside
