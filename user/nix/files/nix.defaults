@@ -1,0 +1,5 @@
+# whether to append or prepend nix directories to $PATH
+# When prepending, nix binaries get precedence over traditional tools.
+# When appending, chimera's binaries take precedence.
+# Defaults to true, so appending.
+#APPEND=true

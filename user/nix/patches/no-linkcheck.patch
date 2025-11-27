@@ -1,0 +1,12 @@
+mdbook-linkcheck is a preprocessor for mdbook and checks if there are no dead links
+in the docs. For now, we skip it as mdbook-linkcheck is not packaged for chimera
+and it does not really give us anything; we only package the man pages, not the
+html pages for the website. man pages don't support links, so we really don't care
+if they are broken or not.
+--- a/doc/manual/book.toml.in
++++ b/doc/manual/book.toml.in
+@@ -32,3 +32,4 @@ follow-web-links = false
+ # excessive "Potential incomplete link" warnings. No other kind of warning was
+ # produced at the time of writing.
+ warning-policy = "ignore"
++optional = true
