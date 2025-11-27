@@ -1,6 +1,6 @@
 pkgname = "wf-recorder"
-pkgver = "0.5.0"
-pkgrel = 3
+pkgver = "0.6.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -17,8 +17,8 @@ makedepends = [
 pkgdesc = "Screen recorder for wlroots-based compositors"
 license = "MIT"
 url = "https://github.com/ammen99/wf-recorder"
-source = f"{url}/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"
-sha256 = "50b30569f9ecf4f6ba5ba76c422b7af652b4fbc7cae86c25e19ecbe669fca327"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "52d2c952506d63708f9a8f1aacd4d6ca176287caf3507c8ff2882fa0390cb391"
 
 
 def post_install(self):
