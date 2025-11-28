@@ -1,0 +1,14 @@
+pkgname = "units"
+pkgver = "2.27"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake", "pkgconf"]
+makedepends = ["python", "readline-devel"]
+depends = ["python-requests"]
+checkdepends = [*depends]
+pkgdesc = "Units conversion and calculation program"
+license = "GPL-3.0-or-later"
+url = "https://www.gnu.org/software/units"
+source = f"http://ftp.gnu.org/gnu/units/units-{pkgver}.tar.gz"
+sha256 = "e1bbdb09672e7c08eee986749e7a1629eb84a6bdf41f5a2a79d6804444abbe10"
+hardening = ["vis", "cfi"]

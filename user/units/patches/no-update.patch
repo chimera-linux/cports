@@ -1,0 +1,13 @@
+diff --git a/Makefile.in b/Makefile.in
+index b8091c4..a832b57 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -223,8 +223,6 @@ texclean:
+ 	    *.aux *.cp *.fn *.ky *.op *.pg *.toc *.tp *.vr
+ 
+ currency-update-check:
+-	@echo "Trying to update currency.units and cpi.units" 
+-	-$(srcdir)/units_cur currency.units.test cpi.units.test
+ 	@echo "--------------------------------"
+ 	@if [ ! -s currency.units.test ]; then echo "Currency update failed"; else echo "Currency update appears OK"; fi
+ 	@if [ ! -s cpi.units.test ]; then echo "CPI update failed"; else echo "CPI update appears OK"; fi
