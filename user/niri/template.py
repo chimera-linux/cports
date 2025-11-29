@@ -1,8 +1,7 @@
 pkgname = "niri"
-pkgver = "25.08"
-pkgrel = 1
+pkgver = "25.11"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features",
@@ -34,7 +33,7 @@ pkgdesc = "Scrollable-tiling wayland compositor"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "69f8227d621ee6389bcd5368a250c189e672d02528472dc5ef0e3eccf80cf0b8"
+sha256 = "9a9a58dbe12e065776cc80424f22c89489f2662e881152ceae46e68bb8677d8c"
 # cross: generates completions using host binary
 options = ["!cross"]
 
@@ -49,15 +48,6 @@ if self.profile().arch in ["ppc64le", "riscv64"]:
     options += ["!check"]
 
 # TODO: dinit graphical user session service, --notify-fd, etc
-
-
-def post_prepare(self):
-    from cbuild.util import cargo, patch
-
-    cargo.clear_vendor_checksums(self, "smithay-drm-extras")
-
-    # done separately because we need to patch lockfile before vendoring :/
-    patch.patch(self, [self.files_path / "smithay-drm-extras.patch"])
 
 
 def post_build(self):
