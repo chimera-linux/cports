@@ -1,6 +1,6 @@
 pkgname = "chez-scheme"
-pkgver = "10.2.0"
-pkgrel = 1
+pkgver = "10.3.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = ["--enable-libffi", "LZ4=-llz4", "ZLIB=-lz"]
 make_check_target = "test-some-fast"
@@ -15,7 +15,7 @@ pkgdesc = "Compiler and runtime system for R6RS Scheme"
 license = "Apache-2.0"
 url = "https://cisco.github.io/ChezScheme"
 source = f"https://github.com/cisco/ChezScheme/releases/download/v{pkgver}/csv{pkgver}.tar.gz"
-sha256 = "b795916d4cfed59240c5f44b1b507a8657efd28e62e72e134d03486e9f3e374a"
+sha256 = "d237d9874c6e8b0ccf7758daa8286a6e825528b13ce3b2bca56eb1f73cddbc2c"
 hardening = ["!int"]
 # below
 options = ["!cross"]
