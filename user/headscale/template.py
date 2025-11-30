@@ -1,6 +1,6 @@
 pkgname = "headscale"
-pkgver = "0.26.1"
-pkgrel = 3
+pkgver = "0.27.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v{pkgver}",
@@ -12,7 +12,7 @@ pkgdesc = "Open source implementation of the tailscale control server"
 license = "BSD-3-Clause"
 url = "https://github.com/juanfont/headscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8a19bfaaa1533ab69b63e9cef4658758aad79dadd43088c6cc7313ab88df7de5"
+sha256 = "a2ba09811919e4b285d17e4cdaf7ed5aeb9a8567eda11119557436d59711632e"
 # generates completions with host binary
 options = ["!cross"]
 

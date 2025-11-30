@@ -1,17 +1,17 @@
 these tests require a postgresql installation
 
 diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
---- a/hscontrol/db/db_test.go	2025-01-30 14:59:30.000000000 +0100
-+++ b/hscontrol/db/db_test.go	2025-02-06 20:10:45.435984307 +0100
-@@ -6,7 +6,6 @@
- 	"io"
+--- a/hscontrol/db/db_test.go	2025-11-11 20:17:02.000000000 +0100
++++ b/hscontrol/db/db_test.go	2025-11-30 14:47:51.425469973 +0100
+@@ -4,7 +4,6 @@
+ 	"database/sql"
  	"net/netip"
  	"os"
 -	"os/exec"
  	"path/filepath"
  	"slices"
- 	"sort"
-@@ -365,10 +364,6 @@
+ 	"strings"
+@@ -843,10 +842,6 @@
  	}
  
  	for _, tt := range tests {
@@ -22,7 +22,7 @@ diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
  		t.Run(tt.name+"-sqlite", func(t *testing.T) {
  			db, err := newSQLiteTestDB()
  			if err != nil {
-@@ -376,61 +371,6 @@
+@@ -854,68 +849,6 @@
  			}
  
  			tt.run(t, db.DB.Debug())
@@ -30,7 +30,13 @@ diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
 -	}
 -}
 -
--func TestMigrationsPostgres(t *testing.T) {
+-// TestPostgresMigrationAndDataValidation tests specific PostgreSQL migration scenarios
+-// and validates data integrity after migration. All migrations that require data validation
+-// should be added here.
+-//
+-// TODO(kradalby): Convert to use plain text SQL dumps instead of binary .pssql dumps for consistency
+-// with SQLite tests and easier version control.
+-func TestPostgresMigrationAndDataValidation(t *testing.T) {
 -	tests := []struct {
 -		name     string
 -		dbPath   string
@@ -38,9 +44,10 @@ diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
 -	}{
 -		{
 -			name:   "user-idx-breaking",
--			dbPath: "testdata/pre-24-postgresdb.pssql.dump",
--			wantFunc: func(t *testing.T, h *HSDatabase) {
--				users, err := Read(h.DB, func(rx *gorm.DB) ([]types.User, error) {
+-			dbPath: "testdata/postgres/pre-24-postgresdb.pssql.dump",
+-			wantFunc: func(t *testing.T, hsdb *HSDatabase) {
+-				t.Helper()
+-				users, err := Read(hsdb.DB, func(rx *gorm.DB) ([]types.User, error) {
 -					return ListUsers(rx)
 -				})
 -				require.NoError(t, err)
