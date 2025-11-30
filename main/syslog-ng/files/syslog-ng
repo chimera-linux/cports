@@ -2,9 +2,9 @@
 
 type = process
 command = /usr/bin/syslog-ng -F -e -f /etc/syslog-ng/syslog-ng.conf
-logfile = /var/log/syslog-ng.log
-before = local.target
-depends-on = pre-local.target
 smooth-recovery = true
+logfile = /var/log/syslog-ng.log
 ready-notification = pipevar:SYSLOG_NG_READY_FD
 options = starts-log
+before: local.target
+depends-on: pre-local.target
