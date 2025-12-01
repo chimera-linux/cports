@@ -1,0 +1,30 @@
+From 079efe72f616ff940dcf5641a03197a99162a438 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Wed, 19 Nov 2025 22:40:15 +1100
+Subject: [PATCH] zvol_id: make array length properly known at compile time
+
+Using strlen() in an static array declaration is a GCC extension. Clang
+calls it "gnu-folding-constant" and warns about it, which breaks the
+build. If it were widespread we could just turn off the warning, but
+since there's only one case, lets just change the array to an explicit
+size.
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+---
+ udev/zvol_id.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/udev/zvol_id.c b/udev/zvol_id.c
+index 7b7883a0c74f..134a76c09f6a 100644
+--- a/udev/zvol_id.c
++++ b/udev/zvol_id.c
+@@ -67,7 +67,7 @@ main(int argc, const char *const *argv)
+ 		return (1);
+ 	}
+ 
+-	char zvol_name[MAXNAMELEN + strlen("-part") + 10];
++	char zvol_name[MAXNAMELEN+15];
+ 	if (ioctl(fd, BLKZNAME, zvol_name) == -1) {
+ 		fprintf(stderr, "%s: BLKZNAME: %s\n",
+ 		    dev_name, strerror(errno));

@@ -1,0 +1,230 @@
+From 76c238f1ba9fbd0123cf4f93028e70ad19a0bcd2 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Fri, 12 Sep 2025 09:31:35 +1000
+Subject: [PATCH] Linux 6.18: replace write_cache_pages()
+
+Linux 6.18 removed write_cache_pages() without a usable replacement.
+Here we implement a minimal zpl_write_cache_pages() that find the dirty
+pages within the mapping, gets them into the expected state and hands
+them off to zfs_putpage(), which handles the rest.
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+---
+ config/kernel-writeback.m4     | 58 ++++++++++++++++++++++++++
+ config/kernel-writepage_t.m4   | 26 ------------
+ config/kernel.m4               |  4 +-
+ module/os/linux/zfs/zpl_file.c | 74 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 134 insertions(+), 28 deletions(-)
+ create mode 100644 config/kernel-writeback.m4
+ delete mode 100644 config/kernel-writepage_t.m4
+
+diff --git a/config/kernel-writeback.m4 b/config/kernel-writeback.m4
+new file mode 100644
+index 000000000000..334d65ef84b6
+--- /dev/null
++++ b/config/kernel-writeback.m4
+@@ -0,0 +1,58 @@
++AC_DEFUN([ZFS_AC_KERNEL_SRC_WRITEPAGE_T], [
++	dnl #
++	dnl # 6.3 API change
++	dnl # The writepage_t function type now has its first argument as
++	dnl # struct folio* instead of struct page*
++	dnl #
++	ZFS_LINUX_TEST_SRC([writepage_t_folio], [
++		#include <linux/writeback.h>
++		static int putpage(struct folio *folio,
++		    struct writeback_control *wbc, void *data)
++		{ return 0; }
++		writepage_t func = putpage;
++	],[])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_WRITEPAGE_T], [
++	AC_MSG_CHECKING([whether int (*writepage_t)() takes struct folio*])
++	ZFS_LINUX_TEST_RESULT([writepage_t_folio], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_WRITEPAGE_T_FOLIO, 1,
++		   [int (*writepage_t)() takes struct folio*])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_SRC_WRITE_CACHE_PAGES], [
++	dnl #
++	dnl # 6.18 API change
++	dnl # write_cache_pages() has been removed.
++	dnl #
++	ZFS_LINUX_TEST_SRC([write_cache_pages], [
++		#include <linux/writeback.h>
++	], [
++		(void) write_cache_pages(NULL, NULL, NULL, NULL);
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_WRITE_CACHE_PAGES], [
++	AC_MSG_CHECKING([whether write_cache_pages() is available])
++	ZFS_LINUX_TEST_RESULT([write_cache_pages], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_WRITE_CACHE_PAGES, 1,
++		    [write_cache_pages() is available])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_SRC_WRITEBACK], [
++	ZFS_AC_KERNEL_SRC_WRITEPAGE_T
++	ZFS_AC_KERNEL_SRC_WRITE_CACHE_PAGES
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_WRITEBACK], [
++	ZFS_AC_KERNEL_WRITEPAGE_T
++	ZFS_AC_KERNEL_WRITE_CACHE_PAGES
++])
+diff --git a/config/kernel-writepage_t.m4 b/config/kernel-writepage_t.m4
+deleted file mode 100644
+index a82cf370c9d4..000000000000
+--- a/config/kernel-writepage_t.m4
++++ /dev/null
+@@ -1,26 +0,0 @@
+-AC_DEFUN([ZFS_AC_KERNEL_SRC_WRITEPAGE_T], [
+-	dnl #
+-	dnl # 6.3 API change
+-	dnl # The writepage_t function type now has its first argument as
+-	dnl # struct folio* instead of struct page*
+-	dnl #
+-	ZFS_LINUX_TEST_SRC([writepage_t_folio], [
+-		#include <linux/writeback.h>
+-		static int putpage(struct folio *folio,
+-		    struct writeback_control *wbc, void *data)
+-		{ return 0; }
+-		writepage_t func = putpage;
+-	],[])
+-])
+-
+-AC_DEFUN([ZFS_AC_KERNEL_WRITEPAGE_T], [
+-	AC_MSG_CHECKING([whether int (*writepage_t)() takes struct folio*])
+-	ZFS_LINUX_TEST_RESULT([writepage_t_folio], [
+-		AC_MSG_RESULT(yes)
+-		AC_DEFINE(HAVE_WRITEPAGE_T_FOLIO, 1,
+-		   [int (*writepage_t)() takes struct folio*])
+-	],[
+-		AC_MSG_RESULT(no)
+-	])
+-])
+-
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index 35819e4d68c5..27fe76616116 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -121,7 +121,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_IDMAP_MNT_API
+ 	ZFS_AC_KERNEL_SRC_IDMAP_NO_USERNS
+ 	ZFS_AC_KERNEL_SRC_IATTR_VFSID
+-	ZFS_AC_KERNEL_SRC_WRITEPAGE_T
++	ZFS_AC_KERNEL_SRC_WRITEBACK
+ 	ZFS_AC_KERNEL_SRC_RECLAIMED
+ 	ZFS_AC_KERNEL_SRC_REGISTER_SYSCTL_TABLE
+ 	ZFS_AC_KERNEL_SRC_REGISTER_SYSCTL_SZ
+@@ -240,7 +240,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_IDMAP_MNT_API
+ 	ZFS_AC_KERNEL_IDMAP_NO_USERNS
+ 	ZFS_AC_KERNEL_IATTR_VFSID
+-	ZFS_AC_KERNEL_WRITEPAGE_T
++	ZFS_AC_KERNEL_WRITEBACK
+ 	ZFS_AC_KERNEL_RECLAIMED
+ 	ZFS_AC_KERNEL_REGISTER_SYSCTL_TABLE
+ 	ZFS_AC_KERNEL_REGISTER_SYSCTL_SZ
+diff --git a/module/os/linux/zfs/zpl_file.c b/module/os/linux/zfs/zpl_file.c
+index d07317b0d910..02965ac8cbee 100644
+--- a/module/os/linux/zfs/zpl_file.c
++++ b/module/os/linux/zfs/zpl_file.c
+@@ -478,6 +479,7 @@ zpl_putpage(struct page *pp, struct writeback_control *wbc, void *data)
+ 	return (ret);
+ }
+ 
++#ifdef HAVE_WRITE_CACHE_PAGES
+ #ifdef HAVE_WRITEPAGE_T_FOLIO
+ static int
+ zpl_putfolio(struct folio *pp, struct writeback_control *wbc, void *data)
+@@ -499,6 +501,78 @@ zpl_write_cache_pages(struct address_space *mapping,
+ #endif
+ 	return (result);
+ }
++#else
++static inline int
++zpl_write_cache_pages(struct address_space *mapping,
++    struct writeback_control *wbc, void *data)
++{
++	pgoff_t start = wbc->range_start >> PAGE_SHIFT;
++	pgoff_t end = wbc->range_end >> PAGE_SHIFT;
++
++	struct folio_batch fbatch;
++	folio_batch_init(&fbatch);
++
++	/*
++	 * This atomically (-ish) tags all DIRTY pages in the range with
++	 * TOWRITE, allowing users to continue dirtying or undirtying pages
++	 * while we get on with writeback, without us treading on each other.
++	 */
++	tag_pages_for_writeback(mapping, start, end);
++
++	int err = 0;
++	unsigned int npages;
++
++	/*
++	 * Grab references to the TOWRITE pages just flagged. This may not get
++	 * all of them, so we do it in a loop until there are none left.
++	 */
++	while ((npages = filemap_get_folios_tag(mapping, &start, end,
++	    PAGECACHE_TAG_TOWRITE, &fbatch)) != 0) {
++
++		/* Loop over each page and write it out. */
++		struct folio *folio;
++		while ((folio = folio_batch_next(&fbatch)) != NULL) {
++			folio_lock(folio);
++
++			/*
++			 * If the folio has been remapped, or is no longer
++			 * dirty, then there's nothing to do.
++			 */
++			if (folio->mapping != mapping ||
++			    !folio_test_dirty(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
++
++			/*
++			 * If writeback is already in progress, wait for it to
++			 * finish. We continue after this even if the page
++			 * ends up clean; zfs_putpage() will skip it if no
++			 * further work is required.
++			 */
++			while (folio_test_writeback(folio))
++				folio_wait_bit(folio, PG_writeback);
++
++			/*
++			 * Write it out and collect any error. zfs_putpage()
++			 * will clear the TOWRITE and DIRTY flags, and return
++			 * with the page unlocked.
++			 */
++			int ferr = zpl_putpage(&folio->page, wbc, data);
++			if (err == 0 && ferr != 0)
++				err = ferr;
++
++			/* Housekeeping for the caller. */
++			wbc->nr_to_write -= folio_nr_pages(folio);
++		}
++
++		/* Release any remaining references on the batch. */
++		folio_batch_release(&fbatch);
++	}
++
++	return (err);
++}
++#endif
+ 
+ static int
+ zpl_writepages(struct address_space *mapping, struct writeback_control *wbc)

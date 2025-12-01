@@ -1,0 +1,37 @@
+From ab9cbbd421450a7da97b851b34ff0338d540c810 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Wed, 19 Nov 2025 22:37:49 +1100
+Subject: [PATCH] Linux: bump -std to gnu11
+
+Linux switched from -std=gnu89 to -std=gnu11 in 5.18
+(torvalds/linux@e8c07082a810f). We've always overridden that with gnu99
+because we use some newer features.
+
+More recent kernels are using C11 features in headers that we include.
+GCC generally doesn't seem to care, but more recent versions of Clang
+seem to be enforcing our gnu99 override more strictly, which breaks the
+build in some configurations.
+
+Just bumping our "override" to match the kernel seems to be the easiest
+workaround. It's an effective no-op since 5.18, while still allowing us
+to build on older kernels.
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+---
+ module/Kbuild.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/module/Kbuild.in b/module/Kbuild.in
+index 95313c984178..e653908efc9c 100644
+--- a/module/Kbuild.in
++++ b/module/Kbuild.in
+@@ -2,7 +2,7 @@
+ # first.  This ensures its module initialization function is run before
+ # any of the other module initialization functions which depend on it.
+ 
+-ZFS_MODULE_CFLAGS += -std=gnu99 -Wno-declaration-after-statement
++ZFS_MODULE_CFLAGS += -std=gnu11 -Wno-declaration-after-statement
+ ZFS_MODULE_CFLAGS += -Wmissing-prototypes
+ ZFS_MODULE_CFLAGS += @KERNEL_DEBUG_CFLAGS@  @NO_FORMAT_ZERO_LENGTH@
+ 
