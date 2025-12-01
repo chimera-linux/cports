@@ -122,7 +122,9 @@ class Cargo:
             wrksrc = tmpl.make_dir
 
         bargs = []
-        if command != "vendor":
+        if command == "vendor":
+            bargs += ["--versioned-dirs", "--no-delete"]
+        else:
             bargs += ["--target", tmpl.profile().triplet]
 
         if offline:
