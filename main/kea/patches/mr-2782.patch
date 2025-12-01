@@ -1,0 +1,33 @@
+diff --git a/doc/sphinx/arm/install.rst b/doc/sphinx/arm/install.rst
+index fe532640af3844641a729dcc9b471735bbd1545b..b13b89dacbed45c090cc95711c69c2b41a51d227 100644
+--- a/doc/sphinx/arm/install.rst
++++ b/doc/sphinx/arm/install.rst
+@@ -159,10 +159,8 @@ the system:
+ 
+ -  The development tools meson, ninja, and pkg-config.
+ 
+--  Boost C++ libraries (https://www.boost.org/). The oldest Boost version
+-   used for testing is 1.71 (although Kea may also work with older
+-   versions e.g. 1.69). The Boost system library must also be installed.
+-   Installing a header-only version of Boost is not recommended.
++-  Boost C++ libraries (https://www.boost.org/) (at least version 1.66).
++   On versions before 1.69 the Boost system library must also be installed.
+ 
+ -  OpenSSL (at least version 1.0.2) or Botan (at least version 2).
+    OpenSSL version 1.1.1 or later is strongly recommended.
+diff --git a/meson.build b/meson.build
+index 68ebc1b3a75d03e05b65545a85500e2ea4ed1983..980fdaa67fc20f7e01dcd7a28a91bada664df9e2 100644
+--- a/meson.build
++++ b/meson.build
+@@ -189,7 +189,10 @@ message(f'Detected system "@SYSTEM@".')
+ 
+ #### Dependencies
+ 
+-boost_dep = dependency('boost', version: '>=1.69')
++boost_dep = dependency('boost', version: '>=1.69', required: false)
++if not boost_dep.found()
++    boost_dep = dependency('boost', version: '>=1.66', modules: ['system'])
++endif
+ dl_dep = dependency('dl')
+ threads_dep = dependency('threads')
+ add_project_dependencies(boost_dep, dl_dep, threads_dep, language: ['cpp'])
