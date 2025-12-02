@@ -1,13 +1,13 @@
 pkgname = "lf"
-pkgver = "38"
-pkgrel = 2
+pkgver = "39"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terminal file manager"
 license = "MIT"
 url = "https://github.com/gokcehan/lf"
 source = f"{url}/archive/refs/tags/r{pkgver}.tar.gz"
-sha256 = "9e5b8baf0af6f131c3f2254ab0454fb4e0dc54ae3e97e23de5153134889b924e"
+sha256 = "1393f86a2387534dd5321754846e0fe39df55a7345ef2b19f349eb6ae96aaaf7"
 
 
 def post_install(self):
