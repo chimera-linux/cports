@@ -1,6 +1,6 @@
 pkgname = "grub"
 pkgver = "2.12"
-pkgrel = 2
+pkgrel = 3
 configure_args = [
     "--sysconfdir=/etc",
     "--prefix=/usr",
@@ -15,6 +15,7 @@ configure_args = [
     "AWK=gawk",
 ]
 hostmakedepends = [
+    "autoconf-archive",
     "automake",
     "bison",
     "flex",
