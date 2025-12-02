@@ -15,7 +15,9 @@ configure_args = [
     "AWK=gawk",
 ]
 hostmakedepends = [
+    "autoconf-archive",
     "automake",
+    "binutils",
     "bison",
     "flex",
     "font-unifont-bdf",
@@ -50,13 +52,18 @@ options = ["!lintcomp"]
 if self.profile().arch == "loongarch64":
     broken = "causes a machine exception at runtime"
 
-exec_wrappers = []
 _tpl = self.profile().triplet
-# fool the build system into using llvm for these tools
+exec_wrappers = [
+    (f"/usr/bin/{_tpl}-ld.bfd", f"{_tpl}-ld"),
+    ("/usr/bin/ld.bfd", "ld"),
+]
+tools = {"LD": f"{_tpl}-ld.bfd"}
+# fool the build system into using binutils for these tools
 for _tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
     exec_wrappers += [
-        (f"/usr/bin/llvm-{_tool}", f"{_tpl}-{_tool}"),
+        (f"/usr/bin/{_tpl}-g{_tool}", f"{_tpl}-{_tool}"),
     ]
+    tools[_tool.upper()] = f"{_tpl}-g{_tool}"
 
 # this should be a list of tuples:
 # (arch, platform, cflags, ldflags, platform_name)
@@ -93,6 +100,14 @@ match self.profile().arch:
         broken = f"Unsupported platform ({self.profile().arch})"
 
 
+def init_configure(self):
+    # configure tests, sigh
+    self.tools[
+        "CC"
+    ] += " --start-no-unused-arguments -fuse-ld=bfd --end-no-unused-arguments"
+    self.env["TARGET_CC"] = self.tools["CC"]
+
+
 def configure(self):
     # reconfigure the autotools
     self.do("autoreconf", "-if")
@@ -109,6 +124,7 @@ def configure(self):
     for arch, platform, ecfl, ldfl, desc in _platforms:
         if arch not in _archs:
             continue
+        ldfl += " -fuse-ld=bfd"
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
         cfl = "-fno-stack-protector " + ecfl
