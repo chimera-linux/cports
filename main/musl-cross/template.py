@@ -50,6 +50,7 @@ def post_extract(self):
     # but also remove musl's x86_64 asm memcpy as it's actually
     # noticeably slower than the c implementation
     self.rm("src/string/x86_64/memcpy.s")
+    self.rm("src/string/x86_64/memmove.s")
 
 
 def configure(self):
