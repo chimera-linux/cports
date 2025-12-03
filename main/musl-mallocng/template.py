@@ -1,6 +1,6 @@
 pkgname = "musl-mallocng"
 pkgver = "1.2.5_git20240705"
-pkgrel = 1
+pkgrel = 2
 _commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
 _mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
