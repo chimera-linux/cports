@@ -1,0 +1,28 @@
+commit 7c76965849b7c5a01f5a6ccfe1a545ca6035bae4
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 5 13:38:41 2025 +0100
+
+    switch the default cpu to rv64
+    
+    https://github.com/qemu/qemu/commit/f57d5f8004b70c3f7356eda574be7639d97ea2be
+    https://github.com/qemu/qemu/commit/f57d5f8004b70c3f7356eda574be7639d97ea2be
+    
+    As far as i can tell the default cpu is actually supposed to be
+    rv64, and the "max" model enables all the future capabilities of
+    cpus that don't exist yet and actually crashes on our userland
+    in various cases, with illegal instruction.
+    
+    Default to a safe value which does not crash.
+
+diff --git a/linux-user/riscv/target_elf.h b/linux-user/riscv/target_elf.h
+index dedd595..609e6b8 100644
+--- a/linux-user/riscv/target_elf.h
++++ b/linux-user/riscv/target_elf.h
+@@ -9,6 +9,6 @@
+ #define RISCV_TARGET_ELF_H
+ static inline const char *cpu_get_model(uint32_t eflags)
+ {
+-    return "max";
++    return "rv64";
+ }
+ #endif

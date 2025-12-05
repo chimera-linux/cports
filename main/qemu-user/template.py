@@ -1,6 +1,6 @@
 pkgname = "qemu-user"
 pkgver = "10.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # TODO vde libssh capstone
 configure_args = [
