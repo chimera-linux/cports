@@ -1,5 +1,5 @@
 pkgname = "bat"
-pkgver = "0.26.0"
+pkgver = "0.26.1"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -11,11 +11,11 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]
-pkgdesc = "Cat clone but larger"
+pkgdesc = "Cat with syntax highlighting"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/bat"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "ccf3e2b9374792f88797a28ce82451faeae0136037cb8c8b56ba0a6c1a94fd69"
+sha256 = "4474de87e084953eefc1120cf905a79f72bbbf85091e30cf37c9214eafcaa9c9"
 
 
 def init_build(self):
