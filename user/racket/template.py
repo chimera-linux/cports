@@ -1,5 +1,5 @@
 pkgname = "racket"
-pkgver = "8.18"
+pkgver = "9.0"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "configure"
@@ -26,7 +26,7 @@ pkgdesc = "Language-oriented programming language"
 license = "MIT OR Apache-2.0"
 url = "https://racket-lang.org"
 source = f"https://download.racket-lang.org/installers/{pkgver}/racket-{pkgver}-src-builtpkgs.tgz"
-sha256 = "59036cdc218ade49f1890349345f3cb470425d9edc0c677ea28690ce12d6cf2b"
+sha256 = "aaa12707cc18e03f4808693aa036e45300cbc80ebdc716f83d345297d79f6a94"
 # no tests, cross requires chezscheme version to match exactly
 options = ["!check", "!cross"]
 
