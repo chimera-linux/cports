@@ -1,0 +1,26 @@
+elogind's version of the command does not understand this flag
+
+also includes https://github.com/Spencerx/fish-shell/commit/4a9fd1bbbb177f4ab6cb20c247720f71c984e068
+
+diff -ruN a/share/completions/loginctl.fish b/share/completions/loginctl.fish
+--- a/share/completions/loginctl.fish	2025-09-18 10:00:03.000000000 +0200
++++ b/share/completions/loginctl.fish	2025-11-30 14:25:56.330399170 +0100
+@@ -29,15 +29,15 @@
+ complete -c loginctl -f -n "not $seen $commands" -l version -d "Show package version"
+ 
+ function __fish_loginctl_list_sessions
+-    loginctl list-sessions --no-legend --no-pager --output=short | string replace -r '^\s*(\d+)\s+\d+\s+(\S+)\s+(\S+\s+)?(\S+\d+).*' '$1\t$2 at $4'
++    loginctl list-sessions --no-legend --no-pager | string replace -r '^\s*(\S+)\s+\d+\s+(\S+)\s+(\S+).*' '$1\t$2 at $3'
+ end
+ 
+ function __fish_loginctl_list_users
+-    loginctl list-users --no-legend --no-pager --output=short | string replace -r '(\d+) (\S+) .*' '$1\t$2'
++    loginctl list-users --no-legend --no-pager | string replace -r '(\d+) (\S+) .*' '$1\t$2'
+ end
+ 
+ function __fish_loginctl_list_seats
+-    loginctl list-seats --no-legend --no-pager --output=short
++    loginctl list-seats --no-legend --no-pager
+ end
+ 
+ complete -c loginctl -n "$seen session-status show-session activate lock-session unlock-session terminate-session kill-session" -a '(__fish_loginctl_list_sessions)'
