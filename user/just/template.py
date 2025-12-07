@@ -1,5 +1,5 @@
 pkgname = "just"
-pkgver = "1.43.1"
+pkgver = "1.44.0"
 pkgrel = 0
 build_style = "cargo"
 # skip tests that fail when run outside of git repo
@@ -11,7 +11,7 @@ pkgdesc = "Save and run commands from justfile"
 license = "CC0-1.0"
 url = "https://github.com/casey/just"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "741b5c6743501dc4dbd23050dd798f571d873d042b67bcea113d622b0c37d180"
+sha256 = "450ab569b76053ec34c2ae0616cdf50114a4dce0c2e8dfba2d79bdfb60081a04"
 # generates completions and man page with host binary
 options = ["!cross"]
 
