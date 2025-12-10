@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
 pkgver = "0.5.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",
@@ -24,7 +24,7 @@ makedepends = [
 ]
 checkdepends = ["pipewire", "dbus"]
 depends = ["pipewire"]
-renames = ["pipewire-session-manager"]
+provides = [self.with_pkgver("pipewire-session-manager")]
 pkgdesc = "Session and policy manager implementation for PipeWire"
 license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
