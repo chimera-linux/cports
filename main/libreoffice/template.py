@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.8.3.2"
+pkgver = "25.8.4.1"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -189,7 +189,7 @@ source = [
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
     f"{_aurl}/pdfium-7012.tar.bz2",
-    f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
+    f"{_eurl}/officeotron-0.8.4.jar",
     f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
     f"{_aurl}/dtoa-20180411.tgz",
     f"{_aurl}/bsh-2.1.1-src.zip",
@@ -208,10 +208,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.6.tar.gz",
 ]
 sha256 = [
-    "e9396d76a2471d5da3ccd3e5c6a7a9b83245f38c2c47c29a76219f6214914882",
-    "de30fd10e444fbc0cdb019a560ee70c1af25c393589c6eb26ac1a1e7de4636d5",
-    "d6f3f4b3527453b0afaf3a566163a401b4e42e34ba06d35493be9637c4c8bd7d",
-    "1c70b0dcf9f0d8abad5742fbbbbbf313b43530821d76e6edeffd24ac9dc4ad9d",
+    "8e293c07fb3b9b21e9913c5863f31c1210b36c0b6da9830b0e42cd777ece1705",
+    "8a0527a9ae779375273237f15621f9890171e5f5f02bea5e16edfa562bbf308e",
+    "b47998a4fc8244025ec1e42c6bc374d0ec82fe289e542ecce81b296bd796621f",
+    "cff92fd817407a3cfb145744fc6b1d89edb64c687405f575f12a4d31693c0bf2",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -225,7 +225,7 @@ sha256 = [
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
     "e647ca4fcc2c91d9dca717452e1b1be1ab6155ac4977dca716041652c7b10bdd",
-    "f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770",
+    "567b9579510969e34085ed30995d87b27a11584f03711d7fc9b7ec2e1cea36c5",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
     "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
     "2248387ceaa319840434a3547a8b2fec12f95a8418ee039ce5ff5726053a139c",
