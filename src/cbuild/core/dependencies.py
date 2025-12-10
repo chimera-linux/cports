@@ -77,6 +77,8 @@ def _is_rdep(pn):
         return False
     elif pn.startswith("virtual:"):
         return False
+    if pn.startswith("soname:"):
+        return False
 
     return True
 

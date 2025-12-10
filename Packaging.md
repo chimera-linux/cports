@@ -860,7 +860,9 @@ Keep in mind that default values may be overridden by build styles.
   constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`). You can also
   specify dependencies on `pkgconf` files (`pc:foo`), executable commands
   (`cmd:foo`) and shared libraries (`so:libfoo.so.1`, though this is not
-  recommended), as well as virtual packages (`virtual:foo`). Any virtual
+  recommended), as well as virtual packages (`virtual:foo`). It is also
+  possible to specify SONAME dependencies tracked via `makedepends`, e.g.
+  like `soname:libfoo.so` which will resolve to `so:libfoo.so.N`. Any virtual
   dependencies must explicitly specify a non-virtual provider, which is not
   included in the final package metadata, but is used at build-time to check
   availability of at least one provider; you can specify that with `!` after
@@ -1754,6 +1756,16 @@ The filename is scanned for version. For example, `libfoo.so.1.2.3` with
 `SONAME` `libfoo.so.1` will provide a `so:libfoo.so.1=1.2.3`. If no version
 is provided in the filename, `0` is used. If a version is found, it must
 validate as an `apk` version number.
+
+Explicit runtime dependencies specified as `soname:libfoo.so` will get
+resolved from installed devel package symlinks to their `so:libfoo.so.N`
+(or whatever `SONAME` it has) form. By default, they are assumed to be
+in `/usr/lib`. For resolution of libraries in other locations, you can
+specify `soname:/absolute/path/to/libfoo.so`. This is a convenience feature
+that utilizes partial scanning, so that templates do not have to mention
+explicit `SONAME` for runtime dependencies that are dynamically opened
+or otherwise cannot be scanned (as the `SONAME` can change and easily be
+forgotten).
 
 The package is then scanned for `.pc` files to be provided. Only two paths
 are considered, `usr/lib/pkgconfig` and `usr/share/pkgconfig`. IT is an error

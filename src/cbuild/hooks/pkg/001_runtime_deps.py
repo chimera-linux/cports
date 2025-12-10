@@ -1,6 +1,6 @@
-from cbuild.core import logger, chroot, paths
+from cbuild.core import logger, chroot, paths, scanelf
 from cbuild.util import flock
-from cbuild.apk import cli
+from cbuild.apk import cli, util as autil
 
 import re
 import os
@@ -24,6 +24,7 @@ def _scan_so(pkg):
     curelf = pkg.rparent.current_elfs
     curso = {}
     subpkg_deps = {}
+    socache = {}
 
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
@@ -49,6 +50,59 @@ def _scan_so(pkg):
 
     broken = False
     log = logger.get()
+
+    # resolve soname: explicit deps first
+    for didx in range(len(pkg.depends)):
+        dv = pkg.depends[didx]
+        dsv = dv.removeprefix("soname:")
+        # skip whatever does not match
+        if dv == dsv:
+            continue
+        # strip the provider...
+        exc = dsv.find("!")
+        if exc > 0:
+            prov = dsv[exc:]
+            dsv = dsv[0:exc]
+        else:
+            prov = ""
+        # strip version if present
+        dvn, dvv, dvop = autil.split_pkg_name(dsv)
+        if not dvn:
+            # unversioned
+            dvn = dsv
+        # perform resolution...
+        if not dvn.startswith("/"):
+            fdvn = f"/usr/lib/{dvn}"
+        else:
+            fdvn = dvn
+        # look up from cache if necessary
+        if fdvn in socache:
+            soname = socache[fdvn]
+        else:
+            # pathify
+            dvnp = paths.bldroot() / fdvn.removeprefix("/")
+            # see if that exists
+            if not dvnp.exists():
+                log.out(f"  \f[red]SONAME: {dsv} (failed to resolve)")
+                broken = True
+                continue
+            # if so, scan
+            sotup = scanelf.scan_one(dvnp)
+            if not sotup:
+                log.out(f"  \f[red]SONAME: {dsv} (failed to scan)")
+                broken = True
+                continue
+            # extract soname only
+            soname = sotup[7]
+            socache[fdvn] = soname
+        # resolved
+        log.out_plain(
+            f"  \f[cyan]SONAME: \f[orange]{soname}\f[] <= \f[green]{dsv}\f[] (\f[orange]resolved\f[], \f[green]explicit\f[])"
+        )
+        if dvv:
+            pkg.depends[didx] = f"so:{soname}{dvop}{dvv}{prov}"
+        else:
+            pkg.depends[didx] = f"so:{soname}{prov}"
 
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:

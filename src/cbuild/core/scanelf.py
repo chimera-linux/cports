@@ -111,7 +111,7 @@ def _get_nullstr(offset, strtab, mm):
         return mm[sbeg:send]
 
 
-def _scan_one(fpath):
+def scan_one(fpath):
     inf = open(fpath, "rb")
     mm = mmap.mmap(inf.fileno(), 0, prot=mmap.PROT_READ)
 
@@ -260,7 +260,7 @@ def _scan_one(fpath):
 
 
 def is_static(path):
-    einfo = _scan_one(path)
+    einfo = scan_one(path)
     return einfo and einfo[2]
 
 
@@ -276,7 +276,7 @@ def scan(pkg, somap):
     if pkg.stage > 0:
         rsroot = pkg.rparent.profile().sysroot.relative_to("/")
         libcp = paths.bldroot() / rsroot / "usr/lib/libc.so"
-        libc = _scan_one(libcp)
+        libc = scan_one(libcp)
 
     for fpath in scandir.rglob("*"):
         st = fpath.lstat()
@@ -284,7 +284,7 @@ def scan(pkg, somap):
         if st.st_size == 0 or not stat.S_ISREG(st.st_mode):
             continue
         # try scan
-        scanned = _scan_one(fpath)
+        scanned = scan_one(fpath)
         # not suitable
         if not scanned:
             continue
