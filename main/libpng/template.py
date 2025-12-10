@@ -1,5 +1,5 @@
 pkgname = "libpng"
-pkgver = "1.6.50"
+pkgver = "1.6.53"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,7 +12,7 @@ pkgdesc = "Library for manipulating PNG images"
 license = "Libpng"
 url = "https://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/libpng/libpng-{pkgver}.tar.xz"
-sha256 = "4df396518620a7aa3651443e87d1b2862e4e88cad135a8b93423e01706232307"
+sha256 = "1d3fb8ccc2932d04aa3663e22ef5ef490244370f4e568d7850165068778d98d4"
 
 
 def post_install(self):
