@@ -1,6 +1,6 @@
 pkgname = "openboard"
 pkgver = "1.7.3"
-pkgrel = 11
+pkgrel = 12
 build_style = "cmake"
 configure_args = ["-DCMAKE_CXX_STANDARD=20"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
