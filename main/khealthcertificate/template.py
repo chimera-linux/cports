@@ -1,5 +1,5 @@
 pkgname = "khealthcertificate"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ pkgdesc = "KDE library for health certificates"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/pim/khealthcertificate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/khealthcertificate-{pkgver}.tar.xz"
-sha256 = "6ced17a155debcc1e19f40cee2c71c5f483cf366d4831debc5ec3223fb256dda"
+sha256 = "47c54aac63aa3d521a0826b31afcc35e2fcf8c7f724d759478a2d83bacc35890"
 
 
 @subpackage("khealthcertificate-devel")

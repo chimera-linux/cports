@@ -1,5 +1,5 @@
 pkgname = "kde-inotify-survey"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -25,7 +25,7 @@ pkgdesc = "KDE inotify limit monitor"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kde-inotify-survey"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kde-inotify-survey-{pkgver}.tar.xz"
-sha256 = "b39c129b96b80904f4a7b5f828ecd98891c32b61b9496e8d6310589da91eb95b"
+sha256 = "cf24cd5609afbb2f3c70a0c101bc41a1e50aaede4b1544f9186119ee5d7e51ae"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

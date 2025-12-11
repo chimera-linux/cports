@@ -1,5 +1,5 @@
 pkgname = "kcharselect"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,4 +24,4 @@ pkgdesc = "KDE character picker"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kcharselect"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcharselect-{pkgver}.tar.xz"
-sha256 = "afee236e5e0375aee038ed4292a3a188fa51251d92ab8e872cd9fe713cde3ae3"
+sha256 = "cae7534c7830998b5485e57ec2b331c12b0df602213516c0bb8db682e34ff8d3"

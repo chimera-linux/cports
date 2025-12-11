@@ -1,5 +1,5 @@
 pkgname = "ktorrent"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -48,7 +48,7 @@ pkgdesc = "KDE torrent client"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ktorrent"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktorrent-{pkgver}.tar.xz"
-sha256 = "62cb253426274f7619602827d1de2469fffeda437ef5d94dcaa4d7ca2dff4d3e"
+sha256 = "c3d3b4dede17c02c0196868154043319e624b0f33cdced95f6cd7bc09b7d74e3"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

@@ -1,5 +1,5 @@
 pkgname = "kontrast"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,4 +25,4 @@ pkgdesc = "KDE contrast inspection tool"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kontrast"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontrast-{pkgver}.tar.xz"
-sha256 = "520be088fa4d592df81984726e6e538b786f3b1ecc62813fb2802ba738759c6a"
+sha256 = "b73d0b53b50a8a6602cfa067963d84cbef8367cd00fa5c0447d375ce61fd2358"

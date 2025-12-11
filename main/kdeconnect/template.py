@@ -1,6 +1,6 @@
 pkgname = "kdeconnect"
-pkgver = "25.08.3"
-pkgrel = 1
+pkgver = "25.12.0"
+pkgrel = 0
 build_style = "cmake"
 # needs more setup
 make_check_args = ["-E", "mdnstest"]
@@ -54,7 +54,7 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "6e41f1f22e85f5e70a92dd6ca3e6968364896de37afe5daeb7cda599f03e5e2b"
+sha256 = "0fff24d371ccfefc858d7d6e01385c4d57dc40bf46d6702a34d1bf6727cc72a8"
 
 
 def post_install(self):
@@ -62,3 +62,5 @@ def post_install(self):
     self.uninstall("usr/lib/libkdeconnectinterfaces.a")
     # wrong name
     self.rename("usr/share/zsh/site-functions/_kdeconnect", "_kdeconnect-cli")
+    # better path
+    self.rename("etc/ufw", "usr/lib/ufw", relative=False)

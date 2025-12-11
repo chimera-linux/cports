@@ -1,5 +1,5 @@
 pkgname = "ksanecore"
-pkgver = "25.08.3"
+pkgver = "25.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -20,7 +20,7 @@ pkgdesc = "KDE integration for SANE"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries-ksanecore"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksanecore-{pkgver}.tar.xz"
-sha256 = "e15659994193ee60d29fae09e27d2e453fc32e449faf8808a57cac8a9eaba997"
+sha256 = "617d01d96ea78bad4c3d681517e64b16f037f9ca387c25a05ecefbc59e3cdb32"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]
