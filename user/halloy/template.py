@@ -1,5 +1,5 @@
 pkgname = "halloy"
-pkgver = "2025.11"
+pkgver = "2025.12"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "IRC client"
 license = "GPL-3.0-or-later"
 url = "https://halloy.chat"
 source = f"https://github.com/squidowl/halloy/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "19546fb2c49ea342e39c38b6771536089b16892b8de6ae4e4a09e4f25db3cd1b"
+sha256 = "106689f15aeca87e88c7249812b0c8383c6c8f2746df4f5bbd83b579e2ebb756"
 # no tests in top-level project
 options = ["!check"]
 
