@@ -1,6 +1,6 @@
 pkgname = "lego"
-pkgver = "4.28.1"
-pkgrel = 1
+pkgver = "4.29.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.version={pkgver}", "./cmd/lego"]
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ pkgdesc = "Let's Encrypt/ACME client"
 license = "MIT"
 url = "https://github.com/go-acme/lego"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d0a2d032a82d1ce2ee0b13a532725382b06d71fe35bd86f9f78d9989d3aa2816"
+sha256 = "58686e310d0952f150d600e8841cbdd7513fdab05f94b8e18b214d9f68c67219"
 # check: tests need network access: https://github.com/go-acme/lego/issues/560
 options = ["!check"]
 
