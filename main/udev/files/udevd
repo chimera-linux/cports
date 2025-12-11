@@ -1,5 +1,0 @@
-type = process
-command = /usr/lib/udevd.wrapper
-before = pre-local.target
-depends-on = early-devices.target
-smooth-recovery = true

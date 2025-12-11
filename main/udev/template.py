@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.11"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -125,8 +125,6 @@ source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "5038424744b2ed8c1d7ecc75b00eeffe68528f9789411da60f199d65762d9ba5"
-# early services, skip depscan to avoid cycle
-skip_dependencies = ["usr/lib/dinit.d/*"]
 # the tests that can run are mostly useless
 options = ["!splitudev", "!check"]
 
@@ -176,10 +174,7 @@ def post_install(self):
     # services
     self.install_dir("usr/lib")
     self.install_link("usr/lib/udevd", "../bin/udevadm")
-    self.install_file(self.files_path / "udevd.wrapper", "usr/lib", mode=0o755)
-    self.install_file(self.files_path / "dinit-devd", "usr/lib", mode=0o755)
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
-    self.install_service(self.files_path / "udevd", enable=True)
 
 
 @subpackage("udev-devel")
