@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.21"
+pkgver = "0.99.22"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -9,9 +9,7 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "kmod-devel",
-    "libdinitctl-devel",
     "linux-headers",
-    "udev-devel",
 ]
 depends = [
     "cmd:awk!chimerautils",
@@ -24,9 +22,9 @@ depends = [
     "cmd:snooze!snooze",
     "cmd:sulogin!shadow",
     "cmd:systemd-tmpfiles!sd-tools",
-    "cmd:udevadm>=256.6-r1!udev",
     "dinit",
     "tzdb",
+    "virtual:dinit-chimera-device!dinit-chimera-device-none",
 ]
 replaces = ["systemd-utils<255", "base-kernel<0.2"]
 triggers = [
@@ -38,8 +36,8 @@ triggers = [
 pkgdesc = "Chimera core services suite"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
-source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "06a114106c4b6aa14e358e5af60237d7c42786c2ea9dd659f58870431f439bad"
+source = f"{url}/archive/v{pkgver}.tar.gz"
+sha256 = "2465da54566302dfca967d335df41f2ce89d3f1e0580ba1647eb6f97f8650df6"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
@@ -88,6 +86,17 @@ def _(self):
     self.options = ["!splitdinit"]
     return [
         "usr/lib/dinit.d/early/scripts/kdump.sh",
+    ]
+
+
+@subpackage("dinit-chimera-device-none")
+def _(self):
+    self.pkgdesc = "no device manager"
+    self.provides = ["dinit-chimera-device=0"]
+    self.options = ["!splitdinit"]
+
+    return [
+        "usr/lib/dinit.d/early/helpers/dev*",
     ]
 
 
