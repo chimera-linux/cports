@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "145.0"
+pkgver = "146.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -58,7 +58,7 @@ pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
-sha256 = "4c24f99c45ac909e79f71072549ffcc2866097a6f5fab1dfd41c51918978b9b1"
+sha256 = "bd28bba1a10a709709eeaff40d605d523f58daf9f7c0d46798107129c1190c08"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
