@@ -1,6 +1,6 @@
 pkgname = "fish-shell"
 pkgver = "4.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_target = "fish_run_tests"
 hostmakedepends = ["cargo-auditable", "cmake", "gettext", "pkgconf", "ninja"]
