@@ -1,8 +1,9 @@
 pkgname = "git"
 pkgver = "2.52.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
-    "asciidoc",
+    "asciidoctor",
+    "docbook-xsl",
     "gettext",
     "perl",
     "pkgconf",
@@ -43,6 +44,7 @@ TAR = tar
 CFLAGS = {self.get_cflags(shell=True)}
 LDFLAGS = {self.get_ldflags(shell=True)}
 USE_LIBPCRE2 = Yes
+USE_ASCIIDOCTOR = Yes
 NO_INSTALL_HARDLINKS = Yes
 ICONV_OMITS_BOM = Yes
 NO_REGEX = Yes
@@ -61,7 +63,7 @@ def build(self):
     cmd = ["make", f"-j{self.make_jobs}"]
     self.do(*cmd)
     self.do(*cmd, "-C", "Documentation", "man")
-    self.do(*cmd, "-C", "contrib/contacts", "all", "git-contacts.1")
+    self.do(*cmd, "-C", "contrib/contacts", "all")
     self.do(*cmd, "-C", "contrib/diff-highlight", "all")
     self.do(*cmd, "-C", "contrib/subtree", "all", "man")
     self.do(*cmd, "-C", "contrib/credential/libsecret", "all")
@@ -82,7 +84,8 @@ def check(self):
 def install(self):
     ddir = f"DESTDIR={self.chroot_destdir}"
     self.do("make", "install", "install-doc", ddir)
-    self.do("make", "-C", "contrib/contacts", "install", "install-man", ddir)
+    # contacts still requires python asciidoc so skip man
+    self.do("make", "-C", "contrib/contacts", "install", ddir)
     self.do("make", "-C", "contrib/subtree", "install", "install-man", ddir)
     # no install target
     self.install_file(
