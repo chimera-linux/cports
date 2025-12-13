@@ -21,7 +21,6 @@ makedepends = [
     "vulkan-headers",
     "vulkan-loader-devel",
     "wayland-devel",
-    "xfconf-devel",
     "yyjson-devel",
     "zlib-ng-compat-devel",
 ]
