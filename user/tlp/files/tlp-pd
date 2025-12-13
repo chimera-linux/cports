@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/tlp-pd
+depends-on = dbus
+depends-on = local.target

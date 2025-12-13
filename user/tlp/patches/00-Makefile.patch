@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -99,8 +99,7 @@
+@@ -116,8 +116,7 @@
  
  MANFILES8 = \
  	tlp.8 \
@@ -10,7 +10,17 @@
  
  MANFILESRDW8 = \
  	tlp-rdw.8
-@@ -187,7 +187,6 @@
+@@ -126,8 +125,7 @@
+ 	tlpctl.1
+ 
+ MANFILESPD8 = \
+-	tlp-pd.8 \
+-	tlp-pd.service.8
++	tlp-pd.8
+ 
+ SHFILES = \
+ 	tlp.in \
+@@ -217,7 +215,6 @@
  endif
  ifneq ($(TLP_NO_ZSHCOMP),1)
  	install -D -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
@@ -18,12 +28,28 @@
  	install -D -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
  	install -D -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
  endif
-@@ -219,7 +229,7 @@
+@@ -254,13 +251,12 @@
+ 	# Package tlp-pd
+ 	install -D -m 755 tlp-pd $(_SBIN)/tlp-pd
+ 	install -D -m 755 tlpctl $(_BIN)/tlpctl
+-	install -D -m 644 tlp-pd.service $(_SYSD)/tlp-pd.service
+ 	install -D -m 644 tlp-pd.policy $(_POLKIT)/tlp-pd.policy
+ 	$(foreach BUS_NAME,org.freedesktop.UPower.PowerProfiles net.hadess.PowerProfiles, \
+ 		install -D -m 644 tlp-pd.dbus.conf $(_DBCONF)/$(BUS_NAME).conf; \
+-		sed -e 's|@BUS_NAME@|$(BUS_NAME)|g' -i $(_DBCONF)/$(BUS_NAME).conf; \
++		sed -e 's|@BUS_NAME@|$(BUS_NAME)|g' -i '' $(_DBCONF)/$(BUS_NAME).conf; \
+ 		install -D -m 644 tlp-pd.dbus.service $(_DBSVC)/$(BUS_NAME).service; \
+-		sed -e 's|@BUS_NAME@|$(BUS_NAME)|g' -i $(_DBSVC)/$(BUS_NAME).service;)
++		sed -e 's|@BUS_NAME@|$(BUS_NAME)|g' -i '' $(_DBSVC)/$(BUS_NAME).service;)
+ ifneq ($(TLP_NO_BASHCOMP),1)
+ 	install -D -m 644 completion/bash/tlpctl.bash_completion $(_SHCPL)/tlpctl
+ endif
+@@ -290,7 +286,7 @@
  	install -d -m 755 $(_MAN)/man8
- 	cd man-rdw && install -m 644 $(MANFILESRDW8) $(_MAN)/man8/
+ 	cd man-pd && install -m 644 $(MANFILESPD8) $(_MAN)/man8/
  
--install: install-tlp install-rdw
-+install: install-tlp install-rdw install-man
+-install: install-tlp install-rdw install-pd
++install: install-tlp install-rdw install-pd install-man
  
- install-man: install-man-tlp install-man-rdw
+ install-man: install-man-tlp install-man-rdw install-man-pd
  
