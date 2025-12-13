@@ -7,7 +7,7 @@ Subject: [PATCH 8/8] force ugetopt
  lsinitramfs      | 2 +-
  mkinitramfs      | 2 +-
  update-initramfs | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/lsinitramfs b/lsinitramfs
 index 8d2a967..0e75019 100755
