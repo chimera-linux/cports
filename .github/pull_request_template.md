@@ -11,6 +11,7 @@ Before this pull request is reviewed, certain conditions must be met.
 The following must be true for all changes:
 
 - [ ] I have read [CONTRIBUTING.md](https://github.com/chimera-linux/cports/blob/master/CONTRIBUTING.md)
+- [ ] I acknowledge that overtly not following the above or the below will result in my pull request getting closed
 
 The following must be true for template/package changes:
 
