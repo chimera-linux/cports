@@ -1,4 +1,4 @@
-From 134825e907cfb902b172a0e325c2234dab08a048 Mon Sep 17 00:00:00 2001
+From e4ed7b0a839c371f21b1c2e5152ce863b35a825e Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 21 Oct 2025 00:18:33 +0200
 Subject: [PATCH 16/16] unbreak cc-rs with rust 1.90 on ppc*
@@ -9,10 +9,10 @@ Subject: [PATCH 16/16] unbreak cc-rs with rust 1.90 on ppc*
  vendor/cc-1.2.16/src/target/llvm.rs | 1 +
  vendor/cc-1.2.19/src/target/llvm.rs | 1 +
  vendor/cc-1.2.20/src/target/llvm.rs | 1 +
- vendor/cc-1.2.26/src/target/llvm.rs | 1 +
  vendor/cc-1.2.28/src/target/llvm.rs | 1 +
  vendor/cc-1.2.33/src/target/llvm.rs | 1 +
- vendor/cc-1.2.35/src/target/llvm.rs | 1 +
+ vendor/cc-1.2.38/src/target/llvm.rs | 1 +
+ vendor/cc-1.2.39/src/target/llvm.rs | 1 +
  9 files changed, 9 insertions(+)
 
 diff --git a/vendor/cc-1.2.0/src/target/llvm.rs b/vendor/cc-1.2.0/src/target/llvm.rs
@@ -75,18 +75,6 @@ index 124ab2a0f..879377818 100644
              abi => abi,
          };
          Cow::Owned(match (vendor, env, abi) {
-diff --git a/vendor/cc-1.2.26/src/target/llvm.rs b/vendor/cc-1.2.26/src/target/llvm.rs
-index 124ab2a0f..879377818 100644
---- a/vendor/cc-1.2.26/src/target/llvm.rs
-+++ b/vendor/cc-1.2.26/src/target/llvm.rs
-@@ -98,6 +98,7 @@ impl TargetInfo<'_> {
-             "llvm" | "softfloat" | "uwp" | "vec-extabi" => "",
-             "ilp32" => "_ilp32",
-             "abi64" => "",
-+            "elfv1" | "elfv2" => "",
-             abi => abi,
-         };
-         Cow::Owned(match (vendor, env, abi) {
 diff --git a/vendor/cc-1.2.28/src/target/llvm.rs b/vendor/cc-1.2.28/src/target/llvm.rs
 index 124ab2a0f..879377818 100644
 --- a/vendor/cc-1.2.28/src/target/llvm.rs
@@ -111,10 +99,22 @@ index 63b0dfca1..48a37e75f 100644
              abi => abi,
          };
          Cow::Owned(match (vendor, env, abi) {
-diff --git a/vendor/cc-1.2.35/src/target/llvm.rs b/vendor/cc-1.2.35/src/target/llvm.rs
+diff --git a/vendor/cc-1.2.38/src/target/llvm.rs b/vendor/cc-1.2.38/src/target/llvm.rs
 index b29fdb706..cffb668c0 100644
---- a/vendor/cc-1.2.35/src/target/llvm.rs
-+++ b/vendor/cc-1.2.35/src/target/llvm.rs
+--- a/vendor/cc-1.2.38/src/target/llvm.rs
++++ b/vendor/cc-1.2.38/src/target/llvm.rs
+@@ -105,6 +105,7 @@ impl TargetInfo<'_> {
+             "llvm" | "softfloat" | "uwp" | "vec-extabi" => "",
+             "ilp32" => "_ilp32",
+             "abi64" => "",
++            "elfv1" | "elfv2" => "",
+             abi => abi,
+         };
+         Cow::Owned(match (vendor, env, abi) {
+diff --git a/vendor/cc-1.2.39/src/target/llvm.rs b/vendor/cc-1.2.39/src/target/llvm.rs
+index b29fdb706..cffb668c0 100644
+--- a/vendor/cc-1.2.39/src/target/llvm.rs
++++ b/vendor/cc-1.2.39/src/target/llvm.rs
 @@ -105,6 +105,7 @@ impl TargetInfo<'_> {
              "llvm" | "softfloat" | "uwp" | "vec-extabi" => "",
              "ilp32" => "_ilp32",
@@ -124,5 +124,5 @@ index b29fdb706..cffb668c0 100644
          };
          Cow::Owned(match (vendor, env, abi) {
 -- 
-2.51.2
+2.52.0
 
