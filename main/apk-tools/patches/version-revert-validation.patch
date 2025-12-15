@@ -1,0 +1,32 @@
+Revert the below, as it breaks our update checker.
+
+From 0a37519b39ee7c034c99dad86d413f8a4348eb36 Mon Sep 17 00:00:00 2001
+From: qaqland <qaq@qaq.land>
+Date: Mon, 22 Sep 2025 23:24:11 +0800
+Subject: [PATCH] version: add version validation before comparison
+
+---
+ src/app_version.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/app_version.c b/src/app_version.c
+index ba585ca2..6506493b 100644
+--- a/src/app_version.c
++++ b/src/app_version.c
+@@ -41,12 +41,7 @@ static int ver_test(struct apk_ctx *ac, struct apk_string_array *args)
+ 	int r;
+ 
+ 	if (apk_array_len(args) != 2) return 1;
+-	apk_blob_t a = APK_BLOB_STR(args->item[0]);
+-	apk_blob_t b = APK_BLOB_STR(args->item[1]);
+-
+-	if (!apk_version_validate(a)) return 1;
+-	if (!apk_version_validate(b)) return 1;
+-	r = apk_version_compare(a, b);
++	r = apk_version_compare(APK_BLOB_STR(args->item[0]), APK_BLOB_STR(args->item[1]));
+ 	apk_out(out, "%s", apk_version_op_string(r));
+ 	return 0;
+ }
+-- 
+GitLab
+
