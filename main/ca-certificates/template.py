@@ -1,6 +1,6 @@
 pkgname = "ca-certificates"
 pkgver = "20250911"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["openssl3", "perl"]
