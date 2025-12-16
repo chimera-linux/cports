@@ -1,0 +1,11 @@
+pkgname = "perl-business-isbn-data"
+pkgver = "20251216.001"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Data pack for Business::ISBN"
+license = "Artistic-2.0"
+url = "https://metacpan.org/pod/Business::ISBN::Data"
+source = f"https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Business-ISBN-Data-{pkgver}.tar.gz"
+sha256 = "caa7dbfd6683fbaa31b9228fac157611ba2b42c497c3719737994e4969e1f816"

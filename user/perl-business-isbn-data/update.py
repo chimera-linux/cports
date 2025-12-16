@@ -1,0 +1,1 @@
+pkgname = "Business-ISBN-Data"
