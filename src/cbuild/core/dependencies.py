@@ -229,7 +229,7 @@ def _get_vers(pkgs, pkg, sysp, arch):
             allow_untrusted=True,
             return_repos=True,
         )
-    if out.returncode != 0:
+    if out.returncode >= len(plist):
         return None, None
 
     # map the output to a dict
