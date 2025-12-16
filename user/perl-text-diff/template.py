@@ -1,0 +1,12 @@
+pkgname = "perl-text-diff"
+pkgver = "1.45"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl-algorithm-diff"]
+checkdepends = [*depends]
+pkgdesc = "Perform diffs on files and record sets"
+license = "Artistic-1.0-Perl OR GPL-2.0-or-later"
+url = "https://metacpan.org/pod/Text::Diff"
+source = f"$(CPAN_SITE)/Text/Text-Diff-{pkgver}.tar.gz"
+sha256 = "e8baa07b1b3f53e00af3636898bbf73aec9a0ff38f94536ede1dbe96ef086f04"
