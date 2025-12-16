@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "15.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/chimerautils",
@@ -37,7 +37,10 @@ if self.stage > 0:
     makedepends += ["linux-headers", "zstd-devel"]
     configure_args += ["-Dtiny=enabled"]
     # don't bother in stage 0
-    depends += ["sd-tools"]
+    depends += [
+        "cmd:systemd-tmpfiles!sd-tools",
+        "cmd:systemd-sysusers!sd-tools",
+    ]
 else:
     makedepends += ["libxo-devel-static"]
     configure_args += ["-Dzstd=disabled"]
