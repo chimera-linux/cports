@@ -1,0 +1,12 @@
+pkgname = "perl-business-ismn"
+pkgver = "1.205"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl-tie-cycle"]
+checkdepends = ["perl-test-pod", *depends]
+pkgdesc = "Work with International Standard Music Numbers"
+license = "Artistic-2.0"
+url = "https://metacpan.org/pod/Business::ISMN"
+source = f"$(CPAN_SITE)/Business/Business-ISMN-{pkgver}.tar.gz"
+sha256 = "1c48e9b00bc32578b2176e6f79c4a11713d875befa8fbb7f48b7a9c8172fe8bd"
