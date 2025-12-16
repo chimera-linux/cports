@@ -1,0 +1,12 @@
+pkgname = "perl-tie-cycle"
+pkgver = "1.231"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl"]
+checkdepends = ["perl-test-pod"]
+pkgdesc = "Cycle through a list of values via a scalar"
+license = "Artistic-2.0"
+url = "https://metacpan.org/pod/Tie::Cycle"
+source = f"$(CPAN_SITE)/Tie/Tie-Cycle-{pkgver}.tar.gz"
+sha256 = "84553d26db09b7eb3f15d809d82242214b5e4e268834a26574cefa83dd25c755"
