@@ -1,0 +1,12 @@
+pkgname = "perl-business-isbn"
+pkgver = "3.012"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl-business-isbn-data"]
+checkdepends = ["perl-test-pod", *depends]
+pkgdesc = "Work with International Standard Book Numbers"
+license = "Artistic-2.0"
+url = "https://metacpan.org/pod/Business::ISBN"
+source = f"$(CPAN_SITE)/Business/Business-ISBN-{pkgver}.tar.gz"
+sha256 = "567fecf073ed0ba2889bfe09c9f3c9996baf21bd2d48299b7330832809d501cb"
