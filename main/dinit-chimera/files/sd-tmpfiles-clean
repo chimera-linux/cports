@@ -1,6 +1,6 @@
 #!/bin/sh
 
 # use a /run file so it's non-existent every boot
-SCRIPT="/usr/bin/sleep 900; /usr/bin/sd-tmpfiles --clean; touch /run/sd-tmpfiles-clean"
+SCRIPT="/usr/bin/sleep 900; /usr/bin/systemd-tmpfiles --clean; touch /run/sd-tmpfiles-clean"
 
 exec /usr/lib/dinit-snooze "$SCRIPT" -s 1d -t /run/sd-tmpfiles-clean

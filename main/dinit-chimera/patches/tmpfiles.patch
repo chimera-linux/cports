@@ -1,0 +1,11 @@
+--- a/early/scripts/tmpfiles.sh
++++ b/early/scripts/tmpfiles.sh
+@@ -4,7 +4,7 @@ DINIT_SERVICE=tmpfiles
+ 
+ . @SCRIPT_PATH@/common.sh
+ 
+-sd-tmpfiles "$@"
++systemd-tmpfiles "$@"
+ 
+ RET=$?
+ case "$RET" in

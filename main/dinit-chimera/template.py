@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -17,7 +17,6 @@ depends = [
     "cmd:grep!chimerautils",
     "cmd:mkdir!chimerautils",
     "cmd:mount!util-linux-mount",
-    "cmd:sd-tmpfiles!sd-tools",
     "cmd:sed!chimerautils",
     "cmd:snooze!snooze",
     "cmd:sulogin!shadow",
