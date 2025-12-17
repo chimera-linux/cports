@@ -1,0 +1,13 @@
+the -session wrapper is a systemd script, use the normal session startup that
+imports envs itself
+--
+--- a/res/systemd/fht-compositor.desktop
++++ b/res/systemd/fht-compositor.desktop
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Name=fht-compositor
+ Comment=A dynamic tiling Wayland compositor
+-Exec=fht-compositor-session
++Exec=/usr/bin/fht-compositor --session
+ Type=Application
+ DesktopNames=fht-compositor
