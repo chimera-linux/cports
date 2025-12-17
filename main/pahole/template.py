@@ -1,6 +1,6 @@
 pkgname = "pahole"
 pkgver = "1.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-D__LIB=lib",
