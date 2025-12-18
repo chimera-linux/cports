@@ -102,9 +102,9 @@ match self.profile().arch:
 
 def init_configure(self):
     # configure tests, sigh
-    self.tools[
-        "CC"
-    ] += " --start-no-unused-arguments -fuse-ld=bfd --end-no-unused-arguments"
+    self.tools["CC"] += " --start-no-unused-arguments"
+    self.tools["CC"] += " -fuse-ld=bfd"
+    self.tools["CC"] += " --end-no-unused-arguments"
     self.env["TARGET_CC"] = self.tools["CC"]
 
 
