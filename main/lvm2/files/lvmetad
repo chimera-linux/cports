@@ -1,5 +1,5 @@
 type = process
-command = lvmetad -f
-before = pre-local.target
-depends-on = early-fs-pre.target
+command = /usr/bin/lvmetad -f
 smooth-recovery = true
+before: pre-local.target
+depends-on: early-fs-pre.target

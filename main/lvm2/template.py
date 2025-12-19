@@ -1,6 +1,6 @@
 pkgname = "lvm2"
 pkgver = "2.03.33"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline",
@@ -10,7 +10,7 @@ configure_args = [
     "--enable-cmdlib",
     "--enable-udev_sync",
     "--enable-udev_rules",
-    "--enable-static-link",
+    "--enable-static_link",
     "--disable-selinux",
     "--with-symvers=no",
     "--with-thin=internal",
@@ -37,14 +37,19 @@ make_dir = "."
 hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
     "dinit-chimera",
+    "libaio-devel",
     "libaio-devel-static",
     "libatomic-chimera-devel-static",
+    "libedit-devel",
     "libedit-devel-static",
     "libunwind-devel-static",
     "linux-headers",
     "musl-devel-static",
+    "ncurses-devel",
     "ncurses-devel-static",
+    "udev-devel",
     "udev-devel-static",
+    "util-linux-blkid-devel",
     "util-linux-blkid-devel-static",
 ]
 pkgdesc = "Logical Volume Manager"
@@ -83,7 +88,8 @@ def post_install(self):
 
 @subpackage("lvm2-devel")
 def _(self):
-    self.depends += makedepends
+    # rest ist tracked by udev
+    self.depends += ["linux-headers"]
     # transitional
     self.provides = [self.with_pkgver("device-mapper-devel")]
 
@@ -97,6 +103,13 @@ def _(self):
         "usr/lib/libdevmapper-event-lvm2.so",
         "usr/lib/*.a",
     ]
+
+
+@subpackage("lvm2-static-bin")
+def _(self):
+    self.subdesc = "static binaries"
+
+    return ["usr/bin/*.static"]
 
 
 @subpackage("lvm2-dm")
