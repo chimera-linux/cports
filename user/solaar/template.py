@@ -1,6 +1,6 @@
 pkgname = "solaar"
 pkgver = "1.1.14"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
