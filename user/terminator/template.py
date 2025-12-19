@@ -1,6 +1,6 @@
 pkgname = "terminator"
 pkgver = "2.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_target = "tests"
 make_check_wrapper = ["xvfb-run"]
