@@ -230,7 +230,7 @@ def _get_vers(pkgs, pkg, sysp, arch):
             return_repos=True,
         )
     if out.returncode >= len(plist):
-        return None, None
+        return {}, None
 
     # map the output to a dict
     for f in out.stdout.strip().decode().split("\n"):
