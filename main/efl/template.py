@@ -28,7 +28,7 @@ configure_args = [
     "-Dharfbuzz=true",
     "-Dglib=true",
 ]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["xwayland-run"]
 hostmakedepends = ["meson", "pkgconf", "gettext-devel"]
 makedepends = [
     "avahi-devel",
@@ -92,7 +92,7 @@ checkdepends = [
     "dbus-x11",
     "fonts-dejavu-otf",
     "mesa-dri",
-    "xserver-xorg-xvfb",
+    "xwayland-run",
 ]
 pkgdesc = "Enlightenment Foundation Libraries"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"

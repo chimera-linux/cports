@@ -14,7 +14,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "signond-devel",
 ]
-checkdepends = ["dbus-test-runner", "xserver-xorg-xvfb"]
+checkdepends = ["dbus-test-runner", "xwayland-run"]
 pkgdesc = "QML bindings for signond/libaccounts-qt"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/accounts-qml-module"
