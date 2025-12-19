@@ -1,6 +1,6 @@
 pkgname = "network-manager-applet"
 pkgver = "1.36.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dselinux=false"]
 hostmakedepends = ["meson", "pkgconf", "gettext"]
