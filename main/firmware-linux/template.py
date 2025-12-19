@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20251011"
+pkgver = "20251125"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -9,7 +9,7 @@ url = "https://www.kernel.org"
 # stuck and eventually generates 502
 # source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
-sha256 = "96d11031a0dac837fd05ac711d5515ce35e18851b79fc61f0fce4de35553915e"
+sha256 = "d6f7e3ec9fe509f81bdb7fb70c56474b7b949cdcb1b75ca0c2b182f004bb2aae"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -79,7 +79,9 @@ _pkgs = [
     ("cs35l41", "Cirrus CS35L41 amplifier", None, "audio", ["cirrus/cs35l41*"]),
     ("cs35l54", "Cirrus CS35L54 amplifier", None, "audio", ["cirrus/cs35l54*"]),
     ("cs35l56", "Cirrus CS35L56 amplifier", None, "audio", ["cirrus/cs35l56*"]),
+    ("cs35l57", "Cirrus CS35L57 amplifier", None, "audio", ["cirrus/cs35l57*"]),
     ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin*"]),
+    ("cs42l45", "Cirrus CS42L45 codec", None, "audio", ["sdca/1fa/1028"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
     ("cxgb4", "Chelsio T4/5/6 Ethernet", None, "network", ["cxgb4"]),
     ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin*"]),
@@ -379,7 +381,7 @@ _pkgs = [
         "Texas Instruments amplifiers",
         None,
         "audio",
-        ["INT88*", "TAS2*", "TIAS2*", "TXNW*", "ti/tas*"],
+        ["INT88*", "TAS2*", "TIAS2*", "TXNW*", "ti/audio/tas*"],
     ),
     ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
     (
