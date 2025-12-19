@@ -16,12 +16,17 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "json-c-devel",
     "json-c-devel-static",
     "libatomic-chimera-devel-static",
     "linux-headers",
+    "lvm2-devel",
     "lvm2-devel-static",
+    "openssl3-devel",
     "openssl3-devel-static",
+    "popt-devel",
     "popt-devel-static",
+    "util-linux-uuid-devel",
     "util-linux-uuid-devel-static",
 ]
 checkdepends = ["procps", "xz"]
