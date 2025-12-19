@@ -1,6 +1,6 @@
 pkgname = "python-pyclip"
 pkgver = "0.7.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
