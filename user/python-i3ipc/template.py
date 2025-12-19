@@ -1,6 +1,6 @@
 pkgname = "python-i3ipc"
 pkgver = "2.2.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
