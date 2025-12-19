@@ -1,6 +1,6 @@
 pkgname = "zathura-djvu"
 pkgver = "0.2.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

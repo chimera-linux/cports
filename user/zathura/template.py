@@ -1,6 +1,6 @@
 pkgname = "zathura"
 pkgver = "0.5.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "appstream-glib",

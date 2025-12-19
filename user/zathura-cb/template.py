@@ -1,6 +1,6 @@
 pkgname = "zathura-cb"
 pkgver = "0.1.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

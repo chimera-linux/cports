@@ -1,6 +1,6 @@
 pkgname = "zathura-ps"
 pkgver = "0.2.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
