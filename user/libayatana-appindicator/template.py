@@ -1,6 +1,6 @@
 pkgname = "libayatana-appindicator"
 pkgver = "0.5.94"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTS=ON", "-DENABLE_BINDINGS_MONO=OFF"]
 # racey
