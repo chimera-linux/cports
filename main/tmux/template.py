@@ -1,5 +1,5 @@
 pkgname = "tmux"
-pkgver = "3.5"
+pkgver = "3.6a"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-sixel"]
@@ -9,7 +9,7 @@ pkgdesc = "Terminal multiplexer"
 license = "ISC"
 url = "https://tmux.github.io"
 source = f"https://github.com/tmux/tmux/releases/download/{pkgver}/tmux-{pkgver}.tar.gz"
-sha256 = "2fe01942e7e7d93f524a22f2c883822c06bc258a4d61dba4b407353d7081950f"
+sha256 = "b6d8d9c76585db8ef5fa00d4931902fa4b8cbe8166f528f44fc403961a3f3759"
 hardening = ["vis", "cfi"]
 
 
