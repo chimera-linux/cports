@@ -1,6 +1,6 @@
 pkgname = "gammastep"
 pkgver = "2.0.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -19,6 +19,7 @@ makedepends = [
     "libx11-devel",
     "libxcb-devel",
     "libxxf86vm-devel",
+    "turnstile",
     "wayland-devel",
 ]
 depends = ["gtk+3", "libayatana-appindicator", "python-gobject", "python-pyxdg"]

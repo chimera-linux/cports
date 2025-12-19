@@ -1,4 +1,4 @@
 type = process
 command = /usr/bin/gammastep
-depends-on = graphical.target
 log-type = buffer
+depends-on: graphical.target
