@@ -1,6 +1,6 @@
 pkgname = "python-xlib"
 pkgver = "0.33"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
