@@ -1,8 +1,18 @@
+From e2072bfbea2d6b30866dce5218c8955687c6ba02 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Mon, 29 Sep 2025 20:26:25 +0200
+Subject: [PATCH 2/2] shadow-no-git
+
+---
+ Cargo.toml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 diff --git a/Cargo.toml b/Cargo.toml
-index 49e006a..f309ef0 100644
+index 78dc228..ef1b417 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -92,7 +92,7 @@ serde = { version = "1.0", default-features = false, features = ["derive"] }
+@@ -91,7 +91,7 @@ serde = { version = "1.0", default-features = false, features = ["derive"] }
  serde_ignored = "0.1"
  serde_json = "1.0"
  serde_repr = "0.1"
@@ -11,7 +21,7 @@ index 49e006a..f309ef0 100644
  tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "macros", "fs", "io-util", "signal"] }
  tokio-rustls = { version = "0.26", optional = true, default-features = false, features = ["logging", "tls12", "ring"] }
  tokio-util = { version = "0.7", default-features = false, features = ["compat", "io"] }
-@@ -115,7 +115,7 @@ bytes = "1.10"
+@@ -113,7 +113,7 @@ bytes = "1.11.0"
  serde_json = "1.0"
  
  [build-dependencies]
@@ -20,3 +30,6 @@ index 49e006a..f309ef0 100644
  
  [profile.release]
  codegen-units = 1
+-- 
+2.52.0
+

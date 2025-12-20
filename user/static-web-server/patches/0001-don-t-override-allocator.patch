@@ -1,0 +1,89 @@
+From e2e19a6de4bf7f14bc3d02a8f8a21c4071ef4264 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Fri, 30 Aug 2024 08:44:42 +0200
+Subject: [PATCH 1/2] don't override allocator
+
+---
+ Cargo.lock        | 20 --------------------
+ Cargo.toml        |  3 ---
+ src/bin/server.rs |  4 ----
+ 3 files changed, 27 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 4c0caba..cdf41a7 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1360,16 +1360,6 @@ dependencies = [
+  "pkg-config",
+ ]
+ 
+-[[package]]
+-name = "libmimalloc-sys"
+-version = "0.1.44"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "667f4fec20f29dfc6bc7357c582d91796c169ad7e2fce709468aefeb2c099870"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+ [[package]]
+ name = "libredox"
+ version = "0.1.10"
+@@ -1462,15 +1452,6 @@ version = "2.7.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "f52b00d39961fc5b2736ea853c9cc86238e165017a493d1d5c8eac6bdc4cc273"
+ 
+-[[package]]
+-name = "mimalloc"
+-version = "0.1.48"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e1ee66a4b64c74f4ef288bcbb9192ad9c3feaad75193129ac8509af543894fd8"
+-dependencies = [
+- "libmimalloc-sys",
+-]
+-
+ [[package]]
+ name = "mime"
+ version = "0.3.17"
+@@ -2157,7 +2138,6 @@ dependencies = [
+  "hyper",
+  "listenfd",
+  "maud",
+- "mimalloc",
+  "mime_guess",
+  "mini-moka",
+  "percent-encoding",
+diff --git a/Cargo.toml b/Cargo.toml
+index fcd1a7d..78dc228 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -99,9 +99,6 @@ toml = "0.9"
+ tracing = { version = "0.1", default-features = false, features = ["std"] }
+ tracing-subscriber = { version = "0.3", default-features = false, features = ["smallvec", "registry", "parking_lot", "fmt", "ansi", "tracing-log"] }
+ 
+-[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.mimalloc]
+-version = "0.1.48"
+-
+ [target.'cfg(unix)'.dependencies]
+ signal-hook = { version = "0.3", features = ["extended-siginfo"] }
+ signal-hook-tokio = { version = "0.3", features = ["futures-v0_3"], default-features = false }
+diff --git a/src/bin/server.rs b/src/bin/server.rs
+index 8a7536c..a859af1 100644
+--- a/src/bin/server.rs
++++ b/src/bin/server.rs
+@@ -8,10 +8,6 @@
+ #![deny(rust_2018_idioms)]
+ #![deny(dead_code)]
+ 
+-#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
+-#[global_allocator]
+-static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+-
+ use static_web_server::{
+     Result, Settings,
+     settings::{Commands, cli::General},
+-- 
+2.52.0
+
