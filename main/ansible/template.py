@@ -1,5 +1,5 @@
 pkgname = "ansible"
-pkgver = "13.0.0"
+pkgver = "13.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Configuration management and multinode orchestration framework"
 license = "GPL-3.0-or-later"
 url = "https://ansible.com"
 source = f"$(PYPI_SITE)/a/ansible/ansible-{pkgver}.tar.gz"
-sha256 = "fd0f4a29c3e77617011b98d80e4579c31e1d58f40928d3e8fd5e434696676797"
+sha256 = "e527b9511be1382e31e8ef7650e2338a7b0f09d63fc5ded3ce9bf8234444d771"
 # many collections either require additional Python modules, or the tests
 # require dependencies that aren't in the tarball, or they're just broken
 # (possibly due to Python version compat issues)
