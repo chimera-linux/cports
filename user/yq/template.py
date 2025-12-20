@@ -1,5 +1,5 @@
 pkgname = "yq"
-pkgver = "4.49.2"
+pkgver = "4.50.1"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -13,8 +13,8 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "648d96cc490a4e08edb6bf8ff9498360b405263e202663cd9c92322b3aa557ef",
-    "74f01170c0d866cf787660d3ba2be16d47c447889ddc558958789a02c99d2623",
+    "ec55f107fbfe1d8226c1d4d74def734672f9aa58165029819ddfb771339e53a1",
+    "de17f76a2488e5b0351a4adb6eccd4abdc561b8bfa25f993c8ac74c69c8124d1",
 ]
 # generates completions with host binary
 options = ["!cross"]
