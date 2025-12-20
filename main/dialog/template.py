@@ -1,6 +1,6 @@
 pkgname = "dialog"
 pkgver = "1.3.20251001"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-ncursesw", "--disable-nls"]
 # broken to reconf
