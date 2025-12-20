@@ -1,5 +1,5 @@
 pkgname = "i3status-rust"
-pkgver = "0.34.0"
+pkgver = "0.35.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -23,7 +23,7 @@ pkgdesc = "Generates content on bars that support the i3bar protocol"
 license = "GPL-3.0-only"
 url = "https://github.com/greshake/i3status-rust"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6787174f749f15e9e177a7730f6abeae05de2b156922f6d02e512b31f35d1d17"
+sha256 = "a42aacf804c03cc6993fc968244a53d7c8b0336a23817bae1f506cf82477e621"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
