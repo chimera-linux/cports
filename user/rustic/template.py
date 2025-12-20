@@ -1,5 +1,5 @@
 pkgname = "rustic"
-pkgver = "0.10.0"
+pkgver = "0.10.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=webdav,tui"]
@@ -12,7 +12,7 @@ url = "https://rustic.cli.rs"
 source = (
     f"https://github.com/rustic-rs/rustic/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "d67cc86a0e589788c74bee8ab86fd9637b64253751c03fb35a16455457a4684b"
+sha256 = "e8305efe543e68f75daec8ac5d7b7831a6ac5860f3dc37a8cfdf40ecf7d1e45f"
 # generates completions with host bins
 options = ["!cross"]
 
