@@ -1,0 +1,12 @@
+pkgname = "perl-business-issn"
+pkgver = "1.008"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl"]
+checkdepends = ["perl-test-pod"]
+pkgdesc = "Perl extension for International Standard Serial Numbers"
+license = "Artistic-2.0"
+url = "https://metacpan.org/pod/Business::ISSN"
+source = f"$(CPAN_SITE)/Business/Business-ISSN-{pkgver}.tar.gz"
+sha256 = "b16b3a1b0e53cd45ed3328906d33ad4d59a13b57abf341424553aecf3e443aac"

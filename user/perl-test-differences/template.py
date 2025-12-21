@@ -1,0 +1,12 @@
+pkgname = "perl-test-differences"
+pkgver = "0.72"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+depends = ["perl-capture-tiny", "perl-text-diff"]
+checkdepends = ["perl-test-pod", *depends]
+pkgdesc = "Test differences between strings"
+license = "GPL-1.0-or-later OR Artistic-1.0-Perl"
+url = "https://metacpan.org/pod/Test::Differences"
+source = f"$(CPAN_SITE)/Test/Test-Differences-{pkgver}.tar.gz"
+sha256 = "648844b9dcb7dae6f9b5a15c9359d0f09de247a624b65c4620ebff249558f913"
