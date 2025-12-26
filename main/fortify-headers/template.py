@@ -1,5 +1,5 @@
 pkgname = "fortify-headers"
-pkgver = "2.3.3"
+pkgver = "3.0"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "clang"
@@ -9,7 +9,7 @@ pkgdesc = "Standalone fortify implementation"
 license = "0BSD"
 url = "https://git.2f30.org/fortify-headers"
 source = f"https://github.com/jvoisin/fortify-headers/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "26d81fc55b8ce3db22c7a697616392aeba928e921d975053a3f00221d1a33c08"
+sha256 = "b5fcfbdecfd3942cff16390bd7f9eb2ae7e45c29224309121e0c74a0a81de7ab"
 tool_flags = {"CFLAGS": ["-Wno-macro-redefined"]}
 options = ["bootstrap"]
 
