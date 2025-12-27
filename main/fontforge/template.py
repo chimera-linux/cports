@@ -1,6 +1,6 @@
 pkgname = "fontforge"
-pkgver = "20230101"
-pkgrel = 2
+pkgver = "20251009"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GUI=ON"]
 hostmakedepends = ["cmake", "gettext", "ninja", "pkgconf"]
@@ -8,6 +8,7 @@ makedepends = [
     "freetype-devel",
     "giflib-devel",
     "gtk+3-devel",
+    "gtkmm3.0-devel",
     "libedit-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
@@ -24,7 +25,7 @@ subdesc = "GUI version"
 license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"
 source = f"https://github.com/fontforge/fontforge/archive/{pkgver}.tar.gz"
-sha256 = "ab0c4be41be15ce46a1be1482430d8e15201846269de89df67db32c7de4343f1"
+sha256 = "613424039e0e1b6bb106f8f0df287e1d249ac285d854f4e1964d68e9b9ad7eb0"
 # FIXME int: fails checks
 hardening = ["!int"]
 
