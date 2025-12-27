@@ -40,9 +40,6 @@ options = ["!cross"]
 if self.profile().wordsize == 32:
     broken = "weird pipewire api stuff"
 
-if self.profile().arch in ["loongarch64"]:
-    broken = "cannot find value `MADV_SOFT_OFFLINE` in module `c`"
-
 if self.profile().arch in ["ppc64le", "riscv64"]:
     # fails some xkeyboard stuff mysteriously? FIXME
     options += ["!check"]
