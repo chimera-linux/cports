@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.8.4.1"
+pkgver = "25.8.4.2"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -176,7 +176,7 @@ source = [
     f"{_surl}/libreoffice-dictionaries-{pkgver}.tar.xz",
     f"{_surl}/libreoffice-help-{pkgver}.tar.xz",
     f"{_surl}/libreoffice-translations-{pkgver}.tar.xz",
-    f"{_aurl}/rhino-1.7.15.zip",
+    f"{_aurl}/rhino-1.7.15.1.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
     f"{_aurl}/language-subtag-registry-2025-08-25.tar.bz2",
@@ -208,11 +208,11 @@ source = [
     f"{_aurl}/zxcvbn-c-2.6.tar.gz",
 ]
 sha256 = [
-    "8e293c07fb3b9b21e9913c5863f31c1210b36c0b6da9830b0e42cd777ece1705",
-    "8a0527a9ae779375273237f15621f9890171e5f5f02bea5e16edfa562bbf308e",
-    "b47998a4fc8244025ec1e42c6bc374d0ec82fe289e542ecce81b296bd796621f",
-    "cff92fd817407a3cfb145744fc6b1d89edb64c687405f575f12a4d31693c0bf2",
-    "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
+    "1a33dd5888e0b5db648f608e1c6ed7581ec1784f565f38e5c537efa09eacf419",
+    "28343503bc4c07e5d28b5829f450270fc65aa8cd921a23f0e6af55c91648df73",
+    "851eb8cee3344999a90fb740620c64261761f085ac3ab48c76ac3a3545102908",
+    "26373dfea7e48a4e1423d2962f87864a1024a02e769781f642836d9c2f41c14c",
+    "65599965d82c0e60332601d511dacb0241e796cabfa5550c72bb80c4bf89e8ad",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
     "9b008d21f97bbf37c5aefd07805ff5500524bccbe8c39d623e184b1ed425ff39",
