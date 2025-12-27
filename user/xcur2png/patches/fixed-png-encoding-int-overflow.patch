@@ -1,0 +1,38 @@
+From 0080e9419337dfc673b1b9285b98d490b8644e9b Mon Sep 17 00:00:00 2001
+From: Curtis Barnhart <cbarnhart@westmont.edu>
+Date: Mon, 28 Jul 2025 09:05:14 -0700
+Subject: [PATCH] Fixed png encoding int overflow
+
+---
+ xcur2png.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/xcur2png.c b/xcur2png.c
+index 8723a10..c90c442 100644
+--- a/xcur2png.c
++++ b/xcur2png.c
+@@ -586,9 +586,12 @@ int writePngFileFromXcur (const XcursorDim width, const XcursorDim height,
+     unsigned int red = (pixels[i]>>16) & 0xff;
+     unsigned int green = (pixels[i]>>8) & 0xff;
+     unsigned int blue = pixels[i] & 0xff;
+-    red = (div (red * 256, alpha).quot) & 0xff;
+-    green = (div (green * 256,  alpha).quot) & 0xff;
+-    blue = (div (blue * 256, alpha).quot) & 0xff;
++    red = (div (red * 256, alpha).quot);
++    green = (div (green * 256,  alpha).quot);
++    blue = (div (blue * 256, alpha).quot);
++    red = (red > 0xff ? 0xff : red) & 0xff;
++    green = (green > 0xff ? 0xff : green) & 0xff;
++    blue = (blue > 0xff ? 0xff : blue) & 0xff;
+     pix[i] = (alpha << 24) + (red << 16) + (green << 8) + blue;
+   }
+ 
+@@ -671,7 +674,7 @@ int saveConfAndPNGs (const XcursorImages* xcIs, const char* xcurFilePart, int su
+   int ret;
+   int count = 0;
+   char pngName[PATH_MAX] = {0};
+-  extern dry_run;
++  extern int dry_run;
+   
+   //Write comment on config-file.
+   fprintf (conffp,"#size\txhot\tyhot\tPath to PNG image\tdelay\n");
