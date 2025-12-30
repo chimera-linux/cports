@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/mpd-mpris -no-instance
+depends-on = mpd
+restart = yes
+smooth-recovery = yes
