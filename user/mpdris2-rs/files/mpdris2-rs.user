@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/mpdris2-rs
+depends-on = mpd
+restart = true
+smooth-recovery = true
