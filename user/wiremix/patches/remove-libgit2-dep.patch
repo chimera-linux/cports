@@ -1,0 +1,44 @@
+From cf61f42aa98904eeb4d798f5858c770f4e80c8a7 Mon Sep 17 00:00:00 2001
+From: aniruddhgutta <aniruddhgutta@disroot.org>
+Date: Wed, 4 Feb 2026 19:46:23 +0530
+Subject: [PATCH] remove libgit2 dep
+
+---
+ Cargo.toml |  1 -
+ build.rs   | 12 ------------
+ 2 files changed, 13 deletions(-)
+ delete mode 100644 build.rs
+
+diff --git a/Cargo.toml b/Cargo.toml
+index b5f0499..0dc9ad3 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -11,7 +11,6 @@ keywords = ["mixer", "pipewire", "volume", "audio", "tui"]
+ edition = "2021"
+ rust-version = "1.74.1"
+ include = ["src/**/*", "Cargo.toml", "LICENSE*", "README.md", "wiremix.toml"]
+-build = "build.rs"
+ 
+ [build-dependencies]
+ vergen-git2 = "1.0.1"
+diff --git a/build.rs b/build.rs
+deleted file mode 100644
+index 8050ed4..0000000
+--- a/build.rs
++++ /dev/null
+@@ -1,12 +0,0 @@
+-use vergen_git2::{Emitter, Git2Builder};
+-
+-fn main() -> Result<(), Box<dyn std::error::Error>> {
+-    // Put "git describe" output (ex. "v0.5.0-2-gbc03f8a-dirty") in
+-    // VERGEN_GIT_DESCRIBE environment variable for use in --version output.
+-    let describe = Git2Builder::default()
+-        .describe(true, true, Some("v[0-9]*.[0-9]*.[0-9]*"))
+-        .build()?;
+-    Emitter::default().add_instructions(&describe)?.emit()?;
+-
+-    Ok(())
+-}
+-- 
+2.52.0
+
