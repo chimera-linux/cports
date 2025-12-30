@@ -14,7 +14,6 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/szclsya/mpdris2-rs"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "50ffaa10c47122921ca382beaffa399cb11fa67b42a25f2a117001121ff76662"
-hardening = ["vis", "cfi"]
 
 
 def post_install(self):
