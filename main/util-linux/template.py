@@ -31,7 +31,6 @@ configure_args = [
     "-Dbuild-pivot_root=disabled",
     "-Dbuild-setarch=disabled",
     "-Dbuild-switch_root=disabled",
-    "-Dbuild-sulogin=disabled",
     "-Dbuild-su=disabled",
     "-Dbuild-ul=disabled",
     "-Dbuild-vipw=disabled",
