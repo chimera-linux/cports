@@ -56,10 +56,6 @@ def pre_install(self):
 def post_install(self):
     self.uninstall("usr/sbin")
 
-    # install sulogin which is noinst
-    self.install_bin("src/sulogin")
-    self.install_man("man/man8/sulogin.8")
-
     # do not install pam files supplied with shadow
     self.uninstall("etc/pam.d")
 
