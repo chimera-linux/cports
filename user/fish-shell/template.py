@@ -1,16 +1,32 @@
 pkgname = "fish-shell"
-pkgver = "4.2.1"
-pkgrel = 1
+pkgver = "4.3.3"
+pkgrel = 0
 build_style = "cmake"
+configure_args = []
 make_check_target = "fish_run_tests"
-hostmakedepends = ["cargo-auditable", "cmake", "gettext", "pkgconf", "ninja"]
+hostmakedepends = [
+    "cargo-auditable",
+    "cmake",
+    "gettext",
+    "ninja",
+    "pkgconf",
+]
 makedepends = ["pcre2-devel", "rust-std"]
 checkdepends = ["procps", "python"]
 pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "0f99222a3063377c91fbf78d9850edab7a0b91bdbed201cf79da48ea3a41f393"
+sha256 = "eba0e7d325c1d46046bb9d29434e7e0dabf7f584eb156845005d688e10b86e57"
+
+
+if self.profile().cross:
+    configure_args += [
+        f"-DRust_CARGO_TARGET={self.profile().triplet}",
+        "-DWITH_DOCS=off",
+    ]
+else:
+    hostmakedepends += ["python-sphinx"]
 
 
 def prepare(self):
