@@ -1,5 +1,5 @@
 pkgname = "tree-sitter-lua"
-pkgver = "0.4.0"
+pkgver = "0.4.1"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -11,7 +11,7 @@ pkgdesc = "Lua grammar for tree-sitter"
 license = "MIT"
 url = "https://github.com/tree-sitter-grammars/tree-sitter-lua"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b0977aced4a63bb75f26725787e047b8f5f4a092712c840ea7070765d4049559"
+sha256 = "cef44b8773bde69d427b5e50ca95e417c86c0be91caa37a6782c90d6f529da70"
 
 
 def post_install(self):
