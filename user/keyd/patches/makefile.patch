@@ -2,10 +2,9 @@ diff --git a/Makefile b/Makefile
 index b4fc2bc..eea4e7e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -36,7 +36,7 @@ all:
+@@ -36,6 +36,6 @@ all:
+ 	mkdir -p bin
  	cp scripts/keyd-application-mapper bin/
- 	sed -e 's#@PREFIX@#$(PREFIX)#' keyd.service.in > keyd.service
- 	sed -e 's#@PREFIX@#$(PREFIX)#' src/vkbd/usb-gadget.service.in > src/vkbd/usb-gadget.service
 -	$(CC) $(CFLAGS) -O3 $(COMPAT_FILES) src/*.c src/vkbd/$(VKBD).c -lpthread -o bin/keyd $(LDFLAGS)
 +	$(CC) $(CFLAGS) $(COMPAT_FILES) src/*.c src/vkbd/$(VKBD).c -lpthread -o bin/keyd $(LDFLAGS)
  debug:
