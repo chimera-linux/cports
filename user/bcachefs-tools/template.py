@@ -1,5 +1,5 @@
 pkgname = "bcachefs-tools"
-pkgver = "1.31.12"
+pkgver = "1.34.0"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = [
@@ -7,7 +7,11 @@ make_install_args = [
     "TRIPLET=" + self.profile().triplet,
 ]
 make_use_env = True
-hostmakedepends = ["cargo-auditable", "jq", "pkgconf"]
+hostmakedepends = [
+    "cargo-auditable",
+    "jq",
+    "pkgconf",
+]
 makedepends = [
     "clang-devel",
     "keyutils-devel",
@@ -27,7 +31,7 @@ pkgdesc = "Bcachefs utilities"
 license = "GPL-2.0-only"
 url = "https://github.com/koverstreet/bcachefs-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bb0845d348cd945646432d8f3b99fe294f41593fda29741e72b7250f85ca99fd"
+sha256 = "d38f6a32832e026e7a6678d1781db71898fd28eb7620c27e4ca6d8ca71b5468c"
 # no tests
 options = ["!check"]
 
