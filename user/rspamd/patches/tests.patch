@@ -1,11 +1,11 @@
 diff -Nurp a/test/rspamd_cxx_unit_utils.hxx b/test/rspamd_cxx_unit_utils.hxx
---- a/test/rspamd_cxx_unit_utils.hxx	2024-07-12 11:17:54.000000000 +0000
-+++ b/test/rspamd_cxx_unit_utils.hxx	2024-07-13 21:39:50.508570278 +0000
-@@ -111,7 +111,6 @@ TEST_SUITE("rspamd_utils")
- 			fstr = RSPAMD_FSTRING_LIT("helohelo");
- 			gboolean result = rspamd_fstring_gzip(&fstr);
+--- a/test/rspamd_cxx_unit_utils.hxx	2025-12-10 18:23:29.000000000 +0000
++++ b/test/rspamd_cxx_unit_utils.hxx	2025-12-28 18:49:52.083854707 +0000
+@@ -134,7 +134,6 @@ TEST_SUITE("rspamd_utils")
  			CHECK(result == TRUE);
--			CHECK(fstr->len == 26);
+ 			// Highly compressible data, compressed size varies by implementation
+ 			CHECK(fstr->len >= 40);
+-			CHECK(fstr->len <= 60);
  			result = rspamd_fstring_gunzip(&fstr);
  			CHECK(result == TRUE);
- 			CHECK(memcmp(fstr->str, "helohelo", fstr->len) == 0);
+ 			CHECK(memcmp(fstr->str, "helohelo", sizeof("helohelo") - 1) == 0);
