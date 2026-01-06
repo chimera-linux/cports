@@ -33,7 +33,7 @@ build_dir =
 extra_packages =
 # whether ccache will be used in the build
 ccache = no
-# whether sccache will be used for rust in the build
+# whether sccache will be used for rust in the build (testing only)
 sccache = no
 # whether to use lld thinlto linker cache; not always entirely safe across runs
 thinlto_cache = no
