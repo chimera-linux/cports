@@ -1,54 +1,29 @@
-add this back because redhatters like to make things
-a pain for us even if it's zero effort for them not to
+From 29346eec86139f79ba2157c01da666753426b4c2 Mon Sep 17 00:00:00 2001
+From: Achill Gilgenast <achill@achill.org>
+Date: Mon, 10 Nov 2025 16:38:45 +0100
+Subject: [PATCH] Revert "Remove support for elogind"
 
-diff --git a/data/meson.build b/data/meson.build
-index 7b8a0ea..4911b54 100644
---- a/data/meson.build
-+++ b/data/meson.build
-@@ -62,7 +62,7 @@
-   build_conf = configuration_data()
-   build_conf.set('libexecdir', libexecdir)
- 
--  if libsystemd.found()
-+  if libsystemd.found() or elogind.found()
-     build_conf.set('bindir', bindir)
-     build_conf.set('datadir', datadir)
-     build_conf.set('localstatedir', localstatedir)
-@@ -158,29 +158,6 @@
-     endif
-     build_conf.set('dynamic_options', '\n'.join(dynamic_options))
-     build_conf.set('motd_dir', motd_dir)
--
--    # replace @dynamic_options@
--    configure_file(
--      input: 'fwupd.service.in',
--      output: 'fwupd.service',
--      configuration: build_conf,
--      install: true,
--      install_dir: systemdunitdir,
--    )
--
--    # for various plugins
--    install_data(['fwupd-i2c.conf'],
--      install_dir: systemd_modules_load_dir,
--    )
--
--    # for activation
--    configure_file(
--      input: 'fwupd.shutdown.in',
--      output: 'fwupd.shutdown',
--      configuration: build_conf,
--      install: true,
--      install_dir: systemd_shutdown_dir,
--    )
-   else
-     build_conf.set('systemd_service', '')
-   endif
+(e)logind is used by fwupd for poweroff/reboot and for the logind
+plugin, which "is used to ensure that the machine does not enter a
+low power mode when updates are being performed".
+
+Upstream removed support for elogind, but I think it is still useful and
+important downstream.
+
+This reverts commit bbda9dec06674757da55ce6a241953c37553aaf9.
+
+Signed-off-by: Achill Gilgenast <achill@achill.org>
+---
+ meson.build                | 6 ++++++
+ meson_options.txt          | 5 +++++
+ plugins/logind/meson.build | 2 +-
+ 3 files changed, 12 insertions(+), 1 deletion(-)
+
 diff --git a/meson.build b/meson.build
-index 7b8a0ea..4911b54 100644
+index b711ab04b031..ed039263beb6 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -514,6 +514,11 @@ if libsystemd.found()
+@@ -713,6 +713,11 @@ if libsystemd.found()
    endif
  endif
  
@@ -59,24 +34,33 @@ index 7b8a0ea..4911b54 100644
 +
  supported_build = get_option('supported_build').disable_auto_if(not tag).allowed()
  if supported_build
-     conf.set('SUPPORTED_BUILD', '1')
+   conf.set('SUPPORTED_BUILD', '1')
+@@ -939,6 +944,7 @@ summary(
+     'dbus_socket_address': get_option('dbus_socket_address'),
+     'vendor_ids_dir': vendor_ids_dir,
+     'docs': build_docs,
++    'elogind': elogind,
+     'gnutls': gnutls,
+     'introspection': introspection.allowed(),
+     'libblkid': libblkid,
 diff --git a/meson_options.txt b/meson_options.txt
-index f880269..bd491cc 100644
+index 18991b9837dd..1facbc39e4ed 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -165,6 +165,10 @@ option('systemd',
-   type: 'feature',
-   description: 'systemd support',
+@@ -48,6 +48,11 @@ option(
+   type: 'string',
+   description: 'the hardcoded name of OS directory in ESP, e.g. fedora',
  )
-+option('elogind',
++option(
++  'elogind',
 +  type: 'feature',
 +  description: 'elogind support',
 +)
- option('systemd_root_prefix',
-   type: 'string',
-   value: '',
+ option(
+   'firmware-packager',
+   type: 'boolean',
 diff --git a/plugins/logind/meson.build b/plugins/logind/meson.build
-index bd66fabbc..7fe59f594 100644
+index bd66fabbc228..7fe59f5945cc 100644
 --- a/plugins/logind/meson.build
 +++ b/plugins/logind/meson.build
 @@ -1,4 +1,4 @@
@@ -85,3 +69,6 @@ index bd66fabbc..7fe59f594 100644
  
  cargs = ['-DG_LOG_DOMAIN="FuPluginLogind"']
  plugins += {meson.current_source_dir().split('/')[-1]: true}
+-- 
+2.51.2
+
