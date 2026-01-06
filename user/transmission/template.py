@@ -39,7 +39,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "BitTorrent client"
-license = "GPL-2.0-or-later"
+license = "GPL-3.0-only"
 url = "https://github.com/transmission/transmission"
 source = f"{url}/releases/download/{pkgver}/transmission-{pkgver}.tar.xz"
 sha256 = "2a38fe6d8a23991680b691c277a335f8875bdeca2b97c6b26b598bc9c7b0c45f"
