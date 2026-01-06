@@ -1,5 +1,5 @@
 pkgname = "gnupg"
-pkgver = "2.4.8"
+pkgver = "2.4.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,4 +28,4 @@ pkgdesc = "GNU Privacy Guard 2.x"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org"
 source = f"https://gnupg.org/ftp/gcrypt/gnupg/gnupg-{pkgver}.tar.bz2"
-sha256 = "b58c80d79b04d3243ff49c1c3fc6b5f83138eb3784689563bcdd060595318616"
+sha256 = "dd17ab2e9a04fd79d39d853f599cbc852062ddb9ab52a4ddeb4176fd8b302964"
