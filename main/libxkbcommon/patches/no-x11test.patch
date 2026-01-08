@@ -2,7 +2,7 @@ pulling in xserver-xorg-xvfb creates a cycle
 --
 --- a/meson.build
 +++ b/meson.build
-@@ -940,28 +940,6 @@ test(
+@@ -1193,34 +1193,6 @@ test(
      env: test_env,
  )
  if get_option('enable-x11')
@@ -24,7 +24,13 @@ pulling in xserver-xorg-xvfb creates a cycle
 -    )
 -    test(
 -        'x11comp',
--        executable('test-x11comp', 'test/x11comp.c', dependencies: x11_xvfb_test_dep),
+-        executable(
+-            'test-x11comp',
+-            'test/x11comp.c',
+-            'test/utils-text.c',
+-            'test/utils-text.h',
+-            dependencies: x11_xvfb_test_dep
+-        ),
 -        env: test_env,
 -        is_parallel : false,
 -    )
