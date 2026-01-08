@@ -700,10 +700,16 @@ def do_unstage(tgt, force=False):
 def check_unstage(tgt):
     from cbuild.core import chroot, stage
 
-    if opt_arch and opt_arch != chroot.host_cpu():
-        stage.check_stage(opt_arch, remote=True)
+    failed = False
 
-    stage.check_stage(chroot.host_cpu(), remote=True)
+    if opt_arch and opt_arch != chroot.host_cpu():
+        if stage.check_stage(opt_arch, remote=True) is None:
+            failed = True
+
+    if stage.check_stage(chroot.host_cpu(), remote=True) is None:
+        failed = True
+
+    return 1 if failed else 0
 
 
 def bootstrap(tgt):
