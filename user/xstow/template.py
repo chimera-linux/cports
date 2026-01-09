@@ -1,6 +1,6 @@
 pkgname = "xstow"
 pkgver = "1.1.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["automake"]
