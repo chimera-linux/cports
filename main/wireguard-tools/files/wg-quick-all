@@ -1,5 +1,4 @@
 type = scripted
 command = /usr/libexec/wg-quick-all up
 stop-command = /usr/libexec/wg-quick-all down
-before = pre-network.target
-depends-on = pre-local.target
+depends-on = network.target
