@@ -1,0 +1,16 @@
+diff --git a/Makefile b/Makefile
+index 36b4babd..01955e8a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -204,9 +204,9 @@ install_dkms: dkms/dkms.conf dkms/module-version.c
+ 	$(INSTALL) -m0644 -D dkms/Makefile		-t $(DESTDIR)$(DKMSDIR)
+ 	$(INSTALL) -m0644 -D dkms/dkms.conf		-t $(DESTDIR)$(DKMSDIR)
+ 	$(INSTALL) -m0644 -D libbcachefs/Makefile	-t $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs
+-	(cd libbcachefs; find -name '*.[ch]' -exec install -m0644 -D {} $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/{} \; )
++	(cd libbcachefs; find . -name '*.[ch]' -exec install -m0644 -D {} $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/{} \; )
+ 	$(INSTALL) -m0644 -D dkms/module-version.c	-t $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs
+-	sed -i "s|^#define TRACE_INCLUDE_PATH \\.\\./\\.\\./fs/bcachefs$$|#define TRACE_INCLUDE_PATH .|" \
++	sed -i .orig "s|^#define TRACE_INCLUDE_PATH \\.\\./\\.\\./fs/bcachefs$$|#define TRACE_INCLUDE_PATH .|" \
+ 	  $(DESTDIR)$(DKMSDIR)/src/fs/bcachefs/debug/trace.h
+ 
+ .PHONY: clean
