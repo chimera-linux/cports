@@ -19,3 +19,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("doc/license.txt")
+    self.install_file("doc/newsraft.desktop", "usr/share/applications")
