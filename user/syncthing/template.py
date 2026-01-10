@@ -1,5 +1,5 @@
 pkgname = "syncthing"
-pkgver = "2.0.12"
+pkgver = "2.0.13"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Continuous file synchronization program"
 license = "MPL-2.0"
 url = "https://syncthing.net"
 source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
-sha256 = "30144685dea371075234fd3d9865d4f5ee25b5bed4bdfa8fd2f7481188e3fb09"
+sha256 = "cdd9235b418f16c69dae3a21b6c43c7ee8e549e116b649f2bd4611796e101c28"
 
 
 if self.profile().wordsize == 32:
