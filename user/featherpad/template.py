@@ -1,5 +1,5 @@
 pkgname = "featherpad"
-pkgver = "1.6.2"
+pkgver = "1.6.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,4 +18,4 @@ pkgdesc = "Qt Plain-Text editor"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tsujan/FeatherPad"
 source = f"{url}/releases/download/V{pkgver}/FeatherPad-{pkgver}.tar.xz"
-sha256 = "0c6ad7687d933e48f5e64047dacb4d4611155210ef1557874fb708e805a50daa"
+sha256 = "f20a2e1b82524d181c97bb23d1b643ae374b9257a8c2c95bcaf0d0c940a2c9ee"
