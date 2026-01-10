@@ -1,6 +1,6 @@
 pkgname = "w3m"
-pkgver = "0.5.3_git20230121"
-pkgrel = 1
+pkgver = "0.5.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."
@@ -13,14 +13,14 @@ makedepends = [
 ]
 pkgdesc = "TUI web browser and pager"
 license = "MIT"
-url = "https://github.com/tats/w3m"
-source = f"{url}/archive/refs/tags/v{pkgver.replace('_', '+')}.tar.gz"
-sha256 = "fdc7d55d3c0104db26aa9759db34f37e5eee03f44c868796e3bbfb8935c96e39"
+url = "https://git.sr.ht/~rkta/w3m"
+source = f"{url}/archive/v{pkgver}.tar.gz"
+sha256 = "b271c86b13be2207700230cb3f9061271ea37fd1ace199f48b72ea542a529a0f"
 hardening = ["vis", "!cfi"]
 
 
 def check(self):
-    self.do("sh", "run_tests", wrksrc="tests")
+    self.do("sh", "run", wrksrc="t")
 
 
 def post_install(self):
