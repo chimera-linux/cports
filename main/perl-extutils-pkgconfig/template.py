@@ -1,6 +1,6 @@
 pkgname = "perl-extutils-pkgconfig"
 pkgver = "1.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
     "perl",

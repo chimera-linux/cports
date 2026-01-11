@@ -1,6 +1,6 @@
 pkgname = "perl-moo"
 pkgver = "2.005005"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
     "perl",

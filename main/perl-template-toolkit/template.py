@@ -1,6 +1,6 @@
 pkgname = "perl-template-toolkit"
 pkgver = "3.102"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

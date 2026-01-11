@@ -1,6 +1,6 @@
 pkgname = "perl-test-warn"
 pkgver = "0.37"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

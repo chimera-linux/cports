@@ -1,6 +1,6 @@
 pkgname = "perl-ipc-run"
 pkgver = "20231003.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 depends = ["perl-io-tty"]

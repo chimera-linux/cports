@@ -1,6 +1,6 @@
 pkgname = "perl-io-string"
 pkgver = "1.08"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

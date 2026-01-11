@@ -1,6 +1,6 @@
 pkgname = "pcsc-perl"
 pkgver = "1.4.16"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl", "pkgconf"]
 makedepends = ["pcsc-lite-devel", "perl"]

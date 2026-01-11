@@ -1,6 +1,6 @@
 pkgname = "perl-class-method-modifiers"
 pkgver = "2.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
     "perl",

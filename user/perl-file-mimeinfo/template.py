@@ -1,6 +1,6 @@
 pkgname = "perl-file-mimeinfo"
 pkgver = "0.35"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = [
@@ -10,9 +10,9 @@ makedepends = [
 ]
 depends = [*makedepends, "shared-mime-info"]
 checkdepends = [
+    "perl-path-tiny",
     "perl-test-pod",
     "perl-test-pod-coverage",
-    "perl-path-tiny",
     *makedepends,
 ]
 pkgdesc = "Parses streams to create MIME entities"

@@ -1,6 +1,6 @@
 pkgname = "perl-parse-yapp"
 pkgver = "1.21"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

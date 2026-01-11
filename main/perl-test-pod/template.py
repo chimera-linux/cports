@@ -1,6 +1,6 @@
 pkgname = "perl-test-pod"
 pkgver = "1.52"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

@@ -1,6 +1,6 @@
 pkgname = "perl-algorithm-diff"
 pkgver = "1.201"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

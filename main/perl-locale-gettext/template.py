@@ -1,6 +1,6 @@
 pkgname = "perl-locale-gettext"
 pkgver = "1.07"
-pkgrel = 2
+pkgrel = 3
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
