@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "143.0.7499.169"
+pkgver = "143.0.7499.192"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -137,7 +137,7 @@ pkgdesc = "Web browser"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz"
-sha256 = "0d03408450e552a1012321b61f5bb6e0f07a7f6e2ef111b519066876c1a5e747"
+sha256 = "01b2db3c4b89b96b3b18e889b7ef583ca243dd90d27f46c3c0115d298618501c"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
