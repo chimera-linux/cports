@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
-pkgver = "2.67.0"
-pkgrel = 1
+pkgver = "2.69.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",
@@ -12,7 +12,7 @@ pkgdesc = "Dotfiles manager"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "0161d20dd3f40ac5abb80cb8fcf6acbd9a593f9c8735d5533449e51a600348fb"
+sha256 = "5237f42076d02e2d109149e7c2985cd28468027ea918232c6062f4897b23be56"
 # may be disabled
 options = []
 
