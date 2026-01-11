@@ -1,6 +1,6 @@
 pkgname = "perl-font-ttf"
 pkgver = "1.06"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl-io-string"]
 makedepends = ["perl-io-string"]

@@ -1,6 +1,6 @@
 pkgname = "collectd"
 pkgver = "5.12.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
 hostmakedepends = [

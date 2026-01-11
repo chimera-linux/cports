@@ -1,6 +1,6 @@
 pkgname = "perl-encode-locale"
 pkgver = "1.05"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

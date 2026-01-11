@@ -1,6 +1,6 @@
 pkgname = "perl-libintl-perl"
 pkgver = "1.35"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

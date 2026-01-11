@@ -1,6 +1,6 @@
 pkgname = "perl-regexp-common"
 pkgver = "2024080801"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

@@ -1,6 +1,6 @@
 pkgname = "perl-role-tiny"
 pkgver = "2.002004"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
     "perl",

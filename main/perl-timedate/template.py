@@ -1,6 +1,6 @@
 pkgname = "perl-timedate"
 pkgver = "2.33"
-pkgrel = 1
+pkgrel = 2
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

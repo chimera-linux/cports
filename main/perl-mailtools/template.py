@@ -1,6 +1,6 @@
 pkgname = "perl-mailtools"
 pkgver = "2.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl", "perl-timedate"]

@@ -1,6 +1,6 @@
 pkgname = "perl-test-pod-coverage"
 pkgver = "1.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

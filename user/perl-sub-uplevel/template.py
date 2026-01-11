@@ -1,6 +1,6 @@
 pkgname = "perl-sub-uplevel"
 pkgver = "0.2800"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]

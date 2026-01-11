@@ -1,6 +1,6 @@
 pkgname = "perf"
 pkgver = "6.16"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_build_args = [
