@@ -1,5 +1,5 @@
 pkgname = "breeze"
-pkgver = "6.5.3"
+pkgver = "6.5.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
@@ -33,7 +33,7 @@ pkgdesc = "Breeze visual style for the KDE Plasma Desktop"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/breeze"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-{pkgver}.tar.xz"
-sha256 = "d782875a4510c31435ccd5aad209eb519c0a4ddfdb7da392f54eae863c2e8699"
+sha256 = "2b50b2e8ff250ca782ff65f8ea5140121d544d8b8ba4eaa345d6224e8076c3d1"
 hardening = ["vis"]
 # TODO: split qt6 theme?
 
