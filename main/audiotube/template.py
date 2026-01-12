@@ -1,5 +1,5 @@
 pkgname = "audiotube"
-pkgver = "25.12.0"
+pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
 _deps = [
@@ -36,6 +36,6 @@ pkgdesc = "KDE Youtube Music player"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/audiotube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiotube-{pkgver}.tar.xz"
-sha256 = "2d87eadb42fe452d0171206ce3a1e600267ae152c75ab587d4bf6094f4bf1b73"
+sha256 = "5549c2adcf877bf768776a4ffc83945a76a519a422b337758b4afa96f9c17ca7"
 # only test needs net
 options = ["!check"]
