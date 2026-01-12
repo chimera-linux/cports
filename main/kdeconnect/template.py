@@ -1,5 +1,5 @@
 pkgname = "kdeconnect"
-pkgver = "25.12.0"
+pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
 # needs more setup
@@ -54,7 +54,7 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "0fff24d371ccfefc858d7d6e01385c4d57dc40bf46d6702a34d1bf6727cc72a8"
+sha256 = "7d63857b7e1c27a00dbdbab26fa384fc7d93bfe32d82b95943a944d477be5ad7"
 
 
 def post_install(self):

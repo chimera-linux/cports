@@ -1,5 +1,5 @@
 pkgname = "kdenetwork-filesharing"
-pkgver = "25.12.0"
+pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -27,4 +27,4 @@ pkgdesc = "KDE samba filesharing plugin"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenetwork_filesharing"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenetwork-filesharing-{pkgver}.tar.xz"
-sha256 = "1af1f0f1575d59473aa5a2ca836afcdf170c1c22e15c298c5edd00a7d1fd4cb0"
+sha256 = "409c57020309f7fee11670858b9d77bdc60263cc5d0449b5f44fb27cdf1ef84d"

@@ -1,5 +1,5 @@
 pkgname = "kmbox"
-pkgver = "25.12.0"
+pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -19,7 +19,7 @@ pkgdesc = "KDE PIM mbox access library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kmbox/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmbox-{pkgver}.tar.xz"
-sha256 = "3a6a109bdc4a1648918d4d332aaac2447f67710d87ee9a1bcfac16991b8e93e8"
+sha256 = "0b1981437273a4bed80fd81aad732eec7a4ea41001ad6cf83cf3896b6d152f1c"
 
 
 @subpackage("kmbox-devel")

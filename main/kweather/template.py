@@ -1,5 +1,5 @@
 pkgname = "kweather"
-pkgver = "25.12.0"
+pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ pkgdesc = "KDE Weather application"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kweather"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kweather-{pkgver}.tar.xz"
-sha256 = "e633ba482afded8ba3eb00fadb90eb4d06342de38b9bf2b166f5a757811f49b1"
+sha256 = "1c03976929061996d54dac5346d0774acc285627173e10e0a80c6a78ed52e697"
