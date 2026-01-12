@@ -1,5 +1,5 @@
 pkgname = "kauth"
-pkgver = "6.20.0"
+pkgver = "6.22.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -19,7 +19,7 @@ pkgdesc = "KDE Execute actions as privileged user"
 license = "LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kauth"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
-sha256 = "a918455f42e169fa55e965e407588c22cb18beb5529dab321d45acafdb7bd652"
+sha256 = "cf1b28cc01280c86cd6712e8b2fb9656b9b09e50eccca58c5c9ca7f56bb0709f"
 hardening = ["vis"]
 
 

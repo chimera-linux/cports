@@ -1,5 +1,5 @@
 pkgname = "kdesu"
-pkgver = "6.20.0"
+pkgver = "6.22.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -16,7 +16,7 @@ pkgdesc = "KDE Framework for running commands as root"
 license = "GPL-2.0-only"
 url = "https://api.kde.org/frameworks/kdesu/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdesu-{pkgver}.tar.xz"
-sha256 = "de2313f42f57b8969faff133f0e2b214c5ba96891c16164512130fccb5f3fb84"
+sha256 = "5b5947a2153d9fa0a5009c4a2af5c55dda4c10e970de603356327f2c5962864f"
 hardening = ["vis"]
 
 

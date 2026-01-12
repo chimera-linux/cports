@@ -1,6 +1,6 @@
 pkgname = "kxmlgui"
-pkgver = "6.20.0"
-pkgrel = 1
+pkgver = "6.22.0"
+pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
@@ -25,7 +25,7 @@ pkgdesc = "KDE Framework for managing menu and toolbar actions"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kxmlgui/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kxmlgui-{pkgver}.tar.xz"
-sha256 = "a16fd3734112914ef50ed2666a16905d87e67954bc368725ccb1d5b2edc8f8f1"
+sha256 = "063511b8a2c498cdd03a18366ec9182f3f121a4d93668888c9aa2bed49973ac3"
 hardening = ["vis"]
 
 
