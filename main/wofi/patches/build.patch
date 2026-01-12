@@ -1,8 +1,10 @@
+diff --git a/meson.build b/meson.build
+index e4f25e7..d44b1b7 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -1,4 +1,4 @@
--project('wofi', 'c', version : 'v1.4.1', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
-+project('wofi', 'c', version : '1.4.1', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
+-project('wofi', 'c', version : 'v1.5.3', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
++project('wofi', 'c', version : '1.5.3', default_options : ['c_std=c99', 'buildtype=release', 'warning_level=2'])
  cc = meson.get_compiler('c')
- 
+
  pkgcfg = import('pkgconfig')
