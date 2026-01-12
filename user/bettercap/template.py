@@ -1,6 +1,6 @@
 pkgname = "bettercap"
-pkgver = "2.41.4"
-pkgrel = 2
+pkgver = "2.41.5"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
 makedepends = ["libnetfilter_queue-devel", "libpcap-devel", "libusb-devel"]
@@ -10,5 +10,5 @@ url = "https://bettercap.org"
 source = (
     f"https://github.com/bettercap/bettercap/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "384848630f594fadd48e80406f4cf8ceccfe3f32dd9182f7e18c20240e74a5fd"
+sha256 = "85513871e105a182eb92f80ba9563ac37cb8a48bcfa98d30e1197e74c42ff15a"
 env = {"CGO_ENABLED": "1"}
