@@ -1,5 +1,5 @@
 pkgname = "kdoctools"
-pkgver = "6.20.0"
+pkgver = "6.22.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,7 +23,7 @@ pkgdesc = "KDE Documentation generation from docbook"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdoctools/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdoctools-{pkgver}.tar.xz"
-sha256 = "f56536255ca74554a9c02d395fd78c8b4a0d2a1c7d003ce621b324e889f85c0f"
+sha256 = "d893f2758f9e1d9a529d1b573b3fc413d4c3e0cf4b8573ecee5c99c8d66a3f11"
 hardening = ["vis"]
 
 
