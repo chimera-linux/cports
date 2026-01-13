@@ -4,7 +4,7 @@
  ******************************************************************************
  */
  
-+#define ICU_DATA_DIR "/usr/share/icu/77.1"
++#define ICU_DATA_DIR "/usr/share/icu/78.2"
 +
  // Defines _XOPEN_SOURCE for access to POSIX functions.
  // Must be before any other #includes.
@@ -20,18 +20,3 @@
  
  ## Compiler switch to embed a library name
  # The initial tab in the next line is to prevent icu-config from reading it.
---- a/source/configure
-+++ b/source/configure
-@@ -7210,10 +7210,10 @@ fi
- 
-     if test "$ac_cv_header_xlocale_h" = yes; then
-       U_HAVE_XLOCALE_H=1
--      CONFIG_CPPFLAGS="${CONFIG_CPPFLAGS} -DU_HAVE_STRTOD_L=1 -DU_HAVE_XLOCALE_H=1"
-+      CONFIG_CPPFLAGS="${CONFIG_CPPFLAGS} -DU_HAVE_STRTOD_L=0 -DU_HAVE_XLOCALE_H=1"
-     else
-       U_HAVE_XLOCALE_H=0
--      CONFIG_CPPFLAGS="${CONFIG_CPPFLAGS} -DU_HAVE_STRTOD_L=1 -DU_HAVE_XLOCALE_H=0"
-+      CONFIG_CPPFLAGS="${CONFIG_CPPFLAGS} -DU_HAVE_STRTOD_L=0 -DU_HAVE_XLOCALE_H=0"
-     fi
- else
-     CONFIG_CPPFLAGS="${CONFIG_CPPFLAGS} -DU_HAVE_STRTOD_L=0"
