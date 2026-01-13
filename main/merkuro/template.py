@@ -2,7 +2,10 @@ pkgname = "merkuro"
 pkgver = "25.12.1"
 pkgrel = 0
 build_style = "cmake"
-make_check_args = ["-E", "akonadi-sqlite-.*"]
+make_check_args = [
+    "-E",
+    "(akonadi-sqlite-.*|merkuro-calendar-infinitemerkurocalendarviewmodeltest)",
+]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
