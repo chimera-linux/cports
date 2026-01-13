@@ -1,6 +1,6 @@
 pkgname = "evolution-data-server"
 pkgver = "3.58.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLIBEXEC_INSTALL_DIR=/usr/lib",  # XXX drop libexec

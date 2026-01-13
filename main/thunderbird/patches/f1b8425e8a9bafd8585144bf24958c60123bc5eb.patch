@@ -1,0 +1,25 @@
+From f1b8425e8a9bafd8585144bf24958c60123bc5eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Bargull?= <andre.bargull@gmail.com>
+Date: Tue, 25 Nov 2025 15:19:36 +0000
+Subject: [PATCH] Bug 2000225 - Part 7: Add new line break class.
+ r=platform-i18n-reviewers,jfkthame
+
+Use `CLASS_BREAKABLE` for `UNAMBIGUOUS_HYPHEN` because it was split from `BREAK_AFTER`.
+
+Differential Revision: https://phabricator.services.mozilla.com/D273816
+---
+ intl/lwbrk/LineBreaker.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/intl/lwbrk/LineBreaker.cpp b/intl/lwbrk/LineBreaker.cpp
+index 7261df26f8cc4..f7b1bf4c4c6d2 100644
+--- a/intl/lwbrk/LineBreaker.cpp
++++ b/intl/lwbrk/LineBreaker.cpp
+@@ -453,6 +453,7 @@ static int8_t GetClass(uint32_t u, LineBreakRule aLevel,
+       /* AKSARA_START = 45,                 [AS] */ CLASS_CHARACTER,
+       /* VIRAMA_FINAL = 46,                 [VF] */ CLASS_CHARACTER,
+       /* VIRAMA = 47,                       [VI] */ CLASS_CHARACTER,
++      /* UNAMBIGUOUS_HYPHEN = 48            [HH] */ CLASS_BREAKABLE,
+   };
+ 
+   static_assert(U_LB_COUNT == std::size(sUnicodeLineBreakToClass),

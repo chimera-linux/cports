@@ -1,6 +1,6 @@
 pkgname = "localsearch"
 pkgver = "3.10.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?

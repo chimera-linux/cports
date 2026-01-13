@@ -1,6 +1,6 @@
 pkgname = "webkitgtk"
 pkgver = "2.50.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",

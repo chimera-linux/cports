@@ -1,6 +1,6 @@
 pkgname = "libical"
 pkgver = "3.0.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DICAL_BUILD_DOCS=OFF",

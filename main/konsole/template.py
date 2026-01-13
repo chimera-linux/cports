@@ -1,6 +1,6 @@
 pkgname = "konsole"
 pkgver = "25.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = ["-E", "(TerminalInterfaceTest|PtyTest)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}

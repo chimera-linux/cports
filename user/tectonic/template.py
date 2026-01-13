@@ -1,6 +1,6 @@
 pkgname = "tectonic"
 pkgver = "0.15.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
