@@ -95,8 +95,17 @@ def post_patch(self):
     from cbuild.util import cargo
 
     # lolrust failed to calculate checksum of: /builddir/thunderbird-147.0/comm/third_party/rust/minimal-lexical/.gitmodules
-    for crate in ["minimal-lexical"]:
-        cargo.clear_vendor_checksums(self, crate, vendor_dir="comm/third_party/rust")
+    for crate in [
+        "cubeb-sys",
+        "glslopt",
+        "minimal-lexical",
+        "sfv",
+        "wasi",
+        "yaml-rust2",
+    ]:
+        cargo.clear_vendor_checksums(
+            self, crate, vendor_dir="comm/third_party/rust"
+        )
 
 
 def init_configure(self):
