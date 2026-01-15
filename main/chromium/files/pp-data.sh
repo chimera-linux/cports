@@ -11,6 +11,8 @@ sed \
     -e 's/@@MENUNAME@@/Chromium/g' \
     -e 's/@@PACKAGE@@/chromium/g' \
     -e 's/@@USR_BIN_SYMLINK_NAME@@/chromium-browser/g' \
+    -e 's/@@URI_SCHEME@@//' \
+    -e '/@@EXTRA_DESKTOP_ENTRIES@@/d' \
     chrome/installer/linux/common/desktop.template > chromium.desktop
 
 sed \

@@ -1,0 +1,26 @@
+From 10ee7af5f4bd6aaf8279799d55c0b4111edad47f Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Mon, 1 Dec 2025 18:42:25 +0100
+Subject: [PATCH] Rust 1.86 is not nightly
+
+---
+ build/rust/std/BUILD.gn | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/build/rust/std/BUILD.gn b/build/rust/std/BUILD.gn
+index e86a227bc4ffc..00cc51b90caa5 100644
+--- a/build/rust/std/BUILD.gn
++++ b/build/rust/std/BUILD.gn
+@@ -55,11 +55,7 @@ if (toolchain_has_rust) {
+       "miniz_oxide",
+       "object",
+     ]
+-    if (rustc_nightly_capability) {
+-      stdlib_files += [ "adler2" ]
+-    } else {
+-      stdlib_files += [ "adler" ]
+-    }
++    stdlib_files += [ "adler2" ]
+   }
+ 
+   if (toolchain_for_rust_host_build_tools) {

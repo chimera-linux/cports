@@ -274,8 +274,8 @@ index cfc37e2..e448a8f 100644
 +#endif
 +
  #if BUILDFLAG(IS_ANDROID)
+ #include "base/android/background_thread_pool_field_trial.h"
  
- #if !defined(F_DUPFD_CLOEXEC)
 @@ -102,6 +107,14 @@ inline bool IsArchitectureMips() {
  #endif
  }
