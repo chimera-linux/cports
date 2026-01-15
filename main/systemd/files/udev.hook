@@ -1,0 +1,53 @@
+#!/bin/sh -e
+# adapted from debian
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /usr/bin/udevadm /usr/bin
+ln -sf udevadm "${DESTDIR}/usr/bin/udevd"
+
+mkdir -p "${DESTDIR}/etc/udev"
+mkdir -p "${DESTDIR}/usr/lib/udev/rules.d"
+mkdir -p "${DESTDIR}/usr/lib/systemd/network"
+
+# libkmod is loaded via dlopen() since v256 so pull it in manually
+for library in /usr/lib/libkmod.so.*; do
+    if [ -f "${library}" ]; then
+        copy_exec "${library}"
+    fi
+done
+
+cp -p /etc/udev/udev.conf "${DESTDIR}/etc/udev"
+cp -p /usr/lib/systemd/network/99-default.link "${DESTDIR}/usr/lib/systemd/network"
+
+for rule in \
+    50-udev-default.rules \
+    60-block.rules \
+    60-persistent-storage.rules \
+    71-seat.rules \
+    75-net-description.rules \
+    80-drivers.rules
+do
+    if [ -e "/etc/udev/rules.d/${rule}" ]; then
+        cp -p "/etc/udev/rules.d/${rule}" "${DESTDIR}/usr/lib/udev/rules.d/"
+    elif [ -e "/usr/lib/udev/rules.d/${rule}" ]; then
+        cp -p "/usr/lib/udev/rules.d/${rule}" "${DESTDIR}/usr/lib/udev/rules.d/"
+    fi
+done
+
+# now copy all custom udev rules which don't have an equivalent in /lib (e. g.
+# 70-persistent-net.rules or similar); They might contain network names or
+# other bits which are relevant for the initramfs.
+for rules in /etc/udev/rules.d/*.rules; do
+    if [ -e "$rules" ] && [ ! -e "/usr/lib/${rules#/etc/}" ]; then
+        cp -p "$rules" "${DESTDIR}/usr/lib/udev/rules.d/"
+    fi
+done
+
+for prog in ata_id scsi_id; do
+    copy_exec "/usr/lib/udev/${prog}" /usr/lib/udev
+done
+
+copy_exec /usr/bin/blkid /usr/bin
