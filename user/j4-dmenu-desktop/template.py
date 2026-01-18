@@ -1,6 +1,6 @@
 pkgname = "j4-dmenu-desktop"
 pkgver = "3.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = ["-Denable-tests=true"]
 hostmakedepends = ["meson", "pkgconf"]
