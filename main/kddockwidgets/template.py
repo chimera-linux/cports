@@ -1,6 +1,6 @@
 pkgname = "kddockwidgets"
-pkgver = "2.3.0"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DKDDockWidgets_QT6=ON",
@@ -23,7 +23,7 @@ pkgdesc = "Dock Widget Framework for Qt"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://www.kdab.com/development-resources/qt-tools/kddockwidgets"
 source = f"https://github.com/KDAB/KDDockWidgets/releases/download/v{pkgver}/kddockwidgets-{pkgver}.tar.gz"
-sha256 = "843baf9e1812c1ab82fd81d85b57cbc0d29bb43245efeb2539039780004b1056"
+sha256 = "51dbf24fe72e43dd7cb9a289d3cab47112010f1a2ed69b6fc8ac0dff31991ed2"
 
 
 @subpackage("kddockwidgets-devel")
