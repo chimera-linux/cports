@@ -1,6 +1,6 @@
 pkgname = "imhex"
-pkgver = "1.37.4"
-pkgrel = 2
+pkgver = "1.38.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -55,8 +55,8 @@ source_paths = [
     "ImHex-Patterns",
 ]
 sha256 = [
-    "711481cc8dfc368d1b88f5d3e8a44d65f23fa43eb9db092599924f3a4cf1aaa2",
-    "541eddc8cc427d1aeb749bc455911fccc87f64a7784bd4bbc35ecb7b56c03ad5",
+    "cd3531066a41dde1f0751e5d3146a936897df35ad5ba1fa49a9f3ace88e6901d",
+    "3aae4c0970bc1b85bf4dc566bdf31de33c7dce593375645600549643ce6f9841",
 ]
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
