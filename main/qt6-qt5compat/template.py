@@ -1,6 +1,6 @@
 pkgname = "qt6-qt5compat"
 pkgver = "6.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: times out after 5 minutes on aarch64
 make_check_args = ["-E", "(tst_qxmlinputsource|module_includes)"]

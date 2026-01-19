@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "143.0.7499.192"
+pkgver = "144.0.7559.59"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -65,6 +65,7 @@ hostmakedepends = [
     "python",
     "rust",
     "rust-bindgen",
+    "rust-rustfmt",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -137,7 +138,7 @@ pkgdesc = "Web browser"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz"
-sha256 = "01b2db3c4b89b96b3b18e889b7ef583ca243dd90d27f46c3c0115d298618501c"
+sha256 = "8d6de5bbf447b9d0f3c99843230ffebe5954cbcb38d9f8c2ddbbeb5fbcfa9179"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [

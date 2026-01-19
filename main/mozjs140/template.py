@@ -1,6 +1,6 @@
 pkgname = "mozjs140"
 pkgver = "140.3.1"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "cargo",
     "cbindgen",

@@ -1,6 +1,6 @@
 pkgname = "openmw"
 pkgver = "0.50.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",

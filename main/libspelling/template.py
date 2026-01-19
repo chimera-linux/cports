@@ -1,6 +1,6 @@
 pkgname = "libspelling"
 pkgver = "0.4.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",

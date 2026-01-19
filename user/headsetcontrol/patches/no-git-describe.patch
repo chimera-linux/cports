@@ -1,0 +1,32 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -79,29 +79,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+ # Git version
+ # ------------------------------------------------------------------------------
+ 
+-execute_process(
+-  COMMAND git describe --tags --dirty=-modified
+-  OUTPUT_VARIABLE GIT_VERSION
+-  OUTPUT_STRIP_TRAILING_WHITESPACE
+-  ERROR_QUIET
+-  RESULT_VARIABLE GIT_RESULT
+-)
+-
+-# Fallback if git describe fails (no tags, shallow clone, etc.)
+-if(NOT GIT_VERSION OR NOT GIT_RESULT EQUAL 0)
+-  execute_process(
+-    COMMAND git rev-parse --short HEAD
+-    OUTPUT_VARIABLE GIT_HASH
+-    OUTPUT_STRIP_TRAILING_WHITESPACE
+-    ERROR_QUIET
+-  )
+-  if(GIT_HASH)
+-    set(GIT_VERSION "0.0.0-${GIT_HASH}")
+-  else()
+-    set(GIT_VERSION "0.0.0-unknown")
+-  endif()
+-endif()
+-
+ message(STATUS "HeadsetControl version: ${GIT_VERSION}")
+ 
+ # Configure a header file to pass the version number to the source code

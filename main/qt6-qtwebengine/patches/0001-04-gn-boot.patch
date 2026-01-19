@@ -30,7 +30,7 @@ be a straight forward to use as an alternative and be fragile.
 +  cflags += os.environ.get('CXXFLAGS', '').split()
 +  cflags += os.environ.get('CPPFLAGS', '').split()
 +  ldflags += os.environ.get('LDFLAGS', '').split()
-   WriteGenericNinja(path, static_libraries, executables, cxx, ar, ld,
+   WriteGenericNinja(path, static_libraries, executables, cxx, cxx_wrapper, ar, ld,
                      platform, host, options, args_list,
                      cflags, ldflags, libflags, include_dirs, libs)
 --- a/src/gn/CMakeLists.txt

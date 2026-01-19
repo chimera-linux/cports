@@ -1,6 +1,6 @@
 pkgname = "nautilus"
 pkgver = "49.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
 hostmakedepends = [

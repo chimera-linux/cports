@@ -1,6 +1,6 @@
 pkgname = "libphonenumber"
 pkgver = "9.0.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # stupid cmake target stuff, don't require -devel-static

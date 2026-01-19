@@ -1,8 +1,7 @@
-# sddm service
-
 type = process
 command = /usr/bin/sddm
-depends-on = login.target
-depends-on = dbus
-depends-ms = elogind
 smooth-recovery = true
+depends-on: login.target
+depends-on: dbus
+depends-ms: elogind
+depends-ms: openrc-settingsd

@@ -1,6 +1,6 @@
 pkgname = "libmspub"
 pkgver = "0.1.4"
-pkgrel = 11
+pkgrel = 12
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

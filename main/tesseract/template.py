@@ -1,6 +1,6 @@
 pkgname = "tesseract"
 pkgver = "5.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # also install training tools
 make_build_args = ["training"]

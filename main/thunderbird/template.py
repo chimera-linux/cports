@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "146.0.1"
+pkgver = "147.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -58,7 +58,7 @@ pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
-sha256 = "816c7add658c208ef6057ef86643ed9ecc0f4daafcae592a1ffe38d1a2108b38"
+sha256 = "6de1b024123e16b2c3d62c5677b2843e7163c6f2358fe3d7e60b845104458121"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -94,8 +94,18 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in []:
-        cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
+    # lolrust failed to calculate checksum of: /builddir/thunderbird-147.0/comm/third_party/rust/minimal-lexical/.gitmodules
+    for crate in [
+        "cubeb-sys",
+        "glslopt",
+        "minimal-lexical",
+        "sfv",
+        "wasi",
+        "yaml-rust2",
+    ]:
+        cargo.clear_vendor_checksums(
+            self, crate, vendor_dir="comm/third_party/rust"
+        )
 
 
 def init_configure(self):

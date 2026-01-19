@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 pkgver = "8.3.24"
 _majver = pkgver[0 : pkgver.rfind(".")]
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -181,8 +181,20 @@ def post_patch(self):
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
         # probably fails because of zlib-ng-compat
         "ext/zlib/tests/bug48725.phpt",
+        "ext/zlib/tests/001.phpt",
+        "ext/zlib/tests/002.phpt",
+        "ext/zlib/tests/003.phpt",
         # most of these try connect to an ldap server and wait for timeout then autoskip
         "ext/ldap/tests/*.phpt",
+        # icu-related
+        "ext/intl/tests/msgfmt_format_intlcalendar_variant4.phpt",
+        "ext/intl/tests/timezone_getDisplayName_variant4.phpt",
+        # pcre2 related
+        "ext/pcre/tests/grep2.phpt",
+        "ext/pcre/tests/split.phpt",
+        "ext/pcre/tests/pcre_extra.phpt",
+        # curl related
+        "ext/curl/tests/curl_setopt_ssl.phpt",
     ]
 
     match self.profile().arch:

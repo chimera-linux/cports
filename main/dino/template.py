@@ -1,6 +1,6 @@
 pkgname = "dino"
 pkgver = "0.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",

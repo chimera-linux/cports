@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -23,14 +23,17 @@ hostmakedepends = [
 makedepends = [
     "dinit-chimera",
     "dinit-dbus",
+    "elogind",
     "elogind-devel",
     "linux-pam-devel",
+    "openrc-settingsd",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
 depends = [
     "dinit-dbus",
     "elogind",
+    "openrc-settingsd",
     "plasma-workspace",
     "turnstile",
     "xrdb",
