@@ -1,5 +1,5 @@
 pkgname = "fcitx5"
-pkgver = "5.1.14"
+pkgver = "5.1.17"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,6 +26,7 @@ makedepends = [
     "libxkbcommon-devel",
     "libxkbfile-devel",
     "linux-headers",
+    "nlohmann-json",
     "pango-devel",
     "wayland-devel",
     "xcb-imdkit-devel",
@@ -41,10 +42,11 @@ source = [
     f"!https://download.fcitx-im.org/data/en_dict-{_en_dict_ver}.tar.gz",
 ]
 sha256 = [
-    "c81bbf0156d083e4c7e7817e658122c33a8c1e585962467f251bc9614bdfee47",
+    "84a927fa5f3a3c713c9388a126a2e9b516f6ca7e6402b140cd82ff6614e61eaa",
     "c44a5d7847925eea9e4d2d04748d442cd28dd9299a0b572ef7d91eac4f5a6ceb",
 ]
 # CFI: causes illegal instruction crashes
+tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 hardening = ["vis", "!cfi"]
 
 
