@@ -1,5 +1,5 @@
 pkgname = "numbat"
-pkgver = "1.17.0"
+pkgver = "1.18.0"
 pkgrel = 0
 build_style = "cargo"
 # Tries to access network
@@ -11,7 +11,7 @@ pkgdesc = "High-precision scientific calculator"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/numbat"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ea690466f12684e2a10c771ac6e707ba0a080eff9ecbf506ef57b76f3cb589a0"
+sha256 = "29ebaf622dfb0c1ed142572f4a0a9a5a546b9b2d51149260ff64078ed4c233cb"
 
 
 def install(self):
