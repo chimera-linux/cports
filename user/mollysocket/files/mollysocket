@@ -1,0 +1,7 @@
+# mollysocket webserver service
+
+type = process
+command = /usr/bin/mollysocket server
+run-as = _molly
+log-type = buffer
+depends-on: network.target
