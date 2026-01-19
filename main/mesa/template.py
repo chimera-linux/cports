@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "25.2.7"
-pkgrel = 1
+pkgver = "25.3.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -15,7 +15,6 @@ configure_args = [
     "-Dlmsensors=enabled",
     "-Dplatforms=x11,wayland",
     "-Dvideo-codecs=all",
-    "-Dgallium-vdpau=disabled",
 ]
 hostmakedepends = [
     "bison",
@@ -67,27 +66,8 @@ provider_priority = 999
 pkgdesc = "Mesa 3D Graphics Library"
 license = "MIT"
 url = "https://www.mesa3d.org"
-# so we don't also download vendored system libs, just rlib names
-_subproject_list = [
-    "equivalent",
-    "hashbrown",
-    "indexmap",
-    "once-cell",
-    "paste",
-    "pest",
-    "pest_derive",
-    "pest_generator",
-    "pest_meta",
-    "proc-macro2",
-    "quote",
-    "roxmltree",
-    "rustc-hash",
-    "syn",
-    "ucd-trie",
-    "unicode-ident",
-]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "b40232a642011820211aab5a9cdf754e106b0bce15044bc4496b0ac9615892ad"
+sha256 = "05328b3891c000e6a110a3e7321d8bfbb21631d132bf86bd3d4a8f45c535ef6b"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -222,11 +202,16 @@ configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
 def post_patch(self):
+    _subp_list = []
+
+    for f in (self.cwd / "subprojects").glob("*-rs.wrap"):
+        _subp_list.append(f.stem)
+
     self.do(
         "meson",
         "subprojects",
         "download",
-        *_subproject_list,
+        *_subp_list,
         allow_network=True,
     )
 
