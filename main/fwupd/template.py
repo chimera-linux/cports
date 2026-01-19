@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "2.0.13"
+pkgver = "2.0.19"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -56,18 +56,12 @@ pkgdesc = "Firmware updater"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "07b09f1d37792b5194840bc3e213c3cbf21d3d652f85489b2a028be47c1c9b84"
+sha256 = "211412d90e3af33f3c46632308fc4a2a66a0d9c6d8443a5b900539555a2503dc"
 options = ["!cross"]
 
-_have_uefi = False
-
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
-        _have_uefi = True
-
-if _have_uefi:
-    makedepends += ["efivar-devel"]
-    if self.profile().arch not in ["loongarch64", "riscv64"]:
+    case "x86_64" | "aarch64" | "loongarch64" | "riscv64" | "armv7":
+        makedepends += ["efivar-devel"]
         depends += ["fwupd-efi"]
 
 
