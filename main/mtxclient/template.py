@@ -1,6 +1,6 @@
 pkgname = "mtxclient"
 pkgver = "0.10.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_LIB_EXAMPLES=OFF"]
 make_check_args = [
