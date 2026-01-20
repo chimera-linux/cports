@@ -1,5 +1,5 @@
 pkgname = "tdesktop"
-pkgver = "6.3.3"
+pkgver = "6.4.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -68,7 +68,7 @@ source = [
 ]
 source_paths = [".", "tde2e"]
 sha256 = [
-    "0a20c12c5fb4475fd3239ec9035b8265fdfab70c31fe36c5780b579321eab6a7",
+    "69cf9c0ca160126a0460312242730e2faa9eb5099ca17abc94e80feb8ad1ac0b",
     "b5e2a20eb38044b124650dbc72b3cc9d134e1c7861df2227f0e649b427c29fa4",
 ]
 tool_flags = {"CXXFLAGS": [], "CFLAGS": []}
