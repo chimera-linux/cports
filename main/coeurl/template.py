@@ -1,6 +1,6 @@
 pkgname = "coeurl"
 pkgver = "0.3.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = ["-Dtests=true"]
 hostmakedepends = [
