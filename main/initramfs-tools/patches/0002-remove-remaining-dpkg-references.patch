@@ -1,12 +1,12 @@
-From 38b954a7a059c81ca74b16f0c700f0952a1e7a02 Mon Sep 17 00:00:00 2001
+From 2559c857971fa6e2097042305ab65da90c82e63d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 22 Apr 2025 15:56:28 +0200
 Subject: [PATCH 2/8] remove remaining dpkg references
 
 ---
  mkinitramfs      |  2 +-
- update-initramfs | 15 ++-------------
- 2 files changed, 3 insertions(+), 14 deletions(-)
+ update-initramfs | 11 ++---------
+ 2 files changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/mkinitramfs b/mkinitramfs
 index 774ef68..5c850a1 100755
@@ -22,14 +22,14 @@ index 774ef68..5c850a1 100755
  			echo "W: $1 is a directory instead of file" >&2
  		else
 diff --git a/update-initramfs b/update-initramfs
-index ff8286d..30131e0 100755
+index 25a3051..0fb08ea 100755
 --- a/update-initramfs
 +++ b/update-initramfs
-@@ -11,13 +11,6 @@ set -e
+@@ -17,13 +17,6 @@ backup_initramfs=no
  
  [ -r ${CONF} ] && . ${CONF}
  
--if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ] && [ $# = 1 ] && [ "$1" = -u ]; then
+-if [ -n "${DPKG_MAINTSCRIPT_PACKAGE-}" ] && [ $# = 1 ] && [ "$1" = -u ]; then
 -	if dpkg-trigger --no-await update-initramfs; then
 -		echo "update-initramfs: deferring update (trigger activated)"
 -		exit 0
@@ -39,7 +39,7 @@ index ff8286d..30131e0 100755
  usage()
  {
  	cat << EOF
-@@ -83,7 +72,7 @@ set_initramfs()
+@@ -85,7 +78,7 @@ set_initramfs()
  backup_initramfs()
  {
  	[ ! -r "${initramfs}" ] && return 0
@@ -48,7 +48,7 @@ index ff8286d..30131e0 100755
  	[ -r "${initramfs_bak}" ] && rm -f "${initramfs_bak}"
  	ln -f "${initramfs}" "${initramfs_bak}" 2>/dev/null \
  		|| cp -a "${initramfs}" "${initramfs_bak}"
-@@ -93,7 +82,7 @@ backup_initramfs()
+@@ -95,7 +88,7 @@ backup_initramfs()
  # keep booted initramfs
  backup_booted_initramfs()
  {
@@ -58,5 +58,5 @@ index ff8286d..30131e0 100755
  	# first time run thus no backup
  	[ ! -r "${initramfs_bak}" ] && return 0
 -- 
-2.49.0
+2.50.1
 
