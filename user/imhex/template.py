@@ -65,10 +65,6 @@ if self.profile().wordsize == 32:
     broken = "uses int128"
 
 
-def post_install(self):
-    self.uninstall("usr/bin/imhex-updater")
-
-
 @subpackage("imhex-devel")
 def _(self):
     return self.default_devel(extra=["usr/share/imhex/sdk"])
