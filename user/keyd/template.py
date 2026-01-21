@@ -1,6 +1,6 @@
 pkgname = "keyd"
 pkgver = "2.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -23,3 +23,4 @@ def post_install(self):
     self.install_service("^/keyd")
     self.install_service("^/keyd.user")
     self.install_sysusers("^/sysusers.conf")
+    self.install_tmpfiles("^/tmpfiles.conf")

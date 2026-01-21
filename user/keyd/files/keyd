@@ -1,4 +1,4 @@
 type = process
 command = /usr/bin/keyd
 smooth-recovery = true
-depends-on = local.target
+depends-on: local.target
