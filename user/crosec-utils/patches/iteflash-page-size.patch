@@ -1,0 +1,54 @@
+diff --git a/util/iteflash.c b/util/iteflash.c
+index a4a166d3d8..ddb4b88c8b 100644
+--- a/util/iteflash.c
++++ b/util/iteflash.c
+@@ -59,7 +59,7 @@
+ #define CHIP_ID 0x8380
+ 
+ /* Embedded flash page size */
+-#define PAGE_SIZE		(1<<8)
++#define ITE_PAGE_SIZE		(1<<8)
+ 
+ /* Embedded flash block write size for different programming modes. */
+ #define FTDI_BLOCK_WRITE_SIZE	(1<<16)
+@@ -1183,7 +1183,9 @@ static int command_read_pages(struct common_hnd *chnd, uint32_t address,
+ 		goto failed_read;
+ 
+ 	while (remaining) {
+-		cnt = (remaining > PAGE_SIZE) ? PAGE_SIZE : remaining;
++		cnt = (remaining > ITE_PAGE_SIZE
++		                                ) ? ITE_PAGE_SIZE
++		                                 : remaining;
+ 		draw_spinner(remaining, size);
+ 
+ 		/* read page data */
+@@ -1418,7 +1420,8 @@ wait_busy_cleared:
+ 			draw_spinner(remaining, len);
+ 		} else {
+ 			page += sector_erase_pages;
+-			remaining -= sector_erase_pages * PAGE_SIZE;
++			remaining -= sector_erase_pages * ITE_PAGE_SIZE
++			;
+ 		}
+ 	}
+ 
+@@ -1499,7 +1502,8 @@ static int command_erase2(struct common_hnd *chnd, uint32_t len,
+ 		}
+ 
+ 		page += sector_erase_pages;
+-		remaining -= sector_erase_pages * PAGE_SIZE;
++		remaining -= sector_erase_pages * ITE_PAGE_SIZE
++		;
+ 		draw_spinner(remaining, len);
+ 
+ 	}
+@@ -2018,7 +2022,8 @@ static const struct i2c_interface ccd_i2c_interface = {
+ 	.interface_shutdown = ccd_i2c_interface_shutdown,
+ 	.send_special_waveform = ccd_trigger_special_waveform,
+ 	.byte_transfer = ccd_i2c_byte_transfer,
+-	.default_block_write_size = PAGE_SIZE,
++	.default_block_write_size = ITE_PAGE_SIZE
++,
+ };
+ 
+ static const struct i2c_interface ftdi_i2c_interface = {
