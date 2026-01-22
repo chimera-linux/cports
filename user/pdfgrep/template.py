@@ -1,6 +1,6 @@
 pkgname = "pdfgrep"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["libgcrypt-devel", "pcre2-devel", "poppler-devel"]

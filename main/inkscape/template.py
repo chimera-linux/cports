@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
