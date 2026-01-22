@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "25.8.4.2"
-pkgrel = 1
+pkgver = "26.2.0.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -39,7 +39,9 @@ configure_args = [
     "--with-myspell-dicts",
     "--without-java",
     "--without-fonts",
+    "--without-system-afdko",
     "--without-system-box2d",
+    "--without-system-fast-float",
     "--without-system-libcmis",
     "--without-system-libeot",
     "--without-system-libzmf",
@@ -140,6 +142,7 @@ makedepends = [
     "libxml2-devel",
     "libxslt-devel",
     "libxt-devel",
+    "md4c-devel",
     "mdds",
     "mythes-devel",
     "neon-devel",
@@ -188,10 +191,10 @@ source = [
     f"{_aurl}/libeot-0.01.tar.bz2",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
-    f"{_aurl}/pdfium-7012.tar.bz2",
-    f"{_eurl}/officeotron-0.8.4.jar",
+    f"{_aurl}/pdfium-7471.tar.bz2",
+    f"{_eurl}/officeotron-0.8.5.jar",
     f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
-    f"{_aurl}/dtoa-20180411.tgz",
+    f"{_aurl}/fast_float-8.2.2.tar.gz",
     f"{_aurl}/bsh-2.1.1-src.zip",
     f"{_aurl}/libnumbertext-1.0.11.tar.xz",
     f"{_aurl}/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip",
@@ -202,16 +205,19 @@ source = [
     f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
     f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
     f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
-    f"{_aurl}/skia-m136-28685d899b0a35894743e2cedad4c9f525e90e1e.tar.xz",
+    f"{_aurl}/skia-m142-f4ed99d2443962782cf5f8b4dd27179f131e7cbe.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
     f"{_aurl}/frozen-1.2.0.tar.gz",
     f"{_aurl}/zxcvbn-c-2.6.tar.gz",
+    f"{_aurl}/afdko-4.0.3.tar.gz",
+    f"{_aurl}/antlr4-cpp-runtime-4.13.2-source.zip",
+    f"{_aurl}/y-crdt-0.23.5.tar.gz",
 ]
 sha256 = [
-    "1a33dd5888e0b5db648f608e1c6ed7581ec1784f565f38e5c537efa09eacf419",
-    "28343503bc4c07e5d28b5829f450270fc65aa8cd921a23f0e6af55c91648df73",
-    "851eb8cee3344999a90fb740620c64261761f085ac3ab48c76ac3a3545102908",
-    "26373dfea7e48a4e1423d2962f87864a1024a02e769781f642836d9c2f41c14c",
+    "1e12460692a850cf86daaf048b84bc98fee3987529dd46f4994146f0dbfa130b",
+    "80888662b5260be4d80d706cf22a8a62785fc2f86586ffb172587bdbadc9604b",
+    "423c28488a010e8a8330a0359da6cc0820fd1a24b5679d8f329759a949b5c156",
+    "23cf2cfa4bd2eebc182cfc38abff1fb3c648f5632ee85fcf40b0aef2a1f6ac97",
     "65599965d82c0e60332601d511dacb0241e796cabfa5550c72bb80c4bf89e8ad",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -224,10 +230,10 @@ sha256 = [
     "cf5091fa8e7dcdbe667335eb90a2cfdd0a3fe8f8c7c8d1ece44d9d055736a06a",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
-    "e647ca4fcc2c91d9dca717452e1b1be1ab6155ac4977dca716041652c7b10bdd",
-    "567b9579510969e34085ed30995d87b27a11584f03711d7fc9b7ec2e1cea36c5",
+    "7144b0fa78fd408997e7b84ffd3c257db602e392a1bb1584828d80e60b6b27c5",
+    "0c2a4227394ac78147387f1c1ff1063e87f2151ffc91f1eb97bb17c2650fa708",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
-    "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
+    "e64b5fff88e04959154adbd5fb83331d91f2e04ac06454671cdfcbdff172b158",
     "2248387ceaa319840434a3547a8b2fec12f95a8418ee039ce5ff5726053a139c",
     "5dcb4db3b2340f81f601ce86d8d76b69e34d70f84f804192c901e4b7f84d5fb0",
     "75c80359c9ce343c20aab8a36a45cb3b9ee7c61cf92c13ae45399d854423a9ba",
@@ -238,10 +244,13 @@ sha256 = [
     "abe2c57ac12ba45d83563b02e240fa95d973376de2f720aab8fe11f2e621c095",
     "05640a1f6805b2b2d7e2cb9c50db9a5cb084e3c52ab1a71ce015239b4a1d4343",
     "085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045",
-    "2384f5f44a0b714d8dc78923fdf17453ab5a1808ca638154e3e27b361531db25",
+    "45ae58e84fa2d1e261bfc980e1c5b7bbfaf83887e3813795bd343d3786f4d0bc",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
     "ed8339c017d7c5fe019ac2c642477f435278f0dc643c1d69d3f3b1e95915e823",
     "11e39f6776f9c82c68b2acb94336e32697d4ab6cdb4ac16f9583ccbdd735113a",
+    "5feed7c2468e25b25fce0479c04af07f4ed2680bc9251bb4c4aef9ec2fba5720",
+    "0ed13668906e86dbc0dcddf30fdee68c10203dea4e83852b4edb810821bee3c4",
+    "67c02f1b74fda33bcc824a310028c100ce2a84b6e63ade46ae1a3258e867a225",
 ]
 tool_flags = {
     "CXXFLAGS": ["-DGLM_ENABLE_EXPERIMENTAL", "-DU_USING_ICU_NAMESPACE=1"]
