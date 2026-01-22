@@ -1,6 +1,6 @@
 pkgname = "md4c"
 pkgver = "0.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Fast CommonMark compliant markdown parser"
