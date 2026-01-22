@@ -3,3 +3,4 @@ command = /usr/bin/seatd -g _seatd
 before = login.target
 depends-on = local.target
 smooth-recovery = true
+logfile = /var/log/seatd.log
