@@ -1,7 +1,7 @@
 pkgname = "php8.3"
-pkgver = "8.3.24"
+pkgver = "8.3.30"
 _majver = pkgver[0 : pkgver.rfind(".")]
-pkgrel = 1
+pkgrel = 0
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -133,7 +133,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "b827c512b59270c3dc7e19614314fc345022c423e6443c960746310792d0de82"
+sha256 = "e587dc95fb7f62730299fa7b36b6e4f91e6708aaefa2fff68a0098d320c16386"
 
 if self.profile().arch in ["loongarch64"]:
     makedepends += ["libucontext-devel"]
@@ -186,15 +186,6 @@ def post_patch(self):
         "ext/zlib/tests/003.phpt",
         # most of these try connect to an ldap server and wait for timeout then autoskip
         "ext/ldap/tests/*.phpt",
-        # icu-related
-        "ext/intl/tests/msgfmt_format_intlcalendar_variant4.phpt",
-        "ext/intl/tests/timezone_getDisplayName_variant4.phpt",
-        # pcre2 related
-        "ext/pcre/tests/grep2.phpt",
-        "ext/pcre/tests/split.phpt",
-        "ext/pcre/tests/pcre_extra.phpt",
-        # curl related
-        "ext/curl/tests/curl_setopt_ssl.phpt",
     ]
 
     match self.profile().arch:

@@ -1,6 +1,4 @@
-# php-fpm8.3 service
-
 type = process
 command = /usr/bin/php-fpm8.3 -F
-depends-on = local.target
 smooth-recovery = true
+depends-on: local.target
