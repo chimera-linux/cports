@@ -1,5 +1,5 @@
 pkgname = "kio"
-pkgver = "6.22.0"
+pkgver = "6.22.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -47,7 +47,7 @@ url = "https://api.kde.org/frameworks/kio/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
-sha256 = "4b03f1a070f78ac2a343f138ac5f8d9bccd1192764aaa45ae49aa7f495992694"
+sha256 = "04aaf8eb2b3bcac6d921fc3a1d033d67df89d9af8f69355185edf1af61c93370"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]
 # >60% (40/62) tests fail, pain to get working in a limited enviroment due to expecting e.g. real disks
