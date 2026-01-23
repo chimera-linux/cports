@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.5.4"
+pkgver = "6.5.5"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -93,7 +93,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "258443f72180cf5a8141b440bb51a714a2e67e30867736290793ce50d7bb1d70"
+sha256 = "fbad845044231174ca7aad45572d1713d1b6f65289d94cac24776a103f051e46"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

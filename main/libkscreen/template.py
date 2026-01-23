@@ -1,5 +1,5 @@
 pkgname = "libkscreen"
-pkgver = "6.5.4"
+pkgver = "6.5.5"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -24,7 +24,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "98a684fac01d0d3ea309a89f00a7739ec32263df38f5a7b988e74302af546f94"
+sha256 = "595bf06cd8b0c906800a34efd7d93e45add99f2f7e9248c0e8203a838ec861f9"
 # traps on some setups?
 # https://github.com/chimera-linux/cports/issues/4960
 hardening = ["!int"]
