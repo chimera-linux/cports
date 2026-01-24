@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/mpdscribble --no-daemon
+depends-on: local.target
+depends-on: network.target
+after: mpd
