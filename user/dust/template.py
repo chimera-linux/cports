@@ -1,5 +1,5 @@
 pkgname = "dust"
-pkgver = "1.2.3"
+pkgver = "1.2.4"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Simplified du -h"
 license = "Apache-2.0"
 url = "https://github.com/bootandy/dust"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "424b26adfbafeac31da269ecb3f189eca09803e60fad90b3ff692cf52e0aeeee"
+sha256 = "2f6768534bd01727234e67f1dd3754c9547aa18c715f6ee52094e881ebac50e3"
 # tests may be disabled
 options = []
 
