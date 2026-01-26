@@ -1,0 +1,6 @@
+type = process
+command = /usr/lib/frr/$1 -A 127.0.0.1
+logfile = /var/log/frr/$1.log
+depends-on: frr-zebra
+depends-on: local.target
+before: network.target
