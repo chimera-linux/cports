@@ -1,0 +1,12 @@
+diff --git a/Makefile b/Makefile
+index 0d4ca48c..896c9cf5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ .DEFAULT_GOAL := all
+ 
+-SYS := $(shell $(CXX) -dumpmachine)
++SYS := freebsd
+ 
+ ifneq (, $(findstring darwin, $(SYS)))
+ 	SHARED_SUFFIX = dylib
