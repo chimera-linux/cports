@@ -1,5 +1,5 @@
 pkgname = "linux-headers-cross"
-pkgver = "6.13.1"
+pkgver = "6.18.7"
 pkgrel = 0
 hostmakedepends = ["perl"]
 depends = []
@@ -7,7 +7,7 @@ pkgdesc = "Linux API headers for cross-compiling"
 license = "GPL-2.0-only"
 url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "f011f6c8ea471df1b3dbbdd1eb261b29c92e43360503c3ebd005beec2155b66a"
+sha256 = "b726a4d15cf9ae06219b56d87820776e34d89fbc137e55fb54a9b9c3015b8f1e"
 # nothing to test
 options = ["!cross", "!check", "empty"]
 
