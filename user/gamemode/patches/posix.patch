@@ -1,0 +1,20 @@
+diff --git a/data/gamemodelist b/data/gamemodelist
+index 392c369..e959433 100755
+--- a/data/gamemodelist
++++ b/data/gamemodelist
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # Created by Sam Gleske
+ # Created Sat Jan  1 16:56:54 EST 2022
+ # MIT License - https://github.com/samrocketman/home
+diff --git a/data/gamemoderun b/data/gamemoderun
+index 573b3e4..beae444 100755
+--- a/data/gamemoderun
++++ b/data/gamemoderun
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # Helper script to launch games with gamemode
+ 
+ GAMEMODEAUTO_NAME="libgamemodeauto.so.0"
