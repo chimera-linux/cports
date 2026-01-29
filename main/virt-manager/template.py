@@ -1,6 +1,6 @@
 pkgname = "virt-manager"
-pkgver = "5.0.0"
-pkgrel = 1
+pkgver = "5.1.0"
+pkgrel = 0
 build_style = "meson"
 _deps = [
     "libarchive-progs",
@@ -34,7 +34,7 @@ url = "https://virt-manager.org"
 source = (
     f"https://releases.pagure.org/virt-manager/virt-manager-{pkgver}.tar.xz"
 )
-sha256 = "bc89ae46e0c997bd754ed62a419ca39c6aadec27e3d8b850cea5282f0083f84a"
+sha256 = "ccfc44b6c1c0be8398beb687c675d9ea4ca1c721dfb67bd639209a7b0dec11b1"
 
 
 def post_install(self):
