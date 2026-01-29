@@ -1,5 +1,5 @@
 pkgname = "neocmakelsp"
-pkgver = "0.8.25"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,20 +8,7 @@ pkgdesc = "CMake language server"
 license = "MIT"
 url = "https://neocmakelsp.github.io"
 source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2e4e1b61ea4d426bbfa615cffb847ed866ee8b8477f114c648567fc7750c482e"
-
-
-def pre_prepare(self):
-    # rustix loongarch64
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "libc",
-        "--precise",
-        "0.2.174",
-        allow_network=True,
-    )
+sha256 = "084f4e8605e0834c3ca85abd7460801dc22454f45f68557340d02642a4be3c72"
 
 
 def post_install(self):
