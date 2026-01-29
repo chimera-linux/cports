@@ -1,5 +1,5 @@
 pkgname = "newsflash"
-pkgver = "4.1.4"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "Feed reader designed for the GNOME desktop"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
-sha256 = "25a940e59cf118b1ef818225f748981a0ef089cff54774cd9e8ac0436eeec932"
+sha256 = "a3c4e9d11c48d43692eb2b76b11ff1481c8712bb76f5a73bcdcf183d7ac11a4e"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
@@ -30,17 +30,6 @@ if self.profile().wordsize == 32:
 
 def post_patch(self):
     from cbuild.util import cargo
-
-    # 0.2.175 is broken with rustix 1.0.8 on loongarch
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "libc",
-        "--precise",
-        "0.2.174",
-        allow_network=True,
-    )
 
     cargo.Cargo(self, wrksrc=".").vendor()
 
