@@ -1,0 +1,10 @@
+diff -ruN a/dbus/org.freedesktop.ratbag1.service.in b/dbus/org.freedesktop.ratbag1.service.in
+--- a/dbus/org.freedesktop.ratbag1.service.in	2024-09-24 18:00:05.000000000 +0200
++++ b/dbus/org.freedesktop.ratbag1.service.in	2025-12-22 22:57:26.809676784 +0100
+@@ -1,5 +1,4 @@
+ [D-BUS Service]
+ Name=org.freedesktop.ratbag1
+-Exec=@sbindir@/ratbagd
++Exec=/usr/bin/dinitctl --quiet start ratbagd
+ User=root
+-SystemdService=ratbagd.service
