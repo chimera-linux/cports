@@ -1,0 +1,105 @@
+From 5b8bfcf5a660bf8cbf909640bbd17bf21e51eeaf Mon Sep 17 00:00:00 2001
+From: Pepper Gray <111446242+peppergrayxyz@users.noreply.github.com>
+Date: Sun, 6 Jul 2025 02:59:28 +0200
+Subject: [PATCH 1/3] -shared and -pie may not be used together
+
+---
+ efi/meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/efi/meson.build b/efi/meson.build
+index 36dfa5d..aadec64 100644
+--- a/efi/meson.build
++++ b/efi/meson.build
+@@ -166,6 +166,7 @@ compile_args = ['-Og',
+                 '-Wvla',
+                 '-std=gnu11',
+                 '-fpic',
++                '-fno-pie',
+                 '-funsigned-char',
+                 '-fshort-wchar',
+                 '-ffreestanding',
+@@ -203,6 +204,7 @@ endif
+ efi_ldflags = ['-T',
+                join_paths(efi_ldsdir, arch_lds),
+                '-shared',
++               '-no-pie',
+                '-Bsymbolic',
+                '-nostdlib',
+                '-znocombreloc',
+
+From 7086be5adb9d1471e02b502389a22318e501592b Mon Sep 17 00:00:00 2001
+From: Pepper Gray <111446242+peppergrayxyz@users.noreply.github.com>
+Date: Sun, 6 Jul 2025 03:01:06 +0200
+Subject: [PATCH 2/3] keep .dynstr and .dynsym
+
+---
+ efi/generate_binary.py | 4 ++++
+ efi/meson.build        | 2 ++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/efi/generate_binary.py b/efi/generate_binary.py
+index a4611bb..0916176 100755
+--- a/efi/generate_binary.py
++++ b/efi/generate_binary.py
+@@ -29,6 +29,10 @@ def _run_objcopy(args):
+         "-j",
+         ".dynamic",
+         "-j",
++        ".dynstr",
++        "-j",
++        ".dynsym",
++        "-j",
+         ".rodata",
+         "-j",
+         ".areloc",
+diff --git a/efi/meson.build b/efi/meson.build
+index aadec64..a4845ed 100644
+--- a/efi/meson.build
++++ b/efi/meson.build
+@@ -343,6 +343,8 @@ dbg = custom_target('efi_debug',
+                                '-j', '.sdata',
+                                '-j', '.data',
+                                '-j', '.dynamic',
++                               '-j', '.dynstr',
++                               '-j', '.dynsym',
+                                '-j', '.rodata',
+                                '-j', '.rel*',
+                                '-j', '.rela*',
+
+From 6e65097d10e0aad5b03ff8cd37b7b2f66b69260b Mon Sep 17 00:00:00 2001
+From: Pepper Gray <111446242+peppergrayxyz@users.noreply.github.com>
+Date: Sun, 6 Jul 2025 03:08:43 +0200
+Subject: [PATCH 3/3] check if compiler has command -print-multi-os-directory
+
+---
+ efi/meson.build | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/efi/meson.build b/efi/meson.build
+index a4845ed..16017d9 100644
+--- a/efi/meson.build
++++ b/efi/meson.build
+@@ -37,11 +37,16 @@ endif
+ 
+ efi_libdir = get_option('efi-libdir')
+ if efi_libdir == ''
+-  fs = import('fs')
+-  multi = run_command(cc.cmd_array(), '-print-multi-os-directory', check: true).stdout().strip()
+-  efi_libdir = join_paths('/usr/lib/', multi)
+-  if not fs.is_dir(join_paths(efi_libdir, 'gnuefi'))
+-    efi_libdir = '/usr/lib'
++  efi_libdir = '/usr/lib'
++  if meson.get_compiler('c').has_argument('-print-multi-os-directory')
++    fs = import('fs')
++    multi = run_command(cc.cmd_array(), '-print-multi-os-directory', check: true).stdout().strip()
++    efi_libdir_multi = join_paths(efi_libdir, multi)
++    if fs.is_dir(join_paths(efi_libdir_multi, 'gnuefi'))
++      efi_libdir = efi_libdir_multi
++    endif
++  else
++    warning('Compiler does not support -print-multi-os-directory, using default efi-libdir path')
+   endif
+ endif
+ 
+
