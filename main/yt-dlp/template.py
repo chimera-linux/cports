@@ -1,5 +1,5 @@
 pkgname = "yt-dlp"
-pkgver = "2025.12.08"
+pkgver = "2026.01.29"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -27,7 +27,7 @@ url = "https://github.com/yt-dlp/yt-dlp"
 source = (
     f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz>yt-dlp-{pkgver}.tar.gz"
 )
-sha256 = "9814ae7dd4118a80a6104399d4984e355d2a71f78e6bbc48137a5b299eddcbaf"
+sha256 = "e4edd01abd229f646b8280209d462785c2d0929f7612fb24740fa528e5eff433"
 
 
 @subpackage("yt-dlp-recommends")
