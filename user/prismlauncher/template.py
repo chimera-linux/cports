@@ -1,7 +1,10 @@
 pkgname = "prismlauncher"
-pkgver = "9.4"
-pkgrel = 1
+pkgver = "11.0.2"
+pkgrel = 0
 build_style = "cmake"
+configure_args = [
+    "-DLauncher_BUILD_PLATFORM=chimeralinux",
+]
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 hostmakedepends = [
     "cmake",
@@ -15,18 +18,20 @@ hostmakedepends = [
 makedepends = [
     "cmark",  # cmake detection
     "cmark-devel",
-    "qt6-qt5compat-devel",
+    "gamemode-devel",
+    "libarchive-devel",
+    "qrencode-devel",
     "qt6-qtbase-devel",
     "qt6-qtnetworkauth-devel",
     "qt6-qtsvg-devel",
-    "quazip-devel",
+    "tomlplusplus-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Minecraft launcher with multiple instances support"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
-sha256 = "77ab52239c2a2a9f77d7c4607e1d9cf40970f9240d2f5061b116a7b1b8fd0277"
+sha256 = "8956e9351bcb0472fc9c2c61ae68aa2960f27f7cabb1cacd86dd2af1c233a064"
 
 
 @subpackage("prismlauncher-natives")
