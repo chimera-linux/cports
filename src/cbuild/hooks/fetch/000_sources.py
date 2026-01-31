@@ -32,16 +32,15 @@ def make_link(dfile, cksum):
             linkpath.hardlink_to(dfile)
 
 
-def verify_cksum(dfile, cksum, pkg):
+def verify_cksum(dfile, idx, pkg):
+    cksum = pkg.sha256[idx]
     pkg.log(f"verifying sha256sums for source '{dfile.name}'... ", "")
     filesum = get_cksum(dfile, pkg)
     if cksum != filesum:
         if pkg.accept_checksums:
             pkg.logger.out_plain("")
             pkg.logger.out(f"\f[orange]SHA256 UPDATED: {cksum} -> {filesum}")
-            for i in range(len(pkg.sha256)):
-                if pkg.sha256[i] == cksum:
-                    pkg.sha256[i] = filesum
+            pkg.sha256[idx] = filesum
             return True
         else:
             pkg.logger.out_plain("")
@@ -349,10 +348,10 @@ def invoke(pkg):
     if ferrs > 0:
         pkg.error(f"failed to fetch {ferrs} sources")
     # verify the sources
-    for dfile, ck in dfiles:
+    for idx, [dfile, _] in enumerate(dfiles):
         if not dfile.is_file():
             pkg.error(f"source '{dfile}' does not exist")
-        if not verify_cksum(dfile, ck, pkg):
+        if not verify_cksum(dfile, idx, pkg):
             errors += 1
     # error if something failed to verify
     if errors > 0:
