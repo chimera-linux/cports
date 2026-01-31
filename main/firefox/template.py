@@ -172,6 +172,12 @@ def configure(self):
             pass
         case "loongarch64":
             conf_opts += ["--disable-crashreporter"]
+        case "armv7":
+            conf_opts += [
+                "--disable-crashreporter",
+                "--disable-debug",
+                "--disable-debug-symbols",
+            ]
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
