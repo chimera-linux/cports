@@ -525,7 +525,7 @@ def update_check(pkg, verbose=False, error=False):
         if error:
             return None
 
-        print(f"CAUTION: no version found for '{pkg.pkgname}'")
+        print(f"CAUTION: no version found for '{pkg.full_pkgname}'")
 
     for v in vers:
         if verbose:
