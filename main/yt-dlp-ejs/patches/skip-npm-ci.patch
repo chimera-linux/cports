@@ -1,0 +1,36 @@
+From 752cb207a9e37f3637686fc0223ebbd266626d23 Mon Sep 17 00:00:00 2001
+From: Ayush Agarwal <ayush@ayushnix.com>
+Date: Sat, 31 Jan 2026 08:39:51 +0530
+Subject: [PATCH] skip the installation step
+
+'npm ci' must be run in the prepare step with internet access
+---
+ hatch_build.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hatch_build.py b/hatch_build.py
+index 54fffb6..1a27ed2 100755
+--- a/hatch_build.py
++++ b/hatch_build.py
+@@ -55,17 +55,17 @@ def build_bundle_cmds():
+     elif npm := shutil.which("npm"):
+         name = "npm (node)"
+         install = [npm, "ci"]
+         bundle = [npm, "run", "bundle"]
+ 
+     else:
+         return None, None, None
+ 
+-    return name, [install, bundle], env
++    return name, [bundle], env
+ 
+ 
+ if __name__ == "__main__":
+     import sys
+ 
+     name, cmds, env = build_bundle_cmds()
+     if cmds is None:
+         print("ERROR: No suitable JavaScript runtime found", file=sys.stderr)
+-- 
+2.52.0
+
