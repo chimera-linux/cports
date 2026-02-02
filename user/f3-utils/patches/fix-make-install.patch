@@ -1,11 +1,21 @@
+diff --git a/Makefile b/Makefile
+index 82b2d72..3563b7e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -20,7 +20,7 @@
- all: $(TARGETS)
- extra: $(EXTRA_TARGETS)
+@@ -28,14 +28,14 @@ extra: $(EXTRA_TARGETS)
+ docker:
+ 	docker build -f Dockerfile -t f3:latest .
  
 -install: all
 +install:
  	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
  	$(INSTALL) -m755 $(TARGETS) $(DESTDIR)$(PREFIX)/bin
  	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man1
+ 	$(INSTALL) -m644 f3read.1 $(DESTDIR)$(PREFIX)/share/man/man1
+ 	$(LN) -sf f3read.1 $(DESTDIR)$(PREFIX)/share/man/man1/f3write.1
+ 
+-install-extra: extra
++install-extra:
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
+ 	$(INSTALL) -m755 $(EXTRA_TARGETS) $(DESTDIR)$(PREFIX)/bin
+ 
