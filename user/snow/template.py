@@ -17,6 +17,9 @@ url = "https://snowemu.com"
 source = f"https://github.com/twvd/snow/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0b6bd694d75e2ad9043be635b40e1c7b06e7e37665d64464405b6e83e0d5993b"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.install_bin(
