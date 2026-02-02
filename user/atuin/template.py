@@ -1,6 +1,6 @@
 pkgname = "atuin"
 pkgver = "18.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
@@ -27,7 +27,7 @@ def build(self):
         self.mv(f"{tgt_base}/atuin", f"{tgt_base}/atuin-server")
 
     with self.stamp("client"):
-        self.cargo.build(["--features=client,sync,clipboard"])
+        self.cargo.build(["--features=client,sync,clipboard,daemon"])
 
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"atuin.{shell}", "w") as outf:
@@ -50,6 +50,9 @@ def install(self):
     self.install_file(
         "crates/atuin-server/server.toml", "usr/share/examples/atuin"
     )
+
+    # user daemon dinit service definition
+    self.install_service(self.files_path / "atuin-daemon.user")
 
     self.install_license("LICENSE")
 
