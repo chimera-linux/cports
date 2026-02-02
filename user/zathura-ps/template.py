@@ -1,6 +1,6 @@
 pkgname = "zathura-ps"
-pkgver = "0.2.9"
-pkgrel = 1
+pkgver = "2026.02.03"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -13,4 +13,4 @@ pkgdesc = "Postscript support for zathura"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-ps"
 source = f"{url}/download/zathura-ps-{pkgver}.tar.xz"
-sha256 = "a95334500848a7a6e8f497232abbc63ba4a628796df73766c3714840083555e8"
+sha256 = "b3556ff2960b7a5d014e873bd0474c37f3f082e370c6ed8efb9487ba6167eda8"
