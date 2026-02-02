@@ -22,6 +22,9 @@ sha256 = "a4b3421feb8f5cf1f609bcccab4252b48518664209a5719863c42fcaea3b71be"
 # no tests in top-level project
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/halloy")
