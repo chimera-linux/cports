@@ -1,0 +1,225 @@
+this patch is based on Tobias Heider (tobhe)'s patches for debian
+diff --git a/Makefile b/Makefile
+index c1d1768..5f7abc0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-PREFIX=/usr/local
++PREFIX=/usr
+ SYS_PREFIX=$(PREFIX)
+ CONFIG_DIR=/etc/default
+ BIN_DIR=$(PREFIX)/bin
+@@ -58,6 +58,15 @@ install-udev-hwdb: install
+ 	install -dD $(DESTDIR)$(UDEV_HWDB_DIR)
+ 	install -m0644 -t $(DESTDIR)$(UDEV_HWDB_DIR) udev/hwdb.d/65-autosuspend-override-asahi-sdhci.hwdb
+ 
++install-initramfs:
++	install -d $(DESTDIR)$(PREFIX)/share/initramfs-tools/hooks/
++	install -m0755 -t $(DESTDIR)$(PREFIX)/share/initramfs-tools/hooks/ initramfs/hooks/asahi
++	install -d $(DESTDIR)$(PREFIX)/share/initramfs-tools/scripts/init-top
++	install -m0755 -t $(DESTDIR)$(PREFIX)/share/initramfs-tools/scripts/init-top initramfs/scripts/init-top/asahi
++	install -d $(DESTDIR)$(PREFIX)/share/initramfs-tools/scripts/init-bottom
++	install -m0755 -t $(DESTDIR)$(PREFIX)/share/initramfs-tools/scripts/init-bottom initramfs/scripts/init-bottom/asahi
++	install -m0644 -t $(DESTDIR)$(PREFIX)/share/asahi-scripts initramfs/modules
++
+ install-arch: install install-mkinitcpio install-macsmc-battery install-udev-hwdb
+ 	install -m0755 -t $(DESTDIR)$(BIN_DIR)/ $(BUILD_ARCH_SCRIPTS)
+ 	install -dD $(DESTDIR)$(PREFIX)/lib/systemd/system
+diff --git a/functions.sh b/functions.sh
+index fd400ff..ccb3ed2 100644
+--- a/functions.sh
++++ b/functions.sh
+@@ -43,7 +43,7 @@ mount_sys_esp() {
+         mount --bind "$bootmnt" "$mountpoint"
+         warn "System ESP not identified in device tree, using $bootmnt"
+     else
+-        mount "PARTUUID=$esp_uuid" "$mountpoint"
++        mount -t vfat "/dev/disk/by-partuuid/$esp_uuid" "$mountpoint"
+     fi
+     dev="$(grep "$mountpoint" /proc/mounts | cut -d" " -f1)"
+     info "Mounted System ESP $dev at $mountpoint"
+@@ -72,7 +72,7 @@ mount_boot_esp() {
+             return 1
+         fi
+ 
+-        mount "PARTUUID=$esp_uuid" "$mountpoint"
++        mount -t vfat "/dev/disk/by-partuuid/$esp_uuid" "$mountpoint"
+     fi
+     info "Mounted Boot ESP at $mountpoint"
+ }
+diff --git a/initramfs/hooks/asahi b/initramfs/hooks/asahi
+new file mode 100644
+index 0000000..9a05d0f
+--- /dev/null
++++ b/initramfs/hooks/asahi
+@@ -0,0 +1,29 @@
++#!/bin/sh
++
++PREREQ=""
++
++prereqs()
++{
++        echo "$PREREQ"
++}
++
++case $1 in
++prereqs)
++        prereqs
++        exit 0
++        ;;
++esac
++
++# Hooks for loading asahi modules and firmware
++
++. /usr/share/initramfs-tools/hook-functions
++
++mkdir -p "${DESTDIR}/lib/firmware"
++mkdir -p "${DESTDIR}/usr/share/asahi-scripts"
++cp -r /usr/share/asahi-scripts/* "${DESTDIR}/usr/share/asahi-scripts"
++
++manual_add_modules vfat
++manual_add_modules nls_ascii
++manual_add_modules nls_cp437
++
++add_modules_from_file /usr/share/asahi-scripts/modules
+diff --git a/initramfs/modules b/initramfs/modules
+new file mode 100644
+index 0000000..0fe204f
+--- /dev/null
++++ b/initramfs/modules
+@@ -0,0 +1,40 @@
++# For NVMe & SMC
++apple-mailbox
++# For NVMe
++nvme_apple
++# For USB and HID
++pinctrl-apple-gpio
++# SMC core
++macsmc
++macsmc-rtkit
++# For USB
++i2c-apple
++i2c-pasemi-platform
++tps6598x
++apple-dart
++dwc3
++dwc3-of-simple
++nvmem-apple-efuses
++phy-apple-atc
++xhci-pci
++xhci-plat-hcd
++pcie-apple
++gpio_macsmc
++# For HID
++spi-apple
++spi-hid-apple
++spi-hid-apple-of
++# For RTC
++rtc-macsmc
++simple-mfd-spmi
++spmi-apple-controller
++nvmem_spmi_mfd
++# For MTP HID
++apple-dockchannel
++dockchannel-hid
++apple-rtkit-helper
++# For DP / HDMI audio
++apple-sio
++# For DPTX and HDMI displays
++mux-apple-display-crossbar
++phy-apple-dptx
+diff --git a/initramfs/scripts/init-bottom/asahi b/initramfs/scripts/init-bottom/asahi
+new file mode 100644
+index 0000000..cac593b
+--- /dev/null
++++ b/initramfs/scripts/init-bottom/asahi
+@@ -0,0 +1,19 @@
++#!/bin/sh
++
++PREREQ=""
++prereqs()
++{
++        echo "$PREREQ"
++}
++case $1 in
++# get pre-requisites
++prereqs)
++        prereqs
++        exit 0
++        ;;
++esac
++
++. /scripts/functions
++
++mount -t tmpfs -o mode=0755 vendorfw "${rootmnt}"/lib/firmware/vendor
++cp -a /vendorfw/* /vendorfw/.vendorfw.manifest "${rootmnt}"/lib/firmware/vendor
+diff --git a/initramfs/scripts/init-top/asahi b/initramfs/scripts/init-top/asahi
+new file mode 100644
+index 0000000..2044e32
+--- /dev/null
++++ b/initramfs/scripts/init-top/asahi
+@@ -0,0 +1,61 @@
++#!/bin/sh
++
++PREREQ="udev"
++prereqs()
++{
++        echo "$PREREQ"
++}
++case $1 in
++# get pre-requisites
++prereqs)
++        prereqs
++        exit 0
++        ;;
++esac
++
++. /scripts/functions
++
++if [ -e /lib/firmware/vendor ]; then
++	log_failure_msg "Vendor firmware was loaded by the bootloader"
++	return 1
++fi
++
++if [ ! -e /proc/device-tree/chosen/asahi,efi-system-partition ]; then
++	log_failure_msg "Missing asahi,efi-system-partition variable, firmware will not be loaded!"
++	return 1
++fi
++
++log_success_msg "Load NVME modules"
++modprobe apple-mailbox
++modprobe nvme-apple
++modprobe xhci-plat-hcd
++
++for i in $(seq 0 50); do
++[ -e /sys/bus/platform/drivers/nvme-apple/*.nvme/nvme/nvme*/nvme*n1/ ] && break
++	sleep 0.1
++done
++
++if [ ! -e /sys/bus/platform/drivers/nvme-apple/*.nvme/nvme/nvme*/nvme*n1/ ]; then
++err "Timed out waiting for NVMe device"
++	return 1
++fi
++
++# If the above exists, hopefully the /dev device exists and this will work
++VENDORFW="/run/.system-efi/vendorfw/"
++
++(
++	. /usr/share/asahi-scripts/functions.sh
++	mount_sys_esp /run/.system-efi
++)
++
++if [ ! -e "$VENDORFW/firmware.cpio" ]; then
++	log_failure_msg "Vendor firmware not available in ESP!"
++	umount /run/.system-efi
++	return 1
++fi
++
++
++( cd /; cpio -i < "$VENDORFW/firmware.cpio" )
++umount /run/.system-efi
++
++log_success_msg "Asahi: Vendor firmware unpacked successfully"
+-- 
+2.49.0
+

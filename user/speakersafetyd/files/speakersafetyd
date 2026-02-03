@@ -1,0 +1,9 @@
+type = process
+command = /usr/bin/speakersafetyd -c /usr/share/speakersafetyd/ -b /var/lib/speakersafetyd/blackbox -m 7
+run-as = speakersafetyd
+restart = on-failure
+restart-delay = 1
+restart-limit-interval = 60
+restart-limit-count = 10
+before = local.target
+depends-on = early-devices.target

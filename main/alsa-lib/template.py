@@ -1,6 +1,6 @@
 pkgname = "alsa-lib"
 pkgver = "1.2.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-alisp",

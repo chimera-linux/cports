@@ -1,0 +1,23 @@
+diff --git a/asahi-diagnose b/asahi-diagnose
+index 5062387..b25ef19 100755
+--- a/asahi-diagnose
++++ b/asahi-diagnose
+@@ -239,8 +239,7 @@ diagnose() {
+         getfile /proc/bus/input/devices "Input devices"
+         cmd lsmod "Loaded modules"
+         module_parameters
+-        cmd 'journalctl -b 0 -tkernel' "Kernel log"
+-        cmd 'journalctl -b -1 -tkernel' "Kernel log (last boot)"
++        cmd 'dmesg' "Kernel log"
+         logfile /var/log/Xorg.0.log
+         logfile /var/log/pacman.log 500
+     )
+@@ -276,7 +275,7 @@ diagnose() {
+     fi
+ 
+ 
+-    plat="$(cat /proc/device-tree/compatible | sed -re 's/.*apple,(t....).*/\1/g')"
++    plat="$(cat /proc/device-tree/compatible | tr -d '\0' | sed -re 's/.*apple,(t....).*/\1/g')"
+     ver="$(tr -d '\0' </proc/device-tree/chosen/asahi,os-fw-version)"
+     case "${plat}:${ver}" in
+         t8103:12.3*) ;;
