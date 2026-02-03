@@ -1,4 +1,4 @@
-From c1804f7a238d0730f46d25adbb6df798d95eaf7a Mon Sep 17 00:00:00 2001
+From e3a5f3e6684ecf959629031273aeacaba9677203 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Oct 2023 22:40:31 +0200
 Subject: [PATCH 04/16] fix shebang on install-template.sh
@@ -8,7 +8,7 @@ Subject: [PATCH 04/16] fix shebang on install-template.sh
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/tools/rust-installer/install-template.sh b/src/tools/rust-installer/install-template.sh
-index 337aaa95b..4e3dbc0e9 100644
+index c4f0c618a..a8cb3726a 100644
 --- a/src/tools/rust-installer/install-template.sh
 +++ b/src/tools/rust-installer/install-template.sh
 @@ -1,4 +1,4 @@

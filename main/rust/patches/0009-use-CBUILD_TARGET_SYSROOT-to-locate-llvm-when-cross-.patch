@@ -1,4 +1,4 @@
-From 5a0d2af8d0b38bfa2cdfed03824617a0c9469e6b Mon Sep 17 00:00:00 2001
+From 7b29273635086f7f7302ddc1fb02a86ec19105bc Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Dec 2021 01:56:48 +0100
 Subject: [PATCH 09/16] use CBUILD_TARGET_SYSROOT to locate llvm when
@@ -9,10 +9,10 @@ Subject: [PATCH 09/16] use CBUILD_TARGET_SYSROOT to locate llvm when
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index d5c43c4fa..e64fa4318 100644
+index c58dd64cc..d8d110b6b 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -350,9 +350,11 @@ fn main() {
+@@ -354,9 +354,11 @@ fn main() {
      for lib in output(&mut cmd).split_whitespace() {
          if is_crossed {
              if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {

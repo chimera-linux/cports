@@ -1,4 +1,4 @@
-From 6b25023f2017365c2b679e0a0061496a3fff7949 Mon Sep 17 00:00:00 2001
+From 0b514d9313bf872b26f0afead909b77c96105808 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Oct 2025 23:00:12 +0200
 Subject: [PATCH 15/16] work around broken ecosystem hackery when bootstrapping
@@ -9,10 +9,10 @@ Subject: [PATCH 15/16] work around broken ecosystem hackery when bootstrapping
  2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 809be74fd..6ea50a052 100644
+index d105f128b..e9072ca65 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -762,7 +762,10 @@ impl Step for StdLink {
+@@ -764,7 +764,10 @@ impl Step for StdLink {
                  let _ = fs::remove_dir_all(sysroot.join("lib/rustlib/src/rust"));
              }
  
@@ -25,7 +25,7 @@ index 809be74fd..6ea50a052 100644
              if builder.download_rustc() {
                  // Ensure there are no CI-rustc std artifacts.
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index ae594a31b..2018532a1 100644
+index a78506c39..7a04ea4ae 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
 @@ -485,6 +485,7 @@ impl Build {
