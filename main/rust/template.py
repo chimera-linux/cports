@@ -53,7 +53,7 @@ if self.profile().cross:
     hostmakedepends += ["rust"]
     env["PKG_CONFIG_ALLOW_CROSS"] = "1"
 elif self.current_target == "custom:bootstrap":
-    hostmakedepends += ["rust"]
+    hostmakedepends += ["rust", "xz"]
 else:
     hostmakedepends += ["rust-bootstrap"]
 
@@ -130,14 +130,9 @@ def configure(self):
         _debug = "0"
         _debug_rustc = "0"
 
-    if self.current_target != "custom:bootstrap":
-        _comp = "gz"
-        _comp_prof = "fast"
-        # thin-local is the default value
-        _lto = "thin" if self.can_lto() else "thin-local"
+    if self.current_target != "custom:bootstrap" and self.can_lto():
+        _lto = "thin"
     else:
-        _comp = "xz"
-        _comp_prof = "best"
         _lto = "thin-local"
 
     tgt_profile = self.profile()
@@ -243,8 +238,8 @@ llvm-libunwind = 'system'
 
 vendor = false
 src-tarball = true
-compression-formats = ['{_comp}']
-compression-profile = '{_comp_prof}'
+compression-formats = ['gz']
+compression-profile = 'fast'
 
 [target.{host_profile.triplet}]
 
@@ -383,10 +378,25 @@ def _untar(self, name, has_triple=True):
     )
 
 
+def _repack(self, name):
+    trip = self.profile().triplet
+
+    # without final suffix
+    fname = f"{name}-{pkgver}-{trip}.tar"
+
+    # copy the tarball we want and ungzip it
+    self.cp(f"build/dist/{fname}.gz", ".")
+    self.do("gzip", "-d", f"{fname}.gz")
+
+    # repack with desired parameters
+    self.do("xz", "-T0", "-9", "-z", fname)
+
+
 @custom_target("bootstrap", "build")
 def _(self):
-    # already done
-    pass
+    # we only care about these two
+    _repack(self, "rustc")
+    _repack(self, "rust-std")
 
 
 def install(self):
