@@ -1,3 +1,4 @@
 # lol
-url = "https://gitlab.alpinelinux.org/alpine/aports/-/raw/master/community/gn/APKBUILD"
-pattern = r"pkgver=(.*)"
+url = "https://repology.org/api/v1/project/gn"
+pattern = r'"repo":"alpine_edge",.*?,"version":"([^"]+)"'
+single_directory = True

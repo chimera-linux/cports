@@ -1,2 +1,2 @@
-url = "https://git.0pointer.net/libatasmart.git/refs"
-pattern = r">v([\d.]+)<"
+url = "https://api.github.com/repos/libatasmart/libatasmart/git/refs/tags"
+pattern = r"refs/tags/v([\d.]+)"
