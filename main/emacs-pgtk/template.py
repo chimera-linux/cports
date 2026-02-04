@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
-pkgver = "30.1"
-pkgrel = 4
+pkgver = "30.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
@@ -11,6 +11,12 @@ configure_args = [
     "--with-webp",
     "--with-x-toolkit=gtk3",
     "--without-tiff",
+]
+make_check_args = [
+    "EXCLUDE_TESTS="
+    " %eglot-tests.el"  # requires a variety of lsp servers
+    " %tramp-tests.el"  # fails mysteriously TODO
+    " %shr-tests.el"  # TODO zoom-image times out
 ]
 hostmakedepends = [
     "automake",
@@ -47,11 +53,9 @@ pkgdesc = "Extensible, customizable, self-documenting, real-time display editor"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
 source = f"$(GNU_SITE)/emacs/emacs-{pkgver}.tar.xz"
-sha256 = "6ccac1ae76e6af93c6de1df175e8eb406767c23da3dd2a16aa67e3124a6f138f"
+sha256 = "b3f36f18a6dd2715713370166257de2fae01f9d38cfe878ced9b1e6ded5befd9"
 # CFI: breaks
 hardening = ["vis", "!cfi"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

@@ -1,0 +1,49 @@
+--- a/test/src/emacs-module-resources/mod-test.c
++++ b/test/src/emacs-module-resources/mod-test.c
+@@ -46,7 +46,7 @@
+ #include <gmp.h>
+ #include <emacs-module.h>
+ 
+-extern int plugin_is_GPL_compatible;
++__attribute__((visibility("default")))
+ int plugin_is_GPL_compatible;
+ 
+ #if INTPTR_MAX <= 0
+@@ -765,7 +765,7 @@
+ }
+ 
+ /* Module init function.  */
+-int
++int __attribute__((visibility("default")))
+ emacs_module_init (struct emacs_runtime *ert)
+ {
+   /* These smoke tests don't use _Static_assert because too many
+
+--- a/test/src/process-tests.el
++++ b/test/src/process-tests.el
+@@ -416,10 +416,7 @@
+ 
+ ;; Check if the Internet seems to be working.  Mainly to pacify
+ ;; Debian's CI system.
+-(defvar internet-is-working
+-  (progn
+-    (require 'dns)
+-    (dns-query "google.com")))
++(defvar internet-is-working nil)
+ 
+ (ert-deftest lookup-family-specification ()
+   "`network-lookup-address-info' should only accept valid family symbols."
+
+--- a/test/lisp/wdired-tests.el
++++ b/test/lisp/wdired-tests.el
+@@ -141,9 +141,7 @@
+   ;; FIXME: Add a test for a door (indicator ">") only under Solaris?
+   (ert-with-temp-directory test-dir
+     (let* ((dired-listing-switches "-Fl")
+-           (dired-ls-F-marks-symlinks
+-            (or (eq system-type 'darwin)
+-                (featurep 'ls-lisp)))
++           (dired-ls-F-marks-symlinks t)
+            (buf (find-file-noselect test-dir))
+            proc)
+       (unwind-protect
