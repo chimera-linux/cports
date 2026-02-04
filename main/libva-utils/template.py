@@ -1,5 +1,5 @@
 pkgname = "libva-utils"
-pkgver = "2.22.0"
+pkgver = "2.23.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddrm=true", "-Dx11=true", "-Dwayland=true"]
@@ -9,7 +9,7 @@ pkgdesc = "Collection of utilities for libva"
 license = "MIT"
 url = "https://github.com/intel/libva-utils"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7b57615c130427ec134bb5d2b80af516ce5bb19a40e89b1dab46a0d59760d96c"
+sha256 = "fa7ff29847b55010fbbb775b35382f97f29b7b97abe9a2f6fb3e22b36db5440a"
 
 
 def post_install(self):
