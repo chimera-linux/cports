@@ -1,0 +1,19 @@
+diff -ruN a/src/bridges/bridge_rust_generic_hash.mk b/src/bridges/bridge_rust_generic_hash.mk
+--- a/src/bridges/bridge_rust_generic_hash.mk	2025-08-23 10:43:56.000000000 +0200
++++ b/src/bridges/bridge_rust_generic_hash.mk	2025-09-07 14:45:55.397752076 +0200
+@@ -2,7 +2,7 @@
+ RUSTUP_PRESENT := false
+ 
+ CARGO_VERSION := $(word 2, $(shell cargo version 2>/dev/null))
+-CARGO_BUILD_FLAGS := --release --manifest-path Rust/generic_hash/Cargo.toml
++CARGO_BUILD_FLAGS := --release --offline --config .cargo/config.toml --manifest-path Rust/generic_hash/Cargo.toml
+ RUSTUP_FLAGS :=
+ ifneq ($(filter 1.%,$(CARGO_VERSION)),)
+ 	CARGO_PRESENT := true
+@@ -78,4 +78,4 @@
+ bridges/bridge_rust_generic_hash.$(BRIDGE_SUFFIX): $(COMMON_PREREQS) obj/combined.NATIVE.a $(GENERIC_HASH_DEFAULT)
+ 	$(CC) $(CCFLAGS) $(CFLAGS_NATIVE)             $(filter-out $(GENERIC_HASH_SO) $(GENERIC_HASH_DLL),$^) -o $@ $(LFLAGS_NATIVE)      -shared -fPIC -D BRIDGE_INTERFACE_VERSION_CURRENT=$(BRIDGE_INTERFACE_VERSION) $(PYTHON_CFLAGS)
+ endif
+-endif
+\ No newline at end of file
++endif
