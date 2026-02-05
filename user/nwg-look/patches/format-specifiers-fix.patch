@@ -1,0 +1,58 @@
+From 50433bf04fc08b6b7455725b4fc91e18dbbf10ac Mon Sep 17 00:00:00 2001
+From: Naiko <glclaritas@gmail.com>
+Date: Tue, 7 Oct 2025 17:09:45 +0630
+Subject: [PATCH] fix typos and mismatched format specifiers in tools.go
+
+---
+ tools.go | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/tools.go b/tools.go
+index 901c03f..1f41848 100644
+--- a/tools.go
++++ b/tools.go
+@@ -207,7 +207,7 @@ func readGsettings() {
+ 			log.Infof("cursor-size: %v", gsettings.cursorSize)
+ 		}
+ 	} else {
+-		log.Warnf("Couldn't read cursorSize, leaving default %s",
++		log.Warnf("Couldn't read cursorSize, leaving default %d",
+ 			gsettings.cursorSize)
+ 	}
+ 
+@@ -264,7 +264,7 @@ func readGsettings() {
+ 			log.Infof("text-scaling-factor: %v", gsettings.textScalingFactor)
+ 		}
+ 	} else {
+-		log.Warnf("Couldn't read textScalingFactor, leaving default %s",
++		log.Warnf("Couldn't read textScalingFactor, leaving default %f",
+ 			gsettings.textScalingFactor)
+ 	}
+ 
+@@ -329,7 +329,7 @@ func saveGsettingsBackup() {
+ 			line := fmt.Sprintf("%s=%s", key, val)
+ 			lines = append(lines, line)
+ 		} else {
+-			log.Warnf("Couldn't get gsettings key: $s", key)
++			log.Warnf("Couldn't get gsettings key: %s", key)
+ 		}
+ 	}
+ 	for _, key := range []string{"event-sounds", "input-feedback-sounds"} {
+@@ -338,7 +338,7 @@ func saveGsettingsBackup() {
+ 			line := fmt.Sprintf("%s=%s", key, val)
+ 			lines = append(lines, line)
+ 		} else {
+-			log.Warnf("Couldn't get gsettings key: $s", key)
++			log.Warnf("Couldn't get gsettings key: %s", key)
+ 		}
+ 	}
+ 
+@@ -433,7 +433,7 @@ func applyGsettings() {
+ 	cmd = exec.Command("gsettings", "set", gnomeSchema, "text-scaling-factor", fmt.Sprintf("%f", gsettings.textScalingFactor))
+ 	err = cmd.Run()
+ 	if err != nil {
+-		log.Warnf("text-scaling-factor: %s %s", gsettings.textScalingFactor, err)
++		log.Warnf("text-scaling-factor: %f %s", gsettings.textScalingFactor, err)
+ 	} else {
+ 		log.Infof("text-scaling-factor: %v OK", gsettings.textScalingFactor)
+ 	}
