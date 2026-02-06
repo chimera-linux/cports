@@ -1,21 +1,21 @@
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index dd57a9970..811602744 100644
+index 0131fef2d3..191dac139a 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
-@@ -85,7 +85,7 @@ dist = true
- [target.'cfg(target_os = "windows")'.dependencies]
- mimalloc = { workspace = true }
+@@ -69,7 +69,7 @@ tracing = { workspace = true, features = ["log"] }
+ walkdir = { workspace = true }
+ wild = { workspace = true }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
 +[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
  tikv-jemallocator = { workspace = true }
  
- [lints]
+ [target.'cfg(target_os = "windows")'.dependencies]
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index 62e4f85b6..bbc02bac6 100644
+index 5ec78c9e25..7611134957 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
-@@ -12,6 +12,7 @@ use ruff::{ExitStatus, run};
+@@ -13,6 +13,7 @@ use ruff::{ExitStatus, run};
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
  #[cfg(all(
@@ -24,16 +24,40 @@ index 62e4f85b6..bbc02bac6 100644
      not(target_os = "openbsd"),
      not(target_os = "aix"),
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index 92606c990..9c9a917d6 100644
+index 760aed7b1e..b11a809195 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
-@@ -86,5 +86,5 @@ walltime = ["ruff_db/os", "ty_project", "divan"]
- [target.'cfg(target_os = "windows")'.dev-dependencies]
- mimalloc = { workspace = true }
+@@ -33,7 +33,7 @@ serde = { workspace = true }
+ serde_json = { workspace = true }
+ tracing = { workspace = true }
  
--[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dev-dependencies]
-+[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dev-dependencies]
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
++[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
+ tikv-jemallocator = { workspace = true, optional = true }
+ 
+ [target.'cfg(target_os = "windows")'.dependencies]
+diff --git a/crates/ty/Cargo.toml b/crates/ty/Cargo.toml
+index 4b962179fe..dbd10c13f9 100644
+--- a/crates/ty/Cargo.toml
++++ b/crates/ty/Cargo.toml
+@@ -39,7 +39,7 @@ tracing-flame = { workspace = true }
+ tracing-subscriber = { workspace = true }
+ wild = { workspace = true }
+ 
+-[target.'cfg(all(not(target_os = "macos"), not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
++[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "macos"), not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64", target_arch = "riscv64")))'.dependencies]
  tikv-jemallocator = { workspace = true }
--- 
-2.49.0
-
+ 
+ [dev-dependencies]
+diff --git a/crates/ty/src/main.rs b/crates/ty/src/main.rs
+index 102ec184e3..c16e861a49 100644
+--- a/crates/ty/src/main.rs
++++ b/crates/ty/src/main.rs
+@@ -3,6 +3,7 @@ use std::io;
+ use ty::{ExitStatus, run};
+ 
+ #[cfg(all(
++    not(target_vendor = "chimera"),
+     not(target_os = "macos"),
+     not(target_os = "windows"),
+     not(target_os = "openbsd"),
