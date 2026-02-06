@@ -475,6 +475,8 @@ core_fields = [
     ("go_mod_dl", None, str, False, False, False),
     ("go_build_tags", [], list, False, False, False),
     ("go_check_tags", [], list, False, False, False),
+    # zig
+    ("zig_build_args", [], list, False, False, False),
 ]
 
 # a field priority list, the second element indicates whether
@@ -509,6 +511,7 @@ core_fields_priority = [
     ("make_check_env", True),
     ("make_check_wrapper", True),
     ("make_use_env", True),
+    ("zig_build_args", True),
     ("cmake_dir", False),
     ("meson_dir", False),
     ("hostmakedepends", True),
