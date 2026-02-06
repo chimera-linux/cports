@@ -1,0 +1,16 @@
+commit cc16dfe7f1bcad7673edbf5c7834691ee78f5ef5
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Feb 6 13:12:51 2026 +0100
+
+    zram-device: fix before constaint
+
+diff --git a/services/zram-device b/services/zram-device
+index 4265d65..fc61539 100644
+--- a/services/zram-device
++++ b/services/zram-device
+@@ -3,4 +3,4 @@ command = @SCRIPT_PATH@/zram.sh start $1
+ stop-command = @SCRIPT_PATH@/zram.sh stop $1
+ depends-on: early-prepare.target
+ depends-on: early-devd
+-before: early-fs-pre
++before: early-fs-pre.target
