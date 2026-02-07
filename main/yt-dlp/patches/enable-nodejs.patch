@@ -1,0 +1,70 @@
+From e73cc0e503911cc2ef9f6a17cd8268a0b97a24eb Mon Sep 17 00:00:00 2001
+From: Ayush Agarwal <ayush@ayushnix.com>
+Date: Sun, 1 Feb 2026 18:51:43 +0530
+Subject: [PATCH] enable node as the default js runtime for chimera
+
+deno is not packaged as on 2026-02-01
+---
+ yt_dlp/extractor/youtube/_video.py | 2 +-
+ yt_dlp/options.py                  | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/yt_dlp/extractor/youtube/_video.py b/yt_dlp/extractor/youtube/_video.py
+index 93bd8ec8f..75091d595 100644
+--- a/yt_dlp/extractor/youtube/_video.py
++++ b/yt_dlp/extractor/youtube/_video.py
+@@ -2963,17 +2963,17 @@ def _get_requested_clients(self, url, smuggled_data, is_premium_subscriber):
+                 excluded_clients.append(client[1:])
+             elif client not in allowed_clients:
+                 self.report_warning(f'Skipping unsupported client "{client}"')
+             else:
+                 requested_clients.append(client)
+ 
+         if not (requested_clients or excluded_clients) and default_clients == self._DEFAULT_JSLESS_CLIENTS:
+             self.report_warning(
+-                f'No supported JavaScript runtime could be found. Only deno is enabled by default; '
++                f'No supported JavaScript runtime could be found. Only node is enabled by default; '
+                 f'to use another runtime add  --js-runtimes RUNTIME[:PATH]  to your command/config. '
+                 f'YouTube extraction without a JS runtime has been deprecated, and some formats may be missing. '
+                 f'See  {_EJS_WIKI_URL}  for details on installing one', only_once=True)
+ 
+         if not requested_clients:
+             requested_clients.extend(default_clients)
+         for excluded_client in excluded_clients:
+             if excluded_client in requested_clients:
+diff --git a/yt_dlp/options.py b/yt_dlp/options.py
+index 9658a9da5..6039dccb7 100644
+--- a/yt_dlp/options.py
++++ b/yt_dlp/options.py
+@@ -459,24 +459,24 @@ def _preset_alias_callback(option, opt_str, value, parser):
+     general.add_option(
+         '--js-runtimes',
+         metavar='RUNTIME[:PATH]',
+         dest='js_runtimes',
+         action='callback',
+         callback=_list_from_options_callback,
+         type='str',
+         callback_kwargs={'delim': None},
+-        default=['deno'],
++        default=['node'],
+         help=(
+             'Additional JavaScript runtime to enable, with an optional location for the runtime '
+             '(either the path to the binary or its containing directory). '
+             'This option can be used multiple times to enable multiple runtimes. '
+-            'Supported runtimes are (in order of priority, from highest to lowest): deno, node, quickjs, bun. '
+-            'Only "deno" is enabled by default. The highest priority runtime that is both enabled and '
+-            'available will be used. In order to use a lower priority runtime when "deno" is available, '
++            'Supported runtimes are (in order of priority, from highest to lowest): node, deno, quickjs, bun. '
++            'Only "node" is enabled by default. The highest priority runtime that is both enabled and '
++            'available will be used. In order to use a lower priority runtime when "node" is available, '
+             '--no-js-runtimes needs to be passed before enabling other runtimes'))
+     general.add_option(
+         '--no-js-runtimes',
+         dest='js_runtimes', action='store_const', const=[],
+         help='Clear JavaScript runtimes to enable, including defaults and those provided by previous --js-runtimes')
+     general.add_option(
+         '--remote-components',
+         metavar='COMPONENT',
+-- 
+2.52.0
+

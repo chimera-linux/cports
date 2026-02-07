@@ -1,6 +1,6 @@
 pkgname = "yt-dlp"
 pkgver = "2026.01.31"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=test/test_socks.py",
@@ -39,6 +39,7 @@ def _(self):
         "python-pycryptodomex",
         "python-secretstorage",
         "python-websockets",
+        "yt-dlp-ejs",
     ]
     self.subdesc = "recommended dependencies"
     self.install_if = [self.parent]
