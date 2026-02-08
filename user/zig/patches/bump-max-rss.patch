@@ -1,0 +1,26 @@
+From e0a51ab32dcf16d27e00eaa07f14da4c4466da76 Mon Sep 17 00:00:00 2001
+From: geemili <opensource@geemili.xyz>
+Date: Sun, 26 Oct 2025 22:06:38 -0600
+Subject: [PATCH] bump max rss
+
+The aarch64 Chimera Linux has a max rss of 8.14GB. This patch allows the
+Zig aarch64 compilation to succeed by bumping the maximum allowed rss.
+---
+ build.zig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.zig b/build.zig
+index 9e672a4ca7..49f683657e 100644
+--- a/build.zig
++++ b/build.zig
+@@ -738,7 +738,7 @@ fn addCompilerMod(b: *std.Build, options: AddCompilerModOptions) *std.Build.Modu
+ fn addCompilerStep(b: *std.Build, options: AddCompilerModOptions) *std.Build.Step.Compile {
+     const exe = b.addExecutable(.{
+         .name = "zig",
+-        .max_rss = 7_800_000_000,
++        .max_rss = 8_500_000_000,
+         .root_module = addCompilerMod(b, options),
+     });
+     exe.stack_size = stack_size;
+-- 
+2.51.1
