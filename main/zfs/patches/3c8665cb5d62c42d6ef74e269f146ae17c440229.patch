@@ -1,0 +1,99 @@
+From 3c8665cb5d62c42d6ef74e269f146ae17c440229 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Mon, 1 Dec 2025 16:05:27 +1100
+Subject: [PATCH] Linux 6.19: replace i_state access with
+ inode_state_read_once()
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Closes #18053
+---
+ config/kernel-inode-state.m4               | 23 ++++++++++++++++++++++
+ config/kernel.m4                           |  2 ++
+ include/os/linux/kernel/linux/vfs_compat.h |  8 ++++++++
+ module/os/linux/zfs/zfs_vnops_os.c         |  3 ++-
+ 4 files changed, 35 insertions(+), 1 deletion(-)
+ create mode 100644 config/kernel-inode-state.m4
+
+diff --git a/config/kernel-inode-state.m4 b/config/kernel-inode-state.m4
+new file mode 100644
+index 000000000000..02ec1380af53
+--- /dev/null
++++ b/config/kernel-inode-state.m4
+@@ -0,0 +1,23 @@
++dnl #
++dnl # 6.19 API change. inode->i_state no longer accessible directly; helper
++dnl # functions exist.
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_INODE_STATE_READ_ONCE], [
++	ZFS_LINUX_TEST_SRC([inode_state_read_once], [
++		#include <linux/fs.h>
++	], [
++		struct inode i = {};
++		inode_state_read_once(&i);
++	],[])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_INODE_STATE_READ_ONCE], [
++	AC_MSG_CHECKING([whether inode_state_read_once() exists])
++	ZFS_LINUX_TEST_RESULT([inode_state_read_once], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_INODE_STATE_READ_ONCE, 1,
++		    [inode_state_read_once() exists])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index f095c8f20280..eb2e827d5cbf 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -59,6 +59,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_ACL
+ 	ZFS_AC_KERNEL_SRC_INODE_SETATTR
+ 	ZFS_AC_KERNEL_SRC_INODE_GETATTR
++	ZFS_AC_KERNEL_SRC_INODE_STATE_READ_ONCE
+ 	ZFS_AC_KERNEL_SRC_SHOW_OPTIONS
+ 	ZFS_AC_KERNEL_SRC_SHRINKER
+ 	ZFS_AC_KERNEL_SRC_MKDIR
+@@ -181,6 +182,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_ACL
+ 	ZFS_AC_KERNEL_INODE_SETATTR
+ 	ZFS_AC_KERNEL_INODE_GETATTR
++	ZFS_AC_KERNEL_INODE_STATE_READ_ONCE
+ 	ZFS_AC_KERNEL_SHOW_OPTIONS
+ 	ZFS_AC_KERNEL_SHRINKER
+ 	ZFS_AC_KERNEL_MKDIR
+diff --git a/include/os/linux/kernel/linux/vfs_compat.h b/include/os/linux/kernel/linux/vfs_compat.h
+index d9dc904bc322..24219637d266 100644
+--- a/include/os/linux/kernel/linux/vfs_compat.h
++++ b/include/os/linux/kernel/linux/vfs_compat.h
+@@ -269,4 +269,12 @@ zpl_is_32bit_api(void)
+ #define	generic_drop_inode(ip)		inode_generic_drop(ip)
+ #endif
+ 
++#ifndef HAVE_INODE_STATE_READ_ONCE
++/*
++ * 6.19 API change. We should no longer access i_state directly. If the new
++ * helper function doesn't exist, define our own.
++ */
++#define	inode_state_read_once(ip)	READ_ONCE(ip->i_state)
++#endif
++
+ #endif /* _ZFS_VFS_H */
+diff --git a/module/os/linux/zfs/zfs_vnops_os.c b/module/os/linux/zfs/zfs_vnops_os.c
+index a788e3fd4862..da09faba1373 100644
+--- a/module/os/linux/zfs/zfs_vnops_os.c
++++ b/module/os/linux/zfs/zfs_vnops_os.c
+@@ -3513,7 +3513,8 @@ zfs_link(znode_t *tdzp, znode_t *szp, char *name, cred_t *cr,
+ 	boolean_t	is_tmpfile = 0;
+ 	uint64_t	txg;
+ 
+-	is_tmpfile = (sip->i_nlink == 0 && (sip->i_state & I_LINKABLE));
++	is_tmpfile = (sip->i_nlink == 0 &&
++	    (inode_state_read_once(sip) & I_LINKABLE));
+ 
+ 	ASSERT(S_ISDIR(ZTOI(tdzp)->i_mode));
+ 

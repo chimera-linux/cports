@@ -1,0 +1,38 @@
+From 13601e2d24960c4503c69ff3efc159b3a2353c46 Mon Sep 17 00:00:00 2001
+From: John Cabaj <john.cabaj@canonical.com>
+Date: Mon, 2 Feb 2026 12:19:18 -0600
+Subject: [PATCH] Linux 6.19: handle --werror with CONFIG_OBJTOOL_WERROR=y
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Linux upstream commit 56754f0f46f6: "objtool: Rename
+--Werror to --werror" did just that, so we should check for
+either "--Werror" or "--werror", else the build will fail
+
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Reviewed-by: Attila Fülöp <attila@fueloep.org>
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Signed-off-by: John Cabaj <john.cabaj@canonical.com>
+Closes #18152
+---
+ scripts/objtool-wrapper.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/objtool-wrapper.in b/scripts/objtool-wrapper.in
+index 0451f8718233..0cea6e2f655c 100644
+--- a/scripts/objtool-wrapper.in
++++ b/scripts/objtool-wrapper.in
+@@ -22,10 +22,10 @@
+ # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ # IN THE SOFTWARE.
+ 
+-# Filter out objtools '--Werror' flag.
++# Filter out objtools '--Werror or --werror' flag.
+ 
+ objtool="@abs_objtool_binary@"
+-args=$(echo "$*" | sed s/--Werror//)
++args=$(echo "$*" | sed 's/--Werror\|--werror//')
+ 
+ if [ -z "$objtool" ]; then
+ 	echo "$(basename "$0"): No objtool binary configured" 1>&2
