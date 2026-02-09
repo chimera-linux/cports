@@ -83,7 +83,7 @@ diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
 index 7a4f560..a5cc37f 100644
 --- a/arch/arm64/include/asm/pgtable.h
 +++ b/arch/arm64/include/asm/pgtable.h
-@@ -236,11 +236,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
+@@ -258,11 +258,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
  	return set_pte_bit(pte, __pgprot(PTE_AF));
  }
  
@@ -94,8 +94,8 @@ index 7a4f560..a5cc37f 100644
 -
  static inline pte_t pte_mkcont(pte_t pte)
  {
- 	pte = set_pte_bit(pte, __pgprot(PTE_CONT));
-@@ -655,6 +650,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
+ 	return set_pte_bit(pte, __pgprot(PTE_CONT));
+@@ -707,6 +702,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
  	__pgprot_modify(prot, PTE_ATTRINDX_MASK, \
  			PTE_ATTRINDX(MT_NORMAL_NC) | PTE_PXN | PTE_UXN)
  
@@ -145,7 +145,7 @@ index 269f2f6..51d3b0f 100644
 +#endif
 +
  void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
- 			   unsigned long prot)
+ 			   pgprot_t pgprot)
  {
 @@ -37,6 +50,11 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
  		return NULL;
@@ -163,9 +163,9 @@ diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
 index 5d57ea2..175d218 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6259,6 +6259,15 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
- DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
+@@ -6257,6 +6257,15 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0xa73f, dpc_log_size);
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0xa76e, dpc_log_size);
+ #endif
  
 +#ifdef CONFIG_ALTRA_ERRATUM_82288
 +static void quirk_altra_erratum_82288(struct pci_dev *dev)
@@ -177,5 +177,5 @@ index 5d57ea2..175d218 100644
 +#endif
 +
  /*
-  * Devices known to require a longer delay before first config space access
-  * after reset recovery or resume from D3cold:
+  * For a PCI device with multiple downstream devices, its driver may use
+  * a flattened device tree to describe the downstream devices.
