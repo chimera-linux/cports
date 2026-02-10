@@ -1,0 +1,6 @@
+type = process
+env-file = /var/lib/kubernetes/kube-apiserver-flags.env
+command = /usr/bin/kube-apiserver
+logfile = /var/log/kube-apiserver.log
+depends-on: network.target
+depends-on: local.target
