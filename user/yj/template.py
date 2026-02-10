@@ -1,6 +1,6 @@
 pkgname = "yj"
 pkgver = "5.1.0"
-pkgrel = 21
+pkgrel = 22
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Convert between YAML, TOML, JSON, and HCL"

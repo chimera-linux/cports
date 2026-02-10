@@ -1,6 +1,6 @@
 pkgname = "yggdrasil"
 pkgver = "0.5.12"
-pkgrel = 9
+pkgrel = 10
 build_style = "go"
 make_build_args = [
     "-ldflags="

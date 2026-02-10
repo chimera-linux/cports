@@ -1,6 +1,6 @@
 pkgname = "gopls"
 pkgver = "0.20.0"
-pkgrel = 3
+pkgrel = 4
 build_wrksrc = "gopls"
 build_style = "go"
 hostmakedepends = ["go"]

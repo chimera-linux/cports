@@ -1,6 +1,6 @@
 pkgname = "hugo"
 pkgver = "0.152.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags=-X github.com/gohugoio/hugo/common/hugo.vendorInfo=ChimeraLinux"

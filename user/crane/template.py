@@ -1,6 +1,6 @@
 pkgname = "crane"
 pkgver = "0.20.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/crane"]
 hostmakedepends = ["go"]

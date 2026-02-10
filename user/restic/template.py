@@ -1,6 +1,6 @@
 pkgname = "restic"
 pkgver = "0.18.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}", "./cmd/restic"]
 hostmakedepends = ["go"]

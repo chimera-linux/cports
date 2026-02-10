@@ -1,6 +1,6 @@
 pkgname = "hut"
 pkgver = "0.7.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go", "scdoc"]
