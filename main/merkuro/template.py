@@ -1,5 +1,5 @@
 pkgname = "merkuro"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -60,4 +60,4 @@ pkgdesc = "KDE calendar with cloud sync"
 license = "LGPL-3.0-only AND GPL-3.0-or-later"
 url = "https://apps.kde.org/merkuro.calendar"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/merkuro-{pkgver}.tar.xz"
-sha256 = "c8248da65a12383e0098f3b1d18cb6ff994e8e0b9fc11fc2419ff720d9644c60"
+sha256 = "c84745a7d83510803eafa69d27a0212989771c99f571fc83bcf717d751bc539e"

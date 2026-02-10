@@ -1,5 +1,5 @@
 pkgname = "kgpg"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -41,4 +41,4 @@ pkgdesc = "KDE GnuPG interface"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kgpg"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kgpg-{pkgver}.tar.xz"
-sha256 = "b776ef9e5a10a15e195f346bb4111f261d3bfed38b6921eb34e9d77614862d66"
+sha256 = "7470c23193f7b04890f96739aec7f1772c5ddfc1722ad36a021de006a688c6d4"

@@ -1,5 +1,5 @@
 pkgname = "akregator"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -41,6 +41,6 @@ pkgdesc = "KDE RSS feed reader"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/akregator"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akregator-{pkgver}.tar.xz"
-sha256 = "85c1c59799cf73d15d366a09b6162f64f013dd2531a4f246ce037918c2d0f1eb"
+sha256 = "aebdb1e994d61ea447e23880eb837a4aa0dfca1cc05ef7bc223c4060cbd76fd8"
 # INT: probably a shift overflow in remap.cpp:CalcHash
 hardening = ["!int"]

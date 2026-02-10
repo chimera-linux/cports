@@ -1,5 +1,5 @@
 pkgname = "kolourpaint"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "extra-cmake-modules", "gettext"]
@@ -19,7 +19,7 @@ pkgdesc = "KDE paint program"
 license = "BSD-2-Clause AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/kolourpaint"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kolourpaint-{pkgver}.tar.xz"
-sha256 = "11f3b850abb5d1387388432b3e02521751ea96901312310f4e0b22b2550f7f44"
+sha256 = "526b630af7797a79fdec0eba7948236ed2975e2d3a66f53a92cfa6787d5acf86"
 
 
 def post_install(self):
