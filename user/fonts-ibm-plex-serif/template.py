@@ -1,11 +1,11 @@
 pkgname = "fonts-ibm-plex-serif"
-pkgver = "1.1.0"
+pkgver = "2.0.0"
 pkgrel = 0
 pkgdesc = "IBM's typeface, IBM Plex Serif"
 license = "OFL-1.1"
 url = "https://www.ibm.com/plex"
 source = f"https://github.com/IBM/plex/releases/download/%40ibm%2Fplex-serif%40{pkgver}/ibm-plex-serif.zip"
-sha256 = "76f1a272b084d2beedcd22aaaa653bc6f92b71b5689081aef9c5b05d0a470e1b"
+sha256 = "c006b095c47b919c6c8d78319e9e628745033f5db94507c1c9dfe4b35dd51f1e"
 options = ["empty"]
 
 
