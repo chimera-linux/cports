@@ -1,0 +1,12 @@
+diff --git a/include/linux/dcache.h b/include/linux/dcache.h
+index 3317fe34..ea0b1a0c 100644
+--- a/include/linux/dcache.h
++++ b/include/linux/dcache.h
+@@ -12,6 +12,6 @@ struct dentry {
+ static inline void shrink_dcache_sb(struct super_block *sb) {}
+ 
+ #define QSTR_INIT(n,l) { { { .len = l } }, .name = n }
+-#define QSTR(n) (struct qstr)QSTR_INIT(n, strlen(n))
++#define QSTR(n) (struct qstr)QSTR_INIT(n, __builtin_strlen(n))
+ 
+ #endif	/* __LINUX_DCACHE_H */
