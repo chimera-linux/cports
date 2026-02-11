@@ -1,14 +1,12 @@
 pkgname = "xournalpp"
-pkgver = "1.2.8"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "cmake"
-hostmakedepends = [
-    "cmake",
-    "gettext",
-    "help2man",
-    "ninja",
-    "pkgconf",
+configure_args = [
+    # cpptrace is fetched directly during build; we don't want that.
+    "-DENABLE_CPPTRACE=OFF",
 ]
+hostmakedepends = ["cmake", "gettext", "git", "help2man", "ninja", "pkgconf"]
 makedepends = [
     "glib-devel",
     "gtk+3-devel",
@@ -20,12 +18,13 @@ makedepends = [
     "lua5.4-devel",
     "poppler-devel",
     "portaudio-devel",
+    "qpdf-devel",
 ]
 pkgdesc = "Handwriting notetaking software with PDF annotation support"
 license = "GPL-2.0-or-later"
 url = "https://github.com/xournalpp/xournalpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f42d81e9509d4bd2d4c2cb2c54049c8518381aa9500c0671febd6c518010e0a7"
+sha256 = "ae779d7f1dd4e85edbe9eee1262b74a9efa7406cb7c7bb222bf8c450e4d8edba"
 # known overflow in tablet handling thread
 tool_flags = {
     "CXXFLAGS": ["-DNDEBUG"],
