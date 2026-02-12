@@ -1,0 +1,44 @@
+From e635ab7ac3891508af5a208c0446da45717c28f5 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 20 Aug 2024 15:31:07 +0200
+Subject: [PATCH] assign uinput a default group
+
+We don't add uaccess here as that would give uaccess to all
+logged in users, which we don't necessarily want. Instead,
+people should add themselves explicitly. E.g. for kanata
+one needs to add self to input group anyway (which is already
+sketch by itself) so it does not really add work.
+---
+ rules.d/50-udev-default.rules.in            | 3 +++
+ tmpfiles.d/static-nodes-permissions.conf.in | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/rules.d/50-udev-default.rules.in b/rules.d/50-udev-default.rules.in
+index 6f80fee..7d33ab7 100644
+--- a/rules.d/50-udev-default.rules.in
++++ b/rules.d/50-udev-default.rules.in
+@@ -63,6 +63,9 @@ SUBSYSTEM=="misc", KERNEL=="sgx_vepc", GROUP="sgx", MODE="0660"
+ # When using static_node= with non-default permissions, also update
+ # tmpfiles.d/static-nodes-permissions.conf.in to keep permissions synchronized.
+ 
++SUBSYSTEM=="misc", KERNEL=="uinput", \
++  GROUP="uinput", MODE="0660", OPTIONS+="static_node=uinput"
++
+ SUBSYSTEM=="sound", GROUP="audio", \
+   OPTIONS+="static_node=snd/seq", OPTIONS+="static_node=snd/timer"
+ 
+diff --git a/tmpfiles.d/static-nodes-permissions.conf.in b/tmpfiles.d/static-nodes-permissions.conf.in
+index df1fe2e..6afec6f 100644
+--- a/tmpfiles.d/static-nodes-permissions.conf.in
++++ b/tmpfiles.d/static-nodes-permissions.conf.in
+@@ -12,6 +12,7 @@
+ z /dev/snd/seq      0660 - audio -
+ z /dev/snd/timer    0660 - audio -
+ z /dev/loop-control 0660 - disk  -
++z /dev/uinput       0660 - uinput -
+ z /dev/net/tun      0666 - -     -
+ z /dev/fuse         0666 - -     -
+ z /dev/vfio/vfio    0666 - -     -
+-- 
+2.46.0
+
