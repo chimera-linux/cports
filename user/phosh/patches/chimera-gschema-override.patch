@@ -1,0 +1,39 @@
+From 98de560bfba6f0b931038b1ac53b1ae730fdd774 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Mon, 24 Mar 2025 02:11:52 +0100
+Subject: [PATCH] gschema.override: Use Chimera defaults
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ data/00_mobi.Phosh.gschema.override | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/data/00_mobi.Phosh.gschema.override b/data/00_mobi.Phosh.gschema.override
+index 2f7edf4e..2c4a8462 100644
+--- a/data/00_mobi.Phosh.gschema.override
++++ b/data/00_mobi.Phosh.gschema.override
+@@ -2,17 +2,17 @@
+ screen-keyboard-enabled=true
+ 
+ [org.gnome.desktop.background:Phosh]
+-picture-uri='file:///usr/share/backgrounds/gnome/blobs-l.svg'
+-picture-uri-dark='file:///usr/share/backgrounds/gnome/blobs-d.svg'
++picture-uri='file:///usr/share/backgrounds/chimera/bg-l.svg'
++picture-uri-dark='file:///usr/share/backgrounds/chimera/bg-d.svg'
+ 
+ [org.gnome.desktop.interface:Phosh]
+-accent-color='yellow'
++accent-color='pink'
+ clock-show-date=false
+ clock-show-weekday=false
+ color-scheme='prefer-dark'
+ 
+ [org.gnome.desktop.screensaver:Phosh]
+-picture-uri='file:///usr/share/backgrounds/gnome/blobs-d.svg'
++picture-uri='file:///usr/share/backgrounds/chimera/bg-d.svg'
+ picture-options='none'
+ 
+ [org.gnome.desktop.session:Phosh]
+-- 
+2.49.0
+
