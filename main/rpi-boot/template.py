@@ -1,14 +1,14 @@
 pkgname = "rpi-boot"
-pkgver = "1.20250407"
+pkgver = "1.20250915"
 pkgrel = 0
 archs = ["aarch64"]
-_gitrev = "8b28eeb41d00562f98292f58e25d79bcfb813424"
+_gitrev = "676efed1194de38975889a34276091da1f5aadd3"
 replaces = ["firmware-rpi<=20220905-r0"]
 pkgdesc = "Bootloader for Raspberry Pi"
 license = "custom:raspberry"
 url = "https://github.com/raspberrypi/firmware"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "c04b4cb7941d60675179725191b33c4c7cbe30dc0165de0e18808c380e40142d"
+sha256 = "6eec37086202a11b2d5d936233c198292aa9628f869714708bdd8c358bb45e85"
 options = ["!strip", "foreignelf", "execstack"]
 
 
