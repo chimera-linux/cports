@@ -1,4 +1,4 @@
-From dd8d6ff3d49e0c90ca3c0de5dce50cb4d0ecabd9 Mon Sep 17 00:00:00 2001
+From d38e91e2fae7e70ea130406d417f90ffc4014b47 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:54:43 +0200
 Subject: [PATCH 07/16] fix rustdoc when cross-compiling
@@ -8,7 +8,7 @@ Subject: [PATCH 07/16] fix rustdoc when cross-compiling
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/bin/rustdoc.rs b/src/bootstrap/src/bin/rustdoc.rs
-index efb51bdce..972a4eabd 100644
+index 784041985..a92441871 100644
 --- a/src/bootstrap/src/bin/rustdoc.rs
 +++ b/src/bootstrap/src/bin/rustdoc.rs
 @@ -28,9 +28,6 @@ fn main() {
@@ -30,7 +30,7 @@ index efb51bdce..972a4eabd 100644
  
      // Force all crates compiled by this compiler to (a) be unstable and (b)
      // allow the `rustc_private` feature to link to other unstable crates
-@@ -66,7 +63,7 @@ fn main() {
+@@ -81,7 +78,7 @@ fn main() {
          eprintln!(
              "rustdoc command: {:?}={:?} {:?}",
              dylib_path_var(),

@@ -1,6 +1,6 @@
 pkgname = "qemu-user"
 pkgver = "10.1.2"
-pkgrel = 1
+pkgrel = 3
 build_style = "gnu_configure"
 # TODO vde libssh capstone
 configure_args = [
@@ -48,6 +48,8 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
 sha256 = "9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479"
+# there are integer overflows all over the emulator
+hardening = ["!int"]
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]

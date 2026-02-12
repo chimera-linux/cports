@@ -1,0 +1,22 @@
+commit 9b1f3c893e5908169d60198ca6d284c3e599b3b0
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Feb 6 13:40:59 2026 +0100
+
+    source config file from /usr/share/etc as a last resort
+    
+    This allows us to avoid installing default configs in /etc, the
+    user can override it by copying it.
+
+diff --git a/usb_modeswitch_dispatcher.tcl b/usb_modeswitch_dispatcher.tcl
+index 72f7e05..e1192d2 100755
+--- a/usb_modeswitch_dispatcher.tcl
++++ b/usb_modeswitch_dispatcher.tcl
+@@ -539,7 +539,7 @@ set configFile ""
+ if [string length $path] {
+ 	set places [list $path]
+ } else {
+-	set places [list /etc/usb_modeswitch.conf /etc/sysconfig/usb_modeswitch /etc/default/usb_modeswitch]
++	set places [list /etc/usb_modeswitch.conf /etc/sysconfig/usb_modeswitch /etc/default/usb_modeswitch /usr/share/etc/usb_modeswitch.conf]
+ }
+ foreach cfg $places {
+ 	if [file exists $cfg] {

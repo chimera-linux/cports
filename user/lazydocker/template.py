@@ -1,6 +1,6 @@
 pkgname = "lazydocker"
 pkgver = "0.24.1"
-pkgrel = 10
+pkgrel = 11
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver} -X main.buildSource=release",

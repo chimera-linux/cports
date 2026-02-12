@@ -13,21 +13,21 @@ index cd3db10..2053010 100644
 --- a/src/internal/cpu/cpu.go
 +++ b/src/internal/cpu/cpu.go
 @@ -37,7 +37,6 @@ var X86 struct {
- 	HasBMI1      bool
- 	HasBMI2      bool
- 	HasERMS      bool
--	HasFSRM      bool
- 	HasFMA       bool
- 	HasOSXSAVE   bool
- 	HasPCLMULQDQ bool
+ 	HasBMI1             bool
+ 	HasBMI2             bool
+ 	HasERMS             bool
+-	HasFSRM             bool
+ 	HasFMA              bool
+ 	HasGFNI             bool
+ 	HasOSXSAVE          bool
 diff --git a/src/internal/cpu/cpu_x86.go b/src/internal/cpu/cpu_x86.go
 index ee81207..2b629d4 100644
 --- a/src/internal/cpu/cpu_x86.go
 +++ b/src/internal/cpu/cpu_x86.go
 @@ -40,8 +40,7 @@ const (
- 	cpuid_SHA      = 1 << 29
- 	cpuid_AVX512BW = 1 << 30
- 	cpuid_AVX512VL = 1 << 31
+ 	cpuid_AVX512VPCLMULQDQ = 1 << 10
+ 	cpuid_AVX512_BITALG    = 1 << 12
+ 
 -	// edx bits
 -	cpuid_FSRM = 1 << 4
 +
@@ -46,13 +46,13 @@ index ee81207..2b629d4 100644
  		return
  	}
  
--	_, ebx7, _, edx7 := cpuid(7, 0)
-+	_, ebx7, _, _ := cpuid(7, 0)
+-	eax7, ebx7, ecx7, edx7 := cpuid(7, 0)
++	eax7, ebx7, ecx7, _ := cpuid(7, 0)
  	X86.HasBMI1 = isSet(ebx7, cpuid_BMI1)
  	X86.HasAVX2 = isSet(ebx7, cpuid_AVX2) && osSupportsAVX
  	X86.HasBMI2 = isSet(ebx7, cpuid_BMI2)
 @@ -153,8 +151,6 @@ func doinit() {
- 		X86.HasAVX512VL = isSet(ebx7, cpuid_AVX512VL)
+ 		X86.HasAVX512BITALG = isSet(ecx7, cpuid_AVX512_BITALG)
  	}
  
 -	X86.HasFSRM = isSet(edx7, cpuid_FSRM)

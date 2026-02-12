@@ -1,6 +1,6 @@
 pkgname = "lego"
 pkgver = "4.31.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.version={pkgver}", "./cmd/lego"]
 hostmakedepends = ["go"]

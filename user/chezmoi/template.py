@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
 pkgver = "2.69.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",

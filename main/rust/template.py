@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.92.0"
+pkgver = "1.93.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "ebee170bfe4c4dfc59521a101de651e5534f4dae889756a5c97ca9ea40d0c307"
+sha256 = "e30d898272c587a22f77679f03c5e8192b5645c7c9ccc3407ad1106761507cea"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -53,7 +53,7 @@ if self.profile().cross:
     hostmakedepends += ["rust"]
     env["PKG_CONFIG_ALLOW_CROSS"] = "1"
 elif self.current_target == "custom:bootstrap":
-    hostmakedepends += ["rust"]
+    hostmakedepends += ["rust", "xz"]
 else:
     hostmakedepends += ["rust-bootstrap"]
 
@@ -84,7 +84,6 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.172")
     cargo.clear_vendor_checksums(self, "libc-0.2.174")
     cargo.clear_vendor_checksums(self, "libc-0.2.175")
-    cargo.clear_vendor_checksums(self, "libc-0.2.176")
     cargo.clear_vendor_checksums(self, "libc-0.2.177")
     cargo.clear_vendor_checksums(self, "cc-1.2.0")
     cargo.clear_vendor_checksums(self, "cc-1.2.13")
@@ -92,9 +91,7 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "cc-1.2.19")
     cargo.clear_vendor_checksums(self, "cc-1.2.20")
     cargo.clear_vendor_checksums(self, "cc-1.2.28")
-    cargo.clear_vendor_checksums(self, "cc-1.2.33")
     cargo.clear_vendor_checksums(self, "cc-1.2.38")
-    cargo.clear_vendor_checksums(self, "cc-1.2.39")
 
 
 def configure(self):
@@ -133,14 +130,9 @@ def configure(self):
         _debug = "0"
         _debug_rustc = "0"
 
-    if self.current_target != "custom:bootstrap":
-        _comp = "gz"
-        _comp_prof = "fast"
-        # thin-local is the default value
-        _lto = "thin" if self.can_lto() else "thin-local"
+    if self.current_target != "custom:bootstrap" and self.can_lto():
+        _lto = "thin"
     else:
-        _comp = "xz"
-        _comp_prof = "best"
         _lto = "thin-local"
 
     tgt_profile = self.profile()
@@ -179,7 +171,7 @@ unsafe extern "C" {}
     with open(self.cwd / "bootstrap.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 147888
+change-id = 148795
 
 [llvm]
 ninja = false
@@ -246,8 +238,8 @@ llvm-libunwind = 'system'
 
 vendor = false
 src-tarball = true
-compression-formats = ['{_comp}']
-compression-profile = '{_comp_prof}'
+compression-formats = ['gz']
+compression-profile = 'fast'
 
 [target.{host_profile.triplet}]
 
@@ -386,10 +378,25 @@ def _untar(self, name, has_triple=True):
     )
 
 
+def _repack(self, name):
+    trip = self.profile().triplet
+
+    # without final suffix
+    fname = f"{name}-{pkgver}-{trip}.tar"
+
+    # copy the tarball we want and ungzip it
+    self.cp(f"build/dist/{fname}.gz", ".")
+    self.do("gzip", "-d", f"{fname}.gz")
+
+    # repack with desired parameters
+    self.do("xz", "-T0", "-9", "-z", fname)
+
+
 @custom_target("bootstrap", "build")
 def _(self):
-    # already done
-    pass
+    # we only care about these two
+    _repack(self, "rustc")
+    _repack(self, "rust-std")
 
 
 def install(self):

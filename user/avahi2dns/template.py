@@ -1,6 +1,6 @@
 pkgname = "avahi2dns"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["avahi", "dinit-chimera", "dinit-dbus"]

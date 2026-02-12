@@ -1,5 +1,5 @@
 pkgname = "zoxide"
-pkgver = "0.9.8"
+pkgver = "0.9.9"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Fuzzy cd command for interactive shells"
 license = "MIT"
 url = "https://github.com/ajeetdsouza/zoxide"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1b276edbf328aafc86afe1ebce41f45ccba3a3125412e89c8c5d8e825b0c7407"
+sha256 = "eddc76e94db58567503a3893ecac77c572f427f3a4eabdfc762f6773abf12c63"
 
 
 def post_install(self):

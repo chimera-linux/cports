@@ -1,5 +1,5 @@
 pkgname = "kaddressbook"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -35,7 +35,7 @@ url = "https://apps.kde.org/kaddressbook"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kaddressbook-{pkgver}.tar.xz"
 )
-sha256 = "58c9c6fec2d98b1da13bbd6353a52f80a04cb0e5883e2faadc61391291a51634"
+sha256 = "5b3e79076adb157370cbd3bba0169c838239b15c691f6aec44899b81fde8f0a2"
 
 
 @subpackage("kaddressbook-devel")

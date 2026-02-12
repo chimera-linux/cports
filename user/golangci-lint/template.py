@@ -1,6 +1,6 @@
 pkgname = "golangci-lint"
 pkgver = "2.5.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_dir = "build-cccc"
 make_build_args = ["./cmd/golangci-lint"]

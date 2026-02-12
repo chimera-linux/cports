@@ -1,6 +1,6 @@
-From 09bd202e25d08fde5481d9797263b0d7085042bd Mon Sep 17 00:00:00 2001
+From 188f76b002cb129dc4f467d3a4c7a6b3c243ec40 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Tue, 16 Dec 2025 00:07:14 +0100
+Date: Tue, 3 Feb 2026 17:39:06 +0100
 Subject: [PATCH] Selectively downgrade some crates in cargo
 
 Until we can figure out why it's busted on ppc64le, downgrade
@@ -12,7 +12,7 @@ sustainable forever but for now it makes it work.
  2 files changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/Cargo.lock b/Cargo.lock
-index ca2a8a0..8f668f6 100644
+index 2dc3d7e..892dcfb 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -123,9 +123,9 @@ dependencies = [
@@ -31,10 +31,10 @@ index ca2a8a0..8f668f6 100644
  
  [[package]]
  name = "ignore"
--version = "0.4.23"
+-version = "0.4.25"
 +version = "0.4.20"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "6d89fd380afde86567dfba715db065673989d6253f42b88179abd3eae47bda4b"
+-checksum = "d3d782a365a015e0f5c04902246139249abf769125006fbe7649e2ee88169b4a"
 +checksum = "dbe7873dab538a9a44ad79ede1faf5f30d49f9a5c883ddbab48bce81b64b7492"
  dependencies = [
 - "crossbeam-deque",
@@ -50,36 +50,36 @@ index ca2a8a0..8f668f6 100644
   "winapi-util",
  ]
 diff --git a/Cargo.toml b/Cargo.toml
-index 5f1830d..f0de967 100644
+index e9fb413..af5cc36 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -21,7 +21,7 @@ repository = "https://github.com/rust-lang/cargo"
- annotate-snippets = { version = "0.12.4", features = ["simd"] }
- anstream = "0.6.20"
+ annotate-snippets = { version = "0.12.9", features = ["simd"] }
+ anstream = "0.6.21"
  anstyle = "1.0.13"
 -anyhow = "1.0.100"
 +anyhow = "1.0.75"
  base64 = "0.22.1"
  blake3 = "1.8.2"
  build-rs = { version = "0.3.1", path = "crates/build-rs" }
-@@ -57,7 +57,7 @@ hex = "0.4.3"
+@@ -59,7 +59,7 @@ hex = "0.4.3"
  hmac = "0.12.1"
- home = "0.5.11"
+ home = "0.5.12"
  http-auth = { version = "0.1.10", default-features = false }
--ignore = "0.4.23"
+-ignore = "0.4.25"
 +ignore = "0.4.20"
  im-rc = "15.1.0"
- indexmap = "2.11.4"
+ indexmap = "2.12.1"
  itertools = "0.14.0"
-@@ -67,7 +67,7 @@ lazycell = "1.3.0"
- libc = "0.2.174" # Please ensure in lockfile it stays as 0.2.174 until bytecodealliance/rustix#1496 resolved
+@@ -68,7 +68,7 @@ jobserver = "0.1.34"
+ libc = "0.2.177"
  libgit2-sys = "0.18.2"
  libloading = "0.8.9"
 -memchr = "2.7.6"
 +memchr = "2.6.0"
+ memfd = "0.6.5"
  miow = "0.6.1"
  opener = "0.8.3"
- openssl = "0.10.73"
 -- 
 2.52.0
 

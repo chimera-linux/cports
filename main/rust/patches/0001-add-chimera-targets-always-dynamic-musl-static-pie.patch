@@ -1,4 +1,4 @@
-From 090d849a19b10ec2ca40eb3ad2d0b08c04ad1261 Mon Sep 17 00:00:00 2001
+From 72254963bb8ef2e2088fa20bb20ebb7bc622d1c6 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
 Subject: [PATCH 01/16] add chimera targets, always dynamic musl + static pie
@@ -38,16 +38,16 @@ Subject: [PATCH 01/16] add chimera targets, always dynamic musl + static pie
  create mode 100644 compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 
 diff --git a/compiler/rustc_target/src/spec/base/linux_musl.rs b/compiler/rustc_target/src/spec/base/linux_musl.rs
-index 1bef60240..9a2fc4bba 100644
+index 6d3124b55..0227c52b0 100644
 --- a/compiler/rustc_target/src/spec/base/linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/base/linux_musl.rs
 @@ -1,11 +1,14 @@
--use crate::spec::{LinkSelfContainedDefault, TargetOptions, base, crt_objects};
-+use crate::spec::{TargetOptions, base};
+-use crate::spec::{Env, LinkSelfContainedDefault, TargetOptions, base, crt_objects};
++use crate::spec::{Env, TargetOptions, base};
  
  pub(crate) fn opts() -> TargetOptions {
      TargetOptions {
-         env: "musl".into(),
+         env: Env::Musl,
 -        pre_link_objects_self_contained: crt_objects::pre_musl_self_contained(),
 -        post_link_objects_self_contained: crt_objects::post_musl_self_contained(),
 -        link_self_contained: LinkSelfContainedDefault::InferredForMusl,
@@ -61,10 +61,10 @@ index 1bef60240..9a2fc4bba 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 1638c87c9..786bebf62 100644
+index 424026bdc..8c473a9a6 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1429,6 +1429,15 @@ macro_rules! supported_targets {
+@@ -1432,6 +1432,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -97,7 +97,7 @@ index 000000000..f553bc173
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
-index 478726fbe..b7b345e56 100644
+index 6ba511234..b66c2257f 100644
 --- a/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_unknown_linux_musl.rs
 @@ -14,9 +14,6 @@ pub(crate) fn target() -> Target {
@@ -127,7 +127,7 @@ index 000000000..7822cc7e4
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabi.rs b/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabi.rs
-index 3919a5e07..3d6c71942 100644
+index 25ef767c4..dfa157423 100644
 --- a/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabi.rs
 +++ b/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabi.rs
 @@ -20,8 +20,6 @@ pub(crate) fn target() -> Target {
@@ -140,7 +140,7 @@ index 3919a5e07..3d6c71942 100644
          },
      }
 diff --git a/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabihf.rs
-index ca52e5b3c..1012b5b1a 100644
+index 76051403a..78c956ef2 100644
 --- a/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabihf.rs
 +++ b/compiler/rustc_target/src/spec/targets/arm_unknown_linux_musleabihf.rs
 @@ -20,8 +20,6 @@ pub(crate) fn target() -> Target {
@@ -153,7 +153,7 @@ index ca52e5b3c..1012b5b1a 100644
          },
      }
 diff --git a/compiler/rustc_target/src/spec/targets/armv5te_unknown_linux_musleabi.rs b/compiler/rustc_target/src/spec/targets/armv5te_unknown_linux_musleabi.rs
-index e67573962..feb507a01 100644
+index 2daf2ab4d..f70548082 100644
 --- a/compiler/rustc_target/src/spec/targets/armv5te_unknown_linux_musleabi.rs
 +++ b/compiler/rustc_target/src/spec/targets/armv5te_unknown_linux_musleabi.rs
 @@ -20,8 +20,6 @@ pub(crate) fn target() -> Target {
@@ -182,7 +182,7 @@ index 000000000..de9b406b5
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabi.rs b/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabi.rs
-index 42fbf6f48..0ae29a58e 100644
+index 9bf0b4fd7..bab4bd904 100644
 --- a/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabi.rs
 +++ b/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabi.rs
 @@ -24,8 +24,6 @@ pub(crate) fn target() -> Target {
@@ -195,7 +195,7 @@ index 42fbf6f48..0ae29a58e 100644
          },
      }
 diff --git a/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabihf.rs
-index a3ac0223c..ec43eebfc 100644
+index 9b5fcd87b..7028a8e8c 100644
 --- a/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabihf.rs
 +++ b/compiler/rustc_target/src/spec/targets/armv7_unknown_linux_musleabihf.rs
 @@ -23,8 +23,6 @@ pub(crate) fn target() -> Target {
@@ -220,10 +220,10 @@ index 42babb90d..87628fcad 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
-index 47a7eb3d5..da1026485 100644
+index 5c85a3e13..c516f4915 100644
 --- a/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
-@@ -11,8 +11,6 @@ pub(crate) fn target() -> Target {
+@@ -12,8 +12,6 @@ pub(crate) fn target() -> Target {
      base.max_atomic_width = Some(64);
      base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m32", "-Wl,-melf_i386"]);
      base.stack_probes = StackProbeType::Inline;
@@ -249,7 +249,7 @@ index 000000000..feb074cbb
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/loongarch64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/loongarch64_unknown_linux_musl.rs
-index d9010b1e4..2dafe15ee 100644
+index 74b0efd63..fe3c3c814 100644
 --- a/compiler/rustc_target/src/spec/targets/loongarch64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/loongarch64_unknown_linux_musl.rs
 @@ -18,7 +18,6 @@ pub(crate) fn target() -> Target {
@@ -262,40 +262,40 @@ index d9010b1e4..2dafe15ee 100644
                  | SanitizerSet::LEAK
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..c6cbe01b1
+index 000000000..076222a90
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 @@ -0,0 +1,11 @@
-+use crate::spec::Target;
++use crate::spec::{Abi, Target};
 +
 +pub(crate) fn target() -> Target {
 +    let mut base = super::powerpc64_unknown_linux_musl::target();
 +
 +    base.llvm_target = "powerpc64-chimera-linux-musl".into();
-+    base.abi = "".into(); // unfuck compilation of 90% of the ecosystem
++    base.abi = Abi::Unspecified; // unfuck compilation of 90% of the ecosystem
 +    base.options.vendor = "chimera".into();
 +
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..464907708
+index 000000000..123d13302
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 @@ -0,0 +1,11 @@
-+use crate::spec::Target;
++use crate::spec::{Abi, Target};
 +
 +pub(crate) fn target() -> Target {
 +    let mut base = super::powerpc64le_unknown_linux_musl::target();
 +
 +    base.llvm_target = "powerpc64le-chimera-linux-musl".into();
-+    base.abi = "".into(); // unfuck compilation of 90% of the ecosystem
++    base.abi = Abi::Unspecified; // unfuck compilation of 90% of the ecosystem
 +    base.options.vendor = "chimera".into();
 +
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
-index 26ee6a68c..1e0792115 100644
+index 38e3d09c2..6debfc84f 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_unknown_linux_musl.rs
 @@ -8,8 +8,6 @@ pub(crate) fn target() -> Target {
@@ -304,7 +304,7 @@ index 26ee6a68c..1e0792115 100644
      base.stack_probes = StackProbeType::Inline;
 -    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
 -    base.crt_static_default = true;
-     base.abi = "elfv2".into();
+     base.abi = Abi::ElfV2;
      base.llvm_abiname = "elfv2".into();
  
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
@@ -356,7 +356,7 @@ index 000000000..a832e86bd
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/x86_64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/x86_64_unknown_linux_musl.rs
-index cc5f88862..0203c776a 100644
+index ee883532a..f65de3ec9 100644
 --- a/compiler/rustc_target/src/spec/targets/x86_64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/x86_64_unknown_linux_musl.rs
 @@ -16,8 +16,6 @@ pub(crate) fn target() -> Target {

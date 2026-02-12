@@ -1,0 +1,42 @@
+crashes e.g. go on ppc64le:
+
+../include/qemu/int128.h:104:14: runtime error: signed integer overflow: 0x3becfbabe9e9d24b3e3db585631b434d + 0x444c9ee6000000005a84f568444c9ee6 cannot be represented in type 'Int128' (aka '__int128')
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ../include/qemu/int128.h:104:14
+
+--- a/include/qemu/int128.h
++++ b/include/qemu/int128.h
+@@ -101,7 +101,7 @@ static inline Int128 int128_lshift(Int128 a, int n)
+ 
+ static inline Int128 int128_add(Int128 a, Int128 b)
+ {
+-    return a + b;
++    return (__uint128_t)a + b;
+ }
+ 
+ static inline Int128 int128_neg(Int128 a)
+@@ -111,7 +111,7 @@ static inline Int128 int128_neg(Int128 a)
+ 
+ static inline Int128 int128_sub(Int128 a, Int128 b)
+ {
+-    return a - b;
++    return (__uint128_t)a - b;
+ }
+ 
+ static inline bool int128_nonneg(Int128 a)
+@@ -176,12 +176,14 @@ static inline Int128 int128_max(Int128 a, Int128 b)
+ 
+ static inline void int128_addto(Int128 *a, Int128 b)
+ {
+-    *a += b;
++    union { Int128 *ap; __uint128_t *b; } v = { .ap = a };
++    *v.b += b;
+ }
+ 
+ static inline void int128_subfrom(Int128 *a, Int128 b)
+ {
+-    *a -= b;
++    union { Int128 *ap; __uint128_t *b; } v = { .ap = a };
++    *v.b -= b;
+ }
+ 
+ static inline Int128 bswap128(Int128 a)

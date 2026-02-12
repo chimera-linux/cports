@@ -1,6 +1,6 @@
 pkgname = "mpv"
-pkgver = "0.40.0"
-pkgrel = 4
+pkgver = "0.41.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -34,13 +34,15 @@ configure_args = [
     "-Dzlib=enabled",
     # stuff we don't want
     "-Djavascript=disabled",
-    "-Dsdl2=disabled",
     "-Dalsa=disabled",
     "-Dopenal=disabled",
     "-Dopensles=disabled",
     "-Doss-audio=disabled",
     "-Dpulse=disabled",
     "-Dsdl2-audio=disabled",
+    "-Dsdl2-gamepad=disabled",
+    "-Dsdl2-video=disabled",
+    "-Dx11-clipboard=disabled",
     # misc
     "-Dlua=lua5.1",
 ]
@@ -84,7 +86,7 @@ pkgdesc = "Video player based on mplayer2"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
-sha256 = "10a0f4654f62140a6dd4d380dcf0bbdbdcf6e697556863dc499c296182f081a3"
+sha256 = "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME: int causes haruna to crash when started up with some video files
 hardening = ["!int", "vis", "!cfi"]

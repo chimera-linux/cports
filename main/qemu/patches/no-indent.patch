@@ -1,0 +1,14 @@
+i don't think they mean the same indent, and doing
+this is pretty fragile and lol so just do away with it
+
+--- a/target/hexagon/meson.build
++++ b/target/hexagon/meson.build
+@@ -322,7 +322,7 @@ if idef_parser_enabled and 'hexagon-linux-user' in target_dirs
+         command: [idef_parser, '@INPUT@', '@OUTPUT0@', '@OUTPUT1@', '@OUTPUT2@']
+     )
+ 
+-    indent = find_program('indent', required: false)
++    indent = find_program('indent-wtf-nope', required: false)
+     if indent.found()
+         idef_generated_tcg_c = custom_target(
+             'indent',

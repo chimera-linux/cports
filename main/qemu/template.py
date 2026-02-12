@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "10.1.2"
-pkgrel = 0
+pkgrel = 2
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -120,6 +120,8 @@ tool_flags = {
 file_modes = {
     "usr/lib/qemu-bridge-helper": ("root", "root", 0o4755),
 }
+# there are integer overflows all over the emulator
+hardening = ["!int"]
 # maybe someday
 options = ["!cross", "!check"]
 

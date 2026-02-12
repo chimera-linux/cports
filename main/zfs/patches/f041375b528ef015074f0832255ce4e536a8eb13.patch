@@ -1,0 +1,48 @@
+From f041375b528ef015074f0832255ce4e536a8eb13 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Wed, 17 Dec 2025 22:12:05 +1100
+Subject: [PATCH] kmem: don't add __GFP_COMP for KM_VMEM allocations
+
+It hasn't been necessary since Linux 3.13
+(torvalds/linux@a57a49887eb33), and since 6.19 the kernel warns if you
+use it.
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Closes #18053
+---
+ include/os/linux/spl/sys/kmem.h      | 5 ++++-
+ module/os/linux/spl/spl-kmem-cache.c | 2 +-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/include/os/linux/spl/sys/kmem.h b/include/os/linux/spl/sys/kmem.h
+index fe34de9c179e..705f9c4d7169 100644
+--- a/include/os/linux/spl/sys/kmem.h
++++ b/include/os/linux/spl/sys/kmem.h
+@@ -66,7 +66,10 @@ void *spl_kvmalloc(size_t size, gfp_t flags);
+ static inline gfp_t
+ kmem_flags_convert(int flags)
+ {
+-	gfp_t lflags = __GFP_NOWARN | __GFP_COMP;
++	gfp_t lflags = __GFP_NOWARN;
++
++	if (!(flags & KM_VMEM))
++		lflags |= __GFP_COMP;
+ 
+ 	if (flags & KM_NOSLEEP) {
+ 		lflags |= GFP_ATOMIC | __GFP_NORETRY;
+diff --git a/module/os/linux/spl/spl-kmem-cache.c b/module/os/linux/spl/spl-kmem-cache.c
+index 211180e082bc..3b9518a60d14 100644
+--- a/module/os/linux/spl/spl-kmem-cache.c
++++ b/module/os/linux/spl/spl-kmem-cache.c
+@@ -139,7 +139,7 @@ static void spl_cache_shrink(spl_kmem_cache_t *skc, void *obj);
+ static void *
+ kv_alloc(spl_kmem_cache_t *skc, int size, int flags)
+ {
+-	gfp_t lflags = kmem_flags_convert(flags);
++	gfp_t lflags = kmem_flags_convert(flags | KM_VMEM);
+ 	void *ptr;
+ 
+ 	if (skc->skc_flags & KMC_RECLAIMABLE)

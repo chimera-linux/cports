@@ -1,5 +1,5 @@
 pkgname = "ksystemlog"
-pkgver = "25.12.1"
+pkgver = "25.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -31,4 +31,4 @@ pkgdesc = "KDE system log viewer"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ksystemlog"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksystemlog-{pkgver}.tar.xz"
-sha256 = "2f52acc9c4f5d4a58bc9c87f345c9951e9cf31172875bce49651a12d61bb61fd"
+sha256 = "2b8d555bda5da95ea3e665aff65d9c4aee96edfc105077fb5e758b4ce8506cd7"
