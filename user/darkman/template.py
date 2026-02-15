@@ -1,30 +1,23 @@
 pkgname = "darkman"
-pkgver = "2.2.0"
+pkgver = "2.3.1"
 pkgrel = 2
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.Version=v{pkgver}",
     "./cmd/darkman",
 ]
-hostmakedepends = [
-    "go",
-    "scdoc",
-]
+hostmakedepends = ["go"]
 makedepends = ["dinit-chimera", "turnstile"]
 pkgdesc = "Control dark-mode and light-mode transitions"
 license = "ISC"
 url = "https://gitlab.com/WhyNotHugo/darkman"
 source = f"{url}/-/archive/v{pkgver}/darkman-v{pkgver}.tar.gz"
-sha256 = "103bbb079e0827d0b5000701cc92356ce058f20a606248ca2426eb37343029b9"
+sha256 = "0d54660b1ac07d648d8caef68fbcbe96337fadbb58dafcf49bba9f2b3114ca3f"
 # builds completions with generated binary
 options = ["!cross"]
 
 
 def post_build(self):
-    with open(self.cwd / "darkman.1.scd", "rb") as scd_file:
-        with open(self.cwd / "darkman.1", "w") as man_file:
-            self.do("scdoc", input=scd_file.read(), stdout=man_file)
-
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"darkman.{shell}", "w") as comp_file:
             self.do(
