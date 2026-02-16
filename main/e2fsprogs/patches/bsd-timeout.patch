@@ -1,0 +1,12 @@
+diff --git a/tests/filter.sed b/tests/filter.sed
+index 265f458c..d257d9b0 100644
+--- a/tests/filter.sed
++++ b/tests/filter.sed
+@@ -21,6 +21,7 @@ s/\\015//g
+ /^Next check after:/d
+ /^Suggestion:/d
+ /security.selinux/d
++/^timeout: child terminated: pid=[0-9]*, exit=0/d
+ /Reserved blocks uid:/s/ (user .*)//
+ /Reserved blocks gid:/s/ (group .*)//
+ /whichever comes first/d

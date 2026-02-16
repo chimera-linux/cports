@@ -37,11 +37,6 @@ source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkg
 sha256 = "08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c"
 
 
-def post_patch(self):
-    # FIXME: fails
-    self.rm("tests/m_offset", recursive=True)
-
-
 def init_configure(self):
     # causes udevrulesdir to cross sysroot prefix otherwise
     self.env["PKG_CONFIG_FDO_SYSROOT_RULES"] = "1"
