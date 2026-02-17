@@ -1,13 +1,13 @@
 pkgname = "k6"
-pkgver = "1.5.0"
-pkgrel = 1
+pkgver = "1.6.1"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Load testing tool"
 license = "AGPL-3.0-only"
 url = "https://github.com/grafana/k6"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "215f25088ef4a6c52d18e8ee572149c880f1eabf312909e9e87faad5ffe3f00e"
+sha256 = "3a6948ebfe9bc5fc19dfd0f7ec7d39737c8d702c35cfc457ad53da179e9dcb90"
 # k6 tests requires network connection
 options = ["!check"]
 
