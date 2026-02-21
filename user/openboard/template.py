@@ -1,5 +1,5 @@
 pkgname = "openboard"
-pkgver = "1.7.4"
+pkgver = "1.7.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_CXX_STANDARD=20"]
@@ -20,4 +20,4 @@ pkgdesc = "Interactive whiteboard application"
 license = "GPL-3.0-or-later"
 url = "https://openboard.ch"
 source = f"https://github.com/OpenBoard-org/OpenBoard/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9948a2fec3920679087422d5c1c1b18839e2a95cee5b485d7584bb972b54a13c"
+sha256 = "31cdb4049402b93a346637bda537d528ef53c84d70598f0861ad9d77ad3e37eb"
