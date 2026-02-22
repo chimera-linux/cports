@@ -1,6 +1,6 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.18.12"
+pkgver = "6.18.13"
 pkgrel = 0
 archs = [
     "aarch64",
@@ -22,7 +22,7 @@ pkgdesc = f"Linux kernel {pkgver[0 : pkgver.rfind('.')]}.x"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e003294ad4c2c2ac5bb77fbb8259511134f51d987b3212516832dc4b0c83f1ea"
+sha256 = "ed2c3c55fd38e6836c094fce356f2567f9516130b73354a29857960368c5687f"
 # no meaningful checking to be done
 options = [
     "!check",
