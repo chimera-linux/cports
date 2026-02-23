@@ -1,8 +1,7 @@
 pkgname = "fwupd-efi"
-pkgver = "1.4"
-pkgrel = 3
-# riscv64 not supported yet
-archs = ["aarch64", "x86_64"]
+pkgver = "1.8"
+pkgrel = 0
+archs = ["aarch64", "armv7", "loongarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -22,7 +21,7 @@ pkgdesc = "EFI application used by fwupd uefi-capsule"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd-efi"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "b1f5fe72e16d4e2f4c616da416dc93bd79331057336208465da37bafe8f8f83d"
+sha256 = "c9f1f9b9b967ea50eb0b478f0d7693d6673d4cd76c8e7eb80c55fc44ec928925"
 tools = {"LD": "ld.bfd", "OBJCOPY": "gobjcopy"}
 tool_flags = {"LDFLAGS": ["-fuse-ld=bfd"]}
 options = ["!cross"]
