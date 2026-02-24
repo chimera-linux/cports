@@ -1,6 +1,6 @@
 pkgname = "plasma-activities-stats"
 pkgver = "6.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]

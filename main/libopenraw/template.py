@@ -1,6 +1,6 @@
 pkgname = "libopenraw"
 pkgver = "0.3.7"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 hostmakedepends = [

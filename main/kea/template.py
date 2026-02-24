@@ -1,6 +1,6 @@
 pkgname = "kea"
 pkgver = "3.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Drunstatedir=run"]
 hostmakedepends = [

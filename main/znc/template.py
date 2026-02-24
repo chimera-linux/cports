@@ -1,6 +1,6 @@
 pkgname = "znc"
 pkgver = "1.9.1"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 configure_args = [
     "-DWANT_PERL=ON",

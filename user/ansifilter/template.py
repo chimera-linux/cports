@@ -1,6 +1,6 @@
 pkgname = "ansifilter"
 pkgver = "2.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["boost-devel", "qt6-qtbase-devel"]

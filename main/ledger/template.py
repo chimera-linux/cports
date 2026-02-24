@@ -1,6 +1,6 @@
 pkgname = "ledger"
 pkgver = "3.3.2"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 make_dir = "."
