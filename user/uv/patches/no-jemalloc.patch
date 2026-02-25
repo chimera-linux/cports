@@ -1,13 +1,27 @@
+diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
+index d09a389a6..9e425464e 100644
+--- a/crates/uv-dev/Cargo.toml
++++ b/crates/uv-dev/Cargo.toml
+@@ -71,7 +71,7 @@ name = "uv-dev"
+ required-features = ["dev"]
+ 
+ [features]
+-default = ["performance", "uv-extract/static"]
++default = ["uv-extract/static"]
+ # Actually build the dev CLI.
+ dev = []
+ performance = ["performance-memory-allocator"]
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index a243ba0..8b37db1 100644
+index 918b9fb9e..3a517b115 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -152,7 +152,7 @@ nix = { workspace = true }
+@@ -159,7 +159,7 @@ nix = { workspace = true }
  uv-unix = { workspace = true }
-
+ 
  [features]
--default = ["performance", "uv-distribution/static", "default-tests"]
-+default = ["uv-distribution/static", "default-tests"]
+-default = ["performance", "uv-distribution/static", "test-defaults"]
++default = ["uv-distribution/static", "test-defaults"]
  native-auth = []
  # Use better memory allocators, etc.
  performance = ["performance-memory-allocator"]
+
