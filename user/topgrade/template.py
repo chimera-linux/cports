@@ -13,6 +13,21 @@ sha256 = "d6e8376c6363545ce8994703c33f18d50fb4f8c689a2bc196bed159010c9cf03"
 options = ["!cross"]
 
 
+def pre_prepare(self):
+    from cbuild.util import cargo
+
+    # Required to fix compilation on ppc
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc@0.2.179",
+        "--precise",
+        "0.2.182",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(f"{self.cwd}/topgrade.{shell}", "w") as o:
