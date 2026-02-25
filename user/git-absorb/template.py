@@ -1,5 +1,5 @@
 pkgname = "git-absorb"
-pkgver = "0.8.0"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["asciidoc", "cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Automatic git commit --fixup"
 license = "BSD-3-Clause"
 url = "https://github.com/tummychow/git-absorb"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9ed6fef801fbfeb7110744cac38ae5b3387d8832749ae20077b9139d032211f1"
+sha256 = "a0f74e6306d7fbd746d2b4a6856621d46a7f82e3e88b6bb8b6fc0480cf811f53"
 # generates completions with host bin
 options = ["!cross"]
 
