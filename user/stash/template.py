@@ -4,7 +4,13 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo"]
 makedepends = ["sqlite-devel", "turnstile"]
-provides = ["cmd:stash"]
+provides = [
+    "cmd:stash",
+    "stash-copy",
+    "stash-paste",
+    "cmd:wl-copy",
+    "cmd:wl-paste",
+]
 pkgdesc = "Lightweight wayland clipboard manager with persistent history"
 license = "MPL-2.0"
 url = "https://github.com/notashelf/stash"
@@ -13,4 +19,8 @@ sha256 = "e35a07ef150eca8ae4ae78d421e8861850a33c265cda0d6bdc52f63b2fbea492"
 
 
 def post_install(self):
+    self.install_link("usr/bin/stash-copy", "stash")
+    self.install_link("usr/bin/stash-paste", "stash")
+    self.install_link("usr/bin/wl-copy", "stash")
+    self.install_link("usr/bin/wl-paste", "stash")
     self.install_service(self.files_path / "stash.user")
