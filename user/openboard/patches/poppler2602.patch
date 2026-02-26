@@ -1,0 +1,26 @@
+diff --git a/src/pdf/XPDFRenderer.cpp b/src/pdf/XPDFRenderer.cpp
+index 4d6c98f..1ec520f 100644
+--- a/src/pdf/XPDFRenderer.cpp
++++ b/src/pdf/XPDFRenderer.cpp
+@@ -235,7 +235,7 @@ QImage* XPDFRenderer::createPDFImageUncached(int pageNumber, qreal xscale, qreal
+         if(mSplashUncached)
+             delete mSplashUncached;
+ 
+-        mSplashUncached = new SplashOutputDev(splashModeRGB8, 1, false, constants::paperColor);
++        mSplashUncached = new SplashOutputDev(splashModeRGB8, 1, constants::paperColor);
+         mSplashUncached->startDoc(mDocument);
+ 
+         int rotation = 0; // in degrees (get it from the worldTransform if we want to support rotation)
+diff --git a/src/pdf/XPDFRenderer.h b/src/pdf/XPDFRenderer.h
+index 0e8de81..d60945b 100644
+--- a/src/pdf/XPDFRenderer.h
++++ b/src/pdf/XPDFRenderer.h
+@@ -105,7 +105,7 @@ class XPDFRenderer : public PDFRenderer
+                     cachedImage = QImage();
+                     delete splash;
+                 }
+-                splash = new SplashOutputDev(splashModeRGB8, 1, false, paperColor);
++                splash = new SplashOutputDev(splashModeRGB8, 1, paperColor);
+                 cachedPageNumber = pageNumber;
+             }
+ 
