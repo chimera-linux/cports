@@ -1,5 +1,5 @@
 pkgname = "libksysguard"
-pkgver = "6.6.0"
+pkgver = "6.6.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -38,7 +38,7 @@ pkgdesc = "KDE system monitor library"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
-sha256 = "d45be151b18b469dbbb6191435e3f0a9e675d07bf1db5f08f1c7dc4a57a71d62"
+sha256 = "633db72922d2c7f8a86e533cedec2695212e61981a885f1df07c2eeb72f4312c"
 file_modes = {
     "usr/lib/ksysguard/ksgrd_network_helper": ("root", "root", 0o755),
 }

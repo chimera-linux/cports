@@ -1,5 +1,5 @@
 pkgname = "kwayland"
-pkgver = "6.6.0"
+pkgver = "6.6.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Qt-style Client and Server library wrapper for the Wayland libraries"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/frameworks/kwayland"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwayland-{pkgver}.tar.xz"
-sha256 = "6e180a4235390a2ae7296e6a760a0e7a57971e00790aed0d98d71034f1274801"
+sha256 = "cc26e022a3090babacd0ae8ec146d1bd42df91eb8cb76a407b072e9cdd836017"
 
 
 @subpackage("kwayland-devel")

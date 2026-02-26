@@ -1,0 +1,18 @@
+commit 20cdc9f4a88710f7315b6b0aa96e72689b171845
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Feb 26 13:56:55 2026 +0100
+
+    ../autotests/integration/test_colormanagement.cpp:396:9: error: use of undeclared identifier 'ftruncate'
+
+diff --git a/autotests/integration/test_colormanagement.cpp b/autotests/integration/test_colormanagement.cpp
+index efa2c4f..3e7f3ff 100644
+--- a/autotests/integration/test_colormanagement.cpp
++++ b/autotests/integration/test_colormanagement.cpp
+@@ -27,6 +27,7 @@
+ #include <drm_fourcc.h>
+ #include <fcntl.h>
+ #include <format>
++#include <unistd.h>
+ 
+ #include "qwayland-color-management-v1.h"
+ #include "wayland-linux-dmabuf-unstable-v1-client-protocol.h"

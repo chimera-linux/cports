@@ -1,5 +1,5 @@
 pkgname = "systemsettings"
-pkgver = "6.6.0"
+pkgver = "6.6.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,6 +34,6 @@ pkgdesc = "KDE System settings"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
-sha256 = "d0c8bf9a89cea5f1d7463b115054c0060dfa8efb9e2720b727ca80cf6bff6249"
+sha256 = "61fd857755dbdafe80c6afbaab98974f6401c2346ed0afe3855009e5de400e28"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 hardening = ["vis"]

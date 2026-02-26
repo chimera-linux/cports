@@ -1,5 +1,5 @@
 pkgname = "kde-cli-tools"
-pkgver = "6.6.0"
+pkgver = "6.6.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -30,5 +30,5 @@ pkgdesc = "KDE command line tools to interact with Plasma"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kde-cli-tools"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-cli-tools-{pkgver}.tar.xz"
-sha256 = "b451b3b80c87e7e6562cf9a9c669f42f376f8226666292e921dafafd34511dad"
+sha256 = "28810d0b4407d0ac752f9420ecd843af2f5568751fc1c70d114620f0596fdeec"
 hardening = ["vis"]

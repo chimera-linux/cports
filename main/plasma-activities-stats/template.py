@@ -1,6 +1,6 @@
 pkgname = "plasma-activities-stats"
-pkgver = "6.6.0"
-pkgrel = 1
+pkgver = "6.6.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
@@ -22,7 +22,7 @@ pkgdesc = "Library to access KDE activity manager statistics data"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-activities-stats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-stats-{pkgver}.tar.xz"
-sha256 = "03fe7bda7db2dd30cb26cbb87d2829965532439a8d6532be089e317629ea9b5a"
+sha256 = "00d114839521925577011630cc7ad8c6d5da315cc1498b92dfb45972b61d41b4"
 hardening = ["vis"]
 
 
