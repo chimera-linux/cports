@@ -14,8 +14,6 @@ options = ["!cross"]
 
 
 def pre_prepare(self):
-    from cbuild.util import cargo
-
     # Required to fix compilation on ppc
     self.do(
         "cargo",
