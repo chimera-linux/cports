@@ -1,7 +1,7 @@
 pkgname = "poppler"
-pkgver = "26.01.0"
+pkgver = "26.02.0"
 _test_commit = "9d5011815a14c157ba25bb160187842fb81579a5"
-pkgrel = 1
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
@@ -44,7 +44,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089",
+    "dded8621f7b2f695c91063aab1558691c8418374cd583501e89ed39487e7ab77",
     "c4cbdbf44f1d5c1ccbd7de611e979d97b703851970819cbb021f97218a445ed2",
 ]
 # check_qt6_goostring crashes
