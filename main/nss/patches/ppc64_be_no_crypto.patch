@@ -1,0 +1,17 @@
+this symbol is missing on big endian
+
+--- a/nss/lib/freebl/ghash-ppc.c
++++ b/nss/lib/freebl/ghash-ppc.c
+@@ -112,4 +112,12 @@ gcm_HashZeroX_hw(gcmHashContext *ghash)
+     return SECSuccess;
+ }
+ 
++#else
++
++PRBool
++platform_ghash_support()
++{
++    return PR_FALSE;
++}
++
+ #endif /* defined(USE_PPC_CRYPTO) */
