@@ -1,17 +1,25 @@
-this symbol is missing on big endian
+these are guarded under little endian and vsx so defining
+platform ghash support breaks the build on big endian
 
---- a/nss/lib/freebl/ghash-ppc.c
-+++ b/nss/lib/freebl/ghash-ppc.c
-@@ -112,4 +112,12 @@ gcm_HashZeroX_hw(gcmHashContext *ghash)
-     return SECSuccess;
- }
- 
-+#else
-+
-+PRBool
-+platform_ghash_support()
-+{
-+    return PR_FALSE;
-+}
-+
- #endif /* defined(USE_PPC_CRYPTO) */
+--- a/nss/lib/freebl/Makefile
++++ b/nss/lib/freebl/Makefile
+@@ -290,17 +290,15 @@ ifeq ($(CPU_ARCH),arm)
+     MPI_SRCS += mpi_arm.c
+ endif
+ ifeq ($(CPU_ARCH),ppc)
+-    DEFINES += -DHAVE_PLATFORM_GHASH
+-    EXTRA_SRCS += ghash-ppc.c
+ ifdef USE_64
+     DEFINES += -DNSS_NO_INIT_SUPPORT
+     PPC_ABI := $(shell $(CC) -dM -E - < /dev/null | awk '$$2 == "_CALL_ELF" {print $$3}')
+     ifeq ($(PPC_ABI),2)
+         ASFILES += sha512-p8.s
+     ifeq ($(OS_TEST),ppc64le)
+-        EXTRA_SRCS += chacha20poly1305-ppc.c ppc-gcm-wrap.c
++        EXTRA_SRCS += ghash-ppc.c chacha20poly1305-ppc.c ppc-gcm-wrap.c
+         ASFILES += chacha20-ppc64le.s ppc-gcm.s
+-        DEFINES += -DHAVE_PLATFORM_GCM
++        DEFINES += -DHAVE_PLATFORM_GHASH -DHAVE_PLATFORM_GCM
+     endif # ppc64le
+     endif
+ endif # USE_64
