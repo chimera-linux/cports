@@ -1,6 +1,6 @@
 pkgname = "docker-compose"
-pkgver = "2.38.2"
-pkgrel = 4
+pkgver = "5.1.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -13,7 +13,7 @@ pkgdesc = "Docker CLI plugin for compose files"
 license = "Apache-2.0"
 url = "https://docs.docker.com/compose"
 source = f"https://github.com/docker/compose/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "250e087aeb614c762e3cb7c5b0cacb964acfa90f3f1d158942fc06d22d5e1044"
+sha256 = "61ffbd8e8461dfebbb1c2e195f96b372a5bbc9343e6c1ba01184c3d630150a78"
 # need a running docker daemon
 options = ["!check"]
 
