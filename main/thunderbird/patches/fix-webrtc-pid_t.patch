@@ -1,0 +1,10 @@
+--- a/third_party/libwebrtc/modules/desktop_capture/desktop_capturer.h
++++ b/third_party/libwebrtc/modules/desktop_capture/desktop_capturer.h
+@@ -11,6 +11,7 @@
+ #ifndef MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
+ #define MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
+ 
++#include <sys/types.h>
+ #include <cstddef>
+ #include <cstdint>
+ #include <memory>
