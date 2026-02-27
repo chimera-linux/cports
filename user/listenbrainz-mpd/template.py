@@ -1,5 +1,5 @@
 pkgname = "listenbrainz-mpd"
-pkgver = "2.3.9"
+pkgver = "2.4.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "ListenBrainz submission client for MPD"
 license = "AGPL-3.0-only"
 url = "https://codeberg.org/elomatreb/listenbrainz-mpd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "20f287d1561f9739ce0f61fba053f0e0cd8d48869ff33e5d2f14bcda40912a64"
+sha256 = "f08940dbca01009be229828dc904e924245f59598f9f92870c1e8f95493cf63a"
 # no tests
 options = ["!check"]
 
