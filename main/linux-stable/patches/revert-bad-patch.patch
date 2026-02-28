@@ -16,7 +16,7 @@ index c436a6e..a927b6d 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1416,13 +1416,18 @@ ifneq ($(wildcard $(resolve_btfids_O)),)
- 	$(Q)$(MAKE) -sC $(srctree)/tools/bpf/resolve_btfids O=$(resolve_btfids_O) clean
+ 	$(Q)$(MAKE) -sC $(abs_srctree)/tools/objtool O=$(objtool_O) srctree=$(abs_srctree) clean
  endif
  
 +# Clear a bunch of variables before executing the submake
