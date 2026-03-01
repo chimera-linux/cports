@@ -33,7 +33,3 @@ sha256 = "2b62c32da739668f0d99e41144ad721c0fc02b184a9c451458644071bb335770"
 # this would also only be the basic test suite.
 # !check is the reason for no hardening opts
 options = ["!check"]
-
-
-def post_install(self):
-    self.install_file("examples/config", "usr/share/etc/cagebreak")
