@@ -17,4 +17,4 @@ def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/iamb")
     self.install_man("docs/iamb.1")
     self.install_man("docs/iamb.5")
-    self.install_file("config.example.toml", "usr/share/etc/iamb")
+    self.install_file("config.example.toml", "usr/share/examples/iamb")

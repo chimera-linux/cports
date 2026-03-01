@@ -7,7 +7,7 @@ index 8357f96..cdfee31 100644
  .Sy iamb
  will load if the TOML one is not found.
 -.It Pa /usr/share/iamb/config.example.toml
-+.It Pa /usr/share/etc/iamb/config.example.toml
++.It Pa /usr/share/examples/iamb/config.example.toml
  A sample configuration file with examples of how to set different values.
  .El
  .Sh "REPORTING BUGS"
