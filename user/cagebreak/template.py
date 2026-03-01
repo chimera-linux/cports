@@ -16,7 +16,7 @@ makedepends = [
     "wayland-protocols",
     "wlroots0.19-devel",
 ]
-depends = ["pango-view"]
+depends = ["pango-view", "xwayland"]
 pkgdesc = "Wayland Tiling Compositor inspred by Ratpoison"
 license = "MIT"
 url = "https://github.com/project-repo/cagebreak"
