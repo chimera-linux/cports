@@ -1,0 +1,6 @@
+type = process
+command = tor --runasdaemon 0 --defaults-torrc /usr/share/etc/tor/torrc -f /etc/tor/torrc --ignore-missing-torrc
+working-dir = /var/lib/tor/
+run-as = _tor
+smooth-recovery = true
+depends-on: network.target
