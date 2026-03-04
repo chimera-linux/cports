@@ -1,5 +1,5 @@
 pkgname = "minijinja-cli"
-pkgver = "2.16.0"
+pkgver = "2.17.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "minijinja-cli"]
@@ -12,7 +12,7 @@ pkgdesc = "Jinja implementation"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9fb30f6d1d9fc4045e54101fce0add299c3b1a3d0b66542a3a21a0fb44b11217"
+sha256 = "917d7cc981ed1615d735570ef813c70825567b78ed7345925b56dc7f12fd218e"
 # check may be disabled
 options = []
 
