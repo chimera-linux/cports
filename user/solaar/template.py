@@ -1,6 +1,6 @@
 pkgname = "solaar"
-pkgver = "1.1.14"
-pkgrel = 3
+pkgver = "1.1.19"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -23,6 +23,6 @@ url = "https://pwr-solaar.github.io/Solaar"
 source = (
     f"https://github.com/pwr-Solaar/Solaar/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "8d376a4fe001076a41d3d0bb5f7af079742daf48c37930785a0ecec7da8fbd1f"
+sha256 = "9392a75bfe9faf14f1e9e5c1a29bfef9d5d8552529c870bdd026915f965230f2"
 # no tests
 options = ["!check"]
