@@ -1,5 +1,5 @@
 pkgname = "flatpak-builder"
-pkgver = "1.4.6"
+pkgver = "1.4.7"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -32,6 +32,6 @@ pkgdesc = "Tool to build flatpaks from source"
 license = "LGPL-2.1-or-later"
 url = "https://docs.flatpak.org"
 source = f"https://github.com/flatpak/flatpak-builder/releases/download/{pkgver}/flatpak-builder-{pkgver}.tar.xz"
-sha256 = "a8e0e5c52237cbbf732957e141eca497a2ea7a64ab20c012aeb7f92c16ea13b1"
+sha256 = "fd5bc36fe3b974395f782e6c920d8955cee168f513370c32cc800b69acd980d0"
 # CFI: fails on builder_(context|cache)_finalize during "flatpak-builder build ..."
 hardening = ["vis", "!cfi"]
