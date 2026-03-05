@@ -1,6 +1,6 @@
 pkgname = "kimchi"
-pkgver = "0.1.1"
-pkgrel = 6
+pkgver = "0.2.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["-ldflags=-X main.configPath=/etc/kimchi/config"]
 hostmakedepends = ["go", "scdoc", "libcap-progs"]
@@ -9,7 +9,7 @@ pkgdesc = "Bare-bones HTTP server"
 license = "MIT"
 url = "https://codeberg.org/emersion/kimchi"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "cf2b38e7a74d88f8e7b17153a694682b81a9a859e7ec904b52db67d111c6cd77"
+sha256 = "ba12a48573009e4cb3a4e752ee12f1c968702f5f4c835365d84a0d607283b342"
 file_modes = {
     "usr/bin/kimchi": ("root", "root", 0o755),
 }
