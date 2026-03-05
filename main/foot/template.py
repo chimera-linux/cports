@@ -1,5 +1,5 @@
 pkgname = "foot"
-pkgver = "1.25.0"
+pkgver = "1.26.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dterminfo-base-name=foot-extra"]
@@ -28,7 +28,7 @@ pkgdesc = "Wayland terminal emulator"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "442a42d576ec72dd50f2d3faea8a664230a47bac79dc1eb6e7c9125ee76c130f"
+sha256 = "9ef510adc8f04a401c04fea8cfceadd54897f7122d75a93e8bcbc27064da876f"
 hardening = ["vis", "cfi"]
 
 
