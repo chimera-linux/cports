@@ -1,5 +1,5 @@
 pkgname = "flashrom"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Duse_internal_dmi=false"]
@@ -16,7 +16,7 @@ pkgdesc = "Utility for flashing ROM chips"
 license = "GPL-2.0-only"
 url = "https://www.flashrom.org"
 source = f"https://download.flashrom.org/releases/flashrom-v{pkgver}.tar.xz"
-sha256 = "8b9db3987df9b5fc81e70189d017905dd5f6be1e1410347f22687ab6d4c94423"
+sha256 = "4328ace9833f7efe7c334bdd73482cde8286819826cc00149e83fba96bf3ab4f"
 # needs special configuration?
 options = ["!check", "linkundefver"]
 
