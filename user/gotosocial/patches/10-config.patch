@@ -1,7 +1,5 @@
-diff --git i/example/config.yaml w/example/config.yaml
-index a7c679f38..00ee0a2fc 100644
---- i/example/config.yaml
-+++ w/example/config.yaml
+--- a/example/config.yaml
++++ b/example/config.yaml
 @@ -167,17 +167,17 @@ db-type: "sqlite"
  # If the file doesn't exist at the specified path, it will be created.
  # If just a filename is provided (no directory) then the database will be created in the same directory
@@ -36,11 +34,11 @@ index a7c679f38..00ee0a2fc 100644
  # Default: ""
  db-postgres-connection-string: ""
  
+ # GoToSocial cache
+ # configuration opts.
  cache:
-   # cache.memory-target sets a target limit that
-   # the application will try to keep it's caches
-   # within. This is based on estimated sizes of
-@@ -303,22 +303,22 @@ cache:
+ 
+@@ -339,22 +339,22 @@ cache:
  ##### WEB CONFIG #####
  ######################
  
@@ -65,7 +63,7 @@ index a7c679f38..00ee0a2fc 100644
  # Config pertaining to instance federation settings, pages to hide/expose, etc.
  
  # Array of string. BCP47 language tags to indicate preferred languages of users on this instance.
-@@ -751,17 +751,17 @@ media-cleanup-every: "24h"
+@@ -787,17 +787,17 @@ media-cleanup-every: "24h"
  storage-backend: "local"
  
  # String. Directory to use as a base path for storing files.
@@ -84,7 +82,7 @@ index a7c679f38..00ee0a2fc 100644
  # If you are using Scaleways object storage, please remove the "bucket name" from the endpoint address
  # Default: ""
  storage-s3-endpoint: ""
-@@ -914,17 +914,17 @@ letsencrypt-enabled: false
+@@ -950,17 +950,17 @@ letsencrypt-enabled: false
  letsencrypt-port: 80
  
  # String. Directory in which to store LetsEncrypt certificates.
