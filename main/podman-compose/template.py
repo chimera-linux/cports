@@ -1,5 +1,5 @@
 pkgname = "podman-compose"
-pkgver = "1.4.1"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "Podman utility for docker-compose.yml support"
 license = "GPL-2.0-only"
 url = "https://github.com/containers/podman-compose"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "582c6021b03565d4fe71ddb5d12c5fbcdbc630ca24d2b29b02d568a2da304853"
+sha256 = "83624b850fd0727f0cc3a574e17471cd003e1d85c46af91854bdab67299058fa"
 # tests need to run podman which isn't gonna work in bwrap without networking and so on
 options = ["!check"]
 
