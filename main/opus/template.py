@@ -1,6 +1,6 @@
 pkgname = "opus"
-pkgver = "1.5.2"
-pkgrel = 3
+pkgver = "1.6.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcustom-modes=true",
@@ -16,7 +16,7 @@ pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
 license = "BSD-3-Clause"
 url = "https://www.opus-codec.org"
 source = f"https://downloads.xiph.org/releases/opus/opus-{pkgver}.tar.gz"
-sha256 = "65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1"
+sha256 = "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1"
 
 
 def post_install(self):
