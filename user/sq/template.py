@@ -1,6 +1,6 @@
 pkgname = "sq"
-pkgver = "0.48.5"
-pkgrel = 12
+pkgver = "0.50.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/neilotoole/sq/cli/buildinfo.Version=v{pkgver}"
@@ -21,7 +21,7 @@ pkgdesc = "Tool to inspect, query, join, import, and export structured data"
 license = "MIT"
 url = "https://sq.io"
 source = f"https://github.com/neilotoole/sq/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4ed9cef836e66174b6e01c8d410cd393aeae7f7069a428a7ab2adcd1e282cf68"
+sha256 = "36e20553b05aa10069ea3a422bbd98df936f5ca505eae9d61b98ff7ee0b7a279"
 # check: some tests require network
 # cross: generates manpages/completions with host bins
 options = ["!check", "!cross"]
