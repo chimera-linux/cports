@@ -1,13 +1,13 @@
 pkgname = "go-sendxmpp"
-pkgver = "0.15.1"
-pkgrel = 2
+pkgver = "0.15.5"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Tool to send messages or files over XMPP"
 license = "BSD-2-Clause"
 url = "https://salsa.debian.org/mdosch/go-sendxmpp"
 source = f"{url}/-/archive/v{pkgver}/go-sendxmpp-v{pkgver}.tar.gz"
-sha256 = "35efac1a27740888dbb047056bb1a159659e910f11e2637e06c1768e5047c222"
+sha256 = "57c24a82689461f7af4c8c9233f548ecc4d1deedad6d9f9e43d1b4c6af8238d6"
 
 
 def post_install(self):

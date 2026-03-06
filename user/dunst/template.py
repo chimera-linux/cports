@@ -1,5 +1,5 @@
 pkgname = "dunst"
-pkgver = "1.13.0"
+pkgver = "1.13.1"
 pkgrel = 0
 build_style = "meson"
 make_check_target = "test"
@@ -33,7 +33,7 @@ url = "https://dunst-project.org"
 source = (
     f"https://github.com/dunst-project/dunst/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "7a8a1813977ad5941488c66b914501703fc0f6e12e631dc18506ad617242e7a0"
+sha256 = "a578e5c2cdb546187355c710f1aa84c472e6e23828e692fe1cb0ebb9635b11a6"
 env = {"SYSCONFDIR": "/etc"}
 hardening = ["vis", "cfi"]
 

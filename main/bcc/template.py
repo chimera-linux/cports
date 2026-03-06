@@ -1,7 +1,7 @@
 pkgname = "bcc"
 # keep in sync with main/libbpf-tools
-pkgver = "0.35.0"
-pkgrel = 1
+pkgver = "0.36.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -41,7 +41,7 @@ pkgdesc = "Toolkit for creating eBPF programs"
 license = "Apache-2.0"
 url = "https://github.com/iovisor/bcc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7adf1716d2a3df6802c3bb17664d79b9d68d7316a6773eb08d6e691c5ff0b2fc"
+sha256 = "3b16f1eb6a5b90a5a68686c0f4195455f1c58da5ae40f004e931c19e98fa8d98"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],

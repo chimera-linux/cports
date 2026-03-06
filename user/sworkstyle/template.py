@@ -1,5 +1,5 @@
 pkgname = "sworkstyle"
-pkgver = "1.3.6"
+pkgver = "1.3.9"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Map workspace names to icons for sway"
 license = "MIT"
 url = "https://github.com/Lyr-7D1h/swayest_workstyle"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dc6bb5b63a568a0c19e4477e06a683ddcf208213af92f47ae7fda175b6f77fb9"
+sha256 = "5b2cc99d3b29a4e4c07475d62831b13389f5f70d6cd013dd8ed6ea570b4049c5"
 
 
 def pre_prepare(self):
