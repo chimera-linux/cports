@@ -1,6 +1,6 @@
 pkgname = "gopass"
-pkgver = "1.15.18"
-pkgrel = 2
+pkgver = "1.16.1"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["git", "gnupg"]
@@ -10,7 +10,7 @@ url = "https://www.gopass.pw"
 source = (
     f"https://github.com/gopasspw/gopass/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "46b197fd6d72305203bf342a88931a25366b7066801c0151ea01c2a4efed2f79"
+sha256 = "33451a782b66266c59560a5ec7f4e34c104c501a36b445fc574fad71e3b3d884"
 # needs initialising git config
 options = ["!check"]
 
