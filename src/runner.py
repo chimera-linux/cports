@@ -58,6 +58,8 @@ opt_tdata = {}
 opt_nolock = False
 opt_nodepcheck = False
 opt_verbose = False
+opt_linter = "auto"
+opt_formatter = "auto"
 
 #
 # INITIALIZATION ROUTINES
@@ -119,6 +121,7 @@ def handle_options():
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
     global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata, opt_nolock
     global opt_keypath, opt_apkrepo, opt_nodepcheck, opt_verbose
+    global opt_linter, opt_formatter
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -382,6 +385,8 @@ def handle_options():
             "allow_restricted", fallback=opt_restricted
         )
         opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
+        opt_linter = bcfg.get("linter", fallback=opt_linter).strip()
+        opt_formatter = bcfg.get("formatter", fallback=opt_formatter).strip()
 
     if "flags" not in global_cfg:
         global_cfg["flags"] = {}
@@ -1795,6 +1800,8 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             stage=bstage,
             allow_restricted=opt_restricted,
             data=opt_tdata,
+            linter=opt_linter,
+            formatter=opt_formatter,
         )
         if pkgn
         else None

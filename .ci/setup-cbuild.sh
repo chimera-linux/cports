@@ -22,6 +22,9 @@ command = $(pwd)/${APK_FILE}
 ccache = yes
 # they will not be packaged, but we can still CI them (no public artifacts)
 allow_restricted = yes
+# we lint in separate step
+linter = none
+formatter = none
 EOF
 
 echo "=> Generating cbuild key..."

@@ -18,6 +18,7 @@ import contextlib
 import builtins
 import tempfile
 import stat
+import subprocess
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors, git
 from cbuild.util import compiler, flock
@@ -730,6 +731,8 @@ class Template(Package):
         data=None,
         init=True,
         contents=None,
+        linter=None,
+        formatter=None,
     ):
         super().__init__()
 
@@ -781,6 +784,8 @@ class Template(Package):
         self._force_check = force_check
         self._allow_restricted = allow_restricted
         self._data = data if data else {}
+        self._linter = linter
+        self._formatter = formatter
 
         if pkgarch:
             self._current_profile = profile.get_profile(pkgarch)
@@ -1420,8 +1425,12 @@ class Template(Package):
         self.validate_pkgdesc()
         self.validate_url()
         self.validate_vars()
+
         with open(self.template_path / "template.py") as f:
             self.validate_ast(self.validate_order(f.read()))
+
+        self.validate_extlint()
+        self.validate_format()
 
     def resolve_depends(self):
         if self._depends_setup:
@@ -1720,6 +1729,109 @@ class Template(Package):
         if not prevmatch or prevneg:
             self.broken = f"this package cannot be built for {archn}"
         # otherwise we're good
+
+    def validate_extlint(self):
+        if not self._linter or self._linter == "none":
+            return
+
+        self.log("checking template validity...")
+
+        lsplit = self._linter.split(":", 1)
+
+        match lsplit[0]:
+            case "flake8" | "ruff":
+                pass
+            case "auto":
+                flake = shutil.which("flake8")
+                if flake:
+                    lsplit = ["flake8", flake]
+                else:
+                    ruff = shutil.which("ruff")
+                    if ruff:
+                        lsplit = ["ruff", ruff]
+                    else:
+                        self.error(
+                            "could not determine template linter",
+                            hint="install one or set it manually in etc/config.ini",
+                        )
+            case _:
+                self.error(f"invalid template linter '{lsplit[0]}'")
+
+        if len(lsplit) == 1:
+            lsplit.append(lsplit[0])
+
+        lintcmd = shutil.which(lsplit[1])
+        if not lintcmd:
+            self.error(f"linter '{lsplit[1]}' is not executable")
+
+        if lsplit[0] == "flake8":
+            subp = subprocess.run([lintcmd, self.template_path])
+        elif lsplit[0] == "ruff":
+            subp = subprocess.run(
+                [lintcmd, "check", "--quiet", self.template_path]
+            )
+
+        if subp.returncode != 0:
+            self.error(
+                "template lint failed",
+                hint="read the above errors and fix them",
+            )
+
+    def validate_format(self):
+        if not self._formatter or self._formatter == "none":
+            return
+
+        self.log("checking template formatting...")
+
+        fsplit = self._formatter.split(":", 1)
+
+        match fsplit[0]:
+            case "black" | "ruff":
+                pass
+            case "auto":
+                black = shutil.which("black")
+                if black:
+                    fsplit = ["black", black]
+                else:
+                    ruff = shutil.which("ruff")
+                    if ruff:
+                        fsplit = ["ruff", ruff]
+                    else:
+                        self.error(
+                            "could not determine template formatter",
+                            hint="install one or set it manually in etc/config.ini",
+                        )
+            case _:
+                self.error(f"invalid template formatter '{fsplit[0]}'")
+
+        if len(fsplit) == 1:
+            fsplit.append(fsplit[0])
+
+        formatcmd = shutil.which(fsplit[1])
+        if not formatcmd:
+            self.error(f"formatter '{fsplit[1]}' is not executable")
+
+        if fsplit[0] == "black":
+            subp = subprocess.run(
+                [
+                    formatcmd,
+                    "--fast",
+                    "--diff",
+                    "--check",
+                    "--quiet",
+                    self.template_path,
+                ]
+            )
+        elif fsplit[0] == "ruff":
+            subp = subprocess.run(
+                [formatcmd, "format", "--diff", "--quiet", self.template_path]
+            )
+
+        if subp.returncode != 0:
+            self.error(
+                "template is incorrectly formatted",
+                hint="read the above diff and adjust accordingly",
+            )
 
     def is_built(self, quiet=False):
         archn = self.profile().arch

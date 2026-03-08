@@ -72,6 +72,14 @@ categories = main user
 allow_restricted = no
 # maintainer field to use for packages, you can set it for personal repos
 maintainer = unknown <cports@local>
+# linter to use if available (auto = flake8 || ruff, none, flake8, ruff)
+# both linter and formatter are enforced unless set to none
+# both can be set to a custom path like e.g. flake8:/path/to/binary
+# they are only enforced at the build step (i.e. can't build unless lints
+# pass, but can still do update checks and other things as necessary)
+linter = auto
+# formatter to use if available (auto = black || ruff, none, black, ruff)
+formatter = auto
 
 # flags passed to tools
 [flags]
