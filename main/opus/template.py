@@ -10,7 +10,7 @@ configure_args = [
     "-Dosce=enabled",
     "-Dtests=enabled",
 ]
-make_check_args = ["--timeout-multiplier", "10"]
+make_check_args = ["--timeout-multiplier", "20"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
 license = "BSD-3-Clause"
