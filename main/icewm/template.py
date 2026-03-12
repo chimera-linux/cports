@@ -1,11 +1,10 @@
 pkgname = "icewm"
-pkgver = "3.8.2"
+pkgver = "4.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCONFIG_GDK_PIXBUF_XLIB=ON",
     "-DCONFIG_LIBRSVG=ON",
-    "-DCONFIG_XPM=ON",
     "-DCFGDIR=/etc/icewm",
     "-DICESOUND=alsa",
     "-DXTERMCMD=urxvt",
@@ -29,10 +28,10 @@ makedepends = [
     "libsndfile-devel",
     "libx11-devel",
     "libxcomposite-devel",
+    "libxcursor-devel",
     "libxdamage-devel",
     "libxft-devel",
     "libxinerama-devel",
-    "libxpm-devel",
     "libxrandr-devel",
     "libxrender-devel",
     "libxres-devel",
@@ -42,7 +41,7 @@ pkgdesc = "Window manager for X11"
 license = "GPL-2.0-or-later"
 url = "https://ice-wm.org"
 source = f"https://github.com/ice-wm/icewm/archive/{pkgver}.tar.gz"
-sha256 = "4c18c91cdad7eb2532090466b3f611df12a9f0b45f83cf5a728f5848bd453cff"
+sha256 = "9a2eb74449bf4c2b995fd8b85c392dda06f0da684fae34849d8f04466b2e5943"
 
 
 def post_install(self):
