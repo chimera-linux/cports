@@ -1,5 +1,5 @@
 pkgname = "supersonic"
-pkgver = "0.20.1"
+pkgver = "0.21.0"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
@@ -14,7 +14,7 @@ pkgdesc = "Client for Subsonic and Jellyfin music servers"
 license = "GPL-3.0-or-later AND BSD-3-Clause AND MIT"
 url = "https://github.com/dweymouth/supersonic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6a51404e2388959058a6d42c069c858f15c224f6543c7b2b3de60deb5e32da78"
+sha256 = "b532e5fb0c2e03949a704ac12576713a85eb1890012befd2f2479caa35723804"
 
 
 def post_install(self):
