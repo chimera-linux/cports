@@ -1,0 +1,11 @@
+pkgname = "dufs"
+pkgver = "0.45.0"
+pkgrel = 0
+build_style = "cargo"
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
+pkgdesc = "Tiny utility file server"
+license = "Apache-2.0"
+url = "https://github.com/sigoden/dufs"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "62aa2cadd77e1bd9d96c77cbd832a53ffc364301c549001bf8fd9d023cbd8ab1"
