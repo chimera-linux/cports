@@ -1578,7 +1578,7 @@ index 93dae35..1e3f08a 100644
  #else
      UContextReader::FillCPUContext(&cpu, ucontext_);
 @@ -616,7 +622,9 @@ class MicrodumpWriter {
-   void* Alloc(unsigned bytes) { return dumper_->allocator()->Alloc(bytes); }
+   }
  
    const ucontext_t* const ucontext_;
 -#if GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE

@@ -1,0 +1,29 @@
+commit 52ca3227ab0f693c2a344c2683056f8d6923c587
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Mar 16 14:43:37 2026 +0100
+
+    ../../components/enterprise/client_certificates/core/private_key_factory.cc:126:14: error: expression is not assignable
+      126 |              ++std::find(std::begin(kKeySourcesOrderedBySecurity),
+          |              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      127 |                          std::end(kKeySourcesOrderedBySecurity), source);
+          |                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    1 error generated.
+
+diff --git a/components/enterprise/client_certificates/core/private_key_factory.cc b/components/enterprise/client_certificates/core/private_key_factory.cc
+index f2365aa..c95649d 100644
+--- a/components/enterprise/client_certificates/core/private_key_factory.cc
++++ b/components/enterprise/client_certificates/core/private_key_factory.cc
+@@ -122,9 +122,10 @@ void PrivateKeyFactoryImpl::OnPrivateKeyCreated(
+     PrivateKeyCallback callback,
+     scoped_refptr<PrivateKey> private_key) {
+   if (!private_key && source != PrivateKeySource::kSoftwareKey) {
+-    for (auto fallback_source =
+-             ++std::find(std::begin(kKeySourcesOrderedBySecurity),
+-                         std::end(kKeySourcesOrderedBySecurity), source);
++    auto fallback_source = std::find(std::begin(kKeySourcesOrderedBySecurity),
++                                     std::end(kKeySourcesOrderedBySecurity), source);
++    ++fallback_source;
++    for (;
+          fallback_source != std::end(kKeySourcesOrderedBySecurity);
+          fallback_source++) {
+       auto it = sub_factories_.find(*fallback_source);

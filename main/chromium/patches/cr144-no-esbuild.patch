@@ -15,19 +15,6 @@ This reverts commit f130475580017f9f87502343dbcfc0c76dccefe8.
  scripts/build/ninja/bundle.gni                | 92 +++++++++++++------
  7 files changed, 97 insertions(+), 54 deletions(-)
 
-diff --git a/third_party/devtools-frontend/src/DEPS b/third_party/devtools-frontend/src/DEPS
-index f9caf8874d..7003edcf0b 100644
---- a/third_party/devtools-frontend/src/DEPS
-+++ b/third_party/devtools-frontend/src/DEPS
-@@ -145,7 +145,7 @@ deps = {
-     'url': Var('build_url') + '@' + Var('build_revision'),
-     'condition': 'build_with_chromium == False',
-   },
--  'third_party/siso/cipd': {
-+  'third_party/siso': {
-     'packages': [
-       {
-         'package': 'build/siso/${{platform}}',
 diff --git a/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts b/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts
 index cff188cbba..af9c3c14e6 100644
 --- a/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts
@@ -233,13 +220,13 @@ index 708f79d35e..096edc81b9 100644
  const outdir = path.dirname(outfile);
  
 @@ -48,7 +46,6 @@ esbuild
-       platform: 'browser',
-       plugins: [plugin],
-       sourcemap: useSourceMaps,
--      minify,
-     })
-     .catch(err => {
-       console.error('Failed to run esbuild:', err);
+     platform: 'browser',
+     plugins: [plugin],
+     sourcemap: useSourceMaps,
+-    minify,
+   });
+ } catch (err) {
+   console.error('Failed to run esbuild:', err);
 diff --git a/third_party/devtools-frontend/src/scripts/build/ninja/bundle.gni b/third_party/devtools-frontend/src/scripts/build/ninja/bundle.gni
 index 7d8fee3433..9b44b1f1b5 100644
 --- a/third_party/devtools-frontend/src/scripts/build/ninja/bundle.gni

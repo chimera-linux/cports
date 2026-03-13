@@ -1,0 +1,34 @@
+commit 239619bb3e239cd21d1f07f0a00340a7a52cc1a6
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Mar 16 11:42:43 2026 +0100
+
+    fix mojo std::vector<bool> element cloning with legacy c++ abi
+    
+    This would have probably worked fine if we used v2 libcxx abi but
+    we do not and chromium uses system so add an explicit copy
+    workaround.
+    
+    The issue boils down to that std::vector<bool> with legacy abi
+    is weird and vector<bool>::const_reference is not a bool but
+    rather a std::__bit_const_reference<vector<bool>> which is not
+    copyable so it fails when mojo::Clone()ing the elements but we
+    can still do an explicit bool conversion and bypass the clone
+    entirely.
+
+diff --git a/mojo/public/cpp/bindings/clone_traits.h b/mojo/public/cpp/bindings/clone_traits.h
+index 1cb9629..15776a5 100644
+--- a/mojo/public/cpp/bindings/clone_traits.h
++++ b/mojo/public/cpp/bindings/clone_traits.h
+@@ -56,7 +56,11 @@ struct CloneTraits<std::vector<T>> {
+     std::vector<T> result;
+     result.reserve(input.size());
+     for (const auto& element : input) {
+-      result.push_back(mojo::Clone(element));
++      if constexpr (std::is_same_v<T, bool>) {
++        result.push_back(bool(element));
++      } else {
++        result.push_back(mojo::Clone(element));
++      }
+     }
+ 
+     return result;

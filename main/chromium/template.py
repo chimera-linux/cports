@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "145.0.7632.116"
+pkgver = "146.0.7680.80"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -138,8 +138,15 @@ depends = [
 pkgdesc = "Web browser"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
-source = f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz"
-sha256 = "84eb04b8263fdabf805269fb1cc7e17301cebeb286bdbf7cdceb5083a5aaa428"
+source = [
+    f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz",
+    "https://registry.npmjs.org/@rollup/wasm-node/-/wasm-node-4.22.4.tgz",
+]
+source_paths = [".", "rollup"]
+sha256 = [
+    "eefd1e869ce956057f565bdc3e99ed31f92d70b7de3d5c27aa9da6a1989bc867",
+    "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
+]
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -183,13 +190,10 @@ def post_patch(self):
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
 
-    self.do(
-        "npm",
-        "ci",
-        "--ignore-scripts",
-        wrksrc="third_party/devtools-frontend/src",
-        allow_network=True,
+    self.rm(
+        "third_party/devtools-frontend/src/node_modules/rollup", recursive=True
     )
+    self.mv("rollup", "third_party/devtools-frontend/src/node_modules")
 
 
 def configure(self):
