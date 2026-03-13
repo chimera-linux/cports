@@ -1,4 +1,4 @@
-From 14c9a6365772ab89ef0f7d3c87ea3821e0c20aee Mon Sep 17 00:00:00 2001
+From a94d022a0bdab9473b8ab614d80c6b6478470453 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 40149ee09..8964616dc 100644
+index cfcb144e0..d95237d00 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -705,7 +705,7 @@ impl Step for DebuggerScripts {
+@@ -708,7 +708,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let target = self.target;
          let sysroot = self.sysroot;
