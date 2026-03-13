@@ -1,0 +1,13 @@
+diff --git a/epan/read_keytab_file.c b/epan/read_keytab_file.c
+index 9e7e6b4..df077a6 100644
+--- a/epan/read_keytab_file.c
++++ b/epan/read_keytab_file.c
+@@ -304,7 +304,7 @@ keytab_file_read(const char* filename)
+             krb5_xfree(name);
+ #endif
+             new_key->keytype = KRB5_KEY_TYPE(KRB5_KT_KEY(&key));
+-            new_key->keylength = MIN(KRB5_KEY_LENGTH(KRB5_KT_KEY(&key)), KRB_MAX_KEY_LENGTH);
++            new_key->keylength = (int)MIN(KRB5_KEY_LENGTH(KRB5_KT_KEY(&key)), KRB_MAX_KEY_LENGTH);
+             memcpy(new_key->keyvalue,
+                 KRB5_KEY_DATA(KRB5_KT_KEY(&key)),
+                 new_key->keylength);
