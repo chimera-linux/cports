@@ -1,5 +1,5 @@
 pkgname = "pastel"
-pkgver = "0.11.0"
+pkgver = "0.12.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ pkgdesc = "CLI tool to generate, analyze, convert and manipulate colors"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/sharkdp/pastel"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "98639ae6539da5a4c20993daa559ca2d19dde63b601bcb29bb0cebbf56b1ac08"
+sha256 = "2903853f24d742fe955edd9bea17947eb8f3f44000a8ac528d16f2ea1e52b78b"
 
 
 def init_build(self):
