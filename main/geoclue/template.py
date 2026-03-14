@@ -1,13 +1,12 @@
 pkgname = "geoclue"
 pkgver = "2.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddbus-srv-user=_geoclue",
     "-Dgtk-doc=false",
     "-Dintrospection=true",
     "-Dvapi=true",
-    "-Ddemo-agent=false",  # problematic meson.build
 ]
 hostmakedepends = [
     "gettext",
