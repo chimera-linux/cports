@@ -54,7 +54,7 @@ jobs:
 
       - name: Restore cbuild cache
         id: cache-cbuild
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             ./cbuild_cache
@@ -73,7 +73,7 @@ jobs:
         run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
 
       - name: Save cbuild cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: ${{ !cancelled() }}
         with:
           path: |
