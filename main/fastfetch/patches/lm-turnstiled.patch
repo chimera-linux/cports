@@ -1,6 +1,6 @@
---- a/src/detection/lm/lm_linux.c
-+++ b/src/detection/lm/lm_linux.c
-@@ -137,10 +137,10 @@ const char* ffDetectLM(FFLMResult* result)
+--- a/src/detection/lm/lm_linux.c	2026-03-14 22:23:12.772993435 +1000
++++ b/src/detection/lm/lm_linux.c	2026-03-14 22:23:20.586215565 +1000
+@@ -137,10 +137,10 @@
  {
      FF_STRBUF_AUTO_DESTROY path = ffStrbufCreate();
  
@@ -11,5 +11,5 @@
 -        // On some incorrectly configured systems, $XDG_SESSION_ID is not set. Try finding it ourself
 +        // On Chimera Linux $XDG_SESSION_ID links to turnstiled. Try finding it ourself
          // WARNING: This is private data. Do not parse
-         ffStrbufSetF(&path, FF_SYSTEMD_USERS_PATH "%d", getuid());
+         ffStrbufSetF(&path, FF_SYSTEMD_USERS_PATH "%d", instance.state.platform.uid);
  
