@@ -1,6 +1,6 @@
 pkgname = "plasma-welcome"
 pkgver = "6.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -30,7 +30,10 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
 ]
-depends = ["kuserfeedback"]
+depends = [
+    "kuserfeedback",
+    "plasma5support",
+]
 pkgdesc = "KDE onboarding wizard"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-welcome"

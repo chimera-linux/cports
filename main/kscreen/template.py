@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -31,7 +31,10 @@ makedepends = [
     "wayland-protocols",
     "xcb-util-devel",
 ]
-depends = ["kdeclarative"]
+depends = [
+    "kdeclarative",
+    "plasma5support",
+]
 pkgdesc = "KDE screen management"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"

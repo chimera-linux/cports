@@ -95,6 +95,7 @@ depends = [
     "plasma-pa",
     "plasma-welcome",  # welcome!
     "plasma-workspace-wallpapers",
+    "plasma5support",
     "polkit-kde-agent-1",
     "powerdevil",
     "qqc2-breeze-style",
