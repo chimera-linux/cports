@@ -1,6 +1,6 @@
 pkgname = "gomplate"
-pkgver = "4.3.3"
-pkgrel = 4
+pkgver = "5.0.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -13,7 +13,7 @@ pkgdesc = "Template renderer with datasources"
 license = "MIT"
 url = "https://github.com/hairyhenderson/gomplate"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d15c66230d72bdc13b0155f28d391c55cac45b7fdbe1ff4a73db8ee263471a3d"
+sha256 = "b4f24768c994dd62c95d7243cef4dc2354b47976fa8fbbda3889aeade8e39d69"
 # lots of tests need network
 options = ["!check"]
 
