@@ -1,0 +1,26 @@
+From 8a3d49f602cddbe736bbc830ede2341833ededd2 Mon Sep 17 00:00:00 2001
+From: Chris Mayo <aklhfex@gmail.com>
+Date: Thu, 28 Dec 2023 19:21:18 +0000
+Subject: [PATCH 09/13] Remove unused #include <QTextCodec>
+
+Was introduced for Qt 4 compatibility in:
+929d90994 ("Set Qt text encoding to UTF-8.", 2014-01-31)
+---
+ src/openscad.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/openscad.cc b/src/openscad.cc
+index a6f648d2a..2fdd1cc01 100644
+--- a/src/openscad.cc
++++ b/src/openscad.cc
+@@ -631,7 +631,6 @@ int do_export(const CommandLine &cmd, Tree &tree, Camera& camera, ContextHandle<
+ #include <QDir>
+ #include <QFileInfo>
+ #include <QMetaType>
+-#include <QTextCodec>
+ #include <QProgressDialog>
+ #include <QFutureWatcher>
+ #include <QtConcurrentRun>
+-- 
+2.52.0
+
