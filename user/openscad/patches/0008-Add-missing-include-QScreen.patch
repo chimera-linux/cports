@@ -1,0 +1,27 @@
+From 657ac629b5cfd604a397788b080f77c00f3418c4 Mon Sep 17 00:00:00 2001
+From: Chris Mayo <aklhfex@gmail.com>
+Date: Thu, 28 Dec 2023 19:21:18 +0000
+Subject: [PATCH 08/13] Add missing #include <QScreen>
+
+Required on MS Windows for QApplication::primaryScreen().
+---
+ src/mainwin.cc | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/mainwin.cc b/src/mainwin.cc
+index 9df780440..b3246ca9a 100755
+--- a/src/mainwin.cc
++++ b/src/mainwin.cc
+@@ -62,6 +62,9 @@
+ #ifdef Q_OS_MAC
+ #include "CocoaUtils.h"
+ #endif
++#ifdef Q_OS_WIN
++#include <QScreen>
++#endif
+ #include "PlatformUtils.h"
+ #ifdef OPENSCAD_UPDATER
+ #include "AutoUpdater.h"
+-- 
+2.52.0
+
