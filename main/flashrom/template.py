@@ -20,11 +20,19 @@ sha256 = "4328ace9833f7efe7c334bdd73482cde8286819826cc00149e83fba96bf3ab4f"
 # needs special configuration?
 options = ["!check", "linkundefver"]
 
+# cli fails to build on big endian: https://ticket.coreboot.org/issues/635
+_build_cli = self.profile().endian == "little"
+if not _build_cli:
+    options += ["empty"]
+    configure_args += ["-Dclassic_cli=disabled"]
+
 
 def post_install(self):
-    self.rename(
-        "usr/share/bash-completion/completions/flashrom.bash", "flashrom"
-    )
+    if _build_cli:
+        # only present when cli is built
+        self.rename(
+            "usr/share/bash-completion/completions/flashrom.bash", "flashrom"
+        )
 
 
 @subpackage("flashrom-devel")
