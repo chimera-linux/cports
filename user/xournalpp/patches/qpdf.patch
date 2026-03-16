@@ -1,0 +1,32 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index faa0a37..89214c0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -173,17 +173,16 @@ endif ()
+ 
+ option(ENABLE_QPDF "Compile with QPDF export support" ON)
+ if (ENABLE_QPDF)
+-    find_package(qpdf)
+-    if (NOT qpdf_FOUND)
+-        # Before version 11.0 (e.g. for ubuntu 22.04 LTS), qpdf did not provide qpdfConfig.cmake (and friends)
+-        # We cannot only use pkg_search_module() though: it fails to link on MacOS
+-        pkg_search_module(qpdf REQUIRED libqpdf)
+-        add_library(qpdf_tgt INTERFACE)
+-        target_link_libraries(qpdf_tgt INTERFACE ${qpdf_LIBRARIES})
+-        target_include_directories(qpdf_tgt INTERFACE ${qpdf_INCLUDE_DIRS})
+-        add_library(qpdf::libqpdf ALIAS qpdf_tgt)
+-    endif ()
+-    message(STATUS "Found qpdf: ${qpdf_VERSION}")
++    pkg_search_module(QPDF REQUIRED libqpdf)
++
++    add_library(qpdf::libqpdf INTERFACE IMPORTED)
++
++    set_target_properties(qpdf::libqpdf PROPERTIES
++        INTERFACE_INCLUDE_DIRECTORIES "${QPDF_INCLUDE_DIRS}"
++        INTERFACE_LINK_LIBRARIES      "${QPDF_LDFLAGS}"
++    )
++
++    message(STATUS "Found qpdf: ${QPDF_VERSION}")
+ endif ()
+ 
+ option(ENABLE_PLUGINS "Compile with plugin support" ON)
