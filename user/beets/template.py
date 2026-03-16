@@ -1,6 +1,6 @@
 # update patches/version.patch on updates
 pkgname = "beets"
-pkgver = "2.5.0"
+pkgver = "2.6.2"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -38,7 +38,6 @@ depends = [
 ]
 checkdepends = [
     "python-flask",
-    "python-mock",
     "python-pytest-xdist",
     "python-pyxdg",
     "python-responses",
@@ -48,7 +47,7 @@ pkgdesc = "CLI media library management"
 license = "MIT"
 url = "https://beets.io"
 source = f"$(PYPI_SITE)/b/beets/beets-{pkgver}.tar.gz"
-sha256 = "7f12cce3d5c3bfd68144407e86ae7fbaada6dc41676a49ab42027e156bdcfb73"
+sha256 = "90b900f92b105cce6fa3a06160e025315fc3716f3733083894e4aae289008e82"
 
 
 def init_check(self):
