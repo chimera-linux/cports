@@ -48,11 +48,10 @@ skip_dependencies = ["usr/lib/dinit.d/*"]
 
 def post_install(self):
     self.install_license("LICENSE")
-
-    self.install_file("doc/example.conf", "usr/share/examples/unbound")
-    (self.destdir / "etc/unbound/unbound.conf").unlink()
-    self.install_file(self.files_path / "unbound.conf", "etc/unbound")
-
+    self.install_file(
+        "doc/example.conf", "usr/share/etc/unbound/", name="unbound.conf"
+    )
+    self.uninstall("etc/unbound/unbound.conf")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_service(self.files_path / "unbound")
 
