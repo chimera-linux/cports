@@ -1,0 +1,20 @@
+on systems without defined(USE_NR_getrandom) (ppc64le)
+this fails with
+
+../../third_party/boringssl/src/crypto/rand/urandom.cc:72:8: error: unknown type name 'CRYPTO_once_t'; did you mean 'bssl::CRYPTO_once_t'?
+
+--- a/third_party/boringssl/src/crypto/rand/urandom.cc
++++ b/third_party/boringssl/src/crypto/rand/urandom.cc
+@@ -32,11 +32,10 @@
+ #include "../internal.h"
+ #include "getrandom_fillin.h"
+ 
++using namespace bssl;
+ 
+ #if defined(USE_NR_getrandom)
+ 
+-using namespace bssl;
+-
+ #if defined(OPENSSL_MSAN)
+ extern "C" {
+ void __msan_unpoison(void *, size_t);
