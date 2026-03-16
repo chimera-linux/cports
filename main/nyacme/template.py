@@ -1,6 +1,6 @@
 pkgname = "nyacme"
-pkgver = "1.0.3"
-pkgrel = 1
+pkgver = "1.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ pkgdesc = "Wrapper for uacme"
 license = "BSD-2-Clause"
 url = "https://git.ddd.rip/ptrcnull/nyacme"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "0f31fcda2c8de31289d10fec2dde6c7652a354fae533ad3ab3647a375272afa4"
+sha256 = "7c5675e72eb48f5b07ecb0acb620de8cd9822760294d8e60d2e3c131f993bc30"
 # tests do not exist
 options = ["!check"]
 
