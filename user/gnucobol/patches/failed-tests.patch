@@ -1,0 +1,30 @@
+commit 8400bbfc0733bf8cf0fe82ee5fe17386e69af859
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Mar 18 14:24:36 2026 +0100
+
+    drop missing tests
+    
+    The assembler test fails because of LTO resulting in LLVM IR
+    instead of assembly, the other test fails due to musl not closing
+    libraries.
+
+diff --git a/tests/testsuite b/tests/testsuite
+index ce83a4d..ba136ac 100755
+--- a/tests/testsuite
++++ b/tests/testsuite
+@@ -601,7 +601,6 @@ at_help_all="1;used_binaries.at:27;compiler help and information;runmisc cobc;
+ 3;used_binaries.at:179;compiler outputs (general);runmisc cobc;
+ 4;used_binaries.at:219;compiler outputs (file specified);runmisc cobc gen-c-line-directives gen-c-labels gen line labels copy;
+ 5;used_binaries.at:300;compiler outputs (path specified);runmisc cobc;
+-6;used_binaries.at:329;compiler outputs (assembler);runmisc cobc;
+ 7;used_binaries.at:364;source file not found;cobc runmisc;
+ 8;used_binaries.at:374;temporary path invalid;cobc runmisc;
+ 9;used_binaries.at:409;use of full path for cobc;runmisc;
+@@ -1413,7 +1412,6 @@ at_help_all="1;used_binaries.at:27;compiler help and information;runmisc cobc;
+ 815;run_misc.at:11549;Alphanumeric MOVE with truncation;misc fundamental size;
+ 816;run_misc.at:11600;PROGRAM-ID / CALL literal/variable with spaces;runmisc;
+ 817;run_misc.at:11668;PROGRAM-ID / CALL with hyphen and underscore;runmisc;
+-818;run_misc.at:11705;CALL with directory;runmisc;
+ 819;run_misc.at:11763;C-API (param based);runmisc call api;
+ 820;run_misc.at:11998;C-API (field based);runmisc call api;
+ 821;run_misc.at:12226;OPTIONS paragraph, DEFAULT ROUNDED MODE;runmisc;
