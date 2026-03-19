@@ -1,0 +1,38 @@
+From 2e76cd1964aac3f91ffa31a080700f30aec2ccf1 Mon Sep 17 00:00:00 2001
+From: "Hanna K." <hanna.knutsson@protonmail.com>
+Date: Thu, 19 Mar 2026 13:47:13 +0100
+Subject: [PATCH] Fix make check when compiled in a separate build directory
+ (issue #923)
+
+---
+ libqalculate/util.cc | 4 ++++
+ src/Makefile.am      | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/libqalculate/util.cc b/libqalculate/util.cc
+index 2a16136d..8b5e65b4 100644
+--- a/libqalculate/util.cc
++++ b/libqalculate/util.cc
+@@ -699,6 +699,10 @@ string getPackageDataDir() {
+ }
+
+ string getGlobalDefinitionsDir() {
++	const char *homedir;
++	if((homedir = getenv("QALCULATE_DEFINITIONS_DIR")) != NULL) {
++		return homedir;
++	}
+ #ifdef COMPILED_DEFINITIONS
+ 	return "";
+ #else
+diff --git a/src/Makefile.am b/src/Makefile.am
+index ff3f8167..a3adce29 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -11,6 +11,7 @@ AM_CPPFLAGS = \
+ bin_PROGRAMS = @QALCULATE_TEXT@
+ noinst_PROGRAMS = @QALCULATE_DEFS2DOC@ @QALCULATE_TEST@ @QALCULATE_UNITTEST@
+ EXTRA_PROGRAMS = qalc defs2doc test unittest
++TESTS_ENVIRONMENT = QALCULATE_DEFINITIONS_DIR=$(abs_top_builddir)/data
+ TESTS = unittest
+
+ qalc_SOURCES = qalc.cc
