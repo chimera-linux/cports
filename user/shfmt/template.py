@@ -1,19 +1,15 @@
 pkgname = "shfmt"
-pkgver = "3.12.0"
-pkgrel = 4
+pkgver = "3.13.0"
+pkgrel = 0
 build_style = "go"
-make_build_args = [
-    "-ldflags",
-    f"-X main.version={pkgver}",
-    "./cmd/shfmt",
-]
-make_check_args = ["./cmd/shfmt/..."]
+make_build_args = ["./cmd/shfmt"]
+make_check_args = [*make_build_args]
 hostmakedepends = ["go", "scdoc"]
 pkgdesc = "Shell language formatter"
 license = "BSD-3-Clause"
 url = "https://github.com/mvdan/sh"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ac15f42feeba55af29bd07698a881deebed1cd07e937effe140d9300e79d5ceb"
+sha256 = "efef583999befd358fae57858affa4eb9dc8a415f39f69d0ebab3a9f473d7dd3"
 
 
 def post_install(self):
