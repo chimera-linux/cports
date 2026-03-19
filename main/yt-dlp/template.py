@@ -1,5 +1,5 @@
 pkgname = "yt-dlp"
-pkgver = "2026.01.31"
+pkgver = "2026.03.17"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -27,7 +27,7 @@ url = "https://github.com/yt-dlp/yt-dlp"
 source = (
     f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz>yt-dlp-{pkgver}.tar.gz"
 )
-sha256 = "928639b0355c2ee40af7b574e47a3c00048756e405f7964a7b39d70fe0cda4ba"
+sha256 = "c74f56fc88a7f9b7c995646f30538974a03dd7609f55257b20594fdeeb1e13df"
 
 
 @subpackage("yt-dlp-recommends")
@@ -39,6 +39,7 @@ def _(self):
         "python-pycryptodomex",
         "python-secretstorage",
         "python-websockets",
+        "yt-dlp-ejs",
     ]
     self.subdesc = "recommended dependencies"
     self.install_if = [self.parent]
