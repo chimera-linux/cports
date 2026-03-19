@@ -1,5 +1,5 @@
 pkgname = "lowdown"
-pkgver = "2.0.2"
+pkgver = "3.1.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Markdown translator"
 license = "ISC"
 url = "https://kristaps.bsd.lv/lowdown"
 source = f"{url}/snapshots/lowdown-{pkgver}.tar.gz"
-sha256 = "d59f2ad82f981a63051bb61d8d04c02c8c49428ac29c435dff03a92e210b0004"
+sha256 = "59b2cf35bf32fe602c92f33ae917a71e0b2ea76a67bbe48fbae901a8efc6fef3"
 
 
 def init_configure(self):
