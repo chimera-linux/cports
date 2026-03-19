@@ -1,6 +1,6 @@
 pkgname = "freerdp"
-pkgver = "3.17.2"
-pkgrel = 2
+pkgver = "3.23.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -42,6 +42,7 @@ makedepends = [
     "gsm-devel",
     "heimdal-devel",
     "json-c-devel",
+    "json-c-devel-static",
     "libjpeg-turbo-devel",
     "libpulse-devel",
     "libusb-devel",
@@ -70,7 +71,7 @@ pkgdesc = "RDP clients and libraries"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
-sha256 = "c42c712ad879bf06607b78b8c3fad98e08c82f73f4e0bc1693552900041e692a"
+sha256 = "929273003f35b0b4f211e48d5abed4ebcef99da94784a50b6dc85cd0b7e257b1"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
