@@ -74,7 +74,7 @@ env = {
     "MOZILLA_OFFICIAL": "1",
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
-    "MOZ_APP_REMOTINGNAME": "Firefox",
+    "MOZ_APP_REMOTINGNAME": "firefox",
     "MOZ_NOSPAM": "1",
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
