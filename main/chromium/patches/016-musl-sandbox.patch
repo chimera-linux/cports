@@ -78,6 +78,68 @@ index d9d1882..0567557 100644
      case __NR_msync:
      case __NR_munlockall:
      case __NR_readahead:
+diff --git a/sandbox/policy/linux/bpf_audio_policy_linux.cc b/sandbox/policy/linux/bpf_audio_policy_linux.cc
+index e1716b9..15b5f38 100644
+--- a/sandbox/policy/linux/bpf_audio_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_audio_policy_linux.cc
+@@ -66,6 +66,9 @@ ResultExpr AudioProcessPolicy::EvaluateSyscall(int system_call_number) const {
+ #if defined(__NR_pwrite64)
+     case __NR_pwrite64:
+ #endif
++#if defined(__NR_pwritev2)
++    case __NR_pwritev2:
++#endif
+ #if defined(__NR_setsockopt)
+     case __NR_setsockopt:
+ #endif
+diff --git a/sandbox/policy/linux/bpf_cdm_policy_linux.cc b/sandbox/policy/linux/bpf_cdm_policy_linux.cc
+index 433720f..2519271 100644
+--- a/sandbox/policy/linux/bpf_cdm_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_cdm_policy_linux.cc
+@@ -41,6 +41,7 @@ ResultExpr CdmProcessPolicy::EvaluateSyscall(int sysno) const {
+ #endif
+     case __NR_mremap:  // https://crbug.com/546204
+     case __NR_pwrite64:
++    case __NR_pwritev2:
+     case __NR_sysinfo:
+     case __NR_times:
+     case __NR_uname:
+diff --git a/sandbox/policy/linux/bpf_gpu_policy_linux.cc b/sandbox/policy/linux/bpf_gpu_policy_linux.cc
+index 5725da2..18a8ba4 100644
+--- a/sandbox/policy/linux/bpf_gpu_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_gpu_policy_linux.cc
+@@ -99,6 +99,7 @@ ResultExpr GpuProcessPolicy::EvaluateSyscall(int sysno) const {
+     // TODO(jln): restrict prctl.
+     case __NR_prctl:
+     case __NR_pwrite64:
++    case __NR_pwritev2:
+     case __NR_sysinfo:
+     case __NR_uname:  // https://crbug.com/1075934
+       return Allow();
+diff --git a/sandbox/policy/linux/bpf_network_policy_linux.cc b/sandbox/policy/linux/bpf_network_policy_linux.cc
+index 19d1f5d..ea3381d 100644
+--- a/sandbox/policy/linux/bpf_network_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_network_policy_linux.cc
+@@ -255,6 +255,7 @@ ResultExpr NetworkProcessPolicy::EvaluateSyscall(int sysno) const {
+     case __NR_sysinfo:
+     case __NR_uname:
+     case __NR_pwrite64:
++    case __NR_pwritev2:
+     case __NR_pread64:
+     case __NR_fdatasync:
+     case __NR_fsync:
+diff --git a/sandbox/policy/linux/bpf_print_compositor_policy_linux.cc b/sandbox/policy/linux/bpf_print_compositor_policy_linux.cc
+index bff338a..ceb6e89 100644
+--- a/sandbox/policy/linux/bpf_print_compositor_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_print_compositor_policy_linux.cc
+@@ -41,6 +41,7 @@ ResultExpr PrintCompositorProcessPolicy::EvaluateSyscall(int sysno) const {
+ #endif
+     case __NR_mremap:  // https://crbug.com/546204
+     case __NR_pwrite64:
++    case __NR_pwritev2:
+     case __NR_sysinfo:
+     case __NR_times:
+     case __NR_uname:
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 @@ -94,6 +94,10 @@
@@ -88,6 +150,30 @@ index d9d1882..0567557 100644
 +    case __NR_sched_getparam:
 +    case __NR_sched_getscheduler:
 +    case __NR_sched_setscheduler:
+     case __NR_sysinfo:
+     case __NR_times:
+     case __NR_uname:
+diff --git a/sandbox/policy/linux/bpf_service_policy_linux.cc b/sandbox/policy/linux/bpf_service_policy_linux.cc
+index 32754e6..0d37338 100644
+--- a/sandbox/policy/linux/bpf_service_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_service_policy_linux.cc
+@@ -34,6 +34,7 @@ ResultExpr ServiceProcessPolicy::EvaluateSyscall(int sysno) const {
+ #endif
+     case __NR_mremap:  // https://crbug.com/546204
+     case __NR_pwrite64:
++    case __NR_pwritev2:
+     case __NR_times:
+       return Allow();
+     default:
+diff --git a/sandbox/policy/linux/bpf_utility_policy_linux.cc b/sandbox/policy/linux/bpf_utility_policy_linux.cc
+index 090f3e7..fec2517 100644
+--- a/sandbox/policy/linux/bpf_utility_policy_linux.cc
++++ b/sandbox/policy/linux/bpf_utility_policy_linux.cc
+@@ -42,6 +42,7 @@ ResultExpr UtilityProcessPolicy::EvaluateSyscall(int sysno) const {
+ #endif
+     case __NR_mremap:  // https://crbug.com/546204
+     case __NR_pwrite64:
++    case __NR_pwritev2:
      case __NR_sysinfo:
      case __NR_times:
      case __NR_uname:
