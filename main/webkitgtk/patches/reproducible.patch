@@ -45,18 +45,18 @@ index 275fce91..8c1534be 100644
      @includes = ();
 -    foreach my $include (keys %headerIncludes) {
 +    foreach my $include (sort keys %headerIncludes) {
-         $include = "\"$include\"" unless $include =~ /^["<]/; # "
-         $include = SubstituteHeader($include);
-         push @includes, $include;
+         if (IsPrivateHeader("JS$name.h")) {
+            $include = "<WebCore/$include>" unless $include =~ /^["<]/; # "
+         } else {
 @@ -7569,7 +7569,7 @@ sub WriteData
      $contents .= join "", @headerContent;
  
      @includes = ();
 -    foreach my $include (keys %headerTrailingIncludes) {
 +    foreach my $include (sort keys %headerTrailingIncludes) {
-         $include = "\"$include\"" unless $include =~ /^["<]/; # "
-         push @includes, $include;
-     }
+         if (IsPrivateHeader("JS$name.h")) {
+            $include = "<WebCore/$include>" unless $include =~ /^["<]/; # "
+         } else {
 @@ -7642,7 +7642,7 @@ sub GeneratePrototypeDeclaration
      if (%structureFlags) {
          push(@$outputArray, "public:\n");
