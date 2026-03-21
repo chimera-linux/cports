@@ -4,6 +4,10 @@
 #define MI_LIBC_BUILD 1
 /* the libc malloc should not read any env vars */
 #define MI_NO_GETENV 1
+/* disable process constructor stuff */
+#define MI_PRIM_HAS_PROCESS_ATTACH 1
+/* reduce virt memory usage */
+#define MI_DEFAULT_ARENA_RESERVE 64L*1024L
 /* this is a hardened build */
 #define MI_SECURE 4
 /* this would be nice to have, but unfortunately it
@@ -57,7 +61,7 @@ extern int __aligned_alloc_replaced;
 void * const __malloc_tls_default = (void *)&_mi_heap_empty;
 
 void __malloc_init(pthread_t p) {
-    mi_process_load();
+    _mi_auto_process_init();
 }
 
 void __malloc_tls_teardown(pthread_t p) {

@@ -1,8 +1,8 @@
 pkgname = "musl-cross"
-pkgver = "1.2.5_git20240705"
-pkgrel = 4
-_commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
-_mimalloc_ver = "2.1.7"
+pkgver = "1.2.6"
+pkgrel = 0
+_commit = "9fa28ece75d8a2191de7c5bb53bed224c5947417"
+_mimalloc_ver = "2.2.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
@@ -17,8 +17,8 @@ source = [
 ]
 source_paths = [".", "mimalloc"]
 sha256 = [
-    "a6886a65387d2547aae10c1ba31a35529a5c4bbe4205b2a9255c774d5da77329",
-    "0eed39319f139afde8515010ff59baf24de9e47ea316a315398e8027d198202d",
+    "d3baf222d234f2121e71b7eabd0c17667b7a3733b3077e99f9920c69cb5899df",
+    "8e0ed89907a681276bff2e49e9a048b47ba51254ab60daf6b3c220acac456a95",
 ]
 # mirrors musl
 hardening = ["!scp"]

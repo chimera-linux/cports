@@ -17,9 +17,9 @@ index ba629ef3..f012a7a9 100644
 --- a/mimalloc/src/alloc-aligned.c
 +++ b/mimalloc/src/alloc-aligned.c
 @@ -41,6 +41,7 @@ static mi_decl_noinline void* mi_heap_malloc_zero_aligned_at_overalloc(mi_heap_t
-       #if MI_DEBUG > 0
+ #if MI_DEBUG > 0
        _mi_error_message(EOVERFLOW, "aligned allocation with a very large alignment cannot be used with an alignment offset (size %zu, alignment %zu, offset %zu)\n", size, alignment, offset);
-       #endif
+ #endif
 +      errno = EINVAL;
        return NULL;
      }
@@ -31,7 +31,7 @@ index ba629ef3..f012a7a9 100644
 +    errno = ENOMEM;
      return NULL;
    }
-   
+ 
 @@ -130,6 +132,7 @@ static void* mi_heap_malloc_zero_aligned_at(mi_heap_t* const heap, const size_t
      #if MI_DEBUG > 0
      _mi_error_message(EOVERFLOW, "aligned allocation requires the alignment to be a power-of-two (size %zu, alignment %zu)\n", size, alignment);
@@ -39,7 +39,7 @@ index ba629ef3..f012a7a9 100644
 +    errno = EINVAL;
      return NULL;
    }
-   
+ 
 diff --git a/src/alloc.c b/src/alloc.c
 index f40a5c69..f9c0027e 100644
 --- a/mimalloc/src/alloc.c
