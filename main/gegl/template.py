@@ -1,5 +1,5 @@
 pkgname = "gegl"
-pkgver = "0.4.64"
+pkgver = "0.4.68"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,8 +10,8 @@ configure_args = [
     "-Dlua=disabled",
     "-Dmrg=disabled",
     "-Dopenexr=enabled",
+    "-Dlibav=disabled",  # tests fail
     "-Dsdl2=disabled",
-    "-Dlibav=disabled",
     "-Dumfpack=disabled",
 ]
 hostmakedepends = [
@@ -26,11 +26,14 @@ hostmakedepends = [
 makedepends = [
     "babl-devel",
     "exiv2-devel",
+    "ffmpeg-devel",
     "gexiv2-devel",
+    "jasper-devel",
     "json-glib-devel",
     "lensfun-devel",
     "libraw-devel",
     "librsvg-devel",
+    "libspiro-devel",
     "libwebp-devel",
     "openexr-devel",
     "pango-devel",
@@ -44,9 +47,19 @@ url = "https://gegl.org"
 source = (
     f"https://download.gimp.org/pub/gegl/{pkgver[:-3]}/gegl-{pkgver}.tar.xz"
 )
-sha256 = "0de1c9dd22c160d5e4bdfc388d292f03447cca6258541b9a12fed783d0cf7c60"
+sha256 = "5002309b9a701260658e8b3a61540fd5673887cef998338e1992524a33b23ae3"
 # TODO
 hardening = ["!int"]
+
+if self.profile().arch in [
+    "aarch64",
+    "loongarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]:
+    makedepends += ["libomp-devel"]
 
 
 @subpackage("gegl-devel")

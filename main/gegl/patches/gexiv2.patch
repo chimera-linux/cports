@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -403,7 +403,7 @@ else
+ endif
+ 
+ # GEGL binary
+-gexiv2    = dependency('gexiv2',
++gexiv2    = dependency('gexiv2-0.16',
+   version: dep_ver.get('gexiv2'),
+   required: get_option('gexiv2')
+ )
