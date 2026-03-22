@@ -61,6 +61,11 @@ The userland dependencies are the following:
 * `git`
 * `bwrap` (from `bubblewrap`)
 
+Normally you also need `flake8` (Python linter) and `black` (Python formatter)
+to build packages. This can be configured (see `etc/config.ini.example`) and
+possibly disabled but if you plan to write or modify templates at all, you are
+expected to leave it as is.
+
 If running a Chimera system, these tools can all be installed with the
 `base-cbuild-host` metapackage.
 
