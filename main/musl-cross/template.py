@@ -1,6 +1,6 @@
 pkgname = "musl-cross"
 pkgver = "1.2.6"
-pkgrel = 0
+pkgrel = 1
 _commit = "9fa28ece75d8a2191de7c5bb53bed224c5947417"
 _mimalloc_ver = "2.2.7"
 build_style = "gnu_configure"
