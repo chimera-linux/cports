@@ -1,0 +1,22 @@
+From 08d6a96f2a899b4b32e564b4a19195750ef077f7 Mon Sep 17 00:00:00 2001
+From: ItsHarper <git-f4cbe@harperandrews.org>
+Date: Sun, 10 May 2026 13:15:33 -0400
+Subject: show pkgrel on about modal
+
+---
+ crates/gram/src/gram.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/crates/gram/src/gram.rs b/crates/gram/src/gram.rs
+index 980d86d417..c93f131269 100644
+--- a/crates/gram/src/gram.rs
++++ b/crates/gram/src/gram.rs
+@@ -1052,7 +1052,7 @@ fn open_about(cx: &mut App) {
+ 
+     impl AboutWindow {
+         fn new(cx: &mut Context<Self>) -> Self {
+-            let version = env!("CARGO_PKG_VERSION");
++            let version = env!("RELEASE_VERSION");
+             let debug = if cfg!(debug_assertions) {
+                 "(debug)"
+             } else {
