@@ -1,11 +1,12 @@
 pkgname = "accountsservice"
 pkgver = "23.13.9"
-pkgrel = 2
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=no",
     "-Dintrospection=true",
     "-Delogind=true",
+    "--libexecdir=/usr/lib",
 ]
 hostmakedepends = [
     "gettext",
