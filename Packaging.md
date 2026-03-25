@@ -716,7 +716,7 @@ these should never be present in packages. The same goes for the toplevel
 are present in the system and they all point to `/usr/lib`.
 
 Executable programs that are internal and not meant to be run by the
-user go in `/usr/libexec` (unless the software does not allow this).
+user go in `/usr/lib` (unless the software does not allow this).
 
 Include files go in `/usr/include`. Data files go in `/usr/share`; the
 directory must not contain any ELF executables.
