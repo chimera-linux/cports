@@ -1,5 +1,5 @@
 pkgname = "gcli"
-pkgver = "2.9.1"
+pkgver = "2.12.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
@@ -16,7 +16,7 @@ pkgdesc = "CLI tool for interacting with Git(Hub|Lab|Tea)"
 license = "BSD-2-Clause"
 url = "https://herrhotzenplotz.de/gcli"
 source = f"{url}/releases/gcli-{pkgver}/gcli-{pkgver}.tar.xz"
-sha256 = "bce0f45e3354b9d7d2128d65209d1bf067ea9ed41937f3b14fd41d18bf40b738"
+sha256 = "d3f5f55ae692e6e8b419be097bb9304e68e5cb59c00d6d5a95ae75fe66b73bae"
 
 
 def post_install(self):
