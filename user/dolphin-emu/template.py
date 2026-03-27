@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
-pkgver = "2506a"
-pkgrel = 6
+pkgver = "2603a"
+pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -92,7 +92,7 @@ source_paths = [
     "Externals/mGBA/mgba",
 ]
 sha256 = [
-    "0531c69ad0261a62ac4c051471e3d597b720eb5c93b4a04d4b028db2d0b4a179",
+    "ae6ca2e812357ae56a31c00498a984e42b5c46946050ae4a946c7e3f63d1ec7b",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
     "4787c77e6050f3bdc19f39eecf87d5b321bd3096321142b63f8169e1aa8f9b34",
