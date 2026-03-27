@@ -1,0 +1,2 @@
+type = process
+command = /user/bin/atuin daemon
