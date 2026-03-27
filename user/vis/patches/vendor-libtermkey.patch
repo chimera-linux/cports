@@ -1,0 +1,52 @@
+diff -rU3 a/configure b/configure
+--- a/configure	2026-03-01 18:59:01.000000000 -0300
++++ b/configure	2026-03-11 11:46:42.858604337 -0300
+@@ -350,35 +350,8 @@
+ 	test "$curses" = "yes" -a -z "${CFLAGS_CURSES}" && fail "$0: cannot find libcurses"
+ fi
+ 
+-# libtermkey is a mandatory dependency
+-
+-printf "checking for libtermkey... "
+-cat > "$tmpc" <<EOF
+-#include <termkey.h>
+-
+-int main(int argc, char *argv[]) {
+-	TERMKEY_CHECK_VERSION;
+-	return 0;
+-}
+-EOF
+-
+-if test "$have_pkgconfig" = "yes" ; then
+-	CFLAGS_TERMKEY=$($PKG_CONFIG $pkg_config_flags --cflags termkey 2>/dev/null)
+-	LDFLAGS_TERMKEY=$($PKG_CONFIG $pkg_config_flags --libs termkey 2>/dev/null)
+-fi
+-
+-if test -z "$LDFLAGS_TERMKEY"; then
+-	CFLAGS_TERMKEY=""
+-	LDFLAGS_TERMKEY="-ltermkey"
+-fi
+-
+-if $CC $CFLAGS $CFLAGS_TERMKEY "$tmpc" $LDFLAGS $LDFLAGS_TERMKEY $LDFLAGS_CURSES \
+-	-o "$tmpo" >/dev/null 2>&1; then
+-	printf "%s\n" "yes"
+-else
+-	printf "%s\n" "no"
+-	fail "$0: cannot find libtermkey"
+-fi
++CFLAGS_TERMKEY="-isystem $PWD"
++LDFLAGS_TERMKEY="$PWD/termkey.c $PWD/driver-csi.c $PWD/driver-ti.c"
+ 
+ if test "$tre" != "no" ; then
+ 
+diff -rU3 a/vis.c b/vis.c
+--- a/vis.c	2026-03-01 18:59:01.000000000 -0300
++++ b/vis.c	2026-03-11 11:44:04.499665919 -0300
+@@ -1,6 +1,6 @@
+ #include "util.h"
+ 
+-#include <termkey.h>
++#include "termkey.h"
+ 
+ #include "vis-core.h"
+ #include "vis-subprocess.h"
