@@ -1,5 +1,5 @@
 pkgname = "fennel"
-pkgver = "1.6.0"
+pkgver = "1.6.1"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -9,7 +9,7 @@ pkgdesc = "Programming language built on top of Lua"
 license = "MIT"
 url = "https://fennel-lang.org"
 source = f"https://git.sr.ht/~technomancy/fennel/archive/{pkgver}.tar.gz"
-sha256 = "42942d90bbd68656b6025144bb0527c1ae5a5d55e22a53c7e820325230185bf5"
+sha256 = "f0f188e9a4424851d9263ab69302b6b2ffc5c6efb67a25fffc52187a29c94024"
 
 
 def post_install(self):
