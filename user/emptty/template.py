@@ -1,15 +1,15 @@
 pkgname = "emptty"
-pkgver = "0.15.0"
-pkgrel = 1
+pkgver = "0.16.0"
+pkgrel = 0
 build_style = "go"
 make_env = {"CGO_ENABLED": "1"}
 hostmakedepends = ["go"]
-makedepends = ["dinit-chimera", "libx11-devel", "linux-pam-devel"]
+makedepends = ["dinit-chimera", "linux-pam-devel"]
 pkgdesc = "TTY display manager"
 license = "MIT"
 url = "https://github.com/tvrzna/emptty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fae7c04afeeb9ef3dcbb9bca67e9a2fa940e99a91872ebc0775e10253972c7f3"
+sha256 = "35a5d60d21b4496a7df1b14ce7f7b7be0be9dc1e54c1e86e17e49f6dd83732a8"
 
 
 def post_install(self):
