@@ -1,5 +1,6 @@
 # silly wrapper around git so we can ignore ~/.gitconfig as needed
 
+import os
 import subprocess
 
 
@@ -8,7 +9,10 @@ def call(args, gitconfig=False, foreground=False, cwd=None):
         bcmd = ["git"]
     else:
         # still use the rest of the environment
-        bcmd = ["env", "-u", "HOME", "--", "git"]
+        env = os.environ.copy()
+        env["GIT_CONFIG_GLOBAL"] = "/dev/null"
+        env["GIT_CONFIG_SYSTEM"] = "/dev/null"
+        bcmd = ["git"]
 
     ret = subprocess.run(bcmd + args, capture_output=not foreground, cwd=cwd)
 
