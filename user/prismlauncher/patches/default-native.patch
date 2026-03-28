@@ -1,0 +1,313 @@
+Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/0e9ed46225bf1b2f4007d61b271dc1d6425ffd69/community/prismlauncher/0001-system-jemalloc.patch
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index af82d99..c73d85a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -233,12 +233,15 @@ option(Launcher_ENABLE_JAVA_DOWNLOADER "Build the java downloader feature" ${Lau
+ if(UNIX AND APPLE)
+     set(Launcher_GLFW_LIBRARY_NAME "libglfw.dylib" CACHE STRING "Name of native glfw library")
+     set(Launcher_OPENAL_LIBRARY_NAME "libopenal.dylib" CACHE STRING "Name of native openal library")
++    set(Launcher_JEMALLOC_LIBRARY_NAME "libjemalloc.dylib" CACHE STRING "Name of native jemalloc library")
+ elseif(UNIX)
+     set(Launcher_GLFW_LIBRARY_NAME "libglfw.so" CACHE STRING "Name of native glfw library")
+     set(Launcher_OPENAL_LIBRARY_NAME "libopenal.so" CACHE STRING "Name of native openal library")
++    set(Launcher_JEMALLOC_LIBRARY_NAME "libjemalloc.so" CACHE STRING "Name of native jemalloc library")
+ elseif(WIN32)
+     set(Launcher_GLFW_LIBRARY_NAME "glfw.dll" CACHE STRING "Name of native glfw library")
+     set(Launcher_OPENAL_LIBRARY_NAME "OpenAL.dll" CACHE STRING "Name of native openal library")
++    set(Launcher_JEMALLOC_LIBRARY_NAME "jemalloc.dll" CACHE STRING "Name of native jemalloc library")
+ endif()
+ 
+ # API Keys
+diff --git a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
+index 0a1ac33..2bc9385 100644
+--- a/buildconfig/BuildConfig.cpp.in
++++ b/buildconfig/BuildConfig.cpp.in
+@@ -115,6 +115,7 @@ Config::Config()
+ 
+     GLFW_LIBRARY_NAME = "@Launcher_GLFW_LIBRARY_NAME@";
+     OPENAL_LIBRARY_NAME = "@Launcher_OPENAL_LIBRARY_NAME@";
++    JEMALLOC_LIBRARY_NAME = "@Launcher_JEMALLOC_LIBRARY_NAME@";
+ 
+     BUG_TRACKER_URL = "@Launcher_BUG_TRACKER_URL@";
+     TRANSLATIONS_URL = "@Launcher_TRANSLATIONS_URL@";
+diff --git a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
+index 045d987..44d5c1a 100644
+--- a/buildconfig/BuildConfig.h
++++ b/buildconfig/BuildConfig.h
+@@ -159,6 +159,7 @@ class Config {
+ 
+     QString GLFW_LIBRARY_NAME;
+     QString OPENAL_LIBRARY_NAME;
++    QString JEMALLOC_LIBRARY_NAME;
+ 
+     QString BUG_TRACKER_URL;
+     QString TRANSLATIONS_URL;
+diff --git a/launcher/Application.cpp b/launcher/Application.cpp
+index ae44d32..e320bfb 100644
+--- a/launcher/Application.cpp
++++ b/launcher/Application.cpp
+@@ -767,10 +767,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
+         m_settings->registerSetting("OnlineFixes", false);
+ 
+         // Native library workarounds
+-        m_settings->registerSetting("UseNativeOpenAL", false);
+-        m_settings->registerSetting("CustomOpenALPath", "");
+-        m_settings->registerSetting("UseNativeGLFW", false);
+-        m_settings->registerSetting("CustomGLFWPath", "");
++        m_settings->registerSetting("UseNativeOpenAL", true);
++        m_settings->registerSetting("CustomOpenALPath", "/usr/lib/libopenal.so.1");
++        m_settings->registerSetting("UseNativeGLFW", true);
++        m_settings->registerSetting("CustomGLFWPath", "/usr/lib/libglfw.so.3");
++        m_settings->registerSetting("UseNativeJemalloc", true);
++        m_settings->registerSetting("CustomJemallocPath", "/usr/lib/libjemalloc.so.2");
+ 
+         // Performance related options
+         m_settings->registerSetting("EnableFeralGamemode", false);
+@@ -1890,7 +1892,8 @@ void Application::detectLibraries()
+ #ifdef Q_OS_LINUX
+     m_detectedGLFWPath = MangoHud::findLibrary(BuildConfig.GLFW_LIBRARY_NAME);
+     m_detectedOpenALPath = MangoHud::findLibrary(BuildConfig.OPENAL_LIBRARY_NAME);
+-    qDebug() << "Detected native libraries:" << m_detectedGLFWPath << m_detectedOpenALPath;
++    m_detectedJemallocPath = MangoHud::findLibrary(BuildConfig.JEMALLOC_LIBRARY_NAME);
++    qDebug() << "Detected native libraries:" << m_detectedGLFWPath << m_detectedOpenALPath << m_detectedJemallocPath;
+ #endif
+ }
+ 
+diff --git a/launcher/Application.h b/launcher/Application.h
+index 0fd733b..1cec8d0 100644
+--- a/launcher/Application.h
++++ b/launcher/Application.h
+@@ -303,6 +303,7 @@ class Application : public QApplication {
+    public:
+     QString m_detectedGLFWPath;
+     QString m_detectedOpenALPath;
++    QString m_detectedJemallocPath;
+     QString m_instanceIdToLaunch;
+     QString m_serverToJoin;
+     QString m_worldToJoin;
+diff --git a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/MinecraftInstance.cpp
+index 6904ed0..b5e4357 100644
+--- a/launcher/minecraft/MinecraftInstance.cpp
++++ b/launcher/minecraft/MinecraftInstance.cpp
+@@ -211,6 +211,8 @@ void MinecraftInstance::loadSpecificSettings()
+         m_settings->registerOverride(global_settings->getSetting("CustomOpenALPath"), nativeLibraryWorkaroundsOverride);
+         m_settings->registerOverride(global_settings->getSetting("UseNativeGLFW"), nativeLibraryWorkaroundsOverride);
+         m_settings->registerOverride(global_settings->getSetting("CustomGLFWPath"), nativeLibraryWorkaroundsOverride);
++        m_settings->registerOverride(global_settings->getSetting("UseNativeJemalloc"), nativeLibraryWorkaroundsOverride);
++        m_settings->registerOverride(global_settings->getSetting("CustomJemallocPath"), nativeLibraryWorkaroundsOverride);
+ 
+         // Performance related options
+         auto performanceOverride = m_settings->registerSetting("OverridePerformance", false);
+@@ -534,6 +536,7 @@ QStringList MinecraftInstance::extraArguments()
+     {
+         QString openALPath;
+         QString glfwPath;
++        QString jemallocPath;
+ 
+         if (settings()->get("UseNativeOpenAL").toBool()) {
+             openALPath = APPLICATION->m_detectedOpenALPath;
+@@ -547,14 +550,23 @@ QStringList MinecraftInstance::extraArguments()
+             if (!customPath.isEmpty())
+                 glfwPath = customPath;
+         }
++        if (settings()->get("UseNativeJemalloc").toBool()) {
++            jemallocPath = APPLICATION->m_detectedJemallocPath;
++            auto customPath = settings()->get("CustomJemallocPath").toString();
++            if (!customPath.isEmpty())
++                jemallocPath = customPath;
++        }
+ 
+         QFileInfo openALInfo(openALPath);
+         QFileInfo glfwInfo(glfwPath);
++        QFileInfo jemallocInfo(jemallocPath);
+ 
+         if (!openALPath.isEmpty() && openALInfo.exists())
+             list.append("-Dorg.lwjgl.openal.libname=" + openALInfo.absoluteFilePath());
+         if (!glfwPath.isEmpty() && glfwInfo.exists())
+             list.append("-Dorg.lwjgl.glfw.libname=" + glfwInfo.absoluteFilePath());
++        if (!jemallocPath.isEmpty() && jemallocInfo.exists())
++            list.append("-Dorg.lwjgl.system.jemalloc.libname=" + jemallocInfo.absoluteFilePath());
+     }
+ 
+     return list;
+@@ -906,11 +918,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
+     auto settings = this->settings();
+     bool nativeOpenAL = settings->get("UseNativeOpenAL").toBool();
+     bool nativeGLFW = settings->get("UseNativeGLFW").toBool();
+-    if (nativeOpenAL || nativeGLFW) {
++    bool nativeJemalloc = settings->get("UseNativeJemalloc").toBool();
++    if (nativeOpenAL || nativeGLFW || nativeJemalloc) {
+         if (nativeOpenAL)
+             out << "Using system OpenAL.";
+         if (nativeGLFW)
+             out << "Using system GLFW.";
++        if (nativeJemalloc)
++            out << "Using system Jemalloc.";
+         out << "";
+     }
+ 
+diff --git a/launcher/ui/widgets/MinecraftSettingsWidget.cpp b/launcher/ui/widgets/MinecraftSettingsWidget.cpp
+index e57233b..a0dbec7 100644
+--- a/launcher/ui/widgets/MinecraftSettingsWidget.cpp
++++ b/launcher/ui/widgets/MinecraftSettingsWidget.cpp
+@@ -143,6 +143,7 @@ MinecraftSettingsWidget::MinecraftSettingsWidget(MinecraftInstancePtr instance,
+ 
+     connect(m_ui->useNativeOpenALCheck, &QAbstractButton::toggled, m_ui->lineEditOpenALPath, &QWidget::setEnabled);
+     connect(m_ui->useNativeGLFWCheck, &QAbstractButton::toggled, m_ui->lineEditGLFWPath, &QWidget::setEnabled);
++    connect(m_ui->useNativeJemallocCheck, &QAbstractButton::toggled, m_ui->lineEditJemallocPath, &QWidget::setEnabled);
+ 
+     loadSettings();
+ }
+@@ -215,6 +216,13 @@ void MinecraftSettingsWidget::loadSettings()
+ #else
+     m_ui->lineEditOpenALPath->setPlaceholderText(tr("Path to %1 library file").arg(BuildConfig.OPENAL_LIBRARY_NAME));
+ #endif
++    m_ui->useNativeJemallocCheck->setChecked(settings->get("UseNativeJemalloc").toBool());
++    m_ui->lineEditJemallocPath->setText(settings->get("CustomJemallocPath").toString());
++#ifdef Q_OS_LINUX
++    m_ui->lineEditJemallocPath->setPlaceholderText(APPLICATION->m_detectedJemallocPath);
++#else
++    m_ui->lineEditJemallocPath->setPlaceholderText(tr("Path to %1 library file").arg(BuildConfig.JEMALLOC_LIBRARY_NAME));
++#endif
+ 
+     // Performance
+     m_ui->perfomanceGroupBox->setChecked(m_instance == nullptr || settings->get("OverridePerformance").toBool());
+@@ -383,11 +391,15 @@ void MinecraftSettingsWidget::saveSettings()
+             settings->set("CustomGLFWPath", m_ui->lineEditGLFWPath->text());
+             settings->set("UseNativeOpenAL", m_ui->useNativeOpenALCheck->isChecked());
+             settings->set("CustomOpenALPath", m_ui->lineEditOpenALPath->text());
++            settings->set("UseNativeJemalloc", m_ui->useNativeJemallocCheck->isChecked());
++            settings->set("CustomJemallocPath", m_ui->lineEditJemallocPath->text());
+         } else {
+             settings->reset("UseNativeGLFW");
+             settings->reset("CustomGLFWPath");
+             settings->reset("UseNativeOpenAL");
+             settings->reset("CustomOpenALPath");
++            settings->reset("UseNativeJemalloc");
++            settings->reset("CustomJemallocPath");
+         }
+ 
+         // Performance
+diff --git a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets/MinecraftSettingsWidget.ui
+index f8ee2f8..897728f 100644
+--- a/launcher/ui/widgets/MinecraftSettingsWidget.ui
++++ b/launcher/ui/widgets/MinecraftSettingsWidget.ui
+@@ -625,6 +625,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+               <property name="labelAlignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
++
+               <item row="2" column="0">
+                <widget class="QLabel" name="labelGLFWPath">
+                 <property name="text">
+@@ -635,6 +636,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
+               <item row="4" column="0">
+                <spacer name="verticalSpacer_6">
+                 <property name="orientation">
+@@ -651,6 +653,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </spacer>
+               </item>
++
+               <item row="6" column="0">
+                <widget class="QLabel" name="labelOpenALPath">
+                 <property name="text">
+@@ -661,6 +664,35 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
++              <item row="8" column="0">
++               <spacer name="verticalSpacer_5">
++                <property name="orientation">
++                 <enum>Qt::Vertical</enum>
++                </property>
++                <property name="sizeType">
++                 <enum>QSizePolicy::Fixed</enum>
++                </property>
++                <property name="sizeHint" stdset="0">
++                 <size>
++                  <width>0</width>
++                  <height>6</height>
++                 </size>
++                </property>
++               </spacer>
++              </item>
++
++              <item row="10" column="0">
++               <widget class="QLabel" name="labelJemallocPath">
++                <property name="text">
++                 <string>&amp;Jemalloc library path:</string>
++                </property>
++                <property name="buddy">
++                 <cstring>lineEditJemallocPath</cstring>
++                </property>
++               </widget>
++              </item>
++
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="lineEditGLFWPath">
+                 <property name="enabled">
+@@ -668,6 +700,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
+               <item row="1" column="0" colspan="2">
+                <widget class="QCheckBox" name="useNativeGLFWCheck">
+                 <property name="text">
+@@ -675,6 +708,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
+               <item row="5" column="0" colspan="2">
+                <widget class="QCheckBox" name="useNativeOpenALCheck">
+                 <property name="text">
+@@ -682,6 +716,7 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="lineEditOpenALPath">
+                 <property name="enabled">
+@@ -689,6 +724,23 @@ It is most likely you will need to change the path - please refer to the mod's w
+                 </property>
+                </widget>
+               </item>
++
++              <item row="9" column="0" colspan="2">
++               <widget class="QCheckBox" name="useNativeJemallocCheck">
++                <property name="text">
++                 <string>Use system installation of Jemalloc</string>
++                </property>
++               </widget>
++              </item>
++
++              <item row="10" column="1">
++               <widget class="QLineEdit" name="lineEditJemallocPath">
++                <property name="enabled">
++                 <bool>false</bool>
++                </property>
++               </widget>
++              </item>
++
+              </layout>
+             </widget>
+            </item>
+@@ -849,6 +901,8 @@ It is most likely you will need to change the path - please refer to the mod's w
+   <tabstop>lineEditGLFWPath</tabstop>
+   <tabstop>useNativeOpenALCheck</tabstop>
+   <tabstop>lineEditOpenALPath</tabstop>
++  <tabstop>useNativeJemallocCheck</tabstop>
++  <tabstop>lineEditJemallocPath</tabstop>
+   <tabstop>enableFeralGamemodeCheck</tabstop>
+   <tabstop>enableMangoHud</tabstop>
+   <tabstop>useDiscreteGpuCheck</tabstop>
