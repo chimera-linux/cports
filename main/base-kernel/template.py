@@ -25,7 +25,6 @@ options = ["!check", "keepempty"]
 def install(self):
     # kernel.d helpers
     self.install_dir("usr/lib/base-kernel")
-    self.install_dir("usr/libexec/base-kernel")
 
     # obsolete scripts only for old kernel packages
     # to be removed in some months...
@@ -41,8 +40,8 @@ def install(self):
         "script-post-upgrade",
     ]:
         self.install_file(
-            self.files_path / "libexec" / f,
-            "usr/libexec/base-kernel",
+            self.files_path / "lib" / f,
+            "usr/lib/base-kernel",
             mode=0o755,
         )
 
@@ -51,7 +50,7 @@ def install(self):
         "run-kernel-d",
     ]:
         self.install_file(
-            self.files_path / "libexec" / f,
+            self.files_path / "lib" / f,
             "usr/lib/base-kernel",
             mode=0o755,
         )

@@ -1,9 +1,9 @@
 #!/bin/sh
 
-cd /usr/libexec/base-kernel
+cd /usr/lib/base-kernel
 
 . ./script-funcs
 
 KVER=$(get_kernver "$1" "$2")
 
-./kernel-clean-initramfs "$KVER"
+copy_modfiles "$KVER"
