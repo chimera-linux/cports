@@ -1,5 +1,5 @@
 pkgname = "libdrm"
-pkgver = "2.4.125"
+pkgver = "2.4.131"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dudev=true", "-Dvalgrind=disabled"]
@@ -9,7 +9,7 @@ pkgdesc = "Userspace interface to kernel DRM services"
 license = "MIT"
 url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/libdrm-{pkgver}/drm-libdrm-{pkgver}.tar.gz"
-sha256 = "dd3e86a9fae99322d6430b28397f8e03ac4fb8deeed9a6e214bd5ced86db68c6"
+sha256 = "5cbdcc32e45c86e070818856f9431a70ca71195ed04b1f2d89602967ae768fe4"
 # FIXME cfi int
 hardening = ["vis", "!cfi", "!int"]
 options = ["!distlicense"]
