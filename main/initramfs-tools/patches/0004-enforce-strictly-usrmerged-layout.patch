@@ -1,22 +1,23 @@
-From 2a474e6994a9ce056c4214d60be69ec18862f4e2 Mon Sep 17 00:00:00 2001
+From 06042b9ced9bebe201b0e51825b5e7f376200210 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 22 Apr 2025 16:03:27 +0200
 Subject: [PATCH 4/8] enforce strictly usrmerged layout
 
 ---
- docs/framebuffer                 |  6 +++---
- hooks/fsck                       |  8 ++++----
- hooks/keymap                     |  2 +-
- init                             | 15 ++++-----------
- initramfs-tools.7                | 12 ++++++------
- mkinitramfs                      | 24 +++++++++++++++---------
- scripts/functions                |  6 +++---
- scripts/init-top/all_generic_ide |  4 ++--
- scripts/init-top/keymap          |  4 ++--
- scripts/local                    |  2 +-
- scripts/local-premount/resume    |  4 ++--
- scripts/nfs                      |  4 ++--
- 12 files changed, 45 insertions(+), 46 deletions(-)
+ docs/framebuffer                    |  6 +++---
+ hooks/fsck                          |  8 ++++----
+ hooks/keymap                        |  2 +-
+ init                                | 15 ++++-----------
+ initramfs-tools.7                   | 12 ++++++------
+ mkinitramfs                         | 24 +++++++++++++++---------
+ scripts/functions                   |  8 ++++----
+ scripts/init-top/all_generic_ide    |  4 ++--
+ scripts/init-top/keymap             |  4 ++--
+ scripts/init-top/simple-framebuffer |  2 +-
+ scripts/local                       |  2 +-
+ scripts/local-premount/resume       |  4 ++--
+ scripts/nfs                         |  4 ++--
+ 13 files changed, 47 insertions(+), 48 deletions(-)
 
 diff --git a/docs/framebuffer b/docs/framebuffer
 index 453ac8f..5c75e23 100644
@@ -237,10 +238,10 @@ index ba181ba..2102d1d 100755
  for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
  	if test -e "$file" || test -L "$file" ; then
 diff --git a/scripts/functions b/scripts/functions
-index ef009e2..799f15a 100644
+index 1e8b26f..fee0cb4 100644
 --- a/scripts/functions
 +++ b/scripts/functions
-@@ -100,13 +100,13 @@ maybe_break()
+@@ -100,14 +100,14 @@ maybe_break()
  			else
  				opts="-v"
  			fi
@@ -248,6 +249,8 @@ index ef009e2..799f15a 100644
 +			/usr/bin/modprobe ${opts} -a i8042 atkbd ehci-pci ehci-orion \
  				 ehci-hcd ohci-hcd ohci-pci uhci-hcd usbhid xhci \
  				 xhci-pci xhci-hcd
+-			/sbin/modprobe ${opts} -a simpledrm simplefb framebuffer_coreboot
++			/usr/bin/modprobe ${opts} -a simpledrm simplefb framebuffer_coreboot
  			sleep 2
  			for modalias in /sys/bus/hid/devices/*/modalias; do
  				if [ -f "${modalias}" ]; then
@@ -256,7 +259,7 @@ index ef009e2..799f15a 100644
  				fi
  			done
  		fi
-@@ -140,7 +140,7 @@ load_modules()
+@@ -141,7 +141,7 @@ load_modules()
  				continue
  			fi
  			# shellcheck disable=SC2086
@@ -296,6 +299,16 @@ index 1c6b2dc..160cb61 100755
 +if [ -x /usr/bin/setupcon ]; then
 +	/usr/bin/setupcon
  fi
+diff --git a/scripts/init-top/simple-framebuffer b/scripts/init-top/simple-framebuffer
+index 2ffbe97..06c6c11 100755
+--- a/scripts/init-top/simple-framebuffer
++++ b/scripts/init-top/simple-framebuffer
+@@ -17,4 +17,4 @@ esac
+ 
+ # These sometimes don't get probed automatically, but we need them
+ # for efifb etc. when SYSFB_SIMPLEFB=y, or with framebuffer-coreboot
+-/sbin/modprobe simpledrm || /sbin/modprobe simplefb || true
++/usr/bin/modprobe simpledrm || /usr/bin/modprobe simplefb || true
 diff --git a/scripts/local b/scripts/local
 index 78653af..c31a2b2 100644
 --- a/scripts/local
@@ -346,5 +359,5 @@ index f7dc89f..ea08f82 100644
  	wait_for_udev 10
  
 -- 
-2.49.0
+2.50.1
 
