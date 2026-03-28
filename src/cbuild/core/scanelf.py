@@ -266,7 +266,7 @@ def is_static(path):
 
 def scan(pkg, somap):
     scandir = pkg.destdir
-    elf_usrshare = []
+    elf_badpath = []
     elf_textrels = []
     elf_xstack = []
     elf_foreign = []
@@ -303,9 +303,10 @@ def scan(pkg, somap):
             foreign = scanned[0] != libc[0]
             if foreign and not pkg.options["foreignelf"]:
                 elf_foreign.append(fpath)
-        # deny /usr/share files
-        if fpath.is_relative_to("usr/share"):
-            elf_usrshare.append(fpath)
+        # deny files in bad paths
+        fparts = fpath.parts
+        if fparts[0] != "usr" or fparts[1] == "include" or fparts[1] == "share":
+            elf_badpath.append(fpath)
         # expand
         mtype, etype, is_static, interp, textrel, xstk, needed, soname = scanned
         # has textrels
@@ -327,9 +328,9 @@ def scan(pkg, somap):
 
     # some linting
 
-    if len(elf_usrshare) > 0:
-        pkg.log_red("ELF files in /usr/share:")
-        for f in elf_usrshare:
+    if len(elf_badpath) > 0:
+        pkg.log_red("ELF files in banned path:")
+        for f in elf_badpath:
             print(f"  {f}")
         pkg.error(None)
 
