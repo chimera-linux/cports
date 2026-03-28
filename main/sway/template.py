@@ -1,6 +1,6 @@
 pkgname = "sway"
-pkgver = "1.11"
-pkgrel = 1
+pkgver = "1.12_rc1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "libcap-progs",
@@ -16,14 +16,14 @@ makedepends = [
     "pcre2-devel",
     "wayland-devel",
     "wayland-protocols",
-    "wlroots0.19-devel",
+    "wlroots0.20-devel",
 ]
 depends = ["xwayland"]
 pkgdesc = "Wayland compositor compatible with i3"
 license = "MIT"
 url = "https://swaywm.org"
-source = f"https://github.com/swaywm/sway/releases/download/{pkgver}/sway-{pkgver}.tar.gz"
-sha256 = "0e37a55b7c3379230e97e1ad982542b75016a0c7d6676198604e557f9b373dae"
+source = f"https://github.com/swaywm/sway/releases/download/{pkgver.replace('_', '-')}/sway-{pkgver.replace('_', '-')}.tar.gz"
+sha256 = "912554cba209aeea32ef6ccbc1636e7942e92f0ea2d9b3e6d49787649e931226"
 file_modes = {
     "usr/bin/sway": ("root", "root", 0o755),
 }
