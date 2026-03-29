@@ -1,0 +1,22 @@
+diff --git a/meson.build b/meson.build
+index 00ad207..4ad267c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -14,8 +14,6 @@ project(
+ add_project_arguments(
+   [
+     '-Werror=implicit-function-declaration',
+-    '-Werror=implicit-fallthrough=3',
+-    '-Werror=maybe-uninitialized',
+     '-Werror=missing-field-initializers',
+     '-Werror=incompatible-pointer-types',
+     '-Werror=int-conversion',
+@@ -25,7 +23,6 @@ add_project_arguments(
+     '-Wformat-security',
+     '-Wformat',
+     '-Winit-self',
+-    '-Wmaybe-uninitialized',
+     '-Wold-style-definition',
+     '-Wredundant-decls',
+     '-Wstrict-prototypes',
+
