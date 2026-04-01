@@ -1,6 +1,6 @@
 pkgname = "iproute2"
 pkgver = "6.19.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--color", "auto"]
 configure_env = {"CC": "clang"}
@@ -13,6 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "elfutils-devel",
     "flex-devel-static",
     "iptables-devel",
     "libcap-devel",
