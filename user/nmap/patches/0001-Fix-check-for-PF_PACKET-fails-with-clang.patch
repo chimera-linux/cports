@@ -1,0 +1,39 @@
+From 33c39cd38942ff0622ac2fdad52c5f90c9855eb4 Mon Sep 17 00:00:00 2001
+From: dmiller <dmiller@e0a8ed71-7df4-0310-8962-fdc924857419>
+Date: Thu, 2 Apr 2026 19:14:10 +0000
+Subject: [PATCH] Fix check for PF_PACKET, fails with clang
+
+---
+ libdnet-stripped/configure       | 2 +-
+ libdnet-stripped/m4/acinclude.m4 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libdnet-stripped/configure b/libdnet-stripped/configure
+index 144c78577..baae3af1b 100755
+--- a/libdnet-stripped/configure
++++ b/libdnet-stripped/configure
+@@ -15219,7 +15219,7 @@ printf %s "checking for Linux PF_PACKET sockets... " >&6; }
+ int
+ main (void)
+ {
+-int foo() { return ETH_P_ALL; }
++int foo = ETH_P_ALL;
+   ;
+   return 0;
+ }
+diff --git a/libdnet-stripped/m4/acinclude.m4 b/libdnet-stripped/m4/acinclude.m4
+index 2b94702cf..c84674c2b 100644
+--- a/libdnet-stripped/m4/acinclude.m4
++++ b/libdnet-stripped/m4/acinclude.m4
+@@ -149,7 +149,7 @@ AC_DEFUN([AC_DNET_LINUX_PF_PACKET],
+     [AC_MSG_CHECKING(for Linux PF_PACKET sockets)
+     AC_TRY_COMPILE([#include <netpacket/packet.h>
+                     #include <linux/if_ether.h>],
+-                   [int foo() { return ETH_P_ALL; }],
++                   [int foo = ETH_P_ALL;],
+     ac_cv_dnet_linux_pf_packet=yes,
+     ac_cv_dnet_linux_pf_packet=no)
+     AC_MSG_RESULT($ac_cv_dnet_linux_pf_packet)
+-- 
+2.52.0
+
