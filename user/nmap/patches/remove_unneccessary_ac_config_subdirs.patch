@@ -1,15 +1,15 @@
-diff --color -ruN nmap-7.97/configure.ac nmap-7.97-patched/configure.ac
---- nmap-7.97/configure.ac	2024-04-12 17:20:04.000000000 +0000
-+++ nmap-7.97-patched/configure.ac	2024-07-09 06:08:34.372883728 +0000
-@@ -471,7 +471,6 @@
- fi
+diff --color -ruN nmap/configure.ac nmap-patched/configure.ac
+--- nmap/configure.ac	2026-01-12 16:59:25.000000000 +0000
++++ nmap-patched/configure.ac	2026-03-27 14:50:46.247402557 +0000
+@@ -483,7 +483,6 @@
  
  if test $have_libpcap != yes; then
+   ac_configure_args="$ac_configure_args '--disable-dbus'"
 -  AC_CONFIG_SUBDIRS(libpcap)
    if test "${LIBPCAP_INC+set}" = "set"; then
      CPPFLAGS="$CPPFLAGS -I$LIBPCAP_INC"
    else
-@@ -539,7 +538,6 @@
+@@ -559,7 +558,6 @@
  
  # If we still don't have it, we use our own
  if test $have_pcre != yes ; then
@@ -17,7 +17,7 @@ diff --color -ruN nmap-7.97/configure.ac nmap-7.97-patched/configure.ac
    CPPFLAGS="-I\$(top_srcdir)/$LIBPCREDIR/src $CPPFLAGS"
    LIBPCRE_LIBS="$LIBPCREDIR/.libs/libpcre2-8.a"
    PCRE_BUILD="build-pcre"
-@@ -616,7 +614,6 @@
+@@ -634,7 +632,6 @@
    fi
  
    if test $have_libz != yes; then
@@ -25,7 +25,7 @@ diff --color -ruN nmap-7.97/configure.ac nmap-7.97-patched/configure.ac
      # TODO: This doesn't work because libssh2's configure script is looking for
      # already-built libs.  Giving up for now: build libz first or install
      # headers/libs on your own if you want compression support for SSH.
-@@ -702,7 +699,6 @@
+@@ -720,7 +717,6 @@
    # If we still don't have it, we use our own
    if test $have_libssh2 != yes; then
      have_libssh2=yes
