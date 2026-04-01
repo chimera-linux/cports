@@ -1,5 +1,5 @@
 pkgname = "networkmanager-openvpn"
-pkgver = "1.12.3"
+pkgver = "1.12.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -26,7 +26,7 @@ pkgdesc = "OpenVPN support for NetworkManager"
 license = "GPL-2.0-or-later"
 url = "https://github.com/NetworkManager/NetworkManager-openvpn/tree/main"
 source = f"https://github.com/NetworkManager/NetworkManager-openvpn/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "50ac3158faba8efb0a8d4a96de19c14f86e2408e265e2b5ec27a7a8826f38f64"
+sha256 = "45b213ddc42ba999a9143d3770b46779dc6e8e89383dd83c12842cc7411ef00f"
 options = ["linkundefver"]
 
 
