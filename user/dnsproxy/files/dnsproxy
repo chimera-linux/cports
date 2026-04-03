@@ -1,0 +1,5 @@
+# dnsproxy service
+type = process
+command = /usr/libexec/dnsproxy.wrapper
+depends-on = network.target
+logfile = /var/log/dnsproxy.log
