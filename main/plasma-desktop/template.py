@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -95,6 +95,7 @@ depends = [
     "plasma-pa",
     "plasma-welcome",  # welcome!
     "plasma-workspace-wallpapers",
+    "plasma5support",
     "polkit-kde-agent-1",
     "powerdevil",
     "qqc2-breeze-style",
