@@ -1,0 +1,8 @@
+#!/bin/sh
+
+conf="--config-path=/usr/share/etc/dnsproxy/config.yaml"
+if [ -f /etc/dnsproxy/config.yaml ]; then
+    conf="--config-path=/etc/dnsproxy/config.yaml"
+fi
+
+exec /usr/bin/dnsproxy ${conf}
