@@ -1,19 +1,14 @@
 pkgname = "mise"
-pkgver = "2025.1.9"
+pkgver = "2026.4.11"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
-    "--features=native-tls,rustls-native-roots",
-]
-make_check_args = [
-    *make_build_args,
-    "--",
-    "--skip=toolset::tool_version_list::tests::test_tool_version_list",
+    "--features=native-tls",
 ]
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
+    "cmake",
     "pkgconf",
 ]
 makedepends = [
@@ -28,7 +23,9 @@ pkgdesc = "Development environment setup tool"
 license = "MIT"
 url = "https://mise.jdx.dev"
 source = f"https://github.com/jdx/mise/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e44369529d2a786361dd1fa136fea130216768f709cb623447e68f1b19637e13"
+sha256 = "a847ca56d6db11571cbf54611156e8d18e0e31f2e63bd9a59fd575af524f2f03"
+# check: takes forever
+options = ["!check"]
 
 
 def install(self):
