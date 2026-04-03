@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/dnsproxy --config-path /etc/dnsproxy/config.yaml
+logfile = /var/log/dnsproxy.log
+depends-on: local.target
+depends-on: network.target
