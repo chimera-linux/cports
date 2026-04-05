@@ -1,2 +1,2 @@
-pkgname = "php"
-pattern = r"8\.3\.\d+"
+url = "https://www.php.net/releases/feed.php"
+pattern = r"php:version>(8\.3\.\d+)"
