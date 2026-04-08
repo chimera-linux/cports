@@ -1,6 +1,6 @@
 pkgname = "go-swagger"
-pkgver = "0.33.1"
-pkgrel = 2
+pkgver = "0.33.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/swagger"]
 hostmakedepends = ["go"]
@@ -8,6 +8,6 @@ pkgdesc = "Swagger implementation for Go"
 license = "Apache-2.0"
 url = "https://github.com/go-swagger/go-swagger"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2957f08ca2f12efb11050c3aecacb74b11dfe97b47bc05c6395072c8a2cca481"
+sha256 = "5c4fd019595342d052b5190051b62bd6f654f286cdc426f5541ccac4ff074418"
 # needs network
 options = ["!check"]
