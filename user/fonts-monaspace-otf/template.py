@@ -1,11 +1,11 @@
 pkgname = "fonts-monaspace-otf"
-pkgver = "1.301"
+pkgver = "1.400"
 pkgrel = 0
 pkgdesc = "GitHub Next Monaspace fonts"
 license = "OFL-1.1"
 url = "https://github.com/githubnext/monaspace"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"
-sha256 = "de66c90030b20e78a9421fe2645824f47b9dec9cf1f3e600b9713fdccaa1ac0d"
+sha256 = "1ac6b955ea8d3d34627ce165df85b5a6c323a54de4a50dda024589ace31fbe8d"
 
 
 def install(self):
