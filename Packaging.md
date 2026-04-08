@@ -1306,8 +1306,8 @@ Default values:
 * `make_dir` = `build`
 
 Sets `configure`, `build`, `check`, `install`. They are wrappers
-around the `cmake` utility module API `configure`, `build`, `install`,
-and `ctest` respectively.
+around the `cmake` utility module API `configure`, `build`, `ctest`, and 
+`install` respectively.
 
 The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
 `self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
