@@ -1,51 +1,3 @@
-diff -Nur a/.clang-tidy b/.clang-tidy
---- a/.clang-tidy	1970-01-01 01:00:00.000000000 +0100
-+++ b/.clang-tidy	2026-04-06 17:41:13.602227497 +0200
-@@ -0,0 +1,44 @@
-+WarningsAsErrors: '*'
-+Checks: '
-+    *,
-+    -altera-*,
-+    -android-*,
-+    -bugprone-assignment-in-if-condition,
-+    -bugprone-branch-clone,
-+    -bugprone-easily-swappable-parameters,
-+    -bugprone-implicit-widening-of-multiplication-result,
-+    -bugprone-narrowing-conversions,
-+    -bugprone-reserved-identifier,
-+    -bugprone-signed-char-misuse,
-+    -cert-dcl37-c,
-+    -cert-dcl51-cpp,
-+    -cert-err33-c,
-+    -cert-err34-c,
-+    -cert-str34-c,
-+    -clang-analyzer-core.CallAndMessage,
-+    -clang-analyzer-security.insecureAPI.strcpy,
-+    -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
-+    -clang-diagnostic-macro-redefined,
-+    -concurrency-mt-unsafe,
-+    -cppcoreguidelines-avoid-magic-numbers,
-+    -cppcoreguidelines-avoid-non-const-global-variables,
-+    -cppcoreguidelines-init-variables,
-+    -cppcoreguidelines-macro-to-enum,
-+    -cppcoreguidelines-narrowing-conversions,
-+    -google-readability-braces-around-statements,
-+    -google-readability-todo,
-+    -hicpp-*,
-+    -llvm-*,
-+    -llvmlibc-*,
-+    -misc-unused-parameters,
-+    -modernize-macro-to-enum,
-+    -readability-braces-around-statements,
-+    -readability-else-after-return,
-+    -readability-function-cognitive-complexity,
-+    -readability-identifier-length,
-+    -readability-inconsistent-declaration-parameter-name,
-+    -readability-isolate-declaration,
-+    -readability-magic-numbers,
-+    -readability-math-missing-parentheses,
-+    -readability-suspicious-call-argument,
-+'
 diff -Nur a/Makefile b/Makefile
 --- a/Makefile	2023-04-02 10:04:13.000000000 +0200
 +++ b/Makefile	2026-04-09 05:53:14.787504240 +0200
@@ -58,13 +10,10 @@ diff -Nur a/Makefile b/Makefile
  LDFLAGS += $(LIBPATH) -g
  
  OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
-@@ -50,24 +50,19 @@
+@@ -51,23 +51,15 @@
  tests: all
  	./bin/mbpfan-tests
- 
-+clang-tidy:
-+	clang-tidy src/*.[ch]
-+
+
  uninstall:
 -	rm /usr/sbin/mbpfan
 +	rm /usr/bin/mbpfan

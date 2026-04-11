@@ -1,4 +1,4 @@
 type = process
 command = /usr/bin/mbpfan -f
-restart = true
-waits-for: local.target
+smooth-recovery = true
+depends-on: local.target
