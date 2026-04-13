@@ -1,6 +1,6 @@
 pkgname = "qt6-qttools"
 pkgver = "6.10.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
@@ -11,7 +11,6 @@ configure_args = [
     "-DQT_FEATURE_distancefieldgenerator=ON",
 ]
 hostmakedepends = [
-    "clang-tools-extra",
     "cmake",
     "ninja",
     "perl",
@@ -21,7 +20,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "clang-devel",
-    "clang-tools-extra",
     "llvm-devel",
     "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",

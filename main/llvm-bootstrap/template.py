@@ -1,5 +1,5 @@
 pkgname = "llvm-bootstrap"
-pkgver = "21.1.8"
+pkgver = "22.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -57,7 +57,7 @@ subdesc = "bootstrap"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "4633a23617fa31a3ea51242586ea7fb1da7140e426bd62fc164261fe036aa142"
+sha256 = "2488c33a959eafba1c44f253e5bbe7ac958eb53fa626298a3a5f4b87373767cd"
 debug_level = 0
 # see llvm template
 hardening = ["!int"]

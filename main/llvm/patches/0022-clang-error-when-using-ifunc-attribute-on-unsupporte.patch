@@ -1,7 +1,7 @@
-From e662d41bd87c9d42abacc4426ce17adf1688583c Mon Sep 17 00:00:00 2001
+From bf9eea7f11054ac43b0bd6f7f345117c1d7811f1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:46:27 +0100
-Subject: [PATCH 23/29] clang: error when using ifunc attribute on unsupported
+Subject: [PATCH 22/28] clang: error when using ifunc attribute on unsupported
  targets
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 23/29] clang: error when using ifunc attribute on unsupported
  1 file changed, 7 insertions(+)
 
 diff --git a/clang/lib/Sema/SemaDeclAttr.cpp b/clang/lib/Sema/SemaDeclAttr.cpp
-index a7897bdfe..cc53bf4ed 100644
+index 3f0ea5c8f..b8a97951f 100644
 --- a/clang/lib/Sema/SemaDeclAttr.cpp
 +++ b/clang/lib/Sema/SemaDeclAttr.cpp
-@@ -1691,6 +1691,13 @@ static void handleIFuncAttr(Sema &S, Decl *D, const ParsedAttr &AL) {
+@@ -1692,6 +1692,13 @@ static void handleIFuncAttr(Sema &S, Decl *D, const ParsedAttr &AL) {
      return;
    }
  
@@ -27,5 +27,5 @@ index a7897bdfe..cc53bf4ed 100644
    D->addAttr(::new (S.Context) IFuncAttr(S.Context, AL, Str));
  }
 -- 
-2.51.1
+2.52.0
 

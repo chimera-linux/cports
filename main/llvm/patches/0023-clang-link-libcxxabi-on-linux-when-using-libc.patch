@@ -1,7 +1,7 @@
-From 85160dab6840b8ad3c878296c3c7a5295245d422 Mon Sep 17 00:00:00 2001
+From 2d44513b21ad303b67a647c2dc1226c622c15ab2 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:14:35 +0100
-Subject: [PATCH 24/29] clang: link libcxxabi on linux when using libc++
+Subject: [PATCH 23/28] clang: link libcxxabi on linux when using libc++
 
 ---
  clang/lib/Driver/ToolChains/Linux.cpp | 15 +++++++++++++++
@@ -9,10 +9,10 @@ Subject: [PATCH 24/29] clang: link libcxxabi on linux when using libc++
  2 files changed, 17 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 8efe8b20e..8d9303e5c 100644
+index 28ca55b13..a42acae88 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -736,6 +736,21 @@ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+@@ -844,6 +844,21 @@ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
    }
  }
  
@@ -35,7 +35,7 @@ index 8efe8b20e..8d9303e5c 100644
                                 ArgStringList &CC1Args) const {
    CudaInstallation->AddCudaIncludeArgs(DriverArgs, CC1Args);
 diff --git a/clang/lib/Driver/ToolChains/Linux.h b/clang/lib/Driver/ToolChains/Linux.h
-index 80a0b035c..cbb0032a8 100644
+index dfb75c727..a4602b91f 100644
 --- a/clang/lib/Driver/ToolChains/Linux.h
 +++ b/clang/lib/Driver/ToolChains/Linux.h
 @@ -33,6 +33,8 @@ public:
@@ -48,5 +48,5 @@ index 80a0b035c..cbb0032a8 100644
                            llvm::opt::ArgStringList &CC1Args) const override;
    void AddHIPIncludeArgs(const llvm::opt::ArgList &DriverArgs,
 -- 
-2.51.1
+2.52.0
 

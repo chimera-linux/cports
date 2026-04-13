@@ -1,6 +1,6 @@
 pkgname = "imhex"
 pkgver = "1.38.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -25,8 +25,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "capstone-devel",
-    # for llvm cmake detection to work
-    "clang-tools-extra",
     "curl-devel",
     "dbus-devel",
     "file-devel",

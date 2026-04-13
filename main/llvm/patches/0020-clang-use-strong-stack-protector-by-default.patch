@@ -1,17 +1,17 @@
-From 2afab176a05598fd01c7e562e359b669c746335a Mon Sep 17 00:00:00 2001
+From 82a8efab154c710f1f20513c78183e1f8ba2d4b4 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:23:22 +0200
-Subject: [PATCH 21/29] clang: use strong stack protector by default
+Subject: [PATCH 20/28] clang: use strong stack protector by default
 
 ---
  clang/lib/Driver/ToolChains/Linux.h | 5 +++++
  1 file changed, 5 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.h b/clang/lib/Driver/ToolChains/Linux.h
-index 2eb2d0578..80a0b035c 100644
+index 97bad77cb..dfb75c727 100644
 --- a/clang/lib/Driver/ToolChains/Linux.h
 +++ b/clang/lib/Driver/ToolChains/Linux.h
-@@ -63,6 +63,11 @@ public:
+@@ -70,6 +70,11 @@ public:
  
    const char *getDefaultLinker() const override;
  
@@ -24,5 +24,5 @@ index 2eb2d0578..80a0b035c 100644
    Tool *buildAssembler() const override;
    Tool *buildLinker() const override;
 -- 
-2.51.1
+2.52.0
 

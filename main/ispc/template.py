@@ -1,5 +1,5 @@
 pkgname = "ispc"
-pkgver = "1.28.2"
+pkgver = "1.30.0"
 pkgrel = 0
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
@@ -25,7 +25,7 @@ pkgdesc = "Implicit SPMD program compiler"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
 source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0b7d1d73afa93c015814b99c97b88fa45bce822d7904e8fc4a95666ba8e3fb92"
+sha256 = "73b30c74fdfc56c3097015476df14d0a4bcb6705d9e286c6d51c1ed578d49e22"
 tool_flags = {
     # `warning: '_FORTIFY_SOURCE' macro redefined` noise
     "CXXFLAGS": ["-Wno-macro-redefined"],

@@ -1,7 +1,7 @@
-From caa9a2b284d08bb13656778e31c8f53ec7eb954d Mon Sep 17 00:00:00 2001
+From e6128473902ab804a6fed5c9483a7b2986547eb1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:42:47 +0100
-Subject: [PATCH 12/29] libc++,libc++abi,libunwind: disable multiarch locations
+Subject: [PATCH 12/28] libc++,libc++abi,libunwind: disable multiarch locations
 
 ---
  libcxx/CMakeLists.txt                 | 2 +-
@@ -11,10 +11,10 @@ Subject: [PATCH 12/29] libc++,libc++abi,libunwind: disable multiarch locations
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index d00558dd3..225b69457 100644
+index 23f29b931..95b31752b 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -406,7 +406,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
+@@ -421,7 +421,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
  set(LIBCXX_SHARED_OUTPUT_NAME "c++" CACHE STRING "Output name for the shared libc++ runtime library.")
  set(LIBCXX_STATIC_OUTPUT_NAME "c++" CACHE STRING "Output name for the static libc++ runtime library.")
  
@@ -37,10 +37,10 @@ index b0fe60062..304d68e10 100644
      -isystem "${LIBCXX_GENERATED_INCLUDE_TARGET_DIR}")
  endif()
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index 5b2490e6c..e10c2f3db 100644
+index 486395584..9f679c9d1 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -182,7 +182,7 @@ set(CMAKE_MODULE_PATH
+@@ -185,7 +185,7 @@ set(CMAKE_MODULE_PATH
  set(LIBCXXABI_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
      "Path where built libc++abi runtime libraries should be installed.")
  
@@ -50,7 +50,7 @@ index 5b2490e6c..e10c2f3db 100644
    if(LIBCXXABI_LIBDIR_SUBDIR)
      string(APPEND LIBCXXABI_TARGET_SUBDIR /${LIBCXXABI_LIBDIR_SUBDIR})
 diff --git a/libunwind/CMakeLists.txt b/libunwind/CMakeLists.txt
-index 5f4b0902d..504994376 100644
+index 9679d2b68..957162f9c 100644
 --- a/libunwind/CMakeLists.txt
 +++ b/libunwind/CMakeLists.txt
 @@ -140,7 +140,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
@@ -63,5 +63,5 @@ index 5f4b0902d..504994376 100644
    if(LIBUNWIND_LIBDIR_SUBDIR)
      string(APPEND LIBUNWIND_TARGET_SUBDIR /${LIBUNWIND_LIBDIR_SUBDIR})
 -- 
-2.51.1
+2.52.0
 

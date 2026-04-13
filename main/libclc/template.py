@@ -1,10 +1,9 @@
 pkgname = "libclc"
-pkgver = "21.1.8"
+pkgver = "22.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = [
-    "clang-tools-extra",
     "cmake",
     "libedit-devel",
     "libffi8-devel",
@@ -19,11 +18,13 @@ hostmakedepends = [
 pkgdesc = "Open implementation of the OpenCL C programming language"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://libclc.llvm.org"
-source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/libclc-{pkgver}.src.tar.xz"
-sha256 = "6c2677362a53531c35edf482bdc9171ea0471ca0a1e9138ac9b5a1782925616f"
+source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
+sha256 = "2488c33a959eafba1c44f253e5bbe7ac958eb53fa626298a3a5f4b87373767cd"
 hardening = ["vis", "!cfi"]
 # external-calls-clspv broken
 options = ["!check"]
+
+cmake_dir = "libclc"
 
 
 # configure with host toolchain

@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.94.0"
+pkgver = "1.94.1"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "0b53ae34f5c0c3612cfe1de139f9167a018cd5737bc2205664fd69ba9b25f600"
+sha256 = "174fce10ce012317ca995810296d8af199318838180b03d68a853e0f02d4b571"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src

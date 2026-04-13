@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.45.1"
-_llvmver = "21.1.8"
-pkgrel = 0
+_llvmver = "22.1.3"
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -53,7 +53,7 @@ source = [
 ]
 sha256 = [
     "5fe101e6fe9d18fdec95962d81ed670fdee5f37e3f48f0bef87bddf862513aa5",
-    "c165183819e41b25e708ea8d0938ae43125b946509016ee8550db3c09da9237b",
+    "210d46064ba6982a58e9b0f94e05f2d86f1b7c33a190c2a717f7c35a3b19b2fc",
 ]
 # resistance is futile
 options = ["!check", "!lto", "linkundefver", "empty"]

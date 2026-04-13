@@ -1,7 +1,7 @@
-From 165dadbe63349e173db0f02292e10287a5630dda Mon Sep 17 00:00:00 2001
+From 60a9a6ec7f453eeeca5c65ab816f1001c96edf0f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:47:34 +0200
-Subject: [PATCH 16/29] clang: add fortify include paths for musl triplets +
+Subject: [PATCH 15/28] clang: add fortify include paths for musl triplets +
  enable fortify
 
 ---
@@ -10,10 +10,10 @@ Subject: [PATCH 16/29] clang: add fortify include paths for musl triplets +
  2 files changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 0211746c4..101366a9c 100644
+index 9d9187b5d..e2eb0ecdf 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -680,10 +680,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+@@ -795,10 +795,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
    if (getTriple().getOS() == llvm::Triple::RTEMS)
      return;
  
@@ -33,15 +33,15 @@ index 0211746c4..101366a9c 100644
    addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/usr/include"));
  
 diff --git a/clang/lib/Frontend/InitPreprocessor.cpp b/clang/lib/Frontend/InitPreprocessor.cpp
-index cce839295..c66f185c7 100644
+index 8253fad9e..04922d8f5 100644
 --- a/clang/lib/Frontend/InitPreprocessor.cpp
 +++ b/clang/lib/Frontend/InitPreprocessor.cpp
-@@ -1538,6 +1538,11 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
-   if (LangOpts.PointerAuthIntrinsics)
-     Builder.defineMacro("__PTRAUTH__");
+@@ -1524,6 +1524,11 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
+   if (CGOpts.Dwarf2CFIAsm)
+     Builder.defineMacro("__GCC_HAVE_DWARF2_CFI_ASM");
  
 +  // Enable fortify by default on musl when optimizing, but not with asan
-+  if (TI.getTriple().isMusl() && LangOpts.Optimize &&
++  if (TI.getTriple().isMusl() && CGOpts.OptimizationLevel != 0 &&
 +      !LangOpts.Sanitize.has(SanitizerKind::Address))
 +    Builder.defineMacro("_FORTIFY_SOURCE", "3");
 +
@@ -49,5 +49,5 @@ index cce839295..c66f185c7 100644
    TI.getTargetDefines(LangOpts, Builder);
  }
 -- 
-2.51.1
+2.52.0
 

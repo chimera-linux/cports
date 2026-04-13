@@ -1,10 +1,11 @@
 pkgname = "bpftrace"
-pkgver = "0.24.1"
-pkgrel = 1
+pkgver = "0.25.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # cant run them anyway
     "-DBUILD_TESTING=OFF",
+    "-DUSE_SYSTEM_LIBBPF=ON",
 ]
 hostmakedepends = [
     "asciidoctor",
@@ -18,9 +19,9 @@ makedepends = [
     "bcc-devel",
     "cereal",
     "clang-devel",
-    "clang-tools-extra",  # cmake detection
     "elfutils-devel",
     "libbpf-devel",
+    "libbpf-devel-static",
     "libedit-devel",
     "libffi8-devel",
     "libpcap-devel",
@@ -34,7 +35,7 @@ pkgdesc = "High-level eBPF tracing language"
 license = "Apache-2.0"
 url = "https://github.com/bpftrace/bpftrace"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "493265e0687312e6825ef07a6fcbc5327b5ca207c25f2b4738ca1461f90485ac"
+sha256 = "89d1cb7448a650eecebe52e8deb6dfa85517ae91c465bccd5246abd4588707dc"
 # bpftrace/bpftrace-aotrt binaries need keeping BEGIN/END_trigger syms
 # just skip strip for now until we can plumb through --keep-symbol to objcopy
 options = ["!strip"]

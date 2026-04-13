@@ -1,17 +1,17 @@
-From 9779b878973501138a7ac60671ea791dde0ea029 Mon Sep 17 00:00:00 2001
+From 9a866f0faba625016c2ee62d2956ba9a4245cc94 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:44:01 +0100
-Subject: [PATCH 01/29] llvm: always set a larger stack size explicitly
+Subject: [PATCH 01/28] llvm: always set a larger stack size explicitly
 
 ---
  llvm/lib/Support/Threading.cpp | 14 --------------
  1 file changed, 14 deletions(-)
 
 diff --git a/llvm/lib/Support/Threading.cpp b/llvm/lib/Support/Threading.cpp
-index 693de0e64..dd3e76fb8 100644
+index 9da357a7e..44cdd6115 100644
 --- a/llvm/lib/Support/Threading.cpp
 +++ b/llvm/lib/Support/Threading.cpp
-@@ -75,21 +75,7 @@ unsigned llvm::ThreadPoolStrategy::compute_thread_count() const {
+@@ -80,21 +80,7 @@ unsigned llvm::ThreadPoolStrategy::compute_thread_count() const {
  // keyword.
  #include "llvm/Support/thread.h"
  
@@ -34,5 +34,5 @@ index 693de0e64..dd3e76fb8 100644
  #endif
  
 -- 
-2.51.1
+2.52.0
 
