@@ -1,6 +1,6 @@
 pkgname = "waydroid"
 pkgver = "1.6.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_install_args = ["USE_SYSTEMD=0", "USE_NFTABLES=1"]
 hostmakedepends = ["python"]
@@ -8,6 +8,7 @@ makedepends = ["dinit-chimera"]
 depends = [
     "dnsmasq",
     "lxc",
+    "nftables",
     "python-dbus",
     "python-gbinder",
     "python-gobject",
