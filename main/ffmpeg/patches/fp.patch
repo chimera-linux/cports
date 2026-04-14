@@ -1,10 +1,12 @@
+diff --git a/configure b/configure
+index fb1baf2eac..51b67ab2c4 100755
 --- a/configure
 +++ b/configure
-@@ -6124,7 +6124,7 @@
+@@ -6460,7 +6460,7 @@ set_default libdir
  set_default $PATHS_LIST
  set_default nm
  
--disabled optimizations || enabled ossfuzz || echo "$CFLAGS" | grep -q -- '-fsanitize=' || check_cflags -fomit-frame-pointer
+-disabled optimizations || enabled ossfuzz || echo "$CFLAGS" | grep -q -- '-fsanitize=' || check_allcflags -fomit-frame-pointer
 +disabled optimizations || enabled ossfuzz
  
  enable_weak_pic() {
