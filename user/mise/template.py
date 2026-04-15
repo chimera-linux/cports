@@ -27,6 +27,10 @@ sha256 = "a847ca56d6db11571cbf54611156e8d18e0e31f2e63bd9a59fd575af524f2f03"
 # check: takes forever
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    # lol
+    broken = "memory allocation of 13107204 bytes failed"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/mise")
