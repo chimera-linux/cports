@@ -1,0 +1,113 @@
+From d34fd6cff3ac882a0f26cb6bdd5a5b1c189c0e82 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Tue, 27 Jan 2026 16:49:59 +1100
+Subject: [PATCH] Linux 7.0: posix_acl_to_xattr() now allocates memory
+
+Kernel devs noted that almost all callers to posix_acl_to_xattr() would
+check the ACL value size and allocate a buffer before make the call. To
+reduce the repetition, they've changed it to allocate this buffer
+internally and return it.
+
+Unfortunately that's not true for us; most of our calls are from
+xattr_handler->get() to convert a stored ACL to an xattr, and that call
+provides a buffer. For now we have no other option, so this commit
+detects the new version and wraps to copy the value back into the
+provided buffer and then free it.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18216
+---
+ config/kernel-acl.m4                         | 31 ++++++++++++++++++++
+ include/os/linux/kernel/linux/xattr_compat.h | 17 +++++++++++
+ 2 files changed, 48 insertions(+)
+
+diff --git a/config/kernel-acl.m4 b/config/kernel-acl.m4
+index bced1990bfc1..9350a4c5f00e 100644
+--- a/config/kernel-acl.m4
++++ b/config/kernel-acl.m4
+@@ -22,6 +22,35 @@ AC_DEFUN([ZFS_AC_KERNEL_POSIX_ACL_EQUIV_MODE_WANTS_UMODE_T], [
+ 	])
+ ])
+ 
++dnl #
++dnl # 7.0 API change
++dnl # posix_acl_to_xattr() now allocates and returns the value.
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_POSIX_ACL_TO_XATTR_ALLOC], [
++	ZFS_LINUX_TEST_SRC([posix_acl_to_xattr_alloc], [
++		#include <linux/fs.h>
++		#include <linux/posix_acl_xattr.h>
++	], [
++		struct user_namespace *ns = NULL;
++		struct posix_acl *acl = NULL;
++		size_t size = 0;
++		gfp_t gfp = 0;
++		void *xattr = NULL;
++		xattr = posix_acl_to_xattr(ns, acl, &size, gfp);
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_POSIX_ACL_TO_XATTR_ALLOC], [
++	AC_MSG_CHECKING([whether posix_acl_to_xattr() allocates its result]);
++	ZFS_LINUX_TEST_RESULT([posix_acl_to_xattr_alloc], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_POSIX_ACL_TO_XATTR_ALLOC, 1,
++		    [posix_acl_to_xattr() allocates its result])
++	], [
++		AC_MSG_RESULT(no)
++	])
++])
++
+ dnl #
+ dnl # 3.1 API change,
+ dnl # Check if inode_operations contains the function get_acl
+@@ -174,12 +203,14 @@ AC_DEFUN([ZFS_AC_KERNEL_INODE_OPERATIONS_SET_ACL], [
+ 
+ AC_DEFUN([ZFS_AC_KERNEL_SRC_ACL], [
+ 	ZFS_AC_KERNEL_SRC_POSIX_ACL_EQUIV_MODE_WANTS_UMODE_T
++	ZFS_AC_KERNEL_SRC_POSIX_ACL_TO_XATTR_ALLOC
+ 	ZFS_AC_KERNEL_SRC_INODE_OPERATIONS_GET_ACL
+ 	ZFS_AC_KERNEL_SRC_INODE_OPERATIONS_SET_ACL
+ ])
+ 
+ AC_DEFUN([ZFS_AC_KERNEL_ACL], [
+ 	ZFS_AC_KERNEL_POSIX_ACL_EQUIV_MODE_WANTS_UMODE_T
++	ZFS_AC_KERNEL_POSIX_ACL_TO_XATTR_ALLOC
+ 	ZFS_AC_KERNEL_INODE_OPERATIONS_GET_ACL
+ 	ZFS_AC_KERNEL_INODE_OPERATIONS_SET_ACL
+ ])
+diff --git a/include/os/linux/kernel/linux/xattr_compat.h b/include/os/linux/kernel/linux/xattr_compat.h
+index f2f7e1ed017f..39645c19094f 100644
+--- a/include/os/linux/kernel/linux/xattr_compat.h
++++ b/include/os/linux/kernel/linux/xattr_compat.h
+@@ -130,10 +130,27 @@ zpl_acl_from_xattr(const void *value, int size)
+ 	return (posix_acl_from_xattr(kcred->user_ns, value, size));
+ }
+ 
++/*
++ * Linux 7.0 API change. posix_acl_to_xattr() changed from filling the
++ * caller-provided buffer to allocating a buffer with enough space and
++ * returning it. We wrap this up by copying the result into the provided
++ * buffer and freeing the allocated buffer.
++ */
+ static inline int
+ zpl_acl_to_xattr(struct posix_acl *acl, void *value, int size)
+ {
++#ifdef HAVE_POSIX_ACL_TO_XATTR_ALLOC
++	size_t s = 0;
++	void *v = posix_acl_to_xattr(kcred->user_ns, acl, &s,
++	    kmem_flags_convert(KM_SLEEP));
++	if (v == NULL)
++		return (-ENOMEM);
++	memcpy(value, v, MIN(size, s));
++	kfree(v);
++	return (0);
++#else
+ 	return (posix_acl_to_xattr(kcred->user_ns, acl, value, size));
++#endif
+ }
+ 
+ #endif /* _ZFS_XATTR_H */

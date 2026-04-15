@@ -1,0 +1,65 @@
+From 4155d1533e1ac22057c9d21d57b28f8d36e59359 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Tue, 31 Mar 2026 10:44:31 +1100
+Subject: [PATCH] Linux 7.0: ensure LSMs get to process mount options
+
+Normally, kernel gives any LSM registering a `sb_eat_lsm_opts` hook a
+first look at mount options coming in from a userspace mount request.
+The LSM may process and/or remove any options. Whatever is left is
+passed to the filesystem.
+
+This is how the dataset properties `context`, `fscontext`, `defcontext`
+and `rootcontext` are used to configure ZFS mounts for SELinux. libzfs
+will fetch those properties from the dataset, then add them to the mount
+options.
+
+In 0f608aa6ca (#18216) we added our own mount shims to cover the loss of
+the kernel-provided ones. It turns out that if a filesystem provides a
+`.parse_monolithic callback`, it is expected to do _all_ mount option
+parameter processing - the kernel will not get involved at all. Because
+of that, LSMs are never given a chance to process mount options. The
+`context` properties are never seen by SELinux, nor are any other
+options targetting other LSMs.
+
+Fix this by calling `security_sb_eat_lsm_opts()` in
+`zpl_parse_monolithic()`, before we stash the remaining options for
+`zfs_domount()`.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18376
+---
+ module/os/linux/zfs/zpl_super.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/module/os/linux/zfs/zpl_super.c b/module/os/linux/zfs/zpl_super.c
+index a970959531a3..79f68265f9ff 100644
+--- a/module/os/linux/zfs/zpl_super.c
++++ b/module/os/linux/zfs/zpl_super.c
+@@ -393,9 +393,22 @@ zpl_prune_sb(uint64_t nr_to_scan, void *arg)
+ static int
+ zpl_parse_monolithic(struct fs_context *fc, void *data)
+ {
++	if (data == NULL)
++		return (0);
++
++	/*
++	 * Because we supply a .parse_monolithic callback, the kernel does
++	 * no consideration of the options blob at all. Because of this, we
++	 * have to give LSMs a first look at it. They will remove any options
++	 * of interest to them (eg the SELinux *context= options).
++	 */
++	int err = security_sb_eat_lsm_opts((char *)data, &fc->security);
++	if (err)
++		return (err);
++
+ 	/*
+-	 * We do options parsing in zfs_domount(); just stash the options blob
+-	 * in the fs_context so we can pass it down later.
++	 * Whatever is left we stash on in the fs_context so we can pass it
++	 * down to zfs_domount() or zfs_remount() later.
+ 	 */
+ 	fc->fs_private = data;
+ 	return (0);
