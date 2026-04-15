@@ -514,6 +514,12 @@ do_install() {
             "${hdrdest}/arch/powerpc/lib"
     fi
 
+    # moved from scripts in 7.0
+    if [ -f "tools/docs/kernel-doc" ]; then
+        cp -p "tools/docs/kernel-doc" "${hdrdest}/tools/docs"
+        chmod 755 "${hdrdest}/tools/docs/kernel-doc"
+    fi
+
     # module signing utility
     if [ -f "${OBJDIR}/scripts/sign-file" ]; then
         cp -p "${OBJDIR}/scripts/sign-file" "${hdrdest}/scripts"
