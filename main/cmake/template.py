@@ -1,5 +1,5 @@
 pkgname = "cmake"
-pkgver = "4.1.2"
+pkgver = "4.3.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Cross-platform, open source build system"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/cmake-{pkgver}.tar.gz"
-sha256 = "643f04182b7ba323ab31f526f785134fb79cba3188a852206ef0473fee282a15"
+sha256 = "f51b3c729f85d8dde46a92c071d2826ea6afb77d850f46894125de7cc51baa77"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
