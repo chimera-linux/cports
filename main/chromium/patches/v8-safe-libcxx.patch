@@ -1,0 +1,15 @@
+we're building with custom libcxx which is hardened,
+chromium does not know and is being obtuse about it
+
+--- a/v8/BUILD.gn
++++ b/v8/BUILD.gn
+@@ -788,9 +788,6 @@ assert(!v8_enable_pointer_compression_8gb || v8_enable_pointer_compression,
+ assert(!v8_enable_sandbox || v8_enable_external_code_space,
+        "The sandbox requires the external code space")
+ 
+-assert(!v8_enable_sandbox || use_safe_libcxx,
+-       "The sandbox requires libc++ hardening")
+-
+ assert(!v8_enable_memory_corruption_api || v8_enable_sandbox,
+        "The Memory Corruption API requires the sandbox")
+ 

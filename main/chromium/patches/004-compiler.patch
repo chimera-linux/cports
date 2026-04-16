@@ -33,7 +33,7 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
 +        ldflags += [ "--target=aarch64-chimera-linux-musl" ]
        }
        if (target_os == "chromeos" && cros_target_cpu_arch != "" &&
-           current_cpu == target_cpu) {
+           is_a_target_toolchain) {
 @@ -1517,22 +1517,22 @@
            ldflags += [ "-maix64" ]
          }

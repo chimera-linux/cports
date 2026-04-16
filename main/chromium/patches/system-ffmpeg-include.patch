@@ -1,0 +1,11 @@
+--- a/media/filters/ffmpeg_demuxer.h
++++ b/media/filters/ffmpeg_demuxer.h
+@@ -46,7 +46,7 @@
+ #include "media/ffmpeg/scoped_av_packet.h"
+ #include "media/filters/blocking_url_protocol.h"
+ #include "media/media_buildflags.h"
+-#include "third_party/ffmpeg/libavutil/rational.h"
++#include <libavutil/rational.h>
+ 
+ // FFmpeg forward declarations.
+ struct AVFormatContext;

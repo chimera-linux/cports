@@ -1,11 +1,12 @@
 --- a/buildtools/third_party/libc++/__config_site
 +++ b/buildtools/third_party/libc++/__config_site
-@@ -25,7 +25,7 @@
- #define _LIBCPP_HAS_THREADS 1
- #define _LIBCPP_HAS_MONOTONIC_CLOCK 1
- #define _LIBCPP_HAS_TERMINAL 1
+@@ -29,7 +29,7 @@
+ #ifdef ANDROID_HOST_MUSL
+ #define _LIBCPP_HAS_MUSL_LIBC 1
+ #else
 -#define _LIBCPP_HAS_MUSL_LIBC 0
 +#define _LIBCPP_HAS_MUSL_LIBC 1
+ #endif
  
  #ifdef _WIN32
- #define _LIBCPP_HAS_THREAD_API_PTHREAD 0
+

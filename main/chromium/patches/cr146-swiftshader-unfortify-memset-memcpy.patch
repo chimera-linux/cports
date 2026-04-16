@@ -1,0 +1,28 @@
+From 6c5aa33620864cd929c83a2e0c0dd101ff63ea2b Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Wed, 18 Mar 2026 23:32:56 +0100
+Subject: [PATCH] No idea why is this broken since switch to C++22
+
+---
+ src/Device/Memset.hpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/third_party/swiftshader/src/Device/Memset.hpp b/third_party/swiftshader/src/Device/Memset.hpp
+index bfc7bf253..6031d864c 100644
+--- a/third_party/swiftshader/src/Device/Memset.hpp
++++ b/third_party/swiftshader/src/Device/Memset.hpp
+@@ -53,12 +53,12 @@ struct Memset
+ 	// They can leave padding bytes uninitialized.
+ 	Memset(const Memset &rhs)
+ 	{
+-		::memcpy(this, &rhs, sizeof(T));
++		__builtin_memcpy(this, &rhs, sizeof(T));
+ 	}
+ 
+ 	Memset &operator=(const Memset &rhs)
+ 	{
+-		::memcpy(this, &rhs, sizeof(T));
++		__builtin_memcpy(this, &rhs, sizeof(T));
+ 		return *this;
+ 	}
+ 
