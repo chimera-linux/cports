@@ -1,20 +1,20 @@
-From 51d8dcb90a2df486612a684abf75efdb65b66170 Mon Sep 17 00:00:00 2001
+From c91e21424cd8bcfb5633eefa651b264e9386433d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 13 Mar 2026 15:27:57 +0100
+Date: Fri, 17 Apr 2026 11:06:40 +0200
 Subject: [PATCH] Selectively downgrade some crates in cargo
 
 Until we can figure out why it's busted on ppc64le, downgrade
 some dependencies until things no longer crash. This is not
 sustainable forever but for now it makes it work.
 ---
- Cargo.lock | 13 +++++++------
- Cargo.toml |  6 +++---
+ src/tools/cargo/Cargo.lock | 13 +++++++------
+ src/tools/cargo/Cargo.toml |  6 +++---
  2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/Cargo.lock b/Cargo.lock
-index f7727ec..46e92ca 100644
---- a/Cargo.lock
-+++ b/Cargo.lock
+diff --git a/src/tools/cargo/Cargo.lock b/src/tools/cargo/Cargo.lock
+index a720ed6bf..76a65b839 100644
+--- a/src/tools/cargo/Cargo.lock
++++ b/src/tools/cargo/Cargo.lock
 @@ -132,9 +132,9 @@ dependencies = [
  
  [[package]]
@@ -27,7 +27,7 @@ index f7727ec..46e92ca 100644
  
  [[package]]
  name = "arc-swap"
-@@ -2560,16 +2560,17 @@ dependencies = [
+@@ -2577,16 +2577,17 @@ dependencies = [
  
  [[package]]
  name = "ignore"
@@ -49,11 +49,11 @@ index f7727ec..46e92ca 100644
   "walkdir",
   "winapi-util",
  ]
-diff --git a/Cargo.toml b/Cargo.toml
-index 392758a..de88199 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
-@@ -21,7 +21,7 @@ repository = "https://github.com/rust-lang/cargo"
+diff --git a/src/tools/cargo/Cargo.toml b/src/tools/cargo/Cargo.toml
+index d3c86cef7..e0d83bc22 100644
+--- a/src/tools/cargo/Cargo.toml
++++ b/src/tools/cargo/Cargo.toml
+@@ -20,7 +20,7 @@ repository = "https://github.com/rust-lang/cargo"
  annotate-snippets = { version = "0.12.10", features = ["simd"] }
  anstream = "0.6.21"
  anstyle = "1.0.13"
@@ -61,7 +61,7 @@ index 392758a..de88199 100644
 +anyhow = "1.0.75"
  base64 = "0.22.1"
  blake3 = "1.8.2"
- build-rs = { version = "0.3.1", path = "crates/build-rs" }
+ build-rs = { version = "0.3.4", path = "crates/build-rs" }
 @@ -58,7 +58,7 @@ hex = "0.4.3"
  hmac = "0.12.1"
  home = "0.5.12"

@@ -1,7 +1,7 @@
 pkgname = "cargo"
-pkgver = "1.94.0"
-_cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
+pkgver = "1.95.0"
 pkgrel = 0
+build_wrksrc = "src/tools/cargo"
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
 # into linker sequence for build script, breaking build entirely
@@ -17,8 +17,8 @@ makedepends = ["curl-devel", "openssl3-devel", "sqlite-devel"]
 pkgdesc = "Rust package manager"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"
-sha256 = "a646673df0564b6294d1810a33ca02a9e26c860c60c36769ca28bf58d6e73dcd"
+source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
+sha256 = "62b67230754da642a264ca0cb9fc08820c54e2ed7b3baba0289876d4cdb48c08"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -40,7 +40,7 @@ else:
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.Cargo(self).vendor()
+    cargo.Cargo(self).vendor(wrksrc=self.build_wrksrc)
 
 
 def init_prepare(self):
@@ -65,7 +65,7 @@ def _(self):
     self.cp("LICENSE-APACHE", bdirn)
     self.cp("LICENSE-MIT", bdirn)
     self.cp("LICENSE-THIRD-PARTY", bdirn)
-    self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
+    self.do("tar", "cvJf", self.chroot_srcdir / f"{bdirn}.tar.xz", bdirn)
     self.rm(bdirn, recursive=True)
 
 
