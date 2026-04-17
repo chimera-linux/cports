@@ -1,6 +1,6 @@
 pkgname = "tlp"
-pkgver = "1.8.0"
-pkgrel = 1
+pkgver = "1.9.1"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [
     "-j1",
@@ -17,7 +17,7 @@ pkgdesc = "Battery life optimization utility"
 license = "GPL-2.0-or-later"
 url = "https://linrunner.de/tlp"
 source = f"https://github.com/linrunner/TLP/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "65515f7652064a1be2940c031e045b762924bb1dbd94f5e58e3b765113cf5210"
+sha256 = "6f7c69a8c56706f83bc3566377caf846c2ccbd8f2621fe8e56c6d1e684d15156"
 # no tests, symlinked commands
 options = ["!check", "!lintcomp"]
 
@@ -38,4 +38,20 @@ def _(self):
         "usr/share/man/man8/tlp-rdw.8",
         "usr/share/zsh/site-functions/_tlp-rdw",
         "usr/share/bash-completion/completions/tlp-rdw",
+    ]
+
+
+@subpackage("tlp-pd")
+def _(self):
+    self.depends = [self.parent, "!power-profiles-daemon"]
+    self.install_if = [self.parent, "!power-profiles-daemon"]
+    return [
+        "usr/bin/tlp-pd",
+        "usr/bin/tlpctl",
+        "usr/share/polkit-1/actions",
+        "usr/share/dbus-1/system.d",
+        "usr/share/dbus-1/system-services",
+        "usr/share/man/man8/tlp-pd.8",
+        "usr/share/zsh/site-functions/_tlpctl",
+        "usr/share/bash-completion/completions/tlpctl",
     ]
