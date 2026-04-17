@@ -6,8 +6,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "libjpeg-turbo-devel",
-    "libtiff-devel",
     "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
