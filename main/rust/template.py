@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.94.1"
+pkgver = "1.95.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "174fce10ce012317ca995810296d8af199318838180b03d68a853e0f02d4b571"
+sha256 = "62b67230754da642a264ca0cb9fc08820c54e2ed7b3baba0289876d4cdb48c08"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -52,8 +52,6 @@ options = ["!check", "!lto"]
 if self.profile().cross:
     hostmakedepends += ["rust"]
     env["PKG_CONFIG_ALLOW_CROSS"] = "1"
-elif self.current_target == "custom:bootstrap":
-    hostmakedepends += ["rust", "xz"]
 else:
     hostmakedepends += ["rust-bootstrap"]
 
@@ -65,7 +63,7 @@ if self.current_target == "custom:bootstrap":
     #
     # since there is just one static switch, we need static llvm
     # for both host and target rustc builds
-    hostmakedepends += ["llvm-devel-static"]
+    hostmakedepends += ["llvm-devel-static", "xz"]
     makedepends += ["llvm-devel-static"]
     # avoid debug cflags and so on for vendor libs
     options += ["!debug"]
@@ -86,6 +84,7 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.175")
     cargo.clear_vendor_checksums(self, "libc-0.2.177")
     cargo.clear_vendor_checksums(self, "libc-0.2.178")
+    cargo.clear_vendor_checksums(self, "libc-0.2.180")
     cargo.clear_vendor_checksums(self, "cc-1.2.0")
     cargo.clear_vendor_checksums(self, "cc-1.2.13")
     cargo.clear_vendor_checksums(self, "cc-1.2.16")

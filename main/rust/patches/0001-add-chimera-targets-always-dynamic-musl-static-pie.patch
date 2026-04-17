@@ -1,4 +1,4 @@
-From 67691082e3218a03f115615c1ddba4e5648b6121 Mon Sep 17 00:00:00 2001
+From cdd38aae10b4546277cc9e23105076a2c0b51024 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
 Subject: [PATCH 01/16] add chimera targets, always dynamic musl + static pie
@@ -61,7 +61,7 @@ index 6d3124b55..0227c52b0 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 57effe3a8..8f568e26d 100644
+index d9c872c9b..1e832aeb0 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
 @@ -1432,6 +1432,15 @@ macro_rules! supported_targets {

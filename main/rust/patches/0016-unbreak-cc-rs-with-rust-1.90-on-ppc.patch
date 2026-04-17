@@ -1,4 +1,4 @@
-From afff61c79818be4864ddf9f96127dbb614b50574 Mon Sep 17 00:00:00 2001
+From 52ef233f2ee0cb5dc389ebade75038c9f6f14dc9 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 21 Oct 2025 00:18:33 +0200
 Subject: [PATCH 16/16] unbreak cc-rs with rust 1.90 on ppc*

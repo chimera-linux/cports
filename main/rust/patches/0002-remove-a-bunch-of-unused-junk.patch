@@ -1,4 +1,4 @@
-From 4a57da563f5da9501b3c7f9213b9cb40f9b6bf1e Mon Sep 17 00:00:00 2001
+From 0a677982ee2041b2fd775fe7c455dd218c7808ac Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 30 May 2025 12:33:02 +0200
 Subject: [PATCH 02/16] remove a bunch of unused junk
@@ -162,7 +162,7 @@ index fda8f004e..3e7e828a0 100755
      "qemu-armhf-rootfs",
      "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 11f2a28bb..0270fafcc 100644
+index 46d05b9d5..757bf4d30 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
 @@ -382,54 +382,7 @@ fn copy_self_contained_objects(
@@ -221,7 +221,7 @@ index 11f2a28bb..0270fafcc 100644
          let srcdir = builder.wasi_libdir(target).unwrap_or_else(|| {
              panic!(
                  "Target {:?} does not have a \"wasi-root\" key in bootstrap.toml \
-@@ -663,15 +616,6 @@ pub fn std_cargo(
+@@ -660,15 +613,6 @@ pub fn std_cargo(
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -238,10 +238,10 @@ index 11f2a28bb..0270fafcc 100644
              && let Some(dir) = builder.wasi_libdir(target)
          {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index c3935d981..509cba033 100644
+index 0c607cb6b..b61a882b6 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -1513,9 +1513,6 @@ impl Step for CrtBeginEnd {
+@@ -1581,9 +1581,6 @@ impl Step for CrtBeginEnd {
      }
  
      fn make_run(run: RunConfig<'_>) {
@@ -252,7 +252,7 @@ index c3935d981..509cba033 100644
  
      /// Build crtbegin.o/crtend.o for musl target.
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index 07405a030..4e4c4f72e 100644
+index 17f256188..4d4655933 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
 @@ -264,8 +264,6 @@ pub struct Config {
@@ -264,7 +264,7 @@ index 07405a030..4e4c4f72e 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -541,7 +539,6 @@ impl Config {
+@@ -543,7 +541,6 @@ impl Config {
              randomize_layout: rust_randomize_layout,
              default_linker: rust_default_linker,
              channel: rust_channel,
@@ -272,7 +272,7 @@ index 07405a030..4e4c4f72e 100644
              rpath: rust_rpath,
              verbose_tests: rust_verbose_tests,
              optimize_tests: rust_optimize_tests,
-@@ -874,8 +871,6 @@ impl Config {
+@@ -883,8 +880,6 @@ impl Config {
                      rpath: target_rpath,
                      rustflags: target_rustflags,
                      crt_static: target_crt_static,
@@ -281,7 +281,7 @@ index 07405a030..4e4c4f72e 100644
                      wasi_root: target_wasi_root,
                      qemu_rootfs: target_qemu_rootfs,
                      no_std: target_no_std,
-@@ -948,8 +943,6 @@ impl Config {
+@@ -957,8 +952,6 @@ impl Config {
                  target.crt_static = target_crt_static;
                  target.default_linker = target_default_linker;
                  target.default_linker_linux_override = default_linker_linux_override;
@@ -290,7 +290,7 @@ index 07405a030..4e4c4f72e 100644
                  target.wasi_root = target_wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = target_qemu_rootfs.map(PathBuf::from);
                  target.runner = target_runner;
-@@ -1401,7 +1394,6 @@ impl Config {
+@@ -1411,7 +1404,6 @@ impl Config {
              low_priority: build_low_priority.unwrap_or(false),
              mandir: install_mandir.map(PathBuf::from),
              miri_info,
@@ -356,10 +356,10 @@ index 847b75e69..5ad42917a 100644
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index 67f4eb37b..6f2cf48b0 100644
+index e5327ab79..3db1f389e 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
-@@ -363,22 +363,6 @@ than building it.
+@@ -374,22 +374,6 @@ than building it.
              continue;
          }
  
@@ -383,10 +383,10 @@ index 67f4eb37b..6f2cf48b0 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index 857c0539e..ebe12d747 100644
+index b9a914f53..e848620e9 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1394,35 +1394,6 @@ impl Build {
+@@ -1389,35 +1389,6 @@ impl Build {
          }
      }
  
@@ -423,7 +423,7 @@ index 857c0539e..ebe12d747 100644
      /// configured.
      ///
 diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
-index 0662ae304..f6373f44e 100644
+index d010226f0..49a2b520f 100644
 --- a/src/bootstrap/src/utils/cc_detect.rs
 +++ b/src/bootstrap/src/utils/cc_detect.rs
 @@ -195,30 +195,6 @@ fn default_compiler(
