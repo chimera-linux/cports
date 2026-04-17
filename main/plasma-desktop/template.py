@@ -236,6 +236,7 @@ def _(self):
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "ktorrent",  # torrent client
         "ktrip",  # trip planner
+        "neochat",  # matrix client
         "okular",  # document viewer
         "partitionmanager",  # partition manager
         "plasma-systemmonitor",
@@ -245,7 +246,6 @@ def _(self):
         "spectacle",  # screenshot
         "sweeper",  # cache cleaner
         "yakuake",  # drop-down terminal
-        # "neochat",  # local WIP, matrix client
         # - still qt5
         # "kamoso",  # camera
         # "kipi-plugins",  # image export
