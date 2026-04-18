@@ -1,0 +1,13 @@
+diff --git a/src/treesit.c b/src/treesit.c
+index 4d6bf9a..f87f465 100644
+--- a/src/treesit.c
++++ b/src/treesit.c
+@@ -778,7 +778,7 @@ treesit_load_language (Lisp_Object language_symbol,
+     {
+       *signal_symbol = Qtreesit_load_language_error;
+       *signal_data = list2 (Qversion_mismatch,
+-			    make_fixnum (ts_language_version (lang)));
++			    make_fixnum (treesit_language_abi_version (lang)));
+       return NULL;
+     }
+   return lang;
