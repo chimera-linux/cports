@@ -1,7 +1,6 @@
 pkgname = "miniupnpd"
-pkgver = "2.3.9"
+pkgver = "2.3.10"
 pkgrel = 0
-build_wrksrc = "miniupnpd"
 build_style = "configure"
 configure_args = [
     "--disable-fork",
@@ -31,8 +30,8 @@ checkdepends = ["iproute2"]
 pkgdesc = "UPnP IGD and PCP/NAT-PMP daemon for gateway router"
 license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
-source = f"{url}/archive/refs/tags/miniupnpd_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "ec7981351ad6a046eee0abf522ed1a45a3b0517e1da64e03826051f5f5354ea5"
+source = f"{url}/releases/download/miniupnpd_{pkgver.replace('.', '_')}/miniupnpd-{pkgver}.tar.gz"
+sha256 = "f9c34ed3632fb60cd248dd5897bd98479a103a75688b056ca2f069e68ab32987"
 
 
 def post_install(self):
