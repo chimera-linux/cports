@@ -1,5 +1,5 @@
 pkgname = "wireguard-tools"
-pkgver = "1.0.20250521"
+pkgver = "1.0.20260223"
 pkgrel = 0
 build_style = "makefile"
 make_dir = "src"
@@ -15,7 +15,7 @@ pkgdesc = "Next generation secure network tunnel - tools for configuration"
 license = "GPL-2.0-only"
 url = "https://www.wireguard.com"
 source = f"https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-{pkgver}.tar.xz"
-sha256 = "b6f2628b85b1b23cc06517ec9c74f82d52c4cdbd020f3dd2f00c972a1782950e"
+sha256 = "af459827b80bfd31b83b08077f4b5843acb7d18ad9a33a2ef532d3090f291fbf"
 tool_flags = {
     "CFLAGS": ['-DRUNSTATEDIR="/run"'],
 }
