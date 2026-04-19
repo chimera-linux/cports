@@ -1,5 +1,5 @@
 pkgname = "xz"
-pkgver = "5.8.2"
+pkgver = "5.8.3"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "XZ compression utilities"
 license = "0BSD"
 url = "https://tukaani.org/xz"
 source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.gz"
-sha256 = "ce09c50a5962786b83e5da389c90dd2c15ecd0980a258dd01f70f9e7ce58a8f1"
+sha256 = "3d3a1b973af218114f4f889bbaa2f4c037deaae0c8e815eec381c3d546b974a0"
 options = ["bootstrap"]
 
 
