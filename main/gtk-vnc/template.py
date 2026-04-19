@@ -1,5 +1,5 @@
 pkgname = "gtk-vnc"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "VNC client viewer widget for GTK+3"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/gtk-vnc"
 source = f"$(GNOME_SITE)/gtk-vnc/{pkgver[:-2]}/gtk-vnc-{pkgver}.tar.xz"
-sha256 = "1be64c4e4760c52b3ec33067290d1efa40ad4cecab6c673813804e3c559d9683"
+sha256 = "c0beb4747528ad931da43acc567c6a0190f7fc624465571ed9ccece02c34dd23"
 
 
 @subpackage("gtk-vnc-devel")
