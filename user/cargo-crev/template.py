@@ -1,5 +1,5 @@
 pkgname = "cargo-crev"
-pkgver = "0.26.5"
+pkgver = "0.27.1"
 pkgrel = 0
 build_wrksrc = "cargo-crev"
 build_style = "cargo"
@@ -9,7 +9,7 @@ pkgdesc = "Cryptographically verifiable code review system for cargo"
 license = "MPL-2.0 OR MIT OR Apache-2.0"
 url = "https://github.com/crev-dev/cargo-crev"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9bf1ec351c15243c598db86b8edc292fb36b9deb8c4e94dd5506abf3edd5a41a"
+sha256 = "785ed01f3352331ac4f6ecd63da5ab896a4d251678ad75b6bcf1545858a4cc82"
 # takes forever to run literally 2 unittests
 options = ["!check"]
 
