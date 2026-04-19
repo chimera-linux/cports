@@ -1,5 +1,5 @@
 pkgname = "python-calver"
-pkgver = "2025.4.17"
+pkgver = "2025.10.20"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -12,6 +12,6 @@ pkgdesc = "Setuptools extension for CalVer package versions"
 license = "Apache-2.0"
 url = "https://github.com/di/calver"
 source = f"$(PYPI_SITE)/c/calver/calver-{pkgver}.tar.gz"
-sha256 = "460702737d620f5c3d4175450485180a1b7f7a422c5db0e6af3e655c7395ec7e"
+sha256 = "c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5"
 # no tests
 options = ["!check"]
