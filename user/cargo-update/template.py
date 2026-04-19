@@ -1,5 +1,5 @@
 pkgname = "cargo-update"
-pkgver = "18.0.0"
+pkgver = "20.0.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -13,7 +13,7 @@ pkgdesc = "Cargo subcommand for updating installed executables"
 license = "MIT"
 url = "https://github.com/nabijaczleweli/cargo-update"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cfa56d6c5fb2d7d1536efb4765031731fe70bf1a8246757a7a9d6a4a046e640f"
+sha256 = "7e9898ae686fe64c4cf75be5c4e9e6d5f6141371182a12e4bdaa806cfe321806"
 
 
 def install(self):
