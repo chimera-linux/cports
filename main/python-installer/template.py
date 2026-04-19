@@ -1,6 +1,6 @@
 pkgname = "python-installer"
-pkgver = "0.7.0"
-pkgrel = 3
+pkgver = "1.0.0"
+pkgrel = 0
 hostmakedepends = ["python-flit_core"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
@@ -8,7 +8,7 @@ pkgdesc = "Low-level library for installing from a Python wheel"
 license = "MIT"
 url = "https://installer.pypa.io/en/stable"
 source = f"$(PYPI_SITE)/i/installer/installer-{pkgver}.tar.gz"
-sha256 = "a26d3e3116289bb08216e0d0f7d925fcef0b0194eedfa0c944bcaaa106c4b631"
+sha256 = "c6d691331621cf3fec4822f5c6f83cab3705f79b316225dc454127411677c71f"
 # cycle
 options = ["!check"]
 
