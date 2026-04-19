@@ -1,2 +1,2 @@
-url = "https://gameoftrees.org/releases/portable"
-pattern = r"got-portable-([\d.]+).tar.gz"
+# update check is currently broken
+ignore = True
