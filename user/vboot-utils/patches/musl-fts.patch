@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 295b680f..382dd67c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -170,7 +170,7 @@ COMMON_FLAGS += $(call test_ccflag,-Wno-address-of-packed-member)
+ COMMON_FLAGS += $(call test_ccflag,-Wno-unknown-warning)
+ 
+ # Needs -Wl because LD is actually set to CC by default.
+-LDFLAGS += -Wl,--gc-sections
++LDFLAGS += -Wl,--gc-sections -Wl,-lfts
+ 
+ ifneq ($(filter-out 0,${DEBUG})$(filter-out 0,${TEST_PRINT}),)
+ CFLAGS += -DVBOOT_DEBUG
