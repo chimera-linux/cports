@@ -1,6 +1,6 @@
 pkgname = "kanshi"
 pkgver = "1.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -11,7 +11,7 @@ makedepends = [
     "dinit-chimera",
     "libscfg-devel",
     "turnstile",
-    "varlink-devel",
+    "vali-devel",
     "wayland-devel",
 ]
 pkgdesc = "Dynamic display configuration for wayland"
