@@ -1,5 +1,5 @@
 pkgname = "neomutt"
-pkgver = "2026.01.05"
+pkgver = "2026.04.06"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "Mail reader"
 license = "GPL-2.0-or-later"
 url = "https://neomutt.org"
 source = f"https://github.com/neomutt/neomutt/archive/refs/tags/{pkgver.replace('.', '')}.tar.gz"
-sha256 = "a78e55a0df62b7f98566676d0ab9041aad89b2384bb5c6f3a96302a5cf49968d"
+sha256 = "bd6ef5aa0d53ee23ce15b0f8624a6450d119623931708df998c6ebee7e528d17"
 env = {"autosetup_tclsh": "tclsh"}
 # no tests defined
 options = ["!check"]
