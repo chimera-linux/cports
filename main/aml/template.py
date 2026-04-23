@@ -1,5 +1,5 @@
 pkgname = "aml"
-pkgver = "0.3.0"
+pkgver = "1.0.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Main loop library"
 license = "ISC"
 url = "https://github.com/any1/aml"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cba1ca1689d4031faf37bb7a184559106b6d2f462ae8890a9fa16e3022ca1eb0"
+sha256 = "b2b8f743213af39f40e8bc611147d69e2ea9e010b9b19cb65246582338f28d96"
 
 
 def post_install(self):
