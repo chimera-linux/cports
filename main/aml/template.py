@@ -1,6 +1,6 @@
 pkgname = "aml"
 pkgver = "0.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["musl-bsd-headers"]
