@@ -4,7 +4,7 @@ pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags",
-    f"-X code.gitea.io/tea/cmd.Version={pkgver}",
+    f"-X code.gitea.io/tea/modules/version.Version={pkgver}",
 ]
 hostmakedepends = ["go"]
 checkdepends = ["git"]
