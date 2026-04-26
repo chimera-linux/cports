@@ -1,0 +1,39 @@
+diff --git a/tests/TestCli.cpp b/tests/TestCli.cpp
+index cf2bf24828..9fada84751 100644
+--- a/tests/TestCli.cpp
++++ b/tests/TestCli.cpp
+@@ -2316,6 +2316,12 @@
+ {
+     QProcess process;
+     process.setProcessChannelMode(QProcess::MergedChannels);
++
++    // For some reason, process.processEnvironment().insert() doesn't work.
++    QProcessEnvironment environ{QProcessEnvironment::InheritFromParent};
++    environ.insert("LANG", "en_US.UTF-8");
++    process.setProcessEnvironment(environ);
++
+     process.start(
+         CHIPASS_CLI_PATH,
+         QStringList(
+diff --git a/tests/TestEntryModel.cpp b/tests/TestEntryModel.cpp
+index c16df48dc4..94a2ce4b83 100644
+--- a/tests/TestEntryModel.cpp
++++ b/tests/TestEntryModel.cpp
+@@ -36,6 +36,9 @@
+ 
+ void TestEntryModel::initTestCase()
+ {
++    // required to test sorting
++    QLocale::setDefault(QLocale("en_US"));
++
+     qRegisterMetaType<QModelIndex>("QModelIndex");
+     QVERIFY(Crypto::init());
+ }
+@@ -220,7 +223,6 @@
+     entryAttributes->clear();
+ 
+     // test attribute sorting
+-    // test will fail with LANG=C, use e.g. LANG=en_US.UTF-8
+     entryAttributes->set("Test1", "1");
+     entryAttributes->set("Test11", "11");
+     entryAttributes->set("Test2", "2");
