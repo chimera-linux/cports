@@ -66,3 +66,5 @@ def install(self):
     )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"niri.{shell}", shell, "niri")
+    self.install_service("resources/dinit/niri", enable=False)
+    self.install_service("resources/dinit/niri.target", enable=False)
