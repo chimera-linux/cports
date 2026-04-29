@@ -1,0 +1,31 @@
+From b20b8b64132a17e43d0eb7346cbba87ef9ee0c36 Mon Sep 17 00:00:00 2001
+From: aniruddhgutta <aniruddhgutta@disroot.org>
+Date: Tue, 28 Apr 2026 15:20:54 +0530
+Subject: [PATCH] change to user services
+
+---
+ resources/dinit/{niri.target => niri.target.user} | 1 -
+ resources/dinit/{niri => niri.user}               | 0
+ 2 files changed, 1 deletion(-)
+ rename resources/dinit/{niri.target => niri.target.user} (79%)
+ rename resources/dinit/{niri => niri.user} (100%)
+
+diff --git a/resources/dinit/niri.target b/resources/dinit/niri.target.user
+similarity index 79%
+rename from resources/dinit/niri.target
+rename to resources/dinit/niri.target.user
+index aea7f6c..0eea978 100644
+--- a/resources/dinit/niri.target
++++ b/resources/dinit/niri.target.user
+@@ -3,4 +3,3 @@ restart        = false
+ depends-on:    niri
+ waits-for.d:   $XDG_CONFIG_HOME/dinit.d/niri.d/
+ waits-for.d:   $HOME/.config/dinit.d/niri.d/
+-waits-for.d:   /etc/dinit.d/user/niri.d/
+diff --git a/resources/dinit/niri b/resources/dinit/niri.user
+similarity index 100%
+rename from resources/dinit/niri
+rename to resources/dinit/niri.user
+-- 
+2.52.0
+
