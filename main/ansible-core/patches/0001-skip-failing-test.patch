@@ -1,4 +1,4 @@
-From c1035676c8fac9a08f442e8b47b75eef350074c8 Mon Sep 17 00:00:00 2001
+From fd9d25ac929cd1e499123d445bb633d261fe71d1 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
  <jan.christian@gruenhage.xyz>
 Date: Tue, 27 May 2025 10:01:20 +0200
@@ -9,10 +9,10 @@ Subject: [PATCH 1/2] skip failing test
  1 file changed, 1 insertion(+)
 
 diff --git a/test/units/utils/test_display.py b/test/units/utils/test_display.py
-index 9d4d30fb04..4c0eb1fe00 100644
+index 26785dfbe8..e66c643e99 100644
 --- a/test/units/utils/test_display.py
 +++ b/test/units/utils/test_display.py
-@@ -72,6 +72,7 @@ def test_Display_banner_get_text_width(monkeypatch, display_resource):
+@@ -73,6 +73,7 @@ def test_Display_banner_get_text_width(monkeypatch, display_resource):
      assert msg.endswith(stars)
  
  
@@ -21,5 +21,5 @@ index 9d4d30fb04..4c0eb1fe00 100644
      locale.setlocale(locale.LC_ALL, 'C.UTF-8')
      display = Display()
 -- 
-2.50.1
+2.52.0
 
