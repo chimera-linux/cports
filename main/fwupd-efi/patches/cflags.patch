@@ -1,14 +1,15 @@
---- a/efi/meson.build
-+++ b/efi/meson.build
-@@ -124,13 +124,14 @@ compile_args = ['-Og',
-                 '-fpic',
+diff -urN a/efi/meson.build b/efi/meson.build
+--- a/efi/meson.build	2025-10-03 09:14:22.000000000 +0000
++++ b/efi/meson.build	2026-01-05 16:27:07.344793767 +0000
+@@ -169,20 +169,19 @@
+                 '-funsigned-char',
                  '-fshort-wchar',
                  '-ffreestanding',
 +                '-fno-integrated-as',
                  '-fno-strict-aliasing',
                  '-fno-stack-protector',
                  '-fno-stack-check',
--                '-fno-merge-constants',
+-                '-fno-merge-all-constants',
                  '-Wsign-compare',
                  '-Wno-missing-field-initializers',
                  '-Wno-address-of-packed-member',
@@ -16,3 +17,10 @@
                  '-grecord-gcc-switches',
                  '-DDEBUGDIR="@0@"'.format(debugdir),
                  '-I.',
+                 '-isystem', efi_incdir,
+                 '-isystem', join_paths(efi_incdir, gnu_efi_path_arch)]
+-# clang only has fno-merge-all-constants
+-compile_args += cc.first_supported_argument('-fno-merge-constants')
+ if get_option('werror')
+     compile_args += '-Werror'
+ endif
