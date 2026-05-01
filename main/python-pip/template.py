@@ -1,18 +1,18 @@
 pkgname = "python-pip"
-pkgver = "25.2"
+pkgver = "26.0.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
+    "python-flit_core",
     "python-installer",
-    "python-setuptools",
 ]
-depends = ["python", "python-setuptools"]
+depends = ["python"]
 pkgdesc = "Python package manager"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
-sha256 = "578283f006390f85bb6282dffb876454593d637f5d1be494b5202ce4877e71f2"
+sha256 = "c4037d8a277c89b320abe636d59f91e6d0922d08a05b60e85e53b296613346d8"
 # unpackaged dependencies
 options = ["!check"]
 
