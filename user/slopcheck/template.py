@@ -1,0 +1,12 @@
+pkgname = "slopcheck"
+pkgver = "0_git20260318"
+_commit = "a9845bc66e410fe7f6552e604c015b6a56310ee0"
+pkgrel = 0
+build_style = "cargo"
+hostmakedepends = ["cargo-auditable", "pkgconf"]
+makedepends = ["openssl3-devel", "libgit2-devel", "rust-std"]
+pkgdesc = "Check for indicators of AI code in a project"
+license = "custom:none"
+url = "https://github.com/mat-1/slopcheck"
+source = f"{url}/archive/{_commit}.zip"
+sha256 = "70e5d97ce43a3e1db8883c429270488aaa8948c1a03ec28dd3cd8fed237c4547"
