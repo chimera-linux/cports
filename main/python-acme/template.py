@@ -1,5 +1,5 @@
 pkgname = "python-acme"
-pkgver = "5.1.0"
+pkgver = "5.3.1"
 pkgrel = 0
 build_wrksrc = "acme"
 build_style = "python_pep517"
@@ -23,7 +23,7 @@ url = "https://github.com/certbot/certbot/tree/master/acme"
 source = (
     f"https://github.com/certbot/certbot/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "255075ddec57010a2374b7591025ba22fbda43d6b8fcb29b5aefd4f2335f0a0f"
+sha256 = "4297c484f5d590c8fb114fe1441804258edeeaa5975aae34c01f51ba846e0f1a"
 
 
 def init_check(self):
