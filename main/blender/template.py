@@ -65,7 +65,7 @@ makedepends = [
     "potrace-devel",
     "pugixml-devel",
     "python-devel",
-    "python-numpy",
+    "python-numpy-devel",
     "shaderc-devel",
     "vulkan-loader-devel",
     "wayland-devel",

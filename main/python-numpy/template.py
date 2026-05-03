@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
-pkgver = "2.3.2"
-pkgrel = 1
+pkgver = "2.5.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_args = []
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Package for scientific computing with Python"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "e0486a11ec30cdecb53f184d496d1c6a20786c81e55e41640270130056f8ee48"
+sha256 = "a48a113e6afea91f5608793bafa7ef2ad481fefbda87ec5069f483de61cb9fa3"
 hardening = ["!int"]
 # exec format error
 options = ["!cross"]
@@ -78,21 +78,27 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    # remove static libs
-    self.uninstall(
-        f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
-        glob=True,
-    )
+
+
+@subpackage("python-numpy-devel")
+def _(self):
+    self.depends = [self.parent]
+
+    return [
+        "usr/lib/python*/site-packages/numpy/*/include",
+        "usr/lib/python*/site-packages/numpy/*/lib",
+        "usr/lib/python*/site-packages/numpy/*/src",
+    ]
 
 
 @subpackage("python-numpy-tests")
 def _(self):
     self.subdesc = "tests"
     self.depends = [
-        *checkdepends,
         self.parent,
+        *checkdepends,
     ]
     return [
-        "usr/lib/python*/site-packages/numpy/*/tests/",
-        "usr/lib/python*/site-packages/numpy/tests/",
+        "usr/lib/python*/site-packages/numpy/*/tests",
+        "usr/lib/python*/site-packages/numpy/tests",
     ]
