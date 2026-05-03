@@ -1,8 +1,8 @@
 pkgname = "maven"
-pkgver = "3.9.12"
+pkgver = "3.9.15"
 pkgrel = 0
-hostmakedepends = ["openjdk21"]
-depends = ["virtual:java-jre!openjdk21-jre"]
+hostmakedepends = ["openjdk25"]
+depends = ["virtual:java-jre!openjdk25-jre"]
 pkgdesc = "Software project management and comprehension tool"
 license = "Apache-2.0"
 url = "https://maven.apache.org"
@@ -15,8 +15,8 @@ source_paths = [
     "bootstrap",
 ]
 sha256 = [
-    "eb6333567ff68f46c510ffe2a18028f47d67003991a82a1bd1acd8500303fdf0",
-    "fa2c9948729296c23afd18fd01a90f62cdda09a46191b54a8bc3764c2eee812e",
+    "1a6dcd849a3eefdd975ca0ce8f00f2778b892136352680e78573a0a1280728da",
+    "36182f85e91128cd5c4608462ac92194e7a30638f65034de66f4e1b00600a6fc",
 ]
 
 
