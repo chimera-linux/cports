@@ -1,5 +1,5 @@
 pkgname = "glib-bootstrap"
-pkgver = "2.86.1"
+pkgver = "2.88.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,7 +37,7 @@ subdesc = "bootstrap"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"
-sha256 = "119d1708ca022556d6d2989ee90ad1b82bd9c0d1667e066944a6d0020e2d5e57"
+sha256 = "51ab804c56f6eab3e5045c774d1290ac5e4c923d4f9a3d8e33123bee45c1840e"
 # FIXME int - strfuncs failure
 hardening = ["!int"]
 # bootstrap only
