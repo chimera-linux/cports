@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Universal Android Debloater Next Generation
+Comment=Cross-platform GUI debloater for Android devices
+Exec=uad-ng
+Icon=uad-ng
+Terminal=false
+Type=Application
+Categories=Utility;Android;
+StartupWMClass=uad-ng
