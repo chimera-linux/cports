@@ -40,7 +40,12 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"
 sha256 = "cfd46021ee1514ad435e714f7aa1ec7a787c7f516a94f4c7438897ee3d6eca1e"
+# check may be disabled
 options = ["!cross"]
+
+if self.profile().arch in ["loongarch64"]:
+    # times out intermittently
+    options += ["!check"]
 
 
 @subpackage("tinysparql-devel")
