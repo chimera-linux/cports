@@ -1,7 +1,7 @@
-diff --git a/vendor/zvariant/src/type/libstd.rs b/vendor/zvariant/src/type/libstd.rs
+diff --git a/vendor/zvariant-5.4.0/src/type/libstd.rs b/vendor/zvariant-5.4.0/src/type/libstd.rs
 index f67971e..a1c667c 100644
---- a/vendor/zvariant/src/type/libstd.rs
-+++ b/vendor/zvariant/src/type/libstd.rs
+--- a/vendor/zvariant-5.4.0/src/type/libstd.rs
++++ b/vendor/zvariant-5.4.0/src/type/libstd.rs
 @@ -8,14 +8,17 @@ use std::{
      rc::{Rc, Weak as RcWeak},
      sync::{

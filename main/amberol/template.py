@@ -34,7 +34,7 @@ def post_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc=".").vendor()
-    cargo.clear_vendor_checksums(self, "zvariant")
+    cargo.clear_vendor_checksums(self, "zvariant-5.4.0")
 
 
 def init_build(self):
