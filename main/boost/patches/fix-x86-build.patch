@@ -1,6 +1,6 @@
-commit bf9578c62265ea2e4fcb0d172e20cc9bb5e7d0e5
+commit 81cee55c97fa111883fa5501db7879e3ce2b161d
 Author: q66 <q66@chimera-linux.org>
-Date:   Tue Aug 23 14:54:28 2022 +0200
+Date:   Tue May 5 12:42:16 2026 +0200
 
     Revert: Add Linux arm & x86 clang cross compile defs.
     
@@ -9,10 +9,10 @@ Date:   Tue Aug 23 14:54:28 2022 +0200
     It breaks x86 build in our environment.
 
 diff --git a/tools/build/src/tools/clang.jam b/tools/build/src/tools/clang.jam
-index a6dd513..75e3b91 100644
+index b58aedb..5bebbfc 100644
 --- a/tools/build/src/tools/clang.jam
 +++ b/tools/build/src/tools/clang.jam
-@@ -67,43 +67,34 @@ rule init-cxxstd-flags ( toolset : condition * : version )
+@@ -69,35 +69,26 @@ rule init-cxxstd-flags ( toolset : condition * : version )
      cxxstd-flags $(toolset) : $(condition)/<cxxstd>latest/<cxxstd-dialect>$(dialects) : -std=c++$(std) ;
  }
  
@@ -49,39 +49,40 @@ index a6dd513..75e3b91 100644
 -                case x86-32 : arch = i386 ;
 -            }
 -
--            toolset.flags $(toolset)
--                OPTIONS $(condition)/<target-os>$(target-os)/<architecture>$(_architecture_)/<address-model>$(_address-model_)
--                : "--target=$(arch)-$(vendor-sys)"
--                : unchecked ;
+-            set-triple $(toolset) :
+-                $(condition)/<target-os>$(target-os)/<architecture>$(_architecture_)/<address-model>$(_address-model_)
+-                : "$(arch)-$(vendor-sys)"
+-                ;
 -        }
 +        case darwin : vendor = apple ; sys = darwin ;
      }
-+    toolset.flags $(toolset)
-+        OPTIONS $(condition)/<target-os>$(target-os)/<architecture>$(architecture)/<address-model>$(address-model)
-+        : "--target=$(arch)-$(vendor)-$(sys)"
-+        : unchecked ;
++    set-triple $(toolset) :
++        $(condition)/<target-os>$(target-os)/<architecture>$(architecture)/<address-model>$(address-model)
++        : "$(arch)-$(vendor)-$(sys)"
++        ;
  }
  
- rule init-flags ( toolset : condition * : version )
- {
-     init-cxxstd-flags $(toolset) : $(condition) : $(version) ;
+ local rule set-triple ( toolset : condition  : triple )
+@@ -112,8 +103,8 @@ rule init-flags ( toolset : condition * : version : triple ? )
  
--    init-flags-cross $(toolset) : $(condition) : arm x86 : 64 : darwin ;
--    init-flags-cross $(toolset) : $(condition) : arm x86 : 64 32 : linux ;
-+    init-flags-cross $(toolset) : $(condition) : arm 64 darwin ;
-+    init-flags-cross $(toolset) : $(condition) : x86 64 darwin ;
- 
-     # This is a temporary solution for doing combined architecture builds on macOS.
-     toolset.flags $(toolset)
+     if ! $(triple)
+     {
+-        init-flags-cross $(toolset) : $(condition) : arm x86 : 64 : darwin ;
+-        init-flags-cross $(toolset) : $(condition) : arm x86 : 64 32 : linux ;
++        init-flags-cross $(toolset) : $(condition) : arm 64 darwin ;
++        init-flags-cross $(toolset) : $(condition) : x86 64 darwin ;
+     }
+     else
+     {
 diff --git a/tools/build/test/test_all.py b/tools/build/test/test_all.py
-index 3965735..d29313d 100644
+index 8bfa81e..9d2aa2e 100755
 --- a/tools/build/test/test_all.py
 +++ b/tools/build/test/test_all.py
-@@ -312,7 +312,6 @@ tests = ["abs_workdir",
-          "testing",
-          "timedata",
-          "toolset_clang_darwin",
--         "toolset_clang_linux",
-          "toolset_clang_vxworks",
-          "toolset_darwin",
-          "toolset_defaults",
+@@ -443,7 +443,6 @@ tests = [
+     "testing",
+     "timedata",
+     "toolset_clang_darwin",
+-    "toolset_clang_linux",
+     "toolset_clang_vxworks",
+     "toolset_darwin",
+     "toolset_defaults",

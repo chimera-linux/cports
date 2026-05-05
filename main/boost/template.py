@@ -1,5 +1,5 @@
 pkgname = "boost"
-pkgver = "1.90.0"
+pkgver = "1.91.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Free peer-reviewed portable C++ source libraries"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://archives.boost.io/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "5e93d582aff26868d581a52ae78c7d8edf3f3064742c6e77901a1f18a437eea9"
+sha256 = "5734305f40a76c30f951c9abd409a45a2a19fb546efe4162119250bbe4d3a463"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
@@ -184,7 +184,7 @@ def _(self):
     self.depends = [self.parent, *makedepends]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]
 
-    return self.default_devel(extra=["usr/share/boost_predef"])
+    return self.default_devel()
 
 
 def _gen_libp(libname):
