@@ -1,0 +1,4 @@
+type = process
+command = /usr/libexec/clightd
+depends-on = dbus
+log-type = buffer
