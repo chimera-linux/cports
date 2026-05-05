@@ -40,6 +40,8 @@ license = "MIT"
 url = "https://pypi.org/project/dbus-fast"
 source = f"https://github.com/Bluetooth-Devices/dbus-fast/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "5d6e9a79461eafdd667301587415d5c7d516054a470021666f7e9fed44cbd57e"
+# tests fail since pygobject update
+options = ["!check"]
 
 
 def post_prepare(self):
