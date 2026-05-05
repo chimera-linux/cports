@@ -1,6 +1,6 @@
 pkgname = "kget"
 pkgver = "26.04.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "libkleo"
 pkgver = "26.04.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # fails on aarch64 at least
 # newkeyapprovaldialogtest has wayland die

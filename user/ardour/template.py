@@ -1,6 +1,6 @@
 pkgname = "ardour"
 pkgver = "9.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_args = [
     "--configdir=/etc",

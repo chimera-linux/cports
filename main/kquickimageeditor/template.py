@@ -1,6 +1,6 @@
 pkgname = "kquickimageeditor"
 pkgver = "0.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

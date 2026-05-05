@@ -1,6 +1,6 @@
 pkgname = "openimageio"
 pkgver = "3.1.9.0"
-pkgrel = 1
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     # disabled below

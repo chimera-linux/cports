@@ -1,6 +1,6 @@
 pkgname = "alembic"
 pkgver = "1.8.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DUSE_HDF5=ON"]
 # flaky in parallel

@@ -1,6 +1,6 @@
 pkgname = "kpublictransport"
 pkgver = "26.04.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # at least updatetest & cachetest flaky when parallel
 make_check_args = ["-j1"]

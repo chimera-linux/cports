@@ -1,6 +1,6 @@
 pkgname = "blender"
 pkgver = "5.0.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
