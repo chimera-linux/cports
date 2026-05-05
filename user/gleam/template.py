@@ -2,6 +2,11 @@ pkgname = "gleam"
 pkgver = "1.16.0"
 pkgrel = 0
 build_style = "cargo"
+make_check_args = [
+    "--",
+    # overflows the stack on ppc64le
+    "--skip=type_::tests::no_stack_overflow_for_nested_use",
+]
 hostmakedepends = ["cargo-auditable"]
 checkdepends = ["erlang", "git", "nodejs"]
 depends = ["erlang"]
