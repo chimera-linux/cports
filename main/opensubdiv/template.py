@@ -1,6 +1,6 @@
 pkgname = "opensubdiv"
-pkgver = "3.6.1"
-pkgrel = 1
+pkgver = "3.7.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DNO_CLEW=ON",
@@ -32,7 +32,7 @@ pkgdesc = "Surface subdivision library"
 license = "Apache-2.0"
 url = "https://graphics.pixar.com/opensubdiv/docs/intro.html"
 source = f"https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "e9d99a480d80e999667643747c76eb0138d36c418fc154fd71b4bd65be103d52"
+sha256 = "f843eb49daf20264007d807cbc64516a1fed9cdb1149aaf84ff47691d97491f9"
 # for some reason libomp does not make it in?
 tool_flags = {"LDFLAGS": ["-lomp"]}
 
