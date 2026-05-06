@@ -1,6 +1,6 @@
 pkgname = "godot"
-pkgver = "4.4.1"
-pkgrel = 6
+pkgver = "4.6.2"
+pkgrel = 0
 hostmakedepends = [
     "gettext",
     "pkgconf",
@@ -37,7 +37,7 @@ subdesc = "GUI editor"
 license = "MIT"
 url = "https://godotengine.org"
 source = f"https://github.com/godotengine/godot/releases/download/{pkgver}-stable/godot-{pkgver}-stable.tar.xz"
-sha256 = "ddbd6527cdb3ddb02910b383301a5c9117b1c33c777ef1c86d1b1eea43dcb651"
+sha256 = "3465f34ae41cb7d7c17b0516c7cce93cc8a7a4d62331456b7b18e4e1d1b064c2"
 # cross: nah
 options = ["!cross"]
 
