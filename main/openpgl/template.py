@@ -1,6 +1,6 @@
 pkgname = "openpgl"
-pkgver = "0.7.0"
-pkgrel = 1
+pkgver = "0.7.1"
+pkgrel = 0
 # others unsupported
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -13,7 +13,7 @@ pkgdesc = "Intel path guiding library"
 license = "Apache-2.0"
 url = "https://github.com/RenderKit/openpgl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "58be6ac86e3bcf8a787e9c1332d1527e6d18f4b1403b96bb02c909e20af2ca94"
+sha256 = "d62d24241232a526491328f341df9add274fc84ae9818470d3edb5ae6141ac63"
 hardening = ["vis", "cfi"]
 
 
