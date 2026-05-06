@@ -61,12 +61,6 @@ def prepare(self):
     cargo.Cargo(self, wrksrc="agent/rs/htmlparser").vendor()
 
 
-def post_patch(self):
-    from cbuild.util import cargo
-
-    cargo.clear_vendor_checksums(self, "libc", "agent/rs/htmlparser/vendor")
-
-
 def init_build(self):
     from cbuild.util import cargo
 
