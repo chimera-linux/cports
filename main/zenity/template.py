@@ -1,5 +1,5 @@
 pkgname = "zenity"
-pkgver = "4.2.0"
+pkgver = "4.2.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dwebkitgtk=true"]
@@ -22,4 +22,4 @@ pkgdesc = "Display Gtk+ dialogs from the command line"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Zenity"
 source = f"$(GNOME_SITE)/zenity/{pkgver[:-2]}/zenity-{pkgver}.tar.xz"
-sha256 = "5f983340c6fa55f4fab5a9769d0771b2cdf1365e2c158ac11cc16ffd892f6bcd"
+sha256 = "019186a996096ef4fc356e21577b5673f5baa3a29ac8e3d608b753371c18018d"
