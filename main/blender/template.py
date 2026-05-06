@@ -1,6 +1,6 @@
 pkgname = "blender"
-pkgver = "5.0.1"
-pkgrel = 3
+pkgver = "5.1.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -18,6 +18,8 @@ configure_args = [
     "-DWITH_PYTHON_INSTALL_REQUESTS=OFF",
     "-DWITH_PYTHON_INSTALL_ZSTANDARD=OFF",
     "-DWITH_SYSTEM_EIGEN3=ON",
+    "-DWITH_SYSTEM_GFLAGS=ON",
+    "-DWITH_SYSTEM_GLOG=ON",
     "-DWITH_SYSTEM_FREETYPE=ON",
     "-DWITH_SYSTEM_LZO=ON",
 ]
@@ -31,10 +33,12 @@ hostmakedepends = [
 makedepends = [
     "alembic-devel",
     "boost-devel",
+    "ceres-devel",
     "clang-devel",
     "eigen",
     "ffmpeg-devel",
     "fftw-devel",
+    "fmt-devel",
     "freetype-devel",
     "gmp-gmpxx-devel",
     "libepoxy-devel",
@@ -75,7 +79,7 @@ pkgdesc = "3D creation suite"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "0077a41f59843433154fdf2d8aeb6c43f6bf6951cd46987305e67f89cb4f1fbf"
+sha256 = "fae57dd7273d76e21712abfba43a85fffba00e8bf3e3cf9a874b993b8ac4857d"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
