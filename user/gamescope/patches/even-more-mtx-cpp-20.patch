@@ -1,0 +1,53 @@
+diff --git a/src/mangoapp.cpp b/src/mangoapp.cpp
+index a985efc..5c270e5 100644
+--- a/src/mangoapp.cpp
++++ b/src/mangoapp.cpp
+@@ -62,7 +62,11 @@ void mangoapp_update( uint64_t visible_frametime, uint64_t app_frametime_ns, uin
+     mangoapp_msg_v1.bAppWantsHDR = g_bAppWantsHDRCached;
+     mangoapp_msg_v1.bSteamFocused = g_focusedBaseAppId == 769;
+     memset(mangoapp_msg_v1.engineName, 0, sizeof(mangoapp_msg_v1.engineName));
+-    std::shared_ptr<std::string> engine = focusWindow_engine;
++    std::shared_ptr<std::string> engine;
++    {
++        std::lock_guard<std::mutex> g{focusWindow_mutex};
++        engine = focusWindow_engine;
++    }
+     if (engine)
+         engine->copy(mangoapp_msg_v1.engineName, sizeof(mangoapp_msg_v1.engineName) / sizeof(char));
+     else
+diff --git a/src/steamcompmgr.cpp b/src/steamcompmgr.cpp
+index 4802a1a..2f5bd54 100644
+--- a/src/steamcompmgr.cpp
++++ b/src/steamcompmgr.cpp
+@@ -1038,7 +1038,8 @@ int g_BlurRadius = 5;
+ unsigned int g_BlurFadeStartTime = 0;
+ 
+ pid_t focusWindow_pid, sdFocusWindow_pid;
+-std::atomic<std::shared_ptr<std::string>> focusWindow_engine = nullptr;
++std::mutex focusWindow_mutex;
++std::shared_ptr<std::string> focusWindow_engine = nullptr;
+ 
+ focus_t g_steamcompmgr_xdg_focus;
+ std::vector<std::shared_ptr<steamcompmgr_win_t>> g_steamcompmgr_xdg_wins;
+@@ -6730,6 +6731,7 @@ bool handle_done_commit( steamcompmgr_win_t *w, xwayland_ctx_t *ctx, uint64_t co
+ 						g_HeldCommits[ HELD_COMMIT_BASE ] = w->commit_queue[ j ];
+ 					hasRepaint = true;
+ 
++					std::lock_guard<std::mutex> g{focusWindow_mutex};
+ 					focusWindow_engine = w->engineName;
+ 					focusWindow_pid = w->pid;
+ 				}
+diff --git a/src/steamcompmgr.hpp b/src/steamcompmgr.hpp
+index 6734c15..b8da4f4 100644
+--- a/src/steamcompmgr.hpp
++++ b/src/steamcompmgr.hpp
+@@ -144,7 +144,8 @@ struct wlserver_x11_surface_info *lookup_x11_surface_info_from_xid( gamescope_xw
+ 
+ extern gamescope::VBlankTime g_SteamCompMgrVBlankTime;
+ extern pid_t focusWindow_pid;
+-extern std::atomic<std::shared_ptr<std::string>> focusWindow_engine;
++extern std::mutex focusWindow_mutex;
++extern std::shared_ptr<std::string> focusWindow_engine;
+ 
+ void init_xwayland_ctx(uint32_t serverId, gamescope_xwayland_server_t *xwayland_server);
+ void gamescope_set_selection(std::string contents, GamescopeSelection eSelection);
