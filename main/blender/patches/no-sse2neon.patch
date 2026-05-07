@@ -1,0 +1,32 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 354bfcf..f1be70a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1606,13 +1606,6 @@ if(WITH_COMPILER_SIMD)
+   string(APPEND CMAKE_C_FLAGS " ${COMPILER_SSE42_FLAG}")
+ endif()
+ 
+-# Enable SSE2NEON SIMD support if found.
+-#
+-if(SUPPORTS_NEON_BUILD AND SSE2NEON_FOUND)
+-  include_directories(SYSTEM "${SSE2NEON_INCLUDE_DIRS}")
+-  add_definitions(-DWITH_SSE2NEON)
+-endif()
+-
+ # Test endianness and set the endian define.
+ include(TestBigEndian)
+ test_big_endian(_SYSTEM_BIG_ENDIAN)
+diff --git a/build_files/cmake/platform/platform_unix.cmake b/build_files/cmake/platform/platform_unix.cmake
+index 0a4c0a5..2a6ddbd 100644
+--- a/build_files/cmake/platform/platform_unix.cmake
++++ b/build_files/cmake/platform/platform_unix.cmake
+@@ -429,9 +429,6 @@ if(WITH_NANOVDB)
+ endif()
+ 
+ test_neon_support()
+-if(SUPPORTS_NEON_BUILD)
+-  find_package_wrapper(sse2neon REQUIRED)
+-endif()
+ 
+ if(WITH_ALEMBIC)
+   find_package_wrapper(Alembic)
