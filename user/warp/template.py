@@ -1,8 +1,7 @@
 pkgname = "warp"
-pkgver = "0.9.2"
+pkgver = "1.0.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dqr-code-scanning=disabled"]
 hostmakedepends = [
     "cargo-auditable",
     "desktop-file-utils",
@@ -13,21 +12,23 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "gst-plugins-bad-devel",
+    "gst-plugins-base-devel",
+    "gstreamer-devel",
     "libadwaita-devel",
     "rust-std",
 ]
 pkgdesc = "GTK-based magic wormhole client"
-license = "GPL-3.0-or-later"
+license = "GPL-3.0-only"
 url = "https://gitlab.gnome.org/World/warp"
 source = f"{url}/-/archive/v{pkgver}/warp-{pkgver}.tar.gz"
-sha256 = "3b553c2f5a6331e4edaf8747d7b5e782400731e889e16dfdd2019147e5a3e61c"
+sha256 = "3930da738c45f423beaec00fea80122a7e26e7ec7e8e245ece3fdd0ee0ad9f29"
 
 
 def post_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc=".").vendor()
-    cargo.clear_vendor_checksums(self, "zvariant")
 
 
 def init_build(self):
