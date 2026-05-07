@@ -30,3 +30,30 @@ index 0a4c0a5..2a6ddbd 100644
  
  if(WITH_ALEMBIC)
    find_package_wrapper(Alembic)
+diff --git a/intern/cycles/util/simd.h b/intern/cycles/util/simd.h
+index 0f9b212..7a59d28 100644
+--- a/intern/cycles/util/simd.h
++++ b/intern/cycles/util/simd.h
+@@ -25,6 +25,8 @@
+ #elif defined(__KERNEL_NEON__)
+ #  define SSE2NEON_PRECISE_MINMAX 1
+ #  include <sse2neon.h>
++#elif defined(__ARM_NEON)
++#  include <arm_neon.h>
+ #endif
+ 
+ /* Floating Point Control, for Embree. */
+diff --git a/source/blender/blenlib/BLI_simd.hh b/source/blender/blenlib/BLI_simd.hh
+index f7f0fd4..743fe0d 100644
+--- a/source/blender/blenlib/BLI_simd.hh
++++ b/source/blender/blenlib/BLI_simd.hh
+@@ -29,6 +29,9 @@
+ #  include <emmintrin.h>
+ #  define BLI_HAVE_SSE2 1
+ #else
++#  if defined(__ARM_NEON)
++#  include <arm_neon.h>
++#  endif
+ #  define BLI_HAVE_SSE2 0
+ #endif
+ 
