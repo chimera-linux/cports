@@ -19,6 +19,8 @@ sha256 = "12efacfadbfdc1bbfa203c236e96f4d3c210bed96994288b3ff0c8e7c6f350d4"
 tool_flags = {"CXXFLAGS": []}
 # fails some tests
 hardening = ["!int"]
+# a billion executables kills large machines with lots of threads
+options = ["!linkparallel"]
 
 match self.profile().arch:
     case "ppc64" | "ppc":
