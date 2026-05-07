@@ -1,0 +1,15 @@
+a const PermissionRequest& is not convertible to
+raw_ref<PermissionRequest, ...> due to losing qualifier.
+
+--- a/components/permissions/permission_request_manager.cc
++++ b/components/permissions/permission_request_manager.cc
+@@ -437,7 +437,8 @@ bool PermissionRequestManager::ReprioritizeCurrentRequestIfNeeded() {
+ bool PermissionRequestManager::
+     HasActiveSourceFrameOrDisallowActivationOtherwise(
+         const PermissionRequest& request) const {
+-  const auto iter = request_sources_map_.find(request);
++  auto *req = const_cast<PermissionRequest*>(&request);
++  const auto iter = request_sources_map_.find(base::raw_ref(*req));
+   if (iter != request_sources_map_.end()) {
+     return !iter->second.IsSourceFrameInactiveAndDisallowActivation();
+   }

@@ -1,4 +1,4 @@
-From b7cd840a320e3f7f38fc80edefcd29bd88cb54a6 Mon Sep 17 00:00:00 2001
+From b3b48609825fdae8ef48ac4574e36691577f29da Mon Sep 17 00:00:00 2001
 From: LN Liberda <lauren@selfisekai.rocks>
 Date: Thu, 5 Feb 2026 05:26:48 +0100
 Subject: [PATCH] Revert "[M144][build] Minify release builds with esbuild
@@ -15,6 +15,19 @@ This reverts commit f130475580017f9f87502343dbcfc0c76dccefe8.
  scripts/build/ninja/bundle.gni                | 92 +++++++++++++------
  7 files changed, 97 insertions(+), 54 deletions(-)
 
+diff --git a/third_party/devtools-frontend/src/DEPS b/third_party/devtools-frontend/src/DEPS
+index 7afe2393a2..ac7cf6ddb3 100644
+--- a/third_party/devtools-frontend/src/DEPS
++++ b/third_party/devtools-frontend/src/DEPS
+@@ -148,7 +148,7 @@ deps = {
+     'url': Var('build_url') + '@' + Var('build_revision'),
+     'condition': 'build_with_chromium == False',
+   },
+-  'third_party/siso/cipd': {
++  'third_party/siso': {
+     'packages': [
+       {
+         'package': 'build/siso/${{platform}}',
 diff --git a/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts b/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts
 index cff188cbba..af9c3c14e6 100644
 --- a/third_party/devtools-frontend/src/front_end/models/ai_assistance/injected.ts
@@ -89,17 +102,17 @@ index cff188cbba..af9c3c14e6 100644
 -export const injectedFunctions = `(${setupSetElementStyles})('${AI_ASSISTANCE_CSS_CLASS_NAME}')`;
 +export const injectedFunctions = `(${String(setupSetElementStyles)})('${AI_ASSISTANCE_CSS_CLASS_NAME}')`;
 diff --git a/third_party/devtools-frontend/src/front_end/panels/application/BUILD.gn b/third_party/devtools-frontend/src/front_end/panels/application/BUILD.gn
-index 20b81546d8..b0be3bdbc4 100644
+index 1f7acb779f..4a59d29cdf 100644
 --- a/third_party/devtools-frontend/src/front_end/panels/application/BUILD.gn
 +++ b/third_party/devtools-frontend/src/front_end/panels/application/BUILD.gn
-@@ -178,7 +178,6 @@ devtools_ui_module("unittests") {
+@@ -206,7 +206,6 @@
      "../../core/sdk:bundle",
      "../../testing",
      "../../ui/components/render_coordinator:bundle",
 -    "../../ui/legacy:bundle",
+     "../../ui/legacy/components/object_ui:bundle",
      "./components",
      "./preloading/components",
-   ]
 diff --git a/third_party/devtools-frontend/src/front_end/panels/application/InterestGroupStorageView.test.ts b/third_party/devtools-frontend/src/front_end/panels/application/InterestGroupStorageView.test.ts
 index f2e31be0f0..70e1011ee4 100644
 --- a/third_party/devtools-frontend/src/front_end/panels/application/InterestGroupStorageView.test.ts
@@ -205,10 +218,10 @@ index d06dfa17f8..7c7b95ad16 100644
    });
  
 diff --git a/third_party/devtools-frontend/src/scripts/build/esbuild.js b/third_party/devtools-frontend/src/scripts/build/esbuild.js
-index 708f79d35e..096edc81b9 100644
+index 970613f0ac..7305a5519a 100644
 --- a/third_party/devtools-frontend/src/scripts/build/esbuild.js
 +++ b/third_party/devtools-frontend/src/scripts/build/esbuild.js
-@@ -25,9 +25,7 @@ const esbuild = require('esbuild');
+@@ -25,9 +25,7 @@ const esbuild = await import('esbuild');
  
  const entryPoints = [process.argv[2]];
  const outfile = process.argv[3];
@@ -219,7 +232,7 @@ index 708f79d35e..096edc81b9 100644
  
  const outdir = path.dirname(outfile);
  
-@@ -48,7 +46,6 @@ esbuild
+@@ -48,7 +46,6 @@ try {
      platform: 'browser',
      plugins: [plugin],
      sourcemap: useSourceMaps,
@@ -300,7 +313,7 @@ index 7d8fee3433..9b44b1f1b5 100644
      }
 +  } else {
 +    node_action(target_name) {
-+      script = "node_modules/@rollup/wasm-node/dist/bin/rollup"
++      script = "node_modules/rollup/dist/bin/rollup"
  
 -    outputs = [ invoker.output_file_location ]
 +      forward_variables_from(invoker,

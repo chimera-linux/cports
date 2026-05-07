@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "147.0.7727.137"
+pkgver = "148.0.7778.96"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -144,7 +144,7 @@ source = [
 ]
 source_paths = [".", "rollup"]
 sha256 = [
-    "f4081241493dfc4f7cb5a06f7a5061ce1a90329c91fc18688b50982141736fc8",
+    "2bf85abe7341333b5347413beebb80f8e9dd02220fa690929e25816eeab8e78f",
     "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
 ]
 debug_level = 1
@@ -182,6 +182,8 @@ def post_patch(self):
     self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
     self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
+    self.rm("third_party/gperf/cipd/bin/gperf", force=True)
+    self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
@@ -209,7 +211,7 @@ def configure(self):
         "flac",
         "fontconfig",
         "freetype",
-        "harfbuzz-ng",
+        "harfbuzz",
         "highway",
         "libjpeg",
         "libpng",
@@ -310,8 +312,6 @@ def install(self):
     self.install_file(f"{srcp}/libvulkan.so.1", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvk_swiftshader.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/vk_swiftshader_icd.json", dstp, mode=0o755)
-    self.install_file(f"{srcp}/xdg-mime", dstp, mode=0o755)
-    self.install_file(f"{srcp}/xdg-settings", dstp, mode=0o755)
 
     self.install_file(f"{srcp}/*.bin", dstp, glob=True)
     self.install_file(f"{srcp}/*.pak", dstp, glob=True)

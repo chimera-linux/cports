@@ -21,9 +21,9 @@ diff --git a/chrome/installer/linux/BUILD.gn b/chrome/installer/linux/BUILD.gn
 index 51f7c978a0..e4bd1692d6 100644
 --- a/chrome/installer/linux/BUILD.gn
 +++ b/chrome/installer/linux/BUILD.gn
-@@ -68,8 +68,6 @@ packaging_files = packaging_files_binaries + [
-                     "$root_out_dir/xdg-mime",
-                     "$root_out_dir/xdg-settings",
+@@ -72,8 +72,6 @@
+ packaging_files = packaging_files_binaries + [
+                     "common/installer.py",
                      "$root_out_dir/locales/en-US.pak",
 -                    "$root_out_dir/MEIPreload/manifest.json",
 -                    "$root_out_dir/MEIPreload/preloaded_data.pb",

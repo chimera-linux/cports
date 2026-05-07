@@ -1171,8 +1171,8 @@ index 52e239f..95501a0 100644
 --- a/third_party/boringssl/BUILD.gn
 +++ b/third_party/boringssl/BUILD.gn
 @@ -125,6 +125,11 @@ if (is_msan) {
-     visibility = [ ":*" ]
      sources = rebase_path(test_support_sources_nasm, ".", "src")
+     include_dirs = [ "src/gen" ]
    }
 +} else if (current_cpu == "ppc64") {
 +  source_set("boringssl_asm") {
