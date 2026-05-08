@@ -306,7 +306,9 @@ def scan(pkg, somap):
         # deny files in bad paths
         fparts = fpath.parts
         if fparts[0] != "usr" or fparts[1] == "include" or fparts[1] == "share":
-            elf_badpath.append(fpath)
+            # we permit this for e.g. rpi firmware for now
+            if fparts[0] != "boot":
+                elf_badpath.append(fpath)
         # expand
         mtype, etype, is_static, interp, textrel, xstk, needed, soname = scanned
         # has textrels
