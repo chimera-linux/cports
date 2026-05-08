@@ -1,4 +1,4 @@
-updated for 6.12 kernel by q66
+updated for 6.18 kernel by q66
 
 From e6cc32a85f77f12b67ee3047f5c03fead396843b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
@@ -18,18 +18,18 @@ This commit has been squashed from the patches in https://github.com/home-assist
 Signed-off-by: Stefan Agner <stefan@agner.ch>
 Signed-off-by: Jan Čermák <sairon@sairon.cz>
 ---
- .../broadcom/bcm2711-rpi-cm4-ha-yellow.dts    |  712 +++++++++++
+ .../broadcom/bcm2711-rpi-cm4-ha-yellow.dts    |  713 ++++++++++++
  arch/arm64/boot/dts/broadcom/Makefile         |    2 +
  .../broadcom/bcm2711-rpi-cm4-ha-yellow.dts    |    1 +
- .../broadcom/bcm2712-rpi-cm5-ha-yellow.dts    | 1063 +++++++++++++++++
- 4 files changed, 1778 insertions(+)
+ .../broadcom/bcm2712-rpi-cm5-ha-yellow.dts    | 1019 +++++++++++++++++
+ 4 files changed, 1738 insertions(+)
  create mode 100644 arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
  create mode 100644 arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
  create mode 100644 arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
 
 diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 new file mode 100644
-index 0000000..fcb23df
+index 0000000..7533cc4
 --- /dev/null
 +++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 @@ -0,0 +1,713 @@
@@ -281,6 +281,7 @@ index 0000000..fcb23df
 +	phy1: ethernet-phy@0 {
 +		/* No PHY interrupt */
 +		reg = <0x0>;
++		brcm,powerdown-enable;
 +	};
 +};
 +
@@ -480,7 +481,7 @@ index 0000000..fcb23df
 +
 +	spi6_pins: spi6_pins {
 +		brcm,pins = <19 20 21>;
-+		brcm,function = <BCM2835_FSEL_ALT3>;
++	brcm,function = <BCM2835_FSEL_ALT3>;
 +	};
 +
 +	spi6_cs_pins: spi6_cs_pins {
@@ -731,7 +732,6 @@ index 0000000..fcb23df
 +			<&ant1>, "output-low?=on",
 +			<&ant2>, "output-high?=off",
 +			<&ant2>, "output-low?=on";
-+
 +		sd_poll_once = <&emmc2>, "non-removable?";
 +		spi_dma4 = <&spi0>, "dmas:0=", <&dma40>,
 +			   <&spi0>, "dmas:8=", <&dma40>;
@@ -747,18 +747,18 @@ index 0000000..fcb23df
 +	};
 +};
 diff --git a/arch/arm64/boot/dts/broadcom/Makefile b/arch/arm64/boot/dts/broadcom/Makefile
-index 0d43290..8936dbc 100644
+index ec59cc4..c34fbf4 100644
 --- a/arch/arm64/boot/dts/broadcom/Makefile
 +++ b/arch/arm64/boot/dts/broadcom/Makefile
-@@ -21,6 +21,8 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-3-b.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-cm0.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-cm3.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-cm4.dtb
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-cm4-ha-yellow.dtb
-+dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-cm5-ha-yellow.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-cm4s.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2712-rpi-5-b.dtb
- dtb-$(CONFIG_ARCH_BCM2835) += bcm2712d0-rpi-5-b.dtb
+@@ -23,6 +23,8 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-zero-2.dtb \
+ 			      bcm2710-rpi-cm0.dtb \
+ 			      bcm2710-rpi-cm3.dtb \
+ 			      bcm2711-rpi-cm4.dtb \
++			      bcm2711-rpi-cm4-ha-yellow.dtb \
++			      bcm2712-rpi-cm5-ha-yellow.dtb \
+ 			      bcm2711-rpi-cm4s.dtb \
+ 			      bcm2712-rpi-5-b.dtb \
+ 			      bcm2712d0-rpi-5-b.dtb \
 diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 new file mode 100644
 index 0000000..97ff67a
@@ -768,10 +768,10 @@ index 0000000..97ff67a
 +#include "../../../../arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts"
 diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
 new file mode 100644
-index 0000000..785e0dd
+index 0000000..cc1032b
 --- /dev/null
 +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
-@@ -0,0 +1,1017 @@
+@@ -0,0 +1,1019 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// derived from bcm2712-rpi-cm5.dtsi
 +/dts-v1/;
@@ -793,7 +793,7 @@ index 0000000..785e0dd
 +	/* Will be filled by the bootloader */
 +	memory@0 {
 +		device_type = "memory";
-+		reg = <0 0 0x28000000>;
++		reg = <0 0 0 0x28000000>;
 +	};
 +
 +	leds: leds {
@@ -836,7 +836,6 @@ index 0000000..785e0dd
 +		regulator-boot-on;
 +		enable-active-high;
 +		gpios = <&gio_aon 4 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
 +	};
 +
 +	wl_on_reg: wl_on_reg {
@@ -897,6 +896,10 @@ index 0000000..785e0dd
 +	status = "okay";
 +};
 +
++&pcie1 {
++	brcm,fifo-qos-map = /bits/ 8 <3 3 3 3>;
++};
++
 +// Add some labels to 2712 device
 +
 +// The system UART
@@ -947,7 +950,6 @@ index 0000000..785e0dd
 +	phy-handle = <&phy1>;
 +	phy-reset-gpios = <&rp1_gpio 32 GPIO_ACTIVE_LOW>;
 +	phy-reset-duration = <5>;
-+
 +	phy1: ethernet-phy@1 {
 +		reg = <0x1>;
 +		brcm,powerdown-enable;
@@ -1790,4 +1792,5 @@ index 0000000..785e0dd
 +	};
 +};
 -- 
-2.47.0
+2.52.0
+
