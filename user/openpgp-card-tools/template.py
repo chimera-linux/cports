@@ -1,5 +1,5 @@
 pkgname = "openpgp-card-tools"
-pkgver = "0.11.10"
+pkgver = "0.11.12"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "CLI tool for inspecting, configuring and using OpenPGP cards"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/openpgp-card-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "59ba6486878648e3bcaba6f1f62d02e23858faa821306eb395a8df105a0e39a1"
+sha256 = "f21ea3b67cf051fc74dd8a7f11ee4d9445f416ad566e479140bb51f28ce6ab75"
 # generates completions using host binary
 options = ["!cross"]
 
