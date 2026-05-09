@@ -23,7 +23,6 @@ hardening = ["vis"]
 
 
 def configure(self):
-    # TODO: build style these
     self.do(
         "qmake6",
         "sharedlib/sharedlib-compilation/sharedlib-compilation.pro",

@@ -22,7 +22,6 @@ sha256 = "0e2069b9c45d91e016b5ad534b871712d9a3153dbccea34f04b73d2d2ad4275a"
 
 
 def configure(self):
-    # TODO: build style these
     self.do(
         "qmake6",
         "PREFIX=/usr",
