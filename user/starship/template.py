@@ -1,5 +1,5 @@
 pkgname = "starship"
-pkgver = "1.24.2"
+pkgver = "1.25.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -25,7 +25,7 @@ url = "https://starship.rs"
 source = (
     f"https://github.com/starship/starship/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "b7ab0ef364f527395b46d2fb7f59f9592766b999844325e35f62c8fa4d528795"
+sha256 = "521306b14066ee7e332d998ef5b5b6455fdc6085c52e86b6316a7cdc37bae1d8"
 # generates completions with host binary
 options = ["!cross"]
 
