@@ -19,7 +19,6 @@ options = ["etcfiles"]
 
 
 def configure(self):
-    # TODO: build style these
     self.do(
         "qmake6",
         "PREFIX=/usr",
