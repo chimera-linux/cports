@@ -1,7 +1,7 @@
 # keep in sync with vala-valadoc
 pkgname = "vala"
-pkgver = "0.56.16"
-pkgrel = 5
+pkgver = "0.56.19"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-valadoc"]
 hostmakedepends = [
@@ -22,7 +22,7 @@ url = "https://wiki.gnome.org/Projects/Vala"
 source = (
     f"$(GNOME_SITE)/vala/{pkgver[0 : pkgver.rfind('.')]}/vala-{pkgver}.tar.xz"
 )
-sha256 = "05487b5600f5d2f09e66a753cccd8f39c1bff9f148aea1b7774d505b9c8bca9b"
+sha256 = "5ad7cbbfcc0de61b403d6797c9ef60455bfbebd8e162aec33b5b0b097adfb9d5"
 
 
 @subpackage("vala-libs")
