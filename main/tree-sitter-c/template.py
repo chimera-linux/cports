@@ -1,5 +1,5 @@
 pkgname = "tree-sitter-c"
-pkgver = "0.24.1"
+pkgver = "0.24.2"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -11,7 +11,7 @@ pkgdesc = "C grammar for tree-sitter"
 license = "MIT"
 url = "https://github.com/tree-sitter/tree-sitter-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "25dd4bb3dec770769a407e0fc803f424ce02c494a56ce95fedc525316dcf9b48"
+sha256 = "2eeb4db31f8fa0865e45488503d13403923bcb485a1bdb637abff8c42dd97364"
 
 
 def post_install(self):
