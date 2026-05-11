@@ -20,6 +20,12 @@ if self.profile().arch in ["aarch64", "x86_64"]:
     make_check_args += ["--features", "wasm"]
 
 
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "libc-0.2.180")
+
+
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/tree-sitter")
     self.install_license("LICENSE")
