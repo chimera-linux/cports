@@ -1,5 +1,5 @@
 pkgname = "kplotting"
-pkgver = "6.25.0"
+pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -17,7 +17,7 @@ pkgdesc = "KDE plotting library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kplotting/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kplotting-{pkgver}.tar.xz"
-sha256 = "9fbd4775c9b1f56a24d90ee47cd0ad57c816fbbf60e3aaeba6e2b631f7b3fc9b"
+sha256 = "bb120f446e6bfc376129e03663e4b3b9e7146abc948ccc68da19187840f9f181"
 
 
 @subpackage("kplotting-devel")

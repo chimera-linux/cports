@@ -1,5 +1,5 @@
 pkgname = "breeze-icons"
-pkgver = "6.25.0"
+pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBINARY_ICONS_RESOURCE=ON"]
@@ -16,7 +16,7 @@ pkgdesc = "Breeze icon themes"
 license = "LGPL-3.0-or-later"
 url = "https://api.kde.org/frameworks/breeze-icons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/breeze-icons-{pkgver}.tar.xz"
-sha256 = "2188492d83ead80cae83cbb0db80cac0b55388ea2e3e02d436354b6ca2559d0c"
+sha256 = "4e123fac511dfab2b7c505857849a5cecfac2ce6194e3230c51ceec31676b06e"
 broken_symlinks = [
     # broken symbolic links to 24
     "usr/share/icons/breeze*/animations/24@*x",  # breeze{,-dark}/animations/24@{2,3}x
