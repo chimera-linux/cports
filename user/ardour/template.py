@@ -61,8 +61,8 @@ options = ["!cross", "!scanshlibs"]
 exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]
 
 
-if self.profile().arch in ["ppc64le", "ppc64", "ppc"]:
-    broken = "needs sys/platform/ppc.h"
+if self.profile().endian == "big":
+    broken = "busted audio stuff"
 
 
 def check(self):
