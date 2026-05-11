@@ -3433,6 +3433,17 @@ index 680a374..2fa226f 100755
  gen_rtcd_header linux/generic generic
  gen_rtcd_header win/arm64-highbd armv8 "${require_neon} ${disable_sve}"
  gen_rtcd_header win/ia32 x86 "${require_sse3}"
+diff --git a/third_party/litert/features.gni b/third_party/litert/features.gni
+index cee24ff..e6d34cd 100644
+--- a/third_party/litert/features.gni
++++ b/third_party/litert/features.gni
+@@ -4,5 +4,5 @@
+ 
+ declare_args() {
+   # This enables building LiteRT with XNNPACK.
+-  build_litert_with_xnnpack = current_cpu != "arm" && !is_fuchsia
++  build_litert_with_xnnpack = current_cpu != "arm" && current_cpu != "ppc64" && !is_fuchsia
+ }
 diff --git a/third_party/lss/linux_syscall_support.h b/third_party/lss/linux_syscall_support.h
 index 1e9fa47..b8d0db3 100644
 --- a/third_party/lss/linux_syscall_support.h
