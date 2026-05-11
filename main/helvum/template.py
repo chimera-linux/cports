@@ -1,6 +1,6 @@
 pkgname = "helvum"
-pkgver = "0.5.1"
-pkgrel = 2
+pkgver = "0.6.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["--buildtype=release"]
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "GTK patchbay for PipeWire"
 license = "GPL-3.0-only"
 url = "https://gitlab.freedesktop.org/pipewire/helvum"
 source = f"{url}/-/archive/{pkgver}/helvum-{pkgver}.tar.bz2"
-sha256 = "d4f5cc0c3a70a91edfc816f12a10426dadd9ca74ea82662e2df5e6c4eb31d8ca"
+sha256 = "9cc26e7031ab2fb7d54c6125a6a32736ee5b22e5604dc88ed533f2b6fafa8a6c"
 
 if self.profile().wordsize == 32:
     broken = "expected *mut i64, found *mut i32"
