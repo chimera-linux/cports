@@ -1,6 +1,6 @@
 pkgname = "messagelib"
-pkgver = "26.04.0"
-pkgrel = 1
+pkgver = "26.04.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
@@ -58,7 +58,7 @@ pkgdesc = "KDE PIM messaging library"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/messagelib/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/messagelib-{pkgver}.tar.xz"
-sha256 = "5988cca68574a91f4e62b2967c88d2e416d8ca32509fef148896f490cdff8fe9"
+sha256 = "3b00a06032995097f84cb1b56efb9778fc35bf94fbd6a4ea2f7999e5cc663c6c"
 # fails a ton of tests due to not finding its own plugins from build tree
 options = ["!check"]
 

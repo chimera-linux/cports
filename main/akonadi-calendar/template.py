@@ -1,6 +1,6 @@
 pkgname = "akonadi-calendar"
-pkgver = "26.04.0"
-pkgrel = 1
+pkgver = "26.04.1"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: ?
 make_check_args = ["-E", "kcalcoreserializertest"]
@@ -41,7 +41,7 @@ url = "https://api.kde.org/kdepim/akonadi-calendar/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-calendar-{pkgver}.tar.xz"
 )
-sha256 = "942a1cd2e1d154c2274921e48439e649647ffe5aae85cdd464a2bc4e554a9230"
+sha256 = "789cae6c1c2c16b32a8f8f9a1eb9587a251058a071ee6eea66d016769a7505f7"
 
 
 @subpackage("akonadi-calendar-devel")

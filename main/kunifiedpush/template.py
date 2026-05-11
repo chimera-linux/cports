@@ -1,5 +1,5 @@
 pkgname = "kunifiedpush"
-pkgver = "26.04.0"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session", "--"]
@@ -27,7 +27,7 @@ url = "https://api.kde.org/kunifiedpush/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kunifiedpush-{pkgver}.tar.xz"
 )
-sha256 = "0756dfc94de2bc065542e5c1e366dec2226615bfecc2993381a45051b1c24f03"
+sha256 = "4be7f9343bc2336484847ff46f2cdd26ec869a851fd0072a4d0b933d888708cf"
 
 
 def post_install(self):

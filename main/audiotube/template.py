@@ -1,5 +1,5 @@
 pkgname = "audiotube"
-pkgver = "26.04.0"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 _deps = [
@@ -37,6 +37,8 @@ pkgdesc = "KDE Youtube Music player"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/audiotube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiotube-{pkgver}.tar.xz"
-sha256 = "ed44c45dfdb47978ef88d99a4dc68e65fe194cb1d33bda9a7b68717862e2eca8"
+sha256 = "78952113ae9b553a64f1fde1ed532f33871046b1dd40f62688638c1f14bb2216"
+# ??? since pybind or audiotube update
+tool_flags = {"CXXFLAGS": ["-I/usr/include/python3.13"], "LDFLAGS": ["-lpython3.13"]}
 # only test needs net
 options = ["!check"]
