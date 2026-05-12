@@ -54,6 +54,7 @@ configure_args = [
 hostmakedepends = [
     "bash",
     "bison",
+    "esbuild",
     "findutils",
     "git",
     "gn",
@@ -179,9 +180,29 @@ match self.profile().arch:
 
 
 def post_patch(self):
+    # replace wrong node with a working one
     self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
     self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
+    # replace wrong esbuild with a working one
+    self.rm(
+        "third_party/devtools-frontend/src/third_party/esbuild/esbuild",
+        force=True,
+    )
+    self.ln_s(
+        "/usr/bin/esbuild",
+        "third_party/devtools-frontend/src/third_party/esbuild/esbuild",
+    )
+    self.rm(
+        "third_party/devtools-frontend/src/node_modules/esbuild",
+        recursive=True,
+        force=True,
+    )
+    self.ln_s(
+        "/usr/lib/node_modules/esbuild",
+        "third_party/devtools-frontend/src/node_modules/esbuild",
+    )
+    # replace wrong gperf with a working one
     self.rm("third_party/gperf/cipd/bin/gperf", force=True)
     self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
 
