@@ -1,0 +1,13 @@
+diff --git a/data/panel b/data/panel
+index e6f51fa..af8f54e 100644
+--- a/data/panel
++++ b/data/panel
+@@ -44,7 +44,7 @@ Commands {
+ 	Command = "$_PEKWM_SCRIPT_PATH/pekwm_panel_battery.sh" {
+ 		Interval = "60"
+ 	}
+-	Command = "$_PEKWM_SCRIPT_PATH/pekwm_panel_sysinfo" {
++	Command = "pekwm_panel_sysinfo" {
+ 		Interval = "15"
+ 	}
+ }

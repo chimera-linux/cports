@@ -1,5 +1,5 @@
 pkgname = "pekwm"
-pkgver = "0.3.2"
+pkgver = "0.4.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -16,8 +16,15 @@ makedepends = [
 pkgdesc = "Window manager based on aewm++"
 license = "GPL-2.0-or-later"
 url = "https://www.pekwm.se"
-source = f"https://github.com/pekdon/pekwm/archive/release-{pkgver}.tar.gz"
-sha256 = "cf5e61a753f1a125877c65477ffd9b76b1aa6cec0f241f1fd6af9159dd23bfdf"
+source = f"{url}/pekwm/uv/pekwm-{pkgver}.tar.gz"
+sha256 = "8e794f094151fac9b85df2aaccf27add8cce5980f7eaf05b1caa8ab17b751aed"
 hardening = ["vis", "!cfi"]
 # no test target
 options = ["!check"]
+
+
+def post_install(self):
+    self.mv(
+        self.destdir / "usr/share/pekwm/scripts/pekwm_panel_sysinfo",
+        self.destdir / "usr/bin/",
+    )
