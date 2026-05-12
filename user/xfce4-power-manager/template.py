@@ -1,6 +1,6 @@
 pkgname = "xfce4-power-manager"
 pkgver = "4.20.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -18,6 +18,7 @@ makedepends = [
     "libxfce4ui-devel",
     "libxfce4util-devel",
     "libxrandr-devel",
+    "polkit-devel",
     "upower-devel",
     "xfce4-panel-devel",
     "xfconf-devel",

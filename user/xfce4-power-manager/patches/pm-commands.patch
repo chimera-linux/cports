@@ -1,0 +1,88 @@
+commit b04cb630eb31df1621c0d29379d503e73ab5698a
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue May 12 11:23:41 2026 +0200
+
+    rudimentary wiring of elogind for pm routines
+
+diff --git a/src/xfpm-pm-helper.c b/src/xfpm-pm-helper.c
+index c839fb9..96f2e77 100644
+--- a/src/xfpm-pm-helper.c
++++ b/src/xfpm-pm-helper.c
+@@ -73,9 +73,9 @@
+ #define UP_BACKEND_HYBRID_SLEEP_COMMAND "/usr/bin/false"
+ #endif
+ #ifdef BACKEND_TYPE_LINUX
+-#define UP_BACKEND_SUSPEND_COMMAND "/usr/sbin/pm-suspend"
+-#define UP_BACKEND_HIBERNATE_COMMAND "/usr/sbin/pm-hibernate"
+-#define UP_BACKEND_HYBRID_SLEEP_COMMAND "/usr/sbin/pm-suspend-hybrid"
++#define UP_BACKEND_SUSPEND_COMMAND "/usr/bin/loginctl suspend"
++#define UP_BACKEND_HIBERNATE_COMMAND "/usr/bin/loginctl hibernate"
++#define UP_BACKEND_HYBRID_SLEEP_COMMAND "/usr/bin/loginctl hybrid-sleep"
+ #endif
+ #ifdef BACKEND_TYPE_OPENBSD
+ #define UP_BACKEND_SUSPEND_COMMAND "/usr/sbin/zzz"
+diff --git a/src/xfpm-suspend.c b/src/xfpm-suspend.c
+index 47c39bd..2788e3c 100644
+--- a/src/xfpm-suspend.c
++++ b/src/xfpm-suspend.c
+@@ -105,33 +105,6 @@ freebsd_supports_sleep_state (const gchar *state)
+ }
+ #endif
+ 
+-#ifdef BACKEND_TYPE_LINUX
+-static gboolean
+-linux_supports_sleep_state (const gchar *state)
+-{
+-  gchar *command;
+-  GError *error = NULL;
+-  gint status;
+-
+-  /* run script from pm-utils */
+-  command = g_strdup_printf ("/usr/bin/pm-is-supported --%s", state);
+-  XFPM_DEBUG ("Executing command: %s", command);
+-
+-  if (!g_spawn_command_line_sync (command, NULL, NULL, &status, &error)
+-      || !g_spawn_check_wait_status (status, &error))
+-  {
+-    g_warning ("Failed to run script: %s", error->message);
+-    g_error_free (error);
+-    g_free (command);
+-    return FALSE;
+-  }
+-
+-  g_free (command);
+-  return TRUE;
+-}
+-#endif
+-
+-
+ gboolean
+ xfpm_suspend_can_suspend (void)
+ {
+@@ -139,7 +112,7 @@ xfpm_suspend_can_suspend (void)
+   return freebsd_supports_sleep_state ("S3");
+ #endif
+ #ifdef BACKEND_TYPE_LINUX
+-  return linux_supports_sleep_state ("suspend");
++  return TRUE;
+ #endif
+ #ifdef BACKEND_TYPE_OPENBSD
+   return TRUE;
+@@ -155,7 +128,7 @@ xfpm_suspend_can_hibernate (void)
+   return freebsd_supports_sleep_state ("S4");
+ #endif
+ #ifdef BACKEND_TYPE_LINUX
+-  return linux_supports_sleep_state ("hibernate");
++  return TRUE;
+ #endif
+ #ifdef BACKEND_TYPE_OPENBSD
+   return TRUE;
+@@ -171,7 +144,7 @@ xfpm_suspend_can_hybrid_sleep (void)
+   return TRUE;
+ #endif
+ #ifdef BACKEND_TYPE_LINUX
+-  return linux_supports_sleep_state ("suspend-hybrid");
++  return TRUE;
+ #endif
+ #ifdef BACKEND_TYPE_OPENBSD
+   return TRUE;
