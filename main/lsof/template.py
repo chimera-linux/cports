@@ -1,5 +1,5 @@
 pkgname = "lsof"
-pkgver = "4.99.5"
+pkgver = "4.99.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "List open files"
 license = "custom:lsof"
 url = "https://lsof.readthedocs.io/en/latest"
 source = f"https://github.com/lsof-org/lsof/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3c591556c665196e0aada5982ff43c75e248187bad78bb1368d8fb9c1c527e6e"
+sha256 = "2ce65158694e9c44dfc54916f5b843d887763c03128e0a1c77d62ae106537009"
 hardening = ["vis", "!cfi"]
 # FIXME: weird failures
 options = ["!check"]
