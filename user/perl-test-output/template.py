@@ -1,0 +1,13 @@
+pkgname = "perl-test-output"
+pkgver = "1.036"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl-capture-tiny"]
+depends = ["perl"]
+pkgdesc = "Test::Output - Testing framework for checking STDOUT & STDERR"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/dist/Test-Output"
+source = f"$(CPAN_SITE)/Test/Test-Output-{pkgver}.tar.gz"
+sha256 = "a3a95cb8c4d387fe079add4490757e69927ef0488bbb18b4d55e7fc6d25f1a63"
