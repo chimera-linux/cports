@@ -2,16 +2,7 @@ diff --git a/Makefile b/Makefile
 index f562138a..a6ce542d 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -5,7 +5,7 @@ all:
- include config.mk
- include makefiles/$(PLATFORM).$(ARCH).mk
- 
--all: $(BINOUT)/hare $(BINOUT)/haredoc docs
-+all: $(BINOUT)/hare $(BINOUT)/haredoc $(BINOUT)/hare-install docs
- 
- HARE_DEFINES = \
- 	-D PLATFORM:str='"$(PLATFORM)"' \
-@@ -53,17 +53,17 @@ $(BINOUT)/hare-install: $(BINOUT)/hare
+@@ -55,17 +55,17 @@ $(BINOUT)/hare-install: $(BINOUT)/hare
  	@mkdir -p $(BINOUT)
  	@printf 'HARE\t%s\n' "$@"
  	@env $(HARE_BUILD_ENV) \
@@ -32,7 +23,7 @@ index f562138a..a6ce542d 100644
  	for d in $$(scripts/moddirs); do \
  		find $$d -type d | sed -E '/(\+|-)/d'; \
  	done \
-@@ -71,7 +71,7 @@ docs/html: $(BINOUT)/haredoc
+@@ -73,7 +73,7 @@ docs/html: $(BINOUT)/haredoc
  		mod=$$(echo $$path | sed -E 's@/@::@g'); \
  		echo $$mod; \
  		mkdir -p docs/html/$$path; \
@@ -41,11 +32,11 @@ index f562138a..a6ce542d 100644
  	done
  
  docs: \
-@@ -103,7 +103,7 @@ check: $(BINOUT)/hare
+@@ -105,7 +105,7 @@ check: $(BINOUT)/hare
  
  install: install-cmd install-mods
  
--install-cmd: all $(BINOUT)/hare-install
+-install-cmd: all $(BINOUT)/hare-configured
 +install-cmd:
  	mkdir -p -- \
  		'$(DESTDIR)$(BINDIR)' '$(DESTDIR)$(MANDIR)/man1' \
@@ -79,4 +70,4 @@ index ce931c05..ebaf81b0 100644
 + 
 +X86_64_AS=x86_64-chimera-linux-musl-as
 +X86_64_CC=x86_64-chimera-linux-musl-cc
-+X86_64_LD=x86_64-chimera-linux-musl-ld 
++X86_64_LD=x86_64-chimera-linux-musl-ld
