@@ -1,5 +1,5 @@
 pkgname = "plasma-vault"
-pkgver = "6.6.4"
+pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,7 +30,7 @@ pkgdesc = "KDE encrypted storage applet"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only AND LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-vault"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-vault-{pkgver}.tar.xz"
-sha256 = "67bcf9da9021369af955b4b25d0bcf9789157c69affc16405aa84b539be69886"
+sha256 = "68a4e3cd160db15646882c5a40aec3aa3eb709701a3b4274d02b6393feabb268"
 
 
 @subpackage("plasma-vault-none")

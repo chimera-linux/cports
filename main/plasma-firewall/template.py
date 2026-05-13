@@ -1,5 +1,5 @@
 pkgname = "plasma-firewall"
-pkgver = "6.6.4"
+pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -25,4 +25,4 @@ pkgdesc = "KDE control panel for the system firewall"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-firewall"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-firewall-{pkgver}.tar.xz"
-sha256 = "5d9968be018af11da32a068bbe478a6f428e9bea16daee648044de11d9addeac"
+sha256 = "d4acad029c24eaaa98f307e5ff39903aa6a72f373c80f3a3c17ededfa450f8ec"

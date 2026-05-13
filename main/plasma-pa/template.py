@@ -1,5 +1,5 @@
 pkgname = "plasma-pa"
-pkgver = "6.6.4"
+pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: only test, needs selenium-webdriver-at-spi-run
@@ -37,5 +37,5 @@ pkgdesc = "KDE Plasma PulseAudio integration"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"
-sha256 = "e7062b86e728033b1125c711ec5bb285d2028c642f9775347624a1607f694793"
+sha256 = "b63c01981ea0d329fd08013eff24b247b60922abe1497be01234660c15cb3826"
 hardening = ["vis"]
