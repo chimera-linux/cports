@@ -1,5 +1,5 @@
 pkgname = "hare-update"
-pkgver = "0.25.2.0"
+pkgver = "0.26.0.0"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = ["LIBEXECDIR=/usr/lib"]  # XXX libexecdir
@@ -8,9 +8,9 @@ hostmakedepends = [
     "hare",
 ]
 makedepends = ["hare"]
-pkgdesc = "Hare add-on which assists in migrating condebases"
+pkgdesc = "Hare add-on which assists in migrating codebases"
 license = "EUPL-1.2"
 url = "https://git.sr.ht/~sircmpwn/hare-update"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "48ca5aba4b36c07145976c1f3d9d3ac8b79a29f0bdfdac6de57bd138ed1d407c"
+sha256 = "08eed452da9ced4371167378761f3760d2f515e0a3ca3732d28b14d522920bcb"
 tools = {"AS": f"{self.profile().triplet}-as"}
