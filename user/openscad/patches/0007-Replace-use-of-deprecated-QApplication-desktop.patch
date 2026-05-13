@@ -1,0 +1,27 @@
+From be113f7b39d6c1e4a87a98c4d0d5536ed9a1d944 Mon Sep 17 00:00:00 2001
+From: Chris Mayo <aklhfex@gmail.com>
+Date: Wed, 27 Dec 2023 19:22:43 +0000
+Subject: [PATCH 07/13] Replace use of deprecated QApplication::desktop()
+
+---
+ src/mainwin.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/mainwin.cc b/src/mainwin.cc
+index 8a3fd88aa..9df780440 100755
+--- a/src/mainwin.cc
++++ b/src/mainwin.cc
+@@ -573,8 +573,8 @@ MainWindow::MainWindow(const QStringList &filenames)
+ 		// again.
+ 		// On Windows that causes the main window to open in a not
+ 		// easily reachable place.
+-		auto desktop = QApplication::desktop();
+-		auto desktopRect = desktop->frameGeometry().adjusted(250, 150, -250, -150).normalized();
++		auto primaryScreen = QApplication::primaryScreen();
++		auto desktopRect = primaryScreen->availableGeometry().adjusted(250, 150, -250, -150).normalized();
+ 		auto windowRect = frameGeometry();
+ 		if (!desktopRect.intersects(windowRect)) {
+ 			windowRect.moveCenter(desktopRect.center());
+-- 
+2.52.0
+
