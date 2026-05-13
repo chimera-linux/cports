@@ -1,5 +1,5 @@
 pkgname = "fontconfig"
-pkgver = "2.16.0"
+pkgver = "2.17.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,8 +20,8 @@ triggers = ["/usr/share/fonts/*"]
 pkgdesc = "Library for configuring and customizing font access"
 license = "MIT"
 url = "https://www.fontconfig.org"
-source = f"$(FREEDESKTOP_SITE)/fontconfig/release/fontconfig-{pkgver}.tar.xz"
-sha256 = "6a33dc555cc9ba8b10caf7695878ef134eeb36d0af366041f639b1da9b6ed220"
+source = f"https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/{pkgver}/fontconfig-{pkgver}.tar.xz"
+sha256 = "9f5cae93f4fffc1fbc05ae99cdfc708cd60dfd6612ffc0512827025c026fa541"
 
 
 def post_install(self):
