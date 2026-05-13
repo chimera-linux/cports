@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/mpdscribble --no-daemon
+depends-on = mpd
+restart = true
+smooth-recovery = true
