@@ -1,8 +1,8 @@
 pkgname = "docker-cli"
-pkgver = "29.2.1"
-pkgrel = 1
+pkgver = "29.5.0"
+pkgrel = 0
 build_style = "makefile"
-_commit = "ce1223035ac3ab8922717092e63a184cf67b493d"
+_commit = "98f14649600f05480629d5c481878b1e1bcb7c17"
 make_build_target = "dynbinary"
 hostmakedepends = [
     "bash",
@@ -15,7 +15,7 @@ pkgdesc = "Container and image management tool"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"
-sha256 = "33a5c92198a2e57a6012c6f7938d69c72adf751584bc0c98d8d91e555b1c8f0a"
+sha256 = "df1d83df1ffd4045e0a514ef4ea9e2dcb75cd57d6da48d02fd34c25ccbc3e49d"
 env = {
     "AUTO_GOPATH": "1",
     "GITCOMMIT": _commit,
@@ -30,8 +30,7 @@ if self.profile().arch == "loongarch64":
 
 
 def prepare(self):
-    # figure out why this doesn't work otherwise anymore without net
-    self.do("make", "manpages", allow_network=True)
+    self.do("make", "manpages")
 
 
 def init_build(self):
