@@ -1,5 +1,5 @@
 pkgname = "chafa"
-pkgver = "1.16.2"
+pkgver = "1.18.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-man"]
@@ -27,7 +27,7 @@ pkgdesc = "Character art facsimile generator"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://hpjansson.org/chafa"
 source = f"https://github.com/hpjansson/chafa/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0a7de92eda166bed79dce00e7d4050935d30258b10829053c6584df0a4fa9f89"
+sha256 = "9bdeba46446ac64ed61704fc54b5458cf0dca08b44031b26fbda7b78591984b8"
 
 
 def post_install(self):
