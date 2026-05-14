@@ -1,5 +1,5 @@
 pkgname = "gparted"
-pkgver = "1.7.0"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-libparted-dmraid"]
@@ -22,6 +22,6 @@ pkgdesc = "Graphical disk partition editor"
 license = "GPL-2.0-or-later"
 url = "https://gparted.org"
 source = f"$(SOURCEFORGE_SITE)/gparted/gparted-{pkgver}.tar.gz"
-sha256 = "84ae3b9973e443a2175f07aa0dc2aceeadb1501e0f8953cec83b0ec3347b7d52"
+sha256 = "67388ac405f9fe92a40636cb03b0e1e0bb6403ad89ccc174b2ff190ef6f32349"
 # needs /dev setup from udev
 options = ["!check"]
