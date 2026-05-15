@@ -1,5 +1,5 @@
 pkgname = "lcms2"
-pkgver = "2.18"
+pkgver = "2.19.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Small-footprint color management engine"
 license = "MIT"
 url = "https://littlecms.com"
 source = f"https://github.com/mm2/Little-CMS/releases/download/lcms{pkgver}/lcms2-{pkgver}.tar.gz"
-sha256 = "ee67be3566f459362c1ee094fde2c159d33fa0390aa4ed5f5af676f9e5004347"
+sha256 = "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8"
 hardening = ["vis", "!cfi"]
 
 
