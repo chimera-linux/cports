@@ -1,9 +1,9 @@
 --- a/meson.build
 +++ b/meson.build
-@@ -87,15 +87,3 @@ else
-     endforeach
-   endforeach
- endif
+@@ -21,15 +21,3 @@
+   strip_directory : true,
+   install_tag : 'runtime',
+ )
 -
 -gtk_update_icon_cache = find_program(
 -  'gtk4-update-icon-cache',
@@ -16,3 +16,4 @@
 -  get_option('prefix') / adwaita_dir,
 -  skip_if_destdir: true,
 -)
+
