@@ -1,10 +1,10 @@
 pkgname = "copyq"
-pkgver = "13.0.0"
-pkgrel = 3
+pkgver = "15.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWITH_NATIVE_NOTIFICATIONS=OFF",
-    "-DWITH_QT6=ON",
+    "-DWITH_AUDIO=OFF",
 ]
 hostmakedepends = [
     "cmake",
@@ -16,16 +16,18 @@ makedepends = [
     "kguiaddons-devel",
     "libxfixes-devel",
     "libxtst-devel",
+    "qca-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
+    "qtkeychain-devel",
 ]
 pkgdesc = "Clipboard manager with advanced features"
 license = "GPL-3.0-or-later"
 url = "https://hluk.github.io/CopyQ"
 source = f"https://github.com/hluk/CopyQ/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c7e0c9aa95b5653dee547f168d58cf5aae4f66ad5f94856a61741ebe9527ad72"
+sha256 = "19665e503997e9d2ffd6f062df43255ee2be38d888d8cc22215474196016bb39"
 # CFI: loading plugins fail with cfi enabled
 hardening = ["vis", "!cfi"]
 # requires building project a second time in debug mode
