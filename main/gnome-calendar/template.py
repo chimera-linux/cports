@@ -1,5 +1,5 @@
 pkgname = "gnome-calendar"
-pkgver = "49.0.1"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -28,8 +28,8 @@ pkgdesc = "GNOME calendar"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calendar"
 source = (
-    f"$(GNOME_SITE)/gnome-calendar/{pkgver[:-4]}/gnome-calendar-{pkgver}.tar.xz"
+    f"$(GNOME_SITE)/gnome-calendar/{pkgver[:2]}/gnome-calendar-{pkgver}.tar.xz"
 )
-sha256 = "e0bfe4ea109422dada0745dd8f8c0e0230ab88207710d1c07e245322cf913ff2"
+sha256 = "4b75df071a52d98fb35e647d018030129d24d9007790d02457746c98617aeab0"
 # FIXME
 hardening = ["!int"]
