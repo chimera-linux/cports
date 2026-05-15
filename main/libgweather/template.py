@@ -1,9 +1,8 @@
 pkgname = "libgweather"
-pkgver = "4.4.4"
-pkgrel = 2
+pkgver = "4.6.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dsoup2=false",
     "-Dgtk_doc=false",
     "-Denable_vala=true",
     "-Dzoneinfo_dir=/usr/share/zoneinfo",
@@ -19,16 +18,17 @@ hostmakedepends = [
 ]
 makedepends = [
     "geocode-glib-devel",
+    "gweather-locations-devel",
     "json-glib-devel",
     "libsoup-devel",
     "libxml2-devel",
 ]
-depends = ["tzdb"]
+depends = ["gweather-locations", "tzdb"]
 pkgdesc = "GNOME Weather information access library"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
 source = f"$(GNOME_SITE)/libgweather/{pkgver[:-2]}/libgweather-{pkgver}.tar.xz"
-sha256 = "7017677753cdf7d1fdc355e4bfcdb1eba8369793a8df24d241427a939cbf4283"
+sha256 = "7f5d0e8c9685ef2ff46c2f3a57cae48d7bf3540b2d83921f889ef28e6a876788"
 # needs network access
 options = ["!check"]
 
