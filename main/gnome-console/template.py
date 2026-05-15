@@ -1,5 +1,5 @@
 pkgname = "gnome-console"
-pkgver = "49.1"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -27,6 +27,6 @@ url = "https://gitlab.gnome.org/GNOME/console"
 source = (
     f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
 )
-sha256 = "fca39fd041e05ee7ca6d2a5c82001937d02ae1513f3f3651bd37ae0e2ef66e3e"
+sha256 = "e4950207f0547e6a6c0f18eebfcf6e1a10461eab0f2fae0aae512b1044c7ac6e"
 # tries to open gpu
 options = ["!check"]
