@@ -60,11 +60,10 @@ def post_build(self):
 
 
 def post_install(self):
+    self.install_file(self.files_path / "incusd.wrapper", "usr/lib", mode=0o755)
     self.install_service(self.files_path / "incus")
     self.install_service(self.files_path / "incus-user")
     self.install_sysusers(self.files_path / "sysusers.conf")
-    self.install_tmpfiles("^/tmpfiles.conf")
-    self.install_file("^/envfile", "usr/share/incus")
 
 
 @subpackage("incus-client")

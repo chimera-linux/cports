@@ -1,4 +1,3 @@
 type = process
-command = /usr/bin/incusd --group _incus-admin --syslog
-env-file = /etc/default/incus
+command = /usr/lib/incusd.wrapper --group _incus-admin --syslog
 depends-on: local.target
