@@ -1,6 +1,6 @@
 pkgname = "adwaita-icon-theme-legacy"
 pkgver = "46.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 depends = ["hicolor-icon-theme"]
