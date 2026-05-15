@@ -1,6 +1,6 @@
 # sync with main/sysprof-capture
 pkgname = "sysprof"
-pkgver = "49.0"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "System-wide profiler for Linux"
 license = "GPL-3.0-or-later AND BSD-2-Clause-Patent"
 url = "https://www.sysprof.com"
 source = f"$(GNOME_SITE)/sysprof/{'.'.join(pkgver.rsplit('.')[:-1])}/sysprof-{pkgver}.tar.xz"
-sha256 = "ff04139637785c841948862087a4323b981680d942296409321b574fcb282878"
+sha256 = "aace44e90e90f6c34bb2fbec8ccb47b8f81103080978d65759287843c329d53a"
 # sysprof`sysprof_disk_usage_record_fiber muloverflow when busy i/o
 hardening = ["!int"]
 
