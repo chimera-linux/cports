@@ -1,0 +1,10 @@
+pkgname = "caligula"
+pkgver = "0.5.0"
+pkgrel = 0
+build_style = "cargo"
+hostmakedepends = ["cargo-auditable"]
+pkgdesc = "Image burning tool"
+license = "GPL-3.0-only"
+url = "https://github.com/ifd3f/caligula"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "f4118f0f4a4c90432ba3b1637dd66b8d7f4abd797d63b527baaa6c2595f1552f"
