@@ -1,6 +1,6 @@
 pkgname = "decibels"
-pkgver = "49.0"
-pkgrel = 1
+pkgver = "49.6.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
@@ -22,6 +22,6 @@ source = [
 ]
 source_paths = [".", "gi-types"]
 sha256 = [
-    "6d4f1281be520a83782c96b07e355f6467610a3285c02054a6908dfdcc8c5994",
+    "a6e7083c611c8edadb189d92e9f2f7c3b744e94c852770964e40e2f21f591540",
     "6c625c8a01bd15e9f35fd6ea6823b5afb2288e6a40e34d852d37b6fa0fa51e57",
 ]
