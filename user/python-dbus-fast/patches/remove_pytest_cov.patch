@@ -1,6 +1,6 @@
 diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pyproject.toml
---- python-dbus-fast/pyproject.toml	2026-04-02 04:41:00.000000000 +0000
-+++ python-dbus-fast-patched/pyproject.toml	2026-04-07 17:38:23.494416545 +0000
+--- python-dbus-fast/pyproject.toml	2026-05-20 13:42:08.000000000 +0000
++++ python-dbus-fast-patched/pyproject.toml	2026-05-20 16:49:02.878437546 +0000
 @@ -46,7 +46,6 @@
  
  [tool.poetry.group.dev.dependencies]
@@ -8,16 +8,16 @@ diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pypro
 -pytest-cov = ">=3,<8"
  pytest-asyncio = ">=0.19,<1.4"
  pycairo = "^1.21.0"
- PyGObject = {version = ">=3.50,<3.51", python = "<4"}
+ PyGObject = {version = ">=3.50,<3.57", python = "<4"}
 @@ -54,7 +53,6 @@
  setuptools = ">=65.4.1,<83.0.0"
  pytest-timeout = "^2.1.0"
- pytest-codspeed = ">=3.1.1,<5.0.0"
+ pytest-codspeed = ">=3.1.1,<6.0.0"
 -covdefaults = "^2.3.0"
+ blockbuster = ">=1.5.5,<2.0.0"
  
  [tool.semantic_release]
- branch = "main"
-@@ -63,21 +61,11 @@
+@@ -64,7 +62,7 @@
  build_command = "pip install poetry && poetry build"
  
  [tool.pytest.ini_options]
@@ -26,7 +26,10 @@ diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pypro
  pythonpath = ["src"]
  filterwarnings = [
      "error",
-     '''ignore:The global interpreter lock \(GIL\) has been enabled to load module 'gi\._gi'.*:RuntimeWarning''',
+@@ -83,16 +81,6 @@
+     # builds (Ubuntu 25.10 / s390x leg) for symbols moved to the GLibUnix
+     # namespace. The override loader trips the warning before any test runs.
+     '''ignore:GLib\.unix_[a-z_]+ is deprecated.*:DeprecationWarning''',
 -]
 -
 -[tool.coverage.run]
