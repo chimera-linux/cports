@@ -35,8 +35,9 @@ def post_build(self):
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(
+        self.files_path / "tailscaled.wrapper", "usr/lib", mode=0o755
+    )
     self.install_service("^/tailscaled")
-    self.install_tmpfiles("^/tmpfiles.conf")
-    self.install_file("^/envfile", "usr/share/tailscale")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"tailscale.{shell}", shell)

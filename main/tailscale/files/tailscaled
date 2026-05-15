@@ -1,6 +1,5 @@
 type = process
-command = /usr/bin/tailscaled
-depends-on = network.target
-depends-on = local.target
-env-file = /etc/default/tailscaled
+command = /usr/lib/tailscaled.wrapper
 smooth-recovery = true
+depends-on: network.target
+depends-on: local.target
