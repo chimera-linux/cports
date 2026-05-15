@@ -1,6 +1,6 @@
 pkgname = "folks"
-pkgver = "0.15.9"
-pkgrel = 1
+pkgver = "0.15.12"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dtelepathy_backend=false",
@@ -26,7 +26,7 @@ pkgdesc = "GObject Library to aggregate people into metacontacts"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Folks"
 source = f"$(GNOME_SITE)/folks/{'.'.join(pkgver.split('.')[:2])}/folks-{pkgver}.tar.xz"
-sha256 = "2311b37355c351f33f163fdc394874a22a0a0682c319493d6d8a6e420711415f"
+sha256 = "21f44e2bdabb1ee7f8e41bb996d10ac7daf35c78c498177db0c00f580a20a914"
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 # TODO
 options = ["!check", "!cross"]
