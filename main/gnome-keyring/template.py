@@ -1,7 +1,7 @@
 pkgname = "gnome-keyring"
 # pam_gnome_keyring may be moved to libsecret later?
 # as of 48 it does not install it and distros don't use it
-pkgver = "48.0"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -41,7 +41,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = (
     f"$(GNOME_SITE)/gnome-keyring/{pkgver[:-2]}/gnome-keyring-{pkgver}.tar.xz"
 )
-sha256 = "f20518c920e9ea3f9c9b8b44be8c50d8d7feecd0dd5624960f77bd2ca4fbeb9d"
+sha256 = "cbd72062c53c9702bc2c4733991ad5f051ca682882b30905a2829bcf1a8ecc7c"
 # check may be disabled
 options = []
 
