@@ -1,6 +1,6 @@
 pkgname = "tflint"
 pkgver = "0.59.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terraform Linter"

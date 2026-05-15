@@ -1,6 +1,6 @@
 pkgname = "gomplate"
 pkgver = "5.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     "-ldflags",

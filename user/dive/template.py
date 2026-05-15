@@ -1,6 +1,6 @@
 pkgname = "dive"
 pkgver = "0.13.1"
-pkgrel = 5
+pkgrel = 6
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Docker image and layer explorer"

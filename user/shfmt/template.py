@@ -1,6 +1,6 @@
 pkgname = "shfmt"
 pkgver = "3.13.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/shfmt"]
 make_check_args = [*make_build_args]

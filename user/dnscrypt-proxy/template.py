@@ -1,6 +1,6 @@
 pkgname = "dnscrypt-proxy"
 pkgver = "2.1.12"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 make_build_args = ["./dnscrypt-proxy"]
 hostmakedepends = ["go"]

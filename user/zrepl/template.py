@@ -1,6 +1,6 @@
 pkgname = "zrepl"
 pkgver = "1.0.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["dinit-chimera"]

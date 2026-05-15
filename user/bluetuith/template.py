@@ -1,6 +1,6 @@
 pkgname = "bluetuith"
 pkgver = "0.2.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/darkhz/bluetuith/cmd.Version={pkgver}"
