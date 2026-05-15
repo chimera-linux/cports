@@ -1,7 +1,7 @@
-From b5ef7fc8092c5b98195105e238ac4dfa55c7c403 Mon Sep 17 00:00:00 2001
+From bb21cbd1c0da6b56642494ff12ddc026caaea370 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:41:14 +0200
-Subject: [PATCH 08/29] compiler-rt: lsan: basic musl fixes on various archs
+Subject: [PATCH 08/28] compiler-rt: lsan: basic musl fixes on various archs
 
 ---
  .../lib/sanitizer_common/sanitizer_linux_libcdep.cpp  | 11 +++++++++++
@@ -47,5 +47,5 @@ index 530ff90c4..6fbbd7ef5 100644
    // arm and aarch64 reserve two words at TP, so this underestimates the range.
    // However, this is sufficient for the purpose of finding the pointers to
 -- 
-2.51.1
+2.52.0
 

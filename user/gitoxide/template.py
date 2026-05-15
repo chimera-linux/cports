@@ -1,5 +1,5 @@
 pkgname = "gitoxide"
-pkgver = "0.47.0"
+pkgver = "0.51.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -18,7 +18,7 @@ pkgdesc = "Rust implementation of Git"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/Byron/gitoxide"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fea998534bfb1e0b91aa6960444468440bafe442f9fa5e197bbe8e7226d230f5"
+sha256 = "22da356497d22eabb598233cfba61db3674e234792df1def55212ea7d2793e5d"
 
 
 def post_install(self):

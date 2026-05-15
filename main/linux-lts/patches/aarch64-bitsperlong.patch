@@ -1,0 +1,30 @@
+commit c86ce0d1aa0ed60cb67d47a9d002ecb818931307
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Oct 16 17:28:41 2025 +0200
+
+    More robust BITS_PER_LONG check
+    
+    The __aarch64__ macro may not be defined in some kernel-context
+    builds that are not the compat VDSO. This breaks compilation of
+    some out of tree module stuff where __kernel_size_t becomes 4.
+    
+    Regression introduced by https://github.com/torvalds/linux/commit/9a6d3ff10f7f538835cae4799562004ee46922c5
+    
+    This breaks at least ZFS.
+    
+    We assume a modern toolchain here, which has the __SIZEOF_LONG__
+    macro always defined.
+
+diff --git a/arch/arm64/include/uapi/asm/bitsperlong.h b/arch/arm64/include/uapi/asm/bitsperlong.h
+index d597309..e62e099 100644
+--- a/arch/arm64/include/uapi/asm/bitsperlong.h
++++ b/arch/arm64/include/uapi/asm/bitsperlong.h
+@@ -17,7 +17,7 @@
+ #ifndef __ASM_BITSPERLONG_H
+ #define __ASM_BITSPERLONG_H
+ 
+-#if defined(__KERNEL__) && !defined(__aarch64__)
++#if defined(__KERNEL__) && !defined(__aarch64__) && (!defined(__SIZEOF_LONG__) || (__SIZEOF_LONG__ == 4))
+ /* Used by the compat vDSO */
+ #define __BITS_PER_LONG 32
+ #else

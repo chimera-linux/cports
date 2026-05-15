@@ -11,7 +11,7 @@ index 946815f..c70fcfc 100644
 --- a/sqlite3.c
 +++ b/sqlite3.c
 @@ -36855,7 +36855,7 @@ SQLITE_PRIVATE int sqlite3VListNameToNum(VList *pIn, const char *zName, int nNam
-      return (sqlite_uint64)hi << 32 | lo;
+      return cnt;
    }
  
 -#elif !defined(__STRICT_ANSI__) && (defined(__GNUC__) && defined(__ppc__))

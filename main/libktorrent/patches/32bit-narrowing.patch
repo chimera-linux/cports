@@ -1,0 +1,26 @@
+diff --git a/src/net/tests/packetsockettest.cpp b/src/net/tests/packetsockettest.cpp
+index d261f49..4ea6d54 100644
+--- a/src/net/tests/packetsockettest.cpp
++++ b/src/net/tests/packetsockettest.cpp
+@@ -78,7 +78,7 @@ struct PiecePacket {
+         }
+ 
+         const auto piece_data = buffer.sliced(13, m_length);
+-        if (piece_data != QByteArrayView{m_chunk->getPiece(m_offset, m_length, true)->data(), m_length}) {
++        if (piece_data != QByteArrayView{m_chunk->getPiece(m_offset, m_length, true)->data(), qsizetype(m_length)}) {
+             bt::Out() << "Piece::VerifyBuffer incorrect piece data" << bt::endl;
+             return false;
+         }
+diff --git a/src/peer/utmetadata.cpp b/src/peer/utmetadata.cpp
+index c170406..0b85444 100644
+--- a/src/peer/utmetadata.cpp
++++ b/src/peer/utmetadata.cpp
+@@ -34,7 +34,7 @@ void UTMetaData::handlePacket(const bt::Uint8 *packet, Uint32 size)
+         return;
+     }
+ 
+-    const auto tmp = QByteArrayView{packet, size}.sliced(2);
++    const auto tmp = QByteArrayView{packet, qsizetype(size)}.sliced(2);
+     try {
+         BDecoder dec(tmp.data(), tmp.size(), false);
+         const std::unique_ptr<BDictNode> dict = dec.decodeDict();

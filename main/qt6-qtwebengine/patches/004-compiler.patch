@@ -1,29 +1,50 @@
 re: removing safe - hardened is enabled somewhere, and it can't be both.
 --- a/src/3rdparty/chromium/build/config/compiler/BUILD.gn
 +++ b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
-@@ -1242,8 +1242,8 @@ config("compiler_cpu_abi") {
-       }
+@@ -1234,8 +1234,8 @@
+     # simplicity we always explicitly set the architecture.
+     if (current_cpu == "x64") {
+       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
+-        cflags += [ "--target=x86_64-unknown-linux-gnu" ]
+-        ldflags += [ "--target=x86_64-unknown-linux-gnu" ]
++        cflags += [ "--target=x86_64-chimera-linux-musl" ]
++        ldflags += [ "--target=x86_64-chimera-linux-musl" ]
+       } else {
+         cflags += [ "-m64" ]
+         ldflags += [ "-m64" ]
+@@ -1257,8 +1257,8 @@
+       ]
      } else if (current_cpu == "arm") {
-       if (is_clang && !is_android && !is_nacl && !is_chromeos_device) {
+       if (is_clang && !is_android && !is_chromeos_device) {
 -        cflags += [ "--target=arm-linux-gnueabihf" ]
 -        ldflags += [ "--target=arm-linux-gnueabihf" ]
 +        cflags += [ "--target=arm-chimera-linux-musleabihf" ]
 +        ldflags += [ "--target=arm-chimera-linux-musleabihf" ]
        }
-       if (!is_nacl) {
-         cflags += ["-mfloat-abi=$arm_float_abi"]
-@@ -1257,8 +1257,8 @@ config("compiler_cpu_abi") {
+       cflags += ["-mfloat-abi=$arm_float_abi"]
+       if (arm_arch != "") {
+@@ -1272,8 +1272,8 @@
+       }
      } else if (current_cpu == "arm64") {
-       if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
-           !is_chromeos_device) {
+       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
 -        cflags += [ "--target=aarch64-linux-gnu" ]
 -        ldflags += [ "--target=aarch64-linux-gnu" ]
 +        cflags += [ "--target=aarch64-chimera-linux-musl" ]
 +        ldflags += [ "--target=aarch64-chimera-linux-musl" ]
        }
-     } else if (current_cpu == "mipsel" && !is_nacl) {
+     } else if (current_cpu == "mipsel") {
        ldflags += [ "-Wl,--hash-style=sysv" ]
-@@ -1502,8 +1502,8 @@ config("compiler_cpu_abi") {
+@@ -1517,22 +1517,22 @@
+           ldflags += [ "-maix64" ]
+         }
+       } else if (is_clang) {
+-        cflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
+-        ldflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
++        cflags += [ "--target=powerpc64le-chimera-linux-musl" ]
++        ldflags += [ "--target=powerpc64le-chimera-linux-musl" ]
+       } else {
+         cflags += [ "-m64" ]
+         ldflags += [ "-m64" ]
        }
      } else if (current_cpu == "riscv64") {
        if (is_clang && !is_android) {
@@ -34,6 +55,14 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
        cflags += [ "-mabi=lp64d" ]
      } else if (current_cpu == "loong64") {
+       if (is_clang) {
+-        cflags += [ "--target=loongarch64-linux-gnu" ]
+-        ldflags += [ "--target=loongarch64-linux-gnu" ]
++        cflags += [ "--target=loongarch64-chimera-linux-musl" ]
++        ldflags += [ "--target=loongarch64-chimera-linux-musl" ]
+       }
+       cflags += [
+         "-mabi=lp64d",
 --- a/src/3rdparty/chromium/build_overrides/build.gni
 +++ b/src/3rdparty/chromium/build_overrides/build.gni
 @@ -27,7 +27,7 @@ build_with_v8_embedder = build_with_chromium
@@ -43,5 +72,5 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
 -enable_safe_libcxx = true
 +enable_safe_libcxx = false
  
- # Features used by //base/trace_event and //services/tracing.
- declare_args() {
+ if (is_cronet_build) {
+   # Used by //third_party/perfetto.

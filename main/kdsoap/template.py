@@ -1,5 +1,5 @@
 pkgname = "kdsoap"
-pkgver = "2.2.0"
+pkgver = "2.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Qt-based SOAP component"
 license = "MIT"
 url = "https://www.kdab.com/development-resources/qt-tools/kd-soap"
 source = f"https://github.com/KDAB/KDSoap/releases/download/kdsoap-{pkgver}/kdsoap-{pkgver}.tar.gz"
-sha256 = "d9ef11948442197c9fa44bd6fbadc842b7280a60dfc40577af66fded637af356"
+sha256 = "d2184951145cb768cc30376a10701be13869a164c1272d09f831ba2d195f02de"
 # set in release
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # CFI: breaks build

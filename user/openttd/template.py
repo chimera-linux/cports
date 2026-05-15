@@ -1,5 +1,5 @@
 pkgname = "openttd"
-pkgver = "15.0"
+pkgver = "15.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -20,7 +20,7 @@ pkgdesc = "Simulation game based upon Transport Tycoon Deluxe"
 license = "GPL-2.0-or-later"
 url = "https://openttd.org"
 source = f"https://cdn.openttd.org/openttd-releases/{pkgver}/openttd-{pkgver}-source.tar.xz"
-sha256 = "3552d774bb246f360b0a0d35436946007fcd48b2698ef1d7dfa30032ac3135c1"
+sha256 = "5ea21eea7d59c78a42071924ac18c6bc0116088f2e96b14cfee9369175973be7"
 # SetBitIterator tests (src/tests/bitmath_func.cpp) fail with int enabled (and the game crashes when the tests are skipped)
 hardening = ["!int"]
 # can't cross compile due to https://github.com/OpenTTD/OpenTTD/issues/8249

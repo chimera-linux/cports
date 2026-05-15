@@ -1,5 +1,5 @@
 pkgname = "openldap"
-pkgver = "2.6.10"
+pkgver = "2.6.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ url = "https://www.openldap.org"
 source = (
     f"{url}/software/download/OpenLDAP/openldap-release/openldap-{pkgver}.tgz"
 )
-sha256 = "c065f04aad42737aebd60b2fe4939704ac844266bc0aeaa1609f0cad987be516"
+sha256 = "d693b49517a42efb85a1a364a310aed16a53d428d1b46c0d31ef3fba78fcb656"
 
 
 def post_install(self):

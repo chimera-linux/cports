@@ -1,6 +1,6 @@
 pkgname = "tesseract"
-pkgver = "5.5.1"
-pkgrel = 1
+pkgver = "5.5.2"
+pkgrel = 0
 build_style = "gnu_configure"
 # also install training tools
 make_build_args = ["training"]
@@ -23,11 +23,12 @@ depends = [
     "tesseract-data-eng",
     "tesseract-data-osd",
 ]
+renames = ["tesseract-libs"]
 pkgdesc = "OCR engine"
 license = "Apache-2.0"
 url = "https://tesseract-ocr.github.io"
 source = f"https://github.com/tesseract-ocr/tesseract/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a7a3f2a7420cb6a6a94d80c24163e183cf1d2f1bed2df3bbc397c81808a57237"
+sha256 = "6235ea0dae45ea137f59c09320406f5888383741924d98855bd2ce0d16b54f21"
 # check: tests require external data
 options = ["!check"]
 
@@ -53,11 +54,6 @@ def _(self):
         "cmd:unicharset_extractor",
         "cmd:wordlist2dawg",
     ]
-
-
-@subpackage("tesseract-libs")
-def _(self):
-    return self.default_libs()
 
 
 @subpackage("tesseract-devel")

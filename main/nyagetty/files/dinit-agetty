@@ -1,9 +1,23 @@
 #!/bin/sh
 
+tty_service() {
+    echo agetty-service@$1
+}
+
 [ -r /etc/default/console-setup ] && . /etc/default/console-setup
 [ -r /etc/default/agetty ] && . /etc/default/agetty
 
 export PATH=/usr/bin
+
+# so an override function can only handle ttys it wants
+getty_service() {
+    local svc=$(tty_service "$1")
+    if [ -z "$svc" ]; then
+        echo agetty-service@$1
+    else
+        echo "$svc"
+    fi
+}
 
 AUTO_EXTRA_GETTYS=
 AUTO_GETTYS=
@@ -54,7 +68,7 @@ PREV_CONSOLES=
 [ -f /run/agetty-active ] && PREV_CONSOLES=$(cat /run/agetty-active)
 
 for tty in $ACTIVE_CONSOLES; do
-    dinitctl add-dep milestone agetty agetty-service@$tty > /dev/null
+    dinitctl add-dep milestone agetty $(getty_service "$tty") > /dev/null
 done
 
 # clear dependency links for consoles that were active but should not be
@@ -65,7 +79,7 @@ for otty in $PREV_CONSOLES; do
             break
         fi
     done
-    [ -n "$otty" ] && dinitctl rm-dep milestone agetty agetty-service@$otty > /dev/null
+    [ -n "$otty" ] && dinitctl rm-dep milestone agetty $(getty_service "$otty") > /dev/null
 done
 
 rm -f /run/agetty-active
@@ -73,7 +87,7 @@ rm -f /run/agetty-active
 # wake whichever services newly got links and generate a new active list
 for tty in $ACTIVE_CONSOLES; do
     echo $tty >> /run/agetty-active
-    dinitctl wake agetty-service@$tty > /dev/null &
+    dinitctl wake $(getty_service "$tty") > /dev/null &
 done
 
 wait || :

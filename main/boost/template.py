@@ -1,6 +1,6 @@
 pkgname = "boost"
-pkgver = "1.89.0"
-pkgrel = 1
+pkgver = "1.91.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
@@ -16,7 +16,7 @@ pkgdesc = "Free peer-reviewed portable C++ source libraries"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://archives.boost.io/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "9de758db755e8330a01d995b0a24d09798048400ac25c03fc5ea9be364b13c93"
+sha256 = "5734305f40a76c30f951c9abd409a45a2a19fb546efe4162119250bbe4d3a463"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
@@ -49,6 +49,7 @@ _libs = [
     "serialization",
     "stacktrace_addr2line",
     "stacktrace_basic",
+    "stacktrace_from_exception",
     "stacktrace_noop",
     "thread",
     "timer",
@@ -66,7 +67,6 @@ match self.profile().arch:
         _arch, _abi = "arm", "aapcs"
     case "x86_64":
         _arch, _abi = "x86", "sysv"
-        _libs.append("stacktrace_from_exception")
     case "loongarch64":
         _arch, _abi = "loongarch", "sysv"
     case "riscv64":
@@ -184,7 +184,7 @@ def _(self):
     self.depends = [self.parent, *makedepends]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]
 
-    return self.default_devel(extra=["usr/share/boost_predef"])
+    return self.default_devel()
 
 
 def _gen_libp(libname):

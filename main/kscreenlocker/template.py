@@ -1,14 +1,13 @@
 pkgname = "kscreenlocker"
-pkgver = "6.5.5"
-pkgrel = 1
+pkgver = "6.6.5"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # circular plasma-workspace dep (QML org.kde.plasma.private.sessions) needed by kscreenlocker_greet,
 # ksmserver-ksldTest even needs it installed under /usr/lib/libexec
 make_check_args = ["-E", "(kscreenlocker-kill|ksmserver-ksld)Test"]
-# ksmserver-x11LockerTest only passes under Xvfb
-make_check_wrapper = ["dbus-run-session", "xvfb-run"]
+make_check_wrapper = ["dbus-run-session", "wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -33,13 +32,13 @@ makedepends = [
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
 ]
-checkdepends = ["dbus", "xserver-xorg-xvfb"]
+checkdepends = ["dbus", "xwayland-run"]
 depends = ["kdeclarative"]
 pkgdesc = "KDE Library and components for secure lock screen architecture"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://invent.kde.org/plasma/kscreenlocker"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreenlocker-{pkgver}.tar.xz"
-sha256 = "150d649e925a2bd3a7e1047b7e2bf5e9541632a31252fd23ae448fb7b413f33e"
+sha256 = "9ba0aee32364051eeb213d48dd3c208ae0ce7062190a30f855735ba4efe389cc"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "purpose"
-pkgver = "6.22.0"
+pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -23,6 +23,7 @@ makedepends = [
     "ki18n-devel",
     "kio-devel",
     "kirigami-devel",
+    "kitemmodels-devel",
     "knotifications-devel",
     "kservice-devel",
     "prison-devel",
@@ -35,7 +36,7 @@ pkgdesc = "KDE purpose-specific integrations"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
-sha256 = "a2912583948f423e4d666f9cbf1cf1ac463a246e10e717078b4831f60cc2198c"
+sha256 = "cc7b7599d1ac7ce7ed07351a35d742fac1b7e554b208a7b1c92e859b3b4add30"
 hardening = ["vis"]
 
 

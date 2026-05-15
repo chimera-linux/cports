@@ -1,0 +1,114 @@
+commit 215b9207cfe531ec3d9c09532141cfcfff9c4285
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Apr 22 09:24:54 2026 +0200
+
+    QMultiMap: fix compliance with the C++ standard
+    
+    The .find() method is not required to return an iterator to the
+    most recently inserted item while the Qt documentation requires
+    so. Do the correct thing according to C++.
+
+diff --git a/src/corelib/tools/qmap.h b/src/corelib/tools/qmap.h
+index 577be7d..b2b4474 100644
+--- a/src/corelib/tools/qmap.h
++++ b/src/corelib/tools/qmap.h
+@@ -1011,12 +1011,11 @@ public:
+         detach();
+ 
+         size_type result = 0;
+-        const auto &keyCompare = d->m.key_comp();
+ 
+-        auto i = d->m.find(keyCopy);
+-        const auto e = d->m.end();
++        auto r = d->m.equal_range(keyCopy);
++        auto i = r.first;
+ 
+-        while (i != e && !keyCompare(keyCopy, i->first)) {
++        while (i != r.second) {
+             if (i->second == valueCopy) {
+                 i = d->m.erase(i);
+                 ++result;
+@@ -1045,19 +1044,18 @@ public:
+         // elements (the one to be removed can be skipped).
+         detach();
+ 
++        auto r = d->m.equal_range(key);
++        if (r.first == r.second)
++            return T();
++
+ #ifdef __cpp_lib_node_extract
+-        if (const auto node = d->m.extract(key))
+-            return std::move(node.mapped());
++        return std::move(d->m.extract(r.first).mapped());
+ #else
+-        auto i = d->m.find(key);
+-        if (i != d->m.end()) {
+-            // ### breaks RVO on most compilers (but only on old-fashioned ones, so who cares?)
+-            T result(std::move(i->second));
+-            d->m.erase(i);
+-            return result;
+-        }
++        // ### breaks RVO on most compilers (but only on old-fashioned ones, so who cares?)
++        T result(std::move(i->second));
++        d->m.erase(i);
++        return result;
+ #endif
+-        return T();
+     }
+ 
+     bool contains(const Key &key) const
+@@ -1085,9 +1083,9 @@ public:
+     {
+         if (!d)
+             return defaultValue;
+-        const auto i = d->m.find(key);
+-        if (i != d->m.cend())
+-            return i->second;
++        auto r = d->m.equal_range(key);
++        if (r.first != r.second)
++            return r.first->second;
+         return defaultValue;
+     }
+ 
+@@ -1390,14 +1388,20 @@ public:
+     {
+         const auto copy = d.isShared() ? *this : QMultiMap(); // keep `key` alive across the detach
+         detach();
+-        return iterator(d->m.find(key));
++        auto r = d->m.equal_range(key);
++        if (r.first != r.second)
++            return iterator(r.first);
++        return iterator(d->m.end());
+     }
+ 
+     const_iterator find(const Key &key) const
+     {
+         if (!d)
+             return const_iterator();
+-        return const_iterator(d->m.find(key));
++        auto r = d->m.equal_range(key);
++        if (r.first != r.second)
++            return const_iterator(r.first);
++        return const_iterator(d->m.cend());
+     }
+ 
+     const_iterator constFind(const Key &key) const
+@@ -1525,13 +1529,12 @@ public:
+ 
+         // Similarly, improve here (e.g. lower_bound and hinted insert);
+         // there's no insert_or_assign on multimaps
+-        auto i = d->m.find(key);
+-        if (i != d->m.end())
+-            i->second = value;
+-        else
+-            i = d->m.insert({key, value});
++        auto r = d->m.equal_range(key);
++        if (r.first == r.second)
++            return iterator(d->m.insert({key, value}));
+ 
+-        return iterator(i);
++        r.first->second = value;
++        return iterator(r.first);
+     }
+ 
+     // STL compatibility

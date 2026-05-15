@@ -1,6 +1,6 @@
 pkgname = "digikam"
-pkgver = "8.7.0"
-pkgrel = 8
+pkgver = "9.0.0"
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTING=ON",
@@ -80,7 +80,7 @@ source = [
 ]
 source_paths = [".", "test-data"]
 sha256 = [
-    "79e35ec20a43934cf8322d47c9c0540b0b8b727fa7d9aceb90f710fcfe9da02f",
+    "7680ea024fe00e10c96090e45fe4b7b4a1c3993bc5e87576eddd4e0eefd08ef3",
     "fc4d21b83888016e6fb8f07bfc312bbdfa8fec8050d6df8b51475b43ab5fed91",
 ]
 tool_flags = {

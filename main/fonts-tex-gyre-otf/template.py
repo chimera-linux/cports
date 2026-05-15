@@ -1,11 +1,12 @@
 pkgname = "fonts-tex-gyre-otf"
-pkgver = "2.501"
+pkgver = "2.609"
+_pkgdate = "31_03_2026"
 pkgrel = 0
 pkgdesc = "TeX Gyre Collection of Fonts"
 license = "OFL-1.1"
 url = "https://www.gust.org.pl/projects/e-foundry/tex-gyre/index_html"
-source = f"https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/tg{pkgver.replace('.', '_')}otf.zip"
-sha256 = "d7f8be5317bec4e644cf16c5abf876abeeb83c43dbec0ccb4eee4516b73b1bbe"
+source = f"https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/tex_gyre-otf-{pkgver.replace('.', '_')}-{_pkgdate}.zip"
+sha256 = "1731555aea263ad82e7f555fb6483ec98342593d63822f658f7a9f8023d85a33"
 # No license in tarball
 options = ["!distlicense"]
 

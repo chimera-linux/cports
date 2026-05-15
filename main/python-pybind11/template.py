@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
-pkgver = "3.0.1"
-pkgrel = 1
+pkgver = "3.0.4"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     # finds wrong cflags in sample project
@@ -9,12 +9,14 @@ make_check_args = [
     "--deselect=tests/test_exceptions.py::test_cross_module_exception_translator",
     "--ignore=tests/extra_python_package/test_files.py",
     # missing trampoline_module/widget_module
-    "--ignore=tests/test_embed/test_interpreter.py",
-    "--ignore=tests/test_embed/test_trampoline.py",
+    "--ignore=tests/test_with_catch/test_interpreter.py",
+    "--ignore=tests/test_with_catch/test_trampoline.py",
     # hangs
     "--ignore=tests/test_multiple_interpreters.py",
     # contructor called twice
     "--deselect=tests/test_sequences_and_iterators.py::test_sequence",
+    # can't find modules
+    "--ignore=tests/test_standalone_enum_module.py",
 ]
 hostmakedepends = [
     "cmake",
@@ -41,7 +43,7 @@ url = "https://pybind11.readthedocs.io/en/stable/index.html"
 source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "741633da746b7c738bb71f1854f957b9da660bcd2dce68d71949037f0969d0ca"
+sha256 = "74b6a2c2b4573a400cafb6ecbf60c98df300cd3d0041296b913d02b2cbbb2676"
 tool_flags = {"CXXFLAGS": []}
 # tests disabled conditionally
 options = []

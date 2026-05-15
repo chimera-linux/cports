@@ -1,6 +1,6 @@
 pkgname = "lazydocker"
-pkgver = "0.24.1"
-pkgrel = 11
+pkgver = "0.25.0"
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver} -X main.buildSource=release",
@@ -10,7 +10,7 @@ pkgdesc = "TUI for docker resource visualization and management"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazydocker"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f54197d333a28e658d2eb4d9b22461ae73721ec9e4106ba23ed177fc530c21f4"
+sha256 = "480234dec2dbe989462d177f1aa78debec972893ab5981d48d23d7aec8430a58"
 
 
 def post_install(self):

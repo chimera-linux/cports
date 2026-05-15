@@ -1,8 +1,7 @@
 pkgname = "onefetch"
-pkgver = "2.26.1"
+pkgver = "2.27.1"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "rust-std",
@@ -14,9 +13,15 @@ pkgdesc = "Displays project information and code statistics"
 license = "MIT"
 url = "https://onefetch.dev"
 source = f"https://github.com/o2sh/onefetch/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ff43255d7c138c448cfdd1abacb01c6abe0c3e3886024e98ff077b28d4dc0ddc"
+sha256 = "3a6f82d3da4da62b2e5406bbe307b0afc73cd8fcc4855534886d80ea0121cc03"
 # cross: generates completions with host binary
 options = ["!cross"]
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "gix-index-0.48.0")
 
 
 def post_build(self):

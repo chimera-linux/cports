@@ -1,6 +1,6 @@
 pkgname = "wl-kbptr"
 pkgver = "0.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dopencv=enabled"]
 hostmakedepends = ["meson", "pkgconf"]

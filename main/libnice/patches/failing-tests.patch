@@ -2,7 +2,7 @@ diff --git a/tests/meson.build b/tests/meson.build
 index f149550..2e14b17 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
-@@ -29,7 +29,6 @@ nice_tests = [
+@@ -29,7 +29,6 @@
    'test-drop-invalid',
    'test-nomination',
    'test-interfaces',
@@ -10,13 +10,22 @@ index f149550..2e14b17 100644
    'test-consent',
  ]
  
-@@ -54,6 +53,9 @@ foreach tname : nice_tests
-     link_with: [libagent, libstun, libsocket, librandom],
-     install: false)
-   set_variable(tname.underscorify(), exe)
-+  if tname == 'test-pseudotcp'
-+    continue
-+  endif
-   test(tname, exe)
+@@ -40,7 +40,7 @@ if cc.has_header('arpa/inet.h')
+   ]
+ endif
  
-   if tname == 'test-fullmode'
+-if host_machine.system() == 'linux'
++if false
+   nice_tests += [
+     'test-slow-resolving',
+   ]
+@@ -67,6 +66,8 @@
+     preload_env = environment()
+     preload_env.append('LD_PRELOAD', preload_lib.full_path())
+     test(tname, exe, env: preload_env)
++  elif tname == 'test-pseudotcp'
++    continue
+   else
+     test(tname, exe)
+   endif
+

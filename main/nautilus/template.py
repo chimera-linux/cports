@@ -1,9 +1,10 @@
 pkgname = "nautilus"
-pkgver = "49.1"
-pkgrel = 1
+pkgver = "50.1"
+pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dtests=headless"]
+configure_args = ["-Dselinux=disabled", "-Dtests=headless"]
 hostmakedepends = [
+    "blueprint-compiler",
     "cmake",
     "desktop-file-utils",
     "gettext",
@@ -15,6 +16,7 @@ hostmakedepends = [
 makedepends = [
     "gexiv2-devel",
     "glib-devel",
+    "glycin-gtk4-devel",
     "gnome-autoar-devel",
     "gnome-desktop-devel",
     "gst-plugins-base-devel",
@@ -31,7 +33,7 @@ pkgdesc = "GNOME file manager"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/nautilus/{pkgver[: pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
-sha256 = "add2a0e410fd22da2851ddd0c5b3d22c9e9d8c33111511f336961e3b461b535e"
+sha256 = "d62793b9659771b66a6b6e052b52229f868ddbec1388a0b669eef0bd211212ee"
 # introspection
 options = ["!cross"]
 

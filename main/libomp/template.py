@@ -1,5 +1,5 @@
 pkgname = "libomp"
-pkgver = "21.1.8"
+pkgver = "22.1.4"
 pkgrel = 0
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -8,7 +8,7 @@ configure_args = [
     "-DLIBOMP_INSTALL_ALIASES=ON",
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
 ]
-hostmakedepends = ["clang-tools-extra", "cmake", "ninja", "perl", "python"]
+hostmakedepends = ["cmake", "ninja", "perl", "python"]
 makedepends = [
     "libffi8-devel",
     "linux-headers",
@@ -20,7 +20,7 @@ pkgdesc = "LLVM OpenMP runtime"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "4633a23617fa31a3ea51242586ea7fb1da7140e426bd62fc164261fe036aa142"
+sha256 = "3e68c90dda630c27d41d201e37b8bbf5222e39b273dec5ca880709c69e0a07d4"
 # no lit
 options = ["!check"]
 

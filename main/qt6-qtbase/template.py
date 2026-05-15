@@ -1,7 +1,6 @@
-# keep pkgver AND pkgrel in sync with qt6-qtwayland
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.10.2"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +12,7 @@ configure_args = [
     "-DINSTALL_EXAMPLESDIR=lib/qt6/examples",
     "-DINSTALL_INCLUDEDIR=include/qt6",
     "-DINSTALL_MKSPECSDIR=lib/qt6/mkspecs",
-    "-DINSTALL_PUBLICBINDIR=usr/bin",
+    "-DINSTALL_PUBLICBINDIR=bin",
     "-DINSTALL_SYSCONFDIR=/etc/xdg",
     "-DINSTALL_TESTSDIR=lib/qt6/tests",
     "-DQT_BUILD_TESTS=ON",
@@ -75,7 +74,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "aeb78d29291a2b5fd53cb55950f8f5065b4978c25fb1d77f627d695ab9adf21e"
+sha256 = "231ad85979864d914dc9568a1b71c91d6cf20d7b2021d059103bf0eb51cb755e"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME
 hardening = ["!int"]
@@ -213,16 +212,6 @@ def post_install(self):
         nsname = f.name.removesuffix("6")
         f.with_name(nsname).unlink()
         self.install_link(f"usr/lib/qt6/bin/{nsname}", f.name)
-
-    # link publicbindir utils to usr/bin, like qmake6
-    # used outside of cmake
-    self.install_dir("usr/bin")
-    with open(
-        self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
-    ) as f:
-        for line in f.readlines():
-            a, b = line.split()
-            self.install_link(b, a.replace("../../lib", "../lib"))
 
 
 @subpackage("qt6-qtbase-gui")

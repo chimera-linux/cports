@@ -1,6 +1,6 @@
 pkgname = "inkscape"
-pkgver = "1.4.3"
-pkgrel = 1
+pkgver = "1.4.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -57,7 +57,7 @@ url = "https://inkscape.org"
 source = (
     f"https://media.inkscape.org/dl/resources/file/inkscape-{pkgver}.tar.xz"
 )
-sha256 = "e83a2c3db570b6c5a1ff0fccfe7098837b3f6bd74b133567937c8a91710ed1d1"
+sha256 = "bbce5753a1e08b871a5cf16c665eb060700aaab9a6a379dc63f4c4d9b3b8856e"
 # TODO
 hardening = ["!int"]
 # long, heavy, etc

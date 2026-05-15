@@ -33,7 +33,6 @@ makedepends = [
     "flashrom-devel",
     "gcab-devel",
     "gnutls-devel",
-    "gpgme-devel",
     "json-glib-devel",
     "libarchive-devel",
     "libcbor-devel",

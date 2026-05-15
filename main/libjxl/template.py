@@ -1,6 +1,6 @@
 pkgname = "libjxl"
 pkgver = "0.11.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -12,6 +12,7 @@ configure_args = [
     "-DJPEGXL_ENABLE_JPEGLI=OFF",
     "-DJPEGXL_ENABLE_PLUGINS=ON",
     "-DJPEGXL_ENABLE_PLUGIN_GIMP210=OFF",
+    "-DJPEGXL_ENABLE_PLUGIN_GDKPIXBUF=OFF",
     "-DJPEGXL_ENABLE_SJPEG=OFF",
     "-DJPEGXL_ENABLE_SKCMS=OFF",
     "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON",
@@ -29,7 +30,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "brotli-devel",
-    "gdk-pixbuf-devel",
     "gflags-devel",
     "giflib-devel",
     "gtest-devel",

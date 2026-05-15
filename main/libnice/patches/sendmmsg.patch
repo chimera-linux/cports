@@ -1,0 +1,11 @@
+--- a/tests/instrument-send.c
++++ b/tests/instrument-send.c
+@@ -191,7 +191,7 @@ sendmsg (int sockfd, const struct msghdr *msg, int flags)
+ }
+ 
+ int
+-sendmmsg (int sockfd, struct mmsghdr *msgvec, unsigned int vlen, int flags)
++sendmmsg (int sockfd, struct mmsghdr *msgvec, unsigned int vlen, unsigned int flags)
+ {
+   if (should_inject_ewouldblock ()) {
+     errno = EWOULDBLOCK;

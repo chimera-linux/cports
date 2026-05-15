@@ -1,5 +1,5 @@
 pkgname = "python-gobject"
-pkgver = "3.54.3"
+pkgver = "3.56.1"
 pkgrel = 0
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
@@ -27,7 +27,7 @@ pkgdesc = "Python bindings for GObject"
 license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.gz"
-sha256 = "a8da09134a0f7d56491cf2412145e35aa74e91d760e8f337096a1cda0b92bae7"
+sha256 = "2ec1cc8c55c7ffeebb97e58a9bba7aa1e74611f1173628084685446804a8881a"
 # cyclic + gtk3 does not handle seatless displays
 options = ["!check"]
 

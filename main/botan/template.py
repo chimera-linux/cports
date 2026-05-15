@@ -1,6 +1,6 @@
 pkgname = "botan"
-pkgver = "3.9.0"
-pkgrel = 1
+pkgver = "3.11.1"
+pkgrel = 0
 build_style = "configure"
 configure_script = "./configure.py"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "Crypto and TLS for C++"
 license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
 source = f"{url}/releases/Botan-{pkgver}.tar.xz"
-sha256 = "8c3f284b58ddd42e8e43e9fa86a7129d87ea7c3f776a80d3da63ec20722b0883"
+sha256 = "c1cd7152519f4188591fa4f6ddeb116bc1004491f5f3c58aa99b00582eb8a137"
 hardening = ["vis", "!cfi"]
 # see below
 options = []

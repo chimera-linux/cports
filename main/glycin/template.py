@@ -1,10 +1,13 @@
+# keep in sync with glycin-gtk4 and glycin-loaders
 pkgname = "glycin"
-# 2.0.2 needs close_range
-pkgver = "2.0.0"
-pkgrel = 0
+pkgver = "2.1.1"
+pkgrel = 1
 build_style = "meson"
 prepare_after_patch = True
 configure_args = [
+    "-Dlibglycin-gtk4=false",
+    # we bundle dependency-free loader as that's needed for gdk-pixbuf
+    "-Dloaders=glycin-image-rs",
     "--libexecdir=/usr/lib",  # XXX libexecdir
 ]
 hostmakedepends = [
@@ -17,23 +20,19 @@ hostmakedepends = [
 ]
 makedepends = [
     "cairo-devel",
-    "gtk4-devel",
-    "libheif-devel",
-    "libjxl-devel",
-    "librsvg-devel",
+    "lcms2-devel",
     "libseccomp-devel",
     "pango-devel",
     "rust-std",
 ]
-depends = [self.with_pkgver("glycin-loaders")]
+depends = ["bubblewrap", "virtual:glycin-loaders!glycin-loaders-none"]
 checkdepends = [*depends]
-# transitional
-provides = [self.with_pkgver("libglycin")]
+renames = ["libglycin"]
 pkgdesc = "Sandboxed and extendable image decoding"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
-sha256 = "e39c3ca4f5bd6905f19f090456940650c8de1f217d2edb1f46ee17e04e7ae502"
+sha256 = "8e8e92e312b14d2c5f3a047bdc5305adcb9931ef0150cf74bf526a3741e6fb32"
 # gobject-introspection
 # check: for some divine reason, it always passes locally and never on the builders (??)
 options = ["!cross", "!check"]
@@ -62,23 +61,11 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("glycin-gtk4")
+@subpackage("glycin-loaders-none")
 def _(self):
-    self.subdesc = "GTK4 bindings"
-    self.depends = [self.with_pkgver("glycin-loaders")]
-    # transitional
-    self.provides = [self.with_pkgver("libglycin-gtk4")]
-    return [
-        "lib:libglycin-gtk4-2.so.*",
-        "usr/lib/girepository-1.0/GlyGtk4-2.typelib",
-    ]
+    self.subdesc = "no additional loaders"
+    self.depends = [self.parent]
+    self.provides = ["glycin-loaders=0"]
+    self.options = ["empty"]
 
-
-@subpackage("glycin-loaders")
-def _(self):
-    self.subdesc = "loaders"
-    self.depends = ["bubblewrap"]
-    return [
-        "usr/lib/glycin-loaders",
-        "usr/share/glycin-loaders",
-    ]
+    return []

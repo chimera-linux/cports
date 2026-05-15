@@ -1,7 +1,7 @@
 # not abi-stable in patch versions
 # rebuild library consumers on updates (mesa)
 pkgname = "spirv-llvm-translator"
-pkgver = "21.1.2"
+pkgver = "22.1.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,6 @@ configure_args = [
 ]
 make_build_target = "llvm-spirv"
 hostmakedepends = [
-    "clang-tools-extra",
     "cmake",
     "ninja",
     "pkgconf",
@@ -25,7 +24,7 @@ pkgdesc = "API and commands for processing SPIR-V modules"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8c91542b579a3b27b7aeae1db12004eb412c9ed9bdff0a29ee862c3551cadfe3"
+sha256 = "b37196b1a1a60282a24cf937ab7d6807d7d54dc718f2a37a78e211be26df57ac"
 # FIXME int: crashes libclc build
 hardening = ["!int"]
 # tests disabled

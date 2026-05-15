@@ -1,1 +1,2 @@
-url = "https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/files"
+url = "https://api.github.com/repos/vamp-plugins/vamp-plugin-sdk/git/refs/tags"
+pattern = r"refs/tags/vamp-plugin-sdk-v([\d.]+)"

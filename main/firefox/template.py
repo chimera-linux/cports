@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "147.0.3"
+pkgver = "150.0.3"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -63,7 +63,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "bfa38a16d51a88ff077dceeca5ac28c14635d24401de305e6c5e2291a64d9c18"
+sha256 = "0a0a539ccc96d928fec78af511884b9b89d0aec87f0d5a8852d9298b2d9332da"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -74,7 +74,7 @@ env = {
     "MOZILLA_OFFICIAL": "1",
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
-    "MOZ_APP_REMOTINGNAME": "Firefox",
+    "MOZ_APP_REMOTINGNAME": "firefox",
     "MOZ_NOSPAM": "1",
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",

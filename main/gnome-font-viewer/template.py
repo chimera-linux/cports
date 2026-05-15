@@ -1,8 +1,9 @@
 pkgname = "gnome-font-viewer"
-pkgver = "49.0"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "desktop-file-utils",
     "gettext",
     "glib-devel",
     "meson",
@@ -21,6 +22,6 @@ pkgdesc = "Font viewer for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-font-viewer"
 source = f"$(GNOME_SITE)/gnome-font-viewer/{pkgver[:-2]}/gnome-font-viewer-{pkgver}.tar.xz"
-sha256 = "7c018925c285771b55d7d1a6f15711c0c193d7450ed9871e20d44f2548562404"
+sha256 = "9564b088c5b150c54e2a3a7bc7014deec6ee551261e98488f891b1f1b8dc6b80"
 
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}

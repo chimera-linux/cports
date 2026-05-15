@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.10.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -36,7 +36,7 @@ pkgdesc = "Add-ons for the Kirigami framework"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kirigami-addons/html/index.html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "c98f92bf7c452e12f6dc403404215413db3959fe904ad830ead0db6bb09b3d11"
+sha256 = "513051dff8417da1819d6ae89d6c21a03654c9a60891df60df6aba13df19d21b"
 hardening = ["vis"]
 
 

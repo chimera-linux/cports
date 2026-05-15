@@ -1,7 +1,7 @@
-From 83413a6b1f789cf2c78a2d90108faccf28c4f861 Mon Sep 17 00:00:00 2001
+From 38e4e0bfed313b1a854037ad489f45400995bd14 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:33:38 +0200
-Subject: [PATCH 05/29] compiler-rt: ppc sanitizer fixes
+Subject: [PATCH 05/28] compiler-rt: ppc sanitizer fixes
 
 ---
  compiler-rt/cmake/base-config-ix.cmake        |  3 +-
@@ -12,7 +12,7 @@ Subject: [PATCH 05/29] compiler-rt: ppc sanitizer fixes
  5 files changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/compiler-rt/cmake/base-config-ix.cmake b/compiler-rt/cmake/base-config-ix.cmake
-index d92bc0e71..caeed40e3 100644
+index 37dfa5534..fbff4ed6b 100644
 --- a/compiler-rt/cmake/base-config-ix.cmake
 +++ b/compiler-rt/cmake/base-config-ix.cmake
 @@ -233,9 +233,10 @@ macro(test_targets)
@@ -28,7 +28,7 @@ index d92bc0e71..caeed40e3 100644
        test_target_arch(s390x "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "sparc")
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index 16caf699a..2332d319a 100644
+index b73b84c29..35703905f 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 @@ -90,6 +90,10 @@
@@ -56,7 +56,7 @@ index ea8cc3062..44237eba3 100644
  #      ifdef __arm__
  typedef struct user_fpregs elf_fpregset_t;
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
-index 24929b8c4..3620201b9 100644
+index 2bf547f4a..80dbf1c88 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 @@ -31,7 +31,7 @@
@@ -132,5 +132,5 @@ index 7e872b5b4..9616a09d8 100644
  
  inline bool probeRequiredCPUFeatures() XRAY_NEVER_INSTRUMENT {
 -- 
-2.51.1
+2.52.0
 

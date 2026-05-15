@@ -1,0 +1,17 @@
+we fail some deallocation with stack allocator here,
+apparently it got sketchy with latest version of boost
+and its aligned storage stuff
+
+take the heap based approach like they already use for msvc
+
+--- a/libs/pbd/pbd/signals.h
++++ b/libs/pbd/pbd/signals.h
+@@ -440,7 +440,7 @@ SignalWithCombiner<Combiner, R(A...)>::operator() (A... a)
+ 	}
+ #endif
+ 
+-#ifdef _MSC_VER
++#if 1
+ 	/* Regarding the note (below) it was initially
+ 	 * thought that the problem got fixed in VS2015
+ 	 * but in fact it still persists even in VS2022 */

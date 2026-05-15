@@ -2,7 +2,7 @@
 # needs); after that we can build real freetype with harfbuzz support and get
 # better hinting - do not actually use this package in a regular system
 pkgname = "freetype-bootstrap"
-pkgver = "2.14.1"
+pkgver = "2.14.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "Font rendering engine"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"
-sha256 = "32427e8c471ac095853212a37aef816c60b42052d4d9e48230bab3bdf2936ccc"
+sha256 = "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f"
 options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit"]
 
 

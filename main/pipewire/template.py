@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "1.4.9"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,13 +8,15 @@ configure_args = [
     "-Dman=enabled",
     "-Dlogind-provider=libelogind",
     "-Dsdl2=disabled",  # examples
-    "-Dsystemd=disabled",
     "-Dlibffado=disabled",
     "-Droc=disabled",  # TODO
     "-Dselinux=disabled",
     "-Dsnap=disabled",
     "-Debur128=disabled",  # missing dep
     "-Dbluez5-codec-lc3plus=disabled",
+    "-Dbluez5-codec-ldac-dec=disabled",
+    "-Donnxruntime=disabled",
+    "-Dsystemd-user-service=disabled",
     "-Djack=disabled",  # spa plugin (to be a jackd client)
     "-Djack-devel=true",  # jack development files (we don't ship jackd)
     "-Dlibjack-path=/usr/lib",
@@ -41,6 +43,7 @@ makedepends = [
     "dinit-dbus",
     "elogind-devel",
     "fdk-aac-devel",
+    "fftw-devel",
     "gst-plugins-base-devel",
     "libcamera-devel",
     "libcanberra-devel",
@@ -56,6 +59,7 @@ makedepends = [
     "ncurses-devel",
     "openssl3-devel",
     "sbc-devel",
+    "spandsp-devel",
     "v4l-utils-devel",
 ]
 depends = [
@@ -80,7 +84,7 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "8066a7b220069e4c6e3b02bd2b6ea303bba66df255023c07c99323449ba8fe3c"
+sha256 = "eef582901d8323669560dd32e3b76b1b15011d73a38f0035a3f11b933112f397"
 
 if self.profile().endian == "big":
     configure_args += [

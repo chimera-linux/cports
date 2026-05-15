@@ -8,7 +8,7 @@ it instead of computing the version
  }
  
  template("clang_lib") {
--  if (!defined(invoker.libname)) {
+-  if (!defined(invoker.libname) || is_wasm) {
 +  if (true) {
      not_needed(invoker, "*")
      config(target_name) {

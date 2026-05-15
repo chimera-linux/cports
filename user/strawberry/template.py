@@ -1,5 +1,5 @@
 pkgname = "strawberry"
-pkgver = "1.2.14"
+pkgver = "1.2.19"
 pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DENABLE_GPOD=OFF", "-DENABLE_STREAMTAGREADER=OFF"]
@@ -41,4 +41,4 @@ pkgdesc = "Audio player and organizer"
 license = "GPL-3.0-or-later"
 url = "https://www.strawberrymusicplayer.org"
 source = f"https://files.strawberrymusicplayer.org/strawberry-{pkgver}.tar.xz"
-sha256 = "65afadc72d8d80a59946e8c37fe4a4d3d2cfe18c290a699e616b916f439e24d7"
+sha256 = "a4490de1ce5c1ce327ced1e6a7554f052ead4182a4f492fb6214747336fd9ab7"

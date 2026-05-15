@@ -1,5 +1,5 @@
 pkgname = "cava"
-pkgver = "0.10.6"
+pkgver = "0.10.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,7 +29,7 @@ pkgdesc = "Console-based audio visualiser"
 license = "MIT"
 url = "https://github.com/karlstav/cava"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "b1ce6653659a138cbaebf0ef2643a1569525559c597162e90bf9304ac8781398"
+sha256 = "43f994f7e609fab843af868d8a7bc21471ac62c5a4724ef97693201eac42e70a"
 
 
 def post_install(self):

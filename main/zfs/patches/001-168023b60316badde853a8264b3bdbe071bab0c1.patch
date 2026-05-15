@@ -1,0 +1,111 @@
+From 168023b60316badde853a8264b3bdbe071bab0c1 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Mon, 23 Feb 2026 06:39:06 +1100
+Subject: [PATCH] Linux 7.0: explicitly set setlease handler to kernel
+ implementation
+
+The upcoming 7.0 kernel will no longer fall back to generic_setlease(),
+instead returning EINVAL if .setlease is NULL. So, we set it explicitly.
+
+To ensure that we catch any future kernel change, adds a sanity test for
+F_SETLEASE and F_GETLEASE too. Since this is a Linux-specific test,
+also a small adjustment to the test runner to allow OS-specific helper
+programs.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18215
+---
+ config/kernel-filelock.m4                     |  23 ++++
+ config/kernel.m4                              |   2 +
+ module/os/linux/zfs/zpl_file.c                |   4 +
+ scripts/zfs-tests.sh                          |  16 ++-
+ tests/runfiles/linux.run                      |   4 +
+ tests/zfs-tests/cmd/.gitignore                |   1 +
+ tests/zfs-tests/cmd/Makefile.am               |   1 +
+ tests/zfs-tests/cmd/setlease.c                | 126 ++++++++++++++++++
+ tests/zfs-tests/include/commands.cfg          |   5 +-
+ tests/zfs-tests/tests/Makefile.am             |   3 +
+ .../tests/functional/lease/cleanup.ksh        |  26 ++++
+ .../tests/functional/lease/lease_setlease.ksh |  44 ++++++
+ .../tests/functional/lease/setup.ksh          |  27 ++++
+ 13 files changed, 275 insertions(+), 7 deletions(-)
+ create mode 100644 config/kernel-filelock.m4
+ create mode 100644 tests/zfs-tests/cmd/setlease.c
+ create mode 100755 tests/zfs-tests/tests/functional/lease/cleanup.ksh
+ create mode 100755 tests/zfs-tests/tests/functional/lease/lease_setlease.ksh
+ create mode 100755 tests/zfs-tests/tests/functional/lease/setup.ksh
+
+diff --git a/config/kernel-filelock.m4 b/config/kernel-filelock.m4
+new file mode 100644
+index 000000000000..5e8d7c784692
+--- /dev/null
++++ b/config/kernel-filelock.m4
+@@ -0,0 +1,23 @@
++dnl # SPDX-License-Identifier: CDDL-1.0
++dnl #
++dnl # 6.3 API change
++dnl # locking support functions (eg generic_setlease) were moved out of
++dnl # linux/fs.h to linux/filelock.h
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_FILELOCK_HEADER], [
++	ZFS_LINUX_TEST_SRC([filelock_header], [
++		#include <linux/fs.h>
++		#include <linux/filelock.h>
++	], [])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_FILELOCK_HEADER], [
++	AC_MSG_CHECKING([for standalone filelock header])
++	ZFS_LINUX_TEST_RESULT([filelock_header], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_FILELOCK_HEADER, 1, [linux/filelock.h exists])
++	], [
++		AC_MSG_RESULT(no)
++	])
++])
++
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index 6f23494d6f2a..c429397b05a4 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -141,6 +141,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_NAMESPACE
+ 	ZFS_AC_KERNEL_SRC_INODE_GENERIC_DROP
+ 	ZFS_AC_KERNEL_SRC_KASAN_ENABLED
++	ZFS_AC_KERNEL_SRC_FILELOCK_HEADER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_SRC_CPU_HAS_FEATURE
+@@ -265,6 +266,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_NAMESPACE
+ 	ZFS_AC_KERNEL_INODE_GENERIC_DROP
+ 	ZFS_AC_KERNEL_KASAN_ENABLED
++	ZFS_AC_KERNEL_FILELOCK_HEADER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_CPU_HAS_FEATURE
+diff --git a/module/os/linux/zfs/zpl_file.c b/module/os/linux/zfs/zpl_file.c
+index f7691c02d163..30f3e3855355 100644
+--- a/module/os/linux/zfs/zpl_file.c
++++ b/module/os/linux/zfs/zpl_file.c
+@@ -43,6 +43,9 @@
+ #ifdef HAVE_VFS_FILEMAP_DIRTY_FOLIO
+ #include <linux/writeback.h>
+ #endif
++#ifdef HAVE_FILELOCK_HEADER
++#include <linux/filelock.h>
++#endif
+ 
+ /*
+  * When using fallocate(2) to preallocate space, inflate the requested
+@@ -1242,6 +1245,7 @@ const struct file_operations zpl_file_operations = {
+ 	.mmap		= zpl_mmap,
+ 	.fsync		= zpl_fsync,
+ 	.fallocate	= zpl_fallocate,
++	.setlease	= generic_setlease,
+ 	.copy_file_range	= zpl_copy_file_range,
+ #ifdef HAVE_VFS_CLONE_FILE_RANGE
+ 	.clone_file_range	= zpl_clone_file_range,

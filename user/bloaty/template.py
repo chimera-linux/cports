@@ -1,6 +1,6 @@
 pkgname = "bloaty"
 pkgver = "1.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "protobuf"]
 makedepends = [

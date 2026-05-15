@@ -1,0 +1,40 @@
+From 0b831cc7e1d9d78a70e61034adaa5f89520bca6a Mon Sep 17 00:00:00 2001
+From: Paul Wicking <paul.wicking@qt.io>
+Date: Tue, 17 Mar 2026 14:36:03 +0100
+Subject: [PATCH] CMake: Add LLVM 22 to supported QDoc Clang versions
+
+QDoc builds against libclang for C++ parsing, and the build system
+gates which Clang versions it accepts. LLVM 22 isn't in the list yet,
+preventing builds against the latest release.
+
+Adding LLVM 22.1 to the supported versions list enables building QDoc
+with the latest Clang toolchain. The accompanying compatibility changes
+ensure stable documentation output across LLVM 21 and 22.
+
+This isn't picked back to earlier branches. LLVM 22 produces more
+accurate type spellings and template parameter names, which changes
+documentation output. The companion SFINAE rendering feature is also
+new to 6.12. Picking back would introduce output churn without the
+full feature set to justify it.
+
+[ChangeLog][QDoc] QDoc now supports Clang from LLVM 22.
+
+Fixes: QTBUG-144620
+Change-Id: I168dd3ecea5d30246b4a99b764779981a881b5ff
+Reviewed-by: Topi Reinio <topi.reinio@qt.io>
+---
+ src/qdoc/cmake/QDocConfiguration.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/qdoc/cmake/QDocConfiguration.cmake b/src/qdoc/cmake/QDocConfiguration.cmake
+index 72d27db9e..d00b14766 100644
+--- a/src/qdoc/cmake/QDocConfiguration.cmake
++++ b/src/qdoc/cmake/QDocConfiguration.cmake
+@@ -8,6 +8,6 @@
+ 
+ # List of explicitly supported Clang versions for QDoc
+ set(QDOC_SUPPORTED_CLANG_VERSIONS
+-    "21.1" "20.1" "19.1" "18.1" "17.0.6"
++    "22.1" "21.1" "20.1" "19.1" "18.1" "17.0.6"
+ )
+ 

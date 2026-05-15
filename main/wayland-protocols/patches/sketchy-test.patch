@@ -27,7 +27,7 @@ index 66337e7..dbe52e4 100644
 +		continue
 +	endif
 +
- 	protocol_path = files(join_paths(wayland_protocols_srcdir, protocol_file))
+ 	protocol_path = files(join_paths(meson.project_source_root(), protocol_file))
  	client_header_path = '@0@-client.h'.format(protocol_base_file_name)
  	server_header_path = '@0@-server.h'.format(protocol_base_file_name)
 -- 

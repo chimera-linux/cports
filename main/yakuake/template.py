@@ -1,6 +1,6 @@
 pkgname = "yakuake"
-pkgver = "25.12.2"
-pkgrel = 1
+pkgver = "26.04.1"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -27,6 +27,7 @@ makedepends = [
     "kwayland-devel",
     "kwidgetsaddons-devel",
     "kwindowsystem-devel",
+    "plasma-wayland-protocols",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
@@ -36,4 +37,4 @@ pkgdesc = "KDE drop-down terminal"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/yakuake"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/yakuake-{pkgver}.tar.xz"
-sha256 = "c2497891ccc2f59f2a1c73fc4e8b193a56b41ff82bf87baabaf1aa8684648fb2"
+sha256 = "1aa75d75169ae74c806c9db056cc3df32b1586ab6c6d78344e82411386efa457"

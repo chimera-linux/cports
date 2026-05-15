@@ -1,6 +1,6 @@
 pkgname = "tuba"
 pkgver = "0.10.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddistro=true",
@@ -26,7 +26,7 @@ makedepends = [
     "libxml2-devel",
     "webkitgtk4-devel",
 ]
-depends = ["webp-pixbuf-loader", "gst-plugins-good"]
+depends = ["gst-plugins-good"]
 pkgdesc = "GTK fediverse client"
 license = "GPL-3.0-or-later"
 url = "https://tuba.geopjr.dev"

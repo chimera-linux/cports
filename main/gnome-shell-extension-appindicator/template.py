@@ -1,5 +1,5 @@
 pkgname = "gnome-shell-extension-appindicator"
-pkgver = "61"
+pkgver = "64"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -12,4 +12,4 @@ pkgdesc = "AppIndicator/KStatusNotifierItem support for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ubuntu/gnome-shell-extension-appindicator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "48555dd9c9437f835c9b01238f69a8643d2b17dffd7dbb8e23ccf2e97bb4d8de"
+sha256 = "e8a9136a134dc52c76b75ae4b89e71cee6fbe2061dd318d0f818f088f8253411"

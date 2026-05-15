@@ -17,8 +17,8 @@
 -  sources = libvpx_srcs_ppc64_headers
 -}
 -
- source_set("libvpx_nacl_headers") {
-   sources = libvpx_srcs_nacl_headers
+ source_set("libvpx_generic_headers") {
+   sources = libvpx_srcs_generic_headers
  }
 @@ -574,8 +572,8 @@ static_library("bundled_libvpx") {
        public_deps = [ ":libvpx_arm64_headers" ]

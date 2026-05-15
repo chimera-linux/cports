@@ -1,6 +1,6 @@
 pkgname = "bmaptool"
 pkgver = "3.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "gtar",
@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-installer",
     "python-poetry-core",
 ]
-depends = ["gpgme-python", "gtar", "python-six"]
+depends = ["gtar", "python-gpgmepy", "python-six"]
 checkdepends = ["python-pytest", "python-six", *depends]
 pkgdesc = "Tool for creating and using block maps"
 license = "GPL-2.0-or-later"

@@ -1,6 +1,6 @@
 pkgname = "frei0r"
 pkgver = "2.3.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",

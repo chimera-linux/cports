@@ -1,0 +1,79 @@
+commit 8970cf10d01454ba4af7b686348ed21138544bba
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Feb 21 13:18:09 2026 +0100
+
+    don't apply -msse4 -msha globally
+    
+    Only do it for the file that needs that and gets picked up via
+    cpuid at runtime.
+    
+    Also fix building shared library from objects instead of sources.
+
+diff --git a/configure b/configure
+index 37393d6..59a6920 100755
+--- a/configure
++++ b/configure
+@@ -781,7 +781,7 @@ if test "$OPT_SHANI" = "auto"; then
+         "-msse4 -msha";
+     then
+       HAS_X86_SSE4_SHANI=yes
+-	  LIBRHASH_OPTFLAGS=$(join_params $LIBRHASH_OPTFLAGS -msse4 -msha)
++	  SHANI_CFLAGS="-msse4 -msha"
+ 	  LIBRHASH_DEFINES=$(join_params $LIBRHASH_DEFINES -DRHASH_SSE4_SHANI)
+     fi
+   fi
+@@ -831,7 +831,6 @@ elif darwin; then
+   LIBRHASH_SH_CFLAGS="-fpic"
+   LIBRHASH_SH_LDFLAGS='-dynamiclib -Wl,-install_name,$(LIBDIR)/$@'
+ else
+-  LIBRHASH_SH_CFLAGS="-fpic"
+   LIBRHASH_SH_LDFLAGS="-shared -Wl${SHARED_VSCRIPT},-soname,\$(LIBRHASH_SO_MAJ)"
+   test -n "$SHARED_VSCRIPT" && LIBRHASH_EXPORTS_TARGET=$LIBRHASH_EXPORTS_FILE
+ fi
+@@ -970,6 +969,7 @@ CONFCFLAGS  = -DSYSCONFDIR=\\"$INSTALL_SYSCONFDIR\\"
+ LOCALECFLAGS = $RHASH_LOCALE_CFLAGS
+ CFLAGS  = $RHASH_DEFINES \$(OPTFLAGS) \$(WARN_CFLAGS) \$(ADDCFLAGS)
+ LDFLAGS = $RHASH_LDFLAGS
++SHANI_CFLAGS = $SHANI_CFLAGS
+ 
+ EOF
+ fi
+@@ -1017,6 +1017,7 @@ ADDCFLAGS   = $BUILD_EXTRA_CFLAGS
+ ADDLDFLAGS  = $BUILD_EXTRA_LDFLAGS
+ CFLAGS  = $LIBRHASH_DEFINES \$(OPTFLAGS) \$(WARN_CFLAGS) \$(ADDCFLAGS)
+ LDFLAGS = \$(OPTLDFLAGS) \$(ADDLDFLAGS)
++SHANI_CFLAGS = $SHANI_CFLAGS
+ SHARED_CFLAGS  = \$(CFLAGS) $LIBRHASH_SH_CFLAGS
+ SHARED_LDFLAGS = \$(LDFLAGS) $(join_params $OPENSSL_LDFLAGS $LIBRHASH_SH_LDFLAGS)
+ VERSION_CFLAGS = -DRHASH_XVERSION=$RHASH_XVERSION
+@@ -1058,4 +1059,4 @@ if test -f "${MAN_PATH}.in"; then
+   SED_SYSCONFDIR=$(echo $INSTALL_SYSCONFDIR | sed -e 's/\([|\\&]\)/\\\1/g')
+   echo "Writing ${MAN_PATH}"
+   sed -e "s|@SYSCONFDIR@|$SED_SYSCONFDIR|" ${MAN_PATH}.in > ${MAN_PATH}
+-fi
+\ No newline at end of file
++fi
+diff --git a/librhash/Makefile b/librhash/Makefile
+index 8fb5213..2ac9343 100644
+--- a/librhash/Makefile
++++ b/librhash/Makefile
+@@ -134,7 +134,7 @@ sha1.o: sha1.c byte_order.h ustd.h sha1.h
+ 	$(CC) -c $(CFLAGS) $< -o $@
+ 
+ sha_ni.o: sha_ni.c sha_ni.h sha1.h ustd.h sha256.h byte_order.h
+-	$(CC) -c $(CFLAGS) $< -o $@
++	$(CC) -c $(CFLAGS) $(SHANI_CFLAGS) $< -o $@
+ 
+ sha256.o: sha256.c byte_order.h ustd.h sha256.h
+ 	$(CC) -c $(CFLAGS) $< -o $@
+@@ -189,8 +189,8 @@ $(LIBRHASH_SOLINK):
+ 	rm -f $(LIBRHASH_SOLINK)
+ 	ln -s $(LIBRHASH_SO_MAJ) $(LIBRHASH_SOLINK)
+ 
+-$(LIBRHASH_SHARED): $(SOURCES) $(EXPORTS_TARGET) $(SOLINK_TARGET)
+-	$(CC) $(SHARED_CFLAGS) $(VERSION_CFLAGS) $(SOURCES) $(SHARED_LDFLAGS) -o $@
++$(LIBRHASH_SHARED): $(OBJECTS) $(EXPORTS_TARGET) $(SOLINK_TARGET)
++	$(CC) $(SHARED_CFLAGS) $(VERSION_CFLAGS) $(OBJECTS) $(SHARED_LDFLAGS) -o $@
+ 
+ # build static library
+ $(LIBRHASH_STATIC): $(OBJECTS)

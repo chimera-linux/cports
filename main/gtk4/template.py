@@ -1,6 +1,6 @@
 pkgname = "gtk4"
-pkgver = "4.20.2"
-pkgrel = 1
+pkgver = "4.22.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -14,6 +14,7 @@ configure_args = [
     "-Dcloudproviders=enabled",
     "-Dtracker=enabled",
     "-Dsysprof=enabled",
+    "-Dprint-cups=enabled",
     # not installed
     "-Dbuild-examples=false",
     # disabled below
@@ -49,7 +50,6 @@ makedepends = [
     "iso-codes",
     "libcloudproviders-devel",
     "libepoxy-devel",
-    "librsvg-devel",
     "libxcomposite-devel",
     "libxcursor-devel",
     "libxdamage-devel",
@@ -72,7 +72,6 @@ depends = [
     "gobject-introspection-freedesktop",
     "gtk+3-update-icon-cache",
     "shared-mime-info",
-    "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
     "adwaita-icon-theme",
@@ -81,7 +80,6 @@ checkdepends = [
     "fonts-cantarell-otf",
     "fonts-dejavu",
     "fonts-noto",
-    "librsvg",
     "python-gobject",
     "xwayland-run",
 ]
@@ -91,12 +89,13 @@ pkgdesc = "Gimp Toolkit version 4"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "5e8240edecafaff2b8baf4663bdceaa668ef10a207bee4d7f90e010e10bddc5c"
+sha256 = "51bd9f60c7d23a665a556c7364c21fb2e4e282566b3e7e092455e8f910330893"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
 # check: most of them crash presently
-options = ["!cross", "!check"]
+# disable lto as that breaks rendering since 4.22?
+options = ["!cross", "!check", "!lto"]
 
 
 def post_install(self):
@@ -128,15 +127,18 @@ def _(self):
         "cmd:gtk4-demo",
         "cmd:gtk4-widget-factory",
         "cmd:gtk4-demo-application",
+        "cmd:gtk4-icon-editor",
         "cmd:gtk4-print-editor",
         "cmd:gtk4-node-editor",
         "usr/share/metainfo/org.gtk.Demo4.appdata.xml",
+        "usr/share/metainfo/org.gtk.PrintEditor4.appdata.xml",
         "usr/share/metainfo/org.gtk.WidgetFactory4.appdata.xml",
         "usr/share/metainfo/org.gtk.gtk4.NodeEditor.appdata.xml",
         "usr/share/gtk-4.0/gtk4builder.rng",
         "usr/share/glib-2.0/schemas/org.gtk.Demo4.gschema.xml",
         "usr/share/applications/org.gtk.Demo4.desktop",
         "usr/share/applications/org.gtk.PrintEditor4.desktop",
+        "usr/share/applications/org.gtk.Shaper.desktop",
         "usr/share/applications/org.gtk.WidgetFactory4.desktop",
         "usr/share/applications/org.gtk.gtk4.NodeEditor.desktop",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.Demo4.svg",
@@ -144,9 +146,12 @@ def _(self):
         "usr/share/icons/hicolor/scalable/apps/org.gtk.PrintEditor4.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.PrintEditor4-symbolic.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.PrintEditor4.Devel.svg",
+        "usr/share/icons/hicolor/scalable/apps/org.gtk.Shaper.Devel.svg",
+        "usr/share/icons/hicolor/scalable/apps/org.gtk.Shaper.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.WidgetFactory4.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.WidgetFactory4-symbolic.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.Devel.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.gtk4.NodeEditor-symbolic.svg",
+        "usr/share/icons/hicolor/symbolic/apps/org.gtk.Shaper-symbolic.svg",
     ]

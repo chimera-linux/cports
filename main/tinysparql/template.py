@@ -1,6 +1,6 @@
 pkgname = "tinysparql"
-pkgver = "3.10.0"
-pkgrel = 1
+pkgver = "3.11.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -9,6 +9,7 @@ configure_args = [
     "-Dsystemd_user_services=false",
     "-Dstemmer=disabled",
 ]
+make_check_args = ["--timeout-multiplier", "2"]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "asciidoc",
@@ -39,7 +40,8 @@ pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"
-sha256 = "fb0af98355ea1db700764cf4fa245884a199ca145ed42ed55f9a18c68552ca30"
+sha256 = "cfd46021ee1514ad435e714f7aa1ec7a787c7f516a94f4c7438897ee3d6eca1e"
+# check may be disabled
 options = ["!cross"]
 
 

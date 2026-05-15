@@ -96,7 +96,9 @@ def install(pkg, env=None):
         env=_build_env(pkg, pkg.make_env, pkg.make_install_env, env),
     )
     kdest = list(
-        (pkg.destdir / "usr/lib/modules").glob(f"{pkg.pkgver}-{pkg.pkgrel}-*")
+        (pkg.destdir / "usr/lib/modules").glob(
+            f"{pkg.pkgver.replace('_', '-')}-{pkg.pkgrel}-*"
+        )
     )[0]
     # most things get relocated to a distribution directory
     pkg.install_dir(f"{kdest.relative_to(pkg.destdir)}/apk-dist/boot")

@@ -1,10 +1,10 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
-_clangver = "21"
+_clangver = "22"
 pkgver = "15.2.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",

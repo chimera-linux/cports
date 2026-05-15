@@ -1,5 +1,5 @@
 pkgname = "libgcc-chimera"
-pkgver = "21.1.8"
+pkgver = "22.1.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ configure_args = [
     # simplifies lookup
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
-hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
+hostmakedepends = ["cmake", "ninja", "python", "perl"]
 makedepends = [
     "libffi8-devel",
     "libunwind-devel",
@@ -37,7 +37,7 @@ pkgdesc = "Chimera shim for libgcc runtime compatibility"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "4633a23617fa31a3ea51242586ea7fb1da7140e426bd62fc164261fe036aa142"
+sha256 = "3e68c90dda630c27d41d201e37b8bbf5222e39b273dec5ca880709c69e0a07d4"
 # shim
 options = ["!check", "!lto"]
 

@@ -1,0 +1,22 @@
+diff --git a/src/supertux/error_handler.cpp b/src/supertux/error_handler.cpp
+index 44c065aaf..7bee9d009 100644
+--- a/src/supertux/error_handler.cpp
++++ b/src/supertux/error_handler.cpp
+@@ -50,7 +50,7 @@
+ #endif
+ #elif defined(UNIX)
+ #include <sys/utsname.h>
+-#include <execinfo.h>
++//#include <execinfo.h>
+ #include <unistd.h>
+ #endif
+ 
+@@ -228,7 +228,7 @@ ErrorHandler::get_stacktrace()
+   }
+ 
+   return callstack.str();
+-#elif defined(UNIX)
++#elif 0
+   void* array[128];
+   size_t size;
+ 

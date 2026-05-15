@@ -1,16 +1,17 @@
 pkgname = "pods"
-pkgver = "2.2.0"
+pkgver = "2.3.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "blueprint-compiler",
     "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "glib-devel",
     "gtk+3-update-icon-cache",
+    "libxml2-progs",
     "meson",
     "pkgconf",
-    "rust-clippy",
 ]
 makedepends = [
     "appstream-glib-devel",
@@ -25,7 +26,7 @@ pkgdesc = "GTK frontend for podman"
 license = "GPL-3.0-only"
 url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"
-sha256 = "c54b7ea13645714bd9f247d3330708046864739fcb1d27270fa0d5997d55e0b9"
+sha256 = "8afd0df06fafa1c96a0144d864ce74c330b3bb90a3074f66a7d6e1c78538e823"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"

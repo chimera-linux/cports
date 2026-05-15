@@ -149,7 +149,11 @@ def register_hooks():
                         f"\f[red]Hook '{stepn}/{f.stem}' does not have an entry point."
                     )
                     raise Exception()
-                hooks[stepn].append((modh.invoke, f.stem))
+                if hasattr(modh, "redir_log"):
+                    do_redir = modh.redir_log()
+                else:
+                    do_redir = True
+                hooks[stepn].append((modh.invoke, f.stem, do_redir))
             hooks[stepn].sort(key=lambda v: v[1])
 
 
@@ -168,7 +172,7 @@ def _restricted_importer(name, globals=None, locals=None, fromlist=(), level=0):
     return importlib.__import__(name, globals, locals, fromlist, level)
 
 
-def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
+def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False, redir=True):
     if not funcn:
         if not hasattr(pkg, func):
             return False
@@ -177,7 +181,8 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
     if not desc:
         desc = funcn
     pkg.log(f"running \f[cyan]{desc}\f[]\f[bold]...")
-    fpid, oldout, olderr = redir_log(pkg)
+    if redir:
+        fpid, oldout, olderr = redir_log(pkg)
     oldimp = builtins.__import__
     builtins.__import__ = _restricted_importer
     try:
@@ -187,7 +192,8 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
             func(pkg)
     finally:
         builtins.__import__ = oldimp
-        unredir_log(pkg, fpid, oldout, olderr)
+        if redir:
+            unredir_log(pkg, fpid, oldout, olderr)
     return True
 
 
@@ -198,6 +204,7 @@ def call_pkg_hooks(pkg, stepn):
             f[0],
             f"{stepn}_{f[1]}",
             f"{stepn}\f[]\f[bold] hook: \f[orange]{f[1]}",
+            redir=f[2],
         )
 
 

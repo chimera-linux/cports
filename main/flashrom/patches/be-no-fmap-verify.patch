@@ -1,0 +1,64 @@
+commit 1c7a9638ccd31d918bf642a97a3d5b63f27884f3
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Mar 16 17:06:42 2026 +0100
+
+    disable fmap-verify on big endian for now
+    
+    https://ticket.coreboot.org/issues/635
+
+diff --git a/cli_classic.c b/cli_classic.c
+index 29f21cc..d7fcf76 100644
+--- a/cli_classic.c
++++ b/cli_classic.c
+@@ -133,7 +133,9 @@ static void cli_classic_usage(const char *name)
+ 	       "      --flash-size                  read out the detected flash size\n"
+ 	       "      --fmap                        read ROM layout from fmap embedded in ROM\n"
+ 	       "      --fmap-file <fmapfile>        read ROM layout from fmap in <fmapfile>\n"
++#ifndef __BIG_ENDIAN__
+ 	       "      --fmap-verify                 read ROM layout from fmap and verify it matches file fmap\n"
++#endif
+ 	       "      --ifd                         read layout from an Intel Firmware Descriptor\n"
+ 	       " -i | --include <region>[:<file>]   only read/write image <region> from layout\n"
+ 	       "                                    (optionally with data from <file>)\n"
+@@ -868,6 +870,7 @@ static void parse_options(int argc, char **argv, const char *optstring,
+ 				cli_classic_abort_usage("Error: --layout and --fmap both specified. Aborting.\n");
+ 			options->fmap = true;
+ 			break;
++#ifndef __BIG_ENDIAN__
+ 		case OPTION_FMAP_VERIFY:
+ 			if (options->fmap)
+ 				cli_classic_abort_usage("Error: --fmap, --fmap-file, or --fmap-verify specified "
+@@ -881,6 +884,7 @@ static void parse_options(int argc, char **argv, const char *optstring,
+ 			options->fmap = true;
+ 			options->fmap_verify = true;
+ 			break;
++#endif
+ 		case 'i':
+ 			if (register_include_arg(&options->include_args, optarg))
+ 				cli_classic_abort_usage(NULL);
+@@ -1081,7 +1085,9 @@ int main(int argc, char *argv[])
+ 		{"ifd",			0, NULL, OPTION_IFD},
+ 		{"fmap",		0, NULL, OPTION_FMAP},
+ 		{"fmap-file",		1, NULL, OPTION_FMAP_FILE},
++#ifndef __BIG_ENDIAN__
+ 		{"fmap-verify",		0, NULL, OPTION_FMAP_VERIFY},
++#endif
+ 		{"image",		1, NULL, 'i'}, // (deprecated): back compatibility.
+ 		{"include",		1, NULL, 'i'},
+ 		{"flash-contents",	1, NULL, OPTION_FLASH_CONTENTS},
+@@ -1466,6 +1472,7 @@ int main(int argc, char *argv[])
+ 			ret = 1;
+ 			goto out_shutdown;
+ 		}
++#ifndef __BIG_ENDIAN__
+ 		if (options.fmap_verify) {
+ 			struct flashrom_layout *file_layout = NULL;
+ 			struct stat s;
+@@ -1506,6 +1513,7 @@ int main(int argc, char *argv[])
+ 			flashrom_layout_release(file_layout);
+ 			msg_cinfo("FMAP layouts match.\n");
+ 		}
++#endif
+ 	}
+ 	flashrom_layout_set(context, options.layout);
+ 

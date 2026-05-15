@@ -1,12 +1,12 @@
 pkgname = "ani-cli"
-pkgver = "4.10"
+pkgver = "4.12"
 pkgrel = 0
 depends = ["aria2", "curl", "fzf", "mpv", "yt-dlp"]
 pkgdesc = "CLI to browse and watch anime"
 license = "GPL-3.0-or-later"
 url = "https://github.com/pystardust/ani-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bf9a61baa70cbbe9028084982b2661c7a0d69823d82534b818abf49e2139d120"
+sha256 = "a247878b8a95d35c5ec6f28abe0594bb3aac29dbd1861531af4a2b909b6b4bed"
 
 
 def install(self):

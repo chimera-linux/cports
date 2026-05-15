@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 23
+pkgrel = 25
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -33,8 +33,6 @@ for _pkg in [
     "libflac",
     "libgdm",
     "libgirepository",
-    "libglycin",
-    "libglycin-gtk4",
     "libgs",
     "libgssapi",
     "libhcrypto",
@@ -76,8 +74,6 @@ for _pkg in [
     "libtspi",
     "libuuid",
     "libuuid-progs",
-    "libvala",
-    "libvaladoc",
     "libwbclient",
     "libwget",
     "libwind",
@@ -100,7 +96,6 @@ for _pkg in [
     "runuser",
     "sdl",
     "tzutils",
-    "valadoc",
     "xmlwf",
     "zramctl",
 ]:

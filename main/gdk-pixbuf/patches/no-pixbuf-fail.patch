@@ -6,9 +6,9 @@ happens (and kill is not expected)
 +++ b/tests/meson.build
 @@ -70,7 +70,6 @@ installed_tests = {
      'needs_resources': true,
-     'skip': no_resources or not enabled_loaders.contains('bmp'),
+     'skip': no_resources,
    },
 -  'pixbuf-fail': { 'suites': ['conform', 'slow'], },
    'pixbuf-icon-serialize': { 'suites': ['conform'], },
-   'pixbuf-randomly-modified': { 'suites': ['slow'], },
+   'pixbuf-randomly-modified': { 'suites': ['slow'], 'skip': enabled_loaders.contains('glycin') },
    'pixbuf-threads': { 'suites': ['io'], },

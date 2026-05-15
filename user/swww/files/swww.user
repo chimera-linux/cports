@@ -1,4 +1,0 @@
-type = process
-command = /usr/bin/swww-daemon
-log-type = buffer
-depends-on: graphical.target

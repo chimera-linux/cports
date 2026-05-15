@@ -1,6 +1,6 @@
-commit a5aaf46eb3d734d2f900e8e6b72b1c4da05614f7
+commit 6dbd2d3af32fbf4cbf8cbad22c49e2433f743172
 Author: q66 <q66@chimera-linux.org>
-Date:   Thu Apr 11 15:12:29 2024 +0200
+Date:   Sat Mar 21 22:45:58 2026 +0100
 
     disable getgroups fortification for now
     
@@ -9,7 +9,7 @@ Date:   Thu Apr 11 15:12:29 2024 +0200
     proven safe.
 
 diff --git a/include/unistd.h b/include/unistd.h
-index 69095d5..875565b 100644
+index a2b3105..d6cc72a 100644
 --- a/include/unistd.h
 +++ b/include/unistd.h
 @@ -31,7 +31,6 @@ extern "C" {
@@ -20,32 +20,32 @@ index 69095d5..875565b 100644
  #undef gethostname
  #undef getlogin_r
  #undef pread
-@@ -84,6 +83,7 @@ _FORTIFY_FN(getdomainname) int getdomainname(char * _FORTIFY_POS0 __s, size_t __
+@@ -75,6 +74,7 @@ _FORTIFY_FN(getdomainname) int getdomainname(char * _FORTIFY_POS0 __s, size_t __
  }
  #endif
  
 +#if 0
- #if __has_builtin(__builtin_getgroups)
- __diagnose_as_builtin(__builtin_getgroups, 1, 2)
- #endif
-@@ -95,6 +95,7 @@ _FORTIFY_FN(getgroups) int getgroups(int __l, gid_t * _FORTIFY_POS0 __s)
+ _FORTIFY_FN(getgroups) int getgroups(int __l, gid_t * _FORTIFY_POS0 __s)
+ {
+ 	size_t __b = __bos(__s, 0);
+@@ -83,6 +83,7 @@ _FORTIFY_FN(getgroups) int getgroups(int __l, gid_t * _FORTIFY_POS0 __s)
  		__builtin_trap();
  	return __orig_getgroups(__l, __s);
  }
 +#endif
  
- __fh_access(write_only, 1, 2)
- #if __has_builtin(__builtin_gethostname)
+ __fortify_access(write_only, 1, 2)
+ _FORTIFY_FN(gethostname) int gethostname(char * _FORTIFY_POS0 __s, size_t __l)
 diff --git a/tests/Makefile b/tests/Makefile
-index 352e6f8..e52303f 100644
+index deaf795..c80fdfd 100644
 --- a/tests/Makefile
 +++ b/tests/Makefile
-@@ -36,8 +36,6 @@ RUNTIME_TARGETS= \
- 	test_getcwd_static           \
- 	test_getdomainname_dynamic   \
- 	test_getdomainname_static    \
--	test_getgroups_dynamic       \
--	test_getgroups_static        \
- 	test_gethostname_dynamic     \
- 	test_gethostname_static      \
- 	test_getlogin_r_dynamic      \
+@@ -34,8 +34,6 @@ RUNTIME_TARGETS= \
+ 	test_getcwd_static            \
+ 	test_getdomainname_dynamic    \
+ 	test_getdomainname_static     \
+-	test_getgroups_dynamic        \
+-	test_getgroups_static         \
+ 	test_gethostname_dynamic      \
+ 	test_gethostname_static       \
+ 	test_getlogin_r_dynamic       \

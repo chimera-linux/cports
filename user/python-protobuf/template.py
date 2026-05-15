@@ -1,6 +1,6 @@
 pkgname = "python-protobuf"
-pkgver = "5.29.3"
-pkgrel = 1
+pkgver = "7.34.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "protobuf-protoc",
@@ -17,7 +17,7 @@ pkgdesc = "Python bindings for protobuf"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"$(PYPI_SITE)/p/protobuf/protobuf-{pkgver}.tar.gz"
-sha256 = "5da0f41edaf117bde316404bad1a486cb4ededf8e4a54891296f648e8e076620"
+sha256 = "9ce42245e704cc5027be797c1db1eb93184d44d1cdd71811fb2d9b25ad541280"
 # meeeeh
 options = ["!check"]
 

@@ -1,5 +1,5 @@
 pkgname = "gnome-boxes"
-pkgver = "49.0"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -35,7 +35,7 @@ pkgdesc = "QEMU frontend for GNOME"
 license = "GPL-2.0-only"
 url = "https://apps.gnome.org/Boxes"
 source = f"$(GNOME_SITE)/gnome-boxes/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-boxes-{pkgver}.tar.xz"
-sha256 = "fa47266da6f5ef7a904c5b8769d4d871bccd4e6b639a363c3235438d7b0e757a"
+sha256 = "fd6a5de18d1090946ca99f1f5a34aa3e15dc8183f6a72226e8d1504a13672d67"
 # gobject-introspection
 # FIXME: lto makes the os-downloader crash (pick any os and it aborts instantly in os-downloader.vala)
 options = ["!cross", "!lto"]

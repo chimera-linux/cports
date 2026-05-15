@@ -1,5 +1,5 @@
 pkgname = "unrar"
-pkgver = "7.1.10"
+pkgver = "7.2.6"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -7,7 +7,7 @@ pkgdesc = "Unarchiver for .rar files"
 license = "custom:unrar"
 url = "https://www.rarlab.com/rar_add.htm"
 source = f"https://www.rarlab.com/rar/unrarsrc-{pkgver}.tar.gz"
-sha256 = "72a9ccca146174f41876e8b21ab27e973f039c6d10b13aabcb320e7055b9bb98"
+sha256 = "d1afa67ef4121ebc5986815699e05db0ce8648499e5dca854f282a4c3f72c003"
 # no tests
 options = ["!check"]
 

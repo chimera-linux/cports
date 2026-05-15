@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "25.11"
+pkgver = "26.04"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -31,18 +31,16 @@ depends = ["so:libEGL.so.1!mesa-egl-libs", "xwayland-satellite"]
 checkdepends = ["xkeyboard-config"]
 pkgdesc = "Scrollable-tiling wayland compositor"
 license = "GPL-3.0-or-later"
-url = "https://github.com/YaLTeR/niri"
+url = "https://github.com/niri-wm/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9a9a58dbe12e065776cc80424f22c89489f2662e881152ceae46e68bb8677d8c"
+sha256 = "134c602d8e0d53413a52d6cd58f9ce7e79a07d03288ee0a51ba1abd5db1b1ad9"
 # cross: generates completions using host binary
 options = ["!cross"]
 
 if self.profile().wordsize == 32:
+    # rust libc time32 broken interaction with pipewire-rs
+    # broken libspa_sys::timespec and pipewire_sys::timespec
     broken = "weird pipewire api stuff"
-
-if self.profile().arch in ["ppc64le", "riscv64"]:
-    # fails some xkeyboard stuff mysteriously? FIXME
-    options += ["!check"]
 
 # TODO: dinit graphical user session service, --notify-fd, etc
 

@@ -16,7 +16,7 @@ index d933837df2..009d3303bf 100644
 @@ -26,8 +26,6 @@
  #endif
  
- #ifndef __APPLE__
+ #if !defined(__APPLE__) && !defined(__NetBSD__)
 -/* Have GNU ftw */
 -#define HAVE_GNU_FTW 1
  #endif
@@ -29,7 +29,7 @@ index f9991eee10..9f09e8d88a 100644
 @@ -23,8 +23,6 @@
  #endif
  
- #ifndef __APPLE__
+ #if !defined(__APPLE__) && !defined(__NetBSD__)
 -/* Have GNU ftw */
 -#define HAVE_GNU_FTW 1
  #endif

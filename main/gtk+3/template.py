@@ -1,6 +1,6 @@
 pkgname = "gtk+3"
 pkgver = "3.24.43"
-pkgrel = 5
+pkgrel = 6
 build_style = "meson"
 configure_args = [
     "-Dbroadway_backend=true",
@@ -51,10 +51,10 @@ makedepends = [
 ]
 depends = [
     "adwaita-icon-theme",
+    "glycin-loaders",  # svg
     "gobject-introspection-freedesktop",
     "gtk+3-update-icon-cache",
     "shared-mime-info",
-    "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
     "adwaita-icon-theme",

@@ -1,0 +1,13 @@
+It breaks when 15 is not found
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -627,7 +627,7 @@
+ add_subdirectory(Externals/imgui)
+ add_subdirectory(Externals/implot)
+ 
+-dolphin_find_optional_system_library(glslang Externals/glslang DOLPHIN_TRY_VERSIONS 15 16)
++dolphin_find_optional_system_library(glslang Externals/glslang DOLPHIN_TRY_VERSIONS 16)
+ 
+ # SPIRV-Cross is used on Windows for GLSL to HLSL conversion for the Direct3D 11 and Direct3D 12
+ # video backends, and on Apple devices for the Metal video backend.

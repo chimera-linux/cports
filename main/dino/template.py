@@ -1,6 +1,6 @@
 pkgname = "dino"
-pkgver = "0.5.0"
-pkgrel = 1
+pkgver = "0.5.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -35,7 +35,7 @@ pkgdesc = "Modern XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "4c57f20677f47f41b440b7d6eebb697ee89d5d8c38d334ad47c6b5de19894768"
+sha256 = "2658b83abe1203b2dd4d6444519f615b979faaac7e97f384e655bff85769584b"
 
 if self.profile().endian != "big":
     makedepends += ["webrtc-audio-processing-devel"]

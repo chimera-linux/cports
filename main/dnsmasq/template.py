@@ -1,5 +1,5 @@
 pkgname = "dnsmasq"
-pkgver = "2.91"
+pkgver = "2.92"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]
@@ -18,7 +18,7 @@ pkgdesc = "DNS, DHCP, RA, TFTP and PXE server"
 license = "GPL-2.0-or-later"
 url = "https://www.thekelleys.org.uk/dnsmasq/doc.html"
 source = f"https://www.thekelleys.org.uk/dnsmasq/dnsmasq-{pkgver}.tar.gz"
-sha256 = "2d26a048df452b3cfa7ba05efbbcdb19b12fe7a0388761eb5d00938624bd76c8"
+sha256 = "fd908e79ff37f73234afcb6d3363f78353e768703d92abd8e3220ade6819b1e1"
 # no tests
 options = ["!check"]
 

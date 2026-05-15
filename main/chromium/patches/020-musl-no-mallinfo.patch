@@ -13,7 +13,7 @@ for some reason only outside of x86_64 HAVE_MALLINFO gets weirdly set by somethi
 +#if 0
  SHIM_ALWAYS_EXPORT struct mallinfo mallinfo(void) __THROW {
    partition_alloc::SimplePartitionStatsDumper allocator_dumper;
-   Allocator()->DumpStats("malloc", true, &allocator_dumper);
+   // TODO(crbug.com/477186304): Dump stats for all alloc tokens, by accumulating
 --- a/base/process/process_metrics_posix.cc
 +++ b/base/process/process_metrics_posix.cc
 @@ -106,7 +107,8 @@ void IncreaseFdLimitTo(unsigned int max_descriptors) {

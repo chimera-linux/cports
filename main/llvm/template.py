@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "21.1.8"
+pkgver = "22.1.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -53,7 +53,7 @@ pkgdesc = "Low Level Virtual Machine"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "4633a23617fa31a3ea51242586ea7fb1da7140e426bd62fc164261fe036aa142"
+sha256 = "3e68c90dda630c27d41d201e37b8bbf5222e39b273dec5ca880709c69e0a07d4"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -684,6 +684,7 @@ def _(self):
     # installation onto the target system, nothing much we can do about that
     self.depends = [
         self.parent,
+        self.with_pkgver("clang-tools-extra"),
         self.with_pkgver("llvm-tools"),
         self.with_pkgver("llvm-devel-static"),
         self.with_pkgver("clang-cpp-libs"),

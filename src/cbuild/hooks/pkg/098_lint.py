@@ -208,6 +208,7 @@ def invoke(pkg):
         "share/mime/types",
         "share/mime/version",
         "tests",
+        "usr",
     ]:
         if (pkg.destdir / "usr" / d).exists():
             pkg.log_red(f"forbidden path '/usr/{d}'")

@@ -1,7 +1,7 @@
-From f81ac83b0ffa42be69f9e3df2da710c3deda7129 Mon Sep 17 00:00:00 2001
+From 7cfbc4d6e6bd74cf3d244ac63a3149d1f86b50f0 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:33:12 +0100
-Subject: [PATCH 04/29] llvm: disable dependency on libexecinfo everywhere
+Subject: [PATCH 04/28] llvm: disable dependency on libexecinfo everywhere
 
 ---
  compiler-rt/cmake/config-ix.cmake       | 1 -
@@ -11,7 +11,7 @@ Subject: [PATCH 04/29] llvm: disable dependency on libexecinfo everywhere
  4 files changed, 16 deletions(-)
 
 diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
-index e3310b1ff..39b3874fc 100644
+index 1f82ff3cf..705d38aa6 100644
 --- a/compiler-rt/cmake/config-ix.cmake
 +++ b/compiler-rt/cmake/config-ix.cmake
 @@ -191,7 +191,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
@@ -23,7 +23,7 @@ index e3310b1ff..39b3874fc 100644
  if (ANDROID AND COMPILER_RT_HAS_LIBDL)
    # Android's libstdc++ has a dependency on libdl.
 diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
-index a8e4e5a63..db5935ec3 100644
+index ed2bfa6df..5e6c66cae 100644
 --- a/llvm/cmake/config-ix.cmake
 +++ b/llvm/cmake/config-ix.cmake
 @@ -343,8 +343,6 @@ endif()
@@ -52,7 +52,7 @@ index ce83de8e4..6a17819c0 100644
  #cmakedefine HAVE_CRASHREPORTERCLIENT_H
  
 diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
-index a579eaf7d..b813b782f 100644
+index 099b0e555..a6d28ee65 100644
 --- a/llvm/lib/Support/CMakeLists.txt
 +++ b/llvm/lib/Support/CMakeLists.txt
 @@ -49,14 +49,6 @@ elseif( CMAKE_HOST_UNIX )
@@ -71,5 +71,5 @@ index a579eaf7d..b813b782f 100644
    set(system_libs ${system_libs} ${LLVM_PTHREAD_LIB})
    if( UNIX AND NOT (BEOS OR HAIKU) )
 -- 
-2.51.1
+2.52.0
 

@@ -1,5 +1,5 @@
 pkgname = "opencolorio"
-pkgver = "2.5.0"
+pkgver = "2.5.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -35,7 +35,7 @@ pkgdesc = "Color management framework"
 license = "BSD-3-Clause"
 url = "https://opencolorio.org"
 source = f"https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "124e2bfa8a9071959d6ddbb64ffbf78d3f6fe3c923ae23e96a6bbadde1af55b6"
+sha256 = "08cb6213ea4edee550ab050509d38204004bee6742c658166b1cf825d0a9381b"
 
 
 def post_install(self):

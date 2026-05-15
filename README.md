@@ -52,7 +52,7 @@ can be located in `etc/keys` in the `cports` directory, with the `.pub` extensio
 ### Pinning the repositories
 
 You might also want to pin the local repository. This will effectively make `apk`
-prefer your pinned repository even if a newer version if available in remote
+prefer your pinned repository even if a newer version is available in remote
 repos. This is done by adding a prefix such as `@cports` before the repository
 line, e.g. `@cports /home/user/cports/packages/main`. Then you can install things
 from the repository like `apk add foo@cports`. If you just `apk add foo`, the

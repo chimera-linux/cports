@@ -1,5 +1,5 @@
 pkgname = "alacritty"
-pkgver = "0.16.1"
+pkgver = "0.17.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Cross-platform, GPU-accelerated terminal emulator"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/alacritty/alacritty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b7240df4a52c004470977237a276185fc97395d59319480d67cad3c4347f395e"
+sha256 = "38d6527d346cda5c6049332a1f3338a89ea66cd7981b54d4c3ce801b392496f8"
 
 
 def install(self):
@@ -24,6 +24,7 @@ def install(self):
         "alacritty-msg.1",
         "alacritty.5",
         "alacritty-bindings.5",
+        "alacritty-escapes.7",
     ]:
         with open(self.cwd / f"extra/man/{man}.scd", "rb") as i:
             with open(self.cwd / f"extra/man/{man}", "w") as o:

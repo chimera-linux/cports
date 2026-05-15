@@ -1,6 +1,6 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.12.69"
+pkgver = "6.18.29"
 pkgrel = 0
 archs = [
     "aarch64",
@@ -22,7 +22,7 @@ pkgdesc = f"Linux kernel {pkgver[0 : pkgver.rfind('.')]}.x"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "4b493657f218703239c4f22415f027b3644949bf2761abd18b849f0aad5f7665"
+sha256 = "c33ea75b1f3bc5fccab836790cd3684eab7057ff383464b5efd8a68ba622a83c"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -38,8 +38,7 @@ options = [
 
 if self.current_target == "custom:generate-configs":
     hostmakedepends += ["base-cross", "ncurses-devel"]
-
-if self.profile().cross:
+elif self.profile().cross:
     broken = "linux-devel does not come out right"
 
 

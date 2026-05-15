@@ -61,6 +61,11 @@ The userland dependencies are the following:
 * `git`
 * `bwrap` (from `bubblewrap`)
 
+Normally you also need `flake8` (Python linter) and `black` (Python formatter)
+to build packages. This can be configured (see `etc/config.ini.example`) and
+possibly disabled but if you plan to write or modify templates at all, you are
+expected to leave it as is.
+
 If running a Chimera system, these tools can all be installed with the
 `base-cbuild-host` metapackage.
 
@@ -523,7 +528,7 @@ The following commands are recognized:
   building them. The status reporting still works but obviously won't include
   build failures, only parse failures and the likes.
 * `bulk-print-ver` Like `bulk-print`, but include the version in the listing
-  like `pkgname=pkgver-rN`.
+  like `pkgname=pkgver-rN`, and separate by newlines instead of spaces.
 * `bulk-raw` Perform a raw bulk build. In this mode, only template names may
   be given, no special expressions, and no sorting is done, i.e. packages are
   built in the order that is given.

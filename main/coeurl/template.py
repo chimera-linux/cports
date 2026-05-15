@@ -1,6 +1,6 @@
 pkgname = "coeurl"
-pkgver = "0.3.1"
-pkgrel = 4
+pkgver = "0.3.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=true"]
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Asynchronous libcurl wrapper"
 license = "MIT"
 url = "https://nheko.im/nheko-reborn/coeurl"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "1e1b8cef13f526429918849c9dee0d18de815e82fccda29c540cc98b06efb7a9"
+sha256 = "7c2497a3305c90a7c1cf2d3a840f240abc472555520e8b8f241b64703c4e7e74"
 # need net
 options = ["!check"]
 

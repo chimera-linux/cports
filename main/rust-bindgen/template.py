@@ -1,5 +1,5 @@
 pkgname = "rust-bindgen"
-pkgver = "0.71.1"
+pkgver = "0.72.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -12,7 +12,7 @@ pkgdesc = "Tool to generate Rust bindings for C/C++ code"
 license = "BSD-3-Clause"
 url = "https://rust-lang.github.io/rust-bindgen"
 source = f"https://github.com/rust-lang/rust-bindgen/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "620d80c32b6aaf42d12d85de86fc56950c86b2a13a5b943c10c29d30c4f3efb0"
+sha256 = "4ffb17061b2d71f19c5062d2e17e64107248f484f9775c0b7d30a16a8238dfd1"
 # needs rustfmt nightly to run suite
 options = ["!check"]
 

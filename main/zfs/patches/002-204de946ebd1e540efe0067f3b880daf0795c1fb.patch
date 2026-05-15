@@ -1,0 +1,84 @@
+From 204de946ebd1e540efe0067f3b880daf0795c1fb Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Thu, 5 Feb 2026 19:39:23 +1100
+Subject: [PATCH] Linux 7.0: blk_queue_nonrot() renamed to blk_queue_rot()
+
+It does exactly the same thing, just inverts the return. Detect its
+presence or absence and call the right one.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18216
+---
+ config/kernel-blk-queue.m4      | 26 ++++++++++++++++++++++++++
+ module/os/linux/zfs/vdev_disk.c |  4 ++++
+ 2 files changed, 30 insertions(+)
+
+diff --git a/config/kernel-blk-queue.m4 b/config/kernel-blk-queue.m4
+index 3a159d335f04..9647f9d36dd4 100644
+--- a/config/kernel-blk-queue.m4
++++ b/config/kernel-blk-queue.m4
+@@ -226,6 +226,30 @@ AC_DEFUN([ZFS_AC_KERNEL_BLK_QUEUE_MAX_HW_SECTORS], [
+ 	])
+ ])
+ 
++dnl #
++dnl # 7.0 API change
++dnl # blk_queue_rot() replaces blk_queue_nonrot() (inverted meaning)
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_BLK_QUEUE_ROT], [
++	ZFS_LINUX_TEST_SRC([blk_queue_rot], [
++		#include <linux/blkdev.h>
++	], [
++		struct request_queue *q __attribute__ ((unused)) = NULL;
++		(void) blk_queue_rot(q);
++	], [])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_BLK_QUEUE_ROT], [
++	AC_MSG_CHECKING([whether blk_queue_rot() is available])
++	ZFS_LINUX_TEST_RESULT([blk_queue_rot], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_BLK_QUEUE_ROT, 1,
++		    [blk_queue_rot() is available])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
++
+ dnl #
+ dnl # 2.6.34 API change
+ dnl # blk_queue_max_segments() consolidates blk_queue_max_hw_segments()
+@@ -279,6 +303,7 @@ AC_DEFUN([ZFS_AC_KERNEL_SRC_BLK_QUEUE], [
+ 	ZFS_AC_KERNEL_SRC_BLK_QUEUE_SECURE_ERASE
+ 	ZFS_AC_KERNEL_SRC_BLK_QUEUE_MAX_HW_SECTORS
+ 	ZFS_AC_KERNEL_SRC_BLK_QUEUE_MAX_SEGMENTS
++	ZFS_AC_KERNEL_SRC_BLK_QUEUE_ROT
+ 	ZFS_AC_KERNEL_SRC_BLK_MQ_RQ_HCTX
+ ])
+ 
+@@ -291,5 +316,6 @@ AC_DEFUN([ZFS_AC_KERNEL_BLK_QUEUE], [
+ 	ZFS_AC_KERNEL_BLK_QUEUE_SECURE_ERASE
+ 	ZFS_AC_KERNEL_BLK_QUEUE_MAX_HW_SECTORS
+ 	ZFS_AC_KERNEL_BLK_QUEUE_MAX_SEGMENTS
++	ZFS_AC_KERNEL_BLK_QUEUE_ROT
+ 	ZFS_AC_KERNEL_BLK_MQ_RQ_HCTX
+ ])
+diff --git a/module/os/linux/zfs/vdev_disk.c b/module/os/linux/zfs/vdev_disk.c
+index 4a9dbaa64489..66e10584ab5e 100644
+--- a/module/os/linux/zfs/vdev_disk.c
++++ b/module/os/linux/zfs/vdev_disk.c
+@@ -445,7 +445,11 @@ vdev_disk_open(vdev_t *v, uint64_t *psize, uint64_t *max_psize,
+ 	v->vdev_has_securetrim = bdev_secure_discard_supported(bdev);
+ 
+ 	/* Inform the ZIO pipeline that we are non-rotational */
++#ifdef HAVE_BLK_QUEUE_ROT
++	v->vdev_nonrot = !blk_queue_rot(bdev_get_queue(bdev));
++#else
+ 	v->vdev_nonrot = blk_queue_nonrot(bdev_get_queue(bdev));
++#endif
+ 
+ 	/* Physical volume size in bytes for the partition */
+ 	*psize = bdev_capacity(bdev);

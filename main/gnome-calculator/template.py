@@ -1,5 +1,5 @@
 pkgname = "gnome-calculator"
-pkgver = "49.1.1"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "GNOME calculator"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calculator"
 source = f"$(GNOME_SITE)/gnome-calculator/{pkgver[:2]}/gnome-calculator-{pkgver}.tar.xz"
-sha256 = "840d3459ed69f2787a9669f96f6b3f9eff16cb486900c719ac252c424563463d"
+sha256 = "8053d6891565e882874b65c1db51c5bf310005eb788b8bac3546390743350a90"
 
 
 @subpackage("gnome-calculator-devel")

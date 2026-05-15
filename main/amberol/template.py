@@ -1,8 +1,9 @@
 pkgname = "amberol"
-pkgver = "2025.1"
+pkgver = "2026.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "blueprint-compiler",
     "cargo-auditable",
     "desktop-file-utils",
     "gettext",
@@ -24,15 +25,16 @@ pkgdesc = "Music player for GNOME"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Amberol"
 source = f"https://gitlab.gnome.org/World/amberol/-/archive/{pkgver}/amberol-{pkgver}.tar.gz"
-sha256 = "087623631bee272240d64258c47efbbdf64c5fc46ce8f5e2d3d987feb30ad69d"
+sha256 = "2112eebac5c7b0aab7243c428c794aecb136168c326648cfbbd8654ea2cc7631"
 # broken below
 options = ["!cross"]
 
 
-def post_patch(self):
+def post_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc=".").vendor()
+    cargo.clear_vendor_checksums(self, "zvariant-5.4.0")
 
 
 def init_build(self):

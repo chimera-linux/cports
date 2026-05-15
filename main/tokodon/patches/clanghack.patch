@@ -4,15 +4,13 @@ this file takes minutes to compile and seems to crash clang sometimes
 --
 --- a/src/utils/emojitones.cpp
 +++ b/src/utils/emojitones.cpp
-@@ -1,8 +1,11 @@
+@@ -1,6 +1,9 @@
  // SPDX-FileCopyrightText: None
  // SPDX-License-Identifier: LGPL-2.0-or-later
  
 +#undef _FORTIFY_SOURCE
 +#pragma clang optimize off
- #include "utils/emojitones.h"
- #include "utils/emojimodel.h"
 +
+ #include "emojitones.h"
+ #include "emojimodel.h"
  
- QMultiHash<QString, QVariant> EmojiTones::_tones = {
- #include "utils/emojitones_data.h"

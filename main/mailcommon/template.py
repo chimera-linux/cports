@@ -1,5 +1,5 @@
 pkgname = "mailcommon"
-pkgver = "25.12.2"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 # sqlite all fail
@@ -18,7 +18,6 @@ makedepends = [
     "akonadi-contacts-devel",
     "akonadi-devel",
     "akonadi-mime-devel",
-    "gpgme-qt-devel",
     "karchive-devel",
     "kcodecs-devel",
     "kcompletion-devel",
@@ -41,6 +40,7 @@ makedepends = [
     "messagelib-devel",
     "phonon-devel",
     "pimcommon-devel",
+    "qgpgme-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qttools-devel",
@@ -50,7 +50,7 @@ pkgdesc = "KDE PIM library for mail applications"
 license = "LGPL-3.0-only AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/mailcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/mailcommon-{pkgver}.tar.xz"
-sha256 = "9efcd7288f2b657df14f830ff81abcd0511c84658179c81a7d4dc1ffa37e0ac0"
+sha256 = "fa7c24f54f185cad3c3a23131f2cf14bdc4df2e24247bec75dbd1b9a6a62589a"
 
 
 @subpackage("mailcommon-devel")

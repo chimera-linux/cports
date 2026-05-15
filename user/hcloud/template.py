@@ -1,6 +1,6 @@
 pkgname = "hcloud"
-pkgver = "1.61.0"
-pkgrel = 1
+pkgver = "1.64.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -15,7 +15,7 @@ url = "https://github.com/hetznercloud/cli"
 source = (
     f"https://github.com/hetznercloud/cli/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "e99b116586d8040f33994bb1ef232b7def058fcd43f24abd3db22e822da11419"
+sha256 = "70bc7d62f4d07b408afa2eb84b0e1e5854a7f32f9defb4899f2e9a24b6846078"
 # generates completions with host binary
 options = ["!cross"]
 

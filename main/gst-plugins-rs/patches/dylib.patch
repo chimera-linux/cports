@@ -10,4 +10,4 @@ index e04ad39..e7b3e03 100644
 +            cargo_cmd += ['--library-type=cdylib']
              if not opts.disable_doc:
                  features += ['doc']
-         if opts.target == 'release':
+ 

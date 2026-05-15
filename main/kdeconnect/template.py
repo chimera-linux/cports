@@ -1,6 +1,6 @@
 pkgname = "kdeconnect"
-pkgver = "25.12.2"
-pkgrel = 1
+pkgver = "26.04.1"
+pkgrel = 0
 build_style = "cmake"
 # needs more setup
 make_check_args = ["-E", "mdnstest"]
@@ -32,6 +32,7 @@ makedepends = [
     "kservice-devel",
     "kstatusnotifieritem-devel",
     "kwindowsystem-devel",
+    "libei-devel",
     "libfakekey-devel",
     "modemmanager-qt-devel",
     "pulseaudio-qt-devel",
@@ -54,12 +55,10 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "d0504bbc3572f7e131983786eddb9c580986e5e46bb44b94a6df77a8777e4ef2"
+sha256 = "c58277e16caac9e440211ce82cd07ca874d6f47ebdea58c44d237b5b84e3a538"
 
 
 def post_install(self):
-    # stray single static lib and nothing else (?)
-    self.uninstall("usr/lib/libkdeconnectinterfaces.a")
     # wrong name
     self.rename("usr/share/zsh/site-functions/_kdeconnect", "_kdeconnect-cli")
     # better path

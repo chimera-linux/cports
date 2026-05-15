@@ -14,8 +14,8 @@ index 82a91e4..ab1eac1 100644
    endif
  endif
  
--if not platform_windows and not platform_osx
-+if false and not platform_windows and not platform_osx
-   # Verify .def files for Windows.
-   # Ironically we only check this on non-Windows platform, since the
-   # script expects .so libraries, and I'm not sure that the `nm` tool is
+-if not platform_osx and host_cpu_family != 'x86'
++if false
+   # Verify .def files for Windows linking.
+   # We check this on non-Windows platform (Debian) on CI, and on Windows itself.
+   custom_target('check-def-files',

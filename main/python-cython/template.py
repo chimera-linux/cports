@@ -1,5 +1,5 @@
 pkgname = "python-cython"
-pkgver = "3.1.2"
+pkgver = "3.2.4"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,6 +13,6 @@ pkgdesc = "C extensions for Python"
 license = "Apache-2.0"
 url = "https://cython.org"
 source = f"$(PYPI_SITE)/c/cython/cython-{pkgver}.tar.gz"
-sha256 = "6bbf7a953fa6762dfecdec015e3b054ba51c0121a45ad851fa130f63f5331381"
+sha256 = "84226ecd313b233da27dc2eb3601b4f222b8209c3a7216d8733b031da1dc64e6"
 # check: flaky tests
 options = ["!check"]

@@ -1,5 +1,5 @@
 pkgname = "kget"
-pkgver = "25.12.2"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
-    "gpgme-qt-devel",
     "kcmutils-devel",
     "kcompletion-devel",
     "kconfig-devel",
@@ -34,6 +33,7 @@ makedepends = [
     "kxmlgui-devel",
     "libktorrent-devel",
     "libmms-devel",
+    "qgpgme-devel",
     "qt6-qtbase-devel",
     "sqlite-devel",
 ]
@@ -42,4 +42,4 @@ pkgdesc = "KDE download manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kget"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kget-{pkgver}.tar.xz"
-sha256 = "02c3ab7583a5820fccd2ccd9bdfdf99f6bc651528384bfd412b3c0d46d7e8a60"
+sha256 = "a2b5a6ac9ead7beea32183b1f9ddb74ef59204b0daf1f78ff50b7dc3f9e4e36d"

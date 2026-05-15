@@ -1,0 +1,478 @@
+From c7f9642340eb61c09a05c96498fd21c9b7293770 Mon Sep 17 00:00:00 2001
+From: Maksim Ivanov <emaxx@google.com>
+Date: Sun, 26 Oct 2025 18:45:31 +0100
+Subject: [PATCH] Support for LLVM 22 updated, as of 2025-10-25 (#439)
+
+Update code in accordance to upstream changes. Essentially this is a partial
+revert of #373.
+---
+ clang_delta/CommonRenameClassRewriteVisitor.h | 10 ++--------
+ clang_delta/EmptyStructToInt.cpp              | 20 ++++---------------
+ clang_delta/InstantiateTemplateParam.cpp      |  5 +----
+ clang_delta/MemberToGlobal.cpp                |  2 +-
+ clang_delta/ReducePointerLevel.cpp            | 15 +++-----------
+ clang_delta/RemoveBaseClass.cpp               |  5 -----
+ clang_delta/RemoveCtorInitializer.cpp         |  5 -----
+ clang_delta/RemoveNamespace.cpp               | 15 +++-----------
+ clang_delta/RemoveUnusedOuterClass.cpp        |  5 +----
+ clang_delta/RemoveUnusedStructField.cpp       | 10 ++--------
+ .../ReplaceClassWithBaseTemplateSpec.cpp      |  5 +----
+ clang_delta/ReplaceSimpleTypedef.cpp          |  5 +----
+ clang_delta/SimplifyNestedClass.cpp           |  5 +----
+ clang_delta/SimplifyStruct.cpp                | 20 ++++---------------
+ clang_delta/SimplifyStructUnionDecl.cpp       |  5 +----
+ clang_delta/Transformation.cpp                | 10 ++--------
+ clang_delta/UnionToStruct.cpp                 |  6 +-----
+ 17 files changed, 28 insertions(+), 120 deletions(-)
+
+diff --git a/clang_delta/CommonRenameClassRewriteVisitor.h b/clang_delta/CommonRenameClassRewriteVisitor.h
+index 8428b770a..0e784fb66 100644
+--- a/clang_delta/CommonRenameClassRewriteVisitor.h
++++ b/clang_delta/CommonRenameClassRewriteVisitor.h
+@@ -297,11 +297,8 @@ template<typename T>
+ bool CommonRenameClassRewriteVisitor<T>::VisitInjectedClassNameTypeLoc(
+        InjectedClassNameTypeLoc TyLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *CXXRD = TyLoc.getDecl();
+-#else
+-  const CXXRecordDecl *CXXRD = TyLoc.getOriginalDecl();
+-#endif
++
+   TransAssert(CXXRD && "Invalid CXXRecordDecl!");
+ 
+   std::string Name;
+@@ -342,11 +339,8 @@ bool CommonRenameClassRewriteVisitor<T>::VisitRecordTypeLoc(RecordTypeLoc RTLoc)
+   if (Ty->isUnionType())
+     return true;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(RTLoc.getDecl());
+-#else
+-  const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(RTLoc.getOriginalDecl());
+-#endif
++
+   if (!RD)
+     return true;
+ 
+diff --git a/clang_delta/EmptyStructToInt.cpp b/clang_delta/EmptyStructToInt.cpp
+index 1a555ca83..8be4cad92 100644
+--- a/clang_delta/EmptyStructToInt.cpp
++++ b/clang_delta/EmptyStructToInt.cpp
+@@ -112,11 +112,8 @@ bool EmptyStructToIntASTVisitor::VisitCXXRecordDecl(CXXRecordDecl *CXXRD)
+ 
+ bool EmptyStructToIntRewriteVisitor::VisitRecordTypeLoc(RecordTypeLoc RTLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RTLoc.getDecl();
+-#else
+-  const RecordDecl *RD = RTLoc.getOriginalDecl();
+-#endif
++
+ 
+   if (RD->getCanonicalDecl() == ConsumerInstance->TheRecordDecl) {
+     SourceLocation LocStart = RTLoc.getBeginLoc();
+@@ -432,11 +429,8 @@ bool EmptyStructToInt::pointToSelf(const FieldDecl *FD)
+   const RecordType *RT = PointeeTy->getAs<RecordType>();
+   if (!RT)
+     return false;
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RT->getDecl();
+-#else
+-  const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+   const RecordDecl *Parent = FD->getParent();
+   return (Parent->getCanonicalDecl() == RD->getCanonicalDecl());
+ }
+@@ -527,11 +521,8 @@ const RecordDecl *EmptyStructToInt::getBaseRecordDef(const Type *Ty)
+     return NULL;
+ 
+   const RecordType *RT = Ty->getAsStructureType();
+-#if LLVM_VERSION_MAJOR < 22
+   return RT->getDecl()->getDefinition();
+-#else
+-  return RT->getOriginalDecl()->getDefinition();
+-#endif
++
+ }
+ 
+ void EmptyStructToInt::getInitExprs(const Type *Ty, 
+@@ -570,11 +561,8 @@ void EmptyStructToInt::getInitExprs(const Type *Ty,
+     TransAssert(0 && "Bad RecordType!");
+   }
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RT->getDecl();
+-#else
+-  const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+ 
+   if (RD->getCanonicalDecl() == TheRecordDecl) {
+     InitExprs.push_back(E);
+diff --git a/clang_delta/InstantiateTemplateParam.cpp b/clang_delta/InstantiateTemplateParam.cpp
+index 876c3f3f0..63bb23714 100644
+--- a/clang_delta/InstantiateTemplateParam.cpp
++++ b/clang_delta/InstantiateTemplateParam.cpp
+@@ -284,11 +284,8 @@ void InstantiateTemplateParam::getForwardDeclStr(
+        RecordDeclSet &TempAvailableRecordDecls)
+ {
+   if (const RecordType *RT = Ty->getAsUnionType()) {
+-#if LLVM_VERSION_MAJOR < 22
+     const RecordDecl *RD = RT->getDecl();
+-#else
+-    const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+     addOneForwardDeclStr(RD, ForwardStr, TempAvailableRecordDecls);
+     return;
+   }
+diff --git a/clang_delta/MemberToGlobal.cpp b/clang_delta/MemberToGlobal.cpp
+index cc959e628..e973b0325 100644
+--- a/clang_delta/MemberToGlobal.cpp
++++ b/clang_delta/MemberToGlobal.cpp
+@@ -89,7 +89,7 @@ class MemberToGlobal::RewriteVisitor : public RecursiveASTVisitor<RewriteVisitor
+   }
+ 
+   bool VisitTagTypeLoc(TagTypeLoc TL) {
+-    if (ConsumerInstance->isTheDecl(TL.getOriginalDecl()))
++    if (ConsumerInstance->isTheDecl(TL.getDecl()))
+       ConsumerInstance->removeRecordQualifier(TL.getQualifierLoc());
+     return true;
+   }
+diff --git a/clang_delta/ReducePointerLevel.cpp b/clang_delta/ReducePointerLevel.cpp
+index ba2bc1956..fda7a5b22 100644
+--- a/clang_delta/ReducePointerLevel.cpp
++++ b/clang_delta/ReducePointerLevel.cpp
+@@ -259,22 +259,16 @@ bool PointerLevelRewriteVisitor::VisitVarDecl(VarDecl *VD)
+     if (!ArrayElemTy->isStructureType() && !ArrayElemTy->isUnionType())
+       return true;
+     if (const RecordType *RDTy = ArrayElemTy->getAs<RecordType>()) {
+-#if LLVM_VERSION_MAJOR < 22
+       const RecordDecl *RD = RDTy->getDecl();
+-#else
+-      const RecordDecl *RD = RDTy->getOriginalDecl();
+-#endif
++
+       ConsumerInstance->rewriteArrayInit(RD, VD->getInit());
+     }
+     return true;
+   }
+ 
+   if (const RecordType *RDTy = VDTy->getAs<RecordType>()) {
+-#if LLVM_VERSION_MAJOR < 22
+     const RecordDecl *RD = RDTy->getDecl();
+-#else
+-    const RecordDecl *RD = RDTy->getOriginalDecl();
+-#endif
++
+     ConsumerInstance->rewriteRecordInit(RD, VD->getInit());
+   }
+ 
+@@ -985,11 +979,8 @@ bool ReducePointerLevel::isPointerToSelf(const Type *Ty,
+   if (!RD)
+     return false;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *NestedRD = RTy->getDecl();
+-#else
+-  const RecordDecl *NestedRD = RTy->getOriginalDecl();
+-#endif
++
+   return (RD->getCanonicalDecl() == NestedRD->getCanonicalDecl());
+ }
+ 
+diff --git a/clang_delta/RemoveBaseClass.cpp b/clang_delta/RemoveBaseClass.cpp
+index e85f7d462..268e47559 100644
+--- a/clang_delta/RemoveBaseClass.cpp
++++ b/clang_delta/RemoveBaseClass.cpp
+@@ -99,12 +99,7 @@ bool RemoveBaseClass::isDirectlyDerivedFrom(const CXXRecordDecl *SubC,
+       continue;
+ 
+     const RecordType *RT = I->getType()->getAs<RecordType>();
+-#if LLVM_VERSION_MAJOR < 22
+     const CXXRecordDecl *BaseDecl = dyn_cast<CXXRecordDecl>(RT->getDecl());
+-#else
+-    const CXXRecordDecl *BaseDecl =
+-        dyn_cast<CXXRecordDecl>(RT->getOriginalDecl());
+-#endif
+     if (Base->getCanonicalDecl() == BaseDecl->getCanonicalDecl())
+       return true;
+   }
+diff --git a/clang_delta/RemoveCtorInitializer.cpp b/clang_delta/RemoveCtorInitializer.cpp
+index 666e6cf8e..e30b88a6e 100644
+--- a/clang_delta/RemoveCtorInitializer.cpp
++++ b/clang_delta/RemoveCtorInitializer.cpp
+@@ -135,12 +135,7 @@ bool RemoveCtorInitializer::isValidType(const Type *Ty)
+     return false;
+ 
+   if (const RecordType *RTy = Ty->getAs<RecordType>()) {
+-#if LLVM_VERSION_MAJOR < 22
+     const CXXRecordDecl *CXXRD = dyn_cast<CXXRecordDecl>(RTy->getDecl());
+-#else
+-    const CXXRecordDecl *CXXRD =
+-        dyn_cast<CXXRecordDecl>(RTy->getOriginalDecl());
+-#endif
+     if (!CXXRD)
+       return true;
+     return !CXXRD->needsImplicitDefaultConstructor();
+diff --git a/clang_delta/RemoveNamespace.cpp b/clang_delta/RemoveNamespace.cpp
+index 11cf38d05..b1fb76e6a 100644
+--- a/clang_delta/RemoveNamespace.cpp
++++ b/clang_delta/RemoveNamespace.cpp
+@@ -389,11 +389,8 @@ bool RemoveNamespaceRewriteVisitor::VisitDeclRefExpr(DeclRefExpr *DRE)
+ 
+ bool RemoveNamespaceRewriteVisitor::VisitRecordTypeLoc(RecordTypeLoc RTLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(RTLoc.getDecl());
+-#else
+-  const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(RTLoc.getOriginalDecl());
+-#endif
++
+   if (!RD)
+     return true;
+ 
+@@ -528,11 +525,8 @@ bool RemoveNamespaceRewriteVisitor::VisitDependentTemplateSpecializationTypeLoc(
+ bool RemoveNamespaceRewriteVisitor::VisitInjectedClassNameTypeLoc(
+        InjectedClassNameTypeLoc TyLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *CXXRD = TyLoc.getDecl();
+-#else
+-  const CXXRecordDecl *CXXRD = TyLoc.getOriginalDecl();
+-#endif
++
+   TransAssert(CXXRD && "Invalid CXXRecordDecl!");
+ 
+   std::string Name;
+@@ -565,11 +559,8 @@ bool RemoveNamespaceRewriteVisitor::VisitTypedefTypeLoc(TypedefTypeLoc TyLoc)
+ 
+ bool RemoveNamespaceRewriteVisitor::VisitEnumTypeLoc(EnumTypeLoc TyLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const EnumDecl *D = TyLoc.getDecl();
+-#else
+-  const EnumDecl *D = TyLoc.getOriginalDecl();
+-#endif
++
+ 
+   std::string Name;
+   if (ConsumerInstance->getNewName(D, Name)) {
+diff --git a/clang_delta/RemoveUnusedOuterClass.cpp b/clang_delta/RemoveUnusedOuterClass.cpp
+index a5d6ef08d..0acba04ea 100644
+--- a/clang_delta/RemoveUnusedOuterClass.cpp
++++ b/clang_delta/RemoveUnusedOuterClass.cpp
+@@ -52,11 +52,8 @@ class RemoveUnusedOuterClassVisitor : public
+ 
+ bool RemoveUnusedOuterClassVisitor::VisitRecordTypeLoc(RecordTypeLoc TLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getDecl());
+-#else
+-  const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getOriginalDecl());
+-#endif
++
+   ConsumerInstance->UsedCXXRDSet.insert(RD->getCanonicalDecl());
+   return true;
+ }
+diff --git a/clang_delta/RemoveUnusedStructField.cpp b/clang_delta/RemoveUnusedStructField.cpp
+index adffb6f7f..4fd5d41c2 100644
+--- a/clang_delta/RemoveUnusedStructField.cpp
++++ b/clang_delta/RemoveUnusedStructField.cpp
+@@ -326,11 +326,8 @@ void RemoveUnusedStructField::getInitExprs(const Type *Ty,
+     TransAssert(0 && "Bad RecordType!");
+   }
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RT->getDecl();
+-#else
+-  const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+   unsigned int VecSz = IdxVec->size();
+   for (IndexVector::const_iterator FI = IdxVec->begin(),
+        FE = IdxVec->end(); FI != FE; ++FI)
+@@ -412,11 +409,8 @@ const RecordDecl *RemoveUnusedStructField::getBaseRecordDef(const Type *Ty)
+     return NULL;
+ 
+   const RecordType *RT = Ty->getAsStructureType();
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RT->getDecl();
+-#else
+-  const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+   return RD->getDefinition();
+ }
+ 
+diff --git a/clang_delta/ReplaceClassWithBaseTemplateSpec.cpp b/clang_delta/ReplaceClassWithBaseTemplateSpec.cpp
+index 41eb509e6..bb2d1f240 100644
+--- a/clang_delta/ReplaceClassWithBaseTemplateSpec.cpp
++++ b/clang_delta/ReplaceClassWithBaseTemplateSpec.cpp
+@@ -79,11 +79,8 @@ bool ReplaceClassWithBaseTemplateSpecRewriteVisitor::VisitRecordTypeLoc(
+   if (Ty->isUnionType())
+     return true;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getDecl());
+-#else
+-  const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getOriginalDecl());
+-#endif
++
+   if (!RD || (RD->getCanonicalDecl() != ConsumerInstance->TheCXXRecord))
+     return true;
+ 
+diff --git a/clang_delta/ReplaceSimpleTypedef.cpp b/clang_delta/ReplaceSimpleTypedef.cpp
+index 40ae5c2b6..c8f5307dc 100644
+--- a/clang_delta/ReplaceSimpleTypedef.cpp
++++ b/clang_delta/ReplaceSimpleTypedef.cpp
+@@ -181,11 +181,8 @@ bool ReplaceSimpleTypedef::isValidType(const Type *Ty, const TypedefNameDecl *D)
+     return true;
+ 
+   if (const RecordType *RDTy = Ty->getAs<RecordType>()) {
+-#if LLVM_VERSION_MAJOR < 22
+     const RecordDecl *RD = RDTy->getDecl();
+-#else
+-    const RecordDecl *RD = RDTy->getOriginalDecl();
+-#endif
++
+     // omit some trivial cases, e.g.,
+     // typedef struct S { int x; } S;
+     if (RD->getNameAsString() == D->getNameAsString())
+diff --git a/clang_delta/SimplifyNestedClass.cpp b/clang_delta/SimplifyNestedClass.cpp
+index 0073dc9ea..60ef5fb4e 100644
+--- a/clang_delta/SimplifyNestedClass.cpp
++++ b/clang_delta/SimplifyNestedClass.cpp
+@@ -77,11 +77,8 @@ class SimplifyNestedClassRewriteVisitor : public
+ 
+ bool SimplifyNestedClassRewriteVisitor::VisitRecordTypeLoc(RecordTypeLoc TLoc)
+ {
+-#if LLVM_VERSION_MAJOR < 22
+   const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getDecl());
+-#else
+-  const CXXRecordDecl *RD = dyn_cast<CXXRecordDecl>(TLoc.getOriginalDecl());
+-#endif
++
+   if (!RD || (RD->getCanonicalDecl() != 
+               ConsumerInstance->TheBaseCXXRD->getCanonicalDecl()))
+     return true;
+diff --git a/clang_delta/SimplifyStruct.cpp b/clang_delta/SimplifyStruct.cpp
+index 0a048c605..4defd6257 100644
+--- a/clang_delta/SimplifyStruct.cpp
++++ b/clang_delta/SimplifyStruct.cpp
+@@ -99,11 +99,8 @@ bool SimplifyStructCollectionVisitor::VisitRecordDecl(RecordDecl *RD)
+   if (!RT)
+     return true;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *NestedRD = RT->getDecl();
+-#else
+-  const RecordDecl *NestedRD = RT->getOriginalDecl();
+-#endif
++
+   if (NestedRD->getNameAsString() == "")
+     return true;
+ 
+@@ -130,11 +127,8 @@ bool SimplifyStructRewriteVisitor::VisitVarDecl(VarDecl *VD)
+   if (!RT)
+     return true;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   const RecordDecl *RD = RT->getDecl();
+-#else
+-  const RecordDecl *RD = RT->getOriginalDecl();
+-#endif
++
+   if (RD != ConsumerInstance->TheRecordDecl)
+     return true;
+ 
+@@ -190,11 +184,8 @@ bool SimplifyStructRewriteVisitor::VisitRecordTypeLoc(RecordTypeLoc RTLoc)
+   if (Ty->isUnionType())
+     return true;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   RecordDecl *RD = RTLoc.getDecl();
+-#else
+-  RecordDecl *RD = RTLoc.getOriginalDecl();
+-#endif
++
+   RecordDecl *CanonicalRD = dyn_cast<RecordDecl>(RD->getCanonicalDecl());
+   if (CanonicalRD != ConsumerInstance->TheRecordDecl)
+     return true;
+@@ -230,11 +221,8 @@ bool SimplifyStructRewriteVisitor::VisitMemberExpr(MemberExpr *ME)
+   const Type *T = FD->getType().getTypePtr();
+   const RecordType *RT = T->getAs<RecordType>();
+   TransAssert(RT && "Invalid record type!");
+-#if LLVM_VERSION_MAJOR < 22
+   RecordDecl *RTD = RT->getDecl();
+-#else
+-  RecordDecl *RTD = RT->getOriginalDecl();
+-#endif
++
+   const RecordDecl *ReplacingRD = dyn_cast<RecordDecl>(RTD->getCanonicalDecl());
+   (void)ReplacingRD; 
+   TransAssert((ReplacingRD == ConsumerInstance->ReplacingRecordDecl) && 
+diff --git a/clang_delta/SimplifyStructUnionDecl.cpp b/clang_delta/SimplifyStructUnionDecl.cpp
+index 03dd09ae1..9477dd4fe 100644
+--- a/clang_delta/SimplifyStructUnionDecl.cpp
++++ b/clang_delta/SimplifyStructUnionDecl.cpp
+@@ -220,11 +220,8 @@ const RecordDecl *SimplifyStructUnionDecl::getBaseRecordDecl(const Type *T)
+   else
+     return NULL;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+   return RT->getDecl();
+-#else
+-  return RT->getOriginalDecl();
+-#endif
++
+ }
+ 
+ bool SimplifyStructUnionDecl::handleOneDeclarator(const Type *Ty)
+diff --git a/clang_delta/Transformation.cpp b/clang_delta/Transformation.cpp
+index 1bfcbd134..1d38ee891 100644
+--- a/clang_delta/Transformation.cpp
++++ b/clang_delta/Transformation.cpp
+@@ -720,21 +720,15 @@ const DeclContext *Transformation::getDeclContextFromSpecifier(
+       {
+         const Type *Ty = NNS->getAsType();
+         if (const RecordType *RT = Ty->getAs<RecordType>()) {
+-#if LLVM_VERSION_MAJOR < 22
+           return RT->getDecl();
+-#else
+-          return RT->getOriginalDecl();
+-#endif
++
+         }
+         if (const TypedefType *TT = Ty->getAs<TypedefType>()) {
+           const TypedefNameDecl *TypeDecl = TT->getDecl();
+           const Type *UnderlyingTy = TypeDecl->getUnderlyingType().getTypePtr();
+           if (const RecordType *RT = UnderlyingTy->getAs<RecordType>())
+-#if LLVM_VERSION_MAJOR < 22
+             return RT->getDecl();
+-#else
+-            return RT->getOriginalDecl();
+-#endif
++
+           if (const TemplateSpecializationType *TST =
+               UnderlyingTy->getAs<TemplateSpecializationType>()) {
+             return getBaseDeclFromTemplateSpecializationType(TST);
+diff --git a/clang_delta/UnionToStruct.cpp b/clang_delta/UnionToStruct.cpp
+index 8eb1876eb..523ee007b 100644
+--- a/clang_delta/UnionToStruct.cpp
++++ b/clang_delta/UnionToStruct.cpp
+@@ -408,11 +408,7 @@ void UnionToStruct::addOneDeclarator(const DeclaratorDecl *DD, const Type *T)
+   if (RDTy->isIncompleteType())
+     return;
+ 
+-#if LLVM_VERSION_MAJOR < 22
+-  const RecordDecl *RD = RDTy->getDecl(); 
+-#else
+-  const RecordDecl *RD = RDTy->getOriginalDecl();
+-#endif
++  const RecordDecl *RD = RDTy->getDecl();
+   const RecordDecl *CanonicalRD = 
+     dyn_cast<RecordDecl>(RD->getCanonicalDecl());
+   TransAssert(CanonicalRD && "NULL CanonicalRD!");

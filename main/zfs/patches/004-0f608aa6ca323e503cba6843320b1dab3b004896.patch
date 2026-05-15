@@ -1,0 +1,151 @@
+From 0f608aa6ca323e503cba6843320b1dab3b004896 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Mon, 26 Jan 2026 11:21:25 +1100
+Subject: [PATCH] Linux 7.0: add shims for the fs_context-based mount API
+
+The traditional mount API has been removed, so detect when its not
+available and instead use a small adapter to allow our existing mount
+functions to keep working.
+
+Sponsored-by: TrueNAS
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18216
+---
+ config/kernel-fst-mount.m4      |  7 +++-
+ module/os/linux/zfs/zpl_super.c | 66 +++++++++++++++++++++++++++++++++
+ 2 files changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/config/kernel-fst-mount.m4 b/config/kernel-fst-mount.m4
+index 811cc4f61b18..3c9137498175 100644
+--- a/config/kernel-fst-mount.m4
++++ b/config/kernel-fst-mount.m4
+@@ -4,6 +4,10 @@ dnl # 2.6.38 API change
+ dnl # The .get_sb callback has been replaced by a .mount callback
+ dnl # in the file_system_type structure.
+ dnl #
++dnl # 7.0 API change
++dnl # The .mount callback has been removed, requiring all mount work
++dnl # to be done through the "new" mount API introduced in 5.2.
++dnl #
+ AC_DEFUN([ZFS_AC_KERNEL_SRC_FST_MOUNT], [
+         ZFS_LINUX_TEST_SRC([file_system_type_mount], [
+                 #include <linux/fs.h>
+@@ -25,7 +29,8 @@ AC_DEFUN([ZFS_AC_KERNEL_FST_MOUNT], [
+         AC_MSG_CHECKING([whether fst->mount() exists])
+         ZFS_LINUX_TEST_RESULT([file_system_type_mount], [
+                 AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_FST_MOUNT, 1, [fst->mount() exists])
+         ],[
+-		ZFS_LINUX_TEST_ERROR([fst->mount()])
++		AC_MSG_RESULT(no)
+         ])
+ ])
+diff --git a/module/os/linux/zfs/zpl_super.c b/module/os/linux/zfs/zpl_super.c
+index 347b352506e5..d509152b6921 100644
+--- a/module/os/linux/zfs/zpl_super.c
++++ b/module/os/linux/zfs/zpl_super.c
+@@ -24,6 +24,7 @@
+  * Copyright (c) 2023, Datto Inc. All rights reserved.
+  * Copyright (c) 2025, Klara, Inc.
+  * Copyright (c) 2025, Rob Norris <robn@despairlabs.com>
++ * Copyright (c) 2026, TrueNAS.
+  */
+ 
+ 
+@@ -36,6 +37,10 @@
+ #include <linux/version.h>
+ #include <linux/vfs_compat.h>
+ 
++#ifndef HAVE_FST_MOUNT
++#include <linux/fs_context.h>
++#endif
++
+ /*
+  * What to do when the last reference to an inode is released. If 0, the kernel
+  * will cache it on the superblock. If 1, the inode will be freed immediately.
+@@ -504,6 +509,61 @@ zpl_prune_sb(uint64_t nr_to_scan, void *arg)
+ #endif
+ }
+ 
++#ifndef HAVE_FST_MOUNT
++/*
++ * In kernel 7.0, the file_system_type->mount() and
++ * super_operations->remount_fs() callbacks have been removed, requiring all
++ * users to convert to the "new" fs_context-based mount API introduced in 5.2.
++ *
++ * This is the simplest compatibility shim possible to adapt the fs_context
++ * interface to the old-style calls. Although this interface exists in almost
++ * all versions of Linux currently supported by OpenZFS, we only use it when
++ * the kernel-provided shims are unavailable, to avoid bugs in these new shims
++ * affecting all OpenZFS deployments.
++ */
++static int
++zpl_parse_monolithic(struct fs_context *fc, void *data)
++{
++	/*
++	 * We do options parsing in zfs_domount(); just stash the options blob
++	 * in the fs_context so we can pass it down later.
++	 */
++	fc->fs_private = data;
++	return (0);
++}
++
++static int
++zpl_get_tree(struct fs_context *fc)
++{
++	struct dentry *root =
++	    zpl_mount(fc->fs_type, fc->sb_flags, fc->source, fc->fs_private);
++	if (IS_ERR(root))
++		return (PTR_ERR(root));
++
++	fc->root = root;
++	return (0);
++}
++
++static int
++zpl_reconfigure(struct fs_context *fc)
++{
++	return (zpl_remount_fs(fc->root->d_sb, &fc->sb_flags, fc->fs_private));
++}
++
++const struct fs_context_operations zpl_fs_context_operations = {
++	.parse_monolithic	= zpl_parse_monolithic,
++	.get_tree		= zpl_get_tree,
++	.reconfigure		= zpl_reconfigure,
++};
++
++static int
++zpl_init_fs_context(struct fs_context *fc)
++{
++	fc->ops = &zpl_fs_context_operations;
++	return (0);
++}
++#endif
++
+ const struct super_operations zpl_super_operations = {
+ 	.alloc_inode		= zpl_inode_alloc,
+ #ifdef HAVE_SOPS_FREE_INODE
+@@ -517,7 +577,9 @@ const struct super_operations zpl_super_operations = {
+ 	.put_super		= zpl_put_super,
+ 	.sync_fs		= zpl_sync_fs,
+ 	.statfs			= zpl_statfs,
++#ifdef HAVE_FST_MOUNT
+ 	.remount_fs		= zpl_remount_fs,
++#endif
+ 	.show_devname		= zpl_show_devname,
+ 	.show_options		= zpl_show_options,
+ 	.show_stats		= NULL,
+@@ -560,7 +622,11 @@ struct file_system_type zpl_fs_type = {
+ #else
+ 	.fs_flags		= FS_USERNS_MOUNT,
+ #endif
++#ifdef HAVE_FST_MOUNT
+ 	.mount			= zpl_mount,
++#else
++	.init_fs_context	= zpl_init_fs_context,
++#endif
+ 	.kill_sb		= zpl_kill_sb,
+ };
+ 

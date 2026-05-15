@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "147.0.1"
+pkgver = "150.0.2"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -58,7 +58,7 @@ pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
-sha256 = "3e8a52c552a983340ced4c8f44ee37ae5028a2c9d717b9b49ee37ae72a6615ce"
+sha256 = "87d03a64de92de565328c0ea7ab921101217da4188fbee3f444f91b76cac1e5c"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -69,7 +69,7 @@ env = {
     "MOZILLA_OFFICIAL": "1",
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
-    "MOZ_APP_REMOTINGNAME": "Thunderbird",
+    "MOZ_APP_REMOTINGNAME": "thunderbird",
     "MOZ_NOSPAM": "1",
     # thunderbird checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",

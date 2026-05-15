@@ -1,5 +1,5 @@
 pkgname = "audacity"
-pkgver = "3.7.5"
+pkgver = "3.7.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -59,7 +59,7 @@ pkgdesc = "Multitrack audio editor"
 license = "GPL-3.0-or-later"
 url = "https://www.audacityteam.org"
 source = f"https://github.com/audacity/audacity/releases/download/Audacity-{pkgver}/audacity-sources-{pkgver}.tar.gz"
-sha256 = "b33ad9f8b53e8ddf3ee0a6ba920ce9a2fd47915e329388729900ec6c0c49567f"
+sha256 = "1574688e54009b40faeffe5752b5f822ff251e2d4228e8ec60ec0f99f3423cda"
 # vis breaks symbols
 hardening = []
 # check: dont care

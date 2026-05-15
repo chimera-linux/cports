@@ -195,6 +195,11 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
         return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
 
 
+# avoid redirection subprocess since we operate a threadpool
+def redir_log():
+    return False
+
+
 def invoke(pkg):
     global fstatus, flens, fctx
 

@@ -1,5 +1,5 @@
 pkgname = "qt6-qtconnectivity"
-pkgver = "6.10.2"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 # cmake import
@@ -21,7 +21,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtconnectivity-everywhere-src-{pkgver}.tar.xz"
-sha256 = "cf58f021f32857b5b6799cd4404ef613399ecc1c515492f0f620ce338a311a32"
+sha256 = "c0f0c124c849ef811a873bf1a0123e3feabac6e9ca3ea7e7ac7a40543ec6193a"
 
 
 def init_check(self):
@@ -31,6 +31,11 @@ def init_check(self):
             self.chroot_cwd / f"{self.make_dir}/lib/qt6/qml"
         ),
     }
+
+
+def post_install(self):
+    self.uninstall("usr/bin/sdpscanner6")  # broken link
+    self.install_link("usr/bin/sdpscanner6", "../lib/qt6/libexec/sdpscanner")
 
 
 @subpackage("qt6-qtconnectivity-devel")

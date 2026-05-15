@@ -1,0 +1,10 @@
+--- a/adwaita-icon-theme.pc.in
++++ b/adwaita-icon-theme.pc.in
+@@ -1,6 +1,6 @@
+ Name: gnome-icon-theme
+ Description: A collection of icons used as the basis for GNOME themes
+-Version: @VERSION@
++Version: 46
+ Requires:
+ Libs:
+ Cflags:

@@ -1,0 +1,11 @@
+diff -ruN a/src/libratbag-data.c b/src/libratbag-data.c
+--- a/src/libratbag-data.c	2024-09-24 18:00:05.000000000 +0200
++++ b/src/libratbag-data.c	2025-12-22 22:52:45.178032856 +0100
+@@ -29,6 +29,7 @@
+ #include <stdlib.h>
+ #include <glib.h>
+ #include <limits.h>
++#include <libgen.h>
+ 
+ #include "asus.h"
+ #include "driver-sinowealth.h"

@@ -1,5 +1,5 @@
 pkgname = "deadbeef"
-pkgver = "1.10.0"
+pkgver = "1.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -44,7 +44,7 @@ pkgdesc = "Modular cross-platform audio player"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib AND BSD-2-Clause"
 url = "https://deadbeef.sourceforge.io"
 source = f"https://downloads.sourceforge.net/sourceforge/deadbeef/deadbeef-{pkgver}.tar.bz2"
-sha256 = "98d4247a76efb13bf65890aec9921f5c4733bfc1557906b8d6f209a66b28c363"
+sha256 = "dd951e83e0069e2f3df18985dd40d2cf9409f502b0ecaaf1ac229d5009a8e698"
 # plugins broken
 hardening = ["!vis"]
 

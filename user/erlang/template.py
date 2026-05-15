@@ -1,6 +1,6 @@
 # TODO: split devel, maybe the libs too? (may not be worth it)
 pkgname = "erlang"
-pkgver = "28.1.1"
+pkgver = "28.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -20,7 +20,9 @@ pkgdesc = "Erlang OTP"
 license = "Apache-2.0"
 url = "https://www.erlang.org"
 source = f"https://github.com/erlang/otp/archive/OTP-{pkgver}.tar.gz"
-sha256 = "69630ce5adcb3fc3ede136717c56f1dabff04d370451a27993f91a8f098fb339"
+sha256 = "0174210eef9db97d41fc277ee272d707f6ee4e07850225e6973216215946aad9"
+# .beam/erl_process.c:9750:13: runtime error: signed integer overflow
+hardening = ["!int"]
 # some staticlibs inside the runtime should be non-lto
 options = ["!cross", "!lto"]
 

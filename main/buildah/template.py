@@ -1,6 +1,6 @@
 pkgname = "buildah"
 pkgver = "1.41.5"
-pkgrel = 2
+pkgrel = 4
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = [

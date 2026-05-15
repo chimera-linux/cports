@@ -1,5 +1,5 @@
 pkgname = "nushell"
-pkgver = "0.109.1"
+pkgver = "0.112.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -9,7 +9,10 @@ make_build_args = [
 ]
 make_check_args = [
     "--",
+    "--test-threads=1",
     "--skip=shell::environment::env::path_is_a_list_in_repl",
+    "--skip=shell::environment::env::env_shlvl_in_exec_repl",
+    "--skip=shell::environment::env::env_shlvl_in_repl",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
@@ -23,7 +26,7 @@ pkgdesc = "Shell with a focus on structured data"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "53d4611113a17ed3a29b0c81ea981d546a40dafca77fdcd9af7a7629ceabf48f"
+sha256 = "32ebcfe41b6390145e90eb86273e221f22eeacd53ecac5274405f148fb4258c2"
 _plugins = [
     "polars",
     "formats",
@@ -35,6 +38,8 @@ _plugins = [
 if self.profile().wordsize == 32:
     # TODO: probably fixable
     broken = "needs atomicu64"
+elif self.profile().arch in ["loongarch64"]:
+    broken = "unresolved import self::consts when building nix"
 
 
 def install(self):

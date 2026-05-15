@@ -1,0 +1,27 @@
+commit a1f64462cbbad9c3c1c5e361ce4d48ad4958fed3
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun May 3 20:13:29 2026 +0200
+
+    fix with glib 2.88
+
+diff --git a/virtManager/virtmanager.py b/virtManager/virtmanager.py
+index 8941701..80259d9 100644
+--- a/virtManager/virtmanager.py
++++ b/virtManager/virtmanager.py
+@@ -295,14 +295,14 @@ def main():
+     engine = vmmEngine.get_instance()
+ 
+     # Actually exit when we receive ctrl-c
+-    from gi.repository import GLib
++    from gi.repository import GLib, GLibUnix
+ 
+     def _sigint_handler(user_data):
+         ignore = user_data
+         log.debug("Received KeyboardInterrupt. Exiting application.")
+         engine.exit_app()
+ 
+-    GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, _sigint_handler, None)
++    GLibUnix.signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, _sigint_handler, None)
+ 
+     engine.start(options.uri, show_window, domain, skip_autostart)
+ 

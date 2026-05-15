@@ -1,5 +1,5 @@
 pkgname = "fd"
-pkgver = "10.3.0"
+pkgver = "10.4.2"
 pkgrel = 0
 build_style = "cargo"
 # disable the default use-jemalloc and completions features
@@ -18,8 +18,8 @@ source = [
 ]
 source_paths = [".", "extra"]
 sha256 = [
-    "2edbc917a533053855d5b635dff368d65756ce6f82ddefd57b6c202622d791e9",
-    "2b6bfaae8c48f12050813c2ffe1884c61ea26e750d803df9c9114550a314cd14",
+    "3a7e027af8c8e91c196ac259c703d78cd55c364706ddafbc66d02c326e57a456",
+    "e3257d48e29a6be965187dbd24ce9af564e0fe67b3e73c9bdcd180f4ec11bdde",
 ]
 
 

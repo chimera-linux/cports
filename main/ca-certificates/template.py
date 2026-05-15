@@ -1,6 +1,6 @@
 pkgname = "ca-certificates"
-pkgver = "20250911"
-pkgrel = 1
+pkgver = "20260413"
+pkgrel = 0
 build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["openssl3", "perl"]
@@ -17,7 +17,7 @@ pkgdesc = "Common CA certificates for SSL/TLS"
 license = "GPL-2.0-or-later AND MPL-2.0"
 url = "https://gitlab.alpinelinux.org/alpine/ca-certificates"
 source = f"{url}/-/archive/{pkgver}/ca-certificates-{pkgver}.tar.gz"
-sha256 = "def9373067a7436da4d6ca47616c361818956529a4ca719eddf73d9576b3ff6e"
+sha256 = "f0b82644d45705d9a595034cc1670161cc45544e1c18b4b8db99f2f97d2a316f"
 compression = "deflate"
 # no tests
 options = ["!check"]

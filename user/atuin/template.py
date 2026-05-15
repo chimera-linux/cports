@@ -1,34 +1,31 @@
 pkgname = "atuin"
-pkgver = "18.10.0"
+pkgver = "18.16.0"
 pkgrel = 0
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
-make_build_args = ["--no-default-features"]
+make_build_args = [
+    "--no-default-features",
+    "--features=client,sync,clipboard,daemon,hex",
+]
 hostmakedepends = ["cargo-auditable", "protobuf-protoc", "pkgconf"]
 makedepends = ["sqlite-devel", "openssl3-devel", "rust-std"]
 pkgdesc = "Sync, search and backup tool for shell history"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "02228929976142f63b4464a35b8b29b29155e1814cf03e99c95381954c5d9e37"
+sha256 = "433a6ee912d84b2aa4b59b329775a7ee1a1cdc3094412c2f185ac5ce681a64f0"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
 
+if self.profile().wordsize == 32:
+    broken = "requires atomic64"
+
 # TODO service + sysusers
 
 
-def build(self):
-    tgt_base = f"target/{self.profile().triplet}/release"
-
-    with self.stamp("server"):
-        self.cargo.build(["--features=server"])
-        self.mv(f"{tgt_base}/atuin", f"{tgt_base}/atuin-server")
-
-    with self.stamp("client"):
-        self.cargo.build(["--features=client,sync,clipboard"])
-
+def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"atuin.{shell}", "w") as outf:
             self.do(

@@ -1,5 +1,5 @@
 pkgname = "difftastic"
-pkgver = "0.65.0"
+pkgver = "0.69.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -15,7 +15,7 @@ url = "https://difftastic.wilfred.me.uk"
 source = (
     f"https://github.com/Wilfred/difftastic/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "59462f69e2cedfdc1bee4fd0da48fe9a7ae635cdb6818c1a300b31c0b146d4b8"
+sha256 = "49d722fb80a0324ea99fe11907f796cde635443084d15cc6f1afd9e0de54bde0"
 
 
 def post_install(self):

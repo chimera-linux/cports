@@ -1,18 +1,17 @@
 #!/bin/sh
 
 sed \
-    -e 's/@@MENUNAME@@/Chromium/g' \
-    -e 's/@@PACKAGE@@/chromium/g' \
-    -e 's/@@USR_BIN_SYMLINK_NAME@@/chromium-browser/g' \
+    -e 's/@@MENUNAME/Chromium/g' \
+    -e 's/@@PACKAGE/chromium/g' \
     chrome/app/resources/manpage.1.in > chromium.1
 
 
 sed \
-    -e 's/@@MENUNAME@@/Chromium/g' \
-    -e 's/@@PACKAGE@@/chromium/g' \
-    -e 's/@@USR_BIN_SYMLINK_NAME@@/chromium-browser/g' \
-    -e 's/@@URI_SCHEME@@//' \
-    -e '/@@EXTRA_DESKTOP_ENTRIES@@/d' \
+    -e 's/@@MENUNAME/Chromium/g' \
+    -e 's/@@PACKAGE/chromium/g' \
+    -e 's/@@usr_bin_symlink_name/chromium-browser/g' \
+    -e 's/@@uri_scheme//' \
+    -e '/@@extra_desktop_entries/d' \
     chrome/installer/linux/common/desktop.template > chromium.desktop
 
 sed \

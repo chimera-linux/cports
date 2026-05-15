@@ -1,5 +1,5 @@
 pkgname = "juk"
-pkgver = "25.12.2"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -39,4 +39,4 @@ pkgdesc = "KDE music player and manager"
 license = "GPL-2.0-only"
 url = "https://juk.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/juk-{pkgver}.tar.xz"
-sha256 = "0db052e1796ae16db3ab51cba2973b91a88a82e0a7783be0c7fed03cfd3ec5a7"
+sha256 = "179c520ffba6b217dcafa48484bbff21faa70c7456bdfdbdbaf6060cca64e6cf"

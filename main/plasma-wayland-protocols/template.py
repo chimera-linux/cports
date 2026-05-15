@@ -1,5 +1,5 @@
 pkgname = "plasma-wayland-protocols"
-pkgver = "1.19.0"
+pkgver = "1.20.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Plasma-specific wayland protocols"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/libraries/plasma-wayland-protocols"
 source = f"$(KDE_SITE)/plasma-wayland-protocols/plasma-wayland-protocols-{pkgver}.tar.xz"
-sha256 = "45679fe7a63c414f2c81793a62528fae6ccee584b6965719d7f9fc6dd48ba846"
+sha256 = "9818bb1462211ce5982e670abf0d964eb11fe1d0c02a1c26084db30695a79d6a"
 
 
 def post_install(self):

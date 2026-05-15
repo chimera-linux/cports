@@ -144,8 +144,8 @@ index 269f2f6..51d3b0f 100644
 +}
 +#endif
 +
- void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
- 			   pgprot_t pgprot)
+ void __iomem *__ioremap_prot(phys_addr_t phys_addr, size_t size,
+ 			     pgprot_t pgprot)
  {
 @@ -37,6 +50,11 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
  		return NULL;
@@ -158,7 +158,7 @@ index 269f2f6..51d3b0f 100644
 +
  	return generic_ioremap_prot(phys_addr, size, pgprot);
  }
- EXPORT_SYMBOL(ioremap_prot);
+ EXPORT_SYMBOL(__ioremap_prot);
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
 index 5d57ea2..175d218 100644
 --- a/drivers/pci/quirks.c

@@ -1,5 +1,5 @@
 pkgname = "magic-wormhole.rs"
-pkgver = "0.7.6"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -9,7 +9,7 @@ pkgdesc = "Magic Wormhole CLI client"
 license = "EUPL-1.2"
 url = "https://github.com/magic-wormhole/magic-wormhole.rs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1d76e80108291f0a31e1a0e2e1d6199decb55bec73bc725baacb93ea0ae06e5e"
+sha256 = "c6cf7f9e5793488a275f525562d55f9edb03ab5ffbe0d859c2ea052fec05a08d"
 # generates completions with host bin
 options = ["!check", "!cross"]
 

@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "144.0.7559.96"
+pkgver = "148.0.7778.167"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -35,6 +35,7 @@ configure_args = [
     'rustc_version="0"',
     "symbol_level=1",
     "treat_warnings_as_errors=false",
+    "safe_browsing_use_unrar=false",
     "use_clang_modules=false",
     "use_custom_libcxx=false",
     "use_dwarf5=true",
@@ -53,6 +54,7 @@ configure_args = [
 hostmakedepends = [
     "bash",
     "bison",
+    "esbuild",
     "findutils",
     "git",
     "gn",
@@ -137,8 +139,15 @@ depends = [
 pkgdesc = "Web browser"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
-source = f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz"
-sha256 = "6f7fbeaa5ef0b1b4c0ede631edb7365ae48602f587c3c3b65af874922d21a064"
+source = [
+    f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz",
+    "https://registry.npmjs.org/@rollup/wasm-node/-/wasm-node-4.22.4.tgz",
+]
+source_paths = [".", "rollup"]
+sha256 = [
+    "130d90cd6b804fbf389f373af7084bbd7eaffcf8b4e06239e5c24a5f82f74a2c",
+    "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
+]
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -171,12 +180,39 @@ match self.profile().arch:
 
 
 def post_patch(self):
+    # replace wrong node with a working one
     self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
     self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
+    # replace wrong esbuild with a working one
+    self.rm(
+        "third_party/devtools-frontend/src/third_party/esbuild/esbuild",
+        force=True,
+    )
+    self.ln_s(
+        "/usr/bin/esbuild",
+        "third_party/devtools-frontend/src/third_party/esbuild/esbuild",
+    )
+    self.rm(
+        "third_party/devtools-frontend/src/node_modules/esbuild",
+        recursive=True,
+        force=True,
+    )
+    self.ln_s(
+        "/usr/lib/node_modules/esbuild",
+        "third_party/devtools-frontend/src/node_modules/esbuild",
+    )
+    # replace wrong gperf with a working one
+    self.rm("third_party/gperf/cipd/bin/gperf", force=True)
+    self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
+
+    self.rm(
+        "third_party/devtools-frontend/src/node_modules/rollup", recursive=True
+    )
+    self.mv("rollup", "third_party/devtools-frontend/src/node_modules")
 
 
 def configure(self):
@@ -196,7 +232,7 @@ def configure(self):
         "flac",
         "fontconfig",
         "freetype",
-        "harfbuzz-ng",
+        "harfbuzz",
         "highway",
         "libjpeg",
         "libpng",
@@ -297,8 +333,6 @@ def install(self):
     self.install_file(f"{srcp}/libvulkan.so.1", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvk_swiftshader.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/vk_swiftshader_icd.json", dstp, mode=0o755)
-    self.install_file(f"{srcp}/xdg-mime", dstp, mode=0o755)
-    self.install_file(f"{srcp}/xdg-settings", dstp, mode=0o755)
 
     self.install_file(f"{srcp}/*.bin", dstp, glob=True)
     self.install_file(f"{srcp}/*.pak", dstp, glob=True)

@@ -1,6 +1,6 @@
 # update linux-rpi-zfs-bin when bumping
 pkgname = "linux-rpi"
-pkgver = "6.12.62"
+pkgver = "6.18.29"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "linux_kernel"
@@ -8,7 +8,7 @@ configure_args = ["FLAVOR=rpi", f"RELEASE={pkgrel}"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
-_commit = "a1073743767f9e7fdc7017ababd2a07ea0c97c1c"
+_commit = "5fe081e028463bc519d86ff712224d1f489a9e25"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
@@ -18,7 +18,7 @@ pkgdesc = (
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "9937857c240971c512f4d27700ca77743ba3bd701a7b3955c41ea8bac5077c7f"
+sha256 = "a0a19336348f864f21ee066a49a92ddcab5f9a096f2a023aae442cd5e445cc05"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -32,7 +32,9 @@ options = [
     "foreignelf",  # vdso32
 ]
 
-if self.profile().cross:
+if self.current_target == "custom:generate-configs":
+    hostmakedepends += ["base-cross", "ncurses-devel"]
+elif self.profile().cross:
     broken = "linux-devel does not come out right"
 
 

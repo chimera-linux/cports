@@ -1,5 +1,5 @@
 pkgname = "kwalletmanager"
-pkgver = "25.12.2"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -33,5 +33,5 @@ url = "https://invent.kde.org/utilities/kwalletmanager"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kwalletmanager-{pkgver}.tar.xz"
 )
-sha256 = "d4a9666e84732b876f2acd41b91f41590c5b087faf1290e00bf153bd23207151"
+sha256 = "7fe0724d64efcc17c97a611f6bd1ea59cd13aab5969acb53cdbeed76d651e74f"
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "swaybg"
-pkgver = "1.2.1"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Wallpaper tool for Wayland compositors"
 license = "MIT"
 url = "https://github.com/swaywm/swaybg"
 source = f"{url}/releases/download/v{pkgver}/swaybg-{pkgver}.tar.gz"
-sha256 = "6af1fdf0e57b1cc5345febed786b761fea0e170943a82639f94cfaed7df84f8f"
+sha256 = "a6652a0060a0bea3c3318d9d03b6dddac34f6aeca01b883eef9e58281f5202a1"
 hardening = ["vis", "cfi"]
 
 

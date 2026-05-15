@@ -15,4 +15,4 @@
 +#endif
  }
 
- int intel_vga_register(struct intel_display *display)
+ static int intel_gmch_vga_set_state(struct intel_display *display, bool enable_decode)

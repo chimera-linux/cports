@@ -1,5 +1,5 @@
 pkgname = "tree-sitter-query"
-pkgver = "0.6.2"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -21,7 +21,7 @@ source_paths = [
     ".tests/nvim-treesitter-textobjects",
 ]
 sha256 = [
-    "90682e128d048fbf2a2a17edca947db71e326fa0b3dba4136e041e096538b4eb",
+    "c2b23b9a54cffcc999ded4a5d3949daf338bebb7945dece229f832332e6e6a7d",
     "e5d345447a560d50e8e926a657c772060b17665cf34ba296d413af46e3411c00",
     "ff6435187774f11f846420de3a982d754c105c86cbab0cb1bd76384eb209bbfd",
 ]

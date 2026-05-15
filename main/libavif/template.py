@@ -1,10 +1,9 @@
 pkgname = "libavif"
 pkgver = "1.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DAVIF_BUILD_APPS=ON",
-    "-DAVIF_BUILD_GDK_PIXBUF=ON",
     "-DAVIF_CODEC_DAV1D=SYSTEM",
     "-DAVIF_CODEC_AOM=SYSTEM",
     "-DAVIF_LIBYUV=OFF",
@@ -15,7 +14,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "dav1d-devel",
-    "gdk-pixbuf-devel",
     "gtest-devel",
     "libaom-devel",
     "libjpeg-turbo-devel",

@@ -1,6 +1,6 @@
 pkgname = "gmime"
 pkgver = "3.2.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-gtk-doc",

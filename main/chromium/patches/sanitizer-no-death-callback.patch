@@ -12,7 +12,7 @@ undefined symbol in our build
  #endif  // V8_USE_ANY_SANITIZER
  }
 @@ -782,7 +782,7 @@ void InstallCrashFilter() {
-   success &= (sigaction(SIGSEGV, &action, &g_old_sigsegv_handler) == 0);
+   }
    CHECK(success);
  
 -#ifdef V8_USE_ANY_SANITIZER

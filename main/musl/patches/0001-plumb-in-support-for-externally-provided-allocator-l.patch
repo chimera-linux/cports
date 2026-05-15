@@ -169,14 +169,6 @@ diff --git a/src/exit/exit.c b/src/exit/exit.c
 index a6869b3..6a0b78f 100644
 --- a/src/exit/exit.c
 +++ b/src/exit/exit.c
-@@ -1,6 +1,7 @@
- #include <stdlib.h>
- #include <stdint.h>
- #include "libc.h"
-+#include "pthread_impl.h"
- 
- static void dummy()
- {
 @@ -20,6 +21,7 @@ static void libc_exit_fini(void)
  	for (; a>(uintptr_t)&__fini_array_start; a-=sizeof(void(*)()))
  		(*(void (**)())(a-sizeof(void(*)())))();

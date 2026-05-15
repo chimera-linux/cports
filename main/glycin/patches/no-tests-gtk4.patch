@@ -1,0 +1,61 @@
+diff --git a/glycin-loaders/meson.build b/glycin-loaders/meson.build
+index 805a646..efe891c 100644
+--- a/glycin-loaders/meson.build
++++ b/glycin-loaders/meson.build
+@@ -19,7 +19,6 @@ endif
+ 
+ if get_option('tests')
+   dependency('gio-2.0', version: gio_req)
+-  dependency('gtk4', version: gtk4_req)
+   dependency('lcms2', version: lcms2_req)
+ endif
+ 
+diff --git a/tests/libglycin.py b/tests/libglycin.py
+index 2bcdfcc..4b72522 100755
+--- a/tests/libglycin.py
++++ b/tests/libglycin.py
+@@ -6,9 +6,8 @@ import os.path
+ import sys
+ 
+ gi.require_version("Gly", "2")
+-gi.require_version("GlyGtk4", "2")
+ 
+-from gi.repository import Gly, GlyGtk4, Gio, GLib, Gdk
++from gi.repository import Gly, Gio, GLib, Gdk
+ 
+ # test loader for color.jpg
+ def test_loader(loader):
+@@ -32,9 +31,6 @@ def test_frame(frame):
+     first_byte = frame.get_buf_bytes().get_data()[0]
+     memory_format = frame.get_memory_format()
+ 
+-    texture = GlyGtk4.frame_get_texture(frame)
+-    texture_width = texture.get_width()
+-
+     assert width == 600, f"Wrong width: {width} px"
+     assert height == 400, f"Wrong height: {height} px"
+     assert stride == 600 * 3, f"Wrong stride: {stride} px"
+@@ -45,8 +41,6 @@ def test_frame(frame):
+     assert not Gly.MemoryFormat.has_alpha(memory_format)
+     assert not Gly.MemoryFormat.is_premultiplied(memory_format)
+ 
+-    assert texture_width == 600, f"Wrong texture width: {texture_width} px"
+-
+ def main():
+     GLib.timeout_add_seconds(interval = 2, function = cb_exit)
+ 
+@@ -184,14 +178,6 @@ def main():
+     assert cicp_copy.matrix_coefficients == cicp.matrix_coefficients
+     assert cicp_copy.video_full_range_flag == cicp.video_full_range_flag
+ 
+-    texture = GlyGtk4.frame_get_texture(frame)
+-    cicp = texture.get_color_state().create_cicp_params()
+-
+-    assert cicp.get_color_primaries() == 12
+-    assert cicp.get_transfer_function() == 13
+-    assert cicp.get_matrix_coefficients() == 0
+-    assert cicp.get_range() == Gdk.CicpRange.FULL
+-
+     # Animation
+ 
+     loader = Gly.Loader.new(file_animation)

@@ -1,17 +1,17 @@
-From 25568b6adcbf5475674b378b63725de64c43bb9b Mon Sep 17 00:00:00 2001
+From 3b558fe3a9ea17b2127fa736e870190974225bf4 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:50:28 +0100
-Subject: [PATCH 02/29] llvm: musl workarounds
+Subject: [PATCH 02/28] llvm: musl workarounds
 
 ---
  llvm/include/llvm/Analysis/TargetLibraryInfo.h | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/llvm/include/llvm/Analysis/TargetLibraryInfo.h b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-index c7bd1618e..e70e913d6 100644
+index 0f98af69f..15ad453fe 100644
 --- a/llvm/include/llvm/Analysis/TargetLibraryInfo.h
 +++ b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-@@ -20,6 +20,15 @@
+@@ -22,6 +22,15 @@
  #include <bitset>
  #include <optional>
  
@@ -28,5 +28,5 @@ index c7bd1618e..e70e913d6 100644
  
  template <typename T> class ArrayRef;
 -- 
-2.51.1
+2.52.0
 

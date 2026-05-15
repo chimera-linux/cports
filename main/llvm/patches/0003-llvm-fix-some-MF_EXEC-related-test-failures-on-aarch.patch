@@ -1,7 +1,7 @@
-From 84b6fe85fd2c29091a7609acc9b51f0e7adf0b14 Mon Sep 17 00:00:00 2001
+From e0ecd06ef09c7fc224decadbfff0def5d8e319f9 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:04:20 +0200
-Subject: [PATCH 03/29] llvm: fix some MF_EXEC related test failures on aarch64
+Subject: [PATCH 03/28] llvm: fix some MF_EXEC related test failures on aarch64
 
 https://bugs.llvm.org/show_bug.cgi?id=14278#c10
 ---
@@ -22,5 +22,5 @@ index bac208a7d..4cb941d39 100644
      // can have unintended consequences.  The function InvalidateInstruction-
      // Cache uses instructions dcbf and icbi, both of which are treated by
 -- 
-2.51.1
+2.52.0
 

@@ -1,5 +1,5 @@
 pkgname = "luanti"
-pkgver = "5.14.0"
+pkgver = "5.15.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -48,7 +48,7 @@ url = "https://www.luanti.org"
 source = (
     f"https://github.com/luanti-org/luanti/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "b9f561fa37db3c7ea1b8ba15cfede8282b7a79b9e939b0357269c8b037cf5aea"
+sha256 = "1fdfa8b973968f8fcf5a264ce3fb3a170c3882105f953498a64d6415eff83471"
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 # see below

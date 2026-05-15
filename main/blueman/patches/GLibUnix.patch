@@ -1,0 +1,109 @@
+adapted from https://github.com/blueman-project/blueman/pull/3183
+
+diff -ruN a/blueman/main/Adapter.py b/blueman/main/Adapter.py
+--- a/blueman/main/Adapter.py	2025-07-01 21:02:29.000000000 +0200
++++ b/blueman/main/Adapter.py	2026-05-01 17:51:18.418492311 +0200
+@@ -13,8 +13,9 @@
+ import gi
+ gi.require_version("Gtk", "3.0")
+ gi.require_version("Gdk", "3.0")
++gi.require_version("GLibUnix", "2.0")
+ gi.require_version("Pango", "1.0")
+-from gi.repository import Gtk, Gio, Gdk, GLib
++from gi.repository import Gtk, Gio, Gdk, GLibUnix
+ from gi.repository import Pango
+ 
+ 
+@@ -36,7 +37,7 @@
+             self.quit()
+             return False
+ 
+-        s = GLib.unix_signal_source_new(signal.SIGINT)
++        s = GLibUnix.signal_source_new(signal.SIGINT)
+         s.set_callback(do_quit)
+         s.attach()
+ 
+diff -ruN a/blueman/main/Applet.py b/blueman/main/Applet.py
+--- a/blueman/main/Applet.py	2025-07-01 21:02:29.000000000 +0200
++++ b/blueman/main/Applet.py	2026-05-01 17:51:40.945325546 +0200
+@@ -1,7 +1,7 @@
+ import gi
+ gi.require_version("Gtk", "3.0")
+ 
+-from gi.repository import Gio, GLib, Gtk
++from gi.repository import Gio, GLibUnix, Gtk
+ import logging
+ import signal
+ from typing import Any, cast
+@@ -31,7 +31,7 @@
+             self.quit()
+             return False
+ 
+-        s = GLib.unix_signal_source_new(signal.SIGINT)
++        s = GLibUnix.signal_source_new(signal.SIGINT)
+         s.set_callback(do_quit)
+         s.attach()
+ 
+diff -ruN a/blueman/main/Manager.py b/blueman/main/Manager.py
+--- a/blueman/main/Manager.py	2025-07-01 21:02:29.000000000 +0200
++++ b/blueman/main/Manager.py	2026-05-01 17:55:34.170599004 +0200
+@@ -23,7 +23,7 @@
+ import gi
+ gi.require_version("Gtk", "3.0")
+ gi.require_version("Gdk", "3.0")
+-from gi.repository import Gtk, Gio, Gdk, GLib
++from gi.repository import Gtk, Gio, Gdk, GLib, GLibUnix
+ 
+ 
+ class Blueman(Gtk.Application):
+@@ -35,7 +35,7 @@
+             self.quit()
+             return False
+ 
+-        s = GLib.unix_signal_source_new(signal.SIGINT)
++        s = GLibUnix.signal_source_new(signal.SIGINT)
+         s.set_callback(do_quit)
+         s.attach()
+ 
+diff -ruN a/blueman/main/Services.py b/blueman/main/Services.py
+--- a/blueman/main/Services.py	2025-07-01 21:02:29.000000000 +0200
++++ b/blueman/main/Services.py	2026-05-01 17:54:09.562225354 +0200
+@@ -11,7 +11,7 @@
+ import gi
+ gi.require_version("Gtk", "3.0")
+ from gi.repository import Gtk
+-from gi.repository import GLib
++from gi.repository import GLibUnix
+ from gi.repository import Gio
+ 
+ 
+@@ -26,7 +26,7 @@
+             self.quit()
+             return False
+ 
+-        s = GLib.unix_signal_source_new(signal.SIGINT)
++        s = GLibUnix.signal_source_new(signal.SIGINT)
+         s.set_callback(do_quit)
+         s.attach()
+ 
+diff -ruN a/blueman/main/Tray.py b/blueman/main/Tray.py
+--- a/blueman/main/Tray.py	2025-07-01 21:02:29.000000000 +0200
++++ b/blueman/main/Tray.py	2026-05-01 17:52:20.458033036 +0200
+@@ -4,7 +4,7 @@
+ import signal
+ import sys
+ from blueman.main.DBusProxies import AppletService
+-from gi.repository import Gio, GLib
++from gi.repository import Gio, GLib, GLibUnix
+ 
+ from blueman.main.indicators.IndicatorInterface import IndicatorNotAvailable
+ 
+@@ -18,7 +18,7 @@
+             self.quit()
+             return False
+ 
+-        s = GLib.unix_signal_source_new(signal.SIGINT)
++        s = GLibUnix.signal_source_new(signal.SIGINT)
+         s.set_callback(do_quit)
+         s.attach()
+ 

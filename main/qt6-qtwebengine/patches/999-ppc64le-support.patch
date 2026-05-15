@@ -2,15 +2,15 @@ diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/alloc
 index 00de65d..98882cd 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc.gni
-@@ -19,7 +19,7 @@ if (is_nacl) {
-   # NaCl targets don't use 64-bit pointers.
-   has_64_bit_pointers = false
- } else if (current_cpu == "x64" || current_cpu == "arm64" ||
--           current_cpu == "loong64" || current_cpu == "riscv64") {
-+           current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
+@@ -66,7 +66,7 @@
+ # Whether 64-bit pointers are used.
+ # A static_assert in partition_alloc_config.h verifies that.
+ if (current_cpu == "x64" || current_cpu == "arm64" || current_cpu == "arm64e" ||
+-    current_cpu == "loong64" || current_cpu == "riscv64") {
++    current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
+   assert(current_cpu != "arm64e" || (is_ios && target_environment == "device"))
    has_64_bit_pointers = true
- } else if (current_cpu == "x86" || current_cpu == "arm") {
-   has_64_bit_pointers = false
+ } else if (current_cpu == "x86" || current_cpu == "arm" ||
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 index 6516c20..7d32eed 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
@@ -44,7 +44,7 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_al
 index d38db0a..038ffeb 100644
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-@@ -28,12 +28,17 @@ namespace internal {
+@@ -29,6 +29,10 @@
  // the second one 16. We could technically return something different for
  // malloc() and operator new(), but this would complicate things, and most of
  // our allocations are presumably coming from operator new() anyway.
@@ -52,16 +52,17 @@ index d38db0a..038ffeb 100644
 +/* we want this to be 16 here always */
 +constexpr size_t kAlignment = 16;
 +#else
- constexpr size_t kAlignment =
+ constexpr inline size_t kAlignment =
      std::max(alignof(max_align_t),
               static_cast<size_t>(__STDCPP_DEFAULT_NEW_ALIGNMENT__));
+@@ -37,6 +41,7 @@
  static_assert(kAlignment <= 16,
                "PartitionAlloc doesn't support a fundamental alignment larger "
                "than 16 bytes.");
 +#endif
  
- class PA_LOCKABLE Lock;
- 
+ constexpr inline size_t kAlignmentIndex = base::bits::CountrZero(kAlignment);
+ static_assert(kAlignment == (1 << kAlignmentIndex));
 --- a/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
 +++ b/src/3rdparty/chromium/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
 @@ -138,7 +138,7 @@
@@ -86,48 +87,17 @@ index 7f8d9ae..07043d8 100644
  #define MUSTTAIL [[clang::musttail]]
  #else
  #define MUSTTAIL
-diff --git a/build/download_nacl_toolchains.py b/build/download_nacl_toolchains.py
-index 1b86a4b..bc95083 100755
---- a/src/3rdparty/chromium/build/download_nacl_toolchains.py
-+++ b/src/3rdparty/chromium/build/download_nacl_toolchains.py
-@@ -12,6 +12,10 @@ import sys
- 
- 
- def Main(args):
-+  # If `disable_nacl=1` is in GYP_DEFINES, exit
-+  if 'disable_nacl=1' in os.environ.get('GYP_DEFINES', ''):
-+    return 0
-+
-   script_dir = os.path.dirname(os.path.abspath(__file__))
-   src_dir = os.path.dirname(script_dir)
-   nacl_dir = os.path.join(src_dir, 'native_client')
-diff --git a/build/rust/cargo_crate.gni b/build/rust/cargo_crate.gni
-index 7290451..9592120 100644
---- a/src/3rdparty/chromium/build/rust/cargo_crate.gni
-+++ b/src/3rdparty/chromium/build/rust/cargo_crate.gni
-@@ -430,7 +430,7 @@ template("cargo_crate") {
-         ]
-       }
-       if (current_cpu == "arm64" || current_cpu == "x64" ||
--          current_cpu == "loong64" || current_cpu == "riscv64") {
-+          current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
-         args += [
-           "--pointer-width",
-           "64",
 diff --git a/sandbox/features.gni b/sandbox/features.gni
 index 8434144..c92bf1a 100644
 --- a/src/3rdparty/chromium/sandbox/features.gni
 +++ b/src/3rdparty/chromium/sandbox/features.gni
-@@ -9,7 +9,8 @@
+@@ -9,4 +9,5 @@
  use_seccomp_bpf = (is_linux || is_chromeos || is_android) &&
                    (current_cpu == "x86" || current_cpu == "x64" ||
                     current_cpu == "arm" || current_cpu == "arm64" ||
 -                   current_cpu == "mipsel" || current_cpu == "mips64el")
 +                   current_cpu == "mipsel" || current_cpu == "mips64el" ||
 +                   current_cpu == "ppc64")
- 
- # SSBD (Speculative Store Bypass Disable) is a mitigation of Spectre Variant 4.
- # As Spectre Variant 4 can be mitigated by site isolation, opt-out SSBD on site
 diff --git a/sandbox/linux/BUILD.gn b/sandbox/linux/BUILD.gn
 index cc86e06..2d04ba5 100644
 --- a/src/3rdparty/chromium/sandbox/linux/BUILD.gn
@@ -229,23 +199,14 @@ index d7286c4..5db9ada 100644
           SyscallSets::IsSocketCall(sysno) ||
  #endif
 @@ -260,7 +260,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
-   }
  
+   // TODO(crbug.com/40528912): should i386 really be in this list?
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
 -    defined(__aarch64__)
 +    defined(__aarch64__) || defined(__powerpc64__)
    if (sysno == __NR_mmap)
      return RestrictMmapFlags();
  #endif
-@@ -281,7 +281,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
-     return RestrictPrctl();
- 
- #if defined(__x86_64__) || defined(__arm__) || defined(__mips__) || \
--    defined(__aarch64__)
-+    defined(__aarch64__) || defined(__powerpc64__)
-   if (sysno == __NR_socketpair) {
-     // Only allow AF_UNIX, PF_UNIX. Crash if anything else is seen.
-     static_assert(AF_UNIX == PF_UNIX,
 @@ -344,7 +344,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
      return Error(EPERM);
    }
@@ -294,12 +255,12 @@ diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.c
 index cfc37e2..e448a8f 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-@@ -36,7 +36,7 @@
+@@ -43,7 +43,7 @@
+ #define MAP_DROPPABLE	0x08    // Zero memory under memory pressure.
  #endif
-
- #if (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)) && \
--    !defined(__arm__) && !defined(__aarch64__) &&             \
-+    !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc64__) && \
+ 
+-#if BUILDFLAG(IS_LINUX) && !defined(__arm__) && !defined(__aarch64__) && \
++#if BUILDFLAG(IS_LINUX) && !defined(__arm__) && !defined(__aarch64__) && !defined(__powerpc64__) && \
      !defined(PTRACE_GET_THREAD_AREA)
  // Also include asm/ptrace-abi.h since ptrace.h in older libc (for instance
  // the one in Ubuntu 16.04 LTS) is missing PTRACE_GET_THREAD_AREA.
@@ -392,7 +353,7 @@ diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc b/sandbox/linux/s
 index f6e77d1..5e3cbfe 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 +++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
-@@ -28,7 +28,7 @@ bool SyscallSets::IsKill(int sysno) {
+@@ -28,7 +28,7 @@
  bool SyscallSets::IsAllowedGettime(int sysno) {
    switch (sysno) {
      case __NR_gettimeofday:
@@ -401,7 +362,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_time:
  #endif
-@@ -51,12 +51,12 @@ bool SyscallSets::IsAllowedGettime(int sysno) {
+@@ -51,12 +51,12 @@
                                      // filtered by RestrictClockID().
      case __NR_clock_nanosleep_time64:  // Parameters filtered by RestrictClockID().
  #endif
@@ -416,7 +377,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_stime:
  #endif
-@@ -136,7 +136,7 @@ bool SyscallSets::IsFileSystem(int sysno) {
+@@ -136,7 +136,7 @@
      case __NR_faccessat2:
      case __NR_fchmodat:
      case __NR_fchownat:  // Should be called chownat ?
@@ -425,7 +386,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_newfstatat:  // fstatat(). EPERM not a valid errno.
  #elif defined(__i386__) || defined(__arm__) || \
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
-@@ -155,7 +155,7 @@ bool SyscallSets::IsFileSystem(int sysno) {
+@@ -155,7 +155,7 @@
      case __NR_memfd_create:
      case __NR_mkdirat:
      case __NR_mknodat:
@@ -434,7 +395,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_oldlstat:
      case __NR_oldstat:
  #endif
-@@ -168,7 +168,7 @@ bool SyscallSets::IsFileSystem(int sysno) {
+@@ -168,7 +168,7 @@
      case __NR_stat64:
  #endif
      case __NR_statfs:  // EPERM not a valid errno.
@@ -443,7 +404,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_statfs64:
  #endif
-@@ -180,7 +180,7 @@ bool SyscallSets::IsFileSystem(int sysno) {
+@@ -180,7 +180,7 @@
      case __NR_truncate64:
  #endif
      case __NR_unlinkat:
@@ -452,7 +413,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_utime:
  #endif
      case __NR_utimensat:  // New.
-@@ -220,7 +220,7 @@ bool SyscallSets::IsAllowedFileSystemAccessViaFd(int sysno) {
+@@ -220,7 +220,7 @@
  #endif
        return true;
  // TODO(jln): these should be denied gracefully as well (moved below).
@@ -461,7 +422,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_fadvise64:  // EPERM not a valid errno.
  #endif
  #if defined(__i386__)
-@@ -232,12 +232,12 @@ bool SyscallSets::IsAllowedFileSystemAccessViaFd(int sysno) {
+@@ -232,12 +232,12 @@
      case __NR_fdatasync:  // EPERM not a valid errno.
      case __NR_flock:      // EPERM not a valid errno.
      case __NR_fstatfs:    // Give information about the whole filesystem.
@@ -476,7 +437,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_oldfstat:
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
-@@ -245,6 +245,8 @@ bool SyscallSets::IsAllowedFileSystemAccessViaFd(int sysno) {
+@@ -245,6 +245,8 @@
      case __NR_sync_file_range:  // EPERM not a valid errno.
  #elif defined(__arm__)
      case __NR_arm_sync_file_range:  // EPERM not a valid errno.
@@ -485,7 +446,7 @@ index f6e77d1..5e3cbfe 100644
  #endif
      default:
        return false;
-@@ -264,7 +266,7 @@ bool SyscallSets::IsDeniedFileSystemAccessViaFd(int sysno) {
+@@ -264,7 +266,7 @@
      case __NR_getdents:    // EPERM not a valid errno.
  #endif
      case __NR_getdents64:  // EPERM not a valid errno.
@@ -494,7 +455,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_readdir:
  #endif
-@@ -306,7 +308,7 @@ bool SyscallSets::IsGetSimpleId(int sysno) {
+@@ -306,7 +308,7 @@
  bool SyscallSets::IsProcessPrivilegeChange(int sysno) {
    switch (sysno) {
      case __NR_capset:
@@ -503,7 +464,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_ioperm:  // Intel privilege.
      case __NR_iopl:    // Intel privilege.
  #endif
-@@ -361,9 +363,11 @@ bool SyscallSets::IsAllowedSignalHandling(int sysno) {
+@@ -361,9 +363,11 @@
      // whose stack pointers no longer point to their main stack, e.g. stack
      // overflow.
      case __NR_sigaltstack:
@@ -516,7 +477,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_sigaction:
      case __NR_sigprocmask:
      case __NR_sigreturn:
-@@ -377,7 +381,7 @@ bool SyscallSets::IsAllowedSignalHandling(int sysno) {
+@@ -377,7 +381,7 @@
      case __NR_signalfd:
  #endif
      case __NR_signalfd4:
@@ -525,7 +486,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_sigpending:
      case __NR_sigsuspend:
-@@ -402,7 +406,7 @@ bool SyscallSets::IsAllowedOperationOnFd(int sysno) {
+@@ -402,7 +406,7 @@
  #endif
      case __NR_dup3:
  #if defined(__x86_64__) || defined(__arm__) || defined(__mips__) || \
@@ -534,7 +495,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_shutdown:
  #endif
        return true;
-@@ -435,7 +439,7 @@ bool SyscallSets::IsAllowedProcessStartOrDeath(int sysno) {
+@@ -435,7 +439,7 @@
      case __NR_exit_group:
      case __NR_wait4:
      case __NR_waitid:
@@ -543,7 +504,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_waitpid:
  #endif
      case __NR_set_tid_address:
-@@ -499,7 +503,7 @@ bool SyscallSets::IsAllowedEpoll(int sysno) {
+@@ -499,7 +503,7 @@
  bool SyscallSets::IsDeniedGetOrModifySocket(int sysno) {
    switch (sysno) {
  #if defined(__x86_64__) || defined(__arm__) || defined(__mips__) || \
@@ -552,7 +513,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_accept:
      case __NR_accept4:
      case __NR_bind:
-@@ -513,7 +517,7 @@ bool SyscallSets::IsDeniedGetOrModifySocket(int sysno) {
+@@ -513,7 +517,7 @@
    }
  }
  
@@ -561,7 +522,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
  // Big multiplexing system call for sockets.
  bool SyscallSets::IsSocketCall(int sysno) {
-@@ -528,7 +532,7 @@ bool SyscallSets::IsSocketCall(int sysno) {
+@@ -528,7 +532,7 @@
  }
  #endif
  
@@ -570,7 +531,7 @@ index f6e77d1..5e3cbfe 100644
  bool SyscallSets::IsNetworkSocketInformation(int sysno) {
    switch (sysno) {
      case __NR_getpeername:
-@@ -556,7 +560,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
+@@ -556,7 +560,7 @@
      case __NR_mincore:
      case __NR_mlockall:
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -579,7 +540,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_mmap:
  #endif
  #if defined(__i386__) || defined(__arm__) || \
-@@ -584,7 +588,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
+@@ -584,7 +588,7 @@
  bool SyscallSets::IsAllowedGeneralIo(int sysno) {
    switch (sysno) {
      case __NR_lseek:
@@ -588,7 +549,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR__llseek:
  #endif
-@@ -604,19 +604,19 @@
+@@ -604,19 +608,19 @@
      case __NR_read:
      case __NR_readv:
      case __NR_pread64:
@@ -636,7 +597,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_sendmsg:  // Could specify destination.
      case __NR_sendto:   // Could specify destination.
  #endif
-@@ -679,7 +683,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
+@@ -697,7 +701,7 @@
      case __NR_nanosleep:
        return true;
      case __NR_getpriority:
@@ -645,7 +606,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_nice:
  #endif
-@@ -691,7 +695,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
+@@ -709,7 +713,7 @@
  
  bool SyscallSets::IsAdminOperation(int sysno) {
    switch (sysno) {
@@ -654,7 +615,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_bdflush:
  #endif
-@@ -708,7 +712,7 @@ bool SyscallSets::IsAdminOperation(int sysno) {
+@@ -726,7 +730,7 @@
  
  bool SyscallSets::IsKernelModule(int sysno) {
    switch (sysno) {
@@ -663,7 +624,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_create_module:
      case __NR_get_kernel_syms:  // Should ENOSYS.
      case __NR_query_module:
-@@ -740,7 +744,7 @@ bool SyscallSets::IsFsControl(int sysno) {
+@@ -758,7 +762,7 @@
      case __NR_quotactl:
      case __NR_swapoff:
      case __NR_swapon:
@@ -672,7 +633,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_umount:
  #endif
-@@ -757,7 +761,7 @@ bool SyscallSets::IsNuma(int sysno) {
+@@ -775,7 +779,7 @@
      case __NR_getcpu:
      case __NR_mbind:
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -681,7 +642,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_migrate_pages:
  #endif
      case __NR_move_pages:
-@@ -792,13 +796,13 @@ bool SyscallSets::IsGlobalProcessEnvironment(int sysno) {
+@@ -810,13 +814,13 @@
    switch (sysno) {
      case __NR_acct:  // Privileged.
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -698,7 +659,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_ulimit:
  #endif
-@@ -833,7 +837,7 @@ bool SyscallSets::IsGlobalSystemStatus(int sysno) {
+@@ -851,7 +855,7 @@
  #endif
      case __NR_sysinfo:
      case __NR_uname:
@@ -707,7 +668,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_olduname:
      case __NR_oldolduname:
  #endif
-@@ -915,8 +919,15 @@ bool SyscallSets::IsSystemVSemaphores(int sysno) {
+@@ -933,8 +937,15 @@
  }
  #endif
  
@@ -724,7 +685,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
  // These give a lot of ambient authority and bypass the setuid sandbox.
  bool SyscallSets::IsSystemVSharedMemory(int sysno) {
-@@ -947,7 +958,7 @@ bool SyscallSets::IsSystemVMessageQueue(int sysno) {
+@@ -965,7 +976,7 @@
  }
  #endif
  
@@ -733,7 +694,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
  // Big system V multiplexing system call.
  bool SyscallSets::IsSystemVIpc(int sysno) {
-@@ -967,7 +978,7 @@ bool SyscallSets::IsAnySystemV(int sysno) {
+@@ -985,7 +996,7 @@
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
    return IsSystemVMessageQueue(sysno) || IsSystemVSemaphores(sysno) ||
           IsSystemVSharedMemory(sysno);
@@ -742,7 +703,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
    return IsSystemVIpc(sysno);
  #endif
-@@ -1025,7 +1036,7 @@ bool SyscallSets::IsFaNotify(int sysno) {
+@@ -1043,7 +1054,7 @@
  bool SyscallSets::IsTimer(int sysno) {
    switch (sysno) {
      case __NR_getitimer:
@@ -751,7 +712,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_alarm:
  #endif
      case __NR_setitimer:
-@@ -1104,17 +1115,17 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1122,17 +1133,17 @@
      case __NR_syncfs:
      case __NR_vhangup:
  // The system calls below are not implemented.
@@ -773,7 +734,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_gtty:
      case __NR_idle:
-@@ -1123,20 +1134,20 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1141,20 +1152,20 @@
      case __NR_prof:
      case __NR_profil:
  #endif
@@ -1588,12 +1549,12 @@ index 93dae35..1e3f08a 100644
 @@ -141,7 +141,9 @@ class MicrodumpWriter {
                    const MicrodumpExtraInfo& microdump_extra_info,
                    LinuxDumper* dumper)
-       : ucontext_(context ? &context->context : NULL),
+       : ucontext_(context ? &context->context : nullptr),
 -#if GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
 +#if defined(__powerpc64__)
-+        vector_state_(context ? &context->vector_state : NULL),
++        vector_state_(context ? &context->vector_state : nullptr),
 +#elif GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
-         float_state_(context ? &context->float_state : NULL),
+         float_state_(context ? &context->float_state : nullptr),
  #endif
          dumper_(dumper),
 @@ -348,6 +350,8 @@ class MicrodumpWriter {
@@ -1796,12 +1757,12 @@ index a95dd25..242d738 100644
 @@ -144,7 +144,9 @@ class MinidumpWriter {
        : fd_(minidump_fd),
          path_(minidump_path),
-         ucontext_(context ? &context->context : NULL),
+         ucontext_(context ? &context->context : nullptr),
 -#if GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
 +#if defined(__powerpc64__)
-+        vector_state_(context ? &context->vector_state : NULL),
++        vector_state_(context ? &context->vector_state : nullptr),
 +#elif GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
-         float_state_(context ? &context->float_state : NULL),
+         float_state_(context ? &context->float_state : nullptr),
  #endif
          dumper_(dumper),
 @@ -476,7 +478,9 @@ class MinidumpWriter {
@@ -1913,12 +1874,12 @@ index 8ef6891..37f05e6 100644
    EXPECT_EQ(0U, allocator.pages_allocated());
    uint8_t* p = reinterpret_cast<uint8_t*>(allocator.Alloc(10000));
 +  uint64_t expected_pages = 1 + ((10000 - 1) / getpagesize());
-   ASSERT_FALSE(p == NULL);
+   ASSERT_FALSE(p == nullptr);
 -  EXPECT_EQ(3U, allocator.pages_allocated());
 +  EXPECT_EQ(expected_pages, allocator.pages_allocated());
    for (unsigned i = 1; i < 10; ++i) {
      uint8_t* p = reinterpret_cast<uint8_t*>(allocator.Alloc(i));
-     ASSERT_FALSE(p == NULL);
+     ASSERT_FALSE(p == nullptr);
 diff --git a/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc b/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
 index 09e4690..3396bca 100644
 --- a/src/3rdparty/chromium/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
@@ -3471,7 +3432,7 @@ index 680a374..2fa226f 100755
 +gen_rtcd_header linux/ppc64 generic
  gen_rtcd_header linux/generic generic
  gen_rtcd_header win/arm64-highbd armv8 "${require_neon} ${disable_sve}"
- gen_rtcd_header win/ia32 x86 "${require_sse2}"
+ gen_rtcd_header win/ia32 x86 "${require_sse3}"
 diff --git a/third_party/lss/linux_syscall_support.h b/third_party/lss/linux_syscall_support.h
 index 1e9fa47..b8d0db3 100644
 --- a/src/3rdparty/chromium/third_party/lss/linux_syscall_support.h
@@ -3480,20 +3441,20 @@ index 1e9fa47..b8d0db3 100644
        LSS_REG(2, buf);
        LSS_BODY(void*, mmap2, "0"(__r2));
      }
--#else
-+#elif !defined(__powerpc64__)
+-#elif defined(__NR_mmap2)
++#elif defined(__NR_mmap2) && !defined(__powerpc64__)
      #define __NR__mmap2 __NR_mmap2
      LSS_INLINE _syscall6(void*, _mmap2,            void*, s,
                           size_t,                   l, int,               p,
-@@ -4749,7 +4749,7 @@ struct kernel_statx {
-   #if defined(__i386__) ||                                                    \
-       defined(__ARM_ARCH_3__) || defined(__ARM_EABI__) ||                     \
-      (defined(__mips__) && _MIPS_SIM == _MIPS_SIM_ABI32) ||                   \
--      defined(__PPC__) ||                                                     \
-+     (defined(__PPC__) && !defined(__powerpc64__)) ||                         \
-      (defined(__s390__) && !defined(__s390x__))
+@@ -4809,7 +4809,7 @@ struct kernel_statx {
+                                LSS_SYSCALL_ARG(p), LSS_SYSCALL_ARG(f),
+                                LSS_SYSCALL_ARG(d), (uint64_t)(o));
+     }
+-  #elif defined(__NR_mmap2)
++  #elif defined(__NR_mmap2) && !defined(__powerpc64__)
      /* On these architectures, implement mmap() with mmap2(). */
      LSS_INLINE void* LSS_NAME(mmap)(void *s, size_t l, int p, int f, int d,
+                                     int64_t o) {
 @@ -4872,11 +4872,11 @@ struct kernel_statx {
        LSS_SC_BODY(4, int, 8, d, type, protocol, sv);
      }
@@ -3633,6 +3594,19 @@ index 891a790..aecb83e 100644
      "llvm/lib/MC/MachObjectWriter.cpp",
      "llvm/lib/MC/SPIRVObjectWriter.cpp",
      "llvm/lib/MC/StringTableBuilder.cpp",
+diff --git a/third_party/tflite/features.gni b/third_party/tflite/features.gni
+index b9bff6a..e1d49b8 100644
+--- a/src/3rdparty/chromium/third_party/tflite/features.gni
++++ b/src/3rdparty/chromium/third_party/tflite/features.gni
+@@ -8,7 +8,7 @@ import("//services/on_device_model/on_device_model.gni")
+ 
+ declare_args() {
+   # This enables building TFLite with XNNPACK.
+-  build_tflite_with_xnnpack = current_cpu != "arm" && !is_fuchsia
++  build_tflite_with_xnnpack = current_cpu != "arm" && current_cpu != "ppc64" && !is_fuchsia
+ 
+   # Turns on TFLITE_WITH_RUY, using ruy as the gemm backend instead of gemmlowp.
+   build_tflite_with_ruy = true
 diff --git a/third_party/webrtc/rtc_base/system/arch.h b/third_party/webrtc/rtc_base/system/arch.h
 index 9d945ef..77da679 100644
 --- a/src/3rdparty/chromium/third_party/webrtc/rtc_base/system/arch.h

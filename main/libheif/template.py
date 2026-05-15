@@ -1,9 +1,10 @@
 pkgname = "libheif"
 pkgver = "1.20.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DWITH_DAV1D=ON",
+    "-DWITH_GDK_PIXBUF=OFF",
     "-DWITH_JPEG_DECODER=ON",
     "-DWITH_JPEG_ENCODER=ON",
     "-DWITH_UNCOMPRESSED_CODEC=ON",
@@ -11,7 +12,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "dav1d-devel",
-    "gdk-pixbuf-devel",
     "libaom-devel",
     "libde265-devel",
     "libjpeg-turbo-devel",

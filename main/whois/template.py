@@ -1,5 +1,5 @@
 pkgname = "whois"
-pkgver = "5.6.5"
+pkgver = "5.6.6"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Intelligent WHOIS Client"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/md/whois"
 source = f"{url}/-/archive/v{pkgver}/whois-v{pkgver}.tar.gz"
-sha256 = "bbd7b3ef7bbaaa0acfb2281d78939c6afe1111ab0316b4de507a6e5c1d126b58"
+sha256 = "e3d1940ab3e238ae7f3671e0f1fad8860ccd4f153c2db3b70eacd3db733467fa"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]

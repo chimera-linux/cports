@@ -1,2 +1,2 @@
-url = "https://code.zash.se/luaunbound/atom-tags"
-pattern = r"\<title\>([\d.]+)\<"
+url = "https://code.zash.se/dl/luaunbound/"
+pattern = r"luaunbound-([\d.]+)\.tar\.gz"

@@ -1,7 +1,7 @@
-From 138ee6a3fd6bcca9426070e313a61e236f7f1d63 Mon Sep 17 00:00:00 2001
+From 47cb263b59074bf7ab82c0ddcb389149f99cdd7f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:04:56 +0100
-Subject: [PATCH 11/29] compiler-rt: HACK: always compile in gcc_personality_v0
+Subject: [PATCH 11/28] compiler-rt: HACK: always compile in gcc_personality_v0
 
 Looks like HAVE_UNWIND_H is not accounted for when doing the
 runtimes build, but this is the only place where it's checked.
@@ -13,10 +13,10 @@ Unconditionally compile it in because some things use it.
  2 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index 7a51084f4..4f3d35fc5 100644
+index 7b04b8d4c..7215ae3b2 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -234,12 +234,10 @@ if(APPLE)
+@@ -235,12 +235,10 @@ if(APPLE)
    )
  endif()
  
@@ -34,7 +34,7 @@ index 7a51084f4..4f3d35fc5 100644
  if (NOT FUCHSIA)
    set(GENERIC_SOURCES
 diff --git a/compiler-rt/lib/builtins/gcc_personality_v0.c b/compiler-rt/lib/builtins/gcc_personality_v0.c
-index ef63a5fb8..5a0a90b38 100644
+index 6d92a7b24..dde17313b 100644
 --- a/compiler-rt/lib/builtins/gcc_personality_v0.c
 +++ b/compiler-rt/lib/builtins/gcc_personality_v0.c
 @@ -9,7 +9,7 @@
@@ -47,5 +47,5 @@ index ef63a5fb8..5a0a90b38 100644
      !defined(__USING_SJLJ_EXCEPTIONS__)
  // When building with older compilers (e.g. clang <3.9), it is possible that we
 -- 
-2.51.1
+2.52.0
 

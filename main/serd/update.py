@@ -1,2 +1,2 @@
-url = "https://drobilla.net/category/serd/"
+url = "https://download.drobilla.net/"
 pattern = r"serd-([\d.]+)\.tar\.xz"

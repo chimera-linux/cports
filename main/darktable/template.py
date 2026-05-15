@@ -1,6 +1,6 @@
 pkgname = "darktable"
 pkgver = "5.2.1"
-pkgrel = 2
+pkgrel = 3
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -33,7 +33,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "clang-devel",
-    "clang-tools-extra",
     "colord-devel",
     "colord-gtk-devel",
     "cups-devel",

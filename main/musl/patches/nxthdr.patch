@@ -1,0 +1,31 @@
+commit cbad54c13d4c919d2d9b489de526451b8fa00409
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Mar 23 18:18:01 2026 +0100
+
+    silence CMSG_NXTHDR warnings with higher clang warnlevels
+    
+    The first line fixes:
+    
+    msg.cc:8:15: warning: comparison of integers of different signs: 'unsigned long' and 'long' [-Wsign-compare]
+        8 |     auto *x = CMSG_NXTHDR(a, b);
+    
+    The second line fixes:
+    
+    msg.cc:8:15: warning: cast from 'unsigned char *' to 'struct cmsghdr *' increases required alignment from 1 to 4 [-Wcast-align]
+        8 |     auto *x = CMSG_NXTHDR(a, b);
+
+diff --git a/include/sys/socket.h b/include/sys/socket.h
+index 6dc1e40..b805f7d 100644
+--- a/include/sys/socket.h
++++ b/include/sys/socket.h
+@@ -355,8 +355,8 @@ struct linger {
+ 
+ #define CMSG_DATA(cmsg) ((unsigned char *) (((struct cmsghdr *)(cmsg)) + 1))
+ #define CMSG_NXTHDR(mhdr, cmsg) ((cmsg)->cmsg_len < sizeof (struct cmsghdr) || \
+-	__CMSG_LEN(cmsg) + sizeof(struct cmsghdr) >= __MHDR_END(mhdr) - (unsigned char *)(cmsg) \
+-	? 0 : (struct cmsghdr *)__CMSG_NEXT(cmsg))
++	__CMSG_LEN(cmsg) + sizeof(struct cmsghdr) >= (size_t)(__MHDR_END(mhdr) - (unsigned char *)(cmsg)) \
++	? 0 : (struct cmsghdr *)(void *)__CMSG_NEXT(cmsg))
+ #define CMSG_FIRSTHDR(mhdr) ((size_t) (mhdr)->msg_controllen >= sizeof (struct cmsghdr) ? (struct cmsghdr *) (mhdr)->msg_control : (struct cmsghdr *) 0)
+ 
+ #define CMSG_ALIGN(len) (((len) + sizeof (size_t) - 1) & (size_t) ~(sizeof (size_t) - 1))

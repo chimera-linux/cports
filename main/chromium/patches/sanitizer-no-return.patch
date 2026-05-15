@@ -1,0 +1,21 @@
+commit 3aa3df26996482d23269ec4a60a134fa8fac8419
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu May 7 22:44:29 2026 +0200
+
+    disable sanitize-return crap
+    
+    clang++: error: unknown argument: '-fsanitize-ignore-for-ubsan-feature=return'
+
+diff --git a/build/config/compiler/BUILD.gn b/build/config/compiler/BUILD.gn
+index b525a87..40c18d6 100644
+--- a/build/config/compiler/BUILD.gn
++++ b/build/config/compiler/BUILD.gn
+@@ -1906,7 +1906,7 @@ config("sanitize_c_array_bounds") {
+ # functions (https://crbug.com/489565636). This is equivalent to inserting
+ # `NOTREACHED()` at the end of such functions.
+ config("sanitize_return") {
+-  if (!is_ubsan && is_clang) {
++  if (is_ubsan && is_clang) {
+     cflags = [
+       "-fsanitize=return",
+       "-fsanitize-trap=return",

@@ -1,6 +1,6 @@
 pkgname = "totem-pl-parser"
-pkgver = "3.26.6"
-pkgrel = 2
+pkgver = "3.26.7"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Denable-libarchive=yes",
@@ -28,7 +28,7 @@ pkgdesc = "Totem playlist parser library"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/totem-pl-parser"
 source = f"$(GNOME_SITE)/totem-pl-parser/{pkgver[:-2]}/totem-pl-parser-{pkgver}.tar.xz"
-sha256 = "c0df0f68d5cf9d7da43c81c7f13f11158358368f98c22d47722f3bd04bd3ac1c"
+sha256 = "60d517c1acabe54ae337f64451264fc76730696eaae26b5480fb37166689b5f3"
 # needs network access
 options = ["!check", "linkundefver"]
 

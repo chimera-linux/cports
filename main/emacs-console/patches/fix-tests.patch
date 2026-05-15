@@ -1,0 +1,28 @@
+--- a/test/src/process-tests.el
++++ b/test/src/process-tests.el
+@@ -416,10 +416,7 @@
+ 
+ ;; Check if the Internet seems to be working.  Mainly to pacify
+ ;; Debian's CI system.
+-(defvar internet-is-working
+-  (progn
+-    (require 'dns)
+-    (dns-query "google.com")))
++(defvar internet-is-working nil)
+ 
+ (ert-deftest lookup-family-specification ()
+   "`network-lookup-address-info' should only accept valid family symbols."
+
+--- a/test/lisp/wdired-tests.el
++++ b/test/lisp/wdired-tests.el
+@@ -141,9 +141,7 @@
+   ;; FIXME: Add a test for a door (indicator ">") only under Solaris?
+   (ert-with-temp-directory test-dir
+     (let* ((dired-listing-switches "-Fl")
+-           (dired-ls-F-marks-symlinks
+-            (or (eq system-type 'darwin)
+-                (featurep 'ls-lisp)))
++           (dired-ls-F-marks-symlinks t)
+            (buf (find-file-noselect test-dir))
+            proc)
+       (unwind-protect

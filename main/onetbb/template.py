@@ -1,5 +1,5 @@
 pkgname = "onetbb"
-pkgver = "2022.2.0"
+pkgver = "2023.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ url = "https://oneapi-src.github.io/oneTBB"
 source = (
     f"https://github.com/oneapi-src/oneTBB/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "f0f78001c8c8edb4bddc3d4c5ee7428d56ae313254158ad1eec49eced57f6a5b"
+sha256 = "f8767b971ec6aea25dde58ae0f593e94e7aa75a739a86f67967012f69e2199b1"
 # vis breaks symbols
 hardening = ["!vis"]
 # a lot of the tests can deadlock and it's a pain to figure out which to disable

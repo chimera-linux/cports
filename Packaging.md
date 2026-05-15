@@ -716,7 +716,7 @@ these should never be present in packages. The same goes for the toplevel
 are present in the system and they all point to `/usr/lib`.
 
 Executable programs that are internal and not meant to be run by the
-user go in `/usr/libexec` (unless the software does not allow this).
+user go in `/usr/lib` (unless the software does not allow this).
 
 Include files go in `/usr/include`. Data files go in `/usr/share`; the
 directory must not contain any ELF executables.
@@ -1306,8 +1306,8 @@ Default values:
 * `make_dir` = `build`
 
 Sets `configure`, `build`, `check`, `install`. They are wrappers
-around the `cmake` utility module API `configure`, `build`, `install`,
-and `ctest` respectively.
+around the `cmake` utility module API `configure`, `build`, `ctest`, and 
+`install` respectively.
 
 The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
 `self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
@@ -1939,7 +1939,7 @@ for subpackages separately if needed:
   linter may not be exhaustive as the SPDX license data do not specify
   whether a license should be distributed or not.
 * `strip` *(true)* If disabled, ELF files in this package will not be
-  stripped, which means debug symbols will remain where thesy are and
+  stripped, which means debug symbols will remain where they are and
   debug package will not be generated.
 * `ltostrip` *(false)* By default, `lto` being enabled disables stripping
   of static archives, as LTO archives consist of bitcode and not object

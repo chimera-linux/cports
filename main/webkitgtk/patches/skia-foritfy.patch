@@ -1,0 +1,33 @@
+commit 07d65da1fb2d55366e29f361a05a9644e8e251ed
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 21 14:05:42 2026 +0100
+
+    fix fortification of skia SkDescriptor
+    
+    Skia here is memcpy'ing sizes larger than the size of the type,
+    allocating memory past the struct for the data. However, the
+    compiler does not know this and fails fortify checks on the
+    type boundaries.
+
+diff --git a/Source/ThirdParty/skia/src/core/SkDescriptor.cpp b/Source/ThirdParty/skia/src/core/SkDescriptor.cpp
+index e2fa826..252fd55 100644
+--- a/Source/ThirdParty/skia/src/core/SkDescriptor.cpp
++++ b/Source/ThirdParty/skia/src/core/SkDescriptor.cpp
+@@ -71,7 +71,7 @@ const void* SkDescriptor::findEntry(uint32_t tag, uint32_t* length) const {
+ 
+ std::unique_ptr<SkDescriptor> SkDescriptor::copy() const {
+     std::unique_ptr<SkDescriptor> desc = SkDescriptor::Alloc(fLength);
+-    memcpy(desc.get(), this, fLength);
++    __builtin_memcpy(desc.get(), this, fLength);
+     return desc;
+ }
+ 
+@@ -217,7 +217,7 @@ void SkAutoDescriptor::reset(size_t size) {
+ void SkAutoDescriptor::reset(const SkDescriptor& desc) {
+     size_t size = desc.getLength();
+     this->reset(size);
+-    memcpy(fDesc, &desc, size);
++    __builtin_memcpy(fDesc, &desc, size);
+ }
+ 
+ void SkAutoDescriptor::free() {

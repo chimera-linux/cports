@@ -1,5 +1,5 @@
 pkgname = "kdsingleapplication"
-pkgver = "1.2.0"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ pkgdesc = "Helper class for single-instance applications"
 license = "MIT"
 url = "https://github.com/KDAB/KDSingleApplication"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ff4ae6a4620beed1cdb3e6a9b78a17d7d1dae7139c3d4746d4856b7547d42c38"
+sha256 = "e3254ce9dc5ecf6d61ef83264bc61d486a307f0e3c9ed1bb2176f068cdbcbe09"
 
 
 def post_install(self):

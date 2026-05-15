@@ -1,5 +1,5 @@
 pkgname = "krdc"
-pkgver = "25.12.2"
+pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,7 +25,6 @@ makedepends = [
     "knotifications-devel",
     "knotifyconfig-devel",
     "kstatusnotifieritem-devel",
-    "kwallet-devel",
     "kwidgetsaddons-devel",
     "kwindowsystem-devel",
     "kxmlgui-devel",
@@ -34,13 +33,14 @@ makedepends = [
     "plasma-activities-devel",
     "qt6-qtbase-devel",
     "qt6-qtwayland-devel",
+    "qtkeychain-devel",
 ]
 depends = ["freerdp"]
 pkgdesc = "KDE remote desktop client"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/krdc"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/krdc-{pkgver}.tar.xz"
-sha256 = "522596f8e6788a72056e6627088b4a3df1c586e59c98a41a3b7e46f7c0644c19"
+sha256 = "212b2c2aaa71c1d29f4356ae64785ccca600a565cfe0e03349afcb95d1444a98"
 
 
 @subpackage("krdc-devel")

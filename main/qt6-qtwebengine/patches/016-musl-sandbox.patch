@@ -1,7 +1,7 @@
 musl uses different syscalls from glibc for some functions, so the sandbox has
 to account for that
 --
-diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc ./sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
+diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 index ff5a1c0..da56b9b 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
@@ -41,7 +41,7 @@ index ff5a1c0..da56b9b 100644
        .ElseIf(is_fork_or_clone_vfork, Error(EPERM))
        .Else(CrashSIGSYSClone());
  }
-diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc ./sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
+diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 index d9d1882..0567557 100644
 --- a/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 +++ b/src/3rdparty/chromium/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
@@ -78,7 +78,7 @@ index d9d1882..0567557 100644
      case __NR_msync:
      case __NR_munlockall:
      case __NR_readahead:
-diff --git a/sandbox/linux/system_headers/linux_syscalls.h ./sandbox/linux/system_headers/linux_syscalls.h
+diff --git a/sandbox/linux/system_headers/linux_syscalls.h b/sandbox/linux/system_headers/linux_syscalls.h
 index 2b78a0c..b6fedb5 100644
 --- a/src/3rdparty/chromium/sandbox/linux/system_headers/linux_syscalls.h
 +++ b/src/3rdparty/chromium/sandbox/linux/system_headers/linux_syscalls.h

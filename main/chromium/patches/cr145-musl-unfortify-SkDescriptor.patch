@@ -1,0 +1,38 @@
+From 8f23811248409864dad714f11470466ea7c44aa9 Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Sun, 22 Feb 2026 16:38:23 +0100
+Subject: [PATCH] Unfortify SkDescriptor and SkAutoDescriptor
+
+SkDescriptor is cursed. It stores entries, which are not in class fields,
+but placed in memory after the struct (with memory allocated for them).
+This triggers fortify checks when trying to copy the class with its entries,
+because the copied type is SkDescriptor, but the length exceeds its sizeof.
+
+Why does it not trigger on glibc, and why did it only start triggering
+with -std=c++23, is beyond me.
+---
+ src/core/SkDescriptor.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/third_party/skia/src/core/SkDescriptor.cpp b/third_party/skia/src/core/SkDescriptor.cpp
+index e2fa826cc2..252fd557f0 100644
+--- a/third_party/skia/src/core/SkDescriptor.cpp
++++ b/third_party/skia/src/core/SkDescriptor.cpp
+@@ -71,7 +71,7 @@ const void* SkDescriptor::findEntry(uint32_t tag, uint32_t* length) const {
+ 
+ std::unique_ptr<SkDescriptor> SkDescriptor::copy() const {
+     std::unique_ptr<SkDescriptor> desc = SkDescriptor::Alloc(fLength);
+-    memcpy(desc.get(), this, fLength);
++    __builtin_memcpy(desc.get(), this, fLength);
+     return desc;
+ }
+ 
+@@ -217,7 +217,7 @@ void SkAutoDescriptor::reset(size_t size) {
+ void SkAutoDescriptor::reset(const SkDescriptor& desc) {
+     size_t size = desc.getLength();
+     this->reset(size);
+-    memcpy(fDesc, &desc, size);
++    __builtin_memcpy(fDesc, &desc, size);
+ }
+ 
+ void SkAutoDescriptor::free() {

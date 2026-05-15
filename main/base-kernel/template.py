@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 16
+pkgrel = 17
 depends = [
     "cmd:findmnt!util-linux-mount",
     "kmod",

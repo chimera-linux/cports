@@ -1,5 +1,5 @@
 pkgname = "libnice"
-pkgver = "0.1.22"
+pkgver = "0.1.23"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -11,12 +11,17 @@ configure_args = [
     "-Dtests=enabled",
 ]
 hostmakedepends = ["glib-devel", "gobject-introspection", "meson", "pkgconf"]
-makedepends = ["glib-devel", "gstreamer-devel", "openssl3-devel"]
+makedepends = [
+    "glib-devel",
+    "gst-plugins-base-devel",
+    "gstreamer-devel",
+    "openssl3-devel",
+]
 pkgdesc = "Implementation of the IETF's draft ICE"
 license = "LGPL-2.1-or-later"
 url = "https://libnice.freedesktop.org"
 source = f"{url}/releases/libnice-{pkgver}.tar.gz"
-sha256 = "a5f724cf09eae50c41a7517141d89da4a61ec9eaca32da4a0073faed5417ad7e"
+sha256 = "618fc4e8de393b719b1641c1d8eec01826d4d39d15ade92679d221c7f5e4e70d"
 options = ["!cross"]
 
 

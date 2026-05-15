@@ -1,6 +1,6 @@
 pkgname = "tdesktop"
-pkgver = "6.4.2"
-pkgrel = 1
+pkgver = "6.7.6"
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
@@ -64,12 +64,12 @@ license = "GPL-3.0-or-later"
 url = "https://desktop.telegram.org"
 source = [
     f"https://github.com/telegramdesktop/tdesktop/releases/download/v{pkgver}/tdesktop-{pkgver}-full.tar.gz",
-    "https://github.com/tdlib/td/archive/dd1b761fda7e47f4e0275c4d319f80a04db1997f.tar.gz",
+    "https://github.com/tdlib/td/archive/8921c22f0f85b3cb0b56303f9cba81ba8549f4e8.tar.gz",
 ]
 source_paths = [".", "tde2e"]
 sha256 = [
-    "69cf9c0ca160126a0460312242730e2faa9eb5099ca17abc94e80feb8ad1ac0b",
-    "b5e2a20eb38044b124650dbc72b3cc9d134e1c7861df2227f0e649b427c29fa4",
+    "5d3ba64c0d3e27468993d2376c68021152ea9c9e34ebadd8bee66a1e85e9d163",
+    "3ddfe1124611f47622df2a3128f9f50500b41c7d82e3f0d60f9ed10470689fa0",
 ]
 tool_flags = {"CXXFLAGS": [], "CFLAGS": []}
 # crashes
