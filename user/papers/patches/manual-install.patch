@@ -47,10 +47,20 @@
  pps_library_path = '@0@/libview:@0@/libdocument:@0@/shell'.format(build_root)
  test_env = backend_env
  test_env.set('DYLD_LIBRARY_PATH', pps_library_path)
-@@ -51,6 +51,5 @@ if get_option('tests')
-     args: [meson.project_source_root() / 'libview' / 'tests' / 'utf16le-annot.pdf'],
+@@ -67,7 +67,6 @@
+     args: [source_root / 'test-data' / 'utf16le-annot.pdf'],
      env: test_env,
      workdir: meson.current_build_dir(),
 -    depends: [copy],
+     # this writes to thumbnail.png, like the next test, so they shouldn't be run in parallel
+     is_parallel: false,
+   )
+@@ -77,7 +76,6 @@
+     args: [source_root / 'test-data' / 'empty.cbz'],
+     env: test_env,
+     workdir: meson.current_build_dir(),
+-    depends: [copy],
+     is_parallel: false,
    )
  endif
+
