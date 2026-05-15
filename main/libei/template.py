@@ -1,5 +1,5 @@
 pkgname = "libei"
-pkgver = "1.4.1"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,9 +36,15 @@ source = [
 ]
 source_paths = [".", "subprojects/munit"]
 sha256 = [
-    "1d6549c2520e67502fb829987bbf56a2dcf7d1a17ebe90c3ad652df06cdb08f9",
+    "5ed6078fa63afd554cc04b1001675615da0ed8fe23b80492ab63403140b5a830",
     "d0c8bf80b9804d4df5301bd428702352fe7e14f84f22027c3a2c084a0d9f69a7",
 ]
+
+
+def post_extract(self):
+    # clock skew caused by bad tarball dates
+    for f in self.cwd.rglob("*"):
+        f.touch()
 
 
 def post_install(self):
