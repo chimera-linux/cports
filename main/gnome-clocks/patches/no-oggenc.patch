@@ -1,0 +1,52 @@
+commit 464cd16de2a1b76f1dc1e8954b4d258d103983d9
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri May 15 12:34:08 2026 +0200
+
+    switch back to ffmpeg as we don't have oggenc
+
+diff --git a/data/meson.build b/data/meson.build
+index 69f137b..53e5de2 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -13,6 +13,9 @@ install_data(
+   rename: '@0@-symbolic.svg'.format(app_id)
+ )
+ 
++ffmpeg = find_program('ffmpeg')
++to_vorbis = [ffmpeg, '-i', '@INPUT@', '-c:a', 'libvorbis', '@OUTPUT@' ]
++
+ subdir('sounds')
+ 
+ resource_files = files('gnome-clocks.gresource.xml')
+diff --git a/data/sounds/alarms/meson.build b/data/sounds/alarms/meson.build
+index 1a344d3..2a9fb2d 100644
+--- a/data/sounds/alarms/meson.build
++++ b/data/sounds/alarms/meson.build
+@@ -1,5 +1,3 @@
+-oggenc = find_program('oggenc')
+-
+ alarms_resources = [
+   'beep-beep.flac',
+ ]
+@@ -9,9 +7,7 @@ foreach alarm: alarms_resources
+     fs.replace_suffix(alarm, '.oga'),
+     output: '@BASENAME@.oga',
+     input: alarm,
+-    # The default ogg serial numbers are unreproducible
+-    # Set the serial number to 0
+-    command: [oggenc, '@INPUT@', '--serial', '0', '-o', '@OUTPUT@' ],
++    command: to_vorbis,
+   )
+ endforeach
+ 
+@@ -44,9 +40,7 @@ foreach alarm: alarms_data
+     fs.replace_suffix(alarm, '.oga'),
+     output: '@BASENAME@.oga',
+     input: alarm,
+-    # The default ogg serial numbers are unreproducible
+-    # Set the serial number to 0
+-    command: [oggenc, '@INPUT@', '--serial', '0', '-o', '@OUTPUT@' ],
++    command: to_vorbis,
+     install: true,
+     install_dir: get_option('datadir') / 'sounds' / 'gnome' / 'default' / 'alarms',
+   )
