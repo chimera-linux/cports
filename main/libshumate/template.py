@@ -1,5 +1,5 @@
 pkgname = "libshumate"
-pkgver = "1.5.1"
+pkgver = "1.6.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
@@ -25,7 +25,7 @@ pkgdesc = "GTK library to display maps"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libshumate"
 source = f"$(GNOME_SITE)/libshumate/{'.'.join(pkgver.split('.')[0:2])}/libshumate-{pkgver}.tar.xz"
-sha256 = "daadf8b700134388c7e933e0b623586aaa7f2fbe8b3a6259387513303b9876e6"
+sha256 = "b36aad34500791785f546684d0f2ed644e4819ff4e85ae67a2245f159eccb2d4"
 options = ["!cross"]
 
 
