@@ -1,5 +1,5 @@
 pkgname = "luanti"
-pkgver = "5.15.2"
+pkgver = "5.16.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -48,7 +48,7 @@ url = "https://www.luanti.org"
 source = (
     f"https://github.com/luanti-org/luanti/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "1fdfa8b973968f8fcf5a264ce3fb3a170c3882105f953498a64d6415eff83471"
+sha256 = "57926752365a17d3bf64945ea04dc63cc446a8863037b043b97799af30126b6b"
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 # see below
@@ -70,8 +70,6 @@ def post_install(self):
         "etc/luanti",
         name="minetest.conf",
     )
-    # dead symlink
-    self.uninstall("usr/share/luanti/client/shaders/Irrlicht")
 
 
 @subpackage("luanti-common")
