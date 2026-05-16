@@ -1,0 +1,162 @@
+commit a6460692fe57b6243b7a24a7ff247c76e401d6cd
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat May 16 22:53:56 2026 +0200
+
+    revert to doing suspend through logind
+    
+    We don't have the session API for this as we use old gnome-session.
+    
+    Reverts https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/2e8eff96babbf47c76f208551d8ab55f89f9ad4b
+
+diff --git a/data/dbus-interfaces/org.freedesktop.login1.Manager.xml b/data/dbus-interfaces/org.freedesktop.login1.Manager.xml
+index acd49ac..7e0fc22 100644
+--- a/data/dbus-interfaces/org.freedesktop.login1.Manager.xml
++++ b/data/dbus-interfaces/org.freedesktop.login1.Manager.xml
+@@ -1,5 +1,11 @@
+ <node>
+   <interface name="org.freedesktop.login1.Manager">
++    <method name="Suspend">
++      <arg type="b" direction="in"/>
++    </method>
++    <method name="CanSuspend">
++      <arg type="s" direction="out"/>
++    </method>
+     <method name="Inhibit">
+       <arg type="s" direction="in"/>
+       <arg type="s" direction="in"/>
+diff --git a/data/dbus-interfaces/org.gnome.SessionManager.xml b/data/dbus-interfaces/org.gnome.SessionManager.xml
+index 070763b..c81c90f 100644
+--- a/data/dbus-interfaces/org.gnome.SessionManager.xml
++++ b/data/dbus-interfaces/org.gnome.SessionManager.xml
+@@ -5,13 +5,9 @@
+     </method>
+     <method name="Shutdown"/>
+     <method name="Reboot"/>
+-    <method name="Suspend"/>
+     <method name="CanShutdown">
+       <arg type="b" direction="out"/>
+     </method>
+-    <method name="CanSuspend">
+-      <arg type="u" direction="out"/>
+-    </method>
+     <method name="IsInhibited">
+       <arg type="u" direction="in"/>
+       <arg type="b" direction="out"/>
+diff --git a/js/misc/loginManager.js b/js/misc/loginManager.js
+index da989b5..a66ebed 100644
+--- a/js/misc/loginManager.js
++++ b/js/misc/loginManager.js
+@@ -167,6 +167,20 @@ class LoginManagerSystemd extends Signals.EventEmitter {
+         }
+     }
+ 
++    async canSuspend() {
++        let canSuspend, needsAuth;
++
++        try {
++            const [result] = await this._proxy.CanSuspendAsync();
++            needsAuth = result === 'challenge';
++            canSuspend = needsAuth || result === 'yes';
++        } catch {
++            canSuspend = false;
++            needsAuth = false;
++        }
++        return {canSuspend, needsAuth};
++    }
++
+     async canRebootToBootLoaderMenu() {
+         let canRebootToBootLoaderMenu, needsAuth;
+ 
+@@ -199,6 +213,10 @@ class LoginManagerSystemd extends Signals.EventEmitter {
+         return new SystemdLoginSession(Gio.DBus.system, 'org.freedesktop.login1', objectPath);
+     }
+ 
++    suspend() {
++        this._proxy.SuspendAsync(true);
++    }
++
+     async inhibit(reason, cancellable) {
+         const inVariant = new GLib.Variant('(ssss)',
+             ['sleep', 'GNOME Shell', reason, 'delay']);
+@@ -250,6 +268,13 @@ class LoginManagerDummy extends Signals.EventEmitter  {
+         return new Promise(() => {});
+     }
+ 
++    canSuspend() {
++        return new Promise(resolve => resolve({
++            canSuspend: false,
++            needsAuth: false,
++        }));
++    }
++
+     canRebootToBootLoaderMenu() {
+         return new Promise(resolve => resolve({
+             canRebootToBootLoaderMenu: false,
+@@ -268,6 +293,13 @@ class LoginManagerDummy extends Signals.EventEmitter  {
+         return null;
+     }
+ 
++    suspend() {
++        this._preparingForSleep = true;
++        this.emit('prepare-for-sleep', true);
++        this._preparingForSleep = false;
++        this.emit('prepare-for-sleep', false);
++    }
++
+     get preparingForSleep() {
+         return this._preparingForSleep;
+     }
+diff --git a/js/misc/systemActions.js b/js/misc/systemActions.js
+index 1563c6b..e440d93 100644
+--- a/js/misc/systemActions.js
++++ b/js/misc/systemActions.js
+@@ -83,7 +83,6 @@ const SystemActions = GObject.registerClass({
+ 
+         this._canHavePowerOff = true;
+         this._canHaveSuspend = true;
+-        this._suspendNeedsAuth = false;
+ 
+         function tokenizeKeywords(keywords) {
+             return keywords.split(';').map(keyword => GLib.str_tokenize_and_fold(keyword, null)).flat(2);
+@@ -160,6 +159,7 @@ const SystemActions = GObject.registerClass({
+         this._screenSaverSettings = new Gio.Settings({schema_id: SCREENSAVER_SCHEMA});
+ 
+         this._session = new GnomeSession.SessionManager();
++        this._loginManager = LoginManager.getLoginManager();
+         this._monitorManager = global.backend.get_monitor_manager();
+ 
+         this._userManager = AccountsService.UserManager.get_default();
+@@ -370,19 +370,15 @@ const SystemActions = GObject.registerClass({
+     }
+ 
+     async _updateHaveSuspend() {
+-        try {
+-            const [availability] = await this._session.CanSuspendAsync();
+-            this._canHaveSuspend = availability !== GnomeSession.ActionAvailability.UNAVAILABLE;
+-            this._suspendNeedsAuth = availability === GnomeSession.ActionAvailability.CHALLENGE;
+-        } catch {
+-            this._canHaveSuspend = false;
+-            this._suspendNeedsAuth = false;
+-        }
++        const {canSuspend, needsAuth} = await this._loginManager.canSuspend();
++        this._canHaveSuspend = canSuspend;
++        this._suspendNeedsAuth = needsAuth;
+         this._updateSuspend();
+     }
+ 
+     _updateSuspend() {
+-        const disabled = (Main.sessionMode.isLocked && this._suspendNeedsAuth) ||
++        const disabled = (Main.sessionMode.isLocked &&
++                        this._suspendNeedsAuth) ||
+                        (Main.sessionMode.isGreeter &&
+                         this._loginScreenSettings.get_boolean(DISABLE_RESTART_KEY));
+         this._actions.get(SUSPEND_ACTION_ID).available = this._canHaveSuspend && !disabled;
+@@ -475,7 +471,7 @@ const SystemActions = GObject.registerClass({
+         if (!this._actions.get(SUSPEND_ACTION_ID).available)
+             throw new Error('The suspend action is not available!');
+ 
+-        this._session.SuspendAsync().catch(logErrorUnlessCancelled);
++        this._loginManager.suspend();
+     }
+ 
+     activateScreenshotUI() {
