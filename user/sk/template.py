@@ -1,5 +1,5 @@
 pkgname = "sk"
-pkgver = "4.4.0"
+pkgver = "4.6.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ license = "MIT"
 url = "https://github.com/skim-rs/skim"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 source_paths = ["."]
-sha256 = "71d563eaf40e6cfc5a68511b99d7b7158944d4b7f0e8156deea17e5c98193571"
+sha256 = "bb74eb7f9751f7c43fd634c5714f612eae67830db852e74c01a4d83da8086e3c"
 
 
 def post_install(self):
