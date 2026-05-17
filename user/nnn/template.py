@@ -1,5 +1,5 @@
 pkgname = "nnn"
-pkgver = "5.1"
+pkgver = "5.2"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Unorthodox terminal file manager"
 license = "BSD-2-Clause"
 url = "https://github.com/jarun/nnn"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9faaff1e3f5a2fd3ed570a83f6fb3baf0bfc6ebd6a9abac16203d057ac3fffe3"
+sha256 = "f166eda5093ac8dcf8cbbc6224123a32c53cf37b82c5c1cb48e2e23352754030"
 tool_flags = {"LDFLAGS": ["-lfts"]}
 hardening = ["vis", "cfi"]
 # it does not have any tests
