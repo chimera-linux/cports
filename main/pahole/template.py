@@ -1,6 +1,6 @@
 pkgname = "pahole"
-pkgver = "1.30"
-pkgrel = 1
+pkgver = "1.31"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-D__LIB=lib",
@@ -23,7 +23,7 @@ pkgdesc = "Debug information utilities"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
 source = f"https://fedorapeople.org/~acme/dwarves/dwarves-{pkgver}.tar.xz"
-sha256 = "1c89f47dc4f127c4b9d3fb46c8386a40be45c36ef82e8df472418de9423fc5bb"
+sha256 = "0a7f255ccacf8cc7f8cd119099eb327179b4b3c67cb015af646af6d0cb03054d"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
