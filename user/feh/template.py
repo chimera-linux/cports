@@ -1,5 +1,5 @@
 pkgname = "feh"
-pkgver = "3.11.2"
+pkgver = "3.12.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Fast and light image viewer"
 license = "MIT"
 url = "https://feh.finalrewind.org"
 source = f"{url}/feh-{pkgver}.tar.bz2"
-sha256 = "020f8bce84c709333dcc6ec5fff36313782e0b50662754947c6585d922a7a7b2"
+sha256 = "7ce358b18a7f37bcc97a09b4efd89fdadd54cd8e7032db345f61e66dd04b1c3f"
 
 
 def post_install(self):
