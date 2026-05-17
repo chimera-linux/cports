@@ -494,7 +494,7 @@ on the `x86_64` architecture):
 Note the `ud1l` instruction, specifically the `0xc(%eax)`. The `0xc` encodes
 the identifier of the sanitizer check. The full list is available here:
 
-https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L112
+https://github.com/llvm/llvm-project/blob/llvmorg-21.1.8/clang/lib/CodeGen/SanitizerHandler.h
 
 At the time of writing, these were:
 
