@@ -1,12 +1,12 @@
 pkgname = "inxi"
-pkgver = "3.3.39.1"
+pkgver = "3.3.40.1"
 pkgrel = 0
 depends = ["perl"]
 pkgdesc = "Fully featured CLI system information tool"
 license = "GPL-3.0-or-later"
 url = "https://codeberg.org/smxi/inxi"
 source = f"{url}/archive/{pkgver[: pkgver.rfind('.')]}-{pkgver[pkgver.rfind('.') + 1 :]}.tar.gz"
-sha256 = "c0441f21dc5ea365a6d63466070d00e6858aed3b3c42276a1bf18ab3c57c013c"
+sha256 = "b3f307f06c3b969bd65151d39729b97a767af42fddd3d9bab971135c0e7cd873"
 
 
 def install(self):
