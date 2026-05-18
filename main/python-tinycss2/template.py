@@ -1,6 +1,6 @@
 pkgname = "python-tinycss2"
-pkgver = "1.4.0"
-pkgrel = 1
+pkgver = "1.5.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "CSS parser for python"
 license = "BSD-3-Clause"
 url = "https://github.com/Kozea/tinycss2"
 source = f"$(PYPI_SITE)/t/tinycss2/tinycss2-{pkgver}.tar.gz"
-sha256 = "10c0972f6fc0fbee87c3edb76549357415e94548c1ae10ebccdea16fb404a9b7"
+sha256 = "d339d2b616ba90ccce58da8495a78f46e55d4d25f9fd71dfd526f07e7d53f957"
 
 
 def post_install(self):
