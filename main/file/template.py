@@ -1,6 +1,6 @@
 pkgname = "file"
-pkgver = "5.46"
-pkgrel = 1
+pkgver = "5.47"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",
@@ -14,7 +14,7 @@ pkgdesc = "File type identification utility"
 license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/file/file-{pkgver}.tar.gz"
-sha256 = "c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088"
+sha256 = "45672fec165cb4cc1358a2d76b5d57d22876dcb97ab169427ac385cbe1d5597a"
 
 if self.profile().cross:
     hostmakedepends += ["file"]
