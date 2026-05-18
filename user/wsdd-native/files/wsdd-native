@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/wsddn --user=_wsddn:_wsddn --config=/etc/wsddn.conf --log-file=/var/log/wsddn.log
+depends-on: local.target
+depends-on: network.target
