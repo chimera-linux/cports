@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -54,9 +54,8 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "sddm")
     self.install_file(
-        self.files_path / "sddm.config",
+        self.files_path / "00-default.conf",
         "usr/lib/sddm/sddm.conf.d",
-        name="default.conf",
     )
     # TODO: we add a hard dependency on plasma-workspace and default to breeze
     # here, because all the default themes (except maui) and most third-party
