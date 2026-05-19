@@ -1,8 +1,6 @@
 pkgname = "dinit"
-pkgver = "0.21.0"
-pkgrel = 1
-# has some fixes on top of 0.21.0 and feature i want to try
-_gitrev = "3aa6f0392034f3e28773b7e90013defd94cb5cfd"
+pkgver = "0.22.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--disable-strip",
@@ -16,8 +14,8 @@ makedepends = ["libcap-devel"]
 pkgdesc = "Service manager and init system"
 license = "Apache-2.0"
 url = "https://davmac.org/projects/dinit"
-source = f"https://github.com/davmac314/dinit/archive/{_gitrev}.tar.gz"
-sha256 = "aea2535d1198bb51990d26a75175390a0961ab6759b0359accba577ffd3c00c8"
+source = f"https://github.com/davmac314/dinit/archive/v{pkgver}.tar.gz"
+sha256 = "926d431e1c596a214612a1fc31c66fc0356630c5759edc313fe7153eaf462ffc"
 # hand-rolled configure scripts/makefiles lol
 tool_flags = {"CXXFLAGS": ["-fno-rtti"]}
 hardening = ["vis", "cfi"]
