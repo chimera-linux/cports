@@ -1,16 +1,15 @@
 pkgname = "dinit"
 pkgver = "0.21.0"
-pkgrel = 0
+pkgrel = 1
 # has some fixes on top of 0.21.0 and feature i want to try
 _gitrev = "3aa6f0392034f3e28773b7e90013defd94cb5cfd"
 build_style = "configure"
 configure_args = [
     "--disable-strip",
     "--enable-shutdown",
+    "--platform=Linux",
     "--sbindir=/usr/bin",
     "--syscontrolsocket=/run/dinitctl",
-    "LDFLAGS_EXTRA=-lcap",
-    "TEST_LDFLAGS_EXTRA=-lcap",
 ]
 make_check_args = ["check-igr"]  # additional target
 makedepends = ["libcap-devel"]
