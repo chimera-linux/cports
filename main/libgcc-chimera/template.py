@@ -1,6 +1,6 @@
 pkgname = "libgcc-chimera"
 pkgver = "22.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -44,7 +44,8 @@ options = ["!check", "!lto"]
 cmake_dir = "compiler-rt"
 
 _trip = self.profile().triplet
-_soname = "libgcc_s.so.1"
+_basename = "libgcc_s.so"
+_soname = f"{_basename}.1"
 
 configure_args += [
     f"-DCMAKE_ASM_COMPILER_TARGET={_trip}",
@@ -60,6 +61,8 @@ tool_flags = {
 
 def post_build(self):
     from cbuild.util import compiler
+
+    majver = pkgver.split(".")[0]
 
     # make a libgcc_s.so.1 from the builtins
     cc = compiler.C(self)
@@ -79,7 +82,21 @@ def post_build(self):
         ],
     )
 
+    # linker script means no runtime dep in final binary
+    with open(self.cwd / f"build/{_basename}", "w") as f:
+        f.write(
+            f"INPUT(/usr/lib/clang/{majver}/lib/{_trip}/libclang_rt.builtins.a -lunwind)\n"
+        )
+
 
 def install(self):
     self.install_license("LICENSE.TXT")
+    self.install_lib(f"build/{_basename}")
     self.install_lib(f"build/{_soname}")
+
+
+@subpackage("libgcc-chimera-devel")
+def _(self):
+    self.depends += [self.parent]
+
+    return self.default_devel()
