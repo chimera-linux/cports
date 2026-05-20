@@ -10,8 +10,5 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "fa96ac6a1a85c0cb16dccab5c03ae1e651a3482cde4a93f792956977bc19108d"
 
 
-@subpackage("xapp-symbolic-icons-progs")
-def _(self):
-    self.depends = [self.parent, "python"]
-
-    return ["usr/bin"]
+def post_install(self):
+    self.uninstall("usr/bin")
