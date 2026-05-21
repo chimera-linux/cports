@@ -1,6 +1,6 @@
 pkgname = "libimobiledevice"
-pkgver = "1.3.0"
-pkgrel = 7
+pkgver = "1.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = [
@@ -14,6 +14,7 @@ hostmakedepends = [
 makedepends = [
     "glib-devel",
     "libplist-devel",
+    "libtatsu-devel",
     "libusb-devel",
     "libusbmuxd-devel",
     "openssl3-devel",
@@ -22,8 +23,8 @@ makedepends = [
 pkgdesc = "Library to communicate with Apple devices"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
-source = f"https://github.com/libimobiledevice/libimobiledevice/archive/{pkgver}.tar.gz"
-sha256 = "acbfb73eabee162e64c0d9de207d71c0a5f47c40cd5ad32a5097f734328ce10a"
+source = f"https://github.com/libimobiledevice/libimobiledevice/releases/download/{pkgver}/libimobiledevice-{pkgver}.tar.bz2"
+sha256 = "23cc0077e221c7d991bd0eb02150a0d49199bcca1ddf059edccee9ffd914939d"
 options = ["!cross"]
 
 
