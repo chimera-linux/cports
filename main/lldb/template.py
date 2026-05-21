@@ -1,5 +1,5 @@
 pkgname = "lldb"
-pkgver = "22.1.4"
+pkgver = "22.1.6"
 pkgrel = 0
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -32,7 +32,7 @@ pkgdesc = "LLVM debugger"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "3e68c90dda630c27d41d201e37b8bbf5222e39b273dec5ca880709c69e0a07d4"
+sha256 = "6e0b376a1f6d9873e7dfb09ae6e04b9c7024400f01733fa4c29be69d5c138bc2"
 # tests are not enabled
 options = ["!check"]
 
