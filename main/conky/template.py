@@ -1,5 +1,5 @@
 pkgname = "conky"
-pkgver = "1.22.3"
+pkgver = "1.23.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -36,6 +36,7 @@ makedepends = [
     "libxdamage-devel",
     "libxfixes-devel",
     "libxft-devel",
+    "libxi-devel",
     "libxinerama-devel",
     "libxml2-devel",
     "linux-headers",
@@ -55,8 +56,8 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "645af6bbd3b1f8ad44cb427b3e3d6a97db05687aeee33021d4348c39215ab28f",
-    "5d6b803e71706f9b46172a6f0d5a8f24eaeadcfe4aac745e185c70a16bd5e3e3",
+    "039bdc6d14a355586b462cb0a6ffdeb3e2f9b354a5348dd88f8ad22d4538b783",
+    "8d708e965eea5115392dce836dffcd6fee7f272d2b053180ba454c32deed3940",
 ]
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # needs host tolua++
