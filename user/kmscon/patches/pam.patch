@@ -1,0 +1,8 @@
+--- a/scripts/pam/kmscon
++++ b/scripts/pam/kmscon
+@@ -4,4 +4,4 @@ auth     required   pam_permit.so
+ account  required   pam_unix.so
+ session  required   pam_env.so
+ session  required   pam_unix.so
+--session  optional   pam_systemd.so type=tty class=greeter
++-session  optional   pam_elogind.so type=tty class=greeter
