@@ -1,5 +1,5 @@
 pkgname = "ctags"
-pkgver = "6.2.0"
+pkgver = "6.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,4 +17,4 @@ pkgdesc = "Fork of Exuberant Ctags to generate index/tag files"
 license = "GPL-2.0-or-later"
 url = "https://ctags.io"
 source = f"https://github.com/universal-ctags/ctags/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "313c864bb19c7da79aea77b94db1bb44d14c1f88b992285d7ea8968b3cbc125f"
+sha256 = "f56829e9a576025e98955597ee967099a871987b3476fbd8dbbc2b9dc921f824"
