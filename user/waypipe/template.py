@@ -1,6 +1,6 @@
 pkgname = "waypipe"
-pkgver = "0.10.5"
-pkgrel = 1
+pkgver = "0.11.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dwith_dmabuf=enabled",
@@ -40,7 +40,7 @@ pkgdesc = "Proxy for wayland clients"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "2718a83818c750d9c75cbe9f1c05a4ef45a3f48bc64304bbdf92f5b5bc264977"
+sha256 = "e75e4bb5471e6f413aae1e00b0abddf02ec9f1f56db31d4c50535436c4e7282d"
 
 if self.profile().wordsize == 32:
     broken = "some u64 nonsense in vulkan code"
