@@ -1,11 +1,11 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 7644bb7..513617b 100644
+index 1deed69..585f3b7 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -4350,26 +4350,6 @@ dependencies = [
-  "cfg-if",
+@@ -4641,26 +4641,6 @@ dependencies = [
+  "zune-jpeg",
  ]
-
+ 
 -[[package]]
 -name = "tikv-jemalloc-sys"
 -version = "0.6.1+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
@@ -28,8 +28,8 @@ index 7644bb7..513617b 100644
 -
  [[package]]
  name = "time"
- version = "0.3.44"
-@@ -5616,7 +5596,6 @@ dependencies = [
+ version = "0.3.47"
+@@ -6063,7 +6043,6 @@ dependencies = [
   "ratatui",
   "scopeguard",
   "signal-hook-tokio",
@@ -38,13 +38,13 @@ index 7644bb7..513617b 100644
   "tokio-stream",
   "tracing",
 diff --git a/yazi-fm/Cargo.toml b/yazi-fm/Cargo.toml
-index 914c684..09c9425 100644
+index 2d5cbaf..beb5249 100644
 --- a/yazi-fm/Cargo.toml
 +++ b/yazi-fm/Cargo.toml
-@@ -69,9 +69,6 @@ signal-hook-tokio = { version = "0.4.0", features = [ "futures-v0_3" ] }
+@@ -73,9 +73,6 @@ signal-hook-tokio = { version = "0.4.0", features = [ "futures-v0_3" ] }
  [target.'cfg(target_os = "macos")'.dependencies]
  crossterm = { workspace = true, features = [ "use-dev-tty", "libc" ] }
-
+ 
 -[target.'cfg(all(not(target_os = "macos"), not(target_os = "windows")))'.dependencies]
 -tikv-jemallocator = "0.6.1"
 -
@@ -52,7 +52,7 @@ index 914c684..09c9425 100644
  name = "yazi"
  path = "src/main.rs"
 diff --git a/yazi-fm/src/main.rs b/yazi-fm/src/main.rs
-index 6f7f015..fffdfce 100644
+index eee14d5..674f8fe 100644
 --- a/yazi-fm/src/main.rs
 +++ b/yazi-fm/src/main.rs
 @@ -1,7 +1,3 @@
@@ -61,5 +61,5 @@ index 6f7f015..fffdfce 100644
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 -
  yazi_macro::mod_pub!(app cmp confirm help input mgr notify pick spot tasks which);
-
- yazi_macro::mod_flat!(dispatcher executor logs panic root router signals term);
+ 
+ yazi_macro::mod_flat!(dispatcher executor logs panic root router signals);

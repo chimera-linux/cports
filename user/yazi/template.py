@@ -1,5 +1,5 @@
 pkgname = "yazi"
-pkgver = "26.1.4"
+pkgver = "26.5.6"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -12,7 +12,7 @@ pkgdesc = "Terminal file manager"
 license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "17839410a2865dc6ddb40da4b034dbf2729602fc325d07ad4df7dbc354c94c9e"
+sha256 = "a18445df86a20068f7b17609d12d6f635de488958579ae7a2b143a244ba7e63f"
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
 
