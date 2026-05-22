@@ -1,6 +1,6 @@
 pkgname = "lua5.1-lgi"
 pkgver = "0.9.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = ["LUA_VERSION=5.1", "LUA_CFLAGS=-I/usr/include/lua5.1"]
 make_check_args = ["LUA=lua5.1"]
