@@ -35,14 +35,14 @@ index 280a2afcd..a236db45a 100755
 @@ -1004,6 +1004,7 @@ enable_languages
  with_multilib_list
  with_multilib_generator
- enable_autolink_libatomic
+ with_picolibc
 +enable_autolink_libssp
  with_zstd
  with_zstd_include
  with_zstd_lib
 @@ -1746,6 +1747,8 @@ Optional Features:
-                           enable automatic linking of libatomic (ignored if
-                           not built)
+   --disable-gcov          don't provide libgcov and related host tools
+   --enable-languages=LIST specify which front-ends to build
    --disable-rpath         do not hardcode runtime library paths
 +  --enable-autolink-libssp
 +                          enable automatic linking of libssp_nonshared
@@ -50,7 +50,7 @@ index 280a2afcd..a236db45a 100755
                            arrange to use setjmp/longjmp exception handling
    --disable-win32-utf8-manifest
 @@ -8434,6 +8437,27 @@ $as_echo "$as_me: WARNING: libatomic is not build for this target, --enable-auto
-   fi
+   withval=$with_picolibc;
  fi
  
 +# If to force link libssp_nonshared
@@ -82,8 +82,8 @@ index 763438f41..7223718d8 100644
 --- a/gcc/configure.ac
 +++ b/gcc/configure.ac
 @@ -1248,6 +1248,23 @@ if test x$enable_autolink_libatomic = xyes; then
-   fi
- fi
+ AC_ARG_WITH(picolibc,
+ [AS_HELP_STRING([--with-picolibc], [Support for picolibc, including command line options and spec rules])])
  
 +# If to force link libssp_nonshared
 +AC_ARG_ENABLE(autolink-libssp,

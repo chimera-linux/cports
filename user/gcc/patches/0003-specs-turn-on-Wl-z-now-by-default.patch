@@ -2,7 +2,7 @@ diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
 index f82f7d2..9f0a34c 100644
 --- a/gcc/doc/invoke.texi
 +++ b/gcc/doc/invoke.texi
-@@ -18924,6 +18924,9 @@ For example, @option{-Wl,-Map,output.map} passes @option{-Map output.map} to the
+@@ -18800,6 +18800,9 @@
  linker.  When using the GNU linker, you can also get the same effect with
  @option{-Wl,-Map=output.map}.
  
@@ -10,8 +10,8 @@ index f82f7d2..9f0a34c 100644
 +@option{-Wl,-z,relro} and @option{-Wl,-z,now} is used.
 +
  @opindex u
+ @opindex force-link
  @item -u @var{symbol}
- Pretend the symbol @var{symbol} is undefined, to force linking of
 diff --git a/gcc/gcc.cc b/gcc/gcc.cc
 index 728332b..b19a69f 100644
 --- a/gcc/gcc.cc

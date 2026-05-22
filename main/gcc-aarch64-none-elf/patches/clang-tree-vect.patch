@@ -11,8 +11,8 @@ Index: gcc/tree-vect-loop.cc
 --- a/gcc/tree-vect-loop.cc
 +++ b/gcc/tree-vect-loop.cc
 @@ -59,6 +59,8 @@ along with GCC; see the file COPYING3.  If not see
- #include "case-cfn-macros.h"
- #include "langhooks.h"
+ #include "opts.h"
+ #include "hierarchical_discriminator.h"
  
 +#define vec_step vec_step_
 +
