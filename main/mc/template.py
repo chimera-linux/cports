@@ -1,9 +1,8 @@
 pkgname = "mc"
 pkgver = "4.8.33"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--with-screen=ncurses",
     "--without-x",
 ]
