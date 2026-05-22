@@ -1,0 +1,11 @@
+--- a/50-virtiofsd.json
++++ b/50-virtiofsd.json
+@@ -1,7 +1,7 @@
+ {
+   "description": "virtiofsd vhost-user-fs",
+   "type": "fs",
+-  "binary": "/usr/libexec/virtiofsd",
++  "binary": "/usr/lib/virtiofsd",
+   "features": [
+       "migrate-precopy",
+       "separate-options"
