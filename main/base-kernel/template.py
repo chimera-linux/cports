@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 17
+pkgrel = 18
 depends = [
     "cmd:findmnt!util-linux-mount",
     "kmod",
@@ -19,33 +19,10 @@ pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 # no tests
-options = ["!check", "keepempty"]
+options = ["!check"]
 
 
 def install(self):
-    # kernel.d helpers
-    self.install_dir("usr/lib/base-kernel")
-    self.install_dir("usr/libexec/base-kernel")
-
-    # obsolete scripts only for old kernel packages
-    # to be removed in some months...
-    for f in [
-        "kernel-clean-initramfs",
-        "kernel-pre-upgrade",
-        "kernel-post-upgrade",
-        "script-funcs",
-        "script-pre-deinstall",
-        "script-pre-install",
-        "script-pre-upgrade",
-        "script-post-install",
-        "script-post-upgrade",
-    ]:
-        self.install_file(
-            self.files_path / "libexec" / f,
-            "usr/libexec/base-kernel",
-            mode=0o755,
-        )
-
     for f in [
         "kernel-root-detect",
         "run-kernel-d",
@@ -55,11 +32,6 @@ def install(self):
             "usr/lib/base-kernel",
             mode=0o755,
         )
-
-    # modprobe(8) files
-    self.install_dir("etc/modprobe.d")
-    self.install_dir("etc/modules-load.d")
-    self.install_dir("usr/lib/modprobe.d")
 
     self.install_file(
         self.files_path / "modprobe.d/usb-load-ehci-first",
@@ -94,14 +66,6 @@ def install(self):
         "usr/bin",
         mode=0o755,
         name="chimera-stripko",
-    )
-
-    # this is for the old kernel system, remove later
-    self.install_file(
-        self.files_path / "chimera-prunekernels.sh",
-        "usr/bin",
-        mode=0o755,
-        name="chimera-prunekernels",
     )
 
     self.install_file(
