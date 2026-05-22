@@ -1,14 +1,15 @@
 pkgname = "gnupg"
 pkgver = "2.4.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
     "--enable-all-tests",
+    "--enable-large-secmem",
 ]
 configure_gen = []
 make_check_env = {"TESTFLAGS": f"--parallel={self.conf_jobs}"}
-hostmakedepends = ["pkgconf", "libgpg-error-progs"]
+hostmakedepends = ["pkgconf", "libgpg-error-progs", "texinfo"]
 # TODO: switch to libedit once it gains missing features
 makedepends = [
     "bzip2-devel",
