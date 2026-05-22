@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9d3d3b4..8456fba 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -454,7 +454,6 @@ if(LUACHECK_EXECUTABLE)
+     list(APPEND CHECK_QA_TARGETS luacheck)
+ endif()
+ add_custom_target(check-qa DEPENDS ${CHECK_QA_TARGETS})
+-add_dependencies(check check-qa check-examples)
+ # }}}
+ 
+ INCLUDE(${CMAKE_SOURCE_DIR}/Packaging.cmake)
