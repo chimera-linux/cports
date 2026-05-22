@@ -4,7 +4,6 @@ pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64"]
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--without-mpicc",
 ]
 configure_gen = ["./autogen.sh"]

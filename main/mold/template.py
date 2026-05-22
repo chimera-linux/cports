@@ -3,7 +3,6 @@ pkgver = "2.41.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
     "-DMOLD_USE_MIMALLOC=OFF",
     "-DMOLD_USE_SYSTEM_TBB=ON",
 ]

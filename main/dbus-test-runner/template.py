@@ -2,7 +2,10 @@ pkgname = "dbus-test-runner"
 pkgver = "19.04.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--disable-static"]
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    "--disable-static",
+]
 hostmakedepends = [
     "automake",
     "gettext-devel",

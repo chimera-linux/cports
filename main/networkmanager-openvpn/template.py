@@ -3,6 +3,7 @@ pkgver = "1.12.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-static",
     "--with-gtk4",
 ]

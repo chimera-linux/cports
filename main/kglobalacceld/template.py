@@ -2,8 +2,6 @@ pkgname = "kglobalacceld"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # needs full init of kglobalaccel
 make_check_args = ["-E", "shortcutstest"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}

@@ -2,6 +2,9 @@ pkgname = "xdg-desktop-portal-wlr"
 pkgver = "0.8.1"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "meson",
     "ninja",

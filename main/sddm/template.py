@@ -3,6 +3,7 @@ pkgver = "0.21.0"
 pkgrel = 4
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_MAN_PAGES=ON",
     "-DBUILD_WITH_QT6=ON",

@@ -10,7 +10,6 @@ configure_args = [
     "-Dlibglycin=false",
     "-Dlibglycin-gtk4=true",
     "-Dtests=false",
-    "--libexecdir=/usr/lib",  # XXX libexecdir
 ]
 hostmakedepends = [
     "cargo-auditable",

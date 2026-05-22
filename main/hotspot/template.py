@@ -2,7 +2,10 @@ pkgname = "hotspot"
 pkgver = "1.5.1"
 pkgrel = 2
 build_style = "cmake"
-configure_args = ["-DQT6_BUILD=ON"]
+configure_args = [
+    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
+    "-DQT6_BUILD=ON",
+]
 # broken when building out of tree as testdata isn't found relatively
 # the rest seem to be flaky in some way?
 make_check_args = ["-E", "(tst_perfdata|tst_models|tst_disassemblyoutput)"]

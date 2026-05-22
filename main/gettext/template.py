@@ -3,6 +3,7 @@ pkgver = "0.23.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-java",
     "--disable-csharp",
     "--disable-libasprintf",

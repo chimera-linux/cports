@@ -3,7 +3,6 @@ pkgver = "11.6.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dattr=enabled",
     "-Dblkid=enabled",
     "-Dcapng=enabled",

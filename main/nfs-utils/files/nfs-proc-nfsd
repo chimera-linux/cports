@@ -1,5 +1,3 @@
-# proc-fs-nfsd service
-
 type = scripted
-depends-on = early-fs-local.target
-command = /usr/libexec/dinit-proc-fs-nfsd
+command = /usr/lib/dinit-proc-fs-nfsd
+depends-on: early-fs-local.target

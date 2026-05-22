@@ -4,7 +4,6 @@ pkgrel = 5
 archs = ["aarch64", "loongarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dacl=disabled",
     "-Dadm-group=false",
     "-Danalyze=false",

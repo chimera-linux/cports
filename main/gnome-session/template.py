@@ -3,7 +3,6 @@ pkgver = "48.0"
 pkgrel = 2
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemduserunitdir=/tmp",
 ]
 hostmakedepends = [

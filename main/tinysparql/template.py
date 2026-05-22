@@ -3,6 +3,7 @@ pkgver = "3.11.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     # TODO: user services with dinit?
     "-Ddocs=false",
     "-Dman=true",

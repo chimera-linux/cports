@@ -3,7 +3,6 @@ pkgver = "0.30"
 pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemdsystemunitdir=",
     "-Dzshcomp=/usr/share/zsh/site-functions",
 ]

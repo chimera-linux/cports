@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgtkdoc=false",
-    "--libexecdir=/usr/lib",  # XXX drop libexec
 ]
 hostmakedepends = ["pkgconf", "meson", "gobject-introspection"]
 makedepends = ["xz-devel", "zstd-devel"]

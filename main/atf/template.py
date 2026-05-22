@@ -2,8 +2,6 @@ pkgname = "atf"
 pkgver = "0.23"
 pkgrel = 0
 build_style = "gnu_configure"
-# XXX drop libexec
-configure_args = ["--libexecdir=/usr/lib"]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 pkgdesc = "Testing library"
 license = "BSD-2-Clause"

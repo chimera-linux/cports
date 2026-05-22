@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddaemon_user=_colord",
     "-Dsystemd=false",
     "-Dargyllcms_sensor=false",

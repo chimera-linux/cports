@@ -3,7 +3,6 @@ pkgver = "1.5.32"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--enable-ui",
     "--enable-gtk3",
     "--enable-gtk4",

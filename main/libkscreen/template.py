@@ -2,8 +2,6 @@ pkgname = "libkscreen"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
 # testqscreenbackend & testinprocess broken (even on upstream CI) since v6.5.0 / e394a4c ("Drop QScreen backend")
 make_check_args = ["-E", "test(backendloader|qscreenbackend|inprocess)", "-j1"]

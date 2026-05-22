@@ -3,7 +3,6 @@ pkgver = "0.1.11"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexec
     "-Dmanage_rundir=true",
     "-Dpamdir=/usr/lib/pam.d",
 ]

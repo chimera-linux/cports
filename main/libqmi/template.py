@@ -3,7 +3,6 @@ pkgver = "1.36.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dqrtr=true",
     "-Dintrospection=true",
 ]

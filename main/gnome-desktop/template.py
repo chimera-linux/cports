@@ -3,7 +3,6 @@ pkgver = "44.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dudev=enabled",
     "-Dsystemd=disabled",
 ]

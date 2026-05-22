@@ -2,8 +2,6 @@ pkgname = "baloo"
 pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # flaky tests when parallel
 make_check_args = ["-j1"]
 make_check_wrapper = ["dbus-run-session"]

@@ -2,6 +2,9 @@ pkgname = "mate-polkit"
 pkgver = "1.28.1"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "gettext",
     "meson",

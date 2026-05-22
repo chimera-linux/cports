@@ -2,7 +2,10 @@ pkgname = "fprintd"
 pkgver = "1.94.5"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsystemd=false"]
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    "-Dsystemd=false",
+]
 hostmakedepends = [
     "bash",
     "gettext",

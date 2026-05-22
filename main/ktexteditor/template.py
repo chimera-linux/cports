@@ -2,8 +2,6 @@ pkgname = "ktexteditor"
 pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 make_check_args = [
     "-E",
     # FIXME: katedocument_test testAboutToSave() hangs for 5 minutes,

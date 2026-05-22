@@ -3,7 +3,6 @@ pkgver = "0.12.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--disable-static",
     "--with-espeak-ng",
     "--without-baratinoo",

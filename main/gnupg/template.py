@@ -3,7 +3,6 @@ pkgver = "2.4.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--enable-all-tests",
 ]
 configure_gen = []

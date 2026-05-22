@@ -3,7 +3,6 @@ pkgver = "3.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemdsystemunitdir=",
     "-Dgeoclue-user=_geoclue",
 ]

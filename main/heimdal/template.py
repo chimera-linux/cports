@@ -3,6 +3,7 @@ pkgver = "7.8.0"
 pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--enable-kcm",
     "--disable-otp",  # needs ndbm
     "--without-openssl",  # FIXME

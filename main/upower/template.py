@@ -3,7 +3,6 @@ pkgver = "1.91.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault_library=shared",
     "-Dos_backend=linux",
     "-Dsystemdsystemunitdir=no",

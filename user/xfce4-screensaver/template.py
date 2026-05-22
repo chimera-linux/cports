@@ -4,9 +4,6 @@ pkgrel = 1
 # workaround for lack of gdbus port
 _dbus_gmain_rev = "623a4f3386a675060335e20afd810c6e10ae2cc8"
 build_style = "gnu_configure"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
 hostmakedepends = [
     "automake",
     "gettext-devel",

@@ -2,6 +2,9 @@ pkgname = "ibus-skk"
 pkgver = "1.4.3"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 # old and doesn't reconf
 configure_gen = []
 make_dir = "."

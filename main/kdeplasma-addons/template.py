@@ -2,8 +2,6 @@ pkgname = "kdeplasma-addons"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: failed tz comparison / scientific notation number e uppercase
 make_check_args = ["-E", "(converterrunnertest|datetimerunnertest)"]
 make_check_wrapper = ["wlheadless-run", "--"]

@@ -2,7 +2,6 @@ pkgname = "attr"
 pkgver = "2.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--libdir=/usr/lib", "--libexecdir=/usr/lib"]
 # cycle with automake -> chimerautils
 configure_gen = []
 make_check_args = ["-j1"]  # Tests broken when ran in parallel

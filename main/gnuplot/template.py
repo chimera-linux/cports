@@ -3,8 +3,6 @@ pkgver = "6.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    # XXX drop libexec
-    "--libexecdir=/usr/lib",
     "--with-readline=bsd",
     "--with-gpic",
     "--with-metapost",

@@ -3,7 +3,6 @@ pkgver = "1.16.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dasserts=false",
     "-Ddbus_user=dbus",
     "-Ddoxygen_docs=disabled",

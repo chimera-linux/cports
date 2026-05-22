@@ -2,6 +2,9 @@ pkgname = "sushi"
 pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "gettext",
     "gjs",

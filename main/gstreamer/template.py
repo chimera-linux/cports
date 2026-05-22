@@ -3,6 +3,7 @@ pkgver = "1.28.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dptp-helper-permissions=none",  # manual
     "-Dpackage-origin=https://chimera-linux.org",
     "-Ddbghelp=disabled",

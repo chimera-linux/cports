@@ -3,7 +3,6 @@ pkgver = "6.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",
     "--with-ipsecdir=/usr/lib/strongswan",
     "--with-capabilities=libcap",
     "--with-user=_strongswan",

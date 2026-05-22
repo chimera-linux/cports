@@ -4,9 +4,7 @@ pkgrel = 3
 # riscv64 not supported yet
 archs = ["aarch64", "x86_64"]
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
+configure_args = []
 hostmakedepends = [
     f"binutils-{self.profile().arch}",
     "efivar",

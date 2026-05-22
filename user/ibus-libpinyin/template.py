@@ -3,6 +3,7 @@ pkgver = "1.16.5"
 pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--enable-cloud-input-mode",
     "--enable-opencc",
     "--enable-boost",

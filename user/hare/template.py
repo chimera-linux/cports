@@ -9,7 +9,7 @@ make_build_args = [
     f"{self.profile().arch.upper()}_CC=cc",
     f"{self.profile().arch.upper()}_LD=ld",
     f"VERSION={pkgver}-chimera",
-    "LIBEXECDIR=/usr/lib",  # XXX libexecdir
+    "LIBEXECDIR=/usr/lib",
 ]
 make_install_args = [*make_build_args]
 hostmakedepends = [

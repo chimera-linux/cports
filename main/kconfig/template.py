@@ -2,8 +2,6 @@ pkgname = "kconfig"
 pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: kconfigtest can work with right env
 make_check_args = ["-E", "kconfigcore-(kconfigtest|test_kconf_update)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}

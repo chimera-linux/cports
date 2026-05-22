@@ -3,7 +3,6 @@ pkgver = "1.1.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dmandoc=true",
 ]
 hostmakedepends = ["asciidoctor", "meson", "perl", "pkgconf"]

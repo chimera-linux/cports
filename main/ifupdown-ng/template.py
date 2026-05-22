@@ -1,6 +1,6 @@
 pkgname = "ifupdown-ng"
 pkgver = "0.12.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_target = "all"
 make_build_args = ["docs"]
@@ -21,7 +21,7 @@ def post_install(self):
     self.install_license("COPYING")
     # service stuff
     self.install_file(
-        self.files_path / "ifupdown-ng-dinit", "usr/libexec", mode=0o755
+        self.files_path / "ifupdown-ng-dinit", "usr/lib", mode=0o755
     )
     self.install_service(self.files_path / "ifupdown-ng")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
@@ -34,7 +34,7 @@ def _(self):
     # self.install_if = [self.parent, "batctl"]
 
     return [
-        "usr/libexec/ifupdown-ng/batman",
+        "usr/lib/ifupdown-ng/batman",
     ]
 
 
@@ -45,7 +45,7 @@ def _(self):
     self.install_if = [self.parent, "ethtool"]
 
     return [
-        "usr/libexec/ifupdown-ng/ethtool",
+        "usr/lib/ifupdown-ng/ethtool",
     ]
 
 
@@ -56,10 +56,10 @@ def _(self):
     self.install_if = [self.parent, "iproute2"]
 
     return [
-        "usr/libexec/ifupdown-ng/gre",
-        "usr/libexec/ifupdown-ng/mpls",
-        "usr/libexec/ifupdown-ng/vrf",
-        "usr/libexec/ifupdown-ng/vxlan",
+        "usr/lib/ifupdown-ng/gre",
+        "usr/lib/ifupdown-ng/mpls",
+        "usr/lib/ifupdown-ng/vrf",
+        "usr/lib/ifupdown-ng/vxlan",
     ]
 
 
@@ -70,7 +70,7 @@ def _(self):
     self.install_if = [self.parent, "ppp"]
 
     return [
-        "usr/libexec/ifupdown-ng/ppp",
+        "usr/lib/ifupdown-ng/ppp",
     ]
 
 
@@ -81,7 +81,7 @@ def _(self):
     self.install_if = [self.parent, "wpa_supplicant"]
 
     return [
-        "usr/libexec/ifupdown-ng/wifi",
+        "usr/lib/ifupdown-ng/wifi",
     ]
 
 
@@ -92,7 +92,7 @@ def _(self):
     self.install_if = [self.parent, "wireguard-tools"]
 
     return [
-        "usr/libexec/ifupdown-ng/wireguard",
+        "usr/lib/ifupdown-ng/wireguard",
     ]
 
 
@@ -103,5 +103,5 @@ def _(self):
     self.install_if = [self.parent, "wireguard-tools-wg-quick"]
 
     return [
-        "usr/libexec/ifupdown-ng/wireguard-quick",
+        "usr/lib/ifupdown-ng/wireguard-quick",
     ]

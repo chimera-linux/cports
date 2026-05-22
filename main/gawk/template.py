@@ -3,7 +3,6 @@ pkgver = "5.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--with-readline",
     "--disable-pma",
 ]

@@ -2,6 +2,9 @@ pkgname = "file-roller"
 pkgver = "44.6"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",

@@ -3,7 +3,6 @@ pkgver = "2.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexecdir
     "--disable-static",
     "--with-udevdir=/usr/lib/udev",
     "--enable-lvm2",

@@ -2,8 +2,6 @@ pkgname = "kio"
 pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # flaky
 make_check_args = ["-E", "kiocore-krecentdocumenttest"]
 make_check_wrapper = ["dbus-run-session"]

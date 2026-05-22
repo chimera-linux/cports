@@ -5,7 +5,6 @@ build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = [
     "-DGLIBC_LOCALE_GEN=OFF",
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
 ]
 make_check_args = [
     "-E",

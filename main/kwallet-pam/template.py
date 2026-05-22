@@ -2,8 +2,6 @@ pkgname = "kwallet-pam"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = ["cmake", "extra-cmake-modules", "ninja", "pkgconf"]
 makedepends = [
     "kwallet-devel",

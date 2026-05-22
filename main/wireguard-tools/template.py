@@ -28,7 +28,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(
         self.files_path / "wg-quick-all.sh",
-        "usr/libexec",
+        "usr/lib",
         mode=0o755,
         name="wg-quick-all",
     )
@@ -48,7 +48,7 @@ def _(self):
     return [
         "usr/lib/dinit.d/wg-quick-all",
         "usr/bin/wg-quick",
-        "usr/libexec/wg-quick-all",
+        "usr/lib/wg-quick-all",
         "usr/share/bash-completion/**/wg-quick",
         "usr/share/man/man?/wg-quick.?",
     ]

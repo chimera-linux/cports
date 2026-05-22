@@ -3,6 +3,7 @@ pkgver = "4.20.0"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--with-helper-path-prefix=/usr/libexec",
     "--enable-gsettings-backend",
 ]

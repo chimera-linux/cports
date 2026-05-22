@@ -3,7 +3,6 @@ pkgver = "0.99.24"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault-path-env=/usr/bin",
 ]
 hostmakedepends = ["meson", "pkgconf"]

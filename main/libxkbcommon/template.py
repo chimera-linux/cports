@@ -3,7 +3,6 @@ pkgver = "1.13.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Denable-x11=true",
     "-Denable-wayland=true",
     "-Denable-xkbregistry=true",

@@ -3,6 +3,7 @@ pkgver = "6.0.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dapparmor=false",
     # needs docbook2x
     "-Dman=false",

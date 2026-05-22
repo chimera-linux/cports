@@ -3,6 +3,7 @@ pkgver = "1.35"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--program-prefix=g",
     "gl_cv_struct_dirent_d_ino=yes",
 ]

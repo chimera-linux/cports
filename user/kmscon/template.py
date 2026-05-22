@@ -2,9 +2,6 @@ pkgname = "kmscon"
 pkgver = "10.0.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
 hostmakedepends = ["libxslt-progs", "meson", "ncurses", "pkgconf"]
 makedepends = [
     "check-devel",

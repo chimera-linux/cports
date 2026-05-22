@@ -3,6 +3,7 @@ pkgver = "0.42"
 pkgrel = 2
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dbuiltin-mjpeg=false",
     "-Dcoroutine=gthread",
     "-Degl=enabled",

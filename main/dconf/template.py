@@ -2,6 +2,9 @@ pkgname = "dconf"
 pkgver = "0.49.0"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "docbook-xsl-nons",
     "glib-devel",

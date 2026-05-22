@@ -7,12 +7,6 @@ _mnver = _bver[0 : _bver.rfind(".")]
 pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--prefix=/usr",
-    "--sbindir=/usr/bin",
-    "--libdir=/usr/lib",
-    "--libexecdir=/usr/lib",
-    "--mandir=/usr/share/man",
-    "--infodir=/usr/share/info",
     "--disable-cet",
     "--disable-fixed-point",
     "--disable-nls",

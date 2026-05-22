@@ -5,7 +5,6 @@ build_style = "meson"
 configure_args = [
     "-Duser=_tang",
     "-Dgroup=_tang",
-    "--libexecdir=/usr/lib",
 ]
 hostmakedepends = [
     "asciidoc",

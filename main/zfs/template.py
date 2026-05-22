@@ -4,7 +4,6 @@ pkgver = "2.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--with-config=user",
     "--with-mounthelperdir=/usr/bin",
     "--with-udevdir=/usr/lib/udev",

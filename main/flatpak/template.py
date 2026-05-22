@@ -3,6 +3,7 @@ pkgver = "1.16.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Ddconf=enabled",
     "-Ddbus_config_dir=/usr/share/dbus-1/system.d",
     "-Dgdm_env_file=true",

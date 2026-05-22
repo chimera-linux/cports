@@ -3,7 +3,6 @@ pkgver = "2.60.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     # needs dbus-broker fix in the future
     "-Duse_systemd=false",
     "-Dgtk2_atk_adaptor=false",

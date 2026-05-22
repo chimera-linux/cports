@@ -2,9 +2,6 @@ pkgname = "gnome-terminal"
 pkgver = "3.60.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
 hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",

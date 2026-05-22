@@ -2,6 +2,9 @@ pkgname = "gnome-contacts"
 pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "blueprint-compiler",
     "desktop-file-utils",

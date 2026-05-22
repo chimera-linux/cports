@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dnetwork_tests=false",
-    "--libexecdir=/usr/lib",  # XXX libexecdir
 ]
 make_check_wrapper = [
     "dbus-run-session",

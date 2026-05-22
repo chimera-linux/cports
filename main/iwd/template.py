@@ -3,7 +3,6 @@ pkgver = "3.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     # junk cflags that redefine FORTIFY
     "--disable-optimization",
     "--disable-systemd-service",

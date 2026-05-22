@@ -3,6 +3,7 @@ pkgver = "0.25.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dlibffi=enabled",
     "-Dsystemd=disabled",
     "-Dbash_completion=disabled",

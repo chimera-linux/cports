@@ -3,7 +3,6 @@ pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
     "-DENABLE_LIBMPV=ON",
     "-DENABLE_LIBVLC=OFF",
 ]

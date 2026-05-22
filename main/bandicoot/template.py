@@ -3,7 +3,6 @@ pkgver = "0_git20250216"
 pkgrel = 0
 _gitrev = "84fccd824c32d4cea26161f10b52bf5ca324d5b1"
 build_style = "meson"
-configure_args = ["--libexecdir=/usr/lib"]  # XXX libexecdir
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["dinit-chimera", "linux-headers", "zstd-devel"]
 pkgdesc = "Crash dump handler"

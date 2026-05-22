@@ -3,6 +3,7 @@ pkgver = "4.4.0.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dgpg_path=/usr/bin/gpg",
     "-Dsystemd=disabled",
     "-Dssh_agent=false",

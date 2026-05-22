@@ -3,7 +3,6 @@ pkgver = "4.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX: drop libexec
     "-Dcomics=true",
     "-Ddjvu=true",
     "-Dmathjax-directory=/usr/share/yelp/mathjax",

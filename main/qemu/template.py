@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--enable-bpf",
     "--enable-cap-ng",
     "--enable-capstone",

@@ -2,9 +2,7 @@ pkgname = "bolt"
 pkgver = "0.9.10"
 pkgrel = 0
 build_style = "meson"
-# XXX drop libexec
 configure_args = [
-    "--libexecdir=/usr/lib",
     "-Dman=true",
     "-Dsystemd=false",
 ]

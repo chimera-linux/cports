@@ -2,8 +2,7 @@ pkgname = "xdg-desktop-portal-xapp"
 pkgver = "1.1.2"
 pkgrel = 0
 build_style = "meson"
-# XXX: drop libexec
-configure_args = ["--libexecdir=/usr/lib", "-Dsystemduserunitdir=/tmp"]
+configure_args = ["-Dsystemduserunitdir=/tmp"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["gtk+3-devel", "xdg-desktop-portal-devel"]
 depends = ["xapp", "xdg-desktop-portal"]

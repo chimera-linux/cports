@@ -2,8 +2,6 @@ pkgname = "k3b"
 pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",

@@ -1,4 +1,5 @@
 type = process
-command = /usr/libexec/yggdrasil.wrapper
-depends-on = network.target
+command = /usr/lib/yggdrasil.wrapper
 logfile = /var/log/yggdrasil.log
+depends-on: local.target
+depends-on: network.target

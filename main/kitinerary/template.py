@@ -2,8 +2,6 @@ pkgname = "kitinerary"
 pkgver = "26.04.1"
 pkgrel = 1
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # extractortest: difference in AT/österreich key
 # knowledgedbtest: flaky SIBBUS crash in ki18n IsoCodesCache::subdivisionCount from accessing cache (weird pointer stuff)
 # airportdbtest: the same

@@ -3,7 +3,6 @@ pkgver = "2.0.13"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault_library=shared",
     "-Ddocs=disabled",
     "-Defi_binary=false",

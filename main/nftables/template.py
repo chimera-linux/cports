@@ -32,7 +32,7 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     fpath = self.files_path
-    self.install_file(fpath / "nftables-start", "usr/libexec", mode=0o755)
+    self.install_file(fpath / "nftables-start", "usr/lib", mode=0o755)
     self.install_service(fpath / "nftables")
 
 

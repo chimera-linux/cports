@@ -2,6 +2,9 @@ pkgname = "xdg-desktop-portal"
 pkgver = "1.20.4"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "bubblewrap",
     "gettext",

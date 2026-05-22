@@ -3,7 +3,6 @@ pkgver = "0.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--with-gnutls",
     "--with-tss-user=tss",
     "--with-tss-group=tss",

@@ -3,7 +3,6 @@ pkgver = "1.5.0"
 pkgrel = 6
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dopenrc=disabled",
     "-Denv-update=",
 ]

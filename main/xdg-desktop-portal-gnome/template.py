@@ -2,7 +2,10 @@ pkgname = "xdg-desktop-portal-gnome"
 pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsystemduserunitdir=/tmp/delete_me"]
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    "-Dsystemduserunitdir=/tmp/delete_me",
+]
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 makedepends = [
     "gnome-desktop-devel",

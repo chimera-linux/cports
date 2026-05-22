@@ -3,7 +3,6 @@ pkgver = "3.58.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddocumentation=false",
     "-Dintrospection=true",
     "-Dvapi=true",

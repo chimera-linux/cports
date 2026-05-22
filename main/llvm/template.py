@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
+    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
     "-DENABLE_LINKER_BUILD_ID=ON",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON",
     # only build that target

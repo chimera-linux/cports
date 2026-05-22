@@ -2,8 +2,6 @@ pkgname = "kio-extras"
 pkgver = "26.04.1"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # thumbnail: fails for some reason
 # testkioarchive: fails to open tar, support seems to not be detected
 make_check_args = ["-E", "(thumbnailtest|testkioarchive)"]

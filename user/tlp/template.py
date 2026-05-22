@@ -6,7 +6,7 @@ make_install_args = [
     "-j1",
     "TLP_SBIN=/usr/bin",
     "TLP_ULIB=/usr/lib/udev",
-    "TLP_ELOD=/usr/libexec/elogind/system-sleep",
+    "TLP_ELOD=/usr/lib/elogind/system-sleep",
     "TLP_NO_INIT=1",
     "TLP_WITH_ELOGIND=1",
     "TLP_WITH_SYSTEMD=0",

@@ -2,8 +2,6 @@ pkgname = "powerdevil"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: all tests broken like on alpine, migrateconfig_test*
 make_check_args = [
     "-E",

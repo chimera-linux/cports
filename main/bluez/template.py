@@ -13,7 +13,6 @@ configure_args = [
     "--enable-sixaxis",
     "--enable-threads",
     "--with-udevdir=/usr/lib/udev",
-    "--libexecdir=/usr/lib",  # XXX drop libexec
 ]
 hostmakedepends = [
     "automake",

@@ -3,7 +3,6 @@ pkgver = "1.8.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dwith-examples=false",
     "-Dwith-sd-bus-provider=tangle",
     "-Dwith-privileged-group=_gamemode",

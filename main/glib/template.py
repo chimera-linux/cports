@@ -3,7 +3,6 @@ pkgver = "2.88.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Ddocumentation=false",
     "-Dintrospection=enabled",
     "-Dman-pages=enabled",

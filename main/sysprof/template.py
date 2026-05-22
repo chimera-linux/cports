@@ -4,7 +4,6 @@ pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     # creates static separately itself
     "-Ddefault_library=shared",
     "-Dsystemdunitdir=systemd",

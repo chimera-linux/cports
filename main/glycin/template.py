@@ -8,7 +8,6 @@ configure_args = [
     "-Dlibglycin-gtk4=false",
     # we bundle dependency-free loader as that's needed for gdk-pixbuf
     "-Dloaders=glycin-image-rs",
-    "--libexecdir=/usr/lib",  # XXX libexecdir
 ]
 hostmakedepends = [
     "cargo-auditable",

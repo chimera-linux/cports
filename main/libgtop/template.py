@@ -2,7 +2,11 @@ pkgname = "libgtop"
 pkgver = "2.41.3"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-libgtop-smp", "--enable-introspection"]
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    "--with-libgtop-smp",
+    "--enable-introspection",
+]
 hostmakedepends = [
     "automake",
     "gettext-devel",

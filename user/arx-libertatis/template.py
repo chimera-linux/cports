@@ -5,6 +5,9 @@ pkgver = "1.2.1_git20240822"
 pkgrel = 4
 _gitrev = "5b95e4c5ca9d583f1b11c085326979772645e0f3"
 build_style = "cmake"
+configure_args = [
+    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
+]
 hostmakedepends = ["cmake", "ninja", "python"]
 makedepends = [
     "boost-devel",

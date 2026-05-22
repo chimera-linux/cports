@@ -3,6 +3,7 @@ pkgver = "2.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Ddbus-srv-user=_geoclue",
     "-Dgtk-doc=false",
     "-Dintrospection=true",

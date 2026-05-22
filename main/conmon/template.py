@@ -2,9 +2,6 @@ pkgname = "conmon"
 pkgver = "2.1.13"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
 hostmakedepends = [
     "go-md2man",
     "meson",

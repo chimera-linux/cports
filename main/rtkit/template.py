@@ -3,7 +3,6 @@ pkgver = "0.13"
 pkgrel = 6
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dlibsystemd=disabled",
     "-Dinstalled_tests=false",
 ]

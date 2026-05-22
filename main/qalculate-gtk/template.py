@@ -3,6 +3,9 @@ pkgname = "qalculate-gtk"
 pkgver = "5.10.0"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 hostmakedepends = [
     "automake",
     "gettext-devel",

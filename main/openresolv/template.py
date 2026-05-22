@@ -1,8 +1,8 @@
 pkgname = "openresolv"
 pkgver = "3.16.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
+configure_args = ["--libexecdir=/usr/lib/resolvconf"]
 configure_gen = []
 make_dir = "."
 pkgdesc = "Management framework for resolv.conf"

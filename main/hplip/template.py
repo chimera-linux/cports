@@ -3,6 +3,7 @@ pkgver = "3.25.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-doc-build",
     "--disable-fax-build",
     "--disable-gui-build",

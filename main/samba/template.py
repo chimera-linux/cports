@@ -7,7 +7,6 @@ configure_script = "buildtools/bin/waf"
 configure_args = [
     "--enable-fhs",
     "--sbindir=/usr/bin",
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--localstatedir=/var",
     "--sysconfdir=/etc",
     "--with-piddir=/run/samba",

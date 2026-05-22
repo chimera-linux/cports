@@ -3,6 +3,7 @@ pkgver = "10.3_p1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--datadir=/usr/share/openssh",
     "--sysconfdir=/etc/ssh",
     "--disable-wtmp",

@@ -3,7 +3,6 @@ pkgver = "50.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Dunit_tests=disabled",
 ]
 hostmakedepends = [

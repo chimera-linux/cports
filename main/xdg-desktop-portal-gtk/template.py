@@ -3,6 +3,7 @@ pkgver = "1.15.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     # pulls gnome-desktop
     "-Dwallpaper=disabled",
 ]

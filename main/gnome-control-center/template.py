@@ -2,9 +2,6 @@ pkgname = "gnome-control-center"
 pkgver = "50.1"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
-]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "blueprint-compiler",

@@ -85,7 +85,7 @@ def configure(pkg, build_dir, meson_dir=None, extra_args=[], env={}):
         "setup",
         "--prefix=/usr",
         "--libdir=/usr/lib",
-        "--libexecdir=/usr/libexec",
+        "--libexecdir=/usr/lib",
         "--bindir=/usr/bin",
         "--sbindir=/usr/bin",
         "--includedir=/usr/include",

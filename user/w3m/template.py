@@ -2,6 +2,9 @@ pkgname = "w3m"
 pkgver = "0.5.5"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+]
 configure_gen = []
 make_dir = "."
 makedepends = [

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 # disable tests that need X/dbus
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dskip_dbus_tests=true",
     "-Dskip_gtk_tests=true",
     "-Dinstalled_tests=false",

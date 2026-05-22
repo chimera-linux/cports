@@ -2,9 +2,6 @@ pkgname = "fcitx5"
 pkgver = "5.1.17"
 pkgrel = 0
 build_style = "cmake"
-configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",
-]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",

@@ -1,8 +1,6 @@
-# ifupdown-ng service
-
 type = scripted
-command = /usr/libexec/ifupdown-ng-dinit start
-stop-command = /usr/libexec/ifupdown-ng-dinit stop
-before = network.target
-depends-on = pre-network.target
+command = /usr/lib/ifupdown-ng-dinit start
+stop-command = /usr/lib/ifupdown-ng-dinit stop
 logfile = /var/log/ifupdown-ng.log
+before: network.target
+depends-on: pre-network.target

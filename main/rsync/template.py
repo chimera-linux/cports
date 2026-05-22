@@ -3,6 +3,7 @@ pkgver = "3.4.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--with-rrsync",
     "--with-included-popt=no",
     "--with-included-zlib=no",

@@ -3,7 +3,6 @@ pkgver = "2.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dtests=disabled",
     "-Drunner=disabled",
 ]

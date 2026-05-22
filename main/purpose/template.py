@@ -2,8 +2,6 @@ pkgname = "purpose"
 pkgver = "6.26.0"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # menutest: ??
 # alternativesmodeltest: tries to reach remote url
 make_check_args = ["-E", "(menutest|alternativesmodeltest)"]

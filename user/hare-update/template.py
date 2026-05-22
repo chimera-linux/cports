@@ -2,7 +2,7 @@ pkgname = "hare-update"
 pkgver = "0.26.0.0"
 pkgrel = 0
 build_style = "makefile"
-make_install_args = ["LIBEXECDIR=/usr/lib"]  # XXX libexecdir
+make_install_args = ["LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     f"binutils-{self.profile().arch}",
     "hare",

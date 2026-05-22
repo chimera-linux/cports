@@ -6,7 +6,6 @@ build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
     "-DCMAKE_SKIP_RPATH=ON",
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
     f"-DCMAKE_LINKER={self.profile().triplet}-clang",
     # -DUSE_*
     "-DUSE_GTK4=ON",

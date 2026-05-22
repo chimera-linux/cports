@@ -2,8 +2,6 @@ pkgname = "kde-cli-tools"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: only test fails on initTestCase() 'fakeApplicationService' returned FALSE
 make_check_args = ["-E", "filetypestest"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}

@@ -11,6 +11,7 @@ def configure(self):
         "configure",
         "--prefix=/usr",
         "--libdir=/usr/lib",
+        "--libexecdir=/usr/lib",
         *self.configure_args,
         env=env,
     )

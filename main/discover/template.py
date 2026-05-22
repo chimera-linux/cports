@@ -2,8 +2,6 @@ pkgname = "discover"
 pkgver = "6.6.5"
 pkgrel = 0
 build_style = "cmake"
-# XXX drop libexec
-configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # fails in chroot env, needs some testdata
 make_check_args = ["-E", "flatpaktest|CategoriesTest"]
 make_check_wrapper = [

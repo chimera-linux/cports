@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Dxorg=true",
     "-Dxephyr=true",
     "-Dxnest=true",

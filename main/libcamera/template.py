@@ -2,7 +2,10 @@ pkgname = "libcamera"
 pkgver = "0.5.2"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dtest=true"]
+configure_args = [
+    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    "-Dtest=true",
+]
 hostmakedepends = [
     "meson",
     "pkgconf",

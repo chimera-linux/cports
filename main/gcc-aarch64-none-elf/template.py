@@ -6,11 +6,6 @@ build_style = "gnu_configure"
 configure_args = [
     f"--target={_trip}",
     f"--with-sysroot=/usr/{_trip}",
-    "--prefix=/usr",
-    "--sbindir=/usr/bin",
-    "--libdir=/usr/lib",
-    "--mandir=/usr/share/man",
-    "--infodir=/usr/share/info",
     "--disable-nls",
     "--disable-decimal-float",
     "--disable-libffi",

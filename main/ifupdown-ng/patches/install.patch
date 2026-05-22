@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -7,7 +7,7 @@ PACKAGE_NAME := ifupdown-ng
+@@ -7,12 +7,12 @@ PACKAGE_NAME := ifupdown-ng
  PACKAGE_VERSION := 0.12.1
  PACKAGE_BUGREPORT := https://github.com/ifupdown-ng/ifupdown-ng/issues/new
  
@@ -9,3 +9,9 @@
  
  INTERFACES_FILE := /etc/network/interfaces
  STATE_FILE := /run/ifstate
+ CONFIG_FILE := /etc/network/ifupdown-ng.conf
+-EXECUTOR_PATH := /usr/libexec/ifupdown-ng
++EXECUTOR_PATH := /usr/lib/ifupdown-ng
+ 
+ CFLAGS ?= -ggdb3 -Os
+ CFLAGS += -Wall -Wextra -Werror

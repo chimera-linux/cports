@@ -2,8 +2,6 @@ pkgname = "cups-pk-helper"
 pkgver = "0.2.7"
 pkgrel = 1
 build_style = "meson"
-# XXX drop libexec
-configure_args = ["--libexecdir=/usr/lib"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext"]
 makedepends = ["glib-devel", "cups-devel", "polkit-devel"]
 pkgdesc = "PolicyKit helper to configure CUPS with fine-grained privileges"

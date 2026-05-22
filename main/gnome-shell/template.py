@@ -3,7 +3,6 @@ pkgver = "50.1"
 pkgrel = 2
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault_library=shared",
     "-Dsystemd=false",
     "-Dtests=false",

@@ -3,7 +3,6 @@ pkgver = "256.11"
 pkgrel = 3
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dacl=enabled",
     "-Dadm-group=false",
     "-Danalyze=false",

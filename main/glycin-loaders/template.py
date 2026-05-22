@@ -11,7 +11,6 @@ configure_args = [
     "-Dlibglycin-gtk4=false",
     "-Dloaders=glycin-heif,glycin-jxl,glycin-svg",
     "-Dtests=false",
-    "--libexecdir=/usr/lib",  # XXX libexecdir
 ]
 hostmakedepends = [
     "cargo-auditable",

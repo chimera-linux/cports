@@ -22,14 +22,14 @@ if self.profile().wordsize == 32:
 def install(self):
     self.install_file(
         f"target/{self.profile().triplet}/release/virtiofsd",
-        "usr/libexec",
+        "usr/lib",
         mode=0o755,
     )
     self.install_license("LICENSE-BSD-3-Clause")
     self.install_file("50-virtiofsd.json", "usr/lib/qemu/vhost-user")
     # old qemu compat link; used to be shipped with qemu
     self.install_dir("usr/lib/qemu")
-    self.install_link("usr/lib/qemu/virtiofsd", "../../libexec/virtiofsd")
+    self.install_link("usr/lib/qemu/virtiofsd", "../virtiofsd")
 
 
 @subpackage("virtiofsd-meta")

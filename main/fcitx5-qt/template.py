@@ -7,7 +7,6 @@ configure_args = [
     "-DENABLE_QT4=OFF",
     "-DENABLE_QT5=OFF",
     "-DENABLE_QT6=ON",
-    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",
 ]
 hostmakedepends = [
     "cmake",

@@ -86,6 +86,7 @@ def configure(
         "--sbindir=/usr/bin",
         "--bindir=/usr/bin",
         "--libdir=/usr/lib",
+        "--libexecdir=/usr/lib",
         "--mandir=/usr/share/man",
         "--infodir=/usr/share/info",
         "--localstatedir=/var",
