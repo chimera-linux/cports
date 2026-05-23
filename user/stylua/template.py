@@ -1,5 +1,5 @@
 pkgname = "stylua"
-pkgver = "2.4.0"
+pkgver = "2.5.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Lua formatter"
 license = "MPL-2.0"
 url = "https://github.com/JohnnyMorganz/StyLua"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e63130a0bc26d0825f99afcfb4d969516ab34dd1b397087bf564095766a16c2a"
+sha256 = "26a220c7bf3a8f50d12b76c952fc4569a1162e2d002440faac3344a3634db4f2"
 
 
 def install(self):
