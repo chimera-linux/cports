@@ -1,10 +1,18 @@
 pkgname = "kmscon"
-pkgver = "10.0.0"
+pkgver = "10.0.1"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["libxslt-progs", "meson", "ncurses", "pkgconf"]
+configure_args = ["-Dlibseat=enabled"]
+hostmakedepends = [
+    "docbook-xsl-nons",
+    "libxslt-progs",
+    "meson",
+    "ncurses",
+    "pkgconf",
+]
 makedepends = [
     "check-devel",
+    "dbus-devel",
     "dinit-chimera",
     "freetype-devel",
     "libdrm-devel",
@@ -19,7 +27,8 @@ pkgdesc = "Linux KMS/DRM virtual console terminal emulator"
 license = "MIT"
 url = "https://github.com/kmscon/kmscon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7074956472c42d14977922f9ef6d2ec101f8d88e549f0108c1f51cb9d2b437dd"
+sha256 = "62a8db81eebacaf959fd3b062c931c8789594f3bb9368d3c1e9a50280d81198b"
+options = ["etcfiles"]
 
 
 def post_install(self):
