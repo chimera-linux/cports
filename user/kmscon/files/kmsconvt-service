@@ -1,5 +1,5 @@
 type = process
-command = /usr/bin/kmscon --vt $1 --no-switchvt
+command = /usr/bin/kmscon --vt $1 --no-switchvt --issue
 depends-on = login.target
 termsignal = HUP
 restart = true
