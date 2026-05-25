@@ -1,0 +1,13 @@
+#!/bin/sh
+
+conf="/usr/share/i2pd/i2pd.conf"
+if [ -f /etc/i2pd/i2pd.conf ]; then
+    conf="/etc/i2pd/i2pd.conf"
+fi
+
+tunconf="/usr/share/i2pd/tunnels.conf"
+if [ -f /etc/i2pd/tunnels.conf ]; then
+    tunconf="/etc/i2pd/tunnels.conf"
+fi
+
+exec /usr/bin/i2pd --service --certsdir /usr/share/i2pd/certificates --conf ${conf} --tunconf ${tunconf}
