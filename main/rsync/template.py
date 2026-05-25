@@ -1,5 +1,5 @@
 pkgname = "rsync"
-pkgver = "3.4.1"
+pkgver = "3.4.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,6 +17,7 @@ hostmakedepends = ["perl"]
 makedepends = [
     "acl-devel",
     "dinit-chimera",
+    "linux-headers",
     "lz4-devel",
     "openssl3-devel",
     "popt-devel",
@@ -24,11 +25,12 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+checkdepends = ["python"]
 pkgdesc = "Fast incremental file transfer tool"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
-sha256 = "2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52"
+sha256 = "c72e63ca3021cbc80ba86ec30102773f4c5631fbc492b52e773b3958f82a53d3"
 # FIXME int: crashes in match_sums (match.c) after a while in partial mode
 hardening = ["vis", "cfi", "!int"]
 
