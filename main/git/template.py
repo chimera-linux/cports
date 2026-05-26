@@ -1,6 +1,6 @@
 pkgname = "git"
-pkgver = "2.52.0"
-pkgrel = 1
+pkgver = "2.54.0"
+pkgrel = 0
 hostmakedepends = [
     "asciidoctor",
     "docbook-xsl",
@@ -28,7 +28,7 @@ pkgdesc = "Fast, distributed version control system"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"
-sha256 = "3cd8fee86f69a949cb610fee8cd9264e6873d07fa58411f6060b3d62729ed7c5"
+sha256 = "f689162364c10de79ef89aa8dbf48731eb057e34edbbd20aca510ce0154681a3"
 hardening = ["cfi", "vis"]
 
 
@@ -70,13 +70,8 @@ def build(self):
 
 
 def check(self):
-    # t5000.75 fails intermittently, t5303.5, t5303.7, t5303.11 fail to due missing files
-    self.do(
-        "make",
-        "all",
-        env={"GIT_SKIP_TESTS": "t5000.75 t5303.5 t5303.7 t5303.11"},
-        wrksrc="t",
-    )
+    # t5000.75 fails intermittently
+    self.do("make", "all", env={"GIT_SKIP_TESTS": "t5000.75"}, wrksrc="t")
     self.do("make", "-C", "contrib/diff-highlight", "test")
     self.do("make", "-C", "contrib/subtree", "test")
 
