@@ -1,6 +1,6 @@
 pkgname = "postgresql16"
-pkgver = "16.10"
-pkgrel = 2
+pkgver = "16.14"
+pkgrel = 0
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"
@@ -45,7 +45,7 @@ pkgdesc = "Sophisticated object-relational DBMS, version 16.x"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
 source = f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
-sha256 = ["de8485f4ce9c32e3ddfeef0b7c261eed1cecb54c9bcd170e437ff454cb292b42"]
+sha256 = ["f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471"]
 # checks depend on libpq already being installed
 options = ["!check"]
 
