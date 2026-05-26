@@ -1,6 +1,6 @@
 pkgname = "python-sqlalchemy"
-pkgver = "2.0.32"
-pkgrel = 1
+pkgver = "2.0.50"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,8 +14,8 @@ checkdepends = ["python-pytest", "sqlite"]
 pkgdesc = "Database abstraction library"
 license = "MIT"
 url = "https://www.sqlalchemy.org"
-source = f"$(PYPI_SITE)/S/SQLAlchemy/SQLAlchemy-{pkgver}.tar.gz"
-sha256 = "c1b88cc8b02b6a5f0efb0345a03672d4c897dc7d92585176f88c67346f565ea8"
+source = f"$(PYPI_SITE)/S/SQLAlchemy/sqlalchemy-{pkgver}.tar.gz"
+sha256 = "af5607d11ef90fd6a5c0549fe0045dce1663d427426bcfb506dcb5346a85a3b9"
 # too long with broken selection of backends on some
 options = ["!check"]
 

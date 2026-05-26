@@ -1,6 +1,6 @@
 pkgname = "python-twisted"
 pkgver = "25.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_target = "tests"
 hostmakedepends = [

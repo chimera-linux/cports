@@ -1,6 +1,6 @@
 pkgname = "python-fasttext"
 pkgver = "0.9.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

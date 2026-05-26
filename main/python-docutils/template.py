@@ -1,7 +1,7 @@
 # test if sphinx doesn't break on updates (e.g. qemu build)
 pkgname = "python-docutils"
 pkgver = "0.22.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

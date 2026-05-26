@@ -1,6 +1,6 @@
 pkgname = "python-jedi"
-pkgver = "0.19.2"
-pkgrel = 1
+pkgver = "0.20.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,7 +17,7 @@ pkgdesc = "Autocompletion and analysis library for Python"
 license = "MIT"
 url = "https://jedi.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/j/jedi/jedi-{pkgver}.tar.gz"
-sha256 = "4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0"
+sha256 = "c3f4ccbd276696f4b19c54618d4fb18f9fc24b0aef02acf704b23f487daa1011"
 
 
 def init_check(self):

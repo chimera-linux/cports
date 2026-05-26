@@ -1,6 +1,6 @@
 pkgname = "blueman"
 pkgver = "2.4.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Druntime_deps_check=false",

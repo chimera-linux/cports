@@ -1,6 +1,6 @@
 pkgname = "gom"
 pkgver = "0.5.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",

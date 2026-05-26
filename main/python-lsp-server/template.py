@@ -1,6 +1,6 @@
 pkgname = "python-lsp-server"
 pkgver = "1.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

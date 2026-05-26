@@ -1,6 +1,6 @@
 pkgname = "python-pyproject_hooks"
 pkgver = "1.2.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["python", "python-flit_core", "python-installer"]
 checkdepends = [
     "python-flit_core",

@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
 pkgver = "3.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # finds wrong cflags in sample project

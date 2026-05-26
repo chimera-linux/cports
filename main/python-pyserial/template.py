@@ -1,6 +1,6 @@
 pkgname = "python-pyserial"
 pkgver = "3.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

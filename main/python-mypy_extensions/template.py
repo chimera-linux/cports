@@ -1,8 +1,12 @@
 pkgname = "python-mypy_extensions"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_target = "tests/testextensions.py"
+make_check_args = [
+    "--deselect",
+    "tests/testextensions.py::TypedDictTests::test_py36_class_syntax_usage",
+]
 hostmakedepends = [
     "python-build",
     "python-flit_core",

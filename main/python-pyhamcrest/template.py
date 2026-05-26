@@ -1,8 +1,10 @@
 pkgname = "python-pyhamcrest"
 pkgver = "2.1.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
+# asyncio changes in 3.14
+make_check_args = ["--deselect", "tests/hamcrest_unit_test/core/future_test.py"]
 hostmakedepends = [
     "python-build",
     "python-hatch_vcs",

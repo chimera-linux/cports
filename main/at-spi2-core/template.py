@@ -1,6 +1,6 @@
 pkgname = "at-spi2-core"
 pkgver = "2.60.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # needs dbus-broker fix in the future

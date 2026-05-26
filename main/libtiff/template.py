@@ -1,6 +1,6 @@
 pkgname = "libtiff"
 pkgver = "4.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
 # otherwise it builds nothing
@@ -22,6 +22,8 @@ license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/libtiff/tiff-{pkgver}.tar.gz"
 sha256 = "f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69"
+# triggers memcpy fortify issues in e.g. pillow/PIL tests in some vararg APIs
+options = ["!lto"]
 
 
 def post_install(self):

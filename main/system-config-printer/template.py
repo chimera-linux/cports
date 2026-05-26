@@ -1,6 +1,6 @@
 pkgname = "system-config-printer"
 pkgver = "1.5.18"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf-archive",

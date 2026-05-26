@@ -1,6 +1,6 @@
 pkgname = "python-py-cpuinfo"
 pkgver = "9.0.0"
-pkgrel = 2
+pkgrel = 3
 # only supports these archs
 archs = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64"]
 build_style = "python_pep517"

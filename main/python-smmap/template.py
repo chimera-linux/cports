@@ -1,6 +1,6 @@
 pkgname = "python-smmap"
 pkgver = "5.0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

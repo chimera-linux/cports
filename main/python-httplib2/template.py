@@ -1,6 +1,6 @@
 pkgname = "python-httplib2"
 pkgver = "0.22.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_args = ["--forked"]
 hostmakedepends = [

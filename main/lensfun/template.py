@@ -1,6 +1,6 @@
 pkgname = "lensfun"
 pkgver = "0.3.4"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",

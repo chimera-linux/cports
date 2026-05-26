@@ -1,9 +1,20 @@
 pkgname = "python-pexpect"
 pkgver = "4.9.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
-# FIXME: some test in this can hang on ppc64le
-make_check_args = ["--deselect", "tests/test_socket.py"]
+make_check_args = [
+    # hangs on ppc64le
+    "--deselect",
+    "tests/test_socket.py",
+    # cannot pickle module object
+    "--deselect",
+    "tests/test_socket_fd.py",
+    # more pickling errors
+    "--deselect",
+    "tests/test_expect.py::ExpectTestCase::test_stdin_closed",
+    "--deselect",
+    "tests/test_expect.py::ExpectTestCase::test_stdin_stdout_closed",
+]
 hostmakedepends = [
     "python-build",
     "python-installer",

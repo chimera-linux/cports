@@ -1,6 +1,6 @@
 pkgname = "python-kiwisolver"
 pkgver = "1.4.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

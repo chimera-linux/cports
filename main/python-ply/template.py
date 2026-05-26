@@ -1,6 +1,6 @@
 pkgname = "python-ply"
 pkgver = "3.11"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

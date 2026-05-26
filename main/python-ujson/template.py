@@ -1,6 +1,6 @@
 pkgname = "python-ujson"
 pkgver = "5.10.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

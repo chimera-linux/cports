@@ -1,6 +1,6 @@
 pkgname = "virt-manager"
 pkgver = "5.1.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 _deps = [
     "libarchive-progs",

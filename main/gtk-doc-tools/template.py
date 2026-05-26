@@ -1,6 +1,6 @@
 pkgname = "gtk-doc-tools"
 pkgver = "1.35.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # glib cyclic dep
 configure_args = ["-Dtests=false"]

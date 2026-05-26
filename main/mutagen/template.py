@@ -1,6 +1,6 @@
 pkgname = "mutagen"
 pkgver = "1.47.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

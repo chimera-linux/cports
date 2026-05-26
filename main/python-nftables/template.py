@@ -1,6 +1,6 @@
 pkgname = "python-nftables"
 pkgver = "1.1.3"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "py"
 build_style = "python_pep517"
 hostmakedepends = [

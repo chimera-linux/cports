@@ -1,6 +1,6 @@
 pkgname = "cloud-init"
 pkgver = "25.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",

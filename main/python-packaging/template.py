@@ -1,5 +1,5 @@
 pkgname = "python-packaging"
-pkgver = "25.0"
+pkgver = "26.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-installer", "python-flit_core"]
@@ -9,7 +9,7 @@ pkgdesc = "Easily build and distribute Python packages"
 license = "Apache-2.0 OR BSD-2-Clause"
 url = "https://github.com/pypa/packaging"
 source = f"$(PYPI_SITE)/p/packaging/packaging-{pkgver}.tar.gz"
-sha256 = "d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"
+sha256 = "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
 

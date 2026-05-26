@@ -1,6 +1,6 @@
 pkgname = "python-protobuf"
 pkgver = "7.34.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "protobuf-protoc",

@@ -1,5 +1,5 @@
 pkgname = "python-bcrypt"
-pkgver = "4.3.0"
+pkgver = "5.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Bcrypt password hashing for python"
 license = "Apache-2.0"
 url = "https://github.com/pyca/bcrypt"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "5cf3964765a9e2ed592ceb721948592f6227abcf22dd7314c897363ddd49ac3e"
+sha256 = "00426239c15a99c6b3f61a43d5c825fb53ee64921ceb0bdf95d22d581bdba67e"
 
 
 def prepare(self):

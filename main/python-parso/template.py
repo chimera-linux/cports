@@ -1,6 +1,6 @@
 pkgname = "python-parso"
-pkgver = "0.8.4"
-pkgrel = 2
+pkgver = "0.8.7"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "Python module for parsing the Python language"
 license = "MIT AND PSF-2.0"
 url = "https://parso.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/p/parso/parso-{pkgver}.tar.gz"
-sha256 = "eb3a7b58240fb99099a345571deecc0f9540ea5f4dd2fe14c2a99d6b281ab92d"
+sha256 = "eaaac4c9fdd5e9e8852dc778d2d7405897ec510f2a298071453e5e3a07914bb1"
 
 
 def init_check(self):

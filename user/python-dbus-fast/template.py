@@ -1,6 +1,6 @@
 pkgname = "python-dbus-fast"
 pkgver = "4.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # these fail since pytest-asyncio 1.0.0

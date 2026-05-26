@@ -1,6 +1,6 @@
 pkgname = "python-idna"
 pkgver = "3.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_target = "tests"
 hostmakedepends = [

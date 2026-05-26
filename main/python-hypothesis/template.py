@@ -1,7 +1,7 @@
 pkgname = "python-hypothesis"
-pkgver = "6.135.26"
+pkgver = "6.153.0"
 pkgrel = 0
-build_wrksrc = "hypothesis-python"
+build_wrksrc = "hypothesis"
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -24,19 +24,22 @@ checkdepends = [
 pkgdesc = "Python library for property-based testing"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
-source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"
-sha256 = "85b11a73f70593d1f0a85453eb2b15c9378a7856d21caa11cfb323c2fa536b7e"
+source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "42b53b37622bb27dae4bd7ca3ff6ed90f72029aa2ed8911b4802310680258197"
 
 
 def init_check(self):
     self.make_check_args = [
         "--ignore=tests/array_api",
+        "--ignore=tests/cover/test_custom_reprs.py",  # needs pytest-snapshot
+        "--ignore=tests/cover/test_filestorage.py",  # needs git
         "--ignore=tests/cover/test_reflection.py",
         "--ignore=tests/datetime/test_dateutil_timezones.py",
         "--ignore=tests/dpcontracts/test_contracts.py",
         "--ignore=tests/patching/test_patching.py",
         "--ignore=tests/conjecture/test_utils.py",
         "--ignore=tests/ghostwriter/test_expected_output.py",
+        "--ignore=tests/ghostwriter/test_ghostwriter_cli.py",  # needs installed cli
         "--ignore=tests/codemods/test_codemods.py",
         "--ignore=tests/lark/test_grammar.py",
         "--ignore=tests/nocover/test_scrutineer.py",
@@ -46,8 +49,13 @@ def init_check(self):
         "--ignore=tests/cover/test_database_backend.py",
         "--ignore=tests/cover/test_observability.py",
         "--ignore=tests/watchdog/test_database.py",
+        "--ignore=tests/snapshots/test_always_failing.py",  # needs pytest-snapshot
+        "--ignore=tests/snapshots/test_combinators.py",  # ditto
+        "--ignore=tests/snapshots/test_shrinking.py",  # ditto
+        "--ignore=tests/snapshots/test_explain.py",  # ditto
         "--ignore=tests/pandas",
         "--ignore=tests/numpy",
+        "--ignore=tests/scipy",
         "--ignore=tests/crosshair",
         "-k",
         # XXX: fails because posix/ tzdata folder doesn't exist

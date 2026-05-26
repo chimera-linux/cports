@@ -1,6 +1,6 @@
 pkgname = "python-outcome"
 pkgver = "1.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-attrs"]
-checkdepends = ["python-pytest", *depends]
+checkdepends = ["python-pytest", "python-pytest-asyncio", *depends]
 pkgdesc = "Capture the outcome of Python calls"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/outcome"

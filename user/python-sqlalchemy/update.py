@@ -1,1 +1,1 @@
-pkgname = "SQLAlchemy"
+ignore = ["*b*"]

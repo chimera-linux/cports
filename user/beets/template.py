@@ -1,7 +1,7 @@
 # update patches/version.patch on updates
 pkgname = "beets"
 pkgver = "2.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # pytest fixture client not found

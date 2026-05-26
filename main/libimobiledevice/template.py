@@ -1,6 +1,6 @@
 pkgname = "libimobiledevice"
 pkgver = "1.3.0"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = [

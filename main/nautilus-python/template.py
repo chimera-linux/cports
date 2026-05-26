@@ -1,6 +1,6 @@
 pkgname = "nautilus-python"
 pkgver = "4.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

@@ -1,6 +1,6 @@
 pkgname = "python-time-machine"
 pkgver = "2.19.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # missing tokenize-rt
 make_check_args = ["--ignore=tests/test_cli.py"]

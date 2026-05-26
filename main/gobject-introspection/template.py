@@ -1,6 +1,6 @@
 pkgname = "gobject-introspection"
 pkgver = "1.86.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "bison",

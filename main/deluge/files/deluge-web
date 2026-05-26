@@ -1,4 +1,4 @@
 type = process
 command = /usr/bin/deluge-web -d
-depends-on = deluged
 run-as = _deluge
+depends-on: deluged

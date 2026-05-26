@@ -1,6 +1,6 @@
 pkgname = "catfish"
 pkgver = "4.20.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 _deps = ["python-dbus", "python-gobject", "python-pexpect"]
 hostmakedepends = [

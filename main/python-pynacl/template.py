@@ -1,6 +1,6 @@
 pkgname = "python-pynacl"
 pkgver = "1.5.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 make_build_env = {"SODIUM_INSTALL": "system"}
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "dtc"
 pkgver = "1.7.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dpython=enabled", "-Ddefault_library=shared"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "hplip"
 pkgver = "3.25.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/libexec",  # TODO switch libexec
@@ -44,7 +44,7 @@ hardening = ["!vis"]
 # TODO: probably ignores CC
 options = ["!cross"]
 
-tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-Wno-incompatible-pointer-types"]}
 
 
 def post_extract(self):

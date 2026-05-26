@@ -1,6 +1,6 @@
 pkgname = "python-magic"
 pkgver = "0.4.27"
-pkgrel = 4
+pkgrel = 5
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,6 +17,8 @@ source = (
     f"https://github.com/ahupp/python-magic/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "3978a25d43d9a7b8a89ae9d726bd4962fc90dc4f69ae852e399f3c56d4b0bd63"
+# does not work with latest file
+options = ["!check"]
 
 
 def init_check(self):

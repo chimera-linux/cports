@@ -1,5 +1,5 @@
 pkgname = "python-pillow"
-pkgver = "11.3.0"
+pkgver = "12.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "Tests"
@@ -17,6 +17,7 @@ makedepends = [
     "libwebp-devel",
     "openjpeg-devel",
     "python-devel",
+    "python-pybind11-devel",
 ]
 depends = ["python"]
 checkdepends = ["python-pytest"]
@@ -24,7 +25,7 @@ pkgdesc = "Python Imaging Library"
 license = "MIT-CMU"
 url = "https://python-pillow.org"
 source = f"$(PYPI_SITE)/p/pillow/pillow-{pkgver}.tar.gz"
-sha256 = "3828ee7586cd0b2091b6209e5ad53e20d0649bbe87164a459d0676e035e8f523"
+sha256 = "a830b1a40919539d07806aa58e1b114df53ddd43213d9c8b75847eee6c0182b5"
 
 
 def post_install(self):
