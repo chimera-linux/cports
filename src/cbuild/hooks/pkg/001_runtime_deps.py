@@ -392,7 +392,7 @@ def _scan_svc(pkg):
         return False
 
     def subpkg_provides_svc(pn, pfx):
-        for sp in pkg.rparent.subpkg_list:
+        for sp in pkg.rparent.subpkg_all:
             if pkg_provides_svc(sp, pn, pfx):
                 return sp.pkgname
         return None
@@ -474,7 +474,7 @@ def _scan_symlinks(pkg):
         # otherwise it's a broken symlink, relativize to destdir
         sdest = sdest.relative_to(pkg.destdir)
         # check each subpackage for the file
-        for sp in pkg.rparent.subpkg_list:
+        for sp in pkg.rparent.subpkg_all:
             np = sp.destdir / sdest
             if _exists_link(np):
                 log.out_plain(
