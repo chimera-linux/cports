@@ -1,6 +1,6 @@
 pkgname = "python-mypy"
-pkgver = "2.1.0"
-pkgrel = 0
+pkgver = "1.17.1"
+pkgrel = 2
 build_style = "python_pep517"
 make_check_target = "mypy/test"
 hostmakedepends = [
@@ -24,7 +24,7 @@ pkgdesc = "Optional static typing for Python"
 license = "MIT"
 url = "https://www.mypy-lang.org"
 source = f"$(PYPI_SITE)/m/mypy/mypy-{pkgver}.tar.gz"
-sha256 = "81e76ad12c2d804512e9b13240d1588316531bfba07558286078bfbce9613633"
+sha256 = "25e01ec741ab5bb3eec8ba9cdb0f769230368a22c959c4937360efb89b7e9f01"
 # they take ages, also there are like 3 failures
 options = ["!check"]
 
