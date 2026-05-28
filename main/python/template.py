@@ -92,13 +92,18 @@ if self.profile().cross:
     hostmakedepends += ["python"]
     configure_args += [f"--with-build-python=python{_majver}"]
 
+_has_tail = True
+
+match self.profile().arch:
+    case "ppc" | "ppc64" | "ppc64le":
+        _has_tail = False
+
 
 def init_configure(self):
     if not self.profile().cross and self.has_lto():
-        self.configure_args += [
-            "--enable-optimizations",
-            "--with-tail-call-interp",
-        ]
+        self.configure_args += ["--enable-optimizations"]
+        if _has_tail:
+            self.configure_args += ["--with-tail-call-interp"]
     bigend = "yes" if (self.profile().endian == "big") else "no"
     self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
     # real configure and linker flags here
