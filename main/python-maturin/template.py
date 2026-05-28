@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
-pkgver = "1.9.6"
-pkgrel = 1
+pkgver = "1.13.3"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"
@@ -21,7 +21,7 @@ pkgdesc = "Tool for building and publishing Rust-based Python packages"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c8aef8af6cd3d5b3331191b21191ec92d7b4ee0633e0799351a01af1c5ea2a6c"
+sha256 = "17d062a73781cf4cd4eb8b0188e8cf037eece711feef0386a22f0975e4e4f34e"
 # yeah no
 options = ["!check"]
 
