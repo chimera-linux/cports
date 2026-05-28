@@ -36,5 +36,6 @@ license = "PSF-2.0"
 url = "https://matplotlib.org"
 source = f"https://github.com/matplotlib/matplotlib/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0678f04e55c839c543a3803a7a13ab427f488ff396d85ffbad7d427f6fdcbbc3"
+tool_flags = {"CXXFLAGS": ["-fPIC"]}
 # check: ImportError: cannot import name '_c_internal_utils' from 'matplotlib'
 options = ["!check"]
