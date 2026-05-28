@@ -3,7 +3,7 @@ halve the build time by just skipping them
 --
 --- a/meson.build
 +++ b/meson.build
-@@ -3576,10 +3576,6 @@
+@@ -3902,10 +3902,6 @@
  subdir('bsd-user')
  subdir('linux-user')
  
@@ -11,13 +11,14 @@ halve the build time by just skipping them
 -subdir('tests/qtest/libqos')
 -subdir('tests/qtest/fuzz')
 -
- # accel modules
- target_modules += { 'accel' : { 'qtest': qtest_module_ss }}
- 
-@@ -4612,11 +4612,6 @@
+ ##############################################
+ # Internal static_libraries and dependencies #
+ ##############################################
+@@ -4605,12 +4601,6 @@
  subdir('tools')
  subdir('pc-bios')
  subdir('docs')
+-subdir('pyvenv')
 -# Tests are disabled on emscripten because they rely on host features that aren't
 -# supported by emscripten (e.g. fork and unix socket).
 -if host_os != 'emscripten'
@@ -26,3 +27,4 @@ halve the build time by just skipping them
  if gtk.found()
    subdir('po')
  endif
+

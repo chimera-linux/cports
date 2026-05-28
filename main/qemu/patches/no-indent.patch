@@ -9,6 +9,6 @@ this is pretty fragile and lol so just do away with it
  
 -    indent = find_program('indent', required: false)
 +    indent = find_program('indent-wtf-nope', required: false)
-     if indent.found()
+     if indent.found() and host_os == 'linux'
          idef_generated_tcg_c = custom_target(
              'indent',

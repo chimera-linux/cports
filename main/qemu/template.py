@@ -1,6 +1,6 @@
 pkgname = "qemu"
-pkgver = "10.1.2"
-pkgrel = 2
+pkgver = "11.0.1"
+pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -110,7 +110,7 @@ pkgdesc = "Generic machine emulator and virtualizer"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479"
+sha256 = "0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
@@ -265,7 +265,7 @@ def _spkg(sname, wordsize):
                 extras = [
                     "usr/lib/qemu/openbios-ppc",
                     "usr/lib/qemu/u-boot.e500",
-                    "usr/lib/qemu/u-boot-sam460-20100605.bin",
+                    "usr/lib/qemu/u-boot-sam460.bin",
                 ]
                 self.options += ["execstack"]
             case "riscv32":
@@ -310,7 +310,6 @@ for _sys, _ws in [
     ("loongarch64", 64),
     ("m68k", 32),
     ("microblaze", 64),
-    ("microblazeel", 64),
     ("mips", 32),
     ("mips64", 64),
     ("mips64el", 64),

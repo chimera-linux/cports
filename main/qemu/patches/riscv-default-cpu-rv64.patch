@@ -14,15 +14,17 @@ Date:   Fri Dec 5 13:38:41 2025 +0100
     
     Default to a safe value which does not crash.
 
-diff --git a/linux-user/riscv/target_elf.h b/linux-user/riscv/target_elf.h
+diff --git a/linux-user/riscv/elfload.c b/linux-user/riscv/elfload.c
 index dedd595..609e6b8 100644
---- a/linux-user/riscv/target_elf.h
-+++ b/linux-user/riscv/target_elf.h
-@@ -9,6 +9,6 @@
- #define RISCV_TARGET_ELF_H
- static inline const char *cpu_get_model(uint32_t eflags)
+--- a/linux-user/riscv/elfload.c
++++ b/linux-user/riscv/elfload.c
+@@ -7,7 +7,7 @@
+ 
+ const char *get_elf_cpu_model(uint32_t eflags)
  {
 -    return "max";
 +    return "rv64";
  }
- #endif
+ 
+ abi_ulong get_elf_hwcap(CPUState *cs)
+

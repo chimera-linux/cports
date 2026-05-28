@@ -1,6 +1,6 @@
 pkgname = "qemu-user"
-pkgver = "10.1.2"
-pkgrel = 3
+pkgver = "11.0.1"
+pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde libssh capstone
 configure_args = [
@@ -47,12 +47,15 @@ pkgdesc = "QEMU user mode emulators"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "9d75f331c1a5cb9b6eb8fd9f64f563ec2eab346c822cb97f8b35cd82d3f11479"
+sha256 = "0d235f5820278d914a3155ec27af8e4258d697ea892895570807d69c0cb8cd64"
 # there are integer overflows all over the emulator
 hardening = ["!int"]
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
+
+if self.profile().wordsize == 32:
+    broken = "not supported anymore"
 
 
 def init_configure(self):
