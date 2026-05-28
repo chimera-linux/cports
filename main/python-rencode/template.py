@@ -1,6 +1,6 @@
 pkgname = "python-rencode"
 pkgver = "1.0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

@@ -1,0 +1,19 @@
+commit 1b8cf2e7262c936baddda2e830e3d534a436acd8
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu May 28 16:42:04 2026 +0200
+
+    no
+
+diff --git a/build.py b/build.py
+index 658ada2..326fbf6 100644
+--- a/build.py
++++ b/build.py
+@@ -11,7 +11,7 @@ from setuptools import Extension
+ from setuptools.command.build_ext import build_ext
+ 
+ 
+-COMPILE_ARGS = ["-march=native", "-O3", "-msse", "-msse2", "-mfma", "-mfpmath=sse"]
++COMPILE_ARGS = []
+ LINK_ARGS: list[str] = []
+ INCLUDE_DIRS: list[str] = []
+ LIBRARIES: list[str] = []
