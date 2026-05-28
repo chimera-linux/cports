@@ -12,7 +12,7 @@ diff --git a/certifi/core.py b/certifi/core.py
 index 91f538b..6016b2f 100644
 --- a/certifi/core.py
 +++ b/certifi/core.py
-@@ -10,13 +10,13 @@ import atexit
+@@ -10,13 +10,13 @@
  def exit_cacert_ctx() -> None:
      _CACERT_CTX.__exit__(None, None, None)  # type: ignore[union-attr]
  
@@ -28,7 +28,19 @@ index 91f538b..6016b2f 100644
  
      def where() -> str:
          # This is slightly terrible, but we want to delay extracting the file
-@@ -50,8 +50,7 @@ elif sys.version_info >= (3, 7):
+@@ -41,17 +41,17 @@
+             _CACERT_PATH = str(_CACERT_CTX.__enter__())
+             atexit.register(exit_cacert_ctx)
+ 
+-        return _CACERT_PATH
++        return SYS_CA_CERTS_PATH
+ 
+     def contents() -> str:
+-        return files("certifi").joinpath("cacert.pem").read_text(encoding="ascii")
++        with open(where(), "r", encoding="ascii") as data:
++            return data.read()
+ 
+ else:
  
      from importlib.resources import path as get_path, read_text
  
@@ -38,7 +50,7 @@ index 91f538b..6016b2f 100644
  
      def where() -> str:
          # This is slightly terrible, but we want to delay extracting the
-@@ -77,10 +76,11 @@ elif sys.version_info >= (3, 7):
+@@ -77,7 +77,8 @@
              _CACERT_PATH = str(_CACERT_CTX.__enter__())
              atexit.register(exit_cacert_ctx)
  
@@ -49,19 +61,4 @@ index 91f538b..6016b2f 100644
 -        return read_text("certifi", "cacert.pem", encoding="ascii")
 +        with open(where(), "r", encoding="ascii") as data:
 +            return data.read()
- 
- else:
-     import os
-@@ -106,9 +106,7 @@ else:
-     # If we don't have importlib.resources, then we will just do the old logic
-     # of assuming we're on the filesystem and munge the path directly.
-     def where() -> str:
--        f = os.path.dirname(__file__)
--
--        return os.path.join(f, "cacert.pem")
--
-+        return SYS_CA_CERTS_PATH
-     def contents() -> str:
--        return read_text("certifi", "cacert.pem", encoding="ascii")
-+        with open(where(), "r", encoding="ascii") as data:
-+            return data.read()
+
