@@ -1,5 +1,5 @@
 pkgname = "unbound"
-pkgver = "1.24.1"
+pkgver = "1.25.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -42,7 +42,7 @@ pkgdesc = "Validating, recursive, and caching DNS resolver"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "7f2b1633e239409619ae0527f67878b0f33ae0ec0ee5a3a51c042c359ba1eeab"
+sha256 = "0fe8b6277b0959cfd17562debac0aa5f71e0b02dc4ffa9c60271c583edab586f"
 skip_dependencies = ["usr/lib/dinit.d/*"]
 
 
