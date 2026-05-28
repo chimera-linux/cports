@@ -1,6 +1,6 @@
 pkgname = "python-black"
 pkgver = "26.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
@@ -9,6 +9,7 @@ depends = [
     "python-packaging",
     "python-pathspec",
     "python-platformdirs",
+    "python-pytokens",
 ]
 checkdepends = [
     "python-aiohttp",
