@@ -130,6 +130,9 @@ if self.profile().endian == "little":
 else:
     configure_args += ["--disable-spice"]
 
+if self.profile().wordsize == 32:
+    broken = "not supported anymore"
+
 
 def init_configure(self):
     ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
