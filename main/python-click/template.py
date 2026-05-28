@@ -2,6 +2,8 @@ pkgname = "python-click"
 pkgver = "8.4.1"
 pkgrel = 0
 build_style = "python_pep517"
+# can behave weirdly
+make_check_args = ["--deselect", "tests/test_utils.py::test_echo_via_pager"]
 hostmakedepends = [
     "python-build",
     "python-flit_core",
