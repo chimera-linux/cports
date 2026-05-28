@@ -1,6 +1,6 @@
 pkgname = "python-imagesize"
-pkgver = "1.4.1"
-pkgrel = 3
+pkgver = "2.0.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ pkgdesc = "Python3 library to get image size from png/jpeg/jpeg2000/gif file"
 license = "MIT"
 url = "https://github.com/shibukawa/imagesize_py"
 source = f"$(PYPI_SITE)/i/imagesize/imagesize-{pkgver}.tar.gz"
-sha256 = "69150444affb9cb0d5cc5a92b3676f0b2fb7cd9ae39e947a5e11a36b4497cd4a"
+sha256 = "8e8358c4a05c304f1fccf7ff96f036e7243a189e9e42e90851993c558cfe9ee3"
 # dependency of pytest
 options = ["!check"]
 
