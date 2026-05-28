@@ -1,6 +1,6 @@
 pkgname = "python-hatchling"
-pkgver = "1.28.0"
-pkgrel = 1
+pkgver = "1.29.0"
+pkgrel = 0
 build_style = "python_pep517"
 _deps = [
     "python-editables",
@@ -21,7 +21,7 @@ pkgdesc = "Python build backend used by Hatch"
 license = "MIT"
 url = "https://hatch.pypa.io/latest"
 source = f"$(PYPI_SITE)/h/hatchling/hatchling-{pkgver}.tar.gz"
-sha256 = "4d50b02aece6892b8cd0b3ce6c82cb218594d3ec5836dbde75bf41a21ab004c8"
+sha256 = "793c31816d952cee405b83488ce001c719f325d9cda69f1fc4cd750527640ea6"
 # no tests?
 options = ["!check"]
 
