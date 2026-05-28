@@ -2,26 +2,32 @@ diff --git a/pyproject.toml b/pyproject.toml
 index 30e59e1..7fee078 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -27,7 +27,7 @@ unstable = true
+@@ -26,7 +26,7 @@
  # NOTE: You don't need this in your own Black configuration.
  
  [build-system]
--requires = ["hatchling>=1.20.0", "hatch-vcs", "hatch-fancy-pypi-readme"]
-+requires = ["hatchling>=1.20.0", "hatch-vcs"]
+-requires = ["hatch-fancy-pypi-readme", "hatch-vcs>=0.3.0", "hatchling>=1.27.0"]
++requires = ["hatch-vcs>=0.3.0", "hatchling>=1.27.0"]
  build-backend = "hatchling.build"
  
  [project]
-@@ -99,13 +99,6 @@ Changelog = "https://github.com/psf/black/blob/main/CHANGES.md"
+@@ -75,7 +75,7 @@
+ jupyter = ["ipython>=7.8.0", "tokenize-rt>=3.2.0"]
+ 
+ [dependency-groups]
+-hatch = ["hatch==1.15.1", "hatch-fancy-pypi-readme", "hatch-vcs", "virtualenv<21.0.0"]
++hatch = ["hatch==1.15.1", "hatch-vcs", "virtualenv<21.0.0"]
+ cibw = ["cibuildwheel==3.4.0", "pypyp"]
+ pyinstaller = ["pyinstaller"]
+ 
+@@ -118,10 +118,6 @@
+ Changelog = "https://github.com/psf/black/blob/main/CHANGES.md"
  Repository = "https://github.com/psf/black"
  Issues = "https://github.com/psf/black/issues"
- 
+-
 -[tool.hatch.metadata.hooks.fancy-pypi-readme]
 -content-type = "text/markdown"
--fragments = [
--  { path = "README.md" },
--  { path = "CHANGES.md" },
--]
--
+-fragments = [{ path = "README.md" }, { path = "CHANGES.md" }]
+ 
  [tool.hatch.version]
  source = "vcs"
- 
