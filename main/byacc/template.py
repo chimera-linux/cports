@@ -1,5 +1,5 @@
 pkgname = "byacc"
-pkgver = "20241231"
+pkgver = "20260126"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
@@ -8,7 +8,7 @@ pkgdesc = "Berkeley yacc, a LALR(1) parser generator"
 license = "custom:byacc"
 url = "http://invisible-island.net/byacc"
 source = f"https://invisible-island.net/archives/byacc/byacc-{pkgver}.tgz"
-sha256 = "192c2fae048d4e7f514ba451627f9c4e612765099f819c19191f9fde3e609673"
+sha256 = "b618c5fb44c2f5f048843db90f7d1b24f78f47b07913c8c7ba8c942d3eb24b00"
 hardening = ["vis", "cfi"]
 
 
