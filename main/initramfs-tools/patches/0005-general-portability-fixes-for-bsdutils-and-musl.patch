@@ -1,5 +1,4 @@
-
-From cedc4b27f5d0746769ba8b6dd9db29d93f0b7260 Mon Sep 17 00:00:00 2001
+From edff9fc94ccdda3df69e0f59327a375bf1ef7eda Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 22 Apr 2025 16:21:48 +0200
 Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
@@ -7,14 +6,15 @@ Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 ---
  hook-functions   | 35 ++++++++---------------------------
  mkinitramfs      | 33 ++++++++++++---------------------
+ unmkinitramfs.c  | 14 +++++++++-----
  update-initramfs |  2 +-
- 4 files changed, 31 insertions(+), 60 deletions(-)
+ 4 files changed, 30 insertions(+), 54 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index fa4a48e..058b95d 100644
+index 729b7c9..d1fe545 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -260,30 +260,10 @@ copy_exec() {
+@@ -263,30 +263,10 @@ copy_exec() {
  	copy_file binary "${src}" "${target}" || return $(($? - 1))
  
  	# Copy the dependant libraries
@@ -49,7 +49,7 @@ index fa4a48e..058b95d 100644
  		copy_file binary "${x}" || {
  			ret=$?
  			[ ${ret} = 1 ] || return $((ret - 1))
-@@ -339,7 +319,8 @@ copy_modules_dir()
+@@ -342,7 +322,8 @@ copy_modules_dir()
  	done
  
  	# shellcheck disable=SC2044
@@ -59,7 +59,7 @@ index fa4a48e..058b95d 100644
  		modules="$modules ${kmod%%.*}"
  	done
  	# shellcheck disable=SC2086
-@@ -435,8 +416,8 @@ block_dev_mod_add()
+@@ -438,8 +419,8 @@ block_dev_mod_add()
  	dev_node="$1"
  
  	# Look up device number and convert to decimal as it appears in sysfs
@@ -148,28 +148,10 @@ index 2102d1d..6b5e2c6 100755
  		} | $compress -c ||
  			{ echo "E: mkinitramfs failure $compress $?" >&2; echo 1 >&3; exit; }
 diff --git a/unmkinitramfs.c b/unmkinitramfs.c
-index d69fd7a..30ea754 100644
+index ab42d72..63ce554 100644
 --- a/unmkinitramfs.c
 +++ b/unmkinitramfs.c
-@@ -155,7 +155,7 @@ static void warn_after_fread_failure(FILE *file, const char *name)
-  */
- static bool cpio_parse_hex(const char *field, uint32_t *value_p)
- {
--	const char digits[] = "0123456789ABCDEF", *p;
-+	const char digits[] = "0123456789abcdef", *p;
- 	uint32_t value = 0;
- 	unsigned int i;
- 	bool found_digit = false;
-@@ -166,7 +166,7 @@ static bool cpio_parse_hex(const char *field, uint32_t *value_p)
- 
- 	/* Parse digits up to end of field or null */
- 	for (; i < 8 && field[i] != 0; ++i) {
--		p = strchr(digits, field[i]);
-+		p = strchr(digits, field[i] | 32);
- 		if (!p)
- 			return false;
- 		value = (value << 4) | (p - digits);
-@@ -420,7 +420,7 @@ static bool write_trailer(int out_pipe)
+@@ -400,7 +400,7 @@ static bool write_trailer(int out_pipe)
  	return true;
  }
  
@@ -178,7 +160,7 @@ index d69fd7a..30ea754 100644
  {
  	const char *argv[10];
  	int pipe_fds[2], pid;
-@@ -430,8 +430,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
+@@ -410,8 +410,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
  	argc = 0;
  	argv[argc++] = "cpio";
  	argv[argc++] = "-i";
@@ -189,7 +171,7 @@ index d69fd7a..30ea754 100644
  	argv[argc++] = "--quiet";
  	assert(argc + optc < sizeof(argv) / sizeof(argv[0]));
  	while (optc--)
-@@ -458,6 +459,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
+@@ -438,6 +439,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
  		dup2(pipe_fds[0], 0);
  		close(pipe_fds[0]);
  
@@ -199,47 +181,34 @@ index d69fd7a..30ea754 100644
  		execvp("cpio", (char **)argv);
  		_exit(127);
  	}
-@@ -522,6 +526,7 @@ int main(int argc, char **argv)
- 	const char *out_dirname = NULL;
- 	char *out_subdirname = NULL;
+@@ -501,6 +505,7 @@ int main(int argc, char **argv)
+ 	FILE *in_file;
+ 	const char *out_dirname;
  	const char *cpio_optv[3];
 +	const char *cpio_dir = NULL;
  	int cpio_optc;
  	struct cpio_proc cpio_proc = { 0 };
- 	unsigned int early_count = 0;
-@@ -571,8 +576,7 @@ int main(int argc, char **argv)
+ 	bool ok;
+@@ -546,12 +551,11 @@ int main(int argc, char **argv)
  	if (do_list) {
  		cpio_optv[cpio_optc++] = "--list";
  	} else {
 -		cpio_optv[cpio_optc++] = "-D";
--		cpio_optv[cpio_optc++] = out_subdirname;
-+		cpio_dir = out_subdirname;
+-		cpio_optv[cpio_optc++] = out_dirname;
++		cpio_dir = out_dirname;
  	}
  	if (verbose)
  		cpio_optv[cpio_optc++] = "-v";
-@@ -636,7 +640,7 @@ int main(int argc, char **argv)
- 				ok = false;
- 				break;
- 			}
--			if (!spawn_cpio(cpio_optc, cpio_optv,
-+			if (!spawn_cpio(cpio_optc, cpio_dir, cpio_optv,
- 					&early_cpio_proc)) {
- 				ok = false;
- 				break;
-@@ -670,7 +674,7 @@ int main(int argc, char **argv)
- 				} else {
- 					strcpy(out_subdirname, out_dirname);
- 				}
--				if (!spawn_cpio(cpio_optc, cpio_optv,
-+				if (!spawn_cpio(cpio_optc, cpio_dir, cpio_optv,
- 						&cpio_proc)) {
- 					ok = false;
- 					break;
+-	if (!spawn_cpio(cpio_optc, cpio_optv, &cpio_proc))
++	if (!spawn_cpio(cpio_optc, cpio_dir, cpio_optv, &cpio_proc))
+ 		return 1;
+ 
+ 	/* Iterate over archives within the initramfs */
 diff --git a/update-initramfs b/update-initramfs
-index 30131e0..6db6aa1 100755
+index 0fb08ea..a8a50e4 100755
 --- a/update-initramfs
 +++ b/update-initramfs
-@@ -224,7 +224,7 @@ set_highest_version()
+@@ -230,7 +230,7 @@ set_highest_version()
  
  has_been_updated_since_timestamp() {
  	local initramfs_timestamp timestamp="$1"
@@ -249,5 +218,5 @@ index 30131e0..6db6aa1 100755
  }
  
 -- 
-2.49.0
+2.50.1
 
