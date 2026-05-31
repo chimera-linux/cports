@@ -1,7 +1,7 @@
 # update patches/version.patch on updates
 pkgname = "beets"
-pkgver = "2.5.0"
-pkgrel = 1
+pkgver = "2.11.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     # pytest fixture client not found
@@ -29,10 +29,10 @@ depends = [
     "python-lap",
     "python-mediafile",
     "python-munkres",
-    "python-musicbrainzngs",
     "python-platformdirs",
     "python-pyyaml",
     "python-requests",
+    "python-requests-ratelimiter",
     "python-typing_extensions",
     "python-unidecode",
 ]
@@ -48,7 +48,7 @@ pkgdesc = "CLI media library management"
 license = "MIT"
 url = "https://beets.io"
 source = f"$(PYPI_SITE)/b/beets/beets-{pkgver}.tar.gz"
-sha256 = "7f12cce3d5c3bfd68144407e86ae7fbaada6dc41676a49ab42027e156bdcfb73"
+sha256 = "f87fda8b3a723bee59c51a64ba30e94ab35d2658b3cb58c595afa29e75ed8d5f"
 
 
 def init_check(self):
