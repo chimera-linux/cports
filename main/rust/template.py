@@ -151,8 +151,7 @@ def configure(self):
     # we need to ensure to link to these otherwise we get undefined refs
     if _llvm_shared == "false":
         with open(self.cwd / "compiler/rustc_llvm/src/lib.rs", "a") as f:
-            f.write(
-                """
+            f.write("""
 #[link(name = "ffi")]
 unsafe extern "C" {}
 #[link(name = "z")]
@@ -161,16 +160,14 @@ unsafe extern "C" {}
 unsafe extern "C" {}
 #[link(name = "ncursesw")]
 unsafe extern "C" {}
-"""
-            )
+""")
 
     with self.profile("host") as hpf:
         host_profile = hpf
 
     # check src/bootstrap/src/utils/change_tracker.rs
     with open(self.cwd / "bootstrap.toml", "w") as cfg:
-        cfg.write(
-            f"""
+        cfg.write(f"""
 change-id = 148671
 
 [llvm]
@@ -251,12 +248,10 @@ linker = '{self.get_tool("CC", target="host")}'
 llvm-config = '/usr/bin/llvm-config'
 crt-static = false
 
-"""
-        )
+""")
         # cross-target definition if used
         if tgt_profile.cross:
-            cfg.write(
-                f"""
+            cfg.write(f"""
 [target.{tgt_profile.triplet}]
 
 cc = '{self.get_tool("CC")}'
@@ -266,12 +261,10 @@ ranlib = '/usr/bin/llvm-ranlib'
 linker = '{self.get_tool("CC")}'
 llvm-config = '/usr/bin/llvm-config'
 crt-static = false
-"""
-            )
+""")
         # wasm targets for non-bootstrap
         if self.current_target != "custom:bootstrap":
-            cfg.write(
-                """
+            cfg.write("""
 [target.wasm32-unknown-unknown]
 
 sanitizers = false
@@ -294,8 +287,7 @@ wasi-root = '/usr/wasm32-unknown-wasi'
 sanitizers = false
 profiler = false
 wasi-root = '/usr/wasm32-unknown-wasi'
-"""
-            )
+""")
 
 
 def build(self):

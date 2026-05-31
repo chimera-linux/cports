@@ -18,13 +18,11 @@ def install(self):
     # .pc file
     self.install_dir("usr/lib/pkgconfig")
     with open(self.destdir / "usr/lib/pkgconfig/stb.pc", "w") as outf:
-        outf.write(
-            f"""prefix=/usr
+        outf.write(f"""prefix=/usr
 includedir=${{prefix}}/include
 
 Name: stb
 Description: {pkgdesc}
 Cflags: -I${{includedir}}
 Version: {pkgver}
-"""
-        )
+""")

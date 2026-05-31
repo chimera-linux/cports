@@ -20,8 +20,7 @@ sha256 = [
 
 
 def pre_configure(self):
-    (self.cwd / "cgit.conf").write_text(
-        f"""
+    (self.cwd / "cgit.conf").write_text(f"""
 CC = {self.get_tool("CC")}
 AR = {self.get_tool("AR")}
 CFLAGS = {self.get_cflags(shell=True)}
@@ -30,14 +29,11 @@ HOST_CPU = {self.profile().arch}
 CGIT_SCRIPT_PATH = /usr/bin
 CGIT_DATA_PATH = /usr/share/cgit
 filterdir = /usr/share/cgit/filters
-        """
-    )
-    (self.cwd / "git/config.mak").write_text(
-        """
+""")
+    (self.cwd / "git/config.mak").write_text("""
 USE_LIBPCRE2 = Yes
 NO_REGEX = Yes
-        """
-    )
+""")
 
 
 def post_install(self):

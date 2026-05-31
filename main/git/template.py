@@ -34,8 +34,7 @@ hardening = ["cfi", "vis"]
 
 def configure(self):
     with open(self.cwd / "config.mak", "w") as cf:
-        cf.write(
-            f"""
+        cf.write(f"""
 prefix = /usr
 gitexecdir = /usr/lib/git-core
 CC = {self.get_tool("CC")}
@@ -55,8 +54,7 @@ PYTHON_PATH = /usr/bin/python
 DEFAULT_TEST_TARGET=prove
 GIT_PROVE_OPTS=--jobs={self.make_jobs}
 HOST_CPU = {self.profile().arch}
-"""
-        )
+""")
 
 
 def build(self):

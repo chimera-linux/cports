@@ -109,12 +109,10 @@ def build(self):
     )
 
     with open(self.cwd / "user-config.jam", "w") as cf:
-        cf.write(
-            f"""
+        cf.write(f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell=True)}" <linkflags>"{self.get_ldflags(shell=True)}" <warnings-as-errors>"off" ;
 using python : {self.python_version} : /usr/bin/python3 : {self.profile().sysroot}/usr/include/python{self.python_version} : {self.profile().sysroot}/usr/lib/python{self.python_version} ;
-"""
-        )
+""")
 
     _call_b2(self)
 
@@ -160,12 +158,10 @@ def install(self):
     self.install_dir("etc")
 
     with open(self.destdir / "etc/site-config.jam", "w") as sc:
-        sc.write(
-            """# System-wide configuration file for Boost.Build.
+        sc.write("""# System-wide configuration file for Boost.Build.
 
 using clang ;
-"""
-        )
+""")
 
     self.install_license("LICENSE_1_0.txt")
 

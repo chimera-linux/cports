@@ -16,8 +16,7 @@ hardening = ["vis", "cfi"]
 
 def pre_configure(self):
     with open(self.cwd / "configure.local", "w") as cf:
-        cf.write(
-            f"""
+        cf.write(f"""
 PREFIX=/usr
 SBINDIR=/usr/bin
 MANDIR=/usr/share/man
@@ -28,8 +27,7 @@ CC="{self.get_tool("CC")}"
 HAVE_REWB_BSD=0
 UTF8_LOCALE=C.UTF-8
 BINM_PAGER=less
-"""
-        )
+""")
 
 
 def post_install(self):
