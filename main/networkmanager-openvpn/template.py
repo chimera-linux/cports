@@ -32,3 +32,5 @@ options = ["linkundefver"]
 
 def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
+    self.uninstall("usr/lib/sysusers.d/nm-openvpn-sysusers.conf")
+    self.uninstall("usr/lib/tmpfiles.d/nm-openvpn-tmpfiles.conf")
