@@ -1,10 +1,7 @@
 pkgname = "ibus-chewing"
 pkgver = "2.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
-]
 make_check_wrapper = [
     "wlheadless-run",
     "--",

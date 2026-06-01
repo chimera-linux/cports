@@ -2,11 +2,8 @@ pkgname = "ibus-kkc"
 # this is basically abandoned and there are some fix commits since the last tag,
 # easier to just use this
 pkgver = "1.5.22_git20220104"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
-]
 make_dir = "."
 hostmakedepends = [
     "automake",
