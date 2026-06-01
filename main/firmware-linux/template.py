@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20251125"
+pkgver = "20260519"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -9,7 +9,7 @@ url = "https://www.kernel.org"
 # stuck and eventually generates 502
 # source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
-sha256 = "d6f7e3ec9fe509f81bdb7fb70c56474b7b949cdcb1b75ca0c2b182f004bb2aae"
+sha256 = "44f23e9f256938946490ef275320640cd4a3dcba0de61096974acce7ab531eb7"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -80,8 +80,9 @@ _pkgs = [
     ("cs35l54", "Cirrus CS35L54 amplifier", None, "audio", ["cirrus/cs35l54*"]),
     ("cs35l56", "Cirrus CS35L56 amplifier", None, "audio", ["cirrus/cs35l56*"]),
     ("cs35l57", "Cirrus CS35L57 amplifier", None, "audio", ["cirrus/cs35l57*"]),
+    ("cs35l63", "Cirrus CS35L63 amplifier", None, "audio", ["cirrus/cs35l63*"]),
     ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin*"]),
-    ("cs42l45", "Cirrus CS42L45 codec", None, "audio", ["sdca/1fa/1028"]),
+    ("cs42l45", "Cirrus CS42L45 codec", None, "audio", ["sdca/1fa"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
     ("cxgb4", "Chelsio T4/5/6 Ethernet", None, "network", ["cxgb4"]),
     ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin*"]),
@@ -212,6 +213,7 @@ _pkgs = [
         "misc",
         ["lt9611uxc_fw.bin*"],
     ),
+    ("lontium", "Lontium bridge", None, "gpu", ["Lontium", "lt87*"]),
     ("mali", "ARM Mali GPUs", _arch_arm64, "gpu", ["arm/mali"]),
     ("matrox", "Matrox G200/400", None, "gpu", ["matrox"]),
     (
@@ -223,7 +225,6 @@ _pkgs = [
             "mediatek/mt798*",
             "mediatek/mt81*",
             "mediatek/sof",
-            "vpu_*.bin*",
         ],
     ),
     (
@@ -321,6 +322,7 @@ _pkgs = [
     ),
     ("radeon", "Older AMD GPUs", None, "gpu", ["radeon"]),
     ("ralink", "Ralink WLAN", None, "network", ["rt*.bin*"]),
+    ("rcar", "R-Car SoC", _arch_arm64, "soc", ["rcar*"]),
     ("rockchip", "Rockchip SoCs", _arch_arm64, "soc", ["rockchip"]),
     ("rp2", "Comtrol RocketPort 2", None, "misc", ["rp2.fw*"]),
     ("rsi", "Redpine RSI91X WLAN/Bluetooth", None, "network", ["rsi*"]),
@@ -381,7 +383,15 @@ _pkgs = [
         "Texas Instruments amplifiers",
         None,
         "audio",
-        ["INT88*", "TAS2*", "TIAS2*", "TXNW*", "ti/audio/tas*"],
+        [
+            "INT88*",
+            "TAS2*",
+            "TIAS2*",
+            "TXNW*",
+            "ti/audio/tas*",
+            "ti/pcm6240",
+            "*-*-0x*.bin*",
+        ],
     ),
     ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
     (
