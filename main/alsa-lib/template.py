@@ -1,5 +1,5 @@
 pkgname = "alsa-lib"
-pkgver = "1.2.14"
+pkgver = "1.2.16"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Advanced Linux Sound Architecture library"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/alsa-lib-{pkgver}.tar.bz2"
-sha256 = "be9c88a0b3604367dd74167a2b754a35e142f670292ae47a2fdef27a2ee97a32"
+sha256 = "122b1e3166d55fe19bcde656535d7a36f2ab10e66c72c6ad2f43f20ffded0a96"
 
 
 @subpackage("alsa-lib-devel")
