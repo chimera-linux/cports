@@ -1,9 +1,8 @@
 pkgname = "neomutt"
 pkgver = "2026.01.05"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--gpgme",
     "--notmuch",
     "--pcre2",
