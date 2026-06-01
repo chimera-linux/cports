@@ -1,9 +1,8 @@
 pkgname = "gvfs"
-pkgver = "1.58.0"
+pkgver = "1.60.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dsystemduserunitdir=no",
     "-Dtmpfilesdir=no",
     "-Dlogind=true",
@@ -57,7 +56,7 @@ pkgdesc = "GNOME virtual file system"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/gvfs/{pkgver[:-2]}/gvfs-{pkgver}.tar.xz"
-sha256 = "dd9be36873d0fcb309eb89a8d274770ce576287628a2cf111bd387e1c34f182f"
+sha256 = "648273f069e92c7e3c013b92148e82c901f08044e2b3b14c6cfbd52269f6b646"
 
 
 @subpackage("gvfs-afc")
@@ -67,8 +66,8 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfsd-afc*",
-        "usr/libexec/gvfs-afc-volume-monitor",
+        "usr/lib/gvfsd-afc*",
+        "usr/lib/gvfs-afc-volume-monitor",
         "usr/share/dbus-1/services/org.gtk.vfs.AfcVolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/afc.monitor",
     ]
@@ -81,7 +80,7 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfsd-afp*",
+        "usr/lib/gvfsd-afp*",
         "usr/share/gvfs/mounts/afp*",
     ]
 
@@ -93,7 +92,7 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfsd-cd*",
+        "usr/lib/gvfsd-cd*",
         "usr/share/gvfs/mounts/cd*",
     ]
 
@@ -105,10 +104,10 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfs-goa*",
-        "usr/libexec/gvfsd-onedrive",
+        "usr/lib/gvfs-goa*",
+        "usr/lib/gvfsd-onedrive",
         "usr/share/gvfs/mounts/onedrive.mount",
-        # "usr/libexec/gvfsd-google", TODO: for libgdata
+        # "usr/lib/gvfsd-google", TODO: for libgdata
         # "usr/share/gvfs/mounts/google.mount",
         "usr/share/dbus-1/services/org.gtk.vfs.GoaVolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/goa.monitor",
@@ -122,7 +121,7 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfs*-gphoto*",
+        "usr/lib/gvfs*-gphoto*",
         "usr/share/dbus-1/services/org.gtk.vfs.GPhoto2VolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/gphoto2.monitor",
     ]
@@ -135,7 +134,7 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfs*-mtp*",
+        "usr/lib/gvfs*-mtp*",
         "usr/share/dbus-1/services/org.gtk.vfs.MTPVolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/mtp.monitor",
         "usr/share/gvfs/mounts/mtp.mount",
@@ -149,7 +148,7 @@ def _(self):
     self.install_if = [self.parent]
 
     return [
-        "usr/libexec/gvfs*-smb*",
+        "usr/lib/gvfs*-smb*",
         "usr/share/GConf/gsettings/gvfs-smb.convert",
         "usr/share/glib-2.0/schemas/org.gnome.system.smb.gschema.xml",
         "usr/share/gvfs/mounts/smb*.mount",
