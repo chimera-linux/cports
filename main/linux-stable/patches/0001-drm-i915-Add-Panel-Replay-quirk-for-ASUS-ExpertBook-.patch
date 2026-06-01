@@ -1,0 +1,127 @@
+from q66: squashes in the following commits from upstream too:
+
+https://github.com/torvalds/linux/commit/45c77d4bf8d4d15453d709b9b828e498898e0751
+https://github.com/torvalds/linux/commit/1de647abdfda9dc307503d0a85152161850ba52c
+
+From: burakgon <burakgon12@gmail.com>
+Subject: [PATCH] drm/i915: Disable Panel Replay on ASUS ExpertBook Ultra B9406CAA
+
+The Panel Replay Selective Update (Early Transport) implementation on the
+eDP panel in the 2026 ASUS ExpertBook Ultra (B9406CAA, Panther Lake) hangs
+the xe display engine. dmesg shows:
+
+  xe 0000:00:02.0: [drm] *ERROR* Timed out waiting PSR idle state
+  xe 0000:00:02.0: [drm] *ERROR* [CRTC:151:pipe A] DSB 0 timed out waiting for idle
+
+and KWin reports "Pageflip timed out! This is a bug in the xe kernel
+driver" until the internal panel goes black; only a reboot recovers it.
+
+Mirror the existing quirk for the Dell XPS 14 DA14260 (which has the same
+class of problem) for this ASUS subsystem. The panel reports IEEE OUI
+00:aa:01 in DPCD register 0x300, and the laptop's PCI subsystem
+identifier is 0x1043:0x15e4.
+
+Tested on:
+  - ASUS ExpertBook Ultra B9406CAA, Panther Lake Core Ultra X7
+  - Linux 7.0.x and 7.1-rc1 (CachyOS variants)
+  - eDP panel: Samsung Display Corp ("SDC") product 0x4217
+
+Without this patch the laptop's only workaround is xe.enable_psr=0 on
+the kernel cmdline, which globally disables Panel Replay for the system
+even when other displays could use it safely.
+
+Signed-off-by: burakgon <burakgon12@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 8a7075c..c2fe315 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -49,6 +49,7 @@
+ #include "intel_hdmi.h"
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
++#include "intel_quirks.h"
+ #include "intel_snps_phy.h"
+ #include "intel_step.h"
+ #include "intel_vblank.h"
+@@ -609,6 +610,13 @@ static void _panel_replay_init_dpcd(struct intel_dp *intel_dp, struct intel_conn
+ 	if (intel_dp->mst_detect == DRM_DP_MST)
+ 		return;
+ 
++	if (intel_dp_is_edp(intel_dp) &&
++	    intel_has_dpcd_quirk(intel_dp, QUIRK_DISABLE_EDP_PANEL_REPLAY)) {
++		drm_dbg_kms(display->drm,
++			    "Panel Replay support not currently available for this setup\n");
++		return;
++	}
++
+ 	ret = drm_dp_dpcd_read_data(&intel_dp->aux, DP_PANEL_REPLAY_CAP_SUPPORT,
+ 				    &connector->dp.panel_replay_caps.dpcd,
+ 				    sizeof(connector->dp.panel_replay_caps.dpcd));
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 1abbdd4..2e78a90 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct intel_display *display)
+ 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
+ }
+ 
++static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_DISABLE_EDP_PANEL_REPLAY);
++	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -108,6 +116,8 @@ struct intel_dpcd_quirk {
+ 
+ #define SINK_DEVICE_ID_ANY	SINK_DEVICE_ID(0, 0, 0, 0, 0, 0)
+ 
++#define DEVICE_ID_ANY		0
++
+ /* For systems that don't have a meaningful PCI subdevice/subvendor ID */
+ struct intel_dmi_quirk {
+ 	void (*hook)(struct intel_display *display);
+@@ -251,7 +261,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
+ 		.hook = quirk_fw_sync_len,
+ 	},
+-
++	/* Dell XPS 14 DA14260 */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1028,
++		.subsystem_device = 0x0db9,
++		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
++		.hook = quirk_disable_edp_panel_replay,
++	},
++	/* ASUS ExpertBook Ultra B9406CAA */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1043,
++		.subsystem_device = 0x15e4,
++		.sink_oui = SINK_OUI(0x00, 0xaa, 0x01),
++		.hook = quirk_disable_edp_panel_replay,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 06da0e2..77e490c 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -21,6 +21,7 @@ enum intel_quirk_id {
+ 	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
+ 	QUIRK_FW_SYNC_LEN,
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
++	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
