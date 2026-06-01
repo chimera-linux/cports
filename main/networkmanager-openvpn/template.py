@@ -1,6 +1,6 @@
 pkgname = "networkmanager-openvpn"
 pkgver = "1.12.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/libexec",  # TODO switch libexec
@@ -33,3 +33,5 @@ options = ["linkundefver"]
 
 def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
+    self.uninstall("usr/lib/sysusers.d/nm-openvpn-sysusers.conf")
+    self.uninstall("usr/lib/tmpfiles.d/nm-openvpn-tmpfiles.conf")
