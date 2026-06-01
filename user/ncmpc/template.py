@@ -1,13 +1,13 @@
 pkgname = "ncmpc"
 pkgver = "0.52"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dlirc=disabled",
     "-Dcurses=ncursesw",
     "-Dcolors=true",
     "-Dlyrics_screen=true",
-    "-Dlyrics_plugin_dir=/usr/libexec/ncmpc/lyrics",
+    "-Dlyrics_plugin_dir=/usr/lib/ncmpc/lyrics",
     "-Dhtml_manual=false",
 ]
 hostmakedepends = [
