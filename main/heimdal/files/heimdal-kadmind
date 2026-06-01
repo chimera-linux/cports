@@ -1,7 +1,5 @@
-# heimdal-kadmind service
-
 type = process
-command = /usr/libexec/kadmind
-depends-on = network.target
-depends-on = local.target
+command = /usr/lib/kadmind
 smooth-recovery = true
+depends-on: network.target
+depends-on: local.target

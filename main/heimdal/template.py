@@ -1,9 +1,8 @@
 pkgname = "heimdal"
 pkgver = "7.8.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--enable-kcm",
     "--disable-otp",  # needs ndbm
     "--without-openssl",  # FIXME
@@ -121,7 +120,7 @@ for _libn, _ldesc in [
 def _(self):
     self.pkgdesc = "Heimdal KCM daemon"
 
-    return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
+    return ["usr/lib/kcm", "usr/share/man/man8/kcm.8"]
 
 
 @subpackage("heimdal-kdc")
@@ -134,13 +133,13 @@ def _(self):
         "usr/lib/dinit.d/heimdal-kadmind",
         "usr/lib/dinit.d/heimdal-kdc",
         "usr/lib/dinit.d/heimdal-kpasswdd",
-        "usr/libexec/digest-service",
-        "usr/libexec/hprop",
-        "usr/libexec/hpropd",
-        "usr/libexec/ipropd*",
-        "usr/libexec/kadmind",
-        "usr/libexec/kdc",
-        "usr/libexec/kpasswdd",
+        "usr/lib/digest-service",
+        "usr/lib/hprop",
+        "usr/lib/hpropd",
+        "usr/lib/ipropd*",
+        "usr/lib/kadmind",
+        "usr/lib/kdc",
+        "usr/lib/kpasswdd",
         "usr/share/man/man8/hprop*.8",
         "usr/share/man/man8/iprop*.8",
         "usr/share/man/man8/kadmind.8",
@@ -156,8 +155,8 @@ def _(self):
     self.file_modes = {"usr/bin/ksu": ("root", "root", 0o4755)}
 
     def _install():
-        self.take("usr/libexec/kdigest")
-        self.take("usr/libexec/kimpersonate")
+        self.take("usr/lib/kdigest")
+        self.take("usr/lib/kimpersonate")
         self.take("usr/share/man/man8/kdigest.8")
         self.take("usr/share/man/man8/kimpersonate.8")
 

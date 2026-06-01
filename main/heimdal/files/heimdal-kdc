@@ -1,7 +1,5 @@
-# heimdal-kdc service
-
 type = process
-command = /usr/libexec/kdc
-depends-on = network.target
-depends-on = local.target
+command = /usr/lib/kdc
 smooth-recovery = true
+depends-on: network.target
+depends-on: local.target
