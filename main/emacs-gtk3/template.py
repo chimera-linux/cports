@@ -1,9 +1,8 @@
 pkgname = "emacs-gtk3"
 pkgver = "30.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--with-gameuser=:_games",
     "--with-gpm",
     "--with-json",
@@ -66,7 +65,7 @@ def post_install(self):
     # remove suid from game exe
     (
         self.destdir
-        / f"usr/libexec/emacs/{pkgver}/{self.profile().triplet}/update-game-score"
+        / f"usr/lib/emacs/{pkgver}/{self.profile().triplet}/update-game-score"
     ).chmod(0o755)
 
     self.uninstall("usr/lib/systemd/user")
