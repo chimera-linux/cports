@@ -1,9 +1,8 @@
 pkgname = "openvpn"
 pkgver = "2.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-systemd",
     "--enable-x509-alt-username",
     "--enable-iproute2",
