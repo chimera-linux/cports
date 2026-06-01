@@ -1,9 +1,8 @@
 pkgname = "geoclue"
 pkgver = "2.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Ddbus-srv-user=_geoclue",
     "-Dgtk-doc=false",
     "-Dintrospection=true",
