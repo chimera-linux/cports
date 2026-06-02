@@ -1,9 +1,8 @@
 pkgname = "aisleriot"
 pkgver = "3.22.35"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dtheme_kde=false",
 ]
 hostmakedepends = [
