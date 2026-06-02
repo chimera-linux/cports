@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/wsddn --config=/etc/wsddn.conf --user=_wsddn
+smooth-recovery = true
+depends-on: local.target
+depends-on: network.target
