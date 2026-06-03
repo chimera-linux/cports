@@ -1,9 +1,8 @@
 pkgname = "hplip"
 pkgver = "3.25.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-doc-build",
     "--disable-fax-build",
     "--disable-gui-build",
@@ -63,7 +62,7 @@ def post_install(self):
     # rename default dll.conf that conflicts with sane-backends to own name,
     # loads hpaio
     self.rename("etc/sane.d/dll.conf", "dll.d/hpaio")
-    self.rename("etc/udev", "usr/lib/udev")
+    self.rename("etc/udev", "usr/lib/udev", relative=False)
 
     # move elfs to libexec
     for f in ["locatedriver", "dat2drv"]:
