@@ -1,6 +1,6 @@
 pkgname = "docker-compose"
 pkgver = "5.1.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -21,6 +21,6 @@ options = ["!check"]
 def install(self):
     self.install_file(
         f"{self.make_dir}/cmd",
-        "usr/libexec/docker/cli-plugins",
+        "usr/lib/docker/cli-plugins",
         name="docker-compose",
     )

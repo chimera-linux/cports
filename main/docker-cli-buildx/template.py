@@ -1,6 +1,6 @@
 pkgname = "docker-cli-buildx"
 pkgver = "0.25.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/docker/buildx/version.Version=v{pkgver}",
@@ -22,6 +22,6 @@ options = ["!check"]
 def install(self):
     self.install_file(
         "build/buildx",
-        "usr/libexec/docker/cli-plugins",
+        "usr/lib/docker/cli-plugins",
         name="docker-buildx",
     )
