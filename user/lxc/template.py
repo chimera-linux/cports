@@ -1,9 +1,8 @@
 pkgname = "lxc"
 pkgver = "6.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dapparmor=false",
     # needs docbook2x
     "-Dman=false",
@@ -29,7 +28,7 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://linuxcontainers.org"
 source = f"{url}/downloads/lxc/lxc-{pkgver}.tar.gz"
 sha256 = "872d26ce8512b9f993d194816e336bf9f3ad8326f22dc24ef0f01f85599fa8b9"
-file_modes = {"usr/libexec/lxc/lxc-user-nic": ("root", "root", 0o4755)}
+file_modes = {"usr/lib/lxc/lxc-user-nic": ("root", "root", 0o4755)}
 # symlinks to _lxc
 options = ["!lintcomp"]
 
