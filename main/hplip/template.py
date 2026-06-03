@@ -1,6 +1,6 @@
 pkgname = "hplip"
 pkgver = "3.25.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-doc-build",
@@ -67,6 +67,6 @@ def post_install(self):
     # move elfs to libexec
     for f in ["locatedriver", "dat2drv"]:
         self.rename(
-            f"usr/share/hplip/{f}", f"usr/libexec/hplip/{f}", relative=False
+            f"usr/share/hplip/{f}", f"usr/lib/hplip/{f}", relative=False
         )
-        self.install_link(f"usr/share/hplip/{f}", f"../../libexec/hplip/{f}")
+        self.install_link(f"usr/share/hplip/{f}", f"../../lib/hplip/{f}")
