@@ -145,4 +145,4 @@ def _(self):
 @subpackage("vlc-libs")
 def _(self):
     self.triggers = ["/usr/lib/vlc/plugins"]
-    return self.default_libs(extra=["usr/libexec/vlc/vlc-cache-gen"])
+    return self.default_libs(extra=["usr/lib/vlc/vlc-cache-gen"])

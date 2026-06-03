@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /usr/libexec/vlc/vlc-cache-gen "$@" >/dev/null 2>&1
+exec /usr/lib/vlc/vlc-cache-gen "$@" >/dev/null 2>&1
