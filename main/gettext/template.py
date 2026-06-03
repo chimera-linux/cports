@@ -1,9 +1,8 @@
 pkgname = "gettext"
 pkgver = "0.23.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--disable-java",
     "--disable-csharp",
     "--disable-libasprintf",
