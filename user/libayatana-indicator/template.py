@@ -1,9 +1,8 @@
 pkgname = "libayatana-indicator"
 pkgver = "0.9.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
     "-DENABLE_TESTS=ON",
 ]
 # Tests run xvfb-run on their own but that fails for some reason
