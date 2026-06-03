@@ -1,0 +1,43 @@
+commit 9a6a9022a197fe4e78da77edbdb1d610b8d46022
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 3 18:34:08 2026 +0200
+
+    load systemwide configs as a fallback
+
+diff --git a/src/lpmd_config.c b/src/lpmd_config.c
+index 7137db2..f040e2e 100644
+--- a/src/lpmd_config.c
++++ b/src/lpmd_config.c
+@@ -418,6 +418,8 @@ err:			xmlFree (tmp_value);
+ 	return LPMD_SUCCESS;
+ }
+ 
++#define SYSCONFPATH "/usr/share/intel_lpmd"
++
+ int lpmd_get_config(lpmd_config_t *lpmd_config)
+ {
+ 	char file_name[MAX_FILE_NAME_PATH];
+@@ -444,6 +446,23 @@ int lpmd_get_config(lpmd_config_t *lpmd_config)
+ 		goto process_xml;
+ 
+ 	snprintf (file_name, MAX_FILE_NAME_PATH, "%s/%s", TDCONFDIR, CONFIG_FILE_NAME);
++	lpmd_log_msg ("Looking for config file %s\n", file_name);
++	if (!stat (file_name, &s))
++		goto process_xml;
++
++	snprintf(file_name, MAX_FILE_NAME_PATH, "%s/intel_lpmd_config_F%d_M%d_T%d.xml",
++			 SYSCONFPATH, lpmd_config->cpu_family, lpmd_config->cpu_model, lpmd_config->tdp);
++	lpmd_log_msg ("Looking for config file %s\n", file_name);
++	if (!stat (file_name, &s))
++		goto process_xml;
++
++	snprintf(file_name, MAX_FILE_NAME_PATH, "%s/intel_lpmd_config_F%d_M%d.xml",
++			 SYSCONFPATH, lpmd_config->cpu_family, lpmd_config->cpu_model);
++	lpmd_log_msg ("Looking for config file %s\n", file_name);
++	if (!stat (file_name, &s))
++		goto process_xml;
++
++	snprintf (file_name, MAX_FILE_NAME_PATH, "%s/%s", SYSCONFPATH, CONFIG_FILE_NAME);
+ 
+ 	lpmd_log_msg ("Reading configuration file %s\n", file_name);
+ 

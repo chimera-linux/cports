@@ -1,0 +1,45 @@
+From c1506542e97424151018e9cb4958ff02dad616d2 Mon Sep 17 00:00:00 2001
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Date: Sun, 12 Apr 2026 16:53:58 -0700
+Subject: [PATCH] Add Panther Lake 4P0E4L
+
+Add configuration for Panther Lake 4P+0E+4L.
+
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+---
+ data/intel_lpmd_config_F6_M204.xml | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/data/intel_lpmd_config_F6_M204.xml b/data/intel_lpmd_config_F6_M204.xml
+index a67fa8b..f1e36da 100644
+--- a/data/intel_lpmd_config_F6_M204.xml
++++ b/data/intel_lpmd_config_F6_M204.xml
+@@ -186,4 +186,28 @@ for Intel Energy Optimizer (LPMD) daemon
+ 		</State>
+ 	</States>
+ 
++	<States>
++		<CPUFamily> 6 </CPUFamily>
++		<CPUModel> 204 </CPUModel>
++		<CPUConfig> 4P0E4L-25W </CPUConfig>
++		<State>
++			<ID> 1 </ID>
++			<Name> UTIL_IDLE </Name>
++			<WLTType> 1 </WLTType>
++			<ActiveCPUs>4-7</ActiveCPUs>
++		</State>
++		<State>
++			<ID> 2 </ID>
++			<Name> UTIL_IDLE_SUSTAIN </Name>
++			<WLTType> 2 </WLTType>
++			<ActiveCPUs>0-7</ActiveCPUs>
++		</State>
++		<State>
++			<ID> 3 </ID>
++			<Name> UTIL_IDLE_BURSTY </Name>
++			<WLTType> 3 </WLTType>
++			<ActiveCPUs>0-7</ActiveCPUs>
++		</State>
++	</States>
++
+ </Configuration>
