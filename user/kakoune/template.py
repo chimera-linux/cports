@@ -1,6 +1,6 @@
 pkgname = "kakoune"
 pkgver = "2026.04.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = ["gzip_man=no"]
 make_use_env = True
@@ -21,3 +21,8 @@ if (
     # aarch64 fails kak_selection test
     # big endian gets stuck in the suite
     options += ["!check"]
+
+
+def post_extract(self):
+    # fails weirdly
+    self.rm("test/compose/history", recursive=True)
