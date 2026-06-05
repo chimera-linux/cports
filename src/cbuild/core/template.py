@@ -576,7 +576,7 @@ sites = {
     "nongnu": "https://download.savannah.nongnu.org/releases",
     "kernel": "https://www.kernel.org/pub/linux",
     "gnome": "https://download.gnome.org/sources",
-    "xorg": "https://www.x.org/releases/individual",
+    "xorg": "https://xorg.freedesktop.org/releases/individual",
     "cpan": "https://www.cpan.org/modules/by-module",
     "pypi": "https://files.pythonhosted.org/packages/source",
     "gnu": "https://ftpmirror.gnu.org/gnu",
