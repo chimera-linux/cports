@@ -1,9 +1,8 @@
 pkgname = "networkmanager-openconnect"
 pkgver = "1.2.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--with-gtk4=yes",
     "--disable-static",
 ]
