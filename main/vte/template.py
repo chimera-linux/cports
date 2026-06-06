@@ -1,9 +1,8 @@
 pkgname = "vte"
 pkgver = "0.84.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-D_systemd=false",
     "-Dgir=true",
     "-Dvapi=true",
