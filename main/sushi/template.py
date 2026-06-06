@@ -1,10 +1,7 @@
 pkgname = "sushi"
-pkgver = "46.0"
+pkgver = "50.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
-]
 hostmakedepends = [
     "gettext",
     "gjs",
@@ -31,6 +28,6 @@ pkgdesc = "File previewer for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/sushi"
 source = f"$(GNOME_SITE)/sushi/{pkgver[:-2]}/sushi-{pkgver}.tar.xz"
-sha256 = "96085baaa430ab2142c606aab5c47e2fbb2fd3eb70a352137e65c59a58a0f2c6"
+sha256 = "ab25177908d5ccc58568769a81eb9b4f32306786e6c73618193ebf61a127ee00"
 # gir
 options = ["!cross"]
