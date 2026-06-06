@@ -187,6 +187,7 @@ def invoke(pkg):
         "sbin",
         "lib32",
         "lib64",
+        "libexec",
         "local",
         "lib/installed-tests",
         "lib/locale",
