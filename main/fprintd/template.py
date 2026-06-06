@@ -1,9 +1,8 @@
 pkgname = "fprintd"
 pkgver = "1.94.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dsystemd=false",
 ]
 hostmakedepends = [
