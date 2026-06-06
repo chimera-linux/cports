@@ -1,10 +1,7 @@
 pkgname = "knighttime"
 pkgver = "6.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
-]
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
 makedepends = [
     "kconfig-devel",
