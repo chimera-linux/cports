@@ -1,10 +1,7 @@
 pkgname = "kdiskmark"
 pkgver = "3.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = [
-    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
-]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
