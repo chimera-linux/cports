@@ -1,9 +1,8 @@
 pkgname = "libmbim"
 pkgver = "1.32.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dintrospection=true",
 ]
 hostmakedepends = [
