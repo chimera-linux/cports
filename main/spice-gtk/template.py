@@ -1,9 +1,8 @@
 pkgname = "spice-gtk"
 pkgver = "0.42"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dbuiltin-mjpeg=false",
     "-Dcoroutine=gthread",
     "-Degl=enabled",
@@ -61,10 +60,10 @@ url = "https://gitlab.freedesktop.org/spice/spice-gtk"
 source = f"https://www.spice-space.org/download/gtk/spice-gtk-{pkgver}.tar.xz"
 sha256 = "9380117f1811ad1faa1812cb6602479b6290d4a0d8cc442d44427f7f6c0e7a58"
 file_modes = {
-    "usr/libexec/spice-client-glib-usb-acl-helper": ("root", "root", 0o755),
+    "usr/lib/spice-client-glib-usb-acl-helper": ("root", "root", 0o755),
 }
 file_xattrs = {
-    "usr/libexec/spice-client-glib-usb-acl-helper": {
+    "usr/lib/spice-client-glib-usb-acl-helper": {
         "security.capability": "cap_fowner+ep",
     },
 }
