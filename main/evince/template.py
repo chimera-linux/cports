@@ -1,11 +1,10 @@
 pkgname = "evince"
 pkgver = "48.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # dvi needs kpathsea, which is in texlive
 # does anyone actually need dvi?
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dintrospection=true",
     "-Dgtk_doc=false",
     "-Dnautilus=false",
