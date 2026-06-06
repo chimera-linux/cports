@@ -1,6 +1,6 @@
 pkgname = "wireguard-tools"
 pkgver = "1.0.20260223"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_dir = "src"
 make_install_args = [
