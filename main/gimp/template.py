@@ -1,9 +1,8 @@
 pkgname = "gimp"
 pkgver = "3.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dcheck-update=no",
     "-Dbug-report-url=https://github.com/chimera-linux/cports/issues",
     "-Dlibbacktrace=false",
