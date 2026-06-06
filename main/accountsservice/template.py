@@ -1,9 +1,8 @@
 pkgname = "accountsservice"
 pkgver = "23.13.9"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "-Dsystemdsystemunitdir=no",
     "-Dintrospection=true",
     "-Delogind=true",
