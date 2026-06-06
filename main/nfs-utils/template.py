@@ -1,6 +1,6 @@
 pkgname = "nfs-utils"
 pkgver = "2.8.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-sbin-override",
@@ -31,6 +31,7 @@ makedepends = [
     "linux-headers",
     "lvm2-devel",
     "musl-bsd-headers",
+    "rpcbind",
     "sqlite-devel",
     "util-linux-mount-devel",
 ]
