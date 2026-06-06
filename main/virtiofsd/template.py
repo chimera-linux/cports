@@ -1,6 +1,6 @@
 pkgname = "virtiofsd"
 pkgver = "1.13.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = [
