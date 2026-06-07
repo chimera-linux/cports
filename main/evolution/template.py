@@ -1,5 +1,5 @@
 pkgname = "evolution"
-pkgver = "3.60.1"
+pkgver = "3.60.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -51,7 +51,7 @@ pkgdesc = "Mail, calendar and address book suite"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Evolution"
 source = f"https://download.gnome.org/sources/evolution/{pkgver[:-2]}/evolution-{pkgver}.tar.xz"
-sha256 = "8f333ceb4c31cce7d77495e8901a00efdc5376da5429c1c294d7e3efbc6f7308"
+sha256 = "218a49fa5068155dbdbd35a30d10a2f237c72465fb1d0e0aa78889f039c2ed8f"
 
 
 @subpackage("evolution-devel")
