@@ -1,5 +1,5 @@
 type = scripted
-command = /usr/libexec/iptables-start -6
-stop-command = /usr/libexec/iptables-flush -6
+command = /usr/lib/iptables-start -6
+stop-command = /usr/lib/iptables-flush -6
 before = pre-network.target
 depends-on = pre-local.target
