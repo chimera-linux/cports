@@ -1,9 +1,8 @@
 pkgname = "openssh"
 pkgver = "10.3_p1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--datadir=/usr/share/openssh",
     "--sysconfdir=/etc/ssh",
     "--disable-wtmp",
@@ -45,7 +44,7 @@ license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-{pkgver.replace('_', '')}.tar.gz"
 sha256 = "56682a36bb92dcf4b4f016fd8ec8e74059b79a8de25c15d670d731e7d18e45f4"
-file_modes = {"usr/libexec/ssh-keysign": ("root", "root", 0o4755)}
+file_modes = {"usr/lib/ssh-keysign": ("root", "root", 0o4755)}
 # CFI: does not work; maybe make testsuite work first
 hardening = ["vis", "!cfi"]
 # portable openssh is not very portable
