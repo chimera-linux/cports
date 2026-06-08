@@ -1,6 +1,6 @@
 pkgname = "fzf"
 pkgver = "0.72.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["ncurses-devel"]
@@ -18,6 +18,7 @@ def post_install(self):
     self.install_file("plugin/fzf.vim", "usr/share/nvim/runtime/plugin")
     self.install_bin("bin/fzf-tmux")
     self.install_man("man/man1/fzf-tmux.1")
+    self.install_bin("bin/fzf-preview.sh")
 
     with self.pushd("shell"):
         self.install_completion("completion.bash", "bash")
@@ -34,3 +35,12 @@ def _(self):
     self.install_if = [self.parent, "bash", "tmux"]
 
     return ["cmd:fzf-tmux"]
+
+
+@subpackage("fzf-preview")
+def _(self):
+    self.subdesc = "previewer script"
+    self.depends = [self.parent, "bash", "chafa"]
+    self.install_if = [self.parent, "bash", "chafa"]
+
+    return ["cmd:fzf-preview.sh"]
