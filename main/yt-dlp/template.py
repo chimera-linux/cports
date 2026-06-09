@@ -40,6 +40,7 @@ def _(self):
         "python-pycryptodomex",
         "python-secretstorage",
         "python-websockets",
+        "yt-dlp-ejs",
     ]
     self.subdesc = "recommended dependencies"
     self.install_if = [self.parent]
