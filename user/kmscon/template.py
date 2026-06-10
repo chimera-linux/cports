@@ -1,8 +1,14 @@
 pkgname = "kmscon"
 pkgver = "10.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-hostmakedepends = ["libxslt-progs", "meson", "ncurses", "pkgconf"]
+hostmakedepends = [
+    "docbook-xsl-nons",
+    "libxslt-progs",
+    "meson",
+    "ncurses",
+    "pkgconf",
+]
 makedepends = [
     "check-devel",
     "dinit-chimera",
