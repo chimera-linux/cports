@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/wl-clip-persist --clipboard regular --disable-timestamps
+log-type = buffer
+depends-on: graphical.target
