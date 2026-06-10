@@ -2482,6 +2482,12 @@ class InteractiveCompleter:
         return None
 
 
+def do_compgen():
+    pass
+
+def do_shell_completion():
+    pass
+
 def do_commit(tgt):
     from cbuild.core import errors, chroot, paths, template, logger, git
     import tempfile
@@ -2807,6 +2813,11 @@ command_handlers = {
     ),
     "update-check": (do_update_check, "Check a template for upstream updates"),
     "zap": (do_zap, "Remove the bldroot"),
+    "compgen": (do_compgen, "Generate bash completions"),
+    "complete": (
+        do_shell_completion,
+        "Preform completion on the arguments, Intended for internal use only",
+    ),
     "interactive": (do_interactive, "Enter interactive prompt"),
 }
 
