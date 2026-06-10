@@ -1,4 +1,4 @@
-From 299d84d93fd9667f26abbb9d92125bc409faa572 Mon Sep 17 00:00:00 2001
+From 8588fceb32f2fa36fa893a70ea753a32342d8c88 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 1 Nov 2025 15:19:24 +0100
 Subject: [PATCH 14/16] patch out some broken code
@@ -8,10 +8,10 @@ Subject: [PATCH 14/16] patch out some broken code
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 859387fbc..6c45957ec 100644
+index 6a5500d71..08b171dc3 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -579,7 +579,7 @@ impl Step for Rustc {
+@@ -585,7 +585,7 @@ impl Step for Rustc {
              t!(fs::create_dir_all(&dst_dir));
  
              // Copy over lld if it's there

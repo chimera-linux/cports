@@ -1,4 +1,4 @@
-From 1b9f7c219c6ec18d3bb3e66307147cd8733da75f Mon Sep 17 00:00:00 2001
+From 710724e51d53ec714b2e355ab8e168cbf563cd76 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Oct 2025 23:00:12 +0200
 Subject: [PATCH 15/16] work around broken ecosystem hackery when bootstrapping
@@ -25,10 +25,10 @@ index 757bf4d30..5b66519f1 100644
              if builder.download_rustc() {
                  // Ensure there are no CI-rustc std artifacts.
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index e848620e9..7ae898347 100644
+index cf4f749c4..29a3e7a2b 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -478,6 +478,7 @@ impl Build {
+@@ -486,6 +486,7 @@ impl Build {
              .run_capture_stdout(&config)
              .stdout()
              .trim()
