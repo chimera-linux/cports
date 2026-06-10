@@ -1,6 +1,6 @@
 pkgname = "emacs-gtk3"
 pkgver = "30.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/libexec",  # TODO switch libexec
