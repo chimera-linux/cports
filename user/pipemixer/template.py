@@ -1,0 +1,12 @@
+pkgname = "pipemixer"
+pkgver = "0.5.1"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
+makedepends = ["pipewire-devel", "ncurses-devel", "inih-devel"]
+depends = ["pipewire"]
+pkgdesc = "TUI volume control application for pipewire built with ncurses"
+license = "GPL-3.0-only"
+url = "https://github.com/heather7283/pipemixer"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "e61f6c9b113e63af79e84e4f963c2aebdac383281d26b7d02e1fca06158592b1"
