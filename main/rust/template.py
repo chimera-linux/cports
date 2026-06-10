@@ -432,11 +432,13 @@ def install(self):
     self.uninstall(f"usr/lib/rustlib/{trip}/bin")
 
     # libexec fixup
-    self.rename(
-        "usr/libexec/rust-analyzer-proc-macro-srv",
-        "usr/lib/rust-analyzer-proc-macro-srv",
-        relative=False,
-    )
+    match self.profile().arch:
+        case "aarch64" | "ppc64" | "ppc64le" | "x86_64":
+            self.rename(
+                "usr/libexec/rust-analyzer-proc-macro-srv",
+                "usr/lib/rust-analyzer-proc-macro-srv",
+                relative=False,
+            )
 
     # usr/lib stuff should be symlinks into rustlib
     self.log("relinking rustlibs...")
