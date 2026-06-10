@@ -1846,7 +1846,7 @@ index a7b96eb..3424edc 100644
 +   (defined(__riscv) && __riscv_xlen == 64) || defined(__powerpc64__)
  
    struct kernel_stat st;
-   if (sys_fstat(fd, &st) == -1 || st.st_size < 0) {
+   __builtin_memset(&st, 0, sizeof(st));
 diff --git a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc b/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc
 index b7a61a7..b71b568 100644
 --- a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc
@@ -3609,9 +3609,9 @@ diff --git a/third_party/tflite/features.gni b/third_party/tflite/features.gni
 index b9bff6a..e1d49b8 100644
 --- a/third_party/tflite/features.gni
 +++ b/third_party/tflite/features.gni
-@@ -8,7 +8,7 @@ import("//services/on_device_model/on_device_model.gni")
+@@ -14,7 +14,7 @@
+   use_litert_tflite = false
  
- declare_args() {
    # This enables building TFLite with XNNPACK.
 -  build_tflite_with_xnnpack = current_cpu != "arm" && !is_fuchsia
 +  build_tflite_with_xnnpack = current_cpu != "arm" && current_cpu != "ppc64" && !is_fuchsia

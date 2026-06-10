@@ -55,7 +55,7 @@ for discussion about this, see https://www.openwall.com/lists/musl/2021/07/16/1
 +#if defined(__GLIBC__) && !defined(_AIX)
    OutputToStreamWithPrefix(&stream, prefix_string);
  #endif
-   return stream.str();
+   return std::move(stream).str();
 @@ -335,7 +335,7 @@
  }
  

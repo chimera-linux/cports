@@ -13,3 +13,16 @@ raw_ref<PermissionRequest, ...> due to losing qualifier.
    if (iter != request_sources_map_.end()) {
      return !iter->second.IsSourceFrameInactiveAndDisallowActivation();
    }
+--- a/chrome/browser/ui/startup/profile_launch_observer.cc
++++ b/chrome/browser/ui/startup/profile_launch_observer.cc
+@@ -73,8 +73,8 @@ void ProfileLaunchObserver::OnProfileWillBeDestroyed(Profile* profile) {
+ 
+ bool ProfileLaunchObserver::HasBeenLaunchedAndBrowserOpenInternal(
+     const Profile* profile) const {
+-  return opened_profiles_.contains(profile) &&
+-         launched_profiles_.contains(profile);
++  return opened_profiles_.contains(const_cast<Profile*>(profile)) &&
++         launched_profiles_.contains(const_cast<Profile*>(profile));
+ }
+ 
+ void ProfileLaunchObserver::AddLaunchedInternal(Profile* profile) {
