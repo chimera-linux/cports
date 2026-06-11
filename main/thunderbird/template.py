@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "150.0.2"
+pkgver = "151.0.1"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -58,7 +58,7 @@ pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
-sha256 = "87d03a64de92de565328c0ea7ab921101217da4188fbee3f444f91b76cac1e5c"
+sha256 = "cf3ced40f9b136163cde35d963f8348c3d095b15bb6016e96436a5cb6913d47d"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -89,6 +89,14 @@ if self.profile().arch == "riscv64":
 
 def post_extract(self):
     self.cp("^/stab.h", "toolkit/crashreporter/google-breakpad/src")
+    # broken sourcestamp.txt ??? fails configure
+    with (self.cwd / "sourcestamp.txt").open("a") as outf:
+        outf.write(
+            f"https://hg.mozilla.org/releases/comm-release/rev/THUNDERBIRD_{pkgver.replace('.', '_')}_RELEASE\n"
+        )
+        outf.write(
+            f"https://hg.mozilla.org/releases/mozilla-release/rev/FIREFOX_{pkgver.replace('.', '_')}_RELEASE\n"
+        )
 
 
 def post_patch(self):
