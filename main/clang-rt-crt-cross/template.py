@@ -1,6 +1,6 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.6"
-pkgver = "22.1.6"
+pkgver = "22.1.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -47,7 +47,7 @@ source = [
 ]
 source_paths = [".", "musl"]
 sha256 = [
-    "6e0b376a1f6d9873e7dfb09ae6e04b9c7024400f01733fa4c29be69d5c138bc2",
+    "5cc4a3f12bba50b6bdfb4b61bdc852117a0ff2517807c3902fc13267fb93562e",
     "d585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a",
 ]
 # crosstoolchain

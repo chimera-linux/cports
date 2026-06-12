@@ -1,10 +1,9 @@
 pkgname = "llvm"
-pkgver = "22.1.6"
-pkgrel = 1
+pkgver = "22.1.7"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DCMAKE_INSTALL_LIBEXECDIR=libexec",  # TODO switch libexec
     "-DENABLE_LINKER_BUILD_ID=ON",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON",
     # only build that target
@@ -54,7 +53,7 @@ pkgdesc = "Low Level Virtual Machine"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6e0b376a1f6d9873e7dfb09ae6e04b9c7024400f01733fa4c29be69d5c138bc2"
+sha256 = "5cc4a3f12bba50b6bdfb4b61bdc852117a0ff2517807c3902fc13267fb93562e"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -423,9 +422,9 @@ def _(self):
         "usr/bin/scan-*",
         "usr/lib/libear",
         "usr/lib/libscanbuild",
-        "usr/libexec/analyze-*",
-        "usr/libexec/*analyzer",
-        "usr/libexec/intercept-*",
+        "usr/lib/analyze-*",
+        "usr/lib/*analyzer",
+        "usr/lib/intercept-*",
         "usr/share/scan-*",
         "usr/share/man/man1/scan-build.1",
     ]
