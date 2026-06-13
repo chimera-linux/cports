@@ -1,8 +1,9 @@
 pkgname = "yazi"
 pkgver = "26.5.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--bins"]
+make_build_env = {"YAZI_GEN_COMPLETIONS": "true"}
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -23,6 +24,18 @@ if self.profile().wordsize == 32:
 def install(self):
     for binary in ["yazi", "ya"]:
         self.install_bin(f"./target/{self.profile().triplet}/release/{binary}")
+
+    with self.pushd("yazi-boot/completions"):
+        self.install_completion("yazi.bash", "bash")
+        self.install_completion("yazi.fish", "fish")
+        self.install_completion("_yazi", "zsh")
+        self.install_completion("yazi.nu", "nushell")
+
+    with self.pushd("yazi-cli/completions"):
+        self.install_completion("ya.bash", "bash", "ya")
+        self.install_completion("ya.fish", "fish", "ya")
+        self.install_completion("_ya", "zsh", "ya")
+        self.install_completion("ya.nu", "nushell", "ya")
 
     self.install_file("assets/logo.png", "usr/share/pixmaps", name="yazi.png")
     self.install_file("assets/yazi.desktop", "usr/share/applications")
