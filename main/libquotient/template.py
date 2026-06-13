@@ -1,6 +1,6 @@
 pkgname = "libquotient"
-pkgver = "0.9.3"
-pkgrel = 7
+pkgver = "0.9.6.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -22,7 +22,7 @@ pkgdesc = "Qt library for Matrix clients"
 license = "LGPL-2.1-or-later"
 url = "https://quotient-im.github.io/libQuotient"
 source = f"https://github.com/quotient-im/libQuotient/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "63b35061856edcd1dbc203fecd8730429f6d51103552d62aa6ef6f0f4bbfd6fb"
+sha256 = "ac0fe5df480fa893d3e16da626bf5028c944e9b41f504f6fe0fe49273247d636"
 
 
 def post_install(self):

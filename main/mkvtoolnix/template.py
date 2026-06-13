@@ -1,6 +1,6 @@
 pkgname = "mkvtoolnix"
-pkgver = "97.0"
-pkgrel = 2
+pkgver = "99.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
@@ -45,7 +45,7 @@ pkgdesc = "Tooling for editing and inspecting Matroska files"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download"
 source = f"{url}/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "5d43bf66e011ff5af09516a2dba2fb717b1631791a3a7498fcf74849a86929d3"
+sha256 = "bcd99b49b0d18f0d7321fbbe36bbc7d2456dbfe707ba6ac3ce3f9e6bfcacaed6"
 
 
 @subpackage("mkvtoolnix-gui")
