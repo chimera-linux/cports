@@ -1,5 +1,5 @@
 pkgname = "tig"
-pkgver = "2.6.0"
+pkgver = "2.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -11,7 +11,7 @@ pkgdesc = "Text-mode interface for git"
 license = "GPL-2.0-or-later"
 url = "https://github.com/jonas/tig"
 source = f"{url}/releases/download/tig-{pkgver}/tig-{pkgver}.tar.gz"
-sha256 = "99d4a0fdd3d93547ebacfe511195cb92e4f75b91644c06293c067f401addeb3e"
+sha256 = "5adeabdcd93aa0423d618da8b878b53482bef6e0e9e1fe224acc0f18031fe91e"
 # test suite tries to access /dev/tty which fails
 options = ["!check"]
 
