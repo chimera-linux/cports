@@ -1,6 +1,6 @@
 pkgname = "kdiskmark"
-pkgver = "3.2.0"
-pkgrel = 1
+pkgver = "3.3.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -14,5 +14,5 @@ pkgdesc = "Disk benchmark tool"
 license = "GPL-3.0-only"
 url = "https://github.com/JonMagon/KDiskMark"
 source = f"{url}/releases/download/{pkgver}/kdiskmark-{pkgver}-source.tar.gz"
-sha256 = "6f03206d0b57383fd9d37a49c45d4d644ccb3e4dd53c81dda9250787a4e9d57d"
+sha256 = "c42f302d707fc9f730b5ef2f8866132e967b9263358539a9429b1dbad7c646ef"
 hardening = ["vis"]
