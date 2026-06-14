@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
 pkgver = "11.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLauncher_BUILD_PLATFORM=chimeralinux",
@@ -16,7 +16,6 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
-    "cmark",  # cmake detection
     "cmark-devel",
     "gamemode-devel",
     "libarchive-devel",
