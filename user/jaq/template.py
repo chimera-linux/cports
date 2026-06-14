@@ -1,11 +1,11 @@
 pkgname = "jaq"
-pkgver = "3.0.0"
+pkgver = "3.1.0"
 pkgrel = 0
 build_style = "cargo"
 # disable the default mimalloc feature and just use the system allocator
 make_build_args = ["--no-default-features", "--bin", "jaq"]
 make_install_args = [*make_build_args]
-make_check_args = [*make_build_args]
+make_check_args = ["--no-default-features"]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "JSON data processing tool with jq compatible syntax"
@@ -17,7 +17,7 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "c56948c90d0c3566c8b33eedd9fa61587ffbb2feef7d78172955876d6e10a315",
+    "8ad074d7e90e07ad7e77048dcf0d0e7ad434b8e3e38044260b9457d4551e644d",
     "01c39aa68e2086d3dfe88031984f25cd1eb6d3f146b371f55c7c4e9ba2dbfa77",
 ]
 
