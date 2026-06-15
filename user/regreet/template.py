@@ -1,5 +1,5 @@
 pkgname = "regreet"
-pkgver = "0.3.0"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -18,7 +18,7 @@ pkgdesc = "Clean and customizable greeter for greetd"
 license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0d8855b98c868f89f62ed1ce0eff2e34c5eba903040fcf8acd96e6b18ab69dc6"
+sha256 = "dd11f6dc82a929ac51a51750b3268028fe5aa46e5fe1d1cbd11b43ad57b3006a"
 
 
 def post_install(self):
