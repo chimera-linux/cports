@@ -1,6 +1,6 @@
 pkgname = "gitui"
-pkgver = "0.27.0"
-pkgrel = 1
+pkgver = "0.28.1"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 make_build_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Terminal ui for git"
 license = "MIT"
 url = "https://github.com/extrawurst/gitui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "55a85f4a3ce97712b618575aa80f3c15ea4004d554e8899669910d7fb4ff6e4b"
+sha256 = "0400cbf59605490b5fb8779f9af41fa4d7a1bb748093ca0e13156a5dff31c7aa"
 env = {"GITUI_RELEASE": "1"}
 
 if self.profile().wordsize == 32:
