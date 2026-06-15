@@ -1,10 +1,9 @@
 pkgname = "rspamd"
-pkgver = "3.14.3"
+pkgver = "4.1.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
-    "-DENABLE_FASTTEXT=ON",
     "-DENABLE_URI_INCLUDE=ON",
     "-DRSPAMD_GROUP=_rspamd",
     "-DRSPAMD_USER=_rspamd",
@@ -15,13 +14,11 @@ configure_args = [
     "-DHAVE_ATOMIC_BUILTINS_EXITCODE=0",
 ]
 make_build_args = ["--target", "all", "check"]
-# full tests have unknown failure
-make_check_args = ["-R", "rspamd-test-cxx"]
+make_check_target = "run-test"
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
     "dinit-chimera",
     "elfutils-devel",
-    "fasttext-devel",
     "fmt-devel",
     "glib-devel",
     "hiredis-devel",
@@ -41,7 +38,7 @@ pkgdesc = "Spam filtering system"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ac9123f38174f1909856f4d7c104b0cf600ee1ad51958b486dfde1275af7c01a"
+sha256 = "1e92b976aff69fe0b74c02819a2a26b5821e55f185b9acdb5ddc1c08bcbfde19"
 
 
 match self.profile().arch:
