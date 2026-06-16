@@ -1,5 +1,5 @@
 pkgname = "wluma"
-pkgver = "4.10.0"
+pkgver = "4.11.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Automatic brightness adjustment based on screen contents and ALS"
 license = "ISC"
 url = "https://github.com/maximbaz/wluma"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "98bad2ddea87eae15b81d32a452e19b638b9afea14361d67473c45226c6cf0ea"
+sha256 = "1b66145af53bbfc437e4314fe27f776cb73c5cb8c7893bf1c008b9a81532b710"
 
 
 def post_install(self):
