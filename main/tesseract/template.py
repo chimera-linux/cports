@@ -1,6 +1,6 @@
 pkgname = "tesseract"
 pkgver = "5.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # also install training tools
 make_build_args = ["training"]
@@ -58,4 +58,6 @@ def _(self):
 
 @subpackage("tesseract-devel")
 def _(self):
+    self.depends += ["curl-devel", "libarchive-devel"]
+
     return self.default_devel()

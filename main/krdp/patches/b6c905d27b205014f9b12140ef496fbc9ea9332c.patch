@@ -1,0 +1,22 @@
+From b6c905d27b205014f9b12140ef496fbc9ea9332c Mon Sep 17 00:00:00 2001
+From: Linuxuser Gd <hugegameartgd@gmail.com>
+Date: Thu, 14 May 2026 18:56:44 +0000
+Subject: [PATCH] Fix cast to `clk::system_clock::time_point` on Gentoo/Clang
+
+---
+ src/VideoStream.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/VideoStream.cpp b/src/VideoStream.cpp
+index c3bae1e..9e4f48c 100644
+--- a/src/VideoStream.cpp
++++ b/src/VideoStream.cpp
+@@ -651,7 +651,7 @@ void VideoStream::onFrameReceived(const PipeWireFrame &data)
+     frameData.size = data.dataFrame ? data.dataFrame->size : QSize(data.dmabuf ? data.dmabuf->width : 0, data.dmabuf ? data.dmabuf->height : 0);
+     frameData.damage = data.damage.value_or(QRegion(QRect(QPoint(0, 0), frameData.size)));
+     if (data.presentationTimestamp) {
+-        frameData.presentationTimeStamp = clk::system_clock::time_point(*data.presentationTimestamp);
++        frameData.presentationTimeStamp = clk::system_clock::time_point(clk::duration_cast<clk::microseconds>(*data.presentationTimestamp));
+     }
+ 
+     if (data.dataFrame) {

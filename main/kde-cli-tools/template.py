@@ -1,6 +1,6 @@
 pkgname = "kde-cli-tools"
-pkgver = "6.6.5"
-pkgrel = 1
+pkgver = "6.7.0"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: only test fails on initTestCase() 'fakeApplicationService' returned FALSE
 make_check_args = ["-E", "filetypestest"]
@@ -28,5 +28,5 @@ pkgdesc = "KDE command line tools to interact with Plasma"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kde-cli-tools"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-cli-tools-{pkgver}.tar.xz"
-sha256 = "17eca02cf3d50d266c85f444bfef3b7c1c07a59b2cdebf6ca24e6fd81b80d122"
+sha256 = "2720ff7efbf97bef469b02f54489f3d9b2a0b98c871aedb915acdbaf99f31998"
 hardening = ["vis"]

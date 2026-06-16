@@ -1,5 +1,5 @@
 pkgname = "plasma-thunderbolt"
-pkgver = "6.6.5"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 # fail to register on fakeserver for some reason
@@ -35,4 +35,4 @@ pkgdesc = "KDE integration for controlling Thunderbolt devices"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-thunderbolt"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-thunderbolt-{pkgver}.tar.xz"
-sha256 = "56e3a2833096279c3a9ec1dbb4b53a5fa4bc36b3569e3f7ec191f002f40bf71f"
+sha256 = "3dea68f756801c9547336ca41552672c3693091c29bbf8968ee01ff2928793a0"

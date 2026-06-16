@@ -1,12 +1,14 @@
 pkgname = "kdeplasma-addons"
-pkgver = "6.6.5"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: failed tz comparison / scientific notation number e uppercase
 make_check_args = ["-E", "(converterrunnertest|datetimerunnertest)"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
+    "cargo-auditable",
     "cmake",
+    "corrosion",
     "extra-cmake-modules",
     "gettext",
     "ninja",
@@ -39,6 +41,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtquick3d-devel",
+    "rust-std",
     "sonnet-devel",
 ]
 depends = ["kirigami-addons", "kitemmodels", "purpose", "qt6-qtquick3d"]
@@ -47,10 +50,16 @@ pkgdesc = "KDE Plasma addons"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
-sha256 = "48fdae7cfaa26042a59027fbe8df83789b172458bc2af0a23a015a04b8071af9"
+sha256 = "8b86b0b79b0af2da097d81dce099913d43574e08c4428a7925870692178b4298"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self, wrksrc="kdeds/kameleon/qmk/kameleon-qmk-helper").vendor()
 
 
 @subpackage("kdeplasma-addons-devel")

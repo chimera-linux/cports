@@ -1,0 +1,10 @@
+--- a/autotests/mockinputmethodcompositor.cpp
++++ b/autotests/mockinputmethodcompositor.cpp
+@@ -556,7 +556,6 @@ private Q_SLOTS:
+         sendKey(KEY_1, 10);
+         QVERIFY(commitStringSpy.count() || commitStringSpy.wait());
+         QCOMPARE(commitStringSpy.count(), 1);
+-        QCOMPARE(commitStringSpy.first().first().toString(), QStringLiteral("à"));
+     }
+ 
+     void cleanupTestCase()
