@@ -1,5 +1,5 @@
 pkgname = "ksmtp"
-pkgver = "26.04.1"
+pkgver = "26.04.2"
 pkgrel = 0
 build_style = "cmake"
 # needs networking
@@ -22,7 +22,7 @@ pkgdesc = "KDE SMTP library"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/kdepim/ksmtp/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksmtp-{pkgver}.tar.xz"
-sha256 = "81bf1e19757671b1b69cb7790b422fe4814bfb13fac7264059201b032454c1f1"
+sha256 = "2facacb2009588da2283695d9a351048d478920aeb9188c932164985fc7ef686"
 
 
 @subpackage("ksmtp-devel")

@@ -1,5 +1,5 @@
 pkgname = "libktorrent"
-pkgver = "26.04.1"
+pkgver = "26.04.2"
 pkgrel = 0
 build_style = "cmake"
 # flakes sometimes
@@ -29,7 +29,7 @@ pkgdesc = "KDE torrent library"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/libktorrent"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libktorrent-{pkgver}.tar.xz"
-sha256 = "2ab61b3da9bf784845c7b92da2d6d88e6422a1d87cbd639bbbce549188a20494"
+sha256 = "a6f5bac0083182e7e0d9a5034ff68b538afb6b0ee822d64980593e89ebc18e31"
 
 
 @subpackage("libktorrent-devel")
