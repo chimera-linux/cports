@@ -1,6 +1,6 @@
 pkgname = "okular"
 pkgver = "26.04.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME segfaults/weird failures
 make_check_args = [

@@ -1,6 +1,6 @@
 pkgname = "kconfig"
 pkgver = "6.26.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: kconfigtest can work with right env
 make_check_args = ["-E", "kconfigcore-(kconfigtest|test_kconf_update)"]

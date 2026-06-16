@@ -1,6 +1,6 @@
 pkgname = "itinerary"
 pkgver = "26.04.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # fails with no output
 # reservationonlinepostprocessortest needs network

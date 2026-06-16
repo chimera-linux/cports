@@ -1,6 +1,6 @@
 pkgname = "libqtxdg"
 pkgver = "4.2.0"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

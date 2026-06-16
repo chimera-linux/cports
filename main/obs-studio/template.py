@@ -1,6 +1,6 @@
 pkgname = "obs-studio"
 pkgver = "32.0.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_COMPILE_WARNING_AS_ERROR=OFF",

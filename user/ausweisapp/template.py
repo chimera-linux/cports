@@ -1,6 +1,6 @@
 pkgname = "ausweisapp"
 pkgver = "2.4.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 # Enum in qmltypes is not scoped
 make_check_args = ["-E", "(qmllint|qmltypes)"]

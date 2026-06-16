@@ -1,6 +1,6 @@
 pkgname = "spectacle"
 pkgver = "6.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
