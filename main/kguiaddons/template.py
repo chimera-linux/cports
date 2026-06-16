@@ -1,6 +1,6 @@
 pkgname = "kguiaddons"
-pkgver = "6.26.0"
-pkgrel = 1
+pkgver = "6.27.0"
+pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
@@ -17,7 +17,7 @@ pkgdesc = "KDE addons to QtGui"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kguiaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kguiaddons-{pkgver}.tar.xz"
-sha256 = "8375342f852104f36fd72a6870eb9795183af4516592cd6fa73445ea6b813172"
+sha256 = "29b043480c45d3e51c57cac74fd83589cc7729c907a6585b72880cbf07feaf82"
 hardening = ["vis"]
 
 

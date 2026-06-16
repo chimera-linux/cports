@@ -1,6 +1,6 @@
 pkgname = "kcoreaddons"
-pkgver = "6.26.0"
-pkgrel = 1
+pkgver = "6.27.0"
+pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
@@ -17,7 +17,7 @@ pkgdesc = "Qt6 addon library with a collection of non-GUI utilities"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kcoreaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcoreaddons-{pkgver}.tar.xz"
-sha256 = "92fdbfab68e52d9eacf44a992f01cb364d6395c24441e2fd47dd48a23b3281f6"
+sha256 = "ad0d0147968dabdcf011425cf7764e71a0d0cfdc30e9e34b561ea5ba9a768001"
 hardening = ["vis"]
 
 
