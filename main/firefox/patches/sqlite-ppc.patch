@@ -27,7 +27,7 @@ index dd3b5c5757..73398934f0 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 @@ -35670,7 +35670,7 @@ SQLITE_PRIVATE int sqlite3VListNameToNum(VList *pIn, const char *zName, int nNam
-      return (sqlite_uint64)hi << 32 | lo;
+      return cnt;
    }
  
 -#elif !defined(__STRICT_ANSI__) && (defined(__GNUC__) && defined(__ppc__))

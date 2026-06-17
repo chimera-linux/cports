@@ -4,7 +4,7 @@ break. We work around it by simply not wrap features.h
 --- a/config/system-headers.mozbuild
 +++ b/config/system-headers.mozbuild
 @@ -225,7 +225,6 @@
-     "execinfo.h",
+     "exe386.h",
      "extras.h",
      "fcntl.h",
 -    "features.h",
