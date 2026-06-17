@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.15.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -15,7 +15,7 @@ configure_args = [
     "-Dmpd=enabled",
     "-Dmpris=enabled",
     "-Dpipewire=enabled",
-    "-Dpulseaudio=disabled",
+    "-Dpulseaudio=enabled",
     "-Drfkill=enabled",
     "-Dsndio=disabled",
     "-Dsystemd=disabled",
@@ -33,6 +33,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "catch2-devel",
+    "date-devel",
     "dinit-chimera",
     "dinit-dbus",
     "fmt-devel",
@@ -45,6 +46,7 @@ makedepends = [
     "libinput-devel",
     "libmpdclient-devel",
     "libnl-devel",
+    "libpulse-devel",
     "libsigc++2-devel",
     "libxkbcommon-devel",
     "pipewire-devel",
@@ -56,7 +58,6 @@ makedepends = [
     "wayland-devel",
     "wireplumber-devel",
 ]
-depends = ["dinit-dbus"]
 pkgdesc = "Wayland bar for Sway and wlroots-based compositors"
 license = "MIT"
 url = "https://github.com/Alexays/Waybar"
