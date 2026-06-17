@@ -1,5 +1,5 @@
 pkgname = "typst"
-pkgver = "0.14.2"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "typst-cli"]
@@ -14,7 +14,7 @@ pkgdesc = "Markup-based typesetting system"
 license = "Apache-2.0"
 url = "https://typst.app"
 source = f"https://github.com/typst/typst/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "70a56445020ca05efc571c7b07a1a9f52eb93842d420518693c077ae74e54142"
+sha256 = "5044bd12138491c6e880df0e09056a9ae4607d937c73962d5806402ae6ee96a6"
 # takes forever
 options = ["!check"]
 
