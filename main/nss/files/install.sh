@@ -43,8 +43,6 @@ for f in libsoftokn3.so libfreebl3.so libfreeblpriv3.so libnss3.so libnssutil3.s
     install -m755 dist/*.OBJ/lib/${f} ${DESTDIR}/usr/lib
 done
 
-install -m644 dist/*.OBJ/lib/libcrmf.a ${DESTDIR}/usr/lib
-
 for f in certutil cmsutil crlutil modutil pk12util shlibsign \
     signtool signver ssltap; do
     install -m755 dist/*.OBJ/bin/${f} ${DESTDIR}/usr/bin
