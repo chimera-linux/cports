@@ -10,6 +10,9 @@ url = "https://github.com/EmmyLuaLs/emmylua-analyzer-rust"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "6c4d380dd34ee3600684f4bfd35d7fd98d2c77334a3b4a6ad46ea5af106f667b"
 
+if self.profile().wordsize == 32:
+    broken = "uses atomic64"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/emmylua_ls")
