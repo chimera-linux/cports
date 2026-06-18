@@ -1,0 +1,14 @@
+diff --git a/js/src/jit/riscv64/constant/Base-constant-riscv.cpp b/js/src/jit/riscv64/constant/Base-constant-riscv.cpp
+index b25ce17..f4a1afe 100644
+--- a/js/src/jit/riscv64/constant/Base-constant-riscv.cpp
++++ b/js/src/jit/riscv64/constant/Base-constant-riscv.cpp
+@@ -13,7 +13,9 @@
+ #include "jit/riscv64/constant/Constant-riscv-v.h"
+ #include "jit/riscv64/constant/Constant-riscv-zicsr.h"
+ #include "jit/riscv64/constant/Constant-riscv-zifencei.h"
++#ifdef JS_SIMULATOR_RISCV64
+ #include "jit/riscv64/Simulator-riscv64.h"
++#endif
+ namespace js {
+ namespace jit {
+ 
