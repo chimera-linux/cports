@@ -38,8 +38,6 @@ match self.profile().arch:
         configure_args += ["--enable-mach=tarm32le"]
     case "loongarch64":
         configure_args += ["--enable-mach=tla64le"]
-    case "ppc":
-        configure_args += ["--enable-mach=tppc32le"]
     case "riscv64":
         configure_args += ["--enable-mach=trv64le"]
     case "x86_64":
