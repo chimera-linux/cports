@@ -39,7 +39,8 @@ license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 
 url = "https://rspamd.com"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "1e92b976aff69fe0b74c02819a2a26b5821e55f185b9acdb5ddc1c08bcbfde19"
-
+# check may be disabled
+options = []
 
 match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":
@@ -48,6 +49,8 @@ match self.profile().arch:
     case _:
         configure_args += ["-DENABLE_LUAJIT=OFF"]
         makedepends += ["lua5.4-devel"]
+        # needs cffi-lua
+        options += ["!check"]
 
 
 def post_patch(self):
