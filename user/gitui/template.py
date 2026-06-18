@@ -2,7 +2,6 @@ pkgname = "gitui"
 pkgver = "0.28.1"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features=ghemoji,regex-onig,vendor-openssl",
@@ -25,6 +24,12 @@ env = {"GITUI_RELEASE": "1"}
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "libc-0.2.180")
 
 
 def post_install(self):
