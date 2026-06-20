@@ -1,5 +1,5 @@
 pkgname = "wayvnc"
-pkgver = "0.9.1"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
@@ -17,7 +17,7 @@ pkgdesc = "VNC server for wlroots-based Wayland compositors"
 license = "ISC"
 url = "https://github.com/any1/wayvnc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "aaaca02d36e54ec6ecf457dc266251946d895ac91521fbabb3470c3c09b3753c"
+sha256 = "1dcb54f58d1637995bfb59c17709efca7833bae41f31b33eb47e608668a89d66"
 hardening = ["vis", "cfi"]
 
 
