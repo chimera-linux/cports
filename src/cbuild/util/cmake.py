@@ -21,8 +21,7 @@ def configure(
 
     if pkg.stage == 0:
         with open(pkg.cwd / build_dir / "bootstrap.cmake", "w") as infile:
-            infile.write(
-                f"""
+            infile.write(f"""
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
@@ -33,8 +32,7 @@ SET(CMAKE_FIND_ROOT_PATH  "{paths.bldroot() / "usr"};{paths.bldroot()}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-"""
-            )
+""")
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
     elif pkg.profile().cross and cross_build is not False:
         # map known profiles to cmake arch
@@ -57,8 +55,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         sroot = pkg.profile().sysroot
 
         with open(pkg.cwd / build_dir / "cross.cmake", "w") as infile:
-            infile.write(
-                f"""
+            infile.write(f"""
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
@@ -77,8 +74,7 @@ SET(CMAKE_FIND_ROOT_PATH  "{sroot / "usr"};{sroot}")
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-"""
-            )
+""")
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=cross.cmake")
 
     # this is necessary for lto to work correctly

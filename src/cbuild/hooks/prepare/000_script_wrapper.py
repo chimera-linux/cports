@@ -32,15 +32,13 @@ def _wrap_cross_pkgconf(pkg):
     sroot = str(pkg.profile().sysroot)
 
     with open(wfile, "w") as outf:
-        outf.write(
-            f"""#!/bin/sh
+        outf.write(f"""#!/bin/sh
 
 export PKG_CONFIG_SYSROOT_DIR="{sroot}"
 export PKG_CONFIG_PATH="{sroot}/usr/lib/pkgconfig:{sroot}/usr/share/pkgconfig${{PKG_CONFIG_PATH:+:${{PKG_CONFIG_PATH}}}}"
 export PKG_CONFIG_LIBDIR="{sroot}/usr/lib/pkgconfig${{PKG_CONFIG_LIBDIR:+:${{PKG_CONFIG_LIBDIR}}}}"
 exec /usr/bin/pkg-config "$@"
-"""
-        )
+""")
 
     wfile.chmod(0o755)
 

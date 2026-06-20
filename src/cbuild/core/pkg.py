@@ -2,7 +2,6 @@ import os
 import shutil
 import stat
 
-
 pkg_stack = []
 pkg_failed = None
 
