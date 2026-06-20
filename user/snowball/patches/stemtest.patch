@@ -1,0 +1,12 @@
+diff -Nurp a/tests/stemtest.c b/tests/stemtest.c
+--- a/tests/stemtest.c	2026-06-03 00:22:25.000000000 +0000
++++ b/tests/stemtest.c	2026-06-20 12:52:05.722964278 +0000
+@@ -50,8 +50,6 @@ static const struct testcase {
+       "a" EMOJI_FACE_THROWING_A_KISS "ing",
+       "a" EMOJI_FACE_THROWING_A_KISS "e" },
+     { "en", 0, U_40079 "wing", 0 },
+-      "a" EMOJI_FACE_THROWING_A_KISS "e" },
+-    { "en", 0, U_40079 "wing", 0 },
+ 
+     // The Persian stemmer removes ASCII space inside a word.  It shouldn't
+     // appear there if our tokenisation recommendations are followed, and
