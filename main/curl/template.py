@@ -27,6 +27,11 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf", "perl", "mandoc", "slibtool"]
 makedepends = [
     "c-ares-devel",
+    # we have that here because ngtcp2-devel depends on pc:gnutls
+    # which will in final-cycle builds pull in the non-bootstrap
+    # gnutls, which pulls in brotli through its dependencies; this
+    # creates a silently cyclic build and we never had brotli in
+    # curl before so satisfy ngtcp2 with bootstrap package
     "gnutls-bootstrap",
     "libidn2-devel",
     "libpsl-devel",
