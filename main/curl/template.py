@@ -25,8 +25,9 @@ configure_args = [
     "ac_cv_sizeof_off_t=8",
 ]
 hostmakedepends = ["automake", "pkgconf", "perl", "mandoc", "slibtool"]
-_devel_depends = [
+makedepends = [
     "c-ares-devel",
+    "gnutls-bootstrap",
     "libidn2-devel",
     "libpsl-devel",
     "libssh2-devel",
@@ -37,9 +38,6 @@ _devel_depends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-# we *do not* want gnutls-bootstrap in curl-devel's runtime deps!
-# gnutls is not even a real .pc dependency in the first place
-makedepends = ["gnutls-bootstrap", *_devel_depends]
 checkdepends = [
     "nghttp2-progs",
     # FIXME: probably caused by weird config shenanigans
@@ -91,7 +89,6 @@ def _(self):
 
 @subpackage("curl-devel")
 def _(self):
-    self.depends += _devel_depends
     self.pkgdesc = "Multiprotocol file transfer library"
     self.renames = ["libcurl-devel"]
 
