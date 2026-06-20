@@ -7,6 +7,6 @@ dumb gnulib test that fails on ppc
  main (void)
  {
 +  return 0;
-   int i, j, k;
    struct timespec test[nprototypes + 1];
    int ntests;
+   int computed_hz = 1;
