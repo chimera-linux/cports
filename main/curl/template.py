@@ -26,8 +26,8 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "pkgconf", "perl", "mandoc", "slibtool"]
 makedepends = [
-    "brotli-devel",
     "c-ares-devel",
+    "gnutls-bootstrap",
     "libidn2-devel",
     "libpsl-devel",
     "libssh2-devel",
