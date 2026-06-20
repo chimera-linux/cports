@@ -1,6 +1,6 @@
 pkgname = "neatvnc"
-pkgver = "0.9.5"
-pkgrel = 1
+pkgver = "1.0.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "VNC server library"
 license = "ISC"
 url = "https://github.com/any1/neatvnc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8150a30bfbd350b046680650b52afcce5ae44d328cb396fb571c6f9b99811357"
+sha256 = "993dedc30e72981650770c04438e9759537e4677010e2dab5e792c39afe74601"
 
 
 def post_install(self):
