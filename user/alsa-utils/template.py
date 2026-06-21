@@ -1,5 +1,5 @@
 pkgname = "alsa-utils"
-pkgver = "1.2.14"
+pkgver = "1.2.16"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-udev-rules-dir=no"]
@@ -16,4 +16,4 @@ pkgdesc = "ALSA utilities"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/utils/alsa-utils-{pkgver}.tar.bz2"
-sha256 = "0794c74d33fed943e7c50609c13089e409312b6c403d6ae8984fc429c0960741"
+sha256 = "092399d5e8749a1d5e188e393157521cec4b75693b60ebb79bbce728cff2232c"
