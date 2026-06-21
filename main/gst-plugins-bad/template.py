@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-bad"
-pkgver = "1.28.2"
+pkgver = "1.28.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -152,7 +152,7 @@ pkgdesc = "GStreamer bad plugins"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-bad/gst-plugins-bad-{pkgver}.tar.xz"
-sha256 = "6467e3964828f4d7d08bfe1fbb4d76287a1c8fa76674e59e101a149c020fefd7"
+sha256 = "332b7320f30c60f2d5941446d03b9d05e3781f2c2561befbe88718bd777f0e47"
 # FIXME int
 hardening = ["!int"]
 # TODO: a few fails, debug later
