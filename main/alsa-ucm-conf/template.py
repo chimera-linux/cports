@@ -1,11 +1,11 @@
 pkgname = "alsa-ucm-conf"
-pkgver = "1.2.16"
+pkgver = "1.2.16.1"
 pkgrel = 0
 pkgdesc = "ALSA Use Case Manager topology files"
 license = "BSD-3-Clause"
 url = "https://github.com/alsa-project/alsa-ucm-conf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "43ad2f390c760f6a0f2c0b7547175c780d6572ea77a08dd90855861279a74db6"
+sha256 = "cbfa3c34add2b22375536362a42a36b1488c1ee82503117730d62524ff653aa0"
 
 
 def install(self):
