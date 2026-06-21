@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/wlsunset
+smooth-recovery = true
+log-type = buffer
+depends-on: graphical.target
