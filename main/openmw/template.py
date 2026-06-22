@@ -1,6 +1,6 @@
 pkgname = "openmw"
-pkgver = "0.50.0"
-pkgrel = 4
+pkgver = "0.51.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -52,7 +52,7 @@ source_paths = [
     "build/extern/fetched/bullet",
 ]
 sha256 = [
-    "7093a8cef26585220658569eb84636c5ab901e82f74c8a3f7a3a8aec35bfc54c",
+    "7a65e63a5687ff0d51f319ebd529a9e93770fed3cc5408201de4588d1140f144",
     "7d7fc38c9a52dbda0ba1dab70d1ed59da1178ab1c4fa209cdb7cc2dcfce8e4ea",
     "baa642c906576d4d98d041d0acb80d85dd6eff6e3c16a009b1abf1ccd2bc0a61",
 ]
