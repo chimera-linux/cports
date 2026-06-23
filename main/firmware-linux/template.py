@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20260519"
+pkgver = "20260622"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -9,7 +9,7 @@ url = "https://www.kernel.org"
 # stuck and eventually generates 502
 # source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
-sha256 = "44f23e9f256938946490ef275320640cd4a3dcba0de61096974acce7ab531eb7"
+sha256 = "39dafafe787291de0010b58ae5828bc631a8f34a5d8f78c26730ff5e37fa5ff5"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -67,7 +67,6 @@ _pkgs = [
             "ctspeq.bin*",
         ],
     ),
-    ("cassini", "Sun Cassini Ethernet", None, "network", ["sun/cassini*"]),
     (
         "cnn55xx",
         "Cavium CNN55XX crypto accelerator",
@@ -97,14 +96,12 @@ _pkgs = [
             "dvb-*.fw*",
             "v4l-cx*.fw*",
             "tlg2300*",
-            "ttusb-budget",
         ],
     ),
     ("e100", "Intel PRO/100 Ethernet", None, "network", ["e100"]),
     ("edgeport", "Edgeport USB Serial Converter", None, "misc", ["edgeport"]),
-    ("emi", "Emagic EMI audo interfaces", None, "misc", ["emi26", "emi62"]),
+    ("emi", "Emagic EMI audo interfaces", None, "misc", ["emi26"]),
     ("ene-ub6250", "ENE UB6250 SD card reader", None, "misc", ["ene-ub6250"]),
-    ("ess", "ESS audio controllers", None, "audio", ["ess"]),
     ("go7007", "WIS GO7007 MPEG encoder", None, "misc", ["go7007"]),
     ("hermes", "Orinoco Hermes WLAN", None, "network", ["agere*"]),
     ("hfi1", "Intel OPA hfi1", _arch_x86, "network", ["hfi1_*.fw*"]),
@@ -203,8 +200,6 @@ _pkgs = [
     ("ixp4xx", "IXP4xx", None, "network", ["ixp4xx"]),
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
-    ("korg", "Korg audio interfaces", None, "audio", ["korg"]),
-    ("lgs8g75", "Legend Silicon LGS8GXX", None, "misc", ["lgs8g75.fw*"]),
     ("liquidio", "Cavium LiquidIO NICs", None, "network", ["liquidio"]),
     (
         "lt9611uxc",
@@ -271,7 +266,7 @@ _pkgs = [
         "Myricom Ethernet NICs",
         None,
         "network",
-        ["myri10ge*", "myricom"],
+        ["myri10ge*"],
     ),
     ("nfp", "Netronome Flow Processor", None, None, ["netronome"]),
     ("nxp-uwb", "NXP UWB firmware", None, "network", ["nxp/sr150_fw.bin*"]),
@@ -287,6 +282,7 @@ _pkgs = [
             "nxp/uartuart*",
         ],
     ),
+    ("nxp-wifi", "NXP WiFi firmware", None, "network", ["nxp/sd_w*"]),
     (
         "nvidia-gsp",
         "Nvidia GSP",
@@ -388,12 +384,13 @@ _pkgs = [
             "TAS2*",
             "TIAS2*",
             "TXNW*",
+            "tas25*",
             "ti/audio/tas*",
             "ti/pcm6240",
             "*-*-0x*.bin*",
         ],
     ),
-    ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
+    ("tigon", "Tigon I/II/III Ethernet", None, "network", ["tigon"]),
     (
         "tsse",
         "Mont-TSSE crypto algorithm accelerator",
@@ -403,7 +400,6 @@ _pkgs = [
     ),
     ("typhoon", "3Com Typhoon Ethernet", None, "network", ["3com"]),
     ("ueagle-atm", "Eagle USB modems", None, "network", ["ueagle-atm"]),
-    ("vicam", "ViCam USB camera", None, "misc", ["vicam"]),
     ("vntwusb", "Via VNT6656 USB WLAN", None, "network", ["vntwusb.fw*"]),
     (
         "vsc85xx",
@@ -441,13 +437,11 @@ def install(self):
     )
 
     self.install_license("WHENCE")
+    self.install_license("LICENSE")
 
-    for lc in self.cwd.glob("LICEN*"):
+    for lc in (self.cwd / "LICENSES").glob("LICEN*"):
         self.install_license(lc)
 
-
-# remove unused junk
-def post_install(self):
     # deprecated driver
     self.uninstall("usr/lib/firmware/av7110")
     # pcmcia stuff unlikely to ever be used
@@ -473,7 +467,6 @@ def post_install(self):
     self.uninstall("usr/lib/firmware/usbdux_firmware.bin*", glob=True)
     self.uninstall("usr/lib/firmware/usbduxfast_firmware.bin*", glob=True)
     self.uninstall("usr/lib/firmware/usbduxsigma_firmware.bin*", glob=True)
-    self.uninstall("usr/lib/firmware/yam")
 
     # fix up nvidia gsp firmware links to allow take() to function correctly
     def _fixup_gsp(f):
