@@ -1,5 +1,5 @@
 pkgname = "powerdevil"
-pkgver = "6.7.0"
+pkgver = "6.7.1"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
@@ -58,7 +58,7 @@ pkgdesc = "KDE Plasma shell power consumption settings manager"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"
-sha256 = "7635efffd503e78d92bcc03033d5681e51577ec92bc6da72f2ab2828bb0a34db"
+sha256 = "fa82624127f95267f69467610a57c3cba562fa0673052b2ff7f9db7f053d9e5a"
 file_modes = {
     "usr/lib/org_kde_powerdevil": ("root", "root", 0o755),
 }

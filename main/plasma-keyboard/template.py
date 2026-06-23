@@ -1,5 +1,5 @@
 pkgname = "plasma-keyboard"
-pkgver = "6.7.0"
+pkgver = "6.7.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -26,4 +26,4 @@ pkgdesc = "Plasma on-screen keyboard"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-keyboard"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-keyboard-{pkgver}.tar.xz"
-sha256 = "831195f308d0811b8d78b4c845815dca1648bb3fec83c9ec637d1be25b53ab74"
+sha256 = "acf36a8d36150c6a0ecee2eeb0f70c4f1226cae3fedf47f38e06d765b6388047"

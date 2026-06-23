@@ -1,5 +1,5 @@
 pkgname = "bluedevil"
-pkgver = "6.7.0"
+pkgver = "6.7.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,7 +29,7 @@ pkgdesc = "KDE Plasma Bluetooth integration"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/bluedevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/bluedevil-{pkgver}.tar.xz"
-sha256 = "3fdab4a724ba246a10f2637076ca5332788fff5c3c6193ccf34eb031e8973e9d"
+sha256 = "1d1e9aa36705055b6b1e53223b6077757cbba2425e62693c1e312d494ff8acfb"
 hardening = ["vis"]
 # needs the kcm installed
 options = ["!check"]

@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.7.0"
+pkgver = "6.7.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -16,6 +16,19 @@ make_check_args = [
     + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
     + "|kwin-testPointerInput"  # flaky segfaults of testEdgeBarrier subtests on loongarch64
     + "|kwin-testDnd"  # tabletDrag fails
+    + "|kwin-testGameController"  # no uinput
+    + "|kwin-testSceneOpenGL"  # no render node
+    + "|kwin-testSceneOpenGLES"  # ditto
+    + "|kwin-testDontCrashReinitializeCompositor"  # ditto
+    + "|kwin-testDontCrashEmptyDeco"  # ditto
+    + "|kwin-testDontCrashAuroraeDestroyDeco"  # ditto
+    + "|kwin-testScreencasting"  # ditto
+    + "|kwin-testSlidingPopups"  # ditto
+    + "|kwin-testScriptedEffects"  # ditto
+    + "|kwin-testToplevelOpenCloseAnimation"  # ditto
+    + "|kwin-testDesktopSwitchingAnimation"  # ditto
+    + "|kwin-testMinimizeAnimation"  # ditto
+    + "|kwin-testMaximizeAnimation"  # ditto
     + "|^kwayland-testServerSideDecoration$"  # Tried to add event to destroyed queue
     + "|^kwayland-testDataControlInterface$"  # An issue with ext_data_control_offer_v1 metatype?
     + "|^kwin-testLockScreen$"  # broken since 296b791614 (v6.5.0)
@@ -94,7 +107,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "d20b798094a9f58e57de55eca3d58b1cdcb7db2939eb8bf73918c4fab6d9aec5"
+sha256 = "352bfb34efad1435071960ef4cd392b110a18e1c168d1fdc5cce6b43331d0875"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }
