@@ -1,6 +1,7 @@
---- a/Makefile
-+++ b/Makefile
-@@ -99,8 +99,7 @@
+diff --color=auto -urN a/Makefile b/Makefile
+--- a/Makefile	2026-05-03 15:29:57.000000000 +0100
++++ b/Makefile	2026-06-23 22:28:44.954840993 +0100
+@@ -114,8 +114,7 @@
  
  MANFILES8 = \
  	tlp.8 \
@@ -10,20 +11,15 @@
  
  MANFILESRDW8 = \
  	tlp-rdw.8
-@@ -187,7 +187,6 @@
- endif
- ifneq ($(TLP_NO_ZSHCOMP),1)
- 	install -D -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
--	install -D -m 644 completion/zsh/_tlp-radio-device $(_ZSHCPL)/_tlp-radio-device
- 	install -D -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
- 	install -D -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
- endif
-@@ -219,7 +229,7 @@
+@@ -290,9 +289,9 @@
  	install -d -m 755 $(_MAN)/man8
- 	cd man-rdw && install -m 644 $(MANFILESRDW8) $(_MAN)/man8/
+ 	cd man-pd && install -m 644 $(MANFILESPD8) $(_MAN)/man8/
  
--install: install-tlp install-rdw
-+install: install-tlp install-rdw install-man
+-install: install-tlp install-rdw install-pd
++install: install-tlp install-rdw
  
- install-man: install-man-tlp install-man-rdw
+-install-man: install-man-tlp install-man-rdw install-man-pd
++install-man: install-man-tlp install-man-rdw
  
+ uninstall-tlp:
+ 	# Package tlp
