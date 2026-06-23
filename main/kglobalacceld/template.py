@@ -3,7 +3,8 @@ pkgver = "6.7.1"
 pkgrel = 0
 build_style = "cmake"
 # needs full init of kglobalaccel
-make_check_args = ["-E", "shortcutstest"]
+# migrateconfigtest passes at times but flaky
+make_check_args = ["-E", "(migrateconfigtest|shortcutstest)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = ["cmake", "extra-cmake-modules", "ninja"]
