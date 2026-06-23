@@ -1,6 +1,8 @@
+diff --git a/Makefile b/Makefile
+index fd1844d..e2c0f44 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -99,8 +99,7 @@
+@@ -116,8 +116,7 @@ MANFILES1 = \
  
  MANFILES8 = \
  	tlp.8 \
@@ -10,20 +12,15 @@
  
  MANFILESRDW8 = \
  	tlp-rdw.8
-@@ -187,7 +187,6 @@
- endif
- ifneq ($(TLP_NO_ZSHCOMP),1)
- 	install -D -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
--	install -D -m 644 completion/zsh/_tlp-radio-device $(_ZSHCPL)/_tlp-radio-device
- 	install -D -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
- 	install -D -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
- endif
-@@ -219,7 +229,7 @@
+@@ -298,9 +297,9 @@ install-man-pd:
  	install -d -m 755 $(_MAN)/man8
- 	cd man-rdw && install -m 644 $(MANFILESRDW8) $(_MAN)/man8/
+ 	cd man-pd && install -m 644 $(MANFILESPD8) $(_MAN)/man8/
  
--install: install-tlp install-rdw
-+install: install-tlp install-rdw install-man
+-install: install-tlp install-rdw install-pd
++install: install-tlp install-rdw
  
- install-man: install-man-tlp install-man-rdw
+-install-man: install-man-tlp install-man-rdw install-man-pd
++install-man: install-man-tlp install-man-rdw
  
+ uninstall-tlp:
+ 	# Package tlp
