@@ -1,9 +1,8 @@
 pkgname = "curl"
 pkgver = "8.20.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-optimize",
     "--enable-ares",
     "--enable-httpsrr",
     "--enable-ipv6",
