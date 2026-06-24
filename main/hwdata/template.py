@@ -1,5 +1,5 @@
 pkgname = "hwdata"
-pkgver = "0.400"
+pkgver = "0.408"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Hardware identification databases"
 license = "GPL-2.0-or-later"
 url = "https://github.com/vcrhonek/hwdata"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "05d96821aaae04be4e684eaf9ac22e08efe646321bc64be323b91b66e7e2095c"
+sha256 = "ac7c34efc5941d5cbf739a8f7f6c84b1c2edea493fd3fca10906ef64d7afd690"
 # cycle with pciutils, etc.
 options = ["!check", "empty"]
 
