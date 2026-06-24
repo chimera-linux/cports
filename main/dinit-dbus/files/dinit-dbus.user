@@ -2,5 +2,5 @@ type = process
 command = /usr/bin/dinit-dbus
 ready-notification = pipevar:DINIT_DBUS_READY_FD
 log-type = buffer
-options = pass-cs-fd
-depends-on = dbus-daemon
+depends-on: dbus-daemon
+options: pass-cs-fd

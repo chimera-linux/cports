@@ -1,7 +1,7 @@
 pkgname = "dinit-dbus"
-pkgver = "0_git20250206"
+pkgver = "0_git20260624"
 pkgrel = 0
-_gitrev = "95e6e66a504e822e64cf80a59d04eaa44b669f57"
+_gitrev = "5662aa890b08e7daec58942fdaae5b105cb881af"
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["dinit-chimera", "dbus-devel", "libdinitctl-devel"]
@@ -12,7 +12,7 @@ pkgdesc = "DBus interface to dinit"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-dbus"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "095aaa0da632f2bc1f3b0c2d3a21e4e9e5b3728149b6d31629107c7215d0213c"
+sha256 = "c6dc3dfa504326867481c38b09fb78353431e9467180646217161cbe0a9f6df3"
 
 
 def post_install(self):
