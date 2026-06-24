@@ -9,19 +9,19 @@ This lets us drop the whole "must be owned by a group"
 nonsense we had to deal with previously.
 
 diff --git a/dumpcap.c b/dumpcap.c
-index 6ad2a25..3fc166e 100644
+index 1c46aa2..959aa5d 100644
 --- a/dumpcap.c
 +++ b/dumpcap.c
-@@ -32,6 +32,8 @@
+@@ -27,6 +27,8 @@
  
  #include <signal.h>
  #include <errno.h>
 +#include <grp.h>
 +#include <err.h>
  
+ #include <wsutil/application_flavor.h>
  #include <wsutil/array.h>
- #include <wsutil/cmdarg_err.h>
-@@ -1202,6 +1204,73 @@ exit_main(int status)
+@@ -1198,6 +1200,79 @@ exit_main(void)
  }
  
  #ifdef HAVE_LIBCAP
@@ -37,7 +37,8 @@ index 6ad2a25..3fc166e 100644
 +    if (cap_get_flag(caps, CAP_NET_ADMIN, CAP_PERMITTED, &value) != 0) {
 +        warn("could not get CAP_NET_ADMIN value");
 +        cap_free(caps);
-+        exit_main(1);
++        exit_main();
++        exit(1);
 +    }
 +
 +    cap_free(caps);
@@ -52,7 +53,8 @@ index 6ad2a25..3fc166e 100644
 +    struct group *gr = getgrnam("_wireshark");
 +    if (!gr) {
 +        warn("could not get wireshark group");
-+        exit_main(1);
++        exit_main();
++        exit(1);
 +    }
 +
 +    /* primary group */
@@ -63,7 +65,8 @@ index 6ad2a25..3fc166e 100644
 +    int ngrp = getgroups(32, gbuf);
 +    if (ngrp < 0) {
 +        warn("could not get supplementary groups");
-+        exit_main(1);
++        exit_main();
++        exit(1);
 +    }
 +
 +    gid_t *glist = gbuf;
@@ -71,12 +74,14 @@ index 6ad2a25..3fc166e 100644
 +        glist = malloc(ngrp * sizeof(glist));
 +        if (!glist) {
 +            warn("out of memory");
-+            exit_main(1);
++            exit_main();
++            exit(1);
 +        }
 +        if (getgroups(ngrp, glist) < 0) {
 +            free(glist);
 +            warn("could not get supplementary groups");
-+            exit_main(1);
++            exit_main();
++            exit(1);
 +        }
 +    }
 +
@@ -89,13 +94,14 @@ index 6ad2a25..3fc166e 100644
 +
 +    if (glist != gbuf) free(glist);
 +    warnx("you are not allowed to call this");
-+    exit_main(1);
++    exit_main();
++    exit(1);
 +}
 +
  /*
   * If we were linked with libcap (not related to libpcap), make sure we have
   * CAP_NET_ADMIN and CAP_NET_RAW, then relinquish our permissions.
-@@ -5458,6 +5527,8 @@ main(int argc, char *argv[])
+@@ -5473,6 +5548,8 @@ main(int argc, char *argv[])
      init_process_policies();
  
  #ifdef HAVE_LIBCAP
