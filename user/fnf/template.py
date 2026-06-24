@@ -14,3 +14,4 @@ def post_install(self):
     self.install_license("LICENSE")
     self.install_bin("contrib/fnf-dvtm")
     self.install_bin("contrib/fnf-tmux")
+    self.install_files("contrib/key-bindings.zsh", "usr/share/fnf")
