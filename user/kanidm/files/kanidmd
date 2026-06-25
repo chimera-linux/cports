@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/kanidmd server -c /etc/kanidm/server.toml
+run-as = _kanidmd
+
+depends-on: network.target
+depends-on: local.target
