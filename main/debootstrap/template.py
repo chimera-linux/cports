@@ -1,5 +1,5 @@
 pkgname = "debootstrap"
-pkgver = "1.0.143"
+pkgver = "1.0.144"
 pkgrel = 0
 build_style = "makefile"
 depends = [
@@ -16,7 +16,7 @@ pkgdesc = "Debian bootstrapping tool"
 license = "MIT"
 url = "https://salsa.debian.org/installer-team/debootstrap"
 source = f"{url}/-/archive/{pkgver}/debootstrap-{pkgver}.tar.gz"
-sha256 = "15652a91eb1cf04c24c485bbaaf36e0528132bded8475820344a8129c7eaca01"
+sha256 = "a35b2180d48d981a6db8602706bd229e65514503768933c0f797c66927c76631"
 # check: no tests
 options = ["!check"]
 
