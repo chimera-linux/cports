@@ -2,21 +2,21 @@ pkgname = "fuzzel"
 pkgver = "1.14.1"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsvg-backend=librsvg"]
+configure_args = ["-Dsvg-backend=resvg", "-Denable-cairo=disabled"]
 hostmakedepends = [
     "meson",
     "pkgconf",
     "scdoc",
 ]
 makedepends = [
-    "cairo-devel",
     "fcft-devel",
     "fontconfig-devel",
     "freetype-devel",
-    "librsvg-devel",
+    "libpng-devel",
     "libxkbcommon-devel",
     "linux-headers",
     "pixman-devel",
+    "resvg-devel",
     "tllist",
     "wayland-devel",
     "wayland-protocols",
