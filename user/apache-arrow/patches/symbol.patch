@@ -1,0 +1,26 @@
+# From https://github.com/apache/arrow/issues/43355
+
+diff --git a/cpp/src/gandiva/symbols.map b/cpp/src/gandiva/symbols.map
+index dbce381f3e..794822b7ff 100644
+--- a/cpp/src/gandiva/symbols.map
++++ b/cpp/src/gandiva/symbols.map
+@@ -21,7 +21,7 @@
+   local:
+     # devtoolset / static-libstdc++ symbols
+     __cxa_*;
+-    __once_proxy;
++    __once_proxy*;
+ 
+     extern "C++" {
+       # devtoolset or -static-libstdc++ - the Red Hat devtoolset statically
+--- a/cpp/src/parquet/symbols.map
++++ b/cpp/src/parquet/symbols.map
+@@ -21,7 +21,7 @@
+   local:
+     # devtoolset / static-libstdc++ symbols
+     __cxa_*;
+-    __once_proxy;
++    __once_proxy*;
+ 
+     extern "C++" {
+       # boost
