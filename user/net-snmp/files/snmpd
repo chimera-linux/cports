@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/snmpd -LOw -I -smux,mteTrigger,mteTriggerConf -f
+logfile = /var/log/net-snmp.log
+depends-on: local.target
+before: login.target
