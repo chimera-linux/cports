@@ -1,0 +1,6 @@
+type = process
+env-file = /var/lib/kubelet/kubeadm-flags.env
+command = /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --cgroup-driver=cgroupfs --config=/var/lib/kubelet/config.yaml
+logfile = /var/log/kubelet.log
+depends-on: network.target
+depends-on: local.target

@@ -1,0 +1,11 @@
+--- a/src/libnetfilter_cttimeout.map	2022-05-05 07:15:35.978806274 -0300
++++ b/src/libnetfilter_cttimeout.map	2024-09-22 19:27:52.790057447 -0300
+@@ -7,7 +7,6 @@
+   nfct_timeout_attr_set_u16;
+   nfct_timeout_attr_unset;
+   nfct_timeout_policy_attr_set_u32;
+-  nfct_timeout_policy_unset;
+   nfct_timeout_policy_attr_to_name;
+   nfct_timeout_nlmsg_build_hdr;
+   nfct_timeout_nlmsg_build_payload;
+
