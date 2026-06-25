@@ -1,0 +1,13 @@
+diff --git a/futility/updater_utils.c b/futility/updater_utils.c
+index 883b7027..45d0a4b1 100644
+--- a/futility/updater_utils.c
++++ b/futility/updater_utils.c
+@@ -638,7 +638,7 @@ static int external_flashrom(enum flash_command flash_cmd,
+ 	if (!cmd)
+ 		return -1;
+ 
+-	VB2_DEBUG(cmd);
++	VB2_DEBUG("%s", cmd);
+ 	r = system(cmd);
+ 	free(cmd);
+ 	if (r)
