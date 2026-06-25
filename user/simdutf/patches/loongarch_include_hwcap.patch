@@ -1,0 +1,10 @@
+--- a/include/simdutf/internal/isadetection.h
++++ b/include/simdutf/internal/isadetection.h
+@@ -72,6 +72,7 @@
+
+ #if defined(__loongarch__) && defined(__linux__)
+   #include <sys/auxv.h>
++  #include <asm/hwcap.h>
+ // bits/hwcap.h
+ // #define HWCAP_LOONGARCH_LSX             (1 << 4)
+ // #define HWCAP_LOONGARCH_LASX            (1 << 5)
