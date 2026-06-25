@@ -1,0 +1,204 @@
+From 0582ddbde082b323ea6d1b4706e1fe945ec5390f Mon Sep 17 00:00:00 2001
+From: Chris Mayo <aklhfex@gmail.com>
+Date: Wed, 27 Dec 2023 17:20:21 +0000
+Subject: [PATCH 05/13] Changes to allow building with Qt 6
+
+With Qt5Compat and without gamepad support.
+---
+ src/MainWindow.h                         |  3 +++
+ src/Preferences.cc                       |  5 ++++-
+ src/mainwin.cc                           |  9 ++++++---
+ src/parameter/parametervirtualwidget.cpp |  3 ++-
+ src/scintillaeditor.cpp                  | 13 +++++++------
+ src/tabmanager.cc                        |  4 ++++
+ 6 files changed, 26 insertions(+), 11 deletions(-)
+
+diff --git a/src/MainWindow.h b/src/MainWindow.h
+index 429e74655..3fdd13594 100644
+--- a/src/MainWindow.h
++++ b/src/MainWindow.h
+@@ -16,6 +16,7 @@
+ #include <vector>
+ #include <QMutex>
+ #include <QElapsedTimer>
++#include <QSoundEffect>
+ #include <QTime>
+ #include <QIODevice>
+ #include "input/InputDriver.h"
+@@ -345,6 +346,8 @@ private:
+ 	int last_parser_error_pos; // last highlighted error position
+ 	int tabCount = 0;
+ 
++	QSoundEffect *renderCompleteSoundEffect;
++
+ signals:
+ 	void highlightError(int);
+ 	void unhighlightLastError();
+diff --git a/src/Preferences.cc b/src/Preferences.cc
+index 434e3a1f7..8b0a123c5 100644
+--- a/src/Preferences.cc
++++ b/src/Preferences.cc
+@@ -26,9 +26,12 @@
+ 
+ #include "Preferences.h"
+ 
++#include <QActionGroup>
+ #include <QMessageBox>
+ #include <QFontDatabase>
+ #include <QKeyEvent>
++#include <QRegularExpression>
++#include <QRegularExpressionValidator>
+ #include <QStatusBar>
+ #include <QSettings>
+ #include <boost/algorithm/string.hpp>
+@@ -193,7 +196,7 @@ void Preferences::init() {
+ 	const int absolute_max = (sizeof(void*) == 8) ? 1024 * 1024 : 2048; // 1TB for 64bit or 2GB for 32bit
+ 	QValidator *memvalidator = new QIntValidator(1,absolute_max,this);
+ 	QValidator *validator = new QIntValidator(this);
+-	QValidator *validator1 = new QRegExpValidator(QRegExp("[1-9][0-9]{0,1}"), this); // range between 1-99 both inclusive
++	QValidator *validator1 = new QRegularExpressionValidator(QRegularExpression("[1-9][0-9]{0,1}"), this); // range between 1-99 both inclusive
+ #ifdef ENABLE_CGAL
+ 	this->cgalCacheSizeMBEdit->setValidator(memvalidator);
+ #endif
+diff --git a/src/mainwin.cc b/src/mainwin.cc
+index f0e28372c..8a3fd88aa 100755
+--- a/src/mainwin.cc
++++ b/src/mainwin.cc
+@@ -90,12 +90,10 @@
+ #include <QTemporaryFile>
+ #include <QDockWidget>
+ #include <QClipboard>
+-#include <QDesktopWidget>
+ #include <string>
+ #include "QWordSearchField.h"
+ #include <QSettings> //Include QSettings for direct operations on settings arrays
+ #include "QSettingsCached.h"
+-#include <QSound>
+ 
+ #define ENABLE_3D_PRINTING
+ #include "OctoPrint.h"
+@@ -210,6 +208,9 @@ MainWindow::MainWindow(const QStringList &filenames)
+ 	this->versionLabel = nullptr; // must be initialized before calling updateStatusBar()
+ 	updateStatusBar(nullptr);
+ 
++	renderCompleteSoundEffect = new QSoundEffect();
++	renderCompleteSoundEffect->setSource(QUrl("qrc:/sounds/complete.wav"));
++
+ 	const QString importStatement = "import(\"%1\");\n";
+ 	const QString surfaceStatement = "surface(\"%1\");\n";
+ 	knownFileExtensions["stl"] = importStatement;
+@@ -1419,7 +1420,9 @@ void MainWindow::writeBackup(QFile *file)
+ 	// see MainWindow::saveBackup()
+ 	file->resize(0);
+ 	QTextStream writer(file);
++#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ 	writer.setCodec("UTF-8");
++#endif
+ 	writer << activeEditor->toPlainText();
+ 	this->parameterWidget->writeBackupFile(file->fileName());
+ 	
+@@ -2131,7 +2134,7 @@ void MainWindow::actionRenderDone(shared_ptr<const Geometry> root_geom)
+ 	if (Preferences::inst()->getValue("advanced/enableSoundNotification").toBool() && 
+ 		Preferences::inst()->getValue("advanced/timeThresholdOnRenderCompleteSound").toUInt() <= ms.count()/1000)
+ 	{
+-		QSound::play(":sounds/complete.wav");
++		renderCompleteSoundEffect->play();
+ 	}
+ 
+ 	renderedEditor = activeEditor;
+diff --git a/src/parameter/parametervirtualwidget.cpp b/src/parameter/parametervirtualwidget.cpp
+index 1dd254779..dde1d4bb5 100644
+--- a/src/parameter/parametervirtualwidget.cpp
++++ b/src/parameter/parametervirtualwidget.cpp
+@@ -1,5 +1,6 @@
+ #include "parametervirtualwidget.h"
+ 
++#include <QRegularExpression>
+ 
+ ParameterVirtualWidget::ParameterVirtualWidget(QWidget *parent,ParameterObject *parameterobject, DescLoD descriptionLoD)
+ 	: QWidget(parent), object(parameterobject), decimalPrecision(0)
+@@ -38,7 +39,7 @@ ParameterVirtualWidget::~ParameterVirtualWidget(){
+ 
+ void ParameterVirtualWidget::setName(QString name) {
+ 	this->labelDescription->hide();
+-	name.replace(QRegExp("([_]+)"), " ");
++	name.replace(QRegularExpression("([_]+)"), " ");
+ 	this->labelParameter->setText(name);
+ 	this->labelInline->setText("");
+ }
+diff --git a/src/scintillaeditor.cpp b/src/scintillaeditor.cpp
+index 4851a0183..03ece8e06 100755
+--- a/src/scintillaeditor.cpp
++++ b/src/scintillaeditor.cpp
+@@ -7,6 +7,7 @@
+ #include "boost-utils.h"
+ #include <QString>
+ #include <QChar>
++#include <QRegularExpression>
+ #include <QShortcut>
+ #include <Qsci/qscicommandset.h>
+ 
+@@ -1071,11 +1072,11 @@ void ScintillaEditor::navigateOnNumber(int key)
+ 	qsci->getCursorPosition(&line, &index);
+ 	auto text=qsci->text(line);
+ 	auto left=text.left(index);
+-	auto dotOnLeft=left.contains(QRegExp("\\.\\d*$"));
++	auto dotOnLeft=left.contains(QRegularExpression("\\.\\d*$"));
+ 	auto dotJustLeft=index>1 && text[index-2]=='.';
+ 	auto dotJustRight=text[index]=='.';
+-	auto numOnLeft=left.contains(QRegExp("\\d\\.?$")) || left.endsWith("-.");
+-	auto numOnRight=text.indexOf(QRegExp("\\.?\\d"),index)==index;
++	auto numOnLeft=left.contains(QRegularExpression("\\d\\.?$")) || left.endsWith("-.");
++	auto numOnRight=text.indexOf(QRegularExpression("\\.?\\d"),index)==index;
+ 
+ 	switch (key)
+ 	{
+@@ -1118,10 +1119,10 @@ bool ScintillaEditor::modifyNumber(int key)
+ 	auto check = text.mid(begin-1,1);
+ 	if(rx.exactMatch(check)) return false;
+ 
+-	auto end=text.indexOf(QRegExp("[^0-9.]"),index);
++	auto end=text.indexOf(QRegularExpression("[^0-9.]"),index);
+ 	if (end<0) end=text.length();
+ 	auto nr=text.mid(begin,end-begin);
+-	if ( !(nr.contains(QRegExp("^[-+]?\\d*\\.?\\d+$")) && nr.contains(QRegExp("\\d"))) ) return false;
++	if ( !(nr.contains(QRegularExpression("^[-+]?\\d*\\.?\\d+$")) && nr.contains(QRegularExpression("\\d"))) ) return false;
+ 	auto sign=nr[0]=='+'||nr[0]=='-';
+ 	if (nr.endsWith('.')) nr=nr.left(nr.length()-1);
+ 	auto curpos=index-begin;
+@@ -1315,7 +1316,7 @@ void ScintillaEditor::findMarker(int findStartOffset, int wrapStart, std::functi
+ 	}
+ 	if (line != -1) {
+ 		// make sure we don't wrap into new line
+-		int len = qsci->text(line).remove(QRegExp("[\n\r]$")).length();
++		int len = qsci->text(line).remove(QRegularExpression("[\n\r]$")).length();
+ 		int col = std::min(index, len);
+ 		qsci->setCursorPosition(line, col);
+ 	}
+diff --git a/src/tabmanager.cc b/src/tabmanager.cc
+index b994b4a3f..20ff4e9f4 100644
+--- a/src/tabmanager.cc
++++ b/src/tabmanager.cc
+@@ -538,7 +538,9 @@ void TabManager::refreshDocument()
+         }
+         else {
+             QTextStream reader(&file);
++#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+             reader.setCodec("UTF-8");
++#endif
+             auto text = reader.readAll();
+             LOG(message_group::None,Location::NONE,"","Loaded design '%1$s'.",editor->filepath.toLocal8Bit().constData());
+             if (editor->toPlainText() != text) {
+@@ -655,7 +657,9 @@ bool TabManager::save(EditorInterface *edt, const QString path)
+ 	}
+ 
+ 	QTextStream writer(&file);
++#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+ 	writer.setCodec("UTF-8");
++#endif
+ 	writer << edt->toPlainText();
+ 	writer.flush();
+ 	bool saveOk = writer.status() == QTextStream::Ok;
+-- 
+2.52.0
+
