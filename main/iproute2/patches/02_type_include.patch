@@ -1,0 +1,12 @@
+diff --git a/include/color.h b/include/color.h
+index b543c267..492c7a7b 100644
+--- a/include/color.h
++++ b/include/color.h
+@@ -2,6 +2,7 @@
+ #ifndef __COLOR_H__
+ #define __COLOR_H__ 1
+
++#include <asm/types.h> /* for __u* typedefs. Don't want linux/types.h, because other parts of iproute2 include asm/types.h */
+ #include <stdbool.h>
+
+ enum color_attr {
