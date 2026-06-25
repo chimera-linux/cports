@@ -1,0 +1,18 @@
+Neutralizes the following patch:
+
+https://github.com/torvalds/linux/commit/e0fb794d67f86726817756bcc25c628f4894df29
+
+Restores audio on e.g. Asus ExpertBook B9406CAA
+
+https://github.com/thesofproject/linux/issues/5828
+
+--- a/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
+@@ -514,7 +514,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[] = {
+ 		.link_mask = BIT(2) | BIT(3),
+ 		.links = ptl_cs42l43_agg_l3_cs35l56_l2,
+ 		.drv_name = "sof_sdw",
+-		.machine_check = snd_soc_acpi_intel_no_function_topology,
+ 		.sof_tplg_filename = "sof-ptl-cs42l43-agg-l3-cs35l56-l2.tplg",
+ 	},
+ 	{

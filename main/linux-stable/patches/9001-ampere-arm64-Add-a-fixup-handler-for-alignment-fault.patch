@@ -42,9 +42,9 @@ index 451ba7cbd5adb..744e7b1664b1c 100644
  
  #include <linux/acpi.h>
 @@ -42,8 +43,10 @@
- #include <asm/system_misc.h>
  #include <asm/tlbflush.h>
  #include <asm/traps.h>
+ #include <asm/virt.h>
 +#include <asm/text-patching.h>
  
  struct fault_info {
