@@ -52,7 +52,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = ["fortify-headers", "libatomic-chimera-devel"]
-pkgdesc = "Low Level Virtual Machine"
+pkgdesc = "LLVM Compiler Infrastructure Project"
 subdesc = "bootstrap"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
