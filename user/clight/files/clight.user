@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/clight
+depends-on = dbus
+log-type = buffer
