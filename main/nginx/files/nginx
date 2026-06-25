@@ -1,6 +1,4 @@
-# nginx service
-
 type = process
 command = /usr/bin/nginx -g "daemon off;"
-depends-on = local.target
 smooth-recovery = true
+depends-on: local.target
