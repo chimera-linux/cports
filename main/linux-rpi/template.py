@@ -1,6 +1,6 @@
 # update linux-rpi-zfs-bin when bumping
 pkgname = "linux-rpi"
-pkgver = "6.18.35"
+pkgver = "6.18.36"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "linux_kernel"
@@ -8,7 +8,7 @@ configure_args = ["FLAVOR=rpi", f"RELEASE={pkgrel}"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
-_commit = "e69f1381a62bdcb6cfd8641a6a96b2afa595e157"
+_commit = "ae4246632be85a9a7290a33b3d6c89c4ffa17d2b"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
@@ -18,7 +18,7 @@ pkgdesc = (
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "08dc2c9fa6a7bf8b942fe207c9c99ad5aac55eb962f49d2f5ddc1d0e6f4e760b"
+sha256 = "5ee2bda1819c0090439824f887f77ef449ae271925175c9c4c4e2886dd8db4f7"
 # no meaningful checking to be done
 options = [
     "!check",
