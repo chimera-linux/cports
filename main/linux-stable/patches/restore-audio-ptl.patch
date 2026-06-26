@@ -1,18 +1,84 @@
-Neutralizes the following patch:
+From a5bec626b98511d2f256461694d6523e9938e96a Mon Sep 17 00:00:00 2001
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+Date: Wed, 13 May 2026 12:55:37 +0100
+Subject: [PATCH 3/3] soundwire: dmi-quirks: Disable ghost Realtek devices
 
-https://github.com/torvalds/linux/commit/e0fb794d67f86726817756bcc25c628f4894df29
+Many systems ship with a Realtek audio codec in the ACPI that doesn't
+physically exist in the system. This confuses the newer function
+topology system that creates the soundcard, as it builds the card based
+on the ACPI information.
 
-Restores audio on e.g. Asus ExpertBook B9406CAA
+Whilst we are working with the laptop vendors to try and stop this
+happening there are quite a few systems where this has shipped. Add a
+quirk to disable this "ghost" device.
 
-https://github.com/thesofproject/linux/issues/5828
+Currently this patch should cover:
+ - Asus UX5406AA
+ - Lenovo Yoga Pro 9i (83SF)
+ - Lenovo Yoga Slim 7 Ultra (83QK)
 
---- a/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-@@ -514,7 +514,6 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[] = {
- 		.link_mask = BIT(2) | BIT(3),
- 		.links = ptl_cs42l43_agg_l3_cs35l56_l2,
- 		.drv_name = "sof_sdw",
--		.machine_check = snd_soc_acpi_intel_no_function_topology,
- 		.sof_tplg_filename = "sof-ptl-cs42l43-agg-l3-cs35l56-l2.tplg",
- 	},
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ drivers/soundwire/dmi-quirks.c | 35 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 5854218e1a274e..32a46a2d90f7ca 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -90,6 +90,19 @@ static const struct adr_remap intel_rooks_county[] = {
+ 	{}
+ };
+ 
++/*
++ * Many platforms have ghost realtek devices in the ACPI that don't physically
++ * exist, remove those devices.
++ */
++static const struct adr_remap ghost_realtek[] = {
++	/* rt722 on link3 */
++	{
++		0x000330025d072201ull,
++		0x0000000000000000ull
++	},
++	{}
++};
++
+ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 	/* TGL devices */
  	{
+@@ -164,6 +177,35 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)hp_omen_16,
+ 	},
++	/* PTL devices */
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
++			DMI_MATCH(DMI_BOARD_NAME, "UX5406AA"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
++			DMI_MATCH(DMI_BOARD_NAME, "B9406CAA"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "83QK"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "83SF"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
+ 	{}
+ };
+ 
