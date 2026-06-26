@@ -1,6 +1,6 @@
 pkgname = "ostree"
-pkgver = "2025.6"
-pkgrel = 1
+pkgver = "2026.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-builtin-grub2-mkconfig",
@@ -38,7 +38,7 @@ pkgdesc = "Operating system and container binary deployment and upgrades"
 license = "LGPL-2.0-or-later"
 url = "https://ostreedev.github.io/ostree"
 source = f"https://github.com/ostreedev/ostree/releases/download/v{pkgver}/libostree-{pkgver}.tar.xz"
-sha256 = "6750627df600f28c8ef2c7f443a9d72aef7061a342cde234162ebdf850a7e575"
+sha256 = "8e77c285dd6fa5ec5fb063130390977be727fe11107335ed8778a40385069e95"
 # failing on their test harness, i will find motivation Soon
 options = ["!check"]
 
