@@ -2,17 +2,22 @@ pkgname = "snowball"
 pkgver = "3.1.1"
 pkgrel = 0
 build_style = "makefile"
-# check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
-# all have missing sub-targets
-make_check_target = "check_stemtest"
 hostmakedepends = ["perl"]
 pkgdesc = "Snowball rule-based stemming algorithms"
 license = "BSD-3-Clause"
 url = "https://snowballstem.org/index.html"
-source = f"https://github.com/snowballstem/snowball/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d8714aa91ed4333654708472a7a98b529c867a8f99b05c5e66febf4ca72c44c7"
+_commit = "a0ec0d0a2839ec885878868de20fcb63209d92b0"
+source = [
+    f"https://github.com/snowballstem/snowball/archive/refs/tags/v{pkgver}.tar.gz",
+    f"https://github.com/snowballstem/snowball-data/archive/{_commit}.tar.gz",
+]
+source_paths = [".", "snowball-data"]
+sha256 = [
+    "d8714aa91ed4333654708472a7a98b529c867a8f99b05c5e66febf4ca72c44c7",
+    "caab8da3999e121ee72b2eba6d45166f984deb1f3c3ca967bea726501c0ee943",
+]
 # needed for tests to find libstemmer
-env = {"LD_LIBRARY_PATH": "./"}
+env = {"LD_LIBRARY_PATH": "./", "STEMMING_DATA": "snowball-data"}
 # snowball is run during compilation giving error
 # /bin/sh: ./snowball: Exec format error
 options = ["!cross"]
