@@ -1,0 +1,48 @@
+From 66cf480edc06aa885e2ac78fc36942dafafeecbf Mon Sep 17 00:00:00 2001
+From: Olly Betts <olly@survex.com>
+Date: Sun, 21 Jun 2026 08:31:46 +1200
+Subject: [PATCH] GNUmakefile: Fix to run stemtest again
+
+We stopped compiling or running stemtest in
+c5574a9b571c1f1f84406112a3ae85bc2932f380.  We can't actually run
+stemtest when runtime tests are enabled (it fails with "language `en'
+not available for stemming") but I meant to conditionalise it rather
+than just stop running it at all.
+
+Now `stemtest` is run on `make check` unless the tree has been switched
+to run runtime tests.  We now handle `compilertest` in the same way,
+since that is redundant to run when running runtime tests.
+
+Addresses the underlying reason why #295 wasn't detected right away,
+as a recurrence of #295 would now fail CI.
+---
+ GNUmakefile | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/GNUmakefile b/GNUmakefile
+index 4694184d..4844f071 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -818,7 +818,13 @@ CLEANDIRS += $(ada_src_dir) ada/bin ada/obj
+ 
+ .PHONY: check check_compilertest check_stemtest check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
+ 
+-check: check_compilertest check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
++# We don't run these when runtime tests are enabled (for stemtest, because it
++# contains tests of the shipped algorithms; for compilertest, because it is
++# orthogonal to the algorithms and so redundant to run it in both
++# configuations).
++EXTRA_TESTS ?= check_compilertest check_stemtest
++
++check: $(EXTRA_TESTS) check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
+ 
+ check_compilertest: tests/compilertest
+ 	cd tests && ./compilertest
+@@ -1225,6 +1231,7 @@ setup_runtime_tests: clean_runtime_tests
+ 	printf '%s:=%s\n' \
+ 	  ALGORITHMS 'tests/runtime' \
+ 	  BASELINE 'rbaseline' \
++	  EXTRA_TESTS '' \
+ 	  MODULES '$(RUNTIME_DATA_DIR)/modules.txt' \
+ 	  other_algorithms '' \
+ 	  SNOWBALL_FLAGS '-comments' \
