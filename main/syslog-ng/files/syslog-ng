@@ -1,10 +1,8 @@
-# syslog-ng daemon service
-
 type = process
 command = /usr/bin/syslog-ng -F -e -f /etc/syslog-ng/syslog-ng.conf
 smooth-recovery = true
 logfile = /var/log/syslog-ng.log
 ready-notification = pipevar:SYSLOG_NG_READY_FD
-options = starts-log
+options: starts-log
 before: local.target
 depends-on: pre-local.target
