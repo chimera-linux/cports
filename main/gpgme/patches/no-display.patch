@@ -1,0 +1,19 @@
+commit f4af446d93c50a462c0f9bbd0c23a9880f3367b5
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 26 13:38:17 2026 +0200
+
+    don't pass --display to gpg if DISPLAY is empty
+
+diff --git a/src/engine-gpg.c b/src/engine-gpg.c
+index c6c5c4e..7f72c20 100644
+--- a/src/engine-gpg.c
++++ b/src/engine-gpg.c
+@@ -697,7 +697,7 @@ gpg_new (void **engine, const char *file_name, const char *home_dir,
+   rc = _gpgme_getenv ("DISPLAY", &dft_display);
+   if (rc)
+     goto leave;
+-  if (dft_display)
++  if (dft_display && *dft_display)
+     {
+       rc = add_gpg_arg_with_value (gpg, "--display=", dft_display, 0);
+ 
