@@ -1,5 +1,5 @@
 pkgname = "libxcomposite"
-pkgver = "0.4.6"
+pkgver = "0.4.7"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
@@ -8,7 +8,7 @@ pkgdesc = "X Composite library"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXcomposite-{pkgver}.tar.gz"
-sha256 = "3599dfcd96cd48d45e6aeb08578aa27636fa903f480f880c863622c2b352d076"
+sha256 = "5fc39a8fd6452ec225a95070dd5ac312899247a154fd041cc5f100a93c4ce192"
 
 
 def post_install(self):
