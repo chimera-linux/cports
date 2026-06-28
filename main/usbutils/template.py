@@ -1,5 +1,5 @@
 pkgname = "usbutils"
-pkgver = "018"
+pkgver = "019"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Linux USB utilities"
 license = "GPL-2.0-only"
 url = "http://linux-usb.sourceforge.net"
 source = f"$(KERNEL_SITE)/utils/usb/usbutils/usbutils-{pkgver}.tar.xz"
-sha256 = "83f68b59b58547589c00266e82671864627593ab4362d8c807f50eea923cad93"
+sha256 = "659f40c440e31ba865c52c818a33d3ba6a97349e3353f8b1985179cb2aa71ec5"
 hardening = ["vis", "cfi"]
 
 
