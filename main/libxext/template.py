@@ -1,5 +1,5 @@
 pkgname = "libxext"
-pkgver = "1.3.6"
+pkgver = "1.3.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -14,7 +14,7 @@ pkgdesc = "X extension library"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXext-{pkgver}.tar.xz"
-sha256 = "edb59fa23994e405fdc5b400afdf5820ae6160b94f35e3dc3da4457a16e89753"
+sha256 = "6c643c7035cdacf67afd68f25d01b90ef889d546c9fcd7c0adf7c2cf91e3a32d"
 
 
 def post_install(self):
