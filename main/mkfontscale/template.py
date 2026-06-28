@@ -1,5 +1,5 @@
 pkgname = "mkfontscale"
-pkgver = "1.2.3"
+pkgver = "1.2.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-bzip2"]
@@ -16,7 +16,7 @@ pkgdesc = "X11 scalable font index generator"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/mkfontscale-{pkgver}.tar.gz"
-sha256 = "3a026b468874eb672a1d0a57dbd3ddeda4f0df09886caf97d30097b70c2df3f8"
+sha256 = "076cedba00195e81d055fb39eff94c057f97326ac2403cf71460fc613cd200bf"
 hardening = ["vis", "cfi"]
 
 
