@@ -1,5 +1,5 @@
 pkgname = "libxinerama"
-pkgver = "1.1.5"
+pkgver = "1.1.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,7 +9,7 @@ pkgdesc = "PanoramiX extension library"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXinerama-{pkgver}.tar.gz"
-sha256 = "2efa855cb42dc620eff3b77700d8655695e09aaa318f791f201fa60afa72b95c"
+sha256 = "c74ee3d05e473671bf86285e2dece345485200bb042bea1540b1e30ff3f74bae"
 
 
 def post_install(self):
