@@ -1,5 +1,5 @@
 pkgname = "libxdamage"
-pkgver = "1.1.6"
+pkgver = "1.1.7"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
@@ -8,7 +8,7 @@ pkgdesc = "Xdamage extension Library"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXdamage-{pkgver}.tar.gz"
-sha256 = "2afcc139eb6eb926ffe344494b1fc023da25def42874496e6e6d3aa8acef8595"
+sha256 = "fd5fcc94626886451b731cbcc500bdb3d5afd6d608056540b7cbc314c7678bfe"
 
 
 def post_install(self):
