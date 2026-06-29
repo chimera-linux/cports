@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/ntp-daemon
+run-as = _ntp-daemon
+logfile = /var/log/ntp-daemon.log
+capabilities = ^cap_sys_time
+smooth-recovery = true
+depends-on: network.target
+depends-on: local.target
