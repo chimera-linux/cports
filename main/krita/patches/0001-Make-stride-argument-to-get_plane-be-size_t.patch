@@ -1,0 +1,111 @@
+From 92d9a0b5f7b3097478e7b91605beb4a2079d440c Mon Sep 17 00:00:00 2001
+From: "Florence Ashfield.old" <ashfield@kasku.net.old>
+Date: Mon, 7 Jul 2025 18:11:20 +0100
+Subject: [PATCH] Make stride argument to get_plane be size_t *
+
+---
+ plugins/impex/heif/HeifExport.cpp | 18 +++++++++---------
+ plugins/impex/heif/HeifImport.cpp | 16 ++++++++--------
+ 2 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/plugins/impex/heif/HeifExport.cpp b/plugins/impex/heif/HeifExport.cpp
+index bb83111a62..3671b1cef0 100644
+--- a/plugins/impex/heif/HeifExport.cpp
++++ b/plugins/impex/heif/HeifExport.cpp
+@@ -249,10 +249,10 @@ KisImportExportErrorCode HeifExport::convert(KisDocument *document, QIODevice *i
+                 img.add_plane(heif_channel_G, width,height, 8);
+                 img.add_plane(heif_channel_B, width,height, 8);
+ 
+-                int strideR = 0;
+-                int strideG = 0;
+-                int strideB = 0;
+-                int strideA = 0;
++                size_t strideR = 0;
++                size_t strideG = 0;
++                size_t strideB = 0;
++                size_t strideA = 0;
+ 
+                 uint8_t *ptrR = img.get_plane(heif_channel_R, &strideR);
+                 uint8_t *ptrG = img.get_plane(heif_channel_G, &strideG);
+@@ -288,7 +288,7 @@ KisImportExportErrorCode HeifExport::convert(KisDocument *document, QIODevice *i
+                 img.create(width, height, heif_colorspace_RGB, chroma);
+                 img.add_plane(heif_channel_interleaved, width, height, 12);
+ 
+-                int stride = 0;
++                size_t stride = 0;
+ 
+                 uint8_t *ptr = img.get_plane(heif_channel_interleaved, &stride);
+ 
+@@ -329,8 +329,8 @@ KisImportExportErrorCode HeifExport::convert(KisDocument *document, QIODevice *i
+ 
+                 img.add_plane(heif_channel_Y, width, height, 8);
+ 
+-                int strideG = 0;
+-                int strideA = 0;
++                size_t strideG = 0;
++                size_t strideA = 0;
+ 
+                 uint8_t *ptrG = img.get_plane(heif_channel_Y, &strideG);
+                 uint8_t *ptrA = [&]() -> uint8_t * {
+@@ -362,8 +362,8 @@ KisImportExportErrorCode HeifExport::convert(KisDocument *document, QIODevice *i
+ 
+                 img.add_plane(heif_channel_Y, width, height, 12);
+ 
+-                int strideG = 0;
+-                int strideA = 0;
++                size_t strideG = 0;
++                size_t strideA = 0;
+ 
+                 uint8_t *ptrG = img.get_plane(heif_channel_Y, &strideG);
+                 uint8_t *ptrA = [&]() -> uint8_t * {
+diff --git a/plugins/impex/heif/HeifImport.cpp b/plugins/impex/heif/HeifImport.cpp
+index 1c0d98d4a9..374f49dd62 100644
+--- a/plugins/impex/heif/HeifImport.cpp
++++ b/plugins/impex/heif/HeifImport.cpp
+@@ -386,8 +386,8 @@ KisImportExportErrorCode HeifImport::convert(KisDocument *document, QIODevice *i
+ 
+         if (heifChroma == heif_chroma_monochrome) {
+             dbgFile << "monochrome heif file, bits:" << luma;
+-            int strideG = 0;
+-            int strideA = 0;
++            size_t strideG = 0;
++            size_t strideA = 0;
+             const uint8_t *imgG = heifimage.get_plane(heif_channel_Y, &strideG);
+             const uint8_t *imgA =
+                 heifimage.get_plane(heif_channel_Alpha, &strideA);
+@@ -408,10 +408,10 @@ KisImportExportErrorCode HeifImport::convert(KisDocument *document, QIODevice *i
+         } else if (heifChroma == heif_chroma_444) {
+             dbgFile << "planar heif file, bits:" << luma;
+ 
+-            int strideR = 0;
+-            int strideG = 0;
+-            int strideB = 0;
+-            int strideA = 0;
++            size_t strideR = 0;
++            size_t strideG = 0;
++            size_t strideB = 0;
++            size_t strideA = 0;
+             const uint8_t* imgR = heifimage.get_plane(heif_channel_R, &strideR);
+             const uint8_t* imgG = heifimage.get_plane(heif_channel_G, &strideG);
+             const uint8_t* imgB = heifimage.get_plane(heif_channel_B, &strideB);
+@@ -438,7 +438,7 @@ KisImportExportErrorCode HeifImport::convert(KisDocument *document, QIODevice *i
+                                     displayNits,
+                                     colorSpace);
+         } else if (heifChroma == heif_chroma_interleaved_RGB || heifChroma == heif_chroma_interleaved_RGBA) {
+-            int stride = 0;
++            size_t stride = 0;
+             dbgFile << "interleaved SDR heif file, bits:" << luma;
+ 
+             const uint8_t *img = heifimage.get_plane(heif_channel_interleaved, &stride);
+@@ -460,7 +460,7 @@ KisImportExportErrorCode HeifImport::convert(KisDocument *document, QIODevice *i
+                                       colorSpace);
+ 
+         } else if (heifChroma == heif_chroma_interleaved_RRGGBB_LE || heifChroma == heif_chroma_interleaved_RRGGBBAA_LE || heifChroma == heif_chroma_interleaved_RRGGBB_BE || heifChroma == heif_chroma_interleaved_RRGGBB_BE) {
+-            int stride = 0;
++            size_t stride = 0;
+             dbgFile << "interleaved HDR heif file, bits:" << luma;
+ 
+             const uint8_t *img =
+-- 
+2.49.0
+
