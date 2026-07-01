@@ -1,5 +1,5 @@
 pkgname = "kdecoration"
-pkgver = "6.7.1"
+pkgver = "6.7.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -17,7 +17,7 @@ pkgdesc = "KDE Plugin based library to create window decorations"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/plasma/kdecoration/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdecoration-{pkgver}.tar.xz"
-sha256 = "3a5d8f57bab452eabd1aadc45088b95a669a951626c7e601f6a0ef36030684bf"
+sha256 = "c82e28e59d2cc2e31ae38e3bc48579528214ba3da2d13a2b71a65bdc0dc47771"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "qtkeychain"
-pkgver = "0.15.0"
+pkgver = "0.16.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -21,7 +21,7 @@ pkgdesc = "Qt library for storing data in the system keychain"
 license = "BSD-3-Clause"
 url = "https://github.com/frankosterfeld/qtkeychain"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f4254dc8f0933b06d90672d683eab08ef770acd8336e44dfa030ce041dc2ca22"
+sha256 = "3be26ec4ae30eecf0c2ff7572ba83799791b157c76e15a05ef35f23dc25e4054"
 hardening = ["vis", "!cfi"]
 # kinda expects a graphical env and wrapper does not help
 options = ["!check"]

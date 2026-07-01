@@ -1,5 +1,5 @@
 pkgname = "plasma-nm"
-pkgver = "6.7.1"
+pkgver = "6.7.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "(kcm_.*_smoketest|mobileproviderstest)"]
@@ -39,5 +39,5 @@ pkgdesc = "KDE Plasma NetworkManager integration"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"
-sha256 = "c4349676e375de8d9833eff7182b61970c491d998b29bb6262ea55ca45b474da"
+sha256 = "bc4eaf62901022d76fce3bc434af905e466b63568005b67840784bd7debde8cd"
 hardening = ["vis"]

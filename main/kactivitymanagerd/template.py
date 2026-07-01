@@ -1,5 +1,5 @@
 pkgname = "kactivitymanagerd"
-pkgver = "6.7.1"
+pkgver = "6.7.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
@@ -18,7 +18,7 @@ pkgdesc = "KDE Manage user's activities and track usage patterns"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/kactivitymanagerd"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kactivitymanagerd-{pkgver}.tar.xz"
-sha256 = "480bd3ba2a3315b413084dc9f60c55252f2bf9eba29f3dc579b7e150e6805b0b"
+sha256 = "98d99436f07ee4fae8873d187ce4a9f41ca9fdc7d9adcc9423ec158996b42c73"
 hardening = ["vis"]
 
 
