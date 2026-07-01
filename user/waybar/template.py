@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.15.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -33,6 +33,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "catch2-devel",
+    "date-devel",
     "dinit-chimera",
     "dinit-dbus",
     "fmt-devel",
@@ -56,7 +57,9 @@ makedepends = [
     "wayland-devel",
     "wireplumber-devel",
 ]
-depends = ["dinit-dbus"]
+depends = [
+    "dinit-dbus",
+]
 pkgdesc = "Wayland bar for Sway and wlroots-based compositors"
 license = "MIT"
 url = "https://github.com/Alexays/Waybar"
