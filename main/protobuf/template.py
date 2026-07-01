@@ -1,5 +1,5 @@
 pkgname = "protobuf"
-pkgver = "34.1"
+pkgver = "35.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Protocol buffers library"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "a83103b7ed3afaeedee9a212c8f65825444f58144f5e075b73c83f2b4ff27b62"
+sha256 = "22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
