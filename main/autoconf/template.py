@@ -1,5 +1,5 @@
 pkgname = "autoconf"
-pkgver = "2.72"
+pkgver = "2.73"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_env = {"M4": "/usr/bin/gm4"}
@@ -10,4 +10,4 @@ pkgdesc = "Generates automatic source code configuration scripts"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/autoconf"
 source = f"$(GNU_SITE)/autoconf/autoconf-{pkgver}.tar.gz"
-sha256 = "afb181a76e1ee72832f6581c0eddf8df032b83e2e0239ef79ebedc4467d92d6e"
+sha256 = "259ddfa3bddc799cfb81489cc0f17dfdf1bd6d1505dda53c0f45ff60d6a4f9a7"
