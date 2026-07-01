@@ -1,17 +1,16 @@
-diff --git a/func.d/tlp-func-stat b/func.d/tlp-func-stat
-index 0eefb0f..a19bffd 100644
---- a/func.d/tlp-func-stat
-+++ b/func.d/tlp-func-stat
-@@ -14,7 +14,7 @@ readonly SESTATUS=sestatus
+diff --color=auto -urN a/func.d/tlp-func-stat b/func.d/tlp-func-stat
+--- a/func.d/tlp-func-stat	2026-05-03 15:29:57.000000000 +0100
++++ b/func.d/tlp-func-stat	2026-06-23 22:13:36.720177978 +0100
+@@ -13,7 +13,7 @@
+ readonly SESTATUS=sestatus
  readonly SMARTCTL=smartctl
  
- readonly RE_AC_QUIRK='^UNDEFINED$'
 -readonly RE_ATA_ERROR='ata[0-9]+: SError: {.*CommWake }'
 +readonly RE_ATA_ERROR='ata[0-9]+: SError: \{.*CommWake \}'
  
  # ----------------------------------------------------------------------------
  # Functions
-@@ -174,8 +174,8 @@ print_file_modtime_and_age () {
+@@ -203,8 +203,8 @@
      local mtime age
  
      if [ -f "$1" ]; then
