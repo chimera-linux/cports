@@ -1,5 +1,5 @@
 pkgname = "xmlsec1"
-pkgver = "1.3.9"
+pkgver = "1.3.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-docs", "--enable-http"]
@@ -17,14 +17,13 @@ pkgdesc = "XML Security Library"
 license = "MIT"
 url = "https://www.aleksey.com/xmlsec"
 source = f"{url}/download/xmlsec1-{pkgver}.tar.gz"
-sha256 = "a631c8cd7a6b86e6adb9f5b935d45a9cf9768b3cb090d461e8eb9d043cf9b62f"
+sha256 = "24045199af12d93fe5fdbbbf7e386e823e4842071e9432e2b90ac108b889a923"
 # broken tests build + tests reach internet
 options = ["!cross", "!check"]
 
 
 def post_install(self):
     self.install_license("COPYING")
-    self.uninstall("usr/bin/xmlsec_unit_tests")
 
 
 @subpackage("xmlsec1-devel")
