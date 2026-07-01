@@ -1,24 +1,13 @@
-From d58bf0736fa6d68a26e58df8114f199968761f35 Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Sat, 11 Mar 2023 05:22:30 +0100
-Subject: [PATCH] don't bother with fully qualified hostname early on
+[PATCH] don't bother with fully qualified hostname early on
 
 This prevents doing a DNS lookup during early init. We just skip
 the DNS lookup during the first init, then possibly reinit it
 conditionally based on if use_fqdn is true.
----
- lib/cfg.c                     |  2 +-
- lib/hostname.c                | 17 +++++++++++------
- lib/hostname.h                |  2 +-
- lib/tests/test_host_resolve.c |  4 ++--
- lib/tests/test_hostname.c     |  8 ++++----
- 5 files changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/lib/cfg.c b/lib/cfg.c
-index d848814..356942a 100644
---- a/lib/cfg.c
-+++ b/lib/cfg.c
-@@ -343,7 +343,7 @@ cfg_init(GlobalConfig *cfg)
+diff --color=auto -urN a/lib/cfg.c b/lib/cfg.c
+--- a/lib/cfg.c	2026-06-26 11:19:22.820749084 +0100
++++ b/lib/cfg.c	2026-06-26 11:32:03.562186328 +0100
+@@ -320,7 +320,7 @@
    stats_reinit(&cfg->stats_options);
  
    dns_caching_update_options(&cfg->dns_cache_options);
@@ -27,11 +16,10 @@ index d848814..356942a 100644
    host_resolve_options_init_globals(&cfg->host_resolve_options);
    log_template_options_init(&cfg->template_options, cfg);
    if (!cfg_init_modules(cfg))
-diff --git a/lib/hostname.c b/lib/hostname.c
-index 075cf5f..38967b2 100644
---- a/lib/hostname.c
-+++ b/lib/hostname.c
-@@ -40,7 +40,7 @@ static gboolean local_domain_overridden;
+diff --color=auto -urN a/lib/hostname.c b/lib/hostname.c
+--- a/lib/hostname.c	2026-06-26 11:19:22.832627210 +0100
++++ b/lib/hostname.c	2026-06-26 11:41:10.882295844 +0100
+@@ -40,7 +40,7 @@
  static gchar *
  get_local_hostname_from_system(void)
  {
@@ -40,7 +28,7 @@ index 075cf5f..38967b2 100644
  
    gethostname(hostname, sizeof(hostname) - 1);
    hostname[sizeof(hostname) - 1] = '\0';
-@@ -124,12 +124,12 @@ convert_hostname_to_short_hostname(gchar *hostname, gsize hostname_len)
+@@ -124,12 +124,12 @@
  }
  
  static void
@@ -55,7 +43,7 @@ index 075cf5f..38967b2 100644
      {
        /* not fully qualified, resolve it using DNS or /etc/hosts */
        g_free(hostname);
-@@ -146,6 +146,11 @@ detect_local_fqdn_hostname(void)
+@@ -146,6 +146,11 @@
              }
          }
      }
@@ -67,7 +55,7 @@ index 075cf5f..38967b2 100644
  
    g_strlcpy(local_hostname_fqdn, hostname, sizeof(local_hostname_fqdn));
    g_free(hostname);
-@@ -184,9 +189,9 @@ set_domain_override(const gchar *domain_override)
+@@ -184,9 +189,9 @@
  }
  
  void
@@ -79,7 +67,7 @@ index 075cf5f..38967b2 100644
    detect_local_domain();
    detect_local_short_hostname();
    set_domain_override(domain_override);
-@@ -195,7 +200,7 @@ hostname_reinit(const gchar *domain_override)
+@@ -195,7 +200,7 @@
  void
  hostname_global_init(void)
  {
@@ -88,11 +76,10 @@ index 075cf5f..38967b2 100644
  }
  
  void
-diff --git a/lib/hostname.h b/lib/hostname.h
-index c81189f..06c5dc2 100644
---- a/lib/hostname.h
-+++ b/lib/hostname.h
-@@ -32,7 +32,7 @@ gchar *convert_hostname_to_short_hostname(gchar *hostname, gsize hostname_len);
+diff --color=auto -urN a/lib/hostname.h b/lib/hostname.h
+--- a/lib/hostname.h	2026-06-26 11:19:22.832627210 +0100
++++ b/lib/hostname.h	2026-06-26 11:37:04.083069618 +0100
+@@ -32,7 +32,7 @@
  const gchar *get_local_hostname_fqdn(void);
  const gchar *get_local_hostname_short(void);
  
@@ -101,11 +88,10 @@ index c81189f..06c5dc2 100644
  void hostname_global_init(void);
  void hostname_global_deinit(void);
  
-diff --git a/lib/tests/test_host_resolve.c b/lib/tests/test_host_resolve.c
-index d6489ae..b41d302 100644
---- a/lib/tests/test_host_resolve.c
-+++ b/lib/tests/test_host_resolve.c
-@@ -229,7 +229,7 @@ Test(resolve_hostname, test_short_hostname_is_converted_to_fqdn_if_use_fqdn_is_s
+diff --color=auto -urN a/lib/tests/test_host_resolve.c b/lib/tests/test_host_resolve.c
+--- a/lib/tests/test_host_resolve.c	2026-06-26 11:19:22.861650465 +0100
++++ b/lib/tests/test_host_resolve.c	2026-06-26 11:37:35.987486393 +0100
+@@ -229,7 +229,7 @@
    /* force the use of custom domain to make asserts easier. the
     * non-custom-domain case is tested by test-hostname.c */
  
@@ -114,7 +100,7 @@ index d6489ae..b41d302 100644
    assert_hostname_to_hostname("foo", "foo.bardomain");
  }
  
-@@ -255,7 +255,7 @@ setup(void)
+@@ -255,7 +255,7 @@
    configuration = cfg_new_snippet();
    host_resolve_options_defaults(&host_resolve_options);
    host_resolve_options_init(&host_resolve_options, &configuration->host_resolve_options);
@@ -123,46 +109,42 @@ index d6489ae..b41d302 100644
  }
  
  static void
-diff --git a/lib/tests/test_hostname.c b/lib/tests/test_hostname.c
-index 5ccef21..0d4cecd 100644
---- a/lib/tests/test_hostname.c
-+++ b/lib/tests/test_hostname.c
-@@ -117,7 +117,7 @@ ParameterizedTest(HostNameList *host_name_list, test_hostname, test_hostname_fqd
+diff --color=auto -urN a/lib/tests/test_hostname.c b/lib/tests/test_hostname.c
+--- a/lib/tests/test_hostname.c	2026-06-26 11:19:22.861650465 +0100
++++ b/lib/tests/test_hostname.c	2026-06-26 11:42:23.989251767 +0100
+@@ -125,7 +125,7 @@
    gchar buf[256];
  
    wrap_gethostname();
--  hostname_reinit(host_name_list->domain_override);
-+  hostname_reinit(host_name_list->domain_override, TRUE);
+-  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL);
++  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL, TRUE);
  
-   g_strlcpy(buf, host_name_list->host_name, sizeof(buf));
+   g_strlcpy(buf, host_name_list->has_host_name ? host_name_list->host_name : "", sizeof(buf));
    convert_hostname_to_fqdn(buf, sizeof(buf));
-@@ -145,7 +145,7 @@ ParameterizedTest(HostNameList *host_name_list, test_hostname, test_hostname_sho
+@@ -153,7 +153,7 @@
    gchar buf[256];
  
    wrap_gethostname();
--  hostname_reinit(host_name_list->domain_override);
-+  hostname_reinit(host_name_list->domain_override, TRUE);
+-  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL);
++  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL, TRUE);
  
-   g_strlcpy(buf, host_name_list->host_name, sizeof(buf));
+   g_strlcpy(buf, host_name_list->has_host_name ? host_name_list->host_name : "", sizeof(buf));
    convert_hostname_to_short_hostname(buf, sizeof(buf));
-@@ -169,7 +169,7 @@ ParameterizedTest(HostNameList *host_name_list, test_hostname, test_hostname_fqd
+@@ -177,7 +177,7 @@
    const gchar *host;
  
    wrap_gethostname();
--  hostname_reinit(host_name_list->domain_override);
-+  hostname_reinit(host_name_list->domain_override, TRUE);
+-  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL);
++  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL, TRUE);
  
    host = get_local_hostname_fqdn();
    cr_assert_str_eq(host, host_name_list->expected, "hostname values mismatch");
-@@ -192,7 +192,7 @@ ParameterizedTest(HostNameList *host_name_list, test_hostname, test_hostname_sho
+@@ -200,7 +200,7 @@
    const gchar *host;
  
    wrap_gethostname();
--  hostname_reinit(host_name_list->domain_override);
-+  hostname_reinit(host_name_list->domain_override, TRUE);
+-  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL);
++  hostname_reinit(host_name_list->has_domain_override ? host_name_list->domain_override : NULL, TRUE);
  
    host = get_local_hostname_short();
    cr_assert_str_eq(host, host_name_list->expected, "hostname values mismatch");
--- 
-2.39.0
-
