@@ -1,5 +1,5 @@
 pkgname = "jq"
-pkgver = "1.8.1"
+pkgver = "1.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -13,7 +13,7 @@ pkgdesc = "Command-line JSON processor"
 license = "MIT"
 url = "https://github.com/jqlang/jq"
 source = f"{url}/releases/download/jq-{pkgver}/jq-{pkgver}.tar.gz"
-sha256 = "2be64e7129cecb11d5906290eba10af694fb9e3e7f9fc208a311dc33ca837eb0"
+sha256 = "71b8d6e8f5fe81f6c6d0d110e3892251f6ce76ed095abd315e26e6e1193af3af"
 # FIXME int: null meme in jqtest
 # FIXME vis: fails to link
 hardening = ["!int", "!vis", "!cfi"]
