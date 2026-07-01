@@ -1,15 +1,3 @@
-diff --git a/external/libcmis/UnpackedTarball_libcmis.mk b/external/libcmis/UnpackedTarball_libcmis.mk
-index e47c7f8..51163cf 100644
---- a/external/libcmis/UnpackedTarball_libcmis.mk
-+++ b/external/libcmis/UnpackedTarball_libcmis.mk
-@@ -26,6 +26,7 @@ $(eval $(call gb_UnpackedTarball_add_patches,libcmis,\
- 	external/libcmis/0001-Take-into-account-m_CurlInitProtocolsFunction-in-cop.patch \
- 	external/libcmis/initprotocols.patch.1 \
- 	external/libcmis/0001-Fix-boost-1.86-breakage.patch \
-+	external/libcmis/libcmis-libxml2.patch.1 \
- ))
- 
- # vim: set noet sw=4 ts=4:
 diff --git a/external/skia/UnpackedTarball_skia.mk b/external/skia/UnpackedTarball_skia.mk
 index cf2cd6c..37a32fd 100644
 --- a/external/skia/UnpackedTarball_skia.mk

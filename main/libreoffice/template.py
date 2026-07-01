@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "26.2.3.2"
-pkgrel = 2
+pkgver = "26.2.5.1"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -182,12 +182,12 @@ source = [
     f"{_aurl}/rhino-1.7.15.1.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
-    f"{_aurl}/language-subtag-registry-2026-04-21.tar.bz2",
+    f"{_aurl}/language-subtag-registry-2026-06-14.tar.bz2",
     f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip",
     f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip",
     f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip",
     f"{_aurl}/box2d-2.4.1.tar.gz",
-    f"{_aurl}/libcmis-0.6.2.tar.xz",
+    f"{_aurl}/libcmis-0.6.3.tar.xz",
     f"{_aurl}/libeot-0.01.tar.bz2",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
@@ -214,19 +214,19 @@ source = [
     f"{_aurl}/y-crdt-0.23.5.tar.gz",
 ]
 sha256 = [
-    "254a641e0eec939364e157e2d9ddf4a55e1a42b5c688c22ce8e4945e97230a31",
-    "d70f8d82e1958d901f8e1fcd1c3cfc51db13c4c3e45a7a043f5180798b64b726",
-    "ac8d393005d9c588feb057f3a2e32707e8cd332505aa1a3a7bc1245f56bd5e57",
-    "43eee1d52f5310af6156db6e9d05244fd476301911b70ec80868270616ef4b09",
+    "cb78e4f7d625c647d031b010a1a906ad5bbed5090923b2f104420855bc94e2cd",
+    "aedbaac2648397b783d2e2df15fb42efa13bede41db59f251dcb50ead113ec9f",
+    "bdf920df041877e2ca3a361e4d5267d0988be4cb90f83ae67d9e5df47ad2b1b2",
+    "6faa1bbd9af97cb3ab28781082b8ed9afb770245a8c0dfa307ca9a44a25e4a1f",
     "65599965d82c0e60332601d511dacb0241e796cabfa5550c72bb80c4bf89e8ad",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
-    "0aef705315aeec1dc43052c920b1971f447f86aad3091e15a9bbc0390a3bc8ff",
+    "e74af13fd11fbcb24a5910d0f50e45d8505d86267bde2bb2d1d45aed966bc3bb",
     "d30b13f4ba2e3b6a2d4f020c0dee0a9fb9fc6fbcc2d561f36b78da4bf3802370",
     "1b5b24f7bc543c0362b667692f78db8bab4ed6dafc6172f104d0bd3757d8a133",
     "233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd",
     "d6b4650ff897ee1ead27cf77a5933ea197cbeef6705638dd181adc2e816b23c2",
-    "1b5c2d7258ff93eb5f9958ff0e4dfd7332dc75a071bb717dde2217a26602a644",
+    "5adb3781f374adf491103b2cb2dc290085150c9b7d097baf56d8ac35df84e792",
     "cf5091fa8e7dcdbe667335eb90a2cfdd0a3fe8f8c7c8d1ece44d9d055736a06a",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
@@ -266,9 +266,6 @@ def post_extract(self):
         if s.startswith("!"):
             s = s[1:]
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
-
-    # copy over patches
-    self.cp("^/libcmis-libxml2.patch.1", "external/libcmis")
 
 
 def init_configure(self):
