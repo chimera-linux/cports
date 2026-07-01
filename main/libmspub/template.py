@@ -1,6 +1,6 @@
 pkgname = "libmspub"
-pkgver = "0.1.4"
-pkgrel = 14
+pkgver = "0.1.5"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -20,7 +20,7 @@ url = "https://wiki.documentfoundation.org/DLP/Libraries/libmspub"
 source = (
     f"https://dev-www.libreoffice.org/src/libmspub/libmspub-{pkgver}.tar.xz"
 )
-sha256 = "ef36c1a1aabb2ba3b0bedaaafe717bf4480be2ba8de6f3894be5fd3702b013ba"
+sha256 = "3671095f5a10bee8a755052a30576952c5b16d8b0f2ba9f2fb998338c18cb119"
 
 tool_flags = {"CXXFLAGS": ["-D_HAS_AUTO_PTR_ETC=0"]}
 
