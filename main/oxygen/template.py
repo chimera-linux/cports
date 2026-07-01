@@ -30,7 +30,7 @@ depends = [
     self.with_pkgver("oxygen-cursors"),
 ]
 pkgdesc = "Oxygen visual style for the KDE Plasma Desktop"
-license = "GPL-2.0-or-later"  # FIXME
+license = "LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/oxygen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-{pkgver}.tar.xz"
 sha256 = "621f4de24bf8961f4d51a2a13e089de53a99b662fd2c41acd6c5b2f2fec31de8"
