@@ -1,13 +1,13 @@
 pkgname = "md4c"
-pkgver = "0.5.2"
-pkgrel = 1
+pkgver = "0.5.3"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Fast CommonMark compliant markdown parser"
 license = "MIT"
 url = "https://github.com/mity/md4c"
 source = f"{url}/archive/release-{pkgver}.tar.gz"
-sha256 = "55d0111d48fb11883aaee91465e642b8b640775a4d6993c2d0e7a8092758ef21"
+sha256 = "353c346f376b87c954a13f3415ede2d51264cc61dc5abcd38ff1d2aa0d059b9e"
 
 
 def post_install(self):
