@@ -1,0 +1,474 @@
+diff -Nur a/Makefile b/Makefile
+--- a/Makefile	2023-04-02 10:04:13.000000000 +0200
++++ b/Makefile	2026-04-09 05:53:14.787504240 +0200
+@@ -19,7 +19,7 @@
+ INCLUDES =
+ LIBS = -lm
+ LIBPATH =
+-CFLAGS += $(COPT) -g $(INCLUDES) -Wall -Wextra -Wno-unused-function -std=c99 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=500
++CFLAGS += $(COPT) -g $(INCLUDES) -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -std=c99 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=500 -D_DEFAULT_SOURCE
+ LDFLAGS += $(LIBPATH) -g
+ 
+ OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
+@@ -51,23 +51,15 @@
+ tests: all
+ 	./bin/mbpfan-tests
+
+ uninstall:
+-	rm /usr/sbin/mbpfan
++	rm /usr/bin/mbpfan
+ 	rm /etc/mbpfan.conf
+-	rm /lib/modules-load.d/mbpfan.depend.conf
+-	rm /lib/systemd/system/mbpfan.service
+ 	rm /usr/share/man/man8/mbpfan.8.gz
+-	rm -rf /usr/share/doc/mbpfan
+ 
+ install: all
+-	install -d $(DESTDIR)/usr/sbin
++	install -d $(DESTDIR)/usr/bin
+ 	install -d $(DESTDIR)/etc
+-	install -d $(DESTDIR)/lib/systemd/system
+-	install -d $(DESTDIR)/usr/share/doc/mbpfan
+-	install -d $(DESTDIR)/lib/modules-load.d
+-	install $(BIN) $(DESTDIR)/usr/sbin
++	install $(BIN) $(DESTDIR)/usr/bin
+ 	install -m644 $(CONF) $(DESTDIR)/etc
+-	install -m644 $(DEPEND_MODULE) $(DESTDIR)/lib/modules-load.d
+-	install -m644 $(DOC) $(DESTDIR)/usr/share/doc/mbpfan
+ 	install -d $(DESTDIR)/usr/share/man/man8
+ 	install -m644 $(MAN) $(DESTDIR)/usr/share/man/man8
+ 	@echo ""
+diff -Nur a/src/daemon.c b/src/daemon.c
+--- a/src/daemon.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/daemon.c	2026-04-09 04:27:42.551585353 +0200
+@@ -22,10 +22,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stdbool.h>
+-#include <fcntl.h>
+ #include <errno.h>
+ #include <syslog.h>
+-#include <string.h>
++#include <sys/syslog.h>
+ #include <assert.h>
+ #include <signal.h>
+ #include <unistd.h>
+@@ -36,6 +35,8 @@
+ 
+ int daemonize = 1;
+ int verbose = 0;
++sig_atomic_t do_exit = 0;
++sig_atomic_t do_reload = 0;
+ 
+ int write_pid(int pid)
+ {
+@@ -77,7 +78,7 @@
+     return remove(PROGRAM_PID);
+ }
+ 
+-static void cleanup_and_exit(int exit_code)
++void cleanup_and_exit(int exit_code)
+ {
+     delete_pid();
+     set_fans_auto(fans);
+@@ -109,44 +110,24 @@
+     exit(exit_code);
+ }
+ 
+-void signal_handler(int signal)
++static void sighup_handler(int signal)
+ {
++    do_reload = 1;
++}
+ 
+-    switch (signal) {
+-    case SIGHUP:
+-        syslog(LOG_WARNING, "Received SIGHUP signal.");
+-        retrieve_settings(NULL, fans);
+-        break;
+-
+-    case SIGTERM:
+-        syslog(LOG_WARNING, "Received SIGTERM signal.");
+-        cleanup_and_exit(EXIT_SUCCESS);
+-        break;
+-
+-    case SIGQUIT:
+-        syslog(LOG_WARNING, "Received SIGQUIT signal.");
+-        cleanup_and_exit(EXIT_SUCCESS);
+-        break;
+-
+-    case SIGINT:
+-        syslog(LOG_WARNING, "Received SIGINT signal.");
+-        cleanup_and_exit(EXIT_SUCCESS);
+-        break;
+-
+-    default:
+-        syslog(LOG_WARNING, "Unhandled signal (%d) %s", signal, strsignal(signal));
+-        break;
+-    }
++static void sigterm_handler(int signal)
++{
++    do_exit = 1;
+ }
+ 
+ void go_daemon(void (*fan_control)())
+ {
+ 
+     // Setup signal handling before we start
+-    signal(SIGHUP, signal_handler);
+-    signal(SIGTERM, signal_handler);
+-    signal(SIGQUIT, signal_handler);
+-    signal(SIGINT, signal_handler);
++    signal(SIGHUP, sighup_handler);
++    signal(SIGTERM, sigterm_handler);
++    signal(SIGQUIT, sigterm_handler);
++    signal(SIGINT, sigterm_handler);
+ 
+     // Setup syslog logging - see SETLOGMASK(3)
+     if (verbose) {
+diff -Nur a/src/daemon.h b/src/daemon.h
+--- a/src/daemon.h	2023-04-02 10:04:13.000000000 +0200
++++ b/src/daemon.h	2026-04-06 17:41:13.604192384 +0200
+@@ -16,6 +16,11 @@
+ #ifndef _DAEMON_H_
+ #define _DAEMON_H_
+ 
++#include <signal.h>
++
++extern sig_atomic_t do_exit;
++extern sig_atomic_t do_reload;
++
+ /**
+  * Write the PID of the forked daemon to the
+  * .pid file defined in char *program_pid
+@@ -49,5 +54,7 @@
+  * Daemonizes
+  */
+ void go_daemon(void (*function)());
++
++void cleanup_and_exit(int exit_code);
+ 
+ #endif
+diff -Nur a/src/global.h b/src/global.h
+--- a/src/global.h	2023-04-02 10:04:13.000000000 +0200
++++ b/src/global.h	2026-04-06 17:41:13.604192384 +0200
+@@ -1,9 +1,11 @@
+ #ifndef _GLOBAL_H_
+ #define _GLOBAL_H_
+ 
++#include <stdio.h>
++
+ #define PROGRAM_NAME "mbpfan"
+ #define PROGRAM_VERSION "2.4.0"
+-#define PROGRAM_PID "/var/run/mbpfan.pid"
++#define PROGRAM_PID "/run/mbpfan.pid"
+ 
+ extern int daemonize;
+ extern int verbose;
+@@ -30,6 +32,8 @@
+     struct s_fans *next;
+ };
+ 
++/** Represents a Temperature sensor
++ */
+ typedef struct s_sensors t_sensors;
+ typedef struct s_fans t_fans;
+ 
+diff -Nur a/src/main.c b/src/main.c
+--- a/src/main.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/main.c	2026-04-06 17:41:13.604192384 +0200
+@@ -20,14 +20,12 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <unistd.h>
++#include <unistd.h>  // NOLINT(misc-include-cleaner)
+ #include <syslog.h>
+ #include <stdbool.h>
+-#include <errno.h>
+ #include "mbpfan.h"
+ #include "daemon.h"
+ #include "global.h"
+-#include "util.h"
+ 
+ void print_usage(int argc, char *argv[])
+ {
+@@ -46,11 +44,11 @@
+ 
+     int c;
+ 
+-    while ((c = getopt(argc, argv, "hfv|help")) != -1) {
++    while ((c = getopt(argc, argv, "hfv|help")) != -1) {  // NOLINT(misc-include-cleaner)
+         switch (c) {
+         case 'h':
+             print_usage(argc, argv);
+-            exit(EXIT_SUCCESS);
++            return EXIT_SUCCESS;
+             break;
+ 
+         case 'f':
+@@ -63,7 +61,7 @@
+ 
+         default:
+             print_usage(argc, argv);
+-            exit(EXIT_SUCCESS);
++            return EXIT_SUCCESS;
+             break;
+         }
+     }
+@@ -73,5 +71,5 @@
+     // pointer to mbpfan() function in mbpfan.c
+     void (*fan_control)() = mbpfan;
+     go_daemon(fan_control);
+-    exit(EXIT_SUCCESS);
++    return EXIT_SUCCESS;
+ }
+diff -Nur a/src/mbpfan.c b/src/mbpfan.c
+--- a/src/mbpfan.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/mbpfan.c	2026-04-09 04:29:18.724419759 +0200
+@@ -28,6 +28,8 @@
+  *  Tested models: see README.md
+  */
+ 
++#include <linux/limits.h>
++#include <ctype.h>
+ #include <stdarg.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -39,9 +41,11 @@
+ #include <syslog.h>
+ #include <stdbool.h>
+ #include <dirent.h>
++#include <sys/syslog.h>
+ #include <sys/types.h>
+ #include <sys/utsname.h>
+-#include <sys/errno.h>
++#include <errno.h>
++#include "daemon.h"
+ #include "mbpfan.h"
+ #include "global.h"
+ #include "settings.h"
+@@ -196,7 +200,7 @@
+                 if (file != NULL) {
+                     s = (t_sensors *)malloc(sizeof(t_sensors));
+                     s->path = strdup(path);
+-                    fscanf(file, "%d", &s->temperature);
++                    fscanf(file, "%u", &s->temperature);
+ 
+                     if (sensors_head == NULL) {
+                         sensors_head = s;
+@@ -552,7 +556,7 @@
+      */
+     DIR *dir = opendir(CORETEMP_PATH);
+ 
+-    if (ENOENT == errno) {
++    if (dir == NULL) {
+         mbp_log(LOG_ERR, "%s needs coretemp support. Please either load it or build it into the kernel. Exiting.", program_path);
+         exit(EXIT_FAILURE);
+     }
+@@ -563,15 +567,15 @@
+ 
+     dir = opendir(APPLESMC_PATH);
+ 
+-    if (ENOENT != errno) {
++    if (dir != NULL) {
+         strncpy((char *) &applesmc_path, APPLESMC_PATH, PATH_MAX);
++        closedir(dir);
+     } else {
+         /**
+         * Check for alternate ACPI device path for newer macbooks
+         */
+-        closedir(dir);
+         dir = opendir(ALT_APPLESMC_PATH);
+-        if (ENOENT != errno) {
++        if (dir != NULL) {
+             struct dirent *ent;
+             while ((ent = readdir(dir)) != NULL) {
+                 if (strncmp("APP", (const char *) &ent->d_name, 3) == 0) {
+@@ -579,11 +583,10 @@
+                     break;
+                 }
+             }
++            closedir(dir);
+         }
+     }
+ 
+-    closedir(dir);
+-
+     if (strlen(applesmc_path) != 0) {
+         strncpy((char *) &applesmc_fan_path, (char *) &applesmc_path, PATH_MAX);
+         strcat((char *) &applesmc_fan_path, "/fan");
+@@ -661,6 +664,17 @@
+     sleep(2);
+ 
+     while (1) {
++        if (do_exit) {
++            syslog(LOG_WARNING, "Received SIGTERM, SIGQUIT, or SIGINT signal.");
++            cleanup_and_exit(EXIT_SUCCESS);
++        }
++
++        if (do_reload) {
++            syslog(LOG_WARNING, "Received SIGHUP signal.");
++            retrieve_settings(NULL, fans);
++            do_reload = 0;
++        }
++
+         old_temp = new_temp;
+         new_temp = get_temp(sensors);
+ 
+diff -Nur a/src/mbpfan.h b/src/mbpfan.h
+--- a/src/mbpfan.h	2023-04-02 10:04:13.000000000 +0200
++++ b/src/mbpfan.h	2026-04-06 17:41:13.604192384 +0200
+@@ -19,6 +19,8 @@
+ 
+ #include <stdbool.h>
+ 
++#include "global.h"
++
+ /** Temperature Thresholds
+  *  low_temp - temperature below which fan speed will be at minimum
+  *  high_temp - fan will increase speed when higher than this temperature
+@@ -31,14 +33,6 @@
+  *  Default value was 10 (seconds)
+  */
+ extern int polling_interval;
+-
+-/** Represents a Temperature sensor
+- */
+-struct s_sensors;
+-typedef struct s_sensors t_sensors;
+-
+-struct s_fans;
+-typedef struct s_fans t_fans;
+ 
+ char *smprintf(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
+ 
+diff -Nur a/src/settings.c b/src/settings.c
+--- a/src/settings.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/settings.c	2026-04-06 17:41:13.604192384 +0200
+@@ -34,7 +34,11 @@
+  *    You should have received a copy of the GNU Lesser General Public License
+  *    along with settings.  If not, see <http://www.gnu.org/licenses/>.
+  */
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ #include "settings.h"
++#include "strmap.h"
+ 
+ #define MAX_SECTIONCHARS 256
+ #define MAX_KEYCHARS 256
+diff -Nur a/src/settings.h b/src/settings.h
+--- a/src/settings.h	2023-04-02 10:04:13.000000000 +0200
++++ b/src/settings.h	2026-04-06 17:41:13.604192384 +0200
+@@ -31,12 +31,7 @@
+ #ifndef _SETTINGS_H_
+ #define _SETTINGS_H_
+ 
+-#include <stdlib.h>
+-#include <string.h>
+ #include <stdio.h>
+-#include <ctype.h>
+-
+-#include "strmap.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -Nur a/src/strmap.c b/src/strmap.c
+--- a/src/strmap.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/strmap.c	2026-04-06 17:41:13.604192384 +0200
+@@ -33,6 +33,8 @@
+  *    You should have received a copy of the GNU Lesser General Public License
+  *    along with strmap.  If not, see <http://www.gnu.org/licenses/>.
+  */
++#include <stdlib.h>
++#include <string.h>
+ #include "strmap.h"
+ 
+ typedef struct Pair Pair;
+@@ -284,7 +286,6 @@
+     unsigned int i, j, n, m;
+     unsigned int count;
+     Bucket *bucket;
+-    Pair *pair;
+ 
+     if (map == NULL) {
+         return 0;
+@@ -296,13 +297,11 @@
+     count = 0;
+ 
+     while (i < n) {
+-        pair = bucket->pairs;
+         m = bucket->count;
+         j = 0;
+ 
+         while (j < m) {
+             count++;
+-            pair++;
+             j++;
+         }
+ 
+diff -Nur a/src/strmap.h b/src/strmap.h
+--- a/src/strmap.h	2023-04-02 10:04:13.000000000 +0200
++++ b/src/strmap.h	2026-04-06 17:41:13.604192384 +0200
+@@ -40,9 +40,6 @@
+ extern "C" {
+ #endif
+ 
+-#include <stdlib.h>
+-#include <string.h>
+-
+ typedef struct StrMap StrMap;
+ 
+ /*
+diff -Nur a/src/util.c b/src/util.c
+--- a/src/util.c	2023-04-02 10:04:13.000000000 +0200
++++ b/src/util.c	2026-04-06 17:41:13.604192384 +0200
+@@ -1,6 +1,6 @@
+ #include <stdarg.h>
+ #include <stdio.h>
+-#define __USE_MISC
++#define _GNU_SOURCE
+ #include <syslog.h>
+ 
+ #include "global.h"
+@@ -10,7 +10,7 @@
+     va_list args;
+     if (daemonize) {
+         va_start(args, fmt);
+-        vsyslog(level, fmt, args);
++        vsyslog(level, fmt, args);  // NOLINT(misc-include-cleaner)
+         va_end(args);
+     }
+ 
+diff -Nur a/tests/minunit.h b/tests/minunit.h
+--- a/tests/minunit.h	2023-04-02 10:04:13.000000000 +0200
++++ b/tests/minunit.h	2026-04-06 17:41:13.605170810 +0200
+@@ -12,16 +12,16 @@
+ extern int tests_run;
+ 
+ 
+-static const char *test_sensor_paths();
+-static const char *test_fan_paths();
+-static const char *test_get_temp();
+-static const char *test_config_file();
+-static const char *test_settings();
++static const char *test_sensor_paths(void);
++static const char *test_fan_paths(void);
++static const char *test_get_temp(void);
++static const char *test_config_file(void);
++static const char *test_settings(void);
+ static void handler(int signal);
+-static const char *test_sighup_receive();
+-static const char *test_settings_reload();
+-static const char *all_tests();
++static const char *test_sighup_receive(void);
++static const char *test_settings_reload(void);
++static const char *all_tests(void);
+ 
+-int tests();
++int tests(const char *program_path);
+ 
+-#endif
+\ No newline at end of file
++#endif
