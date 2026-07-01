@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "149.0.7827.200"
+pkgver = "150.0.7871.46"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -145,7 +145,7 @@ source = [
 ]
 source_paths = [".", "rollup"]
 sha256 = [
-    "8046045cf33ed9302bca0a98b0abf76bc2aa9087b03f320dec18f77bae19f10b",
+    "81c9263d5cf3d6a4ddd1c86c10242dc0104194ad5bc63aa631597cd9a32b7724",
     "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
 ]
 debug_level = 1

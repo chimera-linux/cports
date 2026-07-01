@@ -1,9 +1,9 @@
 ppc64 also defines ppc, so the order is wrong
 --
-diff --git a/third_party/dawn/src/dawn/common/Platform.h b/third_party/dawn/src/dawn/common/Platform.h
+diff --git a/third_party/dawn/src/utils/platform.h b/third_party/dawn/src/utils/platform.h
 index 165c5f20b7..6f0f6b7bed 100644
---- a/third_party/dawn/src/dawn/common/Platform.h
-+++ b/third_party/dawn/src/dawn/common/Platform.h
+--- a/third_party/dawn/src/utils/platform.h
++++ b/third_party/dawn/src/utils/platform.h
 @@ -159,10 +162,10 @@
  #elif defined(__s390x__)
  #define DAWN_PLATFORM_IS_S390X 1

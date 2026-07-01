@@ -1,0 +1,218 @@
+From 2536ab5514de27a9d354ce953261dd8b2c904f25 Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Wed, 24 Jun 2026 02:17:34 +0200
+Subject: [PATCH] Revert "ffmpeg_demuxer: Process AGTM side data"
+
+This reverts commit cf94ed446320d35c8613ed9b3ffb6e6a61bfcb5f.
+
+Requires ffmpeg commits 6ba6db4f19 and 7faa6ee2aa, (lavc 62.30.100 and
+lavu 60.30.100), not part of any stable release (as of ffmpeg 8.1).
+---
+ media/ffmpeg/ffmpeg_common.h                |  1 -
+ media/filters/ffmpeg_demuxer.cc             | 44 +++++----------------
+ media/filters/ffmpeg_demuxer_unittest.cc    | 22 +----------
+ media/filters/vpx_video_decoder_unittest.cc | 14 +++++--
+ 4 files changed, 22 insertions(+), 59 deletions(-)
+
+diff --git a/media/ffmpeg/ffmpeg_common.h b/media/ffmpeg/ffmpeg_common.h
+index 8e26790c43688..1794592510ae3 100644
+--- a/media/ffmpeg/ffmpeg_common.h
++++ b/media/ffmpeg/ffmpeg_common.h
+@@ -38,7 +38,6 @@ extern "C" {
+ #if BUILDFLAG(ENABLE_PLATFORM_DOLBY_VISION)
+ #include <libavutil/dovi_meta.h>
+ #endif  // BUILDFLAG(ENABLE_PLATFORM_DOLBY_VISION)
+-#include <libavutil/hdr_dynamic_metadata.h>
+ #include <libavutil/imgutils.h>
+ #include <libavutil/log.h>
+ #include <libavutil/mastering_display_metadata.h>
+diff --git a/media/filters/ffmpeg_demuxer.cc b/media/filters/ffmpeg_demuxer.cc
+index 78aaf892233a1..4ae9825987f46 100644
+--- a/media/filters/ffmpeg_demuxer.cc
++++ b/media/filters/ffmpeg_demuxer.cc
+@@ -328,8 +328,7 @@ FFmpegDemuxerStream::~FFmpegDemuxerStream() {
+   DCHECK(buffer_queue_.IsEmpty());
+ }
+ 
+-base::span<const uint8_t> GetMatroskaBlockAdditionalSideData(
+-    const AVPacket* packet) {
++base::span<const uint8_t> GetSideData(const AVPacket* packet) {
+   size_t side_data_size = 0;
+   uint8_t* side_data = av_packet_get_side_data(
+       packet, AV_PKT_DATA_MATROSKA_BLOCKADDITIONAL, &side_data_size);
+@@ -345,28 +344,6 @@ base::span<const uint8_t> GetMatroskaBlockAdditionalSideData(
+   return UNSAFE_BUFFERS(base::span<const uint8_t>(side_data, side_data_size));
+ }
+ 
+-std::vector<uint8_t> GetAgtmSideData(const AVPacket* packet) {
+-  std::vector<uint8_t> data;
+-  size_t side_data_size = 0;
+-  AVDynamicHDRSmpte2094App5* side_data =
+-      reinterpret_cast<AVDynamicHDRSmpte2094App5*>(av_packet_get_side_data(
+-          packet, AV_PKT_DATA_DYNAMIC_HDR_SMPTE_2094_APP5, &side_data_size));
+-  if (side_data == nullptr || side_data_size == 0) {
+-    return data;
+-  }
+-  size_t size = 0;
+-  if (av_dynamic_hdr_smpte2094_app5_to_t35(side_data, nullptr, &size) != 0) {
+-    return data;
+-  }
+-  data.resize(size);
+-  uint8_t* vector_data = data.data();
+-  if (av_dynamic_hdr_smpte2094_app5_to_t35(side_data, &vector_data, &size) !=
+-      0) {
+-    data.clear();
+-  }
+-  return data;
+-}
+-
+ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
+   DCHECK(task_runner_->RunsTasksInCurrentSequence());
+   DCHECK(packet->size);
+@@ -434,9 +411,7 @@ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
+ 
+   scoped_refptr<DecoderBuffer> buffer;
+ 
+-  base::span<const uint8_t> matroska_block_additional_side_data =
+-      GetMatroskaBlockAdditionalSideData(packet.get());
+-  std::vector<uint8_t> agtm_side_data = GetAgtmSideData(packet.get());
++  base::span<const uint8_t> side_data = GetSideData(packet.get());
+ 
+   std::unique_ptr<DecryptConfig> decrypt_config;
+   size_t data_offset = 0;
+@@ -487,21 +462,20 @@ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
+   // into memory we control.
+   buffer = DecoderBuffer::CopyFrom(AVPacketData(*packet).subspan(data_offset));
+ 
+-  if (matroska_block_additional_side_data.size() > 8) {
++  if (side_data.size() > 8) {
+     // First 8 bytes of side data is the side_data_id in big endian. This is the
+     // same as the matroska BlockAddID whose values are documented here:
+     // https://www.matroska.org/technical/codec_specs.html#block-addition-mappings
+-    const uint64_t side_data_id =
+-        base::U64FromBigEndian(matroska_block_additional_side_data.first<8u>());
++    const uint64_t side_data_id = base::U64FromBigEndian(side_data.first<8u>());
+     if (side_data_id == 1) {
+       buffer->WritableSideData().alpha_data =
+-          base::HeapArray<uint8_t>::CopiedFrom(
+-              matroska_block_additional_side_data.subspan(8u));
++          base::HeapArray<uint8_t>::CopiedFrom(side_data.subspan(8u));
++    } else if (side_data_id == 4) {
++      if (auto agtm = GetAgtmFromT35(side_data.subspan(8u))) {
++        buffer->WritableSideData().hdr_metadata.SetSerializedAgtm(*agtm);
++      }
+     }
+   }
+-  if (agtm_side_data.size() > 0) {
+-    buffer->WritableSideData().hdr_metadata.SetSerializedAgtm(agtm_side_data);
+-  }
+ 
+   if (decrypt_config) {
+     buffer->set_decrypt_config(std::move(decrypt_config));
+diff --git a/media/filters/ffmpeg_demuxer_unittest.cc b/media/filters/ffmpeg_demuxer_unittest.cc
+index 06028075eb38f..6eab180f322a3 100644
+--- a/media/filters/ffmpeg_demuxer_unittest.cc
++++ b/media/filters/ffmpeg_demuxer_unittest.cc
+@@ -24,7 +24,6 @@
+ #include "base/task/single_thread_task_runner.h"
+ #include "base/test/bind.h"
+ #include "base/test/mock_callback.h"
+-#include "base/test/scoped_feature_list.h"
+ #include "base/test/task_environment.h"
+ #include "base/threading/thread.h"
+ #include "base/time/time.h"
+@@ -50,7 +49,6 @@
+ #include "media/mojo/services/gpu_mojo_media_client_test_util.h"
+ #include "testing/gtest/include/gtest/gtest.h"
+ #include "ui/gfx/color_space.h"
+-#include "ui/gfx/switches.h"
+ 
+ using ::testing::_;
+ using ::testing::AnyNumber;
+@@ -197,7 +195,6 @@ class FFmpegDemuxerTest : public testing::Test {
+     base::TimeDelta discard_front_padding;
+     bool is_key_frame = true;
+     DemuxerStream::Status status = DemuxerStream::Status::kOk;
+-    bool has_agtm_side_data = false;
+   };
+ 
+   // Verifies that |buffer| has a specific |size| and |timestamp|.
+@@ -230,10 +227,6 @@ class FFmpegDemuxerTest : public testing::Test {
+                 discard_padding.has_value() ? discard_padding->first
+                                             : base::TimeDelta());
+       EXPECT_EQ(read_expectation.is_key_frame, buffer.is_key_frame());
+-      const bool has_agtm_side_data =
+-          buffer.side_data() != nullptr &&
+-          buffer.side_data()->hdr_metadata.HasAgtm();
+-      EXPECT_EQ(read_expectation.has_agtm_side_data, has_agtm_side_data);
+     }
+     OnReadDoneCalled(read_expectation.size, read_expectation.timestamp_us);
+     std::move(quit_closure).Run();
+@@ -256,11 +249,10 @@ class FFmpegDemuxerTest : public testing::Test {
+             int64_t timestamp_us,
+             bool is_key_frame,
+             DemuxerStream::Status status = DemuxerStream::Status::kOk,
+-            base::TimeDelta discard_front_padding = base::TimeDelta(),
+-            bool has_agtm_side_data = false) {
++            base::TimeDelta discard_front_padding = base::TimeDelta()) {
+     Read(stream, location,
+          ReadExpectation{size, timestamp_us, discard_front_padding,
+-                         is_key_frame, status, has_agtm_side_data});
++                         is_key_frame, status});
+   }
+ 
+   void Read(DemuxerStream* stream,
+@@ -1939,14 +1931,4 @@ TEST_F(FFmpegDemuxerTest, MultitrackMemoryUsage) {
+   EXPECT_EQ(GetExpectedMemoryUsage(896, 156011), demuxer_->GetMemoryUsage());
+ }
+ 
+-TEST_F(FFmpegDemuxerTest, AgtmMetadata) {
+-  base::test::ScopedFeatureList scoped_feature_list(features::kHdrAgtm);
+-  CreateDemuxer("vp9-agtm.webm");
+-  InitializeDemuxer();
+-
+-  DemuxerStream* video = GetStream(DemuxerStream::VIDEO);
+-  Read(video, FROM_HERE, 3792, 0, true, DemuxerStream::Status::kOk,
+-       base::TimeDelta(), true);
+-}
+-
+ }  // namespace media
+diff --git a/media/filters/vpx_video_decoder_unittest.cc b/media/filters/vpx_video_decoder_unittest.cc
+index 36dbb73ae4784..61f3168e38a8f 100644
+--- a/media/filters/vpx_video_decoder_unittest.cc
++++ b/media/filters/vpx_video_decoder_unittest.cc
+@@ -494,7 +494,8 @@ TEST_F(VpxVideoDecoderTest, MemoryPoolAllowsMultipleDisplay) {
+         // !defined(ARCH_CPU_ARM_FAMILY)
+ 
+ #if BUILDFLAG(ENABLE_FFMPEG)
+-TEST_F(VpxVideoDecoderTest, AgtmMetadata) {
++// TODO(crbug.com/395659818): Enable after updating parsing in Chromium.
++TEST_F(VpxVideoDecoderTest, DISABLED_AgtmMetadata) {
+   base::test::ScopedFeatureList scoped_feature_list(features::kHdrAgtm);
+   Initialize();
+ 
+@@ -505,15 +506,22 @@ TEST_F(VpxVideoDecoderTest, AgtmMetadata) {
+ 
+   auto packet = ScopedAVPacket::Allocate();
+   ASSERT_GE(av_read_frame(glue.format_context(), packet.get()), 0);
+-  skhdr::AdaptiveGlobalToneMap agtm;
++  ASSERT_EQ(packet->side_data_elems, 1);
+   auto buffer = DecoderBuffer::CopyFrom(AVPacketData(*packet));
+-  buffer->WritableSideData().hdr_metadata.SetAgtm(agtm);
++  // SAFETY: The best we can do here is trust the size reported by ffmpeg.
++  auto side_data = UNSAFE_BUFFERS(
++      base::span(packet->side_data[0].data, packet->side_data[0].size));
++  ASSERT_EQ(base::U64FromBigEndian(side_data.first<8u>()), 4u);
++  auto agtm = GetAgtmFromT35(side_data.subspan(8u));
++  ASSERT_TRUE(agtm.has_value());
++  buffer->WritableSideData().hdr_metadata.SetSerializedAgtm(*agtm);
+   DecoderStatus decode_status = Decode(buffer);
+   av_packet_unref(packet.get());
+   ASSERT_TRUE(decode_status.is_ok());
+ 
+   const auto& frame = output_frames_.front();
+   ASSERT_TRUE(frame->hdr_metadata().HasAgtm());
++  EXPECT_EQ(frame->hdr_metadata().GetAgtm().fHdrReferenceWhite, 203.0f);
+ 
+   Destroy();
+ }

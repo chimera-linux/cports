@@ -1,76 +1,68 @@
 re: removing safe - hardened is enabled somewhere, and it can't be both.
---- a/build/config/compiler/BUILD.gn
-+++ b/build/config/compiler/BUILD.gn
-@@ -1234,8 +1234,8 @@
-     # simplicity we always explicitly set the architecture.
-     if (current_cpu == "x64") {
-       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
--        cflags += [ "--target=x86_64-unknown-linux-gnu" ]
--        ldflags += [ "--target=x86_64-unknown-linux-gnu" ]
-+        cflags += [ "--target=x86_64-chimera-linux-musl" ]
-+        ldflags += [ "--target=x86_64-chimera-linux-musl" ]
-       } else {
-         cflags += [ "-m64" ]
-         ldflags += [ "-m64" ]
-@@ -1257,8 +1257,8 @@
-       ]
-     } else if (current_cpu == "arm") {
-       if (is_clang && !is_android && !is_chromeos_device) {
--        cflags += [ "--target=arm-linux-gnueabihf" ]
--        ldflags += [ "--target=arm-linux-gnueabihf" ]
-+        cflags += [ "--target=arm-chimera-linux-musleabihf" ]
-+        ldflags += [ "--target=arm-chimera-linux-musleabihf" ]
+
+diff --git a/build/config/compiler_cpu_abi.gn b/build/config/compiler_cpu_abi.gn
+index ae62bab..1704f8e 100644
+--- a/build/config/compiler_cpu_abi.gn
++++ b/build/config/compiler_cpu_abi.gn
+@@ -49,8 +49,8 @@ if ((is_posix && !is_apple) || is_fuchsia) {
+   # simplicity we always explicitly set the architecture.
+   if (current_cpu == "x64") {
+     if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
+-      cpu_abi_cflags += [ "--target=x86_64-unknown-linux-gnu" ]
+-      cpu_abi_ldflags += [ "--target=x86_64-unknown-linux-gnu" ]
++      cpu_abi_cflags += [ "--target=x86_64-chimera-linux-musl" ]
++      cpu_abi_ldflags += [ "--target=x86_64-chimera-linux-musl" ]
+     } else {
+       cpu_abi_cflags += [ "-m64" ]
+       cpu_abi_ldflags += [ "-m64" ]
+@@ -75,8 +75,8 @@ if ((is_posix && !is_apple) || is_fuchsia) {
+     ]
+   } else if (current_cpu == "arm") {
+     if (is_clang && !is_android && !is_chromeos_device) {
+-      cpu_abi_cflags += [ "--target=arm-linux-gnueabihf" ]
+-      cpu_abi_ldflags += [ "--target=arm-linux-gnueabihf" ]
++      cpu_abi_cflags += [ "--target=arm-chimera-linux-musleabihf" ]
++      cpu_abi_ldflags += [ "--target=arm-chimera-linux-musleabihf" ]
+     }
+     cpu_abi_cflags += [
+       "-march=$arm_arch",
+@@ -84,8 +84,8 @@ if ((is_posix && !is_apple) || is_fuchsia) {
+     ]
+   } else if (current_cpu == "arm64") {
+     if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
+-      cpu_abi_cflags += [ "--target=aarch64-linux-gnu" ]
+-      cpu_abi_ldflags += [ "--target=aarch64-linux-gnu" ]
++      cpu_abi_cflags += [ "--target=aarch64-chimera-linux-musl" ]
++      cpu_abi_ldflags += [ "--target=aarch64-chimera-linux-musl" ]
+     }
+     if (target_os == "chromeos" && cros_target_cpu_arch != "" &&
+         is_a_target_toolchain) {
+@@ -334,22 +334,22 @@ if ((is_posix && !is_apple) || is_fuchsia) {
+         cpu_abi_ldflags += [ "-maix64" ]
        }
-       cflags += [
-         "-march=$arm_arch",
-@@ -1272,8 +1272,8 @@
-       ]
-     } else if (current_cpu == "arm64") {
-       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
--        cflags += [ "--target=aarch64-linux-gnu" ]
--        ldflags += [ "--target=aarch64-linux-gnu" ]
-+        cflags += [ "--target=aarch64-chimera-linux-musl" ]
-+        ldflags += [ "--target=aarch64-chimera-linux-musl" ]
-       }
-       if (target_os == "chromeos" && cros_target_cpu_arch != "" &&
-           is_a_target_toolchain) {
-@@ -1517,22 +1517,22 @@
-           ldflags += [ "-maix64" ]
-         }
-       } else if (is_clang) {
--        cflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
--        ldflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
-+        cflags += [ "--target=powerpc64le-chimera-linux-musl" ]
-+        ldflags += [ "--target=powerpc64le-chimera-linux-musl" ]
-       } else {
-         cflags += [ "-m64" ]
-         ldflags += [ "-m64" ]
-       }
-     } else if (current_cpu == "riscv64") {
-       if (is_clang && !is_android) {
--        cflags += [ "--target=riscv64-linux-gnu" ]
--        ldflags += [ "--target=riscv64-linux-gnu" ]
-+        cflags += [ "--target=riscv64-chimera-linux-musl" ]
-+        ldflags += [ "--target=riscv64-chimera-linux-musl" ]
-       }
-       cflags += [ "-mabi=lp64d" ]
-     } else if (current_cpu == "loong64") {
-       if (is_clang) {
--        cflags += [ "--target=loongarch64-linux-gnu" ]
--        ldflags += [ "--target=loongarch64-linux-gnu" ]
-+        cflags += [ "--target=loongarch64-chimera-linux-musl" ]
-+        ldflags += [ "--target=loongarch64-chimera-linux-musl" ]
-       }
-       cflags += [
-         "-mabi=lp64d",
---- a/build_overrides/build.gni
-+++ b/build_overrides/build.gni
-@@ -27,7 +27,7 @@ build_with_v8_embedder = build_with_chromium
- #
- # Note that setting this to true only has an effect when also building with
- # `use_custom_libcxx = true`.
--enable_safe_libcxx = true
-+enable_safe_libcxx = false
- 
- if (is_cronet_build) {
-   # Used by //third_party/perfetto.
+     } else if (is_clang) {
+-      cpu_abi_cflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
+-      cpu_abi_ldflags += [ "--target=powerpc64le-unknown-linux-gnu" ]
++      cpu_abi_cflags += [ "--target=powerpc64le-chimera-linux-musl" ]
++      cpu_abi_ldflags += [ "--target=powerpc64le-chimera-linux-musl" ]
+     } else {
+       cpu_abi_cflags += [ "-m64" ]
+       cpu_abi_ldflags += [ "-m64" ]
+     }
+   } else if (current_cpu == "riscv64") {
+     if (is_clang && !is_android) {
+-      cpu_abi_cflags += [ "--target=riscv64-linux-gnu" ]
+-      cpu_abi_ldflags += [ "--target=riscv64-linux-gnu" ]
++      cpu_abi_cflags += [ "--target=riscv64-chimera-linux-musl" ]
++      cpu_abi_ldflags += [ "--target=riscv64-chimera-linux-musl" ]
+     }
+     cpu_abi_cflags += [ "-mabi=lp64d" ]
+   } else if (current_cpu == "loong64") {
+     if (is_clang) {
+-      cpu_abi_cflags += [ "--target=loongarch64-linux-gnu" ]
+-      cpu_abi_ldflags += [ "--target=loongarch64-linux-gnu" ]
++      cpu_abi_cflags += [ "--target=loongarch64-chimera-linux-musl" ]
++      cpu_abi_ldflags += [ "--target=loongarch64-chimera-linux-musl" ]
+     }
+     cpu_abi_cflags += [
+       "-mabi=lp64d",
