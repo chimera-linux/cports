@@ -1,5 +1,5 @@
 pkgname = "libevdev"
-pkgver = "1.13.4"
+pkgver = "1.13.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-gcov"]
@@ -10,7 +10,7 @@ pkgdesc = "Wrapper library for evdev devices"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libevdev"
 source = f"$(FREEDESKTOP_SITE)/libevdev/libevdev-{pkgver}.tar.xz"
-sha256 = "f00ab8d42ad8b905296fab67e13b871f1a424839331516642100f82ad88127cd"
+sha256 = "73f215eccbd8233f414737ac06bca2687e67c44b97d2d7576091aa9718551110"
 # FIXME int
 hardening = ["!int"]
 
