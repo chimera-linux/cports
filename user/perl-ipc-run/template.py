@@ -1,5 +1,5 @@
 pkgname = "perl-ipc-run"
-pkgver = "20250809.0"
+pkgver = "20260402.0"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -8,4 +8,4 @@ pkgdesc = "Perl system() and background procs w/ piping, redirs, ptys"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/dist/IPC-Run"
 source = f"$(CPAN_SITE)/IPC/IPC-Run-{pkgver}.tar.gz"
-sha256 = "b1e85a30405786ed8378b68dd57159315ad7ddc0a55e432aa9eeca6166ca53fe"
+sha256 = "d6a326a8b1ffb19495dea4ff5a09ef138bf3562ab1b069d3fb7efbc77b9f6aca"
