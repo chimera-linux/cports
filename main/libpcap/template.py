@@ -1,5 +1,5 @@
 pkgname = "libpcap"
-pkgver = "1.10.5"
+pkgver = "1.10.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "System-independent interface for user-level packet capture"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/libpcap-{pkgver}.tar.gz"
-sha256 = "37ced90a19a302a7f32e458224a00c365c117905c2cd35ac544b6880a81488f0"
+sha256 = "872dd11337fe1ab02ad9d4fee047c9da244d695c6ddf34e2ebb733efd4ed8aa9"
 hardening = ["!vis", "!cfi"]
 # no check target
 options = ["!check"]
