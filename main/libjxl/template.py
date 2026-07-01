@@ -1,6 +1,6 @@
 pkgname = "libjxl"
-pkgver = "0.11.1"
-pkgrel = 3
+pkgver = "0.11.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -49,7 +49,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "1492dfef8dd6c3036446ac3b340005d92ab92f7d48ee3271b5dac1d36945d3d9",
+    "ab38928f7f6248e2a98cc184956021acb927b16a0dee71b4d260dc040a4320ea",
     "9c45a108df32a002a69465df896d33acf77d97c88fb59dffa0dff5628370e96f",
 ]
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
