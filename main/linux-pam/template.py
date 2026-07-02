@@ -1,6 +1,6 @@
 pkgname = "linux-pam"
-pkgver = "1.7.0"
-pkgrel = 1
+pkgver = "1.7.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocdir=/usr/share/doc/pam",
@@ -23,7 +23,7 @@ pkgdesc = "Pluggable Authentication Modules for Linux"
 license = "BSD-3-Clause"
 url = "https://github.com/linux-pam/linux-pam"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
-sha256 = "57dcd7a6b966ecd5bbd95e1d11173734691e16b68692fa59661cdae9b13b1697"
+sha256 = "3d86b6383fb5fd9eb9578d2cd47d92801191f4bf3f9bc61419bfefc8aa1e531a"
 file_modes = {
     "usr/bin/unix_chkpwd": ("root", "root", 0o4755),
     # other stuff in there is owned by the package so...
