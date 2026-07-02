@@ -1,6 +1,6 @@
 pkgname = "wayfire"
-pkgver = "0.9.0"
-pkgrel = 1
+pkgver = "0.10.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -15,18 +15,22 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "glm",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
     "libxml2-devel",
     "nlohmann-json",
     "pango-devel",
+    "udev-devel",
     "wayland-protocols",
     "wf-config-devel",
-    "wlroots0.17-devel",
+    "wlroots0.19-devel",
+    "yyjson-devel",
 ]
 pkgdesc = "Modular and extensible wayland compositor"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wayfire/releases/download/v{pkgver}/wayfire-{pkgver}.tar.xz"
-sha256 = "dd0c9c08b8a72a2d8c3317c8be6c42b17a493c25abab1d02ac09c24eaa95229d"
+sha256 = "83f98d67479f41f3a4dcf30b414495bb8df2353daa7601159f4012a120827a16"
 # vis breaks symbols
 hardening = ["!vis"]
 # FIXME: crashes in signal-provider.hpp::provider_t::emit from libblur
@@ -48,9 +52,6 @@ else:
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_file(
-        self.files_path / "wayfire-portals.conf", "usr/share/xdg-desktop-portal"
-    )
 
 
 @subpackage("wayfire-devel")
