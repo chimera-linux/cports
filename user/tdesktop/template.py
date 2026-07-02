@@ -1,8 +1,8 @@
 pkgname = "tdesktop"
 pkgver = "6.9.3"
 pkgrel = 0
-build_style = "cmake"
 archs = ["aarch64", "loongarch64", "ppc64le", "riscv64", "x86_64"]
+build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
     "-DTDESKTOP_API_ID=22760243",
