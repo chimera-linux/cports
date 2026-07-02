@@ -18,7 +18,7 @@ index f4f0cb6d6..3a39a16fa 100755
                      with xopen(out_file,'w') as f:
                          print(data,file=f)
                      ref_file='%s/%s/%s' % (self.args.inputdir,self.test_id,check)
--                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file,self.test_name)
+-                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file)
 +                    # convert reference file to canonical form
 +                    ref_file = ref_file.replace('\\','/')
 +                    data = xpopen('%s --format --noblanks --nowarning %s' % (self.args.xmllint,ref_file))
@@ -33,7 +33,7 @@ index f4f0cb6d6..3a39a16fa 100755
 +                    ref_file_fmt = ref_file + '.new'
 +                    with xopen(ref_file_fmt,'w') as f:
 +                        print(data,file=f)
-+                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file_fmt,self.test_name)
++                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file_fmt)
                      if failed_xml:
                          msg+= (xml_msg,)
                          break
