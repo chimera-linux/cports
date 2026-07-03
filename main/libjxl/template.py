@@ -1,17 +1,15 @@
 pkgname = "libjxl"
-pkgver = "0.11.1"
-pkgrel = 3
+pkgver = "0.12.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=ON",
-    "-DJPEGXL_ENABLE_AVX512=ON",
-    "-DJPEGXL_ENABLE_AVX512_ZEN4=ON",
+    "-DJPEGXL_ENABLE_HWY_AVX3=ON",
+    "-DJPEGXL_ENABLE_HWY_AVX3_ZEN4=ON",
     "-DJPEGXL_ENABLE_BENCHMARK=OFF",
     "-DJPEGXL_ENABLE_EXAMPLES=OFF",
-    "-DJPEGXL_ENABLE_JPEGLI=OFF",
     "-DJPEGXL_ENABLE_PLUGINS=ON",
-    "-DJPEGXL_ENABLE_PLUGIN_GIMP210=OFF",
     "-DJPEGXL_ENABLE_PLUGIN_GDKPIXBUF=OFF",
     "-DJPEGXL_ENABLE_SJPEG=OFF",
     "-DJPEGXL_ENABLE_SKCMS=OFF",
@@ -42,15 +40,15 @@ makedepends = [
 pkgdesc = "Reference JpegXL implementation"
 license = "BSD-3-Clause"
 url = "https://github.com/libjxl/libjxl"
-_testdata = "ff8d743aaba05b3014f17e5475e576242fa979fc"
+_testdata = "73695d303670c90e4d506ea89d9901b081385089"
 source = [
     f"{url}/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/libjxl/testdata/archive/{_testdata}.tar.gz",
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "1492dfef8dd6c3036446ac3b340005d92ab92f7d48ee3271b5dac1d36945d3d9",
-    "9c45a108df32a002a69465df896d33acf77d97c88fb59dffa0dff5628370e96f",
+    "03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992",
+    "380a58890e11513d34f1ed1e686e3c2cee97931cc9faaa80b33fd6c8d2640301",
 ]
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 # CFI: a bunch of test failures
