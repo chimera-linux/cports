@@ -27,6 +27,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.snort.org"
 source = f"https://github.com/snort3/snort3/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "2335678bc5ff4f876dcdb6985407a5312b0f3bb470da29e2926f57f942ce3b94"
+options = ["etcfiles"]
 
 
 @subpackage("snort-devel")

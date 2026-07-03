@@ -24,6 +24,7 @@ url = "https://invent.kde.org/network/kaccounts-providers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kaccounts-providers-{pkgver}.tar.xz"
 sha256 = "0d3f278ffac88af2db4c7ba7d9cab4622a2e19dbb39fbd144f1daa1075caf8a0"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

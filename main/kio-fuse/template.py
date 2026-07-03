@@ -22,7 +22,7 @@ source = f"$(KDE_SITE)/kio-fuse/kio-fuse-{pkgver}.tar.xz"
 sha256 = "adf6aa7ce055c0987e716a93ac01f3c0a97c1280421443cd6b21e0e71d763d14"
 hardening = ["vis"]
 # needs real fuse mounted
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

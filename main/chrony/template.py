@@ -26,6 +26,7 @@ license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
 source = f"https://chrony-project.org/releases/chrony-{pkgver}.tar.gz"
 sha256 = "33ea8eb2a4daeaa506e8fcafd5d6d89027ed6f2f0609645c6f149b560d301706"
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -26,6 +26,7 @@ license = "MIT"
 url = "https://prosody.im"
 source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"
 sha256 = "3e61bd396f37ca5245debfd6be49a47a6191332f0faa2d4ee5f00fbb040addb0"
+options = ["etcfiles"]
 
 
 def configure(self):

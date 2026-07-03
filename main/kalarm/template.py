@@ -59,3 +59,4 @@ license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"
 sha256 = "e1df450ae1436b63381b75766d23b2af01f2395e8ed6d45fbdfc160b15e92533"
+options = ["etcfiles"]

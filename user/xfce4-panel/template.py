@@ -35,7 +35,7 @@ source = (
 )
 sha256 = "3f91850c9c467680c8081d561f1a3fd83355c07db07be9a96da1764f8c842b2b"
 # introspection
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 
 @subpackage("xfce4-panel-devel")

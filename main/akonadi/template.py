@@ -66,6 +66,7 @@ tool_flags = {
     # lots of recursion
     "LDFLAGS": ["-Wl,-z,stack-size=0x200000"],
 }
+options = ["etcfiles"]
 
 
 def post_install(self):

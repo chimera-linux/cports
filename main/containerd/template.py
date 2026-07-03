@@ -49,7 +49,7 @@ sha256 = [
     "1f8101ce7680ce4533ced18b4e3e39bd300c08210c336d30f6969c8cb1727a7c",
 ]
 # can't run tests inside namespaces
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 if self.profile().arch in ["loongarch64", "riscv64"]:

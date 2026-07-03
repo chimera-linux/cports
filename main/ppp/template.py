@@ -19,7 +19,7 @@ source = f"https://ftp.samba.org/pub/ppp/ppp-{pkgver}.tar.gz"
 sha256 = "47da358de54a10cb10bf6ff2cf9b1c03c0d3555518f6182e8f701b8e55733cb2"
 # no check target
 # no file for bsd
-options = ["!check", "!distlicense"]
+options = ["etcfiles", "!check", "!distlicense"]
 
 
 def post_install(self):

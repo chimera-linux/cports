@@ -22,7 +22,7 @@ url = "https://launchpad.net/ufw"
 source = f"{url}/{pkgver[:-2]}/{pkgver}/+download/ufw-{pkgver}.tar.gz"
 sha256 = "2a57a99eecef6b44db3537ed2520b30bae3759f8465456e22e404cd643838bf5"
 # needs itself installed
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

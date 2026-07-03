@@ -21,7 +21,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "93282c426f22dd1ea6d172dec8af043c4e9ff80189becfbbb5378fe1ca0a74ad"
 hardening = ["vis", "cfi"]
 # require /dev nvme device
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

@@ -18,6 +18,7 @@ url = "https://nlnetlabs.nl/projects/nsd/about"
 source = f"https://nlnetlabs.nl/downloads/nsd/nsd-{pkgver}.tar.gz"
 sha256 = "f9ecc2cf79ba50580f2df62918efc440084c5bf11057db44c19aa9643cd4b5e8"
 hardening = ["cfi", "vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -37,6 +37,7 @@ source = (
 sha256 = "c68645cecef4a45840cd67c19a18a3a21ecae6b331e9864c2b745c31aee5fc85"
 env = {"SYSCONFDIR": "/etc"}
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

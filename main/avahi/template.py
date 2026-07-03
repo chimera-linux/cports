@@ -61,7 +61,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lathiat/avahi"
 source = f"{url}/releases/download/v{pkgver}/avahi-{pkgver}.tar.gz"
 sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 
 def post_install(self):
@@ -167,6 +167,7 @@ def _(self):
 @subpackage("avahi-autoipd")
 def _(self):
     self.pkgdesc = "Avahi IPv4LL network address configuration daemon"
+    self.options = ["etcfiles"]
 
     return [
         "etc/avahi/avahi-autoipd.action",

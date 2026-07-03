@@ -349,6 +349,7 @@ default_options = {
     "lintcomp": (True, False),
     "lintstatic": (True, False),
     "lintpixmaps": (True, False),
+    "etcfiles": (False, False),
     "distlicense": (True, False),
     "empty": (False, False),
     # actually true by default for -devel

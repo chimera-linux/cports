@@ -56,6 +56,7 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
 sha256 = "45a197a2f2e7e400e6cf42f351cf92ca06807f1023f17378f128a3314c7fc176"
+options = ["etcfiles"]
 
 
 def post_install(self):

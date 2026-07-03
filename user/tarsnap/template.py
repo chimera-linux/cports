@@ -13,6 +13,7 @@ license = "custom:tarsnap"
 url = "https://www.tarsnap.com"
 source = f"{url}/download/tarsnap-autoconf-{pkgver}.tgz"
 sha256 = "bebdbe1e6e91233755beb42ef0b4adbefd9573455258f009fb331556c799b3d0"
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -134,6 +134,7 @@ license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
 sha256 = "4e7baaf0a690e954a20e7ced3dd633ce8cb8094e2b6b612a55e703ecbbdcbf4f"
+options = ["etcfiles"]
 
 if self.profile().arch in ["loongarch64"]:
     makedepends += ["libucontext-devel"]
@@ -278,6 +279,7 @@ def _extension(extn, iif):
     def _(self):
         self.subdesc = f"{extn} extension"
         self.depends += [self.parent]
+        options = ["etcfiles"]
 
         if iif:
             self.install_if = [self.parent]
@@ -343,6 +345,7 @@ def _(self):
     self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
     self.depends = [self.parent, f"{pkgname}-xml"]
     self.install_if = [self.parent]
+    options = ["etcfiles"]
 
     return [
         f"etc/php{_majver}/pear.conf",

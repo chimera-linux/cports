@@ -17,6 +17,7 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-menus"
 source = f"$(GNOME_SITE)/gnome-menus/{pkgver[:-2]}/gnome-menus-{pkgver}.tar.xz"
 sha256 = "1198a91cdbdcfb232df94e71ef5427617d26029e327be3f860c3b0921c448118"
+options = ["etcfiles"]
 
 
 @subpackage("gnome-menus-devel")

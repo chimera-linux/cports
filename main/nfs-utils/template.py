@@ -45,7 +45,7 @@ sha256 = "c9d99d0c797035570fee0dc153773ad27fded677069068ced3b76be4dcb64915"
 tool_flags = {"CFLAGS": ["-Wno-format-nonliteral", "-Wno-strict-prototypes"]}
 file_modes = {"usr/bin/mount.nfs": ("root", "root", 0o4755)}
 # tests require a running nfsd
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

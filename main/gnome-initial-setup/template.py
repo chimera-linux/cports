@@ -36,3 +36,4 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Design/OS/InitialSetup"
 source = f"$(GNOME_SITE)/gnome-initial-setup/{pkgver[:-2]}/gnome-initial-setup-{pkgver}.tar.xz"
 sha256 = "b3dabf7e79b665ff12241fbdba615489513d886224759986af8f48657592315e"
+options = ["etcfiles"]

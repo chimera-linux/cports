@@ -25,6 +25,7 @@ source = f"https://www.spice-space.org/download/releases/spice-vdagent-{pkgver}.
 sha256 = "93b0d15aca4762cc7d379b179a7101149dbaed62b72112fffb2b3e90b11687a0"
 # CFI: both daemon and client can upon exit crash each other
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

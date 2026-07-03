@@ -43,7 +43,7 @@ source = (
 )
 sha256 = "cbd72062c53c9702bc2c4733991ad5f051ca682882b30905a2829bcf1a8ecc7c"
 # check may be disabled
-options = []
+options = ["etcfiles"]
 
 if self.profile().wordsize == 32:
     # 32-bit targets fail 2 tests: https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/124

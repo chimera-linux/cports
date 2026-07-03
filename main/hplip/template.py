@@ -41,7 +41,7 @@ sha256 = "a6af314a7af0572f2ab6967b2fe68760e64d74628ef0e6237f8504d81047edbe"
 # nuh uh
 hardening = ["!vis"]
 # TODO: probably ignores CC
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-Wno-incompatible-pointer-types"]}
 

@@ -35,6 +35,7 @@ source = f"{url}/releases/download/{pkgver}/speech-dispatcher-{pkgver}.tar.gz"
 sha256 = "b14a5238d287d2dcce4dd42bbd66ca65fa228e7e683708267f7b34036f7ba4b4"
 # strcasestr
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
+options = ["etcfiles"]
 
 
 @subpackage("speechd-devel")

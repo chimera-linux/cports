@@ -7,7 +7,7 @@ makedepends = ["firmware-linux-amd-ucode"]
 pkgdesc = "AMD CPU microcode"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
-options = ["!strip", "foreignelf", "!distlicense"]
+options = ["etcfiles", "!strip", "foreignelf", "!distlicense"]
 
 
 def build(self):

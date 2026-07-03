@@ -32,6 +32,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
 source = f"{url}/releases/download/miniupnpd_{pkgver.replace('.', '_')}/miniupnpd-{pkgver}.tar.gz"
 sha256 = "f9c34ed3632fb60cd248dd5897bd98479a103a75688b056ca2f069e68ab32987"
+options = ["etcfiles"]
 
 
 def post_install(self):

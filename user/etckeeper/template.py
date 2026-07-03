@@ -14,3 +14,4 @@ license = "GPL-2.0-or-later"
 url = "https://etckeeper.branchable.com"
 source = f"https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/etckeeper-{pkgver}.tar.gz"
 sha256 = "ff0e95e3b6cf6f377b8a04f18f572b011e890eedc1a742b3c0e11ebc283f7a7e"
+options = ["etcfiles"]

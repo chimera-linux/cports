@@ -69,7 +69,7 @@ url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
 sha256 = "1e63e7f3fe44b602f34d92a6fe46fd8a3bc6be9460c03c2681e57976c658eec3"
 # test runner expects a different env (possible FIXME?)
-options = ["!check", "!cross"]
+options = ["etcfiles", "!check", "!cross"]
 
 
 def post_install(self):

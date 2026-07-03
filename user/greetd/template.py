@@ -17,6 +17,7 @@ license = "GPL-3.0-or-later"
 url = "https://git.sr.ht/~kennylevinsen/greetd"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
+options = ["etcfiles"]
 
 
 def pre_prepare(self):

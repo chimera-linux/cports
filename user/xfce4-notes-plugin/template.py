@@ -22,3 +22,4 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-notes-plugin/{pkgver[:-2]}/xfce4-notes-plugin-{pkgver}.tar.bz2"
 sha256 = "8301fcd397bbc98a3def3d94f04de30cc128b4a35477024d2bcb2952a161a3b5"
+options = ["etcfiles"]

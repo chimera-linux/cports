@@ -40,6 +40,7 @@ source = (
     f"{url}/software/download/OpenLDAP/openldap-release/openldap-{pkgver}.tgz"
 )
 sha256 = "d693b49517a42efb85a1a364a310aed16a53d428d1b46c0d31ef3fba78fcb656"
+options = ["etcfiles"]
 
 
 def post_install(self):

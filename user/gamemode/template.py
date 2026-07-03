@@ -27,6 +27,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/FeralInteractive/gamemode"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "2b4a20894822caf04767af6a1601130d6b718fc30b8a77895607341b1674740f"
+options = ["etcfiles"]
 
 
 def post_install(self):

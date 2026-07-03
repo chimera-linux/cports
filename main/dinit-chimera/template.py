@@ -103,6 +103,7 @@ def _(self):
     self.subdesc = "X11 support"
     self.depends = [self.parent]
     self.install_if = [self.parent, "xinit"]
+    self.options = ["etcfiles"]
     return [
         "etc/X11/Xsession.d",
     ]

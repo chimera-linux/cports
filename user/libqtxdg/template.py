@@ -18,6 +18,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/libqtxdg"
 source = f"{url}/releases/download/{pkgver}/libqtxdg-{pkgver}.tar.xz"
 sha256 = "a5d430218550d66fa806debce7c418db41268286b17bdab46b8ce3a58f0fe82a"
+options = ["etcfiles"]
 
 
 @subpackage("libqtxdg-devel")

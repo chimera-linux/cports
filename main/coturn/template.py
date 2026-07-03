@@ -20,6 +20,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/coturn/coturn"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "adbc90550d326e1b0fef4ccf9955c0ea32e63792acedcbc9cdbe9f71f380e622"
+options = ["etcfiles"]
 
 
 def post_install(self):

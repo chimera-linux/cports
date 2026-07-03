@@ -35,3 +35,4 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"
 sha256 = "5d150e7a4e8818715b8f4eec7f4bb26c98f740cd56f972199b35fc7c81da1969"
+options = ["etcfiles"]

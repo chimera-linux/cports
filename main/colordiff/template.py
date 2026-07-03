@@ -11,7 +11,7 @@ url = "https://www.colordiff.org"
 source = f"https://www.colordiff.org/colordiff-{pkgver}.tar.gz"
 sha256 = "f96f73c54521c53f14dc164d5a3920c9ca21a0e5f8e9613f43812a98af3e22af"
 # no testsuite
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

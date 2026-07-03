@@ -34,6 +34,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/swtpm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "f8da11cadfed27e26d26c5f58a7b8f2d14d684e691927348906b5891f525c684"
+options = ["etcfiles"]
 
 
 def post_install(self):

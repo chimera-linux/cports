@@ -62,7 +62,7 @@ url = "https://www.syslog-ng.com/products/open-source-log-management"
 source = f"https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-{pkgver}/syslog-ng-{pkgver}.tar.gz"
 sha256 = "841503de6c2486e66fd08f0c62ac2568fc8ed1021297f855e8acd58ad7caff76"
 # tests need https://github.com/Snaipe/Criterion
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):
@@ -104,6 +104,7 @@ def _(self):
 @subpackage("syslog-ng-python")
 def _(self):
     self.subdesc = "python module"
+    self.options = ["etcfiles"]
 
     return [
         "etc/syslog-ng/python",

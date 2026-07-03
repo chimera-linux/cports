@@ -30,6 +30,7 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/tumbler/start"
 source = f"$(XFCE_SITE)/xfce/tumbler/{pkgver[:-2]}/tumbler-{pkgver}.tar.bz2"
 sha256 = "87b90df8f30144a292d70889e710c8619d8b8803f0e1db3280a4293367a42eae"
+options = ["etcfiles"]
 
 
 def post_install(self):

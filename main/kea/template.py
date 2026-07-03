@@ -21,6 +21,7 @@ license = "MPL-2.0"
 url = "https://kea.isc.org"
 source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[: pkgver.rfind('.')]}/kea-{pkgver}.tar.xz"
 sha256 = "29f4e44fa48f62fe15158d17411e003496203250db7b3459c2c79c09f379a541"
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -14,4 +14,4 @@ url = "https://github.com/scop/bash-completion"
 source = f"{url}/releases/download/{pkgver}/bash-completion-{pkgver}.tar.xz"
 sha256 = "dd9d825e496435fb3beba3ae7bea9f77e821e894667d07431d1d4c8c570b9e58"
 # what's the point (needs a truckload of checkdepends too)
-options = ["!check"]
+options = ["etcfiles", "!check"]

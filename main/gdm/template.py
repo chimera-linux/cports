@@ -70,6 +70,7 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/gdm/{pkgver[:-2]}/gdm-{pkgver}.tar.xz"
 sha256 = "1bc06daff093ec7b5e37ecb4f92e5da3474a1b1ba076edb9151ee967d1c30adf"
+options = ["etcfiles"]
 
 
 def post_install(self):

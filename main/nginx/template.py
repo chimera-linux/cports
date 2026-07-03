@@ -93,7 +93,7 @@ file_modes = {
     "+usr/lib/nginx/modules": ("root", "root", 0o755, True),
 }
 # needs a lot more work
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 if self.profile().arch in ["loongarch64", "ppc64le"]:
     # FIXME
@@ -142,6 +142,7 @@ def _module(modn, eiif):
     @subpackage(f"nginx-module-{modn}")
     def _(self):
         self.subdesc = f"{modn} module"
+        self.options = ["etcfiles"]
 
         modso = f"modules/ngx_{modn}_module.so"
         ret = [f"usr/lib/nginx/{modso}"]

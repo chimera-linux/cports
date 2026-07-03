@@ -42,6 +42,7 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-calendar-{pkgver}.tar.xz"
 )
 sha256 = "8300ea894acdbdd7496feff870ecfdd368687104a3442ed82abef09f58e774fa"
+options = ["etcfiles"]
 
 
 @subpackage("akonadi-calendar-devel")

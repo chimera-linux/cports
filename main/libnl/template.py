@@ -10,6 +10,7 @@ license = "LGPL-2.1-only"
 url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"
 sha256 = "2a56e1edefa3e68a7c00879496736fdbf62fc94ed3232c0baba127ecfa76874d"
+options = ["etcfiles"]
 
 
 @subpackage("libnl-devel")

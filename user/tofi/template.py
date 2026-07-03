@@ -24,3 +24,4 @@ license = "MIT"
 url = "https://github.com/philj56/tofi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "dd55347b509af786f133def64f3a86f1db258b5e196de80e53d62827bdcc37bc"
+options = ["etcfiles"]

@@ -37,6 +37,7 @@ license = "MIT"
 url = "https://collectd.org"
 source = f"https://github.com/collectd/collectd/releases/download/collectd-{pkgver}/collectd-{pkgver}.tar.bz2"
 sha256 = "5bae043042c19c31f77eb8464e56a01a5454e0b39fa07cf7ad0f1bfc9c3a09d6"
+options = ["etcfiles"]
 
 
 def post_install(self):

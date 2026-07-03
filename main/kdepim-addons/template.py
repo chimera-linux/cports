@@ -77,7 +77,7 @@ source = (
 )
 sha256 = "ee69400cebd2ee4b2e19f5a571bbcaf1285e5717215756852154c0809c81c03e"
 # date diffs, formatting diffs, cant find plugins, ...
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_patch(self):

@@ -12,7 +12,7 @@ license = "LGPL-2.1-or-later"
 url = "http://savannah.nongnu.org/projects/attr"
 source = f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"
 sha256 = "39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87"
-options = ["bootstrap"]
+options = ["bootstrap", "etcfiles"]
 
 
 @subpackage("attr-devel")

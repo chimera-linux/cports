@@ -38,6 +38,7 @@ license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ark"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ark-{pkgver}.tar.xz"
 sha256 = "b81c4055486c99f4f21ff228bf12485bc73e8e6b0064edee1043a11ad5d1e555"
+options = ["etcfiles"]
 
 
 @subpackage("ark-computils")

@@ -24,6 +24,7 @@ url = "https://github.com/emersion/xdg-desktop-portal-wlr"
 source = f"https://github.com/emersion/xdg-desktop-portal-wlr/releases/download/v{pkgver}/xdg-desktop-portal-wlr-{pkgver}.tar.gz"
 sha256 = "7d14c751a0a75c49b936a2366cdc439b9c9da7f74dea1190dac667677b619fb4"
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

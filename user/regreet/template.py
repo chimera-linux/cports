@@ -19,6 +19,7 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "dd11f6dc82a929ac51a51750b3268028fe5aa46e5fe1d1cbd11b43ad57b3006a"
+options = ["etcfiles"]
 
 
 def post_install(self):

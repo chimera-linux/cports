@@ -11,4 +11,4 @@ source = f"http://www.andre-simon.de/zip/highlight-{pkgver}.tar.bz2"
 sha256 = "11c01ec5965ae9b0319bd7cb1a04ffd85ad8586176033a1fbe9a82f08e99ed56"
 hardening = ["vis", "cfi"]
 # No tests, can't be bothered to fix cross
-options = ["!check", "!distlicense", "!cross"]
+options = ["etcfiles", "!check", "!distlicense", "!cross"]

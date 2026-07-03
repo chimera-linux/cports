@@ -44,6 +44,7 @@ url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
 sha256 = "0fe8b6277b0959cfd17562debac0aa5f71e0b02dc4ffa9c60271c583edab586f"
 skip_dependencies = ["usr/lib/dinit.d/*"]
+options = ["etcfiles"]
 
 
 def post_install(self):

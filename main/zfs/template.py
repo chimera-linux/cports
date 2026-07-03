@@ -39,6 +39,7 @@ sha256 = [
     "84d826261e04de0c1050296e7e9855cc91f431d30b1042104bf1039ddb42195d",
 ]
 hardening = ["!vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_extract(self):

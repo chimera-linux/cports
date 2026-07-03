@@ -21,3 +21,4 @@ license = "GPL-2.0-or-later WITH SANE-exception"
 url = "https://github.com/alexpevzner/sane-airscan"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "43d3436c0199496ee18aca4f875fe3926a40a0fae781bc280cdb96f7b5068ac0"
+options = ["etcfiles"]

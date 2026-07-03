@@ -42,7 +42,7 @@ file_xattrs = {
 }
 hardening = ["!int"]
 # no tests
-options = ["!check", "!lto"]
+options = ["etcfiles", "!check", "!lto"]
 
 # todo: make build system suck less ass, respect flags, ..
 

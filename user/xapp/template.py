@@ -30,7 +30,7 @@ url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xapp/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "0bd907bb7def8a891386fc711b16057670c2a0212e50f7db2b9445550d282f1f"
 # No tests
-options = ["!check", "!cross"]
+options = ["etcfiles", "!check", "!cross"]
 
 
 def post_install(self):

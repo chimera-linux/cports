@@ -25,6 +25,7 @@ url = "https://invent.kde.org/plasma/polkit-kde-agent-1"
 source = f"$(KDE_SITE)/plasma/{pkgver}/polkit-kde-agent-1-{pkgver}.tar.xz"
 sha256 = "751dec0dcd5d2c52f97a613916185493e55861afccef9e939a05e9950ea69818"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -23,7 +23,7 @@ url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"
 sha256 = "8285e6a5557aba74cf745737319f0af2d4df4d48aba65e1a6fb67d1117bf1662"
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_extract(self):

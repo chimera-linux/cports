@@ -32,7 +32,7 @@ url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
 sha256 = "719890d82caa7d162b021ed646034883b9eb354a45de3685c28ead057d139d4d"
 # tests don't work in our build env
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def prepare(self):

@@ -15,7 +15,7 @@ url = "https://salsa.debian.org/cryptsetup-team/cryptsetup"
 source = f"{url}/-/archive/debian/2%25{_debver}/cryptsetup-debian-2%25{_debver}.tar.gz"
 sha256 = "2cc5d6240e190007546a05d58d8a3e37275bb937f116e2d5e2d3abaed9b65b5c"
 # no test suite
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

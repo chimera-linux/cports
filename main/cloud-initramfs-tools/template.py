@@ -68,7 +68,7 @@ def _(self):
     self.subdesc = "use an overlayfs on top of read-only root filesystem"
     self.depends = ["cryptsetup-scripts", "initramfs-tools"]
     self.install_if = [self.parent]
-    self.options = ["!autosplit"]
+    self.options = ["!autosplit", "etcfiles"]
     return [
         "etc/overlayroot.conf",
         "etc/update-motd.d/97-overlayroot",

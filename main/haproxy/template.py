@@ -44,7 +44,7 @@ source = (
 sha256 = "e660d141b29019f4d198785b0834cc3e9c96efceeb807c2fff2fc935bd3354c2"
 hardening = ["!vis", "!cfi", "!int"]
 # hard depends on vtest which doesn't have releases
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def init_build(self):

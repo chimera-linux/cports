@@ -34,6 +34,7 @@ license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-4]}/orca-{pkgver}.tar.xz"
 sha256 = "8592b53df84239ea75ddaa8dec6792c84d2b99fb7b47a5fd9022c6af8ca657a8"
+options = ["etcfiles"]
 
 
 def post_install(self):

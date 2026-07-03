@@ -36,4 +36,4 @@ source = (
 )
 sha256 = "b690a555e87d88d825bceb14890d425fa04042204dd6e68877aee9d61ab557aa"
 # the MIT one has no attribution in it..
-options = ["!distlicense"]
+options = ["etcfiles", "!distlicense"]

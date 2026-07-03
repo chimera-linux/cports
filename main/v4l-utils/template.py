@@ -31,6 +31,7 @@ tool_flags = {
     "CXXFLAGS": ["-D_LARGEFILE64_SOURCE"],
     "LDFLAGS": ["-largp"],
 }
+options = ["etcfiles"]
 
 
 @subpackage("v4l-utils-devel")

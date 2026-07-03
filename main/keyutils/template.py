@@ -24,7 +24,7 @@ url = "https://people.redhat.com/~dhowells/keyutils"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/keyutils-{pkgver}.tar.gz"
 sha256 = "a61d5706136ae4c05bd48f86186bcfdbd88dd8bd5107e3e195c924cfc1b39bb4"
 # needs rpm
-options = ["!check", "linkundefver"]
+options = ["etcfiles", "!check", "linkundefver"]
 
 
 @subpackage("keyutils-libs")

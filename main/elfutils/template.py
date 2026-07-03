@@ -79,6 +79,7 @@ def _(self):
     self.subdesc = "debuginfod library"
     # transitional
     self.provides = [self.with_pkgver("debuginfod-libs")]
+    self.options = ["etcfiles"]
 
     return [
         "etc/profile.d",

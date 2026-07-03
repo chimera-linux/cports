@@ -185,6 +185,7 @@ def _(self):
     self.subdesc = "use for ALSA by default"
     self.install_if = [self.with_pkgver("pipewire-alsa")]
     self.renames = ["alsa-pipewire-default"]
+    self.options = ["etcfiles"]
 
     return [
         "@etc/alsa/conf.d/99-pipewire-default.conf=>../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"

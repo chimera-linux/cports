@@ -35,7 +35,7 @@ url = "https://blueman-project.github.io/blueman"
 source = f"https://github.com/blueman-project/blueman/releases/download/{pkgver}/blueman-{pkgver}.tar.xz"
 sha256 = "c712a737f9855906684c074d166d4f10c7f165378af96612818bbffcfbf8e566"
 # TODO
-options = ["!check"]
+options = ["etcfiles", "!check", "!cross"]
 
 
 def post_install(self):

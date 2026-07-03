@@ -23,3 +23,4 @@ url = "https://codeberg.org/vyivel/dulcepan"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "022a57335326b89b9ccc1efb98f043c7ad50fc3dcc14e1d0a220fae8d5efdf6d"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]

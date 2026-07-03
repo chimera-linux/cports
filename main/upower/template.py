@@ -39,7 +39,7 @@ license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/upower-v{pkgver}.tar.gz"
 sha256 = "cd9a3a3f5e0aa21eac131253228757bbdc90ecd39768f46c325754e32daa3083"
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 
 def post_install(self):

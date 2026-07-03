@@ -33,7 +33,7 @@ url = "https://www.netfilter.org/projects/iptables"
 source = f"{url}/files/iptables-{pkgver}.tar.xz"
 sha256 = "d87303d55ef8c92bcad4dd3f978b26d272013642b029425775f5bad1009fe7b2"
 # check: wants /etc/ethertypes installed
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 @subpackage("iptables-libs")

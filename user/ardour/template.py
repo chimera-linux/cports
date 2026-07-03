@@ -57,7 +57,7 @@ sha256 = "cbff58fda4a2c673ebb39b80cffa994c2520a352f7505d919d5783aa0df6d314"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["!int"]
 # bundled stuff
-options = ["!cross", "!scanshlibs"]
+options = ["etcfiles", "!cross", "!scanshlibs"]
 exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]
 
 

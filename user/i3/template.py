@@ -28,7 +28,7 @@ source = f"https://i3wm.org/downloads/i3-{pkgver}.tar.xz"
 sha256 = "4a742bbe81b9e5ee6057f42a8e3c691d88894e93f1a5d81fe239128512ac05c0"
 # Check phase depends on X11::XCB perl module, which isn't packaged
 # Debian disables tests as well for what it's worth
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

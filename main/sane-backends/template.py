@@ -43,7 +43,7 @@ hardening = ["!int"]
 # otherwise we get conflicting providers because all the
 # plugins provide a libsane.so.1 soname for whatever reason
 # lto causes segfaults and usb scanner detection issues
-options = ["!scanshlibs", "!lto"]
+options = ["etcfiles", "!scanshlibs", "!lto"]
 
 
 def post_install(self):

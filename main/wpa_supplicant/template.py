@@ -20,7 +20,7 @@ url = "http://w1.fi/wpa_supplicant"
 source = f"http://w1.fi/releases/wpa_supplicant-{pkgver}.tar.gz"
 sha256 = "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a"
 # no test suite?
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_patch(self):

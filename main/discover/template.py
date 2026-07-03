@@ -59,6 +59,7 @@ license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
 sha256 = "facb7cfce3c948ddf8f8ff0a7281f821e0e3ace50dee90fbb9efe486836b948e"
+options = ["etcfiles"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

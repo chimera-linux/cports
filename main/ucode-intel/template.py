@@ -9,7 +9,7 @@ license = "custom:proprietary"
 url = "https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"
 source = f"{url}/archive/microcode-{pkgver}.tar.gz"
 sha256 = "5a07ce745d0bd8b360a4713564d46d5e38be797316a52abedaff0761e1b02370"
-options = ["!strip", "foreignelf"]
+options = ["etcfiles", "!strip", "foreignelf"]
 
 
 def build(self):

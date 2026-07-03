@@ -92,10 +92,9 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager"
 source = f"{url}/-/archive/{pkgver}/NetworkManager-{pkgver}.tar.gz"
 sha256 = "e40f24c2dc9f8408c8183e495f3b5d783204d116c8f23100d00c714ac4ed9252"
-# some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
-options = ["!check", "!cross", "linkundefver"]
-
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
+# some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
+options = ["etcfiles", "!check", "!cross", "linkundefver"]
 
 
 def post_install(self):

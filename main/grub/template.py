@@ -47,7 +47,7 @@ env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 # the freestanding bits
 nopie_files = ["usr/lib/grub/*"]
 # single completion file for multiple commands
-options = ["!lintcomp"]
+options = ["etcfiles", "!lintcomp"]
 
 if self.profile().arch == "loongarch64":
     broken = "causes a machine exception at runtime"

@@ -20,7 +20,7 @@ url = "https://salsa.debian.org/installer-team/console-setup"
 source = f"{url}/-/archive/{pkgver}/console-setup-{pkgver}.tar.gz"
 sha256 = "f19dc35849050f7dcf48fd9e373cb68e83e113ccefb93dab0e687f7fc99901f4"
 # no tests
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "etcfiles", "!check"]
 
 
 def pre_build(self):

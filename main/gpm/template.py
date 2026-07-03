@@ -25,7 +25,7 @@ url = "https://www.nico.schottelius.org/software/gpm"
 source = f"{url}/archives/gpm-{pkgver}.tar.gz"
 sha256 = "c7e4661c24e05ae13547176b649bac8e3a0db2575f7dd57559f9e0b509f90f49"
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

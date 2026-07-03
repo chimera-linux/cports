@@ -83,7 +83,7 @@ sha256 = "2618391416e51be3c693df9ef90e3860ed72ab3d36363ea1f196e30b75b2e083"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]
 # needs graphical env (gtk3 broken in weston headless)
-options = ["!cross", "!check"]
+options = ["etcfiles", "!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "hangs forever in last build step"

@@ -37,6 +37,7 @@ source = (
     f"https://github.com/OpenVPN/openvpn/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "2235b8479b4fca0c43a8cd6a767858ab5b1e14cb4170e6211aa94549ed5d419e"
+options = ["etcfiles"]
 
 
 def post_install(self):

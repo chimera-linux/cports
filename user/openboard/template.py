@@ -21,3 +21,4 @@ license = "GPL-3.0-or-later"
 url = "https://openboard.ch"
 source = f"https://github.com/OpenBoard-org/OpenBoard/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "2ea0989b8c304f64a124c09eb5e3cc71808c395f0942a26d5a3f79d4125df969"
+options = ["etcfiles"]

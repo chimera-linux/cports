@@ -20,7 +20,7 @@ url = "https://www.thekelleys.org.uk/dnsmasq/doc.html"
 source = f"https://www.thekelleys.org.uk/dnsmasq/dnsmasq-{pkgver}.tar.gz"
 sha256 = "cc967771abdafeb43d10db18932d6b59fd4bed2c69c22acf8cb96aff6920d55f"
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

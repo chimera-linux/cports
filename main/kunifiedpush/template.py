@@ -28,6 +28,7 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kunifiedpush-{pkgver}.tar.xz"
 )
 sha256 = "15b6c7c463953b0d3b0ae8dfdde9dea41ae7eac77d036ca95db6f87d1a8a8fe1"
+options = ["etcfiles"]
 
 
 def post_install(self):

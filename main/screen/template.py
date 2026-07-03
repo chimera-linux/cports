@@ -27,7 +27,7 @@ source = f"$(GNU_SITE)/screen/screen-{pkgver}.tar.gz"
 sha256 = "2dae36f4db379ffcd14b691596ba6ec18ac3a9e22bc47ac239789ab58409869d"
 hardening = ["vis", "cfi"]
 # don't build due to type errors
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

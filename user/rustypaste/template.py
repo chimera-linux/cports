@@ -27,6 +27,7 @@ license = "MIT"
 url = "https://github.com/orhun/rustypaste"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "7e3154888b90113555a0d5dbe40dae83f5ff2fdbb32b3aea998eb3fc79ebce35"
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -55,7 +55,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "07b09f1d37792b5194840bc3e213c3cbf21d3d652f85489b2a028be47c1c9b84"
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 _have_uefi = False
 

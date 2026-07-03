@@ -28,6 +28,7 @@ url = "http://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"
 sha256 = "9c8a64b59c90b0825e540a9b8fcb9d2d942c636f81ba50199f068fde44f34ed8"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

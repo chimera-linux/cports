@@ -41,6 +41,7 @@ source = (
     f"https://www.openinfosecfoundation.org/download/suricata-{pkgver}.tar.gz"
 )
 sha256 = "bd868f41717e5431cdda3a99386810257aafdbe2dbcbb58d07fb8476a03358a5"
+options = ["etcfiles"]
 
 
 def post_install(self):

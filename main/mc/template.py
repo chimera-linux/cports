@@ -21,3 +21,4 @@ url = "https://midnight-commander.org"
 source = f"https://ftp.osuosl.org/pub/midnightcommander/mc-{pkgver}.tar.xz"
 sha256 = "cae149d42f844e5185d8c81d7db3913a8fa214c65f852200a9d896b468af164c"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]

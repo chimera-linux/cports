@@ -35,3 +35,4 @@ url = "https://apps.kde.org/kclock"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kclock-{pkgver}.tar.xz"
 sha256 = "9f5c998462316df456a7e9413b039300003f421e72ad40b3b393e43f6c958558"
 hardening = ["vis"]
+options = ["etcfiles"]

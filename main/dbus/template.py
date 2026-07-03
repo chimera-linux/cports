@@ -31,7 +31,7 @@ source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"
 sha256 = "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
 file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "root", 0o4755)}
 hardening = ["vis", "!cfi"]
-options = ["linkundefver"]
+options = ["etcfiles", "linkundefver"]
 
 
 def post_install(self):
@@ -72,6 +72,7 @@ def _(self):
     self.subdesc = "X11 support"
     self.depends = [self.parent]
     self.install_if = [self.parent, "xinit"]
+    self.options = ["etcfiles"]
     return [
         "etc/X11/Xsession.d",
         "usr/bin/dbus-launch",

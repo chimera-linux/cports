@@ -32,7 +32,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8c12d8228e2df4e05db075aa3e9be86bbef41ef5249829bb89b79c4859b74ee5"
 hardening = ["vis", "cfi"]
 # the MIT licence used doesn't have a copyright line in it
-options = ["!distlicense"]
+options = ["etcfiles", "!distlicense"]
 
 
 @subpackage("ndctl-devel")

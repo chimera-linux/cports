@@ -9,3 +9,4 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/royhills/arp-scan"
 source = f"{url}/releases/download/{pkgver}/arp-scan-{pkgver}.tar.gz"
 sha256 = "a078fe8711ecbb8b99121c3d8be26ae7e7f339f11010ef61318be4f33394d012"
+options = ["etcfiles"]

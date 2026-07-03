@@ -23,3 +23,4 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-runner"
 source = f"{url}/releases/download/{pkgver}/lxqt-runner-{pkgver}.tar.xz"
 sha256 = "e15caab4c9bc4e95b147095310ec4ed85553a906e1d4381067460b63a286e890"
+options = ["etcfiles"]

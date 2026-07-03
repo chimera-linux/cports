@@ -30,7 +30,7 @@ source = f"{url}/downloads/lxc/lxc-{pkgver}.tar.gz"
 sha256 = "872d26ce8512b9f993d194816e336bf9f3ad8326f22dc24ef0f01f85599fa8b9"
 file_modes = {"usr/lib/lxc/lxc-user-nic": ("root", "root", 0o4755)}
 # symlinks to _lxc
-options = ["!lintcomp"]
+options = ["etcfiles", "!lintcomp"]
 
 
 def post_install(self):

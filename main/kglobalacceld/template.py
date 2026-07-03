@@ -27,6 +27,7 @@ url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
 sha256 = "40cd6b417678faba69847e1fa4d9efc8f500cdf95db17e317d6d868d18c95339"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

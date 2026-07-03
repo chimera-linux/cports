@@ -44,6 +44,7 @@ def _(self):
 @subpackage("sauerbraten-server")
 def _(self):
     self.subdesc = "dedicated server"
+    self.options = ["etcfiles"]
 
     return [
         "etc",

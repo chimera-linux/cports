@@ -17,6 +17,7 @@ url = "https://github.com/i3/i3status"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "25af0dd77a5325c13890d4ee53a9205827a11c8b90f54e8a7fe2654bd0273d4b"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_extract(self):

@@ -42,3 +42,4 @@ license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kgpg"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kgpg-{pkgver}.tar.xz"
 sha256 = "cd74f3339bfe01908fc297d8770bfaae74602ddc5a31b70b70dedbd831d9bbbf"
+options = ["etcfiles"]

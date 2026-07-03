@@ -25,6 +25,7 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/JoseExposito/touchegg"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "7cf0b9239f414d9484495f2a57a28c1c99b3d7a7ae5767d10f0464809ae32e0b"
+options = ["etcfiles"]
 
 
 def post_install(self):

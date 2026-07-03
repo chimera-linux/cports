@@ -10,7 +10,7 @@ url = "https://github.com/pali/igmpproxy"
 source = f"{url}/releases/download/{pkgver}/igmpproxy-{pkgver}.tar.gz"
 sha256 = "afa4b75a823b82f71ce99f33eae4e8136b906ae8a5ede5caaad93bac38cdae24"
 # Not available
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

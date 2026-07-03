@@ -20,3 +20,4 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.xfce.org/apps/xfce4-volumed-pulse"
 source = f"$(XFCE_SITE)/apps/xfce4-volumed-pulse/{pkgver[:-2]}/xfce4-volumed-pulse-{pkgver}.tar.xz"
 sha256 = "7031c3597d1a1e791afaf83a7b494b436aa54397ab1661e38ab32acb01c7fe85"
+options = ["etcfiles"]

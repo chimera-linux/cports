@@ -149,6 +149,7 @@ license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://www.musicpd.org"
 source = f"{url}/download/mpd/{pkgver[: pkgver.rfind('.')]}/mpd-{pkgver}.tar.xz"
 sha256 = "f3d28b29bbe675970ef205b3d9b835e5691423fed6a89d713dbcbf7839ea92f3"
+options = ["etcfiles"]
 
 
 def post_install(self):

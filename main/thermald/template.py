@@ -29,6 +29,7 @@ url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0f4d7371d2cadf12f868e4b56d0e70af07a1c3b7d883dbe541a3707e449ea1ad"
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 # autoreconf fails otherwise

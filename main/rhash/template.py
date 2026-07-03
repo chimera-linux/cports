@@ -21,6 +21,7 @@ url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "9f6019cfeeae8ace7067ad22da4e4f857bb2cfa6c2deaa2258f55b2227ec937a"
 tool_flags = {"CFLAGS": ["-fPIC"]}
+options = ["etcfiles"]
 
 
 def init_configure(self):

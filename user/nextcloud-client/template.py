@@ -35,6 +35,7 @@ sha256 = "25eb5248049c4961a27cf996dbebf9202c720dd36049cd2799e2e80f7bd51756"
 tool_flags = {
     "CXXFLAGS": ["-Wno-c++20-extensions", "-Wno-deprecated-declarations"]
 }
+options = ["etcfiles"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

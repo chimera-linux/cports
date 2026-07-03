@@ -30,6 +30,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.knot-dns.cz"
 source = f"https://secure.nic.cz/files/knot-dns/knot-{pkgver}.tar.xz"
 sha256 = "4a0bc892dfaa5a150ff2855f0a88f2267124bc271818eae9a2b1f6da487c34e4"
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -22,7 +22,7 @@ source = f"$(SOURCEFORGE_SITE)/procps-ng/Production/procps-ng-{pkgver}.tar.xz"
 sha256 = "c2e6d193cc78f84cd6ddb72aaf6d5c6a9162f0470e5992092057f5ff518562fa"
 hardening = ["!vis", "!cfi"]
 # dejagnu
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

@@ -30,10 +30,10 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"{url}/releases/download/{pkgver}/libblockdev-{pkgver}.tar.gz"
 sha256 = "65ef9a37babd44b85b8ff9b273f90f9f7d5f8ff7b0c76a8edb69240325fd83f4"
-
 tool_flags = {
     "CFLAGS": ["-Wno-error=typedef-redefinition", "-Wno-error=unused-variable"]
 }
+options = ["etcfiles"]
 
 
 @subpackage("libblockdev-devel")

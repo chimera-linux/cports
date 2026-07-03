@@ -22,7 +22,7 @@ file_modes = {
     "+usr/lib/dinit.d/user/boot.d": ("root", "root", 0o755, True),
 }
 hardening = ["vis", "cfi"]
-options = ["brokenlinks", "!splitdinit"]
+options = ["etcfiles", "brokenlinks", "!splitdinit"]
 
 
 def post_install(self):

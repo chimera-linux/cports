@@ -293,10 +293,9 @@ for that. It is okay to install files there if that is the sole location
 the software reads and these installed files are reasonable out of the
 box defaults without which the software wouldn't function properly.
 
-At some point explicitly marking templates that install files in `/etc`
-will become necessary (via `options`) but the option does not exist
-yet. This will be for the purpose of tracking default `/etc` installs
-for the purpose of verification whether this is necessary.
+All packages that legitimately contain `/etc` files must be marked with
+the `etcfiles` template option. This is for the purpose of tracking things
+and making packagers verify that these files are indeed necesary.
 
 The eventual plan is to have `cbuild` automatically handle `/etc` paths
 in a way to permit stateless installations, without any explicit action
@@ -1877,6 +1876,8 @@ for subpackages separately if needed:
   pattern list to restrict the set.
 * `hardlinks` *(false)* Normally, multiple hardlinks are detected and errored
   on. By enabling this, you allow packages with hardlinks to build.
+* `etcfiles` *(false)* Normally, packages are not allowed to contain files
+  in `/etc` path unless marked with this option.
 * `lintcomp` *(true)* If enabled, shell completion commands get checked to see
   if they resolve to a matching command.
 * `lintstatic` *(true)* Normally, static libraries are not allowed to be in

@@ -47,6 +47,7 @@ sha256 = "a9725ae3f73f8d910de84c108bc11bfd4c782bef6a4190b2ec70c5d2f22344db"
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
 # skip cycle with polkit... providers are ok of course
 skip_dependencies = ["usr/lib/dinit.d/*"]
+options = ["etcfiles"]
 
 
 def post_install(self):

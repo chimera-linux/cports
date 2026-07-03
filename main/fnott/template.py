@@ -27,6 +27,7 @@ url = "https://codeberg.org/dnkl/fnott"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "7e784133bec7cc197bbeed18daf92192f297f7c60d1c25cce318ae09f70ab0e1"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

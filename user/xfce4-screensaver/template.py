@@ -44,7 +44,7 @@ sha256 = [
     "c1206c06fd625e864e06dbf43bab8543837ac35cbefa03457eda152cdf60c9ba",
 ]
 # FIXME lintpixmaps
-options = ["!lintpixmaps"]
+options = ["etcfiles", "!lintpixmaps"]
 
 
 def post_extract(self):

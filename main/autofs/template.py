@@ -28,7 +28,7 @@ url = "https://www.kernel.org/pub/linux/daemons/autofs"
 source = f"{url}/v{pkgver.split('.')[0]}/autofs-{pkgver}.tar.xz"
 sha256 = "87e6af6a03794b9462ea519781e50e7d23b5f7c92cd59e1142c85d2493b3c24b"
 # check: no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

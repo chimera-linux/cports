@@ -9,6 +9,7 @@ license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://www.unixodbc.org"
 source = f"{url}/unixODBC-{pkgver}.tar.gz"
 sha256 = "f210501445ce21bf607ba51ef8c125e10e22dffdffec377646462df5f01915ec"
+options = ["etcfiles"]
 
 
 @subpackage("unixodbc-libs")

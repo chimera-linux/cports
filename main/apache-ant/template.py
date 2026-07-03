@@ -11,7 +11,7 @@ source = (
 )
 sha256 = "6c6e4c15233cb7b9851283051f99a9f04aa0e3291375138ea50399717d489878"
 env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 _pfx = "usr/share/apache-ant"
 

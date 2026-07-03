@@ -20,7 +20,7 @@ sha256 = [
     "20c48954659cf753baa383ecde0e6f026fadc06c2c9fbe29d88d928188c3ec17",
 ]
 # no tests
-options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
+options = ["etcfiles", "!check", "bootstrap", "keepempty", "brokenlinks"]
 
 
 def install(self):

@@ -110,6 +110,7 @@ url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
 sha256 = "6d1a0d5970b553329d26268f9eb3c84aa83358238afcfc2f8691147046569831"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
 _have_kdepim = False

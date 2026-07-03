@@ -68,6 +68,7 @@ file_xattrs = {
     },
 }
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

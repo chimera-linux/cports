@@ -48,7 +48,7 @@ file_modes = {"usr/lib/ssh-keysign": ("root", "root", 0o4755)}
 # CFI: does not work; maybe make testsuite work first
 hardening = ["vis", "!cfi"]
 # portable openssh is not very portable
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def init_configure(self):

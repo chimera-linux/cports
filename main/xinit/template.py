@@ -12,6 +12,7 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xinit-{pkgver}.tar.gz"
 sha256 = "45cca1b0f3a963105f43cecc24e9cc4db0d14faa87bd9860b9ec563e8c73fc47"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

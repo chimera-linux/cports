@@ -170,7 +170,7 @@ file_modes = {
 }
 hardening = ["!scp"]
 # lol
-options = ["!cross", "!check", "!scanshlibs"]
+options = ["etcfiles", "!cross", "!check", "!scanshlibs"]
 
 match self.profile().arch:
     case "ppc64le" | "riscv64":

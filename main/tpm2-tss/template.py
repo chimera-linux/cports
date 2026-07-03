@@ -32,6 +32,7 @@ license = "BSD-2-Clause"
 url = "https://github.com/tpm2-software/tpm2-tss"
 source = f"{url}/releases/download/{pkgver}/tpm2-tss-{pkgver}.tar.gz"
 sha256 = "37f1580200ab78305d1fc872d89241aaee0c93cbe85bc559bf332737a60d3be8"
+options = ["etcfiles"]
 
 
 def post_install(self):

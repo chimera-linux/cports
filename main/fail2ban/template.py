@@ -15,7 +15,7 @@ url = "https://fail2ban.org"
 source = f"https://github.com/fail2ban/fail2ban/archive/{pkgver}.tar.gz"
 sha256 = "474fcc25afdaf929c74329d1e4d24420caabeea1ef2e041a267ce19269570bae"
 # doesn't work with pytest
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

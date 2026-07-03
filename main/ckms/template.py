@@ -10,7 +10,7 @@ url = "https://github.com/chimera-linux/ckms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d15e252fc5a9fa6d9a9187979512849b1634a52c4b98d44839a3f42464964021"
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

@@ -24,6 +24,7 @@ license = "MPL-2.0 AND MIT"
 url = "https://github.com/yshui/picom"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "627fa5d7c590df3ba8d2c41eb35d3859f7826bd28fa49e92a0e04fb60ed77904"
+options = ["etcfiles"]
 
 
 def post_install(self):

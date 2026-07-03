@@ -45,6 +45,7 @@ sha256 = [
 # CFI: causes illegal instruction crashes
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_extract(self):

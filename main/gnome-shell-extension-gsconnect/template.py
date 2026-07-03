@@ -26,4 +26,4 @@ url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8147e9230823364cde716aaeea3b81953a2f7ebf0697568c32ac67363870201a"
 # All tests fail in latest release https://github.com/GSConnect/gnome-shell-extension-gsconnect/issues/1786
-options = ["!check"]
+options = ["etcfiles", "!check"]

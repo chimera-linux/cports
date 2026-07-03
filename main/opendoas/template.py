@@ -18,7 +18,7 @@ sha256 = "6da058a0e70b7543bc60624389b0b00b686189ec933828c522bf8b2600495a67"
 file_modes = {"usr/bin/doas": ("root", "root", 0o4755)}
 hardening = ["vis", "cfi"]
 # no test suite
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def pre_configure(self):

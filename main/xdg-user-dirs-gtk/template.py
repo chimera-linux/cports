@@ -10,3 +10,4 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk"
 source = f"$(GNOME_SITE)/xdg-user-dirs-gtk/{pkgver}/xdg-user-dirs-gtk-{pkgver}.tar.xz"
 sha256 = "537fbe142b24736ed7894e4a01f69fd758cb6c7a677a382879529d217f4a2873"
+options = ["etcfiles"]

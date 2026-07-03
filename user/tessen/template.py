@@ -14,4 +14,4 @@ url = "https://tangled.org/@jcg.re/tessen"
 source = f"{url}/archive/v{pkgver}>{pkgver}.tar.gz"
 sha256 = "ec316b5bbf89baf5caa7d2a15d71a9ae6c30b1f2987421d1b31b396c5871cf2d"
 # checks require shellcheck which isn't packaged (yet)
-options = ["!check"]
+options = ["etcfiles", "!check"]

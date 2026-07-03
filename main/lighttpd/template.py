@@ -32,6 +32,7 @@ license = "BSD-3-Clause"
 url = "https://lighttpd.net"
 source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[: pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"
 sha256 = "3b29a625b3ad88702d1fea4f5f42bb7d87488f2e4efc977d7f185329ca6084bd"
+options = ["etcfiles"]
 
 
 def post_install(self):

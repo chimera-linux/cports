@@ -30,6 +30,7 @@ url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "4e6131cc859ec6a36569f1978cf3617cc3836a681d13d228ded1b4885dab7770"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

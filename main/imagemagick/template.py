@@ -74,7 +74,7 @@ url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"
 sha256 = "91ffe35706ef01d0fc9630e3a81b168b9bdb10b5e1e0b0983c287063cce21210"
 # runs out of file descriptors
-options = ["!cross", "!check"]
+options = ["etcfiles", "!cross", "!check"]
 
 if self.profile().cross:
     hostmakedepends += ["file"]

@@ -31,7 +31,7 @@ sha256 = [
     "1a2db4dca75b04d54623087972888459363392b9c4f64b6d0ac2f4b78cba3e45",
 ]
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def build(self):

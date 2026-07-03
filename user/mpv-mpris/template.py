@@ -23,6 +23,7 @@ license = "MIT"
 url = "https://github.com/hoyon/mpv-mpris"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "71008aa181bccf4bc7b2b5b9673e9993b1d1f5b7e2c189dc3724ab23ef1f6ebb"
+options = ["etcfiles"]
 
 
 def install(self):

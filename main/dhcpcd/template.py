@@ -23,6 +23,7 @@ source = f"https://github.com/NetworkConfiguration/dhcpcd/releases/download/v{pk
 sha256 = "b6aa46932074906a9badef1bfe142b8aff9d041c2689e1ef8b74c12e9fd942bd"
 # FIXME vis for usr/lib/dhcpcd/dev/udev.so
 hardening = ["!vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

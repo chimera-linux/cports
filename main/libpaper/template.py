@@ -8,6 +8,7 @@ license = "MIT AND GPL-2.0-only AND GPL-3.0-or-later AND custom:none"
 url = "https://github.com/rrthomas/libpaper"
 source = f"{url}/releases/download/v{pkgver}/libpaper-{pkgver}.tar.gz"
 sha256 = "500d39dc58768ee09688738c8b5bfe07640ba2fd6c25a6dc78810eb69c719e93"
+options = ["etcfiles"]
 
 
 def post_install(self):

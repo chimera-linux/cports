@@ -21,7 +21,7 @@ url = "https://github.com/waydroid/waydroid"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "4b963aceb9de2884020e98b26e40147b3f26a0444606633adc45b63752f57dca"
 # check: no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

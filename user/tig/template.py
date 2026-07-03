@@ -13,7 +13,7 @@ url = "https://github.com/jonas/tig"
 source = f"{url}/releases/download/tig-{pkgver}/tig-{pkgver}.tar.gz"
 sha256 = "5adeabdcd93aa0423d618da8b878b53482bef6e0e9e1fe224acc0f18031fe91e"
 # test suite tries to access /dev/tty which fails
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

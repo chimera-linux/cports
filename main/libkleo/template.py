@@ -37,6 +37,7 @@ license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/pim/libkleo"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkleo-{pkgver}.tar.xz"
 sha256 = "fa2ee37491410508db5eb05bbd2f657be081271b8e0e7183849e9657249ac49f"
+options = ["etcfiles"]
 
 
 @subpackage("libkleo-devel")

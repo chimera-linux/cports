@@ -75,7 +75,7 @@ def _(self):
     self.subdesc = "Plugin for Firefox"
     # installed in special path; the libgmpopenh264.so also has a soname of
     # libopenh264. just exclude it from providing stuff..
-    self.options = ["!scanshlibs"]
+    self.options = ["!scanshlibs", "etcfiles"]
     self.install_if = [self.with_pkgver("openh264-firefox-plugin-meta")]
     return [
         "etc/profile.d",

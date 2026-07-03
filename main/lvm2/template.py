@@ -61,7 +61,7 @@ source = (
 )
 sha256 = "be4babd8a986d73279f1e75fbb1d33cb41559b75c2063611781bfeb8c2def139"
 # the tests are full of scary gnuisms + don't work rootless
-options = ["!check"]
+options = ["etcfiles", "!check"]
 # otherwise we're in for a world of pain
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 

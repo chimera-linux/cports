@@ -28,3 +28,4 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-session"
 source = f"{url}/releases/download/{pkgver}/lxqt-session-{pkgver}.tar.xz"
 sha256 = "27bc2613b516af503511f15f38216ef9650bc8f65ae6154990b76b1a20d3898a"
+options = ["etcfiles"]

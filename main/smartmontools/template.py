@@ -17,6 +17,7 @@ url = "https://www.smartmontools.org"
 source = f"$(SOURCEFORGE_SITE)/smartmontools/smartmontools-{pkgver}.tar.gz"
 sha256 = "690b83ca331378da9ea0d9d61008c4b22dde391387b9bbad7f29387f2595f76e"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

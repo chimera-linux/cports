@@ -31,7 +31,7 @@ source = (
 )
 sha256 = "21056bc04e43e8ed34fdafd916a0ddcc29ec03a4ce6cf5aacac1ddf6ef185ef7"
 # non-trivial dbus setup
-options = ["!check", "!cross"]
+options = ["etcfiles", "!check", "!cross"]
 
 
 @subpackage("at-spi2-core-devel")

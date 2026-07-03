@@ -14,7 +14,7 @@ sha256 = "de8190448909aa97a222d435bc130aae98331bed4215e9f4519b4b5b285a1d63"
 file_modes = {"usr/bin/fusermount3": ("root", "root", 0o4755)}
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
 # tests need examples and are useless in chroot
-options = ["!lto", "!check"]
+options = ["etcfiles", "!lto", "!check"]
 
 
 def check(self):

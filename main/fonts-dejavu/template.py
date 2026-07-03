@@ -12,7 +12,7 @@ url = "https://github.com/dejavu-fonts/dejavu-fonts"
 source = f"{url}/archive/refs/tags/version_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "c4d10a1b665db893adc0c0aaee7ecd81b2b47c877d5cea0b40216707cbf327e4"
 # font
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_patch(self):

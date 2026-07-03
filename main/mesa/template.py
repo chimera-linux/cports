@@ -290,6 +290,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Mesa implementation of OpenCL"
     self.depends += [self.parent, "libclc"]
+    self.options = ["etcfiles"]
 
     return [
         "etc/OpenCL",

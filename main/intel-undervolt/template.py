@@ -12,7 +12,7 @@ source = f"{url}/archive/{pkgver}/intel-undervolt-{pkgver}.tar.gz"
 sha256 = "29a7ebaee4830d65d0b5cefa6d497887d4f23f34659876dfe944f3a020cf33ff"
 hardening = ["vis", "cfi"]
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def configure(self):

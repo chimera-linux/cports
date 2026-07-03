@@ -35,4 +35,4 @@ source = f"https://github.com/neomutt/neomutt/archive/refs/tags/{pkgver.replace(
 sha256 = "2c34fdd2166d5765e6bfdc21d1248bc4e92ddc0a33537b9418c17cd90e2dda80"
 env = {"autosetup_tclsh": "tclsh"}
 # no tests defined
-options = ["!check"]
+options = ["etcfiles", "!check"]

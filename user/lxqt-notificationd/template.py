@@ -21,3 +21,4 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-notificationd"
 source = f"{url}/releases/download/{pkgver}/lxqt-notificationd-{pkgver}.tar.xz"
 sha256 = "4223bf6ce1c2e5f67020320c70f221c13c94b17b5e33fd00fd6f8e2983a779c4"
+options = ["etcfiles"]

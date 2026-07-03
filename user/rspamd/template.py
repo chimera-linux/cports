@@ -40,7 +40,7 @@ url = "https://rspamd.com"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "9039f2d85797f9fab2346954b32f9672e21f9dca8eede0ecc6d9beefec6b9208"
 # check may be disabled
-options = []
+options = ["etcfiles"]
 
 match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":

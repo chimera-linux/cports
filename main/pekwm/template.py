@@ -20,7 +20,7 @@ source = f"{url}/pekwm/uv/pekwm-{pkgver}.tar.gz"
 sha256 = "8e794f094151fac9b85df2aaccf27add8cce5980f7eaf05b1caa8ab17b751aed"
 hardening = ["vis", "!cfi"]
 # no test target
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

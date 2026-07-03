@@ -9,4 +9,4 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 protected_paths = ["-etc/shells.d"]
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]

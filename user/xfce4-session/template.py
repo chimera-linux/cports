@@ -30,3 +30,4 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-session/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-session/{pkgver[:-2]}/xfce4-session-{pkgver}.tar.bz2"
 sha256 = "dbf00672c5316a30b7001fe852e6a5ba9f889afeab8a247545a160d4302f1fa2"
+options = ["etcfiles"]

@@ -47,7 +47,7 @@ source = (
 )
 sha256 = "3515e2015f235b6abb7a342806008acb1f184c29d9c4ced3581f8ed4c1f1c241"
 # Most tests need system dbus
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

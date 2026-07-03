@@ -35,6 +35,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkgver}.tar.xz"
 sha256 = "08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c"
+options = ["etcfiles"]
 
 
 def init_configure(self):

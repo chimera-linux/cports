@@ -10,6 +10,7 @@ url = "http://www.gnu.org/software/mtools"
 source = f"$(GNU_SITE)/mtools/mtools-{pkgver}.tar.bz2"
 sha256 = "6fe5193583d6e7c59da75e63d7234f76c0b07caf33b103894f46f66a871ffc9f"
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

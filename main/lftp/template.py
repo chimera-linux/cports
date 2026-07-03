@@ -26,4 +26,4 @@ url = "https://lftp.yar.ru"
 source = f"https://lftp.yar.ru/ftp/lftp-{pkgver}.tar.xz"
 sha256 = "c517c4f4f9c39bd415d7313088a2b1e313b2d386867fe40b7692b83a20f0670d"
 # tests require internet connection
-options = ["!check"]
+options = ["etcfiles", "!check"]

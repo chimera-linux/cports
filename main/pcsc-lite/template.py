@@ -15,6 +15,7 @@ license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"
 source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.xz"
 sha256 = "cdff7d7153a0b37aa74e26dfec89ec7dc5c5286aa21b91b903e38739d227e8e7"
+options = ["etcfiles"]
 
 
 def post_install(self):

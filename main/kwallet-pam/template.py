@@ -16,6 +16,7 @@ url = "https://invent.kde.org/plasma/kwallet-pam"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwallet-pam-{pkgver}.tar.xz"
 sha256 = "057f33cab5857ad596ce36460cdf5729005d478eef80afee870b366d1b9c3673"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

@@ -224,6 +224,12 @@ def invoke(pkg):
         )
         lintfail = True
 
+    if not pkg.options["etcfiles"] and (pkg.destdir / "etc").exists():
+        pkg.log_red(
+            "'/etc' exists, verify if this is necessary and then set the 'etcfiles' option"
+        )
+        lintfail = True
+
     if (
         dirempty
         and pkg.build_style != "meta"

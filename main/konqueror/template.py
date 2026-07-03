@@ -51,6 +51,7 @@ url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"
 sha256 = "aa9a35f81fa1f30aac1d77b9008d074fb041b2a7c12319d1f8c9b194137e57de"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 @subpackage("konqueror-devel")

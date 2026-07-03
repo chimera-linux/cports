@@ -46,6 +46,7 @@ def _(self):
 @subpackage("lsp-plugins-xdg")
 def _(self):
     self.subdesc = "icons and .desktop files"
+    self.options = ["etcfiles"]
     # these hundreds of .desktop files only really clutter launchers,
     # so place them separately
     return [

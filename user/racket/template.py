@@ -28,7 +28,7 @@ url = "https://racket-lang.org"
 source = f"https://download.racket-lang.org/installers/{pkgver}/racket-{pkgver}-src-builtpkgs.tgz"
 sha256 = "980c7305a01860b6f7b4ae5cf6d59317b485506b188edf3b4477f08f7902cd8d"
 # no tests, cross requires chezscheme version to match exactly
-options = ["!check", "!cross"]
+options = ["etcfiles", "!check", "!cross"]
 
 # same as main/chez-scheme
 match self.profile().arch:

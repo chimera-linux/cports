@@ -29,7 +29,7 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/thunar/start"
 source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[: pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"
 sha256 = "e815e034c073d634d0e77566837e1d9417b65c886924e3678e3325d5466c784d"
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 
 def post_install(self):

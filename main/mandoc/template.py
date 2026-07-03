@@ -12,6 +12,7 @@ url = "https://mandoc.bsd.lv"
 source = f"{url}/snapshots/mandoc-{pkgver}.tar.gz"
 sha256 = "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
 hardening = ["vis", "cfi"]
+options = ["etcfiles"]
 
 
 def pre_configure(self):

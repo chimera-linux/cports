@@ -15,4 +15,4 @@ source = f"https://sysstat.github.io/sysstat-packages/sysstat-{pkgver}.tar.xz"
 sha256 = "9896143f0dba8d130eabae276d0362c6d4303295612ab9bf060eae225eb766fd"
 hardening = ["vis", "cfi"]
 # dunno how to run these
-options = ["!check"]
+options = ["etcfiles", "!check"]

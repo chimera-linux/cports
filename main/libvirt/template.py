@@ -82,6 +82,7 @@ license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
 sha256 = "cc0e8c226559b479833c8bc9c77a8ec301482ab0305fcd98d27f11cc6877fd23"
+options = ["etcfiles"]
 
 if self.profile().wordsize != 32:
     depends += ["virtiofsd-meta"]

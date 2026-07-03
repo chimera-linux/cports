@@ -27,6 +27,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
 source = f"{url}/releases/download/{pkgver}/p11-kit-{pkgver}.tar.xz"
 sha256 = "09fd9f44da4813a3141e73d5e7cf7008e5660d0405f13d56c15e1da9dcecf828"
+options = ["etcfiles"]
 
 
 def post_install(self):

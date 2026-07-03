@@ -137,6 +137,7 @@ url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
 sha256 = "89419e0532a8b33fda721e750c8f480c38828d5c14523952430dffcce0adc606"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

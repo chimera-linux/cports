@@ -171,6 +171,7 @@ def _(self):
     self.subdesc = "Boost.Build framework"
     self.depends = [self.parent]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-build")]
+    self.options = ["etcfiles"]
 
     return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
 

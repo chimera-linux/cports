@@ -34,7 +34,7 @@ sha256 = "011d2653dffbd74239794348fdd01d67fcdaddb55c27f7b706f4cc00a3b16f22"
 tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/etc/vim/vimrc"']}
 hardening = ["vis", "!cfi"]
 # require a million system-specific fixes
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

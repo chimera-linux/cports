@@ -46,7 +46,7 @@ license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/evolution-data-server/{pkgver[:-2]}/evolution-data-server-{pkgver}.tar.xz"
 sha256 = "33f92d3b8822eba04c313796c0778cbb65a1a38472e857edc5f98854cca9b34c"
-options = ["!cross", "!lintpixmaps"]
+options = ["etcfiles", "!cross", "!lintpixmaps"]
 
 
 def post_install(self):

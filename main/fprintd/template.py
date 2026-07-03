@@ -30,7 +30,7 @@ source = f"https://gitlab.freedesktop.org/libfprint/fprintd/-/archive/v{pkgver}/
 sha256 = "a026ef34c31b25975275cc29a5e4eba2b54524769672095a5228098a08acd82c"
 # TODO: Most tests fail with the daemon exiting with SIGABRT, couldn't figure
 # out how to fix that
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 @subpackage("fprintd-meta")

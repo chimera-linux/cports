@@ -17,3 +17,4 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-menu-data"
 source = f"{url}/releases/download/{pkgver}/lxqt-menu-data-{pkgver}.tar.xz"
 sha256 = "a5a026fe3a8d279551233fa399b37139a668c70b07b53ec85c23e67249ae895b"
+options = ["etcfiles"]

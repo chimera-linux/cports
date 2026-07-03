@@ -43,6 +43,7 @@ source = f"https://git.sr.ht/~exec64/imv/archive/v{pkgver}.tar.gz"
 sha256 = "8949c1df4b933b1d324e02ce49f1834a4b73dd25fa8103579e0ed105149e080e"
 # cfi: sigill when opening images
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

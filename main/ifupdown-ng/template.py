@@ -15,6 +15,7 @@ source = f"{url}/archive/refs/tags/ifupdown-ng-{pkgver}.tar.gz"
 sha256 = "d42c8c18222efbce0087b92a14ea206de4e865d5c9dde6c0864dcbb2b45f2d85"
 # a bunch of tests fail
 hardening = ["vis", "!cfi"]
+options = ["etcfiles"]
 
 
 def post_install(self):

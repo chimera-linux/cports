@@ -25,3 +25,4 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-clipman-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-clipman-plugin/{pkgver[:-2]}/xfce4-clipman-plugin-{pkgver}.tar.xz"
 sha256 = "903302c3070a951d44ee17a84fa3cf21d36c6787678af8fbfc79e469fd00cb46"
+options = ["etcfiles"]

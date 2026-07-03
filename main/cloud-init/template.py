@@ -49,7 +49,7 @@ source = (
 )
 sha256 = "fa70a77fc3cd3167a051e9ab04af4d4f56d3ffa0deb320735c889a6a367d3a3d"
 # checkdepends
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def post_extract(self):

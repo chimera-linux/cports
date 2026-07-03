@@ -33,6 +33,7 @@ url = "https://api.kde.org/frameworks/baloo/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
 sha256 = "6b226118bde28e81217f8cd6129f6e24c5d422bd7a322fe682e592b028b72db7"
 hardening = ["vis"]
+options = ["etcfiles"]
 
 
 def post_install(self):

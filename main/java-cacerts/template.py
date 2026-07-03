@@ -6,7 +6,7 @@ pkgdesc = "Script to update Java cacerts store"
 license = "custom:none"
 url = "https://chimera-linux.org"
 # no tests
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 def install(self):

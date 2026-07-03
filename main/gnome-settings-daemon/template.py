@@ -59,7 +59,7 @@ source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:-2]}/gnome-settings-daem
 sha256 = "dd2c9730914f0ececa0229dd8a8c2940a57ddeb0802434558d4b164d79cfe05c"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 # wants xvfb
-options = ["!check"]
+options = ["etcfiles", "!check"]
 
 
 @subpackage("gnome-settings-daemon-devel")

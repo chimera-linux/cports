@@ -40,6 +40,7 @@ license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-settings/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-settings/{pkgver[:-2]}/xfce4-settings-{pkgver}.tar.bz2"
 sha256 = "6e11776e640798a1ac4168d53877f105bb3e8cf93b443c160841e3acdab63939"
+options = ["etcfiles"]
 
 
 @subpackage("xfce4-settings-default-themes")

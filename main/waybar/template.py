@@ -62,7 +62,7 @@ license = "MIT"
 url = "https://github.com/Alexays/Waybar"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "21c2bbef88c40473c355003582f9331d2f9b8a01efdcce0935edfc5f6b023a3e"
-options = ["!cross"]
+options = ["etcfiles", "!cross"]
 
 
 def post_install(self):
