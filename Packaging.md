@@ -278,58 +278,29 @@ files are considered ephemeral. In practice this means:
 <a id="handling_etc"></a>
 #### Handling /etc
 
-Frequently, properly dealing with `/etc` paths in packages can become
-non-trivial. Currently there is a lot of templates that do not follow
-the expected style, typically due to little support from the upstream
-software.
+Chimera has an eventual goal of making `/etc` a stateless directory
+that can be safely repopulated from immutable data.
 
-The expectation in Chimera packages is that software does not install
-default configuration files in `/etc`, this being the user's responsibility.
-If possible however, software should still work by default.
+Therefore, it is preferred if software does not install configuration
+in `/etc`. This requires cooperation from the software. If the software
+permits, we prefer the style of configuration that has immutable defaults
+somewhere with user-created overrides in `/etc`. However, a lot of software
+does not work this way, and patching everything becomes unsustainable.
 
-There are multiple types of configuration handling that can affect the
-way things can be packaged:
+It is preferred that templates do not install sample configurations in
+`/etc`. The location `/usr/share/examples/packagename` is more suitable
+for that. It is okay to install files there if that is the sole location
+the software reads and these installed files are reasonable out of the
+box defaults without which the software wouldn't function properly.
 
-1) Software does not expect a configuration file to be in place by default,
-   having builtin default settings. The user can create a configuration file
-   in `/etc/somewhere` to alter the settings. Optionally, if upstream provides
-   one, the package may install a sample in `/usr/share/etc/somewhere`.
-2) Software expects a configuration file, but will not work or is not expected
-   to work when used with a sample and requires user-supplied settings.
-   In this case, it can be handled the same as case 1.
-3) Software expects a configuration file in `/etc` and will not work without
-   one, but a default sample is typically good enough to run a service, and
-   does not expect it to be altered. In this case, the default configuration
-   should be installed in `/usr/share/etc/somewhere` and the software should
-   be made to use it preferentially when the `/etc` one does not exist already.
-   For instance, if the software takes a command line argument or an environment
-   variable to provide a config file path, a small wrapper script can be written
-   for the purpose of a `dinit` service that checks for existence of the user
-   file in `/etc` and if it does not exist, passes the argument or so on to
-   make it use the systemwide default.
-4) A case like the above, but with no way to externally handle this. In this
-   case, patching the software downstream and/or convincing upstream to fix
-   this properly should be considered. This is the worst case scenario. If
-   everything else fails, it can be treated like case 2, and require user
-   intervention before using it (with `/usr/share/etc` having a canonical
-   tree).
-5) Software that already does the right thing. A particular desired pattern
-   is with `.d` directories that preferentially scan `/etc/foo.d` and then
-   `/usr/lib/foo.d` or similar. Nothing to do here except making sure that
-   packaging installs in the correct `/usr` paths.
+At some point explicitly marking templates that install files in `/etc`
+will become necessary (via `options`) but the option does not exist
+yet. This will be for the purpose of tracking default `/etc` installs
+for the purpose of verification whether this is necessary.
 
-There are some things not to do:
-
-1) Install in random `/usr` paths. Things that require a systemwide config
-   to be installed should mirror a proper `/etc` tree in `/usr/share/etc`,
-   unless they already have their own builtin path that is expected by upstream.
-2) Use `tmpfiles.d` to alter paths in `/usr`. This path is immutable, and should
-   contain only world-readable, root-owned files.
-3) Use `tmpfiles.d` to copy to `/etc` using the `C` command. This may seem like
-   a good idea for the purpose of populating the path but has the major drawback
-   of not tracking packaging changes; once copied once, it will not get updated,
-   even if the package updates its files and the user has not altered the copy
-   at all.
+The eventual plan is to have `cbuild` automatically handle `/etc` paths
+in a way to permit stateless installations, without any explicit action
+taken by the template.
 
 <a id="template_hardening"></a>
 #### Hardening Templates
