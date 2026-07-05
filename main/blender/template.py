@@ -1,6 +1,6 @@
 pkgname = "blender"
-pkgver = "5.1.1"
-pkgrel = 1
+pkgver = "5.1.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -50,6 +50,7 @@ makedepends = [
     "libsndfile-devel",
     "libtiff-devel",
     "libwebp-devel",
+    "libxkbcommon-devel",
     "llvm-devel",
     "onetbb-devel",
     "openal-soft-devel",
@@ -68,6 +69,7 @@ makedepends = [
     "shaderc-devel",
     "vulkan-loader-devel",
     "wayland-devel",
+    "wayland-protocols",
     "zstd-devel",
 ]
 depends = [
@@ -79,7 +81,7 @@ pkgdesc = "3D creation suite"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "fae57dd7273d76e21712abfba43a85fffba00e8bf3e3cf9a874b993b8ac4857d"
+sha256 = "aedfd030231979b629b18049d93b92fd2794952ca0cf39ebde54e84438bed05a"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
