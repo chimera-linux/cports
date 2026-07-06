@@ -47,7 +47,6 @@ def _(self):
         "aarch64",
         "loongarch64",
         "ppc64le",
-        "ppc64",
         "riscv64",
         "x86_64",
     ]:

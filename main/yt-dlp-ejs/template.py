@@ -26,6 +26,9 @@ sha256 = [
     "c680032206d76f70c586c2373d564d81e520ae84dc433062345ec5734afda0e1",
 ]
 
+if self.profile().endian == "big":
+    broken = "rollup fails with unknown node type: 1207959552"
+
 
 def prepare(self):
     self.do("npm", "ci", allow_network=True)
