@@ -1,0 +1,89 @@
+--- a/src/luac.c	2026-06-07 06:06:14.000000000 +0300
++++ b/src/luac.c	2026-07-06 21:14:09.776657815 +0300
+@@ -373,6 +373,14 @@
+     return 1;
+ }
+ 
++static int luaC_get_libdir(lua_State *L)
++{
++    char cwc_libdir[4000];
++    get_cwc_libdir(cwc_libdir, 4000);
++    lua_pushstring(L, cwc_libdir);
++    return 1;
++}
++
+ /** Get cwc version.
+  * @tfield string version
+  * @readonly
+@@ -649,9 +657,11 @@
+     char cwc_datadir[4096];
+     get_cwc_datadir(cwc_datadir, 4000);
+     int datadir_len = strlen(cwc_datadir);
+-    strcat(cwc_datadir, "/lib");
+ 
+-    add_to_search_path(L, library_path ? library_path : cwc_datadir);
++    char cwc_libdir[4096];
++    get_cwc_libdir(cwc_libdir, 4000);
++    strcat(cwc_libdir, "/lib");
++    add_to_search_path(L, library_path ? library_path : cwc_libdir);
+     cwc_datadir[datadir_len] = 0;
+ 
+     // awesome compability for awesome module
+@@ -683,6 +693,7 @@
+         {"is_nested",         luaC_is_nested        },
+         {"is_startup",        luaC_is_startup       },
+         TABLE_RO(datadir),
++        TABLE_RO(libdir),
+         TABLE_RO(version),
+ 
+         // config functions
+
+--- a/src/util.c	2026-06-07 06:06:14.000000000 +0300
++++ b/src/util.c	2026-07-06 20:20:01.463131688 +0300
+@@ -186,3 +186,24 @@
+     strncpy(dst, "/usr/share/cwc", buff_size);
+     return false;
+ }
++
++// For fhs support
++bool get_cwc_libdir(char *dst, int buff_size)
++{
++    char *lib_paths = strdup("/lib:/lib64:/usr/lib:/usr/lib64");
++    char *save_ptr = lib_paths;
++    char *lib_path;
++    while ((lib_path = strtok_r(save_ptr, ":", &save_ptr))) {
++        strncpy(dst, lib_path, buff_size - 1);
++        strncat(dst, "/cwc", buff_size - 1);
++        int ok = access(dst, R_OK) == 0;
++        if (!ok)
++            continue;
++
++        free(lib_paths);
++        return true;
++    }
++    strncpy(dst, "/usr/lib/cwc", buff_size);
++    free(lib_paths);
++    return false;
++}
+
+--- a/include/cwc/util.h	2026-06-07 06:06:14.000000000 +0300
++++ b/include/cwc/util.h	2026-07-06 20:53:45.967029266 +0300
+@@ -146,6 +146,7 @@
+ /* set dst and return true if found, otherwise dst default to "/usr/share/cwc"
+  */
+ bool get_cwc_datadir(char *dst, int buff_size);
++bool get_cwc_libdir(char *dst, int buff_size);
+ 
+ //================== MACROS ========================
+
+--- a/defconfig/oneshot.lua	2026-06-07 06:06:14.000000000 +0300
++++ b/defconfig/oneshot.lua	2026-07-06 20:40:21.725710471 +0300
+@@ -25,7 +25,7 @@
+     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+ 
+ -- load builtin cwc C plugin
+-local plugins_folder = cwc.is_nested() and "./build/plugins" or cwc.get_datadir() .. "/plugins"
++local plugins_folder = cwc.get_libdir() .. "/plugins"
+ cwc.plugin.load(plugins_folder .. "/cwcle.so")
+ cwc.plugin.load(plugins_folder .. "/flayout.so")
+ cwc.plugin.load(plugins_folder .. "/dwl-ipc.so")

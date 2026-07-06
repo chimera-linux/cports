@@ -1,0 +1,28 @@
+--- a/meson.build	2026-07-06 16:19:42.077298021 +0300
++++ a/meson.build	2026-07-06 16:20:26.774514276 +0300
+@@ -1,6 +1,7 @@
+ project('cwcwm', 'c', 'cpp', default_options: ['c_std=gnu2x,gnu17,gnu11','b_ndebug=if-release'])
+ 
+ cwc_datadir = get_option('datadir') / 'cwc'
++cwc_libdir = get_option('libdir') / 'cwc'
+ add_project_arguments([
+   '-DWLR_USE_UNSTABLE',
+   '-DHHMAP_AUTOMATIC_REHASH',
+@@ -78,7 +79,7 @@
+ endif
+ 
+ # install script
+-install_subdir('lib', install_dir: cwc_datadir)
++install_subdir('lib', install_dir: cwc_libdir)
+ install_subdir('defconfig', install_dir: cwc_datadir)
+ install_subdir('doc', install_dir: get_option('datadir') / 'doc/cwc')
+ install_subdir('include/cwc', install_dir: get_option('includedir'))
+
+--- a/plugins/meson.build	2026-07-06 16:18:24.119227567 +0300
++++ b/plugins/meson.build	2026-07-06 16:17:44.617161969 +0300
+@@ -1,4 +1,4 @@
+-plugdir = cwc_datadir / 'plugins'
++plugdir = cwc_libdir / 'plugins'
+ 
+ shared_module(
+   'cwcle', 'cwcle.c', 
