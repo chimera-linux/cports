@@ -1,0 +1,40 @@
+Description: Fix build failure due to hardening.
+ When upgrading to debhelper 13, the hardening flags are turned on by
+ default. And causes FTBFS. This patch fixes those build failures.
+Author: Ying-Chun Liu (PaulLiu) <paulliuu@debian.org>
+Last-Update: 2022-05-26
+Index: cdrkit-1.1.11/genisoimage/genisoimage.c
+===================================================================
+--- cdrkit-1.1.11.orig/genisoimage/genisoimage.c
++++ cdrkit-1.1.11/genisoimage/genisoimage.c
+@@ -3414,7 +3414,7 @@ if (check_session == 0)
+ 	if (goof) {
+ 		fprintf(stderr, "ISO9660/Rock Ridge tree sort failed.\n");
+ 		if(merge_warn_msg)
+-			fprintf(stderr, merge_warn_msg);
++			fprintf(stderr, "%s", merge_warn_msg);
+ 		exit(1);
+ 	}
+ #ifdef UDF
+@@ -3427,7 +3427,7 @@ if (check_session == 0)
+ 	if (goof) {
+ 		fprintf(stderr, "Joliet tree sort failed. The -joliet-long switch may help you.\n");
+ 		if(merge_warn_msg)
+-			fprintf(stderr, merge_warn_msg);
++			fprintf(stderr, "%s", merge_warn_msg);
+ 		exit(1);
+ 	}
+ 	/*
+Index: cdrkit-1.1.11/genisoimage/tree.c
+===================================================================
+--- cdrkit-1.1.11.orig/genisoimage/tree.c
++++ cdrkit-1.1.11/genisoimage/tree.c
+@@ -647,7 +647,7 @@ got_valid_name:
+      fprintf(stderr, "Unable to sort directory %s\n",
+            this_dir->whole_name);
+      if(merge_warn_msg)
+-        fprintf(stderr, merge_warn_msg);
++        fprintf(stderr, "%s", merge_warn_msg);
+      exit(1);
+ 	}
+ 	/*

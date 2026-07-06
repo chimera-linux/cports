@@ -1,0 +1,131 @@
+Author: Lunar <lunar@torproject.org>
+Last-Update: 2015-04-27
+Bug-Debian: https://bugs.debian.org/783513
+Description: Allow dates in PVD to be set
+
+--- a/genisoimage/genisoimage.1
++++ b/genisoimage/genisoimage.1
+@@ -976,6 +976,12 @@ in the
+ .I .genisoimagerc
+ file.
+ .TP
++.BI \-creation-date " epoch"
++Specifies the date to be used as creation, modification and effective
++date in the volume descriptor and for files and relocations created
++on the fly. Specified as a number of second since
++1970-01-01 00:00:00 +0000 (UTC); if 0, the current time is used.
++.TP
+ .B \-print\-size
+ Print estimated filesystem size in multiples of the sector size (2048 bytes)
+ and exit. This option is needed for
+--- a/genisoimage/genisoimage.c
++++ b/genisoimage/genisoimage.c
+@@ -171,6 +171,7 @@ char	*abstract = ABSTRACT_DEFAULT;
+ char	*volset_id = VOLSET_ID_DEFAULT;
+ char	*volume_id = VOLUME_ID_DEFAULT;
+ char	*system_id = SYSTEM_ID_DEFAULT;
++time_t  creation_date = 0;
+ char	*boot_catalog = BOOT_CATALOG_DEFAULT;
+ char	*boot_image = BOOT_IMAGE_DEFAULT;
+ char	*genboot_image = BOOT_IMAGE_DEFAULT;
+@@ -407,6 +408,8 @@ struct ld_option {
+ #define	OPTION_ALLOW_LEADING_DOTS	1070
+ #define	OPTION_PUBLISHER		1071
+ 
++#define OPTION_CREATION_DATE            1072
++
+ #ifdef		JIGDO_TEMPLATE
+ #define	OPTION_JTT_OUTPUT		1101
+ #define	OPTION_JTJ_OUTPUT		1102
+@@ -524,6 +527,8 @@ static const struct ld_option ld_options
+ 	'\0', "FILE", "Check all ISO9660 names from previous session", ONE_DASH},
+ 	{{"copyright", required_argument, NULL, OPTION_COPYRIGHT},
+ 	'\0', "FILE", "Set Copyright filename", ONE_DASH},
++	{{"creation-date", required_argument, NULL, OPTION_CREATION_DATE},
++	'\0', NULL, "Set volume creation date", ONE_DASH},
+ 	{{"debug", no_argument, NULL, OPTION_DEBUG},
+ 	'\0', NULL, "Set debug flag", ONE_DASH},
+ 	{{"eltorito-boot", required_argument, NULL, 'b'},
+@@ -1730,6 +1735,22 @@ int main(int argc, char *argv[])
+ #endif
+ 			}
+ 			break;
++		case OPTION_CREATION_DATE:
++		{
++			char	*end = 0;
++
++			creation_date = strtol(optarg, &end, 10);
++			if (!end || *end != 0) {
++#ifdef	USE_LIBSCHILY
++				comerrno(EX_BAD, "Bad epoch for -creation-date\n");
++#else
++				fprintf(stderr, "Bad epoch for -creation-date\n");
++				exit(1);
++#endif
++			}
++			break;
++		}
++
+ 		case OPTION_DEBUG:
+ 			debug++;
+ 			break;
+--- a/genisoimage/genisoimage.h
++++ b/genisoimage/genisoimage.h
+@@ -651,6 +651,7 @@ extern char	*appid;
+ extern char	*volset_id;
+ extern char	*system_id;
+ extern char	*volume_id;
++extern time_t	creation_date;
+ extern char	*boot_catalog;
+ extern char	*boot_image;
+ extern char	*genboot_image;
+--- a/genisoimage/tree.c
++++ b/genisoimage/tree.c
+@@ -783,7 +783,11 @@ generate_reloc_directory()
+ 	struct directory_entry *s_entry;
+ 
+ 	/* Create an  entry for our internal tree */
+-	time(&current_time);
++	if (creation_date == 0) {
++		time(&current_time);
++	} else {
++		current_time = creation_date;
++	}
+ 	reloc_dir = (struct directory *)
+ 		e_malloc(sizeof (struct directory));
+ 	memset(reloc_dir, 0, sizeof (struct directory));
+@@ -2680,7 +2684,11 @@ init_fstatbuf()
+ 	time_t	current_time;
+ 
+ 	if (fstatbuf.st_ctime == 0) {
+-		time(&current_time);
++		if (creation_date == 0) {
++			time(&current_time);
++		} else {
++			current_time = creation_date;
++		}
+ 		if (rationalize_uid)
+ 			fstatbuf.st_uid = uid_to_use;
+ 		else
+--- a/genisoimage/write.c
++++ b/genisoimage/write.c
+@@ -1885,12 +1885,17 @@ pvd_write(FILE *outfile)
+ 	int		should_write;
+ 	struct tm	local;
+ 	struct tm	gmt;
++	time_t		pvd_date;
+ 
+ 
+ 	time(&begun);
+ 
+-	local = *localtime(&begun);
+-	gmt = *gmtime(&begun);
++	if (creation_date == 0) {
++		creation_date = begun;
++	}
++
++	local = *localtime(&creation_date);
++	gmt = *gmtime(&creation_date);
+ 
+ 	/*
+ 	 * There was a comment here about breaking in the year 2000.

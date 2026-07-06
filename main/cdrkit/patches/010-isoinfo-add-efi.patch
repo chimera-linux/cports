@@ -1,0 +1,27 @@
+From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Date: Sat, 8 Mar 2025 12:20:34 +0100
+Subject: [PATCH] isoinfo: support EFI architecture
+
+We added a value for the El Torito Platform ID field signifying EFI based
+boot entries. The isoinfo command should correctly decode it instead of
+showing an 'Unknown Arch' warning.
+
+Forwarded: not-needed
+Signed-off-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+---
+ genisoimage/diag/isoinfo.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/genisoimage/diag/isoinfo.c b/genisoimage/diag/isoinfo.c
+index 55396c2..44f5a42 100644
+--- a/genisoimage/diag/isoinfo.c
++++ b/genisoimage/diag/isoinfo.c
+@@ -1281,6 +1281,8 @@ arch_name(int val)
+ 		return ("PPC");
+ 	case EL_TORITO_ARCH_MAC:
+ 		return ("MAC");
++	case EL_TORITO_ARCH_EFI:
++		return ("efi");
+ 	default:
+ 		return ("Unknown Arch");
+ 	}

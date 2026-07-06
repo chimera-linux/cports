@@ -1,0 +1,31 @@
+--- cdrkit-1.1.11.orig/Changelog
++++ cdrkit-1.1.11/Changelog
+@@ -129,7 +129,7 @@ cdrkit (1.1.5.1) RELEASED; urgency=low
+ 
+ cdrkit (1.1.5) RELEASED; urgency=low
+ 
+-  * wodim: explicite warning and more grace time if user manually specifies a size
++  * wodim: explicit warning and more grace time if user manually specifies a size
+     less than 301 sectors, which is likely to be a mistake from copy-pasting
+     of genisoimage -print-size output and omitting the block factor
+   * wodim: Native device name management directly in libusal now, the
+@@ -202,7 +202,7 @@ cdrkit (1.1.2) RELEASED; urgency=low
+ 
+   [ Eduard Bloch ]
+   * stop confusion and bailing out if burnfree/burnproof options have been
+-    explicitely specified
++    explicitly specified
+   * be move carefull with -dummy when the DVD media may not support it
+   * extracting drive's default speed in attach_mdvd()
+   * automatic recorder device guessing code, currently Linux-only
+--- cdrkit-1.1.11.orig/genisoimage/genisoimage.c
++++ cdrkit-1.1.11/genisoimage/genisoimage.c
+@@ -197,7 +197,7 @@ int	allow_lowercase = 0;	/* Allow lower
+ int	allow_multidot = 0;	/* Allow more than on dot in filename */
+ int	iso_translate = 1;	/* 1 == enables '#', '-' and '~' removal */
+ int	allow_leading_dots = 0;	/* DOS cannot read names with leading dots */
+-int	allow_limited_size = 0;	/* Let the user to allow the trick explicitely */
++int	allow_limited_size = 0;	/* Let the user to allow the trick explicitly */
+ #ifdef	VMS
+ int	use_fileversion = 1;	/* Use file version # from filesystem */
+ #else

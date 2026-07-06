@@ -1,0 +1,29 @@
+Description: Add missing header includes.
+Author: Andrey Rakhmatullin <wrar@debian.org>
+Bug-Debian: https://bugs.debian.org/1066264
+Last-Update: 2024-03-14
+
+Index: cdrkit-1.1.11/genisoimage/genisoimage.c
+===================================================================
+--- cdrkit-1.1.11.orig/genisoimage/genisoimage.c
++++ cdrkit-1.1.11/genisoimage/genisoimage.c
+@@ -54,6 +54,7 @@
+ #include <ctype.h>
+ #include "match.h"
+ #include "exclude.h"
++#include "checksum.h"
+ #include <unls.h>	/* For UNICODE translation */
+ #include <schily.h>
+ #ifdef UDF
+Index: cdrkit-1.1.11/genisoimage/jte.c
+===================================================================
+--- cdrkit-1.1.11.orig/genisoimage/jte.c
++++ cdrkit-1.1.11/genisoimage/jte.c
+@@ -27,6 +27,7 @@
+ #include "ifo_read.h"
+ #include "endianconv.h"
+ #include "checksum.h"
++#include "md5.h"
+ #endif
+ #ifdef APPLE_HYB
+ #include <ctype.h>

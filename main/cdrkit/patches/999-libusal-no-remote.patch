@@ -1,0 +1,26 @@
+we don't have rcmd in musl
+
+--- a/libusal/CMakeLists.txt
++++ b/libusal/CMakeLists.txt
+@@ -4,7 +4,7 @@ include(../include/AddScgBits.cmake)
+ ADD_DEFINITIONS(-DUSE_RCMD_RSH)
+ 
+ #SET(LIBSCG_SRCS rdummy.c usalsettarget.c usaltimes.c scsi-linux-ata.c scsi-linux-pg.c scsi-linux-sg.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c)
+-SET(LIBSCG_SRCS usalsettarget.c usaltimes.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c scsi-remote.c)
++SET(LIBSCG_SRCS rdummy.c usalsettarget.c usaltimes.c scsierrs.c scsihack.c scsihelp.c scsiopen.c scsitransp.c scsi-remote.c)
+ LINK_DIRECTORIES(../librols)
+ ADD_LIBRARY (usal STATIC ${LIBSCG_SRCS})
+ TARGET_LINK_LIBRARIES(usal ${SCG_SELF_LIBS})
+--- a/libusal/scsi-remote.c
++++ b/libusal/scsi-remote.c
+@@ -54,6 +54,10 @@
+ #undef	USE_REMOTE				/* There is no rcmd() */
+ #endif
+ 
++#ifdef USE_REMOTE
++#undef USE_REMOTE
++#endif
++
+ #ifdef	USE_REMOTE
+ #include <stdio.h>
+ #include <sys/types.h>
