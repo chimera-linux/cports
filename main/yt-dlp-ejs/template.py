@@ -16,8 +16,15 @@ checkdepends = ["python-pytest"]
 pkgdesc = "External JavaScript for yt-dlp"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/ejs"
-source = f"$(PYPI_SITE)/y/yt_dlp_ejs/yt_dlp_ejs-{pkgver}.tar.gz"
-sha256 = "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e"
+source = [
+    f"$(PYPI_SITE)/y/yt_dlp_ejs/yt_dlp_ejs-{pkgver}.tar.gz",
+    "https://registry.npmjs.org/@rollup/wasm-node/-/wasm-node-4.52.5.tgz",
+]
+source_paths = [".", "rollup"]
+sha256 = [
+    "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+    "c680032206d76f70c586c2373d564d81e520ae84dc433062345ec5734afda0e1",
+]
 
 
 def prepare(self):
@@ -28,6 +35,9 @@ def prepare(self):
         "src/yt/solver/test/download.ts",
         allow_network=True,
     )
+    # avoid non-portable rollup binaries
+    self.rm("node_modules/rollup", recursive=True)
+    self.mv("rollup", "node_modules")
 
 
 def check(self):
