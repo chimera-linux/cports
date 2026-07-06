@@ -1,5 +1,5 @@
 pkgname = "ghostwriter"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -28,4 +28,4 @@ pkgdesc = "KDE markdown editor"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/ghostwriter"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ghostwriter-{pkgver}.tar.xz"
-sha256 = "4d3b6e57579843a1dd50d09d344667c07b1511f4dcf82764dbd661d28889d5dc"
+sha256 = "c948923d90c8ab3d5c22a426a4a02efff663aeaeec836bf59a9dcf9a3e38a7bf"

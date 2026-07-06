@@ -1,5 +1,5 @@
 pkgname = "kdeconnect"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 # needs more setup
@@ -55,7 +55,7 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "45a197a2f2e7e400e6cf42f351cf92ca06807f1023f17378f128a3314c7fc176"
+sha256 = "505b58b52630a662a8f6a2c50c58eda1de66779762c31d5ea5247b48bba52561"
 options = ["etcfiles"]
 
 

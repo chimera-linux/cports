@@ -267,7 +267,7 @@ def _(self):
         "audiotube",  # youtube music client
         "elisa",  # music player
         "ffmpegthumbs",  # video thumbnails
-        # "k3b",  # disc ripper TODO: bunch of dvd/cd tools
+        "k3b",  # disc ripper
         "kasts",  # podcast player
         "kdenlive",  # video editor
         "juk",  # music player and manager

@@ -1,5 +1,5 @@
 pkgname = "kunifiedpush"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session", "--"]
@@ -27,7 +27,7 @@ url = "https://api.kde.org/kunifiedpush/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kunifiedpush-{pkgver}.tar.xz"
 )
-sha256 = "15b6c7c463953b0d3b0ae8dfdde9dea41ae7eac77d036ca95db6f87d1a8a8fe1"
+sha256 = "247ccc7bcc4277e2fc63a753c367d0ca10efe3b4916f60a44d9ca2da403c4fe5"
 options = ["etcfiles"]
 
 

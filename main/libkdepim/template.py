@@ -1,5 +1,5 @@
 pkgname = "libkdepim"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -23,7 +23,7 @@ pkgdesc = "KDE PIM common library"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libkdepim/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdepim-{pkgver}.tar.xz"
-sha256 = "9aed63179510dfd842483019595a27d44f97a0e3c05e8ea10c4c07f9e532eefd"
+sha256 = "089f1b24839a66b234e987f9eb71aca9efe20c2e9d8dd7387f24c14cbff37bf5"
 
 
 @subpackage("libkdepim-devel")

@@ -1,5 +1,5 @@
 pkgname = "baloo-widgets"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 # flaky filemetadataitemcounttest when parallel
@@ -26,7 +26,7 @@ url = "https://api.kde.org/baloo-widgets/html/index.html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/baloo-widgets-{pkgver}.tar.xz"
 )
-sha256 = "7daf3e6821b9988c171a316cb547591fba2caca78818c2da1d409603ea93c00a"
+sha256 = "fa5288d216d3ed9ed0926385dbc0b266b60317a60c231a6dccaff4bcd810d9fc"
 hardening = ["vis"]
 
 

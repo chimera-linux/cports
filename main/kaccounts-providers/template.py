@@ -1,5 +1,5 @@
 pkgname = "kaccounts-providers"
-pkgver = "26.04.2"
+pkgver = "26.04.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "KDE providers for online accounts"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/kaccounts-providers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kaccounts-providers-{pkgver}.tar.xz"
-sha256 = "0d3f278ffac88af2db4c7ba7d9cab4622a2e19dbb39fbd144f1daa1075caf8a0"
+sha256 = "7b364e75a562052932d8b2e8faecb7cd8716a35e7177e409e36e3e631e1f6775"
 hardening = ["vis"]
 options = ["etcfiles"]
 
