@@ -1,6 +1,6 @@
 pkgname = "libao"
 pkgver = "1.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-pulse"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
