@@ -1,5 +1,5 @@
 pkgname = "fzf"
-pkgver = "0.73.1"
+pkgver = "0.74.0"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ pkgdesc = "Command-line fuzzy finder"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ae4f49f8606a7d28498208fa1b93c5d3b890719eea97e02559e66160138b750c"
+sha256 = "55ab5f2256edd8890f81d407b63d3a3e81cffe10e318cd196031dc85efdeb079"
 
 
 def post_install(self):
@@ -22,8 +22,9 @@ def post_install(self):
     with self.pushd("shell"):
         self.install_completion("completion.bash", "bash")
         self.install_completion("completion.zsh", "zsh")
+        self.install_completion("completion.nu", "nushell")
 
-        for ext in ["bash", "fish", "zsh"]:
+        for ext in ["bash", "fish", "zsh", "nu"]:
             self.install_file(f"key-bindings.{ext}", "usr/share/fzf")
 
 
