@@ -1,6 +1,6 @@
 pkgname = "luanti"
 pkgver = "5.16.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SERVER=TRUE",
@@ -8,7 +8,8 @@ configure_args = [
     "-DENABLE_LTO=OFF",
     "-DENABLE_PROMETHEUS=ON",
     "-DENABLE_UPDATE_CHECKER=OFF",
-    "-DUSE_SDL2=ON",
+    "-DUSE_SDL2=OFF",
+    "-DUSE_SDL3=ON",
 ]
 hostmakedepends = [
     "cmake",
@@ -36,7 +37,7 @@ makedepends = [
     "openal-soft-devel",
     "openssl3-devel",
     "prometheus-cpp-devel",
-    "sdl2-devel",
+    "sdl3-devel",
     "sqlite-devel",
     "zstd-devel",
 ]
