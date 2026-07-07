@@ -9,7 +9,7 @@ hostmakedepends = [
 makedepends = [
     "alsa-lib-devel",
     "libgit2-devel",
-    "sdl2-devel",
+    "sdl2-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Classic Macintosh emulator"
