@@ -1,6 +1,6 @@
 pkgname = "dhcpcd"
 pkgver = "10.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
