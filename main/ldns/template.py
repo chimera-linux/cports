@@ -1,6 +1,6 @@
 pkgname = "ldns"
-pkgver = "1.8.4"
-pkgrel = 3
+pkgver = "1.9.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-drill",
@@ -21,7 +21,7 @@ subdesc = "utilities"
 license = "BSD-3-Clause"
 url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/ldns/ldns-{pkgver}.tar.gz"
-sha256 = "838b907594baaff1cd767e95466a7745998ae64bc74be038dccc62e2de2e4247"
+sha256 = "b524fa21994b6e834200ceb8c27f1b84bda5982fe35706f058196c079db94d5d"
 # no check target
 options = ["!check"]
 
