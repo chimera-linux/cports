@@ -1,6 +1,6 @@
 pkgname = "copyq"
-pkgver = "15.0.0"
-pkgrel = 1
+pkgver = "16.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWITH_NATIVE_NOTIFICATIONS=OFF",
@@ -27,7 +27,7 @@ pkgdesc = "Clipboard manager with advanced features"
 license = "GPL-3.0-or-later"
 url = "https://hluk.github.io/CopyQ"
 source = f"https://github.com/hluk/CopyQ/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "19665e503997e9d2ffd6f062df43255ee2be38d888d8cc22215474196016bb39"
+sha256 = "3d876f74cf32913e37b1cdeaca0c61cce857174f064bb128f76fd0fa3abdb326"
 # CFI: loading plugins fail with cfi enabled
 hardening = ["vis", "!cfi"]
 # requires building project a second time in debug mode
