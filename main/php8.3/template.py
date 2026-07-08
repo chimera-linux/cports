@@ -1,5 +1,5 @@
 pkgname = "php8.3"
-pkgver = "8.3.31"
+pkgver = "8.3.32"
 _majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 0
 _apiver = "20230831"
@@ -133,7 +133,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "4e7baaf0a690e954a20e7ced3dd633ce8cb8094e2b6b612a55e703ecbbdcbf4f"
+sha256 = "8e1f03eea0b07bc29e1f94d3cfcf0532b0421ec63c1792346b58c3ad8e40fc9b"
 options = ["etcfiles"]
 
 if self.profile().arch in ["loongarch64"]:
@@ -279,7 +279,7 @@ def _extension(extn, iif):
     def _(self):
         self.subdesc = f"{extn} extension"
         self.depends += [self.parent]
-        options = ["etcfiles"]
+        self.options = ["etcfiles"]
 
         if iif:
             self.install_if = [self.parent]
@@ -345,7 +345,7 @@ def _(self):
     self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
     self.depends = [self.parent, f"{pkgname}-xml"]
     self.install_if = [self.parent]
-    options = ["etcfiles"]
+    self.options = ["etcfiles"]
 
     return [
         f"etc/php{_majver}/pear.conf",
