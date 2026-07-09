@@ -1,5 +1,5 @@
-# keep in sync with user/wine-staging
-pkgname = "wine"
+# keep in sync with main/wine
+pkgname = "wine-staging"
 pkgver = "11.12"
 pkgrel = 0
 archs = ["aarch64", "x86_64"]
@@ -15,6 +15,8 @@ make_install_args = [
 ]
 hostmakedepends = [
     "automake",
+    "bash",
+    "git",
     "pkgconf",
 ]
 makedepends = [
@@ -53,12 +55,23 @@ makedepends = [
 ]
 # not traced but needed
 depends = ["libxrandr"]
+# low priority provider so it can seamlessly replace wine
+# (for quality of life when you have e.g. winetricks installed)
+provides = ["wine=0"]
 pkgdesc = "Compatibility layer for running Windows programs on Linux"
+subdesc = "staging patchset"
 license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
-source = f"https://dl.winehq.org/wine/source/11.x/wine-{pkgver}.tar.xz"
-sha256 = "d3bc091192d985846c9f20065cc81f21331f01e22b736b131e3449e1306671bc"
+source = [
+    f"https://dl.winehq.org/wine/source/11.x/wine-{pkgver}.tar.xz",
+    f"https://github.com/wine-staging/wine-staging/archive/refs/tags/v{pkgver}.tar.gz",
+]
+source_paths = [".", "staging"]
+sha256 = [
+    "d3bc091192d985846c9f20065cc81f21331f01e22b736b131e3449e1306671bc",
+    "9d72a105560a6e05fb37edf03e7521b2e3eafb49acd0ce5e344ef1bca5ff2730",
+]
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
 # which isn't the case for loader/preloader.o:(map_so_lib)
@@ -73,12 +86,18 @@ match self.profile().arch:
         configure_args += ["--enable-archs=x86_64,i386"]
 
 
+def post_patch(self):
+    self.do("./staging/staging/patchinstall.py", "--all", "DESTDIR=.")
+
+
 def post_install(self):
     self.install_link("usr/bin/wine64", "wine")
 
 
-@subpackage("wine-devel")
+@subpackage("wine-staging-devel")
 def _(self):
+    # ditto
+    self.provides = ["wine-devel=0"]
     # llvm-strip/objcopy cannot handle windows .a's
     self.nostrip_files = [
         "usr/lib/wine/*-*/*.a",
