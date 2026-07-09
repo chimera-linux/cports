@@ -1,0 +1,11 @@
+--- a/src/tests/imageTests.cpp
++++ b/src/tests/imageTests.cpp
+@@ -5,6 +5,8 @@
+ 
+ // Set up helper methods and classes for generating images from test expressions
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #include <cassert>
+ #include <cstdio>
+ #include <cstdlib>
