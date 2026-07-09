@@ -32,7 +32,8 @@ def make_link(dfile, cksum):
             linkpath.hardlink_to(dfile)
 
 
-def verify_cksum(dfile, cksum, pkg):
+def verify_cksum(dfile, sidx, pkg):
+    cksum = pkg.sha256[sidx]
     pkg.log(f"verifying sha256sums for source '{dfile.name}'... ", "")
     filesum = get_cksum(dfile, pkg)
     if cksum != filesum:
@@ -40,8 +41,7 @@ def verify_cksum(dfile, cksum, pkg):
             pkg.logger.out_plain("")
             pkg.logger.out(f"\f[orange]SHA256 UPDATED: {cksum} -> {filesum}")
             for i in range(len(pkg.sha256)):
-                if pkg.sha256[i] == cksum:
-                    pkg.sha256[i] = filesum
+                pkg.sha256[sidx] = filesum
             return True
         else:
             pkg.logger.out_plain("")
@@ -55,7 +55,8 @@ def verify_cksum(dfile, cksum, pkg):
         return True
 
 
-def link_cksum(dfile, cksum, pkg):
+def link_cksum(dfile, sidx, pkg):
+    cksum = pkg.sha256[sidx]
     # it's already in the destination, don't try to link
     if dfile.is_file():
         return True
@@ -65,7 +66,7 @@ def link_cksum(dfile, cksum, pkg):
         dfile.hardlink_to(linkpath)
         pkg.log(f"using known source '{dfile.name}'")
         # do an early verify in case the known source is corrupt
-        if not verify_cksum(dfile, cksum, pkg):
+        if not verify_cksum(dfile, sidx, pkg):
             pkg.log_warn(f"corrupt by_sha256 entry '{dfile.name}' - removing")
             linkpath.unlink()
             dfile.unlink()
@@ -276,17 +277,17 @@ def invoke(pkg):
     fstatus = []
     flens = []
 
-    for dc in zip(pkg.source, shdrs, pkg.sha256):
-        d, hdrs, ck = dc
+    for dc in zip(range(len(pkg.source)), pkg.source, shdrs):
+        sidx, d, hdrs = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
-        if not link_cksum(dfile, ck, pkg):
+        if not link_cksum(dfile, sidx, pkg):
             idx = len(tofetch)
             tofetch.append((url, dfile, hdrs, idx))
             fstatus.append(0)
             flens.append(-1)
             pkg.log(f"fetching source '{fname}'...")
-            dfiles.append((dfile, ck))
+            dfiles.append((dfile, sidx))
 
     def do_fetch_url(mv):
         url, dfile, hdrs, idx = mv
@@ -354,10 +355,10 @@ def invoke(pkg):
     if ferrs > 0:
         pkg.error(f"failed to fetch {ferrs} sources")
     # verify the sources
-    for dfile, ck in dfiles:
+    for dfile, sidx in dfiles:
         if not dfile.is_file():
             pkg.error(f"source '{dfile}' does not exist")
-        if not verify_cksum(dfile, ck, pkg):
+        if not verify_cksum(dfile, sidx, pkg):
             errors += 1
     # error if something failed to verify
     if errors > 0:
