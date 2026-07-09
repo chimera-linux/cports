@@ -1,7 +1,7 @@
 pkgname = "xsimd"
 pkgver = "14.2.0"
 pkgrel = 0
-archs = ["aarch64", "riscv64", "x86_64"]
+archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
