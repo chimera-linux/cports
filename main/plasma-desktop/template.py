@@ -222,6 +222,7 @@ def _(self):
         "kinfocenter",  # system info
         "konversation",  # irc client
         "krdc",  # vnc/rdp client
+        "krita",  # digital art studio
         "kruler",  # on screen ruler
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "ktorrent",  # torrent client
@@ -241,7 +242,6 @@ def _(self):
         # "kipi-plugins",  # image export
         # "kmymoney",  # finance manager
         # "kompare",  # gui diff
-        # "krita",  # digital art studio
     ]
     # things missing on some arches
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
