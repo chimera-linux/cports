@@ -1,17 +1,17 @@
 these tests require a postgresql installation
 
 diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
---- a/hscontrol/db/db_test.go	2026-02-04 21:26:22.000000000 +0100
-+++ b/hscontrol/db/db_test.go	2026-05-09 10:36:07.063039699 +0200
-@@ -3,7 +3,6 @@
- import (
+--- a/hscontrol/db/db_test.go	2026-07-01 16:47:39.000000000 +0200
++++ b/hscontrol/db/db_test.go	2026-07-23 09:05:24.690394660 +0200
+@@ -4,7 +4,6 @@
+ 	"context"
  	"database/sql"
  	"os"
 -	"os/exec"
  	"path/filepath"
  	"strings"
  	"testing"
-@@ -282,10 +281,6 @@
+@@ -430,10 +429,6 @@
  	}
  
  	for _, tt := range tests {
@@ -22,7 +22,7 @@ diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
  		t.Run(tt.name+"-sqlite", func(t *testing.T) {
  			db, err := newSQLiteTestDB()
  			if err != nil {
-@@ -293,50 +288,6 @@
+@@ -441,50 +436,6 @@
  			}
  
  			tt.run(t, db.DB.Debug())
@@ -53,7 +53,7 @@ diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
 -			}
 -
 -			// Construct the pg_restore command
--			cmd := exec.Command(pgRestorePath, "--verbose", "--if-exists", "--clean", "--no-owner", "--dbname", u.String(), tt.dbPath)
+-			cmd := exec.CommandContext(context.Background(), pgRestorePath, "--verbose", "--if-exists", "--clean", "--no-owner", "--dbname", u.String(), tt.dbPath)
 -
 -			// Set the output streams
 -			cmd.Stdout = os.Stdout
