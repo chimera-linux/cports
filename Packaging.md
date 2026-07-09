@@ -274,6 +274,14 @@ files are considered ephemeral. In practice this means:
    `/var` directory is forbidden in packages. This results in a system where
    deletion of these dirs/files will result in them being re-created from
    scratch upon next boot.
+3) Note that directories in `/run` should not be handled through the
+   `tmpfiles.d` mechanism, as the lifetime of those is limited to the
+   runtime of the service. The mechanism of creation depends on how the
+   service performs its privilege separation; if done through `dinit` then
+   a separate service (with `depends-ms` linkage) should perform the creation
+   (e.g. `command = /usr/bin/install -d -m 0750 /run/foo`), else a wrapper
+   script for the service can do so (or the service can do so internally
+   before losing privileges).
 
 <a id="handling_etc"></a>
 #### Handling /etc
