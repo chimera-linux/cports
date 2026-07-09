@@ -1,5 +1,5 @@
 pkgname = "xsimd"
-pkgver = "13.2.0"
+pkgver = "14.2.0"
 pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -10,7 +10,7 @@ pkgdesc = "C++ wrappers for SIMD optimized mathematical functions"
 license = "BSD-3-Clause"
 url = "https://github.com/xtensor-stack/xsimd"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "edd8cd3d548c185adc70321c53c36df41abe64c1fe2c67bc6d93c3ecda82447a"
+sha256 = "21e841ab684b05331e81e7f782431753a029ef7b7d9d6d3ddab837e7782a40ee"
 
 
 if self.profile().cross:
