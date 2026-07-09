@@ -5,7 +5,7 @@ archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["doctest"]
+makedepends = ["doctest", "linux-headers"]
 pkgdesc = "C++ wrappers for SIMD optimized mathematical functions"
 license = "BSD-3-Clause"
 url = "https://github.com/xtensor-stack/xsimd"
