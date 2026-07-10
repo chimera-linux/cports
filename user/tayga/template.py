@@ -1,5 +1,5 @@
 pkgname = "tayga"
-pkgver = "0.9.5"
+pkgver = "0.9.6"
 pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers"]
@@ -11,7 +11,7 @@ pkgdesc = "Out-of-kernel stateless NAT64 implementation"
 license = "GPL-2.0-or-later"
 url = "https://github.com/apalrd/tayga"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d44cc1158f60623d1bcd245f811957a162092c8f5e725489438de12e5500ae49"
+sha256 = "64da04887e59207be0f62082e63dca98b1e770283fa37102ccb0a3e8d2acedc5"
 # check: needs network namespaces
 options = ["!check"]
 
