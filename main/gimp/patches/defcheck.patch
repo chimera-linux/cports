@@ -16,6 +16,6 @@ index 82a91e4..ab1eac1 100644
  
 -if not platform_osx and host_cpu_family != 'x86'
 +if false
+   nm = find_program('nm', required: false)
+ 
    # Verify .def files for Windows linking.
-   # We check this on non-Windows platform (Debian) on CI, and on Windows itself.
-   custom_target('check-def-files',
