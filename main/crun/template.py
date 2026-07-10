@@ -1,30 +1,29 @@
 pkgname = "crun"
-pkgver = "1.23.1"
+pkgver = "1.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
-# broken presently
-configure_gen = []
-# full testsuite fails in netns
-make_check_target = "tests/tests_libcrun_errors.log"
 hostmakedepends = [
+    "autoconf",
+    "automake",
     "go-md2man",
     "pkgconf",
     "python",
+    "slibtool",
 ]
 makedepends = [
     "argp-standalone",
+    "blake3-devel",
+    "json-c-devel",
     "libcap-devel",
     "libseccomp-devel",
-    # -static for test build from all target
-    "libunwind-devel-static",
-    "yajl-devel",
 ]
 pkgdesc = "Fast and lightweight OCI runtime"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"
-sha256 = "6cea8d41e4be425ba2fa55587e16e44ddbe2fa333b367024e68235b922e26056"
+sha256 = "62b82f7db89df3652970d9ad76f635a177d09bcb543c8d1dae13a749cd3e6e35"
+hardening = ["vis", "cfi"]
 
 
 def post_install(self):
