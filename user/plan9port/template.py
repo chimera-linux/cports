@@ -1,7 +1,7 @@
 pkgname = "plan9port"
-pkgver = "0_git20251109"
+pkgver = "0_git20260711"
 pkgrel = 0
-_commit = "46fbe4cd00252a93e9ffcedb3154b53453d0993e"
+_commit = "337c6acbfed51d8d9f08598c6cd398f53abcca7d"
 hostmakedepends = ["perl"]
 makedepends = [
     "fontconfig-devel",
@@ -15,7 +15,7 @@ pkgdesc = "Port of programs from Plan 9"
 license = "MIT"
 url = "https://9fans.github.io/plan9port"
 source = f"https://github.com/9fans/plan9port/archive/{_commit}.tar.gz"
-sha256 = "9ba310d37a771e76037ac13bc5841f3d36916d9c0df6bb8749912b329314cd56"
+sha256 = "6415ebf1077ed4d329b82e7df60b323c37711c99ebcb5ba3453f76b9d2b80fb0"
 options = ["!cross", "!lintstatic"]
 
 
