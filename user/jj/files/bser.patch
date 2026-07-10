@@ -23,8 +23,8 @@ fbshipit-source-id: dff4fdc0aabb1b02a9ed96e601880c4941cf607d
 
 diff --git a/watchman/rust/serde_bser/src/ser/mod.rs b/watchman/rust/serde_bser/src/ser/mod.rs
 index ceb85de618a1..58a805ba3e01 100644
---- a/vendor/serde_bser/src/ser/mod.rs
-+++ b/vendor/serde_bser/src/ser/mod.rs
+--- a/vendor/serde_bser-0.4.0/src/ser/mod.rs
++++ b/vendor/serde_bser-0.4.0/src/ser/mod.rs
 @@ -133,7 +133,7 @@ where
          #[cfg(target_endian = "little")]
          self.scratch.put_i16_le(v);
