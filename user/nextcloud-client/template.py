@@ -1,5 +1,5 @@
 pkgname = "nextcloud-client"
-pkgver = "3.15.2"
+pkgver = "33.0.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = []
@@ -13,8 +13,10 @@ hostmakedepends = [
 ]
 makedepends = [
     "karchive-devel",
+    "kdsingleapplication-devel",
     "kguiaddons-devel",
     "kio-devel",
+    "libp11-devel",
     "openssl3-devel",
     "qt6-qt5compat-devel",
     "qt6-qtsvg-devel",
@@ -31,7 +33,7 @@ pkgdesc = "Desktop sync client for Nextcloud"
 license = "GPL-2.0-or-later"
 url = "https://github.com/nextcloud/desktop"
 source = f"{url}/archive/refs/tags/v{pkgver.replace('_', '-')}.tar.gz"
-sha256 = "25eb5248049c4961a27cf996dbebf9202c720dd36049cd2799e2e80f7bd51756"
+sha256 = "e20f8680a0a5910e67d036554bcb8a5f94fa900f079b212ff679e33459f5a30b"
 tool_flags = {
     "CXXFLAGS": ["-Wno-c++20-extensions", "-Wno-deprecated-declarations"]
 }
