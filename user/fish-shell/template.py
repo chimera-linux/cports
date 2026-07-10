@@ -1,5 +1,5 @@
 pkgname = "fish-shell"
-pkgver = "4.7.1"
+pkgver = "4.8.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_target = "fish_run_tests"
@@ -12,12 +12,12 @@ hostmakedepends = [
     "python-sphinx",
 ]
 makedepends = ["pcre2-devel", "rust-std"]
-checkdepends = ["procps", "python"]
+checkdepends = ["procps", "python-pexpect"]
 pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "6f4d5b438a6338e3f5dcda19a28261e2ece7a9b7ff97686685e6abdc31dbb7df"
+sha256 = "0eb86a851e865e934a7c2091a73d7695225e78f0e00a7bb96d5f877d76c65782"
 # uses a compiled binary to build docs
 options = ["!cross"]
 
