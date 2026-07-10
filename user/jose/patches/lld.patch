@@ -1,0 +1,30 @@
+From 1eeb923f5d4d4de91a3766dab95c405720f21348 Mon Sep 17 00:00:00 2001
+From: Matthias Nyman <mail@natthias.dev>
+Date: Fri, 12 Jun 2026 16:40:39 +0200
+Subject: [PATCH] meson: fix build with lld on linux
+
+---
+ lib/meson.build | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/lib/meson.build b/lib/meson.build
+index a5a203c..da91922 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -17,7 +17,15 @@ elif build_machine.system() == 'freebsd'
+ else
+   # Linux and other systems
+   version_script_flags = '-Wl,--version-script=' + meson.current_source_dir() + '/libjose.map'
+-  if not cc.links(code, args: version_script_flags, name: '-Wl,--version-script=...')
++  if cc.get_linker_id() != 'ld.lld' and not cc.links(
++    code,
++    args: version_script_flags,
++    name: '-Wl,--version-script=...',
++  ) or not cc.links(
++    code,
++    args: version_script_flags + ',--undefined-version',
++    name: '-Wl,--version-script=...',
++  )
+      flags = [ '-export-symbols-regex=^jose_.*' ]
+   else
+      flags = [version_script_flags]
