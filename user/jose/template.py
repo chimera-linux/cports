@@ -1,5 +1,5 @@
 pkgname = "jose"
-pkgver = "14"
+pkgver = "15"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "JSON Object Signing and Encryption standards in C"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latchset/jose"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3ffb8ea9a0fa5194051499d96bfde957621fcd490ef7ed95effc699029d7ad3b"
+sha256 = "d480f1f30dc11b7e81cd2939f9f0ef512090b131a11f68595483a2de0550fa89"
 # vis breaks symbols
 hardening = ["!vis", "!cfi"]
 
