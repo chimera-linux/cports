@@ -1,5 +1,5 @@
 pkgname = "gegl"
-pkgver = "0.4.68"
+pkgver = "0.4.70"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -47,7 +47,7 @@ url = "https://gegl.org"
 source = (
     f"https://download.gimp.org/pub/gegl/{pkgver[:-3]}/gegl-{pkgver}.tar.xz"
 )
-sha256 = "5002309b9a701260658e8b3a61540fd5673887cef998338e1992524a33b23ae3"
+sha256 = "47f50d9c3aecd375deb48c11ebfead52d162e4fc162a4b3d44618277f1faec02"
 # TODO
 hardening = ["!int"]
 
