@@ -1,4 +1,4 @@
 type = process
-command = /usr/bin/easyeffects --gapplication-service
-depends-on = dbus
-depends-on = graphical.target
+command = /usr/bin/easyeffects --service-mode --hide-window
+depends-on: dbus
+depends-on: graphical.target
