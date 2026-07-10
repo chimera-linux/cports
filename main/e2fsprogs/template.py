@@ -1,6 +1,6 @@
 pkgname = "e2fsprogs"
-pkgver = "1.47.2"
-pkgrel = 2
+pkgver = "1.47.4"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-elf-shlibs",
@@ -34,7 +34,7 @@ pkgdesc = "Ext2/3/4 file system utilities"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkgver}.tar.xz"
-sha256 = "08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c"
+sha256 = "fd5bf388cbdbe006a3d3b318d983b2948382440acc85a87f1e7d108653e8db0b"
 options = ["etcfiles"]
 
 
