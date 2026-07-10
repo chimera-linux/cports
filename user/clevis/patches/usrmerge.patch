@@ -1,8 +1,8 @@
 diff --git a/src/initramfs-tools/hooks/clevis.in b/src/initramfs-tools/hooks/clevis.in
-index 7312d7a..afd2d44 100755
+index c5b1bea..8c66519 100755
 --- a/src/initramfs-tools/hooks/clevis.in
 +++ b/src/initramfs-tools/hooks/clevis.in
-@@ -48,7 +48,7 @@ find_binary() {
+@@ -64,7 +64,7 @@ find_library() {
  }
  
  if [ -n "${FORCE_CLEVIS}" ] && [ "${FORCE_CLEVIS}" != "n" ]; then
@@ -11,13 +11,31 @@ index 7312d7a..afd2d44 100755
          if [ ! -e "${DESTDIR}${f}" ]; then
              die 2 "cryptsetup utility '$f' wasn't found in the generated ramdisk image. "
          fi
+@@ -127,13 +127,13 @@ if [ -x @bindir@/clevis-decrypt-tpm1 ]; then
+         echo "TCSD_NO_PRIVILEGE_DROP=1" >> "${DESTDIR}/conf/conf.d/clevis"
+     fi
+ 
+-    mkdir -p "${DESTDIR}/lib/udev/rules.d" || die 2 "Unable to create /lib/udev/rules.d"
++    mkdir -p "${DESTDIR}/usr/lib/udev/rules.d" || die 2 "Unable to create /usr/lib/udev/rules.d"
+     # shellcheck disable=SC2043
+     for rule in 60-tpm-udev.rules; do
+       if   [ -e /etc/udev/rules.d/$rule ]; then
+-        copy_file udev_rule /etc/udev/rules.d/$rule "/lib/udev/rules.d" || die 2 "Unable to copy $rule"
+-      elif [ -e /lib/udev/rules.d/$rule ]; then
+-        copy_file udev_rule /lib/udev/rules.d/$rule "/lib/udev/rules.d" || die 2 "Unable to copy $rule"
++        copy_file udev_rule /etc/udev/rules.d/$rule "/usr/lib/udev/rules.d" || die 2 "Unable to copy $rule"
++      elif [ -e /usr/lib/udev/rules.d/$rule ]; then
++        copy_file udev_rule /usr/lib/udev/rules.d/$rule "/usr/lib/udev/rules.d" || die 2 "Unable to copy $rule"
+       fi
+     done
+ 
 diff --git a/src/initramfs-tools/scripts/local-top/clevis.in b/src/initramfs-tools/scripts/local-top/clevis.in
-index 1487264..da68507 100755
+index 813e404..467b7aa 100755
 --- a/src/initramfs-tools/scripts/local-top/clevis.in
 +++ b/src/initramfs-tools/scripts/local-top/clevis.in
-@@ -118,11 +118,11 @@ clevisloop() {
-     # Set the path how we want it (Probably not all needed)
-     PATH="/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin"
+@@ -120,11 +120,11 @@ clevisloop() {
+     local pins
+     local PASSFIFO
  
 -    if [ -x /bin/plymouth ] && plymouth --ping; then
 +    if [ -x /usr/bin/plymouth ] && plymouth --ping; then
@@ -28,4 +46,4 @@ index 1487264..da68507 100755
 +        cryptkeyscript='\/usr\/lib\/cryptsetup\/askpass'
      fi
  
-     OLD_CRYPTTAB_SOURCE=""
+     while true; do
