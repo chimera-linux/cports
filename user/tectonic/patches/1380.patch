@@ -1,0 +1,42 @@
+From c43fc0e12a198131de79f33c7d5d7c45d9961f90 Mon Sep 17 00:00:00 2001
+From: Erica Z <zerica@callcc.eu>
+Date: Fri, 10 Jul 2026 19:23:05 +0200
+Subject: [PATCH] prevent slice::from_raw_parts from being passed a null
+ pointer
+
+when nfont is zero in a FcFontSet, the fonts field can be a null pointer.
+this can make the test suite panic:
+
+    thread 'trip_test' (7786) panicked at crates/bridge_fontconfig/src/font_set.rs:23:18:
+    unsafe precondition(s) violated: slice::from_raw_parts requires the pointer to be aligned and non-null, and the total size of the slice not to exceed `isize::MAX`
+
+    This indicates a bug in the program. This Undefined Behavior check is optional, and cannot be relied on for safety.
+    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    thread caused non-unwinding panic. aborting.
+
+this fix maintains the safety invariant by always returning an empty
+slice with a lifetime of 'static when the array is empty
+---
+ crates/bridge_fontconfig/src/font_set.rs | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/crates/bridge_fontconfig/src/font_set.rs b/crates/bridge_fontconfig/src/font_set.rs
+index b82d81b70..bccbc8c48 100644
+--- a/crates/bridge_fontconfig/src/font_set.rs
++++ b/crates/bridge_fontconfig/src/font_set.rs
+@@ -19,8 +19,13 @@ impl<'a> FontSetRef<'a> {
+         let ptr = unsafe { (*self.as_ptr()).fonts.cast() };
+         // SAFETY: Internal pointer guaranteed valid
+         let len = unsafe { (*self.as_ptr()).nfont } as usize;
+-        // SAFETY: Fonts pointer guaranteed to be to a valid array of length nfont
+-        unsafe { slice::from_raw_parts(ptr, len) }
++        if len == 0 {
++            // slice::from_raw_parts can't take a null pointer, even if the length is zero
++            &[]
++        } else {
++            // SAFETY: Fonts pointer guaranteed to be to a valid array of length nfont
++            unsafe { slice::from_raw_parts(ptr, len) }
++        }
+     }
+ }
+ 
