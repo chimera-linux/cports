@@ -16,6 +16,9 @@ url = "https://github.com/tsowell/wiremix"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "62a7cace79c9af537e0917a6d4e5da66b2efe2b4abc5f08c0fbaed727acc8c9f"
 
+if self.profile().wordsize == 32:
+    broken = "nix shenanigans"
+
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
