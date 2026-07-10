@@ -1,5 +1,5 @@
 pkgname = "framework-system"
-pkgver = "0.6.4"
+pkgver = "0.6.5"
 pkgrel = 0
 archs = ["x86_64"]
 build_style = "cargo"
@@ -16,7 +16,7 @@ pkgdesc = "Command line tools for Framework computers"
 license = "BSD-3-Clause"
 url = "https://github.com/FrameworkComputer/framework-system"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7c1a717651f879bc921f3789046f056752b211630b4585696c2dd1ca7e037b9b"
+sha256 = "51daef8eac68f3c8b69956f0250a2a4029243a5631a8ee9a537f6d4db730a890"
 
 
 def install(self):
