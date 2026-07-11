@@ -15,6 +15,9 @@ options = ["!check"]
 if self.profile().wordsize == 32:
     broken = "atomic64"
 
+if self.profile().endian == "big":
+    broken = "merlin crate doesn't support big endian"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/oniux")
