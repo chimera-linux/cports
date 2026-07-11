@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "26.0.6"
+pkgver = "26.1.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -67,11 +67,12 @@ pkgdesc = "Mesa 3D Graphics Library"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "1d3c3b8a8363b8cc354175bb4a684ad8b035211cc1d6fa17aeb9b9623c513f89"
+sha256 = "072705caa9adf4740f1489194b13e278ad959166863b5271fe423a86353c9ab6"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
-options = ["!cross", "linkundefver", "fullrustflags"]
+# they banned lto upstream lol
+options = ["!cross", "linkundefver", "fullrustflags", "!lto"]
 
 _gallium_drivers = []
 _vulkan_drivers = []
