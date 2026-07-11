@@ -1,6 +1,6 @@
 pkgname = "buildah"
-pkgver = "1.41.5"
-pkgrel = 6
+pkgver = "1.44.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = [
@@ -28,9 +28,7 @@ go_build_tags = [
 pkgdesc = "OCI image building tool"
 license = "Apache-2.0"
 url = "https://buildah.io"
-source = (
-    f"https://github.com/containers/buildah/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "4bd94a16c612f493ce57557e21a58cb7e6427311e6e758484c18cd7e44276c43"
+source = f"https://github.com/podman-container-tools/buildah/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "ac022c60c84f0dd447f1982ae9e28e89d73892d0da24276fa6662cd1d045885e"
 # needs subid config in the chroot
 options = ["!check"]
