@@ -1,5 +1,30 @@
---- a/image/registries.conf
-+++ b/image/registries.conf
+diff --color=auto -urN a/common/pkg/config/containers.conf b/common/pkg/config/containers.conf
+--- a/common/pkg/config/containers.conf	2026-07-07 17:48:51.000000000 +0100
++++ b/common/pkg/config/containers.conf	2026-07-11 10:59:37.939368310 +0100
+@@ -498,7 +498,7 @@
+ # Cgroup management implementation used for the runtime.
+ # Valid options "systemd" or "cgroupfs"
+ #
+-#cgroup_manager = "systemd"
++cgroup_manager = "cgroupfs"
+ 
+ # Environment variables to pass into conmon
+ #
+@@ -565,7 +565,7 @@
+ # Selects which logging mechanism to use for container engine events.
+ # Valid values are `journald`, `file` and `none`.
+ #
+-#events_logger = "journald"
++events_logger = "file"
+ 
+ # Creates a more verbose container-create event which includes a JSON payload
+ # with detailed information about the container.
+File a/image/pkg/tlsclientconfig/testdata/unreadable-ca/unreadable.crt is not a regular file or directory and was skipped
+File a/image/pkg/tlsclientconfig/testdata/unreadable-cert/client-cert-1.cert is not a regular file or directory and was skipped
+File a/image/pkg/tlsclientconfig/testdata/unreadable-key/client-cert-1.key is not a regular file or directory and was skipped
+diff --color=auto -urN a/image/registries.conf b/image/registries.conf
+--- a/image/registries.conf	2026-07-07 17:48:51.000000000 +0100
++++ b/image/registries.conf	2026-07-11 10:56:30.571261953 +0100
 @@ -18,7 +18,7 @@
  # of these registries, it should be added at the end of the list.
  #
@@ -9,22 +34,3 @@
  #
  # [[registry]]
  # # The "prefix" field is used to choose the relevant [[registry]] TOML table;
---- a/storage/docs/Makefile
-+++ b/storage/docs/Makefile
-@@ -1,4 +1,4 @@
--GOMD2MAN = ../tests/tools/build/go-md2man
-+GOMD2MAN = go-md2man
- PREFIX ?= ${DESTDIR}/usr
- MANINSTALLDIR=${PREFIX}/share/man
- MANPAGES_MD = $(wildcard docs/*.5.md)
---- a/common/pkg/config/containers.conf
-+++ b/common/pkg/config/containers.conf
-@@ -417,7 +417,7 @@ default_sysctls = [
- # Cgroup management implementation used for the runtime.
- # Valid options "systemd" or "cgroupfs"
- #
--#cgroup_manager = "systemd"
-+cgroup_manager = "cgroupfs"
- 
- # Environment variables to pass into conmon
- #
