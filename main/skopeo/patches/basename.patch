@@ -1,6 +1,8 @@
---- a/vendor/github.com/containers/storage/pkg/unshare/unshare.c
-+++ b/vendor/github.com/containers/storage/pkg/unshare/unshare.c
-@@ -19,6 +19,8 @@
+diff --git a/vendor/go.podman.io/storage/pkg/unshare/unshare.c b/vendor/go.podman.io/storage/pkg/unshare/unshare.c
+index a2800654..fbabb447 100644
+--- a/vendor/go.podman.io/storage/pkg/unshare/unshare.c
++++ b/vendor/go.podman.io/storage/pkg/unshare/unshare.c
+@@ -20,6 +20,8 @@
  #include <sys/mount.h>
  #include <linux/limits.h>
  
