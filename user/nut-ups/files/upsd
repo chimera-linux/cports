@@ -1,0 +1,4 @@
+type = process
+command = /usr/lib/upsd.wrapper
+depends-on: network.target
+depends-on: local.target

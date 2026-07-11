@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+set -e
+
+/usr/bin/install -d -m 0750 -o _nut -g _nut /run/nut
+
+exec /usr/bin/upsd -F
