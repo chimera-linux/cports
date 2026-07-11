@@ -1,0 +1,3 @@
+type = scripted
+command = /usr/bin/install -d -o _nut -g _nut -m 0750 /run/ups
+depends-on: local.target
