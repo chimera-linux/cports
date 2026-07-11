@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/upsmon -F
+depends-ms: ups-rundir
+depends-on: network.target
+depends-on: local.target
+after: upsd
