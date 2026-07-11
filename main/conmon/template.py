@@ -1,5 +1,5 @@
 pkgname = "conmon"
-pkgver = "2.1.13"
+pkgver = "2.2.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "OCI container monitor"
 license = "Apache-2.0"
 url = "https://github.com/containers/conmon"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "350992cb2fe4a69c0caddcade67be20462b21b4078dae00750e8da1774926d60"
+sha256 = "814fb5979a3a4b8576b1f901e606b482bebb41cb7e57926e6d5765ee786b96d3"
 
 
 def post_build(self):
@@ -24,10 +24,4 @@ def post_build(self):
 
 
 def post_install(self):
-    # the default containers-common config paths that podman and friends use
-    # check /usr/libexec/podman hardcoded, but also /usr/bin is in the path.
-    # so just link it, i guess... maybe this should be fixed by adding /usr/lib/
-    # podman somehow to that path, as for all the other non-conmon stuff it does
-    self.install_dir("usr/bin")
-    self.install_link("usr/bin/conmon", "../lib/podman/conmon")
     self.install_man("docs/conmon.8")
