@@ -12,6 +12,7 @@ The following must be true for all changes:
 
 - [ ] I have read [CONTRIBUTING.md](https://github.com/chimera-linux/cports/blob/master/CONTRIBUTING.md)
 - [ ] I acknowledge that overtly not following the above or the below will result in my pull request getting closed
+- [ ] I acknowledge https://gts.chimera-linux.org/@chimera/statuses/01KWARHE1BXBMXB8WPXK0BBM1B (temporary)
 
 The following must be true for template/package changes:
 
