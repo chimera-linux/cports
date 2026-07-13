@@ -3,7 +3,7 @@ pkgver = "0.16.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
-make_check_wrapper = ["dbus-run-session", "xvfb-run"]
+make_check_wrapper = ["dbus-run-session", "--", "wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -15,7 +15,7 @@ makedepends = [
 ]
 checkdepends = [
     "dbus",
-    "xserver-xorg-xvfb",
+    "xwayland-run",
 ]
 pkgdesc = "Qt library for storing data in the system keychain"
 license = "BSD-3-Clause"
