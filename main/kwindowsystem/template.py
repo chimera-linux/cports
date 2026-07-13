@@ -11,8 +11,7 @@ make_check_args = [
     # at least compositingenabled_test is flaky when parallel
     "-j1",
 ]
-make_check_env = {"QT_QPA_PLATFORM": "xcb"}
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -33,7 +32,7 @@ makedepends = [
     "xcb-util-wm-devel",
 ]
 checkdepends = [
-    "xserver-xorg-xvfb",
+    "xwayland-run",
 ]
 depends = [
     "qqc2-desktop-style",

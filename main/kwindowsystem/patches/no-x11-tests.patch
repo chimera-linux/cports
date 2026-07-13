@@ -1,0 +1,26 @@
+diff --git a/autotests/CMakeLists.txt b/autotests/CMakeLists.txt
+index fd21b77..e4875e3 100644
+--- a/autotests/CMakeLists.txt
++++ b/autotests/CMakeLists.txt
+@@ -31,7 +31,7 @@ macro(KWINDOWSYSTEM_EXECUTABLE_TESTS)
+    endforeach()
+ endmacro()
+ 
+-if(KWINDOWSYSTEM_X11)
++if(false)
+     include_directories(${CMAKE_SOURCE_DIR}/src/platforms/xcb)
+     kwindowsystem_unit_tests(
+         kmanagerselectiontest
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 54aa5e4..bb3c588 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -18,7 +18,7 @@ kwindowsystem_executable_tests(
+   backgroundcontrasttest
+ )
+ 
+-if(KWINDOWSYSTEM_X11)
++if(false)
+     kwindowsystem_executable_tests(
+       icontest
+       createpixmapfromhandletest
