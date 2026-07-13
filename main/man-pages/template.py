@@ -1,12 +1,12 @@
 pkgname = "man-pages"
-pkgver = "6.16"
+pkgver = "6.18"
 pkgrel = 0
 hostmakedepends = ["bash", "gsed"]
 pkgdesc = "Linux Documentation Project manual pages"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/man-pages-{pkgver}.tar.xz"
-sha256 = "8e247abd75cd80809cfe08696c81b8c70690583b045749484b242fb43631d7a3"
+sha256 = "c934fadc8b59748c68227a34f6581d2ddf8282b73cdcd52546c8cd88b74b24d1"
 options = ["!autosplit"]
 
 
@@ -55,9 +55,20 @@ def install(self):
         self.rm("ulckpwdf.3")
 
     # Useless, pull in bash and other stuff we don't want
-    for cmd in ["diffman-git", "mansect", "pdfman", "sortman"]:
+    for cmd in [
+        "diffman-git",
+        "grepc",
+        "grepc_c",
+        "mansect",
+        "mansectf",
+        "pdfman",
+        "sortman",
+    ]:
         self.uninstall(f"usr/bin/{cmd}")
         self.uninstall(f"usr/share/man/man1/{cmd}.1")
+
+    # as above, but doesn't have a man page to delete
+    self.uninstall("usr/bin/grepc_mk")
 
 
 @subpackage("man-pages-devel")
