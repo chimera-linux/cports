@@ -8,7 +8,7 @@ configure_args = [
     "--enable-gtk",
     "--enable-tests",
 ]
-make_check_wrapper = ["dbus-run-session", "--", "xvfb-run", "--"]
+make_check_wrapper = ["dbus-run-session", "--", "wlheadless-run", "--"]
 hostmakedepends = [
     "automake",
     "intltool",
@@ -25,7 +25,7 @@ makedepends = [
     "json-glib-devel",
     "vala-devel",
 ]
-checkdepends = ["bash", "dbus-test-runner", "xserver-xorg-xvfb"]
+checkdepends = ["bash", "dbus-test-runner", "xwayland-run"]
 pkgdesc = "Library for passing menus over DBus"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://launchpad.net/libdbusmenu"

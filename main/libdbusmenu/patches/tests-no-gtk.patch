@@ -1,0 +1,15 @@
+gtk3 and test environments without a seat...
+
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 699c2c9..2830dff 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -23,7 +23,7 @@ TESTS += \
+ endif
+ endif
+ 
+-if WANT_LIBDBUSMENUGTK
++if ! WANT_LIBDBUSMENUGTK
+ TESTS += \
+ 	test-gtk-objects-test \
+ 	test-gtk-label \
