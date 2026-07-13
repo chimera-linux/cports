@@ -35,6 +35,9 @@ sha256 = "9861d4d4230b987d8560f1b84fe6c8a550738401be65b9425b0c7d0466178f2b"
 if self.profile().arch in ["loongarch64"]:
     broken = "outdated nix crate, can't update"
 
+if self.profile().wordsize == 32:
+    broken = "atomic64"
+
 
 def post_install(self):
     self.install_license("LICENSE")
