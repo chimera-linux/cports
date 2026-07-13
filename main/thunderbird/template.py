@@ -16,7 +16,6 @@ hostmakedepends = [
     "python",
     "rust",
     "wasi-sdk",
-    "xserver-xorg-xvfb",
     "zip",
 ]
 makedepends = [
@@ -177,65 +176,6 @@ def configure(self):
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
-
-    # PGO; tries to connect to the network, but maybe someday?
-    if False:
-        # configure for profiling
-        self.log("bootstrapping profile...")
-        with self.stamp("profile_configure") as s:
-            s.check()
-            self.log("configuring profile build...")
-            self.do(
-                "./mach",
-                "configure",
-                *conf_opts,
-                "--enable-profile-generate=cross",
-            )
-        # do the profiling build
-        with self.stamp("profile_build") as s:
-            s.check()
-            self.log("building profile build...")
-            self.do("./mach", "build", "--priority", "normal")
-        # package it
-        with self.stamp("profile_package") as s:
-            s.check()
-            self.log("packaging profile build...")
-            self.do("./mach", "package")
-        # generate the profile data
-        with self.stamp("profile_generate") as s:
-            s.check()
-            self.log("generating profile...")
-            for d in self.cwd.glob("obj-*"):
-                ldp = self.chroot_cwd / d.name / "dist/thunderbird"
-            self.do(
-                "dbus-run-session",
-                "--",
-                "xvfb-run",
-                "-s",
-                "-screen 0 1920x1080x24",
-                "./mach",
-                "python",
-                "./build/pgo/profileserver.py",
-                env={
-                    "HOME": str(self.chroot_cwd),
-                    "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
-                    "LD_LIBRARY_PATH": ldp,
-                    "LIBGL_ALWAYS_SOFTWARE": "1",
-                    "LLVM_PROFDATA": "llvm-profdata",
-                    "XDG_RUNTIME_DIR": "/tmp",
-                },
-            )
-        # clean up build dir
-        with self.stamp("profile_clobber") as s:
-            s.check()
-            self.log("cleaning up profile build...")
-            self.do("./mach", "clobber", "objdir")
-        # and finally make use of this for real configure
-        conf_opts += [
-            "--enable-profile-use=cross",
-            f"--with-pgo-profile-path={self.chroot_cwd / 'merged.profdata'}",
-            f"--with-pgo-jarlog={self.chroot_cwd / 'jarlog'}",
-        ]
 
     self.log("configuring final thunderbird...")
     self.do("./mach", "configure", *conf_opts)
