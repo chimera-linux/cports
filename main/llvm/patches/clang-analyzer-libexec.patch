@@ -1,0 +1,19 @@
+We use lib instead of libexec, but this script hardcodes libexec in it,
+so manually patch it (because else it tries to find ccc-analyzer/c++-analyzer
+in bindir instead, and fails)
+
+diff --git a/clang/tools/scan-build/bin/scan-build b/clang/tools/scan-build/bin/scan-build
+index da7fe94..b2a1732 100755
+--- a/clang/tools/scan-build/bin/scan-build
++++ b/clang/tools/scan-build/bin/scan-build
+@@ -1908,8 +1908,8 @@ if ($Clang !~ /\+\+(\.exe)?$/) {
+ 
+ # Determine the location of ccc-analyzer.
+ my $AbsRealBin = Cwd::realpath($RealBin);
+-my $Cmd = "$AbsRealBin/../libexec/ccc-analyzer";
+-my $CmdCXX = "$AbsRealBin/../libexec/c++-analyzer";
++my $Cmd = "$AbsRealBin/../lib/ccc-analyzer";
++my $CmdCXX = "$AbsRealBin/../lib/c++-analyzer";
+ 
+ # Portability: use less strict but portable check -e (file exists) instead of
+ # non-portable -x (file is executable). On some windows ports -x just checks
