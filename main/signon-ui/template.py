@@ -16,7 +16,7 @@ makedepends = [
     "qt6-qtwebengine-devel",
     "signond-devel",
 ]
-checkdepends = ["dbus-test-runner", "xserver-xorg-xvfb"]
+checkdepends = ["dbus-test-runner", "xwayland-run"]
 pkgdesc = "Qt UI for signond"
 license = "GPL-3.0-only"
 url = "https://gitlab.com/accounts-sso/signon-ui"

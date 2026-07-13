@@ -1,0 +1,23 @@
+diff --git a/tests/unit/tst_inactivity_timer.pro b/tests/unit/tst_inactivity_timer.pro
+index 1b80250..806aab3 100644
+--- a/tests/unit/tst_inactivity_timer.pro
++++ b/tests/unit/tst_inactivity_timer.pro
+@@ -31,6 +31,6 @@ DEFINES += \
+     DEBUG_ENABLED \
+     UNIT_TESTS
+ 
+-check.commands = "xvfb-run -a ./$$TARGET"
++check.commands = "wlheadless-run -- ./$$TARGET"
+ check.depends = $$TARGET
+ QMAKE_EXTRA_TARGETS += check
+diff --git a/tests/unit/tst_signon_ui.pro b/tests/unit/tst_signon_ui.pro
+index 815e52b..fe8d8d4 100644
+--- a/tests/unit/tst_signon_ui.pro
++++ b/tests/unit/tst_signon_ui.pro
+@@ -85,5 +85,5 @@ DEFINES += \
+ RESOURCES += $$TOP_SRC_DIR/src/animationlabel.qrc
+ 
+ check.depends = $${TARGET}
+-check.commands = "xvfb-run -a dbus-test-runner -t ./signon-ui-unittest"
++check.commands = "wlheadless-run -- dbus-test-runner -t ./signon-ui-unittest"
+ QMAKE_EXTRA_TARGETS += check
