@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -12,6 +12,10 @@ configure_args = [
     "-DUID_MAX=60513",
     "-DRUNTIME_DIR=/run/sddm",
     "-DUSE_ELOGIND=ON",
+    # we have runtime detection patched in, however
+    # in case that does not exist, fall back to 7 first
+    # (e.g. with our agetty service disabled, which you should not do...)
+    "-DSDDM_INITIAL_VT=7",
 ]
 hostmakedepends = [
     "cmake",
@@ -33,11 +37,12 @@ makedepends = [
 depends = [
     "dinit-dbus",
     "elogind",
+    "kwin",
     "openrc-settingsd",
+    "plasma-keyboard",
     "plasma-workspace",
     "turnstile",
     "xrdb",
-    "xserver-xorg-input-libinput",
 ]
 pkgdesc = "QML based display manager"
 license = "GPL-2.0-or-later AND CC-BY-3.0"
