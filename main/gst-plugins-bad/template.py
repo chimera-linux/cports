@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-bad"
 pkgver = "1.28.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -77,6 +77,7 @@ configure_args = [
     "-Dzbar=disabled",  # maybe?
     "-Dzxing=disabled",  # maybe?
     "-Dflite=disabled",  # not packaged, fails with make 4.4
+    "-Disac=disabled",  # requires webrtc-audio-processing-1
 ]
 hostmakedepends = [
     "gettext",
