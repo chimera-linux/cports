@@ -1,0 +1,69 @@
+diff --git a/src/common/Configuration.h b/src/common/Configuration.h
+index 4c3572d..21a71a2 100644
+--- a/src/common/Configuration.h
++++ b/src/common/Configuration.h
+@@ -84,6 +84,7 @@ namespace SDDM {
+             Entry(SessionCommand,      QString,     _S(WAYLAND_SESSION_COMMAND),                _S("Path to a script to execute when starting the desktop session"));
+             Entry(SessionLogFile,      QString,     _S(".local/share/sddm/wayland-session.log"),_S("Path to the user session log file"));
+             Entry(EnableHiDPI,         bool,        true,                                       _S("Enable Qt's automatic high-DPI scaling"));
++            Entry(InitialVT,           int,         7,                                          _S("Initial VT to try if detection fails"));
+         );
+ 
+         Section(Users,
+diff --git a/src/daemon/Display.cpp b/src/daemon/Display.cpp
+index 4014e0d..6bf4916 100644
+--- a/src/daemon/Display.cpp
++++ b/src/daemon/Display.cpp
+@@ -36,6 +36,7 @@
+ #include <QTimer>
+ #include <QLocalSocket>
+ 
++#include <cstdlib>
+ #include <pwd.h>
+ #include <unistd.h>
+ #include <sys/time.h>
+@@ -77,7 +78,43 @@ namespace SDDM {
+     }
+ 
+     int fetchAvailableVt() {
+-        if (!isTtyInUse(QStringLiteral("tty" STRINGIFY(SDDM_INITIAL_VT)))) {
++        /* chimera active ttys */
++        QFile ttys{QString::fromUtf8("/run/agetty-active")};
++        if (ttys.open(QIODevice::ReadOnly)) {
++            char buf[4096], *bufp = buf, *ttystr = nullptr;
++            memset(buf, 0, sizeof(buf));
++            auto sz = ttys.read(buf, sizeof(buf) - 1);
++            if (sz > 0) {
++                unsigned long minvt = 1;
++                while (*bufp) {
++                    if (strncmp(bufp, "tty", 3)) {
++                        break;
++                    }
++                    char *err = nullptr;
++                    auto gettyn = strtoul(bufp + 3, &err, 10);
++                    if (!err || (*err && *err != '\n')) {
++                        break;
++                    }
++                    if (gettyn >= minvt) {
++                        ttystr = bufp;
++                        minvt = gettyn + 1;
++                    }
++                    if (!*err) {
++                        break;
++                    }
++                    *err = '\0';
++                    bufp = err + 1;
++                }
++                if (minvt < 64 && ttystr && !isTtyInUse(QString::fromUtf8(ttystr))) {
++                    return int(minvt);
++                }
++            }
++        }
++        int runtimeVT = mainConfig.Wayland.InitialVT.get();
++        if (!isTtyInUse(QStringLiteral("tty%1").arg(runtimeVT))) {
++            return runtimeVT;
++        }
++        if (runtimeVT != SDDM_INITIAL_VT && !isTtyInUse(QStringLiteral("tty%1").arg(SDDM_INITIAL_VT))) {
+             return SDDM_INITIAL_VT;
+         }
+         const auto vt = VirtualTerminal::currentVt();

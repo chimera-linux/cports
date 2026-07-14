@@ -348,6 +348,7 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "sddm",
+        "sddm-default-breeze",
         "sddm-kcm",
     ]
     self.options = ["empty"]

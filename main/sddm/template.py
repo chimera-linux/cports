@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -34,10 +34,8 @@ depends = [
     "dinit-dbus",
     "elogind",
     "openrc-settingsd",
-    "plasma-workspace",
     "turnstile",
     "xrdb",
-    "xserver-xorg-input-libinput",
 ]
 pkgdesc = "QML based display manager"
 license = "GPL-2.0-or-later AND CC-BY-3.0"
@@ -54,14 +52,12 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "sddm")
     self.install_file(
-        self.files_path / "sddm.config",
+        self.files_path / "00-default.conf",
         "usr/lib/sddm/sddm.conf.d",
-        name="default.conf",
     )
-    # TODO: we add a hard dependency on plasma-workspace and default to breeze
-    # here, because all the default themes (except maui) and most third-party
-    # themes depend on the qt5 greeter,
-    # and breeze just looks way better
+    # install default breeze theme selection, which gets picked along with
+    # kwin for compositor etc. to get proper wayland, else it faills back
+    # to sddm builtin stuff and looks awful
     self.install_file(
         self.files_path / "10-breeze-theme.conf",
         "usr/lib/sddm/sddm.conf.d",
@@ -72,3 +68,22 @@ def post_install(self):
         self.install_file(
             self.files_path / f"{pam}.pam", "usr/lib/pam.d", name=pam
         )
+
+
+# recommended and installed by default, unless you override that
+# if you do override that, you also need to set your compositor
+# command correctly, or force x11, or whatever
+@subpackage("sddm-default-breeze")
+def _(self):
+    self.subdesc = "Use Breeze theme by default"
+    self.install_if = [self.parent]
+    self.depends += [
+        self.parent,
+        "kwin",
+        # provides the theme
+        "plasma-desktop",
+        # input method
+        "plasma-keyboard",
+    ]
+
+    return ["usr/lib/sddm/sddm.conf.d/10-breeze-theme.conf"]
