@@ -3,6 +3,7 @@ pkgver = "2.4.0"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr", "USE_LUAJIT=1", "DEVELOPMENT_PATHS=0"]
+make_install_args = []
 make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -30,6 +31,9 @@ match self.profile().arch:
     case _:
         make_build_args += ["USE_LUAJIT=0"]
         makedepends += ["lua5.1-devel"]
+
+# so that USE_LUAJIT etc is available at install
+make_install_args += make_build_args
 
 
 def post_install(self):
