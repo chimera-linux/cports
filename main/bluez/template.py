@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.86"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-deprecated",
@@ -50,7 +50,8 @@ options = ["etcfiles"]
 
 
 def post_install(self):
-    self.install_service("^/bluetoothd")
+    self.install_service(self.files_path / "bluetoothd")
+    self.install_service(self.files_path / "mpris-proxy.user")
 
 
 @subpackage("bluez-libs")
