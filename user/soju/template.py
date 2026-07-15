@@ -16,7 +16,7 @@ pkgdesc = "IRC bouncer"
 license = "AGPL-3.0-only"
 url = "https://soju.im"
 source = f"https://codeberg.org/emersion/soju/archive/v{pkgver}.tar.gz"
-sha256 = "3dddf2746fc9b68967afaac188751f35d72e3db5f946c04dd927b5d2ec786ef4"
+sha256 = "d35bd4a1e43248106a7eaddd74fd4318f5987b7bf1b22cab72280d1952958a83"
 file_modes = {
     "usr/bin/soju": ("root", "root", 0o755),
 }
