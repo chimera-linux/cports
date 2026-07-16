@@ -11,10 +11,17 @@ from urllib import request
 from http.client import responses
 from multiprocessing.pool import ThreadPool
 
+_empty_sha256 = (
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+)
+
 
 def get_cksum(dfile, pkg):
     with dfile.open("rb") as fn:
-        return hashlib.file_digest(fn, "sha256").hexdigest()
+        dig = hashlib.file_digest(fn, "sha256").hexdigest()
+        if dig == _empty_sha256:
+            return None
+        return dig
 
 
 def make_link(dfile, cksum):
@@ -36,7 +43,11 @@ def verify_cksum(dfile, sidx, pkg):
     cksum = pkg.sha256[sidx]
     pkg.log(f"verifying sha256sums for source '{dfile.name}'... ", "")
     filesum = get_cksum(dfile, pkg)
-    if cksum != filesum:
+    if not filesum:
+        pkg.logger.out_plain("")
+        pkg.logger.out(f"\f[red]empty source file '{dfile.name}':\n{filesum}")
+        return False
+    elif cksum != filesum:
         if pkg.accept_checksums:
             pkg.logger.out_plain("")
             pkg.logger.out(f"\f[orange]SHA256 UPDATED: {cksum} -> {filesum}")
@@ -261,7 +272,7 @@ def invoke(pkg):
         dfile = srcdir / fname
         if dfile.is_file():
             filesum = get_cksum(dfile, pkg)
-            if ck == filesum:
+            if filesum and ck == filesum:
                 make_link(dfile, filesum)
                 dfgood += 1
             else:
