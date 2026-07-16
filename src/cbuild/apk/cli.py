@@ -408,9 +408,17 @@ def build_index(repopath, epoch, allow_untrusted=False):
 
     aargs = ["--quiet", "--output", "Packages.adb", "--hash", "sha256-160"]
 
-    if (repopath / "Packages.adb").is_file():
+    # an existing index is only usable as an incremental base if it's
+    # non-empty; a 0-byte file (e.g. left behind by a crash mid-write) is
+    # not a valid index, and passing it via --index makes apk error out
+    # with "unexpected end of file" instead of just rebuilding fresh, as
+    # it would if the file were absent entirely
+    adb_path = repopath / "Packages.adb"
+    gz_path = repopath / "APKINDEX.tar.gz"
+
+    if adb_path.is_file() and adb_path.stat().st_size > 0:
         aargs += ["--index", "Packages.adb"]
-    elif (repopath / "APKINDEX.tar.gz").is_file():
+    elif gz_path.is_file() and gz_path.stat().st_size > 0:
         aargs += ["--index", "APKINDEX.tar.gz"]
 
     keypath = None
