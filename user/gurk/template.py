@@ -16,6 +16,9 @@ url = "https://github.com/boxdot/gurk-rs"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "1c8ee4466374375a3df2ccd94fcc86d76bfcdd868820f3f9d4a1f2cbed2be22b"
 
+if self.profile().arch == "loongarch64":
+    broken = "incompatible rustix/libc combination"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/gurk")
