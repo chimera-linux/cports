@@ -1,5 +1,5 @@
 pkgname = "plasma-workspace"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
@@ -135,7 +135,7 @@ pkgdesc = "KDE Plasma Workspace"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "89419e0532a8b33fda721e750c8f480c38828d5c14523952430dffcce0adc606"
+sha256 = "438851708a70781ecf3afa0a08488fdc6768b6ed5abca5f202a87e395aa6376f"
 hardening = ["vis"]
 options = ["etcfiles"]
 
