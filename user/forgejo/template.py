@@ -12,7 +12,7 @@ pkgdesc = "Git forge"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
 source = f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz"
-sha256 = "a73bb36caebf15925c00d46abce2adbd38b810a86610a0202a928c0a746e5742"
+sha256 = "5b85dac963be76260b1f878ceb2061d17cf1ece5f395f2e73804d6e9df010323"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
