@@ -11,9 +11,13 @@ makedepends = ["chimerautils-devel", "kmod-devel"]
 checkdepends = ["asciidoc"]
 pkgdesc = "Dracut-install command from dracut"
 license = "GPL-2.0-or-later"
-url = "https://github.com/dracut-ng/dracut-ng"
+url = "https://github.com/dracut-ng/dracut"
+# upstream renamed the GitHub repo dracut-ng/dracut-ng -> dracut-ng/dracut;
+# same tag/commit, but GitHub's auto-generated archive now uses the new repo
+# name for its internal top-level dir (dracut-107/ instead of
+# dracut-ng-107/), which changes the tarball's bytes and thus its checksum.
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "b39d0d1cd35ff43aba8771c5367d8c6c59bb432c0cac62f49601f21c0d634895"
+sha256 = "fab19fb41d86de681c022d1a8798804595750be934d98a785ff0257dcdfc9a78"
 hardening = ["vis", "cfi"]
 # assumes rw filesystem
 options = ["!check"]
