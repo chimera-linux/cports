@@ -1,5 +1,5 @@
 pkgname = "networkmanager-qt"
-pkgver = "6.27.0"
+pkgver = "6.28.0"
 pkgrel = 0
 build_style = "cmake"
 # parallel causes {settings,activeconnection}test to be flaky
@@ -17,7 +17,7 @@ pkgdesc = "Qt NetworkManager D-Bus API wrapper"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/networkmanager-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/networkmanager-qt-{pkgver}.tar.xz"
-sha256 = "a8193895b420d576fac228388ba8fd1b24d6f229c43b7963e2ed581ef82cad9a"
+sha256 = "30604204bb00115f515146d05f981aa1f9824e14c0c537a1ec397581ac5d912e"
 hardening = ["vis"]
 
 

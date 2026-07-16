@@ -1,5 +1,5 @@
 pkgname = "kquickcharts"
-pkgver = "6.27.0"
+pkgver = "6.28.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -9,7 +9,7 @@ pkgdesc = "QtQuick high-performance charts module"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kquickcharts/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kquickcharts-{pkgver}.tar.xz"
-sha256 = "d2a533bbf3d7f257e9306009bc32bdea41346cbd8e82d06c188879d5f0460380"
+sha256 = "c5d361d90861b4cd3db861568da5279ae2b1cb953e874126c15abbd7138378e5"
 hardening = ["vis"]
 
 

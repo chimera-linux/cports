@@ -1,5 +1,5 @@
 pkgname = "knewstuff"
-pkgver = "6.27.0"
+pkgver = "6.28.0"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot for some reason
@@ -29,7 +29,7 @@ pkgdesc = "Framework for downloading/sharing additional app data"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
-sha256 = "8c19df7ba5940c36ff15051703acd3a16c664b4a570817b6770fafc7ab59d6de"
+sha256 = "dc479d74def4e2d3e96f320f19285dcf88ec3ec6d39229f14ecb362983e305bd"
 hardening = ["vis"]
 
 
