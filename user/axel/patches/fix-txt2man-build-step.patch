@@ -1,0 +1,21 @@
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index b04d8b2..4b52998 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -8,11 +8,10 @@ PACKAGE_DESC = lightweight command line download accelerator
+ doc_reldate = @RELDATE_PRETTY@
+ 
+ .txt.1:
+-	tmp=$$(mktemp tmpXXXXXX) && \
+-	> "$$tmp" \
+-	txt2man -t "$(<:.txt=)" -s 1 \
++	mkdir -p doc
++	txt2man -t "axel" -s 1 \
+ 		-d "$(doc_reldate)" \
+ 		-P "$(PACKAGE_NAME)" \
+ 		-r "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
+-		-v "$(PACKAGE_DESC)" $< &&\
+-	mv "$$tmp" $@ || { rm -f "$$tmp"; exit 1; }
++		-v "$(PACKAGE_DESC)" $< \
++		> $@
+
