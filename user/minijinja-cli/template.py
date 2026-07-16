@@ -16,7 +16,7 @@ sha256 = "4a0fee7c711484f224349669ddaaf8a9d2a98a9c4372f43e999df3069c8b45f8"
 # check may be disabled
 options = []
 
-if self.profile().arch == "riscv64":
+if self.profile().arch in ["loongarch64", "riscv64"]:
     # lots of undefined pyo3 references when linking
     options += ["!check"]
 
