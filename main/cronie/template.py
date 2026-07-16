@@ -9,7 +9,7 @@ configure_args = [
     "--without-selinux",
 ]
 hostmakedepends = ["automake", "libtool"]
-makedepends = ["linux-pam-devel", "musl-obstack-devel"]
+makedepends = ["dinit-chimera", "linux-pam-devel", "musl-obstack-devel"]
 depends = ["cmd:run-parts!debianutils"]
 pkgdesc = "Cron daemon"
 license = "ISC AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later"
