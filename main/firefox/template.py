@@ -1,8 +1,9 @@
 pkgname = "firefox"
-pkgver = "152.0.5"
+pkgver = "152.0.6"
 pkgrel = 0
 hostmakedepends = [
     "automake",
+    "cage",
     "cargo",
     "cbindgen",
     "clang-devel",
@@ -16,7 +17,7 @@ hostmakedepends = [
     "python",
     "rust",
     "wasi-sdk",
-    "xserver-xorg-xvfb",
+    "wlr-randr",
     "zip",
 ]
 makedepends = [
@@ -63,7 +64,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "0a0341b05ac68834c4071665fe11f1e6729084b4e4ffcd70241097b0ad2cb224"
+sha256 = "ea220c4f8d19d4edaa20e6dadfd3c4aeb07dbed017ade2828fd814d660660f0e"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -213,12 +214,10 @@ def configure(self):
             self.do(
                 "dbus-run-session",
                 "--",
-                "xvfb-run",
-                "-s",
-                "-screen 0 1920x1080x24",
-                "./mach",
-                "python",
-                "./build/pgo/profileserver.py",
+                "cage",
+                "sh",
+                "-c",
+                "wlr-randr --output HEADLESS-1 --custom-mode 1920x1080@60; ./mach python ./build/pgo/profileserver.py",
                 env={
                     "HOME": str(self.chroot_cwd),
                     "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
@@ -226,6 +225,7 @@ def configure(self):
                     "LIBGL_ALWAYS_SOFTWARE": "1",
                     "LLVM_PROFDATA": "llvm-profdata",
                     "XDG_RUNTIME_DIR": "/tmp",
+                    "WLR_BACKENDS": "headless",
                 },
             )
         # clean up build dir
