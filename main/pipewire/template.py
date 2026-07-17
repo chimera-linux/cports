@@ -1,12 +1,17 @@
 pkgname = "pipewire"
 pkgver = "1.6.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
     "-Ddocs=enabled",
     "-Dman=enabled",
     "-Dlogind-provider=libelogind",
+    # --auto-features=enabled promotes this separate feature flag (default
+    # "auto") to required too; without it meson hard-fails looking for
+    # libsystemd.pc, which Chimera doesn't ship (elogind provides logind
+    # integration instead, set above).
+    "-Dlibsystemd=disabled",
     "-Dsdl2=disabled",  # examples
     "-Dlibffado=disabled",
     "-Droc=disabled",  # TODO
