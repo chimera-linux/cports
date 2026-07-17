@@ -222,7 +222,6 @@ def _(self):
         "kinfocenter",  # system info
         "konversation",  # irc client
         "krdc",  # vnc/rdp client
-        "krita",  # digital art studio
         "kruler",  # on screen ruler
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "ktorrent",  # torrent client
@@ -250,6 +249,7 @@ def _(self):
             "digikam",  # photo manager
             "ghostwriter",  # markdown editor
             "khelpcenter",  # documentation viewer
+            "krita",  # digital art studio
             "konqueror",  # web browser
             "tokodon",  # mastodon client
         ]
