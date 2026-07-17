@@ -1,9 +1,13 @@
 pkgname = "lvm2"
 pkgver = "2.03.33"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
+    # lvm2's configure has its own separate --with-libexecdir AC_ARG_WITH
+    # that unconditionally overrides plain --libexecdir if not given
+    # explicitly (falls back to ${prefix}/libexec otherwise), so the
+    # standard autoconf flag alone silently has no effect here.
+    "--with-libexecdir=/usr/lib",
     "--enable-editline",
     "--enable-pkgconfig",
     "--enable-fsadm",
