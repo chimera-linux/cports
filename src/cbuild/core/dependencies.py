@@ -245,13 +245,13 @@ def _get_vers(pkgs, pkg, sysp, arch):
 
 def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
     if pkgn not in vers:
-        return None
+        return None, None, None
 
     pvers = vers[pkgn]
 
     # we don't care about ver so take latest (it's what apk would install)
     if not pkgv:
-        return pvers[-1]
+        return pvers[-1], None, None
 
     ppat = pkgn + pkgop + pkgv
 
@@ -262,11 +262,11 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
             break
     else:
         # matched no version, so build
-        return None
+        return None, False, None
 
     # only one version, so it's unambiguous
     if len(pvers) == 1:
-        return pvers[0]
+        return pvers[0], None, None
 
     # now check repos individually in priority order
     with flock.lock(flock.apklock(arch)):
@@ -291,13 +291,13 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
             pn = st.split("\n")
             # highest priority repo takes all
             if len(pn) > 0:
+                nn, nv = autil.get_namever(pn[0])
                 if autil.pkg_match(pn[0], ppat):
-                    nn, nv = autil.get_namever(pn[0])
-                    return nv
-                return None
+                    return nv, None, None
+                return None, nv, cr
 
     # no match in individual repos? this should be unreachable
-    return None
+    return None, None, None
 
 
 def install(pkg, origpkg, step, depmap, hostdep, update_check):
@@ -363,7 +363,9 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             host_binpkg_deps.append(pkgn)
             continue
         # check if available in repository
-        aver = _is_available(pkgn, "=", sver, pkg, hvers, hrepos, hsys, None)
+        aver, avail, arepo = _is_available(
+            pkgn, "=", sver, pkg, hvers, hrepos, hsys, None
+        )
         if aver:
             log.out_plain(f"  [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(f"{pkgn}={aver}")
@@ -373,7 +375,16 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             log.out_plain(f"  [host] {pkgn}: unresolved build dependency")
             pkg.error(f"host dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"  [host] {pkgn}: not found")
+        if avail is False:
+            log.out_plain(
+                f"  \f[bold,orange][host] {pkgn}: available version(s) not matching template\f[]"
+            )
+        elif avail:
+            log.out_plain(
+                f"  \f[bold,red][host] {pkgn}: mismatched version ({avail}) in repo '{arepo}'\f[]"
+            )
+        else:
+            log.out_plain(f"  \f[bold][host] {pkgn}: not found\f[]")
         # check for loops
         if not cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
@@ -386,7 +397,9 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             binpkg_deps.append(pkgn)
             continue
         # check if available in repository
-        aver = _is_available(pkgn, "=", sver, pkg, tvers, trepos, tsys, tarch)
+        aver, avail, arepo = _is_available(
+            pkgn, "=", sver, pkg, tvers, trepos, tsys, tarch
+        )
         if aver:
             log.out_plain(f"  [target] {pkgn}: found ({aver})")
             binpkg_deps.append(f"{pkgn}={aver}")
@@ -396,7 +409,16 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             log.out_plain(f"  [target] {pkgn}: unresolved build dependency")
             pkg.error(f"target dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"  [target] {pkgn}: not found")
+        if avail is False:
+            log.out_plain(
+                f"  \f[bold,orange][target] {pkgn}: available version(s) not matching template\f[]"
+            )
+        elif avail:
+            log.out_plain(
+                f"  \f[bold,red][target] {pkgn}: mismatched version ({avail}) in repo '{arepo}'\f[]"
+            )
+        else:
+            log.out_plain(f"  \f[bold][target] {pkgn}: not found\f[]")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
@@ -433,12 +455,23 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        aver = _is_available(pkgn, pkgop, pkgv, pkg, rvers, rrepos, tsys, tarch)
+        aver, avail, arepo = _is_available(
+            pkgn, pkgop, pkgv, pkg, rvers, rrepos, tsys, tarch
+        )
         if aver:
             log.out_plain(f"  [runtime] {dep}: found ({aver})")
             continue
         # not found
-        log.out_plain(f"  [runtime] {dep}: not found")
+        if avail is False:
+            log.out_plain(
+                f"  \f[bold,orange][runtime] {dep}: available version(s) not matching template\f[]"
+            )
+        elif avail:
+            log.out_plain(
+                f"  \f[bold,red][runtime] {dep}: mismatched version ({avail}) in repo '{arepo}'\f[]"
+            )
+        else:
+            log.out_plain(f"  \f[bold][runtime] {dep}: not found\f[]")
         # consider missing
         rdv, fulln = _srcpkg_ver(pkgn, pkg)
         if not fulln or (pkgop and pkgv and not rdv):
