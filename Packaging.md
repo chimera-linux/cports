@@ -3829,6 +3829,8 @@ The allowed variables are:
 * `vdsuffix` *(str)* A Python regular expression matching the part that
   follows the numeric part of the version directory in the URL. Used when
   `single_directory` is disabled. The default is `|\.x`.
+* `agent_name` *(str)* The pre-slash part of the user agent. Usually not
+  necessary but sometimes we can't do update checking otherwise.
 
 You can define some functions:
 

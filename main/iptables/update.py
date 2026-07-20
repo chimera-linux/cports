@@ -1,2 +1,4 @@
-url = "https://git.netfilter.org/iptables/refs/tags"
-pattern = r"v([\d.]+)"
+url = "https://git.netfilter.org/iptables/info/refs"
+pattern = r"refs/tags/v([\d.]+)"
+# because netfilter is being annoying with anubis
+agent_name = "git"

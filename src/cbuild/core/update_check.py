@@ -91,6 +91,7 @@ class UpdateCheck:
         self.group = None
         self.vdprefix = None
         self.vdsuffix = None
+        self.agent_name = "cbuild-update-check"
         self.ignore = []
 
     def _fetch(self, u):
@@ -101,7 +102,7 @@ class UpdateCheck:
             u,
             None,
             {
-                "User-Agent": "cbuild-update-check/4.20.69",
+                "User-Agent": f"{self.agent_name}/4.20.69",
                 "Accept-Encoding": "gzip",
             },
         )
@@ -474,6 +475,9 @@ def update_check(pkg, verbose=False, error=False):
 
         if hasattr(modh, "vdsuffix"):
             uc.vdsuffix = modh.vdsuffix
+
+        if hasattr(modh, "agent_name"):
+            uc.agent_name = modh.agent_name
 
     if uc.ignore is True or pkg.build_style == "meta":
         return checkvers
