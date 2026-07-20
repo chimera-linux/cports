@@ -28,13 +28,14 @@ license = "GPL-3.0-only"
 url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"
 sha256 = "e13a8a36f8beac8f5194b297abdef2ac4424f4c49117f83a2afb735e15c6e48b"
+options = []
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
 
 if self.profile().arch in ["loongarch64"]:
     # loongarch64-chimera-linux-musl-ld: error: address assignment did not converge
-    make_build_env["RUSTFLAGS"] = "-C link-arg=-mno-relax"
+    options += ["!linkrelax"]
 
 
 def post_extract(self):
