@@ -1,5 +1,5 @@
 pkgname = "iptables"
-pkgver = "1.8.11"
+pkgver = "1.8.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -31,7 +31,7 @@ pkgdesc = "Linux packet filtering system"
 license = "GPL-2.0-only"
 url = "https://www.netfilter.org/projects/iptables"
 source = f"{url}/files/iptables-{pkgver}.tar.xz"
-sha256 = "d87303d55ef8c92bcad4dd3f978b26d272013642b029425775f5bad1009fe7b2"
+sha256 = "1afcd33da9e8f913ace6a2126788162e207e26f5d5e29c6573c0e581ffc58b99"
 # check: wants /etc/ethertypes installed
 options = ["etcfiles", "!check"]
 

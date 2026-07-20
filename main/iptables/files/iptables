@@ -1,5 +1,5 @@
 type = scripted
 command = /usr/lib/iptables-start
 stop-command = /usr/lib/iptables-flush
-before = pre-network.target
-depends-on = pre-local.target
+before: pre-network.target
+depends-on: pre-local.target
