@@ -1,6 +1,6 @@
 pkgname = "icewm"
 pkgver = "4.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCONFIG_GDK_PIXBUF_XLIB=ON",

@@ -1,6 +1,6 @@
 pkgname = "enlightenment"
 pkgver = "0.27.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dpam=true",
