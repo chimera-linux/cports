@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg-input-evdev"
 pkgver = "2.11.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
