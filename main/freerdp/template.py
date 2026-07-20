@@ -42,7 +42,6 @@ makedepends = [
     "gsm-devel",
     "heimdal-devel",
     "json-c-devel",
-    "json-c-devel-static",
     "libjpeg-turbo-devel",
     "libpulse-devel",
     "libusb-devel",

@@ -1,5 +1,5 @@
 pkgname = "json-c"
-pkgver = "0.18"
+pkgver = "0.19"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -9,21 +9,31 @@ configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
+checkdepends = ["vim-xxd"]
 pkgdesc = "JSON implementation in C"
 license = "MIT"
 url = "https://json-c.github.io/json-c"
 source = (
     f"https://s3.amazonaws.com/json-c_releases/releases/json-c-{pkgver}.tar.gz"
 )
-sha256 = "876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724"
-tool_flags = {"CFLAGS": ["-Wno-error"]}
-options = ["linkundefver"]
+sha256 = "37ad0249902e301bd9052bf712e511fcc6acff4ecaad4b5900aad9ce564e26de"
 
 
 def post_install(self):
     self.install_license("COPYING")
 
 
+@subpackage("json-c-devel-static")
+def _(self):
+    self.depends = []
+    self.install_if = []
+
+    return ["usr/lib/*.a"]
+
+
+# cmake .a references, sigh
 @subpackage("json-c-devel")
 def _(self):
+    self.depends += [self.with_pkgver("json-c-devel-static")]
+
     return self.default_devel()
