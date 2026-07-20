@@ -83,4 +83,4 @@ def check(self):
 
 
 def post_install(self):
-    self.install_sysusers("^/wireshark.conf")
+    self.install_sysusers(self.files_path / "wireshark.conf")

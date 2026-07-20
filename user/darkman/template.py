@@ -47,7 +47,7 @@ def post_install(self):
         "usr/share/applications",
     )
 
-    self.install_service("^/darkman.user")
+    self.install_service(self.files_path / "darkman.user")
 
     self.install_man("darkman.1")
 

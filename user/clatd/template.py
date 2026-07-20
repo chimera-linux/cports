@@ -27,4 +27,4 @@ def pre_install(self):
 def post_install(self):
     self.rename("usr/sbin", "bin")
     self.install_license("LICENCE")
-    self.install_service("^/clatd")
+    self.install_service(self.files_path / "clatd")

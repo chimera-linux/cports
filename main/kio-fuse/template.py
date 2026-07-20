@@ -27,10 +27,10 @@ options = ["etcfiles", "!check"]
 
 def post_install(self):
     # TODO: port to dinit user instead
-    self.install_file("^/kio-fuse.desktop", "etc/xdg/autostart")
+    self.install_file(self.files_path / "kio-fuse.desktop", "etc/xdg/autostart")
     self.uninstall("usr/lib/systemd/user")
     self.install_file(
-        "^/modules-load.conf",
+        self.files_path / "modules-load.conf",
         "usr/lib/modules-load.d",
         name="kio-fuse.conf",
     )

@@ -39,7 +39,7 @@ options = ["etcfiles"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_tmpfiles("^/tmpfiles.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.uninstall("usr/lib/installed-tests")
 
 

@@ -220,12 +220,14 @@ def init_install(self):
 def post_install(self):
     self.install_license("LICENSE")
     self.install_file("README.md", f"usr/share/doc/php{_majver}")
-    self.install_service(f"^/php-fpm{_majver}")
+    self.install_service(self.files_path / f"php-fpm{_majver}")
     # default php-fpm config files
     self.rename(f"etc/php{_majver}/php-fpm.conf.default", "php-fpm.conf")
     for f in ["pear", "peardev", "pecl"]:
         self.rename(f"usr/bin/{f}", f"{f}{_majver}")
-    self.install_file("^/www.conf", f"etc/php{_majver}/php-fpm.d")
+    self.install_file(
+        self.files_path / "www.conf", f"etc/php{_majver}/php-fpm.d"
+    )
     # these are unnecessary with apk backups
     self.uninstall(f"etc/php{_majver}/php-fpm.d/*.default", glob=True)
     # extensions

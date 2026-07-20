@@ -58,4 +58,4 @@ tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 
 
 def post_install(self):
-    self.install_service("^/easyeffects.user")
+    self.install_service(self.files_path / "easyeffects.user")

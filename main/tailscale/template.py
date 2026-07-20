@@ -38,6 +38,6 @@ def post_install(self):
     self.install_file(
         self.files_path / "tailscaled.wrapper", "usr/lib", mode=0o755
     )
-    self.install_service("^/tailscaled")
+    self.install_service(self.files_path / "tailscaled")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"tailscale.{shell}", shell)

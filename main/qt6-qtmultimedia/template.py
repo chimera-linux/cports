@@ -67,7 +67,7 @@ def init_check(self):
 
 def post_install(self):
     # disabled above, so no uninstall
-    self.rm(">usr/tests", recursive=True, force=True)
+    self.rm(self.destdir / "usr/tests", recursive=True, force=True)
 
 
 @subpackage("qt6-qtmultimedia-devel")

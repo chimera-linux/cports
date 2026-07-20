@@ -16,8 +16,10 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_file("^/lesspipe.sh", "usr/bin", mode=0o755)
-    self.install_file("^/zless.sh", "usr/bin", mode=0o755, name="zless")
+    self.install_file(self.files_path / "lesspipe.sh", "usr/bin", mode=0o755)
+    self.install_file(
+        self.files_path / "zless.sh", "usr/bin", mode=0o755, name="zless"
+    )
     self.install_link("usr/bin/more", "less")
     self.install_link("usr/share/man/man1/more.1", "less.1")
     self.install_link("usr/bin/bzless", "zless")

@@ -67,4 +67,4 @@ options = ["etcfiles", "!cross"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service("^/waybar.user")
+    self.install_service(self.files_path / "waybar.user")

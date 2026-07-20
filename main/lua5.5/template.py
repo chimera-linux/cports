@@ -44,7 +44,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_file(f"^/lua{_lver}.pc", "usr/lib/pkgconfig")
+    self.install_file(self.files_path / f"lua{_lver}.pc", "usr/lib/pkgconfig")
     self.install_license("doc/readme.html")
 
     self.rename("usr/share/man/man1/lua.1", f"lua{_lver}.1")

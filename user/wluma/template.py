@@ -24,4 +24,4 @@ sha256 = "1b66145af53bbfc437e4314fe27f776cb73c5cb8c7893bf1c008b9a81532b710"
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service("^/wluma.user")
+    self.install_service(self.files_path / "wluma.user")

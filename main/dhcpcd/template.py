@@ -28,6 +28,6 @@ options = ["etcfiles"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_sysusers("^/sysusers.conf")
-    self.install_tmpfiles("^/tmpfiles.conf")
-    self.install_service("^/dhcpcd")
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_service(self.files_path / "dhcpcd")

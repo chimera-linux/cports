@@ -87,7 +87,9 @@ if self.profile().arch == "riscv64":
 
 
 def post_extract(self):
-    self.cp("^/stab.h", "toolkit/crashreporter/google-breakpad/src")
+    self.cp(
+        self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
+    )
 
 
 def post_patch(self):
@@ -192,9 +194,16 @@ def install(self):
         env={"DESTDIR": str(self.chroot_destdir)},
     )
 
-    self.install_file("^/vendor.js", "usr/lib/thunderbird/defaults/preferences")
-    self.install_file("^/distribution.ini", "usr/lib/thunderbird/distribution")
-    self.install_file("^/thunderbird.desktop", "usr/share/applications")
+    self.install_file(
+        self.files_path / "vendor.js",
+        "usr/lib/thunderbird/defaults/preferences",
+    )
+    self.install_file(
+        self.files_path / "distribution.ini", "usr/lib/thunderbird/distribution"
+    )
+    self.install_file(
+        self.files_path / "thunderbird.desktop", "usr/share/applications"
+    )
 
     # icons
     for sz in [16, 22, 24, 32, 48, 128, 256]:

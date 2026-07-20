@@ -71,7 +71,7 @@ def post_install(self):
         name="syncthing.svg",
     )
 
-    self.install_service("^/syncthing.user")
+    self.install_service(self.files_path / "syncthing.user")
 
 
 @subpackage("syncthing-relaysrv")

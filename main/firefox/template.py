@@ -97,7 +97,9 @@ elif self.profile().arch == "ppc64le":
 
 
 def post_extract(self):
-    self.cp("^/stab.h", "toolkit/crashreporter/google-breakpad/src")
+    self.cp(
+        self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
+    )
 
 
 def post_patch(self):
@@ -256,10 +258,15 @@ def install(self):
     )
 
     self.install_file(
-        "^/vendor.js", "usr/lib/firefox/browser/defaults/preferences"
+        self.files_path / "vendor.js",
+        "usr/lib/firefox/browser/defaults/preferences",
     )
-    self.install_file("^/distribution.ini", "usr/lib/firefox/distribution")
-    self.install_file("^/firefox.desktop", "usr/share/applications")
+    self.install_file(
+        self.files_path / "distribution.ini", "usr/lib/firefox/distribution"
+    )
+    self.install_file(
+        self.files_path / "firefox.desktop", "usr/share/applications"
+    )
 
     # icons
     for sz in [16, 22, 24, 32, 48, 128, 256]:

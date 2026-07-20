@@ -12,7 +12,7 @@ options = ["!distlicense"]
 
 def install(self):
     self.install_file(
-        "^/66-noto-color-emoji.conf",
+        self.files_path / "66-noto-color-emoji.conf",
         "usr/share/fontconfig/conf.avail",
     )
     self.install_file("fonts/NotoColorEmoji.ttf", "usr/share/fonts/noto")

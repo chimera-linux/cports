@@ -43,7 +43,7 @@ def post_install(self):
     from cbuild.util import python
 
     python.precompile(self, "usr/lib")
-    self.install_service("^/firewalld")
+    self.install_service(self.files_path / "firewalld")
 
 
 @subpackage("firewalld-firewall-config")

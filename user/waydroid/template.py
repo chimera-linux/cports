@@ -28,10 +28,14 @@ def post_install(self):
     from cbuild.util import python
 
     python.precompile(self, "usr/lib")
-    self.install_service("^/waydroid-container")
+    self.install_service(self.files_path / "waydroid-container")
     self.install_file(
-        "^/51_waydroid.nft", "etc/nftables.d", name="51_waydroid.nft"
+        self.files_path / "51_waydroid.nft",
+        "etc/nftables.d",
+        name="51_waydroid.nft",
     )
     self.install_file(
-        "^/modules-load.conf", "usr/lib/modules-load.d", name="waydroid.conf"
+        self.files_path / "modules-load.conf",
+        "usr/lib/modules-load.d",
+        name="waydroid.conf",
     )

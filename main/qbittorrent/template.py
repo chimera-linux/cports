@@ -54,9 +54,9 @@ def install(self):
     cmake.install(self, "build-gui")
     cmake.install(self, "build-nox")
 
-    self.install_service("^/qbittorrent-nox")
-    self.install_sysusers("^/sysusers.conf")
-    self.install_tmpfiles("^/tmpfiles.conf")
+    self.install_service(self.files_path / "qbittorrent-nox")
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("qbittorrent-nox")

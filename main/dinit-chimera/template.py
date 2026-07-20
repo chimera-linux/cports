@@ -51,25 +51,33 @@ _have_kexec_tools = self.profile().arch in [
 
 def post_install(self):
     self.install_license("COPYING.md")
-    self.install_tmpfiles("^/dinit.conf", name="dinit")
-    self.install_tmpfiles("^/utmp.conf", name="utmp")
-    self.install_file("^/sd-tmpfiles-clean", "usr/lib", mode=0o755)
-    self.install_service("^/tmpfiles-clean", enable=True)
+    self.install_tmpfiles(self.files_path / "dinit.conf", name="dinit")
+    self.install_tmpfiles(self.files_path / "utmp.conf", name="utmp")
+    self.install_file(
+        self.files_path / "sd-tmpfiles-clean", "usr/lib", mode=0o755
+    )
+    self.install_service(self.files_path / "tmpfiles-clean", enable=True)
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
-    self.install_file("^/01dinit-env", "etc/X11/Xsession.d", mode=0o755)
-    # sysctl additional distro files
-    self.install_tmpfiles("^/sysctl.conf", name="sysctl")
     self.install_file(
-        "^/sysctl.d/sysctl.conf", "usr/lib/sysctl.d", name="10-chimera.conf"
+        self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode=0o755
+    )
+    # sysctl additional distro files
+    self.install_tmpfiles(self.files_path / "sysctl.conf", name="sysctl")
+    self.install_file(
+        self.files_path / "sysctl.d/sysctl.conf",
+        "usr/lib/sysctl.d",
+        name="10-chimera.conf",
     )
     self.install_file(
-        "^/sysctl.d/sysctl-user.conf",
+        self.files_path / "sysctl.d/sysctl-user.conf",
         "usr/lib/sysctl.d",
         name="10-chimera-user.conf",
     )
     self.install_file(
-        "^/sysctl.d/bpf.conf", "usr/lib/sysctl.d", name="20-bpf.conf"
+        self.files_path / "sysctl.d/bpf.conf",
+        "usr/lib/sysctl.d",
+        name="20-bpf.conf",
     )
     # provided by base-files
     self.uninstall("usr/lib/tmpfiles.d/var.conf")

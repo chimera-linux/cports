@@ -31,5 +31,5 @@ sha256 = "0e9646ff153f4445d85bfaac1b0d77d86df9c639f84888f15ee7b0f1fa892b58"
 
 
 def post_install(self):
-    self.install_service("^/boltd")
-    self.install_tmpfiles("^/tmpfiles.conf")
+    self.install_service(self.files_path / "boltd")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")

@@ -45,7 +45,7 @@ hardening = ["!int"]
 
 def post_install(self):
     self.install_license("src/libsysprof-capture/COPYING")
-    self.install_service("^/sysprof")
+    self.install_service(self.files_path / "sysprof")
     self.uninstall("usr/systemd")
 
 

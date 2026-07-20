@@ -111,15 +111,7 @@ def _pglob_path(oldp, patp):
 
 
 def _subst_path(pkg, pathn):
-    if isinstance(pathn, str):
-        if pathn.startswith(">/"):
-            return pkg.destdir / pathn.removeprefix(">/")
-        elif pathn.startswith("^/"):
-            return pkg.files_path / pathn.removeprefix("^/")
-        else:
-            return pathlib.Path(pathn)
-    else:
-        return pathlib.Path(pathn)
+    return pathlib.Path(pathn)
 
 
 class Package:

@@ -31,7 +31,7 @@ env = {
 
 
 def post_patch(self):
-    self.cp("^/install.sh", self.cwd)
+    self.cp(self.files_path / "install.sh", self.cwd)
     (self.cwd / "install.sh").chmod(0o755)
 
 
