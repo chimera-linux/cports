@@ -80,10 +80,9 @@ def _(self):
     self.depends += [
         self.parent,
         "kwin",
-        # provides the theme
-        "plasma-desktop",
         # input method
         "plasma-keyboard",
+        "plasma-workspace",
     ]
 
     return ["usr/lib/sddm/sddm.conf.d/10-breeze-theme.conf"]
