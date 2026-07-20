@@ -60,7 +60,6 @@ makedepends = [
     "wayland-protocols",
     "xcb-util-devel",
     "xserver-xorg-devel",
-    "xserver-xorg-input-evdev-devel",
     "xserver-xorg-input-libinput-devel",
     # TODO: PackageKitQt6? (Software Manager integration, KRunner plugin installer)
 ]
@@ -195,7 +194,6 @@ def _(self):
         "plasma-workspace-x11",  # xsession
         "setxkbmap",  # configure non-us layout
         "wacomtablet",  # wacom tablet settings
-        # "xserver-xorg-input-evdev",  # TODO: used by mouse KCM? page loads even without it at least
         "xserver-xorg-input-libinput",  # general input
     ]
     self.install_if = [self.parent, "xserver-xorg-core"]
