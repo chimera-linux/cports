@@ -1,6 +1,6 @@
 pkgname = "wlsunset"
 pkgver = "0.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = ["wayland-devel", "wayland-protocols"]
