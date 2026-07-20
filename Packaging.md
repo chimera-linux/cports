@@ -1843,6 +1843,10 @@ the template including for subpackages:
   disable linker and LTO threads.
 * `linkundefver` *(false)* Pass `--undefined-version` to `ld.lld` to
   bypass version errors in affected packages.
+* `linkrelax` *(true)* If disabled, disables linker relaxation for
+  `ld.lld`. If possible, use `LDFLAGS` for this, this is a big hammer
+  mostly for e.g. Rust things on specific platforms where there is no
+  way to pass the flags correctly.
 * `framepointer` *(true)* If enabled, frame pointers will be turned
   on to make profiling of resultant binaries easier.
 * `fullrustflags` *(false)* If enabled, RUSTFLAGS will also contain
