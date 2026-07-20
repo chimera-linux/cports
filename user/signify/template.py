@@ -3,7 +3,6 @@ pkgver = "33"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = [
-    f"DESTDIR=/destdir/{pkgname}-{pkgver}/{pkgname}",
     "PREFIX=/usr",
 ]
 hostmakedepends = ["pkgconf"]
