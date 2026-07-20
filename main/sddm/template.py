@@ -82,6 +82,8 @@ def _(self):
         "kwin",
         # input method
         "plasma-keyboard",
+        # TODO: this should be plasma-desktop because it was moved there
+        # at one point but doing so creates a depcycle for us
         "plasma-workspace",
     ]
 
