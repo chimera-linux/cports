@@ -1,5 +1,5 @@
 pkgname = "pinentry"
-pkgver = "1.3.2"
+pkgver = "1.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/pinentry/pinentry-{pkgver}.tar.bz2"
-sha256 = "8e986ed88561b4da6e9efe0c54fa4ca8923035c99264df0b0464497c5fb94e9e"
+sha256 = "c2970f16d6afb66ecddfca767d743936c86239bff936eed7fd7597a678414b63"
 options = ["empty"]
 
 
