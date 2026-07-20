@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.7.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -104,6 +104,13 @@ depends = [
     "xdg-user-dirs-gtk",
     "xdg-utils",
 ]
+# TODO: maybe we could split it? maybe with meta reorg
+provides = [
+    self.with_pkgver("sddm-theme-default"),
+    # transitional
+    self.with_pkgver("sddm-default-breeze"),
+]
+replaces = ["sddm<0.21.0-r7"]
 pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
@@ -119,6 +126,11 @@ if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
 
 
 def post_install(self):
+    # install default breeze theme selection for sddm, it looks way better
+    self.install_file(
+        self.files_path / "10-breeze-theme.conf",
+        "usr/lib/sddm/sddm.conf.d",
+    )
     self.uninstall("usr/lib/systemd/user/plasma-kaccess.service")
 
 
@@ -348,7 +360,6 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "sddm",
-        "sddm-default-breeze",
         "sddm-kcm",
     ]
     self.options = ["empty"]
