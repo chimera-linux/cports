@@ -408,10 +408,12 @@ def build_index(repopath, epoch, allow_untrusted=False):
 
     aargs = ["--quiet", "--output", "Packages.adb", "--hash", "sha256-160"]
 
-    if (repopath / "Packages.adb").is_file():
-        aargs += ["--index", "Packages.adb"]
-    elif (repopath / "APKINDEX.tar.gz").is_file():
-        aargs += ["--index", "APKINDEX.tar.gz"]
+    try:
+        if (repopath / "Packages.adb").stat().st_size > 0:
+            aargs += ["--index", "Packages.adb"]
+    except Exception:
+        # no incremental index
+        pass
 
     keypath = None
     if not allow_untrusted:
