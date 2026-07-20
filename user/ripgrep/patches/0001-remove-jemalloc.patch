@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 7f7ef84..e15e747 100644
+index 5589334..6b232a0 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -401,7 +401,6 @@ dependencies = [
+@@ -400,7 +400,6 @@ dependencies = [
   "serde_json",
   "termcolor",
   "textwrap",
@@ -10,15 +10,15 @@ index 7f7ef84..e15e747 100644
   "walkdir",
  ]
  
-@@ -494,26 +493,6 @@ version = "0.16.2"
+@@ -487,26 +486,6 @@ version = "0.16.2"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "c13547615a44dc9c452a8a534638acdf07120d4b6847c8178705da06306a3057"
  
 -[[package]]
 -name = "tikv-jemalloc-sys"
--version = "0.6.1+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+-version = "0.7.1+5.3.1-0-g81034ce1f1373e37dc865038e1bc8eeecf559ce8"
 -source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "cd8aa5b2ab86a2cefa406d889139c162cbb230092f7d1d7cbc1716405d852a3b"
+-checksum = "1a2825c78386b4ae0314074867860ba9577875de945f05992c38815cbec327f0"
 -dependencies = [
 - "cc",
 - "libc",
@@ -26,9 +26,9 @@ index 7f7ef84..e15e747 100644
 -
 -[[package]]
 -name = "tikv-jemallocator"
--version = "0.6.1"
+-version = "0.7.0"
 -source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "0359b4327f954e0567e69fb191cf1436617748813819c94b8cd4a431422d053a"
+-checksum = "249f09e49ab1609436f34c776e84231bead18d6a955f119f939bdc1d847561bd"
 -dependencies = [
 - "libc",
 - "tikv-jemalloc-sys",
@@ -36,22 +36,23 @@ index 7f7ef84..e15e747 100644
 -
  [[package]]
  name = "unicode-ident"
- version = "1.0.20"
+ version = "1.0.24"
 diff --git a/Cargo.toml b/Cargo.toml
-index 9ed5768..02a7533 100644
+index 0fce841..186e222 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -60,8 +60,6 @@ serde_json = "1.0.23"
- termcolor = "1.1.0"
+@@ -60,9 +60,6 @@ serde_json = "1.0.23"
+ termcolor = "1.4.0"
  textwrap = { version = "0.16.0", default-features = false }
  
 -[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
--version = "0.6.0"
- 
+-version = "0.7.0"
+-
  [dev-dependencies]
  serde = "1.0.77"
+ serde_derive = "1.0.77"
 diff --git a/crates/core/main.rs b/crates/core/main.rs
-index 46aac26..8450a12 100644
+index c74e645..55c4a82 100644
 --- a/crates/core/main.rs
 +++ b/crates/core/main.rs
 @@ -35,9 +35,6 @@ mod search;
