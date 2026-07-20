@@ -1,6 +1,6 @@
 pkgname = "python-sphinx"
 pkgver = "9.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -28,7 +28,7 @@ depends = [
     "python-sphinxcontrib-serializinghtml",
 ]
 pkgdesc = "Python documentation generator"
-license = "BSD-3-Clause"
+license = "BSD-2-Clause"
 url = "https://www.sphinx-doc.org/en/master"
 source = f"$(PYPI_SITE)/s/sphinx/sphinx-{pkgver}.tar.gz"
 sha256 = "7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb"
