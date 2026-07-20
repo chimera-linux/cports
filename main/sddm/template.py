@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -35,6 +35,7 @@ depends = [
     "elogind",
     "openrc-settingsd",
     "turnstile",
+    "virtual:sddm-theme-default!sddm-theme-none",
     "xrdb",
 ]
 pkgdesc = "QML based display manager"
@@ -55,13 +56,6 @@ def post_install(self):
         self.files_path / "00-default.conf",
         "usr/lib/sddm/sddm.conf.d",
     )
-    # install default breeze theme selection, which gets picked along with
-    # kwin for compositor etc. to get proper wayland, else it faills back
-    # to sddm builtin stuff and looks awful
-    self.install_file(
-        self.files_path / "10-breeze-theme.conf",
-        "usr/lib/sddm/sddm.conf.d",
-    )
     # all unusable
     self.uninstall("usr/share/sddm/themes")
     for pam in ["sddm", "sddm-autologin", "sddm-greeter"]:
@@ -70,21 +64,25 @@ def post_install(self):
         )
 
 
-# recommended and installed by default, unless you override that
-# if you do override that, you also need to set your compositor
-# command correctly, or force x11, or whatever
-@subpackage("sddm-default-breeze")
+@subpackage("sddm-default-kwin")
 def _(self):
-    self.subdesc = "Use Breeze theme by default"
+    self.subdesc = "Wayland compositor dependencies"
     self.install_if = [self.parent]
     self.depends += [
         self.parent,
         "kwin",
         # input method
         "plasma-keyboard",
-        # TODO: this should be plasma-desktop because it was moved there
-        # at one point but doing so creates a depcycle for us
-        "plasma-workspace",
     ]
+    self.options = ["empty"]
 
-    return ["usr/lib/sddm/sddm.conf.d/10-breeze-theme.conf"]
+    return []
+
+
+@subpackage("sddm-theme-none")
+def _(self):
+    self.subdesc = "no theme"
+    self.provides = ["sddm-theme-default=0"]
+    self.options = ["empty"]
+
+    return []
