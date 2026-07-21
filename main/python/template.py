@@ -1,7 +1,7 @@
 pkgname = "python"
 pkgver = "3.14.6"
 _majver = pkgver[: pkgver.rfind(".")]
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -59,6 +59,7 @@ makedepends = [
     "sqlite-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
+    "zstd-devel",
 ]
 checkdepends = ["ca-certificates"]
 depends = [self.with_pkgver("python-meta"), "ca-certificates"]
