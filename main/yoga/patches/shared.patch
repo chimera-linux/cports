@@ -1,0 +1,12 @@
+diff -ruN a/yoga/CMakeLists.txt b/yoga/CMakeLists.txt
+--- a/yoga/CMakeLists.txt	2024-12-13 02:41:47.000000000 +0100
++++ b/yoga/CMakeLists.txt	2026-07-21 11:07:11.410045259 +0200
+@@ -22,7 +22,7 @@
+     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+     ${CMAKE_CURRENT_SOURCE_DIR}/**/*.cpp)
+ 
+-add_library(yogacore STATIC ${SOURCES})
++add_library(yogacore SHARED ${SOURCES})
+ 
+ # Yoga conditionally uses <android/log> when building for Android
+ if (ANDROID)
