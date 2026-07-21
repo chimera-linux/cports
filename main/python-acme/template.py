@@ -1,6 +1,6 @@
 pkgname = "python-acme"
-pkgver = "5.1.0"
-pkgrel = 1
+pkgver = "5.7.0"
+pkgrel = 0
 build_wrksrc = "acme"
 build_style = "python_pep517"
 hostmakedepends = [
@@ -23,7 +23,7 @@ url = "https://github.com/certbot/certbot/tree/master/acme"
 source = (
     f"https://github.com/certbot/certbot/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "255075ddec57010a2374b7591025ba22fbda43d6b8fcb29b5aefd4f2335f0a0f"
+sha256 = "8cd3301ea564046730404a255da44b0a5e28df268eee9b9d9915b1369c55b1b9"
 
 
 def init_check(self):
