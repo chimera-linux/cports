@@ -1,22 +1,21 @@
 pkgname = "fuzzel"
 pkgver = "1.14.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dsvg-backend=librsvg"]
+configure_args = ["-Dsvg-backend=resvg", "-Denable-cairo=disabled"]
 hostmakedepends = [
     "meson",
     "pkgconf",
     "scdoc",
 ]
 makedepends = [
-    "cairo-devel",
     "fcft-devel",
     "fontconfig-devel",
     "freetype-devel",
-    "librsvg-devel",
     "libxkbcommon-devel",
     "linux-headers",
     "pixman-devel",
+    "resvg-devel",
     "tllist",
     "wayland-devel",
     "wayland-protocols",
@@ -25,7 +24,7 @@ pkgdesc = "Application launcher for wlroots-based Wayland compositors"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fuzzel"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "c6416786c3a0600b8ad91ed951c43c002a639870c3823b4a60c910442f4ae097"
+sha256 = "4b8a914d7a065e34da7db4cc6ae4f02c773445e41b724b28b8b7385636b449ee"
 hardening = ["vis", "cfi"]
 options = ["etcfiles"]
 
