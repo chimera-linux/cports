@@ -1,14 +1,14 @@
 pkgname = "fcitx5"
-pkgver = "5.1.17"
+pkgver = "5.1.21"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DUSE_SYSTEM_YOGA=ON"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "ninja",
     "pkgconf",
     "wayland-progs",
-    "wayland-protocols",
 ]
 makedepends = [
     "cairo-devel",
@@ -25,10 +25,13 @@ makedepends = [
     "linux-headers",
     "nlohmann-json",
     "pango-devel",
+    "plasma-wayland-protocols",
     "wayland-devel",
+    "wayland-protocols",
     "xcb-imdkit-devel",
     "xcb-util-keysyms-devel",
     "xcb-util-wm-devel",
+    "yoga-devel",
 ]
 pkgdesc = "Generic input method framework"
 license = "LGPL-2.1-or-later"
@@ -39,11 +42,12 @@ source = [
     f"!https://download.fcitx-im.org/data/en_dict-{_en_dict_ver}.tar.gz",
 ]
 sha256 = [
-    "84a927fa5f3a3c713c9388a126a2e9b516f6ca7e6402b140cd82ff6614e61eaa",
+    "8211fe5996db22254e5df9617cbd45873ae7fab82e7e0c42bde5a197299d1276",
     "c44a5d7847925eea9e4d2d04748d442cd28dd9299a0b572ef7d91eac4f5a6ceb",
 ]
-# CFI: causes illegal instruction crashes
+# std::osyncstream
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
+# CFI: causes illegal instruction crashes
 hardening = ["vis", "!cfi"]
 options = ["etcfiles"]
 
