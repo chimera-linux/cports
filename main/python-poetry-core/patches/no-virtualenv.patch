@@ -3,7 +3,7 @@ index 5ab1331..3f1175f 100644
 --- a/tests/conftest.py
 +++ b/tests/conftest.py
 @@ -9,7 +9,6 @@ from typing import TYPE_CHECKING
- from typing import Callable
+ from typing import TYPE_CHECKING
  
  import pytest
 -import virtualenv
