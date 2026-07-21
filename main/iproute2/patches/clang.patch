@@ -1,8 +1,8 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -56,7 +56,7 @@
- #options for NETROM
- ADDLIB+=netrom_ntop.o
+ #options for mpls
+ ADDLIB+=mpls_ntop.o mpls_pton.o
  
 -CC := gcc
 +CC ?= gcc

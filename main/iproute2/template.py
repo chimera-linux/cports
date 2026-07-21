@@ -1,5 +1,5 @@
 pkgname = "iproute2"
-pkgver = "6.16.0"
+pkgver = "7.1.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--color", "auto"]
@@ -13,6 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "elfutils-devel",
     "flex-devel-static",
     "iptables-devel",
     "libcap-devel",
@@ -23,7 +24,7 @@ pkgdesc = "IP routing utilities"
 license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/iproute2/iproute2-{pkgver}.tar.xz"
-sha256 = "5900ccc15f9ac3bf7b7eae81deb5937123df35e99347a7f11a22818482f0a8d0"
+sha256 = "fd9fa1b95809417157ca83dd72957e3261bdbce896353cb936f80af0b33a4b5c"
 # causes some part of the build to silently break which drops support for various features
 hardening = ["!vis"]
 
