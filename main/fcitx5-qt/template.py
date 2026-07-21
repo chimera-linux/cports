@@ -1,6 +1,6 @@
 pkgname = "fcitx5-qt"
-pkgver = "5.1.10"
-pkgrel = 7
+pkgver = "5.1.14"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -28,7 +28,7 @@ pkgdesc = "Qt library and IM module for Fcitx5"
 license = "BSD-3-Clause AND LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-qt/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ad04a6b41e140f326b99292548ba08f268caae946febc13f830183f4e453c728"
+sha256 = "80cbbc6b3ad08a6b7a40bb6cc4072e1c3bcf2099a821ce04b1bd510848c804d7"
 hardening = ["vis", "cfi"]
 # fails
 options = ["!cross"]
