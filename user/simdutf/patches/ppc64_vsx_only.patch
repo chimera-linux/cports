@@ -13,3 +13,18 @@ index ef5ffa9..c5035e6 100644
      #define SIMDUTF_IS_PPC64 1
    #endif
  #elif defined(__s390__)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 00545e4..9fb7bd6 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -51,10 +51,6 @@ if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") AND (CMAKE_SYSTEM_PROCESSOR MATCHES "
+   target_compile_options(simdutf PRIVATE -mno-avx256-split-unaligned-load -mno-avx256-split-unaligned-store)
+ endif()
+ 
+-if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") AND (CMAKE_SYSTEM STREQUAL "PowerPC"))
+-  target_compile_options(simdutf PRIVATE -maltivec -mvsx -mcpu=power8)
+-endif()
+-
+ ##
+ ## Feature-specific library variants for the tools.
+ ## These are NOT installed — they exist only to give each tool a smaller binary.
