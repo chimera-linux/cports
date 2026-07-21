@@ -1,6 +1,6 @@
 pkgname = "libskk"
-pkgver = "1.0.5"
-pkgrel = 1
+pkgver = "1.1.1"
+pkgrel = 0
 build_style = "gnu_configure"
 # old and doesn't reconf
 configure_gen = []
@@ -25,7 +25,7 @@ pkgdesc = "Japanese input method library"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ueno/libskk"
 source = f"{url}/releases/download/{pkgver}/libskk-{pkgver}.tar.xz"
-sha256 = "b295eb9c248e353750c96474b2b55c4e627524fc6dc79439ff56f73ba09c3949"
+sha256 = "2d4c15976d459ef0004ce1c0e47506c7859d0b6f4fb104ed837f3326d235bb56"
 tool_flags = {
     "CFLAGS": [
         "-Wno-incompatible-function-pointer-types",
