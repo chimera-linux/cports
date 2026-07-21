@@ -1,8 +1,7 @@
 pkgname = "libnetfilter_cttimeout"
 pkgver = "1.0.1"
-pkgrel = 0
-build_style = "configure"
-configure_args = ["--prefix=/usr"]
+pkgrel = 1
+build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = [
     "libmnl-devel",
