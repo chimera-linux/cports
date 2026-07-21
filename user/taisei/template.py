@@ -18,6 +18,7 @@ hostmakedepends = [
     "shaderc-progs",
 ]
 makedepends = [
+    "boost-devel",  # fallback for koishi context backend on some archs
     "cglm-devel",
     "freetype-devel",
     "gamemode-devel",
