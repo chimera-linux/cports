@@ -1,6 +1,6 @@
 pkgname = "activate-linux"
-pkgver = "1.1.0"
-pkgrel = 1
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = [
     "gawk",
@@ -14,6 +14,7 @@ makedepends = [
     "libxfixes-devel",
     "libxinerama-devel",
     "libxrandr-devel",
+    "pango-devel",
     "wayland-devel",
     "wayland-protocols",
 ]
@@ -21,7 +22,7 @@ pkgdesc = 'Linux port of the "Activate Windows" watermark'
 license = "GPL-3.0-only"
 url = "https://github.com/MrGlockenspiel/activate-linux"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "cf892c90a57bf6026f777715207aa7066fc7c4940da39d62a6c24b51a726786d"
+sha256 = "5c1ab8dc9ddfc3984398f410cd5cf6169609650659d9474b88b1d852a1c3c32b"
 hardening = ["vis", "cfi"]
 # No test suite
 options = ["!check"]
