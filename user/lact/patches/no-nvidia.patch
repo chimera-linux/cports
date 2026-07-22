@@ -1,0 +1,26 @@
+diff --git a/lact-daemon/Cargo.toml b/lact-daemon/Cargo.toml
+index 57c14f0..cccb0d4 100644
+--- a/lact-daemon/Cargo.toml
++++ b/lact-daemon/Cargo.toml
+@@ -4,7 +4,7 @@ version = "0.10.1"
+ edition.workspace = true
+ 
+ [features]
+-default = ["nvidia", "display-info"]
++default = ["display-info"]
+ bench = ["dep:divan"]
+ nvidia = []
+ display-info = ["dep:libdisplay-info"]
+diff --git a/lact/Cargo.toml b/lact/Cargo.toml
+index 22d0d05..4108aba 100644
+--- a/lact/Cargo.toml
++++ b/lact/Cargo.toml
+@@ -4,7 +4,7 @@ version = "0.10.1"
+ edition.workspace = true
+ 
+ [features]
+-default = ["lact-gui", "nvidia", "display-info"]
++default = ["lact-gui", "display-info"]
+ nvidia = ["lact-daemon/nvidia"]
+ display-info = ["lact-daemon/display-info"]
+ mock = ["lact-daemon/mock"]
