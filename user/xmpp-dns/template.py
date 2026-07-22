@@ -1,6 +1,6 @@
 pkgname = "xmpp-dns"
 pkgver = "0.5.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "CLI tool to check XMPP SRV records"

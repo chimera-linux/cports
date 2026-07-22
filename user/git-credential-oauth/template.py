@@ -1,6 +1,6 @@
 pkgname = "git-credential-oauth"
 pkgver = "0.17.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Oauth credential manager for git"

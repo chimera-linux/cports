@@ -1,6 +1,6 @@
 pkgname = "rootlesskit"
 pkgver = "2.3.4"
-pkgrel = 9
+pkgrel = 10
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/rootless-containers/rootlesskit/pkg/version.Version={pkgver}",

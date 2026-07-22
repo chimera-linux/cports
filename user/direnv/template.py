@@ -1,6 +1,6 @@
 pkgname = "direnv"
 pkgver = "2.37.1"
-pkgrel = 6
+pkgrel = 7
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Environment variables loader"

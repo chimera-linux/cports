@@ -1,6 +1,6 @@
 pkgname = "nwg-look"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
 makedepends = ["gtk+3-devel"]

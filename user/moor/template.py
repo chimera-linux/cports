@@ -1,6 +1,6 @@
 pkgname = "moor"
 pkgver = "2.12.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.versionString=v{pkgver}", "./cmd/moor"]
 hostmakedepends = ["go"]

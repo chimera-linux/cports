@@ -1,6 +1,6 @@
 pkgname = "incus"
 pkgver = "6.17.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 make_build_args = ["./cmd/..."]
 make_check_args = ["-skip", "TestConvertNetworkConfig", "./..."]
