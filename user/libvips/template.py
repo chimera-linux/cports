@@ -11,8 +11,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "cgif-devel",
     "fftw-devel",
-    "giflib-devel",
     "glib-devel",
     "gobject-introspection",
     "highway-devel",
