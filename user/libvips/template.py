@@ -22,6 +22,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libjxl-devel",
     "libpng-devel",
+    "libraw-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libwebp-devel",
