@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/lact daemon
+log-type = buffer
+before: login.target

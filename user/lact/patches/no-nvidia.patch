@@ -1,0 +1,13 @@
+diff --git a/lact/Cargo.toml b/lact/Cargo.toml
+index 043db0c..406852c 100644
+--- a/lact/Cargo.toml
++++ b/lact/Cargo.toml
+@@ -17,7 +17,7 @@ anyhow = { workspace = true }
+ 
+ [dev-dependencies]
+ divan = { workspace = true }
+-lact-daemon = { path = "../lact-daemon", features = ["bench"] }
++lact-daemon = { path = "../lact-daemon", default-features = false, features = ["bench"] }
+ lact-gui = { path = "../lact-gui", features = ["bench"] }
+ 
+ [[bench]]
