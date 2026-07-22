@@ -1,24 +1,15 @@
-diff --git a/Makefile b/Makefile
-index 440e919..6f4f6fb 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -5,6 +5,8 @@ CFLAGS ?= -Os -Wall -Wpedantic -Wextra
- # link options
- LDFLAGS ?= -s
- 
-+PKG_CONFIG ?= pkg-config
-+
- # install path is: $(DESTDIR)$(PREFIX)/$(BINDIR)/$(BINARY)
- DESTDIR ?=
- PREFIX ?= /usr/local
-@@ -53,14 +55,14 @@ ifeq ($(filter gdi,$(<<backends>>)),gdi)
- 	override LDFLAGS += -lgdi32
+@@ -65,7 +65,7 @@ ifeq ($(filter gdi,$(<<backends>>)),gdi)
  endif
- 
--ifeq ($(shell pkg-config --exists libconfig && echo exists),exists)
-+ifeq ($(shell $(PKG_CONFIG) --exists libconfig && echo exists),exists)
- 	override PKGS += libconfig
- 	override CFLAGS += -DLIBCONFIG
+ # rebuild on optional deps change
+ ifneq ($(filter libconfig,$(<<with>>)),)
+-	ifneq ($(shell pkg-config --exists libconfig && echo exists),)
++	ifneq ($(shell $(PKG_CONFIG) --exists libconfig && echo exists),)
+ 		override PKGS += libconfig
+ 		override CFLAGS += -DLIBCONFIG
+ 		<<addons>> += libconfig
+@@ -73,8 +73,8 @@ ifneq ($(filter libconfig,$(<<with>>)),)
  endif
  
  ifneq ($(PKGS),)
@@ -29,8 +20,6 @@ index 440e919..6f4f6fb 100644
  endif
  
  <<sources>> := \
-diff --git a/src/wayland/xdg-shell.cgen b/src/wayland/xdg-shell.cgen
-index 82a9224..fdeeea4 100644
 --- a/src/wayland/xdg-shell.cgen
 +++ b/src/wayland/xdg-shell.cgen
 @@ -1,5 +1,5 @@
@@ -40,8 +29,6 @@ index 82a9224..fdeeea4 100644
  
  wayland-scanner private-code \
  	"$PROTOCOLS/stable/xdg-shell/xdg-shell.xml" \
-diff --git a/src/x11/XEventTypes.cgen b/src/x11/XEventTypes.cgen
-index 62ab5b7..d5f1f9b 100644
 --- a/src/x11/XEventTypes.cgen
 +++ b/src/x11/XEventTypes.cgen
 @@ -4,7 +4,7 @@ cat << EOF

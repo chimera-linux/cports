@@ -1,8 +1,15 @@
-diff --git a/Makefile b/Makefile
-index adc7c84..521df71 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -17,11 +17,11 @@ backends ?= wayland x11
+@@ -10,7 +10,7 @@ DESTDIR ?=
+ PREFIX ?= /usr/local
+ BINDIR ?= bin
+ 
+-MANDIR ?= $(PREFIX)/share/man
++MANDIR ?= $(DESTDIR)$(PREFIX)/share/man
+ 
+ # implemented backends: wayland x11 gdi
+ backends ?= wayland x11
+@@ -25,8 +25,8 @@ with     ?= libconfig
  
  IS_CLANG = $(shell $(CC) -v 2>&1 | grep -q clang && echo true)
  ifeq ($(IS_CLANG),true)
@@ -12,18 +19,14 @@ index adc7c84..521df71 100644
 +	override CFLAGS += -Wno-empty-translation-unit
  endif
  
--CFLAGS += -Isrc
-+override CFLAGS += -Isrc
- 
  # Echo function
- << := @echo
-@@ -32,35 +32,35 @@ endif
- # Mess with backends
- <<backends>> = $(sort $(filter x11 wayland gdi,$(backends)))
+@@ -43,38 +43,38 @@ endif
+ <<addon-srcs>> = src/config.c
+ 
  ifeq ($(filter x11,$(<<backends>>)),x11)
--	PKGS += x11 xfixes xinerama xrandr
+-	PKGS += x11 xfixes xinerama xrandr xext x11
 -	CFLAGS += -DX11
-+	override PKGS += x11 xfixes xinerama xrandr
++	override PKGS += x11 xfixes xinerama xrandr xext x11
 +	override CFLAGS += -DX11
  endif
  ifeq ($(filter wayland,$(<<backends>>)),wayland)
@@ -35,9 +38,9 @@ index adc7c84..521df71 100644
 +	override LDFLAGS += -lrt
  endif
  ifneq ($(filter wayland x11,$(<<backends>>)),)
--	PKGS += cairo
+-	PKGS += cairo pango pangocairo
 -	CFLAGS += -DCOLOR_HELP -DCAIRO
-+	override PKGS += cairo
++	override PKGS += cairo pango pangocairo
 +	override CFLAGS += -DCOLOR_HELP -DCAIRO
  endif
  ifeq ($(filter gdi,$(<<backends>>)),gdi)
@@ -51,12 +54,15 @@ index adc7c84..521df71 100644
 +	override CFLAGS += -DGDI
 +	override LDFLAGS += -lgdi32
  endif
- 
- ifeq ($(shell pkg-config --exists libconfig && echo exists),exists)
--	PKGS += libconfig
--	CFLAGS += -DLIBCONFIG
-+	override PKGS += libconfig
-+	override CFLAGS += -DLIBCONFIG
+ # rebuild on optional deps change
+ ifneq ($(filter libconfig,$(<<with>>)),)
+ 	ifneq ($(shell pkg-config --exists libconfig && echo exists),)
+-		PKGS += libconfig
+-		CFLAGS += -DLIBCONFIG
++		override PKGS += libconfig
++		override CFLAGS += -DLIBCONFIG
+ 		<<addons>> += libconfig
+ 	endif
  endif
  
  ifneq ($(PKGS),)

@@ -1,0 +1,14 @@
+--- a/src/i18n.c
++++ b/src/i18n.c
+@@ -155,7 +155,10 @@ bool match_lang_two_letter_code(const char *lang_code, const char *lang) {
+ 
+     while (lang_code[i] != 0) {
+       if (lang_code[i] == '_') {
+-        i += 4;
++        i += 3;
++        if (lang_code[i] == ',') {
++          i++;
++        }
+         break;
+       }
+       if (lang_code[i] == ',') {
