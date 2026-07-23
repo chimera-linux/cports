@@ -218,7 +218,7 @@ def post_patch(self):
 
 
 def init_configure(self):
-    ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
+    ljobs = min(4, self.make_jobs)
     # mesa links a lot of big .so's at once so ensure there is not more than four
     self.configure_args += [f"-Dbackend_max_links={ljobs}"]
 

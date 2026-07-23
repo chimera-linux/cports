@@ -19,12 +19,14 @@ if [ -n "$GITHUB_ACTIONS" ]; then
     ruff_output="--output-format github"
 fi
 
+lint_targets="main user src"
+
 if command -v ruff >/dev/null; then
-    invoke ruff check $ruff_output
-    invoke ruff format --diff --quiet
+    invoke ruff check $ruff_output $lint_targets
+    invoke ruff format --diff --quiet $lint_targets
 else
-    invoke flake8 main contrib user src
-    invoke find main contrib user src -name '*.py' -exec black --fast --check {} +
+    invoke flake8 $lint_targets
+    invoke find $lint_targets -name '*.py' -exec black --fast --check {} +
 fi
 
 # for local pre-push hooks that probably don't want to wait 10 seconds

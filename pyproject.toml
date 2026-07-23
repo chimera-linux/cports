@@ -18,20 +18,87 @@ extend-select = [
     'ISC002',
 ]
 ignore = [
+    # mutable default arguments: we have a bunch of those
+    # and all are harmless; not worth fixing rn but maybe later...
+    'B006',
+    # i will call getattr/setattr as much as i want
+    'B009',
+    'B010',
+    # unbound for argument in lambda: all our uses are harmless
+    # because we don't delay execution of the passed lambda
+    'B023',
     # no
     'C417',
     # black compat
     'E203',
     # long source lines
     'E501',
+    # someone decided that assigning to lambdas is bad???
+    'E731',
     # unused unpack sequences
     'F841',
+    # unsorted imports, don't care
+    'I001',
     # allow redundant open(, 'r')
     'UP015',
+    # percent format: fuck you i won't do what you tell me
+    'UP031',
     # we check this intentionally
     'UP036',
     # edontcare
     'RUF012',
     'RUF015',
     'RUF059',
+    # unlogged exception, shut up
+    'S110',
+    # they dislike nested if statements
+    'SIM102',
+    # return bool(foo) directly: unimportant and subjective
+    'SIM103',
+    # sometimes uncombined if branches are more readable
+    'SIM114',
+    # open without context manager: we only have a few and all are fine
+    'SIM115',
+    # they dislike nested with statements
+    'SIM117',
+    # they dislike 'not not'; we want to turn it into a bool
+    'SIM208',
+    # they dislike if checks for dictionaries
+    'SIM401',
+    # implicit string concat
+    'ISC004',
+    # minor permissions thing, leave us alone
+    'EXE001',
+    'EXE002',
+    # looping dictionaries without .items() is bad ???
+    'PLC0206',
+    # subprocess.run without explicit check=
+    'PLW1510',
+    # exception catchall
+    'BLE001',
+    # datetime without tz; we only use it in the logger and it's fine
+    'DTZ005',
+    'DTZ006',
+    # use f-string instead of string join: unimportant, subjective
+    'FLY002',
+    # for loop .write()
+    'FURB122',
+    # f.readlines()
+    'FURB129',
+    # string slicing is bad?
+    'FURB188',
+    # they dislike 'return None'
+    'RET501',
+    # same as above, but different lol
+    'PLR1711',
+    # range(0, x) vs range(x): unimportant
+    'PIE808',
+    # multiple .startswith(): not important
+    'PIE810',
+    # i will not create my own exception
+    'TRY002',
+    # iterating dict with key/value while only using the value
+    'PERF102',
+    # replace if statement with max() whatever
+    'PLR1730',
 ]

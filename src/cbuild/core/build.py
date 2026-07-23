@@ -107,7 +107,6 @@ def redir_log(pkg):
             # unredir_log function, so we'll lose file logs
             # but retain actual console output (hopefully)
             os._exit(0)
-            return
     try:
         # in parent, close read end, we don't need it here
         os.close(prd)

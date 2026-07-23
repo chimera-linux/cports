@@ -59,7 +59,7 @@ if self.profile().wordsize == 32:
 
 
 def init_configure(self):
-    ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
+    ljobs = min(4, self.make_jobs)
     # qemu links a lot of big exes at once so ensure there is not more than four
     self.configure_args += [f"-Dbackend_max_links={ljobs}"]
 

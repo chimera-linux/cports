@@ -2190,12 +2190,12 @@ class Template(Package):
             raise errors.TracebackException(
                 f"install_file: path '{dest}' must not be absolute"
             )
-        for src in srcs:
+        for srcv in srcs:
             # copy
             if name:
                 dfn = self.destdir / dest / name
             else:
-                dfn = self.destdir / dest / src.name
+                dfn = self.destdir / dest / srcv.name
             if dfn.exists():
                 raise errors.TracebackException(
                     f"install_file: destination file '{dfn}' already exists"
@@ -2203,12 +2203,12 @@ class Template(Package):
             self.install_dir(dest)
             if template:
                 with open(dfn, "w") as outf:
-                    with (self.cwd / src).open() as inpf:
+                    with (self.cwd / srcv).open() as inpf:
                         for ln in inpf:
                             outf.write(_replace_fpat(ln, template, pattern))
             else:
                 shutil.copy2(
-                    self.cwd / src, dfn, follow_symlinks=follow_symlinks
+                    self.cwd / srcv, dfn, follow_symlinks=follow_symlinks
                 )
             if mode is not None and (follow_symlinks or not dfn.is_symlink()):
                 dfn.chmod(mode)
