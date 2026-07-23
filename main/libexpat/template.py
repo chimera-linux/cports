@@ -1,12 +1,12 @@
 pkgname = "libexpat"
 pkgver = "2.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--without-examples"]
 configure_gen = []
 make_check_args = ["-j1"]
 hostmakedepends = ["pkgconf"]
-pkgdesc = "XML parser library written in C"
+pkgdesc = "Stream-oriented XML parser library"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
