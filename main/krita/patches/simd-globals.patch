@@ -1,0 +1,570 @@
+diff --git a/libs/image/kis_base_mask_generator.cpp b/libs/image/kis_base_mask_generator.cpp
+index 3cf3eea5c5..d918d82f51 100644
+--- a/libs/image/kis_base_mask_generator.cpp
++++ b/libs/image/kis_base_mask_generator.cpp
+@@ -27,6 +27,10 @@
+ #include "kis_curve_rect_mask_generator.h"
+ #include <kis_dom_utils.h>
+ 
++const KoID DefaultId("default", ki18n("Default")); ///< generate Krita default mask generator
++const KoID SoftId("soft", ki18n("Soft")); ///< generate brush mask from former softbrush paintop, where softness is based on curve
++const KoID GaussId("gauss", ki18n("Gaussian")); ///< generate brush mask with a Gaussian-blurred edge
++
+ struct KisMaskGenerator::Private {
+     Private()
+         : diameter(1.0),
+diff --git a/libs/image/kis_base_mask_generator.h b/libs/image/kis_base_mask_generator.h
+index 92e5cb8ac9..6131a2826c 100644
+--- a/libs/image/kis_base_mask_generator.h
++++ b/libs/image/kis_base_mask_generator.h
+@@ -19,9 +19,9 @@ class QDomElement;
+ class QDomDocument;
+ class KisBrushMaskApplicatorBase;
+ 
+-const KoID DefaultId("default", ki18n("Default")); ///< generate Krita default mask generator
+-const KoID SoftId("soft", ki18n("Soft")); ///< generate brush mask from former softbrush paintop, where softness is based on curve
+-const KoID GaussId("gauss", ki18n("Gaussian")); ///< generate brush mask with a Gaussian-blurred edge
++extern const KoID KRITAIMAGE_EXPORT DefaultId; ///< generate Krita default mask generator
++extern const KoID KRITAIMAGE_EXPORT SoftId; ///< generate brush mask from former softbrush paintop, where softness is based on curve
++extern const KoID KRITAIMAGE_EXPORT GaussId; ///< generate brush mask with a Gaussian-blurred edge
+ 
+ static const int OVERSAMPLING = 4;
+ 
+diff --git a/libs/image/kis_cubic_curve.cpp b/libs/image/kis_cubic_curve.cpp
+index 9b5f6194d1..c5e167e5e4 100644
+--- a/libs/image/kis_cubic_curve.cpp
++++ b/libs/image/kis_cubic_curve.cpp
+@@ -15,6 +15,8 @@
+ #include "kis_dom_utils.h"
+ #include "kis_algebra_2d.h"
+ 
++const QString DEFAULT_CURVE_STRING = "0,0;1,1;";
++
+ KisCubicCurvePoint::KisCubicCurvePoint(const QPointF &position, bool setAsCorner)
+     : m_position(position), m_isCorner(setAsCorner)
+ {}
+diff --git a/libs/image/kis_cubic_curve.h b/libs/image/kis_cubic_curve.h
+index 47bef5f31e..f7ca978781 100644
+--- a/libs/image/kis_cubic_curve.h
++++ b/libs/image/kis_cubic_curve.h
+@@ -18,7 +18,7 @@
+ 
+ #include <kritaimage_export.h>
+ 
+-const QString DEFAULT_CURVE_STRING = "0,0;1,1;";
++extern const QString KRITAIMAGE_EXPORT DEFAULT_CURVE_STRING;
+ 
+ class KRITAIMAGE_EXPORT KisCubicCurvePoint
+ {
+diff --git a/libs/pigment/KoCompositeOpRegistry.cpp b/libs/pigment/KoCompositeOpRegistry.cpp
+index 852ee7396f..172b25a75e 100644
+--- a/libs/pigment/KoCompositeOpRegistry.cpp
++++ b/libs/pigment/KoCompositeOpRegistry.cpp
+@@ -17,6 +17,170 @@
+ #include "kis_assert.h"
+ #include "DebugPigment.h"
+ 
++const QString COMPOSITE_OVER         = "normal";
++const QString COMPOSITE_ERASE        = "erase";
++const QString COMPOSITE_IN           = "in";
++const QString COMPOSITE_OUT          = "out";
++const QString COMPOSITE_ALPHA_DARKEN = "alphadarken";
++const QString COMPOSITE_DESTINATION_IN = "destination-in";
++const QString COMPOSITE_DESTINATION_ATOP = "destination-atop";
++
++const QString COMPOSITE_XOR                   = "xor";
++const QString COMPOSITE_OR                    = "or";
++const QString COMPOSITE_AND                   = "and";
++const QString COMPOSITE_NAND                  = "nand";
++const QString COMPOSITE_NOR                   = "nor";
++const QString COMPOSITE_XNOR                  = "xnor";
++const QString COMPOSITE_IMPLICATION           = "implication";
++const QString COMPOSITE_NOT_IMPLICATION       = "not_implication";
++const QString COMPOSITE_CONVERSE              = "converse";
++const QString COMPOSITE_NOT_CONVERSE          = "not_converse";
++
++const QString COMPOSITE_PLUS                  = "plus";
++const QString COMPOSITE_MINUS                 = "minus";
++const QString COMPOSITE_ADD                   = "add";
++const QString COMPOSITE_SUBTRACT              = "subtract";
++const QString COMPOSITE_INVERSE_SUBTRACT      = "inverse_subtract";
++const QString COMPOSITE_DIFF                  = "diff";
++const QString COMPOSITE_MULT                  = "multiply";
++const QString COMPOSITE_DIVIDE                = "divide";
++const QString COMPOSITE_ARC_TANGENT           = "arc_tangent";
++const QString COMPOSITE_GEOMETRIC_MEAN        = "geometric_mean";
++const QString COMPOSITE_ADDITIVE_SUBTRACTIVE  = "additive_subtractive";
++const QString COMPOSITE_NEGATION              = "negation";
++
++const QString COMPOSITE_MOD                = "modulo";
++const QString COMPOSITE_MOD_CON            = "modulo_continuous";
++const QString COMPOSITE_DIVISIVE_MOD       = "divisive_modulo";
++const QString COMPOSITE_DIVISIVE_MOD_CON   = "divisive_modulo_continuous";
++const QString COMPOSITE_MODULO_SHIFT       = "modulo_shift";
++const QString COMPOSITE_MODULO_SHIFT_CON   = "modulo_shift_continuous";
++
++const QString COMPOSITE_EQUIVALENCE   = "equivalence";
++const QString COMPOSITE_ALLANON       = "allanon";
++const QString COMPOSITE_PARALLEL      = "parallel";
++const QString COMPOSITE_GRAIN_MERGE   = "grain_merge";
++const QString COMPOSITE_GRAIN_EXTRACT = "grain_extract";
++const QString COMPOSITE_EXCLUSION     = "exclusion";
++const QString COMPOSITE_HARD_MIX      = "hard mix";
++const QString COMPOSITE_HARD_MIX_HDR  = "hard_mix_hdr";
++const QString COMPOSITE_HARD_MIX_PHOTOSHOP = "hard_mix_photoshop";
++const QString COMPOSITE_HARD_MIX_SOFTER_PHOTOSHOP = "hard_mix_softer_photoshop";
++const QString COMPOSITE_OVERLAY       = "overlay";
++const QString COMPOSITE_BEHIND        = "behind";
++const QString COMPOSITE_GREATER       = "greater";
++const QString COMPOSITE_HARD_OVERLAY  = "hard overlay";
++const QString COMPOSITE_HARD_OVERLAY_HDR  = "hard_overlay_hdr";
++const QString COMPOSITE_INTERPOLATION = "interpolation";
++const QString COMPOSITE_INTERPOLATIONB = "interpolation 2x";
++const QString COMPOSITE_PENUMBRAA     = "penumbra a";
++const QString COMPOSITE_PENUMBRAB     = "penumbra b";
++const QString COMPOSITE_PENUMBRAC     = "penumbra c";
++const QString COMPOSITE_PENUMBRAD     = "penumbra d";
++const QString COMPOSITE_MARKER        = "marker";
++
++const QString COMPOSITE_DARKEN      = "darken";
++const QString COMPOSITE_BURN        = "burn";//this is also known as 'color burn'.
++const QString COMPOSITE_LINEAR_BURN = "linear_burn";
++const QString COMPOSITE_GAMMA_DARK  = "gamma_dark";
++const QString COMPOSITE_SHADE_IFS_ILLUSIONS = "shade_ifs_illusions";
++const QString COMPOSITE_FOG_DARKEN_IFS_ILLUSIONS = "fog_darken_ifs_illusions";
++const QString COMPOSITE_EASY_BURN        = "easy burn";
++
++const QString COMPOSITE_LIGHTEN      = "lighten";
++const QString COMPOSITE_DODGE        = "dodge";
++const QString COMPOSITE_DODGE_HDR    = "dodge_hdr";
++const QString COMPOSITE_LINEAR_DODGE = "linear_dodge";
++const QString COMPOSITE_SCREEN       = "screen";
++const QString COMPOSITE_HARD_LIGHT   = "hard_light";
++const QString COMPOSITE_SOFT_LIGHT_IFS_ILLUSIONS = "soft_light_ifs_illusions";
++const QString COMPOSITE_SOFT_LIGHT_PEGTOP_DELPHI = "soft_light_pegtop_delphi";
++const QString COMPOSITE_SOFT_LIGHT_PHOTOSHOP = "soft_light";
++const QString COMPOSITE_SOFT_LIGHT_SVG  = "soft_light_svg";
++const QString COMPOSITE_GAMMA_LIGHT  = "gamma_light";
++const QString COMPOSITE_GAMMA_ILLUMINATION  = "gamma_illumination";
++const QString COMPOSITE_VIVID_LIGHT  = "vivid_light";
++const QString COMPOSITE_VIVID_LIGHT_HDR  = "vivid_light_hdr";
++const QString COMPOSITE_FLAT_LIGHT   = "flat_light";
++const QString COMPOSITE_LINEAR_LIGHT = "linear light";
++const QString COMPOSITE_PIN_LIGHT    = "pin_light";
++const QString COMPOSITE_PNORM_A        = "pnorm_a";
++const QString COMPOSITE_PNORM_B        = "pnorm_b";
++const QString COMPOSITE_SUPER_LIGHT  = "super_light";
++const QString COMPOSITE_TINT_IFS_ILLUSIONS = "tint_ifs_illusions";
++const QString COMPOSITE_FOG_LIGHTEN_IFS_ILLUSIONS = "fog_lighten_ifs_illusions";
++const QString COMPOSITE_EASY_DODGE        = "easy dodge";
++const QString COMPOSITE_LUMINOSITY_SAI        = "luminosity_sai";
++
++
++const QString COMPOSITE_HUE            = "hue";
++const QString COMPOSITE_COLOR          = "color";
++const QString COMPOSITE_TINT           = "tint";
++const QString COMPOSITE_SATURATION     = "saturation";
++const QString COMPOSITE_INC_SATURATION = "inc_saturation";
++const QString COMPOSITE_DEC_SATURATION = "dec_saturation";
++const QString COMPOSITE_LUMINIZE       = "luminize";
++const QString COMPOSITE_INC_LUMINOSITY = "inc_luminosity";
++const QString COMPOSITE_DEC_LUMINOSITY = "dec_luminosity";
++
++const QString COMPOSITE_HUE_HSV            = "hue_hsv";
++const QString COMPOSITE_COLOR_HSV          = "color_hsv";
++const QString COMPOSITE_SATURATION_HSV     = "saturation_hsv";
++const QString COMPOSITE_INC_SATURATION_HSV = "inc_saturation_hsv";
++const QString COMPOSITE_DEC_SATURATION_HSV = "dec_saturation_hsv";
++const QString COMPOSITE_VALUE              = "value";
++const QString COMPOSITE_INC_VALUE          = "inc_value";
++const QString COMPOSITE_DEC_VALUE          = "dec_value";
++
++const QString COMPOSITE_HUE_HSL            = "hue_hsl";
++const QString COMPOSITE_COLOR_HSL          = "color_hsl";
++const QString COMPOSITE_SATURATION_HSL     = "saturation_hsl";
++const QString COMPOSITE_INC_SATURATION_HSL = "inc_saturation_hsl";
++const QString COMPOSITE_DEC_SATURATION_HSL = "dec_saturation_hsl";
++const QString COMPOSITE_LIGHTNESS          = "lightness";
++const QString COMPOSITE_INC_LIGHTNESS      = "inc_lightness";
++const QString COMPOSITE_DEC_LIGHTNESS      = "dec_lightness";
++
++const QString COMPOSITE_HUE_HSI            = "hue_hsi";
++const QString COMPOSITE_COLOR_HSI          = "color_hsi";
++const QString COMPOSITE_SATURATION_HSI     = "saturation_hsi";
++const QString COMPOSITE_INC_SATURATION_HSI = "inc_saturation_hsi";
++const QString COMPOSITE_DEC_SATURATION_HSI = "dec_saturation_hsi";
++const QString COMPOSITE_INTENSITY          = "intensity";
++const QString COMPOSITE_INC_INTENSITY      = "inc_intensity";
++const QString COMPOSITE_DEC_INTENSITY      = "dec_intensity";
++
++const QString COMPOSITE_COPY         = "copy";
++const QString COMPOSITE_COPY_RED     = "copy_red";
++const QString COMPOSITE_COPY_GREEN   = "copy_green";
++const QString COMPOSITE_COPY_BLUE    = "copy_blue";
++const QString COMPOSITE_TANGENT_NORMALMAP    = "tangent_normalmap";
++
++const QString COMPOSITE_COLORIZE     = "colorize";
++const QString COMPOSITE_BUMPMAP      = "bumpmap";
++const QString COMPOSITE_COMBINE_NORMAL = "combine_normal";
++const QString COMPOSITE_CLEAR        = "clear";
++const QString COMPOSITE_DISSOLVE     = "dissolve";
++const QString COMPOSITE_DISPLACE     = "displace";
++const QString COMPOSITE_NO           = "nocomposition";
++const QString COMPOSITE_PASS_THROUGH = "pass through"; // XXX: not implemented anywhere yet
++const QString COMPOSITE_DARKER_COLOR = "darker color";
++const QString COMPOSITE_LIGHTER_COLOR = "lighter color";
++const QString COMPOSITE_UNDEF        = "undefined";
++
++const QString COMPOSITE_REFLECT   = "reflect";
++const QString COMPOSITE_GLOW      = "glow";
++const QString COMPOSITE_FREEZE    = "freeze";
++const QString COMPOSITE_HEAT      = "heat";
++const QString COMPOSITE_GLEAT     = "glow_heat";
++const QString COMPOSITE_HELOW     = "heat_glow";
++const QString COMPOSITE_REEZE     = "reflect_freeze";
++const QString COMPOSITE_FRECT     = "freeze_reflect";
++const QString COMPOSITE_FHYRD     = "heat_glow_freeze_reflect_hybrid";
++
++const QString COMPOSITE_LAMBERT_LIGHTING   = "lambert_lighting";
++const QString COMPOSITE_LAMBERT_LIGHTING_GAMMA_2_2   = "lambert_lighting_gamma2.2";
++
+ Q_GLOBAL_STATIC(KoCompositeOpRegistry, registry)
+ 
+ static KoID koidCompositeOverStatic() {
+diff --git a/libs/pigment/KoCompositeOpRegistry.h b/libs/pigment/KoCompositeOpRegistry.h
+index 403bf7a386..cbc6d97f8a 100644
+--- a/libs/pigment/KoCompositeOpRegistry.h
++++ b/libs/pigment/KoCompositeOpRegistry.h
+@@ -19,169 +19,169 @@ class KoColorSpace;
+ // TODO : convert this data blob into a modern design with an enum class.
+ // This will reduce the need for runtime string comparisons.
+ 
+-const QString COMPOSITE_OVER         = "normal";
+-const QString COMPOSITE_ERASE        = "erase";
+-const QString COMPOSITE_IN           = "in";
+-const QString COMPOSITE_OUT          = "out";
+-const QString COMPOSITE_ALPHA_DARKEN = "alphadarken";
+-const QString COMPOSITE_DESTINATION_IN = "destination-in";
+-const QString COMPOSITE_DESTINATION_ATOP = "destination-atop";
+-
+-const QString COMPOSITE_XOR                   = "xor";
+-const QString COMPOSITE_OR                    = "or";
+-const QString COMPOSITE_AND                   = "and";
+-const QString COMPOSITE_NAND                  = "nand";
+-const QString COMPOSITE_NOR                   = "nor";
+-const QString COMPOSITE_XNOR                  = "xnor";
+-const QString COMPOSITE_IMPLICATION           = "implication";
+-const QString COMPOSITE_NOT_IMPLICATION       = "not_implication";
+-const QString COMPOSITE_CONVERSE              = "converse";
+-const QString COMPOSITE_NOT_CONVERSE          = "not_converse";
+-
+-const QString COMPOSITE_PLUS                  = "plus";
+-const QString COMPOSITE_MINUS                 = "minus";
+-const QString COMPOSITE_ADD                   = "add";
+-const QString COMPOSITE_SUBTRACT              = "subtract";
+-const QString COMPOSITE_INVERSE_SUBTRACT      = "inverse_subtract";
+-const QString COMPOSITE_DIFF                  = "diff";
+-const QString COMPOSITE_MULT                  = "multiply";
+-const QString COMPOSITE_DIVIDE                = "divide";
+-const QString COMPOSITE_ARC_TANGENT           = "arc_tangent";
+-const QString COMPOSITE_GEOMETRIC_MEAN        = "geometric_mean";
+-const QString COMPOSITE_ADDITIVE_SUBTRACTIVE  = "additive_subtractive";
+-const QString COMPOSITE_NEGATION              = "negation";
+-
+-const QString COMPOSITE_MOD                = "modulo";
+-const QString COMPOSITE_MOD_CON            = "modulo_continuous";
+-const QString COMPOSITE_DIVISIVE_MOD       = "divisive_modulo";
+-const QString COMPOSITE_DIVISIVE_MOD_CON   = "divisive_modulo_continuous";
+-const QString COMPOSITE_MODULO_SHIFT       = "modulo_shift";
+-const QString COMPOSITE_MODULO_SHIFT_CON   = "modulo_shift_continuous";
+-
+-const QString COMPOSITE_EQUIVALENCE   = "equivalence";
+-const QString COMPOSITE_ALLANON       = "allanon";
+-const QString COMPOSITE_PARALLEL      = "parallel";
+-const QString COMPOSITE_GRAIN_MERGE   = "grain_merge";
+-const QString COMPOSITE_GRAIN_EXTRACT = "grain_extract";
+-const QString COMPOSITE_EXCLUSION     = "exclusion";
+-const QString COMPOSITE_HARD_MIX      = "hard mix";
+-const QString COMPOSITE_HARD_MIX_HDR  = "hard_mix_hdr";
+-const QString COMPOSITE_HARD_MIX_PHOTOSHOP = "hard_mix_photoshop";
+-const QString COMPOSITE_HARD_MIX_SOFTER_PHOTOSHOP = "hard_mix_softer_photoshop";
+-const QString COMPOSITE_OVERLAY       = "overlay";
+-const QString COMPOSITE_BEHIND        = "behind";
+-const QString COMPOSITE_GREATER       = "greater";
+-const QString COMPOSITE_HARD_OVERLAY  = "hard overlay";
+-const QString COMPOSITE_HARD_OVERLAY_HDR  = "hard_overlay_hdr";
+-const QString COMPOSITE_INTERPOLATION = "interpolation";
+-const QString COMPOSITE_INTERPOLATIONB = "interpolation 2x";
+-const QString COMPOSITE_PENUMBRAA     = "penumbra a";
+-const QString COMPOSITE_PENUMBRAB     = "penumbra b";
+-const QString COMPOSITE_PENUMBRAC     = "penumbra c";
+-const QString COMPOSITE_PENUMBRAD     = "penumbra d";
+-const QString COMPOSITE_MARKER        = "marker";
+-
+-const QString COMPOSITE_DARKEN      = "darken";
+-const QString COMPOSITE_BURN        = "burn";//this is also known as 'color burn'.
+-const QString COMPOSITE_LINEAR_BURN = "linear_burn";
+-const QString COMPOSITE_GAMMA_DARK  = "gamma_dark";
+-const QString COMPOSITE_SHADE_IFS_ILLUSIONS = "shade_ifs_illusions";
+-const QString COMPOSITE_FOG_DARKEN_IFS_ILLUSIONS = "fog_darken_ifs_illusions";
+-const QString COMPOSITE_EASY_BURN        = "easy burn";
+-
+-const QString COMPOSITE_LIGHTEN      = "lighten";
+-const QString COMPOSITE_DODGE        = "dodge";
+-const QString COMPOSITE_DODGE_HDR    = "dodge_hdr";
+-const QString COMPOSITE_LINEAR_DODGE = "linear_dodge";
+-const QString COMPOSITE_SCREEN       = "screen";
+-const QString COMPOSITE_HARD_LIGHT   = "hard_light";
+-const QString COMPOSITE_SOFT_LIGHT_IFS_ILLUSIONS = "soft_light_ifs_illusions";
+-const QString COMPOSITE_SOFT_LIGHT_PEGTOP_DELPHI = "soft_light_pegtop_delphi";
+-const QString COMPOSITE_SOFT_LIGHT_PHOTOSHOP = "soft_light";
+-const QString COMPOSITE_SOFT_LIGHT_SVG  = "soft_light_svg";
+-const QString COMPOSITE_GAMMA_LIGHT  = "gamma_light";
+-const QString COMPOSITE_GAMMA_ILLUMINATION  = "gamma_illumination";
+-const QString COMPOSITE_VIVID_LIGHT  = "vivid_light";
+-const QString COMPOSITE_VIVID_LIGHT_HDR  = "vivid_light_hdr";
+-const QString COMPOSITE_FLAT_LIGHT   = "flat_light";
+-const QString COMPOSITE_LINEAR_LIGHT = "linear light";
+-const QString COMPOSITE_PIN_LIGHT    = "pin_light";
+-const QString COMPOSITE_PNORM_A        = "pnorm_a";
+-const QString COMPOSITE_PNORM_B        = "pnorm_b";
+-const QString COMPOSITE_SUPER_LIGHT  = "super_light";
+-const QString COMPOSITE_TINT_IFS_ILLUSIONS = "tint_ifs_illusions";
+-const QString COMPOSITE_FOG_LIGHTEN_IFS_ILLUSIONS = "fog_lighten_ifs_illusions";
+-const QString COMPOSITE_EASY_DODGE        = "easy dodge";
+-const QString COMPOSITE_LUMINOSITY_SAI        = "luminosity_sai";
+-
+-
+-const QString COMPOSITE_HUE            = "hue";
+-const QString COMPOSITE_COLOR          = "color";
+-const QString COMPOSITE_TINT           = "tint";
+-const QString COMPOSITE_SATURATION     = "saturation";
+-const QString COMPOSITE_INC_SATURATION = "inc_saturation";
+-const QString COMPOSITE_DEC_SATURATION = "dec_saturation";
+-const QString COMPOSITE_LUMINIZE       = "luminize";
+-const QString COMPOSITE_INC_LUMINOSITY = "inc_luminosity";
+-const QString COMPOSITE_DEC_LUMINOSITY = "dec_luminosity";
+-
+-const QString COMPOSITE_HUE_HSV            = "hue_hsv";
+-const QString COMPOSITE_COLOR_HSV          = "color_hsv";
+-const QString COMPOSITE_SATURATION_HSV     = "saturation_hsv";
+-const QString COMPOSITE_INC_SATURATION_HSV = "inc_saturation_hsv";
+-const QString COMPOSITE_DEC_SATURATION_HSV = "dec_saturation_hsv";
+-const QString COMPOSITE_VALUE              = "value";
+-const QString COMPOSITE_INC_VALUE          = "inc_value";
+-const QString COMPOSITE_DEC_VALUE          = "dec_value";
+-
+-const QString COMPOSITE_HUE_HSL            = "hue_hsl";
+-const QString COMPOSITE_COLOR_HSL          = "color_hsl";
+-const QString COMPOSITE_SATURATION_HSL     = "saturation_hsl";
+-const QString COMPOSITE_INC_SATURATION_HSL = "inc_saturation_hsl";
+-const QString COMPOSITE_DEC_SATURATION_HSL = "dec_saturation_hsl";
+-const QString COMPOSITE_LIGHTNESS          = "lightness";
+-const QString COMPOSITE_INC_LIGHTNESS      = "inc_lightness";
+-const QString COMPOSITE_DEC_LIGHTNESS      = "dec_lightness";
+-
+-const QString COMPOSITE_HUE_HSI            = "hue_hsi";
+-const QString COMPOSITE_COLOR_HSI          = "color_hsi";
+-const QString COMPOSITE_SATURATION_HSI     = "saturation_hsi";
+-const QString COMPOSITE_INC_SATURATION_HSI = "inc_saturation_hsi";
+-const QString COMPOSITE_DEC_SATURATION_HSI = "dec_saturation_hsi";
+-const QString COMPOSITE_INTENSITY          = "intensity";
+-const QString COMPOSITE_INC_INTENSITY      = "inc_intensity";
+-const QString COMPOSITE_DEC_INTENSITY      = "dec_intensity";
+-
+-const QString COMPOSITE_COPY         = "copy";
+-const QString COMPOSITE_COPY_RED     = "copy_red";
+-const QString COMPOSITE_COPY_GREEN   = "copy_green";
+-const QString COMPOSITE_COPY_BLUE    = "copy_blue";
+-const QString COMPOSITE_TANGENT_NORMALMAP    = "tangent_normalmap";
+-
+-const QString COMPOSITE_COLORIZE     = "colorize";
+-const QString COMPOSITE_BUMPMAP      = "bumpmap";
+-const QString COMPOSITE_COMBINE_NORMAL = "combine_normal";
+-const QString COMPOSITE_CLEAR        = "clear";
+-const QString COMPOSITE_DISSOLVE     = "dissolve";
+-const QString COMPOSITE_DISPLACE     = "displace";
+-const QString COMPOSITE_NO           = "nocomposition";
+-const QString COMPOSITE_PASS_THROUGH = "pass through"; // XXX: not implemented anywhere yet
+-const QString COMPOSITE_DARKER_COLOR = "darker color";
+-const QString COMPOSITE_LIGHTER_COLOR = "lighter color";
+-const QString COMPOSITE_UNDEF        = "undefined";
+-
+-const QString COMPOSITE_REFLECT   = "reflect";
+-const QString COMPOSITE_GLOW      = "glow";
+-const QString COMPOSITE_FREEZE    = "freeze";
+-const QString COMPOSITE_HEAT      = "heat";
+-const QString COMPOSITE_GLEAT     = "glow_heat";
+-const QString COMPOSITE_HELOW     = "heat_glow";
+-const QString COMPOSITE_REEZE     = "reflect_freeze";
+-const QString COMPOSITE_FRECT     = "freeze_reflect";
+-const QString COMPOSITE_FHYRD     = "heat_glow_freeze_reflect_hybrid";
+-
+-const QString COMPOSITE_LAMBERT_LIGHTING   = "lambert_lighting";
+-const QString COMPOSITE_LAMBERT_LIGHTING_GAMMA_2_2   = "lambert_lighting_gamma2.2";
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_OVER;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ERASE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_IN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_OUT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ALPHA_DARKEN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DESTINATION_IN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DESTINATION_ATOP;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_XOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_OR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_AND;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NAND;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_XNOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_IMPLICATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NOT_IMPLICATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_CONVERSE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NOT_CONVERSE;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PLUS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MINUS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ADD;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SUBTRACT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INVERSE_SUBTRACT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DIFF;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MULT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DIVIDE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ARC_TANGENT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GEOMETRIC_MEAN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ADDITIVE_SUBTRACTIVE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NEGATION;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MOD;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MOD_CON;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DIVISIVE_MOD;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DIVISIVE_MOD_CON;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MODULO_SHIFT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MODULO_SHIFT_CON;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_EQUIVALENCE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_ALLANON;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PARALLEL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GRAIN_MERGE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GRAIN_EXTRACT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_EXCLUSION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_MIX;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_MIX_HDR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_MIX_PHOTOSHOP;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_MIX_SOFTER_PHOTOSHOP;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_OVERLAY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_BEHIND;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GREATER;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_OVERLAY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_OVERLAY_HDR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INTERPOLATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INTERPOLATIONB;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PENUMBRAA;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PENUMBRAB;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PENUMBRAC;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PENUMBRAD;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_MARKER;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DARKEN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_BURN;//this is also known as 'color burn'.
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LINEAR_BURN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GAMMA_DARK;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SHADE_IFS_ILLUSIONS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FOG_DARKEN_IFS_ILLUSIONS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_EASY_BURN;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LIGHTEN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DODGE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DODGE_HDR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LINEAR_DODGE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SCREEN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HARD_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SOFT_LIGHT_IFS_ILLUSIONS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SOFT_LIGHT_PEGTOP_DELPHI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SOFT_LIGHT_PHOTOSHOP;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SOFT_LIGHT_SVG;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GAMMA_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GAMMA_ILLUMINATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_VIVID_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_VIVID_LIGHT_HDR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FLAT_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LINEAR_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PIN_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PNORM_A;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PNORM_B;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SUPER_LIGHT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_TINT_IFS_ILLUSIONS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FOG_LIGHTEN_IFS_ILLUSIONS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_EASY_DODGE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LUMINOSITY_SAI;
++
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HUE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COLOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_TINT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SATURATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_SATURATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_SATURATION;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LUMINIZE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_LUMINOSITY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_LUMINOSITY;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HUE_HSV;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COLOR_HSV;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SATURATION_HSV;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_SATURATION_HSV;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_SATURATION_HSV;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_VALUE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_VALUE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_VALUE;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HUE_HSL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COLOR_HSL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SATURATION_HSL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_SATURATION_HSL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_SATURATION_HSL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LIGHTNESS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_LIGHTNESS;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_LIGHTNESS;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HUE_HSI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COLOR_HSI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_SATURATION_HSI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_SATURATION_HSI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_SATURATION_HSI;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INTENSITY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_INC_INTENSITY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DEC_INTENSITY;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COPY;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COPY_RED;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COPY_GREEN;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COPY_BLUE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_TANGENT_NORMALMAP;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COLORIZE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_BUMPMAP;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_COMBINE_NORMAL;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_CLEAR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DISSOLVE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DISPLACE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_NO;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_PASS_THROUGH; // XXX: not implemented anywhere yet
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_DARKER_COLOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LIGHTER_COLOR;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_UNDEF;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_REFLECT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GLOW;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FREEZE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HEAT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_GLEAT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_HELOW;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_REEZE;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FRECT;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_FHYRD;
++
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LAMBERT_LIGHTING;
++extern const QString KRITAPIGMENT_EXPORT COMPOSITE_LAMBERT_LIGHTING_GAMMA_2_2;
+ 
+ 
+ class KRITAPIGMENT_EXPORT KoCompositeOpRegistry
