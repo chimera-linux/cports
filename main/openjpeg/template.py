@@ -1,12 +1,12 @@
 pkgname = "openjpeg"
 pkgver = "2.5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # we skip static libs or they get referenced in cmake devel files
 configure_args = ["-DBUILD_TESTING=ON", "-DBUILD_STATIC_LIBS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libpng-devel", "libtiff-devel", "lcms2-devel"]
-pkgdesc = "Open-source JPEG 2000 codec written in C"
+pkgdesc = "Implementation of JPEG 2000"
 license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/openjpeg/archive/v{pkgver}.tar.gz"
