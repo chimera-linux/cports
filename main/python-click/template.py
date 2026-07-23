@@ -1,5 +1,5 @@
 pkgname = "python-click"
-pkgver = "8.4.1"
+pkgver = "8.4.2"
 pkgrel = 0
 build_style = "python_pep517"
 # can behave weirdly
@@ -15,7 +15,7 @@ pkgdesc = "Python module for command line interfaces"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/click"
 source = f"$(PYPI_SITE)/c/click/click-{pkgver}.tar.gz"
-sha256 = "918b5633eddf6b41c32d4f454bf0de810065c74e3f7dbf8ee5452f8be88d3e96"
+sha256 = "9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6"
 
 
 def post_install(self):
