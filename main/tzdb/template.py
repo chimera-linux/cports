@@ -1,5 +1,5 @@
 pkgname = "tzdb"
-pkgver = "2026b"
+pkgver = "2026c"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["KSHELL=/bin/sh"]
@@ -11,7 +11,7 @@ pkgdesc = "Time zone database"
 license = "custom:none"
 url = "https://www.iana.org/time-zones"
 source = f"{url}/repository/releases/tzdb-{pkgver}.tar.lz"
-sha256 = "ffad46a04c8d1624197056630af475a35f3556d0887f028ac1bd33b7d47dc653"
+sha256 = "427a11b1c5f2ebccad18f11650221c4f0465b4f1bb7f44dd02ff192d2808d944"
 hardening = ["vis", "cfi"]
 # needs network access
 # cannot be symlinks; some software does not like it
