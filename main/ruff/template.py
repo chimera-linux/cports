@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.15.21"
+pkgver = "0.15.22"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Python formatter and linter"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1916f5c69d8f0b6f06242b94f4326bc6d3f1865c85dc8cbe843b36d88c6baac4"
+sha256 = "319db883d92d2aa140c244bd8fb2fc690f25b5a8fd37210b52e069ca0c1513ba"
 # generates completions with host bin
 # tests are mostly a waste of time
 options = ["!cross", "!check"]
