@@ -1,6 +1,6 @@
 pkgname = "python-pygments"
 pkgver = "2.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-installer",
 ]
 depends = ["python"]
-pkgdesc = "Generic syntax highlighter written in Python"
+pkgdesc = "Generic syntax highlighter"
 license = "BSD-2-Clause"
 url = "https://pygments.org"
 source = f"$(PYPI_SITE)/p/pygments/pygments-{pkgver}.tar.gz"
