@@ -1,6 +1,6 @@
 pkgname = "lite-xl"
 pkgver = "2.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Duse_system_lua=true"]
 hostmakedepends = ["meson", "ninja", "pkgconf"]
@@ -10,7 +10,7 @@ makedepends = [
     "pcre2-devel",
     "sdl3-devel",
 ]
-pkgdesc = "Text editor written in Lua"
+pkgdesc = "Text editor scriptable with Lua"
 license = "MIT AND OFL-1.1"
 url = "https://lite-xl.com"
 source = (
