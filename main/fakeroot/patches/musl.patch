@@ -38,17 +38,6 @@ index 827fa11..b112240 100644
      AC_CHECK_FUNCS($WRAPPED,FOUND=$WRAPPED)
  dnl
  dnl to unconditionally define only the _* functions, comment out the 2 lines above,
-diff --git a/doc/Makefile.in b/doc/Makefile.in
-index 51c4903..68bb799 100644
---- a/doc/Makefile.am
-+++ b/doc/Makefile.am
-@@ -1,5 +1,5 @@
- AUTOMAKE_OPTIONS=foreign
--SUBDIRS = de es fr nl pt ro sv
-+SUBDIRS =
- 
- man_MANS = faked.1 fakeroot.1
- 
 diff --git a/faked.c b/faked.c
 index a970184..3223ba3 100644
 --- a/faked.c
@@ -85,24 +74,5 @@ index a970184..3223ba3 100644
              &stdev, &stino, &stmode, &stuid, &stgid, &stnlink, &strdev);
      if (r != 7)
        break;
-diff --git a/libfakeroot.c b/libfakeroot.c
-index 53c67d3..b511330 100644
---- a/libfakeroot.c
-+++ b/libfakeroot.c
-@@ -81,12 +81,14 @@
- #define SEND_STAT64(a,b,c) send_stat64(a,b,c)
- #define SEND_GET_STAT(a,b) send_get_stat(a,b)
- #define SEND_GET_STAT64(a,b) send_get_stat64(a,b)
-+#define SEND_GET_XATTR(a,b,c) send_get_xattr(a,b,c)
- #define SEND_GET_XATTR64(a,b,c) send_get_xattr64(a,b,c)
- #else
- #define SEND_STAT(a,b,c) send_stat(a,b)
- #define SEND_STAT64(a,b,c) send_stat64(a,b)
- #define SEND_GET_STAT(a,b) send_get_stat(a)
- #define SEND_GET_STAT64(a,b) send_get_stat64(a)
-+#define SEND_GET_XATTR(a,b,c) send_get_xattr(a,b)
- #define SEND_GET_XATTR64(a,b,c) send_get_xattr64(a,b)
- #endif
- 
 -- 
 2.33.1
