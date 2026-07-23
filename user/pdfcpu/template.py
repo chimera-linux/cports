@@ -1,11 +1,11 @@
 pkgname = "pdfcpu"
 pkgver = "0.11.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.commit=v{pkgver}", "./cmd/pdfcpu"]
 make_check_args = ["-p", "1", "./..."]
 hostmakedepends = ["go"]
-pkgdesc = "PDF processor written in Go"
+pkgdesc = "Command line for PDF processing"
 license = "Apache-2.0"
 url = "https://pdfcpu.io"
 source = f"https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v{pkgver}.tar.gz"
