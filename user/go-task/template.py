@@ -1,12 +1,12 @@
 pkgname = "go-task"
 pkgver = "3.49.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = [
     "./cmd/task",
 ]
 hostmakedepends = ["go"]
-pkgdesc = "Task runner / simpler Make alternative written in Go"
+pkgdesc = "Task runner and a Make alternative"
 license = "MIT"
 url = "https://taskfile.dev"
 source = f"https://github.com/go-task/task/archive/refs/tags/v{pkgver}.tar.gz"
