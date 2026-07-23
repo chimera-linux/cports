@@ -1,6 +1,6 @@
 pkgname = "eww"
 pkgver = "0.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
@@ -8,7 +8,7 @@ makedepends = [
     "libdbusmenu-devel",
     "rust-std",
 ]
-pkgdesc = "Standalone widget system for wayland written in rust"
+pkgdesc = "Widget system for any window manager"
 license = "MIT"
 url = "https://elkowar.github.io/eww"
 source = f"https://github.com/elkowar/eww/archive/refs/tags/v{pkgver}.tar.gz"
