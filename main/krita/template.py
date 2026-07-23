@@ -1,6 +1,6 @@
 pkgname = "krita"
 pkgver = "6.0.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DALLOW_UNSTABLE=QT6", "-DBUILD_WITH_QT6=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
