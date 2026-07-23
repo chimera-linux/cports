@@ -1,5 +1,5 @@
 pkgname = "gstreamer"
-pkgver = "1.28.4"
+pkgver = "1.28.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -34,7 +34,7 @@ pkgdesc = "Core GStreamer libraries and elements"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer/gstreamer-{pkgver}.tar.xz"
-sha256 = "f5adc7e8f448c10260b3b25aa101c9d540674c8d9a54c2b77a86d04f2b3b50dd"
+sha256 = "a5a9f783809b17a8eb774f4a7695b2cb8cba6b15520129906f87eaf30e7f8469"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 file_modes = {
     "usr/lib/gstreamer-1.0/gst-ptp-helper": ("root", "root", 0o755),
