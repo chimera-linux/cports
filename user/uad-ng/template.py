@@ -17,5 +17,18 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "455fd89ed5f57cb895d213d60e6acefcf0d779fcbc982e31c0f0acb085909430"
 
 
+def pre_prepare(self):
+    # loongarch64
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.181",
+        allow_network=True,
+    )
+
+
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/uad-ng")
