@@ -12,7 +12,7 @@ pkgdesc = "Tool for simulating superuser privileges"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
-sha256 = "2ffa2384d4b8f8d59ee54d94fa12d3ecdfe04d51dfa9c4e4668ba8b3c6e3424e"
+sha256 = "b418b14f55c2deb6bee699c6c539f4fbfd0d6affb2fac6374e8de748b13a0282"
 options = ["bootstrap"]
 
 if self.stage > 0:
