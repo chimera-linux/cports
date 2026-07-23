@@ -1,6 +1,6 @@
 pkgname = "tang"
 pkgver = "15"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Duser=_tang",
@@ -12,8 +12,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "http-parser-devel",
     "jose-devel",
+    "llhttp-devel",
 ]
 checkdepends = [
     "curl",

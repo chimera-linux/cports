@@ -1,12 +1,12 @@
 pkgname = "libgit2"
 pkgver = "1.9.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DUSE_SSH=ON",
     "-DREGEX_BACKEND=pcre2",
     "-DUSE_BUNDLED_ZLIB=OFF",
-    "-DUSE_HTTP_PARSER=http-parser",
+    "-DUSE_HTTP_PARSER=llhttp",
     "-DUSE_HTTPS=OpenSSL",
 ]
 hostmakedepends = [
@@ -17,8 +17,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "heimdal-devel",
-    "http-parser-devel",
     "libssh2-devel",
+    "llhttp-devel",
     "openssl3-devel",
     "pcre2-devel",
     "zlib-ng-compat-devel",
