@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 25
+pkgrel = 26
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -12,7 +12,6 @@ for _pkg in [
     "bsatool",
     "debuginfod",
     "debuginfod-libs",
-    "device-mapper",
     "dmesg",
     "esmtool",
     "fdisk",
