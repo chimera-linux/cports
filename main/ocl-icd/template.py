@@ -1,5 +1,5 @@
 pkgname = "ocl-icd"
-pkgver = "2.3.3"
+pkgver = "2.3.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./bootstrap"]
@@ -15,7 +15,7 @@ pkgdesc = "Generic OpenCL ICD loader"
 license = "BSD-2-Clause"
 url = "https://forge.imag.fr/projects/ocl-icd"
 source = f"https://github.com/OCL-dev/ocl-icd/archive/v{pkgver}.tar.gz"
-sha256 = "8cd8e8e129db3081a64090fc1252bec39dc88cdb7b3f929315e014b75069bd9d"
+sha256 = "cdd7984425fa92d37273eee4180b5f57b047eda6dd8fd623e58498f844b09b75"
 # test suite weirdness
 options = ["!check"]
 
