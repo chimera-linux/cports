@@ -1,8 +1,7 @@
-diff --git a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
-index dbabde7..b851af8 100644
---- a/gmic-qt/gmic_qt.pro
-+++ b/gmic-qt/gmic_qt.pro
-@@ -417,7 +417,7 @@ SOURCES += \
+diff -ruN a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
+--- a/gmic-qt/gmic_qt.pro	2026-07-20 13:51:23.000000000 +0200
++++ b/gmic-qt/gmic_qt.pro	2026-07-24 12:00:26.670762888 +0200
+@@ -452,7 +452,7 @@
  
  equals(GMIC_DYNAMIC_LINKING, "on" )|equals(GMIC_DYNAMIC_LINKING, "ON" ) {
    message(Dynamic linking with libgmic)
@@ -11,16 +10,15 @@ index dbabde7..b851af8 100644
  }
  
  equals(GMIC_DYNAMIC_LINKING, "off" )|equals(GMIC_DYNAMIC_LINKING, "OFF" ) {
-diff --git a/src/Makefile b/src/Makefile
-index 4636079..41aeb28 100644
---- a/src/Makefile
-+++ b/src/Makefile
-@@ -188,7 +188,7 @@ MANDATORY_LIBS = $(shell pkg-config --libs zlib || echo -lz) $(EXTRA_LIBS)
- ifndef NO_SRIPDLIB
- MANDATORY_CFLAGS += -std=c++11 -pedantic
- endif
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2026-07-20 13:51:23.000000000 +0200
++++ b/src/Makefile	2026-07-24 12:01:15.542453160 +0200
+@@ -191,7 +191,7 @@
+ ifeq ($(BUILD_OS),Darwin)
+ MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
+ else ifneq ($(BUILD_OS),Windows)
 -MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB) -Wl,-rpath,.
 +MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
- ifdef IS_GCC
- MANDATORY_CFLAGS += -Wall -Wextra -Wfatal-errors -Werror=unknown-pragmas -Werror=unused-label
- GCC_VER_GTEQ5 = $(shell expr `$(CXX) -dumpversion | cut -f1 -d.` \>= 5)
+ else
+ MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
+ endif
