@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
-pkgver = "2603a"
-pkgrel = 3
+pkgver = "2606"
+pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -37,6 +37,7 @@ makedepends = [
     "fmt-devel",
     "glslang-devel",
     "hidapi-devel",
+    "libedit-devel",
     "libevdev-devel",
     "libpulse-devel",
     "libspng-devel",
@@ -44,7 +45,6 @@ makedepends = [
     "llvm-devel",
     "lz4-devel",
     "lzo-devel",
-    "mesa-devel",
     "miniupnpc-devel",
     "minizip-ng-devel",
     "pugixml-devel",
@@ -105,7 +105,7 @@ source_paths = [
     "Externals/watcher/watcher",
 ]
 sha256 = [
-    "ae6ca2e812357ae56a31c00498a984e42b5c46946050ae4a946c7e3f63d1ec7b",
+    "9c83727723db7dd5d0502857b745a21ac03dce1129566d0893581cca72933066",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
     "97484925aec2f4d3e913d6644d46b234f8d6d8d98c6aa9c50109e0f0df772090",
