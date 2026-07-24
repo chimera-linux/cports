@@ -1,14 +1,20 @@
 pkgname = "ldacbt"
-pkgver = "2.0.2.3"
+pkgver = "2.0.2.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
+# 2.0.2.4 changed the versioning which makes the provider
+# version lower than 2.0.2.3, which prevents upgrades
+provides = [
+    f"so:libldacBT_abr.so.{pkgver[0]}={pkgver}",
+    f"so:libldacBT_enc.so.{pkgver[0]}={pkgver}",
+]
 pkgdesc = "AOSP libldac dispatcher"
 license = "Apache-2.0"
 url = "https://github.com/EHfive/ldacBT"
 source = f"{url}/releases/download/v{pkgver}/ldacBT-{pkgver}.tar.gz"
-sha256 = "4bd8eece78bb5c1361fab95743e7100506e2408a25c4a592a0f8d349746dc5b4"
+sha256 = "fee05740e86ee66f4540486d92683ee8e8071119907b57ca762c7e5d943ecef0"
 # no test suite
 options = ["!check"]
 
