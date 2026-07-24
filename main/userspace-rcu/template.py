@@ -1,5 +1,5 @@
 pkgname = "userspace-rcu"
-pkgver = "0.15.3"
+pkgver = "0.15.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
@@ -8,7 +8,7 @@ pkgdesc = "Userspace RCU library"
 license = "LGPL-2.1-or-later"
 url = "https://liburcu.org"
 source = f"https://www.lttng.org/files/urcu/userspace-rcu-{pkgver}.tar.bz2"
-sha256 = "26687ec84e3e114759454c884a08abeaf79dec09b041895ddf4c45ec150acb6d"
+sha256 = "850b192096eb11ebf2c70e8f97bc7da7479ee41da1bebeb44e3986908bac414f"
 tool_flags = {"CFLAGS": ["-DLITTLE_ENDIAN=4321", "-DBIG_ENDIAN=1234"]}
 
 if self.profile().endian == "big":
