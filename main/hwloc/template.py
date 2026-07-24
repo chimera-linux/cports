@@ -27,6 +27,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
+@subpackage("hwloc-libs")
+def _(self):
+    return self.default_libs()
+
+
 @subpackage("hwloc-devel")
 def _(self):
     return self.default_devel()
