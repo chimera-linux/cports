@@ -1,5 +1,5 @@
 pkgname = "p11-kit"
-pkgver = "0.26.2"
+pkgver = "0.26.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,7 +26,7 @@ pkgdesc = "Provides a way to load and enumerate PKCS#11 modules"
 license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
 source = f"{url}/releases/download/{pkgver}/p11-kit-{pkgver}.tar.xz"
-sha256 = "09fd9f44da4813a3141e73d5e7cf7008e5660d0405f13d56c15e1da9dcecf828"
+sha256 = "89c3ffb10e076ee036e14732bf6547a1e1c4fb48699a5dee7ceb5ce4f7c0c462"
 options = ["etcfiles"]
 
 
