@@ -1,13 +1,12 @@
 pkgname = "wireshark"
 pkgver = "4.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",
     "-DENABLE_LUA=ON",
     "-DENABLE_DEBUG=OFF",
     "-DENABLE_WERROR=OFF",
-    "-DUSE_qt6=ON",
 ]
 make_build_args = ["--target", "all", "test-programs"]
 hostmakedepends = [
