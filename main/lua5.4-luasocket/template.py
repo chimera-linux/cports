@@ -1,6 +1,6 @@
 pkgname = "lua5.4-luasocket"
 pkgver = "3.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_dir = "src"
 make_build_target = "linux"

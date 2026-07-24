@@ -1,6 +1,6 @@
 pkgname = "lua5.4-luafilesystem"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["LUA_VERSION=5.4"]
 make_install_args = ["LUA_VERSION=5.4"]
