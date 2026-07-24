@@ -1,6 +1,6 @@
 pkgname = "xvinfo"
-pkgver = "1.1.5"
-pkgrel = 1
+pkgver = "1.1.6"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxv-devel"]
@@ -8,7 +8,7 @@ pkgdesc = "X video capabilities query utility"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xvinfo-{pkgver}.tar.gz"
-sha256 = "76fdc89a4e4207d0069ae3e511b4e30a60fcf86b630d01ef56d32ba5856e76c4"
+sha256 = "1462820e914432e08afd64379bf9d4e8a3c7a71ecebbbd70756f9a2fbc263478"
 hardening = ["vis", "cfi"]
 
 
