@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
-pkgver = "11.0.2"
-pkgrel = 1
+pkgver = "11.0.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DLauncher_BUILD_PLATFORM=chimeralinux",
@@ -30,7 +30,7 @@ pkgdesc = "Minecraft launcher with multiple instances support"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
-sha256 = "8956e9351bcb0472fc9c2c61ae68aa2960f27f7cabb1cacd86dd2af1c233a064"
+sha256 = "78c368140a4d49bf2a12ef0e03d045c6723fe8e5a5c9590668fb63ee0a264ef2"
 
 
 @subpackage("prismlauncher-natives")
