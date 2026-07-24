@@ -1,10 +1,9 @@
---- a/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp
-+++ b/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp
-@@ -10,7 +10,9 @@
- #include <ws2ipdef.h>
- #else
+diff -ruN a/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp b/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp
+--- a/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp	2026-06-25 00:36:03.000000000 +0200
++++ b/Source/Core/Core/HW/EXI/BBA/TAPServerConnection.cpp	2026-07-24 12:11:59.250107439 +0200
+@@ -13,6 +13,7 @@
  #include <netinet/in.h>
-+#include <sys/select.h>
+ #include <sys/select.h>
  #include <sys/socket.h>
 +#include <sys/time.h>
  #include <sys/un.h>
