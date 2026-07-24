@@ -1,8 +1,8 @@
 https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
 diff -ruN a/schism/version.c b/schism/version.c
---- a/schism/version.c	2025-04-16 01:08:37.000000000 +0200
-+++ b/schism/version.c	2025-05-12 09:48:01.156515459 +0200
-@@ -48,11 +48,12 @@
+--- a/schism/version.c	2026-05-24 22:49:08.000000000 +0200
++++ b/schism/version.c	2026-07-24 10:14:06.215005210 +0200
+@@ -76,11 +76,12 @@
  		on gcc-like compilers. (not like anyone's really using schism with anything else...)
  
  */
@@ -17,18 +17,14 @@ diff -ruN a/schism/version.c b/schism/version.c
  	;
  
  /* -------------------------------------------------------- */
-@@ -200,12 +201,12 @@
+@@ -412,8 +413,8 @@
  // Tries multiple methods to get a reasonable date to start with.
- static inline int get_version_date(int *pyear, int *pmonth, int *pday)
+ static int get_version_date(uint32_t *pyear, uint32_t *pmonth, uint32_t *pday)
  {
 -#if !defined(EMPTY_VERSION) && defined(VERSION)
+-	if (ver_parse_schism_version(VERSION, pyear, pmonth, pday) == 0)
 +#if 1
- 	{
- 		int year, month, day;
++	if (ver_parse_schism_version(VERSION2, pyear, pmonth, pday) == 0)
+ 		return 0;
+ #endif
  
- 		// by the time we reach the year 10000 nobody will care that this breaks
--		if (sscanf(VERSION, "%04d%02d%02d", &year, &month, &day) == 3) {
-+		if (sscanf(VERSION2, "%04d%02d%02d", &year, &month, &day) == 3) {
- 			*pyear = year;
- 			*pmonth = month - 1;
- 			*pday = day;
