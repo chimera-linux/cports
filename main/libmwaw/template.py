@@ -1,6 +1,6 @@
 pkgname = "libmwaw"
-pkgver = "0.3.22"
-pkgrel = 9
+pkgver = "0.3.23"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
@@ -9,7 +9,7 @@ pkgdesc = "Library for importing legacy Mac documents"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://sourceforge.net/projects/libmwaw"
 source = f"$(SOURCEFORGE_SITE)/libmwaw/libmwaw-{pkgver}.tar.xz"
-sha256 = "a1a39ffcea3ff2a7a7aae0c23877ddf4918b554bf82b0de5d7ce8e7f61ea8e32"
+sha256 = "ac3590f691a2904eb8c7dc8b757b8a29f125f592449e421459ae8fa928b399eb"
 
 
 @subpackage("libmwaw-progs")
