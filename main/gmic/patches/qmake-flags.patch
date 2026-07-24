@@ -5,9 +5,9 @@ Date:   Thu Aug 31 21:24:24 2023 +0200
     unfuck passing of cxxflags/ldflags when compiling qt
 
 diff -ruN a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
---- a/gmic-qt/gmic_qt.pro	2025-03-07 09:30:37.000000000 +0100
-+++ b/gmic-qt/gmic_qt.pro	2025-03-23 19:54:02.788973915 +0100
-@@ -490,10 +490,6 @@
+--- a/gmic-qt/gmic_qt.pro	2026-07-20 13:51:23.000000000 +0200
++++ b/gmic-qt/gmic_qt.pro	2026-07-24 12:00:10.723117160 +0200
+@@ -500,10 +500,6 @@
  # Prevent overwriting of these files by lupdate
  # TRANSLATIONS += translations/filters/fr.ts
  
@@ -19,14 +19,14 @@ diff -ruN a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
  
  CONFIG(release, debug|release) {
 diff -ruN a/src/Makefile b/src/Makefile
---- a/src/Makefile	2025-03-07 09:30:37.000000000 +0100
-+++ b/src/Makefile	2025-03-23 19:54:02.788973915 +0100
-@@ -654,7 +654,7 @@
+--- a/src/Makefile	2026-07-20 13:51:23.000000000 +0200
++++ b/src/Makefile	2026-07-24 12:00:10.723790062 +0200
+@@ -689,7 +689,7 @@
  	@echo "Executable 'gmic_gimp_qt' has been successfully compiled in '../gmic-qt/'."
  
  gmic_qt_shared: gmic_qt_files CImg.h gmic_stdlib_community.h
--	cd ../gmic-qt && $(QMAKE) CONFIG+=release GMIC_PATH=$(SRC_PATH) PRERELEASE=$(PRERELEASE) GMIC_DYNAMIC_LINKING=on HOST=none gmic_qt.pro && $(MAKE)
-+	cd ../gmic-qt && $(QMAKE) CONFIG+=release GMIC_PATH=$(SRC_PATH) PRERELEASE=$(PRERELEASE) "QMAKE_CXXFLAGS_RELEASE+=$(CXXFLAGS)" "QMAKE_LFLAGS_RELEASE+=$(LDFLAGS)" GMIC_DYNAMIC_LINKING=on HOST=none gmic_qt.pro && $(MAKE)
+-	cd ../gmic-qt && $(QMAKE) CONFIG+=release $(QMAKE_BASE) GMIC_DYNAMIC_LINKING=on HOST=none gmic_qt.pro && $(MAKE)
++	cd ../gmic-qt && $(QMAKE) CONFIG+=release $(QMAKE_BASE) "QMAKE_CXXFLAGS_RELEASE+=$(CXXFLAGS)" "QMAKE_LFLAGS_RELEASE+=$(LDFLAGS)" GMIC_DYNAMIC_LINKING=on HOST=none gmic_qt.pro && $(MAKE)
  	@echo "Executable 'gmic_qt' has been successfully compiled in '../gmic-qt/'."
  
  # ZArt
