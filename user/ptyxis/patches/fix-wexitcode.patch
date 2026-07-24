@@ -1,0 +1,13 @@
+diff --git a/src/ptyxis-application.c b/src/ptyxis-application.c
+index e8b31ed..64951db 100644
+--- a/src/ptyxis-application.c
++++ b/src/ptyxis-application.c
+@@ -40,6 +40,8 @@
+ #define PORTAL_OBJECT_PATH "/org/freedesktop/portal/desktop"
+ #define PORTAL_SETTINGS_INTERFACE "org.freedesktop.portal.Settings"
+ 
++#define W_EXITCODE(ret,sig) ((ret) << 8 | (sig))
++
+ struct _PtyxisApplication
+ {
+   AdwApplication       parent_instance;
