@@ -1,6 +1,6 @@
 pkgname = "lynx"
-pkgver = "2.9.2"
-pkgrel = 2
+pkgver = "2.9.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -24,7 +24,7 @@ pkgdesc = "Text web browser"
 license = "GPL-2.0-or-later"
 url = "https://lynx.invisible-island.net"
 source = f"https://invisible-mirror.net/archives/lynx/tarballs/lynx{pkgver.replace('_pre', 'dev.')}.tar.bz2"
-sha256 = "7374b89936d991669e101f4e97f2c9592036e1e8cdaa7bafc259a77ab6fb07ce"
+sha256 = "174b7f2866a60f3247ba75f5c7dbb10b124aede4a1359312de15f3bfebd2050f"
 # CFI: crashes in UCPutUtf8_charstring via magic function pointer stuff
 # when -display_charset utf-8 on any website
 hardening = ["vis", "!cfi"]
