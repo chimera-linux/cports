@@ -1,0 +1,12 @@
+pkgname = "nxbelld"
+pkgver = "0.1.2"
+pkgrel = 0
+build_style = "gnu_configure"
+make_dir = "."
+hostmakedepends = ["automake", "pkgconf"]
+makedepends = ["libx11-devel", "alsa-lib-devel"]
+pkgdesc = "X bell daemon for computers w/o a PC speaker"
+license = "GPL-3.0-only"
+url = "https://github.com/daliborfox/nxbelld"
+source = f"{url}/archive/{pkgver}.tar.gz"
+sha256 = "171d16fd0bafd8a5aae38835e0098308d575211c5787a5c2f638c726ade91ec1"
