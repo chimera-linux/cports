@@ -1,0 +1,13 @@
+diff -ruN a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2026-06-11 22:12:06.000000000 +0200
++++ b/pyproject.toml	2026-07-25 07:49:26.832927881 +0200
+@@ -61,9 +61,6 @@
+     # you really need it and aren't using an sdist.
+     "meson-python>=0.13.2,!=0.17.*",
+     "pybind11>=2.13.2,!=2.13.3",
+-    # setuptools_scm 10 breaks versioning in editable installs. You can remove this pin
+-    # if you're a downstream distributor just building wheels or your equivalent.
+-    "setuptools_scm>=7,<10",
+ ]
+ 
+ [dependency-groups]
