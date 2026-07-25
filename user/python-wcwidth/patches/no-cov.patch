@@ -1,12 +1,13 @@
---- a/tox.ini	2024-10-28 11:31:21.685447245 +0000
-+++ b/tox.ini	2024-10-28 11:31:52.332571901 +0000
+diff -ruN a/tox.ini b/tox.ini
+--- a/tox.ini	2020-02-02 01:00:00.000000000 +0100
++++ b/tox.ini	2026-07-25 07:28:51.327107497 +0200
 @@ -38,8 +38,7 @@
  [pytest]
  norecursedirs = .git .tox build
  addopts = --disable-pytest-warnings
--          --cov-append --cov-report=html --color=yes --ignore=setup.py --ignore=.tox
+-          --cov-append --cov-report=html --color=yes --ignore=.tox
 -          --cov=wcwidth
-+          --color=yes --ignore=setup.py --ignore=.tox
++          --color=yes --ignore=.tox
  filterwarnings =
      error
  junit_family = xunit1
