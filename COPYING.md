@@ -1,3 +1,16 @@
+The cbuild source code as well as packaging templates are distributed under the
+BSD-2-Clause license below.
+
+Patches to upstream software are not subject to copyright. They are intended
+mostly as enablement changes and may be freely submitted to their respective
+upstream.
+
+Additional data files such as configuration files distributed by Chimera with
+upstream software are likewise not subject to copyright and do not affect the
+licensing of the resulting package.
+
+The BSD license text follows below:
+
 Copyright 2021-2024 Chimera Linux developers
 
 Redistribution and use in source and binary forms, with or without modification,
