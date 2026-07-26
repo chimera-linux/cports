@@ -1,21 +1,7 @@
-diff --git a/bindings/vala/examples/CMakeLists.txt b/bindings/vala/examples/CMakeLists.txt
-index 2751096..6ef4eba 100644
---- a/bindings/vala/examples/CMakeLists.txt
-+++ b/bindings/vala/examples/CMakeLists.txt
-@@ -15,7 +15,7 @@ add_custom_command(
-     VERBATIM
-     COMMAND
-     sed
--    -i "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
-+    -i "" "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
-     "${CMAKE_CURRENT_BINARY_DIR}/ayatana-indicator-example.c"
- )
- 
-diff --git a/example/CMakeLists.txt b/example/CMakeLists.txt
-index 0b5f133..7cd1182 100644
---- a/example/CMakeLists.txt
-+++ b/example/CMakeLists.txt
-@@ -25,7 +25,7 @@ if (FLAVOUR_GTK3)
+diff -ruN a/example/CMakeLists.txt b/example/CMakeLists.txt
+--- a/example/CMakeLists.txt	2026-06-10 17:49:10.000000000 +0200
++++ b/example/CMakeLists.txt	2026-07-26 07:32:50.265062102 +0200
+@@ -25,7 +25,7 @@
          VERBATIM
          COMMAND
          sed
