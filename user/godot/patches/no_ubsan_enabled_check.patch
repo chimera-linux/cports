@@ -1,0 +1,14 @@
+it does not like it when sanitizers are enabled without it being briefed
+
+diff -ruN a/core/typedefs.h b/core/typedefs.h
+--- a/core/typedefs.h	2026-07-13 23:00:28.000000000 +0200
++++ b/core/typedefs.h	2026-07-26 08:35:56.630827220 +0200
+@@ -78,7 +78,7 @@
+ #error Thread sanitizer was enabled without defining `TSAN_ENABLED`
+ #endif
+ 
+-#if (GD_HAS_FEATURE(undefined_behavior_sanitizer) || defined(__UNDEFINED_SANITIZER__)) && !defined(UBSAN_ENABLED)
++#if 0 && !defined(UBSAN_ENABLED)
+ #error Undefined behavior sanitizer was enabled without defining `UBSAN_ENABLED`
+ #endif
+ 
