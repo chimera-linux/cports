@@ -9,11 +9,10 @@ Date:   Fri Apr 25 11:51:35 2025 +0200
     which uses VECTOR_ALIGNMENT. That means DMat44 must be at least
     as aligned as Vec4.
 
-diff --git a/thirdparty/jolt_physics/Jolt/Core/Core.h b/thirdparty/jolt_physics/Jolt/Core/Core.h
-index 01b6afb..2f375ef 100644
---- a/thirdparty/jolt_physics/Jolt/Core/Core.h
-+++ b/thirdparty/jolt_physics/Jolt/Core/Core.h
-@@ -215,7 +215,7 @@
+diff -ruN a/thirdparty/jolt_physics/Jolt/Core/Core.h b/thirdparty/jolt_physics/Jolt/Core/Core.h
+--- a/thirdparty/jolt_physics/Jolt/Core/Core.h	2026-07-13 23:00:28.000000000 +0200
++++ b/thirdparty/jolt_physics/Jolt/Core/Core.h	2026-07-26 08:06:31.681732948 +0200
+@@ -219,7 +219,7 @@
  		#define JPH_CPU_BIG_ENDIAN
  	#endif
  	#define JPH_VECTOR_ALIGNMENT 16
@@ -22,8 +21,8 @@ index 01b6afb..2f375ef 100644
  #elif defined(__loongarch__)
  	// LoongArch CPU architecture
  	#define JPH_CPU_LOONGARCH
-@@ -225,7 +225,7 @@
- 		#define JPH_CPU_ADDRESS_BITS 32
+@@ -229,7 +229,7 @@
+ 		#define JPH_CPU_ARCH_BITS 32
  	#endif
  	#define JPH_VECTOR_ALIGNMENT 16
 -	#define JPH_DVECTOR_ALIGNMENT 8
