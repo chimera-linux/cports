@@ -1,9 +1,9 @@
 diff --git a/Makefile.am b/Makefile.am
-index 79dfd19..54b424c 100644
+index 8ac71a8..4cd8f1d 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -659,10 +659,3 @@ else
- endif
+@@ -663,10 +663,3 @@ endif
+ 
  
  check: prepare-check
 -

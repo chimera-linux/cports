@@ -1,8 +1,9 @@
 pkgname = "tpm2-tools"
-pkgver = "5.7"
+pkgver = "5.8"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
+    "autoconf-archive",
     "automake",
     "libtool",
     "pkgconf",
@@ -16,7 +17,7 @@ pkgdesc = "Trusted Platform Module (TPM2.0) tools"
 license = "BSD-3-Clause"
 url = "https://github.com/tpm2-software/tpm2-tools"
 source = f"{url}/releases/download/{pkgver}/tpm2-tools-{pkgver}.tar.gz"
-sha256 = "3810d36b5079256f4f2f7ce552e22213d43b1031c131538df8a2dbc3c570983a"
+sha256 = "1cb73185cae814b4e15c7c2d0b22642d640faf48775f4156a1fd92edf84bef73"
 # symlinks tpm2 to tpm2_completion.bash
 options = ["!lto", "!lintcomp"]
 
