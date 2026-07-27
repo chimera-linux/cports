@@ -1,0 +1,14 @@
+--- a/IGC/BiFModule/cmake/BiFModuleCache.cmake
++++ b/IGC/BiFModule/cmake/BiFModuleCache.cmake
+@@ -133,6 +133,11 @@
+         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+         DEPENDS ${BiFModule_SRC_SHA_PATH} $<TARGET_FILE:BiFManager-bin>
+         DEPENDS "${IGC_BUILD__PROJ__IBiF_matrix_generator}"
++        DEPENDS $<TARGET_FILE:clang-tool>
++        DEPENDS $<TARGET_FILE:${LLVM_LINK_EXE}>
++        DEPENDS $<TARGET_FILE:${LLVM_AS_EXE}>
++        DEPENDS $<TARGET_FILE:${LLVM_DIS_EXE}>
++        DEPENDS $<TARGET_FILE:${LLVM_OPT_EXE}>
+         COMMAND_EXPAND_LISTS
+     )
+
