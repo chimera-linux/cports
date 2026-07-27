@@ -1,10 +1,7 @@
 pkgname = "regreet"
-pkgver = "0.4.0"
+pkgver = "0.5.0"
 pkgrel = 0
 build_style = "cargo"
-make_build_args = [
-    "--features=gtk4_8",
-]
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -18,7 +15,7 @@ pkgdesc = "Clean and customizable greeter for greetd"
 license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dd11f6dc82a929ac51a51750b3268028fe5aa46e5fe1d1cbd11b43ad57b3006a"
+sha256 = "7e26799dffdede183fc62d12aedbda5fea92d7d9802a180755d8a1d1fd93f2f7"
 options = ["etcfiles"]
 
 
