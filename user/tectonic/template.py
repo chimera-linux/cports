@@ -1,5 +1,5 @@
 pkgname = "tectonic"
-pkgver = "0.16.9"
+pkgver = "0.17.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -30,7 +30,7 @@ pkgdesc = "Modernized LaTeX engine"
 license = "MIT"
 url = "https://tectonic-typesetting.github.io/en-US"
 source = f"https://github.com/tectonic-typesetting/tectonic/archive/refs/tags/tectonic@{pkgver}.tar.gz"
-sha256 = "9861d4d4230b987d8560f1b84fe6c8a550738401be65b9425b0c7d0466178f2b"
+sha256 = "30adda98f67dd5389844f6023adeeb54b5475c17a54b777900644468fbc9765d"
 
 if self.profile().arch in ["loongarch64"]:
     broken = "outdated nix crate, can't update"
