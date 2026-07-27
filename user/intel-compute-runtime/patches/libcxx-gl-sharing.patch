@@ -1,0 +1,173 @@
+From 6e9775e1a37f6866ca373f7541237482328d02ed Mon Sep 17 00:00:00 2001
+From: aniruddhgutta <aniruddhgutta@disroot.org>
+Date: Sun, 26 Jul 2026 15:08:17 +0530
+Subject: [PATCH] libc++: fix char_traits<unsigned char> instantiation in GL sharing
+
+---
+ .../sharings/gl/linux/gl_sharing_linux.cpp     | 18 +++++++++---------
+ .../sharings/gl/linux/gl_sharing_linux.h       |  2 +-
+ .../sharings/gl/linux/gl_sharing_linux.cpp     | 18 +++++++++---------
+ .../sharings/gl/linux/gl_sharing_linux.h       |  2 +-
+ 4 files changed, 20 insertions(+), 20 deletions(-)
+
+diff --git a/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp b/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
+index b0f0c27..1e6b8e6 100644
+--- a/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
++++ b/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
+@@ -22,52 +22,52 @@ GLSharingFunctionsLinux::GLSharingFunctionsLinux(GLType glhdcType, GLContext glh
+ }
+ GLSharingFunctionsLinux::~GLSharingFunctionsLinux() = default;
+ 
+-bool GLSharingFunctionsLinux::isOpenGlExtensionSupported(const unsigned char *pExtensionString) {
++bool GLSharingFunctionsLinux::isOpenGlExtensionSupported(const char *pExtensionString) {
+     if (glGetStringi == nullptr || glGetIntegerv == nullptr) {
+         return false;
+     }
+ 
+     cl_int numberOfExtensions = 0;
+     glGetIntegerv(GL_NUM_EXTENSIONS, &numberOfExtensions);
+     for (cl_int i = 0; i < numberOfExtensions; i++) {
+-        std::basic_string<unsigned char> pString = glGetStringi(GL_EXTENSIONS, i);
++        std::string pString = reinterpret_cast<const char *>(glGetStringi(GL_EXTENSIONS, i));
+         if (pString == pExtensionString) {
+             return true;
+         }
+     }
+     return false;
+ }
+ 
+ bool GLSharingFunctionsLinux::isOpenGlSharingSupported() {
+ 
+-    std::basic_string<unsigned char> vendor = glGetString(GL_VENDOR);
+-    const unsigned char intelVendor[] = "Intel";
++    std::string vendor = reinterpret_cast<const char *>(glGetString(GL_VENDOR));
++    const char intelVendor[] = "Intel";
+ 
+     if ((vendor.empty()) || (vendor != intelVendor)) {
+         return false;
+     }
+-    std::basic_string<unsigned char> version = glGetString(GL_VERSION);
++    std::string version = reinterpret_cast<const char *>(glGetString(GL_VERSION));
+     if (version.empty()) {
+         return false;
+     }
+ 
+     bool isOpenGLES = false;
+-    const unsigned char versionES[] = "OpenGL ES";
++    const char versionES[] = "OpenGL ES";
+     if (version.find(versionES) != std::string::npos) {
+         isOpenGLES = true;
+     }
+ 
+     if (isOpenGLES == true) {
+-        const unsigned char versionES1[] = "OpenGL ES 1.";
++        const char versionES1[] = "OpenGL ES 1.";
+         if (version.find(versionES1) != std::string::npos) {
+-            const unsigned char supportGLOES[] = "GL_OES_framebuffer_object";
++            const char supportGLOES[] = "GL_OES_framebuffer_object";
+             if (isOpenGlExtensionSupported(supportGLOES) == false) {
+                 return false;
+             }
+         }
+     } else {
+         if (version[0] < '3') {
+-            const unsigned char supportGLEXT[] = "GL_EXT_framebuffer_object";
++            const char supportGLEXT[] = "GL_EXT_framebuffer_object";
+             if (isOpenGlExtensionSupported(supportGLEXT) == false) {
+                 return false;
+             }
+diff --git a/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.h b/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.h
+index ffc0402..014573e 100644
+--- a/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.h
++++ b/level_zero/api/opencl/source/sharings/gl/linux/gl_sharing_linux.h
+@@ -115,7 +115,7 @@ class GLSharingFunctionsLinux : public GLSharingFunctions {
+     std::vector<std::pair<unsigned int, GraphicsAllocation *>> graphicsAllocationsForGlBufferReuse;
+ 
+   protected:
+-    bool isOpenGlExtensionSupported(const unsigned char *pExtentionString);
++    bool isOpenGlExtensionSupported(const char *pExtentionString);
+ 
+     // Handles
+     GLType glHDCType = 0;
+diff --git a/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp b/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
+index f3cd5a1..de456bb 100644
+--- a/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
++++ b/opencl/source/sharings/gl/linux/gl_sharing_linux.cpp
+@@ -20,52 +20,52 @@ GLSharingFunctionsLinux::GLSharingFunctionsLinux(GLType glhdcType, GLContext glh
+ }
+ GLSharingFunctionsLinux::~GLSharingFunctionsLinux() = default;
+ 
+-bool GLSharingFunctionsLinux::isOpenGlExtensionSupported(const unsigned char *pExtensionString) {
++bool GLSharingFunctionsLinux::isOpenGlExtensionSupported(const char *pExtensionString) {
+     if (glGetStringi == nullptr || glGetIntegerv == nullptr) {
+         return false;
+     }
+ 
+     cl_int numberOfExtensions = 0;
+     glGetIntegerv(GL_NUM_EXTENSIONS, &numberOfExtensions);
+     for (cl_int i = 0; i < numberOfExtensions; i++) {
+-        std::basic_string<unsigned char> pString = glGetStringi(GL_EXTENSIONS, i);
++        std::string pString = reinterpret_cast<const char *>(glGetStringi(GL_EXTENSIONS, i));
+         if (pString == pExtensionString) {
+             return true;
+         }
+     }
+     return false;
+ }
+ 
+ bool GLSharingFunctionsLinux::isOpenGlSharingSupported() {
+ 
+-    std::basic_string<unsigned char> vendor = glGetString(GL_VENDOR);
+-    const unsigned char intelVendor[] = "Intel";
++    std::string vendor = reinterpret_cast<const char *>(glGetString(GL_VENDOR));
++    const char intelVendor[] = "Intel";
+ 
+     if ((vendor.empty()) || (vendor != intelVendor)) {
+         return false;
+     }
+-    std::basic_string<unsigned char> version = glGetString(GL_VERSION);
++    std::string version = reinterpret_cast<const char *>(glGetString(GL_VERSION));
+     if (version.empty()) {
+         return false;
+     }
+ 
+     bool isOpenGLES = false;
+-    const unsigned char versionES[] = "OpenGL ES";
++    const char versionES[] = "OpenGL ES";
+     if (version.find(versionES) != std::string::npos) {
+         isOpenGLES = true;
+     }
+ 
+     if (isOpenGLES == true) {
+-        const unsigned char versionES1[] = "OpenGL ES 1.";
++        const char versionES1[] = "OpenGL ES 1.";
+         if (version.find(versionES1) != std::string::npos) {
+-            const unsigned char supportGLOES[] = "GL_OES_framebuffer_object";
++            const char supportGLOES[] = "GL_OES_framebuffer_object";
+             if (isOpenGlExtensionSupported(supportGLOES) == false) {
+                 return false;
+             }
+         }
+     } else {
+         if (version[0] < '3') {
+-            const unsigned char supportGLEXT[] = "GL_EXT_framebuffer_object";
++            const char supportGLEXT[] = "GL_EXT_framebuffer_object";
+             if (isOpenGlExtensionSupported(supportGLEXT) == false) {
+                 return false;
+             }
+diff --git a/opencl/source/sharings/gl/linux/gl_sharing_linux.h b/opencl/source/sharings/gl/linux/gl_sharing_linux.h
+index 778f147..6c7fd8f 100644
+--- a/opencl/source/sharings/gl/linux/gl_sharing_linux.h
++++ b/opencl/source/sharings/gl/linux/gl_sharing_linux.h
+@@ -119,7 +119,7 @@ class GLSharingFunctionsLinux : public GLSharingFunctions {
+     std::vector<std::pair<unsigned int, GraphicsAllocation *>> graphicsAllocationsForGlBufferReuse;
+ 
+   protected:
+-    bool isOpenGlExtensionSupported(const unsigned char *pExtentionString);
++    bool isOpenGlExtensionSupported(const char *pExtentionString);
+ 
+     // Handles
+     GLType glHDCType = 0;
+-- 
+2.55.0
+

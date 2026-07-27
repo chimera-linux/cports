@@ -1,0 +1,28 @@
+From c6c3faf7e3ce43a561cd4cd248863b2d26fc7fef Mon Sep 17 00:00:00 2001
+From: aniruddhgutta <aniruddhgutta@disroot.org>
+Date: Sun, 26 Jul 2026 15:17:53 +0530
+Subject: [PATCH] libc++: replace std::mutex forward-decl with real include
+
+---
+ level_zero/core/source/kernel/kernel_shared_state.h | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/level_zero/core/source/kernel/kernel_shared_state.h b/level_zero/core/source/kernel/kernel_shared_state.h
+index c2ecee7..57adf5c 100644
+--- a/level_zero/core/source/kernel/kernel_shared_state.h
++++ b/level_zero/core/source/kernel/kernel_shared_state.h
+@@ -8,10 +8,7 @@
+ #pragma once
+ 
+ #include <cstdint>
+-
+-namespace std {
+-class mutex;
+-}
++#include <mutex>
+ 
+ namespace NEO {
+ class GraphicsAllocation;
+-- 
+2.55.0
+
