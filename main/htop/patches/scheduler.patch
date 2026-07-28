@@ -1,0 +1,45 @@
+diff --git a/Scheduling.c b/Scheduling.c
+index 2b4cee87..7594af80 100644
+--- a/Scheduling.c
++++ b/Scheduling.c
+@@ -13,6 +13,8 @@ in the source distribution for its full text.
+ 
+ #include <assert.h>
+ #include <stddef.h>
++#include <sys/syscall.h>
++#include <unistd.h>
+ 
+ #include "FunctionBar.h"
+ #include "ListItem.h"
+@@ -22,6 +24,14 @@ in the source distribution for its full text.
+ #include "XUtils.h"
+ 
+ 
++static int _sched_setscheduler(pid_t pid, int policy, const struct sched_param *param) {
++   return syscall(SYS_sched_setscheduler, pid, policy, param);
++}
++
++static int _sched_getscheduler(pid_t pid) {
++   return syscall(SYS_sched_getscheduler, pid);
++}
++
+ static const SchedulingPolicy policies[] = {
+    [SCHED_OTHER] = { "Other",      SCHED_OTHER, false },
+ #ifdef SCHED_BATCH
+@@ -114,7 +124,7 @@ static bool Scheduling_setPolicy(Process* p, Arg arg) {
+       policy |= SCHED_RESET_ON_FORK;
+    #endif
+ 
+-   int r = sched_setscheduler(Process_getPid(p), policy, &param);
++   int r = _sched_setscheduler(Process_getPid(p), policy, &param);
+ 
+    /* POSIX says on success the previous scheduling policy should be returned,
+     * but Linux always returns 0. */
+@@ -160,6 +170,6 @@ const char* Scheduling_formatPolicy(int policy) {
+  * Gather scheduling policy (thread-specific data)
+  */
+ void Scheduling_readProcessPolicy(Process* proc) {
+-   proc->scheduling_policy = sched_getscheduler(Process_getPid(proc));
++   proc->scheduling_policy = _sched_getscheduler(Process_getPid(proc));
+ }
+ #endif  /* SCHEDULER_SUPPORT */
