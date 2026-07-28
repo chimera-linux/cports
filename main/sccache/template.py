@@ -1,5 +1,5 @@
 pkgname = "sccache"
-pkgver = "0.10.0"
+pkgver = "0.17.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = []
@@ -17,7 +17,7 @@ pkgdesc = "Compilation caching tool with Rust support"
 license = "Apache-2.0"
 url = "https://github.com/mozilla/sccache"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2c9f82c43ce6a1b1d9b34f029ce6862bedc2f01deff45cde5dffc079deeba801"
+sha256 = "49949ad1cf175c49da126dbb0c2e6a56bd9d1f626e8cc0be17b9668b914145c6"
 # fails due to comparing ldd output to a glibc bin
 options = ["!check"]
 
