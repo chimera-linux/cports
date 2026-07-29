@@ -1,6 +1,6 @@
 pkgname = "gajim"
-pkgver = "2.3.6"
-pkgrel = 2
+pkgver = "2.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "gettext-devel",
@@ -29,6 +29,7 @@ depends = [
     "python-css-parser",
     "python-emoji",
     "python-gobject",
+    "python-httpx",
     "python-keyring",
     "python-nbxmpp",
     "python-omemo-dr",
@@ -40,17 +41,13 @@ depends = [
     "python-sqlalchemy",
     "sqlite",
 ]
-checkdepends = [
-    "python-cryptography",
-    "python-pytest",
-    "xserver-xorg-xvfb",
-    *depends,
-]
 pkgdesc = "XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://gajim.org"
 source = f"{url}/downloads/{pkgver[: pkgver.rfind('.')]}/gajim-{pkgver}.tar.gz"
-sha256 = "5f34ac3d420bc0519c5c98dda4136b34f5333775a04d253f93eb9bcbeb898d48"
+sha256 = "342997377463d6655ce9aa4e55cc7617e66ad89ed21a66544e5ba4468079f7e0"
+# tests require pysequoia and other dependencies which are not packaged; skip for now
+options = ["!check"]
 
 
 def post_build(self):
