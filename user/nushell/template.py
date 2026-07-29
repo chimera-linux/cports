@@ -1,10 +1,10 @@
 pkgname = "nushell"
-pkgver = "0.112.2"
+pkgver = "0.114.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
-    "--features=plugin,trash-support,sqlite,native-tls,network",
+    "--features=plugin,trash-support,lsp,local-socket,system-clipboard,sqlite,native-tls,network",
     "--workspace",
 ]
 make_check_args = [
@@ -26,7 +26,7 @@ pkgdesc = "Shell with a focus on structured data"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "32ebcfe41b6390145e90eb86273e221f22eeacd53ecac5274405f148fb4258c2"
+sha256 = "48ef2fb6bb3ec2b1dcff87a792aeebdfab10b29f3119a62291075b17e4ad25d5"
 _plugins = [
     "polars",
     "formats",
