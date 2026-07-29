@@ -1,7 +1,9 @@
 pkgname = "libthai"
 pkgver = "0.1.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+# broken conftest
+configure_args = ["libthai_cv_have_version_script=yes"]
 # fails to regen
 configure_gen = []
 make_install_args = ["-j1"]
