@@ -1,6 +1,6 @@
 pkgname = "conspy"
-pkgver = "1.16"
-pkgrel = 1
+pkgver = "1.17"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["automake"]
@@ -9,7 +9,7 @@ pkgdesc = "Remote control Linux virtual consoles"
 license = "AGPL-3.0-or-later"
 url = "https://conspy.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/conspy/conspy-{pkgver}-1/conspy-{pkgver}.tar.gz"
-sha256 = "ee5ef648ea08d20d9062db22e7bf62a7b7261af02053f916016d1b80a66a5609"
+sha256 = "61230ef6c5898dcfb3a8cb60d218c8458588d97367a90d9538b66f1d94990b64"
 hardening = ["vis", "cfi"]
 
 
