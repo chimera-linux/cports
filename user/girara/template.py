@@ -1,5 +1,5 @@
 pkgname = "girara"
-pkgver = "2026.02.04"
+pkgver = "2026.07.18"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "GTK+ user interface library with a focus on simplicity"
 license = "Zlib"
 url = "https://pwmt.org/projects/girara"
 source = f"{url}/download/girara-{pkgver}.tar.xz"
-sha256 = "342eca8108bd05a2275e3eacb18107fa3170fa89a12c77e541a5f111f7bba56d"
+sha256 = "d7255635776a45d42d1e555aa425ab96caf23755442474cf240cbac966d8502f"
 
 
 def post_install(self):
