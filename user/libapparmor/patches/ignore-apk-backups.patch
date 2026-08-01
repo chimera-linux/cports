@@ -1,0 +1,13 @@
+diff --git a/libraries/libapparmor/src/private.c b/libraries/libapparmor/src/private.c
+index 39b5789..5d56797 100644
+--- a/libraries/libapparmor/src/private.c
++++ b/libraries/libapparmor/src/private.c
+@@ -112,6 +112,8 @@ static struct ignored_suffix_t ignored_suffixes[] = {
+            ignored */
+ 	{ ".rpmnew", 7, 0 },
+ 	{ ".rpmsave", 8, 0 },
++	/* apk-tools packaging files */
++	{ ".apk-new", 8, 0 },
+ 	/* patch file backups/conflicts */
+ 	{ ".orig", 5, 0 },
+ 	{ ".rej", 4, 0 },
