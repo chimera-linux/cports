@@ -1,0 +1,10 @@
+--- a/vendor/CMakeLists.libbase.txt
++++ b/vendor/CMakeLists.libbase.txt
+@@ -14,7 +14,6 @@
+     libbase/stringprintf.cpp
+     libbase/strings.cpp
+     libbase/threads.cpp
+-    libbase/test_utils.cpp
+     libbase/errors_unix.cpp)
+ 
+ target_include_directories(libbase PUBLIC
