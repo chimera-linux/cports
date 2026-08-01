@@ -1,0 +1,13 @@
+diff --git a/libraries/libapparmor/src/Makefile.am b/libraries/libapparmor/src/Makefile.am
+index 47b4979..295c7d0 100644
+--- a/libraries/libapparmor/src/Makefile.am
++++ b/libraries/libapparmor/src/Makefile.am
+@@ -50,7 +50,7 @@ scanner.h: scanner.l
+ scanner.c: scanner.l
+ 
+ af_protos.h:
+-	 echo '#include <netinet/in.h>' | $(CC) $(CPPFLAGS) -E -dD - | LC_ALL=C  sed  -n -e "/IPPROTO_MAX/d"  -e "s/^\#define[ \\t]\\+IPPROTO_\\([A-Z0-9_]\\+\\)\\(.*\\)$$/AA_GEN_PROTO_ENT(\\UIPPROTO_\\1, \"\\L\\1\")/p" > $@
++	 echo '#include <netinet/in.h>' | $(CC) $(CPPFLAGS) -E -dD - | LC_ALL=C  sed  -n -e "/IPPROTO_MAX/d"  -e "s/^\#define[ \\t]\\+IPPROTO_\\([A-Z0-9_]\\+\\)\\(.*\\)$$/AA_GEN_PROTO_ENT(\\IPPROTO_\\1, \"\\L\\1\")/p" > $@
+ 
+ lib_LTLIBRARIES = libapparmor.la
+ noinst_HEADERS = grammar.h parser.h scanner.h af_protos.h private.h PMurHash.h
