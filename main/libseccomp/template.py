@@ -1,7 +1,7 @@
 # update python-libseccomp alongside this
 pkgname = "libseccomp"
 pkgver = "2.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -23,4 +23,5 @@ exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 @subpackage("libseccomp-devel")
 def _(self):
+    self.depends = ["linux-headers"]
     return self.default_devel()
