@@ -1,5 +1,5 @@
 pkgname = "zathura-djvu"
-pkgver = "2026.05.10"
+pkgver = "2026.07.18"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Djvu support for zathura"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-djvu"
 source = f"{url}/download/zathura-djvu-{pkgver}.tar.xz"
-sha256 = "a0815efe0e0f9dd01bda9b1348a0202e38b52284039f9f1b406b604f58bd0947"
+sha256 = "451ac83ff99bbcf1e8231abbace77b65793f4ff2bb06e70df053410d454d36a5"
 
 
 def post_install(self):

@@ -1,5 +1,5 @@
 pkgname = "zathura-pdf-poppler"
-pkgver = "2026.05.10"
+pkgver = "2026.07.18"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -14,7 +14,7 @@ subdesc = "poppler backend"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-pdf-poppler"
 source = f"{url}/download/zathura-pdf-poppler-{pkgver}.tar.xz"
-sha256 = "364c38634273c06252087324bf01dbde2885b932795265aee44006aa2701fe23"
+sha256 = "605d3f2c2e90efbc0434bb7206f013dc8ff99d8b679c6b519e13543777635bf1"
 
 
 def post_install(self):
