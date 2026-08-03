@@ -16,6 +16,7 @@ you should not rely on them or expect them to be stable.
   * [Writing Correct Templates](#correct_templates)
     * [Handling /etc](#handling_etc)
     * [Hardening Templates](#template_hardening)
+    * [Licensing](#licensing)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
   * [Bootstrap Packages](#bootstrap_packages)
@@ -509,6 +510,31 @@ line number for the specific crash, as it's compiler-generated code. You can
 however inspect the backtrace as well as disassembly and match it against the
 context of the source code of the project in question, and often the reason
 will be clear.
+
+<a id="licensing"></a>
+#### Licensing
+
+If a software license requires that the license is distributed with the
+software, it should be installed as part of the `post_install` step:
+```
+def post_install(self):
+    self.install_license("LICENSE")
+```
+
+The exception to this is for licenses whose text is already included in the
+`base-files-doc` package. At the time of writing these are:
+- Apache-2.0
+- Artistic
+- BSD
+- GFDL-1.2
+- GFDL-1.3
+- GPL-1
+- GPL-2
+- GPL-3
+- LGPL-2
+- LGPL-2.1
+- LGPL-3
+- MPL-1.1
 
 <a id="phases"></a>
 ## Build Phases
