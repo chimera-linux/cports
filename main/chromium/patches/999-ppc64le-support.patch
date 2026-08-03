@@ -1,16 +1,3 @@
-diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/allocator/partition_allocator/partition_alloc.gni
-index 00de65d..98882cd 100644
---- a/base/allocator/partition_allocator/partition_alloc.gni
-+++ b/base/allocator/partition_allocator/partition_alloc.gni
-@@ -66,7 +66,7 @@
- # Whether 64-bit pointers are used.
- # A static_assert in partition_alloc_config.h verifies that.
- if (current_cpu == "x64" || current_cpu == "arm64" || current_cpu == "arm64e" ||
--    current_cpu == "loong64" || current_cpu == "riscv64") {
-+    current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
-   assert(current_cpu != "arm64e" || (is_ios && target_environment == "device"))
-   has_64_bit_pointers = true
- } else if (current_cpu == "x86" || current_cpu == "arm" ||
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 index 6516c20..7d32eed 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
@@ -549,7 +536,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR__llseek:
  #endif
-@@ -604,19 +608,19 @@
+@@ -604,12 +604,12 @@
      case __NR_read:
      case __NR_readv:
      case __NR_pread64:
@@ -564,6 +551,10 @@ index f6e77d1..5e3cbfe 100644
      case __NR_recvfrom:  // Could specify source.
      case __NR_recvmsg:   // Could specify source.
  #endif
+@@ -621,10 +621,10 @@
+     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
+     case __NR_recvmmsg_time64:  // Could specify source.
+ #endif
 -#if defined(__i386__) || defined(__x86_64__)
 +#if defined(__i386__) || defined(__x86_64__) || defined(__powerpc64__)
      case __NR_select:
@@ -573,9 +564,9 @@ index f6e77d1..5e3cbfe 100644
      case __NR__newselect:
  #endif
      case __NR_write:
-@@ -635,12 +639,12 @@
-     case __NR_recvmmsg_time64:  // Could specify source.
- #endif
+@@ -638,12 +638,12 @@
+     case __NR_tee:
+     case __NR_vmsplice:
  // send* syscalls need their flags filtered.
 -#if defined(__arm__) || \
 +#if defined(__arm__) || defined(__powerpc64__) || \

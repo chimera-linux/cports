@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "150.0.7871.186"
+pkgver = "151.0.7922.71"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -58,6 +58,7 @@ hostmakedepends = [
     "findutils",
     "git",
     "gn",
+    "go",
     "gperf",
     "hwdata",
     "ninja",
@@ -145,7 +146,7 @@ source = [
 ]
 source_paths = [".", "rollup"]
 sha256 = [
-    "32ce958d83d4ab78b72e1bf16247d1dbe4b6d244e0b0c3f34f6ed8473704ea6a",
+    "b0bafa1501f47ad27c96c9b5451bb000058ab40ee0dc945a066d3bd614e84a2f",
     "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
 ]
 debug_level = 1
@@ -205,6 +206,11 @@ def post_patch(self):
     # replace wrong gperf with a working one
     self.rm("third_party/gperf/cipd/bin/gperf", force=True)
     self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
+    # lol
+    self.mkdir("third_party/dawn/tools/golang/linux-unknown/bin")
+    self.ln_s(
+        "/usr/bin/go", "third_party/dawn/tools/golang/linux-unknown/bin/go"
+    )
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")

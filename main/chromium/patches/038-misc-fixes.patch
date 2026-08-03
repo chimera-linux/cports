@@ -4,15 +4,15 @@ diff --git a/services/device/public/cpp/usb/BUILD.gn b/services/device/public/cp
 index 04d08955d7..ddf90a76ec 100644
 --- a/services/device/public/cpp/usb/BUILD.gn
 +++ b/services/device/public/cpp/usb/BUILD.gn
-@@ -2,7 +2,7 @@
- # Use of this source code is governed by a BSD-style license that can be
- # found in the LICENSE file.
+@@ -4,7 +4,7 @@
  
--source_ids = "//third_party/usb_ids/usb.ids"
+ import("//tools/grit/grit_rule.gni")
+ 
+-source_ids = "//third_party/usb_ids/src/usb.ids"
 +source_ids = "/usr/share/hwdata/usb.ids"
- generated_ids = "$target_gen_dir/usb_ids_gen.cc"
+ generated_blob = "$target_gen_dir/usb_ids.dat"
  
- action("usb_device_ids") {
+ # Generates a compact binary lookup blob from usb.ids. The blob is packaged
 diff --git a/third_party/libvpx/generate_gni.sh b/third_party/libvpx/generate_gni.sh
 index a605ebb3ab..680a374dc2 100755
 --- a/third_party/libvpx/generate_gni.sh

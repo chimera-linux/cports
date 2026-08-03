@@ -1,0 +1,25 @@
+diff --git a/third_party/dawn/tools/python/cipd_deps.py b/third_party/dawn/tools/python/cipd_deps.py
+index 3d0befe..c2961ad 100644
+--- a/third_party/dawn/tools/python/cipd_deps.py
++++ b/third_party/dawn/tools/python/cipd_deps.py
+@@ -60,19 +60,4 @@ def get_cipd_compatible_current_os() -> str:
+ 
+ @functools.cache
+ def get_cipd_compatible_current_arch() -> str:
+-    """Retrieves the current architecture.
+-
+-    The returned string is compatible with CIPD's package naming scheme.
+-    """
+-    native_arm = platform.machine().lower() in ('arm', 'arm64', 'aarch64')
+-    # This is necessary for the case of running x86 Python on arm devices via
+-    # an emulator. In this case, platform.machine() will show up as an x86
+-    # processor.
+-    emulated_x86 = 'armv8' in platform.processor().lower()
+-    if native_arm or emulated_x86:
+-        return 'arm64'
+-
+-    native_x86 = platform.machine().lower() in ('x86', 'x86_64', 'amd64')
+-    if native_x86:
+-        return 'amd64'
+-    raise ValueError('Unable to determine architecture')
++    return 'unknown'

@@ -18,7 +18,7 @@ index be740d17b8346..5b38bae851dcf 100644
 @@ -1912,12 +1912,6 @@
  ubsan_hardening("c_array_bounds") {
    sanitizer = "array-bounds"
-   condition = !(is_asan && target_cpu == "x86")
+   condition = !(is_asan && target_cpu == "x86") && !is_wasm
 -
 -  # Because we've enabled array-bounds sanitizing we also want to suppress
 -  # the related warning about "unsafe-buffer-usage-in-static-sized-array",

@@ -28,4 +28,4 @@ index a786d3e..2a31df6 100644
 +
  __BEGIN_DECLS
  
- #if __ANDROID_API__ >= __ANDROID_API_O__
+ /* Fences indicate the status of an asynchronous task. They are initially
