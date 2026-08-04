@@ -207,7 +207,7 @@ def post_patch(self):
     self.rm("third_party/gperf/cipd/bin/gperf", force=True)
     self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
     # lol
-    self.mkdir("third_party/dawn/tools/golang/linux-unknown/bin")
+    self.mkdir("third_party/dawn/tools/golang/linux-unknown/bin", parents=True)
     self.ln_s(
         "/usr/bin/go", "third_party/dawn/tools/golang/linux-unknown/bin/go"
     )
