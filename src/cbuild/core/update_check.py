@@ -290,20 +290,20 @@ class UpdateCheck:
                     pname = pname.removeprefix("perl-")
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://github.com/{pn}/tags.atom"
+                url = f"https://github.com/{pn}/info/refs?service=git-upload-pack"
                 rx = rf"""
-                    /releases/tag/
+                    refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=") # match
+                    ([\d.]+)(?!^) # match
                 """
                 rxg = 1
             elif "//gitlab." in url or "salsa.debian.org" in url:
                 pn = "/".join(url.split("/")[0:5])
-                url = f"{pn}/-/tags?format=atom"
+                url = f"{pn}/info/refs?service=git-upload-pack"
                 rx = rf"""
-                    {re.escape(pn)}/-/tags/
+                    refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\") # match
+                    ([\d.]+)(?!^) # match
                 """
                 rxg = 1
             elif "bitbucket.org" in url:
@@ -324,11 +324,11 @@ class UpdateCheck:
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "archive.xfce.org" in url:
                 pn = "/".join(url.split("/")[4:6])
-                url = f"https://gitlab.xfce.org/{pn}/-/tags?format=atom"
+                url = f"https://gitlab.xfce.org/{pn}/info/refs?service=git-upload-pack"
                 rx = rf"""
-                    {re.escape(pn)}/-/tags/
-                    ({re.escape(pname)}-)?v? # lol
-                    ([\d.]+)(?=\") # match
+                    refs/tags/
+                    (v?|V?|{re.escape(pname)}-)?
+                    ([\d.]+)(?!^) # match
                 """
                 rxg = 1
             elif "kernel.org/pub/linux/kernel/" in url:
