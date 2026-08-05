@@ -1,8 +1,23 @@
+diff --git a/conf/example.conf.in b/conf/example.conf.in
+index 9a74feda5..2d90e91a9 100644
+--- a/conf/example.conf.in
++++ b/conf/example.conf.in
+@@ -1857,7 +1857,7 @@ activation {
+ 	# Prior to version 2.02.62, LVM used mlockall() to pin the whole
+ 	# process's memory while activating devices.
+ 	# This configuration option has an automatic default value.
+-	# use_mlockall = 0
++	# use_mlockall = 1
+ 
+ 	# Configuration option activation/monitoring.
+ 	# Monitor LVs that are activated.
+diff --git a/lib/config/defaults.h b/lib/config/defaults.h
+index c9c19dcef..e95281296 100644
 --- a/lib/config/defaults.h
 +++ b/lib/config/defaults.h
-@@ -55,7 +55,11 @@
+@@ -63,7 +63,11 @@
+ #define DEFAULT_WAIT_FOR_LOCKS 1
  #define DEFAULT_LVMLOCKD_LOCK_RETRIES 3
- #define DEFAULT_LVMETAD_UPDATE_WAIT_TIME 10
  #define DEFAULT_PRIORITISE_WRITE_LOCKS 1
 +#ifdef __GLIBC__
  #define DEFAULT_USE_MLOCKALL 0
@@ -12,14 +27,3 @@
  #define DEFAULT_METADATA_READ_ONLY 0
  #define DEFAULT_LVDISPLAY_SHOWS_FULL_DEVICE_PATH 0
  #define DEFAULT_UNKNOWN_DEVICE_NAME "[unknown]"
---- a/conf/example.conf.in
-+++ b/conf/example.conf.in
-@@ -1784,7 +1784,7 @@ activation {
- 	# Prior to version 2.02.62, LVM used mlockall() to pin the whole
- 	# process's memory while activating devices.
- 	# This configuration option has an automatic default value.
--	# use_mlockall = 0
-+	# use_mlockall = 1
- 
- 	# Configuration option activation/monitoring.
- 	# Monitor LVs that are activated.
