@@ -1,5 +1,5 @@
 pkgname = "talloc"
-pkgver = "2.4.4"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -24,7 +24,7 @@ pkgdesc = "Hierarchical pool based memory allocator with destructors"
 license = "LGPL-3.0-or-later"
 url = "https://talloc.samba.org"
 source = f"https://download.samba.org/pub/talloc/talloc-{pkgver}.tar.gz"
-sha256 = "55e47994018c13743485544e7206780ffbb3c8495e704a99636503e6e77abf59"
+sha256 = "912afa237510ae542a7733998eb18a12bcda35ab6729c8e2ddb43e8d0ebab007"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 hardening = ["vis", "!cfi"]
