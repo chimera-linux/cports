@@ -1,6 +1,6 @@
 pkgname = "rsync"
-pkgver = "3.4.1"
-pkgrel = 1
+pkgver = "3.4.4"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-rrsync",
@@ -10,12 +10,10 @@ configure_args = [
 ]
 # breaks when regened
 configure_gen = []
-# otherwise manpages don't get installed
-make_dir = "."
-hostmakedepends = ["perl"]
 makedepends = [
     "acl-devel",
     "dinit-chimera",
+    "linux-headers",
     "lz4-devel",
     "openssl3-devel",
     "popt-devel",
@@ -23,11 +21,12 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+checkdepends = ["python"]
 pkgdesc = "Fast incremental file transfer tool"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
-sha256 = "2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52"
+sha256 = "bd88cf82fa653da32314fb229136407c5c90f80d1758d8f4b091767877d8fa96"
 tool_flags = {
     # ipv6 on musl: https://bugzilla.samba.org/show_bug.cgi?id=10715
     "CFLAGS": ["-DINET6"]
