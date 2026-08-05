@@ -1,5 +1,5 @@
 pkgname = "libfprint"
-pkgver = "1.94.9"
+pkgver = "1.94.100"
 pkgrel = 0
 build_style = "meson"
 # Needs virtual drivers (`-Ddrivers=all`) to run all tests, but they fail and I
@@ -25,7 +25,7 @@ pkgdesc = "Library for fingerprint readers"
 license = "LGPL-2.1-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v{pkgver}/libfprint-v{pkgver}.tar.gz"
-sha256 = "6398e7a28c91b3a16ff17e6a577c7a03692a5de509e8def817396f1120823ecf"
+sha256 = "edc90e02f330a7595ceaf37f2c6ec32ed43541347fe936d3273b0bb2524fd19c"
 # meson error: "ERROR: An exe_wrapper is needed but was not found."
 options = ["!cross"]
 
