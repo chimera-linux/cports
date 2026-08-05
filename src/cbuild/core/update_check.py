@@ -290,7 +290,9 @@ class UpdateCheck:
                     pname = pname.removeprefix("perl-")
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://github.com/{pn}/info/refs?service=git-upload-pack"
+                url = (
+                    f"https://github.com/{pn}/info/refs?service=git-upload-pack"
+                )
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
