@@ -1,6 +1,6 @@
 pkgname = "gmic"
 pkgver = "4.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     "QMAKE=qmake6",
