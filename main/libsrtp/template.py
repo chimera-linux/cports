@@ -1,5 +1,5 @@
 pkgname = "libsrtp"
-pkgver = "2.7.0"
+pkgver = "2.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcrypto-library=openssl"]
@@ -9,7 +9,7 @@ pkgdesc = "Library for Secure Real-Time Transport Protocol"
 license = "BSD-3-Clause"
 url = "https://github.com/cisco/libsrtp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "54facb1727a557c2a76b91194dcb2d0a453aaf8e2d0cbbf1e3c2848c323e28ad"
+sha256 = "d123dcff5c56d4f1a9006f2b311ea99a85016cbf3bb24b1007885d422237db85"
 
 
 def post_install(self):
