@@ -1,6 +1,6 @@
 pkgname = "lxqt-globalkeys"
-pkgver = "2.2.0"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -19,7 +19,7 @@ pkgdesc = "Daemon used to register global keyboard shortcuts"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-globalkeys"
 source = f"{url}/releases/download/{pkgver}/lxqt-globalkeys-{pkgver}.tar.xz"
-sha256 = "66cfdfeed4c0b968f4635847ccc32bec8136bb74cfbd9a5b31e0475339f9979a"
+sha256 = "6f7fb82337bd06823f698df5a1e631059e99e544bfa9a1d7c5b67fd01ff9319a"
 options = ["etcfiles"]
 
 
