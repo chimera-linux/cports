@@ -1,6 +1,6 @@
 pkgname = "boost"
 pkgver = "1.91.0"
-pkgrel = 2
+pkgrel = 3
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
