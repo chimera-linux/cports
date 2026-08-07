@@ -1,6 +1,6 @@
 pkgname = "librime"
-pkgver = "1.14.0"
-pkgrel = 2
+pkgver = "1.17.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Rime Input Method Engine"
 license = "BSD-3-Clause"
 url = "https://github.com/rime/librime"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "b2b29c3551eec6b45af1ba8fd3fcffb99e2b7451aa974c1c9ce107e69ce3ea68"
+sha256 = "a60274da5d8b8a7187e6c7e9ba5023334ed7bdd182535e93c4e96de8cf188377"
 
 
 def post_install(self):
