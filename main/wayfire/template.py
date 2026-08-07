@@ -1,5 +1,5 @@
 pkgname = "wayfire"
-pkgver = "0.10.0"
+pkgver = "0.11.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,6 +8,7 @@ configure_args = [
     "-Dxwayland=enabled",
 ]
 hostmakedepends = [
+    "gettext",
     "meson",
     "pkgconf",
     "wayland-progs",
@@ -23,14 +24,14 @@ makedepends = [
     "udev-devel",
     "wayland-protocols",
     "wf-config-devel",
-    "wlroots0.19-devel",
+    "wlroots0.20-devel",
     "yyjson-devel",
 ]
 pkgdesc = "Modular and extensible wayland compositor"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wayfire/releases/download/v{pkgver}/wayfire-{pkgver}.tar.xz"
-sha256 = "83f98d67479f41f3a4dcf30b414495bb8df2353daa7601159f4012a120827a16"
+sha256 = "29dc95468c4f954341c9ecbad889b661eb849bdb96fb47e19c9d6edc8d49640b"
 # vis breaks symbols
 hardening = ["!vis"]
 # FIXME: crashes in signal-provider.hpp::provider_t::emit from libblur
