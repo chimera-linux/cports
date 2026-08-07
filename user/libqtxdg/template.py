@@ -1,6 +1,6 @@
 pkgname = "libqtxdg"
-pkgver = "4.2.0"
-pkgrel = 9
+pkgver = "4.4.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -17,7 +17,7 @@ pkgdesc = "Qt implementation of freedesktop.org xdg specs"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/libqtxdg"
 source = f"{url}/releases/download/{pkgver}/libqtxdg-{pkgver}.tar.xz"
-sha256 = "a5d430218550d66fa806debce7c418db41268286b17bdab46b8ce3a58f0fe82a"
+sha256 = "34d25949ae7b6275fb54da46187dd8ba41771600353405b15e53bdc90b9e287a"
 options = ["etcfiles"]
 
 
