@@ -1,6 +1,6 @@
 pkgname = "lxqt-session"
-pkgver = "2.2.0"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -27,5 +27,5 @@ pkgdesc = "LXQt session manager"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-session"
 source = f"{url}/releases/download/{pkgver}/lxqt-session-{pkgver}.tar.xz"
-sha256 = "27bc2613b516af503511f15f38216ef9650bc8f65ae6154990b76b1a20d3898a"
+sha256 = "d77f378ece0bfc7195f1964e88f55919729c3b0a55a858d7155ffaacc57bba44"
 options = ["etcfiles"]
