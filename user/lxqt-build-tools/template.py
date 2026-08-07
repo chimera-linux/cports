@@ -1,5 +1,5 @@
 pkgname = "lxqt-build-tools"
-pkgver = "2.2.1"
+pkgver = "2.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -11,7 +11,7 @@ pkgdesc = "LXQt build and packaging tooling"
 license = "BSD-3-Clause"
 url = "https://github.com/lxqt/lxqt-build-tools"
 source = f"{url}/releases/download/{pkgver}/lxqt-build-tools-{pkgver}.tar.xz"
-sha256 = "13dcdf2e6b55cc334ac0ddadd0c131d46c46e06fab0d6ca7b8b96c260c8e332f"
+sha256 = "14999ff954e820a23af44389b9f7c65f9e58b2f1c0a559f0badd38f9b459aee6"
 
 
 def post_install(self):
