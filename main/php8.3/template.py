@@ -1,5 +1,5 @@
 pkgname = "php8.3"
-pkgver = "8.3.32"
+pkgver = "8.3.33"
 _majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 0
 _apiver = "20230831"
@@ -133,7 +133,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "8e1f03eea0b07bc29e1f94d3cfcf0532b0421ec63c1792346b58c3ad8e40fc9b"
+sha256 = "f43566da482abeb1614a512dabeda74967847ce8e176a977390d7a115e7812fd"
 options = ["etcfiles"]
 
 if self.profile().arch in ["loongarch64"]:
