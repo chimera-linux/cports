@@ -1,8 +1,8 @@
 pkgname = "moby"
-pkgver = "29.6.2"
+pkgver = "29.7.2"
 pkgrel = 0
 # match to release
-_commit = "3d80467678f6e36325fa9ae3dd486fe91e5652e3"
+_commit = "6a43e3d5afddf4111da0f864bbc7cae5d7e95001"
 hostmakedepends = ["bash", "cmake", "go", "ninja", "pkgconf"]
 makedepends = [
     "containerd-dinit",
@@ -30,7 +30,7 @@ url = "https://docker.io"
 source = (
     f"https://github.com/moby/moby/archive/refs/tags/docker-v{pkgver}.tar.gz"
 )
-sha256 = "8b64afb7562347d2ce9f1027e326ce9a45c8f41a486106ce2034f7eb1abe0e0f"
+sha256 = "3a93a88bff41ffa6f4dca9f4ed9fc05e7fdb08e0f9014cf1d8177f85ecbc0683"
 env = {
     "DOCKER_GITCOMMIT": _commit,
     "VERSION": pkgver,
