@@ -16,3 +16,12 @@ index 50020c3..8546ae1 100644
  typedef __vector double __m128d;
  
  typedef __m128i rx_vec_i128;
+@@ -209,7 +209,7 @@ typedef union{
+ #define rx_prefetch_t0(x)
+ 
+ /* Splat 64-bit long long to 2 64-bit long longs */
+-FORCE_INLINE __m128i vec_splat2sd (int64_t scalar)
++FORCE_INLINE __m128i vec_splat2sd (signed long long scalar)
+ { return (__m128i) vec_splats (scalar); }
+ 
+ FORCE_INLINE rx_vec_f128 rx_load_vec_f128(const double* pd) {
