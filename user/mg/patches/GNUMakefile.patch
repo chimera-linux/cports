@@ -1,0 +1,25 @@
+--- GNUmakefile	2026-07-26 20:44:20.904348198 +0200
++++ GNUmakefile.new	2026-07-26 20:58:54.591347145 +0200
+@@ -7,11 +7,11 @@
+ 
+ name=		mg
+ 
+-prefix=		/usr/local
++prefix=		/usr/
+ bindir=		$(prefix)/bin
+ libdir=		$(prefix)/lib
+ includedir=	$(prefix)/include
+-mandir=		$(prefix)/man
++mandir=		$(prefix)/share/man
+ 
+ PKG_CONFIG=	/usr/bin/pkg-config --silence-errors
+ INSTALL=	/usr/bin/install
+@@ -33,7 +33,7 @@
+   $(error You probably need to install "libbsd-dev" or "libbsd-devel" or something like that.)
+ endif
+ 
+-CURSES_LIBS:= $(shell $(PKG_CONFIG) --libs ncurses)
++CURSES_LIBS:= $(shell $(PKG_CONFIG) --libs ncursesw)
+ ifeq ($(CURSES_LIBS),)
+   $(error You probably need to install "libncurses5-dev" or "libncurses6-devel" or something like that.)
+ endif
