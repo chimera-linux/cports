@@ -1,0 +1,18 @@
+diff --git a/src/intrin_portable.h b/src/intrin_portable.h
+index 50020c3..8546ae1 100644
+--- a/external/randomx/src/intrin_portable.h
++++ b/external/randomx/src/intrin_portable.h
+@@ -186,10 +186,10 @@ FORCE_INLINE uint32_t rx_get_rounding_mode() {
+ #undef pixel
+ #undef bool
+ 
+-typedef __vector uint8_t __m128i;
+-typedef __vector uint32_t __m128l;
++typedef __vector unsigned char __m128i;
++typedef __vector unsigned int __m128l;
+ typedef __vector int      __m128li;
+-typedef __vector uint64_t __m128ll;
++typedef __vector unsigned long long __m128ll;
+ typedef __vector double __m128d;
+ 
+ typedef __m128i rx_vec_i128;
