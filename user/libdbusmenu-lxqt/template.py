@@ -1,6 +1,6 @@
 pkgname = "libdbusmenu-lxqt"
-pkgver = "0.3.0"
-pkgrel = 1
+pkgver = "0.4.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -12,7 +12,7 @@ pkgdesc = "Qt implementation of the DBusMenu spec"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/lxqt/libdbusmenu-lxqt"
 source = f"{url}/releases/download/{pkgver}/libdbusmenu-lxqt-{pkgver}.tar.xz"
-sha256 = "ada0d14d3a4d9fb0ba344bf078d351046dfd226da1096f866d78167a79243ff9"
+sha256 = "b7f94d653559f021932aada76291e933535431a337c39c1a146d0461dd27a103"
 
 
 @subpackage("libdbusmenu-lxqt-devel")
