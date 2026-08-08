@@ -1,0 +1,28 @@
+From 75c034f9bbc035c6b0fb77ee3b653be4370ff33d Mon Sep 17 00:00:00 2001
+From: Gurkul Sahoo <gurkulsahoo47@gmail.com>
+Date: Fri, 7 Aug 2026 18:31:28 +0530
+Subject: [PATCH] locker: fix Clang build failure in switch on WfOption<int>
+
+Clang rejects the implicit decltype(auto) conversion operator from
+base_option_wrapper_t as a valid contextual conversion for switch,
+while GCC accepts it. Use the explicit .value() accessor instead.
+---
+ src/locker/timedrevealer.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/locker/timedrevealer.cpp b/src/locker/timedrevealer.cpp
+index dd4f30b..4f4263e 100644
+--- a/src/locker/timedrevealer.cpp
++++ b/src/locker/timedrevealer.cpp
+@@ -18,7 +18,7 @@ WayfireLockerTimedRevealer::WayfireLockerTimedRevealer(std::string always_option
+     auto hide_callback = [this] ()
+     {
+         Gtk::RevealerTransitionType type = Gtk::RevealerTransitionType::NONE;
+-        switch (hide_animation)
++        switch (hide_animation.value())
+         {
+           case 1:
+             type = Gtk::RevealerTransitionType::CROSSFADE;
+-- 
+2.55.0
+
