@@ -1,6 +1,6 @@
 pkgname = "fuzzel"
 pkgver = "1.14.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dsvg-backend=resvg", "-Denable-cairo=disabled"]
 hostmakedepends = [
