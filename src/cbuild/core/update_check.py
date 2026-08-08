@@ -296,7 +296,7 @@ class UpdateCheck:
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\^) # match
+                    ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
             elif "//gitlab." in url or "salsa.debian.org" in url:
@@ -305,7 +305,7 @@ class UpdateCheck:
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\^) # match
+                    ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
             elif "bitbucket.org" in url:
@@ -314,7 +314,7 @@ class UpdateCheck:
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\^) # match
+                    ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
             elif "ftp.gnome.org" in url or "download.gnome.org" in url:
@@ -330,7 +330,7 @@ class UpdateCheck:
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\^) # match
+                    ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
             elif "kernel.org/pub/linux/kernel/" in url:
@@ -360,7 +360,7 @@ class UpdateCheck:
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\^) # match
+                    ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
             elif "pkgs.fedoraproject.org" in url:
