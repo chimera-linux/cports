@@ -1,5 +1,5 @@
 pkgname = "croc"
-pkgver = "10.6.0"
+pkgver = "11.0.2"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -7,7 +7,7 @@ pkgdesc = "File transfer tool"
 license = "MIT"
 url = "https://github.com/schollz/croc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d9ee32d93e8353fd4330d71ee2683f08e22f4a58b2f3f5a73c1c9d622ffd4598"
+sha256 = "833c4cb804d1ebdca4594803d0bba05f5bd8663a148fa3ee9c55e3184c805abb"
 # check: needs network access
 options = ["!check"]
 
