@@ -1,0 +1,18 @@
+diff --git a/profiles/apparmor.d/sbin.syslog-ng b/profiles/apparmor.d/sbin.syslog-ng
+index 7662038..2dc44a5 100644
+--- a/profiles/apparmor.d/sbin.syslog-ng
++++ b/profiles/apparmor.d/sbin.syslog-ng
+@@ -53,10 +53,10 @@ profile syslog-ng /{usr/,}{bin,sbin}/syslog-ng {
+   /var/lib/syslog-ng/syslog-ng-?????.qf rw,
+   # chrooted applications
+   @{CHROOT_BASE}/var/lib/*/dev/log w,
+-  @{CHROOT_BASE}/var/lib/syslog-ng/syslog-ng.persist* rw,
++  @{CHROOT_BASE}/var/syslog-ng.persist* rw,
+   @{CHROOT_BASE}/var/log/** w,
+-  @{CHROOT_BASE}@{run}/syslog-ng.pid krw,
+-  @{CHROOT_BASE}@{run}/syslog-ng.ctl rw,
++  @{CHROOT_BASE}/var/syslog-ng.pid krw,
++  @{CHROOT_BASE}/var/syslog-ng.ctl rw,
+   /{var,var/run,run}/log/journal/ r,
+   /{var,var/run,run}/log/journal/*/ r,
+   /{var,var/run,run}/log/journal/*/*.journal r,
