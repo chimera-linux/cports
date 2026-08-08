@@ -1,5 +1,5 @@
 pkgname = "resvg"
-pkgver = "0.47.0"
+pkgver = "0.48.1"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = ["--workspace", "--exclude=resvg-capi"]
@@ -9,7 +9,7 @@ pkgdesc = "SVG rendering library"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/linebender/resvg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7869119fd822983b0a0bc2469bc94d59e7908fc12165fa67a105a4fa25087f9a"
+sha256 = "40dafea6b4b9d01e9d28b6d49f1e912daf3e9055676ad9179a5a2db6e7386945"
 
 
 def build(self):
