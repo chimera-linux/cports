@@ -1,6 +1,6 @@
 # keep in sync with main/wine
 pkgname = "wine-staging"
-pkgver = "11.12"
+pkgver = "11.14"
 pkgrel = 0
 archs = ["aarch64", "x86_64"]
 build_style = "gnu_configure"
@@ -69,8 +69,8 @@ source = [
 ]
 source_paths = [".", "staging"]
 sha256 = [
-    "d3bc091192d985846c9f20065cc81f21331f01e22b736b131e3449e1306671bc",
-    "9d72a105560a6e05fb37edf03e7521b2e3eafb49acd0ce5e344ef1bca5ff2730",
+    "06b3bd872ae0d4d454b9a0c00772727701720de184d36c68597088038113edc4",
+    "751d3f75edb2449e15fcbb79dc82103cb2026e45d2f842d89f2c5b3a579c877d",
 ]
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
