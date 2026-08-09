@@ -1,4 +1,5 @@
 type = process
 command = /usr/bin/ratbagd
+restart = on-failure
 depends-on: dbus
 depends-on: local.target

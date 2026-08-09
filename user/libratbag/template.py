@@ -1,6 +1,6 @@
 pkgname = "libratbag"
 pkgver = "0.18"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
