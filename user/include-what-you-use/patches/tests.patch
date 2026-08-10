@@ -1,0 +1,115 @@
+diff --git a/tests/cxx/badinc.cc b/tests/cxx/badinc.cc
+index b6de0f9..21083eb 100644
+--- a/tests/cxx/badinc.cc
++++ b/tests/cxx/badinc.cc
+@@ -1397,7 +1397,7 @@ int main() {
+   // IWYU: kI1ConstInt is...*badinc-i1.h
+   (void)(kI1ConstInt);
+ 
+-  Cc_string().length();
++  (void)Cc_string().length();
+ 
+   // IWYU: kI1ConstInt is...*badinc-i1.h
+   (void)(sizeof(kI1ConstInt));
+@@ -1417,9 +1417,9 @@ int main() {
+   // IWYU: I1_Struct is...*badinc-i1.h
+   (void)(offsetof(I1_Struct, c));
+   // IWYU: kI1ConstInt is...*badinc-i1.h
+-  typeid(kI1ConstInt).name();
++  (void)typeid(kI1ConstInt).name();
+   // IWYU: I1_Class is...*badinc-i1.h
+-  typeid(I1_Class).name();
++  (void)typeid(I1_Class).name();
+   // This is an extension for gcc and msvc.
+   // IWYU: I1_Class needs a declaration
+   (void)(__is_enum(I1_Class));
+@@ -1487,17 +1487,17 @@ int main() {
+        // IWYU: std::vector is...*<vector>
+        it != local_enum_vector.end(); ++it) {
+     // IWYU: std::vector is...*<vector>
+-    std::find(local_enum_vector.begin(), local_enum_vector.end(), *it);
++    (void)std::find(local_enum_vector.begin(), local_enum_vector.end(), *it);
+   }
+   // string also uses __normal_iterator.  Let's also verify that
+   // adding two strings doesn't bring in a requirement for <memory>
+   std::string s = std::string("aaa") + "bbb";
+   for (std::string::iterator it = s.begin(); it != s.end(); ++it) {
+-    std::find(s.begin(), s.end(), *it);
++    (void)std::find(s.begin(), s.end(), *it);
+   }
+   for (Cc_string::iterator it = local_cc_string.begin();
+        it != local_cc_string.end(); ++it) {
+-    std::find(local_cc_string.begin(), local_cc_string.end(), *it);
++    (void)std::find(local_cc_string.begin(), local_cc_string.end(), *it);
+   }
+ 
+   // This should result in an iwyu to #include <list>, not
+@@ -1666,9 +1666,7 @@ int main() {
+   std::vector<float>::const_iterator float_it = float_vector.begin();
+   // IWYU: std::vector is...*<vector>
+   const std::vector<float>::const_iterator float_constit = float_vector.begin();
+-  // IWYU: std::vector is...*<vector>
+   (void)(float_it == float_constit);
+-  // IWYU: std::vector is...*<vector>
+   (void)(float_constit == float_it);
+   // IWYU: std::vector is...*<vector>
+   std::vector<float>::const_iterator float_forit;
+@@ -1686,7 +1684,6 @@ int main() {
+            float_reverse_it = float_vector.rbegin();
+        // IWYU: std::vector is...*<vector>
+        float_reverse_it != float_vector.rbegin();
+-       // IWYU: std::vector is...*<vector>
+        ++float_reverse_it) ;
+   // IWYU: std::vector is...*<vector>
+   for (std::vector<float>::const_reverse_iterator
+@@ -1694,7 +1691,6 @@ int main() {
+            float_const_reverse_it = float_vector.rbegin();
+        // IWYU: std::vector is...*<vector>
+        float_const_reverse_it != float_vector.rend();
+-       // IWYU: std::vector is...*<vector>
+        ++float_const_reverse_it) ;
+ 
+   // Also test while and if initializers.
+diff --git a/tests/cxx/libbuiltins.cc b/tests/cxx/libbuiltins.cc
+index c446806..4e315ff 100644
+--- a/tests/cxx/libbuiltins.cc
++++ b/tests/cxx/libbuiltins.cc
+@@ -16,7 +16,8 @@
+ #include "tests/cxx/libbuiltins-direct.h"
+ 
+ float kapow(float x) {
+-  // IWYU: std::pow(float, float) is...*cmath
++  // IWYU: std::__math::pow(float, float) is...*math
++  // IWYU: std::pow is...*math
+   return std::pow(x, 2.0F);
+ }
+ 
+@@ -24,11 +25,13 @@ float kapow(float x) {
+ 
+ tests/cxx/libbuiltins.cc should add these lines:
+ #include <cmath>
++#include <math>
+ 
+ tests/cxx/libbuiltins.cc should remove these lines:
+ - #include "tests/cxx/libbuiltins-direct.h"  // lines XX-XX
+ 
+ The full include-list for tests/cxx/libbuiltins.cc:
+ #include <cmath>  // for pow
++#include <math>  // for pow
+ 
+ ***** IWYU_SUMMARY */
+diff --git a/tests/cxx/precomputed_tpl_args.cc b/tests/cxx/precomputed_tpl_args.cc
+index bf87bd6..28ba733 100644
+--- a/tests/cxx/precomputed_tpl_args.cc
++++ b/tests/cxx/precomputed_tpl_args.cc
+@@ -88,6 +88,7 @@ void Fn() {
+   // Since C++17, full contained type isn't needed for std::vector, std::list,
+   // and std::forward_list instantiations.
+   // IWYU: IndirectClass needs a declaration
++  // IWYU: IndirectClass is...*precomputed_tpl_args-i1.h
+   (void)sizeof(std::vector<IndirectClass>);
+   // IWYU: IndirectClass needs a declaration
+   (void)sizeof(std::list<IndirectClass>);
+-- 
+2.55.0
+
