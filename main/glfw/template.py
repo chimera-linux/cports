@@ -1,6 +1,6 @@
 pkgname = "glfw"
-pkgver = "3.4"
-pkgrel = 2
+pkgver = "3.5.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -29,7 +29,7 @@ url = "https://www.glfw.org"
 source = (
     f"https://github.com/glfw/glfw/releases/download/{pkgver}/glfw-{pkgver}.zip"
 )
-sha256 = "b5ec004b2712fd08e8861dc271428f048775200a2df719ccf575143ba749a3e9"
+sha256 = "ea79bc5feffc254c87291980c2d0bce9acebb68c4983b79f961dcd2cb8a611a0"
 
 
 @subpackage("glfw-devel")

@@ -1,0 +1,30 @@
+From 4ee4864ec296d9dc07f0919f18a0c03c19083b1b Mon Sep 17 00:00:00 2001
+From: Karol Herbst <kherbst@redhat.com>
+Date: Thu, 2 Jul 2026 21:44:04 +0200
+Subject: [PATCH] [libclc] mark __clc_flush_denormal_if_not_supported as static
+ inline
+
+The compiled SPIR-V libclc binaries ended up with an empty definition for
+__clc_flush_denormal_if_not_supported.
+
+b8a5888d8d32 ("[libclc] Fix memory fence scope mapping for OpenCL (#170542)")
+also added the static keyword probably due to the same issue.
+
+Fixes: 7f3661128b1e ("[libclc] Remove __attribute__((always_inline)) (#158791)")
+---
+ libclc/clc/include/clc/math/math.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libclc/clc/include/clc/math/math.h b/libclc/clc/include/clc/math/math.h
+index c2647f66b4006..b6a2c864d522a 100644
+--- a/libclc/clc/include/clc/math/math.h
++++ b/libclc/clc/include/clc/math/math.h
+@@ -65,7 +65,7 @@ bool __attribute__((noinline)) __clc_runtime_has_hw_fma32(void);
+ 
+ #define LOG_MAGIC_NUM_SP32 (1 + NUMEXPBITS_SP32 - EXPBIAS_SP32)
+ 
+-_CLC_OVERLOAD _CLC_INLINE float __clc_flush_denormal_if_not_supported(float x) {
++_CLC_OVERLOAD static _CLC_INLINE float __clc_flush_denormal_if_not_supported(float x) {
+   int ix = __clc_as_int(x);
+   if (!__clc_fp32_subnormals_supported() && ((ix & EXPBITS_SP32) == 0) &&
+       ((ix & MANTBITS_SP32) != 0)) {
