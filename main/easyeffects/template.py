@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "8.2.7"
+pkgver = "8.2.8"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -44,6 +44,7 @@ makedepends = [
     "zita-convolver-devel",
 ]
 depends = [
+    "kirigami-addons",
     # most plugins are from here and it can crash without them (and at least prints
     # 9 million warnings), so just always pull it
     "lsp-plugins-lv2",
@@ -53,7 +54,7 @@ pkgdesc = "PipeWire audio plugins"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b6374830282c34b90ace1a2c684d3675e5e00f8f73dffc4778105232f5482e13"
+sha256 = "0e241ad32a0147d180f9dd35181c8eea11e7d32309dda9b4b70b6b472189e45e"
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 
 
