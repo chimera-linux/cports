@@ -1,4 +1,4 @@
-From 9fd1162253ca5d8d6bb6c4cf9b80ab6eda368384 Mon Sep 17 00:00:00 2001
+From b3f7faca17529d6bd93d5e0fdb803f18edf95b92 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
 Subject: [PATCH 01/16] add chimera targets, always dynamic musl + static pie
@@ -61,10 +61,10 @@ index 6d3124b55..0227c52b0 100644
      }
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 0601f9d7c..bc06d995b 100644
+index d6a9e27c4..24862f56d 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1443,6 +1443,15 @@ macro_rules! supported_targets {
+@@ -1455,6 +1455,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -262,7 +262,7 @@ index 91a028988..0531d7328 100644
                  | SanitizerSet::LEAK
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..d8639a976
+index 000000000..4002528b3
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 @@ -0,0 +1,11 @@
@@ -369,5 +369,5 @@ index ee883532a..f65de3ec9 100644
      Target {
          llvm_target: "x86_64-unknown-linux-musl".into(),
 -- 
-2.52.0
+2.55.0
 

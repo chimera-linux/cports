@@ -1,4 +1,4 @@
-From e1546021dc2a1f19e6dc39d63cd6b8ec494d21cc Mon Sep 17 00:00:00 2001
+From 59bc9d28cf49359b764eecb3a05017c45e2fb840 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:53:26 +0200
 Subject: [PATCH 05/16] get rid of wrong linkage
@@ -14,12 +14,12 @@ in just disabling nodefaultlibs for our platform.
  vendor/libc-0.2.169/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.171/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.172/src/unix/mod.rs | 15 +--------------
- vendor/libc-0.2.174/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.175/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.177/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.180/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.183/src/unix/mod.rs | 15 +--------------
- vendor/libc-0.2.184/src/unix/mod.rs | 15 +--------------
+ vendor/libc-0.2.185/src/unix/mod.rs | 15 +--------------
+ vendor/libc-0.2.186/src/unix/mod.rs | 15 +--------------
  13 files changed, 13 insertions(+), 158 deletions(-)
 
 diff --git a/vendor/libc-0.2.155/src/unix/mod.rs b/vendor/libc-0.2.155/src/unix/mod.rs
@@ -180,32 +180,6 @@ index 433eeec95..c281c0151 100644
      } else if #[cfg(target_os = "emscripten")] {
          // Don't pass -lc to Emscripten, it breaks. See:
          // https://github.com/emscripten-core/emscripten/issues/22758
-diff --git a/vendor/libc-0.2.174/src/unix/mod.rs b/vendor/libc-0.2.174/src/unix/mod.rs
-index 96209e7e7..777f5f30e 100644
---- a/vendor/libc-0.2.174/src/unix/mod.rs
-+++ b/vendor/libc-0.2.174/src/unix/mod.rs
-@@ -478,20 +478,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern "C" {}
-     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
--        #[cfg_attr(
--            feature = "rustc-dep-of-std",
--            link(
--                name = "c",
--                kind = "static",
--                modifiers = "-bundle",
--                cfg(target_feature = "crt-static")
--            )
--        )]
--        #[cfg_attr(
--            feature = "rustc-dep-of-std",
--            link(name = "c", cfg(not(target_feature = "crt-static")))
--        )]
--        extern "C" {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         // Don't pass -lc to Emscripten, it breaks. See:
-         // https://github.com/emscripten-core/emscripten/issues/22758
 diff --git a/vendor/libc-0.2.175/src/unix/mod.rs b/vendor/libc-0.2.175/src/unix/mod.rs
 index 941f2faa9..1906a869f 100644
 --- a/vendor/libc-0.2.175/src/unix/mod.rs
@@ -310,10 +284,36 @@ index 5f23744d2..0e5e5cfb8 100644
      } else if #[cfg(target_os = "emscripten")] {
          // Don't pass -lc to Emscripten, it breaks. See:
          // https://github.com/emscripten-core/emscripten/issues/22758
-diff --git a/vendor/libc-0.2.184/src/unix/mod.rs b/vendor/libc-0.2.184/src/unix/mod.rs
-index 6bde0295b..8c8e73e37 100644
---- a/vendor/libc-0.2.184/src/unix/mod.rs
-+++ b/vendor/libc-0.2.184/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.185/src/unix/mod.rs b/vendor/libc-0.2.185/src/unix/mod.rs
+index 207c36b82..a2f36e5a3 100644
+--- a/vendor/libc-0.2.185/src/unix/mod.rs
++++ b/vendor/libc-0.2.185/src/unix/mod.rs
+@@ -497,20 +497,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern "C" {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(
+-                name = "c",
+-                kind = "static",
+-                modifiers = "-bundle",
+-                cfg(target_feature = "crt-static")
+-            )
+-        )]
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(name = "c", cfg(not(target_feature = "crt-static")))
+-        )]
+-        extern "C" {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         // Don't pass -lc to Emscripten, it breaks. See:
+         // https://github.com/emscripten-core/emscripten/issues/22758
+diff --git a/vendor/libc-0.2.186/src/unix/mod.rs b/vendor/libc-0.2.186/src/unix/mod.rs
+index 207c36b82..a2f36e5a3 100644
+--- a/vendor/libc-0.2.186/src/unix/mod.rs
++++ b/vendor/libc-0.2.186/src/unix/mod.rs
 @@ -497,20 +497,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern "C" {}
@@ -337,5 +337,5 @@ index 6bde0295b..8c8e73e37 100644
          // Don't pass -lc to Emscripten, it breaks. See:
          // https://github.com/emscripten-core/emscripten/issues/22758
 -- 
-2.52.0
+2.55.0
 

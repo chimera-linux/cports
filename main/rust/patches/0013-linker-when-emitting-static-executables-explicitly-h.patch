@@ -1,4 +1,4 @@
-From 2a5f827748c5ad17afc5e9244c247090593cbd0a Mon Sep 17 00:00:00 2001
+From f6307aae6642030b4784655fc2938b010b6c5154 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Jul 2024 15:04:38 +0200
 Subject: [PATCH 13/16] linker: when emitting static executables, explicitly
@@ -19,7 +19,7 @@ implicit libs statically as expected.
  1 file changed, 8 insertions(+)
 
 diff --git a/compiler/rustc_codegen_ssa/src/back/linker.rs b/compiler/rustc_codegen_ssa/src/back/linker.rs
-index eb908e19b..dc36fdde5 100644
+index 2155f94a7..564d264b7 100644
 --- a/compiler/rustc_codegen_ssa/src/back/linker.rs
 +++ b/compiler/rustc_codegen_ssa/src/back/linker.rs
 @@ -541,6 +541,10 @@ impl<'a> Linker for GccLinker<'a> {
@@ -52,5 +52,5 @@ index eb908e19b..dc36fdde5 100644
                  self.build_dylib(crate_type, out_filename);
              }
 -- 
-2.52.0
+2.55.0
 
