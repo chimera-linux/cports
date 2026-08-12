@@ -31,7 +31,7 @@ index 39c5238..5f9d344 100644
 ++----------------+-----------------+-----------------+-----------------------------+
  | Ampere         | AmpereOne       | AC03_CPU_38     | AMPERE_ERRATUM_AC03_CPU_38  |
  +----------------+-----------------+-----------------+-----------------------------+
- | Ampere         | AmpereOne AC04  | AC04_CPU_10     | AMPERE_ERRATUM_AC03_CPU_38  |
+ | Ampere         | AmpereOne       | AC03_CPU_57     | N/A                         |
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 index c8cba20..265a355 100644
 --- a/arch/arm64/Kconfig
