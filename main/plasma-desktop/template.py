@@ -236,7 +236,6 @@ def _(self):
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "ktorrent",  # torrent client
         "ktrip",  # trip planner
-        "neochat",  # matrix client
         "okular",  # document viewer
         "partitionmanager",  # partition manager
         "plasma-systemmonitor",
@@ -261,6 +260,7 @@ def _(self):
             "khelpcenter",  # documentation viewer
             "krita",  # digital art studio
             "konqueror",  # web browser
+            "neochat",  # matrix client
             "tokodon",  # mastodon client
         ]
     self.options = ["empty"]
