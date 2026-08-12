@@ -1,5 +1,5 @@
 pkgname = "plasma-activities"
-pkgver = "6.7.3"
+pkgver = "6.7.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Core components for KDE's Activity Manager"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-activities"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-{pkgver}.tar.xz"
-sha256 = "3a9fbf0039464270238b84344b1064c57fb11a6aa5d7900f08a0a868063a62ea"
+sha256 = "f990e8871586c7bafe3545609b071b14c3021105cc90f603dacf45e2e0185c2a"
 hardening = ["vis"]
 
 
