@@ -1,0 +1,13 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -47,8 +47,8 @@
+ 		CPPFLAGS="-I$withval/include ${CPPFLAGS}"
+ 		CPPFLAGS="-I$withval/include/aapl ${CPPFLAGS}"
+ 		LDFLAGS="-L$withval/lib ${LDFLAGS}"
+-		LIBCOLM_LA="$withval/lib/libcolm.la"
+-		LIBFSM_LA="$withval/lib/libfsm.la"
++		LIBCOLM_LA="-lcolm"
++		LIBFSM_LA="-lfsm"
+ 		COLM_SHARE="$withval/share"
+ 	],
+ 	[]
