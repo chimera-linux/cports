@@ -23,6 +23,8 @@ sha256 = "fb27e5839aa11f0e5b9d33756965291fad5d6909ab928ea1f796f4a1a6877894"
 options = ["!check"]
 
 if self.profile().arch != "x86_64":
+    # some archs provide emulation of x86 simd intrinsics in the compiler
+    # and openal tries to use them and fails since they are not native
     configure_args += [
         "-DALSOFT_CPUEXT_SSE=OFF",
         "-DALSOFT_CPUEXT_SSE2=OFF",
