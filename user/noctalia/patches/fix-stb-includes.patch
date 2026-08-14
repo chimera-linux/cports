@@ -1,0 +1,106 @@
+diff --git a/PACKAGING.md b/PACKAGING.md
+index 511e1d3..c8a1d81 100644
+--- a/PACKAGING.md
++++ b/PACKAGING.md
+@@ -130,7 +130,7 @@ has copy-paste install lines for common distros.
+ 
+ Notes packagers hit often:
+ 
+-- **stb** must provide `stb/stb_image_resize2.h` (and `stb/stb_image_write.h`).
++- **stb** must provide `stb_image_resize2.h` (and `stb_image_write.h`).
+   Older packages that only ship `stb_image_resize` are not enough. Meson fails
+   the configure check if `stb_image_resize2` is missing.
+ - Meson requires **WirePlumber 0.5** (`wireplumber-0.5` pkg-config). 0.4 is not
+diff --git a/meson.build b/meson.build
+index 2f1b241..21939b5 100644
+--- a/meson.build
++++ b/meson.build
+@@ -188,11 +188,11 @@ mcu_dep = declare_dependency(
+ )
+ 
+ # ── System: stb_image_resize2 and stb_image_write (header-only) ─────────────────────────────────
+-if not cc.has_header('stb/stb_image_resize2.h')
+-  error('stb/stb_image_resize2.h not found')
++if not cc.has_header('stb_image_resize2.h')
++  error('stb_image_resize2.h not found')
+ endif
+-if not cc.has_header('stb/stb_image_write.h')
+-  error('stb/stb_image_write.h not found')
++if not cc.has_header('stb_image_write.h')
++  error('stb_image_write.h not found')
+ endif
+ 
+ # ── System: libwebp (WebP decode and thumbnail encode) ───────────────────────
+diff --git a/noctalia.scm b/noctalia.scm
+index fb46afd..714b8e0 100644
+--- a/noctalia.scm
++++ b/noctalia.scm
+@@ -88,7 +88,7 @@
+                       (which cmd)))
+                    ;; Adjust import paths for STB headers packaged in Guix.
+                    (substitute* (find-files "." "\\.cpp$|^meson\\.build$")
+-                     (("\\bstb/stb_") "stb_")))))))
++                     (("\\bstb_") "stb_")))))))
+     (native-inputs
+      (list pkg-config))
+     (inputs
+diff --git a/src/capture/screenshot_service.cpp b/src/capture/screenshot_service.cpp
+index f7559bb..e446aba 100644
+--- a/src/capture/screenshot_service.cpp
++++ b/src/capture/screenshot_service.cpp
+@@ -34,7 +34,7 @@
+ #include <filesystem>
+ #include <format>
+ #include <fstream>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <sys/wait.h>
+ #include <thread>
+ #include <unistd.h>
+diff --git a/src/render/core/image_encoder.cpp b/src/render/core/image_encoder.cpp
+index d7b61ae..bdce31a 100644
+--- a/src/render/core/image_encoder.cpp
++++ b/src/render/core/image_encoder.cpp
+@@ -1,7 +1,7 @@
+ #include "render/core/image_encoder.h"
+ 
+ #define STB_IMAGE_WRITE_IMPLEMENTATION
+-#include "stb/stb_image_write.h"
++#include "stb_image_write.h"
+ 
+ #include <cstring>
+ 
+diff --git a/src/render/core/image_file_loader.cpp b/src/render/core/image_file_loader.cpp
+index d5764ba..01ef252 100644
+--- a/src/render/core/image_file_loader.cpp
++++ b/src/render/core/image_file_loader.cpp
+@@ -10,7 +10,7 @@
+ #include <cstdint>
+ #include <cstring>
+ #include <expected>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <string_view>
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wexpansion-to-defined"
+diff --git a/src/render/core/stb_image_resize_impl.cpp b/src/render/core/stb_image_resize_impl.cpp
+index 20dc1b3..2ba1cce 100644
+--- a/src/render/core/stb_image_resize_impl.cpp
++++ b/src/render/core/stb_image_resize_impl.cpp
+@@ -1,2 +1,2 @@
+ #define STB_IMAGE_RESIZE_IMPLEMENTATION
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+diff --git a/src/render/core/thumbnail_service.cpp b/src/render/core/thumbnail_service.cpp
+index 3debb10..9b9f8bb 100644
+--- a/src/render/core/thumbnail_service.cpp
++++ b/src/render/core/thumbnail_service.cpp
+@@ -13,7 +13,7 @@
+ #include <filesystem>
+ #include <fstream>
+ #include <optional>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <sys/eventfd.h>
+ #include <system_error>
+ #include <unistd.h>
