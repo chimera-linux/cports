@@ -1,0 +1,80 @@
+diff --git a/meson.build b/meson.build
+index 2f1b241..21939b5 100644
+--- a/meson.build
++++ b/meson.build
+@@ -188,11 +188,11 @@ mcu_dep = declare_dependency(
+ )
+ 
+ # ── System: stb_image_resize2 and stb_image_write (header-only) ─────────────────────────────────
+-if not cc.has_header('stb/stb_image_resize2.h')
+-  error('stb/stb_image_resize2.h not found')
++if not cc.has_header('stb_image_resize2.h')
++  error('stb_image_resize2.h not found')
+ endif
+-if not cc.has_header('stb/stb_image_write.h')
+-  error('stb/stb_image_write.h not found')
++if not cc.has_header('stb_image_write.h')
++  error('stb_image_write.h not found')
+ endif
+ 
+ # ── System: libwebp (WebP decode and thumbnail encode; demux for animations) ─
+diff --git a/src/capture/screenshot_service.cpp b/src/capture/screenshot_service.cpp
+index f7559bb..e446aba 100644
+--- a/src/capture/screenshot_service.cpp
++++ b/src/capture/screenshot_service.cpp
+@@ -34,7 +34,7 @@
+ #include <format>
+ #include <fstream>
+ #include <nlohmann/json.hpp>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <sys/wait.h>
+ #include <thread>
+ #include <unistd.h>
+diff --git a/src/render/core/image_encoder.cpp b/src/render/core/image_encoder.cpp
+index d7b61ae..bdce31a 100644
+--- a/src/render/core/image_encoder.cpp
++++ b/src/render/core/image_encoder.cpp
+@@ -1,7 +1,7 @@
+ #include "render/core/image_encoder.h"
+ 
+ #define STB_IMAGE_WRITE_IMPLEMENTATION
+-#include "stb/stb_image_write.h"
++#include "stb_image_write.h"
+ 
+ #include <cstring>
+ 
+diff --git a/src/render/core/image_file_loader.cpp b/src/render/core/image_file_loader.cpp
+index d5764ba..01ef252 100644
+--- a/src/render/core/image_file_loader.cpp
++++ b/src/render/core/image_file_loader.cpp
+@@ -10,7 +10,7 @@
+ #include <cstdint>
+ #include <cstring>
+ #include <expected>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <string_view>
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wexpansion-to-defined"
+diff --git a/src/render/core/stb_image_resize_impl.cpp b/src/render/core/stb_image_resize_impl.cpp
+index 20dc1b3..2ba1cce 100644
+--- a/src/render/core/stb_image_resize_impl.cpp
++++ b/src/render/core/stb_image_resize_impl.cpp
+@@ -1,2 +1,2 @@
+ #define STB_IMAGE_RESIZE_IMPLEMENTATION
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+diff --git a/src/render/core/thumbnail_service.cpp b/src/render/core/thumbnail_service.cpp
+index 3debb10..9b9f8bb 100644
+--- a/src/render/core/thumbnail_service.cpp
++++ b/src/render/core/thumbnail_service.cpp
+@@ -13,7 +13,7 @@
+ #include <filesystem>
+ #include <fstream>
+ #include <optional>
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #include <sys/eventfd.h>
+ #include <system_error>
+ #include <unistd.h>
