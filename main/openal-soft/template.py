@@ -1,6 +1,6 @@
 pkgname = "openal-soft"
 pkgver = "1.25.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -21,6 +21,14 @@ source = f"https://github.com/kcat/openal-soft/archive/{pkgver}.tar.gz"
 sha256 = "fb27e5839aa11f0e5b9d33756965291fad5d6909ab928ea1f796f4a1a6877894"
 # no test target
 options = ["!check"]
+
+if self.profile().arch != "x86_64":
+    configure_args += [
+        "-DALSOFT_CPUEXT_SSE=OFF",
+        "-DALSOFT_CPUEXT_SSE2=OFF",
+        "-DALSOFT_CPUEXT_SSE3=OFF",
+        "-DALSOFT_CPUEXT_SSE4_1=OFF",
+    ]
 
 
 def post_install(self):
