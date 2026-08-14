@@ -1,3 +1,4 @@
 type = process
 command = /usr/bin/thermald --adaptive --dbus-enable --no-daemon
-depends-on = dbus
+depends-on: dbus
+depends-on: local.target
