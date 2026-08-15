@@ -1,0 +1,22 @@
+Source: Debian
+
+From: Maximiliano Curia <maxy@gnuservers.com.ar>
+Date: Wed, 7 Dec 2016 14:30:43 +0100
+Subject: Disable the file indexer by default
+
+---
+ src/file/fileindexerconfig.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/src/lib/baloosettings.kcfg
++++ b/src/lib/baloosettings.kcfg
+@@ -9,7 +9,7 @@
+   <group name="Basic Settings">
+     <entry name="indexingEnabled" key="Indexing-Enabled" type="Bool">
+       <label>Indexing-Enabled</label>
+-      <default>true</default>
++      <default>false</default>
+     </entry>
+   </group>
+   <group name="General">
+
