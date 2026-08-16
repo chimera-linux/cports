@@ -1,1 +1,1 @@
-pattern = r"tag/vulkan-sdk-([\d.]+)\""
+pattern = r"refs/tags/vulkan-sdk-([\d.]+)"
