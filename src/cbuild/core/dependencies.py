@@ -1,6 +1,7 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.apk import util as autil, cli as apki
 from cbuild.util import flock
+import json
 
 # avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
@@ -220,8 +221,15 @@ def _get_vers(pkgs, pkg, sysp, arch):
     ret = {}
     with flock.lock(flock.apklock(arch if arch else chroot.host_cpu())):
         out, crepos = apki.call(
-            "search",
-            ["--from", "none", "-e", "-a", *plist],
+            "query",
+            [
+                "--from",
+                "none",
+                "--format=json",
+                "--all-matches",
+                "--fields=name,version",
+                *plist,
+            ],
             pkg,
             root=sysp,
             capture_output=True,
@@ -229,12 +237,15 @@ def _get_vers(pkgs, pkg, sysp, arch):
             allow_untrusted=True,
             return_repos=True,
         )
-    if out.returncode >= len(plist):
+    if out.returncode != 0 or len(out.stdout) == 0:
         return {}, None
 
-    # map the output to a dict
-    for f in out.stdout.strip().decode().split("\n"):
-        nn, nv = autil.get_namever(f)
+    vers = json.loads(out.stdout.decode())
+    if len(vers) == 0:
+        return {}, None
+
+    for ver in vers:
+        nn, nv = ver["name"], ver["version"]
         if nn not in ret:
             ret[nn] = [nv]
         else:
@@ -258,7 +269,7 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
     # first match against every version available
     for apn in reversed(pvers):
         # matched at least one version
-        if autil.pkg_match(f"{pkgn}-{apn}", ppat):
+        if autil.pkg_match(pkgn, apn, ppat):
             break
     else:
         # matched no version, so build
@@ -269,14 +280,25 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
         return pvers[0], None, None
 
     # now check repos individually in priority order
+    # TODO: this could be refactored into a single query call by checking
+    # the repositories field, which would be a little faster, but not much
     with flock.lock(flock.apklock(arch)):
         for cr in crepos:
             if cr == "--repository":
                 continue
             st = (
                 apki.call(
-                    "search",
-                    ["--from", "none", "--repository", cr, "-e", "-a", pkgn],
+                    "query",
+                    [
+                        "--from",
+                        "none",
+                        "--repository",
+                        cr,
+                        "--format=json",
+                        "--all-matches",
+                        "--fields=name,version",
+                        pkgn,
+                    ],
                     None,
                     root=sysp,
                     capture_output=True,
@@ -288,11 +310,11 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
             )
             if len(st) == 0:
                 continue
-            pn = st.split("\n")
+            jsn = json.loads(st)
             # highest priority repo takes all
-            if len(pn) > 0:
-                nn, nv = autil.get_namever(pn[0])
-                if autil.pkg_match(pn[0], ppat):
+            if len(jsn) > 0:
+                nn, nv = jsn[0]["name"], jsn[0]["version"]
+                if autil.pkg_match(nn, nv, ppat):
                     return nv, None, None
                 return None, nv, cr
 
@@ -477,11 +499,12 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         if not fulln or (pkgop and pkgv and not rdv):
             pkg.error(f"template '{pkgn}' cannot be resolved")
         if pkgop and pkgv:
-            rfv = f"{pkgn}-{rdv}"
             rpt = pkgn + pkgop + pkgv
             # ensure the build is not futile
-            if not autil.pkg_match(rfv, rpt):
-                pkg.error(f"version {rfv} does not match dependency {rpt}")
+            if not autil.pkg_match(pkgn, rdv, rpt):
+                pkg.error(
+                    f"version {pkgn}={rdv} does not match dependency {rpt}"
+                )
         # treat the same as any missing target dependency, but without install
         missing_deps.append(fulln)
 

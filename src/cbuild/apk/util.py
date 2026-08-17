@@ -92,29 +92,7 @@ def _op_find(pat):
     return opid, 2
 
 
-def get_namever(pkgp):
-    # maybe version dash
-    fdash = pkgp.find("-")
-    # invalid ver (ver should be FOO-VER-rREV)
-    if fdash < 0:
-        return None, None
-    # maybe revision dash
-    sdash = pkgp.find("-", fdash + 1)
-    # invalid ver again
-    if sdash < 0:
-        return None, None
-    # now get rid of any remaining dashes
-    while True:
-        ndash = pkgp.find("-", sdash + 1)
-        if ndash < 0:
-            break
-        fdash = sdash
-        sdash = ndash
-    # and return name/ver
-    return pkgp[0:fdash], pkgp[fdash + 1 :]
-
-
-def pkg_match(ver, pattern):
+def pkg_match(pname, ver, pattern):
     sepidx = -1
 
     for i, c in enumerate(pattern):
@@ -124,16 +102,11 @@ def pkg_match(ver, pattern):
     else:
         return False
 
-    # ver must be foo-VERSION where foo matches pattern before the operator
-    if len(ver) <= sepidx or ver[sepidx] != "-":
-        return False
-
     # names don't match
-    if ver[0:sepidx] != pattern[0:sepidx]:
+    if pname != pattern[0:sepidx]:
         return False
 
     pattern = pattern[sepidx:]
-    ver = ver[sepidx + 1 :]
 
     sep1, sep1l = _op_find(pattern)
 
