@@ -1449,7 +1449,7 @@ def do_print_build_graph(tgt):
 
 def _get_unbuilt(outdated=False):
     from cbuild.core import chroot, template, paths
-    import json
+    from cbuild.apk import util
     import subprocess
 
     cats = opt_allowcat.strip().split()
@@ -1480,26 +1480,23 @@ def _get_unbuilt(outdated=False):
                 paths.bldroot(),
                 "--repository",
                 str(repof),
-                "query",
+                "search",
                 "--from",
                 "none",
-                "--format=json",
-                "--fields=name,origin,version",
-                "--all-matches",
+                "-e",
+                "-o",
+                "-a",
             ],
             capture_output=True,
         )
         if outp.returncode != 0:
             return
-        jsn = json.loads(outp.stdout.decode())
-        for ver in jsn:
-            if "origin" in ver:
-                pn = ver["origin"]
-            else:
-                pn = ver["name"]
+        for ver in outp.stdout.strip().split():
+            vers = ver.strip().decode()
+            pn, pv = util.get_namever(vers)
             if pn in repovers:
                 continue
-            repovers[pn] = ver["version"]
+            repovers[pn] = pv
 
     # stage versions come first
     for cat in cats:

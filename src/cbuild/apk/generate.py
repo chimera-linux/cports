@@ -1,7 +1,6 @@
 from cbuild.core import paths
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
-import json
 import shlex
 import pathlib
 
@@ -28,13 +27,14 @@ def _get_old_deps(pkg, arch):
         sysp = paths.bldroot()
 
     def _get_sum(allow_net):
-        sout = (
+        return (
             acli.call(
-                "query",
+                "info",
                 [
                     "--from=none",
-                    "--format=json",
-                    "--fields=version,depends,provides,install-if",
+                    "--depends",
+                    "--provides",
+                    "--install-if",
                     pkg.pkgname,
                 ],
                 pkg,
@@ -47,9 +47,6 @@ def _get_old_deps(pkg, arch):
             .stdout.strip()
             .decode()
         )
-        if len(sout) == 0:
-            return []
-        return json.loads(sout)
 
     # first fetch from local repo, fall back to network
     # this is to prevent having to disambiguate between different
@@ -58,17 +55,49 @@ def _get_old_deps(pkg, arch):
     if len(depsum) == 0:
         depsum = _get_sum(True)
 
-    if len(depsum) == 0:
-        return None, [], [], []
+    depsum = depsum.splitlines()
 
-    fver = depsum[0]
+    deps = []
+    provides = []
+    instif = []
+    curpver = None
 
-    return (
-        fver["version"],
-        sorted(fver.get("depends", [])),
-        sorted(fver.get("provides", [])),
-        sorted(fver.get("install-if", [])),
-    )
+    parts = 0
+    curcont = deps
+
+    for ln in depsum:
+        ln = ln.strip()
+        # skip empty lines
+        if ln == "":
+            continue
+        # extract info and determine lists
+        if ln.endswith(":"):
+            # only consider one package
+            if parts == 3:
+                break
+            # use verbose mode, it sucks but no other way to get pkgver
+            if ln.endswith(" depends on:"):
+                curcont = deps
+                ln = ln.removesuffix(" depends on:")
+            elif ln.endswith(" provides:"):
+                curcont = provides
+                ln = ln.removesuffix(" provides:")
+            elif ln.endswith(" has auto-install rule:"):
+                curcont = instif
+                ln = ln.removesuffix(" has auto-install rule:")
+            parts += 1
+            # extract pkgver
+            if not curpver:
+                pn, curpver = autil.get_namever(ln)
+            continue
+        # now add to current list
+        curcont.append(ln)
+
+    deps.sort()
+    provides.sort()
+    instif.sort()
+
+    return curpver, deps, provides, instif
 
 
 def _get_new_deps(pkg, origin):
