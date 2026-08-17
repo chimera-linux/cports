@@ -1,6 +1,6 @@
 pkgname = "qt6-qtgraphs"
 pkgver = "6.11.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # hangs forever
 make_check_args = ["-E", "tst_qgqmltest"]
@@ -21,6 +21,8 @@ license = (
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtgraphs-everywhere-src-{pkgver}.tar.xz"
 sha256 = "84b1138ab68a8e2956439895a4b85eb68dda48ac169da673f67191873b1e0462"
+# FIXME? crashes with eg easyeffects
+hardening = ["!int"]
 
 
 def init_check(self):
