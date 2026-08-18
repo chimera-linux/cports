@@ -1,6 +1,6 @@
 pkgname = "ncmpc"
-pkgver = "0.52"
-pkgrel = 4
+pkgver = "0.54"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlirc=disabled",
@@ -26,5 +26,5 @@ pkgdesc = "Ncurses client for the Music Player Daemon"
 license = "GPL-2.0-or-later"
 url = "https://www.musicpd.org/clients/ncmpc"
 source = f"https://www.musicpd.org/download/ncmpc/0/ncmpc-{pkgver}.tar.xz"
-sha256 = "3af225496fe363a8534a9780fb46ae1bd17baefd80cf4ba7430a19cddd73eb1a"
+sha256 = "f678e6c600200af4c5d36174de4e1e82e423962c41b6f52844a25d6d1ec4cb11"
 hardening = ["vis", "cfi"]
