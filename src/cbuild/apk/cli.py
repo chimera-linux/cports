@@ -3,6 +3,7 @@ from cbuild.core import logger, paths, chroot, profile
 from . import sign as asign
 
 import os
+import json
 import pathlib
 import subprocess
 
@@ -157,6 +158,25 @@ def call(
     return retv
 
 
+def query(fields, args, mrepo, return_repos=False, **kwargs):
+    retv, crepos = call(
+        "query",
+        ["--format=json", f"--fields={','.join(fields)}", *args],
+        mrepo,
+        return_repos=True,
+        capture_output=True,
+        **kwargs,
+    )
+    if retv.returncode != 0:
+        if return_repos:
+            return None, crepos
+        return None
+    outv = json.loads(retv.stdout.decode())
+    if return_repos:
+        return outv, crepos
+    return outv
+
+
 # should never be called during stage 0 builds, only with a real chroot
 def call_chroot(
     subcmd,
@@ -214,6 +234,25 @@ def call_chroot(
     if return_repos:
         return retv, crepos
     return retv
+
+
+def query_chroot(fields, args, mrepo, return_repos=False, **kwargs):
+    retv, crepos = call_chroot(
+        "query",
+        ["--format=json", f"--fields={','.join(fields)}", *args],
+        mrepo,
+        return_repos=True,
+        capture_output=True,
+        **kwargs,
+    )
+    if retv.returncode != 0:
+        if return_repos:
+            return None, crepos
+        return None
+    outv = json.loads(retv.stdout.decode())
+    if return_repos:
+        return outv, crepos
+    return outv
 
 
 def is_installed(pkgn, pkg=None):

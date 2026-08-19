@@ -1,7 +1,6 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.apk import util as autil, cli as apki
 from cbuild.util import flock
-import json
 
 # avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
@@ -220,28 +219,21 @@ def _get_vers(pkgs, pkg, sysp, arch):
 
     ret = {}
     with flock.lock(flock.apklock(arch if arch else chroot.host_cpu())):
-        out, crepos = apki.call(
-            "query",
+        vers, crepos = apki.query(
+            ["name", "version"],
             [
                 "--from",
                 "none",
-                "--format=json",
                 "--all-matches",
-                "--fields=name,version",
                 *plist,
             ],
             pkg,
             root=sysp,
-            capture_output=True,
             arch=arch,
             allow_untrusted=True,
             return_repos=True,
         )
-    if out.returncode != 0 or len(out.stdout) == 0:
-        return {}, None
-
-    vers = json.loads(out.stdout.decode())
-    if len(vers) == 0:
+    if not vers:
         return {}, None
 
     for ver in vers:
@@ -286,31 +278,23 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
         for cr in crepos:
             if cr == "--repository":
                 continue
-            st = (
-                apki.call(
-                    "query",
-                    [
-                        "--from",
-                        "none",
-                        "--repository",
-                        cr,
-                        "--format=json",
-                        "--all-matches",
-                        "--fields=name,version",
-                        pkgn,
-                    ],
-                    None,
-                    root=sysp,
-                    capture_output=True,
-                    arch=arch,
-                    allow_untrusted=True,
-                )
-                .stdout.strip()
-                .decode()
+            jsn = apki.query(
+                ["name", "version"],
+                [
+                    "--from",
+                    "none",
+                    "--repository",
+                    cr,
+                    "--all-matches",
+                    pkgn,
+                ],
+                None,
+                root=sysp,
+                arch=arch,
+                allow_untrusted=True,
             )
-            if len(st) == 0:
+            if not jsn:
                 continue
-            jsn = json.loads(st)
             # highest priority repo takes all
             if len(jsn) > 0:
                 nn, nv = jsn[0]["name"], jsn[0]["version"]
