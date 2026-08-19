@@ -189,7 +189,6 @@ def call_chroot(
     use_stage=True,
     full_chroot=False,
     allow_network=True,
-    return_repos=False,
 ):
     from cbuild.core import chroot
 
@@ -213,15 +212,9 @@ def call_chroot(
         cmd.append("--clean-protected")
 
     if not full_chroot:
-        crepos = collect_repos(
-            mrepo, True, arch, True, use_stage, allow_network
-        )
-    else:
-        crepos = []
+        cmd += collect_repos(mrepo, True, arch, True, use_stage, allow_network)
 
-    cmd += crepos
-
-    retv = chroot.enter(
+    return chroot.enter(
         "apk",
         *cmd,
         *args,
@@ -231,28 +224,6 @@ def call_chroot(
         mount_binpkgs=True,
         mount_cbuild_cache=mount_cache,
     )
-    if return_repos:
-        return retv, crepos
-    return retv
-
-
-def query_chroot(fields, args, mrepo, return_repos=False, **kwargs):
-    retv, crepos = call_chroot(
-        "query",
-        ["--format=json", f"--fields={','.join(fields)}", *args],
-        mrepo,
-        return_repos=True,
-        capture_output=True,
-        **kwargs,
-    )
-    if retv.returncode != 0:
-        if return_repos:
-            return None, crepos
-        return None
-    outv = json.loads(retv.stdout.decode())
-    if return_repos:
-        return outv, crepos
-    return outv
 
 
 def get_provider(pkgn, pkg=None):
