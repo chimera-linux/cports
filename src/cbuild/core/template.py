@@ -1832,24 +1832,20 @@ class Template(Package):
     def is_built(self, quiet=False):
         archn = self.profile().arch
         with flock.lock(flock.apklock(archn)):
-            pinfo = cli.call(
-                "search",
-                ["--from", "none", "-e", self.pkgname],
+            pinfo = cli.query(
+                ["repositories", "version"],
+                ["--from=none", self.pkgname],
                 self.repository,
-                capture_output=True,
                 arch=archn,
                 allow_untrusted=True,
                 allow_network=False,
                 use_altrepo=False,
             )
-            if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
-                foundp = pinfo.stdout.strip().decode()
-                if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
-                    if self.origin_pkg == self and not quiet:
-                        # TODO: print the repo somehow
-                        self.log(f"found ({pinfo.stdout.strip().decode()})")
-                    return True
-            return False
+            if not pinfo or pinfo[0]["version"] != self.full_pkgver:
+                return False
+            if self.origin_pkg == self and not quiet:
+                self.log(f"found ({pinfo[0]['repositories'][0]})")
+            return True
 
     def do(
         self,
