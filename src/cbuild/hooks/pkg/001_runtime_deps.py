@@ -135,54 +135,32 @@ def _scan_so(pkg):
             broot = None
             aarch = None
 
-        info = cli.call(
-            "info",
-            ["--from", "installed", "--description", "so:" + dep],
+        info = cli.query(
+            ["name"],
+            ["--installed", "--match=provides", f"so:{dep}"],
             None,
             root=broot,
-            capture_output=True,
             arch=aarch,
             allow_untrusted=True,
         )
-        if info.returncode != 0:
-            # when bootstrapping, also check the repository
-            if pkg.stage == 0:
-                info = cli.call(
-                    "info",
-                    ["--from", "none", "--description", "so:" + dep],
-                    "main",
-                    capture_output=True,
-                    allow_untrusted=True,
-                )
+        if not info and pkg.stage == 0:
+            # when bootstrapping, check the repository...
+            info = cli.query(
+                ["name"],
+                ["--from=none", "--match=provides", f"so:{dep}"],
+                "main",
+                allow_untrusted=True,
+            )
 
-        # either of the commands failed
-        if info.returncode != 0:
+        # failed to query either way...
+        if not info:
             log.out(f"  \f[red]SONAME: {dep} (unknown provider)")
             broken = True
             continue
 
-        # this needs a bit more parsing, first take only the name-ver
-        outl = info.stdout.split()
-        sdep = None
-        if len(outl) > 0:
-            outl = outl[0].strip().decode()
-            # find -rX
-            dash = outl.rfind("-")
-            if dash > 0:
-                # find the version separator
-                dash = outl.rfind("-", 0, dash)
-                if dash > 0:
-                    # consider just the name
-                    sdep = outl[0:dash]
-
-        if not sdep or len(sdep) == 0:
-            # this should never happen though
-            log.out(f"  \f[red]SONAME: {dep} (unknown provider)")
-            broken = True
-            continue
         # we found a package
         log.out_plain(
-            f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{sdep}\f[])"
+            f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{info[0]['name']}\f[])"
         )
         pkg.so_requires.append(dep)
 
@@ -317,26 +295,14 @@ def _scan_pc(pkg):
     for k in pcreq:
         pn = pcreq[k]
         # provided by one of ours or by a dependency
-        in_subpkg = subpkg_provides_pc(pn)
-        if in_subpkg or cli.is_installed("pc:" + k, pkg):
+        prov = subpkg_provides_pc(pn)
+        if not prov:
+            prov = cli.get_provider(f"pc:{pn}", pkg)
+        if prov:
             pkg.pc_requires.append(k)
-            # locate the explicit provider
-            if not in_subpkg:
-                # apk search needs unconstrained name
-                idx = re.search(r"[<>=]", k)
-                if idx:
-                    prov = cli.get_provider("pc:" + k[: idx.start()], pkg)
-                else:
-                    prov = cli.get_provider("pc:" + k, pkg)
-            else:
-                prov = in_subpkg
-            # this should never happen in practice since it's already checked
-            if not prov:
-                pkg.error(f"  pc: {k} (unknown provider)")
-            else:
-                log.out_plain(
-                    f"  \f[cyan]pc: \f[orange]{k}\f[] (provider: \f[green]{prov}\f[])"
-                )
+            log.out_plain(
+                f"  \f[cyan]pc: \f[orange]{k}\f[] (provider: \f[green]{prov}\f[])"
+            )
             # warn about redundancy
             if prov in pkg.depends:
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
@@ -411,20 +377,14 @@ def _scan_svc(pkg):
         if pkg_provides_svc(pkg, sv, pfx):
             continue
         # provided by one of ours or by a dependency
-        in_subpkg = subpkg_provides_svc(sv, pfx)
-        if in_subpkg or cli.is_installed(f"{pfx}:" + sv, pkg):
+        prov = subpkg_provides_svc(sv, pfx)
+        if not prov:
+            prov = cli.get_provider(f"{pfx}:{sv}", pkg)
+        if prov:
             pkg.svc_requires.append(f"{pfx}:{sv}")
-            # locate the explicit provider
-            if not in_subpkg:
-                prov = cli.get_provider(f"{pfx}:{sv}", pkg)
-            else:
-                prov = in_subpkg
-            if not prov:
-                pkg.error(f"  {pfx}: {sv} (unknown provider)")
-            else:
-                log.out_plain(
-                    f"  \f[cyan]{pfx}: \f[orange]{sv}\f[] (provider: \f[green]{prov}\f[])"
-                )
+            log.out_plain(
+                f"  \f[cyan]{pfx}: \f[orange]{sv}\f[] (provider: \f[green]{prov}\f[])"
+            )
             # warn about redundancy
             if prov in pkg.depends and prov != "dinit-chimera":
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")

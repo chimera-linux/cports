@@ -255,7 +255,7 @@ def query_chroot(fields, args, mrepo, return_repos=False, **kwargs):
     return outv
 
 
-def is_installed(pkgn, pkg=None):
+def get_provider(pkgn, pkg=None):
     cpf = pkg.rparent.profile() if pkg else None
 
     if pkg and cpf.cross:
@@ -265,48 +265,17 @@ def is_installed(pkgn, pkg=None):
         sysp = paths.bldroot()
         aarch = None
 
-    return (
-        call(
-            "info",
-            ["--installed", pkgn],
-            None,
-            root=sysp,
-            capture_output=True,
-            arch=aarch,
-            allow_untrusted=True,
-        ).returncode
-        == 0
+    qv = query(
+        ["name"],
+        ["--installed", "--match=name,provides", pkgn],
+        None,
+        root=sysp,
+        arch=aarch,
+        allow_untrusted=True,
     )
-
-
-def get_provider(thing, pkg):
-    cpf = pkg.rparent.profile() if pkg else None
-
-    if pkg and cpf.cross:
-        sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
-        aarch = cpf.arch
-    else:
-        sysp = paths.bldroot()
-        aarch = None
-
-    out = (
-        call(
-            "search",
-            ["--from", "installed", "-q", "-e", thing],
-            None,
-            root=sysp,
-            capture_output=True,
-            arch=aarch,
-            allow_untrusted=True,
-        )
-        .stdout.strip()
-        .decode()
-    )
-
-    if len(out) == 0:
-        return None
-
-    return out
+    if qv:
+        return qv[0]["name"]
+    return None
 
 
 def check_version(*args):
