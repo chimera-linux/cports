@@ -171,7 +171,7 @@ def _install_from_repo(pkg, pkglist, cross=False):
             allow_untrusted=not signkey,
         )
     elif cross and pkg.profile().cross:
-        ret = apki.call_chroot(
+        ret = apki.call(
             "add",
             [
                 "--root",
@@ -183,6 +183,7 @@ def _install_from_repo(pkg, pkglist, cross=False):
             capture_output=True,
             arch=pkg.profile().arch,
             allow_untrusted=not signkey,
+            chroot=True,
         )
     else:
         # write world file and fix instead of adding to account for previous
@@ -193,12 +194,13 @@ def _install_from_repo(pkg, pkglist, cross=False):
             for pkgn in pkglist:
                 wf.write(f"{pkgn}\n")
         # and then perform the transaction
-        ret = apki.call_chroot(
+        ret = apki.call(
             "fix",
             [],
             pkg,
             capture_output=True,
             allow_untrusted=not signkey,
+            chroot=True,
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()

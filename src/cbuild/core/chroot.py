@@ -270,8 +270,12 @@ def shell_update(rnet, dirty):
 
     with flock.lock(flock.apklock(hcpu)):
         if (
-            apki.call_chroot(
-                "update", [], None, full_chroot=True, allow_network=rnet
+            enter(
+                "apk",
+                "update",
+                fakeroot=True,
+                mount_binpkgs=True,
+                mount_cbuild_cache=True,
             ).returncode
             != 0
         ):
@@ -575,12 +579,13 @@ def cleanup_world(bootstrapping, prof=None, perform=True):
             outf.write(f"{ep}\n")
 
     # perform transaction
-    f_ret = apki.call_chroot(
+    f_ret = apki.call(
         "fix",
         [],
         template.get_cats(),
         capture_output=True,
         allow_untrusted=True,
+        chroot=True,
     )
 
     if f_ret.returncode != 0:
@@ -608,10 +613,11 @@ def update(pkg):
     _prepare_etc()
 
     with flock.lock(flock.apklock(host_cpu())):
-        apki.call_chroot("update", ["-q"], pkg, check=True, use_stage=True)
-        apki.call_chroot(
-            "upgrade", ["--available"], pkg, check=True, use_stage=True
-        )
+        fret = apki.call("update", ["-q"], pkg, use_stage=True)
+        if fret.returncode == 0:
+            fret = apki.call("upgrade", ["--available"], pkg, use_stage=True)
+        if fret.returncode != 0:
+            raise errors.CbuildException("failed to update bldroot")
 
     # this is bootstrap-update
     if isinstance(pkg, str):
