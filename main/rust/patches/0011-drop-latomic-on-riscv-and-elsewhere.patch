@@ -1,4 +1,4 @@
-From 2ef665febeaad81d5570eb5fdb54a72c0b868c97 Mon Sep 17 00:00:00 2001
+From c14789fe6911b7f65f975d6f39bd9f825c556f7b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
 Subject: [PATCH 11/16] drop -latomic on riscv and elsewhere
@@ -9,7 +9,7 @@ Subject: [PATCH 11/16] drop -latomic on riscv and elsewhere
  2 files changed, 1 insertion(+), 39 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index e05c323bc..837c9bd2d 100644
+index 69501f02b..0694ceaf0 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
 @@ -335,18 +335,7 @@ fn main() {
@@ -32,7 +32,7 @@ index e05c323bc..837c9bd2d 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -486,14 +475,6 @@ fn main() {
+@@ -496,14 +485,6 @@ fn main() {
          "stdc++"
      };
  

@@ -1,4 +1,4 @@
-From f6307aae6642030b4784655fc2938b010b6c5154 Mon Sep 17 00:00:00 2001
+From f7a58e0fc982598d917569f3a8f909206faef8e0 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Jul 2024 15:04:38 +0200
 Subject: [PATCH 13/16] linker: when emitting static executables, explicitly
@@ -19,10 +19,10 @@ implicit libs statically as expected.
  1 file changed, 8 insertions(+)
 
 diff --git a/compiler/rustc_codegen_ssa/src/back/linker.rs b/compiler/rustc_codegen_ssa/src/back/linker.rs
-index 2155f94a7..564d264b7 100644
+index 8c20db579..1770abb40 100644
 --- a/compiler/rustc_codegen_ssa/src/back/linker.rs
 +++ b/compiler/rustc_codegen_ssa/src/back/linker.rs
-@@ -541,6 +541,10 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -534,6 +534,10 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticNoPicExe => {
@@ -33,7 +33,7 @@ index 2155f94a7..564d264b7 100644
                  // `-static` works for both gcc wrapper and ld.
                  self.link_or_cc_arg("-static");
                  if !self.is_ld && self.is_gnu {
-@@ -548,6 +552,8 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -541,6 +545,8 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticPicExe => {
@@ -42,7 +42,7 @@ index 2155f94a7..564d264b7 100644
                  if !self.is_ld {
                      // Note that combination `-static -pie` doesn't work as expected
                      // for the gcc wrapper, `-static` in that case suppresses `-pie`.
-@@ -563,6 +569,8 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -556,6 +562,8 @@ impl<'a> Linker for GccLinker<'a> {
              }
              LinkOutputKind::DynamicDylib => self.build_dylib(crate_type, out_filename),
              LinkOutputKind::StaticDylib => {
