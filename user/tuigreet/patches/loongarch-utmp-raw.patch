@@ -1,0 +1,12 @@
+diff --git a/vendor/utmp-raw-0.4.0/lib.rs b/vendor/utmp-raw-0.4.0/lib.rs
+index 3bb50f58..02a8e88c 100644
+--- a/vendor/utmp-raw-0.4.0/lib.rs
++++ b/vendor/utmp-raw-0.4.0/lib.rs
+@@ -60,6 +60,7 @@ cfg_if! {
+         pub use x32::*;
+     } else if #[cfg(any(
+         target_arch = "aarch64",
++        target_arch = "loongarch64",
+         target_arch = "s390x",
+     ))] {
+         pub use x64::*;
