@@ -2,6 +2,7 @@ from cbuild.core import logger, paths, chroot, profile, template
 from cbuild.util import flock
 from cbuild.apk import cli
 
+import json
 import time
 import subprocess
 
@@ -27,6 +28,14 @@ def check_stage(arch, force=False, remote=False):
             ],
             capture_output=True,
         )
+
+    def _query_apk(*args):
+        ret = _call_apk(
+            "query", "--format=json", "--all-matches", "--from=none", *args
+        )
+        if ret.returncode != 0 or len(ret.stdout) == 0:
+            return None
+        return json.loads(ret.stdout.decode())
 
     # full repo list for revdep search
     rlist = []
@@ -95,50 +104,59 @@ def check_stage(arch, force=False, remote=False):
     # for remote repos this is important for provider checking
     _call_apk(*rlist, "update")
 
+    # --repository arguments list for query
+    brs = []
+    # pairs of stage + real repo urls
+    srs = []
+
+    # filter repos that have both stage and repo
     for d in rs:
         reld = str(d.relative_to(stagep).parent.parent)
         # only stage exists, so nothing is replacing anything
         ad = rrm.get(reld, None)
         if not ad:
             continue
-        # search for all staged packages
-        ret = _call_apk("--from", "none", "--repository", str(d), "search")
-        # go over each staged package
-        for p in ret.stdout.strip().decode().split():
-            # stage providers
-            pr = _call_apk(
-                "--from",
-                "none",
-                "--repository",
-                str(d),
-                "info",
-                "--provides",
-                p,
-            )
-            stpr = set(pr.stdout.strip().decode().split())
-            # repo providers
-            pr = _call_apk(
-                "--from",
-                "none",
-                "--repository",
-                str(ad),
-                "info",
-                "--provides",
-                p,
-            )
-            rppr = set(pr.stdout.strip().decode().split())
-            # if they are the same, just skip
-            if stpr == rppr:
+        srs += [(str(d), str(ad))]
+        brs += ["--repository", str(d), "--repository", str(ad)]
+
+    # do a big query for providers
+    # this gets us a big array and isn't super useful for further matching
+    # so we need to turn it into a more useful lookup structure...
+    provq = _query_apk(
+        "--fields=name,provides,repositories",
+        *brs,
+        "*",
+    )
+
+    # first build a map of maps, { name => { repo => providers } }
+    provm = {}
+    for p in provq:
+        provs = sorted(p.get("provides", []))
+        pkgn = p["name"]
+        if pkgn not in provm:
+            provm[pkgn] = {}
+        for repo in p["repositories"]:
+            provm[pkgn][repo] = provs
+
+    # now we have something to go over; go back to staged repos
+    for d, ad in srs:
+        # go over each package staged in d
+        for p, rprovs in provm.items():
+            # package not staged here
+            if d not in rprovs:
                 continue
-            # accumulate stage providers
-            for pr in stpr:
+            # staged providers identical to repo providers; drop
+            if ad in rprovs and rprovs[d] == rprovs[ad]:
+                continue
+            # accumulate stage providers...
+            for pr in rprovs[d]:
                 vp = pr.find("=")
                 if vp > 0:
                     added[pr[0:vp]] = pr[vp + 1 :]
                 else:
                     added[pr] = True
-            # accumulate repo providers
-            for pr in rppr:
+            # accumulate repo providers...
+            for pr in rprovs[ad]:
                 vp = pr.find("=")
                 if vp > 0:
                     dropped[pr[0:vp]] = pr[vp + 1 :]
@@ -175,28 +193,38 @@ def check_stage(arch, force=False, remote=False):
     # potentially missing deps
     checkdeps = {}
 
+    # do a big query for dependencies of revdeps
+    # this once again gets us a big array that's not useful for checks
+    depq = _query_apk(
+        "--fields=name,depends,repositories",
+        *rlist,
+        *revdeps.keys(),
+    )
+
+    # build a map { name => { repo => depends } }
+    # we only care about one repo; the one that is the first in the priority
+    # list (rs followed by rr) but we can't filter that until we have them all
+    depm = {}
+    for p in depq:
+        deps = sorted(p.get("depends", []))
+        pkgn = p["name"]
+        if pkgn not in depm:
+            depm[pkgn] = {}
+        for repo in p["repositories"]:
+            depm[pkgn][repo] = deps
+    # filter it now
+    for pkgn in list(depm.keys()):
+        for r in rs + rr:
+            if r in depm[pkgn]:
+                depm[pkgn] = depm[pkgn][r]
+                break
+
     # for each revdep, do a dep check using potentially staged packages
     # ensure that there is no dependency on a provider that was dropped
     # without a replacement
     for d in revdeps:
-        # dependencies of the most significant (maybe staged) provider
-        deps = []
-        # go over each repo separately for robustness, break on first that
-        # actually does contain the package (will return at least a '\n')
-        for tryr in rlist:
-            if tryr == "--repository":
-                continue
-            ret = _call_apk(
-                "--repository", tryr, "info", "--from", "none", "--depends", d
-            )
-            if ret.returncode != 0 or len(ret.stdout) == 0:
-                # does not exist in this repo
-                continue
-            # get a list, which may be empty
-            deps = ret.stdout.strip().decode().split()
-            break
         # verify each dep
-        for ad in deps:
+        for ad in depm[d]:
             av = None
             ao = None
             # check if versioned
@@ -265,7 +293,7 @@ def check_stage(arch, force=False, remote=False):
                         if ao != ">":
                             continue
                 # satisfied old constraints but not any new ones
-                # that means it's a considered depdendency
+                # that means it's a considered dependency
                 if ad in checkdeps:
                     checkdeps[ad].append(d)
                 else:
