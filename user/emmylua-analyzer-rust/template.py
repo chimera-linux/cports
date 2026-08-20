@@ -1,5 +1,5 @@
 pkgname = "emmylua-analyzer-rust"
-pkgver = "0.23.2"
+pkgver = "0.25.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "openssl3-devel", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Lua language server, formatter, linter, and doc generator"
 license = "MIT"
 url = "https://github.com/EmmyLuaLs/emmylua-analyzer-rust"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "6c4d380dd34ee3600684f4bfd35d7fd98d2c77334a3b4a6ad46ea5af106f667b"
+sha256 = "497b80cf970afbcced36d446a29bde2b59a86f10bbfa936d86f048450553fb0c"
 
 if self.profile().wordsize == 32:
     broken = "uses atomic64"
