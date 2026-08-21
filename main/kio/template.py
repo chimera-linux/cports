@@ -1,6 +1,6 @@
 pkgname = "kio"
-pkgver = "6.28.0"
-pkgrel = 1
+pkgver = "6.29.0"
+pkgrel = 0
 build_style = "cmake"
 # flaky
 make_check_args = ["-E", "kiocore-krecentdocumenttest"]
@@ -41,11 +41,11 @@ pkgdesc = "KDE Network transparent access to files and data"
 license = (
     "LGPL-2.1-only AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 )
-url = "https://api.kde.org/frameworks/kio/html"
+url = "https://community.kde.org/Frameworks"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
-sha256 = "158f47746806c3dd87a09091eaa46ffee286cd658f9e26b4422656b66176627a"
+sha256 = "9f06313cd7d6cdde8db43067126d650fc5cc904b6f0b89159274a03e4805a91a"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]
 # >60% (40/62) tests fail, pain to get working in a limited enviroment due to expecting e.g. real disks

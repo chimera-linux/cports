@@ -1,5 +1,5 @@
 pkgname = "bluez-qt"
-pkgver = "6.28.0"
+pkgver = "6.29.0"
 pkgrel = 0
 build_style = "cmake"
 # needs a "real" environment?
@@ -15,9 +15,9 @@ checkdepends = ["dbus"]
 depends = ["bluez"]
 pkgdesc = "Qt wrapper for Bluez 5 D-Bus API"
 license = "LGPL-2.1-or-later"
-url = "https://api.kde.org/frameworks/bluez-qt/html"
+url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"
-sha256 = "ae4410142170e84df104ef9723c7307de1d5ab68b2874c4ccdb0af99e00ae806"
+sha256 = "15e2ae85d0e3e205cd17c3c5f079d2263abc4a341fbf223b2561510f69382a2b"
 hardening = ["vis"]
 
 

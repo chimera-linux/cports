@@ -1,5 +1,5 @@
 pkgname = "ktextaddons"
-pkgver = "2.0.1"
+pkgver = "2.1.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -41,10 +41,14 @@ pkgdesc = "KDE text handling addons library"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/libraries/ktextaddons"
 source = f"$(KDE_SITE)/ktextaddons/ktextaddons-{pkgver}.tar.xz"
-sha256 = "b52356be07215f0ace0b8e2a6df8bcd8f3572ef5c0aff89631b043b10adb0c8a"
+sha256 = "f3b4448904f1656d6d7cd5a557d22fe1c50624eb32ed369f34726beff9ce0589"
 
 
 @subpackage("ktextaddons-devel")
 def _(self):
-    self.depends += ["kconfigwidgets-devel"]
+    self.depends += [
+        "kconfigwidgets-devel",
+        "sonnet-devel",
+        "syntax-highlighting-devel",
+    ]
     return self.default_devel()

@@ -1,6 +1,6 @@
 pkgname = "kjobwidgets"
-pkgver = "6.28.0"
-pkgrel = 1
+pkgver = "6.29.0"
+pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
@@ -15,9 +15,9 @@ makedepends = [
 ]
 pkgdesc = "KDE Widgets for showing progress of asynchronous jobs"
 license = "LGPL-2.1-only AND (LGPL-2.1-only OR LGPL-3.0-only)"
-url = "https://api.kde.org/frameworks/kjobwidgets/html"
+url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kjobwidgets-{pkgver}.tar.xz"
-sha256 = "a13fcc9c861a90a540e5f93028fa7fae48f4c8643dadd287f3d54f5f24fab3da"
+sha256 = "062cdb2ed80ee1fdba5dddd3e267f90259460d1e91871d340da80c44ae458609"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "kpeople"
-pkgver = "6.28.0"
+pkgver = "6.29.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: off by one in rows after merging people
@@ -17,9 +17,9 @@ depends = ["qt6-qtbase-sql"]
 checkdepends = [*depends]
 pkgdesc = "KDE contact api"
 license = "LGPL-2.1-or-later"
-url = "https://api.kde.org/frameworks/kpeople/html"
+url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
-sha256 = "a5bcf11a6cbca46d4bf83399fe9c0c3c9aaf228be81b05ba966a4ba51256fd0a"
+sha256 = "cb8900532f6c1ba6a4711b3d98e4d2b1c23bf2deb5588262f35554344fe574ca"
 hardening = ["vis"]
 
 

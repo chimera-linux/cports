@@ -1,5 +1,5 @@
 pkgname = "kwidgetsaddons"
-pkgver = "6.28.0"
+pkgver = "6.29.0"
 pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
@@ -8,7 +8,7 @@ configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 # ktimecombobox: musl locale memes
 make_check_args = [
     "-E",
-    "k(widgetsaddons-kcolumnresizer|tooltipwidget|timecombobox)test",
+    "k(widgetsaddons-kcolumnresizer|tooltipwidget|timecombobox|colorbutton)test",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -24,9 +24,9 @@ makedepends = [
 ]
 pkgdesc = "KDE addons to QtWidgets"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
-url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
+url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
-sha256 = "6bb6a22e40bc8cfaeda08276b771488294ad417e7802b27bdc455202afdabd7d"
+sha256 = "76285d03cdc06f0647afbbc89f31ab5aa766cbc3c6eb177e3f8a0441444e3068"
 hardening = ["vis"]
 # fails
 options = ["!cross"]

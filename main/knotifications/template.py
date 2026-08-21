@@ -1,5 +1,5 @@
 pkgname = "knotifications"
-pkgver = "6.28.0"
+pkgver = "6.29.0"
 pkgrel = 0
 build_style = "cmake"
 # unpackaged pyside6
@@ -13,9 +13,9 @@ makedepends = [
 ]
 pkgdesc = "KDE Desktop notifications"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)"
-url = "https://api.kde.org/frameworks/knotifications/html"
+url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knotifications-{pkgver}.tar.xz"
-sha256 = "e5d3b284ccc907f190d3ab10995a0ae7fa0f505088acc69edc7adfcc6a8140d6"
+sha256 = "883e0139fcbc692070287e47de5368c78eb91c8bdbb52fb6f8398183f6aace8f"
 hardening = ["vis"]
 
 
