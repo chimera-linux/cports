@@ -1,0 +1,39 @@
+From fc8fa92dad36327fe1b98b475e5b3267da49d1c4 Mon Sep 17 00:00:00 2001
+From: ItsHarper <git-f4cbe@harperandrews.org>
+Date: Sun, 10 May 2026 13:11:03 -0400
+Subject: hardcode desktop file values
+
+---
+ crates/gram/resources/gram.desktop.in | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/crates/gram/resources/gram.desktop.in b/crates/gram/resources/gram.desktop.in
+index 5daceabe7d..d95bcac27b 100644
+--- a/crates/gram/resources/gram.desktop.in
++++ b/crates/gram/resources/gram.desktop.in
+@@ -1,13 +1,13 @@
+ [Desktop Entry]
+ Version=1.0
+ Type=Application
+-Name=$APP_NAME
++Name=Gram
+ GenericName=Text Editor
+ Comment=A code editor for humanoid apes and grumpy toads
+-TryExec=$APP_CLI
+-StartupNotify=$DO_STARTUP_NOTIFY
+-Exec=$APP_CLI $APP_ARGS
+-Icon=$APP_ICON
++TryExec=gram
++StartupNotify=true
++Exec=gram %U
++Icon=app.liten.Gram
+ Categories=Utility;TextEditor;Development;IDE;
+ Keywords=gram;
+ # To add Gram to "Open Folder With..." context menu, add `inode/directory` to the MimeType field (semicolon separated)
+@@ -18,5 +18,5 @@ Actions=NewWorkspace;
+ StartupWMClass=app.liten.Gram
+ 
+ [Desktop Action NewWorkspace]
+-Exec=$APP_CLI --new $APP_ARGS
++Exec=gram --new %U
+ Name=Open a new workspace
