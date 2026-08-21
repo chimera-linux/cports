@@ -1,6 +1,6 @@
 pkgname = "nheko"
 pkgver = "0.12.1"
-pkgrel = 7
+pkgrel = 8
 build_style = "cmake"
 hostmakedepends = [
     "asciidoctor",

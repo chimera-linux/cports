@@ -1,6 +1,6 @@
 pkgname = "kglobalacceld"
 pkgver = "6.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs full init of kglobalaccel
 # migrateconfigtest passes at times but flaky

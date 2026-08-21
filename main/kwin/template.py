@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",

@@ -1,6 +1,6 @@
 pkgname = "qadwaitadecorations"
 pkgver = "0.1.7"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = ["-DUSE_QT6=ON"]
 hostmakedepends = [
