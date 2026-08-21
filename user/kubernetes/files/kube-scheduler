@@ -1,0 +1,6 @@
+type = process
+env-file = /var/lib/kubernetes/kube-scheduler-flags.env
+command = /usr/bin/kube-scheduler
+logfile = /var/log/kube-scheduler.log
+depends-on: network.target
+depends-on: local.target

@@ -1,0 +1,54 @@
+From febb35cbd158fd1330b497d9a6b25b22ad5e825c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sat, 31 Jan 2026 12:24:24 +0100
+Subject: [PATCH 3/5] use system go-md2man
+
+---
+ Makefile | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index ae9bd22f0..485a10f4e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -45,7 +45,6 @@ SELINUXOPT ?= $(shell selinuxenabled 2>/dev/null && echo -Z)
+ 
+ SOURCE_DATE_EPOCH ?= $(shell date +%s)
+ 
+-GO_MD2MAN ?= ${BUILD_BIN_PATH}/go-md2man
+ GINKGO := ${BUILD_BIN_PATH}/ginkgo
+ MOCKGEN := ${BUILD_BIN_PATH}/mockgen
+ GOLANGCI_LINT := ${BUILD_BIN_PATH}/golangci-lint
+@@ -131,9 +130,6 @@ help:  ## Display this help.
+ $(BUILD_BIN_PATH):
+ 	mkdir -p $(BUILD_BIN_PATH)
+ 
+-$(GO_MD2MAN):
+-	hack/go-install.sh $(BUILD_BIN_PATH) go-md2man github.com/cpuguy83/go-md2man/v2@latest
+-
+ $(GINKGO):
+ 	hack/go-install.sh $(BUILD_BIN_PATH) ginkgo github.com/onsi/ginkgo/v2/ginkgo@latest
+ 
+@@ -535,13 +531,13 @@ mock-systemd: ${MOCKGEN}
+ 		-destination ${MOCK_PATH}/systemd/systemd.go \
+ 		github.com/cri-o/cri-o/internal/watchdog Systemd
+ 
+-docs/%.5: docs/%.5.md ${GO_MD2MAN}
+-	(${GO_MD2MAN} -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@) || \
+-		(${GO_MD2MAN} -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@)
++docs/%.5: docs/%.5.md
++	(go-md2man -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@) || \
++		(go-md2man -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@)
+ 
+-docs/%.8: docs/%.8.md ${GO_MD2MAN}
+-	(${GO_MD2MAN} -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@) || \
+-		(${GO_MD2MAN} -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@)
++docs/%.8: docs/%.8.md
++	(go-md2man -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@) || \
++		(go-md2man -in $< -out $@.tmp && touch $@.tmp && mv $@.tmp $@)
+ 
+ .PHONY: completions-generation
+ completions-generation: ## Generate the command line shell completions.
+-- 
+2.52.0
+
