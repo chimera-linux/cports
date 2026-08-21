@@ -1,6 +1,6 @@
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.11.1"
+pkgver = "6.11.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -74,7 +74,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "d9594a31228aa23ad6b531719a29b45f0f3989fe6c136d45767ea179f233c1ac"
+sha256 = "5b2e00eccaf5a4d8c14134ffa0ea8dfd0a35ae1ffc7f8d87fa4305a1ed23cf22"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME
 hardening = ["!int"]

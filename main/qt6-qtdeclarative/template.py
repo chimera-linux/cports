@@ -1,5 +1,5 @@
 pkgname = "qt6-qtdeclarative"
-pkgver = "6.11.1"
+pkgver = "6.11.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtdeclarative-everywhere-src-{pkgver}.tar.xz"
-sha256 = "52e670f670b0304f534b24f98c47ceb8a41bb710464414ebc9527ec71cc86aa4"
+sha256 = "215b7b70517e380123eabc6b92243f3c47b6f016a91d126057dbe53551c6b430"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -122,14 +122,11 @@ def _(self):
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
             "usr/lib/qt6/plugins/qmltooling",
-            "usr/lib/qt6/plugins/qmllint",
             "usr/lib/qt6/qml/QtTest",
             "usr/lib/qt6/libexec/qmlcachegen",
             "usr/lib/qt6/libexec/qmlimportscanner",
             "usr/lib/qt6/libexec/qmltyperegistrar",
             "usr/lib/qt6/bin/qmleasing",
-            "usr/lib/qt6/bin/qmlformat",
-            "usr/lib/qt6/bin/qmllint",
             "usr/lib/qt6/bin/qmlpreview",
             "usr/lib/qt6/bin/qmlprofiler",
             "usr/lib/*.prl",
