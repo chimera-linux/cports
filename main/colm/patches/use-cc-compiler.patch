@@ -1,0 +1,11 @@
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -474,7 +474,7 @@
+ 		length += strlen( *ip ) + 3;
+ 	for ( ArgsVector::Iter lp = libraryPaths; lp.lte(); lp++ )
+ 		length += strlen( *lp ) + 3;
+-#define COMPILE_COMMAND_STRING "gcc -Wall -Wwrite-strings" \
++#define COMPILE_COMMAND_STRING "cc -Wall -Wwrite-strings" \
+ 		" -g" \
+ 		" -o %s" \
+ 		" %s"
