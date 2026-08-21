@@ -1,6 +1,6 @@
 pkgname = "mercurial"
-pkgver = "7.1.1"
-pkgrel = 1
+pkgver = "7.2.4"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "gettext-devel",
@@ -18,7 +18,7 @@ pkgdesc = "Distributed source control management"
 license = "GPL-2.0-or-later"
 url = "https://www.mercurial-scm.org"
 source = f"https://www.mercurial-scm.org/release/mercurial-{pkgver}.tar.gz"
-sha256 = "47cf66ba89c175536faf844c9b4cd962eb432afb516c073e51f436bf3f0bc148"
+sha256 = "85839e0f39e6cb893a88932aa36ef661759f3c5c5de4551ad26bd9df53cb71a2"
 # a lot of them fail just due to different positions of messages in a diff
 options = ["!check"]
 
