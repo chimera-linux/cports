@@ -1,5 +1,5 @@
 pkgname = "skopeo"
-pkgver = "1.23.0"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "go"
 # for compatibility with Makefile targets
@@ -23,7 +23,7 @@ pkgdesc = "OCI image and repo manipulation tool"
 license = "Apache-2.0"
 url = "https://github.com/podman-container-tools/skopeo"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "de96bfc2bb523c852af675ffdadd934484812ce190aa8620e1d5fd6c51442e25"
+sha256 = "1eea9364e344c4d6cb398fac53bc387663d19690552003b43c75819e8bb55527"
 
 
 def post_build(self):

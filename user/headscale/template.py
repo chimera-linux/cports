@@ -1,7 +1,8 @@
 pkgname = "headscale"
 pkgver = "0.29.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
+prepare_after_patch = True
 make_build_args = [
     f"-ldflags=-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v{pkgver}",
     "./cmd/headscale",

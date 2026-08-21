@@ -1,6 +1,6 @@
 pkgname = "age"
 pkgver = "1.3.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.Version={pkgver}",

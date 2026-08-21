@@ -1,6 +1,6 @@
 pkgname = "packemon"
 pkgver = "1.8.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/packemon"]
 hostmakedepends = ["go"]

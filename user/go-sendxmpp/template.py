@@ -1,6 +1,6 @@
 pkgname = "go-sendxmpp"
 pkgver = "0.15.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Tool to send messages or files over XMPP"

@@ -1,6 +1,6 @@
 pkgname = "moor"
-pkgver = "2.12.3"
-pkgrel = 3
+pkgver = "2.17.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.versionString=v{pkgver}", "./cmd/moor"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ pkgdesc = "Terminal pager program"
 license = "BSD-2-Clause"
 url = "https://github.com/walles/moor"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d04452c333c5472d22421550a7fca0e17b55e35b301d2d5112c7a4f03694a1ab"
+sha256 = "ae901ba6bf680c9ce4c0a223b127f30c38cba83c8a8df4aaf79dbb256b03a30e"
 
 
 def install(self):

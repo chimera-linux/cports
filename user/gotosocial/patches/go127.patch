@@ -1,0 +1,81 @@
+diff --git a/go.mod b/go.mod
+index d8518a8..5c7e5a9 100644
+--- a/go.mod
++++ b/go.mod
+@@ -24,17 +24,17 @@ require (
+ 	codeberg.org/gruf/go-fastpath/v2 v2.0.1
+ 	codeberg.org/gruf/go-ffmpreg v0.6.20
+ 	codeberg.org/gruf/go-iotools v0.0.0-20240710125620-934ae9c654cf
+-	codeberg.org/gruf/go-kv/v2 v2.0.10
++	codeberg.org/gruf/go-kv/v2 v2.0.11
+ 	codeberg.org/gruf/go-list v0.0.0-20240425093752-494db03d641f
+ 	codeberg.org/gruf/go-longdur v0.1.3
+ 	codeberg.org/gruf/go-mempool v0.0.0-20251205182607-a05549c9a993
+ 	codeberg.org/gruf/go-mmap v0.0.0-20251111184116-345a42dab154
+-	codeberg.org/gruf/go-mutexes v1.5.9
++	codeberg.org/gruf/go-mutexes v1.5.10
+ 	codeberg.org/gruf/go-runners v1.7.0
+ 	codeberg.org/gruf/go-sched v1.3.1
+ 	codeberg.org/gruf/go-split v1.2.1
+ 	codeberg.org/gruf/go-storage v0.6.1
+-	codeberg.org/gruf/go-structr v0.9.16
++	codeberg.org/gruf/go-structr v0.9.18
+ 	github.com/DmitriyVTitov/size v1.5.0
+ 	github.com/KimMachineGun/automemlimit v0.7.5
+ 	github.com/SherClockHolmes/webpush-go v1.4.0
+@@ -104,9 +104,9 @@ require (
+ 	code.superseriousbusiness.org/go-jpeg-image-structure/v2 v2.3.0 // indirect
+ 	code.superseriousbusiness.org/go-png-image-structure/v2 v2.3.0 // indirect
+ 	codeberg.org/gruf/go-kv v1.6.5 // indirect
+-	codeberg.org/gruf/go-mangler/v2 v2.0.9 // indirect
++	codeberg.org/gruf/go-mangler/v2 v2.0.10 // indirect
+ 	codeberg.org/gruf/go-maps v1.0.4 // indirect
+-	codeberg.org/gruf/go-xunsafe v0.0.0-20260211121553-1c99e9364fee // indirect
++	codeberg.org/gruf/go-xunsafe v0.0.0-20260820215719-ea52483480e5 // indirect
+ 	dario.cat/mergo v1.0.2 // indirect
+ 	github.com/Masterminds/goutils v1.1.1 // indirect
+ 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
+diff --git a/go.sum b/go.sum
+index 0c3a506..dd1e6e6 100644
+--- a/go.sum
++++ b/go.sum
+@@ -36,6 +36,8 @@ codeberg.org/gruf/go-kv v1.6.5 h1:ttPf0NA8F79pDqBttSudPTVCZmGncumeNIxmeM9ztz0=
+ codeberg.org/gruf/go-kv v1.6.5/go.mod h1:c4PsGqw05bDScvISpK+d31SiDEpBorweCL50hsiK3dc=
+ codeberg.org/gruf/go-kv/v2 v2.0.10 h1:aNIg4UzZhSorcGpSPAF2kSPlOzW4wWloNarTIoK9GEY=
+ codeberg.org/gruf/go-kv/v2 v2.0.10/go.mod h1:diLoh5ZMJyCy5cRQuOMeYKMCxb9n/0V/6ec4z6uqtBc=
++codeberg.org/gruf/go-kv/v2 v2.0.11 h1:H6jzfPJishwq5l8VLbvKXpkVh1i1SHaC12lbCKhweu4=
++codeberg.org/gruf/go-kv/v2 v2.0.11/go.mod h1:LWmDBeO0ii46UoNkkO/pzJRcGWDbtt/Tz49jgWgLIrM=
+ codeberg.org/gruf/go-list v0.0.0-20240425093752-494db03d641f h1:Ss6Z+vygy+jOGhj96d/GwsYYDd22QmIcH74zM7/nQkw=
+ codeberg.org/gruf/go-list v0.0.0-20240425093752-494db03d641f/go.mod h1:F9pl4h34iuVN7kucKam9fLwsItTc+9mmaKt7pNXRd/4=
+ codeberg.org/gruf/go-longdur v0.1.3 h1:DLKFdNKeZKitPMu05QDGN0o/AGUx6pKpaN5imifaVro=
+@@ -44,6 +46,8 @@ codeberg.org/gruf/go-loosy v0.0.0-20231007123304-bb910d1ab5c4 h1:IXwfoU7f2whT6+J
+ codeberg.org/gruf/go-loosy v0.0.0-20231007123304-bb910d1ab5c4/go.mod h1:fiO8HE1wjZCephcYmRRsVnNI/i0+mhy44Z5dQalS0rM=
+ codeberg.org/gruf/go-mangler/v2 v2.0.9 h1:Zb4YCVQxM48bhV3bPBd4DWk3/7VwWnO79EXyMHSw3eI=
+ codeberg.org/gruf/go-mangler/v2 v2.0.9/go.mod h1:ejdBLpjExcFg+klBof99tYotTQgoSOWEpzGTlAWv+fk=
++codeberg.org/gruf/go-mangler/v2 v2.0.10 h1:Zj0Ss5XiGR3tywWQjMu5zQYi0MpZWyHr7O9ToO/zrv8=
++codeberg.org/gruf/go-mangler/v2 v2.0.10/go.mod h1:A3/xnpQ64kj/g9zj9lOsmdSDbtxVitXdU7J8qqNEtmk=
+ codeberg.org/gruf/go-maps v1.0.4 h1:K+Ww4vvR3TZqm5jqrKVirmguZwa3v1VUvmig2SE8uxY=
+ codeberg.org/gruf/go-maps v1.0.4/go.mod h1:ASX7osM7kFwt5O8GfGflcFjrwYGD8eIuRLl/oMjhEi8=
+ codeberg.org/gruf/go-mempool v0.0.0-20251205182607-a05549c9a993 h1:TtU8vQ1yuX//VYVFAH5fUSTpv93u9JYiumA6QlmIM8c=
+@@ -52,6 +56,8 @@ codeberg.org/gruf/go-mmap v0.0.0-20251111184116-345a42dab154 h1:2SSyx/7XgOOC9nKd
+ codeberg.org/gruf/go-mmap v0.0.0-20251111184116-345a42dab154/go.mod h1:kaHx5xHuLNf13iALbHiFpXmLeO33Ll/aW3mGkW8sI40=
+ codeberg.org/gruf/go-mutexes v1.5.9 h1:sQWz7VwvkAADMY5xHn25ak2hnw0+UhiLR+i/tqVKk2c=
+ codeberg.org/gruf/go-mutexes v1.5.9/go.mod h1:21sy/hWH8dDQBk7ocsxqo2GNpWiIir+e82RG3hjnN20=
++codeberg.org/gruf/go-mutexes v1.5.10 h1:axYkuFrt/wWR7H5L8VjyHnvKtNkd6proQnh3Ik4oTL4=
++codeberg.org/gruf/go-mutexes v1.5.10/go.mod h1:21sy/hWH8dDQBk7ocsxqo2GNpWiIir+e82RG3hjnN20=
+ codeberg.org/gruf/go-runners v1.7.0 h1:Z+8Qne4H9nAdZZbA4cij0PWhhJxtigUGA4Mp7griYes=
+ codeberg.org/gruf/go-runners v1.7.0/go.mod h1:1xBodiyuPfosJga+NYTfeepQYUrlBGCAa4NuQTbtiBw=
+ codeberg.org/gruf/go-sched v1.3.1 h1:9PKL9i9tI+EbIagOZB/2ar54+yEJo5ZPCCIs1+Ylu+E=
+@@ -62,8 +68,12 @@ codeberg.org/gruf/go-storage v0.6.1 h1:1V6aUmLhHKGzbPjp46hdY5knjYqlaQj/+zdgooUUv
+ codeberg.org/gruf/go-storage v0.6.1/go.mod h1:Zk/kpUMCikXQNJBHSjxygKwv7N/t8mJvg17sMjl29Xw=
+ codeberg.org/gruf/go-structr v0.9.16 h1:DeVbp4hBunbuDvW43/SYDyaLrlBFeTu5aI5nmh8rpZM=
+ codeberg.org/gruf/go-structr v0.9.16/go.mod h1:h/mxKjJ1o7XoAPNuvkZ56bvqs4ze5tYxSbXnwIiGxKY=
++codeberg.org/gruf/go-structr v0.9.18 h1:trjKaPYlosVphxGcAZAWdSYmDNHgs551DeFNXExeYhg=
++codeberg.org/gruf/go-structr v0.9.18/go.mod h1:RsyYUam3eiJInV/8pO/JeXnrrdUn9F8sKRe1BBkfGb8=
+ codeberg.org/gruf/go-xunsafe v0.0.0-20260211121553-1c99e9364fee h1:ZVGdv6rmXAWiyUJyuOzLdFSJDK9XOsKNr75xi0/zsN4=
+ codeberg.org/gruf/go-xunsafe v0.0.0-20260211121553-1c99e9364fee/go.mod h1:11BPvGfBffTfuv19i0FtxumArfUZJZFrAHAcYgZ0Bvk=
++codeberg.org/gruf/go-xunsafe v0.0.0-20260820215719-ea52483480e5 h1:z8acj6bam04gG1lmiZjkxYYiDcwYFVv5x1o91VZJrlc=
++codeberg.org/gruf/go-xunsafe v0.0.0-20260820215719-ea52483480e5/go.mod h1:11BPvGfBffTfuv19i0FtxumArfUZJZFrAHAcYgZ0Bvk=
+ codeberg.org/superseriousbusiness/gin v1.11.0-array-binding-fix-2 h1:QjlJYZu+TSnTTZZoc9W8iIZ4xl2aSHtsdccpW9FsTqI=
+ codeberg.org/superseriousbusiness/gin v1.11.0-array-binding-fix-2/go.mod h1:+iq/FyxlGzII0KHiBGjuNn4UNENUlKbGlNmc+W50Dls=
+ dario.cat/mergo v1.0.2 h1:85+piFYR1tMbRrLcDwR18y4UKJ3aH1Tbzi24VRW1TK8=

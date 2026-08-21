@@ -1,6 +1,6 @@
 pkgname = "zk"
 pkgver = "0.15.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["fzf"]

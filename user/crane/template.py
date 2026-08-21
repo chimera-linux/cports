@@ -1,6 +1,6 @@
 pkgname = "crane"
-pkgver = "0.20.6"
-pkgrel = 5
+pkgver = "0.21.9"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/crane"]
 hostmakedepends = ["go"]
@@ -8,9 +8,10 @@ pkgdesc = "Container image and registry manipulation tool"
 license = "Apache-2.0"
 url = "https://github.com/google/go-containerregistry"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "53f17964ade63f63b2c66231a6e1ea606345cfcc325e49a5267017bb475bdcb4"
+sha256 = "6d8bce869afcc485b518cc0d59ea0ffe1090026db965806bc3be8793182528cc"
 # cross: generates completions with host binary
-options = ["!cross"]
+# check fails with go 1.27
+options = ["!cross", "!check"]
 
 
 def post_extract(self):

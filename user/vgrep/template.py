@@ -1,6 +1,6 @@
 pkgname = "vgrep"
 pkgver = "2.8.0"
-pkgrel = 13
+pkgrel = 14
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go", "go-md2man"]

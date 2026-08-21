@@ -1,6 +1,6 @@
 pkgname = "tea"
-pkgver = "0.14.0"
-pkgrel = 4
+pkgver = "0.15.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -12,7 +12,7 @@ pkgdesc = "CLI tool to interact with Gitea servers"
 license = "MIT"
 url = "https://gitea.com/gitea/tea"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "f509de217ac0e57491ffdab2750516e8c505780881529ee703b9d0c86cc652a3"
+sha256 = "e242dd3589c31a36320d75e0de9eefa3fa429bd9b0af89d35af8585c7f514b9c"
 # generates completions and manpage with host binary
 options = ["!cross"]
 

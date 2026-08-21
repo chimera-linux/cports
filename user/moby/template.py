@@ -1,6 +1,6 @@
 pkgname = "moby"
 pkgver = "29.7.2"
-pkgrel = 0
+pkgrel = 1
 # match to release
 _commit = "6a43e3d5afddf4111da0f864bbc7cae5d7e95001"
 hostmakedepends = ["bash", "cmake", "go", "ninja", "pkgconf"]
