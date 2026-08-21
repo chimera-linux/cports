@@ -155,13 +155,15 @@ def check_stage(arch, force=False, remote=False):
                     added[pr[0:vp]] = pr[vp + 1 :]
                 else:
                     added[pr] = True
-            # accumulate repo providers...
-            for pr in rprovs[ad]:
-                vp = pr.find("=")
-                if vp > 0:
-                    dropped[pr[0:vp]] = pr[vp + 1 :]
-                else:
-                    dropped[pr] = True
+            # accumulate repo providers, may be none in the case of there
+            # being both repos but only stage having this specific package
+            if ad in rprovs:
+                for pr in rprovs[ad]:
+                    vp = pr.find("=")
+                    if vp > 0:
+                        dropped[pr[0:vp]] = pr[vp + 1 :]
+                    else:
+                        dropped[pr] = True
             # track as replaced
             replaced[p] = True
 
