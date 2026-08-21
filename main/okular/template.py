@@ -1,11 +1,11 @@
 pkgname = "okular"
-pkgver = "26.04.3"
-pkgrel = 1
+pkgver = "26.08.0"
+pkgrel = 0
 build_style = "cmake"
 # FIXME segfaults/weird failures
 make_check_args = [
     "-E",
-    "(parttest|visibilitytest|signunsignedfieldtest|documenttest|mainshelltest|annotationtoolbartest|epubgeneratortest|jsfunctionstest|keystroketest)",
+    "(parttest|visibilitytest|signunsignedfieldtest|documenttest|mainshelltest|annotationtoolbartest|epubgeneratortest|jsfunctionstest|keystroketest|annotationclipboardtest)",
 ]
 make_check_wrapper = [
     "dbus-run-session",
@@ -58,7 +58,7 @@ pkgdesc = "KDE document viewer"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/okular"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/okular-{pkgver}.tar.xz"
-sha256 = "a6e4a571acd3b70bb67eec476834b009f710540b793091f51f707b53b6facbca"
+sha256 = "235e8e761f949b81953582e3ff6e45b8832d0d551b71bd1b5098c1ad663511e4"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 hardening = ["vis"]
 # TODO

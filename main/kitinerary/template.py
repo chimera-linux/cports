@@ -1,5 +1,5 @@
 pkgname = "kitinerary"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # extractortest: difference in AT/österreich key
@@ -30,9 +30,9 @@ makedepends = [
 ]
 pkgdesc = "KDE travel reservation parsing library"
 license = "LGPL-2.0-or-later"
-url = "https://api.kde.org/kdepim/kitinerary/html"
+url = "https://community.kde.org/KDE_PIM"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
-sha256 = "2a072650508a95a99647d0ad7d23e658d092270412573f5f819372149cb49f8c"
+sha256 = "b90eeba1507d99e0d911066955031854273938ff1e4f39f9cd4173f4a549515c"
 
 
 @subpackage("kitinerary-devel")

@@ -1,5 +1,5 @@
 pkgname = "kopeninghours"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # make_check_wrapper = ["wlheadless-run", "--"]
@@ -23,11 +23,11 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE library for working with OSM opening hours"
 license = "LGPL-2.0-or-later"
-url = "https://api.kde.org/kopeninghours/html"
+url = "https://invent.kde.org/libraries/kopeninghours"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kopeninghours-{pkgver}.tar.xz"
 )
-sha256 = "309cde5d9c9ee141867fee6eca5208863a6fab13b1cdd8f89b2850d16e017ef6"
+sha256 = "b53e954f60bdebcfff1e5744b1ca62cd96065f01b25eff8f9976c75b1827862c"
 
 
 @subpackage("kopeninghours-devel")

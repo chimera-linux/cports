@@ -1,5 +1,5 @@
 pkgname = "colord-kde"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,5 +24,5 @@ pkgdesc = "KDE colord integration"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/colord-kde"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/colord-kde-{pkgver}.tar.xz"
-sha256 = "f788b2702b7599a908a62dc871bfc9c150d40943307abdde3e76b4a0a86c2f24"
+sha256 = "a7890c671be84becf06043bd71288364e2718fe09d803cc49c7ad711037f96c7"
 hardening = ["vis"]

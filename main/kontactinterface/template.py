@@ -1,6 +1,6 @@
 pkgname = "kontactinterface"
-pkgver = "26.04.3"
-pkgrel = 1
+pkgver = "26.08.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -20,11 +20,11 @@ makedepends = [
 ]
 pkgdesc = "KDE Kontact plugin interface library"
 license = "LGPL-3.0-only"
-url = "https://api.kde.org/kdepim/kontactinterface/html"
+url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kontactinterface-{pkgver}.tar.xz"
 )
-sha256 = "ec67aad623d3d80bfad1157a7be863d8f7a0eed3e8c620c59c5cd7ff276bb76a"
+sha256 = "70e37fb8fd13a89e8f34ed34b69d8d7720d6e169d21f982dce4d77d8856951cd"
 
 
 @subpackage("kontactinterface-devel")

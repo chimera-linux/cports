@@ -12,7 +12,7 @@ makedepends = [
 ]
 pkgdesc = "Qt6 cryptographic architecture"
 license = "LGPL-2.1-or-later"
-url = "https://api.kde.org/qca/html"
+url = "https://invent.kde.org/libraries/qca"
 source = f"$(KDE_SITE)/qca/{pkgver}/qca-{pkgver}.tar.xz"
 sha256 = "1c5b722da93d559365719226bb121c726ec3c0dc4c67dea34f1e50e4e0d14a02"
 hardening = ["vis"]

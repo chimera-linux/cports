@@ -1,5 +1,5 @@
 pkgname = "kasts"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -33,4 +33,4 @@ pkgdesc = "KDE convergent podcast player"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kasts"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kasts-{pkgver}.tar.xz"
-sha256 = "086e61a1d05b94a50e27b5412b01b35c89158c27ff8601f9d59e94c52e931a5e"
+sha256 = "0bffc727dcb61521fda9c4734c04d60ad28747da18de627d23e47eada80c47c8"

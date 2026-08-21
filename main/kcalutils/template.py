@@ -1,5 +1,5 @@
 pkgname = "kcalutils"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # doesn't find its own text template plugin
@@ -27,9 +27,9 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE calendar access library"
 license = "LGPL-2.1-or-later"
-url = "https://api.kde.org/kdepim/kcalutils/html"
+url = "https://community.kde.org/KDE_PIM"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcalutils-{pkgver}.tar.xz"
-sha256 = "a822d1cc8c2b08ae7944c6a574f32f91abe3a1b86adecf70e8bea4b353de88f6"
+sha256 = "96e8caf35a6e6ce6adffaa9444cfadefcd8151a05c4c929d23dab2a542a27e19"
 
 
 @subpackage("kcalutils-devel")

@@ -1,5 +1,5 @@
 pkgname = "mailimporter"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -25,11 +25,11 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE PIM library for importing mail"
 license = "LGPL-2.0-or-later AND GPL-2.0-only"
-url = "https://api.kde.org/kdepim/mailimporter/html"
+url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/mailimporter-{pkgver}.tar.xz"
 )
-sha256 = "47face1e8f0b2ad7158f6a1f033338856848a5599faf5a286887c69be8114b69"
+sha256 = "c61402add7fe11b249e565f8cbe7574f86b170e89a667de0833d40a9f4098465"
 
 
 @subpackage("mailimporter-devel")

@@ -1,7 +1,10 @@
 pkgname = "akonadi-calendar"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = [
+    "-DBUILD_PYTHON_BINDINGS=OFF",
+]
 # FIXME: ?
 make_check_args = ["-E", "kcalcoreserializertest"]
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -37,11 +40,11 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Akonadi calendar libraries"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
-url = "https://api.kde.org/kdepim/akonadi-calendar/html"
+url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-calendar-{pkgver}.tar.xz"
 )
-sha256 = "9769bb77600f4228cd3d2a74b4ed486bbc820e36d8edb3b203df9afd4805c779"
+sha256 = "6c2c21d3932c4c4905ecd6fb0b21b265ba9dc45fd35e538e2795f3b09aae2c5f"
 options = ["etcfiles"]
 
 

@@ -34,7 +34,7 @@ makedepends = [
 ]
 pkgdesc = "KDE system monitor library"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
-url = "https://api.kde.org/plasma/libksysguard/html"
+url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
 sha256 = "3882fe735a00113d6fc754d5d425703bab42b6bbbff16788e95adb4ef11bb04c"
 file_modes = {

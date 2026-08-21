@@ -1,5 +1,5 @@
 pkgname = "libkdcraw"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,9 +20,9 @@ makedepends = [
 ]
 pkgdesc = "KDE wrapper around libraw"
 license = "GPL-2.0-or-later"
-url = "https://api.kde.org/libkdcraw/html/index.html"
+url = "https://invent.kde.org/graphics/libkdcraw"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdcraw-{pkgver}.tar.xz"
-sha256 = "7bc63591e1fc1352177849a6998030dca2fca98e902a55186afec55add326f4f"
+sha256 = "cb4a21e94adb2adc4ac7f267d0e35c0449786514bd92c28bfdb75941d79c8e7e"
 hardening = ["vis"]
 
 

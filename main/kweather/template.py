@@ -1,5 +1,5 @@
 pkgname = "kweather"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,6 +17,7 @@ makedepends = [
     "kirigami-addons-devel",
     "kirigami-devel",
     "knotifications-devel",
+    "krunner-devel",
     "kweathercore-devel",
     "libplasma-devel",
     "qt6-qtcharts-devel",
@@ -27,4 +28,4 @@ pkgdesc = "KDE Weather application"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kweather"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kweather-{pkgver}.tar.xz"
-sha256 = "3d22d401742715333c2566fdb3902f82d561ee1e75f677fe958e9f161cf9021a"
+sha256 = "812726baf1e8df7d11176ab51c3fe1e1c895e4560ed6942df0c645bbbb8dcd0c"

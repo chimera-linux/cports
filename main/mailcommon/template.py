@@ -1,5 +1,5 @@
 pkgname = "mailcommon"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # sqlite all fail
@@ -48,9 +48,9 @@ makedepends = [
 ]
 pkgdesc = "KDE PIM library for mail applications"
 license = "LGPL-3.0-only AND GPL-3.0-only"
-url = "https://api.kde.org/kdepim/mailcommon/html"
+url = "https://community.kde.org/KDE_PIM"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/mailcommon-{pkgver}.tar.xz"
-sha256 = "9aa486a65f311c4e6b4013fa446780f08bc889658724e0c51c479bdf9d945a7b"
+sha256 = "40c857a171e6ea8e58a4ee8e757674506661cdd594683a25a1d2e0f60cb8f92f"
 
 
 @subpackage("mailcommon-devel")

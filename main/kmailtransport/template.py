@@ -1,5 +1,5 @@
 pkgname = "kmailtransport"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # no worthy sasl mechs
@@ -24,11 +24,11 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE mail transport library"
 license = "LGPL-2.0-or-later"
-url = "https://api.kde.org/kdepim/kmailtransport/html"
+url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kmailtransport-{pkgver}.tar.xz"
 )
-sha256 = "fea7cd107ddc2199e8c104eba00eb8469ffaaccd67ce4e403917971d23e4c675"
+sha256 = "76f24f7ffd037e431e8813cd4404d0f0b61c4a0c4fda18d92855a8cae7ea7706"
 
 
 @subpackage("kmailtransport-devel")

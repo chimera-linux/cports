@@ -1,6 +1,6 @@
 pkgname = "dolphin"
-pkgver = "26.04.3"
-pkgrel = 1
+pkgver = "26.08.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -43,12 +43,12 @@ makedepends = [
     "qt6-qtmultimedia-devel",
     # TODO: PackageKitQt6 (service menu installer)
 ]
-checkdepends = ["dbus"]
+checkdepends = ["bash", "dbus"]
 pkgdesc = "KDE File Manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/dolphin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-{pkgver}.tar.xz"
-sha256 = "d18579587f841ca5a571c3614bda0beed6e53bf5ded4d456009e187cbb9d0b44"
+sha256 = "a7e4ec09c25cb971d098875c8d3db1f0aded69d995fd5ec3769e18548eb2ad7e"
 # fixes copy/pasting file segfault in kio_file.so (KIO::WorkerThread) https://bugs.kde.org/show_bug.cgi?id=470763
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]

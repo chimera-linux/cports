@@ -1,5 +1,5 @@
 pkgname = "keditbookmarks"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -33,4 +33,4 @@ url = "https://invent.kde.org/utilities/keditbookmarks"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/keditbookmarks-{pkgver}.tar.xz"
 )
-sha256 = "434d30601214b0645366448de9397e6f0e013bade3b49cb1af845f6a741c4dd0"
+sha256 = "3580e3370bc89b55c2bd88c71b3eb5ae98fb3aa5654933eb897c705d781a067b"

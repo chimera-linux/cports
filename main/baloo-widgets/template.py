@@ -1,5 +1,5 @@
 pkgname = "baloo-widgets"
-pkgver = "26.04.3"
+pkgver = "26.08.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky filemetadataitemcounttest when parallel
@@ -22,11 +22,11 @@ makedepends = [
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Baloo widgets"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
-url = "https://api.kde.org/baloo-widgets/html/index.html"
+url = "https://community.kde.org/Baloo"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/baloo-widgets-{pkgver}.tar.xz"
 )
-sha256 = "fa5288d216d3ed9ed0926385dbc0b266b60317a60c231a6dccaff4bcd810d9fc"
+sha256 = "4ac009e3a58bc24c58710aa53d9788761f7fa6230f20c5816744bc17e6d45d9a"
 hardening = ["vis"]
 
 
