@@ -214,11 +214,13 @@ def check_stage(arch, force=False, remote=False):
             depm[pkgn] = {}
         for repo in p["repositories"]:
             depm[pkgn][repo] = deps
+
     # filter it now
     for pkgn in list(depm.keys()):
         for r in rs + rr:
-            if r in depm[pkgn]:
-                depm[pkgn] = depm[pkgn][r]
+            tr = str(r)
+            if tr in depm[pkgn]:
+                depm[pkgn] = depm[pkgn][tr]
                 break
 
     # for each revdep, do a dep check using potentially staged packages
