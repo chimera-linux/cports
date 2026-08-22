@@ -1,5 +1,5 @@
 pkgname = "udisks"
-pkgver = "2.10.2"
+pkgver = "2.11.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "Daemon, tools and libraries for disk manipulation"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/udisks"
 source = f"https://github.com/storaged-project/udisks/releases/download/udisks-{pkgver}/udisks-{pkgver}.tar.bz2"
-sha256 = "6401c715d287ec84fe605e0cb90579e8da6c395bce5f42e419f205dd297e261f"
+sha256 = "18630a8aad806bea0bc626ce97e71e50ec82c742956ac1c834a4275f8f22207b"
 options = ["etcfiles"]
 
 
