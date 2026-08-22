@@ -1,0 +1,12 @@
+pkgname = "guile-gnutls"
+pkgver = "5.0.2"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = []
+hostmakedepends = ["autoconf", "automake", "libtool", "pkgconf", "texinfo"]
+makedepends = ["guile-devel", "gnutls-devel"]
+pkgdesc = "Guile bindings for GnuTLS"
+license = "LGPL-2.1-or-later"
+url = "https://codeberg.org/guile-gnutls/guile-gnutls"
+source = f"{url}/releases/download/v{pkgver}/guile-gnutls-v{pkgver}-src.tar.gz"
+sha256 = "4ff6d57b9444c99b0d969eba52d51c80c4fcba7aec6b610c0ccc7d1613153bbc"
