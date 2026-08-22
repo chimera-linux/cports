@@ -1,5 +1,5 @@
 pkgname = "procps"
-pkgver = "4.0.6"
+pkgver = "4.0.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Utilities for monitoring your system and its processes"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.com/procps-ng/procps"
 source = f"$(SOURCEFORGE_SITE)/procps-ng/Production/procps-ng-{pkgver}.tar.xz"
-sha256 = "67bea6fbc3a42a535a0230c9e891e5ddfb4d9d39422d46565a2990d1ace15216"
+sha256 = "9d2021f47a4501c667862c9942a92d1953694b21d11bcd1702e83eb594e3d67d"
 hardening = ["!vis", "!cfi"]
 # dejagnu
 options = ["etcfiles", "!check"]
