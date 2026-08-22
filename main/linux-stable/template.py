@@ -1,13 +1,11 @@
 # update linux-stable-zfs-bin when bumping
 pkgname = "linux-stable"
-pkgver = "7.1.8"
+pkgver = "7.2.2"
 pkgrel = 0
 archs = [
     "aarch64",
     "loongarch64",
     "ppc64le",
-    "ppc64",
-    "ppc",
     "riscv64",
     "x86_64",
 ]
@@ -22,7 +20,7 @@ pkgdesc = f"Linux kernel {pkgver[0 : pkgver.rfind('.')]}.x"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "ff01dcb449279d5b4cfccdb01fee639cf5ff1803f1749a77844dd33915422c49"
+sha256 = "7d0e7ce14f98c43efe880cffbf354a59be45928fdf7170d7333c374ae91c0d83"
 # no meaningful checking to be done
 options = [
     "!check",
