@@ -47,7 +47,7 @@ index 546841e..6cbfbed 100755
 -
  # shellcheck disable=SC2050
  if [ @LIBFETCH_DYNAMIC@ -gt 0 ]; then
- 	find /lib/ -name "@LIBFETCH_SONAME@" | while read -r libfetch; do
+ 	find /lib/ -type f -name "@LIBFETCH_SONAME@" | while read -r libfetch; do
 -- 
 2.35.1
 

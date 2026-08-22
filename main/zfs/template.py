@@ -1,6 +1,6 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
-pkgver = "2.4.3"
+pkgver = "2.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ source = [
     f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
 ]
 sha256 = [
-    "1f08f2d154f5189b5f1382848a32667b3d34066145b474c49cd3d41a5fba59a7",
+    "2a3c70d55a37cc71618a95a60e81ad66530201eb118d37741dc92efcf848c8b1",
     "84d826261e04de0c1050296e7e9855cc91f431d30b1042104bf1039ddb42195d",
 ]
 hardening = ["!vis", "!cfi"]
