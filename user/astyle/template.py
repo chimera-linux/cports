@@ -1,5 +1,5 @@
 pkgname = "astyle"
-pkgver = "3.6.17"
+pkgver = "3.6.18"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DINSTALL_DOC=ON"]
@@ -8,7 +8,7 @@ pkgdesc = "Source code formatter"
 license = "MIT"
 url = "https://gitlab.com/saalen/astyle"
 source = f"{url}/-/archive/{pkgver}/astyle-{pkgver}.tar.gz"
-sha256 = "5ca894e3d651983baa4f8a36113a948b5de66328e6cd55f08a6fba91c0ffca21"
+sha256 = "3cf671a726e9b14e75fd9ad862dc6b5500f948a12700bc842e9bd4bc3a9a9915"
 
 
 def post_install(self):
