@@ -1,6 +1,6 @@
 pkgname = "openimageio"
-pkgver = "3.1.13.1"
-pkgrel = 1
+pkgver = "3.1.16.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -17,7 +17,7 @@ make_check_args = [
     #   texture-crop, texture-interp-bilinear, texture-uint8, texture-skinny
     #   texture-texture3d, unit_compute (aarch64), unit_simd, maketx, ffmpeg
     "-E",
-    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|maketx|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-texture3d|texture-udim.*|texture-uint8|unit_compute|unit_simd|unit_imageinout|ffmpeg)",
+    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|maketx|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-texture3d|texture-udim.*|texture-uint8|unit_compute|unit_simd|unit_imageinout|ffmpeg|imagebufalgo-opencv|openexr-partialtile)",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
@@ -50,7 +50,7 @@ pkgdesc = "Toolset for manipulating VFX-related image file formats"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0fc59b8e2708ded02d3793b8f3331f037ed49bfcde38158f05ac0e876ebb85b7"
+sha256 = "5af7221be05bbe69d7ec4eb74b5656c6d15b8d1a332410d6af937b1df48647c0"
 # simulate release with none
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]

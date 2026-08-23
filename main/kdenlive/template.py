@@ -1,6 +1,6 @@
 pkgname = "kdenlive"
 pkgver = "26.08.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=OFF", "-DFETCH_OTIO=OFF"]
 hostmakedepends = [

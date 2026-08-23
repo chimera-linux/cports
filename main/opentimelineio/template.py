@@ -1,6 +1,6 @@
 pkgname = "opentimelineio"
 pkgver = "0.17.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # no python bindings because it wants bundled pybind and
 # literally noone except kdenlive even uses this thing at all

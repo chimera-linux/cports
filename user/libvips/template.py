@@ -1,6 +1,6 @@
 pkgname = "libvips"
 pkgver = "8.18.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Db_ndebug=true"]
 hostmakedepends = [
