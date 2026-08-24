@@ -1,5 +1,24 @@
 requires zve32f extension and i cba to plug it in
 
+diff --git a/third_party/llama.cpp/ggml/src/ggml-cpu/ggml-cpu-c.c b/third_party/llama.cpp/ggml/src/ggml-cpu/ggml-cpu-c.c
+index b6969d7..2906fcc 100644
+--- a/third_party/llama.cpp/ggml/src/ggml-cpu/ggml-cpu-c.c
++++ b/third_party/llama.cpp/ggml/src/ggml-cpu/ggml-cpu-c.c
+@@ -730,14 +730,7 @@ static void ggml_init_arm_arch_features(void) {}
+ #endif
+ #endif // __ARM_ARCH
+ 
+-#if defined(__riscv) && defined(__riscv_v_intrinsic)
+-#include <riscv_vector.h>
+-static void ggml_init_riscv_arch_features(void) {
+-    ggml_riscv_arch_features.rvv_vlen = __riscv_vlenb();
+-}
+-#else
+ static void ggml_init_riscv_arch_features(void) {}
+-#endif
+ 
+ struct ggml_tensor * ggml_new_i32(struct ggml_context * ctx, int32_t value) {
+     GGML_ASSERT(!ggml_get_no_alloc(ctx));
 diff --git a/third_party/llama.cpp/ggml/src/ggml-cpu/simd-mappings.h b/third_party/llama.cpp/ggml/src/ggml-cpu/simd-mappings.h
 index 62e6872..eb7efd7 100644
 --- a/third_party/llama.cpp/ggml/src/ggml-cpu/simd-mappings.h
@@ -13,3 +32,83 @@ index 62e6872..eb7efd7 100644
  // F32
  
  #define GGML_F32_STEP 16
+diff --git a/third_party/llama.cpp/ggml/src/ggml-cpu/vec.cpp b/third_party/llama.cpp/ggml/src/ggml-cpu/vec.cpp
+index 67b6b05..7d15bcb 100644
+--- a/third_party/llama.cpp/ggml/src/ggml-cpu/vec.cpp
++++ b/third_party/llama.cpp/ggml/src/ggml-cpu/vec.cpp
+@@ -195,7 +195,7 @@ void ggml_vec_dot_bf16(int n, float * GGML_RESTRICT s, size_t bs, ggml_bf16_t *
+     sumf += (ggml_float)_mm_cvtss_f32(g);
+ 
+ #undef LOAD
+-#elif defined(__riscv_v_intrinsic) && defined(__riscv_zvfbfwma)
++#elif 0
+     size_t vl = __riscv_vsetvlmax_e32m4();
+ 
+     // initialize accumulators to all zeroes
+@@ -401,7 +401,7 @@ void ggml_vec_silu_f32(const int n, float * y, const float * x) {
+     for (; i + 3 < n; i += 4) {
+         vst1q_f32(y + i, ggml_v_silu(vld1q_f32(x + i)));
+     }
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+     for (int vl; i < n; i += vl) {
+         vl = __riscv_vsetvl_e32m2(n - i);
+         vfloat32m2_t vx = __riscv_vle32_v_f32m2(&x[i], vl);
+@@ -438,7 +438,7 @@ void ggml_vec_swiglu_f32(const int n, float * y, const float * x, const float *
+     for (; i + 3 < n; i += 4) {
+         vst1q_f32(y + i, vmulq_f32(ggml_v_silu(vld1q_f32(x + i)), vld1q_f32(g + i)));
+     }
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+     for (int vl; i < n; i += vl) {
+         vl = __riscv_vsetvl_e32m2(n - i);
+         vfloat32m2_t vx = __riscv_vle32_v_f32m2(&x[i], vl);
+@@ -508,7 +508,7 @@ ggml_float ggml_vec_cvar_f32(const int n, float * y, const float * x, const floa
+         val = vec_mul(val, val);
+         sum += (ggml_float)vec_hsum_f32x4(val);
+     }
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+     vfloat64m1_t vsum = __riscv_vfmv_v_f_f64m1(0, 1);
+     for (int vl; i < n; i += vl) {
+         vl = __riscv_vsetvl_e32m2(n - i);
+@@ -581,7 +581,7 @@ ggml_float ggml_vec_soft_max_f32(const int n, float * y, const float * x, float
+         vst1q_f32(y + i, val);
+         sum += (ggml_float)vaddvq_f32(val);
+     }
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+     vfloat64m1_t vsum = __riscv_vfmv_v_f_f64m1(0, 1);
+     for (int avl; i < n; i += avl) {
+         avl = __riscv_vsetvl_e32m2(n - i);
+diff --git a/third_party/llama.cpp/ggml/src/ggml-cpu/vec.h b/third_party/llama.cpp/ggml/src/ggml-cpu/vec.h
+index 5de9cb5..5bb3720 100644
+--- a/third_party/llama.cpp/ggml/src/ggml-cpu/vec.h
++++ b/third_party/llama.cpp/ggml/src/ggml-cpu/vec.h
+@@ -514,7 +514,7 @@ inline static void ggml_vec_mad_f16(const int n, ggml_fp16_t * GGML_RESTRICT y,
+         svst1_f16(pg, (__fp16 *)(y + np2), hy);
+     }
+     np = n;
+-#elif defined(__riscv_v_intrinsic) // implies __riscv_v_intrinsic
++#elif 0
+     #if defined (__riscv_zvfh)
+         const ggml_fp16_t s = GGML_CPU_FP32_TO_FP16(v);
+         const _Float16 scale = *(const _Float16*)(&s);
+@@ -794,7 +794,7 @@ inline static void ggml_vec_scale_f16(const int n, ggml_fp16_t * y, const float
+         svst1_f16(pg, (__fp16 *)(y + np), out);
+     }
+     np = n;
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+     #if defined(__riscv_zvfh)
+         const ggml_fp16_t s = GGML_CPU_FP32_TO_FP16(v);
+         const _Float16 scale = *(const _Float16*)(&s);
+@@ -1315,7 +1315,7 @@ inline static __m128 ggml_v_silu(__m128 x) {
+     return _mm_div_ps(x, one_plus_exp_neg_x);
+ }
+ 
+-#elif defined(__riscv_v_intrinsic)
++#elif 0
+ 
+ // adapted from arm limited optimized routine
+ // the maximum error is 1.45358 plus 0.5 ulps
