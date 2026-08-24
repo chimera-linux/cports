@@ -1,5 +1,5 @@
 pkgname = "typstyle"
-pkgver = "0.14.4"
+pkgver = "0.15.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Typst code formatter"
 license = "Apache-2.0"
 url = "https://github.com/Enter-tainer/typstyle"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c20a07b9535dc34c0099f744f435ebfb53668b92f05e59b115fd264ecb9f7187"
+sha256 = "0f1b86584a0eb93b0cef374ddcc62508c46ee76cd8b5ede31414260d29a38f12"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
