@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -n "$XDG_DATA_HOME" ]; then
+    mkdir -p "${XDG_DATA_HOME}/ClassiCube"
+    cd "${XDG_DATA_HOME}/ClassiCube"
+elif [ -n "$HOME" ]; then
+    mkdir -p "${HOME}/.local/share/ClassiCube"
+    cd "${HOME}/.local/share/ClassiCube"
+fi
+
+exec /usr/lib/ClassiCube "$@"

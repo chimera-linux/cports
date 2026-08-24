@@ -1,0 +1,55 @@
+diff --git a/misc/linux/install-desktop-entry.sh b/misc/linux/install-desktop-entry.sh
+index 4c80249..f37d0a2 100644
+--- a/misc/linux/install-desktop-entry.sh
++++ b/misc/linux/install-desktop-entry.sh
+@@ -1,11 +1,10 @@
+-DESKTOP_FILE=ClassiCube.desktop
+-GAME_DIR=`pwd`
++DESKTOP_FILE="${1}/usr/share/applications/ClassiCube.desktop"
+ 
+ # remove existing ClassiCube desktop entry file
+-rm $DESKTOP_FILE
++rm -f $DESKTOP_FILE
+ 
+ # download ClassiCube icon from github if necessary
+-if [ -f "CCicon.png" ]
++if :
+ then
+   echo "CCicon.png exists already. Skipping download."
+ else
+@@ -15,29 +14,24 @@ fi
+ 
+ # create ClassiCube desktop entry
+ echo 'Creating ClassiCube.desktop..'
++mkdir -p $(dirname "$DESKTOP_FILE")
+ cat >> $DESKTOP_FILE << EOF
+ [Desktop Entry]
+ Type=Application
+ Comment=Minecraft Classic inspired sandbox game
+ Name=ClassiCube
+-Exec=$GAME_DIR/ClassiCube
+-Icon=$GAME_DIR/CCicon.png
+-Path=$GAME_DIR
++Exec=ClassiCube
++Icon=CCicon
+ Terminal=false
+ Categories=Game;
+ Actions=singleplayer;resume;
+ 
+ [Desktop Action singleplayer]
+ Name=Start singleplayer
+-Exec=$GAME_DIR/ClassiCube --singleplayer
++Exec=ClassiCube --singleplayer
+ 
+ [Desktop Action resume]
+ Name=Resume last server
+-Exec=$GAME_DIR/ClassiCube --resume
++Exec=ClassiCube --resume
+ EOF
+-chmod +x $DESKTOP_FILE
+-
+-echo 'Installing ClassiCube.desktop..'
+-# install ClassiCube desktop entry into the system
+-sudo desktop-file-install --dir=/usr/share/applications ClassiCube.desktop
+-sudo update-desktop-database /usr/share/applications
++chmod 755 $DESKTOP_FILE
