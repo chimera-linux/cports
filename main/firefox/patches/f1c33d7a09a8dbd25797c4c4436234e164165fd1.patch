@@ -1,0 +1,63 @@
+From f1c33d7a09a8dbd25797c4c4436234e164165fd1 Mon Sep 17 00:00:00 2001
+From: Mike Hommey <mh+mozilla@glandium.org>
+Date: Thu, 6 Aug 2026 08:48:31 +0000
+Subject: [PATCH] Bug 2061033 - Avoid std::all_of in
+ nsAtom::ComputeIsAsciiLowercase. r=xpcom-reviewers,emilio
+
+gGkAtoms evaluates ComputeIsAsciiLowercase and HashString for all 2715 static
+atoms within a single constant expression, which leaves it close to the default
+-fconstexpr-steps budget of 1048576 on every platform.
+
+libc++ 22 made std::all_of noticeably more expensive to evaluate: for this
+workload it went from ~227600 to ~343300 steps, about 1.5x. That was enough to
+push the total over the limit on the mingw builds, which are the only ones using
+the libc++ that comes with the clang toolchain. Other platforms don't use it:
+linux uses libstdc++, mac uses the libc++ from the SDK, and windows uses the
+MSVC STL.
+
+Steps required to evaluate the gGkAtoms initializer, before and after
+this change:
+
+                                before      after
+    mingw clang 21 (libc++)     957616     729979
+    mingw clang 22 (libc++)    1073241     729979   <- over the 1048576 limit
+    linux clang 21 (libstdc++)  939550     729979
+    linux clang 22 (libstdc++)  939550     729979
+
+Spelling out the loop takes the standard library out of the picture entirely:
+all four combinations now need the same 729979 steps, a little under 70% of the
+budget, so this no longer depends on which standard library the target happens
+to use.
+
+Differential Revision: https://phabricator.services.mozilla.com/D316723
+---
+ xpcom/ds/nsAtom.h | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/xpcom/ds/nsAtom.h b/xpcom/ds/nsAtom.h
+index 0faa453cfc0c3..16afc3ea7b69b 100644
+--- a/xpcom/ds/nsAtom.h
++++ b/xpcom/ds/nsAtom.h
+@@ -36,11 +36,19 @@ class nsDynamicAtom;
+ class nsAtom {
+  public:
+   // Returns true if ToLowercaseASCII would return the string unchanged.
++  //
++  // This is deliberately a plain loop rather than std::all_of: gGkAtoms calls
++  // this for every static atom within a single constant expression, and
++  // std::all_of costs enough extra constexpr steps to exceed the default
++  // -fconstexpr-steps budget with some standard library implementations.
+   static constexpr bool ComputeIsAsciiLowercase(const char16_t* aString,
+                                                 const uint32_t aLength) {
+-    return std::all_of(aString, aString + aLength, [](char16_t c) {
+-      return !mozilla::IsAsciiUppercaseAlpha(c);
+-    });
++    for (uint32_t i = 0; i < aLength; ++i) {
++      if (mozilla::IsAsciiUppercaseAlpha(aString[i])) {
++        return false;
++      }
++    }
++    return true;
+   }
+ 
+   template <size_t N>
