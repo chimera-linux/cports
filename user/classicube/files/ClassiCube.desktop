@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+Comment=Sandbox building-block game
+Name=ClassiCube
+Exec=ClassiCube
+Icon=ClassiCube
+Terminal=false
+Categories=Game;
+Actions=singleplayer;resume;
+
+[Desktop Action singleplayer]
+Name=Start singleplayer
+Exec=ClassiCube --singleplayer
+
+[Desktop Action resume]
+Name=Resume last server
+Exec=ClassiCube --resume
