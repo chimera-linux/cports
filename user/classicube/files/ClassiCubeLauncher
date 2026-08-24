@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p "$HOME/.local/share/ClassiCube"
+cd "$HOME/.local/share/ClassiCube"
+exec ClassiCube "$@"
