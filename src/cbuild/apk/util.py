@@ -2,6 +2,230 @@ from cbuild.apk import cli
 
 import re
 
+
+def _iscdigit(val):
+    vn = ord(val)
+    return vn >= 0x30 and vn <= 0x39
+
+
+def _isclow(val):
+    vn = ord(val)
+    return vn >= 0x61 and vn <= 0x7A
+
+
+def _isxdigit(val):
+    vn = ord(val)
+    return (vn >= 0x30 and vn <= 0x39) or (vn >= 0x61 and vn <= 0x66)
+
+
+# version parser that mirrors apk's
+# we have a custom one so we can do validation better etc.
+class Token:
+    # token types
+    INITIAL_DIGIT = 0
+    DIGIT = 1
+    LETTER = 2
+    SUFFIX = 3
+    SUFFIX_NO = 4
+    COMMIT_HASH = 5
+    REVISION_NO = 6
+    END = 7
+    INVALID = 8
+
+    # suffixes
+    SUFFIX_INVALID = 0
+    SUFFIX_ALPHA = 1
+    SUFFIX_BETA = 2
+    SUFFIX_PRE = 3
+    SUFFIX_RC = 4
+    SUFFIX_NONE = 5  # delimits the higher and lower matching suffixes
+    SUFFIX_CVS = 6
+    SUFFIX_SVN = 7
+    SUFFIX_GIT = 8
+    SUFFIX_HG = 9
+    SUFFIX_P = 10
+
+    def __init__(self, ver):
+        self.token = self.INITIAL_DIGIT
+        self.input = ver
+        if not self.extract_span(_iscdigit):
+            self.token = self.INVALID
+        else:
+            self.number = int(self.value)
+
+    def extract_span(self, fun):
+        spanlen = 0
+        for i in range(len(self.input)):
+            if not fun(self.input[i]):
+                break
+            spanlen += 1
+        if spanlen == 0:
+            return False
+        self.value = self.input[0:spanlen]
+        self.input = self.input[spanlen:]
+        return True
+
+    def compare(self, otok):
+        match self.token:
+            case self.DIGIT:
+                if self.value[0] == "0" or otok.value[0] == "0":
+                    # string comparison for 0-prefixed nums, see apk version.c
+                    if self.value == otok.value:
+                        return "="
+                    elif self.value < otok.value:
+                        return "<"
+                    else:
+                        return ">"
+                else:
+                    aval = self.number
+                    bval = otok.number
+            case self.INITIAL_DIGIT | self.SUFFIX_NO | self.REVISION_NO:
+                aval = self.number
+                bval = otok.number
+            case self.SUFFIX:
+                aval = self.suffix
+                bval = otok.suffix
+            case self.LETTER:
+                aval = ord(self.value[0])
+                bval = ord(otok.value[0])
+            case _:
+                if self.value == otok.value:
+                    return "="
+                elif self.value < otok.value:
+                    return "<"
+                else:
+                    return ">"
+        # numerical comparison
+        if aval < bval:
+            return "<"
+        elif aval > bval:
+            return ">"
+        return "="
+
+    def next(self):
+        # end of stream
+        if len(self.input) == 0:
+            self.token = self.END
+            return
+        # input letter
+        inp = self.input[0]
+        # letter
+        if _isclow(inp):
+            if self.token > self.DIGIT:
+                self.token = self.INVALID
+                return
+            self.value = inp
+            self.token = self.LETTER
+            self.input = self.input[1:]
+            return
+        # suffix
+        if inp == "_":
+            if self.token > self.SUFFIX_NO or len(self.input) <= 1:
+                self.token = self.INVALID
+                return
+            self.input = self.input[1:]
+            # extract the value
+            if not self.extract_span(_isclow):
+                self.token = self.INVALID
+                return
+            # map the suffix value
+            sufmap = {
+                "alpha": self.SUFFIX_ALPHA,
+                "beta": self.SUFFIX_BETA,
+                "pre": self.SUFFIX_PRE,
+                "rc": self.SUFFIX_RC,
+                "cvs": self.SUFFIX_CVS,
+                "svn": self.SUFFIX_SVN,
+                "git": self.SUFFIX_GIT,
+                "hg": self.SUFFIX_HG,
+                "p": self.SUFFIX_P,
+            }
+            self.suffix = sufmap.get(self.value, self.SUFFIX_INVALID)
+            return
+        # hash
+        if inp == "~":
+            if self.token >= self.COMMIT_HASH or len(self.input) <= 1:
+                self.token = self.INVALID
+                return
+            self.input = self.input[1:]
+            self.token = self.COMMIT_HASH
+            # parse it...
+            if not self.extract_spn(_isxdigit):
+                self.token = self.INVALID
+            return
+        # revision
+        if inp == "-":
+            if self.token >= self.REVISION_NO or not self.input.startswith(
+                "-r"
+            ):
+                self.token = self.INVALID
+                return
+            self.input = self.input[2:]
+            self.token = self.REVISION_NO
+            if not self.extract_span(_iscdigit):
+                self.token = self.INVALID
+                return
+            self.number = int(self.value)
+            return
+        # .
+        if inp == ".":
+            if self.token > self.DIGIT:
+                self.token = self.INVALID
+                return
+            # fall through...
+            self.input = self.input[1:]
+        elif not _iscdigit(inp):
+            self.token = self.INVALID
+            return
+        # number
+        match self.token:
+            case self.INITIAL_DIGIT | self.DIGIT:
+                self.token = self.DIGIT
+            case self.SUFFIX:
+                self.token = self.SUFFIX_NO
+            case _:
+                self.token = self.INVALID
+                return
+        if not self.extract_span(_iscdigit):
+            self.token = self.INVALID
+            return
+        self.number = int(self.value)
+
+
+def version_validate(ver):
+    tok = Token(ver)
+    while tok.token < tok.END:
+        tok.next()
+    return tok.token == tok.END
+
+
+def version_compare(vera, verb):
+    toka = Token(vera)
+    tokb = Token(verb)
+
+    while toka.token == tokb.token and toka.token < Token.END:
+        ret = toka.compare(tokb)
+        if ret != "=":
+            return ret
+        toka.next()
+        tokb.next()
+
+    if toka.token == tokb.token:
+        return "="
+
+    if toka.token == Token.SUFFIX and toka.suffix < Token.SUFFIX_NONE:
+        return "<"
+    if tokb.token == Token.SUFFIX and tokb.suffix < Token.SUFFIX_NONE:
+        return ">"
+
+    if toka.token > tokb.token:
+        return "<"
+    if tokb.token > toka.token:
+        return ">"
+
+    return "="
+
+
 _valid_ops = {
     "<=": True,
     "<": True,
