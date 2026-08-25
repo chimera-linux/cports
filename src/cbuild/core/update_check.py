@@ -13,7 +13,7 @@ import gzip
 import io
 import re
 
-from cbuild.apk import cli as apkcli
+from cbuild.apk import util as autil
 
 
 # implements version sorting as in gnu sort(1) version sort
@@ -549,7 +549,7 @@ def update_check(pkg, verbose=False, error=False):
         if ignored:
             continue
 
-        ret = apkcli.compare_version(
+        ret = autil.version_compare(
             uc.pkgver.replace("-", "."), v.replace("-", "."), False
         )
         if ret == -1:

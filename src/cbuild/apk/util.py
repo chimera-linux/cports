@@ -201,7 +201,7 @@ def version_validate(ver):
     return tok.token == tok.END
 
 
-def version_compare(vera, verb):
+def version_compare_op(vera, verb):
     toka = Token(vera)
     tokb = Token(verb)
 
@@ -226,6 +226,22 @@ def version_compare(vera, verb):
         return ">"
 
     return "="
+
+
+def version_compare(vera, verb, strict=True):
+    if strict:
+        if not version_validate(vera):
+            raise RuntimeError(f"invalid version '{vera}' for comparison")
+        if not version_validate(verb):
+            raise RuntimeError(f"invalid version '{verb}' for comparison")
+
+    cmp = version_compare_op(vera, verb)
+    if cmp == "=":
+        return 0
+    elif cmp == "<":
+        return -1
+    else:
+        return 1
 
 
 _valid_ops = {
@@ -260,8 +276,6 @@ def split_pkg_name(s):
 
 
 def pkg_match(pname, ver, pattern):
-    from cbuild.apk import cli
-
     for i, c in enumerate(pattern):
         if c == "<" or c == ">" or c == "~" or c == "=":
             # names don't match
@@ -281,7 +295,7 @@ def pkg_match(pname, ver, pattern):
                 sep2 = pattern[sidx : sidx + 2]
             else:
                 sep2 = pattern[sidx : sidx + 1]
-            cmpv = cli.compare_version(ver, pattern[sidx + len(sep2) :])
+            cmpv = version_compare(ver, pattern[sidx + len(sep2) :])
             # if version is greater, always return
             # for less than, also return if version is equal
             if cmpv > 0 or (sep2 == "<" and cmpv == 0):
@@ -299,7 +313,7 @@ def pkg_match(pname, ver, pattern):
     pattern = pattern.removeprefix(sep1)
 
     # lower limit comparison
-    cmpv = cli.compare_version(ver, pattern)
+    cmpv = version_compare(ver, pattern)
 
     # fuzzy compare
     if sep1 == "~":
@@ -309,7 +323,7 @@ def pkg_match(pname, ver, pattern):
         ver = ver[len(pattern) :]
         # second, what follows must be a new token
         # both versions are already guaranteed to be
-        # in valid format thanks to compare_version
+        # in valid format thanks to version_compare
         return (len(ver) == 0) or (ver[0] in "-._")
 
     if sep1 == "<=" and cmpv > 0:
@@ -370,7 +384,7 @@ if __name__ == "__main__":
                 if "~" in lns[1]:
                     # we don't support fuzzy match here
                     continue
-                if version_compare(lns[0], lns[2]) != lns[1]:
+                if version_compare_op(lns[0], lns[2]) != lns[1]:
                     print(f"FAIL {ln}")
 
     sys.exit(code)

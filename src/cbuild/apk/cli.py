@@ -1,6 +1,6 @@
 from cbuild.core import logger, paths, chroot as cbroot, profile
 
-from . import sign as asign
+from . import sign as asign, util as autil
 
 import os
 import json
@@ -216,34 +216,6 @@ def get_provider(pkgn, pkg=None):
     return None
 
 
-def check_version(*args):
-    v = subprocess.run(
-        [paths.apk(), "version", "--quiet", "--check", *args],
-        capture_output=True,
-    )
-    return v.returncode == 0
-
-
-def compare_version(v1, v2, strict=True):
-    if strict and not check_version(v1, v2):
-        # this is more like an assertion, in cases where strict checking
-        # is used this should never fire unless something is super wrong
-        raise RuntimeError("invalid version")
-
-    v = subprocess.run(
-        [paths.apk(), "version", "--quiet", "--test", v1, v2],
-        capture_output=True,
-        check=True,
-    ).stdout.strip()
-
-    if v == b"=":
-        return 0
-    elif v == b"<":
-        return -1
-    else:
-        return 1
-
-
 def summarize_repo(repopath, olist, quiet=False):
     rtimes = {}
     obsolete = []
@@ -283,14 +255,14 @@ def summarize_repo(repopath, olist, quiet=False):
             else:
                 # same timestamp? should pretty much never happen
                 # take the newer version anyway
-                if compare_version(pf[rd + 1 :], ofn[rd + 1 : -4]) > 0:
+                if autil.version_compare(pf[rd + 1 :], ofn[rd + 1 : -4]) > 0:
                     rtimes[pn] = (mt, f.name)
                     obsolete.append(ofn)
                 else:
                     obsolete.append(f.name)
                 continue
 
-            if compare_version(tov, fromv, False) < 0 and not quiet:
+            if autil.version_compare(tov, fromv, False) < 0 and not quiet:
                 logger.get().out(
                     f"\f[orange]WARNING: Using lower version ({fromf} => {tof}): newer timestamp..."
                 )
