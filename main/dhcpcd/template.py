@@ -1,6 +1,6 @@
 pkgname = "dhcpcd"
-pkgver = "10.3.2"
-pkgrel = 2
+pkgver = "10.5.2"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -11,6 +11,7 @@ configure_args = [
     "--dbdir=/var/lib/dhcpcd",
     "--privsepuser=_dhcpcd",
     "--enable-privsep",
+    "--without-libpcap",
 ]
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
@@ -20,9 +21,7 @@ pkgdesc = "RFC2131 compliant DHCP client"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/dhcpcd"
 source = f"https://github.com/NetworkConfiguration/dhcpcd/releases/download/v{pkgver}/dhcpcd-{pkgver}.tar.xz"
-sha256 = "b6aa46932074906a9badef1bfe142b8aff9d041c2689e1ef8b74c12e9fd942bd"
-# FIXME vis for usr/lib/dhcpcd/dev/udev.so
-hardening = ["!vis", "!cfi"]
+sha256 = "3e476657fdb6eeb38b277da3a48d0ac0113ecce5858ebdcddff2b629faed52b4"
 options = ["etcfiles"]
 
 
