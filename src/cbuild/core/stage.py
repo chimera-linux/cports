@@ -1,6 +1,6 @@
 from cbuild.core import logger, paths, chroot, profile, template
 from cbuild.util import flock
-from cbuild.apk import cli
+from cbuild.apk import cli, util as autil
 
 import json
 import time
@@ -264,13 +264,13 @@ def check_stage(arch, force=False, remote=False):
                 # do a constraint check for dropped
                 dv = dropped[ad]
                 if dv is not True:
-                    ret = _call_apk("version", "--test", av, dv).stdout.strip()
-                    if ret == b"<":
+                    ret = autil.version_compare(av, dv)
+                    if ret < 0:
                         # constraint ver is lower than provider ver
                         # skip constraints that ask for a smaller/equal version
                         if ao == "=" or ao.startswith("<"):
                             continue
-                    elif ret == b">":
+                    elif ret > 0:
                         # constraint ver is larger than provider ver
                         # skip constraints that ask for a larger/equal version
                         if ao == "=" or ao.startswith(">"):
@@ -283,12 +283,12 @@ def check_stage(arch, force=False, remote=False):
                 # the deleted constraint matched; now check if an added matches
                 nv = added.get(ad, None)
                 if nv is not None:
-                    ret = _call_apk("version", "--test", av, nv).stdout.strip()
-                    if ret == b"<":
+                    ret = autil.version_compare(av, nv)
+                    if ret < 0:
                         # constraint ver is lower than provider ver
                         if ao.startswith(">"):
                             continue
-                    elif ret == b">":
+                    elif ret > 0:
                         # constraint ver is larger than provider ver
                         if ao.startswith("<"):
                             continue
