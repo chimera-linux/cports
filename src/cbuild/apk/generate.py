@@ -1,7 +1,6 @@
 from cbuild.core import paths
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
-import json
 import shlex
 import pathlib
 
@@ -28,37 +27,27 @@ def _get_old_deps(pkg, arch):
         sysp = paths.bldroot()
 
     def _get_sum(allow_net):
-        sout = (
-            acli.call(
-                "query",
-                [
-                    "--from=none",
-                    "--format=json",
-                    "--fields=version,depends,provides,install-if",
-                    pkg.pkgname,
-                ],
-                pkg,
-                root=sysp,
-                capture_output=True,
-                arch=arch,
-                allow_untrusted=True,
-                allow_network=allow_net,
-            )
-            .stdout.strip()
-            .decode()
+        return acli.query(
+            ["version", "depends", "provides", "install-if"],
+            [
+                "--from=none",
+                pkg.pkgname,
+            ],
+            pkg,
+            root=sysp,
+            arch=arch,
+            allow_untrusted=True,
+            allow_network=allow_net,
         )
-        if len(sout) == 0:
-            return []
-        return json.loads(sout)
 
     # first fetch from local repo, fall back to network
     # this is to prevent having to disambiguate between different
     # package providers and so on, always get only one...
     depsum = _get_sum(False)
-    if len(depsum) == 0:
+    if not depsum:
         depsum = _get_sum(True)
 
-    if len(depsum) == 0:
+    if not depsum:
         return None, [], [], []
 
     fver = depsum[0]
