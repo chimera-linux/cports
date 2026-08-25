@@ -1,5 +1,5 @@
 from cbuild.core import chroot, logger
-from cbuild.apk import cli
+from cbuild.apk import util as autil
 
 import re
 import pathlib
@@ -126,7 +126,7 @@ def _invoke_pc(pkg):
             # fallback
             if len(mver) == 0 or pkg.alternative:
                 mver = "0"
-            elif not cli.check_version(mver):
+            elif not autil.version_validate(mver):
                 # test with apk
                 pkg.error(
                     f"invalid pkgconf version {mver}",
@@ -216,7 +216,7 @@ def _invoke_so(pkg):
             autosfx = "".join(sfxs[1:])[1:]
             if len(autosfx) == 0:
                 autosfx = "0"
-            elif not cli.check_version(autosfx):
+            elif not autil.version_validate(autosfx):
                 pkg.error(f"invalid so version {autosfx}")
 
             if soname not in soset:

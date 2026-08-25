@@ -264,7 +264,7 @@ def _scan_pc(pkg):
                 # validate so we don't fail at apk creation stage
                 if ln[idx.start() : idx.end()] not in _pc_ops:
                     pkg.error(f"invalid operator in constraint '{ln}'")
-                if not cli.check_version(ln[idx.end() :]):
+                if not autil.version_validate(ln[idx.end() :]):
                     pkg.error(f"invalid version in constraint '{ln}'")
             else:
                 pname = ln

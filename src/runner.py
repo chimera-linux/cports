@@ -2344,7 +2344,7 @@ def do_prepare_upgrade(tgt):
 
 def do_bump_pkgver(tgt):
     from cbuild.core import chroot, logger, template, errors
-    from cbuild.apk import cli as acli
+    from cbuild.apk import util as autil
     import pathlib
 
     if len(cmdline.command) != 3:
@@ -2353,7 +2353,7 @@ def do_bump_pkgver(tgt):
     pkgn = cmdline.command[1]
     pkgv = cmdline.command[2]
 
-    if not acli.check_version(pkgv):
+    if not autil.version_validate(pkgv):
         raise errors.CbuildException(f"version '{pkgv}' is invalid")
 
     try:

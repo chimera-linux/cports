@@ -1385,7 +1385,7 @@ class Template(Package):
 
         verstr = f"{self.pkgver}-r{self.pkgrel}"
 
-        if not cli.check_version(verstr):
+        if not autil.version_validate(verstr):
             self.error("pkgver has an invalid format")
 
         iifstr = f"={verstr}"
