@@ -1,5 +1,3 @@
-from cbuild.apk import cli
-
 import re
 
 
@@ -141,6 +139,8 @@ class Token:
                 "p": self.SUFFIX_P,
             }
             self.suffix = sufmap.get(self.value, self.SUFFIX_INVALID)
+            if self.suffix == self.SUFFIX_INVALID:
+                self.token = self.INVALID
             return
         # hash
         if inp == "~":
@@ -150,7 +150,7 @@ class Token:
             self.input = self.input[1:]
             self.token = self.COMMIT_HASH
             # parse it...
-            if not self.extract_spn(_isxdigit):
+            if not self.extract_span(_isxdigit):
                 self.token = self.INVALID
             return
         # revision
@@ -258,6 +258,8 @@ def split_pkg_name(s):
 
 
 def pkg_match(pname, ver, pattern):
+    from cbuild.apk import cli
+
     for i, c in enumerate(pattern):
         if c == "<" or c == ">" or c == "~" or c == "=":
             # names don't match
@@ -332,3 +334,41 @@ def set_compression(comp):
 
 def get_compression():
     return _comp
+
+
+# test for version parser; pass test/unit/version.data as input
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) < 2:
+        print("no test data given")
+        sys.exit(1)
+
+    code = 0
+
+    with open(sys.argv[1]) as tdata:
+        for ln in tdata:
+            ln = ln.strip()
+            if len(ln) == 0:
+                continue
+            if "#" in ln:
+                ln = ln[0 : ln.find("#")].strip()
+            lns = ln.split()
+            if len(lns) == 1:
+                if lns[0].startswith("!"):
+                    if version_validate(lns[0][1:]):
+                        print(f"FAIL {ln}")
+                        code = 1
+                elif not version_validate(lns[0]):
+                    print(f"FAIL {ln}")
+                    code = 1
+            elif len(lns) != 3:
+                print(f"malformed line '{ln}'")
+            else:
+                if "~" in lns[1]:
+                    # we don't support fuzzy match here
+                    continue
+                if version_compare(lns[0], lns[2]) != lns[1]:
+                    print(f"FAIL {ln}")
+
+    sys.exit(code)
