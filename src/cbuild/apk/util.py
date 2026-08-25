@@ -1,7 +1,5 @@
 from cbuild.apk import cli
 
-from enum import Enum
-
 import re
 
 _valid_ops = {
@@ -35,78 +33,48 @@ def split_pkg_name(s):
     return None, None, None
 
 
-class Operator(Enum):
-    LE = 0
-    LT = 1
-    GE = 2
-    GT = 3
-    EQ = 4
-    EF = 5
-
-
-_ops = {
-    "<=": Operator.LE,
-    "<": Operator.LT,
-    ">=": Operator.GE,
-    ">": Operator.GT,
-    "=": Operator.EQ,
-    "~": Operator.EF,
-}
-
-
-def _op_find(pat):
-    opid = _ops.get(pat[0:2], None)
-    if not opid:
-        opid = _ops.get(pat[0], None)
-        if not opid:
-            return None, -1
-        return opid, 1
-    return opid, 2
-
-
 def pkg_match(pname, ver, pattern):
-    sepidx = -1
-
     for i, c in enumerate(pattern):
         if c == "<" or c == ">" or c == "~" or c == "=":
-            sepidx = i
+            # names don't match
+            if pname != pattern[0:i]:
+                return False
+            # strip the name
+            pattern = pattern[i:]
             break
     else:
         return False
 
-    # names don't match
-    if pname != pattern[0:sepidx]:
-        return False
-
-    pattern = pattern[sepidx:]
-
-    sep1, sep1l = _op_find(pattern)
-
-    if sep1 == Operator.GT or sep1 == Operator.GE:
+    if pattern[0:1] == ">":
+        # foo>x<y
         sidx = pattern.find("<")
         if sidx > 0:
-            sep2, sep2l = _op_find(pattern[sidx:])
-            if not sep2:
-                return False
-            cmpv = cli.compare_version(ver, pattern[sidx + sep2l :])
+            if pattern[sidx : sidx + 2] in _valid_ops:
+                sep2 = pattern[sidx : sidx + 2]
+            else:
+                sep2 = pattern[sidx : sidx + 1]
+            cmpv = cli.compare_version(ver, pattern[sidx + len(sep2) :])
             # if version is greater, always return
-            if cmpv > 0:
+            # for less than, also return if version is equal
+            if cmpv > 0 or (sep2 == "<" and cmpv == 0):
                 return False
-            # for less-than, also return if version is equal
-            if sep2 == Operator.LT and cmpv == 0:
-                return False
-            # substring the version for lower limit cmp
-            pattern = pattern[sep1l:sidx]
-        else:
-            pattern = pattern[sep1l:]
+            # strip the part of the check we did already
+            pattern = pattern[:sidx]
+
+    # split the operator
+    if pattern[0:2] in _valid_ops:
+        sep1 = pattern[0:2]
     else:
-        pattern = pattern[sep1l:]
+        sep1 = pattern[0:1]
+
+    # and drop it from the rest of the check
+    pattern = pattern.removeprefix(sep1)
 
     # lower limit comparison
     cmpv = cli.compare_version(ver, pattern)
 
     # fuzzy compare
-    if sep1 == Operator.EF:
+    if sep1 == "~":
         # first, the prefix has to be the same
         if not ver.startswith(pattern):
             return False
@@ -116,15 +84,15 @@ def pkg_match(pname, ver, pattern):
         # in valid format thanks to compare_version
         return (len(ver) == 0) or (ver[0] in "-._")
 
-    if sep1 == Operator.LE and cmpv > 0:
+    if sep1 == "<=" and cmpv > 0:
         return False
-    elif sep1 == Operator.LT and cmpv >= 0:
+    elif sep1 == "<" and cmpv >= 0:
         return False
-    elif sep1 == Operator.GE and cmpv < 0:
+    elif sep1 == ">=" and cmpv < 0:
         return False
-    elif sep1 == Operator.GT and cmpv <= 0:
+    elif sep1 == ">" and cmpv <= 0:
         return False
-    elif sep1 == Operator.EQ and cmpv != 0:
+    elif sep1 == "=" and cmpv != 0:
         return False
 
     return True
