@@ -141,6 +141,8 @@ class Token:
             self.suffix = sufmap.get(self.value, self.SUFFIX_INVALID)
             if self.suffix == self.SUFFIX_INVALID:
                 self.token = self.INVALID
+            else:
+                self.token = self.SUFFIX
             return
         # hash
         if inp == "~":
