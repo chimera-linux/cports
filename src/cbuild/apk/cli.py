@@ -217,9 +217,6 @@ def get_provider(pkgn, pkg=None):
 
 
 def check_version(*args):
-    # buggy apk behavior
-    if len(args) == 1 and not args[0][0].isdigit():
-        return False
     v = subprocess.run(
         [paths.apk(), "version", "--quiet", "--check", *args],
         capture_output=True,
