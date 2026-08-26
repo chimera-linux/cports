@@ -1,5 +1,5 @@
 pkgname = "flare"
-pkgver = "0.21.0"
+pkgver = "0.22.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -28,7 +28,7 @@ pkgdesc = "Unofficial Signal Desktop app"
 license = "AGPL-3.0-only"
 url = "https://mobile.schmidhuberj.de/flare"
 source = f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz"
-sha256 = "80638b22753a39ed1583cbff2d2dcb837848ba3f75909145c4b27e3476f0ec26"
+sha256 = "ac0a09a11dc3265c89eebeb01e2f8951f57c8aa8ccc39f10a70542275dcc7729"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
