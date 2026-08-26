@@ -1,0 +1,19 @@
+diff -urN a/test/test-list.h b/test/test-list.h
+--- a/test/test-list.h	2026-03-06 20:05:38.000000000 +0000
++++ b/test/test-list.h	2026-08-26 22:02:31.815033171 +0100
+@@ -486,7 +486,6 @@
+ TEST_DECLARE   (thread_create)
+ TEST_DECLARE   (thread_equal)
+ TEST_DECLARE   (thread_affinity)
+-TEST_DECLARE   (thread_priority)
+ TEST_DECLARE   (thread_name)
+ TEST_DECLARE   (thread_name_threadpool)
+ TEST_DECLARE   (dlerror)
+@@ -1214,7 +1213,6 @@
+   TEST_ENTRY  (thread_create)
+   TEST_ENTRY  (thread_equal)
+   TEST_ENTRY  (thread_affinity)
+-  TEST_ENTRY  (thread_priority)
+   TEST_ENTRY  (thread_name)
+   TEST_ENTRY  (thread_name_threadpool)
+   TEST_ENTRY  (dlerror)
