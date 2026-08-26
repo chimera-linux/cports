@@ -15,8 +15,9 @@ options = []
 if self.profile().wordsize == 32:
     broken = "uses atomic64"
 
-if self.profile().arch in ["ppc64le"]:
-    # stack overflow in several tests
+if self.profile().arch in ["loongarch64", "ppc64le"]:
+    # loongarch64: some tests time out
+    # ppc64le: stack overflow in several tests
     options += ["!check"]
 
 
