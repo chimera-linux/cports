@@ -2,6 +2,12 @@ pkgname = "emmylua-analyzer-rust"
 pkgver = "0.25.1"
 pkgrel = 0
 build_style = "cargo"
+make_check_args = [
+    "--",
+    # ppc64le stack overflow
+    "--skip=compilation::analyzer::flow::bind_analyze::engine::tests::test_flow_bind_deep_logical_chain",
+]
+
 hostmakedepends = ["cargo-auditable", "openssl3-devel", "pkgconf"]
 makedepends = ["rust-std"]
 pkgdesc = "Lua language server, formatter, linter, and doc generator"
