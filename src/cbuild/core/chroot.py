@@ -613,9 +613,11 @@ def update(pkg):
     _prepare_etc()
 
     with flock.lock(flock.apklock(host_cpu())):
-        fret = apki.call("update", ["-q"], pkg, use_stage=True)
+        fret = apki.call("update", ["-q"], pkg, use_stage=True, chroot=True)
         if fret.returncode == 0:
-            fret = apki.call("upgrade", ["--available"], pkg, use_stage=True)
+            fret = apki.call(
+                "upgrade", ["--available"], pkg, use_stage=True, chroot=True
+            )
         if fret.returncode != 0:
             raise errors.CbuildException("failed to update bldroot")
 
