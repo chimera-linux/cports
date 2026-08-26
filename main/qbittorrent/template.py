@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
-pkgver = "5.1.4"
-pkgrel = 7
+pkgver = "5.2.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DSTACKTRACE=OFF"]
 hostmakedepends = [
@@ -23,7 +23,7 @@ pkgdesc = "QT-based torrent client"
 license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"
-sha256 = "ab37deeb364049a308127c572f139bd5eb0535fa355db8821e5aa31990b5625e"
+sha256 = "a5f540cdfb0053f0ce1a1c62ccd92d08214f16bcb2c512569ec54d81531e541f"
 # CFI: BitTorrent::SessionImpl::SessionImpl crash
 hardening = ["vis", "!cfi"]
 # don't build
