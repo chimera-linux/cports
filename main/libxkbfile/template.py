@@ -1,5 +1,5 @@
 pkgname = "libxkbfile"
-pkgver = "1.1.3"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Xkbfile library from X.org"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libxkbfile-{pkgver}.tar.xz"
-sha256 = "a9b63eea997abb9ee6a8b4fbb515831c841f471af845a09de443b28003874bec"
+sha256 = "7f71884e5faf56fb0e823f3848599cf9b5a9afce51c90982baeb64f635233ebf"
 
 
 def post_install(self):
