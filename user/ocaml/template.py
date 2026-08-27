@@ -1,5 +1,5 @@
 pkgname = "ocaml"
-pkgver = "5.4.0"
+pkgver = "5.5.0"
 pkgrel = 0
 archs = ["aarch64", "ppc64", "ppc64le", "x86_64"]
 build_style = "gnu_configure"
@@ -12,8 +12,8 @@ depends = [self.with_pkgver("ocaml-runtime"), *makedepends]
 pkgdesc = "Implementation of the OCaml language"
 license = "LGPL-2.1-only WITH OCaml-LGPL-linking-exception"
 url = "https://ocaml.org"
-source = f"https://github.com/ocaml/ocaml/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4ab55ac30d247e20f35df20a9f7596e5eb5f92fbbd0f8e3e54838bbc3edf931e"
+source = f"https://caml.inria.fr/pub/distrib/ocaml-5.5/ocaml-{pkgver}.tar.xz"
+sha256 = "fcc6ae665d1ec51d52510eaac7834a86a9806bf5a258bb7cca78733fccf015ba"
 tools = {"ASPP": "cc -c", "AS": "cc -c"}
 hardening = ["!int"]
 # may be disabled
