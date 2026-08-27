@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-markdown"
 pkgver = "0.5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [

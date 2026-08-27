@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-query"
 pkgver = "0.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-vimdoc"
 pkgver = "4.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [

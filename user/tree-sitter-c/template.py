@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-c"
 pkgver = "0.24.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
