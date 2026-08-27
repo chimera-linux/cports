@@ -1,6 +1,7 @@
---- a/autogen.sh
-+++ b/autogen.sh
-@@ -265,8 +265,8 @@
+diff -urN a/autogen.sh b/autogen.sh
+--- a/autogen.sh	2025-09-24 08:28:47.000000000 +0100
++++ b/autogen.sh	2026-08-26 16:54:36.135911910 +0100
+@@ -285,8 +285,8 @@
        rvd=$((0x$(echo ${rev} | dd bs=1 count=4 2>/dev/null)))
      else
        ingit=no
@@ -8,6 +9,6 @@
 -      tmp="-unknown"
 +      beta=no
 +      tmp=""
+       cid="0000000"
        rev="0000000"
        rvd="0"
-     fi
