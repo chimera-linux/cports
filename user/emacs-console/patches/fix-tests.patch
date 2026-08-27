@@ -1,6 +1,6 @@
 --- a/test/src/process-tests.el
 +++ b/test/src/process-tests.el
-@@ -416,10 +416,7 @@
+@@ -424,10 +424,7 @@
  
  ;; Check if the Internet seems to be working.  Mainly to pacify
  ;; Debian's CI system.
@@ -15,14 +15,42 @@
 
 --- a/test/lisp/wdired-tests.el
 +++ b/test/lisp/wdired-tests.el
-@@ -141,9 +141,7 @@
+@@ -144,10 +144,7 @@
    ;; FIXME: Add a test for a door (indicator ">") only under Solaris?
    (ert-with-temp-directory test-dir
      (let* ((dired-listing-switches "-Fl")
 -           (dired-ls-F-marks-symlinks
--            (or (eq system-type 'darwin)
+-            (or (and (memq system-type '(berkeley-unix darwin))
+-		     (not (string= insert-directory-program "gls")))
 -                (featurep 'ls-lisp)))
 +           (dired-ls-F-marks-symlinks t)
             (buf (find-file-noselect test-dir))
             proc)
        (unwind-protect
+
+--- a/test/lisp/ffap-tests.el
++++ b/test/lisp/ffap-tests.el
+@@ -241,23 +241,6 @@
+     (should (equal (ffap--c-path)
+                    (delete-dups (ffap--c-path))))))
+ 
+-(ert-deftest ffap-tests--c-path/gcc-mocked ()
+-  ;; Handle empty values of "gcc -print-multiarch".
+-  (cl-letf (((symbol-function 'call-process)
+-             (lambda (_program &optional _infile _destination _display &rest args)
+-               (when (equal (car args) "-print-multiarch")
+-                 (insert "\n") 0))))
+-    (should (member (expand-file-name "/usr/include")
+-                    (ffap--c-path))))
+-  ;; Handle single values of "gcc -print-multiarch".
+-  (cl-letf ((system-type 'foo)
+-            ((symbol-function 'call-process)
+-             (lambda (_program &optional _infile _destination _display &rest args)
+-               (when (equal (car args) "-print-multiarch")
+-                 (insert "x86_64-linux-gnu\n") 0))))
+-    (should (member (expand-file-name "/usr/include/x86_64-linux-gnu")
+-                    (ffap--c-path)))))
+-
+ (ert-deftest ffap-tests--c-path/clang-mocked ()
+   ;; Handle clang 15.0.0 output on macOS 15.2.
+   (cl-letf (((symbol-function 'ffap--gcc-is-clang-p) (lambda () t))
