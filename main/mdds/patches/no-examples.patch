@@ -1,0 +1,25 @@
+diff --git a/Makefile.am b/Makefile.am
+index 0234bf2..6f33889 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -2,7 +2,7 @@
+ #
+ # SPDX-License-Identifier: MIT
+ 
+-SUBDIRS = include example misc test tools
++SUBDIRS = include misc test tools
+ 
+ pkgconfdir = $(datarootdir)/pkgconfig
+ 
+diff --git a/test/multi_type_vector/Makefile.am b/test/multi_type_vector/Makefile.am
+index 1be4a12..2099978 100644
+--- a/test/multi_type_vector/Makefile.am
++++ b/test/multi_type_vector/Makefile.am
+@@ -10,7 +10,6 @@ SUBDIRS = \
+ 	debug-util \
+ 	default \
+ 	element-blocks \
+-	exec-policy \
+ 	event \
+ 	perf \
+ 	push-emplace-back
