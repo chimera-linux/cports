@@ -1,0 +1,33 @@
+diff --git a/build/gen.py b/build/gen.py
+index e4e377e..faec776 100755
+--- a/build/gen.py
++++ b/build/gen.py
+@@ -444,28 +444,6 @@ def WriteGenericNinja(path, static_libraries, executables,
+       ] if options.starlark else []),
+   )
+ 
+-  ninja.Phony(
+-      'check_all',
+-      inputs=[
+-          ninja.RunBinary(
+-              'check_formatter',
+-              inputs=[ninja.source_file('tools/run_formatter.sh')],
+-              implicit_inputs=ninja.directory(ninja.source_file('src'), ['target']),
+-              args='--diff',
+-          ),
+-          ninja.RunBinary(
+-              'check_reference',
+-              inputs=[ninja.source_file('tools/update_reference.sh')],
+-              implicit_inputs=[
+-                  'gn' + platform.exe_suffix,
+-                  ninja.source_file('docs/reference.md'),
+-              ],
+-              args='--diff',
+-              env=f'NOBUILD=1 NINJA_OUT_DIR={os.path.relpath(build_dir, REPO_ROOT)}',
+-          ),
+-      ],
+-  )
+-
+   if options.gen_target:
+     if '=' not in options.gen_target:
+       raise ValueError(f'Invalid --gen format: {repr(options.gen_target)}. Expected <src_dir>=<out_dir>')
