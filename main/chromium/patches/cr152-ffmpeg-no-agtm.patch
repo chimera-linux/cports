@@ -1,4 +1,4 @@
-From 2536ab5514de27a9d354ce953261dd8b2c904f25 Mon Sep 17 00:00:00 2001
+From 6c6220f7f29eaebdf99f5610c78d342ad44704a2 Mon Sep 17 00:00:00 2001
 From: LN Liberda <lauren@selfisekai.rocks>
 Date: Wed, 24 Jun 2026 02:17:34 +0200
 Subject: [PATCH] Revert "ffmpeg_demuxer: Process AGTM side data"
@@ -7,12 +7,14 @@ This reverts commit cf94ed446320d35c8613ed9b3ffb6e6a61bfcb5f.
 
 Requires ffmpeg commits 6ba6db4f19 and 7faa6ee2aa, (lavc 62.30.100 and
 lavu 60.30.100), not part of any stable release (as of ffmpeg 8.1).
+
+Adjusted for commit bf6be9310a07b981edf81e0ac9b89dead09be35c.
 ---
  media/ffmpeg/ffmpeg_common.h                |  1 -
- media/filters/ffmpeg_demuxer.cc             | 44 +++++----------------
+ media/filters/ffmpeg_demuxer.cc             | 42 ++++-----------------
  media/filters/ffmpeg_demuxer_unittest.cc    | 22 +----------
- media/filters/vpx_video_decoder_unittest.cc | 14 +++++--
- 4 files changed, 22 insertions(+), 59 deletions(-)
+ media/filters/vpx_video_decoder_unittest.cc | 13 +++++--
+ 4 files changed, 19 insertions(+), 59 deletions(-)
 
 diff --git a/media/ffmpeg/ffmpeg_common.h b/media/ffmpeg/ffmpeg_common.h
 index 8e26790c43688..1794592510ae3 100644
@@ -27,7 +29,7 @@ index 8e26790c43688..1794592510ae3 100644
  #include <libavutil/log.h>
  #include <libavutil/mastering_display_metadata.h>
 diff --git a/media/filters/ffmpeg_demuxer.cc b/media/filters/ffmpeg_demuxer.cc
-index 78aaf892233a1..4ae9825987f46 100644
+index b82ff7e55087f..78da7a8bb2ece 100644
 --- a/media/filters/ffmpeg_demuxer.cc
 +++ b/media/filters/ffmpeg_demuxer.cc
 @@ -328,8 +328,7 @@ FFmpegDemuxerStream::~FFmpegDemuxerStream() {
@@ -80,7 +82,7 @@ index 78aaf892233a1..4ae9825987f46 100644
  
    std::unique_ptr<DecryptConfig> decrypt_config;
    size_t data_offset = 0;
-@@ -487,21 +462,20 @@ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
+@@ -486,21 +461,18 @@ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
    // into memory we control.
    buffer = DecoderBuffer::CopyFrom(AVPacketData(*packet).subspan(data_offset));
  
@@ -98,9 +100,7 @@ index 78aaf892233a1..4ae9825987f46 100644
 -              matroska_block_additional_side_data.subspan(8u));
 +          base::HeapArray<uint8_t>::CopiedFrom(side_data.subspan(8u));
 +    } else if (side_data_id == 4) {
-+      if (auto agtm = GetAgtmFromT35(side_data.subspan(8u))) {
-+        buffer->WritableSideData().hdr_metadata.SetSerializedAgtm(*agtm);
-+      }
++      SetAgtmFromT35(buffer->WritableSideData().hdr_metadata, side_data.subspan(8u));
      }
    }
 -  if (agtm_side_data.size() > 0) {
@@ -110,7 +110,7 @@ index 78aaf892233a1..4ae9825987f46 100644
    if (decrypt_config) {
      buffer->set_decrypt_config(std::move(decrypt_config));
 diff --git a/media/filters/ffmpeg_demuxer_unittest.cc b/media/filters/ffmpeg_demuxer_unittest.cc
-index 06028075eb38f..6eab180f322a3 100644
+index d92e7906a6bc1..32bf443644e13 100644
 --- a/media/filters/ffmpeg_demuxer_unittest.cc
 +++ b/media/filters/ffmpeg_demuxer_unittest.cc
 @@ -24,7 +24,6 @@
@@ -178,7 +178,7 @@ index 06028075eb38f..6eab180f322a3 100644
 -
  }  // namespace media
 diff --git a/media/filters/vpx_video_decoder_unittest.cc b/media/filters/vpx_video_decoder_unittest.cc
-index 36dbb73ae4784..61f3168e38a8f 100644
+index 36dbb73ae4784..307e4d51dbddb 100644
 --- a/media/filters/vpx_video_decoder_unittest.cc
 +++ b/media/filters/vpx_video_decoder_unittest.cc
 @@ -494,7 +494,8 @@ TEST_F(VpxVideoDecoderTest, MemoryPoolAllowsMultipleDisplay) {
@@ -191,7 +191,7 @@ index 36dbb73ae4784..61f3168e38a8f 100644
    base::test::ScopedFeatureList scoped_feature_list(features::kHdrAgtm);
    Initialize();
  
-@@ -505,15 +506,22 @@ TEST_F(VpxVideoDecoderTest, AgtmMetadata) {
+@@ -505,15 +506,21 @@ TEST_F(VpxVideoDecoderTest, AgtmMetadata) {
  
    auto packet = ScopedAVPacket::Allocate();
    ASSERT_GE(av_read_frame(glue.format_context(), packet.get()), 0);
@@ -203,9 +203,8 @@ index 36dbb73ae4784..61f3168e38a8f 100644
 +  auto side_data = UNSAFE_BUFFERS(
 +      base::span(packet->side_data[0].data, packet->side_data[0].size));
 +  ASSERT_EQ(base::U64FromBigEndian(side_data.first<8u>()), 4u);
-+  auto agtm = GetAgtmFromT35(side_data.subspan(8u));
-+  ASSERT_TRUE(agtm.has_value());
-+  buffer->WritableSideData().hdr_metadata.SetSerializedAgtm(*agtm);
++  SetAgtmFromT35(buffer->WritableSideData().hdr_metadata, side_data.subspan(8u));
++  ASSERT_TRUE(buffer->WritableSideData().hdr_metadata.HasAgtm());
    DecoderStatus decode_status = Decode(buffer);
    av_packet_unref(packet.get());
    ASSERT_TRUE(decode_status.is_ok());

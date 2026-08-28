@@ -48,7 +48,7 @@ index d38db0a..038ffeb 100644
                "than 16 bytes.");
 +#endif
  
- constexpr inline size_t kAlignmentIndex = base::bits::CountrZero(kAlignment);
+ constexpr inline size_t kAlignmentIndex = std::countr_zero(kAlignment);
  static_assert(kAlignment == (1 << kAlignmentIndex));
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h

@@ -65,34 +65,15 @@ diff --git a/testing/libfuzzer/fuzzers/BUILD.gn b/testing/libfuzzer/fuzzers/BUIL
 index 7d242e177f0..1c67eee1598 100644
 --- a/testing/libfuzzer/fuzzers/BUILD.gn
 +++ b/testing/libfuzzer/fuzzers/BUILD.gn
-@@ -104,7 +104,7 @@ fuzzer_test("libpng_progressive_read_fuzzer") {
-   sources = [ "libpng_read_fuzzer.cc" ]
+@@ -166,7 +166,7 @@
    deps = [
      "//base",
+     "//testing/libfuzzer:libfuzzer_base_wrappers",
 -    "//third_party/libpng:libpng_for_testonly",
 +    "//third_party/libpng",
    ]
    dict = "dicts/png.dict"
    seed_corpuses = libpng_seed_corpuses
-diff --git a/third_party/libpng/BUILD.gn b/third_party/libpng/BUILD.gn
-index d4bdea1e33c..3e31348b94f 100644
---- a/third_party/libpng/BUILD.gn
-+++ b/third_party/libpng/BUILD.gn
-@@ -130,14 +130,6 @@ if (is_win) {
-   }
- }
- 
--group("libpng_for_testonly") {
--  testonly = true
--  public_deps = [ ":libpng" ]
--
--  visibility = []
--  visibility = libpng_testonly_visibility
--}
--
- if (build_with_chromium) {
-   libpng_ossfuzz_seed_corpuses = [
-     "//components/test/data/viz",
 diff --git a/tools/imagediff/BUILD.gn b/tools/imagediff/BUILD.gn
 index d56651bedc7..2b5f3d38488 100644
 --- a/tools/imagediff/BUILD.gn
