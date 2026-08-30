@@ -8,6 +8,7 @@ configure_args = [
     "-DENABLE_STATIC=FALSE",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "nasm"]
+makedepends = ["linux-headers"]
 pkgdesc = "Derivative of libjpeg which uses SIMD instructions"
 license = "IJG AND BSD-3-Clause AND Zlib"
 url = "https://libjpeg-turbo.org"
