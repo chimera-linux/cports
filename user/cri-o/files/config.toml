@@ -1,0 +1,9 @@
+[crio.runtime]
+conmon_cgroup = "pod"
+cgroup_manager = "cgroupfs"
+
+[crio.runtime.runtimes.crun]
+monitor_path = "/usr/libexec/podman/conmon"
+
+[crio.runtime.runtimes.runc]
+monitor_path = "/usr/libexec/podman/conmon"
