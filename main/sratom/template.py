@@ -1,5 +1,5 @@
 pkgname = "sratom"
-pkgver = "0.6.18"
+pkgver = "0.6.22"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Library for serializing LV2 atoms to/from RDF"
 license = "ISC"
 url = "https://drobilla.net/software/sratom.html"
 source = f"https://download.drobilla.net/sratom-{pkgver}.tar.xz"
-sha256 = "4c6a6d9e0b4d6c01cc06a8849910feceb92e666cb38779c614dd2404a9931e92"
+sha256 = "0209b7d0f22c96abb416722ed735b0933be47931ecff4aa4b26ded7760b4f252"
 hardening = ["vis", "!cfi"]
 
 
