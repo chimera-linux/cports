@@ -1,6 +1,6 @@
 pkgname = "cairomm"
-pkgver = "1.19.0"
-pkgrel = 2
+pkgver = "1.19.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dboost-shared=true"]
 hostmakedepends = ["meson", "pkgconf"]
@@ -10,7 +10,7 @@ pkgdesc = "C++ bindings to Cairo graphics library"
 license = "LGPL-2.1-or-later"
 url = "https://www.cairographics.org/cairomm"
 source = f"https://cairographics.org/releases/cairomm-{pkgver}.tar.xz"
-sha256 = "8b14f03a0e5178c7ff8f7b288cb342a61711c84c9fbed6e663442cfcc873ce5b"
+sha256 = "06881a0167d84962c74db318427c5be663d30b8ea5c60740a9dc36a9c1961b54"
 
 
 @subpackage("cairomm-devel")
