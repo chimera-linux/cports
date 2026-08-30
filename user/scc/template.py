@@ -1,13 +1,13 @@
 pkgname = "scc"
-pkgver = "3.7.0"
-pkgrel = 4
+pkgver = "4.0.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Fast and accurate code counter"
 license = "MIT OR Unlicense"
 url = "https://github.com/boyter/scc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "447233f70ebcc24f1dafb27b093afdd17d3a1d662de96e8226130c5308b02d01"
+sha256 = "7e0418d7b6dfa881b2673e50d32da81e9abc34475a305b612b57600d85801abc"
 
 
 def post_install(self):
