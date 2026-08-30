@@ -1,5 +1,5 @@
 pkgname = "sord"
-pkgver = "0.16.18"
+pkgver = "0.16.22"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "C library for storing RDF data in memory"
 license = "ISC"
 url = "https://drobilla.net/software/sord.html"
 source = f"https://download.drobilla.net/sord-{pkgver}.tar.xz"
-sha256 = "4f398b635894491a4774b1498959805a08e11734c324f13d572dea695b13d3b3"
+sha256 = "bb23b34b216579136795d518cffa73d91cf205594ce9accebfd408afb839173f"
 hardening = ["vis", "!cfi"]
 
 
