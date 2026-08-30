@@ -1,0 +1,17 @@
+pkgname = "firejail"
+pkgver = "0.9.74"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_gen = []
+make_dir = "."
+make_check_target = "test"
+hostmakedepends = ["gawk"]
+makedepends = ["linux-headers"]
+checkdepends = ["bash"]
+pkgdesc = "SUID sandboxing tool"
+license = "GPL-2.0-only"
+url = "https://github.com/netblue30/firejail"
+source = f"{url}/archive/refs/tags/0.9.74.tar.gz"
+sha256 = "fa54d64d1a6c9d45d72c37d1b8135c50f6e9468e75db7b2dd5ee66983f5a23dd"
+file_modes = {"usr/bin/firejail": ("root", "root", 0o4755)}
+hardening = ["vis", "cfi"]
