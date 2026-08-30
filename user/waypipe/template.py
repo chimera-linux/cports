@@ -1,5 +1,5 @@
 pkgname = "waypipe"
-pkgver = "0.11.0"
+pkgver = "0.11.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -40,7 +40,7 @@ pkgdesc = "Proxy for wayland clients"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "e75e4bb5471e6f413aae1e00b0abddf02ec9f1f56db31d4c50535436c4e7282d"
+sha256 = "be2d59871a9dc67a78f800f08cfba08bb22d660a97a2def24a4df9b8da6196a7"
 
 if self.profile.wordsize == 32:
     broken = "some u64 nonsense in vulkan code"
@@ -62,4 +62,6 @@ def init_build(self):
 def post_install(self):
     from cbuild.util import cargo
 
-    self.install_bin(cargo.target_path(self, "waypipe", "build/target"))
+    self.install_bin(
+        cargo.target_path(self, "waypipe", "build/target", "meson-2")
+    )
