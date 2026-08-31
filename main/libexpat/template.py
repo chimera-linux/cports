@@ -1,6 +1,6 @@
 pkgname = "libexpat"
-pkgver = "2.8.2"
-pkgrel = 1
+pkgver = "2.8.4"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-examples"]
 configure_gen = []
@@ -10,7 +10,7 @@ pkgdesc = "Stream-oriented XML parser library"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
-sha256 = "3ad89b8588e6644bd4e49981480d48b21289eebbcd4f0a1a4afb1c29f99b6ab4"
+sha256 = "656ae1cc8da3b4ea513bb4e254f33e6243938084c0ec6239da873376b09985a7"
 # CFI: crash reproducible e.g. with graphene build
 hardening = ["vis", "!cfi"]
 
