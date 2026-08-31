@@ -1,6 +1,7 @@
-# chronyd service, cannot handle readiness on its own
+# chronyd service
 type = process
-command = /usr/bin/chronyd -n -u _chrony
+command = /usr/bin/chronyd -n -u _chrony -N 11
+ready-notification = pipefd:11
 smooth-recovery = true
 depends-on: network.target
 depends-on: local.target
