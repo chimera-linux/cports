@@ -94,30 +94,29 @@ if self.stage > 0:
         "linux-headers",
     ]
     # enable LTO except on riscv where it's broken
-    if self.stage >= 2:
-        # also use llvm-bootstrap
-        if not self.profile().cross:
-            hostmakedepends += ["llvm-bootstrap"]
-            # set all the stuff that matters
-            configure_args += [
-                "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
-                "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
-                "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
-                "-DLLVM_USE_LINKER=/usr/lib/llvm-bootstrap/bin/ld.lld",
-            ]
-            # not fun but stuff used during build may be using symbols from
-            # a newer version of libcxx so we need to point it to bootstrap
-            tool_flags["LDFLAGS"] += [
-                "--ld-path=/usr/lib/llvm-bootstrap/bin/ld.lld",
-                "-L/usr/lib/llvm-bootstrap/lib",
-            ]
-            # this so it resolves at runtime too (e.g. -tblgen runs)
-            make_build_env = {"LD_LIBRARY_PATH": "/usr/lib/llvm-bootstrap/lib"}
-        else:
-            configure_args += ["-DLLVM_ENABLE_LLD=ON"]
-            hostmakedepends += ["llvm", "clang-tools-extra", "mlir"]
+    # also use llvm-bootstrap
+    if not self.profile().cross:
+        hostmakedepends += ["llvm-bootstrap"]
+        # set all the stuff that matters
+        configure_args += [
+            "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
+            "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
+            "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
+            "-DLLVM_USE_LINKER=/usr/lib/llvm-bootstrap/bin/ld.lld",
+        ]
+        # not fun but stuff used during build may be using symbols from
+        # a newer version of libcxx so we need to point it to bootstrap
+        tool_flags["LDFLAGS"] += [
+            "--ld-path=/usr/lib/llvm-bootstrap/bin/ld.lld",
+            "-L/usr/lib/llvm-bootstrap/lib",
+        ]
+        # this so it resolves at runtime too (e.g. -tblgen runs)
+        make_build_env = {"LD_LIBRARY_PATH": "/usr/lib/llvm-bootstrap/lib"}
     else:
         configure_args += ["-DLLVM_ENABLE_LLD=ON"]
+        # don't build flang/mlir for stage 1 to save time
+        if self.stage >= 2:
+            hostmakedepends += ["llvm", "clang-tools-extra", "mlir"]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LLD=ON",
@@ -167,7 +166,7 @@ def init_configure(self):
         self.configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
 
     if not self.profile().cross:
-        if self.stage >= 2:
+        if self.stage > 0:
             self.configure_args += [
                 f"-DCMAKE_C_COMPILER={self.chroot_cwd / 'boot-clang'}",
                 f"-DCMAKE_CXX_COMPILER={self.chroot_cwd / 'boot-clang++'}",
