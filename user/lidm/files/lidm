@@ -1,0 +1,8 @@
+type            = process
+command         = /sbin/agetty tty7 linux-c -n -l /usr/local/bin/lidm -o 7
+restart         = true
+depends-on      = login.target
+termsignal      = HUP
+smooth-recovery = true
+inittab-id      = 7
+inittab-line    = tty7
