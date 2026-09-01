@@ -1,6 +1,6 @@
 pkgname = "emmylua-analyzer-rust"
 pkgver = "0.25.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "openssl3-devel", "pkgconf"]
 makedepends = ["rust-std"]
@@ -22,11 +22,12 @@ if self.profile().arch in ["loongarch64", "ppc64le"]:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/emmylua_ls")
-    self.install_bin(f"target/{self.profile().triplet}/release/luafmt")
-    self.install_bin(f"target/{self.profile().triplet}/release/emmylua_check")
-    self.install_bin(f"target/{self.profile().triplet}/release/emmylua_doc_cli")
-    self.install_bin(
-        f"target/{self.profile().triplet}/release/schema_to_emmylua"
-    )
+    self.cargo.install(wrksrc="crates/emmylua_ls")
+    self.cargo.install(wrksrc="crates/emmylua_formatter")
+    self.cargo.install(wrksrc="crates/emmylua_check")
+    self.cargo.install(wrksrc="crates/emmylua_doc_cli")
+    self.cargo.install(wrksrc="crates/schema_to_emmylua")
+
+
+def post_install(self):
     self.install_license("LICENSE")
