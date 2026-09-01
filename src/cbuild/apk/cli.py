@@ -58,8 +58,6 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             if use_stage:
                 sbase = spath / arch
                 sidx = sbase / "Packages.adb"
-                if not sidx.is_file():
-                    sidx = sbase / "APKINDEX.tar.gz"
                 if sidx.is_file():
                     ret.append("--repository")
                     if intree:
@@ -69,8 +67,6 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             # regular repo
             rbase = rpath / arch
             ridx = rbase / "Packages.adb"
-            if not ridx.is_file():
-                ridx = rbase / "APKINDEX.tar.gz"
             if ridx.is_file():
                 ret.append("--repository")
                 if intree:
@@ -90,8 +86,6 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
                 rpath = paths.alt_repository() / rl
                 rbase = rpath / arch
                 ridx = rbase / "Packages.adb"
-                if not ridx.is_file():
-                    ridx = rbase / "APKINDEX.tar.gz"
                 if ridx.is_file():
                     ret.append("--repository")
                     if intree:
@@ -297,23 +291,10 @@ def prune(repopath, arch=None, dry=False):
 
 def find_indexes(repopath):
     for root, dirs, files in repopath.walk():
-        has_adb = False
-        has_gz = False
         for fl in files:
             if fl == "Packages.adb":
-                has_adb = True
-                if has_gz:
-                    break
-            elif fl == "APKINDEX.tar.gz":
-                has_gz = True
-                if has_adb:
-                    break
-        if not has_adb and not has_gz:
-            continue
-        if has_adb:
-            yield repopath / root / "Packages.adb"
-        else:
-            yield repopath / root / "APKINDEX.tar.gz"
+                yield repopath / root / "Packages.adb"
+                break
 
 
 def build_index(repopath, epoch, allow_untrusted=False):

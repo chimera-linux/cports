@@ -57,8 +57,6 @@ def check_stage(arch, force=False, remote=False):
                 rbase = rp / arch
                 ridx = rbase / "Packages.adb"
                 if not ridx.is_file():
-                    ridx = rbase / "APKINDEX.tar.gz"
-                if not ridx.is_file():
                     continue
                 rs.append(ridx)
     else:

@@ -1467,8 +1467,6 @@ def _get_unbuilt(outdated=False):
         rbase = repop / tarch
         repof = rbase / "Packages.adb"
         if not repof.is_file():
-            repof = rbase / "APKINDEX.tar.gz"
-        if not repof.is_file():
             return
         outp = subprocess.run(
             [
