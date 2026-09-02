@@ -13,7 +13,7 @@ url = "https://github.com/rapidfuzz/rapidfuzz-cpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "a0dd2ef361cac165e12076696e7c7e8d069a2908abd9599ad4bd190de33f9881"
 
-if self.profile().cross:
+if self.profile.cross:
     # FetchContent(Catch2) fails: no network, no checkdepends in cross
     configure_args = ["-DRAPIDFUZZ_BUILD_TESTING=OFF"]
 
