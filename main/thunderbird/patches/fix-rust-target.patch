@@ -3,17 +3,17 @@ weird custom build system...
 
 --- a/build/moz.configure/rust.configure
 +++ b/build/moz.configure/rust.configure
-@@ -280,6 +280,9 @@
+@@ -278,6 +278,9 @@
      return data
  
  
 +@imports('os')
 +@imports(_from='mozbuild.util', _import='ensure_unicode')
 +@imports(_from='mozbuild.util', _import='system_encoding')
- def detect_rustc_target(
-     host_or_target, compiler_info, arm_target, rust_supported_targets
- ):
-@@ -411,12 +414,12 @@
+ def detect_rustc_target(host_or_target, arm_target, rust_supported_targets):
+     # Rust's --target options are similar to, but not exactly the same
+     # as, the autoconf-derived targets we use.  An example would be that
+@@ -431,12 +434,12 @@
  
          return None
  
