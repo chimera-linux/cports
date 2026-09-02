@@ -1,0 +1,14 @@
+diff --unified ncurses-6.6/test/Makefile.in.me ncurses-6.6/test/Makefile.in
+--- ncurses-6.6/test/Makefile.in.me	2026-09-02 16:18:48.850861198 +0000
++++ ncurses-6.6/test/Makefile.in	2026-09-02 16:19:34.007037287 +0000
+@@ -167,8 +167,9 @@ check::
+ 
+ # Verify that each header-file can be compiled without including another.
+ check::
+-	@$(SHELL) -c "for header in *.h;\
++	@$(SHELL) -c "for header in $(srcdir)/*.h;\
+ 		do \
++			test -f \"\$${header}\" || continue ; \
+ 			echo \"** testing \$${header}\" ; \
+ 			echo \"#include <\$${header}>\" >headers.c; \
+ 			echo \"int main(void) { return 0; }\" >>headers.c; \
