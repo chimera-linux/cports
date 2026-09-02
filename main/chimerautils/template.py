@@ -1,5 +1,5 @@
 pkgname = "chimerautils"
-pkgver = "15.0.3"
+pkgver = "15.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "Chimera Linux userland"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "183ad94242316cad014b54668e0b117ba4d8f6978b1229cde3fc5cd913020751"
+sha256 = "18c558f0165af078a1a213617c2241d80164dc846ffb05c49f22a476720df773"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
