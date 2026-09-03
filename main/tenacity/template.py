@@ -1,23 +1,10 @@
-pkgname = "audacity"
-pkgver = "3.7.7"
+pkgname = "tenacity"
+pkgver = "1.3.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # release
-    "-DAUDACITY_BUILD_LEVEL=2",
-    # autofetch
-    "-Daudacity_conan_enabled=OFF",
-    # telemetry
-    "-Daudacity_has_crashreports=OFF",
-    "-Daudacity_has_networking=OFF",
-    "-Daudacity_has_sentry_reporting=OFF",
-    "-Daudacity_has_updates_check=OFF",
-    # todo: weird ass sdk
-    "-Daudacity_has_vst3=OFF",
-    "-Daudacity_lib_preference=system",
-    "-Daudacity_obey_system_dependencies=ON",
-    # doesn't work with system version
-    "-Daudacity_use_portsmf=local",
+    "-DTENACITY_BUILD_LEVEL=2",
 ]
 hostmakedepends = [
     "cmake",
@@ -32,6 +19,7 @@ makedepends = [
     "lame-devel",
     "libexpat-devel",
     "libid3tag-devel",
+    "libmatroska-devel",
     "libogg-devel",
     "libsbsms-devel",
     "libsndfile-devel",
@@ -43,6 +31,7 @@ makedepends = [
     "pipewire-jack-devel",
     "portaudio-devel",
     "portmidi-devel",
+    "portsmf-devel",
     "rapidjson",
     "soundtouch-devel",
     "soxr-devel",
@@ -55,16 +44,19 @@ makedepends = [
     "wxwidgets-devel",
     "zlib-ng-compat-devel",
 ]
+depends = ["ffmpeg-avcodec-libs"]
+# switch people over because we don't ship this anymore
+renames = ["audacity=3.7.7-r1"]
 pkgdesc = "Multitrack audio editor"
 license = "GPL-3.0-or-later"
-url = "https://www.audacityteam.org"
-source = f"https://github.com/audacity/audacity/releases/download/Audacity-{pkgver}/audacity-sources-{pkgver}.tar.gz"
-sha256 = "1574688e54009b40faeffe5752b5f822ff251e2d4228e8ec60ec0f99f3423cda"
+url = "https://tenacityaudio.org"
+source = f"https://codeberg.org/tenacityteam/tenacity/releases/download/v{pkgver}/tenacity-{pkgver}-src.tar.gz"
+sha256 = "0446e14e09046a0c72d0fdfbbf3823a2ba3451204de7b93f715cc4fe2333e781"
 # vis breaks symbols
 hardening = []
 # check: dont care
-# FIXME lintpixmaps
-options = ["!check", "linkundefver", "!lintpixmaps"]
+# no need to scan for library providers, we don't have a devel package
+options = ["!check", "linkundefver", "!scanshlibs"]
 
 tool_flags = {
     # disarm debug
@@ -74,9 +66,20 @@ tool_flags = {
         # stfu
         "-Wno-deprecated-declarations",
         "-Wno-deprecated-non-prototype",
+        "-Wno-inconsistent-missing-override",
+        "-Wno-macro-redefined",
         "-Wno-unqualified-std-cast-call",
     ],
 }
 
 if self.profile().endian == "big":
     broken = "unimplemented bits"
+
+
+def post_extract(self):
+    # leftover
+    self.rm(".git")
+
+
+def post_install(self):
+    self.uninstall("usr/share/pixmaps")

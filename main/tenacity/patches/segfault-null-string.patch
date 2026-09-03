@@ -1,0 +1,17 @@
+dlerror may return NULL on musl when the library failed (apparently)
+which crashes things; in our case it tries to load ffmpeg 9 libs first
+(and crashes on that) instead of moving on to 8.
+
+diff --git a/libraries/lib-ffmpeg-support/FFmpegFunctions.cpp b/libraries/lib-ffmpeg-support/FFmpegFunctions.cpp
+index 6c779da5..af631aba 100644
+--- a/libraries/lib-ffmpeg-support/FFmpegFunctions.cpp
++++ b/libraries/lib-ffmpeg-support/FFmpegFunctions.cpp
+@@ -246,7 +246,7 @@ struct FFmpegFunctions::Private final
+       wxLogSysError("Failed to load %s", libraryName.c_str());
+ #else
+       const char* errorString = dlerror();
+-      wxLogError("Failed to load %s (%s)", libraryName.c_str(), errorString);
++      wxLogError("Failed to load %s (%s)", libraryName.c_str(), errorString ?: "unknown error");
+ #endif
+       return {};
+    }
