@@ -1,8 +1,10 @@
 pkgname = "fractal"
-pkgver = "12.1"
-pkgrel = 1
+pkgver = "14.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "bash",
+    "blueprint-compiler",
     "cargo-auditable",
     "desktop-file-utils",
     "gettext",
@@ -12,6 +14,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "glycin-gtk4-devel",
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "gtksourceview-devel",
@@ -30,7 +33,7 @@ pkgdesc = "GTK Matrix client"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"
-sha256 = "ae98fbce49a542e357f0c6997a6d776e8e1d0fd8ffc7d7dd03706f885733f244"
+sha256 = "51dc6a220b88b92c566c0813298062f487094d1309e2ba952d938e9a4b17bd04"
 # check: has few actual tests, not worth a time-consuming cargo rebuild
 # debug: quite massive, CARGO_PROFILE_RELEASE_DEBUG=line-tables-only in
 # env makes it better but it's still ~260M
@@ -55,4 +58,6 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/src/{self.profile().triplet}/release/fractal")
+    self.install_bin(
+        f"./build/cargo-target/{self.profile().triplet}/release/fractal"
+    )
