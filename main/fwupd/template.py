@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "2.1.6"
+pkgver = "2.1.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -49,7 +49,7 @@ pkgdesc = "Firmware updater"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "03f45f637a7178839f9f4894f86f4cb0ff4e2fc8d04a9a4da5af3157404ac369"
+sha256 = "338ea5b139f9a37447ff2215d0a8d2cf23851fb5a39fba7b1b0ded52a40240cc"
 options = ["etcfiles", "!cross"]
 
 if self.profile().arch == "x86_64":
