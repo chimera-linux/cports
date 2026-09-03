@@ -1,6 +1,6 @@
 pkgname = "ncurses"
-pkgver = "6.5"
-pkgrel = 3
+pkgver = "6.6"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-root-access",
@@ -31,7 +31,7 @@ pkgdesc = "System V Release 4.0 curses emulation library"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/ncurses-{pkgver}.tar.gz"
-sha256 = "136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6"
+sha256 = "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11"
 tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
