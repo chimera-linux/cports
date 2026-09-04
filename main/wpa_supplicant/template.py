@@ -1,6 +1,6 @@
 pkgname = "wpa_supplicant"
-pkgver = "2.11"
-pkgrel = 1
+pkgver = "2.12"
+pkgrel = 0
 build_wrksrc = pkgname
 build_style = "makefile"
 make_build_args = ["V=1"]
@@ -18,7 +18,7 @@ pkgdesc = "WPA/WPA2/IEEE 802.1X Supplicant"
 license = "BSD-3-Clause"
 url = "http://w1.fi/wpa_supplicant"
 source = f"http://w1.fi/releases/wpa_supplicant-{pkgver}.tar.gz"
-sha256 = "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a"
+sha256 = "08e23937e16d0155e55cab2b51f51fbe10d80a1aa91c4e15442645059b737ef6"
 # no test suite?
 options = ["etcfiles", "!check"]
 
