@@ -1,5 +1,5 @@
 pkgname = "picom"
-pkgver = "12.5"
+pkgver = "13"
 pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dunittest=true", "-Dwith_docs=true"]
@@ -23,7 +23,7 @@ pkgdesc = "Standalone compositor for X11"
 license = "MPL-2.0 AND MIT"
 url = "https://github.com/yshui/picom"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "627fa5d7c590df3ba8d2c41eb35d3859f7826bd28fa49e92a0e04fb60ed77904"
+sha256 = "db9791a54255742c924ef82a6a882042636d61de0fa61bc14c5e56279cf5791c"
 options = ["etcfiles"]
 
 
