@@ -1,0 +1,40 @@
+diff --git a/parser/apparmor_parser.pod b/parser/apparmor_parser.pod
+index c786f31..c69f1e0 100644
+--- a/parser/apparmor_parser.pod
++++ b/parser/apparmor_parser.pod
+@@ -47,7 +47,7 @@ name containing a set of profiles. If a directory is specified then the
+ B<apparmor_parser> will try to do a profile load for each file in the
+ directory that is not a dot file, or explicitly black listed (*.dpkg-new,
+ *.dpkg-old, *.dpkg-dist, *.dpkg-bak, *.dpkg-remove, *.pacsave, *.pacnew,
+-*.rpmnew, *.rpmsave, *.orig, *.rej, *~).
++*.rpmnew, *.rpmsave, *.apk-new, *.orig, *.rej, *~).
+ The B<apparmor_parser> will fall back to taking input from standard input if
+ a profile or directory is not supplied.
+ 
+diff --git a/utils/apparmor/common.py b/utils/apparmor/common.py
+index 73d1c6f..5d88252 100644
+--- a/utils/apparmor/common.py
++++ b/utils/apparmor/common.py
+@@ -180,7 +180,7 @@ def is_skippable_file(path):
+ 
+     skippable_suffix = (
+         '.dpkg-new', '.dpkg-old', '.dpkg-dist', '.dpkg-bak', '.dpkg-remove',
+-        '.pacsave', '.pacnew', '.rpmnew', '.rpmsave', '.orig', '.rej', '~')
++        '.pacsave', '.pacnew', '.rpmnew', '.rpmsave', '.apk-new', '.orig', '.rej', '~')
+     if basename.endswith(skippable_suffix):
+         return True
+ 
+diff --git a/utils/test/test-aa.py b/utils/test/test-aa.py
+index c51d186..d9ce9d6 100644
+--- a/utils/test/test-aa.py
++++ b/utils/test/test-aa.py
+@@ -505,6 +505,9 @@ class AaTest_is_skippable_file(AATest):
+     def test_skippable_16(self):
+         self.assertTrue(is_skippable_file('README'))
+ 
++    def test_skippable_17(self):
++        self.assertTrue(is_skippable_file('bin.ping.apk-new'))
++
+ 
+ class AaTest_parse_profile_data(AATest):
+     def test_parse_empty_profile_01(self):
