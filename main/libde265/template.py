@@ -1,29 +1,14 @@
 pkgname = "libde265"
-pkgver = "1.0.16"
+pkgver = "1.1.2"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--disable-option-checking"]
-configure_gen = ["./autogen.sh"]
-hostmakedepends = ["pkgconf", "automake", "libtool"]
+build_style = "cmake"
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Open H.265 codec implementation"
 license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/libde265/archive/v{pkgver}.tar.gz"
-sha256 = "ed12c931759c1575848832f70db5071a001ac813db4e4f568ee08aef6e234d4e"
+sha256 = "982f7838cc25aa6bda7fd33b9b3a05621d0f9b8456dc495d5fb4977fed6dcdbc"
 hardening = ["!vis", "!cfi"]
-
-
-def post_install(self):
-    # do not polute /usr/bin with junk
-    for f in [
-        "bjoentegaard",
-        "block-rate-estim",
-        "gen-enc-table",
-        "rd-curves",
-        "tests",
-        "yuv-distortion",
-    ]:
-        self.uninstall(f"usr/bin/{f}")
 
 
 @subpackage("libde265-devel")
