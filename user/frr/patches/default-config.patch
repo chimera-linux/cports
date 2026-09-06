@@ -1,0 +1,56 @@
+diff --git a/tools/frr.in b/tools/frr.in
+index 94c15d5..de44c43 100755
+--- a/tools/frr.in
++++ b/tools/frr.in
+@@ -25,6 +25,11 @@ FRR_VTY_GROUP="@enable_vty_group@" # frrvty
+ FRR_CONFIG_MODE="@enable_configfile_mask@" # 0600
+ FRR_DEFAULT_PROFILE="@DFLT_NAME@" # traditional / datacenter
+ 
++# Fallback to default config file on Chimera
++if [ ! -d "$C_PATH" ]; then
++	C_PATH="/usr/share/etc/frr"
++fi
++
+ # Local Daemon selection may be done by using /etc/frr/daemons.
+ # See /usr/share/doc/frr/README.Debian.gz for further information.
+ # Keep zebra first and do not list watchfrr!
+diff --git a/tools/frrcommon.sh.in b/tools/frrcommon.sh.in
+index 44355f8..e8aa104 100755
+--- a/tools/frrcommon.sh.in
++++ b/tools/frrcommon.sh.in
+@@ -32,6 +32,11 @@ FRR_VTY_GROUP="@enable_vty_group@" # frrvty
+ FRR_CONFIG_MODE="@enable_configfile_mask@" # 0600
+ FRR_DEFAULT_PROFILE="@DFLT_NAME@" # traditional / datacenter
+ 
++# Fallback to default config file on Chimera
++if [ ! -d "$C_PATH" ]; then
++	C_PATH="/usr/share/etc/frr"
++fi
++
+ # ORDER MATTERS FOR $DAEMONS!
+ # - keep zebra first
+ # - watchfrr does NOT belong in this list
+diff --git a/vtysh/vtysh_main.c b/vtysh/vtysh_main.c
+index 43554f8..9cfdde7 100644
+--- a/vtysh/vtysh_main.c
++++ b/vtysh/vtysh_main.c
+@@ -418,6 +418,7 @@ int main(int argc, char **argv, char **env)
+ 	char *homedir = NULL;
+ 	int ditch_suid = 0;
+ 	char sysconfdir[MAXPATHLEN];
++	char default_sysconfdir[] = "/usr/share/etc/frr/";
+ 	const char *pathspace_arg = NULL;
+ 	char pathspace[MAXPATHLEN] = "";
+ 	const char *histfile = NULL;
+@@ -441,7 +442,10 @@ int main(int argc, char **argv, char **env)
+ 	/* Preserve name of myself. */
+ 	progname = ((p = strrchr(argv[0], '/')) ? ++p : argv[0]);
+ 
+-	strlcpy(sysconfdir, frr_sysconfdir, sizeof(sysconfdir));
++	if (chdir(frr_sysconfdir))
++		strlcpy(sysconfdir, default_sysconfdir, sizeof(sysconfdir));
++	else
++		strlcpy(sysconfdir, frr_sysconfdir, sizeof(sysconfdir));
+ 
+ 	strlcpy(vtydir, frr_runstatedir, sizeof(vtydir));
+ 
