@@ -1,5 +1,5 @@
 pkgname = "weechat"
-pkgver = "4.10.0"
+pkgver = "4.10.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ pkgdesc = "Extensible chat client"
 license = "GPL-3.0-or-later"
 url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
-sha256 = "4358214ad10718e9907d8b2a7755d3a28879b81f57ebb0d0ce9d8cdd26bfb9af"
+sha256 = "84207fc87f19274e2d9efb3f229b3594af6ca5d54e2ee25b10f07015e681b8d1"
 
 
 @subpackage("weechat-devel")
