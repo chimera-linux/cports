@@ -1,5 +1,5 @@
 pkgname = "impala"
-pkgver = "0.7.4"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ pkgdesc = "TUI frontend for iwd"
 license = "GPL-3.0-only"
 url = "https://github.com/pythops/impala"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "948b9b46ee7b8c06016430bc0e9fef8a23ecf9768cfe11ec1f9fd48dde249bb2"
+sha256 = "af476be1c36be1c60fbc629f281e7c32aaece704db77b96c7ecd40fb87e0f1a7"
 
 
 def post_install(self):
