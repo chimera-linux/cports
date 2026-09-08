@@ -1,13 +1,14 @@
 pkgname = "transmission-remote-gtk"
-pkgver = "1.6.0"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "appstream-glib",
+    "appstream",
     "desktop-file-utils",
     "gettext",
     "meson",
     "pkgconf",
+    "python-docutils",
 ]
 makedepends = ["gtk+3-devel", "json-glib-devel", "libsoup-devel"]
 pkgdesc = "GTK client for remote management of Transmission torrent client"
@@ -16,4 +17,7 @@ url = "https://github.com/transmission-remote-gtk/transmission-remote-gtk"
 source = (
     f"{url}/releases/download/{pkgver}/transmission-remote-gtk-{pkgver}.tar.xz"
 )
-sha256 = "b090844f6a482e6f3588070ff3fdd54b79e8f85df02b39853cfb01fccee10cac"
+sha256 = "5ef98bd96b3b77eb3880474a2d904e316bb29cbd22dfa0ca85d43b04a28fba34"
+
+if self.profile().cross:
+    hostmakedepends += ["glib-devel"]
