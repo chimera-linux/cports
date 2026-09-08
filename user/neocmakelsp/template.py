@@ -1,5 +1,5 @@
 pkgname = "neocmakelsp"
-pkgver = "0.10.0"
+pkgver = "0.11.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "CMake language server"
 license = "MIT"
 url = "https://neocmakelsp.github.io"
 source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "084f4e8605e0834c3ca85abd7460801dc22454f45f68557340d02642a4be3c72"
+sha256 = "4d562ace6e26ef2c93bb8cec91e85db1241b6e0990d67d76ae87cff2f422e5a4"
 
 
 def post_install(self):
