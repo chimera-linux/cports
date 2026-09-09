@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index f9fc684..00fddc7 100644
+index 9044a76..b5484d9 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -183,7 +183,7 @@ package: test-package-build create-package create-package-deb
@@ -27,15 +27,15 @@ index f9fc684..00fddc7 100644
  	echo "Package ready: $(NAME)";
  
 diff --git a/t/Makefile b/t/Makefile
-index 75b189c..c00f0e0 100644
+index b7c4ae4..ec01355 100644
 --- a/t/Makefile
 +++ b/t/Makefile
-@@ -26,7 +26,7 @@ loop-all:
+@@ -25,7 +25,7 @@ loop-all:
+ 
  do-test:
  	@echo " => Running tests on $${XSERVER%% *}/$${WM:-no-windowmanager}"; \
- 	set -e; \
--	make -C ../; \
-+	$(MAKE) -C ../; \
- 	sh check-for-tools.sh || exit 0; \
- 	for i in test_*.rb ; do \
- 	  echo "Running $$i"; \
+-	make -C ../
++	$(MAKE) -C ../
+ 	sh check-for-tools.sh
+ 	sh ephemeral-x.sh -q -x "$$XSERVER" -w "$$WM" ./run.sh ruby $(RUBYFLAGS) all.rb $(TESTFLAGS)
+ 

@@ -1,5 +1,5 @@
 pkgname = "xdotool"
-pkgver = "3.20211022.1"
+pkgver = "4.20260303.1"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = ["INSTALLMAN=/usr/share/man"]
@@ -21,8 +21,8 @@ checkdepends = [
 pkgdesc = "Command-line X11 automation tool"
 license = "BSD-3-Clause"
 url = "https://github.com/jordansissel/xdotool"
-source = f"{url}/releases/download/v{pkgver}/xdotool-{pkgver}.tar.gz"
-sha256 = "96f0facfde6d78eacad35b91b0f46fecd0b35e474c03e00e30da3fdd345f9ada"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "c1f971a384da588eb99ca0755fc4300316d49c1e612537e3f1de52215e104fa3"
 # uses a ruby module (minitest) that used to be bundled and is no more
 options = ["!check"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
