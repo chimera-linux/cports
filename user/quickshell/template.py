@@ -1,6 +1,6 @@
 pkgname = "quickshell"
-pkgver = "0.3.0"
-pkgrel = 1
+pkgver = "0.3.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DDISTRIBUTOR=Chimera Linux",
@@ -45,7 +45,7 @@ url = "https://quickshell.org"
 source = (
     f"https://git.outfoxxed.me/quickshell/quickshell/archive/v{pkgver}.tar.gz"
 )
-sha256 = "f4821f9084cab04bd2b5384cc92b9726aecc4ce3eb27200dca24edc67da3b6e5"
+sha256 = "d60592622f1aa1cbb853d4814f605dfde827bc692befbfecffaccf4c90e352d8"
 options = ["!cross"]
 
 
