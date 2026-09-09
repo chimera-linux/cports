@@ -1,15 +1,20 @@
 pkgname = "acpica"
-pkgver = "20260408"
+pkgver = "20260930"
 pkgrel = 0
 build_style = "makefile"
-# disable builtin flags that are supplied by cbuild (opt, fortify)
-make_build_args = ["OPT_CFLAGS="]
+# avoid `_FORTIFY_SOURCE` macro redefined
+make_build_args = ["NOFORTIFY=TRUE"]
 make_use_env = True
 hostmakedepends = ["bison", "flex"]
 pkgdesc = "Intel ACPI Component Architecture utilities"
-license = "GPL-2.0-only OR BSD-3-Clause OR Intel-ACPI"
+license = "BSD-3-Clause OR GPL-2.0-only"
 url = "https://www.acpica.org"
-source = f"https://github.com/acpica/acpica/releases/download/{pkgver}/acpica-unix-{pkgver}.tar.gz"
-sha256 = "e66ceb26d6d514ce164fe22f5a4f7ca165cc38349d7a97f41a21f19b364647a2"
-# no tests; no license file
-options = ["!check", "!distlicense"]
+source = f"https://github.com/open-acpica/acpica/releases/download/{pkgver}/acpica-unix-{pkgver}.tar.gz"
+sha256 = "aa18901b92e30749be0edc3081c8d550c61fce4fa37546fc6a65d367a4ae71a5"
+tool_flags = {"CFLAGS": ["-Wno-unknown-warning-option"]}
+# no check target
+options = ["!check"]
+
+
+def post_install(self):
+    self.install_license("LICENSE.BSD-3-Clause")
