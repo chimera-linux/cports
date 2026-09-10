@@ -1,6 +1,6 @@
 # apply useful changes to user/sqlcipher
 pkgname = "sqlite"
-pkgver = "3.53.3"
+pkgver = "3.53.4"
 _amalg = "3530300"
 pkgrel = 0
 build_style = "configure"
