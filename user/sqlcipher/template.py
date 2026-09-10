@@ -1,6 +1,6 @@
 # mirrors changes in main/sqlite
 pkgname = "sqlcipher"
-pkgver = "4.17.0"
+pkgver = "4.19.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "SQLite fork with encryption support"
 license = "BSD-3-Clause"
 url = "https://github.com/sqlcipher/sqlcipher"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "79c0e164b9c059e7487bf8f29272f601cca5f3312cc267461f81e349962a5058"
+sha256 = "7075f96cbabe45b4ecfc2e6b1745a625f856f695b0827a5506ce9ed85b906aa0"
 
 if self.profile().cross:
     configure_args += [
