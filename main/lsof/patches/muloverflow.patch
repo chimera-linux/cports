@@ -1,20 +1,24 @@
+diff --git a/lib/dialects/linux/dfile.c b/lib/dialects/linux/dfile.c
+index be20715..1342193 100644
 --- a/lib/dialects/linux/dfile.c
 +++ b/lib/dialects/linux/dfile.c
-@@ -53,7 +53,7 @@
+@@ -52,7 +52,7 @@
   * minor device, and inode, modulo mod
   * (mod must be a power of 2) */
  #define SFHASHDEVINO(maj, min, ino, mod)                                       \
 -    ((int)(((int)((((int)(maj + 1)) * ((int)((min + 1)))) + ino) * 31415) &    \
-+    ((int)(((int)((((int)(maj + 1)) * ((int)((min + 1)))) + ino) * 31415U) &    \
++    ((int)(((int)((((int)(maj + 1)) * ((int)((min + 1)))) + ino) * 31415U) &   \
             (mod - 1)))
  #define SFRDHASH                                                               \
      1024 /* Sfile hash by raw device number                                    \
+diff --git a/lib/dialects/linux/dnode.c b/lib/dialects/linux/dnode.c
+index 9b66def..22beac0 100644
 --- a/lib/dialects/linux/dnode.c
 +++ b/lib/dialects/linux/dnode.c
 @@ -44,8 +44,8 @@
+     ((off_t)0x7fffffff) /* this is defined in                                  \
+                          * .../src/fs/locks.c and not                          \
                           * in a header file */
- #define PIDBUCKS 64     /* PID hash buckets */
- #define PINFOBUCKS 512  /* pipe info hash buckets */
 -#define HASHPID(pid) (((int)((pid * 31415) >> 3)) & (PIDBUCKS - 1))
 -#define HASHPINFO(ino) (((int)((ino * 31415) >> 3)) & (PINFOBUCKS - 1))
 +#define HASHPID(pid) (((int)((pid * 31415U) >> 3)) & (PIDBUCKS - 1))
