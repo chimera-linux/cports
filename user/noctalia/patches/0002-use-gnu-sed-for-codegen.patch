@@ -1,0 +1,11 @@
+--- a/meson.build	2026-09-10 07:16:12.096734553 +0200
++++ b/meson.build	2026-09-10 07:16:12.097734571 +0200
+@@ -400,7 +400,7 @@
+   output:  'wlr-layer-shell-unstable-v1-client-protocol.h',
+   command: [
+     'sh', '-c',
+-    '"$1" client-header "$2" "$3" && sed -i s/namespace/name_space/g "$3"',
++    '"$1" client-header "$2" "$3" && gsed -i s/namespace/name_space/g "$3"',
+     '_', wayland_scanner.full_path(), '@INPUT@', '@OUTPUT@',
+   ],
+ )
