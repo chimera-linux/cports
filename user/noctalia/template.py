@@ -48,7 +48,7 @@ license = "MIT"
 url = "https://github.com/noctalia-dev/noctalia"
 source = f"https://github.com/noctalia-dev/noctalia/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "ed8334f294e9f94f4744e315b674511fc51203a6a56c561af8803a6eb6884698"
-# pas de suite de tests packagée / nécessite un environnement Wayland actif pour tourner
+# No tests for the package - Need an active Wayland environmenet to be executed
 options = ["!check"]
 
 
