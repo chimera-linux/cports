@@ -1,6 +1,6 @@
 pkgname = "beets"
 pkgver = "2.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # pytest fixture client not found
@@ -28,6 +28,7 @@ depends = [
     "python-lap",
     "python-mediafile",
     "python-munkres",
+    "python-packaging",
     "python-platformdirs",
     "python-pyyaml",
     "python-requests",
