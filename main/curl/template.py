@@ -80,7 +80,7 @@ def init_check(self):
     # 1510 consistently fails when run with other tests (parallelism?)
     # but works just fine when run on its own
     # 241 fails intermittently, seems ok when installed?
-    self.make_check_env["TFLAGS"] = f"-j{self.make_jobs * 7} !1510 !241"
+    self.make_check_env["TFLAGS"] = f"-j{min(self.make_jobs, 8) * 7} !1510 !241"
 
 
 @subpackage("curl-libs")
