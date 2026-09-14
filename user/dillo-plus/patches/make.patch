@@ -1,0 +1,22 @@
+diff --git a/Makefile.options b/Makefile.options
+index eca9358..ce24f4e 100644
+--- a/Makefile.options
++++ b/Makefile.options
+@@ -54,12 +54,12 @@ FTP_USE_WGET = 1
+ PREFIX ?= /usr/local
+ LIBDIR = $(PREFIX)/lib/
+ 
+-DILLO_BINDIR = $(PREFIX)/bin/
+-DILLO_LIBDIR = $(PREFIX)/lib/dillo/
+-DILLO_ETCDIR = $(PREFIX)/etc/dillo/
++DILLO_BINDIR = $(DESTDIR)$(PREFIX)/bin/
++DILLO_LIBDIR = $(DESTDIR)$(PREFIX)/lib/dillo/
++DILLO_ETCDIR = $(DESTDIR)/etc/dillo/
+ 
+ DPIDRC_SYS = $(DILLO_ETCDIR)/dpidrc
+ 
+-DOC_PATH = $(PREFIX)/share/doc/dillo
+-MAN_PATH = $(PREFIX)/share/man/man1
++DOC_PATH = $(DESTDIR)$(PREFIX)/share/doc/dillo
++MAN_PATH = $(DESTDIR)(PREFIX)/share/man/man1
+ 
