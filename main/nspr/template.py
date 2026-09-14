@@ -1,5 +1,5 @@
 pkgname = "nspr"
-pkgver = "4.39"
+pkgver = "4.40"
 pkgrel = 0
 build_wrksrc = "nspr"
 build_style = "gnu_configure"
@@ -11,7 +11,7 @@ pkgdesc = "NetScape Portable Runtime"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/projects/nspr"
 source = f"$(MOZILLA_SITE)/nspr/releases/v{pkgver}/src/nspr-{pkgver}.tar.gz"
-sha256 = "bbd02ee87a55676063a63e5bc819e0227de2666b47307b2a0134414cdf42368e"
+sha256 = "c0c1884c627f3db7a783f7c7314c695226b2043696791d15519e7e0578c19bdc"
 tool_flags = {
     "CFLAGS": [
         "-D_PR_POLL_AVAILABLE",
