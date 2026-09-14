@@ -8,7 +8,8 @@ license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/libde265/archive/v{pkgver}.tar.gz"
 sha256 = "982f7838cc25aa6bda7fd33b9b3a05621d0f9b8456dc495d5fb4977fed6dcdbc"
-hardening = ["!vis", "!cfi"]
+# no tests
+options = ["!check"]
 
 
 @subpackage("libde265-devel")
