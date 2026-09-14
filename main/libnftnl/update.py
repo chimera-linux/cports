@@ -1,4 +1,3 @@
-url = "https://git.netfilter.org/libnftnl/info/refs"
-pattern = r"refs/tags/libnftnl-([\d.]+)"
-# because netfilter is being annoying with anubis
-agent_name = "git"
+# git.netfilter.org is flakey
+url = "https://www.netfilter.org/news.html"
+pattern = r"libnftnl\ ([\d.]+)\ released"

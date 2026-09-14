@@ -1,5 +1,5 @@
 pkgname = "python-nftables"
-pkgver = "1.1.6"
+pkgver = "1.1.7"
 pkgrel = 0
 build_wrksrc = "py"
 build_style = "python_pep517"
@@ -13,7 +13,7 @@ pkgdesc = "Python bindings for nftables"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
 url = "https://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"
-sha256 = "372931bda8556b310636a2f9020adc710f9bab66f47efe0ce90bff800ac2530c"
+sha256 = "a6fbf060d8d4fff001517a2b94f356bb4366bfbf0ba366366f9d27cc38caa58f"
 # no tests
 options = ["!check"]
 
