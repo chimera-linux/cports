@@ -1,6 +1,6 @@
 pkgname = "libxml2"
 pkgver = "2.14.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -9,18 +9,17 @@ configure_args = [
     "--with-icu",
     "--with-legacy",
     "--with-threads",
+    "--without-python",
 ]
 hostmakedepends = [
     "automake",
     "libtool",
     "pkgconf",
-    "python-devel",
 ]
 makedepends = [
     "icu-devel",
     "libedit-readline-devel",
     "ncurses-devel",
-    "python-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
 ]
@@ -32,16 +31,7 @@ sha256 = "7ce458a0affeb83f0b55f1f4f9e0e55735dbfc1a9de124ee86fb4a66b597203a"
 
 
 def post_install(self):
-    # Delete unwanted python static lib that gets built due to --enable-static
-    self.uninstall("usr/lib/python*/site-packages/*.a", glob=True)
     self.install_license("Copyright")
-
-
-@subpackage("libxml2-python")
-def _(self):
-    self.subdesc = "Python bindings"
-    self.depends = ["python"]
-    return ["usr/lib/python*"]
 
 
 @subpackage("libxml2-devel")
