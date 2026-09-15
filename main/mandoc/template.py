@@ -25,6 +25,7 @@ OSNAME="Chimera Linux"
 CFLAGS="{self.get_cflags(shell=True)}"
 LDFLAGS="{self.get_ldflags(shell=True)}"
 CC="{self.get_tool("CC")}"
+LN="ln -sf"
 HAVE_REWB_BSD=0
 UTF8_LOCALE=C.UTF-8
 BINM_PAGER=less
@@ -46,16 +47,6 @@ manpath /usr/local/share/man
 manpath /usr/share/man
 """
         )
-
-    # drop hardlinks
-    for b in ["apropos", "whatis", "makewhatis", "man"]:
-        fp = self.destdir / f"usr/bin/{b}"
-        fp.unlink()
-        fp.symlink_to("mandoc")
-
-    fp = self.destdir / "usr/share/man/man1/whatis.1"
-    fp.unlink()
-    fp.symlink_to("apropos.1")
 
 
 @subpackage("mandoc-apropos")
