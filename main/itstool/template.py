@@ -1,10 +1,11 @@
 pkgname = "itstool"
 pkgver = "2.0.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
-configure_gen = []
-hostmakedepends = ["python", "libxml2-python"]
-makedepends = [*hostmakedepends]
+configure_gen = ["autoreconf", "-fiv"]
+make_dir = "."
+hostmakedepends = ["automake", "python", "python-lxml"]
+makedepends = ["automake", "python", "python-lxml"]
 depends = [*makedepends]
 pkgdesc = "ITS Tool"
 license = "GPL-3.0-or-later"
