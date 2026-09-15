@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.58.0"
+pkgver = "1.58.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ configure_args = [
     "-Dintrospection=true",
     "-Ddocs=true",
     "-Dcrypto=nss",
-    "-Dreadline=libedit",
+    "-Dreadline=libreadline",
     "-Dtests=no",  # not ran
     "-Dsystemdsystemgeneratordir=no",
 ]
@@ -62,7 +62,6 @@ makedepends = [
     "gobject-introspection-devel",
     "jansson-devel",
     "libbpf-devel",
-    "libedit-devel",
     "libgudev-devel",
     "libndp-devel",
     "libnl-devel",
@@ -76,6 +75,7 @@ makedepends = [
     "polkit-devel",
     "ppp-devel",
     "python-gobject",
+    "readline-devel",
     "udev-devel",
     "util-linux-uuid-devel",
 ]
@@ -91,7 +91,7 @@ pkgdesc = "Network management daemon"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager"
 source = f"{url}/-/archive/{pkgver}/NetworkManager-{pkgver}.tar.gz"
-sha256 = "b564614be46fafe6654a497836c48bdbd411ed14d34a525dbf0cd549e33b4cda"
+sha256 = "8d112eefc0e0e15d44e93453a8a16760ec07a4037e1f93097abdf55abd5dca2d"
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["etcfiles", "!check", "!cross", "linkundefver"]
