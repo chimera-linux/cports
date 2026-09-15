@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.22"
+pkgver = "1.2.35"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -14,13 +14,15 @@ makedepends = [
     "libxrandr-devel",
     "lv2",
     "mesa-devel",
+    "pipewire-devel",
     "pipewire-jack-devel",
 ]
+provides = [self.with_pkgver("lsp-plugins-xdg")]
 pkgdesc = "Collection of free audio plugins"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
-sha256 = "bb97270482b04c1269643a8373b554255dde287b1c5ddbc567ac94de4815a75b"
+sha256 = "2c95ec7bb219d561ea3db36051b6c732133bcd76426fb836b1dd850dc4b5bb6c"
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection
@@ -41,20 +43,6 @@ def configure(self):
 @subpackage("lsp-plugins-devel")
 def _(self):
     return self.default_devel()
-
-
-@subpackage("lsp-plugins-xdg")
-def _(self):
-    self.subdesc = "icons and .desktop files"
-    self.options = ["etcfiles"]
-    # these hundreds of .desktop files only really clutter launchers,
-    # so place them separately
-    return [
-        "etc/xdg/menus",
-        "usr/share/applications",
-        "usr/share/desktop-directories",
-        "usr/share/icons",
-    ]
 
 
 @subpackage("lsp-plugins-clap")
