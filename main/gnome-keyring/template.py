@@ -1,7 +1,7 @@
 pkgname = "gnome-keyring"
 # pam_gnome_keyring may be moved to libsecret later?
 # as of 48 it does not install it and distros don't use it
-pkgver = "50.0"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [

@@ -1,11 +1,10 @@
 pkgname = "gcr"
-pkgver = "4.4.0.1"
-pkgrel = 1
+pkgver = "4.4.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgpg_path=/usr/bin/gpg",
     "-Dsystemd=disabled",
-    "-Dssh_agent=false",
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
@@ -29,8 +28,8 @@ makedepends = [
 pkgdesc = "GNOME crypto package"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"
-source = f"$(GNOME_SITE)/gcr/{pkgver[:-4]}/gcr-{pkgver}.tar.xz"
-sha256 = "0c3c341e49f9f4f2532a4884509804190a0c2663e6120360bb298c5d174a8098"
+source = f"$(GNOME_SITE)/gcr/{pkgver[:-2]}/gcr-{pkgver}.tar.xz"
+sha256 = "c4442c15d4330f17a1f5194df08c576877af68412ab2521446a93bd5e24c931b"
 # getpass
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # FIXME int (crashes gnome-keyring suite)
