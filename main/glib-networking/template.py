@@ -1,6 +1,6 @@
 pkgname = "glib-networking"
-pkgver = "2.80.1"
-pkgrel = 2
+pkgver = "2.90.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgnutls=enabled",
@@ -23,7 +23,7 @@ pkgdesc = "Network extensions for glib"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/glib-networking/{pkgver[:-2]}/glib-networking-{pkgver}.tar.xz"
-sha256 = "b80e2874157cd55071f1b6710fa0b911d5ac5de106a9ee2a4c9c7bee61782f8e"
+sha256 = "83a75e3d9c36b66ee86d3281c2fc997816101968a5126ba322b2acb9a74dd8c0"
 
 
 def post_install(self):
