@@ -1,6 +1,6 @@
 pkgname = "libvips"
-pkgver = "8.18.4"
-pkgrel = 1
+pkgver = "8.18.6"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Db_ndebug=true"]
 hostmakedepends = [
@@ -37,7 +37,7 @@ pkgdesc = "Image processing library"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libvips/libvips"
 source = f"https://github.com/libvips/libvips/releases/download/v{pkgver}/vips-{pkgver}.tar.xz"
-sha256 = "2677bad6c422617fd1172d359c16af34e736965d042c214203a87187d26ff037"
+sha256 = "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e"
 # broken
 options = ["!cross"]
 
