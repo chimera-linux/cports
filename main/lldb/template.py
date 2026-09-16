@@ -1,6 +1,6 @@
 pkgname = "lldb"
 pkgver = "22.1.8"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -8,6 +8,9 @@ configure_args = [
     "-DLLDB_ENABLE_LUA=OFF",  # maybe later
     "-DLLDB_ENABLE_PYTHON=ON",
     "-DLLDB_ENABLE_LIBEDIT=ON",
+    "-DLLDB_BUILD_INTEL_PT=ON",
+    "-DLIBIPT_INCLUDE_PATH=/usr/include",
+    "-DLIBIPT_LIBRARY_PATH=/usr/lib",
 ]
 hostmakedepends = [
     "cmake",
@@ -20,6 +23,7 @@ makedepends = [
     "clang-devel",
     "libedit-devel",
     "libffi8-devel",
+    "libipt-devel",
     "libxml2-devel",
     "linux-headers",
     "llvm-devel",
