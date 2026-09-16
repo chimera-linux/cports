@@ -1,6 +1,6 @@
 pkgname = "gnome-shell"
-pkgver = "50.1"
-pkgrel = 2
+pkgver = "51.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -26,6 +26,7 @@ makedepends = [
     "evolution-data-server-devel",
     "gcr-devel",
     "gjs-devel",
+    "glycin-devel",
     "gnome-autoar-devel",
     "gnome-bluetooth-devel",
     "gnome-control-center-devel",
@@ -35,6 +36,7 @@ makedepends = [
     "gtk4-devel",
     "ibus-devel",
     "libpulse-devel",
+    "librsvg-devel",
     "libxml2-devel",
     "mutter-devel",
     "networkmanager-devel",
@@ -54,6 +56,6 @@ pkgdesc = "Core user interface for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/gnome-shell/{pkgver.split('.')[0]}/gnome-shell-{pkgver}.tar.xz"
-sha256 = "1b47760172c14f3f4edd1c9aff365f4de45583517bf0f80df4d3acbd4e4cb294"
+sha256 = "2179bab13af353427065096af8bf3d30da7b86e0c516e5ba86a14998af9575f6"
 # tests need libmutter-test
 options = ["!check", "!cross"]
