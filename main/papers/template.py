@@ -1,5 +1,5 @@
 pkgname = "papers"
-pkgver = "50.1"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,6 +10,7 @@ configure_args = [
     "-Dtests=false",
 ]
 hostmakedepends = [
+    "appstream",
     "blueprint-compiler",
     "cargo-auditable",
     "desktop-file-utils",
@@ -38,7 +39,7 @@ pkgdesc = "GNOME document viewer"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "d24044636c6f89cd142a13346ef0d68a6d92a21f5ae545f16a678fdbeb6ddbd2"
+sha256 = "bfa9b800a5225eba48c060a14710f9f393a9447d587494870e86e82a388a0a9d"
 # needs thumbnailer copied etc, whatever don't care
 options = ["!check"]
 
