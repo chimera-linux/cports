@@ -1,6 +1,6 @@
 # keep in sync with glycin
 pkgname = "glycin-gtk4"
-pkgver = "2.1.5"
+pkgver = "2.2.1"
 pkgrel = 0
 build_style = "meson"
 prepare_after_patch = True
@@ -33,7 +33,7 @@ subdesc = "GTK4 bindings"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
-sha256 = "6c09757ee906330a60b6705753aa56bca007ad219b95e6e3537510d41bc341c8"
+sha256 = "937ae571d76c0de5e59db944d1194981360be37ee97875729781bc3816ddeafe"
 # gobject-introspection
 options = ["!cross", "!check"]
 
