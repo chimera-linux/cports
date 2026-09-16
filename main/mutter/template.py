@@ -1,15 +1,12 @@
 pkgname = "mutter"
-pkgver = "50.1"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
-    "-Degl_device=true",
     "-Dintrospection=true",
-    "-Dnative_backend=true",
     "-Dprofiler=false",
     "-Dtests=disabled",
-    "-Dudev=true",
     "-Dxwayland_initfd=disabled",
     "-Dxwayland_path=/usr/bin/Xwayland",
 ]
@@ -33,7 +30,6 @@ makedepends = [
     "elogind-devel",
     "fribidi-devel",
     "glib-devel",
-    "glycin-devel",
     "gnome-desktop-devel",
     "gnome-settings-daemon-devel",
     "graphene-devel",
@@ -74,7 +70,7 @@ pkgdesc = "GNOME X11 window manager, Wayland display server and compositor"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/mutter/{pkgver.split('.')[0]}/mutter-{pkgver}.tar.xz"
-sha256 = "9344502ce473f788795f26b45f8b8ff53c0a36b867470d705a11a3ee0911021e"
+sha256 = "5d28f3ae225692428fcafb96500d673f34328b698b86960c9c1460d0b1d983b3"
 # libmutter crashes gnome-shell with some applications? FIXME debug
 hardening = ["!int"]
 # needs graphical environment
@@ -83,4 +79,4 @@ options = ["!check", "!cross"]
 
 @subpackage("mutter-devel")
 def _(self):
-    return self.default_devel(extra=["usr/lib/mutter-18/*.gir"])
+    return self.default_devel(extra=["usr/lib/mutter-51/*.gir"])
