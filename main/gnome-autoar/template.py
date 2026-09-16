@@ -1,5 +1,5 @@
 pkgname = "gnome-autoar"
-pkgver = "0.4.5"
+pkgver = "0.5.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
 source = (
     f"$(GNOME_SITE)/gnome-autoar/{pkgver[:-2]}/gnome-autoar-{pkgver}.tar.xz"
 )
-sha256 = "838c5306fc38bfaa2f23abe24262f4bf15771e3303fb5dcb74f5b9c7a615dabe"
+sha256 = "6c20bd16c87aba15869e56444424481f632ac302989a203e8ce4dcc73dea33a5"
 options = ["!cross"]
 
 
