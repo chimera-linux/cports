@@ -41,7 +41,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = (
     f"$(GNOME_SITE)/gnome-keyring/{pkgver[:-2]}/gnome-keyring-{pkgver}.tar.xz"
 )
-sha256 = "cbd72062c53c9702bc2c4733991ad5f051ca682882b30905a2829bcf1a8ecc7c"
+sha256 = "2aebaa2d474cc31507c87a7bbbdb3e16dbe26b1cfef9f206457f3f9df43558b0"
 # check may be disabled
 options = ["etcfiles"]
 
