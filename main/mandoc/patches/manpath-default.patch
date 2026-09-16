@@ -1,0 +1,17 @@
+we override this via configure.local, so reflect this in manual
+
+diff --git a/man.conf.5 b/man.conf.5
+index ffe9fcc..d1bcba7 100644
+--- a/man.conf.5
++++ b/man.conf.5
+@@ -112,9 +112,8 @@ installing it is equivalent to not having a
+ .Nm
+ file at all.
+ .Bd -literal -offset indent
++manpath /usr/local/share/man
+ manpath /usr/share/man
+-manpath /usr/X11R6/man
+-manpath /usr/local/man
+ .Ed
+ .Sh SEE ALSO
+ .Xr apropos 1 ,
