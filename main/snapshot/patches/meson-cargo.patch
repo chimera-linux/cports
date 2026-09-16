@@ -1,8 +1,30 @@
+diff --git a/meson.build b/meson.build
+index 0fdf1ff..5938b6f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -139,17 +139,6 @@ test(
+   timeout: 400,
+ )
+ 
+-test(
+-  'cargo-clippy',
+-  cargo,
+-  args: [
+-    'clippy',
+-    clippy_options,
+-  ],
+-  env: cargo_env,
+-  timeout: 400,  # cargo might take a bit of time sometimes
+-)
+-
+ gnome.post_install(
+   gtk_update_icon_cache: true,
+   glib_compile_schemas: true,
 diff --git a/src/meson.build b/src/meson.build
-index 67c5037..4dc517d 100644
+index d1caa9d..acfaf3a 100644
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -38,15 +38,11 @@
+@@ -30,17 +30,11 @@ cargo_build = custom_target(
    build_always_stale: true,
    output: meson.project_name(),
    console: true,
@@ -15,27 +37,8 @@ index 67c5037..4dc517d 100644
      'build',
      cargo_build_options,
 -    '&&',
--    'cp', cargo_target / rust_target / meson.project_name(), '@OUTPUT@',
-   ]
+-    'cp',
+-    cargo_target / rust_target / meson.project_name(),
+-    '@OUTPUT@',
+   ],
  )
- 
---- a/meson.build
-+++ b/meson.build
-@@ -126,17 +126,6 @@ test (
-   timeout: 400,
- )
- 
--test (
--  'cargo-clippy',
--  cargo,
--  args: [
--    'clippy',
--    clippy_options,
--  ],
--  env: cargo_env,
--  timeout: 400, # cargo might take a bit of time sometimes
--)
--
- gnome.post_install(
-   gtk_update_icon_cache: true,
-   glib_compile_schemas: true,
