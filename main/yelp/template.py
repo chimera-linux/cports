@@ -1,5 +1,5 @@
 pkgname = "yelp"
-pkgver = "49.1"
+pkgver = "49.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -27,7 +27,7 @@ pkgdesc = "Help browser for GNOME desktop"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp"
 source = f"$(GNOME_SITE)/yelp/{pkgver[:-2]}/yelp-{pkgver}.tar.xz"
-sha256 = "3e3e94ef2d2c9487cc51062e3afbfa1578cebd29d80c84357b6d7ee6dcfd8a74"
+sha256 = "5afc8e77308451ee45ee919efee5a154ca3c153a90e2a1b58cebf7827ab88ad0"
 
 
 @subpackage("yelp-devel")
