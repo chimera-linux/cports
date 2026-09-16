@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "50.0"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
@@ -17,6 +17,7 @@ depends = [
     "gnome-color-manager",
     "gnome-control-center",
     "gnome-desktop",
+    "gnome-extensions-app",
     "gnome-initial-setup",
     "gnome-keyring",
     "gnome-online-accounts",
@@ -49,7 +50,6 @@ def _(self):
     self.depends = [
         "baobab",
         "epiphany",
-        "evince",
         "gnome-browser-connector",
         "gnome-calculator",
         "gnome-calendar",
@@ -72,6 +72,7 @@ def _(self):
         # "gnome-user-share",
         "loupe",
         "orca",
+        "papers",
         # "phodav",
         "simple-scan",
         "sushi",
