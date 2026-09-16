@@ -1,6 +1,6 @@
 pkgname = "gnome-session"
 pkgver = "48.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=/tmp",
