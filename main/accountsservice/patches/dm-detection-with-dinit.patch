@@ -6,15 +6,15 @@ diff --git a/src/daemon.c b/src/daemon.c
 index aa9d050..6bfba82 100644
 --- a/src/daemon.c
 +++ b/src/daemon.c
-@@ -55,7 +55,6 @@
- #define PATH_PASSWD "passwd"
+@@ -63,7 +63,6 @@
  #define PATH_SHADOW "shadow"
+ #define PATH_TCB "tcb"
  #define PATH_GROUP "/etc/group"
 -#define PATH_DM     "/etc/systemd/system/display-manager.service"
  
- enum
+ typedef enum
  {
-@@ -183,20 +182,8 @@ error_get_type (void)
+@@ -201,20 +200,8 @@
  static DisplayManagerType
  get_current_system_dm_type (void)
  {
@@ -37,3 +37,4 @@ index aa9d050..6bfba82 100644
          }
  
          return DISPLAY_MANAGER_TYPE_NONE;
+
