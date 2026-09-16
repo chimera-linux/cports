@@ -1,6 +1,6 @@
 pkgname = "gnome-settings-daemon"
-pkgver = "50.1"
-pkgrel = 1
+pkgver = "51.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Delogind=true",
@@ -56,7 +56,7 @@ pkgdesc = "GNOME settings daemon"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:-2]}/gnome-settings-daemon-{pkgver}.tar.xz"
-sha256 = "dd2c9730914f0ececa0229dd8a8c2940a57ddeb0802434558d4b164d79cfe05c"
+sha256 = "7c6249118ddfffc4bb34d6b3edaa86b3ea02a1ad2b7711d79480749906767665"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 # wants xvfb
 options = ["etcfiles", "!check"]
