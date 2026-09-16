@@ -10,12 +10,13 @@
  #include <glib.h>
  #include <glib/gi18n.h>
 @@ -637,9 +637,6 @@ login_perform_kinit (krb5_context k5,
-         code = krb5_get_init_creds_opt_alloc (k5, &opts);
-         g_return_val_if_fail (code == 0, code);
+     code = krb5_get_init_creds_opt_alloc (k5, &opts);
+     g_return_val_if_fail (code == 0, code);
  
--        code = krb5_get_init_creds_opt_set_out_ccache (k5, opts, ccache);
--        g_return_val_if_fail (code == 0, code);
+-    code = krb5_get_init_creds_opt_set_out_ccache (k5, opts, ccache);
+-    g_return_val_if_fail (code == 0, code);
 -
-         code = krb5_get_init_creds_password (k5, &creds, principal,
-                                              (char *)password,
-                                              NULL, 0, 0, NULL, opts);
+     code = krb5_get_init_creds_password (k5, &creds, principal, (char *) password, NULL, 0, 0, NULL, opts);
+ 
+     krb5_get_init_creds_opt_free (k5, opts);
+ 
