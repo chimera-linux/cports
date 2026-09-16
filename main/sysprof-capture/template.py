@@ -1,6 +1,6 @@
 # sync with main/sysprof
 pkgname = "sysprof-capture"
-pkgver = "50.0"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ subdesc = "static capture library"
 license = "BSD-2-Clause-Patent"
 url = "https://www.sysprof.com"
 source = f"$(GNOME_SITE)/sysprof/{'.'.join(pkgver.rsplit('.')[:-1])}/sysprof-{pkgver}.tar.xz"
-sha256 = "aace44e90e90f6c34bb2fbec8ccb47b8f81103080978d65759287843c329d53a"
+sha256 = "f2c8d9c5c8294ce3fdc8be7d9f4be56a72ed71522cb54987f1723a8cfd91637d"
 # sysprof`sysprof_disk_usage_record_fiber muloverflow when busy i/o
 hardening = ["!int"]
 # static lib only
