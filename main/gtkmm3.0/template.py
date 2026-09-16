@@ -1,5 +1,5 @@
 pkgname = "gtkmm3.0"
-pkgver = "3.24.10"
+pkgver = "3.24.11"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dbuild-demos=false", "-Dbuild-tests=true"]
@@ -19,7 +19,7 @@ url = "https://www.gtkmm.org"
 source = (
     f"$(GNOME_SITE)/gtkmm/{pkgver[: pkgver.rfind('.')]}/gtkmm-{pkgver}.tar.xz"
 )
-sha256 = "7ab7e2266808716e26c39924ace1fb46da86c17ef39d989624c42314b32b5a76"
+sha256 = "19e383c82d5dd89db275e00b82864e90414d4c3fb3d100b2f996bcc2338a4cc7"
 
 
 @subpackage("gtkmm3.0-devel")
