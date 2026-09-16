@@ -41,11 +41,13 @@ def init_build(self):
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for cmd in ["uv", "uvx"]:
         for shell in ["bash", "fish", "nushell", "zsh"]:
             with open(self.cwd / f"{cmd}.{shell}", "w") as cf:
                 self.do(
-                    f"./target/{self.profile.triplet}/release/{cmd}",
+                    cargo.target_path(self, cmd),
                     "--generate-shell-completion",
                     shell,
                     stdout=cf,

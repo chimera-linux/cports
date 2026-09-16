@@ -50,10 +50,12 @@ def pre_prepare(self):
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"eww.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/eww",
+                cargo.target_path(self, "eww"),
                 "shell-completions",
                 "--shell",
                 shell,
@@ -62,7 +64,9 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"eww.{shell}", shell)
-    self.install_bin(f"./target/{self.profile.triplet}/release/eww")
+    self.install_bin(cargo.target_path(self, "eww"))
     self.install_license("LICENSE")

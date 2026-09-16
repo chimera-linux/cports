@@ -13,17 +13,26 @@ sha256 = "2903853f24d742fe955edd9bea17947eb8f3f44000a8ac528d16f2ea1e52b78b"
 
 
 def init_build(self):
-    self.make_build_env = {
-        "SHELL_COMPLETIONS_DIR": f"target/{self.profile.triplet}/release/completions"
-    }
+    from cbuild.util import cargo
+
+    self.make_build_env["SHELL_COMPLETIONS_DIR"] = cargo.target_path(
+        self, "completions"
+    )
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSE-MIT")
-    with self.pushd(f"target/{self.profile.triplet}/release"):
-        self.install_bin("pastel")
-        self.install_completion("completions/pastel.bash", "bash")
-        self.install_completion("completions/_pastel", "zsh")
-        self.install_completion("completions/pastel.fish", "fish")
-        # for some reason the manpages are in completions/ hah
-        self.install_man("completions/*.1", glob=True)
+    self.install_bin(cargo.target_path(self, "pastel"))
+    self.install_completion(
+        cargo.target_path(self, "completions/pastel.bash"), "bash"
+    )
+    self.install_completion(
+        cargo.target_path(self, "completions/_pastel"), "zsh"
+    )
+    self.install_completion(
+        cargo.target_path(self, "completions/pastel.fish"), "fish"
+    )
+    # for some reason the manpages are in completions/ hah
+    self.install_man(cargo.target_path(self, "completions/*.1"), glob=True)

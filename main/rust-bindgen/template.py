@@ -18,5 +18,7 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile.triplet}/release/bindgen")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "bindgen"))
     self.install_license("LICENSE")

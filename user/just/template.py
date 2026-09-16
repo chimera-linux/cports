@@ -18,9 +18,11 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     with open(self.cwd / "just.1", "w") as f:
         self.do(
-            f"./target/{self.profile.triplet}/release/just",
+            cargo.target_path(self, "just"),
             "--man",
             stdout=f,
         )

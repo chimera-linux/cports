@@ -24,9 +24,10 @@ def post_build(self):
 
 
 def install(self):
-    with self.pushd(f"target/{self.profile.triplet}/release"):
-        self.install_bin("reaction")
-        self.install_man("reaction*.1", glob=True)
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "reaction"))
+    self.install_man(cargo.target_path(self, "reaction*.1"), glob=True)
     self.install_bin("ip46tables")
     self.install_bin("nft46")
     self.install_license("LICENSE")

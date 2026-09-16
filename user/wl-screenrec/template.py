@@ -23,10 +23,12 @@ options = ["!check", "!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"wl-screenrec.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/wl-screenrec",
+                cargo.target_path(self, "wl-screenrec"),
                 "--generate-completions",
                 shell,
                 stdout=f,

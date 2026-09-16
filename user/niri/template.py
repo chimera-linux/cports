@@ -46,10 +46,12 @@ if self.profile.wordsize == 32:
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"niri.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/niri",
+                cargo.target_path(self, "niri"),
                 "completions",
                 shell,
                 stdout=f,

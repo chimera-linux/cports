@@ -39,4 +39,6 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/src/{self.profile.triplet}/release/warp")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "warp", f"{self.make_dir}/src"))

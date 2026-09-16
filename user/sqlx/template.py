@@ -28,10 +28,12 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"sqlx.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/sqlx",
+                cargo.target_path(self, "sqlx"),
                 "completions",
                 shell,
                 stdout=outf,

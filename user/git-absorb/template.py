@@ -15,12 +15,14 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do("make", "-C", "Documentation")
 
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"git-absorb.{shell}", "w") as cf:
             self.do(
-                f"./target/{self.profile.triplet}/release/git-absorb",
+                cargo.target_path(self, "git-absorb"),
                 "--gen-completions",
                 shell,
                 stdout=cf,

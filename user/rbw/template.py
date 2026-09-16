@@ -12,10 +12,12 @@ sha256 = "660cfa4c727711665bef060046c28dd3924ca1e490fdc058d90d35372b2d2cf6"
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"rbw.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/rbw",
+                cargo.target_path(self, "rbw"),
                 "gen-completions",
                 shell,
                 stdout=outf,

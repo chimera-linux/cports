@@ -27,10 +27,12 @@ def pre_prepare(self):
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"jwt.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/jwt",
+                cargo.target_path(self, "jwt"),
                 "completion",
                 shell,
                 stdout=outf,

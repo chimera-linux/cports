@@ -20,10 +20,12 @@ if self.profile.wordsize == 32:
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"tinymist.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/tinymist",
+                cargo.target_path(self, "tinymist"),
                 "completion",
                 shell,
                 stdout=f,

@@ -16,8 +16,10 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do(
-        f"target/{self.profile.triplet}/release/static-web-server",
+        cargo.target_path(self, "static-web-server"),
         "generate",
         "generated",
     )

@@ -16,6 +16,8 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.do(
         "make",
         "install",
@@ -24,7 +26,7 @@ def install(self):
         wrksrc="docs",
     )
     self.install_file(
-        f"target/{self.profile.triplet}/release/netavark",
+        cargo.target_path(self, "netavark"),
         "usr/lib/podman",
-        0o755,
+        mode=0o755,
     )

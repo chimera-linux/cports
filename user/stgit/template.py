@@ -25,11 +25,13 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do("make", "-C", "Documentation", "man")
     for shell in ["bash", "fish"]:
         with open(self.cwd / f"stgit.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/stg",
+                cargo.target_path(self, "stg"),
                 "completion",
                 shell,
                 stdout=outf,

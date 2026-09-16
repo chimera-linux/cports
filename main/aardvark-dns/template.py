@@ -12,8 +12,10 @@ sha256 = "daf871488603e659b0501224cf0731ac317809b1d1701fc061cb4f6ae39a894f"
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_file(
-        f"target/{self.profile.triplet}/release/aardvark-dns",
+        cargo.target_path(self, "aardvark-dns"),
         "usr/lib/podman",
-        0o755,
+        mode=0o755,
     )

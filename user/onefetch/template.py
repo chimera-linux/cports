@@ -25,10 +25,12 @@ def post_patch(self):
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"onefetch.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/onefetch",
+                cargo.target_path(self, "onefetch"),
                 "--generate",
                 shell,
                 stdout=outf,
