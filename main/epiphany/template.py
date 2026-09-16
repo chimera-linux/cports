@@ -1,5 +1,5 @@
 pkgname = "epiphany"
-pkgver = "50.4"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,6 +28,7 @@ makedepends = [
     "libadwaita-devel",
     "libarchive-devel",
     "libportal-devel",
+    "libpwquality-devel",
     "libsecret-devel",
     "libsoup-devel",
     "libxml2-devel",
@@ -42,4 +43,4 @@ url = "https://wiki.gnome.org/Apps/Web"
 source = (
     f"$(GNOME_SITE)/epiphany/{pkgver.split('.')[0]}/epiphany-{pkgver}.tar.xz"
 )
-sha256 = "1e26f9901f0f08bfe943aa70163c953334c7ec3d4aefc8d354e8a9c140b334a7"
+sha256 = "abaf33576462030c65bb963a56300a7786e7d75834f1c90a9dffda873835c33d"
