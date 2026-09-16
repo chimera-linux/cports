@@ -1,5 +1,5 @@
 pkgname = "libdex"
-pkgver = "1.0.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "Future-based programming for GLib-based applications"
 license = "LGPL-2.1-or-later AND BSD-3-Clause"
 url = "https://gitlab.gnome.org/GNOME/libdex"
 source = f"$(GNOME_SITE)/libdex/{'.'.join(pkgver.rsplit('.')[:-1])}/libdex-{pkgver}.tar.xz"
-sha256 = "7b8f5c5db3796e14e12e10422e2356766ba830b92815fee70bbc867b5b207f5d"
+sha256 = "69f5b244c21f6402831c3ab8af85a01772f72fb118677388436f12f32bfb06d9"
 # for liburing
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
