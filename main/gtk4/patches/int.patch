@@ -1,16 +1,3 @@
-diff --git a/gdk/loaders/gdktiff.c b/gdk/loaders/gdktiff.c
-index 93f39a7830..1a4e35edea 100644
---- a/gdk/loaders/gdktiff.c
-+++ b/gdk/loaders/gdktiff.c
-@@ -341,7 +341,7 @@ static GdkTexture *
- load_fallback (TIFF    *tif,
-                GError **error)
- {
--  int width, height;
-+  uint32_t width, height;
-   guchar *data;
-   GBytes *bytes;
-   GdkTexture *texture;
 diff --git a/gtk/gtklistview.c b/gtk/gtklistview.c
 index 53e8558dd8..f6309bf8ee 100644
 --- a/gtk/gtklistview.c
