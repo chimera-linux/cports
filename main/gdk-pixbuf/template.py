@@ -1,5 +1,5 @@
 pkgname = "gdk-pixbuf"
-pkgver = "2.44.7"
+pkgver = "2.44.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,7 @@ pkgdesc = "Image loading library for GTK"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/gdk-pixbuf/{pkgver[:-2]}/gdk-pixbuf-{pkgver}.tar.xz"
-sha256 = "172f80e3626ec31520a970400f1a3694e04718f6c2cd2885f75250fb5a6995a4"
+sha256 = "919f529512961a12e81cd4b4b466a48c3933469e7f9a310c6513cd4fb252ba3c"
 # FIXME int
 hardening = ["!int"]
 # check may be disabled
