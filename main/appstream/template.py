@@ -1,5 +1,5 @@
 pkgname = "appstream"
-pkgver = "1.1.6"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -43,7 +43,7 @@ makedepends = [
     "freetype-devel",
     "glib-devel",
     "libfyaml-devel",
-    "librsvg-devel",
+    "libvips-devel",
     "libxml2-devel",
     "libxmlb-devel",
     "pango-devel",
@@ -56,7 +56,7 @@ url = "https://www.freedesktop.org/wiki/Distributions/AppStream"
 source = (
     f"https://github.com/ximion/appstream/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "f9b79193d2620474bb48d0cd32abd76e002939fce3daa991a1b60642eecbb67f"
+sha256 = "02f723cb1afa372d434896e138503163a44ad49e4a813d0d30713fc38ccb8d0c"
 # gir
 options = ["!cross"]
 
