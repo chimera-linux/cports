@@ -43,7 +43,9 @@ elif self.profile.arch in ["loongarch64"]:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/nu")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "nu"))
     nu_autoload_path = "usr/share/nushell/vendor/autoload"
     self.install_dir(nu_autoload_path)
     for _plugin in _plugins:

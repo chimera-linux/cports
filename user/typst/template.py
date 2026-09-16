@@ -23,7 +23,10 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/typst")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "typst"))
+
     with self.pushd("crates/typst-cli/generated"):
         self.install_man("typst*.1", glob=True)
         self.install_completion("typst.bash", "bash")

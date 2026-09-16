@@ -24,5 +24,7 @@ def post_patch(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/gurk")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "gurk"))
     self.install_license("LICENSE-AGPL-3.0")

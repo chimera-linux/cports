@@ -18,4 +18,6 @@ sha256 = "26a220c7bf3a8f50d12b76c952fc4569a1162e2d002440faac3344a3634db4f2"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/stylua")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "stylua"))

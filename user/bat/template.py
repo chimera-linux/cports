@@ -23,7 +23,9 @@ def init_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/bat")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "bat"))
     self.install_man("gen/assets/manual/bat.1")
     self.install_license("LICENSE-MIT")
     self.install_completion("gen/assets/completions/bat.bash", "bash")

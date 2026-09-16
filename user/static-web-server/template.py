@@ -24,7 +24,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/static-web-server")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "static-web-server"))
     self.install_license("LICENSE-MIT")
     with self.pushd("generated/completions"):
         self.install_completion("static-web-server.bash", "bash")

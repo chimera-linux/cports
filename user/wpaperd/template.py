@@ -33,10 +33,12 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSE.md")
     self.install_man("wpaperd-output.5")
     self.install_service(self.files_path / "wpaperd.user")
-    with self.pushd(f"target/{self.profile.triplet}/release"):
+    with self.pushd(cargo.target_path(self)):
         self.install_bin("wpaperd")
         self.install_bin("wpaperctl")
         with self.pushd("completions"):

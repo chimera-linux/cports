@@ -31,7 +31,9 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"tinymist.{shell}", shell)
-    self.install_bin(f"target/{self.profile.triplet}/release/tinymist")
-    self.install_bin(f"target/{self.profile.triplet}/release/typlite")
+    self.install_bin(cargo.target_path(self, "tinymist"))
+    self.install_bin(cargo.target_path(self, "typlite"))

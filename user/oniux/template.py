@@ -20,5 +20,7 @@ if self.profile.endian == "big":
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/oniux")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "oniux"))
     self.install_license("LICENSE-MIT")

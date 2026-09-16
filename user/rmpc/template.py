@@ -17,7 +17,9 @@ sha256 = "930019066228d18e9530a8c0d77f10e231ab5efbbbca73b331efcd6fbb47557d"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/rmpc")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "rmpc"))
     self.install_license("LICENSE")
 
     self.install_completion("target/completions/rmpc.bash", "bash", "rmpc")

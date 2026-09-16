@@ -21,5 +21,7 @@ if self.profile.arch in ["aarch64", "x86_64"]:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/tree-sitter")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "tree-sitter"))
     self.install_license("LICENSE")

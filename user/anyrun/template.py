@@ -18,7 +18,9 @@ sha256 = "0b2abc1da9fdea12a753ca3024d5ede62209b82837d49eb5da35d99ba22a5790"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/anyrun")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "anyrun"))
 
     # PLUGIN_PATHS in anyrun-provider
     self.install_file(

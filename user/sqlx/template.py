@@ -39,8 +39,10 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/sqlx")
-    self.install_bin(f"target/{self.profile.triplet}/release/cargo-sqlx")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "sqlx"))
+    self.install_bin(cargo.target_path(self, "cargo-sqlx"))
     self.install_license("LICENSE-MIT")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"sqlx.{shell}", shell)

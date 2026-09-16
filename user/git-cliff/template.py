@@ -35,18 +35,22 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do(
-        f"target/{self.profile.triplet}/release/git-cliff-mangen",
+        cargo.target_path(self, "git-cliff-mangen"),
         env={"OUT_DIR": "."},
     )
     self.do(
-        f"target/{self.profile.triplet}/release/git-cliff-completions",
+        cargo.target_path(self, "git-cliff-completions"),
         env={"OUT_DIR": "."},
     )
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/git-cliff")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "git-cliff"))
     self.install_man("git-cliff.1")
     self.install_completion("git-cliff.bash", "bash")
     self.install_completion("git-cliff.fish", "fish")

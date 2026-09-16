@@ -15,12 +15,13 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do(
-        f"target/{self.profile.triplet}/release/oct",
-        env={"OCT_MANPAGE_OUTPUT_DIR": "man"},
+        cargo.target_path(self, "oct"), env={"OCT_MANPAGE_OUTPUT_DIR": "man"}
     )
     self.do(
-        f"target/{self.profile.triplet}/release/oct",
+        cargo.target_path(self, "oct"),
         env={"OCT_COMPLETION_OUTPUT_DIR": "completions"},
     )
 

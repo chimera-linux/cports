@@ -19,8 +19,10 @@ if self.profile.arch in ["loongarch64"]:
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSE-MIT")
-    self.install_bin(f"target/{self.profile.triplet}/release/systeroid")
-    self.install_bin(f"target/{self.profile.triplet}/release/systeroid-tui")
+    self.install_bin(cargo.target_path(self, "systeroid"))
+    self.install_bin(cargo.target_path(self, "systeroid-tui"))
     self.install_man("man8/systeroid.8")
     self.install_man("man8/systeroid-tui.8")

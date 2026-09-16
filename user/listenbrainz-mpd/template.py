@@ -14,5 +14,7 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/listenbrainz-mpd")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "listenbrainz-mpd"))
     self.install_license("LICENSE.txt")
