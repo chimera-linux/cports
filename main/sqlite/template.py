@@ -25,11 +25,11 @@ sha256 = "c917d7db16648ec95f714974ace5e5dcf46b7dc70e26600a0a102a3141125db0"
 # no tests
 options = ["!parallel", "!check"]
 
-if self.profile().cross:
+if self.profile.cross:
     configure_args += [
-        f"--host={self.profile().triplet}",
-        f"--sysroot={self.profile().sysroot}",
-        f"--with-readline-cflags=-I{self.profile().sysroot}",
+        f"--host={self.profile.triplet}",
+        f"--sysroot={self.profile.sysroot}",
+        f"--with-readline-cflags=-I{self.profile.sysroot}",
     ]
 
 _cflags = [
@@ -47,7 +47,7 @@ _cflags = [
     "-DSQLITE_SECURE_DELETE",
 ]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     _cflags += ["-DSHA3_BYTEORDER=4321", "-DSQLITE_BYTEORDER=4321"]
 else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]

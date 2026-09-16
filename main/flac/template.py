@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
     "--disable-doxygen-docs",
-    f"--with-ogg={self.profile().sysroot / 'usr'}",
+    f"--with-ogg={self.profile.sysroot / 'usr'}",
     "--disable-thorough-tests",
 ]
 configure_gen = []
@@ -22,7 +22,7 @@ hardening = ["vis", "!cfi", "!int"]
 # stuck on some weird test, but appears harmless
 options = ["!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le":
         configure_args += ["--enable-altivec", "--enable-vsx"]
     case "ppc64":

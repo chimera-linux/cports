@@ -127,7 +127,7 @@ def _scan_so(pkg):
                 subpkg_deps[depn] = True
             continue
         # otherwise, check if it came from an installed dependency
-        bp = pkg.rparent.profile()
+        bp = pkg.rparent.profile
         if bp.cross:
             broot = paths.bldroot() / bp.sysroot.relative_to("/")
             aarch = bp.arch
@@ -199,8 +199,8 @@ def _scan_pc(pkg):
     # all subpackages must declare their pkg-config path for the scan
     pcpaths = []
 
-    if pkg.rparent.profile().cross:
-        sr = pkg.rparent.profile().sysroot
+    if pkg.rparent.profile.cross:
+        sr = pkg.rparent.profile.sysroot
         hsr = paths.bldroot() / sr.relative_to("/")
         if (hsr / "usr/lib/pkgconfig").is_dir():
             pcpaths.append(str(sr / "usr/lib/pkgconfig"))
@@ -223,10 +223,10 @@ def _scan_pc(pkg):
     penv = {
         "PKG_CONFIG_PATH": pcpaths,
     }
-    if pkg.rparent.profile().cross:
-        penv["PKG_CONFIG_SYSROOT_DIR"] = str(pkg.rparent.profile().sysroot)
+    if pkg.rparent.profile.cross:
+        penv["PKG_CONFIG_SYSROOT_DIR"] = str(pkg.rparent.profile.sysroot)
         penv["PKG_CONFIG_LIBDIR"] = str(
-            pkg.rparent.profile().sysroot / "usr/lib/pkgconfig"
+            pkg.rparent.profile.sysroot / "usr/lib/pkgconfig"
         )
 
     def scan_pc(v):
@@ -483,7 +483,7 @@ def invoke(pkg):
     if not pkg.options["scanrundeps"]:
         return
 
-    with flock.lock(flock.apklock(pkg.rparent.profile().arch)):
+    with flock.lock(flock.apklock(pkg.rparent.profile.arch)):
         if not pkg.autopkg:
             _scan_so(pkg)
             _scan_pc(pkg)

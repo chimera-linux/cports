@@ -20,7 +20,7 @@ hardening = ["!int"]
 # cannot be reliably tested, testing option is conditional
 options = ["!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         configure_args += [
             "-DENABLE_ASSEMBLY=ON",

@@ -22,7 +22,7 @@ sha256 = "64b0fcc7960b2ea37a4e5c162aed604337541142c65a5674146b29c706e08671"
 # too long
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
@@ -30,6 +30,6 @@ def install(self):
     self.do(
         "make",
         "DESTDIR=" + str(self.chroot_destdir),
-        "RUST_TARGET=" + self.profile().triplet,
+        "RUST_TARGET=" + self.profile.triplet,
         "install",
     )

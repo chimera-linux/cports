@@ -34,7 +34,7 @@ sha256 = "9546a6326d747530b44fcc079babad40304a87f32d3c9080016d58b39cfc8b96"
 options = ["!check", "!cross"]
 
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "bug endian"
 
 

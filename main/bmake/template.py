@@ -9,15 +9,15 @@ sha256 = "ed6e5fa0d661ea3c71d12e7481cbbcac6f2bff34051ce36ae7575811766adf26"
 hardening = ["vis", "cfi"]
 
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends = ["bmake"]
 
 
 def build(self):
     self.mkdir("build", parents=True)
     eargs = []
-    if self.profile().cross:
-        eargs = ["--host=" + self.profile().triplet]
+    if self.profile.cross:
+        eargs = ["--host=" + self.profile.triplet]
     self.do(
         self.chroot_cwd / "boot-strap",
         *eargs,
@@ -29,7 +29,7 @@ def build(self):
 
 def install(self):
     eargs = []
-    if self.profile().cross:
+    if self.profile.cross:
         eargs = ["BMAKE=bmake"]
     self.do(
         self.chroot_cwd / "boot-strap",

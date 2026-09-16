@@ -16,7 +16,7 @@ sha256 = "abcc5811fece4dcbd8088e7b015533e887c8a5e66ad126eac8d6e468f6831693"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     broken = "runs out of memory on builder"
 
 

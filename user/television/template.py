@@ -8,7 +8,7 @@ make_check_args = [
     "--skip=cli::special::test_tv_pipes_correctly",
 ]
 make_check_env = {
-    "TV_BIN_PATH": f"./target/{self.profile().triplet}/release/tv",
+    "TV_BIN_PATH": f"./target/{self.profile.triplet}/release/tv",
 }
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 depends = ["bash", "fd", "bat", "rust-std"]
@@ -21,7 +21,7 @@ sha256 = "039d554569117c665e1b4336c427747a118cca781ddbffaf701c4b5f01c7f3e1"
 # generates completions with host binary
 options = ["!cross"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 

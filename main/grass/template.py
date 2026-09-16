@@ -25,5 +25,5 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/grass")
+    self.install_bin(f"target/{self.profile.triplet}/release/grass")
     self.install_license("LICENSE")

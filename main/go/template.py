@@ -24,7 +24,7 @@ options = [
     "execstack",
 ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "riscv64":
         # FIXME: these fail for unknown reasons currently
         options += ["!check"]
@@ -32,17 +32,17 @@ match self.profile().arch:
         # assume gcc / gnu as
         options += ["!check"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["go"]
     env["GOROOT_BOOTSTRAP"] = "/usr/lib/go"
 else:
     hostmakedepends += ["go-bootstrap"]
     env["GOROOT_BOOTSTRAP"] = "/usr/lib/go-bootstrap"
 
-if self.profile().goarch:
-    env["GOARCH"] = self.profile().goarch
+if self.profile.goarch:
+    env["GOARCH"] = self.profile.goarch
 else:
-    broken = f"Unsupported platform ({self.profile().arch})"
+    broken = f"Unsupported platform ({self.profile.arch})"
 
 
 def build(self):
@@ -60,9 +60,9 @@ def build(self):
 
 def _get_binpath(self):
     _binpath = "bin"
-    if self.profile().cross:
-        _binpath = f"bin/linux_{self.profile().goarch}"
-        with self.profile("host") as hpf:
+    if self.profile.cross:
+        _binpath = f"bin/linux_{self.profile.goarch}"
+        with self.use_profile("host") as hpf:
             _hostarch = hpf.goarch
     else:
         _hostarch = None
@@ -87,7 +87,7 @@ def _clear_pkg(self, arch, ppath):
 def _(self):
     _binpath, _hostarch = _get_binpath(self)
 
-    bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"
+    bdirn = f"go-bootstrap-{pkgver}-{self.profile.goarch}"
     self.mkdir(bdirn)
     self.cp(_binpath, f"{bdirn}/bin", recursive=True)
     self.cp("src", bdirn, recursive=True)

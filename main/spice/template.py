@@ -39,7 +39,7 @@ url = "https://www.spice-space.org"
 source = f"https://www.spice-space.org/download/releases/spice-{pkgver}.tar.bz2"
 sha256 = "6d9eb6117f03917471c4bc10004abecff48a79fb85eb85a1c45f023377015b81"
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "only supports little-endian"
 
 

@@ -18,7 +18,7 @@ sha256 = "9c2b6020b51a1d53641fe8e282fd849b4d00eca8945fef93d63454655a90ba0d"
 # generates completions with host binary
 options = ["!cross"]
 
-if self.profile().arch == "ppc64le":
+if self.profile.arch == "ppc64le":
     broken = "segfaults in tests"
 
 

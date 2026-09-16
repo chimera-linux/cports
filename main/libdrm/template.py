@@ -15,7 +15,7 @@ hardening = ["vis", "!cfi", "!int"]
 options = ["!distlicense"]
 
 # stuff like radeon autodetects, most arm stuff is by default false
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         configure_args += [
             "-Dvc4=enabled",

@@ -3,7 +3,7 @@ pkgver = "1.4.360"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",
+    f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile.sysroot / 'usr'}",
     "-DBUILD_TESTS=OFF",  # needs gtest downloaded
 ]
 hostmakedepends = [

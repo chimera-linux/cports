@@ -19,7 +19,7 @@ url = "https://github.com/BYVoid/OpenCC"
 source = f"{url}/archive/refs/tags/ver.{pkgver}.tar.gz"
 sha256 = "ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99"
 
-if self.profile().arch == "ppc64":
+if self.profile.arch == "ppc64":
     # FIXME: hangs
     make_check_args += ["-E", "ConfigTest"]
 

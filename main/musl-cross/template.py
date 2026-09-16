@@ -36,7 +36,7 @@ _targetlist = [
     "riscv64",
     "loongarch64",
 ]
-_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile.arch, _targetlist))
 
 
 def post_extract(self):
@@ -55,7 +55,7 @@ def post_extract(self):
 
 def configure(self):
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
             # musl build dir
             self.mkdir(f"build-{an}", parents=True)
@@ -84,7 +84,7 @@ def configure(self):
 
 def build(self):
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             eargs = []
             if pf.wordsize != 32:
                 eargs += [
@@ -99,7 +99,7 @@ def install(self):
     self.install_license("COPYRIGHT")
 
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
             self.install_dir(f"usr/{at}/usr/lib")
             self.install_link(f"usr/{at}/lib", "usr/lib")
@@ -137,7 +137,7 @@ def _gen_crossp(an, at):
 
 
 for _an in _targetlist:
-    with self.profile(_an) as _pf:
+    with self.use_profile(_an) as _pf:
         _gen_crossp(_an, _pf.triplet)
 
 

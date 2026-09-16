@@ -34,7 +34,7 @@ sha256 = "844b49415e8bcc88e02c7cf85b058866909d9e5d73131efe10ad23eec1d71a28"
 hardening = ["vis"]
 
 
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     depends += ["signon-ui"]
 
 

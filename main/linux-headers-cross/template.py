@@ -22,7 +22,7 @@ _targetlist = [
     ("riscv64", "riscv"),
     ("loongarch64", "loongarch"),
 ]
-_targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
+_targets = list(filter(lambda p: p[0] != self.profile.arch, _targetlist))
 
 
 def build(self):
@@ -57,7 +57,7 @@ def build(self):
 
 def install(self):
     for an, arch in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
             self.install_dir(f"usr/{at}/usr")
             self.install_files("inc_" + an, "usr")
@@ -73,7 +73,7 @@ def _crosshdr(an, arch):
     @subpackage(f"linux-headers-cross-{an}", _cond)
     def _(self):
         self.subdesc = f"{an} support"
-        with self.rparent.profile(an) as pf:
+        with self.rparent.use_profile(an) as pf:
             return [f"usr/{pf.triplet}"]
 
     if _cond:

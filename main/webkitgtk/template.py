@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
     "-DCMAKE_SKIP_RPATH=ON",
-    f"-DCMAKE_LINKER={self.profile().triplet}-clang",
+    f"-DCMAKE_LINKER={self.profile.triplet}-clang",
     # -DUSE_*
     "-DUSE_GTK4=OFF",
     "-DUSE_LD_LLD=ON",
@@ -116,7 +116,7 @@ hardening = ["!int"]
 # huge testsuite
 options = ["!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64" | "aarch64":
         configure_args += ["-DENABLE_JIT=ON", "-DENABLE_C_LOOP=OFF"]
     case _:
@@ -126,15 +126,15 @@ match self.profile().arch:
             "-DENABLE_WEBASSEMBLY=OFF",
         ]
 
-if self.profile().arch == "loongarch64":
+if self.profile.arch == "loongarch64":
     tool_flags["CXXFLAGS"] += ["-DSIMDE_FLOAT16_API=SIMDE_FLOAT16_API_PORTABLE"]
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     # libpas/bmalloc link errors
     configure_args += ["-DUSE_SYSTEM_MALLOC=ON"]
 
 # LTO broken on aarch64 (JIT segfault)
-if self.has_lto(force=True) and self.profile().arch != "aarch64":
+if self.has_lto(force=True) and self.profile.arch != "aarch64":
     configure_args += ["-DLTO_MODE=thin"]
 else:
     options += ["!lto"]

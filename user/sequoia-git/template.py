@@ -3,7 +3,7 @@ pkgver = "0.4.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
-make_check_env = {"TARGET": self.profile().triplet, "NO_FAKETIME": "1"}
+make_check_env = {"TARGET": self.profile.triplet, "NO_FAKETIME": "1"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "bzip2-devel",
@@ -36,9 +36,9 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/sq-git")
+    self.install_bin(f"target/{self.profile.triplet}/release/sq-git")
     self.install_man(
-        f"target/{self.profile().triplet}/release/build/sequoia-git-*/out/man-pages/*.1",
+        f"target/{self.profile.triplet}/release/build/sequoia-git-*/out/man-pages/*.1",
         glob=True,
     )
 

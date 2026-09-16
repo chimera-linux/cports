@@ -48,7 +48,7 @@ def init_prepare(self):
         self.make_env["LIBGIT2_NO_VENDOR"] = "0"
         self.make_env["OPENSSL_STATIC"] = "1"
         self.make_env["OPENSSL_NO_PKG_CONFIG"] = "1"
-        self.make_env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
+        self.make_env["OPENSSL_DIR"] = str(self.profile.sysroot / "usr")
 
 
 def prepare(self):
@@ -58,8 +58,8 @@ def prepare(self):
 
 @custom_target("bootstrap", "build")
 def _(self):
-    binp = f"target/{self.profile().triplet}/release/cargo"
-    bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
+    binp = f"target/{self.profile.triplet}/release/cargo"
+    bdirn = f"cargo-{pkgver}-{self.profile.triplet}"
     self.mkdir(bdirn)
     self.cp(binp, bdirn)
     self.cp("LICENSE-APACHE", bdirn)
@@ -70,7 +70,7 @@ def _(self):
 
 
 def install(self):
-    binp = f"target/{self.profile().triplet}/release/cargo"
+    binp = f"target/{self.profile.triplet}/release/cargo"
 
     self.install_bin(binp)
 

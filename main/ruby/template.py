@@ -36,7 +36,7 @@ sha256 = "db425a86f6e07546957578f4946cc700a91e7fd51115a86c56e096f30e0530c7"
 # suite (stat usage) + chown not working in the sandbox + locale issues
 options = ["!cross", "!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "x86_64":
         # yjit only has backends here
         configure_args += ["--enable-yjit"]
@@ -46,7 +46,7 @@ match self.profile().arch:
         # just ELFv2
         configure_args += ["--with-coroutine=ppc64le"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["ruby"]
 
 

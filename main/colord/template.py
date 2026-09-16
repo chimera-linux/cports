@@ -41,7 +41,7 @@ sha256 = "21500bd68975312a7f0f3ce6019d9f75f42aacaa75ca7115ec720b5445406896"
 # FIXME int
 hardening = ["!int"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends.append("colord")
 
 

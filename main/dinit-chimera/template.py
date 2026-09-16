@@ -39,7 +39,7 @@ sha256 = "7427126e0341d8c7c19e687b10d7d13896c3e8d591eabc0e25874be3cc60fb32"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
-_have_kexec_tools = self.profile().arch in [
+_have_kexec_tools = self.profile.arch in [
     "aarch64",
     "armhf",
     "armv7",

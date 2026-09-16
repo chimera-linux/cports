@@ -15,7 +15,7 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # no tests
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "argparser compiletime constant stuff"
 
 

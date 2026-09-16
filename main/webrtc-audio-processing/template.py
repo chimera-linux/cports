@@ -11,7 +11,7 @@ url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-{pkgver}.tar.gz"
 sha256 = "35e86b986d02ea15f3d04741a1a5a735ba399bc0fac0ee089c39480e35fc3253"
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "does not support BE"
 
 

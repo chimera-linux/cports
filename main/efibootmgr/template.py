@@ -16,7 +16,7 @@ options = ["etcfiles", "!check"]
 
 # TODO: kernel hook?
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _loader = "grubx64.efi"
     case "aarch64":
@@ -26,7 +26,7 @@ match self.profile().arch:
     case "riscv64":
         _loader = "grubriscv64.efi"
     case _:
-        broken = f"Unsupported architecture: {self.profile().arch}"
+        broken = f"Unsupported architecture: {self.profile.arch}"
 
 
 def init_configure(self):
@@ -36,8 +36,8 @@ def init_configure(self):
         "EFI_LOADER=" + _loader,
     ]
 
-    if self.profile().cross:
-        self.make_build_args += [f"CROSS_COMPILE={self.profile().triplet}-"]
+    if self.profile.cross:
+        self.make_build_args += [f"CROSS_COMPILE={self.profile.triplet}-"]
 
 
 def install(self):

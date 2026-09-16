@@ -43,7 +43,7 @@ def _(self):
     ]
     # don't pull in on platforms not supported by node, as that will prevent
     # building yt-dlp on platforms that can't build yt-dlp-ejs
-    if self.rparent.profile().arch in [
+    if self.rparent.profile.arch in [
         "aarch64",
         "loongarch64",
         "ppc64le",

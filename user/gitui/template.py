@@ -22,7 +22,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0400cbf59605490b5fb8779f9af41fa4d7a1bb748093ca0e13156a5dff31c7aa"
 env = {"GITUI_RELEASE": "1"}
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 

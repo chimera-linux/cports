@@ -42,7 +42,7 @@ sha256 = "2677bad6c422617fd1172d359c16af34e736965d042c214203a87187d26ff037"
 options = ["!cross"]
 
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     broken = "gir generation dies with illegal instruction"
 
 

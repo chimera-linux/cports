@@ -18,7 +18,7 @@ source = (
 )
 sha256 = "5d92753c046c6dbd528a6f47edbab599a017d415aed8088875d8c36f39189b60"
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["wayland-progs"]
 
 

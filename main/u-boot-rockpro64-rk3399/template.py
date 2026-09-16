@@ -5,9 +5,7 @@ archs = ["aarch64"]
 build_style = "u_boot"
 make_build_args = [
     "BL31="
-    + str(
-        self.profile().sysroot / "usr/lib/trusted-firmware-a/rk3399/bl31.elf"
-    ),
+    + str(self.profile.sysroot / "usr/lib/trusted-firmware-a/rk3399/bl31.elf"),
 ]
 hostmakedepends = [
     "bash",

@@ -12,7 +12,7 @@ sha256 = "34bd82d47e981940751619c9cc44c095bb90bfcaf8d71865cbb822c37690a764"
 options = ["!check"]
 
 # relocation errors when linking
-if self.profile().arch == "loongarch64":
+if self.profile.arch == "loongarch64":
     env = {"CGO_ENABLED": "0"}
 
 

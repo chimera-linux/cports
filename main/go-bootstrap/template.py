@@ -8,7 +8,7 @@ license = "BSD-3-Clause"
 url = "https://go.dev"
 options = ["!strip", "!scanrundeps", "!lintstatic", "foreignelf", "execstack"]
 
-match self.profile().goarch:
+match self.profile.goarch:
     case "arm64":
         sha256 = (
             "97cc9292ef0e2cfe44d46cb9d7b4fca92d3e636ebe21141745fea3d334a4acbd"
@@ -30,9 +30,9 @@ match self.profile().goarch:
             "b6ceb7a6f33b5e209beeaa8ddd63e6cacae5d6cf2ccd21e080019c6edff953a2"
         )
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
-source = f"https://repo.chimera-linux.org/distfiles/go-bootstrap-{pkgver}-{self.profile().goarch or ''}.tar.zst"
+source = f"https://repo.chimera-linux.org/distfiles/go-bootstrap-{pkgver}-{self.profile.goarch or ''}.tar.zst"
 
 
 def install(self):

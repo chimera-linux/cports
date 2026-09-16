@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = [
     # make sure sysroot readline is used in cross builds
     "--readline",
-    f"{self.profile().sysroot}/usr",
+    f"{self.profile.sysroot}/usr",
 ]
 configure_gen = []
 make_dir = "."

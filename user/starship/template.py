@@ -34,7 +34,7 @@ def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"starship.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/starship",
+                f"target/{self.profile.triplet}/release/starship",
                 "completions",
                 shell,
                 stdout=outf,
@@ -42,7 +42,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/starship")
+    self.install_bin(f"target/{self.profile.triplet}/release/starship")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"starship.{shell}", shell)

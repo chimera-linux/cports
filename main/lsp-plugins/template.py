@@ -26,7 +26,7 @@ hardening = ["vis", "!cfi"]
 # cross broken because of dumb uname arch detection
 options = ["!check", "!cross"]
 
-if self.profile().arch == "ppc":
+if self.profile.arch == "ppc":
     broken = "segfaults during build"
 
 

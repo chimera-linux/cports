@@ -37,7 +37,7 @@ def post_build(self):
     for shell in ["bash", "zsh", "fish"]:
         with open(self.cwd / f"shotman.{shell}", "w") as cf:
             self.do(
-                f"target/{self.profile().triplet}/release/shotman_completions",
+                f"target/{self.profile.triplet}/release/shotman_completions",
                 shell,
                 stdout=cf,
             )

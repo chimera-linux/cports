@@ -18,7 +18,7 @@ hardening = ["!int"]
 options = []
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "loongarch64" | "ppc64le" | "riscv64" | "x86_64":
         checkdepends += ["nodejs"]
     case _:

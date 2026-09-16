@@ -23,7 +23,7 @@ sha256 = "5e292b02614dbc0cee40fe1116db2f42f63ef6b2ba430c77b614e17b8d61a638"
 # check may be disabled
 options = []
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     # Tests fail with overflow in addition
     # https://github.com/Exiv2/exiv2/issues/2539
     options += ["!check"]

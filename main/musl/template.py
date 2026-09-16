@@ -31,7 +31,7 @@ options = ["bootstrap", "!check", "!lto"]
 
 # whether to use musl's stock allocator
 # for now 32-bit targets until we patch out 64-bit atomics in arena
-_use_mng = self.profile().wordsize == 32
+_use_mng = self.profile.wordsize == 32
 
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]

@@ -47,7 +47,7 @@ sha256 = "ab24d24e698dfa1e408b7bcdb508f4aafc906185a8b8ce72fdf79bbbdc9b383b"
 hardening = ["!int"]
 
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     # ftbfs
     configure_args += ["-Dtests=false"]
 

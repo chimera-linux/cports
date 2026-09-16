@@ -25,8 +25,8 @@ compression = "deflate"
 # sigh, carried over from zlib's old buildsystem
 options = ["bootstrap", "linkundefver"]
 
-if self.profile().cross:
-    configure_env["CHOST"] = self.profile().triplet
+if self.profile.cross:
+    configure_env["CHOST"] = self.profile.triplet
 
 
 @subpackage("zlib-ng-compat-devel")

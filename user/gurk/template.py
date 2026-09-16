@@ -24,5 +24,5 @@ def post_patch(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/gurk")
+    self.install_bin(f"target/{self.profile.triplet}/release/gurk")
     self.install_license("LICENSE-AGPL-3.0")

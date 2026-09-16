@@ -25,4 +25,4 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/rebos")
+    self.install_bin(f"target/{self.profile.triplet}/release/rebos")

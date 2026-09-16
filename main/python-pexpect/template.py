@@ -40,7 +40,7 @@ def post_extract(self):
     # can't deal with escapes
     self.rm("tests/test_replwrap.py")
 
-    if self.profile().arch == "armv7":
+    if self.profile.arch == "armv7":
         # doesn't find a match when searching with regex and windowsize
         # see https://github.com/pexpect/pexpect/issues/816
         self.rm("tests/test_performance.py")

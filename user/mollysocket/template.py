@@ -18,12 +18,12 @@ url = "https://github.com/mollyim/mollysocket"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "b380faf8ca526e92bcbc121d8ac35b88945a6f62b4602dea0df6f7c1f6bfaac7"
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "atomic64"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/mollysocket")
+    self.install_bin(f"target/{self.profile.triplet}/release/mollysocket")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "mollysocket")

@@ -15,7 +15,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "46eef3101da70852ec7af026e09d485ccee81813331c8c6052d39344443b83da"
 tool_flags = {"CXXFLAGS": ["-Wno-c2y-extensions"]}
 
-if self.profile().cross:
+if self.profile.cross:
     # checkdepends aren't installed at configure time; CLI11 falls back to
     # downloading a legacy Catch header, no network in cross.
     configure_args += ["-DCLI11_BUILD_TESTS=OFF"]

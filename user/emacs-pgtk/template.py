@@ -63,7 +63,7 @@ def post_install(self):
     # remove suid from game exe
     (
         self.destdir
-        / f"usr/lib/emacs/{pkgver}/{self.profile().triplet}/update-game-score"
+        / f"usr/lib/emacs/{pkgver}/{self.profile.triplet}/update-game-score"
     ).chmod(0o755)
 
     self.uninstall("usr/lib/systemd/user")

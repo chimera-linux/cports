@@ -22,7 +22,7 @@ source = f"https://github.com/alembic/alembic/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "b6d916c40446e8c502c84273092ab3d98f3f7f6094f8a2b8203d23e2f1d2a4a0"
 hardening = ["vis", "!cfi"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "alembic is broken on big endian"
 
 

@@ -43,7 +43,7 @@ makedepends = [
     "zstd-devel",
 ]
 # binutils is a metapackage pointing to the current target binutils
-depends = [self.with_pkgver(f"binutils-{self.profile().arch}")]
+depends = [self.with_pkgver(f"binutils-{self.profile.arch}")]
 pkgdesc = "GNU binutils"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
@@ -81,9 +81,9 @@ def post_extract(self):
 def _configure_tgt(self, tgt):
     cargs = [*self.configure_args]
 
-    htgt = self.profile()
+    htgt = self.profile
 
-    if self.profile().cross:
+    if self.profile.cross:
         cargs += [
             f"--host={htgt.triplet}",
             f"--with-build-sysroot={htgt.sysroot}",
@@ -112,7 +112,7 @@ def _configure_tgt(self, tgt):
 def configure(self):
     for tgtn in _targets:
         tgtp = None
-        with self.profile(tgtn) as tgt:
+        with self.use_profile(tgtn) as tgt:
             tgtp = tgt
 
         with self.stamp(f"{tgtn}_configure") as s:
@@ -145,7 +145,7 @@ def build(self):
 def install(self):
     for tgtn in _targets:
         tgtp = None
-        with self.profile(tgtn) as tgt:
+        with self.use_profile(tgtn) as tgt:
             tgtp = tgt
         # native target is handled separately
         if not tgtp.cross:
@@ -169,7 +169,7 @@ def install(self):
             f"ldscripts-{tgtp.arch}",
         )
 
-    self.make.install(wrksrc=f"build-{self.profile().arch}")
+    self.make.install(wrksrc=f"build-{self.profile.arch}")
 
     # lto plugin
     self.install_file("LLVMgold.so", "usr/lib", mode=0o755)
@@ -226,7 +226,7 @@ def install(self):
     self.install_link("usr/bin/as", "gas")
     self.install_link("usr/share/man/man1/as.1", "gas.1")
 
-    tgt = self.profile()
+    tgt = self.profile
 
     # create triplet symlinks for native
     for p in (self.destdir / "usr/bin").glob("*"):
@@ -261,7 +261,7 @@ def _gen_subp(an, native):
             # native binutils is last and takes all
             return ["usr"]
 
-        with self.rparent.profile(an) as pf:
+        with self.rparent.use_profile(an) as pf:
             at = pf.triplet
 
         def takef():
@@ -277,8 +277,8 @@ def _gen_subp(an, native):
 
 for _an in _targets:
     # this one must come last
-    if _an == self.profile().arch:
+    if _an == self.profile.arch:
         continue
     _gen_subp(_an, False)
 
-_gen_subp(self.profile().arch, True)
+_gen_subp(self.profile.arch, True)

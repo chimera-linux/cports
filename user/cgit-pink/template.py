@@ -25,7 +25,7 @@ CC = {self.get_tool("CC")}
 AR = {self.get_tool("AR")}
 CFLAGS = {self.get_cflags(shell=True)}
 LDFLAGS = {self.get_ldflags(shell=True)}
-HOST_CPU = {self.profile().arch}
+HOST_CPU = {self.profile.arch}
 CGIT_SCRIPT_PATH = /usr/bin
 CGIT_DATA_PATH = /usr/share/cgit
 filterdir = /usr/share/cgit/filters

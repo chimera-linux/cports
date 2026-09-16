@@ -35,7 +35,7 @@ tool_flags = {
 hardening = ["vis", "cfi", "!int"]
 options = ["etcfiles"]
 
-if self.profile().arch == "x86_64":
+if self.profile.arch == "x86_64":
     configure_args += ["--enable-roll-simd"]
 
 

@@ -52,9 +52,7 @@ options = ["etcfiles", "!check"]
 
 
 def init_configure(self):
-    self.configure_args += [
-        "--with-ldns=" + str(self.profile().sysroot / "usr")
-    ]
+    self.configure_args += ["--with-ldns=" + str(self.profile.sysroot / "usr")]
 
 
 def post_install(self):

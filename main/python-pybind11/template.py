@@ -48,10 +48,10 @@ tool_flags = {"CXXFLAGS": []}
 # tests disabled conditionally
 options = []
 
-if self.profile().arch == "ppc":
+if self.profile.arch == "ppc":
     # tests fail to build
     options += ["!check"]
-elif self.profile().arch == "ppc64":
+elif self.profile.arch == "ppc64":
     tool_flags["CXXFLAGS"] += ["-DEIGEN_DONT_VECTORIZE"]
 
 

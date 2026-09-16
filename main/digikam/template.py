@@ -90,7 +90,7 @@ tool_flags = {
 # a bunch of them fail with some mediawiki header check
 options = ["!check"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

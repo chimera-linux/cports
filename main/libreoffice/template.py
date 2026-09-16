@@ -273,7 +273,7 @@ def post_extract(self):
 
 
 def init_configure(self):
-    if self.profile().endian == "big":
+    if self.profile.endian == "big":
         self.configure_args += ["--disable-skia"]
     if self.has_lto():
         self.configure_args += ["--enable-lto"]

@@ -18,7 +18,7 @@ hardening = ["vis", "cfi"]
 options = ["!check", "hardlinks"]
 
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["tzdb-progs"]
     make_install_args += ["zic=/usr/bin/zic"]
 

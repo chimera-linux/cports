@@ -50,5 +50,5 @@ url = "https://apps.kde.org/ktorrent"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktorrent-{pkgver}.tar.xz"
 sha256 = "b352456c08c786b08c9c12fb2f9b28d8ee3a00491b5369f6ce57ff8cef3c02a6"
 
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

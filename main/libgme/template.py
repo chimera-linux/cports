@@ -16,7 +16,7 @@ hardening = ["!vis", "!cfi"]
 # no test target
 options = ["!check"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     tool_flags = {"CXXFLAGS": ["-DMSB_FIRST=1"]}
 else:
     tool_flags = {"CXXFLAGS": ["-DLSB_FIRST=1"]}

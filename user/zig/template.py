@@ -34,7 +34,7 @@ options = ["!lto"]
 
 restricted = "work in progress (needs to either not need llvm or for us to multiversion llvm)"
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64" | "aarch64":
         pass
     case _:

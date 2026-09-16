@@ -17,7 +17,7 @@ sha256 = "6f30092cef9fb839779646608f4ee14ae3cbac989c47fa05e841b0841f09878e"
 
 # tests segfault with altivec simd
 # also some floattest12 tests fail
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le" | "ppc64" | "ppc":
         configure_args += ["-DWITH_SIMD=FALSE", "-DFLOATTEST12="]
     case "aarch64":

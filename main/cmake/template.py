@@ -65,7 +65,7 @@ if self.stage >= 2:
 
 
 # if cross compiling, use host cmake outright
-if self.profile().cross:
+if self.profile.cross:
     build_style = "cmake"
     configure_args = [
         "-DCMAKE_MAN_DIR=/share/man",

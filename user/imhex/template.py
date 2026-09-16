@@ -59,7 +59,7 @@ sha256 = [
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "uses int128"
 
 

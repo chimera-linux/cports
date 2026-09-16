@@ -62,7 +62,7 @@ sha256 = "f850139ca5f79c1bf6bb8b32f92e212aadca97bdaef8a83a7cf4ac4d6a525fab"
 # docs are a single tips file that gets displayed in the TUI
 options = ["!check", "!splitdoc"]
 
-if self.profile().arch == "ppc":
+if self.profile.arch == "ppc":
     broken = "segfaults during build"
 
 

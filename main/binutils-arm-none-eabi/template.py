@@ -40,10 +40,10 @@ sha256 = "5fe101e6fe9d18fdec95962d81ed670fdee5f37e3f48f0bef87bddf862513aa5"
 # resistance is futile
 options = ["!check", "!lto", "linkundefver"]
 
-if self.profile().cross:
+if self.profile.cross:
     configure_args += [
-        f"--host={self.profile().triplet}",
-        f"--with-build-sysroot={self.profile().sysroot}",
+        f"--host={self.profile.triplet}",
+        f"--with-build-sysroot={self.profile.sysroot}",
     ]
 
 

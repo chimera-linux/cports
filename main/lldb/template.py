@@ -40,7 +40,7 @@ cmake_dir = "lldb"
 
 
 def init_configure(self):
-    if self.profile().cross:
+    if self.profile.cross:
         self.configure_args += [
             "-DLLDB_TABLEGEN="
             + str(self.chroot_cwd / "build_host/bin/lldb-tblgen")
@@ -48,14 +48,14 @@ def init_configure(self):
 
 
 def pre_configure(self):
-    if not self.profile().cross:
+    if not self.profile.cross:
         return
 
     from cbuild.util import cmake
 
     self.log("building host tblgen...")
 
-    with self.profile("host"):
+    with self.use_profile("host"):
         with self.stamp("host_lldb_configure"):
             # need to pass the triplets so builtins are found
             cmake.configure(self, "build_host", self.cmake_dir, [])

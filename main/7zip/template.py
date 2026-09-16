@@ -18,7 +18,7 @@ sha256 = "b2389e0e930b2f9a348cf0fe7d9870a46482a8ec044ee0bdf42e2136db31c3d6"
 hardening = ["vis", "!cfi"]
 
 
-match self.profile().arch:
+match self.profile.arch:
     # TODO: there is an aarch64 file too
     # TODO: yoink the aur meson.build and just replace the whole build system, this is way too cursed
     case "x86_64":

@@ -84,7 +84,7 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _arch = "X86"
     case "aarch64":
@@ -99,12 +99,12 @@ match self.profile().arch:
         _arch = "LoongArch"
     case _:
         _arch = ""
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile.arch}"
 
 configure_args += [
     "-DLLVM_TARGET_ARCH=" + _arch,
-    "-DLLVM_HOST_TRIPLE=" + self.profile().triplet,
-    "-DLLVM_DEFAULT_TARGET_TRIPLE=" + self.profile().triplet,
+    "-DLLVM_HOST_TRIPLE=" + self.profile.triplet,
+    "-DLLVM_DEFAULT_TARGET_TRIPLE=" + self.profile.triplet,
 ]
 
 

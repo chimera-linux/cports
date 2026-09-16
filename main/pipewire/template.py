@@ -86,7 +86,7 @@ url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
 sha256 = "8181172a1d95131f6af8bbc0b98f90b2a33349b042b84c3ce57dd5d11348cc58"
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     configure_args += [
         "-Dbluez5-codec-ldac=disabled",
         "-Decho-cancel-webrtc=disabled",

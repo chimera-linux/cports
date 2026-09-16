@@ -20,7 +20,7 @@ hardening = ["!int"]
 # below
 options = ["!cross"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         _machine = "tarm64le"
     case "armhf" | "armv7":
@@ -39,7 +39,7 @@ match self.profile().arch:
         _machine = "ta6le"
     case _:
         # portable bytecode
-        _machine = f"tpb{self.profile().wordsize}{self.profile().endian[0]}"
+        _machine = f"tpb{self.profile.wordsize}{self.profile.endian[0]}"
         # also fails to link the tests
         options += ["!check"]
 

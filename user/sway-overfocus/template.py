@@ -12,5 +12,5 @@ sha256 = "fc5f8103e740a21bb34083bb5cd06291c0d059cea502f693320d98f31817647f"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/sway-overfocus")
+    self.install_bin(f"target/{self.profile.triplet}/release/sway-overfocus")
     self.install_license("LICENSE")

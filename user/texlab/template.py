@@ -12,4 +12,4 @@ sha256 = "32620d4a186222cef1140250c9c43b83ed873a4710d05a0075c7d8f6d1d4e1ec"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/texlab")
+    self.install_bin(f"target/{self.profile.triplet}/release/texlab")

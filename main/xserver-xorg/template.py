@@ -102,7 +102,7 @@ hardening = ["!int"]
 # test times out
 options = ["!check", "empty"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         configure_args += ["-Dint10=x86emu"]
     case _:

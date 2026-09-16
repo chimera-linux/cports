@@ -63,7 +63,7 @@ hardening = ["!int"]
 # long, heavy, etc
 options = ["!check"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

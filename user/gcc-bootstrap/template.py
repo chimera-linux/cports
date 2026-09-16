@@ -1,11 +1,11 @@
 pkgname = "gcc-bootstrap"
 pkgver = "11.2.1"
 pkgrel = 0
-depends = [f"binutils-{self.profile().arch}"]
+depends = [f"binutils-{self.profile.arch}"]
 pkgdesc = "GCC bootstrap binaries"
 license = "GPL-3.0-or-later"
 url = "https://musl.cc"
-source = f"https://more.musl.cc/{pkgver}/x86_64-linux-musl/{self.profile().machine}-linux-{self.profile().triplet.split('-')[-1]}-native.tgz"
+source = f"https://more.musl.cc/{pkgver}/x86_64-linux-musl/{self.profile.machine}-linux-{self.profile.triplet.split('-')[-1]}-native.tgz"
 options = [
     "!strip",
     "!scanrundeps",
@@ -14,7 +14,7 @@ options = [
     "brokenlinks",
 ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         sha256 = (
             "daf336cafa2c3c7daf42f6a46edc960f10a181fcf15ab9f1c43b192e8ad2a069"
@@ -44,7 +44,7 @@ match self.profile().arch:
             "eb1db6f0f3c2bdbdbfb993d7ef7e2eeef82ac1259f6a6e1757c33a97dbcef3ad"
         )
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
 
 def install(self):
@@ -56,7 +56,9 @@ def install(self):
     self.install_link("usr/lib/gcc-bootstrap/usr", ".")
     # default to our native linker because what they ship does not support
     # relr so it will fail to link to any of our regular libraries...
-    triple = f"{self.profile().machine}-linux-{self.profile().triplet.split('-')[-1]}"
+    triple = (
+        f"{self.profile.machine}-linux-{self.profile.triplet.split('-')[-1]}"
+    )
     self.uninstall("usr/lib/gcc-bootstrap/bin/ld")
     self.uninstall(f"usr/lib/gcc-bootstrap/{triple}/bin/ld")
     self.install_link("usr/lib/gcc-bootstrap/bin/ld", "../../../bin/ld.bfd")

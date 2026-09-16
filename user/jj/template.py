@@ -28,7 +28,7 @@ def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(f"{self.cwd}/jj.{shell}", "w") as o:
             self.do(
-                f"target/{self.profile().triplet}/release/jj",
+                f"target/{self.profile.triplet}/release/jj",
                 "util",
                 "completion",
                 shell,
@@ -37,9 +37,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/jj")
+    self.install_bin(f"target/{self.profile.triplet}/release/jj")
     self.do(
-        f"target/{self.profile().triplet}/release/jj",
+        f"target/{self.profile.triplet}/release/jj",
         "util",
         "install-man-pages",
         f"{self.chroot_destdir}/usr/share/man",

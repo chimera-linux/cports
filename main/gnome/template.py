@@ -76,7 +76,7 @@ def _(self):
         "simple-scan",
         "sushi",
     ]
-    if self.rparent.profile().wordsize != 32:
+    if self.rparent.profile.wordsize != 32:
         self.depends += [
             "decibels",
             "gnome-weather",

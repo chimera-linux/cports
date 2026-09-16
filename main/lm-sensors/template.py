@@ -2,7 +2,7 @@ pkgname = "lm-sensors"
 pkgver = "3.6.2"
 pkgrel = 0
 build_style = "makefile"
-make_build_args = [f"MACHINE={self.profile().arch}"]
+make_build_args = [f"MACHINE={self.profile.arch}"]
 make_install_args = ["SBINDIR=/usr/bin", "MANDIR=/usr/share/man"]
 hostmakedepends = ["flex", "bison", "perl"]
 depends = ["perl"]

@@ -5,15 +5,15 @@ archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_dir = "."
 make_build_args = [
-    f"ARCH={self.profile().arch}",
-    f"{self.profile().arch.upper()}_CC=cc",
-    f"{self.profile().arch.upper()}_LD=ld",
+    f"ARCH={self.profile.arch}",
+    f"{self.profile.arch.upper()}_CC=cc",
+    f"{self.profile.arch.upper()}_LD=ld",
     f"VERSION={pkgver}-chimera",
     "LIBEXECDIR=/usr/lib",
 ]
 make_install_args = [*make_build_args]
 hostmakedepends = [
-    f"binutils-{self.profile().arch}",
+    f"binutils-{self.profile.arch}",
     "harec",
     "qbe",
     "scdoc",
@@ -25,9 +25,9 @@ license = "MPL-2.0 AND GPL-3.0-only"
 url = "https://harelang.org"
 source = f"https://git.sr.ht/~sircmpwn/hare/archive/{pkgver}.tar.gz"
 sha256 = "f76704920a2f457be4d2d6290dc10dcfb7319c1d1990f2305491644383466905"
-tools = {"AS": f"{self.profile().triplet}-as"}
+tools = {"AS": f"{self.profile.triplet}-as"}
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         make_build_args += ["QBEFLAGS=-tamd64_sysv"]
     case "aarch64":
@@ -35,9 +35,9 @@ match self.profile().arch:
     case "riscv64":
         make_build_args += ["QBEFLAGS=-trv64"]
     case _:
-        broken = f"unknown architecture {self.profile().arch}"
+        broken = f"unknown architecture {self.profile.arch}"
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["hare"]
     make_build_args += ["HARE=hare", "HAREDOC=haredoc"]
 else:

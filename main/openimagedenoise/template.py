@@ -22,7 +22,7 @@ tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # guilty until proven innocent
 hardening = ["!int"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "supports 64-bit only"
 
 

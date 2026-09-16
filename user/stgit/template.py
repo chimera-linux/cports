@@ -29,7 +29,7 @@ def post_build(self):
     for shell in ["bash", "fish"]:
         with open(self.cwd / f"stgit.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/stg",
+                f"target/{self.profile.triplet}/release/stg",
                 "completion",
                 shell,
                 stdout=outf,
@@ -37,7 +37,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/stg")
+    self.install_bin(f"target/{self.profile.triplet}/release/stg")
     self.do(
         "make",
         "-C",

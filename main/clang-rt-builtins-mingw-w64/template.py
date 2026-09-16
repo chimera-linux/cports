@@ -56,7 +56,7 @@ def configure(self):
 
     for an in _targets:
         at = an + "-w64-mingw32"
-        with self.profile(an if an != "i686" else "x86_64"):
+        with self.use_profile(an if an != "i686" else "x86_64"):
             cmake.configure(
                 self,
                 f"build-{an}",

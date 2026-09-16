@@ -24,4 +24,4 @@ sha256 = "0691b50bd3592a549abbbd7a0dea4b11f8930988c1e398d1d1429faf48933a3c"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/gleam")
+    self.install_bin(f"target/{self.profile.triplet}/release/gleam")

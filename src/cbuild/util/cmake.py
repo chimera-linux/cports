@@ -34,9 +34,9 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
-    elif pkg.profile().cross and cross_build is not False:
+    elif pkg.profile.cross and cross_build is not False:
         # map known profiles to cmake arch
-        match pkg.profile().arch:
+        match pkg.profile.arch:
             case (
                 "aarch64"
                 | "ppc64le"
@@ -48,11 +48,11 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
                 | "armv7"
                 | "loongarch64"
             ):
-                cmake_cpu = pkg.profile().arch
+                cmake_cpu = pkg.profile.arch
             case _:
-                pkg.error(f"unknown cmake architecture: {pkg.profile().arch}")
+                pkg.error(f"unknown cmake architecture: {pkg.profile.arch}")
 
-        sroot = pkg.profile().sysroot
+        sroot = pkg.profile.sysroot
 
         with open(pkg.cwd / build_dir / "cross.cmake", "w") as infile:
             infile.write(f"""
@@ -61,9 +61,9 @@ SET(CMAKE_SYSTEM_VERSION 1)
 
 SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
 SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
-SET(CMAKE_C_COMPILER_TARGET {pkg.profile().triplet})
-SET(CMAKE_CXX_COMPILER_TARGET {pkg.profile().triplet})
-SET(CMAKE_ASM_COMPILER_TARGET {pkg.profile().triplet})
+SET(CMAKE_C_COMPILER_TARGET {pkg.profile.triplet})
+SET(CMAKE_CXX_COMPILER_TARGET {pkg.profile.triplet})
+SET(CMAKE_ASM_COMPILER_TARGET {pkg.profile.triplet})
 SET(CMAKE_CROSSCOMPILING TRUE)
 SET(CMAKE_SYSROOT "{sroot}")
 

@@ -18,7 +18,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(f"{self.cwd}/wormhole-rs.{shell}", "w") as o:
             self.do(
-                f"target/{self.profile().triplet}/release/wormhole-rs",
+                f"target/{self.profile.triplet}/release/wormhole-rs",
                 "completion",
                 shell,
                 stdout=o,
@@ -27,7 +27,7 @@ def post_build(self):
 
 def install(self):
     self.install_bin(
-        f"target/{self.profile().triplet}/release/wormhole-rs",
+        f"target/{self.profile.triplet}/release/wormhole-rs",
     )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"wormhole-rs.{shell}", shell, "wormhole-rs")

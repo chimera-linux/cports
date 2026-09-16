@@ -58,11 +58,9 @@ def init_build(self):
 
 
 def post_install(self):
+    self.install_bin(f"./build/shell/src/{self.profile.triplet}/release/papers")
     self.install_bin(
-        f"./build/shell/src/{self.profile().triplet}/release/papers"
-    )
-    self.install_bin(
-        f"./build/thumbnailer/{self.profile().triplet}/release/papers-thumbnailer"
+        f"./build/thumbnailer/{self.profile.triplet}/release/papers-thumbnailer"
     )
 
 

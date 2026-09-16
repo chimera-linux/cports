@@ -10,7 +10,7 @@ url = "https://github.com/boyter/scc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "7e0418d7b6dfa881b2673e50d32da81e9abc34475a305b612b57600d85801abc"
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # These fail with differing sign of 0.0 on loongarch: -0.0 vs. 0.0
     make_check_args += [
         "-skip",

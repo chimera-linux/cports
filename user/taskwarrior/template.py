@@ -19,7 +19,7 @@ url = "https://taskwarrior.org"
 source = f"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v{pkgver}/task-{pkgver}.tar.gz"
 sha256 = "d302761fcd1268e4a5a545613a2b68c61abd50c0bcaade3b3e68d728dd02e716"
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "atomic64 assumptions"
 
 

@@ -17,7 +17,7 @@ sha256 = "22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["protobuf-protoc"]  # needs host protoc
     broken = "generated protobuf-targets.cmake looks for protoc in target sysroot, cannot cross-build android-tools etc"
 

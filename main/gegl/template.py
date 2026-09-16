@@ -51,7 +51,7 @@ sha256 = "47f50d9c3aecd375deb48c11ebfead52d162e4fc162a4b3d44618277f1faec02"
 # TODO
 hardening = ["!int"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

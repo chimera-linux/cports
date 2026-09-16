@@ -48,7 +48,7 @@ def _(self):
         "firmware-ipw2200",
         "firmware-zd1211",
     ]
-    if self.rparent.profile().arch == "x86_64":
+    if self.rparent.profile.arch == "x86_64":
         self.depends += ["firmware-sof-meta"]
     return []
 
@@ -83,7 +83,7 @@ def _(self):
         "btrfs-progs",
         "dosfstools",
     ]
-    match self.rparent.profile().arch:
+    match self.rparent.profile.arch:
         case "ppc64" | "ppc":
             # ppc mac disk tools
             self.depends += ["hfsutils", "mac-fdisk"]

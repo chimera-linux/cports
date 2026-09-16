@@ -16,10 +16,10 @@ makedepends = [
 pkgdesc = "Bootstrap binaries of OpenJDK 21"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
-source = f"https://repo.chimera-linux.org/distfiles/openjdk-bootstrap-{pkgver}-{self.profile().arch}.tar.xz"
+source = f"https://repo.chimera-linux.org/distfiles/openjdk-bootstrap-{pkgver}-{self.profile.arch}.tar.xz"
 options = ["!strip"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         sha256 = (
             "bc10a4bf011872647d67f391b8cb9d652ddebd7be67b63f4f6e8a278c31f4ecd"
@@ -41,7 +41,7 @@ match self.profile().arch:
             "d0fa05f629fae165ff021a143c08493b7b07ca785c237d0852197f78d28a4c3d"
         )
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
 
 def install(self):

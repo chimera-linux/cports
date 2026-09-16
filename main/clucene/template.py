@@ -25,7 +25,7 @@ hardening = ["!int"]
 # check may be disabled
 options = ["!cross"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     # 32-bit tests are broken, see e.g.:
     # https://git.adelielinux.org/adelie/packages/-/issues/873
     options += ["!check"]

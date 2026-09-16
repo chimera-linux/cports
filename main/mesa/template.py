@@ -79,7 +79,7 @@ _vulkan_drivers = []
 _have_llvm = False
 
 # llvmpipe only properly supports a few archs
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64" | "aarch64" | "loongarch64" | "ppc64le" | "riscv64":
         _have_llvm = True
     case _:
@@ -96,7 +96,7 @@ if _have_llvm:
 _have_nvidia = True
 _have_amd = True
 # intel_clc fails on big
-_have_intel = self.profile().endian != "big"
+_have_intel = self.profile.endian != "big"
 _have_hwdec = True
 _have_virgl = True
 
@@ -109,7 +109,7 @@ _have_opencl = False
 _have_vulkan = False
 _have_zink = False
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _have_intel = True
         _have_intel_igpu = True
@@ -140,7 +140,7 @@ if _have_intel_igpu:
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
-    if self.profile().endian != "big":
+    if self.profile.endian != "big":
         _vulkan_drivers += ["nouveau"]
     if _have_arm:
         _gallium_drivers += ["tegra"]

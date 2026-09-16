@@ -17,7 +17,7 @@ sha256 = "9ea661cdc292e8231f7cd4c10b0319e56a2118e2c09d9f50e1b3d150d2aca105"
 # FIXME
 options = ["!check"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "ppc64le",
     "ppc64",

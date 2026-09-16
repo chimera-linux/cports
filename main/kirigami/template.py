@@ -20,7 +20,7 @@ source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kirigami-{pkgver
 sha256 = "ec5943b4d7efdc18c506ea0db543acdcd5313452615c66d72a1d5ff8d428296a"
 hardening = ["vis"]
 
-_have_omp = self.profile().arch in [
+_have_omp = self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

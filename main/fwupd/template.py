@@ -52,20 +52,20 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "338ea5b139f9a37447ff2215d0a8d2cf23851fb5a39fba7b1b0ded52a40240cc"
 options = ["etcfiles", "!cross"]
 
-if self.profile().arch == "x86_64":
+if self.profile.arch == "x86_64":
     configure_args += ["-Dhsi=enabled"]
 else:
     configure_args += ["-Dhsi=disabled"]
 
 _have_uefi = False
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
         _have_uefi = True
 
 if _have_uefi:
     makedepends += ["efivar-devel"]
-    if self.profile().arch not in ["loongarch64", "riscv64"]:
+    if self.profile.arch not in ["loongarch64", "riscv64"]:
         depends += ["fwupd-efi"]
 
 

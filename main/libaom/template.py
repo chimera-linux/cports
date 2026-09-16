@@ -31,7 +31,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64":
         configure_args += ["-DENABLE_VSX=0"]
     case "aarch64" | "armv7":

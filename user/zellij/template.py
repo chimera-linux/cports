@@ -29,7 +29,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"assets/zellij.{shell}", "w") as o:
             self.do(
-                f"target/{self.profile().triplet}/release/zellij",
+                f"target/{self.profile.triplet}/release/zellij",
                 "setup",
                 "--generate-completion",
                 shell,

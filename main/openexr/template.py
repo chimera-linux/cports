@@ -31,7 +31,7 @@ _exclude_tests = [
     "OpenEXR.bin",
 ]
 
-if self.profile().arch != "x86_64":
+if self.profile.arch != "x86_64":
     # traps on most archs
     _exclude_tests.append("OpenEXR.testLargeDataWindowOffsets")
 

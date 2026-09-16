@@ -19,7 +19,7 @@ sha256 = "46e45eab6f656bfc092438d7e0e5df4c5f51d18e3a83360c2be680b207a1a0b7"
 # see below
 options = ["!cross"]
 
-if self.profile().arch in ["ppc64", "ppc64le"]:
+if self.profile.arch in ["ppc64", "ppc64le"]:
     # FIXME: ERROR:../tests/test-ioctl-tree.c:99:t_type_get_by: assertion failed
     # (ioctl_type_get_by_name("USBDEVFS_CONNECTINFO", &id)->id == USBDEVFS_CONNECTINFO):
     # (-2146937583 == 2148029713)

@@ -41,7 +41,7 @@ def post_configure(self):
         self,
         build_dir="build-capi",
         cmake_dir="crates/c-api",
-        extra_args=[f"-DWASMTIME_TARGET={self.profile().triplet}"],
+        extra_args=[f"-DWASMTIME_TARGET={self.profile.triplet}"],
     )
 
 
@@ -58,7 +58,7 @@ def install(self):
     from cbuild.util import cmake
 
     cmake.install(self, "build-capi")
-    self.install_bin(f"target/{self.profile().triplet}/release/wasmtime")
+    self.install_bin(f"target/{self.profile.triplet}/release/wasmtime")
 
 
 @subpackage("wasmtime-libs")

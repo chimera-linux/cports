@@ -25,7 +25,7 @@ env = {
 # nah
 options = ["!check"]
 
-if self.profile().arch == "loongarch64":
+if self.profile.arch == "loongarch64":
     broken = "PIC linking issues"
 
 
@@ -38,7 +38,7 @@ def init_build(self):
 
     self.env["GOPATH"] = str(self.chroot_cwd)
     self.env["GOBIN"] = str(self.chroot_cwd / "bin")
-    if self.profile().arch == "loongarch64":
+    if self.profile.arch == "loongarch64":
         self.env["CGO_ENABLED"] = "0"
     else:
         self.env["CGO_ENABLED"] = "1"

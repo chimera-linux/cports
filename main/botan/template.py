@@ -33,7 +33,7 @@ hardening = ["vis", "!cfi"]
 options = []
 
 
-if self.profile().arch == "ppc64":
+if self.profile.arch == "ppc64":
     # hangs the compiler (no lto)/linker (lto)
     broken = "idc"
     configure_args += ["--disable-modules=aes_power8"]

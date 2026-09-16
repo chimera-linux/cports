@@ -56,7 +56,7 @@ perllibdir = /usr/share/perl5/vendor_perl
 PYTHON_PATH = /usr/bin/python
 DEFAULT_TEST_TARGET=prove
 GIT_PROVE_OPTS=--jobs={self.make_jobs}
-HOST_CPU = {self.profile().arch}
+HOST_CPU = {self.profile.arch}
 """)
 
 

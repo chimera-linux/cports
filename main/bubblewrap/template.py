@@ -13,5 +13,5 @@ sha256 = "69abc30005d2186baf7737feacd8da35633b93cf5af38838ecff17c5f8e924f6"
 hardening = ["vis", "cfi"]
 
 # efault instead of econnrefused for various assertions
-if self.profile().arch not in ["aarch64", "loongarch64", "riscv64"]:
+if self.profile.arch not in ["aarch64", "loongarch64", "riscv64"]:
     checkdepends += ["python-libseccomp"]

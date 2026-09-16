@@ -62,5 +62,5 @@ sha256 = "f8b809c9aaa25c1d636b0bdf144d87a3ee659d5d80f26961d3116a627fef859d"
 options = ["etcfiles"]
 
 
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebview-devel"]

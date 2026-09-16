@@ -10,8 +10,8 @@ def build(self):
     # we're cross building a python extension, since sysconfig will
     # point to the wrong paths in the host system.
     renv = {
-        "PYTHON_CROSS_LIBDIR": self.profile().sysroot / "usr/lib",
-        "PYTHON_CROSS_INCDIR": self.profile().sysroot
+        "PYTHON_CROSS_LIBDIR": self.profile.sysroot / "usr/lib",
+        "PYTHON_CROSS_INCDIR": self.profile.sysroot
         / f"usr/include/python{self.python_version}",
     }
     renv.update(self.make_env)

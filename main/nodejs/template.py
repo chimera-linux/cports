@@ -41,7 +41,7 @@ debug_level = 1  # allow LTO build to not run out of mem
 hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "loongarch64" | "ppc64le" | "ppc64" | "riscv64":
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64

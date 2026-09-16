@@ -39,4 +39,4 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/src/{self.profile().triplet}/release/warp")
+    self.install_bin(f"./build/src/{self.profile.triplet}/release/warp")

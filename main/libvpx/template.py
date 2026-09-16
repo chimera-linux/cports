@@ -43,7 +43,7 @@ if _testing:
         "779005d9d52f37244f7d80da9aa9e04573574a163ead0a0e5f8ca9337eb371f7"
     ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         _tgt = "arm64-linux-gcc"
     case "ppc64le":

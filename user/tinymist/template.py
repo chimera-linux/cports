@@ -15,7 +15,7 @@ sha256 = "f7a3bbcf4f6020aea6071b86bc9d20bdde2208f6dcbef019593e257baad4cca6"
 # check: takes forever
 options = ["!check", "!cross"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
@@ -23,7 +23,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"tinymist.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile().triplet}/release/tinymist",
+                f"./target/{self.profile.triplet}/release/tinymist",
                 "completion",
                 shell,
                 stdout=f,
@@ -33,5 +33,5 @@ def post_build(self):
 def install(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"tinymist.{shell}", shell)
-    self.install_bin(f"target/{self.profile().triplet}/release/tinymist")
-    self.install_bin(f"target/{self.profile().triplet}/release/typlite")
+    self.install_bin(f"target/{self.profile.triplet}/release/tinymist")
+    self.install_bin(f"target/{self.profile.triplet}/release/typlite")

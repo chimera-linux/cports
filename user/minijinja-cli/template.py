@@ -17,7 +17,7 @@ sha256 = "18450631ca5feeb01c69c0dce4fd5917330310801866fa74717068f08e18fe3f"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/minijinja-cli")
+    self.install_bin(f"target/{self.profile.triplet}/release/minijinja-cli")
     self.install_man("minijinja-cli/assets/man/minijinja-cli.1")
     with self.pushd("minijinja-cli/assets/completions"):
         self.install_completion("minijinja-cli.bash", "bash")

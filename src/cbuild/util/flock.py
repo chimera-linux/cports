@@ -41,7 +41,7 @@ def lock(path, pkg=None):
 
 def _archlock(rpath, arch):
     if not isinstance(arch, str):
-        arch = arch.rparent.profile().arch
+        arch = arch.rparent.profile.arch
     return rpath / f"cbuild-{arch}.lock"
 
 

@@ -49,7 +49,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
 
-if self.profile().arch == "x86_64":
+if self.profile.arch == "x86_64":
     makedepends += ["sysprof-capture"]
     configure_args += ["--enable-stacktrace"]
 

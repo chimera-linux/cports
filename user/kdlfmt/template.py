@@ -17,7 +17,7 @@ def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"kdlfmt.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/kdlfmt",
+                f"target/{self.profile.triplet}/release/kdlfmt",
                 "completions",
                 shell,
                 stdout=outf,
@@ -25,7 +25,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/kdlfmt")
+    self.install_bin(f"target/{self.profile.triplet}/release/kdlfmt")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"kdlfmt.{shell}", shell)

@@ -10,7 +10,7 @@ sha256 = "57edc9a41efc1ca6b797afa8f4a587a30da2af6bca7356eb56e1e1a4ada265da"
 # nothing to test
 options = ["!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _arch = "x86_64"
     case "aarch64":
@@ -24,7 +24,7 @@ match self.profile().arch:
     case "loongarch64" | "loongarch64":
         _arch = "loongarch"
     case _:
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile.arch}"
 
 
 def build(self):

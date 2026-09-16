@@ -13,9 +13,7 @@ license = "Apache-2.0"
 url = "https://github.com/google/shaderc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "ee493ccf1b3038b4ef2fe024664c5eb2dc4bcc1f6b05b33e3909de0e19c81024"
-tool_flags = {
-    "CXXFLAGS": [f"-I{self.profile().sysroot / 'usr/include/glslang'}"]
-}
+tool_flags = {"CXXFLAGS": [f"-I{self.profile.sysroot / 'usr/include/glslang'}"]}
 hardening = ["!vis", "!cfi"]
 
 

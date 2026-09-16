@@ -71,6 +71,6 @@ sha256 = "02f1aa9ae93949e7bc54c34eeb5ff92c2b87f95d2547865df55c60467564ee11"
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
 # without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le" | "riscv64":
         configure_args += ["-DUSE_OPENMP=OFF"]

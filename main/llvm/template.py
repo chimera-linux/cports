@@ -95,7 +95,7 @@ if self.stage > 0:
     ]
     # enable LTO except on riscv where it's broken
     # also use llvm-bootstrap
-    if not self.profile().cross:
+    if not self.profile.cross:
         hostmakedepends += ["llvm-bootstrap"]
         # set all the stuff that matters
         configure_args += [
@@ -133,7 +133,7 @@ else:
 
 # from stage 2 only, pointless to build before
 _enable_mlir = self.stage >= 2
-_enable_flang = _enable_mlir and self.profile().wordsize == 64
+_enable_flang = _enable_mlir and self.profile.wordsize == 64
 
 if _enable_mlir:
     _enabled_projects += ["mlir"]
@@ -141,7 +141,7 @@ if _enable_mlir:
 if _enable_flang:
     _enabled_projects += ["flang"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _arch = "X86"
     case "aarch64":
@@ -155,7 +155,7 @@ match self.profile().arch:
     case "loongarch64" | "loongarch32":
         _arch = "LoongArch"
     case _:
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile.arch}"
 
 configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
 configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
@@ -165,7 +165,7 @@ def init_configure(self):
     if self.has_lto():
         self.configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
 
-    if not self.profile().cross:
+    if not self.profile.cross:
         if self.stage > 0:
             self.configure_args += [
                 f"-DCMAKE_C_COMPILER={self.chroot_cwd / 'boot-clang'}",
@@ -192,7 +192,7 @@ def configure(self):
     from cbuild.util import cmake
 
     # when bootstrapping, this will check the actual profile
-    with self.profile(self.profile().arch) as pf:
+    with self.use_profile(self.profile.arch) as pf:
         trip = pf.triplet
 
     for f in ["clang", "clang++"]:
@@ -233,7 +233,7 @@ def post_install(self):
     self.install_bin(self.files_path / "c89")
 
     # make stage0 bootstrap profile happy
-    with self.profile(self.profile().arch) as pf:
+    with self.use_profile(self.profile.arch) as pf:
         trip = pf.triplet
 
     # arch-prefixed symlinks for cross consistency (no config file)
@@ -259,7 +259,7 @@ def post_install(self):
     # extra cross bins, not super useful outside of that but harmless
     self.install_bin("build/bin/clang-tidy-confusable-chars-gen")
     # FIXME: make it build for cross so we get consistent packages
-    if _enable_mlir and not self.profile().cross:
+    if _enable_mlir and not self.profile.cross:
         self.install_bin("build/bin/mlir-src-sharder")
 
 

@@ -28,7 +28,7 @@ options = ["!cross"]
 
 
 def post_build(self):
-    miniserve_exe = f"target/{self.profile().triplet}/release/miniserve"
+    miniserve_exe = f"target/{self.profile.triplet}/release/miniserve"
 
     with open(self.cwd / "miniserve.1", "w") as outf:
         self.do(
@@ -48,7 +48,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/miniserve")
+    self.install_bin(f"target/{self.profile.triplet}/release/miniserve")
     self.install_license("LICENSE")
     self.install_man("miniserve.1")
     for shell in ["bash", "fish", "zsh"]:

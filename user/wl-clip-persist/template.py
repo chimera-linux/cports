@@ -16,6 +16,6 @@ sha256 = "fdd2506e6556dda943a164d891fe498985838fdd0e94c54e595a8f1cd8c49b66"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/wl-clip-persist")
+    self.install_bin(f"target/{self.profile.triplet}/release/wl-clip-persist")
     self.install_service(self.files_path / "wl-clip-persist.user")
     self.install_license("LICENSE")

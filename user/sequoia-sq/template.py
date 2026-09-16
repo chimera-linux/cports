@@ -25,7 +25,7 @@ options = ["!cross"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/sq")
+    self.install_bin(f"target/{self.profile.triplet}/release/sq")
     self.install_man("assets/man-pages/*.1", glob=True)
 
     self.install_completion("assets/shell-completions/sq.bash", "bash", "sq")

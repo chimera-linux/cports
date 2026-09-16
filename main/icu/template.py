@@ -24,7 +24,7 @@ hardening = ["!int"]
 
 
 def init_configure(self):
-    if not self.profile().cross:
+    if not self.profile.cross:
         return
 
     # we build special host icu for cross
@@ -34,7 +34,7 @@ def init_configure(self):
 
 
 def pre_configure(self):
-    if not self.profile().cross:
+    if not self.profile.cross:
         return
 
     # host build; first clean up potential old stuff

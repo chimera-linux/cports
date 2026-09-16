@@ -13,7 +13,7 @@ env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
 # FIXME lintpixmaps
 options = ["!lintpixmaps"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 

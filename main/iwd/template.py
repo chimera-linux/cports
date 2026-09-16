@@ -36,7 +36,7 @@ hardening = ["vis", "!cfi"]
 # check may be disabled
 options = []
 
-if self.profile().arch == "loongarch64":
+if self.profile.arch == "loongarch64":
     # uuid cmp fail in test-wsc
     # 3 memcmp fails in test-eap-sim
     options += ["!check"]

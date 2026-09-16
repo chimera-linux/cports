@@ -14,6 +14,6 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile().triplet}/release/swaysome")
+    self.install_bin(f"./target/{self.profile.triplet}/release/swaysome")
     self.install_license("LICENSE")
     self.install_man("swaysome.1")
