@@ -1,5 +1,5 @@
 pkgname = "appstream-glib"
-pkgver = "0.8.3"
+pkgver = "0.8.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ pkgdesc = "AppStream metadata library"
 license = "LGPL-2.1-or-later"
 url = "https://people.freedesktop.org/~hughsient/appstream-glib"
 source = f"https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-{pkgver}.tar.xz"
-sha256 = "84754064c560fca6e1ab151dc64354fc235a5798f016b91b38c9617253a8cf11"
+sha256 = "132575f3ef2712cd0fc8a7f0c9287ff5c4264d75921953220dd2089911272946"
 options = ["!cross"]
 
 
