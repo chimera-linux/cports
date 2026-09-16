@@ -14,16 +14,11 @@ sha256 = "0a130040b74af0f1764b82fa55a8510d7d9284847206c32037f5660596060888"
 
 
 def install(self):
-    self.install_bin(
-        f"target/{self.profile.triplet}/release/demangle",
-        name="rust-demangle",
-    )
-    self.install_lib(
-        f"target/{self.profile.triplet}/release/librustc_demangle.so"
-    )
-    self.install_lib(
-        f"target/{self.profile.triplet}/release/librustc_demangle.a"
-    )
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "demangle"), name="rust-demangle")
+    self.install_lib(cargo.target_path(self, "librustc_demangle.so"))
+    self.install_lib(cargo.target_path(self, "librustc_demangle.a"))
     self.install_files("crates/capi/include", "usr")
     self.install_license("LICENSE-MIT")
 

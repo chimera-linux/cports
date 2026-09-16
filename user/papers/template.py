@@ -58,9 +58,15 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/shell/src/{self.profile.triplet}/release/papers")
+    from cbuild.util import cargo
+
     self.install_bin(
-        f"./build/thumbnailer/{self.profile.triplet}/release/papers-thumbnailer"
+        cargo.target_path(self, "papers", f"{self.make_dir}/shell/src")
+    )
+    self.install_bin(
+        cargo.target_path(
+            self, "papers-thumbnailer", f"{self.make_dir}/thumbnailer"
+        )
     )
 
 

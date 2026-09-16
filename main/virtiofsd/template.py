@@ -20,8 +20,10 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_file(
-        f"target/{self.profile.triplet}/release/virtiofsd",
+        cargo.target_path(self, "virtiofsd"),
         "usr/lib",
         mode=0o755,
     )

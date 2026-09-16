@@ -7,9 +7,6 @@ make_check_args = [
     # Passes locally, fails in CI
     "--skip=cli::special::test_tv_pipes_correctly",
 ]
-make_check_env = {
-    "TV_BIN_PATH": f"./target/{self.profile.triplet}/release/tv",
-}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 depends = ["bash", "fd", "bat", "rust-std"]
 checkdepends = [*depends]
@@ -23,6 +20,12 @@ options = ["!cross"]
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
+
+
+def init_check(self):
+    from cbuild.util import cargo
+
+    self.make_check_env["TV_BIN_PATH"] = cargo.target_path(self, "tv")
 
 
 def post_install(self):

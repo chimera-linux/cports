@@ -15,10 +15,12 @@ options = ["!check", "!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(f"{self.cwd}/wormhole-rs.{shell}", "w") as o:
             self.do(
-                f"target/{self.profile.triplet}/release/wormhole-rs",
+                cargo.target_path(self, "wormhole-rs"),
                 "completion",
                 shell,
                 stdout=o,
@@ -26,9 +28,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(
-        f"target/{self.profile.triplet}/release/wormhole-rs",
-    )
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "wormhole-rs"))
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"wormhole-rs.{shell}", shell, "wormhole-rs")
     self.install_man("wormhole.1", name="wormhole-rs")

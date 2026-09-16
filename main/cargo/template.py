@@ -58,7 +58,9 @@ def prepare(self):
 
 @custom_target("bootstrap", "build")
 def _(self):
-    binp = f"target/{self.profile.triplet}/release/cargo"
+    from cbuild.util import cargo
+
+    binp = cargo.target_path(self, "cargo")
     bdirn = f"cargo-{pkgver}-{self.profile.triplet}"
     self.mkdir(bdirn)
     self.cp(binp, bdirn)
@@ -70,7 +72,9 @@ def _(self):
 
 
 def install(self):
-    binp = f"target/{self.profile.triplet}/release/cargo"
+    from cbuild.util import cargo
+
+    binp = cargo.target_path(self, "cargo")
 
     self.install_bin(binp)
 

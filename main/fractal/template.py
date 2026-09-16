@@ -58,6 +58,8 @@ def init_build(self):
 
 
 def post_install(self):
+    from cbuild.util import cargo
+
     self.install_bin(
-        f"./build/cargo-target/{self.profile.triplet}/release/fractal"
+        cargo.target_path(self, "fractal", f"{self.make_dir}/cargo-target")
     )

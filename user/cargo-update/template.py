@@ -17,7 +17,8 @@ sha256 = "7e9898ae686fe64c4cf75be5c4e9e6d5f6141371182a12e4bdaa806cfe321806"
 
 
 def install(self):
-    with self.pushd(f"target/{self.profile.triplet}/release"):
-        self.install_bin("cargo-install-update")
-        self.install_bin("cargo-install-update-config")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "cargo-install-update"))
+    self.install_bin(cargo.target_path(self, "cargo-install-update-config"))
     self.install_license("LICENSE")

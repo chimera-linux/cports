@@ -1,5 +1,5 @@
-# real flamegraph name is for the original perl project; this also has a cargo
-# plugin
+# real flamegraph name is for the original perl project;
+# this also has a cargo plugin
 pkgname = "cargo-flamegraph"
 pkgver = "0.6.12"
 pkgrel = 0
@@ -18,10 +18,12 @@ options = ["!check", "!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"flamegraph.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/flamegraph",
+                cargo.target_path(self, "flamegraph"),
                 "--completions",
                 shell,
                 stdout=f,

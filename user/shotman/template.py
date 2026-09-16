@@ -32,12 +32,14 @@ def pre_prepare(self):
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     self.do("make", "shotman.1")
 
     for shell in ["bash", "zsh", "fish"]:
         with open(self.cwd / f"shotman.{shell}", "w") as cf:
             self.do(
-                f"target/{self.profile.triplet}/release/shotman_completions",
+                cargo.target_path(self, "shotman_completions"),
                 shell,
                 stdout=cf,
             )

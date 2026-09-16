@@ -40,7 +40,7 @@ def install(self):
 
     self.install_bin(cargo.target_path(self, "sq-git"))
     self.install_man(
-        f"target/{self.profile.triplet}/release/build/sequoia-git-*/out/man-pages/*.1",
+        cargo.target_path(self, "build/sequoia-git-*/out/man-pages/*.1"),
         glob=True,
     )
 

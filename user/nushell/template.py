@@ -49,9 +49,7 @@ def install(self):
     nu_autoload_path = "usr/share/nushell/vendor/autoload"
     self.install_dir(nu_autoload_path)
     for _plugin in _plugins:
-        self.install_bin(
-            f"target/{self.profile.triplet}/release/nu_plugin_{_plugin}"
-        )
+        self.install_bin(cargo.target_path(f"nu_plugin_{_plugin}"))
         with open(
             self.destdir / nu_autoload_path / f"enable_plugin_{_plugin}.nu", "w"
         ) as ofile:

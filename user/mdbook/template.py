@@ -16,10 +16,12 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"mdbook.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/mdbook",
+                cargo.target_path(self, "mdbook"),
                 "completions",
                 shell,
                 stdout=outf,

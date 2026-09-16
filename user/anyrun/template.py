@@ -24,7 +24,7 @@ def install(self):
 
     # PLUGIN_PATHS in anyrun-provider
     self.install_file(
-        f"target/{self.profile.triplet}/release/*.so",
+        cargo.target_path(self, "*.so"),
         "usr/lib/anyrun",
         glob=True,
     )

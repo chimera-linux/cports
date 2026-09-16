@@ -17,10 +17,12 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"zizmor.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile.triplet}/release/zizmor",
+                cargo.target_path(self, "zizmor"),
                 "--completions",
                 shell,
                 stdout=f,
@@ -28,7 +30,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile.triplet}/release/zizmor")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "zizmor"))
     for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"zizmor.{shell}", shell)
     self.install_license("LICENSE")

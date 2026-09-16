@@ -27,11 +27,12 @@ def init_check(self):
 
 
 def install(self):
-    self.cargo.install(wrksrc="git-branchless")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "git-branchless"))
     self.install_license("LICENSE-MIT")
     self.do(
-        self.chroot_cwd
-        / f"target/{self.profile.triplet}/release/git-branchless",
+        cargo.target_path(self, "git-branchless"),
         "install-man-pages",
         self.chroot_destdir / "usr/share/man",
     )

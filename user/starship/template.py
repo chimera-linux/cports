@@ -31,10 +31,12 @@ options = ["!cross"]
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"starship.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/starship",
+                cargo.target_path(self, "starship"),
                 "completions",
                 shell,
                 stdout=outf,
