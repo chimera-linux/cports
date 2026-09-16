@@ -16,7 +16,7 @@ sha256 = "653b6585db407c92ab902304136fa4516263c4e7e6e84163a3c1a186b3ddf55f"
 # may be disabled
 options = []
 
-if self.profile().arch in ["riscv64"]:
+if self.profile.arch in ["riscv64"]:
     # times out
     options += ["!check"]
 

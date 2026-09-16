@@ -44,7 +44,7 @@ sha256 = "f18abd3bd2cb05960d00f15f36c63f97eb1759f9571977e3e42191ff16b9b467"
 options = ["!check", "!lintpixmaps"]
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64" | "ppc":
         # vsx assumptions in altivec code
         tool_flags = {"CXXFLAGS": ["-DEIGEN_DONT_VECTORIZE"]}

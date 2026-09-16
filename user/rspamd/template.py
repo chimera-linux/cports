@@ -42,7 +42,7 @@ sha256 = "b5e02ae27c49e6f4e11054f4ac0616ad1b6d4ac414deb2ff6b4c250e9f9b7fb7"
 # check may be disabled
 options = ["etcfiles"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "ppc64le" | "x86_64":
         configure_args += ["-DENABLE_HYPERSCAN=ON"]
         makedepends += ["luajit-devel", "vectorscan-devel"]
@@ -58,7 +58,7 @@ def post_patch(self):
     self.rm("contrib/fmt", recursive=True)
     self.mkdir("contrib/fmt/include", parents=True)
     self.ln_s(
-        self.profile().sysroot / "usr/include/fmt", "contrib/fmt/include/fmt"
+        self.profile.sysroot / "usr/include/fmt", "contrib/fmt/include/fmt"
     )
 
 

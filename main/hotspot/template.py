@@ -41,7 +41,7 @@ makedepends = [
 ]
 depends = [
     # gobjdump invocation for disassembly
-    f"binutils-{self.profile().arch}",
+    f"binutils-{self.profile.arch}",
     # graph kpart for callgraph
     "kgraphviewer",
     # konsole kpart for the embedded terminal that shows command output
@@ -72,7 +72,7 @@ sha256 = [
 options = []
 
 
-if self.profile().arch != "x86_64":
+if self.profile.arch != "x86_64":
     # disas tests rely on specific matching string output, so it doesn't match
     # on other architectures
     options += ["!check"]

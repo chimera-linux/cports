@@ -14,4 +14,4 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile().triplet}/release/cbindgen")
+    self.install_bin(f"./target/{self.profile.triplet}/release/cbindgen")

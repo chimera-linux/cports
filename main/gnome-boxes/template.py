@@ -37,7 +37,7 @@ sha256 = "fd6a5de18d1090946ca99f1f5a34aa3e15dc8183f6a72226e8d1504a13672d67"
 # FIXME: lto makes the os-downloader crash (pick any os and it aborts instantly in os-downloader.vala)
 options = ["!cross", "!lto"]
 
-_arch = self.profile().arch
+_arch = self.profile.arch
 match _arch:
     case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
         depends += [f"qemu-system-{_arch}"]

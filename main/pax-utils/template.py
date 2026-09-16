@@ -29,7 +29,7 @@ hardening = ["vis", "cfi"]
 options = []
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le" | "ppc64":
         # FIXME lddtree/scanelf fail
         options += ["!check"]

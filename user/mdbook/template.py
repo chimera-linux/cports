@@ -19,7 +19,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"mdbook.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/mdbook",
+                f"target/{self.profile.triplet}/release/mdbook",
                 "completions",
                 shell,
                 stdout=outf,

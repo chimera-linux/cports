@@ -60,7 +60,7 @@ _libs = [
     "wserialization",
 ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le" | "ppc64" | "ppc":
         _arch, _abi = "power", "sysv"
     case "aarch64" | "armhf" | "armv7":
@@ -72,7 +72,7 @@ match self.profile().arch:
     case "riscv64":
         _arch, _abi = "riscv", "sysv"
     case _:
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile.arch}"
 
 
 def _call_b2(self, *args):
@@ -111,12 +111,12 @@ def build(self):
     with open(self.cwd / "user-config.jam", "w") as cf:
         cf.write(f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell=True)}" <linkflags>"{self.get_ldflags(shell=True)}" <warnings-as-errors>"off" ;
-using python : {self.python_version} : /usr/bin/python3 : {self.profile().sysroot}/usr/include/python{self.python_version} : {self.profile().sysroot}/usr/lib/python{self.python_version} ;
+using python : {self.python_version} : /usr/bin/python3 : {self.profile.sysroot}/usr/include/python{self.python_version} : {self.profile.sysroot}/usr/lib/python{self.python_version} ;
 """)
 
     _call_b2(self)
 
-    if self.profile().cross:
+    if self.profile.cross:
         # build b2 again, this time for the target system
         self.do(
             self.chroot_cwd / "tools/build/src/engine/build.sh",

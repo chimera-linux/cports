@@ -14,13 +14,13 @@ sha256 = "2903853f24d742fe955edd9bea17947eb8f3f44000a8ac528d16f2ea1e52b78b"
 
 def init_build(self):
     self.make_build_env = {
-        "SHELL_COMPLETIONS_DIR": f"target/{self.profile().triplet}/release/completions"
+        "SHELL_COMPLETIONS_DIR": f"target/{self.profile.triplet}/release/completions"
     }
 
 
 def install(self):
     self.install_license("LICENSE-MIT")
-    with self.pushd(f"target/{self.profile().triplet}/release"):
+    with self.pushd(f"target/{self.profile.triplet}/release"):
         self.install_bin("pastel")
         self.install_completion("completions/pastel.bash", "bash")
         self.install_completion("completions/_pastel", "zsh")

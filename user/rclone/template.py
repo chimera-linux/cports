@@ -11,7 +11,7 @@ sha256 = "e52541bc238dd434a0335f467697d7d9575529698a74aab534ad39b8649f8a49"
 # tests require network
 options = ["!check", "!cross"]
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     broken = "saferith@v0.33.0/arith_decl.go:...: missing function body"
 
 

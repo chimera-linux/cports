@@ -18,7 +18,7 @@ sha256 = "fee05740e86ee66f4540486d92683ee8e8071119907b57ca762c7e5d943ecef0"
 # no test suite
 options = ["!check"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "big endian is not supported"
 
 

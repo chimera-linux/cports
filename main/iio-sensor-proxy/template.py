@@ -29,7 +29,7 @@ source = f"{url}/-/archive/{pkgver}/iio-sensor-proxy-{pkgver}.tar.gz"
 sha256 = "4d7eb0ae23506919a9a40bc1aab0e144c218be60457b3137533724814c41997b"
 hardening = ["vis", "cfi"]
 
-if not self.profile().cross:
+if not self.profile.cross:
     # don't pull in checkdepends for cross
     configure_args += ["-Dtests=true"]
 

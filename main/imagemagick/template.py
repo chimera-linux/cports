@@ -76,10 +76,10 @@ sha256 = "b4a5ec023644fd345f1e22b1ab92af3fb6762dceb56de805dde53b0ce515c481"
 # runs out of file descriptors
 options = ["etcfiles", "!cross", "!check"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["file"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

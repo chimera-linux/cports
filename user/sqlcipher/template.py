@@ -30,11 +30,11 @@ url = "https://github.com/sqlcipher/sqlcipher"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "7075f96cbabe45b4ecfc2e6b1745a625f856f695b0827a5506ce9ed85b906aa0"
 
-if self.profile().cross:
+if self.profile.cross:
     configure_args += [
-        f"--host={self.profile().triplet}",
-        f"--sysroot={self.profile().sysroot}",
-        f"--with-readline-cflags=-I{self.profile().sysroot}",
+        f"--host={self.profile.triplet}",
+        f"--sysroot={self.profile.sysroot}",
+        f"--with-readline-cflags=-I{self.profile.sysroot}",
     ]
 
 _cflags = [
@@ -56,7 +56,7 @@ _cflags = [
     "-DSQLCIPHER_TEST",
 ]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     _cflags += ["-DSHA3_BYTEORDER=4321", "-DSQLITE_BYTEORDER=4321"]
 else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]

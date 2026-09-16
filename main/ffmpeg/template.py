@@ -155,7 +155,7 @@ options = ["!check"]
 if self.has_lto(force=True):
     configure_args += ["--enable-lto=thin"]
 
-if self.profile().cross:
+if self.profile.cross:
     _archmap = {
         "aarch64": "aarch64",
         "loongarch64": "loongarch",
@@ -165,14 +165,14 @@ if self.profile().cross:
         "riscv64": "riscv",
         "x86_64": "x86_64",
     }
-    if self.profile().arch not in _archmap:
-        broken = f"unknown architecture: {self.profile().arch}"
+    if self.profile.arch not in _archmap:
+        broken = f"unknown architecture: {self.profile.arch}"
 
     configure_args += [
         "--enable-cross-compile",
         "--target-os=linux",
-        "--arch=" + _archmap.get(self.profile().arch, "unknown"),
-        f"--sysroot={self.profile().sysroot}",
+        "--arch=" + _archmap.get(self.profile.arch, "unknown"),
+        f"--sysroot={self.profile.sysroot}",
     ]
 
 

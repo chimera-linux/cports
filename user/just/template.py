@@ -20,14 +20,14 @@ options = ["!cross"]
 def post_build(self):
     with open(self.cwd / "just.1", "w") as f:
         self.do(
-            f"./target/{self.profile().triplet}/release/just",
+            f"./target/{self.profile.triplet}/release/just",
             "--man",
             stdout=f,
         )
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/just")
+    self.install_bin(f"target/{self.profile.triplet}/release/just")
     self.install_man("just.1")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"completions/just.{shell}", shell)

@@ -16,11 +16,11 @@ options = ["!cross"]
 
 def post_build(self):
     self.do(
-        f"target/{self.profile().triplet}/release/oct",
+        f"target/{self.profile.triplet}/release/oct",
         env={"OCT_MANPAGE_OUTPUT_DIR": "man"},
     )
     self.do(
-        f"target/{self.profile().triplet}/release/oct",
+        f"target/{self.profile.triplet}/release/oct",
         env={"OCT_COMPLETION_OUTPUT_DIR": "completions"},
     )
 

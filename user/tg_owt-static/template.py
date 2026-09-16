@@ -66,7 +66,7 @@ tool_flags = {"CXXFLAGS": [], "CFLAGS": []}
 # crashes
 hardening = ["!int"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "tdesktop deosn't work on this anyway etc."
 
 

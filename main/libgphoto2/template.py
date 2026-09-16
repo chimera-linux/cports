@@ -27,7 +27,7 @@ source = f"https://github.com/gphoto/libgphoto2/releases/download/v{pkgver}/libg
 sha256 = "495a347be21b8f970607a81e739aa91513a8479cbd73b79454a339c73e2b860e"
 options = ["linkundefver"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["libgphoto2"]
 
 
@@ -37,7 +37,7 @@ def post_install(self):
     self.install_dir("usr/lib/udev/hwdb.d")
     self.install_dir("usr/lib/udev/rules.d")
 
-    if not self.profile().cross:
+    if not self.profile.cross:
         cexe = self.chroot_destdir / "usr/lib/libgphoto2/print-camera-list"
         cenv = {
             "LD_LIBRARY_PATH": str(self.chroot_destdir / "usr/lib"),

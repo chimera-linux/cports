@@ -2,7 +2,7 @@
 
 
 def get_arch(pkg):
-    match pkg.profile().arch:
+    match pkg.profile.arch:
         case "ppc64le" | "ppc64" | "ppc":
             return "powerpc"
         case "aarch64":
@@ -16,7 +16,7 @@ def get_arch(pkg):
         case "loongarch64" | "loongarch32":
             return "loongarch"
         case _:
-            pkg.error(f"unknown linux architecture {pkg.profile().arch}")
+            pkg.error(f"unknown linux architecture {pkg.profile.arch}")
 
 
 def _build_env(pkg, menv, base_env, env):
@@ -31,7 +31,7 @@ def _build_env(pkg, menv, base_env, env):
 
 
 def configure(pkg, extra_args=[], build_dir=None, env=None):
-    cfgarch = pkg.profile().arch
+    cfgarch = pkg.profile.arch
 
     for f in pkg.files_path.glob("config-*"):
         pkg.cp(f, ".")
@@ -39,8 +39,8 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
     epoch = pkg.source_date_epoch or 0
     args = []
 
-    if pkg.profile().cross:
-        args += [f"CROSS_COMPILE={pkg.profile().triplet}"]
+    if pkg.profile.cross:
+        args += [f"CROSS_COMPILE={pkg.profile.triplet}"]
 
     bdir = build_dir
     if not bdir:
@@ -67,7 +67,7 @@ def update_configs(pkg, archs, extra_args=[]):
         if flv.startswith("FLAVOR="):
             flavor = flv.removeprefix("FLAVOR=")
     for a in archs:
-        with pkg.profile(a):
+        with pkg.use_profile(a):
             with pkg.stamp(f"{a}_config"):
                 pkg.log(f"configuring {a}...")
                 configure(pkg, extra_args, f"{pkg.make_dir}-{a}")

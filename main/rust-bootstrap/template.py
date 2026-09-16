@@ -10,12 +10,12 @@ license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 _urlb = "https://repo.chimera-linux.org/distfiles"
 source = [
-    f"{_urlb}/rustc-{pkgver}-{self.profile().triplet}.tar.xz",
-    f"{_urlb}/rust-std-{pkgver}-{self.profile().triplet}.tar.xz",
+    f"{_urlb}/rustc-{pkgver}-{self.profile.triplet}.tar.xz",
+    f"{_urlb}/rust-std-{pkgver}-{self.profile.triplet}.tar.xz",
 ]
 options = ["!strip"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         sha256 = [
             "15ec31bbe0694ab27e249aed561206a7e31144d7b98ba84175c5c69696aff473",
@@ -42,7 +42,7 @@ match self.profile().arch:
             "7476a7f7c24efa02b9b2d80ba568b1466ed364d94eddf8a3d542943e3134d610",
         ]
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
 
 def install(self):
@@ -54,9 +54,9 @@ def install(self):
             wrksrc=d.name,
         )
     # remove rust copies of llvm tools
-    trip = self.profile().triplet
+    trip = self.profile.triplet
     self.uninstall(f"usr/lib/rustlib/{trip}/bin")
     # whatever
     self.uninstall("usr/etc")
     # licenses
-    self.install_license(f"rustc-{pkgver}-{self.profile().triplet}/LICENSE-MIT")
+    self.install_license(f"rustc-{pkgver}-{self.profile.triplet}/LICENSE-MIT")

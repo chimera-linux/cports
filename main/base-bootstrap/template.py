@@ -11,7 +11,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-match self.profile().arch:
+match self.profile.arch:
     case (
         "aarch64"
         | "loongarch64"

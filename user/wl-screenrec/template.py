@@ -26,7 +26,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"wl-screenrec.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile().triplet}/release/wl-screenrec",
+                f"./target/{self.profile.triplet}/release/wl-screenrec",
                 "--generate-completions",
                 shell,
                 stdout=f,
@@ -34,7 +34,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/wl-screenrec")
+    self.install_bin(f"target/{self.profile.triplet}/release/wl-screenrec")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"wl-screenrec.{shell}", shell, "wl-screenrec")

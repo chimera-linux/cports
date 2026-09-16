@@ -21,7 +21,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"flamegraph.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile().triplet}/release/flamegraph",
+                f"./target/{self.profile.triplet}/release/flamegraph",
                 "--completions",
                 shell,
                 stdout=f,

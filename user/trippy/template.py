@@ -21,7 +21,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"trip.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/trip",
+                f"target/{self.profile.triplet}/release/trip",
                 "--generate",
                 shell,
                 stdout=outf,
@@ -29,6 +29,6 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/trip")
+    self.install_bin(f"target/{self.profile.triplet}/release/trip")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"trip.{shell}", shell, name="trip")

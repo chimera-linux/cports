@@ -17,16 +17,14 @@ options = ["!cross"]
 
 def post_build(self):
     self.do(
-        f"target/{self.profile().triplet}/release/static-web-server",
+        f"target/{self.profile.triplet}/release/static-web-server",
         "generate",
         "generated",
     )
 
 
 def install(self):
-    self.install_bin(
-        f"target/{self.profile().triplet}/release/static-web-server"
-    )
+    self.install_bin(f"target/{self.profile.triplet}/release/static-web-server")
     self.install_license("LICENSE-MIT")
     with self.pushd("generated/completions"):
         self.install_completion("static-web-server.bash", "bash")

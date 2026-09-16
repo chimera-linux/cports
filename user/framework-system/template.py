@@ -20,7 +20,7 @@ sha256 = "51daef8eac68f3c8b69956f0250a2a4029243a5631a8ee9a537f6d4db730a890"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/framework_tool")
+    self.install_bin(f"target/{self.profile.triplet}/release/framework_tool")
     self.install_completion(
         "framework_tool/completions/bash/framework_tool",
         "bash",

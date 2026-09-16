@@ -30,7 +30,7 @@ hardening = ["!vis"]
 
 
 def init_build(self):
-    with self.profile("host"):
+    with self.use_profile("host"):
         self.make_build_args += [f"HOSTCC={self.get_tool('CC')}"]
 
 

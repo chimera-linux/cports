@@ -8,7 +8,7 @@ configure_args = [
     "--disable-mpers",
     "--disable-gcc-Werror",
 ]
-configure_env = {"CPPFLAGS": f"-I{self.profile().sysroot / 'usr/include'}"}
+configure_env = {"CPPFLAGS": f"-I{self.profile.sysroot / 'usr/include'}"}
 # there's over a thousand tests and a ~50 of them
 # fail due to various reasons, mostly harmless ones
 make_check_args = [

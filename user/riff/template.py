@@ -13,7 +13,7 @@ sha256 = "d360058f0e51d162235307498485f92dc57518877f5646f00521b97e92957bbe"
 options = []
 
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # linux-raw-sys ftbfs
     options += ["!check"]
 
@@ -32,5 +32,5 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/riff")
+    self.install_bin(f"target/{self.profile.triplet}/release/riff")
     self.install_license("LICENSE")

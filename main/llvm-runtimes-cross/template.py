@@ -64,7 +64,7 @@ _targetlist = [
     "riscv64",
     "loongarch64",
 ]
-_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile.arch, _targetlist))
 
 for _an in _targets:
     depends += [f"llvm-runtimes-cross-{_an}"]
@@ -79,7 +79,7 @@ def configure(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
             # configure libcxx
             with self.stamp(f"{an}_configure") as s:
@@ -104,7 +104,7 @@ def build(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an):
+        with self.use_profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
                 cmake.build(self, f"build-{an}", ["--verbose"])
@@ -114,7 +114,7 @@ def install(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             cmake.install(
                 self,
                 f"build-{an}",
@@ -183,5 +183,5 @@ def _gen_crossp(an, at):
 
 
 for _an in _targetlist:
-    with self.profile(_an) as _pf:
+    with self.use_profile(_an) as _pf:
         _gen_crossp(_an, _pf.triplet)

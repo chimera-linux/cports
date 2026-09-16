@@ -38,7 +38,7 @@ options = []
 # only for 'lit' below
 exec_wrappers = [("/usr/bin/FileCheck", "filecheck")]
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     # some float test fails due to messed up hw fp on the builder
     options += ["!check"]
 

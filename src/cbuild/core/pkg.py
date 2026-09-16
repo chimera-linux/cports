@@ -47,7 +47,7 @@ def remove_pkg(pkg):
     if not pkg.destdir.is_dir():
         return
 
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
 
     def remove_state(spkg, dbase):

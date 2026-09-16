@@ -28,9 +28,9 @@ url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "211da7f76d412708315ccd36b77424bd53bc4ad19813ed69de44451779812f1f"
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
-elif self.profile().arch == "loongarch64":
+elif self.profile.arch == "loongarch64":
     broken = "rustix/libc interaction garbage strikes again"
 
 
@@ -41,5 +41,5 @@ def post_patch(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/spotify_player")
+    self.install_bin(f"target/{self.profile.triplet}/release/spotify_player")
     self.install_license("LICENSE")

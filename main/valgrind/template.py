@@ -30,7 +30,7 @@ hardening = ["!ssp", "!scp", "!pie", "!int"]
 options = ["!cross", "!lto"]
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         # builtins for LSE reference getauxval from libc
         # which we aren't linking to, so eliminate them
@@ -39,12 +39,12 @@ match self.profile().arch:
         options += ["!check"]
     case "ppc64le" | "ppc64" | "ppc":
         # lld causes the tools to segfault on start
-        hostmakedepends += [f"binutils-{self.profile().arch}"]
+        hostmakedepends += [f"binutils-{self.profile.arch}"]
         tool_flags["LDFLAGS"] += ["-fuse-ld=bfd"]
         # does not build
         options += ["!check"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

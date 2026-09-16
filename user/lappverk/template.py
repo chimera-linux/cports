@@ -16,5 +16,5 @@ sha256 = "2204079b632d4832dcda42f796a49515b1b7cb68005551f65d8f2522852ac8d7"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/lappverk")
+    self.install_bin(f"target/{self.profile.triplet}/release/lappverk")
     self.install_license("LICENSE")

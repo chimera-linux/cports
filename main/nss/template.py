@@ -25,8 +25,8 @@ env = {
     "NSS_ENABLE_WERROR": "0",
     "NSS_ENABLE_ECC": "1",
     "NSS_DISABLE_GTESTS": "1",
-    "NSPR_INCLUDE_DIR": f"{self.profile().sysroot / 'usr/include/nspr'}",
-    "NSPR_LIB_DIR": f"{self.profile().sysroot / 'usr/lib'}",
+    "NSPR_INCLUDE_DIR": f"{self.profile.sysroot / 'usr/include/nspr'}",
+    "NSPR_LIB_DIR": f"{self.profile.sysroot / 'usr/lib'}",
 }
 
 
@@ -35,7 +35,7 @@ def post_patch(self):
     (self.cwd / "install.sh").chmod(0o755)
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         pass
     case "ppc64":
@@ -44,16 +44,16 @@ match self.profile().arch:
     case _:
         env["NSS_DISABLE_AVX2"] = "1"
 
-if self.profile().wordsize == 64:
+if self.profile.wordsize == 64:
     env["USE_64"] = "1"
     make_build_args += ["USE_64=1"]
     tool_flags["CFLAGS"] += ["-DNS_PTR_GT_32"]
 
-if self.profile().cross:
+if self.profile.cross:
     make_build_args += ["CROSS_COMPILE=1"]
 
 # because this may not match the cbuild arch name
-match self.profile().arch:
+match self.profile.arch:
     case (
         "x86_64"
         | "ppc64le"
@@ -64,9 +64,9 @@ match self.profile().arch:
         | "riscv64"
         | "loongarch64"
     ):
-        _nssarch = self.profile().arch
+        _nssarch = self.profile.arch
     case _:
-        broken = f"OS_TEST unknown for {self.profile().arch}"
+        broken = f"OS_TEST unknown for {self.profile.arch}"
 
 
 def build(self):

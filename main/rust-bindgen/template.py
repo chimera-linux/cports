@@ -18,5 +18,5 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile().triplet}/release/bindgen")
+    self.install_bin(f"./target/{self.profile.triplet}/release/bindgen")
     self.install_license("LICENSE")

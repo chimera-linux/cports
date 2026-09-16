@@ -41,5 +41,5 @@ sha256 = "b8a1eae79e86021624b43484bd07cb318ee83aa5f4ed4c3044dcfdcea63b07fe"
 # check: ImportError: cannot import name '_c_internal_utils' from 'matplotlib'
 options = ["!check"]
 
-if self.profile().arch == "ppc":
+if self.profile.arch == "ppc":
     broken = "error: relocation R_PPC_REL32 cannot be used against symbol '_GLOBAL_OFFSET_TABLE_'; recompile with -fPIC"

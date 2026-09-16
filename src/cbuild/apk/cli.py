@@ -188,7 +188,7 @@ def query(fields, args, mrepo, return_repos=False, **kwargs):
 
 
 def get_provider(pkgn, pkg=None):
-    cpf = pkg.rparent.profile() if pkg else None
+    cpf = pkg.rparent.profile if pkg else None
 
     if pkg and cpf.cross:
         sysp = paths.bldroot() / cpf.sysroot.relative_to("/")

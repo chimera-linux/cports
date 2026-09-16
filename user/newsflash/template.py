@@ -24,7 +24,7 @@ url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
 sha256 = "a3c4e9d11c48d43692eb2b76b11ff1481c8712bb76f5a73bcdcf183d7ac11a4e"
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
@@ -43,6 +43,6 @@ def init_build(self):
 
 def post_install(self):
     self.install_bin(
-        f"build/src/{self.profile().triplet}/release/news_flash_gtk",
+        f"build/src/{self.profile.triplet}/release/news_flash_gtk",
         name="io.gitlab.news_flash.NewsFlash",
     )

@@ -28,7 +28,7 @@ url = "https://codeberg.org/LGFae/awww"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "5e31092d5170b90ec614f76bad0739b729923a57979d2dfed3673cf0d8db2dee"
 
-match self.profile().arch:
+match self.profile.arch:
     case "loongarch64":
         broken = "cannot find value `MADV_SOFT_OFFLINE` in module `c`"
     case "ppc64le" | "ppc64" | "ppc":
@@ -40,8 +40,8 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/awww")
-    self.install_bin(f"target/{self.profile().triplet}/release/awww-daemon")
+    self.install_bin(f"target/{self.profile.triplet}/release/awww")
+    self.install_bin(f"target/{self.profile.triplet}/release/awww-daemon")
     self.install_service(self.files_path / "awww.user")
     self.install_man("doc/generated/*", glob=True)
     with self.pushd("completions"):

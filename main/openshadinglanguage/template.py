@@ -62,10 +62,10 @@ hardening = ["vis", "!cfi", "!int"]
 # checks require cpu features
 options = ["linkundefver"]
 
-if self.profile().arch not in ["ppc64le", "x86_64"]:
+if self.profile.arch not in ["ppc64le", "x86_64"]:
     options += ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "fails static assertions"
 
 

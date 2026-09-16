@@ -274,7 +274,7 @@ def scan(pkg, somap):
     # only test machine type against libc when not bootstrapping
     # as otherise we cannot provide guarantees about the host system
     if pkg.stage > 0:
-        rsroot = pkg.rparent.profile().sysroot.relative_to("/")
+        rsroot = pkg.rparent.profile.sysroot.relative_to("/")
         libcp = paths.bldroot() / rsroot / "usr/lib/libc.so"
         libc = scan_one(libcp)
 

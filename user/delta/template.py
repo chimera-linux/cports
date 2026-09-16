@@ -23,7 +23,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"delta.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/delta",
+                f"target/{self.profile.triplet}/release/delta",
                 "--generate-completion",
                 shell,
                 stdout=outf,
@@ -31,7 +31,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/delta")
+    self.install_bin(f"target/{self.profile.triplet}/release/delta")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"delta.{shell}", shell)

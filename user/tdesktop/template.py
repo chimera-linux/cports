@@ -76,9 +76,9 @@ tool_flags = {"CXXFLAGS": [], "CFLAGS": []}
 # crashes
 hardening = ["!int"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "broken at protocol level"
-elif self.profile().arch == "riscv64":
+elif self.profile.arch == "riscv64":
     broken = "compiler segfault"
 
 

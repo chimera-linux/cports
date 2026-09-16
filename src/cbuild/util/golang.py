@@ -2,20 +2,20 @@ from pathlib import Path
 
 
 def get_go_env(pkg):
-    if not pkg.profile().goarch:
+    if not pkg.profile.goarch:
         pkg.error("unknown architecture for golang")
 
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
-        "GOARCH": pkg.profile().goarch,
+        "GOARCH": pkg.profile.goarch,
         "CGO_CFLAGS": pkg.get_cflags(shell=True),
         "CGO_CXXFLAGS": pkg.get_cxxflags(shell=True),
         "CGO_LDFLAGS": pkg.get_ldflags(shell=True),
     }
     if env["GOARCH"] == "arm":
-        if not pkg.profile().goarm:
+        if not pkg.profile.goarm:
             pkg.error("GOARCH is arm without matching GOARM")
-        env["GOARM"] = pkg.profile().goarm
+        env["GOARM"] = pkg.profile.goarm
 
     return env
 

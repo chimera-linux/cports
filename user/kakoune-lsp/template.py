@@ -12,5 +12,5 @@ sha256 = "34b4718af5ee39a05a1a176a25cdde4333d2de548e84c148389552e893bc7cc0"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/kak-lsp")
+    self.install_bin(f"target/{self.profile.triplet}/release/kak-lsp")
     self.install_license("MIT")

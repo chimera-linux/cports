@@ -5,7 +5,7 @@ pkgrel = 0
 archs = ["x86_64", "aarch64"]
 build_style = "makefile"
 make_use_env = True
-hostmakedepends = ["pkgconf", f"binutils-{self.profile().arch}"]
+hostmakedepends = ["pkgconf", f"binutils-{self.profile.arch}"]
 pkgdesc = "Development libraries for EFI"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/gnu-efi"
@@ -26,9 +26,9 @@ options = ["!check", "!debug", "!strip", "!lto", "!relr", "!splitstatic"]
 
 def init_configure(self):
     eargs = ["PREFIX=/usr", "INSTALLROOT=" + str(self.chroot_destdir)]
-    with self.profile("host"):
+    with self.use_profile("host"):
         eargs += ["HOSTCC=" + self.get_tool("CC")]
-    with self.profile("target"):
+    with self.use_profile("target"):
         eargs += [
             "CC=" + self.get_tool("CC"),
             "LD=" + self.get_tool("LD"),

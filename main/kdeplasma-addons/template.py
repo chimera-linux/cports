@@ -52,7 +52,7 @@ url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
 sha256 = "5098c28b7e4e0c1c9320db28c2e778f3ecd5c62d655c95983993f66003980ec1"
 
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
 
 

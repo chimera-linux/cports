@@ -30,7 +30,7 @@ tool_flags = {"LDFLAGS": []}
 # breaks bullet
 hardening = ["!int"]
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # loongarch64-chimera-linux-musl-ld: error: address assignment did not converge
     tool_flags["LDFLAGS"] += ["-mno-relax"]
 

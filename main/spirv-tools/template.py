@@ -5,7 +5,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSPIRV_WERROR=OFF",
-    f"-DSPIRV-Headers_SOURCE_DIR={self.profile().sysroot / 'usr'}",
+    f"-DSPIRV-Headers_SOURCE_DIR={self.profile.sysroot / 'usr'}",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
 makedepends = ["spirv-headers"]

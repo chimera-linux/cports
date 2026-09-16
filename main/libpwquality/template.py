@@ -28,8 +28,8 @@ options = ["etcfiles"]
 def init_build(self):
     # see build_style/python_pep517
     self.make_build_env = {
-        "PYTHON_CROSS_LIBDIR": self.profile().sysroot / "usr/lib",
-        "PYTHON_CROSS_INCDIR": self.profile().sysroot
+        "PYTHON_CROSS_LIBDIR": self.profile.sysroot / "usr/lib",
+        "PYTHON_CROSS_INCDIR": self.profile.sysroot
         / f"usr/include/python{self.python_version}",
     }
 

@@ -30,10 +30,10 @@ source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkg
 sha256 = "e13a8a36f8beac8f5194b297abdef2ac4424f4c49117f83a2afb735e15c6e48b"
 options = []
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # loongarch64-chimera-linux-musl-ld: error: address assignment did not converge
     options += ["!linkrelax"]
 
@@ -56,4 +56,4 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/src/{self.profile().triplet}/release/pods")
+    self.install_bin(f"./build/src/{self.profile.triplet}/release/pods")

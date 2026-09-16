@@ -15,7 +15,7 @@ url = "https://linux.thai.net/projects/libthai"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/libthai-{pkgver}.tar.xz"
 sha256 = "ddba8b53dfe584c3253766030218a88825488a51a7deef041d096e715af64bdd"
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["libdatrie"]
 
 

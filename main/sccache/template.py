@@ -21,11 +21,11 @@ sha256 = "49949ad1cf175c49da126dbb0c2e6a56bd9d1f626e8cc0be17b9668b914145c6"
 # fails due to comparing ldd output to a glibc bin
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 # only supported by upstream on x86_64 linux and freebsd
-_have_dist = self.profile().arch == "x86_64"
+_have_dist = self.profile.arch == "x86_64"
 
 if _have_dist:
     _eargs = [

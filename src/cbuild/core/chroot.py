@@ -621,7 +621,7 @@ def update(pkg):
     if isinstance(pkg, str):
         return
 
-    prof = pkg.profile()
+    prof = pkg.profile
 
     # not cross, so we don't care
     if not prof.cross:

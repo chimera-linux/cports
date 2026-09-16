@@ -23,7 +23,7 @@ def init_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/bat")
+    self.install_bin(f"target/{self.profile.triplet}/release/bat")
     self.install_man("gen/assets/manual/bat.1")
     self.install_license("LICENSE-MIT")
     self.install_completion("gen/assets/completions/bat.bash", "bash")

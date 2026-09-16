@@ -36,17 +36,17 @@ options = ["!cross"]
 
 def post_build(self):
     self.do(
-        f"target/{self.profile().triplet}/release/git-cliff-mangen",
+        f"target/{self.profile.triplet}/release/git-cliff-mangen",
         env={"OUT_DIR": "."},
     )
     self.do(
-        f"target/{self.profile().triplet}/release/git-cliff-completions",
+        f"target/{self.profile.triplet}/release/git-cliff-completions",
         env={"OUT_DIR": "."},
     )
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/git-cliff")
+    self.install_bin(f"target/{self.profile.triplet}/release/git-cliff")
     self.install_man("git-cliff.1")
     self.install_completion("git-cliff.bash", "bash")
     self.install_completion("git-cliff.fish", "fish")

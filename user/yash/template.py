@@ -25,7 +25,7 @@ sha256 = "a214966f4ff8b293aa5521a4d3ef6e87d707579eee616aa2f8218edaa920d447"
 # check may be off
 options = ["etcfiles"]
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # some permissions tests fail, same behavior observed elsewhere
     options += ["!check"]
 

@@ -33,7 +33,7 @@ hardening = []
 options = ["!cross"]
 
 
-if self.profile().arch == "aarch64":
+if self.profile.arch == "aarch64":
     # fails buildvm
     hardening += ["!int"]
 

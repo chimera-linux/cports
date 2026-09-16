@@ -51,7 +51,7 @@ file_xattrs = {
 hardening = ["vis"]
 
 
-if self.profile().arch == "ppc64le":
+if self.profile.arch == "ppc64le":
     make_check_args += [
         "-E",
         "TestLinuxCpu",  # "Subprocess aborted"?

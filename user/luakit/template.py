@@ -24,7 +24,7 @@ sha256 = "65f73939db561de21bba735bdf92c2b32d28c6610e3d114d1420a8477d531802"
 # no tests
 options = ["etcfiles", "!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "ppc64le" | "ppc64" | "ppc" | "x86_64":
         make_build_args += ["USE_LUAJIT=1"]
         makedepends += ["luajit-devel"]

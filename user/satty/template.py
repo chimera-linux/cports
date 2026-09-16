@@ -20,7 +20,7 @@ options = ["!check"]
 
 
 def install(self):
-    self.install_bin(f"./target/{self.profile().triplet}/release/satty")
+    self.install_bin(f"./target/{self.profile.triplet}/release/satty")
     self.install_file("satty.desktop", "usr/share/applications")
     self.install_file(
         "assets/satty.svg", "usr/share/icons/hicolor/scalable/apps"

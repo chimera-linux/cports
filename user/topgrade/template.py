@@ -17,21 +17,21 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(f"{self.cwd}/topgrade.{shell}", "w") as o:
             self.do(
-                f"target/{self.profile().triplet}/release/topgrade",
+                f"target/{self.profile.triplet}/release/topgrade",
                 "--gen-completion",
                 shell,
                 stdout=o,
             )
     with open(f"{self.cwd}/topgrade.1", "w") as o:
         self.do(
-            f"target/{self.profile().triplet}/release/topgrade",
+            f"target/{self.profile.triplet}/release/topgrade",
             "--gen-manpage",
             stdout=o,
         )
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/topgrade")
+    self.install_bin(f"target/{self.profile.triplet}/release/topgrade")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"topgrade.{shell}", shell)
     self.install_man("topgrade.1")

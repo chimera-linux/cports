@@ -28,7 +28,7 @@ hardening = ["vis", "!cfi"]
 # no check target
 options = ["!cross", "!check"]
 
-if self.profile().wordsize == 64:
+if self.profile.wordsize == 64:
     configure_args += ["--enable-64bit"]
 
 

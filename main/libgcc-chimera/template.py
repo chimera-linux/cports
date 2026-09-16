@@ -43,7 +43,7 @@ options = ["!check", "!lto"]
 
 cmake_dir = "compiler-rt"
 
-_trip = self.profile().triplet
+_trip = self.profile.triplet
 _basename = "libgcc_s.so"
 _soname = f"{_basename}.1"
 

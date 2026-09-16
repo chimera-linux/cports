@@ -27,7 +27,7 @@ sha256 = "0b43b3a1c4f40765d96eb2094d38838f5d01b7280ad8b9b0a17612bed9c36735"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
-    "RUST_TARGET": self.profile().triplet,
+    "RUST_TARGET": self.profile.triplet,
     "SHELL": "/usr/bin/sh",
     "AWK": "gawk",
     "M4": "gm4",
@@ -47,7 +47,7 @@ def init_configure(self):
     self.env["AS"] = self.get_tool("CC")
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
     self.env["MOZ_OBJDIR"] = f"{self.chroot_cwd / 'objdir'}"
-    self.env["RUST_TARGET"] = self.profile().triplet
+    self.env["RUST_TARGET"] = self.profile.triplet
     # use all the cargo env vars we enforce
     self.env.update(cargo.get_environment(self))
 
@@ -66,8 +66,8 @@ def configure(self):
         "configure",
         "--prefix=/usr",
         "--libdir=/usr/lib",
-        "--host=" + self.profile().triplet,
-        "--target=" + self.profile().triplet,
+        "--host=" + self.profile.triplet,
+        "--target=" + self.profile.triplet,
         "--disable-hardening",
         "--disable-install-strip",
         "--disable-strip",

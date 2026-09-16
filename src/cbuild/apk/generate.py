@@ -19,7 +19,7 @@ def _get_old_deps(pkg, arch):
     if pkg.stage < 3:
         return None, None, None, None
 
-    cpf = pkg.rparent.profile()
+    cpf = pkg.rparent.profile
 
     if cpf.cross:
         sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
@@ -395,7 +395,7 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
 
 
 def write_make(pkg, mkf):
-    arch = pkg.rparent.profile().arch
+    arch = pkg.rparent.profile.arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     stagebase = paths.stage_repository()

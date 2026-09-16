@@ -12,7 +12,7 @@ source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.
 sha256 = "39dafafe787291de0010b58ae5828bc631a8f34a5d8f78c26730ff5e37fa5ff5"
 options = ["empty"]
 
-_arch = self.profile().arch
+_arch = self.profile.arch
 _arch_x86 = _arch == "x86_64"
 _arch_arm64 = _arch == "aarch64"
 # These together make up the complete contents; there must be nothing

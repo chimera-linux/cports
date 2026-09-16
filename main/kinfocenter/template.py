@@ -56,7 +56,7 @@ def _(self):
         "xdpyinfo",
     ]
     self.options = ["empty"]
-    if self.rparent.profile().arch in ["aarch64", "riscv64", "x86_64"]:
+    if self.rparent.profile.arch in ["aarch64", "riscv64", "x86_64"]:
         self.depends += ["dmidecode"]
 
     return []

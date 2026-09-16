@@ -37,7 +37,7 @@ sha256 = "134c602d8e0d53413a52d6cd58f9ce7e79a07d03288ee0a51ba1abd5db1b1ad9"
 # cross: generates completions using host binary
 options = ["!cross"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     # rust libc time32 broken interaction with pipewire-rs
     # broken libspa_sys::timespec and pipewire_sys::timespec
     broken = "weird pipewire api stuff"
@@ -49,7 +49,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"niri.{shell}", "w") as f:
             self.do(
-                f"./target/{self.profile().triplet}/release/niri",
+                f"./target/{self.profile.triplet}/release/niri",
                 "completions",
                 shell,
                 stdout=f,
@@ -57,7 +57,7 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/niri")
+    self.install_bin(f"target/{self.profile.triplet}/release/niri")
     self.install_file("resources/niri.desktop", "usr/share/wayland-sessions")
     self.install_file(
         "resources/niri-portals.conf", "usr/share/xdg-desktop-portal"

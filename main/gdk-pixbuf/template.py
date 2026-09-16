@@ -35,7 +35,7 @@ hardening = ["!int"]
 # check may be disabled
 options = ["!cross"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     # https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/215
     options += ["!check"]
 

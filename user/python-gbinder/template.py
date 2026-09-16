@@ -21,5 +21,5 @@ sha256 = "2dc424d5c2594146612e4bd752964f8928a62eec7c5ce6046f4c582079d0b537"
 # check: needs manually running script in .py with manual setup
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "passes pointer types unsafely (long* to long long* argument)"

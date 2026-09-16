@@ -15,8 +15,8 @@ def get_environment(pkg, jobs=None, cache=False):
     if not jobs:
         jobs = pkg.make_jobs
 
-    sroot = pkg.profile().sysroot
-    trip = pkg.profile().triplet
+    sroot = pkg.profile.sysroot
+    trip = pkg.profile.triplet
     utrip = trip.replace("-", "_").upper()
 
     env = {
@@ -67,7 +67,7 @@ def get_environment(pkg, jobs=None, cache=False):
     else:
         env["CARGO_PROFILE_RELEASE_DEBUG"] = "0"
 
-    if pkg.profile().cross:
+    if pkg.profile.cross:
         env["PKG_CONFIG_ALLOW_CROSS"] = "1"
 
     if pkg.has_lto():
@@ -125,7 +125,7 @@ class Cargo:
         if command == "vendor":
             bargs += ["--versioned-dirs", "--no-delete"]
         else:
-            bargs += ["--target", tmpl.profile().triplet]
+            bargs += ["--target", tmpl.profile.triplet]
 
         if offline:
             bargs.append("--offline")

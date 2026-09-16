@@ -18,8 +18,8 @@ def build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/resvg")
-    self.install_bin(f"target/{self.profile().triplet}/release/usvg")
+    self.install_bin(f"target/{self.profile.triplet}/release/resvg")
+    self.install_bin(f"target/{self.profile.triplet}/release/usvg")
     self.cargo.cinstall(args=["--manifest-path", "crates/c-api/Cargo.toml"])
     self.install_license("LICENSE-MIT")
 

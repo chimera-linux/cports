@@ -20,7 +20,7 @@ sha256 = "7e21e109ee89dadeef2d3edd786bcb9d64a5562ea546f89dcc79b3f52f881f4c"
 # cross: TODO
 options = ["!cross"]
 
-if self.profile().arch in ["ppc64le"]:
+if self.profile.arch in ["ppc64le"]:
     # mismatches
     options += ["!check"]
 

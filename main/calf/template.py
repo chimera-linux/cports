@@ -20,7 +20,7 @@ sha256 = "b6f9fe41fbfa5e2af0d1214bab9a2b56aa085d90868d4526f9b7886d1487a9c4"
 # vis breaks symbols
 hardening = ["!vis"]
 
-if self.profile().arch == "ppc":
+if self.profile.arch == "ppc":
     tool_flags = {"CFLAGS": ["-DPFFFT_SIMD_DISABLE"]}
 
 

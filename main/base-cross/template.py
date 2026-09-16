@@ -25,12 +25,12 @@ _targetlist = [
     "riscv64",
     "loongarch64",
 ]
-_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = list(filter(lambda p: p != self.profile.arch, _targetlist))
 
 
 def install(self):
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
         # convenient cross symlinks
         self.install_dir("usr/bin")
@@ -74,7 +74,7 @@ def _gen(an):
             f"llvm-runtimes-cross-{an}",
         ]
         self.options = ["brokenlinks"]
-        with self.rparent.profile(an) as pf:
+        with self.rparent.use_profile(an) as pf:
             return [
                 f"usr/bin/{pf.triplet}.cfg",
                 f"usr/bin/{pf.triplet}-*",

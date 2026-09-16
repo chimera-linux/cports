@@ -14,7 +14,7 @@ sha256 = "9001b6df73933555e56deac19a0f225aae152abbc0e97dc70034814a1943f3d4"
 options = ["!check"]
 
 
-_have_omp = self.profile().arch in [
+_have_omp = self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",
@@ -26,7 +26,7 @@ _have_omp = self.profile().arch in [
 if _have_omp:
     makedepends += ["libomp-devel"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         configure_args += ["-DSSE2_FOUND=1"]
 

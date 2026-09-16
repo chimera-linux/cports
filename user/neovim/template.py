@@ -45,7 +45,7 @@ broken_symlinks = ["usr/share/nvim/runtime/parser"]
 options = ["!check"]
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "ppc64le" | "x86_64":
         # ppc64 could work but it misgenerates?
         configure_args += ["-DPREFER_LUA=OFF"]

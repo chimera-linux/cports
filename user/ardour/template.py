@@ -61,7 +61,7 @@ options = ["etcfiles", "!cross", "!scanshlibs"]
 exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]
 
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "busted audio stuff"
 
 

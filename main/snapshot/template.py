@@ -59,4 +59,4 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./target/{self.profile().triplet}/release/snapshot")
+    self.install_bin(f"./target/{self.profile.triplet}/release/snapshot")

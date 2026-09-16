@@ -8,7 +8,7 @@ source = f"$(DEBIAN_SITE)/main/o/os-prober/os-prober_{pkgver}.tar.xz"
 sha256 = "8c82d5084c2b6f8935f6633612f18d16d04a0deffd6b99c264985fb7204140a6"
 
 # only x86 and aarch64 hooks are useful to us
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _arch = "x86"
     case "aarch64":

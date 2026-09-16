@@ -14,7 +14,7 @@ hardening = ["vis", "cfi"]
 # tests want /dev/uinput
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "time64 input_event brokenness"
 
 

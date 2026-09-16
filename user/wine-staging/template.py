@@ -81,7 +81,7 @@ hardening = ["!int", "!var-init"]
 # check: tests hard to run, etc, meh
 options = ["!lto", "!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         configure_args += ["--enable-archs=x86_64,i386"]
 

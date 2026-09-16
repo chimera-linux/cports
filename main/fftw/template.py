@@ -14,7 +14,7 @@ sha256 = "56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467"
 options = ["!check"]
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "loongarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
         makedepends += ["libomp-devel"]
         _have_omp = True
@@ -36,7 +36,7 @@ def configure(self):
     sse2args = []
     if _have_omp:
         eargs += ["--enable-openmp"]
-    match self.profile().arch:
+    match self.profile.arch:
         case "x86_64":
             sseargs += ["--enable-sse"]
             sse2args += ["--enable-sse2"]

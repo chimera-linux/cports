@@ -24,7 +24,7 @@ def install(self):
         wrksrc="docs",
     )
     self.install_file(
-        f"target/{self.profile().triplet}/release/netavark",
+        f"target/{self.profile.triplet}/release/netavark",
         "usr/lib/podman",
         0o755,
     )

@@ -19,13 +19,13 @@ options = ["!check"]
 
 tool_flags = {"CFLAGS": ["-fPIC", "-Wno-incompatible-function-pointer-types"]}
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         tools = {"AS": "nasm"}
     case _:
         tools = {"AS": "clang"}
 
-match self.profile().endian:
+match self.profile.endian:
     case "big":
         configure_env = {"CPU_ENDIAN": "big-endian"}
     case _:

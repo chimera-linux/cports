@@ -42,17 +42,17 @@ if self.stage > 0:
 else:
     configure_args += ["no-asm"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         configure_args += ["enable-ec_nistp_64_gcc_128", "linux-x86_64"]
     case "aarch64" | "ppc64le" | "ppc64" | "ppc":
-        configure_args += [f"linux-{self.profile().arch}"]
+        configure_args += [f"linux-{self.profile.arch}"]
     case "riscv64" | "loongarch64":
-        configure_args += [f"linux64-{self.profile().arch}"]
+        configure_args += [f"linux64-{self.profile.arch}"]
     case "armhf" | "armv7":
         configure_args += ["linux-armv4"]
     case _:
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile.arch}"
 
 
 def pre_configure(self):

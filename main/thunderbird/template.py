@@ -78,11 +78,11 @@ hardening = ["!int"]
 # XXX: maybe someday
 options = ["!cross", "!check"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "broken colors, needs patching, etc."
 
 # crashes compiler in gl.c
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     tool_flags["CXXFLAGS"] = ["-U_FORTIFY_SOURCE"]
 
 
@@ -115,7 +115,7 @@ def init_configure(self):
     self.env["MOZBUILD_STATE_PATH"] = str(self.chroot_srcdir / ".mozbuild")
     self.env["AS"] = self.get_tool("CC")
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
-    self.env["RUST_TARGET"] = self.profile().triplet
+    self.env["RUST_TARGET"] = self.profile.triplet
     # use all the cargo env vars we enforce
     self.env.update(cargo.get_environment(self))
 
@@ -124,8 +124,8 @@ def configure(self):
     conf_opts = [
         "--prefix=/usr",
         "--libdir=/usr/lib",
-        "--host=" + self.profile().triplet,
-        "--target=" + self.profile().triplet,
+        "--host=" + self.profile.triplet,
+        "--target=" + self.profile.triplet,
         "--disable-install-strip",
         "--disable-strip",
         "--enable-linker=lld",
@@ -168,7 +168,7 @@ def configure(self):
         "--with-distribution-id=org.chimera-linux",
     ]
 
-    match self.profile().arch:
+    match self.profile.arch:
         case "x86_64" | "aarch64":
             # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
             # conf_opts += ["--enable-rust-simd"]

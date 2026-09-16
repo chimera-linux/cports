@@ -22,12 +22,12 @@ sha256 = "b8206d52f41fac338f9013bd575c2ab5f397fadc9b088e9038f6ad548428f99a"
 # no tests in top-level project
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/halloy")
+    self.install_bin(f"target/{self.profile.triplet}/release/halloy")
     with self.pushd("assets/linux"):
         self.install_file(
             "org.squidowl.halloy.desktop",

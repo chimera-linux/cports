@@ -33,7 +33,7 @@ hardening = ["vis", "!cfi"]
 # check may be disabled
 options = []
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile.arch in ["loongarch64"]:
     # some file permissions weirdness: Expected permissions for remote to be drwxr-x-wx, actual drwxr-s-wx
     options += ["!check"]
 

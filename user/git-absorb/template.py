@@ -20,7 +20,7 @@ def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"git-absorb.{shell}", "w") as cf:
             self.do(
-                f"./target/{self.profile().triplet}/release/git-absorb",
+                f"./target/{self.profile.triplet}/release/git-absorb",
                 "--gen-completions",
                 shell,
                 stdout=cf,

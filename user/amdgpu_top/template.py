@@ -20,11 +20,11 @@ sha256 = "e511ed15a6e0f3ea72321dfc97145ffb85999b37b6b304e9795978945f3f04cd"
 options = ["!check"]
 
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "64-bit assumptions in libdrm_amdgpu_sys"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/amdgpu_top")
+    self.install_bin(f"target/{self.profile.triplet}/release/amdgpu_top")
     self.install_file("assets/amdgpu_top.desktop", "usr/share/applications")
     self.install_license("LICENSE")

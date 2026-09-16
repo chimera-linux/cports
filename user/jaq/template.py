@@ -23,6 +23,6 @@ sha256 = [
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/jaq")
+    self.install_bin(f"target/{self.profile.triplet}/release/jaq")
     self.install_man(self.sources_path / "jaq.1")
     self.install_license("LICENSE-MIT")

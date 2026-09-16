@@ -21,7 +21,7 @@ options = ["!check"]
 
 
 def init_configure(self):
-    incp = self.profile().sysroot / "usr/include/libnl3"
+    incp = self.profile.sysroot / "usr/include/libnl3"
     self.tool_flags["CFLAGS"] = [f"-I{incp}"]
 
 

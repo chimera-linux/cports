@@ -1,5 +1,5 @@
 def _make_crossfile(pkg, build_dir):
-    if not pkg.profile().cross:
+    if not pkg.profile.cross:
         return
 
     cfpath = pkg.cwd / build_dir / "cbuild.cross"
@@ -7,9 +7,9 @@ def _make_crossfile(pkg, build_dir):
     (pkg.cwd / build_dir).mkdir(parents=True, exist_ok=True)
 
     # map known profiles to meson arch
-    match pkg.profile().arch:
+    match pkg.profile.arch:
         case "aarch64" | "x86_64" | "riscv64":
-            meson_cpu = pkg.profile().arch
+            meson_cpu = pkg.profile.arch
         case "ppc64le" | "ppc64":
             meson_cpu = "ppc64"
         case "ppc":
@@ -19,7 +19,7 @@ def _make_crossfile(pkg, build_dir):
         case "loongarch64":
             meson_cpu = "loongarch64"
         case _:
-            pkg.error(f"unknown meson architecture: {pkg.profile().arch}")
+            pkg.error(f"unknown meson architecture: {pkg.profile.arch}")
 
     with open(cfpath, "w") as outf:
         outf.write(f"""
@@ -34,7 +34,7 @@ readelf = '{pkg.get_tool("READELF")}'
 objcopy = '{pkg.get_tool("OBJCOPY")}'
 pkgconfig = '{pkg.get_tool("PKG_CONFIG")}'
 llvm-config = '/usr/bin/llvm-config'
-rust = ['rustc', '--target', '{pkg.profile().triplet}', '--sysroot', '{pkg.profile().sysroot / "usr"}']
+rust = ['rustc', '--target', '{pkg.profile.triplet}', '--sysroot', '{pkg.profile.sysroot / "usr"}']
 
 [properties]
 needs_exe_wrapper = true
@@ -49,8 +49,8 @@ cpp_link_args = {pkg.get_ldflags()}
 [host_machine]
 system = 'linux'
 cpu_family = '{meson_cpu}'
-cpu = '{pkg.profile().arch}'
-endian = '{pkg.profile().endian}'
+cpu = '{pkg.profile.arch}'
+endian = '{pkg.profile.endian}'
 """)
 
     return cfpath

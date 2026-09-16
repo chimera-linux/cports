@@ -71,14 +71,14 @@ _targetlist = [
     "riscv64",
     "loongarch64",
 ]
-_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile.arch, _targetlist))
 
 
 def configure(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an) as pf:
+        with self.use_profile(an) as pf:
             at = pf.triplet
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
@@ -102,7 +102,7 @@ def build(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an):
+        with self.use_profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
                 cmake.build(self, f"build-{an}")
@@ -112,7 +112,7 @@ def install(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an):
+        with self.use_profile(an):
             cmake.install(self, f"build-{an}")
 
     self.install_license("LICENSE.TXT")
@@ -146,7 +146,7 @@ def _gen_subp(an):
             "!splitstatic",
             "foreignelf",
         ]
-        with self.rparent.profile(an) as pf:
+        with self.rparent.use_profile(an) as pf:
             return [
                 f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/{pf.triplet}"
             ]

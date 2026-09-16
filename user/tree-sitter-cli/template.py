@@ -15,11 +15,11 @@ sha256 = "ece24c3c5e2a76384075e830c7139b59fce8fb01e4ef8436fab08bbe10444c89"
 # requires fetching fixtures
 options = ["!check"]
 
-if self.profile().arch in ["aarch64", "x86_64"]:
+if self.profile.arch in ["aarch64", "x86_64"]:
     make_build_args += ["--features", "wasm"]
     make_check_args += ["--features", "wasm"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/tree-sitter")
+    self.install_bin(f"target/{self.profile.triplet}/release/tree-sitter")
     self.install_license("LICENSE")

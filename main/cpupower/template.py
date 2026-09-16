@@ -37,7 +37,7 @@ sha256 = "3458cd6a6c508e161dbc5406e72b99d5dbdf929faf704a67db9ba46d07514858"
 # nope
 options = ["!check"]
 
-if self.profile().arch == "x86_64":
+if self.profile.arch == "x86_64":
     make_build_args += [
         "intel-speed-select",
         "turbostat",

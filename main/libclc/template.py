@@ -31,7 +31,7 @@ cmake_dir = "libclc"
 def configure(self):
     from cbuild.util import cmake
 
-    with self.profile("host"):
+    with self.use_profile("host"):
         cmake.configure(self, "build", self.cmake_dir)
 
 

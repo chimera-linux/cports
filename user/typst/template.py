@@ -18,12 +18,12 @@ sha256 = "c07909e01a2a6941e52c9b616e48c209c755eed416d62bcf5583c37a4aca01a3"
 # takes forever
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "atomic64 shenanigans"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/typst")
+    self.install_bin(f"target/{self.profile.triplet}/release/typst")
     with self.pushd("crates/typst-cli/generated"):
         self.install_man("typst*.1", glob=True)
         self.install_completion("typst.bash", "bash")

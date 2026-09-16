@@ -15,7 +15,7 @@ sha256 = "6b3b74dbfff7493a157b8edcbac5ee4703a2711031bfa49a9b5bfef419bf81f3"
 options = []
 
 # test suite expects amd64
-if self.profile().arch != "x86_64":
+if self.profile.arch != "x86_64":
     options += ["!check"]
 
 

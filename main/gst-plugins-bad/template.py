@@ -159,7 +159,7 @@ hardening = ["!int"]
 # TODO: a few fails, debug later
 options = ["!check", "!cross"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     configure_args += [
         "-Dldac=disabled",
         "-Disac=disabled",

@@ -9,10 +9,10 @@ configure_args = [
     "--with-hcrypto-default-backend=hcrypto",  # FIXME: switch back to ossl
     "--without-berkeley-db",
     "--with-db-type-preference=sqlite",
-    f"--with-sqlite3={self.profile().sysroot / 'usr'}",
-    f"--with-libedit={self.profile().sysroot / 'usr'}",
-    f"--with-libintl={self.profile().sysroot / 'usr'}",
-    f"--with-openldap={self.profile().sysroot / 'usr'}",
+    f"--with-sqlite3={self.profile.sysroot / 'usr'}",
+    f"--with-libedit={self.profile.sysroot / 'usr'}",
+    f"--with-libintl={self.profile.sysroot / 'usr'}",
+    f"--with-openldap={self.profile.sysroot / 'usr'}",
 ]
 # install and check are racey
 make_install_args = ["-j1"]
@@ -51,7 +51,7 @@ sha256 = "fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38"
 options = ["linkundefver"]
 exec_wrappers = [("/usr/bin/mandoc", "nroff")]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     configure_args.append("--enable-bigendian")
 else:
     configure_args.append("--enable-littleendian")

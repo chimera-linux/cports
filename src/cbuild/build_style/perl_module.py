@@ -6,7 +6,7 @@ from cbuild.util import make
 def configure(self):
     from cbuild.core import paths
 
-    pf = self.profile()
+    pf = self.profile
 
     perlpfx = self.statedir / f"perlprefix-{pf.arch}"
     perlpfx.mkdir(parents=True)
@@ -29,10 +29,10 @@ def configure(self):
     cct = self.get_tool("CC")
     cflags = self.get_cflags(shell=True)
     ldflags = self.get_ldflags(
-        ["-L" + str(self.profile().sysroot / "usr/lib"), "-lperl"], shell=True
+        ["-L" + str(self.profile.sysroot / "usr/lib"), "-lperl"], shell=True
     )
 
-    incp = self.profile().sysroot / "usr/include"
+    incp = self.profile.sysroot / "usr/include"
 
     cenv = dict(self.configure_env)
     cenv.update(
@@ -65,7 +65,7 @@ def configure(self):
 def build(self):
     cflags = self.get_cflags(shell=True)
     ldflags = self.get_ldflags(
-        ["-L" + str(self.profile().sysroot / "usr/lib"), "-lperl"], shell=True
+        ["-L" + str(self.profile.sysroot / "usr/lib"), "-lperl"], shell=True
     )
 
     # by default, pass various stuff directly rather than through env

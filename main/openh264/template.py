@@ -4,7 +4,7 @@ pkgver = "2.6.0"
 pkgrel = 1
 build_style = "makefile"
 make_build_args = [
-    f"ARCH={self.profile().arch}",
+    f"ARCH={self.profile.arch}",
     "BUILDTYPE=Release",
     "CFLAGS_OPT=",
     "ENABLEPIC=Yes",
@@ -30,7 +30,7 @@ sha256 = [
 ]
 
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "armv7" | "x86*":
         make_build_args += ["USE_ASM=Yes"]
     case _:

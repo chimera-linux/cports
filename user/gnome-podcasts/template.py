@@ -42,6 +42,6 @@ def init_build(self):
 
 def post_install(self):
     self.install_bin(
-        f"build/podcasts-gtk/src/{self.profile().triplet}/release/podcasts-gtk",
+        f"build/podcasts-gtk/src/{self.profile.triplet}/release/podcasts-gtk",
         name="gnome-podcasts",
     )

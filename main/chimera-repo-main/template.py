@@ -20,7 +20,7 @@ url = "https://chimera-linux.org"
 def install(self):
     self.install_file(
         *self.find(
-            self.files_path, f"{self.profile().arch}@chimera-linux.org-*.pub"
+            self.files_path, f"{self.profile.arch}@chimera-linux.org-*.pub"
         ),
         "usr/lib/apk/keys",
     )

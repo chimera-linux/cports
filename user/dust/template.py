@@ -13,13 +13,13 @@ sha256 = "2f6768534bd01727234e67f1dd3754c9547aa18c715f6ee52094e881ebac50e3"
 options = []
 
 
-if self.profile().arch != "x86_64":
+if self.profile.arch != "x86_64":
     # tests will fail on kernels with larger pages due to "different sizes"
     options += ["!check"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/dust")
+    self.install_bin(f"target/{self.profile.triplet}/release/dust")
     self.install_man("man-page/dust.1")
     with self.pushd("completions"):
         self.install_completion("_dust", "zsh")

@@ -29,7 +29,7 @@ sha256 = "d38e30fd9c1e1c7921d1c4568262d94f5c2d6b5da139fe49572a43ffbc5c53f6"
 # tests may be disabled
 options = []
 
-if self.profile().arch in ["loongarch64", "riscv64"]:
+if self.profile.arch in ["loongarch64", "riscv64"]:
     # forkbombs the build machine
     options = ["!check"]
 

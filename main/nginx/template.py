@@ -95,7 +95,7 @@ file_modes = {
 # needs a lot more work
 options = ["etcfiles", "!cross"]
 
-if self.profile().arch in ["loongarch64", "ppc64le"]:
+if self.profile.arch in ["loongarch64", "ppc64le"]:
     # FIXME
     # ppc64le: fails stream_upstream_random.t, stream_upstream_least_conn.t
     # loongarch64: fails ssl_store_keys.t

@@ -5,7 +5,7 @@ archs = ["aarch64", "armv7", "loongarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = []
 hostmakedepends = [
-    f"binutils-{self.profile().arch}",
+    f"binutils-{self.profile.arch}",
     "efivar",
     "meson",
     "pkgconf",
@@ -27,7 +27,7 @@ options = ["!cross"]
 _sbat = False
 
 # FIXME: on aarch64 enabling sbat results in crt0 relocation failures
-if self.profile().arch == "x86_64":
+if self.profile.arch == "x86_64":
     _sbat = True
 
 if _sbat:

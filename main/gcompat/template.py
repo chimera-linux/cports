@@ -17,7 +17,7 @@ sha256 = "82e56d2ecda3f11a93efe61001394a6e5db39c91127d0812d7ad5b0bda558010"
 # no test suite
 options = ["!check", "brokenlinks"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le":
         _glibc = "ld64.so.2"
         _musl = "ld-musl-powerpc64le.so.1"
@@ -42,7 +42,7 @@ match self.profile().arch:
     case _:
         _glibc = ""
         _musl = ""
-        broken = f"unknown architecture {self.profile().arch}"
+        broken = f"unknown architecture {self.profile.arch}"
 
 make_build_args = [
     f"LOADER_NAME={_glibc}",

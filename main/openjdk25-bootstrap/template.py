@@ -16,10 +16,10 @@ makedepends = [
 pkgdesc = "Bootstrap binaries of OpenJDK 25"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
-source = f"https://repo.chimera-linux.org/distfiles/openjdk-bootstrap-{pkgver}-{self.profile().arch}.tar.zst"
+source = f"https://repo.chimera-linux.org/distfiles/openjdk-bootstrap-{pkgver}-{self.profile.arch}.tar.zst"
 options = ["!strip"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         sha256 = (
             "65e8520f8a2b0055335b2a75f3dd10a5242b846529fc36a1f16806b1639f7515"
@@ -37,7 +37,7 @@ match self.profile().arch:
             "11efbacdfdde657d1aedf148ab60a64469994543b57f18f59762709fbcb41431"
         )
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
 
 def install(self):

@@ -20,7 +20,7 @@ hardening = ["!int"]
 options = ["!cross", "!lintstatic"]
 
 
-if self.profile().arch in ["ppc64le", "ppc64"]:
+if self.profile.arch in ["ppc64le", "ppc64"]:
     # takes an eternity + a bunch of them fail
     options += ["!check"]
 

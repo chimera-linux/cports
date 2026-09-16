@@ -191,7 +191,7 @@ _base_tinfos = [
 
 
 def init_configure(self):
-    with self.profile("host"):
+    with self.use_profile("host"):
         bcflags = self.get_cflags(shell=True)
 
     self.configure_args += [f"BUILD_CFLAGS={bcflags}"]

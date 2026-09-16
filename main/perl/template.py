@@ -84,8 +84,8 @@ def configure(self):
         "-Dd_sockaddr_in6=define",
     ]
 
-    if self.profile().cross:
-        cargs.append("--target=" + self.profile().triplet)
+    if self.profile.cross:
+        cargs.append("--target=" + self.profile.triplet)
 
     cfl = self.get_cflags(shell=True)
     lfl = self.get_ldflags(shell=True)

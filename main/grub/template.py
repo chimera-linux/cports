@@ -49,10 +49,10 @@ nopie_files = ["usr/lib/grub/*"]
 # single completion file for multiple commands
 options = ["etcfiles", "!lintcomp"]
 
-if self.profile().arch == "loongarch64":
+if self.profile.arch == "loongarch64":
     broken = "causes a machine exception at runtime"
 
-_tpl = self.profile().triplet
+_tpl = self.profile.triplet
 exec_wrappers = [
     (f"/usr/bin/{_tpl}-ld.bfd", f"{_tpl}-ld"),
     ("/usr/bin/ld.bfd", "ld"),
@@ -82,7 +82,7 @@ _platforms = [
     ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
 ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "x86_64":
         _archs = ["i386", "x86_64"]
     case "ppc64le" | "ppc64" | "ppc":
@@ -97,7 +97,7 @@ match self.profile().arch:
         _archs = ["loongarch64"]
     case _:
         _archs = []
-        broken = f"Unsupported platform ({self.profile().arch})"
+        broken = f"Unsupported platform ({self.profile.arch})"
 
 
 def init_configure(self):
@@ -115,7 +115,7 @@ def configure(self):
     self.mkdir("build")
     self.do(
         self.chroot_cwd / "configure",
-        f"--host={self.profile().triplet}",
+        f"--host={self.profile.triplet}",
         "--with-platform=none",
         *configure_args,
         wrksrc="build",
@@ -133,7 +133,7 @@ def configure(self):
             arch = "aarch64"
         self.do(
             self.chroot_cwd / "configure",
-            f"--host={self.profile().triplet}",
+            f"--host={self.profile.triplet}",
             f"--target={arch}",
             f"--with-platform={platform}",
             "--disable-efiemu",

@@ -173,7 +173,7 @@ hardening = ["!scp"]
 # lol
 options = ["etcfiles", "!cross", "!check", "!scanshlibs"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         source += [
             "https://github.com/microsoft/TypeScript/releases/download/v7.0.2/typescript-linux-arm64.tgz"
@@ -196,7 +196,7 @@ match self.profile().arch:
             "7ecad6f67377e831856367ab062ef394f21506a611405bf8ac0ff039348637d3"
         ]
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64le" | "riscv64":
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64
@@ -261,7 +261,7 @@ def post_patch(self):
 
 def configure(self):
     # where we mess with libvpx configuration, regen the files
-    if self.profile().arch == "ppc64le":
+    if self.profile.arch == "ppc64le":
         self.do(
             self.chroot_cwd / "third_party/libvpx/generate_gni.sh",
             wrksrc="third_party/libvpx",
@@ -308,7 +308,7 @@ def configure(self):
     _lto = "true" if self.has_lto() else "false"
     _maglev = "true"
 
-    match self.profile().arch:
+    match self.profile.arch:
         case "aarch64":
             _confargs.append('target_cpu="arm64"')
             # _cfi = "true"

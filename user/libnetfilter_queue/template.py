@@ -20,7 +20,7 @@ sha256 = "f9ff3c11305d6e03d81405957bdc11aea18e0d315c3e3f48da53a24ba251b9f5"
 # modified below
 options = []
 
-if self.profile().arch in ["ppc64", "ppc64le"]:
+if self.profile.arch in ["ppc64", "ppc64le"]:
     # ld: error: relocation R_PPC64_REL16_LO cannot be used against symbol '.TOC.'; recompile with -fPIC
     options += ["!lto"]
 

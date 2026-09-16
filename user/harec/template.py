@@ -4,7 +4,7 @@ pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_build_args = [
-    f"ARCH={self.profile().arch}",
+    f"ARCH={self.profile.arch}",
     f"VERSION={pkgver}-chimera",
 ]
 make_check_args = [*make_build_args]

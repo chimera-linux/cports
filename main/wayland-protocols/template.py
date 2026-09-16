@@ -12,7 +12,7 @@ sha256 = "8d94eee148db4d8111ccc0d4331de2f82d4b28c38e30eace9f052886480f7d86"
 # check conditional
 options = []
 
-if self.profile().arch in ["armv7", "loongarch64", "riscv64"]:
+if self.profile.arch in ["armv7", "loongarch64", "riscv64"]:
     # several pedantic tests complain about symbol not found
     options += ["!check"]
 

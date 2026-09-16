@@ -41,7 +41,7 @@ def _srcpkg_ver(pkgn, pkgb):
 
     tmplv = template.Template(
         pkgp,
-        pkgb.profile().arch,
+        pkgb.profile.arch,
         True,
         False,
         (1, 1),
@@ -131,7 +131,7 @@ def setup_depends(pkg, only_names=False):
             rdeps.append((orig, dep))
 
     cdeps = []
-    if not pkg.profile().cross and (pkg.options["check"] or pkg._force_check):
+    if not pkg.profile.cross and (pkg.options["check"] or pkg._force_check):
         cdeps = pkg.checkdepends
 
     if pkg.stage > 0 and not only_names:
@@ -170,18 +170,18 @@ def _install_from_repo(pkg, pkglist, cross=False):
             capture_output=True,
             allow_untrusted=not signkey,
         )
-    elif cross and pkg.profile().cross:
+    elif cross and pkg.profile.cross:
         ret = apki.call(
             "add",
             [
                 "--root",
-                str(pkg.profile().sysroot),
+                str(pkg.profile.sysroot),
                 "--no-scripts",
                 *pkglist,
             ],
             pkg,
             capture_output=True,
-            arch=pkg.profile().arch,
+            arch=pkg.profile.arch,
             allow_untrusted=not signkey,
             chroot=True,
         )
@@ -313,7 +313,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
 
-    pprof = pkg.profile()
+    pprof = pkg.profile
     tarch = pprof.arch
     cross = not not pprof.cross
 

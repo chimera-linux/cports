@@ -55,7 +55,7 @@ hardening = ["!int"]
 # see below
 options = ["etcfiles"]
 
-if self.profile().arch == "ppc64le":
+if self.profile.arch == "ppc64le":
     # FIXME: testLuaDestructors fails since luajit seems to not unwind destructors on ppc64le
     options += ["!check"]
 

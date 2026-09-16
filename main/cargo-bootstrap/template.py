@@ -9,10 +9,10 @@ depends = ["!cargo"]
 pkgdesc = "Bootstrap binaries of Rust package manager"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://repo.chimera-linux.org/distfiles/cargo-{pkgver}-{self.profile().triplet}.tar.xz"
+source = f"https://repo.chimera-linux.org/distfiles/cargo-{pkgver}-{self.profile.triplet}.tar.xz"
 options = ["!strip"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         sha256 = (
             "e475fcc160ba3c3ec000f4db2c4b9bc1dd48af176399cef611ab06635a98e4a2"
@@ -34,7 +34,7 @@ match self.profile().arch:
             "34f00f0721f90755db57881284cefa9bfc53945a10fdb2199e2bafa05a0b195f"
         )
     case _:
-        broken = f"not yet built for {self.profile().arch}"
+        broken = f"not yet built for {self.profile.arch}"
 
 
 def install(self):

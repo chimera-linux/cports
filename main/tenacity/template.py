@@ -72,7 +72,7 @@ tool_flags = {
     ],
 }
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "unimplemented bits"
 
 

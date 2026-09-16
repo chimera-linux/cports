@@ -37,7 +37,7 @@ hardening = ["!vis"]
 # probably since clang17
 options = ["!lto"]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

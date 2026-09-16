@@ -54,7 +54,7 @@ url = "http://www.graphicsmagick.org"
 source = f"$(SOURCEFORGE_SITE)/graphicsmagick/GraphicsMagick-{pkgver}.tar.xz"
 sha256 = "dcea5167414f7c805557de2d7a47a9b3147bcbf617b91f5f0f4afe5e6543026b"
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",

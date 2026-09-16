@@ -94,16 +94,16 @@ hardening = ["!int", "!var-init"]
 # tests expect blender to be installed in /usr/bin
 options = ["!check", "linkundefver"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "https://projects.blender.org/blender/blender/pulls/140138"
 
-if self.profile().arch in ["aarch64", "armv7", "x86_64"]:
+if self.profile.arch in ["aarch64", "armv7", "x86_64"]:
     makedepends += ["openimagedenoise-devel"]
     configure_args += ["-DWITH_OPENIMAGEDENOISE=ON"]
 else:
     configure_args += ["-DWITH_OPENIMAGEDENOISE=OFF"]
 
-if self.profile().arch in ["aarch64", "x86_64"]:
+if self.profile.arch in ["aarch64", "x86_64"]:
     makedepends += [
         "embree-devel",
         "openpgl-devel",

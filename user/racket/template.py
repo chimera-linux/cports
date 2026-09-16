@@ -31,7 +31,7 @@ sha256 = "980c7305a01860b6f7b4ae5cf6d59317b485506b188edf3b4477f08f7902cd8d"
 options = ["etcfiles", "!check", "!cross"]
 
 # same as main/chez-scheme
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         configure_args += ["--enable-mach=tarm64le"]
     case "armhf" | "armv7":
@@ -45,7 +45,7 @@ match self.profile().arch:
     case _:
         # portable bytecode
         configure_args += [
-            f"--enable-mach=tpb{self.profile().wordsize}{self.profile().endian[0]}",
+            f"--enable-mach=tpb{self.profile.wordsize}{self.profile.endian[0]}",
         ]
         configure_args += ["--enable-pb"]
 

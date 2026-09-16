@@ -48,7 +48,7 @@ sha256 = "dd951e83e0069e2f3df18985dd40d2cf9409f502b0ecaaf1ac229d5009a8e698"
 # plugins broken
 hardening = ["!vis"]
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "libmms mod broken"
 
 

@@ -35,10 +35,10 @@ hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
 
-if self.profile().cross:
+if self.profile.cross:
     make_build_args += [
         "CROSS_BUILD_TOOLS=y",
-        f"CROSS_COMPILE={self.profile().triplet}-",
+        f"CROSS_COMPILE={self.profile.triplet}-",
     ]
 
 
@@ -46,7 +46,7 @@ def configure(self):
     tcfl = self.get_cflags(shell=True)
     tlfl = self.get_ldflags(shell=True)
     tcc = self.get_tool("CC")
-    with self.profile("host"):
+    with self.use_profile("host"):
         hcfl = self.get_cflags(shell=True)
         hlfl = self.get_ldflags(shell=True)
         hcc = self.get_tool("CC")

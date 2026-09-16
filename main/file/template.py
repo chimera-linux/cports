@@ -16,7 +16,7 @@ url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/file/file-{pkgver}.tar.gz"
 sha256 = "ed14656883b23a364b4057c05595d93252da9bc473d30106519519d0da141283"
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["file"]
 
 

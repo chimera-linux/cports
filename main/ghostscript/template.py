@@ -51,7 +51,7 @@ hardening = ["!int"]
 # busted; undefined references
 options = ["!lto"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += makedepends
 
 

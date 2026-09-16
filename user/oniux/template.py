@@ -12,13 +12,13 @@ sha256 = "ea59ce1f2884c1cbdcd981fbdef06e7f3a6f12d25870dbd8cc8a213ea80737a8"
 # no tests
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "atomic64"
 
-if self.profile().endian == "big":
+if self.profile.endian == "big":
     broken = "merlin crate doesn't support big endian"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/oniux")
+    self.install_bin(f"target/{self.profile.triplet}/release/oniux")
     self.install_license("LICENSE-MIT")

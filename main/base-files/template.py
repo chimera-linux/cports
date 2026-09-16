@@ -69,7 +69,7 @@ def install(self):
     self.install_link("usr/sbin", "bin")
     self.install_link("usr/local/sbin", "bin")
     # wordsized stuff
-    libwn = f"lib{self.profile().wordsize}"
+    libwn = f"lib{self.profile.wordsize}"
     self.install_link(libwn, "lib")
     self.install_link(f"usr/{libwn}", "lib")
     self.install_link(f"usr/local/{libwn}", "lib")

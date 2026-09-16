@@ -44,7 +44,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"taplo.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile().triplet}/release/taplo",
+                f"target/{self.profile.triplet}/release/taplo",
                 "completions",
                 shell,
                 stdout=outf,
@@ -53,6 +53,6 @@ def post_build(self):
 
 def install(self):
     self.install_license("LICENSE")
-    self.install_bin(f"target/{self.profile().triplet}/release/taplo")
+    self.install_bin(f"target/{self.profile.triplet}/release/taplo")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"taplo.{shell}", shell)

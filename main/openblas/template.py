@@ -13,7 +13,7 @@ archs = [
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
-    f"-DBINARY={self.profile().wordsize}",
+    f"-DBINARY={self.profile.wordsize}",
 ]
 # FIXME: flang support
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -26,7 +26,7 @@ sha256 = "27342cff518646afb4c2b976d809102e368957974c250a25ccc965e53063c95d"
 
 _have_omp = True
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         configure_args += ["-DTARGET=ARMV8"]
     case "loongarch64":
@@ -44,12 +44,12 @@ match self.profile().arch:
         configure_args += ["-DTARGET=GENERIC"]
 
 # riscv64/loongarch64 dynamic_arch is currently broken
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     configure_args += ["-DDYNAMIC_ARCH=ON"]
 
-if self.profile().arch in ["ppc", "ppc64", "ppc64le"]:
+if self.profile.arch in ["ppc", "ppc64", "ppc64le"]:
     # needs GNU as
-    hostmakedepends += [f"binutils-{self.profile().arch}"]
+    hostmakedepends += [f"binutils-{self.profile.arch}"]
 
 if _have_omp:
     makedepends += ["libomp-devel"]

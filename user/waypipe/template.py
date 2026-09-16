@@ -42,7 +42,7 @@ url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
 sha256 = "e75e4bb5471e6f413aae1e00b0abddf02ec9f1f56db31d4c50535436c4e7282d"
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "some u64 nonsense in vulkan code"
 
 
@@ -60,4 +60,4 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/target/{self.profile().triplet}/meson-2/waypipe")
+    self.install_bin(f"./build/target/{self.profile.triplet}/meson-2/waypipe")

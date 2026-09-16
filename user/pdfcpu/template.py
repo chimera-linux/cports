@@ -13,6 +13,6 @@ sha256 = "16e6e4fbcf809f9d737d8931c267220e5e4cb00fbce793eeaa4501193b954c55"
 # check may be disabled
 options = []
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     # invalid RSA public exponent
     options += ["!check"]

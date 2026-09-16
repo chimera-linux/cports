@@ -32,7 +32,7 @@ hardening = ["!int"]
 # 4 unittests fail outside of x86_64 with no easy way to skip them
 options = []
 
-if self.profile().arch != "x86_64":
+if self.profile.arch != "x86_64":
     options += ["!check"]
     configure_args += ["-DOPENVDB_BUILD_UNITTESTS=OFF"]
 

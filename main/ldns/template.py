@@ -27,7 +27,7 @@ options = ["!check"]
 
 
 def init_configure(self):
-    self.configure_args += [f"--with-ssl={self.profile().sysroot / 'usr'}"]
+    self.configure_args += [f"--with-ssl={self.profile.sysroot / 'usr'}"]
 
 
 def post_install(self):

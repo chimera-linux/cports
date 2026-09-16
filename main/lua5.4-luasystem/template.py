@@ -23,7 +23,7 @@ def init_configure(self):
         "LD=" + self.get_tool("CC"),
         f"MYCFLAGS={cfl}",
         f"MYLDFLAGS={cfl} {ldfl}",
-        f"LUAINC_linux={self.profile().sysroot}/usr/include/lua5.4",
+        f"LUAINC_linux={self.profile.sysroot}/usr/include/lua5.4",
     ]
     self.make_build_args += fl
     self.make_install_args += fl

@@ -120,7 +120,7 @@ options = ["etcfiles"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
 _have_kdepim = False
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     _have_kdepim = True
 
 
@@ -252,7 +252,7 @@ def _(self):
         # "kompare",  # gui diff
     ]
     # things missing on some arches
-    if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+    if self.rparent.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
         self.depends += [
             "akregator",  # rss feeds
             "digikam",  # photo manager

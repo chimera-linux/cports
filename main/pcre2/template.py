@@ -22,7 +22,7 @@ url = "https://www.pcre.org"
 source = f"https://github.com/PCRE2Project/pcre2/releases/download/pcre2-{pkgver}/pcre2-{pkgver}.tar.gz"
 sha256 = "ebcc25aadf2a51fa1fefa9b8bc9e7a79b3dae86870a0f1152a22e42befd46888"
 
-match self.profile().arch:
+match self.profile.arch:
     # aarch64 FIXME: segfault in pcre2_jit_neon_inc.h during testing
     case "riscv64" | "loongarch64" | "aarch64":
         configure_args += ["--disable-jit"]

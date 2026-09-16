@@ -210,7 +210,7 @@ def call_pkg_hooks(pkg, stepn):
 def _invoke_fetch(pkg):
     run_pkg_func(pkg, "init_fetch")
 
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     fetch_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_fetch_done"
     if fetch_done.is_file():
@@ -244,7 +244,7 @@ def invoke_fetch(pkg):
 def invoke_extract(pkg):
     run_pkg_func(pkg, "init_extract")
 
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     extract_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_extract_done"
     if extract_done.is_file():
@@ -265,7 +265,7 @@ def invoke_extract(pkg):
 
 
 def invoke_prepare(pkg):
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     prepare_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_prepare_done"
 
@@ -287,7 +287,7 @@ def invoke_prepare(pkg):
 
 
 def invoke_patch(pkg):
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     patch_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_patch_done"
 
@@ -309,7 +309,7 @@ def invoke_patch(pkg):
 
 
 def invoke_configure(pkg, step):
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     cfg_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_configure_done"
 
@@ -326,7 +326,7 @@ def invoke_configure(pkg, step):
 
 
 def invoke_build(pkg, step):
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     build_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_build_done"
 
@@ -343,7 +343,7 @@ def invoke_build(pkg, step):
 
 
 def invoke_check(pkg, step, allow_fail):
-    if pkg.profile().cross:
+    if pkg.profile.cross:
         pkg.log("skipping check (cross build)")
         return
 
@@ -474,7 +474,7 @@ def _split_auto(pkg, done):
 
 
 def invoke_install(pkg, step):
-    p = pkg.profile()
+    p = pkg.profile
     crossb = p.arch if p.cross else ""
     install_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_install_done"
 
@@ -524,7 +524,7 @@ def invoke_install(pkg, step):
 
 
 def _invoke_prepkg(pkg):
-    p = pkg.rparent.profile()
+    p = pkg.rparent.profile
     crossb = p.arch if p.cross else ""
     prepkg_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_prepkg_done"
 
@@ -641,7 +641,7 @@ def _build(
 
     pkg._maintainer = maintainer
 
-    prof = pkg.profile()
+    prof = pkg.profile
     hard = profile.get_hardening(prof, pkg)
     hpos = []
     hneg = []
@@ -880,7 +880,7 @@ def _build_locked(
     # cleanup
     pkg.current_phase = "cleanup"
     if not keep_temp:
-        chroot.cleanup_world(pkg.stage == 0, pkg.profile(), False)
+        chroot.cleanup_world(pkg.stage == 0, pkg.profile, False)
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)

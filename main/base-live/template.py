@@ -13,7 +13,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 # grub for local installations without net access
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64":
         depends += ["grub-arm64-efi"]
     # case "loongarch64":
@@ -26,5 +26,5 @@ match self.profile().arch:
         depends += ["grub-i386-efi", "grub-i386-pc", "grub-x86_64-efi"]
 
 # extra bootloaders on efi targets, again for offline install
-if self.profile().arch in ["aarch64", "loongarch64", "riscv64", "x86_64"]:
+if self.profile.arch in ["aarch64", "loongarch64", "riscv64", "x86_64"]:
     depends += ["limine", "systemd-boot"]

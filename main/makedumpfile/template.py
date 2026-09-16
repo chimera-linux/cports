@@ -21,9 +21,9 @@ hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "aarch64" | "riscv64" | "x86_64":
-        make_build_args += [f"TARGET={self.profile().arch}"]
+        make_build_args += [f"TARGET={self.profile.arch}"]
     case "armhf" | "armv7":
         make_build_args += ["TARGET=arm"]
     case "ppc64" | "ppc64le":
@@ -31,7 +31,7 @@ match self.profile().arch:
     case "ppc":
         make_build_args += ["TARGET=powerpc32"]
     case _:
-        broken = f"Unknown architecture {self.profile().arch}"
+        broken = f"Unknown architecture {self.profile.arch}"
 
 
 def install(self):

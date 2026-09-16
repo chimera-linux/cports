@@ -36,13 +36,13 @@ options = ["!cross", "!lto", "!check"]
 def init_configure(self):
     # only available on a few archs
     # --fancy implies threads
-    match self.profile().arch:
+    match self.profile.arch:
         case "aarch64" | "riscv64" | "x86_64":
             self.configure_args += ["--fancy", "--with-sb-thread"]
     # build system ignores ldflags
     self.env["LINKFLAGS"] = str(self.get_ldflags(shell=True))
     # does not work on riscv64?
-    if self.profile().arch != "riscv64":
+    if self.profile.arch != "riscv64":
         self.configure_args += ["--with-sb-linkable-runtime"]
 
 

@@ -81,10 +81,10 @@ env = {
 
 # we want this on BE too, and on LE the buildsystem skips it for clang
 # skipping it means generating code for ELFv1 ABI and that does not work
-if self.profile().arch == "ppc64" or self.profile().arch == "ppc64le":
+if self.profile.arch == "ppc64" or self.profile.arch == "ppc64le":
     tool_flags = {"CFLAGS": ["-DABI_ELFv2"], "CXXFLAGS": ["-DABI_ELFv2"]}
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += [f"openjdk{_majver}"]
 else:
     hostmakedepends += [f"openjdk{_majver}-bootstrap"]
@@ -99,15 +99,15 @@ def init_configure(self):
         "--with-extra-cxxflags=" + self.get_cxxflags(shell=True),
         "--with-extra-ldflags=" + self.get_ldflags(shell=True),
     ]
-    if self.profile().cross:
+    if self.profile.cross:
         self.configure_args += [
             "BUILD_CC=/usr/bin/cc",
             "BUILD_CXX=/usr/bin/c++",
         ]
     if self.use_ccache:
-        if self.profile().cross:
+        if self.profile.cross:
             self.configure_args += [
-                "--with-sysroot=" + str(self.profile().sysroot)
+                "--with-sysroot=" + str(self.profile.sysroot)
             ]
         self.configure_args += ["--enable-ccache"]
         self.env["CC"] = "/usr/bin/" + self.get_tool("CC")
@@ -124,7 +124,7 @@ def configure(self):
 @custom_target("bootstrap", "build")
 def _(self):
     # first make a copy
-    bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile().arch}"
+    bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile.arch}"
     self.mkdir(bdirn)
     for f in (self.cwd / "build/images/jdk").iterdir():
         self.cp(f, bdirn, recursive=True)

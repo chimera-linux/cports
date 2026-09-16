@@ -135,7 +135,7 @@ _libs = [
     "xphoto",
 ]
 
-if self.profile().arch in [
+if self.profile.arch in [
     "aarch64",
     "loongarch64",
     "ppc64le",
@@ -146,7 +146,7 @@ if self.profile().arch in [
     configure_args += ["-DWITH_OPENMP=ON"]
     makedepends += ["libomp-devel"]
 
-match self.profile().arch:
+match self.profile.arch:
     case "ppc64" | "ppc":
         # vsx assumptions in altivec code
         tool_flags["CXXFLAGS"] += ["-DEIGEN_DONT_VECTORIZE"]

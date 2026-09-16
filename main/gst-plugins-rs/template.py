@@ -35,7 +35,7 @@ sha256 = "38f6997e442c67f3ba64f0a842ca5d2c889018ad94c7bdd5ad55e064a7a2be7f"
 # takes forever
 options = ["!check"]
 
-if self.profile().wordsize == 32:
+if self.profile.wordsize == 32:
     broken = "requires atomic64"
 
 

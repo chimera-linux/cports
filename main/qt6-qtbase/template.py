@@ -81,11 +81,11 @@ hardening = ["!int"]
 # TODO
 options = ["!cross"]
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["qt6-qtbase"]
     configure_args += ["-DQT_FORCE_BUILD_TOOLS=ON"]
 
-if self.profile().arch == "riscv64":
+if self.profile.arch == "riscv64":
     # https://bugreports.qt.io/browse/QTBUG-98951
     # our riscv64 is currently emulated, so this breaks anything using qmake from building
     # just disable it on the arch for now, as it falls back to fork and works anyway

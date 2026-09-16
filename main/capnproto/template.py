@@ -17,11 +17,11 @@ source = f"{url}/capnproto-c++-{pkgver}.tar.gz"
 sha256 = "ed00e44ecbbda5186bc78a41ba64a8dc4a861b5f8d4e822959b0144ae6fd42ef"
 
 
-if self.profile().cross:
+if self.profile.cross:
     hostmakedepends += ["capnproto-devel"]
     configure_args += ["-DEXTERNAL_CAPNP=ON", "-DBUILD_TESTING=OFF"]
 
-if self.profile().arch == "armv7":
+if self.profile.arch == "armv7":
     # mutex-test.c++ has timing issues
     make_check_args = ["-E", "kj-tests-run"]
 

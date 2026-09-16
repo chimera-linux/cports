@@ -55,7 +55,7 @@ url = "https://apps.kde.org/k3b"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/k3b-{pkgver}.tar.xz"
 sha256 = "64670e038e848f0275fee300652d8f57019c84273bff076ba86ae8196c9bcc33"
 
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
 
 
