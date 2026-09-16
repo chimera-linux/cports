@@ -1,5 +1,5 @@
 pkgname = "snapshot"
-pkgver = "50.0"
+pkgver = "51.0"
 pkgrel = 0
 build_style = "meson"
 make_check_args = ["--timeout-multiplier=5"]
@@ -37,7 +37,7 @@ url = "https://apps.gnome.org/Snapshot"
 source = (
     f"$(GNOME_SITE)/snapshot/{pkgver.split('.')[0]}/snapshot-{pkgver}.tar.xz"
 )
-sha256 = "ec9daf9883eb90330911bb51e6b69eed8c9dbdd5438e864adc90ee55a5fe9eed"
+sha256 = "3e64fa4cd1a742ae34b6f6d8e6d9614a2d3eab88a1b0071c11ab53617eb214c2"
 
 
 def post_extract(self):
