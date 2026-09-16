@@ -1,6 +1,6 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 6
+pkgrel = 7
 build_style = "configure"
 make_check_target = "regress"
 makedepends = ["zlib-ng-compat-devel"]
@@ -12,7 +12,6 @@ url = "https://mandoc.bsd.lv"
 source = f"{url}/snapshots/mandoc-{pkgver}.tar.gz"
 sha256 = "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
 hardening = ["vis", "cfi"]
-options = ["etcfiles"]
 
 
 def pre_configure(self):
@@ -29,24 +28,13 @@ LN="ln -sf"
 HAVE_REWB_BSD=0
 UTF8_LOCALE=C.UTF-8
 BINM_PAGER=less
+MANPATH_DEFAULT="/usr/local/share/man:/usr/share/man"
+MANPATH_BASE="/usr/share/man"
 """)
 
 
 def post_install(self):
     self.install_license("LICENSE")
-
-    self.install_dir("etc")
-    # from void
-    with open(self.destdir / "etc/man.conf", "w") as conf:
-        conf.write(
-            """# man(1)/apropos(1)/makewhatis(8) configuration, see man.conf(5).
-
-# Default search path for manual pages.
-# Add, delete, or reorder as desired.
-manpath /usr/local/share/man
-manpath /usr/share/man
-"""
-        )
 
 
 @subpackage("mandoc-apropos")
