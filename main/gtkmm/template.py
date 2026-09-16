@@ -1,5 +1,5 @@
 pkgname = "gtkmm"
-pkgver = "4.20.0"
+pkgver = "4.24.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -16,7 +16,7 @@ pkgdesc = "C++ bindings for Gtk4"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
-sha256 = "daad9bf9b70f90975f91781fc7a656c923a91374261f576c883cd3aebd59c833"
+sha256 = "7fd9cea356e7d3b74bf7d2a51d7e0e6763f3f9f1cddc5e77c8b0b5b7fa9d5e5a"
 
 
 @subpackage("gtkmm-devel")
