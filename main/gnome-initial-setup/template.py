@@ -1,6 +1,6 @@
 pkgname = "gnome-initial-setup"
 pkgver = "48.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dparental_controls=disabled",
