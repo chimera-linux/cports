@@ -24,7 +24,9 @@ sha256 = "ba331c33dc5d222f43cc6ad9f602002817772fd52ae28541976db49f34935ae3"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/xh")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "xh"))
     self.install_link("usr/bin/xhs", "xh")
     self.install_license("LICENSE")
     self.install_man("doc/xh.1")

@@ -19,7 +19,9 @@ if self.profile.arch != "x86_64":
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/dust")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "dust"))
     self.install_man("man-page/dust.1")
     with self.pushd("completions"):
         self.install_completion("_dust", "zsh")

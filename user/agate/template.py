@@ -13,7 +13,9 @@ sha256 = "8776f2d7fe9155149cefd1151b43171ca307eb7b6eb5050221d73a4cefef5db0"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/agate")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "agate"))
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_license("LICENSE-MIT")

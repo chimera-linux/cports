@@ -23,7 +23,9 @@ sha256 = [
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/rg")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "rg"))
     self.install_license("LICENSE-MIT")
     self.install_man("docs-prebuilt/doc/rg.1")
     self.install_completion("docs-prebuilt/complete/rg.bash", "bash", "rg")

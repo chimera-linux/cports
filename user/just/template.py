@@ -27,7 +27,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/just")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "just"))
     self.install_man("just.1")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"completions/just.{shell}", shell)

@@ -25,4 +25,6 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/rebos")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "rebos"))

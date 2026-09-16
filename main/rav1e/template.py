@@ -28,8 +28,10 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.cargo.cinstall()
-    self.install_bin(f"target/{self.profile.triplet}/release/rav1e")
+    self.install_bin(cargo.target_path(self, "rav1e"))
     self.install_license("LICENSE")
 
 

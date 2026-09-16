@@ -36,8 +36,10 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSE.md")
-    self.install_bin(f"target/{self.profile.triplet}/release/onefetch")
+    self.install_bin(cargo.target_path(self, "onefetch"))
     self.install_man("docs/onefetch.1")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"onefetch.{shell}", shell)

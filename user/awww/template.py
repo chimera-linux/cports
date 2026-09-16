@@ -40,8 +40,10 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/awww")
-    self.install_bin(f"target/{self.profile.triplet}/release/awww-daemon")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "awww"))
+    self.install_bin(cargo.target_path(self, "awww-daemon"))
     self.install_service(self.files_path / "awww.user")
     self.install_man("doc/generated/*", glob=True)
     with self.pushd("completions"):

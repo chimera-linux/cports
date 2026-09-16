@@ -25,6 +25,8 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/amdgpu_top")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "amdgpu_top"))
     self.install_file("assets/amdgpu_top.desktop", "usr/share/applications")
     self.install_license("LICENSE")

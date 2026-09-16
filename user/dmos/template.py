@@ -18,5 +18,7 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_man("man/dmos.1")
-    self.install_bin(f"target/{self.profile.triplet}/release/dmos")
+    self.install_bin(cargo.target_path(self, "dmos"))

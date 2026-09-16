@@ -26,10 +26,12 @@ if self.profile.wordsize == 32:
 
 
 def post_build(self):
+    from cbuild.util import cargo
+
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"atuin.{shell}", "w") as outf:
             self.do(
-                f"target/{self.profile.triplet}/release/atuin",
+                cargo.target_path(self, "atuin"),
                 "gen-completion",
                 "--shell",
                 shell,
@@ -38,8 +40,10 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/atuin")
-    self.install_bin(f"target/{self.profile.triplet}/release/atuin-server")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "atuin"))
+    self.install_bin(cargo.target_path(self, "atuin-server"))
 
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"atuin.{shell}", shell)

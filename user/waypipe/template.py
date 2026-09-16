@@ -60,4 +60,6 @@ def init_build(self):
 
 
 def post_install(self):
-    self.install_bin(f"./build/target/{self.profile.triplet}/meson-2/waypipe")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "waypipe", "build/target"))

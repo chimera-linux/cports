@@ -25,7 +25,9 @@ options = ["!cross"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/sq")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "sq"))
     self.install_man("assets/man-pages/*.1", glob=True)
 
     self.install_completion("assets/shell-completions/sq.bash", "bash", "sq")

@@ -25,8 +25,10 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSES/MIT.txt")
-    self.install_bin(f"target/{self.profile.triplet}/release/iocaine")
+    self.install_bin(cargo.target_path(self, "iocaine"))
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "iocaine")

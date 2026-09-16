@@ -41,5 +41,7 @@ def post_patch(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/spotify_player")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "spotify_player"))
     self.install_license("LICENSE")

@@ -52,7 +52,9 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     self.install_license("LICENSE")
-    self.install_bin(f"target/{self.profile.triplet}/release/taplo")
+    self.install_bin(cargo.target_path(self, "taplo"))
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"taplo.{shell}", shell)

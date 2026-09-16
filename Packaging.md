@@ -3419,6 +3419,15 @@ You will need to do this for every crate you patch, as Cargo verifies the
 checksums of every file specified in there. Clearing effectively allows
 easy distro patching.
 
+##### def target_path(pkg, name, base_path = "target", profile = "release")
+
+Returns a path to a file within Cargo build tree. To be used to simplify
+file access. The result is a string with the format:
+
+```
+base_path/pkg.profile.triplet/profile/name
+```
+
 #### cbuild.util.cmake
 
 A wrapper for management of CMake projects.

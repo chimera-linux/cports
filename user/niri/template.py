@@ -57,7 +57,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/niri")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "niri"))
     self.install_file("resources/niri.desktop", "usr/share/wayland-sessions")
     self.install_file(
         "resources/niri-portals.conf", "usr/share/xdg-desktop-portal"

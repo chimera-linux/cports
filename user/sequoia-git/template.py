@@ -36,7 +36,9 @@ def pre_prepare(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/sq-git")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "sq-git"))
     self.install_man(
         f"target/{self.profile.triplet}/release/build/sequoia-git-*/out/man-pages/*.1",
         glob=True,

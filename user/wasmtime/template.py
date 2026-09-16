@@ -55,10 +55,12 @@ def post_build(self):
 
 
 def install(self):
+    from cbuild.util import cargo
+
     from cbuild.util import cmake
 
     cmake.install(self, "build-capi")
-    self.install_bin(f"target/{self.profile.triplet}/release/wasmtime")
+    self.install_bin(cargo.target_path(self, "wasmtime"))
 
 
 @subpackage("wasmtime-libs")

@@ -25,7 +25,9 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/kdlfmt")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "kdlfmt"))
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"kdlfmt.{shell}", shell)

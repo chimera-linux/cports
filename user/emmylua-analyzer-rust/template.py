@@ -22,9 +22,11 @@ if self.profile.arch in ["loongarch64", "ppc64le"]:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/emmylua_ls")
-    self.install_bin(f"target/{self.profile.triplet}/release/luafmt")
-    self.install_bin(f"target/{self.profile.triplet}/release/emmylua_check")
-    self.install_bin(f"target/{self.profile.triplet}/release/emmylua_doc_cli")
-    self.install_bin(f"target/{self.profile.triplet}/release/schema_to_emmylua")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "emmylua_ls"))
+    self.install_bin(cargo.target_path(self, "luafmt"))
+    self.install_bin(cargo.target_path(self, "emmylua_check"))
+    self.install_bin(cargo.target_path(self, "emmylua_doc_cli"))
+    self.install_bin(cargo.target_path(self, "schema_to_emmylua"))
     self.install_license("LICENSE")

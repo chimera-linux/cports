@@ -30,5 +30,7 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/i3status-rs")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "i3status-rs"))
     self.install_files("files", "usr/share", name="i3status-rust")

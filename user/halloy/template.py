@@ -27,7 +27,9 @@ if self.profile.wordsize == 32:
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/halloy")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "halloy"))
     with self.pushd("assets/linux"):
         self.install_file(
             "org.squidowl.halloy.desktop",

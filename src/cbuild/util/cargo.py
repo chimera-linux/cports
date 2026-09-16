@@ -11,6 +11,13 @@ def write_vendor_checksum(pkg, crate, cksum, vendor_dir="vendor"):
     p.write_text(f'{{"files":{{}},"package":"{cksum}"}}')
 
 
+def target_path(pkg, name=None, base_path="target", profile="release"):
+    bpath = f"{base_path}/{pkg.profile.triplet}/{profile}"
+    if not name:
+        return bpath
+    return f"{bpath}/{name}"
+
+
 def get_environment(pkg, jobs=None, cache=False):
     if not jobs:
         jobs = pkg.make_jobs

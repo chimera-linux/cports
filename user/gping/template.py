@@ -17,6 +17,8 @@ sha256 = "0df965111429d5fcef832a4ff23b452a1ec8f683d51ed31ce9b10902c0a18a9c"
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile.triplet}/release/gping")
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "gping"))
     self.install_man("gping.1")
     self.install_license("LICENSE")
