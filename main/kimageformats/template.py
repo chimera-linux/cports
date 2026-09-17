@@ -1,6 +1,6 @@
 pkgname = "kimageformats"
-pkgver = "6.29.0"
-pkgrel = 1
+pkgver = "6.30.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
 # jpegxr; exr write fails on ppc64le
@@ -28,4 +28,4 @@ pkgdesc = "Image format plugins for Qt6"
 license = "LGPL-2.1-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kimageformats-{pkgver}.tar.xz"
-sha256 = "87014461a9a8ae8f110864a9ccd3002080fe395b5ff164b11f0c6ed01f1c426b"
+sha256 = "f74ea9ede7877afb66f4d7dea567f074bf63d806a824c87a9d9067d05848a316"

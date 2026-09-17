@@ -1,5 +1,5 @@
 pkgname = "kcmutils"
-pkgver = "6.29.0"
+pkgver = "6.30.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -19,7 +19,7 @@ pkgdesc = "Utilities for KDE System Settings modules"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
-sha256 = "762943ea8eff8c27a5b89bc483aef0af5955b716270b0820e0addae2c38392a6"
+sha256 = "0159f80d030ac250b0b353113a55c013ed7e38cb0b678df44d2f0d0b2aca944c"
 hardening = ["vis"]
 
 
