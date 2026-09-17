@@ -1,5 +1,5 @@
 pkgname = "plasmatube"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,4 +34,4 @@ pkgdesc = "KDE Youtube player"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/plasmatube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/plasmatube-{pkgver}.tar.xz"
-sha256 = "b27c1678ebd19f2f5ecf46b253175626699c3e9eabc457e10af487c8c7e04e19"
+sha256 = "dac36f533e236663fb39478a1a88c22973a59e0e4a838df97da063f0ec814e12"

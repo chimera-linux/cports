@@ -1,5 +1,5 @@
 pkgname = "kontact"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -28,4 +28,4 @@ pkgdesc = "KDE PIM unified UI"
 license = "LGPL-2.0-only AND GPL-2.0-or-later"
 url = "https://kontact.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontact-{pkgver}.tar.xz"
-sha256 = "9c10f551faba2bc3208a7f730d4a0d79bb8c6be0b3cf9536348b4c924417640c"
+sha256 = "5be086d1e47793f78bbe607fd9e9c171212db8649bb92d9463dd739800e86424"
