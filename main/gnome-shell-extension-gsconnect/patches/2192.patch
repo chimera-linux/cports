@@ -1,0 +1,1135 @@
+From 9345f3d1bfd6b208efc609e2d8f251da0bcb3aea Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Mon, 17 Aug 2026 23:15:32 -0700
+Subject: [PATCH 01/10] Add helper to wrap object to create DBus interface
+
+---
+ src/service/utils/dbus.js | 73 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
+
+diff --git a/src/service/utils/dbus.js b/src/service/utils/dbus.js
+index 95ba05e8ba..a461b46c88 100644
+--- a/src/service/utils/dbus.js
++++ b/src/service/utils/dbus.js
+@@ -257,6 +257,79 @@ export const Interface = GObject.registerClass({
+     }
+ });
+ 
++/**
++ * Creates a DBus interface which performs property get/set and method
++ * calls on the an GObject, using the `Gio.DBusExportedObject.wrapJSObject`
++ * convenience helper from GJS.
++ *
++ * On top of the convenience helper, handle translating DBus-style property
++ * names to JS-style names, emitting property changed signals to DBus, and
++ * emitting DBus interface signals.
++ *
++ * @param {Gio.DBusInterfaceInfo} interfaceInfo - The info for a DBus interface
++ * @param {GObject.Object} obj - The object with DBus properties and methods
++ * @returns {Gio.DBusExportedObject} - The DBus interface
++ */
++export function wrapObject(interfaceInfo, obj) {
++    // Intercept property get/set on the object to translate property names to
++    // JS-style names if necessary.
++    const proxyObj = new Proxy(
++        obj,
++        {
++            get(target, prop, receiver) {
++                const value = Reflect.has(target, prop)
++                    ? Reflect.get(target, prop)
++                    : Reflect.get(target, toUnderscoreCase(prop));
++
++                // `this` should not be pointing at Proxy
++                if (typeof value === 'function')
++                    return value.bind(target);
++
++                return value;
++            },
++            set(target, prop, newValue, receiver) {
++                return Reflect.has(target, prop)
++                    ? Reflect.set(target, prop, newValue)
++                    : Reflect.set(target, toUnderscoreCase(prop), newValue);
++            },
++        }
++    );
++    const impl = Gio.DBusExportedObject.wrapJSObject(interfaceInfo, proxyObj);
++
++    // Automatically forward known signals
++    obj.connect(
++        'notify',
++        (_, pspec) => {
++            const name = toDBusCase(pspec.name);
++            const propertyInfo = interfaceInfo.lookup_property(name);
++
++            if (propertyInfo === null)
++                return;
++
++            impl.emit_property_changed(
++                name,
++                new GLib.Variant(
++                    propertyInfo.signature,
++                    // Adjust for GJS's '-'/'_' conversion
++                    obj[pspec.name.replace(/-/gi, '_')]
++                )
++            );
++        }
++    );
++
++    for (const signal of interfaceInfo.signals) {
++        const type = `(${signal.args.map(arg => arg.signature).join('')})`;
++        obj.connect(
++            signal.name,
++            (_, ...args) => {
++                impl.emit_signal(signal.name, new GLib.Variant(type, args));
++            }
++        );
++    }
++
++    return impl;
++}
++
+ /**
+  * Get a new, dedicated DBus connection on {@link busType}
+  *
+
+From a22d593408e09c0872b642dba29452410b83a368 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Mon, 17 Aug 2026 23:17:13 -0700
+Subject: [PATCH 02/10] Replace `DBus.Interface` usage with new wrapper
+
+---
+ installed-tests/fixtures/mpris.js | 22 +++++++---------------
+ src/service/manager.js            |  5 +----
+ src/service/plugins/mpris.js      | 20 ++++++--------------
+ 3 files changed, 14 insertions(+), 33 deletions(-)
+
+diff --git a/installed-tests/fixtures/mpris.js b/installed-tests/fixtures/mpris.js
+index fabb6f7464..cfa547fa28 100644
+--- a/installed-tests/fixtures/mpris.js
++++ b/installed-tests/fixtures/mpris.js
+@@ -36,19 +36,11 @@ const MockPlayer = GObject.registerClass({
+         if (this._connection === null) {
+             this._connection = await DBus.newConnection();
+ 
+-            this._applicationIface = new DBus.Interface({
+-                g_instance: this,
+-                g_connection: this._connection,
+-                g_object_path: '/org/mpris/MediaPlayer2',
+-                g_interface_info: MPRISIface,
+-            });
+-
+-            this._playerIface = new DBus.Interface({
+-                g_instance: this,
+-                g_connection: this._connection,
+-                g_object_path: '/org/mpris/MediaPlayer2',
+-                g_interface_info: MPRISPlayerIface,
+-            });
++            this._applicationIface = DBus.wrapObject(MPRISIface, this);
++            this._applicationIface.export(this._connection, '/org/mpris/MediaPlayer2');
++
++            this._playerIface = DBus.wrapObject(MPRISPlayerIface, this);
++            this._playerIface.export(this._connection, '/org/mpris/MediaPlayer2');
+         }
+ 
+         if (this._ownerId !== 0)
+@@ -114,10 +106,10 @@ const MockPlayer = GObject.registerClass({
+             this._connection.close(null, null);
+             this._connection = null;
+ 
+-            this._applicationIface.destroy();
++            this._applicationIface.unexport();
+             this._applicationIface = null;
+ 
+-            this._playerIface.destroy();
++            this._playerIface.unexport();
+             this._playerIface = null;
+         }
+     }
+diff --git a/src/service/manager.js b/src/service/manager.js
+index 14fb3fb6ef..d9c1dc24f0 100644
+--- a/src/service/manager.js
++++ b/src/service/manager.js
+@@ -352,10 +352,7 @@ const Manager = GObject.registerClass({
+         info.menu = Gio.DBus.session.export_menu_model(objectPath, device.menu);
+ 
+         // Export the Device interface
+-        info.interface = new DBus.Interface({
+-            g_instance: device,
+-            g_interface_info: DEVICE_IFACE,
+-        });
++        info.interface = DBus.wrapObject(DEVICE_IFACE, device);
+         info.object.add_interface(info.interface);
+ 
+         this._exported.set(device, info);
+diff --git a/src/service/plugins/mpris.js b/src/service/plugins/mpris.js
+index dd9e8de5cb..c2d548652e 100644
+--- a/src/service/plugins/mpris.js
++++ b/src/service/plugins/mpris.js
+@@ -572,21 +572,13 @@ const PlayerRemote = GObject.registerClass({
+                 const MPRISPlayerIface = Config.DBUS.lookup_interface('org.mpris.MediaPlayer2.Player');
+ 
+                 if (this._applicationIface === null) {
+-                    this._applicationIface = new DBus.Interface({
+-                        g_instance: this,
+-                        g_connection: this._connection,
+-                        g_object_path: '/org/mpris/MediaPlayer2',
+-                        g_interface_info: MPRISIface,
+-                    });
++                    this._applicationIface = DBus.wrapObject(MPRISIface, this);
++                    this._applicationIface.export(this._connection, '/org/mpris/MediaPlayer2');
+                 }
+ 
+                 if (this._playerIface === null) {
+-                    this._playerIface = new DBus.Interface({
+-                        g_instance: this,
+-                        g_connection: this._connection,
+-                        g_object_path: '/org/mpris/MediaPlayer2',
+-                        g_interface_info: MPRISPlayerIface,
+-                    });
++                    this._playerIface = DBus.wrapObject(MPRISPlayerIface, this);
++                    this._playerIface.export(this._connection, '/org/mpris/MediaPlayer2');
+                 }
+             }
+ 
+@@ -903,12 +895,12 @@ const PlayerRemote = GObject.registerClass({
+             this._connection = null;
+ 
+             if (this._applicationIface) {
+-                this._applicationIface.destroy();
++                this._applicationIface.unexport();
+                 this._applicationIface = null;
+             }
+ 
+             if (this._playerIface) {
+-                this._playerIface.destroy();
++                this._playerIface.unexport();
+                 this._playerIface = null;
+             }
+         }
+
+From 7147050f0683969159cb27caa74763bdea55d7f2 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Mon, 17 Aug 2026 23:19:06 -0700
+Subject: [PATCH 03/10] Remove `DBus.Interface`
+
+---
+ src/service/components/notification.js |   2 +-
+ src/service/utils/dbus.js              | 218 -------------------------
+ 2 files changed, 1 insertion(+), 219 deletions(-)
+
+diff --git a/src/service/components/notification.js b/src/service/components/notification.js
+index e792a7230d..872a1fef37 100644
+--- a/src/service/components/notification.js
++++ b/src/service/components/notification.js
+@@ -220,7 +220,7 @@ const Listener = GObject.registerClass({
+     /**
+      * Callback for AddNotification()/Notify()
+      *
+-     * @param {DBus.Interface} iface - The DBus interface
++     * @param {GjsPrivate.DBusImplementation} iface - The DBus interface
+      * @param {string} name - The DBus method name
+      * @param {GLib.Variant|Gio.DBusMethodInvocation} param1
+      *        - The method parameters or invocation (GNOME 50+ changed order)
+diff --git a/src/service/utils/dbus.js b/src/service/utils/dbus.js
+index a461b46c88..5440e7eb31 100644
+--- a/src/service/utils/dbus.js
++++ b/src/service/utils/dbus.js
+@@ -3,7 +3,6 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ import Gio from 'gi://Gio';
+-import GjsPrivate from 'gi://GjsPrivate';
+ import GLib from 'gi://GLib';
+ import GObject from 'gi://GObject';
+ 
+@@ -40,223 +39,6 @@ function toUnderscoreCase(string) {
+     }).replace(/[\s-]+/g, '');
+ }
+ 
+-
+-/**
+- * DBus.Interface represents a DBus interface bound to an object instance, meant
+- * to be exported over DBus.
+- */
+-export const Interface = GObject.registerClass({
+-    GTypeName: 'GSConnectDBusInterface',
+-    Implements: [Gio.DBusInterface],
+-    Properties: {
+-        'g-instance': GObject.ParamSpec.object(
+-            'g-instance',
+-            'Instance',
+-            'The delegate GObject',
+-            GObject.ParamFlags.READWRITE,
+-            GObject.Object.$gtype
+-        ),
+-    },
+-}, class Interface extends GjsPrivate.DBusImplementation {
+-
+-    _init(params) {
+-        super._init({
+-            g_instance: params.g_instance,
+-            g_interface_info: params.g_interface_info,
+-        });
+-
+-        // Cache member lookups
+-        this._instanceHandlers = [];
+-        this._instanceMethods = {};
+-        this._instanceProperties = {};
+-
+-        const info = this.get_info();
+-        this.connect('handle-method-call', this._call.bind(this._instance, info));
+-        this.connect('handle-property-get', this._get.bind(this._instance, info));
+-        this.connect('handle-property-set', this._set.bind(this._instance, info));
+-
+-        // Automatically forward known signals
+-        const id = this._instance.connect('notify', this._notify.bind(this));
+-        this._instanceHandlers.push(id);
+-
+-        for (const signal of info.signals) {
+-            const type = `(${signal.args.map(arg => arg.signature).join('')})`;
+-            const id = this._instance.connect(
+-                signal.name,
+-                this._emit.bind(this, signal.name, type)
+-            );
+-
+-            this._instanceHandlers.push(id);
+-        }
+-
+-        // Export if connection and object path were given
+-        if (params.g_connection && params.g_object_path)
+-            this.export(params.g_connection, params.g_object_path);
+-    }
+-
+-    get g_instance() {
+-        if (this._instance === undefined)
+-            this._instance = null;
+-
+-        return this._instance;
+-    }
+-
+-    set g_instance(instance) {
+-        this._instance = instance;
+-    }
+-
+-    /**
+-     * Invoke an instance's method for a DBus method call.
+-     *
+-     * @param {Gio.DBusInterfaceInfo} info - The DBus interface
+-     * @param {Gio.DBusInterface} iface - The DBus interface
+-     * @param {string} name - The DBus method name
+-     * @param {GLib.Variant|Gio.DBusMethodInvocation} param1
+-     *        - The method parameters or invocation (GNOME 50+ changed order)
+-     * @param {Gio.DBusMethodInvocation|GLib.Variant} param2
+-     *        - The method invocation or parameters (GNOME 50+ changed order)
+-     */
+-    async _call(info, iface, name, param1, param2) {
+-        let retval;
+-        let invocation, parameters;
+-
+-        // GNOME 50+ changed the callback signature from
+-        // (iface, name, parameters, invocation) to
+-        // (iface, name, invocation, parameters)
+-        // Detect which order is being used
+-        if (param1 instanceof GLib.Variant) {
+-            // Old order: parameters, invocation
+-            parameters = param1;
+-            invocation = param2;
+-        } else {
+-            // New order: invocation, parameters
+-            invocation = param1;
+-            parameters = param2;
+-        }
+-
+-        // Invoke the instance method
+-        try {
+-            const args = parameters.unpack().map(parameter => {
+-                if (parameter.get_type_string() === 'h') {
+-                    const message = invocation.get_message();
+-                    const fds = message.get_unix_fd_list();
+-                    const idx = parameter.deepUnpack();
+-                    return fds.get(idx);
+-                } else {
+-                    return parameter.recursiveUnpack();
+-                }
+-            });
+-
+-            retval = await this[name](...args);
+-        } catch (e) {
+-            if (e instanceof GLib.Error) {
+-                invocation.return_gerror(e);
+-            } else {
+-                // likely to be a normal JS error
+-                if (!e.name.includes('.'))
+-                    e.name = `org.gnome.gjs.JSError.${e.name}`;
+-
+-                invocation.return_dbus_error(e.name, e.message);
+-            }
+-
+-            logError(e, `${this}: ${name}`);
+-            return;
+-        }
+-
+-        // `undefined` is an empty tuple on DBus
+-        if (retval === undefined)
+-            retval = new GLib.Variant('()', []);
+-
+-        // Return the instance result or error
+-        try {
+-            if (!(retval instanceof GLib.Variant)) {
+-                const args = info.lookup_method(name).out_args;
+-                retval = new GLib.Variant(
+-                    `(${args.map(arg => arg.signature).join('')})`,
+-                    (args.length === 1) ? [retval] : retval
+-                );
+-            }
+-
+-            invocation.return_value(retval);
+-        } catch (e) {
+-            invocation.return_dbus_error(
+-                'org.gnome.gjs.JSError.ValueError',
+-                'Service implementation returned an incorrect value type'
+-            );
+-
+-            logError(e, `${this}: ${name}`);
+-        }
+-    }
+-
+-    _nativeProp(obj, name) {
+-        if (this._instanceProperties[name] === undefined) {
+-            let propName = name;
+-
+-            if (propName in obj)
+-                this._instanceProperties[name] = propName;
+-
+-            if (this._instanceProperties[name] === undefined) {
+-                propName = toUnderscoreCase(name);
+-
+-                if (propName in obj)
+-                    this._instanceProperties[name] = propName;
+-            }
+-        }
+-
+-        return this._instanceProperties[name];
+-    }
+-
+-    _emit(name, type, obj, ...args) {
+-        this.emit_signal(name, new GLib.Variant(type, args));
+-    }
+-
+-    _get(info, iface, name) {
+-        const nativeValue = this[iface._nativeProp(this, name)];
+-        const propertyInfo = info.lookup_property(name);
+-
+-        if (nativeValue === undefined || propertyInfo === null)
+-            return null;
+-
+-        return new GLib.Variant(propertyInfo.signature, nativeValue);
+-    }
+-
+-    _set(info, iface, name, value) {
+-        const nativeValue = value.recursiveUnpack();
+-
+-        this[iface._nativeProp(this, name)] = nativeValue;
+-    }
+-
+-    _notify(obj, pspec) {
+-        const name = toDBusCase(pspec.name);
+-        const propertyInfo = this.get_info().lookup_property(name);
+-
+-        if (propertyInfo === null)
+-            return;
+-
+-        this.emit_property_changed(
+-            name,
+-            new GLib.Variant(
+-                propertyInfo.signature,
+-                // Adjust for GJS's '-'/'_' conversion
+-                this._instance[pspec.name.replace(/-/gi, '_')]
+-            )
+-        );
+-    }
+-
+-    destroy() {
+-        try {
+-            for (const id of this._instanceHandlers)
+-                this._instance.disconnect(id);
+-            this._instanceHandlers = [];
+-
+-            this.flush();
+-            this.unexport();
+-        } catch (e) {
+-            logError(e);
+-        }
+-    }
+-});
+-
+ /**
+  * Creates a DBus interface which performs property get/set and method
+  * calls on the an GObject, using the `Gio.DBusExportedObject.wrapJSObject`
+
+From fde4b35c87ece987c4bce76258d9778b100db505 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Mon, 17 Aug 2026 23:33:42 -0700
+Subject: [PATCH 04/10] Stop subclassing `GjsPrivate.DBusImplementation`
+
+---
+ src/shell/clipboard.js | 105 +++++++----------------------------------
+ src/wl_clipboard.js    |  85 +++++----------------------------
+ 2 files changed, 29 insertions(+), 161 deletions(-)
+
+diff --git a/src/shell/clipboard.js b/src/shell/clipboard.js
+index 4517b74bd0..8635c25acb 100644
+--- a/src/shell/clipboard.js
++++ b/src/shell/clipboard.js
+@@ -3,12 +3,13 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ import Gio from 'gi://Gio';
+-import GjsPrivate from 'gi://GjsPrivate';
+ import GLib from 'gi://GLib';
+ import GObject from 'gi://GObject';
+ 
+ import Meta from 'gi://Meta';
+ 
++import * as DBus from '../service/utils/dbus.js';
++
+ 
+ /*
+  * DBus Interface Info
+@@ -63,12 +64,16 @@ const TEXT_MIMETYPES = [
+  */
+ export const Clipboard = GObject.registerClass({
+     GTypeName: 'GSConnectShellClipboard',
+-}, class GSConnectShellClipboard extends GjsPrivate.DBusImplementation {
++    Signals: {
++        'OwnerChange': {
++            flags: GObject.SignalFlags.RUN_FIRST,
++            param_types: [],
++        },
++    },
++}, class GSConnectShellClipboard extends GObject.Object {
+ 
+     _init(params = {}) {
+-        super._init({
+-            g_interface_info: DBUS_INFO,
+-        });
++        super._init();
+ 
+         this._transferring = false;
+ 
+@@ -80,10 +85,7 @@ export const Clipboard = GObject.registerClass({
+         );
+ 
+         // Prepare DBus interface
+-        this._handleMethodCallId = this.connect(
+-            'handle-method-call',
+-            this._onHandleMethodCall.bind(this)
+-        );
++        this._dbus = DBus.wrapObject(DBUS_INFO, this);
+ 
+         this._nameId = Gio.DBus.own_name(
+             Gio.BusType.SESSION,
+@@ -114,7 +116,7 @@ export const Clipboard = GObject.registerClass({
+          * we'll end up with the previous selection's content.
+          */
+         GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+-            this.emit_signal('OwnerChange', null);
++            this.emit('OwnerChange');
+             this._transferring = false;
+ 
+             return GLib.SOURCE_REMOVE;
+@@ -123,7 +125,7 @@ export const Clipboard = GObject.registerClass({
+ 
+     _onBusAcquired(connection, name) {
+         try {
+-            this.export(connection, DBUS_PATH);
++            this._dbus.export(connection, DBUS_PATH);
+         } catch (e) {
+             logError(e);
+         }
+@@ -131,83 +133,12 @@ export const Clipboard = GObject.registerClass({
+ 
+     _onNameLost(connection, name) {
+         try {
+-            this.unexport();
++            this._dbus.unexport();
+         } catch (e) {
+             logError(e);
+         }
+     }
+ 
+-    async _onHandleMethodCall(iface, name, param1, param2) {
+-        // Signal doesn't await this Promise, so any uncaught throw becomes an
+-        // unhandled rejection. Wrap the whole body.
+-        try {
+-            let retval;
+-            let invocation, parameters;
+-
+-            // GNOME 50+ changed the callback signature from
+-            // (iface, name, parameters, invocation) to
+-            // (iface, name, invocation, parameters)
+-            // Detect which order is being used
+-            if (param1 instanceof GLib.Variant) {
+-                // Old order: parameters, invocation
+-                parameters = param1;
+-                invocation = param2;
+-            } else {
+-                // New order: invocation, parameters
+-                invocation = param1;
+-                parameters = param2;
+-            }
+-
+-            try {
+-                const args = parameters.recursiveUnpack();
+-
+-                retval = await this[name](...args);
+-            } catch (e) {
+-                try {
+-                    if (e instanceof GLib.Error) {
+-                        invocation.return_gerror(e);
+-                    } else {
+-                        const ename = (e && typeof e.name === 'string') ? e.name : 'Error';
+-                        const dname = ename.includes('.')
+-                            ? ename
+-                            : `org.gnome.gjs.JSError.${ename}`;
+-                        invocation.return_dbus_error(dname, (e && e.message) || String(e));
+-                    }
+-                } catch { /* invocation already returned or peer is gone */ }
+-
+-                return;
+-            }
+-
+-            if (retval === undefined)
+-                retval = new GLib.Variant('()', []);
+-
+-            try {
+-                if (!(retval instanceof GLib.Variant)) {
+-                    const out_args = DBUS_INFO.lookup_method(name).out_args;
+-                    retval = new GLib.Variant(
+-                        `(${out_args.map(arg => arg.signature).join('')})`,
+-                        (out_args.length === 1) ? [retval] : retval
+-                    );
+-                }
+-
+-                invocation.return_value(retval);
+-
+-            // Without a response, the client will wait for timeout
+-            } catch {
+-                try {
+-                    invocation.return_dbus_error(
+-                        'org.gnome.gjs.JSError.ValueError',
+-                        'Service implementation returned an incorrect value type'
+-                    );
+-                } catch { /* invocation already returned or peer is gone */ }
+-            }
+-        } catch (e) {
+-            try {
+-                logError(e, 'gsconnect clipboard handler');
+-            } catch { /* */ }
+-        }
+-    }
+-
+     /**
+      * Get the available mimetypes of the current clipboard content
+      *
+@@ -358,10 +289,10 @@ export const Clipboard = GObject.registerClass({
+             this._nameId = 0;
+         }
+ 
+-        if (this._handleMethodCallId > 0) {
+-            this.disconnect(this._handleMethodCallId);
+-            this._handleMethodCallId = 0;
+-            this.unexport();
++        try {
++            this._dbus.unexport();
++        } catch (e) {
++            logError(e);
+         }
+     }
+ });
+diff --git a/src/wl_clipboard.js b/src/wl_clipboard.js
+index c6977a2fb5..3bca7446dd 100644
+--- a/src/wl_clipboard.js
++++ b/src/wl_clipboard.js
+@@ -3,10 +3,10 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ 
+ import Gio from 'gi://Gio';
+-import GjsPrivate from 'gi://GjsPrivate';
+-import GLib from 'gi://GLib';
+ import GObject from 'gi://GObject';
+ 
++import * as DBus from './service/utils/dbus.js';
++
+ // laucher for wl-clipboard
+ const launcher = new Gio.SubprocessLauncher({
+     flags: Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_MERGE,
+@@ -57,11 +57,9 @@ export const Clipboard = GObject.registerClass(
+     {
+         GTypeName: 'GSConnectShellClipboard',
+     },
+-    class GSConnectShellClipboard extends GjsPrivate.DBusImplementation {
++    class GSConnectShellClipboard extends GObject.Object {
+         _init() {
+-            super._init({
+-                g_interface_info: DBUS_INFO,
+-            });
++            super._init();
+ 
+             this._transferring = false;
+ 
+@@ -75,10 +73,7 @@ export const Clipboard = GObject.registerClass(
+             ], Gio.SubprocessFlags.NONE);
+ 
+             // Prepare DBus interface
+-            this._handleMethodCallId = this.connect(
+-                'handle-method-call',
+-                this._onHandleMethodCall.bind(this)
+-            );
++            this._dbus = DBus.wrapObject(DBUS_INFO, this);
+ 
+             this._nameId = Gio.DBus.own_name(
+                 Gio.BusType.SESSION,
+@@ -92,7 +87,7 @@ export const Clipboard = GObject.registerClass(
+ 
+         _onBusAcquired(connection, name) {
+             try {
+-                this.export(connection, DBUS_PATH);
++                this._dbus.export(connection, DBUS_PATH);
+             } catch (e) {
+                 logError(e);
+             }
+@@ -100,70 +95,12 @@ export const Clipboard = GObject.registerClass(
+ 
+         _onNameLost(connection, name) {
+             try {
+-                this.unexport();
++                this._dbus.unexport();
+             } catch (e) {
+                 logError(e);
+             }
+         }
+ 
+-        async _onHandleMethodCall(iface, name, param1, param2) {
+-            let retval;
+-            let invocation, parameters;
+-
+-            // GNOME 50+ changed the callback signature from
+-            // (iface, name, parameters, invocation) to
+-            // (iface, name, invocation, parameters)
+-            // Detect which order is being used
+-            if (param1 instanceof GLib.Variant) {
+-                // Old order: parameters, invocation
+-                parameters = param1;
+-                invocation = param2;
+-            } else {
+-                // New order: invocation, parameters
+-                invocation = param1;
+-                parameters = param2;
+-            }
+-
+-            try {
+-                const args = parameters.recursiveUnpack();
+-
+-                retval = await this[name](...args);
+-            } catch (e) {
+-                if (e instanceof GLib.Error) {
+-                    invocation.return_gerror(e);
+-                } else {
+-                    if (!e.name.includes('.'))
+-                        e.name = `org.gnome.gjs.JSError.${e.name}`;
+-
+-                    invocation.return_dbus_error(e.name, e.message);
+-                }
+-
+-                return;
+-            }
+-
+-            if (retval === undefined)
+-                retval = new GLib.Variant('()', []);
+-
+-            try {
+-                if (!(retval instanceof GLib.Variant)) {
+-                    const args = DBUS_INFO.lookup_method(name).out_args;
+-                    retval = new GLib.Variant(
+-                        `(${args.map((arg) => arg.signature).join('')})`,
+-                        args.length === 1 ? [retval] : retval
+-                    );
+-                }
+-
+-                invocation.return_value(retval);
+-
+-                // Without a response, the client will wait for timeout
+-            } catch {
+-                invocation.return_dbus_error(
+-                    'org.gnome.gjs.JSError.ValueError',
+-                    'Service implementation returned an incorrect value type'
+-                );
+-            }
+-        }
+-
+         /**
+          * Get the available mimetypes of the current clipboard content
+          *
+@@ -258,10 +195,10 @@ export const Clipboard = GObject.registerClass(
+                 this._nameId = 0;
+             }
+ 
+-            if (this._handleMethodCallId > 0) {
+-                this.disconnect(this._handleMethodCallId);
+-                this._handleMethodCallId = 0;
+-                this.unexport();
++            try {
++                this._dbus.unexport();
++            } catch (e) {
++                logError(e);
+             }
+             if (this.watcher)
+                 this.watcher.force_exit();
+
+From 9f9b2bbe84998d2d39d5de3d220e10a6f08bbafd Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Sat, 5 Sep 2026 13:56:54 -0700
+Subject: [PATCH 05/10] Port to Clutter controllers
+
+---
+ src/shell/gmenu.js   | 47 +++++++++++++++++++++++++++++++-------------
+ src/shell/tooltip.js | 20 +++++++++++++------
+ src/shell/utils.js   |  1 +
+ 3 files changed, 48 insertions(+), 20 deletions(-)
+
+diff --git a/src/shell/gmenu.js b/src/shell/gmenu.js
+index f980fb7a26..7e18f142a8 100644
+--- a/src/shell/gmenu.js
++++ b/src/shell/gmenu.js
+@@ -10,7 +10,7 @@ import St from 'gi://St';
+ 
+ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+ 
+-import {HAS_ST_ORIENTATION, getIcon} from './utils.js';
++import {HAS_CLUTTER_CONTROLLERS, HAS_ST_ORIENTATION, getIcon} from './utils.js';
+ 
+ import Tooltip from './tooltip.js';
+ 
+@@ -121,10 +121,19 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         );
+ 
+         // Handle keyboard navigation
+-        this._submenuCloseKeyId = this.sub.connect(
+-            'key-press-event',
+-            this._onSubmenuCloseKey.bind(this)
+-        );
++        if (HAS_CLUTTER_CONTROLLERS) {
++            const keyController = new Clutter.KeyController();
++            keyController.connect(
++                'key-press',
++                () => this._onSubmenuCloseKey(this.actor, keyController.get_key()[1])
++            );
++            this.sub.add_action(keyController);
++        } else {
++            this._submenuCloseKeyId = this.sub.connect(
++                'key-press-event',
++                (actor, event) => this._onSubmenuCloseKey(actor, event.get_key_symbol())
++            );
++        }
+ 
+         // Refresh the menu when mapped
+         this._mappedId = this.actor.connect(
+@@ -160,8 +169,8 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         }
+     }
+ 
+-    _onSubmenuCloseKey(actor, event) {
+-        if (this.submenu && event.get_key_symbol() === Clutter.KEY_Left) {
++    _onSubmenuCloseKey(actor, key) {
++        if (this.submenu && key === Clutter.KEY_Left) {
+             this.submenu.submenu_for.setActive(true);
+             this.submenu = null;
+             return Clutter.EVENT_STOP;
+@@ -170,10 +179,10 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         return Clutter.EVENT_PROPAGATE;
+     }
+ 
+-    _onSubmenuOpenKey(actor, event) {
++    _onSubmenuOpenKey(actor, key) {
+         const item = actor._delegate;
+ 
+-        if (item.submenu && event.get_key_symbol() === Clutter.KEY_Right) {
++        if (item.submenu && key === Clutter.KEY_Right) {
+             this.submenu = item.submenu;
+             item.submenu.firstMenuItem.setActive(true);
+         }
+@@ -235,10 +244,19 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         // Mark it as an expandable and open on right-arrow
+         item.actor.add_accessible_state(Atk.StateType.EXPANDABLE);
+ 
+-        item.actor.connect(
+-            'key-press-event',
+-            this._onSubmenuOpenKey.bind(this)
+-        );
++        if (HAS_CLUTTER_CONTROLLERS) {
++            const keyController = new Clutter.KeyController();
++            keyController.connect(
++                'key-press',
++                () => this._onSubmenuOpenKey(item.actor, keyController.get_key()[1])
++            );
++            item.actor.add_action(keyController);
++        } else {
++            item.actor.connect(
++                'key-press-event',
++                (actor, event) => this._onSubmenuOpenKey(actor, event.get_key_symbol())
++            );
++        }
+ 
+         // Create the submenu
+         item.submenu = new ListBox({
+@@ -370,7 +388,8 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         this.actor.disconnect(this._mappedId);
+         this.box.disconnect(this._boxTransitionsCompletedId);
+         this.sub.disconnect(this._subTransitionsCompletedId);
+-        this.sub.disconnect(this._submenuCloseKeyId);
++        if (!HAS_CLUTTER_CONTROLLERS)
++            this.sub.disconnect(this._submenuCloseKeyId);
+         this.model.disconnect(this._itemsChangedId);
+ 
+         super.destroy();
+diff --git a/src/shell/tooltip.js b/src/shell/tooltip.js
+index 1f6acd1ea9..5e726cc904 100644
+--- a/src/shell/tooltip.js
++++ b/src/shell/tooltip.js
+@@ -10,7 +10,7 @@ import St from 'gi://St';
+ 
+ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+ 
+-import {HAS_ST_ORIENTATION} from './utils.js';
++import {HAS_CLUTTER_CONTROLLERS, HAS_ST_ORIENTATION} from './utils.js';
+ 
+ /**
+  * An StTooltip for ClutterActors
+@@ -40,10 +40,17 @@ export default class Tooltip {
+             this._onHover.bind(this)
+         );
+ 
+-        this._buttonPressEventId = this.parent.connect(
+-            'button-press-event',
+-            this._hide.bind(this)
+-        );
++        if (HAS_CLUTTER_CONTROLLERS) {
++            const clickGesture = new Clutter.ClickGesture();
++            clickGesture.set_recognize_on_press(true);
++            clickGesture.connect('recognize', this._hide.bind(this));
++            this.parent.add_action(clickGesture);
++        } else {
++            this._buttonPressEventId = this.parent.connect(
++                'button-press-event',
++                this._hide.bind(this)
++            );
++        }
+     }
+ 
+     get custom() {
+@@ -293,7 +300,8 @@ export default class Tooltip {
+     destroy() {
+         this.parent.disconnect(this._destroyId);
+         this.parent.disconnect(this._hoverId);
+-        this.parent.disconnect(this._buttonPressEventId);
++        if (!HAS_CLUTTER_CONTROLLERS)
++            this.parent.disconnect(this._buttonPressEventId);
+ 
+         if (this.custom)
+             this.custom.destroy();
+diff --git a/src/shell/utils.js b/src/shell/utils.js
+index f250ffc26d..6bb885628d 100644
+--- a/src/shell/utils.js
++++ b/src/shell/utils.js
+@@ -13,6 +13,7 @@ export const SHELL_MAJOR_VERSION = Number(PACKAGE_VERSION.split('.')[0]);
+ 
+ export const HAS_ST_ORIENTATION = SHELL_MAJOR_VERSION >= 48;
+ export const HAS_MESSAGELIST_NOTIFICATIONMESSAGE = SHELL_MAJOR_VERSION >= 48;
++export const HAS_CLUTTER_CONTROLLERS = SHELL_MAJOR_VERSION >= 51;
+ 
+ /**
+  * Get a themed icon, using fallbacks from GSConnect's GResource when necessary.
+
+From f3867a8fd3cf85501b979917dd0a7bd62bc689f7 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Mon, 17 Aug 2026 23:35:43 -0700
+Subject: [PATCH 06/10] Add GNOME 51 to supported versions
+
+---
+ data/metadata.json.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/metadata.json.in b/data/metadata.json.in
+index b97fc048fd..cf946d6520 100644
+--- a/data/metadata.json.in
++++ b/data/metadata.json.in
+@@ -3,6 +3,6 @@
+     "name": "GSConnect",
+     "description": "GSConnect is a complete implementation of KDE Connect especially for GNOME Shell with Nautilus, Chrome and Firefox integration. It does not rely on the KDE Connect desktop application and will not work with it installed.\n\nKDE Connect allows devices to securely share content like notifications or files and other features like SMS messaging and remote control. The KDE Connect team has applications for Linux, BSD, Android, Sailfish, iOS, macOS and Windows.\n\nPlease report issues on Github!",
+     "version": @PACKAGE_VERSION@,
+-    "shell-version": [ "46", "47", "48", "49", "50" ],
++    "shell-version": [ "46", "47", "48", "49", "50", "51" ],
+     "url": "@PACKAGE_URL@/wiki"
+ }
+
+From 1da7a87ed0245a27057a4929a7c576ada30745e9 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Sat, 5 Sep 2026 17:15:48 -0700
+Subject: [PATCH 07/10] Fix menu closing when activating a submenu
+
+---
+ src/shell/gmenu.js | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/shell/gmenu.js b/src/shell/gmenu.js
+index 7e18f142a8..ffe39c2fbc 100644
+--- a/src/shell/gmenu.js
++++ b/src/shell/gmenu.js
+@@ -190,6 +190,10 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         return Clutter.EVENT_PROPAGATE;
+     }
+ 
++    itemActivated() {
++        // no-op; handle item activation ourselves in _onGMenuItemActivate
++    }
++
+     _onGMenuItemActivate(item, event) {
+         this.emit('activate', item);
+ 
+@@ -200,7 +204,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+                 item.action_name,
+                 item.action_target
+             );
+-            this.itemActivated();
++            super.itemActivated();
+         }
+     }
+ 
+
+From 0d7129b40b02f3ed2ed9675d2d4f49b6689f9da1 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Sat, 5 Sep 2026 17:16:21 -0700
+Subject: [PATCH 08/10] Fix janky tweening when closing submenu
+
+---
+ src/shell/gmenu.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/shell/gmenu.js b/src/shell/gmenu.js
+index ffe39c2fbc..9a1648b914 100644
+--- a/src/shell/gmenu.js
++++ b/src/shell/gmenu.js
+@@ -347,7 +347,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         } else {
+             this.box.set_opacity(0);
+             this.box.set_width(0);
+-            this.sub.set_height(0);
++            this.box.set_height(0);
+             this.box.visible = true;
+         }
+ 
+
+From 3ded88aea9788649c28172d38541f92af9c8905b Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Sat, 5 Sep 2026 17:28:19 -0700
+Subject: [PATCH 09/10] Correctly activate menu items on submenu navigation
+
+---
+ src/shell/gmenu.js | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/shell/gmenu.js b/src/shell/gmenu.js
+index 9a1648b914..91c809cedd 100644
+--- a/src/shell/gmenu.js
++++ b/src/shell/gmenu.js
+@@ -171,7 +171,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+ 
+     _onSubmenuCloseKey(actor, key) {
+         if (this.submenu && key === Clutter.KEY_Left) {
+-            this.submenu.submenu_for.setActive(true);
++            this.submenu.submenu_for.active = true;
+             this.submenu = null;
+             return Clutter.EVENT_STOP;
+         }
+@@ -184,7 +184,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+ 
+         if (item.submenu && key === Clutter.KEY_Right) {
+             this.submenu = item.submenu;
+-            item.submenu.firstMenuItem.setActive(true);
++            item.submenu.firstMenuItem.active = true;
+         }
+ 
+         return Clutter.EVENT_PROPAGATE;
+@@ -199,6 +199,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+ 
+         if (item.submenu) {
+             this.submenu = item.submenu;
++            item.submenu.firstMenuItem.active = true;
+         } else if (item.action_name) {
+             this.action_group.activate_action(
+                 item.action_name,
+@@ -315,6 +316,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+ 
+             prev.connectObject('activate', (item, event) => {
+                 this.emit('activate', item);
++                this.submenu_for.active = true;
+                 this._parent.submenu = null;
+             }, this);
+         }
+
+From 99f902eb18cf2b78231fa2b09a97c3dec6a55196 Mon Sep 17 00:00:00 2001
+From: DaPigGuy <mcpepig123@gmail.com>
+Date: Sat, 5 Sep 2026 17:44:47 -0700
+Subject: [PATCH 10/10] Fix keybind for closing submenu
+
+---
+ src/shell/gmenu.js | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/src/shell/gmenu.js b/src/shell/gmenu.js
+index 91c809cedd..8d2840dd2b 100644
+--- a/src/shell/gmenu.js
++++ b/src/shell/gmenu.js
+@@ -81,6 +81,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         this.actor = new St.BoxLayout({
+             x_expand: true,
+             clip_to_allocation: true,
++            reactive: true,
+         });
+         this.actor._delegate = this;
+ 
+@@ -127,9 +128,9 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+                 'key-press',
+                 () => this._onSubmenuCloseKey(this.actor, keyController.get_key()[1])
+             );
+-            this.sub.add_action(keyController);
++            this.actor.add_action(keyController);
+         } else {
+-            this._submenuCloseKeyId = this.sub.connect(
++            this._submenuCloseKeyId = this.actor.connect(
+                 'key-press-event',
+                 (actor, event) => this._onSubmenuCloseKey(actor, event.get_key_symbol())
+             );
+@@ -170,9 +171,9 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+     }
+ 
+     _onSubmenuCloseKey(actor, key) {
+-        if (this.submenu && key === Clutter.KEY_Left) {
+-            this.submenu.submenu_for.active = true;
+-            this.submenu = null;
++        if (this._parent && key === Clutter.KEY_Left) {
++            this.submenu_for.active = true;
++            this._parent.submenu = null;
+             return Clutter.EVENT_STOP;
+         }
+ 
+@@ -395,7 +396,7 @@ export class ListBox extends PopupMenu.PopupMenuSection {
+         this.box.disconnect(this._boxTransitionsCompletedId);
+         this.sub.disconnect(this._subTransitionsCompletedId);
+         if (!HAS_CLUTTER_CONTROLLERS)
+-            this.sub.disconnect(this._submenuCloseKeyId);
++            this.actor.disconnect(this._submenuCloseKeyId);
+         this.model.disconnect(this._itemsChangedId);
+ 
+         super.destroy();
