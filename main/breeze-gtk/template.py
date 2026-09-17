@@ -1,5 +1,5 @@
 pkgname = "breeze-gtk"
-pkgver = "6.7.4"
+pkgver = "6.7.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,4 +16,4 @@ pkgdesc = "KDE Breeze widget theme for GTK"
 license = "CC0-1.0"
 url = "https://invent.kde.org/plasma/breeze-gtk"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-gtk-{pkgver}.tar.xz"
-sha256 = "f30fc5ae6080037ad8e402e59087f76aa5270aebc7fa0d5d1bb7440abab4b2ce"
+sha256 = "4e0e913b0515de75492155d028c086c4a522a3f68ebb6f4fab10f8bc646cd518"

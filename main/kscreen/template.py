@@ -1,6 +1,6 @@
 pkgname = "kscreen"
-pkgver = "6.7.4"
-pkgrel = 1
+pkgver = "6.7.5"
+pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -40,7 +40,7 @@ pkgdesc = "KDE screen management"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
-sha256 = "8918c970ae363c7c1b8db76b21dc969162b5f41353fd88bde8667b46536eb8a6"
+sha256 = "a1742210a0cf4ea76959f708c55180b2573648e9cd35cb4e38f349fe5694c9df"
 hardening = ["vis"]
 
 
