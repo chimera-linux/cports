@@ -42,10 +42,6 @@ sha256 = "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e"
 options = ["!cross"]
 
 
-if self.profile.arch == "riscv64":
-    broken = "gir generation dies with illegal instruction"
-
-
 @subpackage("libvips-devel")
 def _(self):
     return self.default_devel()
