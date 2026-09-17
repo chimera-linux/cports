@@ -2,17 +2,18 @@ we already harden the libcpp
 
 --- a/Source/cmake/OptionsCommon.cmake
 +++ b/Source/cmake/OptionsCommon.cmake
-@@ -238,13 +238,6 @@ if (CXX_STDLIB_IS_LIBCPP)
-         #endif
-     ")
-     check_cxx_source_compiles("${CXX_STDLIB_TEST_SOURCE}" CXX_STDLIB_IS_LIBCPP_19_OR_NEWER)
--    if (CXX_STDLIB_IS_LIBCPP_19_OR_NEWER)
--        set(CXX_STDLIB_VARIANT "LIBCPP 19+")
--        set(CXX_STDLIB_ASSERTIONS_MACRO _LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE)
--    else ()
--        set(CXX_STDLIB_VARIANT "LIBCPP <19")
--        set(CXX_STDLIB_ASSERTIONS_MACRO _LIBCPP_ENABLE_ASSERTIONS=1)
--    endif ()
- else ()
-     set(CXX_STDLIB_TEST_SOURCE "
-     #include <utility>
+@@ -242,13 +242,6 @@
+             #endif
+         ")
+         check_cxx_source_compiles("${CXX_STDLIB_TEST_SOURCE}" CXX_STDLIB_IS_LIBCPP_19_OR_NEWER)
+-        if (CXX_STDLIB_IS_LIBCPP_19_OR_NEWER)
+-            set(CXX_STDLIB_VARIANT "LIBCPP 19+")
+-            set(CXX_STDLIB_ASSERTIONS_MACRO _LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE)
+-        else ()
+-            set(CXX_STDLIB_VARIANT "LIBCPP <19")
+-            set(CXX_STDLIB_ASSERTIONS_MACRO _LIBCPP_ENABLE_ASSERTIONS=1)
+-        endif ()
+     else ()
+         set(CXX_STDLIB_TEST_SOURCE "
+         #include <utility>
+
