@@ -1,0 +1,28 @@
+diff --git a/meson.build b/meson.build
+index 5d2a9c8ec5..04d4646148 100644
+--- a/meson.build
++++ b/meson.build
+@@ -58,8 +58,8 @@
+ endif
+ 
+ # ── System: stb_image_resize2 (header-only) ─────────────────────────────────
+-if not cc.has_header('stb/stb_image_resize2.h')
+-  error('stb/stb_image_resize2.h not found')
++if not cc.has_header('stb_image_resize2.h')
++  error('stb_image_resize2.h not found')
+ endif
+ 
+ libwebp_dep = dependency('libwebp', required: true)
+diff --git a/src/render/core/image_file_loader.cpp b/src/render/core/image_file_loader.cpp
+index 3db5cbcc91..9b8d933dad 100644
+--- a/src/render/core/image_file_loader.cpp
++++ b/src/render/core/image_file_loader.cpp
+@@ -10,7 +10,7 @@
+ #include <cstring>
+ 
+ #define STB_IMAGE_RESIZE_IMPLEMENTATION
+-#include <stb/stb_image_resize2.h>
++#include <stb_image_resize2.h>
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wexpansion-to-defined"
+ #include <librsvg/rsvg.h>
