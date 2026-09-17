@@ -1,5 +1,5 @@
 pkgname = "fzf"
-pkgver = "0.74.3"
+pkgver = "0.74.4"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ pkgdesc = "Command-line fuzzy finder"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5b142217c3068647a7d8faa9c678cffada100b5f11a48609aa79c94ce04b28ef"
+sha256 = "1046857c337f5bd05f6fa482446b5a42a011615105743efbe4efee0970b24bb7"
 
 
 def post_install(self):
