@@ -32,7 +32,6 @@ makedepends = [
     "libsecret-devel",
     "libsoup-devel",
     "libxml2-devel",
-    "webkitgtk-devel",
 ]
 pkgdesc = "GNOME service to access online accounts"
 license = "LGPL-2.0-or-later"
