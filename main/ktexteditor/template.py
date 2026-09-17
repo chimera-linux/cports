@@ -1,5 +1,5 @@
 pkgname = "ktexteditor"
-pkgver = "6.29.0"
+pkgver = "6.30.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -33,7 +33,7 @@ pkgdesc = "KDE Full text editor component"
 license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
-sha256 = "ab28187332c2e4af1706999bc1fb51256f32dc2ebd28bc21081062b8ff1e4ce7"
+sha256 = "d90f24e33a7aa0e6a179af253dfdeca0977992adb62bf1b6f7ad11537ab6e3e7"
 hardening = ["vis"]
 
 
