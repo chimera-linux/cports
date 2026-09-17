@@ -15,7 +15,6 @@ makedepends = [
     "giflib-devel",
     "glib-devel",
     "gobject-introspection",
-    "highway-devel",
     "imagemagick-devel",
     "libarchive-devel",
     "libexif-devel",
@@ -40,6 +39,12 @@ source = f"https://github.com/libvips/libvips/releases/download/v{pkgver}/vips-{
 sha256 = "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e"
 # broken
 options = ["!cross"]
+
+if self.profile().arch in ["riscv64"]:
+    # riscv highway integration is weirdly broken
+    configure_args += ["-Dhighway=disabled"]
+else:
+    makedepends += ["highway-devel"]
 
 
 @subpackage("libvips-devel")
