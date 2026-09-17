@@ -1,5 +1,5 @@
 pkgname = "signon-kwallet-extension"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -17,5 +17,5 @@ pkgdesc = "KWallet integration for signond"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/network/signon-kwallet-extension"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/signon-kwallet-extension-{pkgver}.tar.xz"
-sha256 = "ad8ea5a4e40ce7f2481c694ff44822b89ab572746c4a6a552a0039041e2ea9d7"
+sha256 = "d50f42b725e5d1bcb7c9e3caff77c2b9c835715567427e544c3824e484776ced"
 hardening = ["vis"]

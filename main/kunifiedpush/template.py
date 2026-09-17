@@ -1,5 +1,5 @@
 pkgname = "kunifiedpush"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session", "--"]
@@ -27,7 +27,7 @@ url = "https://invent.kde.org/libraries/kunifiedpush"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kunifiedpush-{pkgver}.tar.xz"
 )
-sha256 = "abd4a67798428023913a5343de747ec40fc7b2a19ed4a4f18650df9c755abd80"
+sha256 = "818476fbf87df903f92f875302ab9d76fc136d05f42530d35f58f3cc10f0a904"
 options = ["etcfiles"]
 
 

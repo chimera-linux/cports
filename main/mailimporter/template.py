@@ -1,5 +1,5 @@
 pkgname = "mailimporter"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -29,7 +29,7 @@ url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/mailimporter-{pkgver}.tar.xz"
 )
-sha256 = "c61402add7fe11b249e565f8cbe7574f86b170e89a667de0833d40a9f4098465"
+sha256 = "e3181bb3502a5433be41af82ade8012ae50f970ca4c2092068b0ab399b757752"
 
 
 @subpackage("mailimporter-devel")

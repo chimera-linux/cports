@@ -1,5 +1,5 @@
 pkgname = "calendarsupport"
-pkgver = "26.08.0"
+pkgver = "26.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -33,7 +33,7 @@ url = "https://community.kde.org/KDE_PIM"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/calendarsupport-{pkgver}.tar.xz"
 )
-sha256 = "8e6843bcc9965cc0658db46780d2f1486c84aa64308a1e0cefe830d9d852f57d"
+sha256 = "6490d2a70fcf393a8af1daaf571ba0b88972f9ab1b091ffb2dff19ac520423bc"
 
 
 @subpackage("calendarsupport-devel")
