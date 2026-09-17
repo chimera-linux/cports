@@ -1,7 +1,7 @@
 # mirrors the gtk3 webkitgtk template
 pkgname = "webkitgtk4"
 pkgver = "2.54.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
@@ -15,6 +15,7 @@ configure_args = [
     "-DUSE_WOFF2=ON",
     "-DUSE_FLITE=OFF",
     "-DUSE_SPIEL=ON",
+    "-DUSE_MIMALLOC=OFF",
     # -DENABLE_*
     "-DENABLE_BUBBLEWRAP_SANDBOX=ON",
     "-DENABLE_DOCUMENTATION=OFF",
@@ -134,6 +135,10 @@ match self.profile.arch:
 
 if self.profile.arch == "loongarch64":
     tool_flags["CXXFLAGS"] += ["-DSIMDE_FLOAT16_API=SIMDE_FLOAT16_API_PORTABLE"]
+
+if self.profile.arch == "riscv64":
+    # libpas/bmalloc link errors
+    configure_args += ["-DUSE_SYSTEM_MALLOC=ON"]
 
 # LTO broken on aarch64 (JIT segfault)
 if self.has_lto(force=True) and self.profile.arch != "aarch64":
