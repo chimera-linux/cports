@@ -164,6 +164,10 @@ def ctest(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     if pkg.verbose:
         eargs += ["--verbose"]
 
+    if not (pkg.cwd / build_dir / "CTestTestfile.cmake").is_file():
+        pkg.log_warn("cmake test file does not exist (no tests?)")
+        return
+
     pkg.do(
         *wrapper,
         "ctest",
