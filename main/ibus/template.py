@@ -1,6 +1,6 @@
 pkgname = "ibus"
 pkgver = "1.5.34"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ui",
@@ -59,7 +59,7 @@ url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/ibus-{pkgver}.tar.gz"
 sha256 = "12a72210ce5250f8a66df562a75e034e67b2bce74c4df2983dc86d1154894943"
 # gtk3 can't handle seatless wayland displays
-options = ["etcfiles", "!cross", "!check", "!lto"]
+options = ["etcfiles", "!cross", "!check"]
 
 
 def post_extract(self):
