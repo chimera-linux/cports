@@ -1,5 +1,5 @@
 pkgname = "gjs"
-pkgver = "1.88.0"
+pkgver = "1.90.0"
 pkgrel = 0
 build_style = "meson"
 # disable tests that need X/dbus
@@ -28,7 +28,7 @@ pkgdesc = "JavaScript bindings for GNOME"
 license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
 source = f"$(GNOME_SITE)/gjs/{pkgver[:-2]}/gjs-{pkgver}.tar.xz"
-sha256 = "30a0b9f3317e8e60b1896db2903c70e8b0cd33df953c328755803a75191dc453"
+sha256 = "47e9f22b1d4aca841c6c492b449b6de32ff680972183e26fe7b98a45c5c3fee1"
 options = ["!cross"]
 
 
