@@ -1,5 +1,5 @@
 pkgname = "lmdb"
-pkgver = "0.9.33"
+pkgver = "0.9.36"
 pkgrel = 0
 build_wrksrc = "libraries/liblmdb"
 build_style = "makefile"
@@ -14,7 +14,7 @@ pkgdesc = "Lightning Memory-Mapped Database Manager"
 license = "OLDAP-2.8"
 url = "http://www.lmdb.tech/doc"
 source = f"https://git.openldap.org/openldap/openldap/-/archive/LMDB_{pkgver}/openldap-LMDB_{pkgver}.tar.gz"
-sha256 = "476801f5239c88c7de61c3390502a5d13965ecedef80105b5fb0fcb8373d1e53"
+sha256 = "90a595ea500074af61b213464452d8d212405261094667a686357467ae7b57b9"
 
 
 def post_install(self):
