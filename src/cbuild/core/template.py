@@ -1077,7 +1077,7 @@ class Template(Package):
         elif self.restricted and not self._allow_restricted:
             self.broken = f"cannot be built, it's restricted: {self.restricted}"
         elif not self.options["ci"] and not self._allow_ci:
-            self.broken = f"cannot be built in CI environment"
+            self.broken = "cannot be built in CI environment"
         elif self.repository not in _allow_cats:
             self.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
         elif self.profile.cross and not self.options["cross"]:
