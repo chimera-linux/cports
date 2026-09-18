@@ -1,2 +1,2 @@
-url = "https://git.openldap.org/openldap/openldap/-/tags"
-pattern = r"LMDB_([\d.]+)\.tar"
+pattern_style = "git_forge"
+pattern = r"refs/tags/LMDB_(0\.9\.[\d.]+)"
