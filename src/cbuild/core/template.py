@@ -360,6 +360,7 @@ default_options = {
     "execstack": (False, False),
     "foreignelf": (False, False),
     "parallel": (True, True),
+    "ci": (True, True),
     "eepy": (False, True),
     "debug": (True, True),
     "strip": (True, False),
@@ -722,6 +723,7 @@ class Template(Package):
         stage=3,
         bulk_mode=False,
         allow_restricted=True,
+        allow_ci=True,
         data=None,
         init=True,
         contents=None,
@@ -776,6 +778,7 @@ class Template(Package):
         self.conf_jobs = jobs[0]
         self.conf_link_threads = jobs[1]
         self._force_check = force_check
+        self._allow_ci = allow_ci
         self._allow_restricted = allow_restricted
         self._data = data if data else {}
         self._linter = linter
@@ -1073,6 +1076,8 @@ class Template(Package):
             )
         elif self.restricted and not self._allow_restricted:
             self.broken = f"cannot be built, it's restricted: {self.restricted}"
+        elif not self.options["ci"] and not self._allow_ci:
+            self.broken = f"cannot be built in CI environment"
         elif self.repository not in _allow_cats:
             self.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
         elif self.profile.cross and not self.options["cross"]:

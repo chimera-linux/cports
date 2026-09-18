@@ -21,6 +21,7 @@ source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "d2f3011b61df39148ec24a093eaa8f959b03dc15f1db211156bb30c7ef450195"
 # no meaningful checking to be done
 options = [
+    "!ci",
     "!check",
     "!debug",
     "!strip",

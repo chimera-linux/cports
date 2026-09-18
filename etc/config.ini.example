@@ -70,6 +70,9 @@ remote = yes
 categories = main user
 # whether restricted packages can be considered for building
 allow_restricted = no
+# whether to allow packages that have the !ci option
+# (large packages that take very long in continuous integration)
+allow_ci = yes
 # maintainer field to use for packages, you can set it for personal repos
 maintainer = unknown <cports@local>
 # linter to use if available (auto = flake8 || ruff, none, flake8, ruff)
