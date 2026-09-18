@@ -1,0 +1,12 @@
+diff --unified --show-c-function ncurses-6.6/ncurses/curses.priv.h.me ncurses-6.6/ncurses/curses.priv.h
+--- ncurses-6.6/ncurses/curses.priv.h.me	2026-09-02 15:58:36.660926644 +0000
++++ ncurses-6.6/ncurses/curses.priv.h	2026-09-02 15:59:34.125885061 +0000
+@@ -1833,6 +1833,8 @@
+ 
+ #define START_TRACE() /* nothing */
+ 
++#define USE_TRACEF(mask) 0
++
+ #define T(a)
+ #define TR(n, a)
+ #define TPUTS_TRACE(s)
