@@ -60,7 +60,7 @@ debug_level = 1
 # tests are not enabled
 # runtimes build may invoke built clang during install, which has
 # rpath and fakeroot effectively overrides rpath, so disable that
-options = ["bootstrap", "!check", "!installroot"]
+options = ["bootstrap", "!ci", "!check", "!installroot"]
 
 # disable ubsan integer checks, it breaks aarch64/riscv64/ppc64 targets
 # when lto-linking lld with ubsan'd clang/lld, it causes

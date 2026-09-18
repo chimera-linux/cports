@@ -51,6 +51,7 @@ opt_statusfd = None
 opt_bulkcont = False
 opt_allowcat = "main user"
 opt_restricted = False
+opt_noci = False
 opt_updatecheck = False
 opt_acceptsum = False
 opt_maint = "unknown <cports@local>"
@@ -115,7 +116,7 @@ def handle_options():
     global opt_arch, opt_tltocache
     global opt_harch, opt_gen_dbg, opt_check, opt_ccache, opt_tltocachesize
     global opt_sccache, opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
-    global opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
+    global opt_force, opt_mdirtemp, opt_allowcat, opt_restricted, opt_noci
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
@@ -384,6 +385,7 @@ def handle_options():
         opt_restricted = bcfg.getboolean(
             "allow_restricted", fallback=opt_restricted
         )
+        opt_noci = not bcfg.getboolean("allow_ci", fallback=opt_noci)
         opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
         opt_linter = bcfg.get("linter", fallback=opt_linter).strip()
         opt_formatter = bcfg.get("formatter", fallback=opt_formatter).strip()
@@ -1526,6 +1528,7 @@ def _get_unbuilt(outdated=False):
             None,
             init=False,
             allow_restricted=opt_restricted,
+            allow_ci=not opt_noci,
         )
         mods[pn] = tmpl
         modv = tmpl._raw_mod
@@ -1801,6 +1804,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             force_check=opt_forcecheck,
             stage=bstage,
             allow_restricted=opt_restricted,
+            allow_ci=not opt_noci,
             data=opt_tdata,
             linter=opt_linter,
             formatter=opt_formatter,
@@ -2015,6 +2019,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
                 force_check=opt_forcecheck,
                 bulk_mode=True,
                 allow_restricted=opt_restricted,
+                allow_ci=not opt_noci,
                 data=opt_tdata,
             )
         )

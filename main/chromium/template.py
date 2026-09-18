@@ -171,7 +171,7 @@ file_modes = {
 }
 hardening = ["!scp"]
 # lol
-options = ["etcfiles", "!cross", "!check", "!scanshlibs"]
+options = ["!ci", "etcfiles", "!cross", "!check", "!scanshlibs"]
 
 match self.profile.arch:
     case "aarch64":

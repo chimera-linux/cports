@@ -23,6 +23,7 @@ source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}
 sha256 = "7d0e7ce14f98c43efe880cffbf354a59be45928fdf7170d7333c374ae91c0d83"
 # no meaningful checking to be done
 options = [
+    "!ci",
     "!check",
     "!debug",
     "!strip",
