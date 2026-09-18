@@ -1,0 +1,158 @@
+diff --git a/js/misc/inputMethod.js b/js/misc/inputMethod.js
+index dfe6e11..806a9f3 100644
+--- a/js/misc/inputMethod.js
++++ b/js/misc/inputMethod.js
+@@ -82,7 +82,6 @@ export const InputMethod = GObject.registerClass({
+         }
+ 
+         this._context.set_client_commit_preedit(true);
+-        this._context.set_preedit_format(IBus.PreeditFormat.HINT);
+         this._context.connect('commit-text', this._onCommitText.bind(this));
+         this._context.connect('delete-surrounding-text', this._onDeleteSurroundingText.bind(this));
+         this._context.connect('update-preedit-text-with-mode', this._onUpdatePreeditText.bind(this));
+@@ -118,57 +117,6 @@ export const InputMethod = GObject.registerClass({
+         this._preeditVisible = false;
+     }
+ 
+-    _translatePreeditAttributes(ibusAttributes) {
+-        const clutterAttrs = [];
+-
+-        for (let i = 0; ibusAttributes.get(i) != null; i++) {
+-            const ibusAttr = ibusAttributes.get(i);
+-
+-            // Ignore all explicit style attributes
+-            if (ibusAttr.get_attr_type() !== IBus.AttrType.HINT)
+-                continue;
+-
+-            let preeditHint;
+-
+-            switch (ibusAttr.get_value()) {
+-            case IBus.AttrPreedit.DEFAULT:
+-                preeditHint = Clutter.PreeditStyleHint.NONE;
+-                break;
+-            case IBus.AttrPreedit.WHOLE:
+-                preeditHint = Clutter.PreeditStyleHint.WHOLE;
+-                break;
+-            case IBus.AttrPreedit.SELECTION:
+-                preeditHint = Clutter.PreeditStyleHint.SELECTION;
+-                break;
+-            case IBus.AttrPreedit.PREDICTION:
+-                preeditHint = Clutter.PreeditStyleHint.PREDICTION;
+-                break;
+-            case IBus.AttrPreedit.PREFIX:
+-                preeditHint = Clutter.PreeditStyleHint.PREFIX;
+-                break;
+-            case IBus.AttrPreedit.SUFFIX:
+-                preeditHint = Clutter.PreeditStyleHint.SUFFIX;
+-                break;
+-            case IBus.AttrPreedit.ERROR_SPELLING:
+-                preeditHint = Clutter.PreeditStyleHint.SPELLING_ERROR;
+-                break;
+-            case IBus.AttrPreedit.ERROR_COMPOSE:
+-                preeditHint = Clutter.PreeditStyleHint.COMPOSE_ERROR;
+-                break;
+-            default:
+-                continue;
+-            }
+-
+-            clutterAttrs.push(new Clutter.PreeditAttribute({
+-                hint: preeditHint,
+-                start: ibusAttr.start_index,
+-                end: ibusAttr.end_index,
+-            }));
+-        }
+-
+-        return clutterAttrs;
+-    }
+-
+     _emitRequestSurrounding() {
+         if (this._context.needs_surrounding_text())
+             this.emit('request-surrounding');
+@@ -205,41 +153,24 @@ export const InputMethod = GObject.registerClass({
+         if (preedit === '')
+             preedit = null;
+ 
+-        const preeditHints =
+-              this._translatePreeditAttributes(text.get_attributes());
+         const anchor = pos;
+-
+-        if (visible) {
+-            try {
+-                this.set_preedit_text_with_attrs(
+-                    preedit, pos, anchor, mode, preeditHints);
+-            } catch {
+-                this.set_preedit_text(null, pos, anchor, mode);
+-            }
+-        } else if (this._preeditVisible) {
++        if (visible)
++            this.set_preedit_text(preedit, pos, anchor, mode);
++        else if (this._preeditVisible)
+             this.set_preedit_text(null, pos, anchor, mode);
+-        }
+ 
+         this._preeditStr = preedit;
+         this._preeditPos = pos;
+         this._preeditAnchor = anchor;
+         this._preeditVisible = visible;
+         this._preeditCommitMode = mode;
+-        this._preeditHints = preeditHints;
+     }
+ 
+     _onShowPreeditText() {
+         this._preeditVisible = true;
+-
+-        try {
+-            this.set_preedit_text_with_attrs(
+-                this._preeditStr, this._preeditPos, this._preeditAnchor,
+-                this._preeditCommitMode, this._preeditHints);
+-        } catch {
+-            this.set_preedit_text(
+-                this._preeditStr, this._preeditPos, this._preeditAnchor,
+-                this._preeditCommitMode);
+-        }
++        this.set_preedit_text(
++            this._preeditStr, this._preeditPos, this._preeditAnchor,
++            this._preeditCommitMode);
+     }
+ 
+     _onHidePreeditText() {
+@@ -364,8 +295,6 @@ export const InputMethod = GObject.registerClass({
+             ibusHints |= IBus.InputHints.PRIVATE;
+         if (hints & Clutter.InputContentHintFlags.HIDDEN_TEXT)
+             ibusHints |= IBus.InputHints.HIDDEN_TEXT;
+-        if ((hints & Clutter.InputContentHintFlags.NO_EMOJI) !== 0)
+-            ibusHints |= IBus.InputHints.NO_EMOJI;
+ 
+         this._hints = ibusHints;
+         if (this._context)
+diff --git a/js/ui/keyboard.js b/js/ui/keyboard.js
+index 41fd1c1..cda8536 100644
+--- a/js/ui/keyboard.js
++++ b/js/ui/keyboard.js
+@@ -1169,6 +1169,16 @@ export const Keyboard = GObject.registerClass({
+             this._purpose === Clutter.InputContentPurpose.TERMINAL;
+     }
+ 
++    _shouldShowEmoji() {
++        if ((this._contentHints & Clutter.InputContentHintFlags.NO_EMOJI) !== 0)
++            return false;
++
++        return this._purpose === Clutter.InputContentPurpose.NORMAL ||
++            this._purpose === Clutter.InputContentPurpose.ALPHA ||
++            this._purpose === Clutter.InputContentPurpose.PASSWORD ||
++            this._purpose === Clutter.InputContentPurpose.TERMINAL;
++    }
++
+     _onContentHintsChanged(controller, contentHints) {
+         this._contentHints = contentHints;
+ 
+@@ -1543,6 +1553,9 @@ export const Keyboard = GObject.registerClass({
+         if ((this._contentHints & Clutter.InputContentHintFlags.INHIBIT_OSK) !== 0)
+             enabled = false;
+ 
++        if ((this._contentHints & Clutter.InputContentHintFlags.INHIBIT_OSK) !== 0)
++            enabled = false;
++
+         if (enabled)
+             this.open(Main.layoutManager.focusIndex);
+         else
