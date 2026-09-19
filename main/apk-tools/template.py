@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled",
