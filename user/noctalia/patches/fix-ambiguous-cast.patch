@@ -1,0 +1,13 @@
+diff --git a/src/system/icon_resolver.cpp b/src/system/icon_resolver.cpp
+index 035d9af..5e7c7e0 100644
+--- a/src/system/icon_resolver.cpp
++++ b/src/system/icon_resolver.cpp
+@@ -148,7 +148,7 @@ namespace {
+       signature += ':';
+       std::error_code ec;
+       const auto modified = fs::last_write_time(path, ec);
+-      signature += ec ? "missing" : std::to_string(modified.time_since_epoch().count());
++      signature += ec ? "missing" : std::to_string(static_cast<long long>(modified.time_since_epoch().count()));
+       signature += '\n';
+     };
+     for (const auto& root : plan.baseDirs) {
