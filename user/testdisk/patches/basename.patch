@@ -1,0 +1,11 @@
+--- a/src/hdaccess.c
++++ b/src/hdaccess.c
+@@ -137,6 +137,8 @@
+ //#define HDCLONE 1
+ #endif
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ extern const arch_fnct_t arch_none;
+ 
+ struct tdewf_file_header
