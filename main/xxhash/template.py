@@ -1,5 +1,5 @@
 pkgname = "xxhash"
-pkgver = "0.8.3"
+pkgver = "0.8.4"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -11,7 +11,7 @@ pkgdesc = "Fast non-cryptographic hashing algorithm"
 license = "BSD-2-Clause"
 url = "https://cyan4973.github.io/xxHash"
 source = f"https://github.com/Cyan4973/xxhash/archive/v{pkgver}.tar.gz"
-sha256 = "aae608dfe8213dfd05d909a57718ef82f30722c392344583d3f39050c7f29a80"
+sha256 = "5738270935e7c3d38a79b3adf7c9692566ce7895a25f67de43ad52ab504acd32"
 
 
 def post_install(self):
