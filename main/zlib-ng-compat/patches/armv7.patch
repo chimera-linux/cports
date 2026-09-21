@@ -1,6 +1,8 @@
+diff --git a/configure b/configure
+index e4ad1626..3236d62f 100755
 --- a/configure
 +++ b/configure
-@@ -323,7 +323,7 @@ if test "$gcc" -eq 1 && ($cc $CFLAGS -c $test.c) >> configure.log 2>&1; then
+@@ -349,7 +349,7 @@ if test "$gcc" -eq 1 && ($cc $CFLAGS -c $test.c) >> configure.log 2>&1; then
        if test $build32 -ne 1; then
          ARCH=$CC_ARCH
        fi ;;

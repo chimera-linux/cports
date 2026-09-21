@@ -1,6 +1,8 @@
+diff --git a/configure b/configure
+index e4ad1626..e4faeab4 100755
 --- a/configure
 +++ b/configure
-@@ -290,7 +290,7 @@ if test $compat -eq 0; then
+@@ -316,7 +316,7 @@ if test $compat -eq 0; then
    VER2=$(sed -n -e '/ZLIBNG_VERSION "/s/.*"\([0-9]*\.[0-9]*\)\..*/\1/p' < ${SRCDIR}/zlib-ng.h.in)
    VER1=$(sed -n -e '/ZLIBNG_VERSION "/s/.*"\([0-9]*\)\..*/\1/p' < ${SRCDIR}/zlib-ng.h.in)
  else
