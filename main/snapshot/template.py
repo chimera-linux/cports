@@ -1,6 +1,6 @@
 pkgname = "snapshot"
 pkgver = "51.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_args = ["--timeout-multiplier=5"]
 hostmakedepends = [
