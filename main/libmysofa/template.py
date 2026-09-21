@@ -1,5 +1,5 @@
 pkgname = "libmysofa"
-pkgver = "1.3.3"
+pkgver = "1.3.5"
 pkgrel = 0
 build_style = "cmake"
 # tests fail when run in parallel
@@ -11,7 +11,7 @@ pkgdesc = "Reader for AES SOFA files to get better HRTFs"
 license = "BSD-3-Clause"
 url = "https://github.com/hoene/libmysofa"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "a15f7236a2b492f8d8da69f6c71b5bde1ef1bac0ef428b94dfca1cabcb24c84f"
+sha256 = "f29508c335c83d8703f943ffc9ca783ac39aca84e851357f13a55af0f8143137"
 # FIXME: breaks fail-issue-167a test
 hardening = ["!int"]
 # no nodejs on some platforms
