@@ -1,6 +1,6 @@
 pkgname = "gnome-shell"
 pkgver = "51.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
