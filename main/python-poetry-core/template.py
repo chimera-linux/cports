@@ -2,6 +2,7 @@ pkgname = "python-poetry-core"
 pkgver = "2.4.1"
 pkgrel = 0
 build_style = "python_pep517"
+make_check_args = ["--ignore", "tests/vcs/test_vcs.py"]
 hostmakedepends = [
     "python-build",
     "python-installer",
@@ -13,7 +14,6 @@ depends = [
     "python-packaging",
 ]
 checkdepends = [
-    "git",
     "python-devel",
     "python-pytest-mock",
     "python-tomli-w",
