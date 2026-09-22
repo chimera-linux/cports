@@ -2,6 +2,7 @@ pkgname = "python-brotli"
 pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_pep517"
+make_build_env = {"USE_SYSTEM_BROTLI": "1"}
 hostmakedepends = [
     "python-build",
     "python-installer",
@@ -9,7 +10,10 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
-makedepends = ["python-devel"]
+makedepends = [
+    "brotli-devel",
+    "python-devel",
+]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python bindings for the Brotli compression library"
