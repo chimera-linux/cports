@@ -1,5 +1,5 @@
 pkgname = "stash"
-pkgver = "0.4.0"
+pkgver = "0.5.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Wayland clipboard manager with persistent history"
 license = "MPL-2.0"
 url = "https://github.com/notashelf/stash"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c962f634537433d302b5ed85a2bd9cf6915e218d3ec335710b3e529a222efd27"
+sha256 = "284315c853e1135ec671416416b7279881d8bfd8ff74b541a49dc5da5b925825"
 
 
 def post_install(self):
