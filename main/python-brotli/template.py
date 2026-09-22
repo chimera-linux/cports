@@ -1,10 +1,11 @@
 pkgname = "python-brotli"
-pkgver = "1.1.0"
-pkgrel = 2
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
+    "python-pkgconfig",
     "python-setuptools",
     "python-wheel",
 ]
@@ -14,8 +15,8 @@ depends = ["python"]
 pkgdesc = "Python bindings for the Brotli compression library"
 license = "MIT"
 url = "https://github.com/google/brotli"
-source = f"$(PYPI_SITE)/b/brotli/Brotli-{pkgver}.tar.gz"
-sha256 = "81de08ac11bcb85841e440c13611c00b67d3bf82698314928d0b676362546724"
+source = f"$(PYPI_SITE)/b/brotli/brotli-{pkgver}.tar.gz"
+sha256 = "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a"
 
 
 def post_install(self):
