@@ -1,5 +1,5 @@
 pkgname = "fish-shell"
-pkgver = "4.8.1"
+pkgver = "4.9.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_target = "fish_run_tests"
@@ -17,7 +17,7 @@ pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "0eb86a851e865e934a7c2091a73d7695225e78f0e00a7bb96d5f877d76c65782"
+sha256 = "20998a25f73217ddcc19f499055fd587e9912d1ad6e7109120fbcf2871f0b98c"
 # uses a compiled binary to build docs
 options = ["!cross"]
 
