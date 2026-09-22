@@ -1,5 +1,5 @@
 pkgname = "fcitx5-skk"
-pkgver = "5.1.10"
+pkgver = "5.1.11"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ url = "https://fcitx-im.org"
 source = (
     f"https://github.com/fcitx/fcitx5-skk/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "ac8a2c75284c6d7ba81145df43bf531c08af4616d45703490a2e8e7bfbab731d"
+sha256 = "aae6a77a36ee3f4ccf20aed7fbec98290afeb66ba48c1b2e7ae71321ed84d66d"
 hardening = ["vis", "cfi"]
 # fails
 options = ["!cross"]
