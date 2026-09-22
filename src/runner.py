@@ -385,7 +385,7 @@ def handle_options():
         opt_restricted = bcfg.getboolean(
             "allow_restricted", fallback=opt_restricted
         )
-        opt_noci = not bcfg.getboolean("allow_ci", fallback=opt_noci)
+        opt_noci = not bcfg.getboolean("allow_ci", fallback=not opt_noci)
         opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
         opt_linter = bcfg.get("linter", fallback=opt_linter).strip()
         opt_formatter = bcfg.get("formatter", fallback=opt_formatter).strip()
