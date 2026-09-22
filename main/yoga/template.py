@@ -1,13 +1,13 @@
 pkgname = "yoga"
 pkgver = "3.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
     "ninja",
 ]
 makedepends = ["gtest-devel"]
-pkgdesc = "Embeddable ayout engine"
+pkgdesc = "Embeddable layout engine"
 license = "MIT"
 url = "https://www.yogalayout.dev"
 source = f"https://github.com/react/yoga/archive/refs/tags/v{pkgver}.tar.gz"
