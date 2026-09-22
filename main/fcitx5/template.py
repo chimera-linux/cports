@@ -1,5 +1,5 @@
 pkgname = "fcitx5"
-pkgver = "5.1.21"
+pkgver = "5.1.23"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUSE_SYSTEM_YOGA=ON"]
@@ -19,6 +19,7 @@ makedepends = [
     "gettext-devel",
     "iso-codes",
     "json-c-devel",
+    "librsvg-devel",
     "libuv-devel",
     "libxkbcommon-devel",
     "libxkbfile-devel",
@@ -42,7 +43,7 @@ source = [
     f"!https://download.fcitx-im.org/data/en_dict-{_en_dict_ver}.tar.gz",
 ]
 sha256 = [
-    "8211fe5996db22254e5df9617cbd45873ae7fab82e7e0c42bde5a197299d1276",
+    "adeeafdba468111573233fb09e5cabf2e2c240cdc85e74ead498c2d702c795b8",
     "c44a5d7847925eea9e4d2d04748d442cd28dd9299a0b572ef7d91eac4f5a6ceb",
 ]
 # std::osyncstream
