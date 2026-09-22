@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "8.2.8"
+pkgver = "8.2.9"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -54,7 +54,7 @@ pkgdesc = "PipeWire audio plugins"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0e241ad32a0147d180f9dd35181c8eea11e7d32309dda9b4b70b6b472189e45e"
+sha256 = "549c14277bfecb0a32a6006fcd04e0395d66e4794ec84eb9f491002dea870a22"
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 
 
