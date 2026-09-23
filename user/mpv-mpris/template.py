@@ -1,5 +1,5 @@
 pkgname = "mpv-mpris"
-pkgver = "1.2"
+pkgver = "1.3"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -22,7 +22,7 @@ pkgdesc = "MPRIS plugin for mpv"
 license = "MIT"
 url = "https://github.com/hoyon/mpv-mpris"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "ecdc66f0182a38164b8bdc79502c575df3d2c4453bae5bff225c4e5ce9dbef6c"
+sha256 = "47deb26641b2f45edbbaf48a9136177b565b64f544f0fa7b956739fc7a4fc0a8"
 options = ["etcfiles"]
 
 
