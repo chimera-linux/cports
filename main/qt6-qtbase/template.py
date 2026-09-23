@@ -1,7 +1,7 @@
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
 pkgver = "6.11.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -45,6 +45,7 @@ makedepends = [
     "icu-devel",
     "libb2-devel",
     "libinput-devel",
+    "libjpeg-turbo-devel",
     "libpng-devel",
     "libproxy-devel",
     "libxcb-devel",
@@ -240,6 +241,12 @@ def _libpkg(name, libname, desc, extra=[]):
     @subpackage(f"qt6-qtbase-{name}")
     def _(self):
         self.subdesc = desc
+
+        if name == "core":
+            self.depends += [
+                "virtual:qt6-qttranslations!qt6-qtbase-translations-none"
+            ]
+
         return [f"usr/lib/libQt6{libname}.so.*", *extra]
 
 
@@ -324,3 +331,13 @@ def _(self):
             "usr/lib/*.prl",
         ]
     )
+
+
+@subpackage("qt6-qtbase-translations-none")
+def _(self):
+    self.subdesc = "no translations"
+    self.provides = ["qt6-qttranslations=0"]
+    self.install_if = [self.with_pkgver("qt6-qtbase-core"), "!base-locale"]
+    self.options = ["empty"]
+
+    return []
