@@ -1,11 +1,11 @@
 pkgname = "android-udev-rules"
-pkgver = "20250525"
+pkgver = "20260922"
 pkgrel = 0
 pkgdesc = "Comprehensive Android udev rules collection"
 license = "GPL-3.0-or-later"
 url = "https://github.com/M0Rf30/android-udev-rules"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "582bf8daa23f318047e77ece4c101c8696fd9151c459f695dca56cf4a40a72a2"
+sha256 = "3cc14f34142e71837eb073cc10b09eb48a9f7282b7c9ade9259e7809eec5062e"
 options = ["!splitudev"]
 
 
