@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwayland"
 pkgver = "6.11.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = [
@@ -18,7 +18,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-private-devel", "qt6-qtdeclarative-devel"]
 checkdepends = ["mesa-dri"]
-install_if = [self.with_pkgver("qt6-qtbase-gui"), "wayland"]
 pkgdesc = "Qt6 Wayland component"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
