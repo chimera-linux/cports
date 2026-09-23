@@ -1,5 +1,5 @@
 pkgname = "7zip"
-pkgver = "26.01"
+pkgver = "26.03"
 pkgrel = 0
 # Alone2: CLI with all format support
 build_wrksrc = "CPP/7zip/Bundles/Alone2"
@@ -14,7 +14,7 @@ pkgdesc = "File archiver with a high compression ratio"
 license = "LGPL-2.0-only AND BSD-3-Clause AND custom:unrar"
 url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"
-sha256 = "b2389e0e930b2f9a348cf0fe7d9870a46482a8ec044ee0bdf42e2136db31c3d6"
+sha256 = "9cbde5099c6deb73691b0579063da5827522ccbbcba3f0020fd04e8c8c16c0d4"
 hardening = ["vis", "!cfi"]
 
 
