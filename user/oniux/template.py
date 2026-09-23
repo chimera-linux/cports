@@ -1,5 +1,5 @@
 pkgname = "oniux"
-pkgver = "0.11.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "cmake", "pkgconf", "rust-bindgen"]
@@ -8,7 +8,7 @@ pkgdesc = "Kernel-level Tor isolation for Linux applications"
 license = "MIT OR Apache-2.0"
 url = "https://gitlab.torproject.org/tpo/core/oniux"
 source = f"{url}/-/archive/v{pkgver}/oniux-v{pkgver}.tar.gz"
-sha256 = "ea59ce1f2884c1cbdcd981fbdef06e7f3a6f12d25870dbd8cc8a213ea80737a8"
+sha256 = "a8c182df284eca395bc6d9edd1bf12d8044de7722fa49ff16f92be0bb36b3201"
 # no tests
 options = ["!check"]
 
