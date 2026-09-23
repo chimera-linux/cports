@@ -1,5 +1,5 @@
 pkgname = "lua5.4"
-pkgver = "5.4.8"
+pkgver = "5.4.9"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "linux-readline"
@@ -11,7 +11,7 @@ pkgdesc = "Lua scripting language 5.4.x"
 license = "MIT"
 url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
-sha256 = "4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae"
+sha256 = "2335b6c582a52654f94612bf10d2f4672805d05329aa6568b1d8cd9e5c6fb8e6"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 
 _lver = pkgname.removeprefix("lua")
