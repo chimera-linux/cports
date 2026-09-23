@@ -1,13 +1,13 @@
 pkgname = "ov"
-pkgver = "0.45.1"
-pkgrel = 6
+pkgver = "0.54.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terminal pager"
 license = "MIT"
 url = "https://noborus.github.io/ov"
 source = f"https://github.com/noborus/ov/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dc1fef378297f3bc57f4fcd2a502f389bdcaf4266601a1a3eb790e74f98542a5"
+sha256 = "78248f48adb5deb6ca2e560b57583f0ae66ac5e71704b7dc0b35d2378e0df5ac"
 
 
 def post_install(self):
