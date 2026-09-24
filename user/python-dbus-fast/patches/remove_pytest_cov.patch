@@ -1,12 +1,12 @@
 diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pyproject.toml
---- python-dbus-fast/pyproject.toml	2026-05-20 13:42:08.000000000 +0000
-+++ python-dbus-fast-patched/pyproject.toml	2026-05-20 16:49:02.878437546 +0000
+--- python-dbus-fast/pyproject.toml	2026-06-05 18:47:43.000000000 +0000
++++ python-dbus-fast-patched/pyproject.toml	2026-09-24 06:34:57.225048073 +0000
 @@ -46,7 +46,6 @@
  
  [tool.poetry.group.dev.dependencies]
  pytest = ">=7,<10"
 -pytest-cov = ">=3,<8"
- pytest-asyncio = ">=0.19,<1.4"
+ pytest-asyncio = ">=0.19,<1.5"
  pycairo = "^1.21.0"
  PyGObject = {version = ">=3.50,<3.57", python = "<4"}
 @@ -54,7 +53,6 @@
@@ -26,7 +26,7 @@ diff --color -ruN python-dbus-fast/pyproject.toml python-dbus-fast-patched/pypro
  pythonpath = ["src"]
  filterwarnings = [
      "error",
-@@ -83,16 +81,6 @@
+@@ -77,16 +75,6 @@
      # builds (Ubuntu 25.10 / s390x leg) for symbols moved to the GLibUnix
      # namespace. The override loader trips the warning before any test runs.
      '''ignore:GLib\.unix_[a-z_]+ is deprecated.*:DeprecationWarning''',
