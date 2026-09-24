@@ -2,7 +2,7 @@ diff --git a/third_party/dawn/tools/python/cipd_deps.py b/third_party/dawn/tools
 index 3d0befe..c2961ad 100644
 --- a/third_party/dawn/tools/python/cipd_deps.py
 +++ b/third_party/dawn/tools/python/cipd_deps.py
-@@ -60,19 +60,4 @@ def get_cipd_compatible_current_os() -> str:
+@@ -60,24 +60,4 @@
  
  @functools.cache
  def get_cipd_compatible_current_arch() -> str:
@@ -21,5 +21,11 @@ index 3d0befe..c2961ad 100644
 -    native_x86 = platform.machine().lower() in ('x86', 'x86_64', 'amd64')
 -    if native_x86:
 -        return 'amd64'
+-
+-    native_riscv64 = platform.machine().lower() in ('riscv64', )
+-    if native_riscv64:
+-        return 'riscv64'
+-
 -    raise ValueError('Unable to determine architecture')
 +    return 'unknown'
+

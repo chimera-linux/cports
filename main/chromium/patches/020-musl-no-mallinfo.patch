@@ -57,7 +57,7 @@ index e37fc69c00..394f5dfdbb 100644
  #endif
  
 @@ -368,7 +367,7 @@ bool MallocDumpProvider::OnMemoryDump(const MemoryDumpArgs& args,
-                      &allocated_objects_count);
+                      nullptr);
  #elif BUILDFLAG(IS_FUCHSIA)
  // TODO(fuchsia): Port, see https://crbug.com/706592.
 -#else

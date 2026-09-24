@@ -1,6 +1,8 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "153.0.8010.52"
+pkgver = "154.0.8037.57"
+# tools/rust/update_rust.py -> CRUBIT_REVISION
+_crubit_ver = "69b85cba43f85a6439dc0be86a6fe424bb07a100"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -30,7 +32,6 @@ configure_args = [
     "rtc_link_pipewire=true",
     "rtc_use_pipewire=true",
     'rust_bindgen_root="/usr"',
-    'rust_sysroot_absolute="/usr"',
     # anything works
     'rustc_version="0"',
     "symbol_level=1",
@@ -54,6 +55,7 @@ configure_args = [
 hostmakedepends = [
     "bash",
     "bison",
+    "cargo",
     "esbuild",
     "findutils",
     "git",
@@ -69,6 +71,7 @@ hostmakedepends = [
     "rust",
     "rust-bindgen",
     "rust-rustfmt",
+    "rust-src",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -142,11 +145,13 @@ license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = [
     f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz",
+    f"https://github.com/google/crubit/archive/{_crubit_ver}/crubit-{_crubit_ver}.tar.gz",
     "https://registry.npmjs.org/@rollup/wasm-node/-/wasm-node-4.22.4.tgz",
 ]
-source_paths = [".", "rollup", "typescript"]
+source_paths = [".", "crubit", "rollup", "typescript"]
 sha256 = [
-    "3233497c752d44bf1c6ee654bc85ed506d75638e386309439730f62424c29a1b",
+    "2b2c55e73cbf9ce4103f8f87829d0b9ce61916152e3deb1596d451d5e291deae",
+    "af8910353d7694c2a97231b7ce346f8cf7a27912dd4fe52bf631bb82a99f4bcd",
     "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
 ]
 debug_level = 1
@@ -210,6 +215,7 @@ def post_patch(self):
     self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
     self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
+
     # replace wrong esbuild with a working one
     self.rm(
         "third_party/devtools-frontend/src/third_party/esbuild/esbuild",
@@ -228,14 +234,17 @@ def post_patch(self):
         "/usr/lib/node_modules/esbuild",
         "third_party/devtools-frontend/src/node_modules/esbuild",
     )
+
     # replace wrong gperf with a working one
     self.rm("third_party/gperf/cipd/bin/gperf", force=True)
     self.ln_s("/usr/bin/gperf", "third_party/gperf/cipd/bin/gperf")
+
     # lol
     self.mkdir("third_party/dawn/tools/golang/linux-unknown/bin", parents=True)
     self.ln_s(
         "/usr/bin/go", "third_party/dawn/tools/golang/linux-unknown/bin/go"
     )
+
     # replace x64 typescript with the one for our correct platform
     # and patch the library to suit whatever google is doing
     self.rm("third_party/typescript/linux-amd64/src", recursive=True)
@@ -249,6 +258,51 @@ def post_patch(self):
         wrksrc="typescript",
     )
     self.mv("typescript", "third_party/typescript/linux-amd64/src")
+
+    # uh oh
+    # thanks lnl for figuring this out
+    self.rm("buildtools/linux64-format/clang-format")
+    self.ln_s("/usr/bin/clang-format", "buildtools/linux64-format/clang-format")
+    self.mkdir("third_party/rust-toolchain/bin", parents=True)
+    self.mkdir("third_party/rust-toolchain/lib", parents=True)
+    self.ln_s("/usr/bin/cargo", "third_party/rust-toolchain/bin/cargo")
+    self.ln_s("/usr/bin/rustc", "third_party/rust-toolchain/bin/rustc")
+    self.ln_s("/usr/bin/rustfmt", "third_party/rust-toolchain/bin/rustfmt")
+    self.ln_s("/usr/lib/rustlib", "third_party/rust-toolchain/lib/rustlib")
+    self.mkdir("third_party/rust-toolchain-intermediate", parents=True)
+    self.ln_s("../../crubit", "third_party/rust-toolchain-intermediate/crubit")
+    self.do(
+        "python",
+        "./tools/rust/build_crubit.py",
+        "--skip-checkout",
+        allow_network=True,
+        env={"RUSTC_BOOTSTRAP": "1"},
+    )
+    self.mkdir("third_party/rust-toolchain/lib/third_party", parents=True)
+    self.ln_s(
+        "../../../../crubit",
+        "third_party/rust-toolchain/lib/third_party/crubit",
+    )
+    with (self.cwd / "third_party/rust-toolchain/VERSION").open("w") as outf:
+        self.do("rustc", "-V", stdout=outf)
+    self.cp(
+        "third_party/rust-toolchain/VERSION",
+        "third_party/rust-toolchain/INSTALLED_VERSION",
+    )
+    self.do(
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        wrksrc="tools/crates/gnrt",
+        allow_network=True,
+    )
+    self.do(
+        "./tools/crates/gnrt/target/release/gnrt",
+        "gen",
+        "--for-std",
+        "third_party/rust-toolchain/lib/rustlib/src/rust",
+    )
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
@@ -306,7 +360,6 @@ def configure(self):
     # sqlite3BtreeOpen crash
     _cfi = "false"
     _lto = "true" if self.has_lto() else "false"
-    _maglev = "true"
 
     match self.profile.arch:
         case "aarch64":
@@ -318,17 +371,14 @@ def configure(self):
         case "ppc64le":
             _confargs.append('target_cpu="ppc64"')
             _vaapi = "false"
-            _maglev = "false"
         case "riscv64":
             _confargs.append('target_cpu="riscv64"')
             _vaapi = "false"
-            _maglev = "false"
 
     _confargs += [
         f"use_vaapi={_vaapi}",
         f"is_cfi={_cfi}",
         f"use_thin_lto={_lto}",
-        f"v8_enable_maglev={_maglev}",
     ]
 
     self.do(
