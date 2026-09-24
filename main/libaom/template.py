@@ -1,11 +1,13 @@
 pkgname = "libaom"
-pkgver = "3.13.1"
+pkgver = "3.15.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
-    "-DENABLE_TESTS=OFF",
+    "-DENABLE_APPS=ON",
+    "-DENABLE_EXAMPLES=OFF",
     "-DENABLE_NASM=ON",
+    "-DENABLE_TESTS=OFF",
 ]
 hostmakedepends = [
     "cmake",
@@ -21,7 +23,7 @@ pkgdesc = "Reference implementation of the AV1 codec"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
 source = f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"
-sha256 = "19e45a5a7192d690565229983dad900e76b513a02306c12053fb9a262cbeca7d"
+sha256 = "8ca0c52746174603500f0adb6f2a215d69c9ca2aab2acb3caa06fb791d8d01bf"
 # requires a testdata download, tests take long
 options = ["!check"]
 
@@ -41,6 +43,13 @@ match self.profile.arch:
 
 def post_install(self):
     self.install_license("LICENSE")
+
+
+@subpackage("libaom-devel-static")
+def _(self):
+    return self.default_static(
+        extra=["usr/lib/cmake/AOM/AOMStaticTargets.cmake"]
+    )
 
 
 @subpackage("libaom-devel")
