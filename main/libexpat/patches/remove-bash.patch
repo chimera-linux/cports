@@ -1,6 +1,6 @@
-From 145a5fdc05e8e548c53e82a3a7295081b8c6a3d1 Mon Sep 17 00:00:00 2001
+From 62bfb0bb83899effca902713a371aec205c13bab Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Wed, 3 Aug 2022 00:31:24 +0200
+Date: Thu, 24 Sep 2026 10:21:44 +0100
 Subject: [PATCH] drop bash usage
 
 ---
@@ -9,11 +9,11 @@ Subject: [PATCH] drop bash usage
  run.sh.in              |  2 +-
  test-driver-wrapper.sh | 15 ++++-----------
  tests/xmltest.sh       |  2 +-
- xmlwf/xmlwf_helpgen.sh |  2 +-
- 6 files changed, 13 insertions(+), 16 deletions(-)
+ xmlwf/xmlwf_helpgen.sh |  4 ++--
+ 6 files changed, 14 insertions(+), 17 deletions(-)
 
 diff --git a/conftools/test-driver b/conftools/test-driver
-index 9759384..84adea1 100755
+index be73b80..1ed47a2 100755
 --- a/conftools/test-driver
 +++ b/conftools/test-driver
 @@ -109,7 +109,11 @@ trap "st=143; $do_exit" 15
@@ -30,7 +30,7 @@ index 9759384..84adea1 100755
  
  if test $enable_hard_errors = no && test $estatus -eq 99; then
 diff --git a/fix-xmltest-log.sh b/fix-xmltest-log.sh
-index 164ea4e..4f47f94 100755
+index e4dbd54..8eb904e 100755
 --- a/fix-xmltest-log.sh
 +++ b/fix-xmltest-log.sh
 @@ -1,4 +1,4 @@
@@ -79,7 +79,7 @@ index 305c6f5..a42dc6d 100755
 +export TEST_SCRIPT="${top_builddir}/run.sh"
 +exec "${top_srcdir}"/conftools/test-driver "$@"
 diff --git a/tests/xmltest.sh b/tests/xmltest.sh
-index dc409d0..0a05e12 100755
+index 423b773..cd566ef 100755
 --- a/tests/xmltest.sh
 +++ b/tests/xmltest.sh
 @@ -1,4 +1,4 @@
@@ -89,7 +89,7 @@ index dc409d0..0a05e12 100755
  #
  # This script can be used to exercise Expat against the
 diff --git a/xmlwf/xmlwf_helpgen.sh b/xmlwf/xmlwf_helpgen.sh
-index 864e470..a4af3f6 100755
+index a4ebb6d..09d3698 100755
 --- a/xmlwf/xmlwf_helpgen.sh
 +++ b/xmlwf/xmlwf_helpgen.sh
 @@ -1,4 +1,4 @@
@@ -98,6 +98,15 @@ index 864e470..a4af3f6 100755
  #                          __  __            _
  #                       ___\ \/ /_ __   __ _| |_
  #                      / _ \\  /| '_ \ / _` | __|
+@@ -32,7 +32,7 @@
+ 
+ set -e
+ 
+-cd "$(dirname "$(type -P "$0")")"
++cd "$(dirname "$(command -v "$0")")"
+ 
+ ./xmlwf_helpgen.py | sed \
+         -e 's,usage: ,usage:,' \
 -- 
-2.37.1
+2.55.0
 
