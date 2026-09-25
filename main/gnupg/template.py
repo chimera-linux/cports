@@ -1,11 +1,12 @@
 pkgname = "gnupg"
 pkgver = "2.4.9"
-pkgrel = 1
+pkgrel = 2
 _freepg_rel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-all-tests",
     "--enable-large-secmem",
+    "--libexecdir=/usr/lib/gnupg",
 ]
 configure_gen = []
 make_check_env = {"TESTFLAGS": f"--parallel={self.conf_jobs}"}
