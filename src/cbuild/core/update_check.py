@@ -269,7 +269,14 @@ class UpdateCheck:
         pname = self.pkgname
 
         # some common ones
-        git_forges = ["github.com", "//gitlab.", "salsa.debian.org", "bitbucket.org", "codeberg.org", "git.sr.ht"]
+        git_forges = [
+            "github.com",
+            "//gitlab.",
+            "salsa.debian.org",
+            "bitbucket.org",
+            "codeberg.org",
+            "git.sr.ht",
+        ]
 
         if not self.url:
             # TODO: cran, crates.io
