@@ -2283,7 +2283,10 @@ def do_prepare_upgrade(tgt):
 
     pkgn = cmdline.command[1]
 
-    chroot.chroot_check()
+    if opt_mdirtemp:
+        chroot.install()
+    else:
+        chroot.chroot_check()
 
     tmpl = template.Template(
         pkgn,
