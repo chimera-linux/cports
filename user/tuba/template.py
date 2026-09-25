@@ -1,6 +1,6 @@
 pkgname = "tuba"
-pkgver = "0.10.3"
-pkgrel = 2
+pkgver = "0.11.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddistro=true",
@@ -31,4 +31,4 @@ pkgdesc = "GTK fediverse client"
 license = "GPL-3.0-or-later"
 url = "https://tuba.geopjr.dev"
 source = f"https://github.com/GeopJr/Tuba/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "397297bbd140a2b2c90024392dbc5f8a77bc6a10472308c7741c7913e82eb050"
+sha256 = "10de8fab3dbd1e7d3f6482060e007cceaaa81f88aebd7a9e44e6e677608414eb"
