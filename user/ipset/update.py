@@ -1,4 +1,4 @@
-url = "https://git.netfilter.org/ipset/info/refs"
-pattern = r"refs/tags/v([\d.]+)"
+url = "https://git.netfilter.org/ipset"
+pattern_style = "git_forge"
 # because netfilter is being annoying with anubis
 agent_name = "git"

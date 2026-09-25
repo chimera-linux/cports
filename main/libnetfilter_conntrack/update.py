@@ -1,4 +1,4 @@
-url = "https://git.netfilter.org/libnetfilter_conntrack/info/refs"
-pattern = r"refs/tags/libnetfilter_conntrack-([\d.]+)"
+url = "https://git.netfilter.org/libnetfilter_conntrack"
+pattern_style = "git_forge"
 # because netfilter is being annoying with anubis
 agent_name = "git"

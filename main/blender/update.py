@@ -1,2 +1,2 @@
-url = "https://projects.blender.org/blender/blender/info/refs"
-pattern = r"refs/tags/v([0-9.]+)(?!^)"
+url = "https://projects.blender.org/blender/blender"
+pattern_style = "git_forge"

@@ -1,4 +1,3 @@
-url = (
-    "https://github.com/VectorCamp/vectorscan/info/refs?service=git-upload-pack"
-)
+url = "https://github.com/VectorCamp/vectorscan"
+pattern_style = "git_forge"
 pattern = r"refs/tags/vectorscan/([\d.]+)"

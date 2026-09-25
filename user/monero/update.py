@@ -1,4 +1,2 @@
-url = (
-    "https://github.com/monero-project/monero/info/refs?service=git-upload-pack"
-)
-pattern = r"refs/tags/v([\d.]+)(?!^)"
+url = "https://github.com/monero-project/monero"
+pattern_style = "git_forge"

@@ -3819,7 +3819,19 @@ The allowed variables are:
   the `url` of the template (taken as is) plus the `source` URL(s) (with
   the filename component stripped) are used. An exception to this is when
   the `source` URLs contain `ftp.gnome.org`, in which case the `url` of
-  the template is not used and only `source` URLs are.
+  the template is not used and only `source` URLs are. When not set,
+  automatic detection for various URL types takes place, particularly
+  Git forges, which then automatically take on the `git_forge` pattern
+  style (below).
+* `pattern_style` *(str)* A predefined style for a pattern and URL to
+  be used instead of explicit `pattern`. Currently allowed value is
+  `git_forge`, which represents a common style and pattern for Git hosting
+  software based on the `/info/refs` endpoint. With this style, automatic
+  URLs are stripped down to their initial components in the format of
+  `https://tld/user/repo`, while explicitly given URLs are preserved,
+  and they have `/info/refs?service=git-upload-pack` added to them.
+  A pattern is then set to match tags from the file. No other pattern
+  styles currently exist.
 * `pattern` *(str)* A Python regular expression (it is considered a verbose
   regular expression, so you can use multiple lines and comments) that
   matches the version number in the fetched page. You should match the

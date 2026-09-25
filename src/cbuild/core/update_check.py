@@ -88,6 +88,7 @@ class UpdateCheck:
         self.pkgver = tmpl.pkgver
         self.single_directory = False
         self.pattern = None
+        self.pattern_style = None
         self.group = None
         self.vdprefix = None
         self.vdsuffix = None
@@ -262,9 +263,13 @@ class UpdateCheck:
         return ret
 
     def fetch_versions(self, url):
+        ps = None
         rx = None
         rxg = None
         pname = self.pkgname
+
+        # some common ones
+        git_forges = ["github.com", "//gitlab.", "salsa.debian.org", "bitbucket.org", "codeberg.org", "git.sr.ht"]
 
         if not self.url:
             # TODO: cran, crates.io
@@ -288,35 +293,6 @@ class UpdateCheck:
             elif "cpan." in url:
                 if pname == self.template.pkgname:
                     pname = pname.removeprefix("perl-")
-            elif "github.com" in url:
-                pn = "/".join(url.split("/")[3:5])
-                url = (
-                    f"https://github.com/{pn}/info/refs?service=git-upload-pack"
-                )
-                rx = rf"""
-                    refs/tags/
-                    (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\n) # match
-                """
-                rxg = 1
-            elif "//gitlab." in url or "salsa.debian.org" in url:
-                pn = "/".join(url.split("/")[0:5])
-                url = f"{pn}/info/refs?service=git-upload-pack"
-                rx = rf"""
-                    refs/tags/
-                    (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\n) # match
-                """
-                rxg = 1
-            elif "bitbucket.org" in url:
-                pn = "/".join(url.split("/")[3:5])
-                url = f"https://bitbucket.org/{pn}/info/refs?service=git-upload-pack"
-                rx = rf"""
-                    refs/tags/
-                    (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\n) # match
-                """
-                rxg = 1
             elif "ftp.gnome.org" in url or "download.gnome.org" in url:
                 rx = rf"""
                     {re.escape(pname)}-
@@ -325,26 +301,13 @@ class UpdateCheck:
                 rxg = 0
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "archive.xfce.org" in url:
+                # not a forge but we hijack their gitlab
                 pn = "/".join(url.split("/")[4:6])
-                url = f"https://gitlab.xfce.org/{pn}/info/refs?service=git-upload-pack"
-                rx = rf"""
-                    refs/tags/
-                    (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\n) # match
-                """
-                rxg = 1
+                url = f"https://gitlab.xfce.org/{pn}"
+                ps = "git_forge"
             elif "kernel.org/pub/linux/kernel/" in url:
                 mver = ".".join(self.pkgver.split(".")[0:2])
                 rx = rf"{mver}[\d.]+(?=\.tar\.xz)"
-            elif "codeberg.org" in url:
-                pn = "/".join(url.split("/")[3:5])
-                url = f"https://codeberg.org/{pn}/tags"
-                rx = rf"""
-                    /archive/
-                    (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\.tar\.gz) # match
-                """
-                rxg = 1
             elif "hg.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://hg.sr.ht/{pn}/tags"
@@ -354,19 +317,31 @@ class UpdateCheck:
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
-            elif "git.sr.ht" in url:
-                pn = "/".join(url.split("/")[3:5])
-                url = f"https://git.sr.ht/{pn}/info/refs"
+            elif "pkgs.fedoraproject.org" in url:
+                url = f"https://pkgs.fedoraproject.org/repo/pkgs/{pname}"
+            elif "pagure.io" in url:
+                url = f"https://pagure.io/{pname}/releases"
+            else:
+                for gf in git_forges:
+                    if gf in url:
+                        ps = "git_forge"
+                        break
+
+        if not ps:
+            ps = self.pattern_style
+
+        match ps:
+            case "git_forge":
+                # explicitly given url is taken as is
+                if not self.url:
+                    url = "/".join(url.split("/")[0:5])
+                url = f"{url}/info/refs?service=git-upload-pack"
                 rx = rf"""
                     refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\n) # match
                 """
                 rxg = 1
-            elif "pkgs.fedoraproject.org" in url:
-                url = f"https://pkgs.fedoraproject.org/repo/pkgs/{pname}"
-            elif "pagure.io" in url:
-                url = f"https://pagure.io/{pname}/releases"
 
         if self.pattern:
             rx = self.pattern
@@ -450,6 +425,9 @@ def update_check(pkg, verbose=False, error=False):
             fetch_versions = modh.fetch_versions
 
         # variables
+
+        if hasattr(modh, "pattern_style"):
+            uc.pattern_style = modh.pattern_style
 
         if hasattr(modh, "pattern"):
             uc.pattern = modh.pattern
