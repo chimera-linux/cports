@@ -624,9 +624,10 @@ def _build(
     # in there) but not any other stage
     if not dirty and pkg.stage > 0:
         # clean up old state
-        pkgm.remove_pkg_wrksrc(pkg)
-        pkgm.remove_pkg(pkg)
-        pkgm.remove_pkg_statedir(pkg)
+        with flock.lock(flock.rootlock()):
+            pkgm.remove_pkg_wrksrc(pkg)
+            pkgm.remove_pkg(pkg)
+            pkgm.remove_pkg_statedir(pkg)
 
     pkg.statedir.mkdir(parents=True, exist_ok=True)
     pkg.wrapperdir.mkdir(parents=True, exist_ok=True)
