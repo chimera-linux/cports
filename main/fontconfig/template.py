@@ -1,5 +1,5 @@
 pkgname = "fontconfig"
-pkgver = "2.17.1"
+pkgver = "2.18.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Library for configuring and customizing font access"
 license = "MIT"
 url = "https://www.fontconfig.org"
 source = f"https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/{pkgver}/fontconfig-{pkgver}.tar.xz"
-sha256 = "9f5cae93f4fffc1fbc05ae99cdfc708cd60dfd6612ffc0512827025c026fa541"
+sha256 = "4f7b554a38cdf78c033f666c8871f3749e14a094f65a07f630c91ed0b43d35e3"
 options = ["etcfiles"]
 
 
