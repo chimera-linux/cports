@@ -1,0 +1,13 @@
+diff --git a/Quake/pr_exec.c b/Quake/pr_exec.c
+index 08672d7e..fe9cd0ef 100644
+--- a/Quake/pr_exec.c
++++ b/Quake/pr_exec.c
+@@ -538,7 +538,7 @@ void PR_ExecuteProgram (func_t fnum)
+ 		case OP_CALL6:
+ 		case OP_CALL7:
+ 		case OP_CALL8:
+-			qcvm->xfunction->profile += profile - startprofile;
++			qcvm->xfunction->profile = (int)((unsigned int)qcvm->xfunction->profile + (unsigned int)(profile - startprofile));
+ 			startprofile = profile;
+ 			qcvm->xstatement = st - qcvm->statements;
+ 			qcvm->argc = st->op - OP_CALL0;
