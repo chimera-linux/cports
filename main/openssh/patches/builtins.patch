@@ -1,0 +1,188 @@
+commit e14ecf849d0bffcd2d59dff51b32c54fb23adb4b
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Sep 25 17:17:07 2026 +0200
+
+    define saner builtins so we don't need mutable configuration
+
+diff --git a/servconf.c b/servconf.c
+index ac0c31d..8f117d8 100644
+--- a/servconf.c
++++ b/servconf.c
+@@ -309,6 +309,15 @@ fill_default_server_options(ServerOptions *options)
+ 		options->pam_service_name = xstrdup(SSHD_PAM_SERVICE);
+ #endif
+ 
++	if (options->num_subsystems == 0) {
++		options->subsystem_name = xrecallocarray(options->subsystem_name, 0, 1, sizeof(*options->subsystem_name)); \
++		options->subsystem_name[0] = xstrdup("sftp"); \
++		options->subsystem_command = xrecallocarray(options->subsystem_command, 0, 1, sizeof(*options->subsystem_command)); \
++		options->subsystem_command[0] = xstrdup(_PATH_SFTP_SERVER); \
++		options->subsystem_args = xrecallocarray(options->subsystem_args, 0, 1, sizeof(*options->subsystem_args)); \
++		options->subsystem_args[0] = xstrdup(_PATH_SFTP_SERVER); \
++		options->num_subsystems = 1;
++	}
+ 	if (options->num_host_key_files == 0) {
+ 		/* fill default hostkeys */
+ 		servconf_add_hostkey("[default]", 0, options,
+@@ -386,10 +395,6 @@ fill_default_server_options(ServerOptions *options)
+ 		    &options->authorized_keys_files,
+ 		    &options->num_authkeys_files,
+ 		    _PATH_SSH_USER_PERMITTED_KEYS);
+-		opt_array_append("[default]", 0, "AuthorizedKeysFiles",
+-		    &options->authorized_keys_files,
+-		    &options->num_authkeys_files,
+-		    _PATH_SSH_USER_PERMITTED_KEYS2);
+ 	}
+ 	if (options->ip_qos_interactive == -1)
+ 		options->ip_qos_interactive = IPTOS_DSCP_EF;
+diff --git a/servconf.h b/servconf.h
+index 3648e2b..e7cd3bd 100644
+--- a/servconf.h
++++ b/servconf.h
+@@ -169,7 +169,7 @@ SSHCONF_INT(login_grace_time, LoginGraceTime, SSHCFG_GLOBAL, NULL, SSHD_DEFAULT_
+ SSHCONF_INT(permit_root_login, PermitRootLogin, SSHCFG_ALL, multistate_permitrootlogin, PERMIT_NO_PASSWD, SSHCFG_COPY_MATCH) \
+ SSHCONF_INT(ignore_rhosts, IgnoreRhosts, SSHCFG_ALL, multistate_ignore_rhosts, 1, SSHCFG_COPY_MATCH) \
+ SSHCONF_INTFLAG(ignore_user_known_hosts, IgnoreUserKnownHosts, SSHCFG_GLOBAL, 0, SSHCFG_COPY_NONE) \
+-SSHCONF_INTFLAG(print_motd, PrintMotd, SSHCFG_GLOBAL, 1, SSHCFG_COPY_NONE) \
++SSHCONF_INTFLAG(print_motd, PrintMotd, SSHCFG_GLOBAL, 0, SSHCFG_COPY_NONE) \
+ SSHCONF_INTFLAG(x11_forwarding, X11Forwarding, SSHCFG_ALL, 0, SSHCFG_COPY_MATCH) \
+ SSHCONF_INT(x11_display_offset, X11DisplayOffset, SSHCFG_ALL, NULL, SSHD_DEFAULT_X11_DISPLAY_OFFSET, SSHCFG_COPY_MATCH) \
+ SSHCONF_INTFLAG(x11_use_localhost, X11UseLocalhost, SSHCFG_ALL, 1, SSHCFG_COPY_MATCH) \
+@@ -272,7 +272,7 @@ SSHCONF_ALIAS(KeepAlive, TCPKeepAlive, SSHCFG_GLOBAL)
+ 
+ #ifdef USE_PAM
+ #define SSHD_CONFIG_ENTRIES_PAM \
+-SSHCONF_INTFLAG(use_pam, UsePAM, SSHCFG_GLOBAL, 0, SSHCFG_COPY_NONE) \
++SSHCONF_INTFLAG(use_pam, UsePAM, SSHCFG_GLOBAL, 1, SSHCFG_COPY_NONE) \
+ SSHCONF_STRING(pam_service_name, PAMServiceName, SSHCFG_ALL, SSHCFG_COPY_NONE)
+ #else
+ #define SSHD_CONFIG_ENTRIES_PAM \
+diff --git a/sshd_config b/sshd_config
+index 57ecabb..3715f79 100644
+--- a/sshd_config
++++ b/sshd_config
+@@ -37,9 +37,7 @@
+ 
+ #PubkeyAuthentication yes
+ 
+-# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+-# but this is overridden so installations will only check .ssh/authorized_keys
+-AuthorizedKeysFile	.ssh/authorized_keys
++#AuthorizedKeysFile .ssh/authorized_keys
+ 
+ #AuthorizedPrincipalsFile none
+ 
+@@ -82,7 +80,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ # If you just want the PAM account and session checks to run without
+ # PAM authentication, then enable this but set PasswordAuthentication
+ # and KbdInteractiveAuthentication to 'no'.
+-#UsePAM no
++#UsePAM yes
+ 
+ #AllowAgentForwarding yes
+ #AllowTcpForwarding yes
+@@ -91,7 +89,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ #X11DisplayOffset 10
+ #X11UseLocalhost yes
+ #PermitTTY yes
+-#PrintMotd yes
++#PrintMotd no
+ #PrintLastLog yes
+ #TCPKeepAlive yes
+ #PermitUserEnvironment no
+@@ -108,8 +106,8 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ # no default banner path
+ #Banner none
+ 
+-# override default of no subsystems
+-Subsystem	sftp	/usr/libexec/sftp-server
++# present when no explicit subsystems
++#Subsystem	sftp	/usr/libexec/sftp-server
+ 
+ # Example of overriding settings on a per-user basis
+ #Match User anoncvs
+diff --git a/sshd_config.0 b/sshd_config.0
+index 2248006..0b32f8b 100644
+--- a/sshd_config.0
++++ b/sshd_config.0
+@@ -156,9 +156,8 @@ DESCRIPTION
+              be an absolute path or one relative to the user's home directory.
+              Multiple files may be listed, separated by whitespace.
+              Alternately this option may be set to none to skip checking for
+-             user keys in files.  The default is ".ssh/authorized_keys
+-             .ssh/authorized_keys2".  These files are only checked for valid
+-             users.
++             user keys in files.  The default is ".ssh/authorized_keys".
++             This file is only checked for valid users.
+ 
+      AuthorizedPrincipalsCommand
+              Specifies a program to be used to generate the list of allowed
+@@ -1085,7 +1084,7 @@ DESCRIPTION
+      PrintMotd
+              Specifies whether sshd(8) should print /etc/motd when a user logs
+              in interactively.  (On some systems it is also printed by the
+-             shell, /etc/profile, or equivalent.)  The default is yes.
++             shell, /etc/profile, or equivalent.)  The default is no.
+ 
+      PubkeyAcceptedAlgorithms
+              Specifies the signature algorithms that will be accepted for
+@@ -1261,7 +1260,7 @@ DESCRIPTION
+              apply to it and must be set explicitly via command line
+              arguments.
+ 
+-             By default no subsystems are defined.
++             In absence of others, the SFTP subsystem is defined.
+ 
+      SyslogFacility
+              Gives the facility code that is used when logging messages from
+@@ -1338,7 +1337,7 @@ DESCRIPTION
+              either PasswordAuthentication or KbdInteractiveAuthentication.
+ 
+              If UsePAM is enabled, you will not be able to run sshd(8) as a
+-             non-root user.  The default is no.
++             non-root user.  The default is yes.
+ 
+      VersionAddendum
+              Optionally specifies additional text to append to the SSH
+diff --git a/sshd_config.5 b/sshd_config.5
+index a7d3001..fa75702 100644
+--- a/sshd_config.5
++++ b/sshd_config.5
+@@ -292,8 +292,8 @@ Alternately this option may be set to
+ .Cm none
+ to skip checking for user keys in files.
+ The default is
+-.Qq .ssh/authorized_keys .ssh/authorized_keys2 .
+-These files are only checked for valid users.
++.Qq .ssh/authorized_keys .
++This file is only checked for valid users.
+ .It Cm AuthorizedPrincipalsCommand
+ Specifies a program to be used to generate the list of allowed
+ certificate principals as per
+@@ -1738,7 +1738,7 @@ when a user logs in interactively.
+ .Pa /etc/profile ,
+ or equivalent.)
+ The default is
+-.Cm yes .
++.Cm no .
+ .It Cm PubkeyAcceptedAlgorithms
+ Specifies the signature algorithms that will be accepted for public key
+ authentication as a list of comma-separated patterns.
+@@ -1985,7 +1985,7 @@ or
+ do not apply to it and must be set explicitly via
+ command line arguments.
+ .Pp
+-By default no subsystems are defined.
++In absence of others, the SFTP subsystem is defined.
+ .It Cm SyslogFacility
+ Gives the facility code that is used when logging messages from
+ .Xr sshd 8 .
+@@ -2096,7 +2096,7 @@ is enabled, you will not be able to run
+ .Xr sshd 8
+ as a non-root user.
+ The default is
+-.Cm no .
++.Cm yes .
+ .It Cm VersionAddendum
+ Optionally specifies additional text to append to the SSH protocol banner
+ sent by the server upon connection.
