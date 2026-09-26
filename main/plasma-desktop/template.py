@@ -241,7 +241,6 @@ def _(self):
         "plasma-systemmonitor",
         "plasma-vault",
         "skanlite",  # image scanner
-        # "skanpage",  # document scanner (TODO: tesseract)
         "spectacle",  # screenshot
         "sweeper",  # cache cleaner
         "yakuake",  # drop-down terminal
@@ -261,6 +260,7 @@ def _(self):
             "krita",  # digital art studio
             "konqueror",  # web browser
             "neochat",  # matrix client
+            "skanpage",  # document scanner
             "tokodon",  # mastodon client
         ]
     self.options = ["empty"]
