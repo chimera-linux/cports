@@ -60,6 +60,11 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
 source = f"$(GNU_SITE)/emacs/emacs-{pkgver}.tar.xz"
 sha256 = "1da5790d9580c81932b5bf700633114468da7b3412d69faa767daebf974f4586"
+tool_flags = {}
+
+if self.profile.arch in ["loongarch64"]:
+    # loongarch64-chimera-linux-musl-ld: error: address assignment did not converge
+    tool_flags["LDFLAGS"] += ["-mno-relax"]
 
 
 def post_install(self):
