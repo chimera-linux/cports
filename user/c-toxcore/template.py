@@ -1,5 +1,5 @@
 pkgname = "c-toxcore"
-pkgver = "0.2.22"
+pkgver = "0.2.23"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUNITTEST=ON"]
@@ -20,7 +20,7 @@ pkgdesc = "Tox communication project"
 license = "GPL-3.0-only"
 url = "https://github.com/TokTok/c-toxcore"
 source = f"{url}/releases/download/v{pkgver}/c-toxcore-v{pkgver}.tar.gz"
-sha256 = "276d447eb94e9d76e802cecc5ca7660c6c15128a83dfbe4353b678972aeb950a"
+sha256 = "15cdd006ed7793dfc657e340ef9f218f6637d2fe5b130704d39b961389bb6cd6"
 
 
 def post_install(self):
