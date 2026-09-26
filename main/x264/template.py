@@ -13,7 +13,8 @@ url = "https://www.videolan.org/developers/x264.html"
 source = f"https://code.videolan.org/videolan/x264/-/archive/{_commit}.tar.gz"
 sha256 = "d0967a1348c85dfde363bb52610403be898171493100561efa0dd05d5fd1ae50"
 # no check target
-options = ["!check"]
+# lto: miscompiles on some targets
+options = ["!check", "!lto"]
 
 match self.profile.arch:
     case "x86_64":
