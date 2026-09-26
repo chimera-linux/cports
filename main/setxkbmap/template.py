@@ -1,6 +1,6 @@
 pkgname = "setxkbmap"
-pkgver = "1.3.4"
-pkgrel = 1
+pkgver = "1.3.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Sets the X keyboard layout"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/setxkbmap-{pkgver}.tar.gz"
-sha256 = "cc4113eab3cd70c28c986174aa30e62690e789723c874acc53e8d1f058d11f92"
+sha256 = "fe5948c40209b2ae35651968566cd09723865bf86a10a27b1e2ce3c6c543dd31"
 hardening = ["vis", "cfi"]
 
 
