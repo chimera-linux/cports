@@ -1,5 +1,5 @@
 pkgname = "python-lxml"
-pkgver = "6.1.1"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
@@ -17,7 +17,7 @@ pkgdesc = "Python bindings for the libxml2 and libxslt libraries"
 license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
-sha256 = "624d1f5a50862c1bd5280f6997898c5a334e26d3a58bc2bbfec1efd8f98135fa"
+sha256 = "33daa1ae6ec2410fb506befe36fd128ea53ade4dde145e1efdeebff69a76c1d5"
 
 
 def post_extract(self):
