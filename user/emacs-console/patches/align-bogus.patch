@@ -1,0 +1,21 @@
+alignof(max_align_t) is 8 on ppc64le due to 64-bit long double
+but this has nothing to do with what malloc guarantees as our
+malloc for sure returns 16-byte aligned addresses
+
+so drop this assertion
+
+diff --git a/src/alloc.c b/src/alloc.c
+index 5da38ca..1a7607f 100644
+--- a/src/alloc.c
++++ b/src/alloc.c
+@@ -635,8 +635,8 @@ static_assert (LISP_ALIGNMENT % GCALIGNMENT == 0);
+    alignof (max_align_t) is 16 even though the malloc alignment is only 8;
+    Emacs avoids the bug because on this platform it never does anything
+    that requires an alignment of 16.  */
+-enum { MALLOC_IS_LISP_ALIGNED = alignof (max_align_t) % LISP_ALIGNMENT == 0 };
+-static_assert (MALLOC_IS_LISP_ALIGNED);
++// enum { MALLOC_IS_LISP_ALIGNED = alignof (max_align_t) % LISP_ALIGNMENT == 0 };
++// static_assert (MALLOC_IS_LISP_ALIGNED);
+ 
+ #define MALLOC_PROBE(size)			\
+   do {						\
