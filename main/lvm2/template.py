@@ -1,9 +1,8 @@
 pkgname = "lvm2"
-pkgver = "2.03.33"
-pkgrel = 1
+pkgver = "2.03.41"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--enable-editline",
     "--enable-pkgconfig",
     "--enable-fsadm",
@@ -26,6 +25,7 @@ configure_args = [
     "--with-cache-repair=/usr/bin/cache_repair",
     "--with-cache-restore=/usr/bin/cache_restore",
     "--with-dmeventd-path=/usr/bin/dmeventd",
+    "--with-libexecdir=/usr/lib/lvm2",
     "--with-usrsbindir=/usr/bin",
     "--with-udevdir=/usr/lib/udev/rules.d",
     "--with-default-pid-dir=/run",
@@ -53,13 +53,14 @@ makedepends = [
     "util-linux-blkid-devel",
     "util-linux-blkid-devel-static",
 ]
+depends = ["ugetopt"]
 pkgdesc = "Logical Volume Manager"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = (
     f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
 )
-sha256 = "be4babd8a986d73279f1e75fbb1d33cb41559b75c2063611781bfeb8c2def139"
+sha256 = "d58011b845df8ec13816ca13ea6c39d4cb3d038cd2d7d387acdf5681ad7d6637"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["etcfiles", "!check"]
 # otherwise we're in for a world of pain
@@ -91,8 +92,7 @@ def post_install(self):
 def _(self):
     # rest ist tracked by udev
     self.depends += ["linux-headers"]
-    # transitional
-    self.provides = [self.with_pkgver("device-mapper-devel")]
+    self.renames = ["device-mapper-devel"]
 
     return [
         "usr/lib/pkgconfig/devmapper*.pc",
@@ -116,8 +116,7 @@ def _(self):
 @subpackage("lvm2-dm")
 def _(self):
     self.subdesc = "Device Mapper"
-    # transitional
-    self.provides = [self.with_pkgver("device-mapper")]
+    self.renames = ["device-mapper"]
 
     return [
         "usr/lib/dinit.d/dmeventd",
@@ -136,7 +135,7 @@ def _(self):
 @subpackage("lvm2-extra")
 def _(self):
     self.subdesc = "extra utilities"
-    self.depends = [self.parent, "bash", "ugetopt"]
+    self.depends = [self.parent, "bash"]
     return [
         "usr/bin/blkdeactivate",
         "usr/bin/fsadm",
