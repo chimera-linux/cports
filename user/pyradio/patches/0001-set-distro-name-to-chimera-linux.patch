@@ -1,0 +1,10 @@
+diff --git a/pyradio/config b/pyradio/config
+index f7458b0..a203249 100644
+--- a/pyradio/config
++++ b/pyradio/config
+@@ -379,4 +379,4 @@ xdg_compliant = False
+ # Packagers must populate this paramater as needed!
+ #
+ # Default value: None
+-distro = None
++distro = "Chimera Linux"
