@@ -1,0 +1,15 @@
+error: code model 'small' is not supported on this target
+
+diff --git a/c/common/platform.h b/c/common/platform.h
+index b59f9b8..34f2999 100644
+--- a/c/common/platform.h
++++ b/c/common/platform.h
+@@ -665,7 +665,7 @@ BROTLI_UNUSED_FUNCTION void BrotliSuppressUnusedFunctions(void) {
+ #undef BROTLI_TEST
+ #endif
+ 
+-#if BROTLI_GNUC_HAS_ATTRIBUTE(model, 3, 0, 3)
++#if BROTLI_GNUC_HAS_ATTRIBUTE(model, 3, 0, 3) && !defined(__loongarch__)
+ #define BROTLI_MODEL(M) __attribute__((model(M)))
+ #else
+ #define BROTLI_MODEL(M) /* M */
