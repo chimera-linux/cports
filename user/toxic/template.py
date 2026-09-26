@@ -1,6 +1,6 @@
 pkgname = "toxic"
-pkgver = "0.16.1"
-pkgrel = 2
+pkgver = "0.16.3"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     "DISABLE_GAMES=1",
@@ -31,6 +31,6 @@ pkgdesc = "Tox-based instant messaging and video chat client"
 license = "GPL-3.0-only"
 url = "https://github.com/JFreegman/toxic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4969f0a72e40e0ed296cfff5a5bcd58b999ace52759327c29f23866c96d64f00"
+sha256 = "a6bc6c9ec614b0658963da71debc3d4a1b31cc59158f25a9275dc93076ee3448"
 # toxic has no tests
 options = ["!check"]
