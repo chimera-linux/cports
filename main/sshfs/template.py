@@ -1,5 +1,5 @@
 pkgname = "sshfs"
-pkgver = "3.7.5"
+pkgver = "3.7.6"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "FUSE client for SSH"
 license = "GPL-2.0-or-later"
 url = "https://github.com/libfuse/sshfs"
 source = f"{url}/releases/download/sshfs-{pkgver}/sshfs-{pkgver}.tar.xz"
-sha256 = "0e45db63c2d00919db3174134fa234c6e0682d6fe573c46312d1d53d1d61a8bb"
+sha256 = "6a1bcb31450a077e9cb1b7ff158c71de34db697c3c0da6cb362502131e495893"
 # CFI: shitty struct buffer -> struct readdir_handle cast
 hardening = ["vis", "!cfi"]
 # requires fuse kernel module
