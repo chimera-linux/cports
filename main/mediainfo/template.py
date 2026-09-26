@@ -1,5 +1,5 @@
 pkgname = "mediainfo"
-pkgver = "26.01"
+pkgver = "26.05"
 pkgrel = 0
 build_wrksrc = "Project/GNU/CLI"
 build_style = "gnu_configure"
@@ -10,7 +10,7 @@ pkgdesc = "Display information about media files"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/mediainfo/{pkgver}/mediainfo_{pkgver}.tar.bz2"
-sha256 = "61f948f8ae40ee4fb2f1cee4bee5ed193d5937603bf4e9f833862d3695fba7a9"
+sha256 = "fdf80b0ed37032091f066ce0c145765a5bc5b3be7b6e4a38d94ca7d96f77e2e6"
 hardening = ["vis", "cfi"]
 
 
