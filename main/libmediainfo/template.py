@@ -1,5 +1,5 @@
 pkgname = "libmediainfo"
-pkgver = "26.01"
+pkgver = "26.05"
 pkgrel = 0
 build_wrksrc = "Project/CMake"
 build_style = "cmake"
@@ -17,7 +17,7 @@ pkgdesc = "Shared library for mediainfo"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/libmediainfo/{pkgver}/libmediainfo_{pkgver}.tar.bz2"
-sha256 = "173947f0274babf090ba508f35c5551069296609b02bf3659e41958d8b9c2a1e"
+sha256 = "736222cb45966412f50276461b7cd50488794948063fadd39c9a675ba20a3f4a"
 
 
 def post_install(self):
