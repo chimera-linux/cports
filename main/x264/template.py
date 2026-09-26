@@ -1,7 +1,7 @@
 pkgname = "x264"
 _commit = "0480cb05fa188d37ae87e8f4fd8f1aea3711f7ee"
 pkgver = "20250831"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-static", "--enable-shared"]
 configure_gen = []
