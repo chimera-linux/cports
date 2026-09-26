@@ -1,11 +1,11 @@
 pkgname = "papirus-icon-theme"
-pkgver = "20250501"
+pkgver = "20260801"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Pixel perfect icon theme"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3831a487f813479ad3224fdbfb0c7023f23056899bc78c93737f341aa655558e"
+sha256 = "646f622e9e7e9e65eef9d0ab58999d4920ddb33d98e6a75232627cfe3bd508f9"
 # makes no sense since it's just icons
 options = ["!check"]
