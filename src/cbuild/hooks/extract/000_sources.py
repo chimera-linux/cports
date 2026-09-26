@@ -159,6 +159,11 @@ def rename_edir(pkg, extractdir, wpath, replace):
     # no contents
     if not entry:
         return
+    try:
+        # try removing the directory in case it's empty
+        wpath.rmdir()
+    except OSError:
+        pass
     # if it exists and we're replacing, remove the old
     if wpath.exists():
         if not replace:
