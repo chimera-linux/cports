@@ -1,5 +1,5 @@
 pkgname = "wsdd-native"
-pkgver = "1.26"
+pkgver = "1.27"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -40,7 +40,7 @@ url = "https://github.com/gershnik/wsdd-native"
 source = (
     f"{url}/releases/download/v{pkgver}/wsddn-src-prefetch-{pkgver}.tar.bz2"
 )
-sha256 = "b81f28af31257488f820e6eebc312460d821350cd3dde597a89c3fef1a8cd220"
+sha256 = "be374039ca4650cc8207c0655064b18d5cd640acee7d8376bde37944b73ab8ff"
 
 
 def post_install(self):
