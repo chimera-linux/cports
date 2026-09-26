@@ -6,6 +6,7 @@ hostmakedepends = [
     "appstream",
     "desktop-file-utils",
     "gettext",
+    "glib-devel",
     "meson",
     "pkgconf",
     "python-docutils",
@@ -18,6 +19,3 @@ source = (
     f"{url}/releases/download/{pkgver}/transmission-remote-gtk-{pkgver}.tar.xz"
 )
 sha256 = "5ef98bd96b3b77eb3880474a2d904e316bb29cbd22dfa0ca85d43b04a28fba34"
-
-if self.profile().cross:
-    hostmakedepends += ["glib-devel"]
