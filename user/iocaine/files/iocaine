@@ -1,5 +1,6 @@
 type = process
-command = /usr/bin/iocaine start
+command = /usr/bin/iocaine -c=/etc/iocaine/config.kdl -c=/etc/iocaine/config.d start
+working-dir = /var/lib/iocaine
 restart = on-failure
 smooth-recovery = true
 log-type = buffer

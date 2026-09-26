@@ -1,6 +1,6 @@
 pkgname = "iocaine"
 pkgver = "3.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
