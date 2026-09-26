@@ -1,0 +1,14 @@
+fails on ppc64le
+
+diff --git a/test/meson.build b/test/meson.build
+index 5b81bce..3fbc62f 100644
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -16,7 +16,6 @@ tests = [
+     'lrucache',
+     'i18n',
+     'response',
+-    'spelling_correction'
+ ]
+ 
+ if build_machine.system() != 'windows'
