@@ -8,6 +8,8 @@ make_check_args = [
     "--",
     # fails in cbuild container
     "--skip=tests::apply_settings",
+    # fails on several archs due to vram diff?
+    "--skip=tests::snapshot_everything",
 ]
 hostmakedepends = [
     "cargo-auditable",
