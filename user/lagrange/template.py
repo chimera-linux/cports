@@ -1,6 +1,6 @@
 pkgname = "lagrange"
 pkgver = "1.19.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_POPUP_MENUS=OFF",

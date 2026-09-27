@@ -1,6 +1,6 @@
 pkgname = "swayimg"
 pkgver = "4.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     f"-Dversion={pkgver}",
