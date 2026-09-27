@@ -258,6 +258,23 @@ class Package:
             parents=parents, exist_ok=parents
         )
 
+    def _rmtree_safe(self, path):
+        def _onexc(f, path, _):
+            st = os.stat(path)
+            if stat.S_ISLNK(st.st_mode):
+                return
+            newmode = st.st_mode | stat.S_IRUSR | stat.S_IWUSR
+            if newmode == st.st_mode:
+                return
+            os.chmod(path, newmode)
+            # f can be anything and we don't know the args
+            if stat.S_ISDIR(st.st_mode):
+                os.rmdir(path)
+            else:
+                os.unlink(path)
+
+        shutil.rmtree(path, onexc=_onexc)
+
     def rm(self, path, recursive=False, force=False, glob=False):
         path = _subst_path(self, path)
 
@@ -274,11 +291,6 @@ class Package:
                     self.error(f"'{path}' is a directory", bt=True)
                 path.unlink(missing_ok=force)
             else:
-
-                def _remove_ro(f, p, _):
-                    os.chmod(p, stat.S_IWRITE)
-                    f(p)
-
                 if force and not path.exists():
                     do_unl = path.is_symlink()
                     if not do_unl:
@@ -289,7 +301,7 @@ class Package:
                 if do_unl:
                     path.unlink(missing_ok=force)
                 else:
-                    shutil.rmtree(path, onerror=_remove_ro)
+                    self._rmtree_safe(path)
 
     def ln_s(self, srcp, destp, relative=False):
         srcp = _subst_path(self, srcp)

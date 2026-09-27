@@ -9,8 +9,6 @@ import os
 import pty
 import sys
 import select
-import shutil
-import stat
 import termios
 import subprocess
 
@@ -376,14 +374,9 @@ def invoke_check(pkg, step, allow_fail):
     check_done.touch()
 
 
-def _remove_ro(f, path, _):
-    os.chmod(path, stat.S_IWRITE)
-    f(path)
-
-
 def _invoke_subpkg(pkg):
     if pkg.destdir.is_dir():
-        shutil.rmtree(pkg.destdir, onerror=_remove_ro)
+        pkg._rmtree_safe(pkg.destdir)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
     if pkg.pkg_install:
         run_pkg_func(pkg, "pkg_install", on_subpkg=True)
@@ -497,7 +490,7 @@ def invoke_install(pkg, step):
         return
 
     if pkg.destdir.is_dir():
-        shutil.rmtree(pkg.destdir, onerror=_remove_ro)
+        pkg._rmtree_safe(pkg.destdir)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
 
     run_pkg_func(pkg, "pre_install")

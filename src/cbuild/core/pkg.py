@@ -1,7 +1,3 @@
-import os
-import shutil
-import stat
-
 pkg_stack = []
 pkg_failed = None
 
@@ -27,20 +23,15 @@ def set_failed(pkg):
         pkg_failed = pkg
 
 
-def _remove_ro(f, path, _):
-    os.chmod(path, stat.S_IWRITE)
-    f(path)
-
-
 def remove_pkg_wrksrc(pkg):
     if pkg.srcdir.is_dir():
         pkg.log("cleaning build directory...")
-        shutil.rmtree(pkg.srcdir, onerror=_remove_ro)
+        pkg._rmtree_safe(pkg.srcdir)
 
 
 def remove_pkg_statedir(pkg):
     if pkg.statedir.is_dir():
-        shutil.rmtree(pkg.statedir, onerror=_remove_ro)
+        pkg._rmtree_safe(pkg.statedir)
 
 
 def remove_pkg(pkg):
@@ -64,7 +55,7 @@ def remove_pkg(pkg):
     for sp in pkg.subpkg_list:
         remove_state(sp, pkg.destdir_base)
 
-    shutil.rmtree(pkg.destdir_base, onerror=_remove_ro)
+    pkg._rmtree_safe(pkg.destdir_base)
 
     (pkg.statedir / f"{pkg.pkgname}_{crossb}_install_done").unlink(
         missing_ok=True
