@@ -50,6 +50,4 @@ def post_install(self):
 
 @subpackage("sdl3_image-devel")
 def _(self):
-    self.provides = [self.with_pkgver("sdl_image-devel")]
-
     return self.default_devel()
