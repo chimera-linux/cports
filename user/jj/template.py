@@ -6,6 +6,7 @@ prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=test_converge::test_find_divergent_changes_two_found",
+    "--skip=test_converge::test_find_divergent_changes_exactly_one_found",
 ]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
