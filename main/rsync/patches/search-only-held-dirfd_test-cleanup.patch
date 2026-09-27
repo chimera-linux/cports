@@ -1,0 +1,12 @@
+diff --git a/testsuite/search-only-held-dirfd_test.py b/testsuite/search-only-held-dirfd_test.py
+index e4da46f..72ed9df 100644
+--- a/testsuite/search-only-held-dirfd_test.py
++++ b/testsuite/search-only-held-dirfd_test.py
+@@ -204,6 +204,7 @@ finally:
+     xonly.chmod(0o755)
+     write_only_dest.chmod(0o755)
+     nested_parent.chmod(0o755)
++    unreadable_dest.chmod(0o755)
+     for dest in (exact_dest, tree_dest):
+         copied_xonly = dest / 'xonly'
+         if copied_xonly.is_dir():

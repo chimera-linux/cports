@@ -1,5 +1,5 @@
 pkgname = "rsync"
-pkgver = "3.5.0"
+pkgver = "3.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -7,6 +7,7 @@ configure_args = [
     "--with-included-popt=no",
     "--with-included-zlib=no",
     "--disable-md2man",
+    "--disable-idn",
 ]
 # breaks when regened
 configure_gen = []
@@ -26,7 +27,7 @@ pkgdesc = "Fast incremental file transfer tool"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
-sha256 = "c7ffd1ef653e99540f661e47cb00b7f9cad1ee6b972399b16f93d672656e0d33"
+sha256 = "c55f9c9dc10fb8bec397b399a0fdded53cc9a2d8e30891bb0d63724d25c37bef"
 tool_flags = {
     # ipv6 on musl: https://bugzilla.samba.org/show_bug.cgi?id=10715
     "CFLAGS": ["-DINET6"]
