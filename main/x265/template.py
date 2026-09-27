@@ -33,6 +33,8 @@ match self.profile.arch:
         configure_args += ["-DENABLE_ALTIVEC=OFF", "-DCPU_POWER8=OFF"]
     case "aarch64":
         configure_args += ["-DENABLE_ASSEMBLY=ON"]
+    case "riscv64":
+        configure_args += ["-DENABLE_ASSEMBLY=OFF"]
 
 
 def configure(self):
