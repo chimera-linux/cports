@@ -1,6 +1,6 @@
 pkgname = "parted"
-pkgver = "3.6"
-pkgrel = 2
+pkgver = "3.8"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
@@ -19,7 +19,7 @@ pkgdesc = "GNU parted"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/parted"
 source = f"$(GNU_SITE)/parted/parted-{pkgver}.tar.xz"
-sha256 = "3b43dbe33cca0f9a18601ebab56b7852b128ec1a3df3a9b30ccde5e73359e612"
+sha256 = "a2b7811f47b0ddb1f7b1d0aa456f7c1270da70708ce231c2fe054c7199eafa63"
 # a bunch of environment-based stuff
 options = ["!check"]
 
