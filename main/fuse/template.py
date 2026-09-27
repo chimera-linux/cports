@@ -1,5 +1,5 @@
 pkgname = "fuse"
-pkgver = "3.18.2"
+pkgver = "3.18.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Duseroot=false"]
@@ -10,7 +10,7 @@ pkgdesc = "Filesystem in USErspace"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/fuse-{pkgver}/fuse-{pkgver}.tar.gz"
-sha256 = "f01de85717e20adf5f98aff324acd85dd73d61a5ca3834d573dcf0bd6e54a298"
+sha256 = "bcd19582c5e30f7fe45dd86a5540e998590aa01903afc7ebcbeea6c8ac5421ee"
 file_modes = {"usr/bin/fusermount3": ("root", "root", 0o4755)}
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
 # tests need examples and are useless in chroot
