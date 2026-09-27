@@ -7,6 +7,7 @@ make_build_args = [
     "RELEASE=1",
     "CFLAGS=-DDEFAULT_WIN_BACKEND=CC_WIN_BACKEND_SDL3",
 ]
+hostmakedepends = ["dos2unix"]
 makedepends = [
     "mesa-devel",
     "openal-soft-devel",
@@ -20,6 +21,11 @@ sha256 = "35293acf1e63baeca832dec2512283f2975c79ddf80cc855a12c10464723a6c4"
 hardening = ["!int"]
 # Makefile has no check target
 options = ["!check"]
+
+
+def post_extract(self):
+    # windows software lol
+    self.do("dos2unix", "src/Logger.c")
 
 
 def install(self):
