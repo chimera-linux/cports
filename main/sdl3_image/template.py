@@ -1,6 +1,6 @@
 pkgname = "sdl3_image"
 pkgver = "3.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDLIMAGE_AVIF=ON",
@@ -33,7 +33,6 @@ makedepends = [
 ]
 # sigh, dynamically loaded
 depends = ["so:libjxl.so.0.11!libjxl", "so:libavif.so.16!libavif"]
-provides = [self.with_pkgver("sdl_image")]
 pkgdesc = "SDL image loading library"
 license = "Zlib"
 url = "https://github.com/libsdl-org/SDL_image"
