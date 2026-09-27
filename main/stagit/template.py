@@ -1,6 +1,6 @@
 pkgname = "stagit"
-pkgver = "1.2"
-pkgrel = 2
+pkgver = "1.3"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     "COMPATOBJ=",
@@ -14,7 +14,7 @@ pkgdesc = "Static git page generator"
 license = "ISC"
 url = "https://codemadness.org/stagit.html"
 source = f"https://codemadness.org/releases/stagit/stagit-{pkgver}.tar.gz"
-sha256 = "5659bd8ba7e1417edd40f7b7781a8ea26939ab6aa513409023835f04875921c5"
+sha256 = "a265be67d2c5639094643f16c81d817c626d7557ed7886c9310a1ba317237f8d"
 hardening = ["vis", "cfi"]
 # no tests defined
 options = ["!check"]
