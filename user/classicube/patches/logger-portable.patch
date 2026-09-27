@@ -1,0 +1,15 @@
+just don't dump them
+
+diff --git a/src/Logger.c b/src/Logger.c
+index 1dd0375..f0a3b8c 100644
+--- a/src/Logger.c
++++ b/src/Logger.c
+@@ -764,8 +764,6 @@ static void PrintRegisters(cc_string* str, void* ctx) {
+ 	#define REG_GET_USD()     &r->usd_hi  /* User Stack Pointer */
+ 	#define REG_GET_IP()      &r->cr0_hi  /* CR0 contains Instruction Pointer */
+ 	Dump_E2K()
+-#else
+-	#error "Unknown CPU architecture"
+ #endif
+ }
+ #elif defined CC_BUILD_SOLARIS
