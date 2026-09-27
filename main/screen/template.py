@@ -1,5 +1,5 @@
 pkgname = "screen"
-pkgver = "5.0.1"
+pkgver = "5.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "GNU screen"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/screen"
 source = f"$(GNU_SITE)/screen/screen-{pkgver}.tar.gz"
-sha256 = "2dae36f4db379ffcd14b691596ba6ec18ac3a9e22bc47ac239789ab58409869d"
+sha256 = "ca9a2c7e240919bc7ac12124593ae4529bb4eb5f7349d8857829b7e3f0b3b332"
 hardening = ["vis", "cfi"]
 # don't build due to type errors
 options = ["etcfiles", "!check"]
