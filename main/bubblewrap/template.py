@@ -1,5 +1,5 @@
 pkgname = "bubblewrap"
-pkgver = "0.12.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Unprivileged sandboxing tool"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/containers/bubblewrap"
 source = f"{url}/releases/download/v{pkgver}/bubblewrap-{pkgver}.tar.xz"
-sha256 = "9760d007363e3abba7c747489910f9f82d9fca53ba3bd3282e396fa3c97a3314"
+sha256 = "4734237473c0e5d695e4e9034a34e43b2dbf5164655bd13fa59ae376b2b7a765"
 hardening = ["vis", "cfi"]
 
 # efault instead of econnrefused for various assertions
