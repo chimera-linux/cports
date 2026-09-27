@@ -1,6 +1,6 @@
 pkgname = "graphicsmagick"
 pkgver = "1.3.45"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -24,6 +24,8 @@ configure_args = [
     "--with-x",
     "--with-zlib",
     "--with-zstd",
+    # error: unable to find library -lsltdl
+    "slibtool_prefer_sltdl=no",
 ]
 hostmakedepends = [
     "automake",

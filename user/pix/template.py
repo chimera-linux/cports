@@ -1,6 +1,6 @@
 pkgname = "pix"
 pkgver = "3.4.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dlibbrasero=false", "-Dwebservices=false"]
 hostmakedepends = ["bison", "flex", "gettext", "itstool", "meson", "pkgconf"]

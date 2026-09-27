@@ -1,6 +1,6 @@
 pkgname = "sdl3_image"
 pkgver = "3.4.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DSDLIMAGE_AVIF=ON",

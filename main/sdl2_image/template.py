@@ -1,6 +1,6 @@
 pkgname = "sdl2_image"
 pkgver = "2.8.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDL2IMAGE_AVIF=ON",
@@ -30,7 +30,7 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 # sigh, dynamically loaded
-depends = ["so:libjxl.so.0.11!libjxl", "so:libavif.so.16!libavif"]
+depends = ["so:libjxl.so.0.12!libjxl", "so:libavif.so.16!libavif"]
 provides = [self.with_pkgver("sdl_image")]
 pkgdesc = "SDL image loading library"
 license = "Zlib"

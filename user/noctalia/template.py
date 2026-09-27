@@ -1,6 +1,6 @@
 pkgname = "noctalia"
 pkgver = "5.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

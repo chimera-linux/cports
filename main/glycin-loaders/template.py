@@ -1,7 +1,7 @@
 # keep in sync with glycin
 pkgname = "glycin-loaders"
 pkgver = "2.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 prepare_after_patch = True
 configure_args = [
