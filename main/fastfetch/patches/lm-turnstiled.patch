@@ -1,9 +1,9 @@
 diff --git a/src/detection/lm/lm_linux.c b/src/detection/lm/lm_linux.c
-index 140205d..a24f662 100644
+index 2abfab9..287f51d 100644
 --- a/src/detection/lm/lm_linux.c
 +++ b/src/detection/lm/lm_linux.c
-@@ -115,9 +115,9 @@ static const char* getLightdmVersion(FFstrbuf* version) {
- const char* ffDetectLM(FFLMResult* result) {
+@@ -160,9 +160,9 @@ static const char* detectBySystemdDbus(FFLMResult* result) {
+ static const char* detectBySystemdPrivate(FFLMResult* result) {
      FF_STRBUF_AUTO_DESTROY path = ffStrbufCreate();
  
 -    FF_STRBUF_AUTO_DESTROY sessionId = ffStrbufCreateS(getenv("XDG_SESSION_ID"));
@@ -12,5 +12,5 @@ index 140205d..a24f662 100644
 -        // On some incorrectly configured systems, $XDG_SESSION_ID is not set. Try finding it ourself
 +        // On Chimera Linux $XDG_SESSION_ID links to turnstiled. Try finding it ourself
          // WARNING: This is private data. Do not parse
-         ffStrbufSetF(&path, FF_SYSTEMD_USERS_PATH "%d", instance.state.platform.uid);
- 
+         ffStrbufAppendS(&path, FF_SYSTEMD_USERS_PATH);
+         ffStrbufAppendUInt(&path, instance.state.platform.uid);
