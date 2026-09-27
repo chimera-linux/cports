@@ -1,6 +1,6 @@
 pkgname = "lilv"
-pkgver = "0.24.26"
-pkgrel = 2
+pkgver = "0.28.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "C API for using LV2 plugins"
 license = "ISC"
 url = "https://drobilla.net/software/lilv.html"
 source = f"https://download.drobilla.net/lilv-{pkgver}.tar.xz"
-sha256 = "22feed30bc0f952384a25c2f6f4b04e6d43836408798ed65a8a934c055d5d8ac"
+sha256 = "8dcb70adb5cf072335115a6b091f4113710bdc73abaadaa3f9e9c1e55957b149"
 hardening = ["vis", "!cfi"]
 
 
