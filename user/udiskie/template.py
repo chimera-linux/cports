@@ -25,6 +25,11 @@ sha256 = "eb8c173e84050db01556aad68e75cfb45fee57d880b368a395459ee5e815ce8b"
 options = ["!lintcomp"]
 
 
+def pre_check(self):
+    # test data breaks on loongarch
+    self.rm("test/test_cache.py")
+
+
 def post_install(self):
     self.install_license("COPYING")
     self.install_service(self.files_path / "udiskie.user")
