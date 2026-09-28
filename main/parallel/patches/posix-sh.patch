@@ -1,0 +1,12 @@
+diff -uraN a/Makefile.am b/Makefile.am
+--- a/Makefile.am	2026-07-24 18:31:35.000000000 +0100
++++ b/Makefile.am	2026-09-28 11:33:09.497174592 +0100
+@@ -4,7 +4,7 @@
+ 
+ AUTOMAKE_OPTIONS = -Wno-portability
+ SUBDIRS = src
+-SHELL = /bin/bash
++SHELL = /bin/sh
+ 
+ BUILDHOST ?= $(shell [ -f .env ] && . ./.env 2>/dev/null && printf '%s' "$$BUILDHOST")
+ TOR_BUILDHOST ?= $(shell [ -f .env ] && . ./.env 2>/dev/null && printf '%s' "$$TOR_BUILDHOST")
