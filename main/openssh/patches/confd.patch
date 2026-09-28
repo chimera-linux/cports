@@ -1,27 +1,98 @@
+diff --git a/dh.c b/dh.c
+index b291750..858a80f 100644
+--- a/dh.c
++++ b/dh.c
+@@ -53,7 +53,13 @@ void dh_set_moduli_file(const char *filename)
+ 
+ static const char * get_moduli_filename(void)
+ {
+-	return moduli_filename ? moduli_filename : _PATH_DH_MODULI;
++	if (!moduli_filename) {
++		if (access(_PATH_DH_MODULI, R_OK) == 0)
++			moduli_filename = _PATH_DH_MODULI;
++		else
++			moduli_filename = _PATH_DH_SYS_MODULI;
++	}
++	return moduli_filename;
+ }
+ 
+ static int
+diff --git a/pathnames.h b/pathnames.h
+index 2f0b9f4..f663ec0 100644
+--- a/pathnames.h
++++ b/pathnames.h
+@@ -18,6 +18,8 @@
+ #define SSHDIR				ETCDIR "/ssh"
+ #endif
+ 
++#define SSHSYSDIR			"/usr/share/ssh"
++
+ #ifndef _PATH_SSH_PIDDIR
+ #define _PATH_SSH_PIDDIR		"/var/run"
+ #endif
+@@ -34,12 +36,13 @@
+  * Of these, ssh_host_key must be readable only by root, whereas ssh_config
+  * should be world-readable.
+  */
+-#define _PATH_SERVER_CONFIG_FILE	SSHDIR "/sshd_config"
+-#define _PATH_HOST_CONFIG_FILE		SSHDIR "/ssh_config"
++#define _PATH_SERVER_CONFIG_FILE	SSHSYSDIR "/sshd_config"
++#define _PATH_HOST_CONFIG_FILE		SSHSYSDIR "/ssh_config"
+ #define _PATH_HOST_ECDSA_KEY_FILE	SSHDIR "/ssh_host_ecdsa_key"
+ #define _PATH_HOST_RSA_KEY_FILE		SSHDIR "/ssh_host_rsa_key"
+ #define _PATH_HOST_ED25519_KEY_FILE	SSHDIR "/ssh_host_ed25519_key"
+ #define _PATH_HOST_MLDSA44_ED25519_KEY_FILE SSHDIR "/ssh_host_mldsa44_ed25519_key"
++#define _PATH_DH_SYS_MODULI		SSHSYSDIR "/moduli"
+ #define _PATH_DH_MODULI			SSHDIR "/moduli"
+ 
+ #ifndef _PATH_SSH_PROGRAM
+diff --git a/servconf.c b/servconf.c
+index 8f117d8..93dd751 100644
+--- a/servconf.c
++++ b/servconf.c
+@@ -336,8 +336,12 @@ fill_default_server_options(ServerOptions *options)
+ 		add_listen_addr(options, NULL, NULL, 0);
+ 	if (options->pid_file == NULL)
+ 		options->pid_file = xstrdup(_PATH_SSH_DAEMON_PID_FILE);
+-	if (options->moduli_file == NULL)
+-		options->moduli_file = xstrdup(_PATH_DH_MODULI);
++	if (options->moduli_file == NULL) {
++		if (access(_PATH_DH_MODULI, R_OK) == 0)
++			options->moduli_file = xstrdup(_PATH_DH_MODULI);
++		else
++			options->moduli_file = xstrdup(_PATH_DH_SYS_MODULI);
++	}
+ 	if (options->xauth_location == NULL)
+ 		options->xauth_location = xstrdup(_PATH_XAUTH);
+ 	if (options->log_facility == SYSLOG_FACILITY_NOT_SET)
 diff --git a/ssh_config b/ssh_config
-index 238a0c5..98b4e1e 100644
+index 238a0c5..e9d2f24 100644
 --- a/ssh_config
 +++ b/ssh_config
-@@ -17,6 +17,9 @@
+@@ -17,6 +17,11 @@
  # list of available options, their meanings and defaults, please see the
  # ssh_config(5) man page.
  
-+# Include drop-in configurations
++# drop-in user configurations
 +Include /etc/ssh/ssh_config.d/*.conf
++# and the classic ssh_config path
++Include /etc/ssh/ssh_config
 +
  # Host *
  #   ForwardAgent no
  #   ForwardX11 no
 diff --git a/sshd_config b/sshd_config
-index a046274..33fcaba 100644
+index 3715f79..2c7b30c 100644
 --- a/sshd_config
 +++ b/sshd_config
-@@ -10,6 +10,9 @@
+@@ -10,6 +10,11 @@
  # possible, but leave them commented.  Uncommented options override the
  # default value.
  
-+# Include drop-in configurations
++# drop-in user configurations
 +Include /etc/ssh/sshd_config.d/*.conf
++# and the classic ssh_config path
++Include /etc/ssh/sshd_config
 +
  #Port 22
  #AddressFamily any

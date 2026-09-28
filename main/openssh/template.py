@@ -1,9 +1,9 @@
 pkgname = "openssh"
 pkgver = "10.5_p1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--datadir=/usr/share/openssh",
+    "--datadir=/usr/share/ssh",
     "--sysconfdir=/etc/ssh",
     "--disable-wtmp",
     "--disable-utmp",
@@ -48,7 +48,7 @@ file_modes = {"usr/lib/ssh-keysign": ("root", "root", 0o4755)}
 # CFI: does not work; maybe make testsuite work first
 hardening = ["vis", "!cfi"]
 # portable openssh is not very portable
-options = ["etcfiles", "!check"]
+options = ["!check"]
 
 
 def init_configure(self):
@@ -56,6 +56,8 @@ def init_configure(self):
 
 
 def post_install(self):
+    self.rename("etc/ssh", "usr/share/ssh", relative=False)
+
     self.install_license("LICENCE")
 
     self.install_file(
