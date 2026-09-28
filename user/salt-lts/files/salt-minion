@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-minion
+logfile = /var/log/salt/minion
+before: login.target
+depends-on: local.target
+depends-on: network.target

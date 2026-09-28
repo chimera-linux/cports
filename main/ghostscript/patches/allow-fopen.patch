@@ -1,0 +1,11 @@
+--- a/base/stdio_.h	2024-03-07 08:41:29.000000000 +0000
++++ b/base/stdio_.h	2024-03-18 02:02:04.234669284 +0000
+@@ -89,8 +89,4 @@
+ #endif
+ 
+ 
+-#ifndef fopen
+-#define fopen DO_NOT_USE_FOPEN
+-#endif
+-
+ #endif /* stdio__INCLUDED */

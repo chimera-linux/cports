@@ -1,0 +1,22 @@
+From 43d091361ed6b400a68911147fd5fe524ccecf34 Mon Sep 17 00:00:00 2001
+From: RSDuck <RSDuck@users.noreply.github.com>
+Date: Fri, 25 Nov 2022 23:47:36 +0100
+Subject: [PATCH] fix #1551
+
+---
+ src/frontend/duckstation/duckstation_compat.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/frontend/duckstation/duckstation_compat.h b/src/frontend/duckstation/duckstation_compat.h
+index a661e92614..fed378056c 100644
+--- a/src/frontend/duckstation/duckstation_compat.h
++++ b/src/frontend/duckstation/duckstation_compat.h
+@@ -12,6 +12,6 @@
+ 
+ #define Panic(msg) assert(false && msg)
+ 
+-#define UnreachableCode() __builtin_unreachable
++#define UnreachableCode() __builtin_unreachable()
+ 
+ #endif
+\ No newline at end of file

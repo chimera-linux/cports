@@ -1,0 +1,11 @@
+pkgname = "mmv"
+pkgver = "2.10"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["pkgconf", "automake", "help2man"]
+makedepends = ["gc-devel"]
+pkgdesc = "Utility for wildcard renaming, copying, etc"
+license = "GPL-3.0-or-later"
+url = "https://github.com/rrthomas/mmv"
+source = f"{url}/releases/download/v{pkgver}/mmv-{pkgver}.tar.gz"
+sha256 = "2bbba14c099b512b4a7e9effacec53caa06998069d108a5669ff424ffc879d03"

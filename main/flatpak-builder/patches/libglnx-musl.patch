@@ -1,0 +1,16 @@
+../subprojects/libglnx/glnx-xattrs.c:353:11: error: call to undeclared function 'TEMP_FAILURE_RETRY'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  353 |       if (TEMP_FAILURE_RETRY (fsetxattr (fd, (char*)name, (char*)value_data, value_len, 0)) < 0)
+      |           ^
+
+--- /dev/null
++++ b/subprojects/libglnx/config.h
+@@ -0,0 +1,9 @@
++/* taken from glibc unistd.h and fixes musl */
++#ifndef TEMP_FAILURE_RETRY
++#define TEMP_FAILURE_RETRY(expression) \
++  (__extension__                                                              \
++    ({ long int __result;                                                     \
++       do __result = (long int) (expression);                                 \
++       while (__result == -1L && errno == EINTR);                             \
++       __result; }))
++#endif

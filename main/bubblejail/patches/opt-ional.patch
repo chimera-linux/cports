@@ -1,0 +1,18 @@
+--- a/src/bubblejail/services.py
++++ b/src/bubblejail/services.py
+@@ -176,7 +176,6 @@ class BubblejailDefaults(BubblejailService):
+     def iter_bwrap_options(self) -> ServiceGeneratorType:
+         # Distro packaged libraries and binaries
+         yield ReadOnlyBind("/usr")
+-        yield ReadOnlyBind("/opt")
+         # Recreate symlinks in / or mount them read-only if its not a symlink.
+         # Should be portable between distros.
+         for root_path in Path("/").iterdir():
+@@ -184,6 +183,7 @@ class BubblejailDefaults(BubblejailService):
+                 root_path.name.startswith("lib")  # /lib /lib64 /lib32
+                 or root_path.name == "bin"
+                 or root_path.name == "sbin"
++                or root_path.name == "opt"
+             ):
+                 if root_path.is_symlink():
+                     yield Symlink(readlink(root_path), root_path)

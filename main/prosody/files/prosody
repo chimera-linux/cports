@@ -1,0 +1,8 @@
+# prosody system service
+
+type = process
+command = /usr/bin/prosody
+working-dir = /var/lib/prosody
+depends-on = local.target
+depends-on = network.target
+run-as = prosody

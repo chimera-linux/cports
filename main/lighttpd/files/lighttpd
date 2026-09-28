@@ -1,0 +1,7 @@
+# lighttpd daemon service
+
+type = process
+command = /usr/bin/lighttpd -D -f /etc/lighttpd/lighttpd.conf
+depends-on = local.target
+depends-on = pre-network.target
+smooth-recovery = true

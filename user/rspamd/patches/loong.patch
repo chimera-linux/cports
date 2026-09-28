@@ -1,0 +1,10 @@
+--- a/contrib/simdutf/include/simdutf/internal/isadetection.h
++++ b/contrib/simdutf/include/simdutf/internal/isadetection.h
+@@ -290,6 +290,7 @@ static inline uint32_t detect_supported_architectures() {
+ #elif defined(__loongarch__)
+   #if defined(__linux__)
+     #include <sys/auxv.h>
++    #include <asm/hwcap.h>
+   // bits/hwcap.h
+   // #define HWCAP_LOONGARCH_LSX             (1 << 4)
+   // #define HWCAP_LOONGARCH_LASX            (1 << 5)

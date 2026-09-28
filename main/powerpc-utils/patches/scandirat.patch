@@ -1,0 +1,120 @@
+From a2f5ff29bc4251fb15888409a6884c44a4423aa7 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 18 Aug 2024 15:01:30 +0000
+Subject: [PATCH] drmgr: disable hooks functionality
+
+This relies on scandirat which musl does not have.
+---
+ src/drmgr/common.c          |  4 ++++
+ src/drmgr/drmig_chrp_pmig.c | 18 +++---------------
+ src/drmgr/drslot_chrp_cpu.c |  6 ------
+ 3 files changed, 7 insertions(+), 21 deletions(-)
+
+diff --git a/src/drmgr/common.c b/src/drmgr/common.c
+index bfec0b9..8010642 100644
+--- a/src/drmgr/common.c
++++ b/src/drmgr/common.c
+@@ -69,12 +69,14 @@ static const char * const drc_type_str[] = {
+ 	[DRC_TYPE_ACC]		= "acc",
+ };
+ 
++#if 0
+ static const char * const hook_phase_name[] = {
+ 	[HOOK_CHECK]		= "check",
+ 	[HOOK_UNDOCHECK]	= "undocheck",
+ 	[HOOK_PRE]		= "pre",
+ 	[HOOK_POST]		= "post",
+ };
++#endif
+ 
+ static const char * const hook_action_name[] = {
+ 	[NONE]		= "none",
+@@ -1566,6 +1568,7 @@ enum drc_type to_drc_type(const char *arg)
+ 	return DRC_TYPE_NONE;
+ }
+ 
++#if 0
+ static int run_one_hook(enum drc_type drc_type, enum drmgr_action action,
+ 			enum hook_phase phase, const char *drc_count_str,
+ 			const char *name)
+@@ -1714,3 +1717,4 @@ int run_hooks(enum drc_type drc_type, enum drmgr_action action,
+ 	free(entries);
+ 	return rc;
+ }
++#endif
+diff --git a/src/drmgr/drmig_chrp_pmig.c b/src/drmgr/drmig_chrp_pmig.c
+index ab5cee9..1e133db 100644
+--- a/src/drmgr/drmig_chrp_pmig.c
++++ b/src/drmgr/drmig_chrp_pmig.c
+@@ -696,10 +696,6 @@ int drmig_chrp_pmig(void)
+ {
+ 	int rc;
+ 	uint64_t stream_val;
+-	enum drc_type drc_type = DRC_TYPE_NONE;
+-
+-	if (usr_action == MIGRATE)
+-		drc_type = DRC_TYPE_MIGRATION;
+ 
+ 	/* Ensure that this partition is migratable/mobile */
+ 	if (! pmig_capable()) {
+@@ -708,11 +704,9 @@ int drmig_chrp_pmig(void)
+ 		return -1;
+ 	}
+ 
+-	if (usr_action == MIGRATE && (strcmp(usr_p_option, "check") == 0)) {
+-		rc = run_hooks(drc_type, usr_action, HOOK_CHECK, 0);
+-		if (rc)
+-			run_hooks(drc_type, usr_action, HOOK_UNDOCHECK, 0);
+-		return rc;
++	if (strcmp(usr_p_option, "check") == 0) {
++		say(DEBUG, "check: Nothing to do...\n");
++		return 0;
+ 	}
+ 
+ 	/* The only other command is pre, any other command is invalid */
+@@ -735,9 +729,6 @@ int drmig_chrp_pmig(void)
+ 
+ 	/* Now do the actual migration */
+ 	do {
+-		if (usr_action == MIGRATE)
+-			run_hooks(drc_type, usr_action, HOOK_PRE, 0);
+-
+ 		if (usr_action == MIGRATE)
+ 			rc = do_migration(stream_val);
+ 		else if (usr_action == HIBERNATE)
+@@ -756,8 +747,5 @@ int drmig_chrp_pmig(void)
+ 	if (!rc)
+ 		post_mobility_update();
+ 
+-	/* Post hook is called even if the migration has failed */
+-	if (usr_action == MIGRATE)
+-		run_hooks(drc_type, usr_action, HOOK_POST, 0);
+ 	return rc;
+ }
+diff --git a/src/drmgr/drslot_chrp_cpu.c b/src/drmgr/drslot_chrp_cpu.c
+index 3ef24f4..e04b86f 100644
+--- a/src/drmgr/drslot_chrp_cpu.c
++++ b/src/drmgr/drslot_chrp_cpu.c
+@@ -441,9 +441,6 @@ int drslot_chrp_cpu(void)
+ 		return rc;
+ 	}
+ 
+-	if (usr_action == ADD || usr_action == REMOVE)
+-		run_hooks(DRC_TYPE_CPU, usr_action, HOOK_PRE, usr_drc_count);
+-
+ 	switch (usr_action) {
+ 	case ADD:
+ 		rc = add_cpus(&dr_info, &count);
+@@ -456,9 +453,6 @@ int drslot_chrp_cpu(void)
+ 		break;
+ 	}
+ 
+-	if (usr_action == ADD || usr_action == REMOVE)
+-		run_hooks(DRC_TYPE_CPU, usr_action, HOOK_POST, count);
+-
+ 	free_cpu_drc_info(&dr_info);
+ 	return rc;
+ }
+-- 
+2.46.0
+

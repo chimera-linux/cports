@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/containerd
+logfile = /var/log/containerd.log
+depends-on: local.target
+depends-on: network.target

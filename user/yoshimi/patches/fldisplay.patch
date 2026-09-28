@@ -1,0 +1,26 @@
+This cannot work with wayland yet since it
+directly uses fl_display.
+
+diff -ruN a/src/UI/MiscGui.cpp b/src/UI/MiscGui.cpp
+--- a/src/UI/MiscGui.cpp	2025-06-10 21:37:04.000000000 +0200
++++ b/src/UI/MiscGui.cpp	2025-06-26 11:45:39.365013159 +0200
+@@ -28,6 +28,7 @@
+ 
+ #include <FL/Fl.H>
+ #include <FL/fl_draw.H>
++#include <FL/platform.H>
+ 
+ #include <FL/platform.H>
+ #include <cairo.h>
+diff -ruN a/src/main.cpp b/src/main.cpp
+--- a/src/main.cpp	2025-06-10 21:37:04.000000000 +0200
++++ b/src/main.cpp	2025-06-26 11:45:39.365013159 +0200
+@@ -182,6 +182,8 @@
+  */
+ int main(int argc, char *argv[])
+ {
++    setenv("FLTK_BACKEND", "x11", 1);
++
+     /*
+      * The following is a way to quickly identify and read key config startup values
+      * before the synth engine has started, or any of the normal functions have been

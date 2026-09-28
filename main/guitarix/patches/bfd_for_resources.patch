@@ -1,0 +1,11 @@
+--- a/src/LV2/xputty/resources/wscript
++++ b/src/LV2/xputty/resources/wscript
+@@ -43,7 +43,7 @@
+     else:
+         before = ['xcairo']
+         src = " ".join(["'%s'" % os.path.splitext(v.name)[0] for v in task.inputs])
+-        ld_cmd = env.LD[0]
++        ld_cmd = 'ld.bfd'
+         noexecstack = env['OS_RESOURCES_LDFLAGS']
+
+         if env['OS'] == 'win32':

@@ -1,0 +1,11 @@
+--- a/build.xml
++++ b/build.xml
+@@ -1026,7 +1026,7 @@
+          Create the essential distribution that can run Apache Ant
+        ===================================================================
+   -->
+-  <target name="dist-lite" depends="jars,test-jar,-ant-dist-warn-jdk9+"
++  <target name="dist-lite" depends="jars,-ant-dist-warn-jdk9+"
+           description="--> creates a minimum distribution to run Apache Ant">
+ 
+     <mkdir dir="${dist.dir}"/>

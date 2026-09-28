@@ -1,0 +1,1 @@
+pkgname = "sphinxcontrib_qthelp"

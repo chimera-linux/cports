@@ -1,0 +1,13 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/dvd-rw-tools/-/blob/8840627804fa08c799ae953c721ca83384b50d9e/dvd+rw-tools-7.0-wexit.patch
+--
+--- a/dvd+rw-format.cpp
++++ b/dvd+rw-format.cpp
+@@ -245,7 +245,7 @@ int main (int argc, char *argv[])
+ 	alarm(1);
+ 	while ((waitpid(pid,&i,0) != pid) && !WIFEXITED(i)) ;
+ 	if (WEXITSTATUS(i) == 0) fprintf (stderr,"\n");
+-	exit (0);
++	exit (WEXITSTATUS(i));
+     }
+ #endif
+ 

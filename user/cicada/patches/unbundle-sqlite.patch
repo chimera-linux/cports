@@ -1,0 +1,12 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 476d559..f92281e 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -49,7 +49,6 @@ features = ["std", "derive", "help"]
+ 
+ [dependencies.rusqlite]
+ version = "0.38"
+-features = ["bundled"]
+ 
+ [dependencies.time]
+ version = "0.3"

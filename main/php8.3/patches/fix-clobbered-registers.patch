@@ -1,0 +1,24 @@
+this is https://github.com/php/php-src/commit/93d32eae2751089ed0d255ba2cf37d5c8a7353e5
+backported to 8.3.
+--- a/Zend/zend_multiply.h	2026-04-05 00:24:14.250604523 +1000
++++ b/Zend/zend_multiply.h	2026-04-05 00:28:54.242121268 +1000
+@@ -267,7 +267,8 @@
+ 		: "=&r"(res), "=&r"(m_overflow)
+ 		: "r"(nmemb),
+ 		  "r"(size),
+-		  "r"(offset));
++		  "r"(offset)
++		: "cc");
+ 
+ 	if (UNEXPECTED(m_overflow)) {
+ 		*overflow = 1;
+@@ -291,7 +292,8 @@
+              : "=&r"(res), "=&r"(m_overflow)
+              : "r"(nmemb),
+                "r"(size),
+-               "r"(offset));
++               "r"(offset)
++             : "xer");
+ 
+         if (UNEXPECTED(m_overflow)) {
+                 *overflow = 1;

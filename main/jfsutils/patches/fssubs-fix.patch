@@ -1,0 +1,11 @@
+diff -ur jfsutils-1.1.15.old/libfs/fssubs.c jfsutils-1.1.15.new/libfs/fssubs.c
+--- jfsutils-1.1.15.old/libfs/fssubs.c	2024-02-02 10:04:39.947415740 +0100
++++ jfsutils-1.1.15.new/libfs/fssubs.c	2024-02-02 10:08:17.687101023 +0100
+@@ -18,6 +18,7 @@
+ #include <config.h>
+ #include <errno.h>
+ #include <fcntl.h>
++#include <paths.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>

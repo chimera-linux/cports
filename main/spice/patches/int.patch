@@ -1,0 +1,40 @@
+--- a/subprojects/spice-common/common/lz_compress_tmpl.c
++++ b/subprojects/spice-common/common/lz_compress_tmpl.c
+@@ -159,14 +159,14 @@
+ // TODO: check times
+ 
+ /* compresses one segment starting from 'from'.*/
+-static void FNAME(compress_seg)(Encoder *encoder, LzImageSegment *seg, PIXEL *from, int copied)
++static void FNAME(compress_seg)(Encoder *encoder, LzImageSegment *seg, PIXEL *from, unsigned int copied)
+ {
+     const PIXEL *ip = from;
+     const PIXEL *ip_bound = (PIXEL *)(seg->lines_end) - BOUND_OFFSET;
+     const PIXEL *ip_limit = (PIXEL *)(seg->lines_end) - LIMIT_OFFSET;
+     HashEntry    *hslot;
+-    int hval;
+-    int copy = copied;
++    unsigned int hval;
++    unsigned int copy = copied;
+ 
+     if (copy == 0) {
+         encode_copy_count(encoder, MAX_COPY - 1);
+--- a/server/glz-encode.tmpl.c
++++ b/server/glz-encode.tmpl.c
+@@ -230,14 +230,14 @@ static inline size_t FNAME(do_match)(SharedDictionary *dict,
+    In order to encode a match, we use pixels resolution when we encode RGB image,
+    and bytes count when we encode PLT.
+ */
+-static void FNAME(compress_seg)(Encoder *encoder, uint32_t seg_idx, PIXEL *from, int copied)
++static void FNAME(compress_seg)(Encoder *encoder, uint32_t seg_idx, PIXEL *from, unsigned int copied)
+ {
+     WindowImageSegment *seg = &encoder->dict->window.segs[seg_idx];
+     const PIXEL *ip = from;
+     const PIXEL *ip_bound = (PIXEL *)(seg->lines_end) - BOUND_OFFSET;
+     const PIXEL *ip_limit = (PIXEL *)(seg->lines_end) - LIMIT_OFFSET;
+-    int hval;
+-    int copy = copied;
++    unsigned int hval;
++    unsigned int copy = copied;
+ #ifdef  LZ_PLT
+     int pix_per_byte = PLT_PIXELS_PER_BYTE[encoder->cur_image.type];
+ #else

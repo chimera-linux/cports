@@ -1,0 +1,23 @@
+diff --git a/src/meson.build b/src/meson.build
+index c48c1f1..f06ca0f 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -106,7 +106,6 @@ if not build_env_only
+         build_always_stale: true,
+         output: meson.project_name(),
+         console: true,
+-        install: true,
+         install_dir: bindir,
+         depends: [resources, ui_resources],
+         env: cargo_env,
+@@ -114,10 +113,6 @@ if not build_env_only
+             cargo,
+             'build',
+             cargo_build_options,
+-            '&&',
+-            'cp',
+-            cargo_target_dir / rust_target / meson.project_name(),
+-            '@OUTPUT@',
+         ],
+     )
+ 

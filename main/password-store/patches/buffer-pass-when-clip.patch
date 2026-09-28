@@ -1,0 +1,30 @@
+From 357fe07e314a5669075a0c991a054a5b9fe17f6d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Fri, 21 Jun 2024 22:54:36 +0200
+Subject: [PATCH] Buffer pass before cropping to part intended to be clipped
+
+`head -n 1` closes stdin after reading one line. `tail -n +${selected_line}` closes it's
+own stdin after head is no longer accepting input. First in the chain is gpg, which
+throws an error, if it can't fully write all of the message out to stdout.
+---
+ src/password-store.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/password-store.sh b/src/password-store.sh
+index a0dcf2e..c82ddaa 100755
+--- a/src/password-store.sh
++++ b/src/password-store.sh
+@@ -388,7 +388,8 @@ cmd_show() {
+ 			echo "$pass" | $BASE64 -d
+ 		else
+ 			[[ $selected_line =~ ^[0-9]+$ ]] || die "Clip location '$selected_line' is not a number."
+-			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | tail -n +${selected_line} | head -n 1)" || exit $?
++			pass_buffered="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | $BASE64)" || exit $?
++			pass="$(echo "$pass_buffered" | $BASE64 -d | tail -n +${selected_line} | head -n 1)" || exit $?
+ 			[[ -n $pass ]] || die "There is no password to put on the clipboard at line ${selected_line}."
+ 			if [[ $clip -eq 1 ]]; then
+ 				clip "$pass" "$path"
+-- 
+2.45.2
+

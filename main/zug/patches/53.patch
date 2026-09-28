@@ -1,0 +1,1499 @@
+From 483e8f7781345db18b0cfdb355ccc18b5e5133cb Mon Sep 17 00:00:00 2001
+From: Arniiiii <lg3dx6fd@gmail.com>
+Date: Tue, 24 Mar 2026 19:50:50 +0000
+Subject: [PATCH 1/3] Basic move to Catch2 3+
+
+---
+ test/CMakeLists.txt                    | 2 +-
+ test/__inline_var_tests/CMakeLists.txt | 2 +-
+ test/__inline_var_tests/inline_var.cpp | 2 +-
+ test/__inline_var_tests/main.cpp       | 2 +-
+ test/compose.cpp                       | 2 +-
+ test/into.cpp                          | 2 +-
+ test/into_vector.cpp                   | 2 +-
+ test/meta.cpp                          | 2 +-
+ test/reduce.cpp                        | 2 +-
+ test/reductor.cpp                      | 2 +-
+ test/run.cpp                           | 2 +-
+ test/sequence.cpp                      | 2 +-
+ test/state_traits.cpp                  | 2 +-
+ test/transduce.cpp                     | 2 +-
+ test/transducer/cat.cpp                | 2 +-
+ test/transducer/chain.cpp              | 2 +-
+ test/transducer/count.cpp              | 2 +-
+ test/transducer/cycle.cpp              | 2 +-
+ test/transducer/dedupe.cpp             | 2 +-
+ test/transducer/distinct.cpp           | 2 +-
+ test/transducer/drop.cpp               | 2 +-
+ test/transducer/drop_while.cpp         | 2 +-
+ test/transducer/each.cpp               | 2 +-
+ test/transducer/eager.cpp              | 2 +-
+ test/transducer/enumerate.cpp          | 2 +-
+ test/transducer/filter.cpp             | 2 +-
+ test/transducer/interelave.cpp         | 2 +-
+ test/transducer/interleave.cpp         | 2 +-
+ test/transducer/interpose.cpp          | 2 +-
+ test/transducer/iter.cpp               | 2 +-
+ test/transducer/map.cpp                | 2 +-
+ test/transducer/map_indexed.cpp        | 2 +-
+ test/transducer/mapcat.cpp             | 2 +-
+ test/transducer/partition.cpp          | 2 +-
+ test/transducer/partition_by.cpp       | 2 +-
+ test/transducer/product.cpp            | 2 +-
+ test/transducer/random_sample.cpp      | 2 +-
+ test/transducer/range.cpp              | 2 +-
+ test/transducer/read.cpp               | 2 +-
+ test/transducer/readbuf.cpp            | 2 +-
+ test/transducer/remove.cpp             | 2 +-
+ test/transducer/repeat.cpp             | 2 +-
+ test/transducer/replace.cpp            | 2 +-
+ test/transducer/scan.cpp               | 2 +-
+ test/transducer/sink.cpp               | 2 +-
+ test/transducer/take.cpp               | 2 +-
+ test/transducer/take_nth.cpp           | 2 +-
+ test/transducer/take_while.cpp         | 2 +-
+ test/transducer/transducer.cpp         | 2 +-
+ test/transducer/unzip.cpp              | 2 +-
+ test/transducer/write.cpp              | 2 +-
+ test/transducer/writebuf.cpp           | 2 +-
+ test/transducer/zip.cpp                | 2 +-
+ 53 files changed, 53 insertions(+), 53 deletions(-)
+
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index bea9d9a..ebc4460 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -32,6 +32,6 @@ foreach(_file IN LISTS zug_unit_tests)
+   set_target_properties(${_target} PROPERTIES OUTPUT_NAME ${_output})
+   add_dependencies(tests ${_target})
+   target_compile_definitions(${_target} PUBLIC CATCH_CONFIG_MAIN)
+-  target_link_libraries(${_target} PUBLIC zug-dev Catch2::Catch2)
++  target_link_libraries(${_target} PUBLIC zug-dev Catch2::Catch2WithMain)
+   add_test("test/${_output}" ${_output})
+ endforeach()
+diff --git a/test/__inline_var_tests/CMakeLists.txt b/test/__inline_var_tests/CMakeLists.txt
+index e36c5bb..b258596 100644
+--- a/test/__inline_var_tests/CMakeLists.txt
++++ b/test/__inline_var_tests/CMakeLists.txt
+@@ -7,5 +7,5 @@ message("adding unit test: inline_var_tests")
+ file(GLOB_RECURSE inline_var_test_files "*.cpp")
+ add_executable(inline_var_tests EXCLUDE_FROM_ALL ${inline_var_test_files})
+ add_dependencies(tests inline_var_tests)
+-target_link_libraries(inline_var_tests PUBLIC zug-dev)
++target_link_libraries(inline_var_tests PUBLIC zug-dev Catch2::Catch2WithMain)
+ add_test("test/inline_var_tests" inline_var_tests)
+diff --git a/test/__inline_var_tests/inline_var.cpp b/test/__inline_var_tests/inline_var.cpp
+index bb7acee..39b0acf 100644
+--- a/test/__inline_var_tests/inline_var.cpp
++++ b/test/__inline_var_tests/inline_var.cpp
+@@ -11,7 +11,7 @@
+ 
+ #include <zug/detail/inline_constexpr.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug::detail;
+ 
+diff --git a/test/__inline_var_tests/main.cpp b/test/__inline_var_tests/main.cpp
+index 4ed06df..2c344d5 100644
+--- a/test/__inline_var_tests/main.cpp
++++ b/test/__inline_var_tests/main.cpp
+@@ -1,2 +1,2 @@
+ #define CATCH_CONFIG_MAIN
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+diff --git a/test/compose.cpp b/test/compose.cpp
+index 3c2a743..d62c44f 100644
+--- a/test/compose.cpp
++++ b/test/compose.cpp
+@@ -8,7 +8,7 @@
+ 
+ #include <zug/compose.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <array>
+ #include <functional>
+diff --git a/test/into.cpp b/test/into.cpp
+index 88788bf..5818492 100644
+--- a/test/into.cpp
++++ b/test/into.cpp
+@@ -11,7 +11,7 @@
+ #include <zug/transducer/filter.hpp>
+ #include <zug/transducer/map.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/into_vector.cpp b/test/into_vector.cpp
+index fcefa7b..5af5ed6 100644
+--- a/test/into_vector.cpp
++++ b/test/into_vector.cpp
+@@ -12,7 +12,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/transducer.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/meta.cpp b/test/meta.cpp
+index 20a3cfd..28b2cb2 100644
+--- a/test/meta.cpp
++++ b/test/meta.cpp
+@@ -9,7 +9,7 @@
+ #include <zug/meta.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/reduce.cpp b/test/reduce.cpp
+index d1d6c93..1895bb6 100644
+--- a/test/reduce.cpp
++++ b/test/reduce.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/reduce.hpp>
+ #include <zug/reducing/first.hpp>
+diff --git a/test/reductor.cpp b/test/reductor.cpp
+index 95704d8..a77a79e 100644
+--- a/test/reductor.cpp
++++ b/test/reductor.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/reducing/first.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/run.cpp b/test/run.cpp
+index ac12da8..a1ca827 100644
+--- a/test/run.cpp
++++ b/test/run.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/sequence.cpp b/test/sequence.cpp
+index 2b23e86..d4598d9 100644
+--- a/test/sequence.cpp
++++ b/test/sequence.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/sequence.hpp>
+diff --git a/test/state_traits.cpp b/test/state_traits.cpp
+index 773c99f..75bc967 100644
+--- a/test/state_traits.cpp
++++ b/test/state_traits.cpp
+@@ -16,7 +16,7 @@
+ #include <zug/transducer/transducer.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transduce.cpp b/test/transduce.cpp
+index d90e4d3..f783c71 100644
+--- a/test/transduce.cpp
++++ b/test/transduce.cpp
+@@ -11,7 +11,7 @@
+ #include <zug/transducer/take.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <vector>
+ 
+diff --git a/test/transducer/cat.cpp b/test/transducer/cat.cpp
+index 0fc59a3..55fbca4 100644
+--- a/test/transducer/cat.cpp
++++ b/test/transducer/cat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/cat.hpp>
+diff --git a/test/transducer/chain.cpp b/test/transducer/chain.cpp
+index 2f7360a..8a903ef 100644
+--- a/test/transducer/chain.cpp
++++ b/test/transducer/chain.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/chain.hpp>
+diff --git a/test/transducer/count.cpp b/test/transducer/count.cpp
+index 4ae4ebd..86d811a 100644
+--- a/test/transducer/count.cpp
++++ b/test/transducer/count.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/cycle.cpp b/test/transducer/cycle.cpp
+index 5833c01..75eee82 100644
+--- a/test/transducer/cycle.cpp
++++ b/test/transducer/cycle.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/dedupe.cpp b/test/transducer/dedupe.cpp
+index 43b4ea2..65ab54b 100644
+--- a/test/transducer/dedupe.cpp
++++ b/test/transducer/dedupe.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/distinct.cpp b/test/transducer/distinct.cpp
+index 42543ff..3589d9f 100644
+--- a/test/transducer/distinct.cpp
++++ b/test/transducer/distinct.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/drop.cpp b/test/transducer/drop.cpp
+index 700780b..44c2ab5 100644
+--- a/test/transducer/drop.cpp
++++ b/test/transducer/drop.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/drop_while.cpp b/test/transducer/drop_while.cpp
+index 50f9f4b..01b5563 100644
+--- a/test/transducer/drop_while.cpp
++++ b/test/transducer/drop_while.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/each.cpp b/test/transducer/each.cpp
+index 6fa6b10..544e7f3 100644
+--- a/test/transducer/each.cpp
++++ b/test/transducer/each.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/each.hpp>
+diff --git a/test/transducer/eager.cpp b/test/transducer/eager.cpp
+index 87651ff..8eaf0dd 100644
+--- a/test/transducer/eager.cpp
++++ b/test/transducer/eager.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/enumerate.cpp b/test/transducer/enumerate.cpp
+index c925c0a..8cde434 100644
+--- a/test/transducer/enumerate.cpp
++++ b/test/transducer/enumerate.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/enumerate.hpp>
+diff --git a/test/transducer/filter.cpp b/test/transducer/filter.cpp
+index 9fd1baa..b30c666 100644
+--- a/test/transducer/filter.cpp
++++ b/test/transducer/filter.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/interelave.cpp b/test/transducer/interelave.cpp
+index b7dc7be..555735a 100644
+--- a/test/transducer/interelave.cpp
++++ b/test/transducer/interelave.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/interleave.cpp b/test/transducer/interleave.cpp
+index 55f43d9..f4036ff 100644
+--- a/test/transducer/interleave.cpp
++++ b/test/transducer/interleave.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/interleave.hpp>
+diff --git a/test/transducer/interpose.cpp b/test/transducer/interpose.cpp
+index ad80577..7c08da0 100644
+--- a/test/transducer/interpose.cpp
++++ b/test/transducer/interpose.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/iter.cpp b/test/transducer/iter.cpp
+index b4317f7..565f039 100644
+--- a/test/transducer/iter.cpp
++++ b/test/transducer/iter.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/iter.hpp>
+diff --git a/test/transducer/map.cpp b/test/transducer/map.cpp
+index bec37f5..efab91e 100644
+--- a/test/transducer/map.cpp
++++ b/test/transducer/map.cpp
+@@ -12,7 +12,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/take.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transducer/map_indexed.cpp b/test/transducer/map_indexed.cpp
+index 2e4fa49..743485f 100644
+--- a/test/transducer/map_indexed.cpp
++++ b/test/transducer/map_indexed.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/transduce.hpp>
+ #include <zug/transducer/map_indexed.hpp>
+diff --git a/test/transducer/mapcat.cpp b/test/transducer/mapcat.cpp
+index 10e3139..4942e53 100644
+--- a/test/transducer/mapcat.cpp
++++ b/test/transducer/mapcat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/mapcat.hpp>
+diff --git a/test/transducer/partition.cpp b/test/transducer/partition.cpp
+index d87a83f..e20a7f0 100644
+--- a/test/transducer/partition.cpp
++++ b/test/transducer/partition.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/partition_by.cpp b/test/transducer/partition_by.cpp
+index 4577fa7..26850e0 100644
+--- a/test/transducer/partition_by.cpp
++++ b/test/transducer/partition_by.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/product.cpp b/test/transducer/product.cpp
+index 0105dfc..aa908aa 100644
+--- a/test/transducer/product.cpp
++++ b/test/transducer/product.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/random_sample.cpp b/test/transducer/random_sample.cpp
+index 971b0f9..fea8a10 100644
+--- a/test/transducer/random_sample.cpp
++++ b/test/transducer/random_sample.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <cstdint>
+ #include <limits>
+diff --git a/test/transducer/range.cpp b/test/transducer/range.cpp
+index 76fdd69..efb695d 100644
+--- a/test/transducer/range.cpp
++++ b/test/transducer/range.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/transducer/read.cpp b/test/transducer/read.cpp
+index 108e3e9..1c3b61d 100644
+--- a/test/transducer/read.cpp
++++ b/test/transducer/read.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/read.hpp>
+diff --git a/test/transducer/readbuf.cpp b/test/transducer/readbuf.cpp
+index 219f170..a1e89c6 100644
+--- a/test/transducer/readbuf.cpp
++++ b/test/transducer/readbuf.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/remove.cpp b/test/transducer/remove.cpp
+index 8d6cb3d..2a4a1b9 100644
+--- a/test/transducer/remove.cpp
++++ b/test/transducer/remove.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/transduce.hpp>
+diff --git a/test/transducer/repeat.cpp b/test/transducer/repeat.cpp
+index 89d4695..bf1d1f8 100644
+--- a/test/transducer/repeat.cpp
++++ b/test/transducer/repeat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/replace.cpp b/test/transducer/replace.cpp
+index 0e9db49..23a00ec 100644
+--- a/test/transducer/replace.cpp
++++ b/test/transducer/replace.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transduce.hpp>
+diff --git a/test/transducer/scan.cpp b/test/transducer/scan.cpp
+index 0fedf14..d07e8bf 100644
+--- a/test/transducer/scan.cpp
++++ b/test/transducer/scan.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/count.hpp>
+diff --git a/test/transducer/sink.cpp b/test/transducer/sink.cpp
+index 1683fff..af2df9a 100644
+--- a/test/transducer/sink.cpp
++++ b/test/transducer/sink.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/take.cpp b/test/transducer/take.cpp
+index e752946..930e962 100644
+--- a/test/transducer/take.cpp
++++ b/test/transducer/take.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into.hpp>
+diff --git a/test/transducer/take_nth.cpp b/test/transducer/take_nth.cpp
+index 90b0b1c..29f80ef 100644
+--- a/test/transducer/take_nth.cpp
++++ b/test/transducer/take_nth.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/take_while.cpp b/test/transducer/take_while.cpp
+index 65b210c..7f1ec11 100644
+--- a/test/transducer/take_while.cpp
++++ b/test/transducer/take_while.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/transducer.cpp b/test/transducer/transducer.cpp
+index 33bcfca..08e0c73 100644
+--- a/test/transducer/transducer.cpp
++++ b/test/transducer/transducer.cpp
+@@ -4,7 +4,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/transducer.hpp>
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transducer/unzip.cpp b/test/transducer/unzip.cpp
+index 271b0b4..9535bea 100644
+--- a/test/transducer/unzip.cpp
++++ b/test/transducer/unzip.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/transducer/write.cpp b/test/transducer/write.cpp
+index d464706..7948f3e 100644
+--- a/test/transducer/write.cpp
++++ b/test/transducer/write.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/reducing/first.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/transducer/writebuf.cpp b/test/transducer/writebuf.cpp
+index ec9ac20..b816cad 100644
+--- a/test/transducer/writebuf.cpp
++++ b/test/transducer/writebuf.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/transducer/zip.cpp b/test/transducer/zip.cpp
+index b644fe3..a263cb3 100644
+--- a/test/transducer/zip.cpp
++++ b/test/transducer/zip.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ #include <zug/transduce.hpp>
+ #include <zug/transducer/zip.hpp>
+
+From 3b6626e865a65d33c4f843535d4d83b8b1f6e3b0 Mon Sep 17 00:00:00 2001
+From: Arniiiii <lg3dx6fd@gmail.com>
+Date: Tue, 24 Mar 2026 23:05:34 +0000
+Subject: [PATCH 2/3] Fix for nix flakes I guess
+
+---
+ nix/zug.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/nix/zug.nix b/nix/zug.nix
+index c8386ee..64ebbc9 100644
+--- a/nix/zug.nix
++++ b/nix/zug.nix
+@@ -5,7 +5,7 @@
+   cmake,
+   ninja,
+   boost,
+-  catch2,
++  catch2_3,
+   sources ? ../.,
+   withTests ? false,
+   withExamples ? false,
+
+From 9ae2520a920eb50e7acb454a26537046e6e0ec37 Mon Sep 17 00:00:00 2001
+From: Arniiiii <lg3dx6fd@gmail.com>
+Date: Thu, 16 Apr 2026 16:39:55 +0000
+Subject: [PATCH 3/3] Did what @loqs proposed
+
+---
+ test/CMakeLists.txt                    | 1 -
+ test/__inline_var_tests/inline_var.cpp | 2 +-
+ test/__inline_var_tests/main.cpp       | 3 +--
+ test/compose.cpp                       | 2 +-
+ test/into.cpp                          | 2 +-
+ test/into_vector.cpp                   | 2 +-
+ test/meta.cpp                          | 2 +-
+ test/reduce.cpp                        | 2 +-
+ test/reductor.cpp                      | 2 +-
+ test/run.cpp                           | 2 +-
+ test/sequence.cpp                      | 2 +-
+ test/state_traits.cpp                  | 2 +-
+ test/transduce.cpp                     | 2 +-
+ test/transducer/cat.cpp                | 2 +-
+ test/transducer/chain.cpp              | 2 +-
+ test/transducer/count.cpp              | 2 +-
+ test/transducer/cycle.cpp              | 2 +-
+ test/transducer/dedupe.cpp             | 2 +-
+ test/transducer/distinct.cpp           | 2 +-
+ test/transducer/drop.cpp               | 2 +-
+ test/transducer/drop_while.cpp         | 2 +-
+ test/transducer/each.cpp               | 2 +-
+ test/transducer/eager.cpp              | 2 +-
+ test/transducer/enumerate.cpp          | 2 +-
+ test/transducer/filter.cpp             | 2 +-
+ test/transducer/interelave.cpp         | 2 +-
+ test/transducer/interleave.cpp         | 2 +-
+ test/transducer/interpose.cpp          | 2 +-
+ test/transducer/iter.cpp               | 2 +-
+ test/transducer/map.cpp                | 2 +-
+ test/transducer/map_indexed.cpp        | 2 +-
+ test/transducer/mapcat.cpp             | 2 +-
+ test/transducer/partition.cpp          | 2 +-
+ test/transducer/partition_by.cpp       | 2 +-
+ test/transducer/product.cpp            | 2 +-
+ test/transducer/random_sample.cpp      | 2 +-
+ test/transducer/range.cpp              | 3 ++-
+ test/transducer/read.cpp               | 2 +-
+ test/transducer/readbuf.cpp            | 2 +-
+ test/transducer/remove.cpp             | 2 +-
+ test/transducer/repeat.cpp             | 2 +-
+ test/transducer/replace.cpp            | 2 +-
+ test/transducer/scan.cpp               | 2 +-
+ test/transducer/sink.cpp               | 2 +-
+ test/transducer/take.cpp               | 2 +-
+ test/transducer/take_nth.cpp           | 2 +-
+ test/transducer/take_while.cpp         | 2 +-
+ test/transducer/transducer.cpp         | 2 +-
+ test/transducer/unzip.cpp              | 3 ++-
+ test/transducer/write.cpp              | 2 +-
+ test/transducer/writebuf.cpp           | 2 +-
+ test/transducer/zip.cpp                | 3 ++-
+ 52 files changed, 54 insertions(+), 53 deletions(-)
+
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index ebc4460..3a5c691 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -31,7 +31,6 @@ foreach(_file IN LISTS zug_unit_tests)
+   add_executable(${_target} EXCLUDE_FROM_ALL "${_file}")
+   set_target_properties(${_target} PROPERTIES OUTPUT_NAME ${_output})
+   add_dependencies(tests ${_target})
+-  target_compile_definitions(${_target} PUBLIC CATCH_CONFIG_MAIN)
+   target_link_libraries(${_target} PUBLIC zug-dev Catch2::Catch2WithMain)
+   add_test("test/${_output}" ${_output})
+ endforeach()
+diff --git a/test/__inline_var_tests/inline_var.cpp b/test/__inline_var_tests/inline_var.cpp
+index 39b0acf..4c47370 100644
+--- a/test/__inline_var_tests/inline_var.cpp
++++ b/test/__inline_var_tests/inline_var.cpp
+@@ -11,7 +11,7 @@
+ 
+ #include <zug/detail/inline_constexpr.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug::detail;
+ 
+diff --git a/test/__inline_var_tests/main.cpp b/test/__inline_var_tests/main.cpp
+index 2c344d5..96821ce 100644
+--- a/test/__inline_var_tests/main.cpp
++++ b/test/__inline_var_tests/main.cpp
+@@ -1,2 +1 @@
+-#define CATCH_CONFIG_MAIN
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+diff --git a/test/compose.cpp b/test/compose.cpp
+index d62c44f..192aa35 100644
+--- a/test/compose.cpp
++++ b/test/compose.cpp
+@@ -8,7 +8,7 @@
+ 
+ #include <zug/compose.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <array>
+ #include <functional>
+diff --git a/test/into.cpp b/test/into.cpp
+index 5818492..913c131 100644
+--- a/test/into.cpp
++++ b/test/into.cpp
+@@ -11,7 +11,7 @@
+ #include <zug/transducer/filter.hpp>
+ #include <zug/transducer/map.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/into_vector.cpp b/test/into_vector.cpp
+index 5af5ed6..9a90ee5 100644
+--- a/test/into_vector.cpp
++++ b/test/into_vector.cpp
+@@ -12,7 +12,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/transducer.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/meta.cpp b/test/meta.cpp
+index 28b2cb2..326e7fd 100644
+--- a/test/meta.cpp
++++ b/test/meta.cpp
+@@ -9,7 +9,7 @@
+ #include <zug/meta.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/reduce.cpp b/test/reduce.cpp
+index 1895bb6..4614899 100644
+--- a/test/reduce.cpp
++++ b/test/reduce.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/reduce.hpp>
+ #include <zug/reducing/first.hpp>
+diff --git a/test/reductor.cpp b/test/reductor.cpp
+index a77a79e..44c1dc5 100644
+--- a/test/reductor.cpp
++++ b/test/reductor.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/reducing/first.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/run.cpp b/test/run.cpp
+index a1ca827..c8addeb 100644
+--- a/test/run.cpp
++++ b/test/run.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/sequence.cpp b/test/sequence.cpp
+index d4598d9..2bee4ea 100644
+--- a/test/sequence.cpp
++++ b/test/sequence.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/sequence.hpp>
+diff --git a/test/state_traits.cpp b/test/state_traits.cpp
+index 75bc967..8f7e331 100644
+--- a/test/state_traits.cpp
++++ b/test/state_traits.cpp
+@@ -16,7 +16,7 @@
+ #include <zug/transducer/transducer.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transduce.cpp b/test/transduce.cpp
+index f783c71..47dcdbe 100644
+--- a/test/transduce.cpp
++++ b/test/transduce.cpp
+@@ -11,7 +11,7 @@
+ #include <zug/transducer/take.hpp>
+ #include <zug/util.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <vector>
+ 
+diff --git a/test/transducer/cat.cpp b/test/transducer/cat.cpp
+index 55fbca4..d9c450b 100644
+--- a/test/transducer/cat.cpp
++++ b/test/transducer/cat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/cat.hpp>
+diff --git a/test/transducer/chain.cpp b/test/transducer/chain.cpp
+index 8a903ef..a0e27b1 100644
+--- a/test/transducer/chain.cpp
++++ b/test/transducer/chain.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/chain.hpp>
+diff --git a/test/transducer/count.cpp b/test/transducer/count.cpp
+index 86d811a..4b93ad7 100644
+--- a/test/transducer/count.cpp
++++ b/test/transducer/count.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/cycle.cpp b/test/transducer/cycle.cpp
+index 75eee82..14fa2c4 100644
+--- a/test/transducer/cycle.cpp
++++ b/test/transducer/cycle.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/dedupe.cpp b/test/transducer/dedupe.cpp
+index 65ab54b..87eb99c 100644
+--- a/test/transducer/dedupe.cpp
++++ b/test/transducer/dedupe.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/distinct.cpp b/test/transducer/distinct.cpp
+index 3589d9f..a021766 100644
+--- a/test/transducer/distinct.cpp
++++ b/test/transducer/distinct.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/drop.cpp b/test/transducer/drop.cpp
+index 44c2ab5..4799393 100644
+--- a/test/transducer/drop.cpp
++++ b/test/transducer/drop.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/drop_while.cpp b/test/transducer/drop_while.cpp
+index 01b5563..d6ab021 100644
+--- a/test/transducer/drop_while.cpp
++++ b/test/transducer/drop_while.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/each.cpp b/test/transducer/each.cpp
+index 544e7f3..1117e2f 100644
+--- a/test/transducer/each.cpp
++++ b/test/transducer/each.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/each.hpp>
+diff --git a/test/transducer/eager.cpp b/test/transducer/eager.cpp
+index 8eaf0dd..5a900da 100644
+--- a/test/transducer/eager.cpp
++++ b/test/transducer/eager.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/enumerate.cpp b/test/transducer/enumerate.cpp
+index 8cde434..91d02a1 100644
+--- a/test/transducer/enumerate.cpp
++++ b/test/transducer/enumerate.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/enumerate.hpp>
+diff --git a/test/transducer/filter.cpp b/test/transducer/filter.cpp
+index b30c666..d197584 100644
+--- a/test/transducer/filter.cpp
++++ b/test/transducer/filter.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/interelave.cpp b/test/transducer/interelave.cpp
+index 555735a..4278ca8 100644
+--- a/test/transducer/interelave.cpp
++++ b/test/transducer/interelave.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/interleave.cpp b/test/transducer/interleave.cpp
+index f4036ff..f0e4357 100644
+--- a/test/transducer/interleave.cpp
++++ b/test/transducer/interleave.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/interleave.hpp>
+diff --git a/test/transducer/interpose.cpp b/test/transducer/interpose.cpp
+index 7c08da0..573d7f1 100644
+--- a/test/transducer/interpose.cpp
++++ b/test/transducer/interpose.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/iter.cpp b/test/transducer/iter.cpp
+index 565f039..f76afb4 100644
+--- a/test/transducer/iter.cpp
++++ b/test/transducer/iter.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/iter.hpp>
+diff --git a/test/transducer/map.cpp b/test/transducer/map.cpp
+index efab91e..f33fb04 100644
+--- a/test/transducer/map.cpp
++++ b/test/transducer/map.cpp
+@@ -12,7 +12,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/take.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transducer/map_indexed.cpp b/test/transducer/map_indexed.cpp
+index 743485f..b5cc400 100644
+--- a/test/transducer/map_indexed.cpp
++++ b/test/transducer/map_indexed.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/transduce.hpp>
+ #include <zug/transducer/map_indexed.hpp>
+diff --git a/test/transducer/mapcat.cpp b/test/transducer/mapcat.cpp
+index 4942e53..272ed11 100644
+--- a/test/transducer/mapcat.cpp
++++ b/test/transducer/mapcat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/mapcat.hpp>
+diff --git a/test/transducer/partition.cpp b/test/transducer/partition.cpp
+index e20a7f0..80883ed 100644
+--- a/test/transducer/partition.cpp
++++ b/test/transducer/partition.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/partition_by.cpp b/test/transducer/partition_by.cpp
+index 26850e0..e0c73ab 100644
+--- a/test/transducer/partition_by.cpp
++++ b/test/transducer/partition_by.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/product.cpp b/test/transducer/product.cpp
+index aa908aa..f04ec70 100644
+--- a/test/transducer/product.cpp
++++ b/test/transducer/product.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/random_sample.cpp b/test/transducer/random_sample.cpp
+index fea8a10..147b5db 100644
+--- a/test/transducer/random_sample.cpp
++++ b/test/transducer/random_sample.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <cstdint>
+ #include <limits>
+diff --git a/test/transducer/range.cpp b/test/transducer/range.cpp
+index efb695d..42e901a 100644
+--- a/test/transducer/range.cpp
++++ b/test/transducer/range.cpp
+@@ -6,7 +6,8 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
++#include <catch2/matchers/catch_matchers_floating_point.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/transducer/read.cpp b/test/transducer/read.cpp
+index 1c3b61d..73d5a7d 100644
+--- a/test/transducer/read.cpp
++++ b/test/transducer/read.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/read.hpp>
+diff --git a/test/transducer/readbuf.cpp b/test/transducer/readbuf.cpp
+index a1e89c6..fb3a4ff 100644
+--- a/test/transducer/readbuf.cpp
++++ b/test/transducer/readbuf.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/remove.cpp b/test/transducer/remove.cpp
+index 2a4a1b9..b5fda99 100644
+--- a/test/transducer/remove.cpp
++++ b/test/transducer/remove.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/transduce.hpp>
+diff --git a/test/transducer/repeat.cpp b/test/transducer/repeat.cpp
+index bf1d1f8..6f0b191 100644
+--- a/test/transducer/repeat.cpp
++++ b/test/transducer/repeat.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/replace.cpp b/test/transducer/replace.cpp
+index 23a00ec..23b84cc 100644
+--- a/test/transducer/replace.cpp
++++ b/test/transducer/replace.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transduce.hpp>
+diff --git a/test/transducer/scan.cpp b/test/transducer/scan.cpp
+index d07e8bf..5f10dac 100644
+--- a/test/transducer/scan.cpp
++++ b/test/transducer/scan.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/transducer/count.hpp>
+diff --git a/test/transducer/sink.cpp b/test/transducer/sink.cpp
+index af2df9a..d44eb68 100644
+--- a/test/transducer/sink.cpp
++++ b/test/transducer/sink.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/take.cpp b/test/transducer/take.cpp
+index 930e962..5cfdf5b 100644
+--- a/test/transducer/take.cpp
++++ b/test/transducer/take.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into.hpp>
+diff --git a/test/transducer/take_nth.cpp b/test/transducer/take_nth.cpp
+index 29f80ef..7ae6020 100644
+--- a/test/transducer/take_nth.cpp
++++ b/test/transducer/take_nth.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/take_while.cpp b/test/transducer/take_while.cpp
+index 7f1ec11..d03cfbe 100644
+--- a/test/transducer/take_while.cpp
++++ b/test/transducer/take_while.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/into_vector.hpp>
+diff --git a/test/transducer/transducer.cpp b/test/transducer/transducer.cpp
+index 08e0c73..4b75e74 100644
+--- a/test/transducer/transducer.cpp
++++ b/test/transducer/transducer.cpp
+@@ -4,7 +4,7 @@
+ #include <zug/transducer/map.hpp>
+ #include <zug/transducer/transducer.hpp>
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ using namespace zug;
+ 
+diff --git a/test/transducer/unzip.cpp b/test/transducer/unzip.cpp
+index 9535bea..5929339 100644
+--- a/test/transducer/unzip.cpp
++++ b/test/transducer/unzip.cpp
+@@ -6,7 +6,8 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
++#include <catch2/matchers/catch_matchers_floating_point.hpp>
+ 
+ #include <zug/into_vector.hpp>
+ #include <zug/reducing/last.hpp>
+diff --git a/test/transducer/write.cpp b/test/transducer/write.cpp
+index 7948f3e..d1f0ac8 100644
+--- a/test/transducer/write.cpp
++++ b/test/transducer/write.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/reducing/first.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/transducer/writebuf.cpp b/test/transducer/writebuf.cpp
+index b816cad..65d3b64 100644
+--- a/test/transducer/writebuf.cpp
++++ b/test/transducer/writebuf.cpp
+@@ -6,7 +6,7 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
+ 
+ #include <zug/compose.hpp>
+ #include <zug/run.hpp>
+diff --git a/test/transducer/zip.cpp b/test/transducer/zip.cpp
+index a263cb3..4613c3e 100644
+--- a/test/transducer/zip.cpp
++++ b/test/transducer/zip.cpp
+@@ -6,7 +6,8 @@
+ // See accompanying file LICENSE or copy at http://boost.org/LICENSE_1_0.txt
+ //
+ 
+-#include <catch2/catch_all.hpp>
++#include <catch2/catch_test_macros.hpp>
++#include <catch2/matchers/catch_matchers_floating_point.hpp>
+ 
+ #include <zug/transduce.hpp>
+ #include <zug/transducer/zip.hpp>

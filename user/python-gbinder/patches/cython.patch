@@ -1,0 +1,11 @@
+--- a/setup.py	2023-09-16 14:58:25.000000000 -0300
++++ b/setup.py	2024-09-08 13:48:40.503581594 -0300
+@@ -10,7 +10,7 @@
+         kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
+     return kw
+ 
+-USE_CYTHON = False
++USE_CYTHON = True
+ if "--cython" in sys.argv:
+     sys.argv.remove("--cython")
+     USE_CYTHON = True

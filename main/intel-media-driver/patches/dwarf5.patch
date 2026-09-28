@@ -1,0 +1,10 @@
+--- a/media_driver/cmake/linux/media_compile_flags_linux.cmake
++++ b/media_driver/cmake/linux/media_compile_flags_linux.cmake
+@@ -174,7 +174,6 @@
+          -Wno-inconsistent-missing-override
+          # for verison under clang-17
+          -Wno-ignored-optimization-argument
+-         -gdwarf-4
+         )
+     list(REMOVE_ITEM MEDIA_COMPILER_FLAGS_COMMON
+          -funswitch-loops

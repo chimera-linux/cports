@@ -1,0 +1,14 @@
+--- a/tls/tests/meson.build
++++ b/tls/tests/meson.build
+@@ -46,6 +46,11 @@ test_programs = [
+ ]
+ 
+ foreach backend: backends
++  # https://gitlab.gnome.org/GNOME/glib-networking/-/issues/222
++  if backend == 'openssl'
++    continue
++  endif
++
+   foreach program: test_programs
+     program_name = program[0] + '-' + backend
+     program_deps = program[2]

@@ -1,0 +1,23 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -783,7 +783,7 @@ SUBST_INSTALL_HEADER = \
+ 	  $(SED) -e "s/\<EXPORT\>/extern/" < "$$1" > "include/$$file.t" || exit 1; \
+ 	  $(MKDIR_P) "$$2" || exit 1; \
+ 	  $(INSTALL_HEADER) "include/$$file.t" "$$2/$$file" || exit 1; \
+-	  $(RM) "include/$$file.t"; \
++	  rm -f "include/$$file.t"; \
+ 	}; \
+ 	subst_install_header
+ 
+@@ -2678,9 +2678,9 @@ update-po:
+ 	$(MAKE) -C po $@
+ 
+ install-libacl_h: include/libacl.h
+-	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(pkgincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/libacl.h" "$(DESTDIR)$(pkgincludedir)"
+ install-acl_h: include/acl.h
+-	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(sysincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/acl.h" "$(DESTDIR)$(sysincludedir)"
+ install-data-local: install-libacl_h install-acl_h
+ uninstall-local:
+ 	-rm -f "$(DESTDIR)$(pkgincludedir)/libacl.h" "$(DESTDIR)$(sysincludedir)/acl.h"

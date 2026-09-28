@@ -1,0 +1,103 @@
+--- a/example/config.yaml
++++ b/example/config.yaml
+@@ -167,17 +167,17 @@ db-type: "sqlite"
+ # If the file doesn't exist at the specified path, it will be created.
+ # If just a filename is provided (no directory) then the database will be created in the same directory
+ # as the GoToSocial binary.
+ # If address is set to :memory: then an in-memory database will be used (no file).
+ # WARNING: :memory: should NOT BE USED except for testing purposes.
+ #
+ # Examples: ["localhost","my.db.host","127.0.0.1","192.111.39.110",":memory:", "sqlite.db"]
+ # Default: ""
+-db-address: "sqlite.db"
++db-address: "/var/lib/gotosocial/sqlite.db"
+ 
+ # Int. Port for postgres database connection; ignored for sqlite.
+ # Examples: [5432, 1234, 6969]
+ # Default: 5432
+ db-port: 5432
+ 
+ # String. Username for postgres database connection.
+ # Examples: ["mydbuser","postgres","gotosocial"]
+@@ -269,17 +269,17 @@ db-sqlite-cache-size: "8MiB"
+ # See: https://www.sqlite.org/pragma.html#pragma_busy_timeout
+ # Examples: ["0s", "1s", "30s", "1m", "5m"]
+ # Default: "30m"
+ db-sqlite-busy-timeout: "30m"
+ 
+ # String. Full Database connection string
+ #
+ # This connection string is only applicable for Postgres. When this field is defined, all other database related configuration field will be ignored. This field allow you to fine tune connection with Postgres
+-# 
++#
+ # Examples: ["postgres://user:pass@localhost/db?search_path=gotosocial", "postgres://user:pass@localhost:9999/db"]
+ # Default: ""
+ db-postgres-connection-string: ""
+ 
+ # GoToSocial cache
+ # configuration opts.
+ cache:
+ 
+@@ -339,22 +339,22 @@ cache:
+ ##### WEB CONFIG #####
+ ######################
+ 
+ # Config pertaining to templating and serving of web pages/email notifications and the like
+ 
+ # String. Directory from which gotosocial will attempt to load html templates (.tmpl files).
+ # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
+ # Default: "./web/template/"
+-web-template-base-dir: "./web/template/"
++web-template-base-dir: "/usr/share/gotosocial/web/template/"
+ 
+ # String. Directory from which gotosocial will attempt to serve static web assets (images, scripts).
+ # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
+ # Default: "./web/assets/"
+-web-asset-base-dir: "./web/assets/"
++web-asset-base-dir: "/usr/share/gotosocial/web/assets/"
+ 
+ ###########################
+ ##### INSTANCE CONFIG #####
+ ###########################
+ 
+ # Config pertaining to instance federation settings, pages to hide/expose, etc.
+ 
+ # Array of string. BCP47 language tags to indicate preferred languages of users on this instance.
+@@ -787,17 +787,17 @@ media-cleanup-every: "24h"
+ storage-backend: "local"
+ 
+ # String. Directory to use as a base path for storing files.
+ # Make sure whatever user/group gotosocial is running as has permission to access
+ # this directory, and create new subdirectories and files within it.
+ # Only required when running with the local storage backend.
+ # Examples: ["/home/gotosocial/storage", "/opt/gotosocial/datastorage"]
+ # Default: "/gotosocial/storage"
+-storage-local-base-path: "/gotosocial/storage"
++storage-local-base-path: "/var/lib/gotosocial/storage"
+ 
+ # String. API endpoint of the S3 compatible service.
+ # Only required when running with the s3 storage backend.
+ # Examples: ["minio:9000", "s3.nl-ams.scw.cloud", "s3.us-west-002.backblazeb2.com"]
+ # GoToSocial uses "DNS-style" when accessing buckets.
+ # If you are using Scaleways object storage, please remove the "bucket name" from the endpoint address
+ # Default: ""
+ storage-s3-endpoint: ""
+@@ -950,17 +950,17 @@ letsencrypt-enabled: false
+ letsencrypt-port: 80
+ 
+ # String. Directory in which to store LetsEncrypt certificates.
+ # It is a good move to make this a sub-path within your storage directory, as it makes
+ # backup easier, but you might wish to move them elsewhere if they're also accessed by other services.
+ # In any case, make sure GoToSocial has permissions to write to / read from this directory.
+ # Examples: ["/home/gotosocial/storage/certs", "/acmecerts"]
+ # Default: "/gotosocial/storage/certs"
+-letsencrypt-cert-dir: "/gotosocial/storage/certs"
++letsencrypt-cert-dir: "/var/lib/gotosocial/storage/certs"
+ 
+ # String. Email address to use when registering LetsEncrypt certs.
+ # Most likely, this will be the email address of the instance administrator.
+ # LetsEncrypt will send notifications about expiring certificates etc to this address.
+ # Examples: ["admin@example.org"]
+ # Default: ""
+ letsencrypt-email-address: ""
+ 

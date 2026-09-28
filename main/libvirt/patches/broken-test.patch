@@ -1,0 +1,23 @@
+diff --git a/tests/meson.build b/tests/meson.build
+index 7270840..7585787 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -607,18 +607,6 @@ foreach data : tests
+   )
+ endforeach
+ 
+-test(
+-  'qemu replies check',
+-  python3_prog,
+-  args: [
+-    qemu_replies_tool_prog.full_path(),
+-    '--repliesdir',
+-    meson.project_source_root() / 'tests' / 'qemucapabilitiesdata'
+-  ],
+-  env: runutf8,
+-  suite: 'script',
+-)
+-
+ if conf.has('WITH_TEST')
+   # vsh based client self-test, which can be run directly from meson
+   test('virsh self-test',

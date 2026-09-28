@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/sd-tmpfiles-clean
+smooth-recovery = true
+depends-on: local.target
+depends-on: time-sync.target

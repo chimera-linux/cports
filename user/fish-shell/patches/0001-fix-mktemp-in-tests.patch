@@ -1,0 +1,22 @@
+diff --git a/tests/test_functions/mktemp.fish b/tests/test_functions/mktemp.fish
+index c0b073aa5..af84d20c7 100644
+--- a/tests/test_functions/mktemp.fish
++++ b/tests/test_functions/mktemp.fish
+@@ -49,16 +49,9 @@ function mktemp
+ 
+     # GNU mktemp treats the final occurrence of a sequence of X's as the template token.
+     # BSD mktemp only treats X's as the template token if they suffix the string.
+-    # So let's outlaw them anywhere besides the end.
++    # So let's require them in the end.
+     # Similarly GNU mktemp requires at least 3 X's, BSD mktemp requires none. Let's require 3.
+     begin
+-        # Look for at least three Xs that are not the end of the template
+-        if string match -rq -- 'XXX[^X].*$' "$template"
+-            echo "mktemp: X's may only occur at the end of the template '$template'" >&2
+-            _mktemp_help >&2
+-            exit 1
+-        end
+-
+         # Look for too few X incidences at the end of the template
+         if ! string match -rq -- 'XXX$' "$template"
+             echo "mktemp: too few trailing X's in template '$template'" >&2

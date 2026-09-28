@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/yggdrasil.wrapper
+logfile = /var/log/yggdrasil.log
+depends-on: local.target
+depends-on: network.target

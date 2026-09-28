@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/mpd --no-daemon
+smooth-recovery = true
+depends-on: local.target
+depends-on: network.target

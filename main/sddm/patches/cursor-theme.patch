@@ -1,0 +1,73 @@
+Patch-Source: https://github.com/sddm/sddm/pull/1904
+--- a/src/daemon/XorgDisplayServer.cpp
++++ b/src/daemon/XorgDisplayServer.cpp
+@@ -261,6 +261,9 @@ namespace SDDM {
+         // create display setup script process
+         QProcess *displayScript = new QProcess();
+ 
++        const QString xcursorTheme = mainConfig.Theme.CursorTheme.get(),
++                      xcursorSize = mainConfig.Theme.CursorSize.get();
++
+         // set process environment
+         QProcessEnvironment env;
+         env.insert(QStringLiteral("DISPLAY"), m_display);
+@@ -268,8 +271,8 @@ namespace SDDM {
+         env.insert(QStringLiteral("PATH"), mainConfig.Users.DefaultPath.get());
+         env.insert(QStringLiteral("XAUTHORITY"), m_xauth.authPath());
+         env.insert(QStringLiteral("SHELL"), QStringLiteral("/bin/sh"));
+-        env.insert(QStringLiteral("XCURSOR_THEME"), mainConfig.Theme.CursorTheme.get());
+-        QString xcursorSize = mainConfig.Theme.CursorSize.get();
++        if (!xcursorTheme.isEmpty())
++            env.insert(QStringLiteral("XCURSOR_THEME"), xcursorTheme);
+         if (!xcursorSize.isEmpty())
+             env.insert(QStringLiteral("XCURSOR_SIZE"), xcursorSize);
+         setCursor->setProcessEnvironment(env);
+@@ -287,6 +290,16 @@ namespace SDDM {
+             setCursor->kill();
+         }
+ 
++        // Unlike libXcursor, xcb-util-cursor no longer looks at XCURSOR_THEME. Set the resource.
++        if (!xcursorTheme.isEmpty()) {
++            QProcess xrdbProcess;
++            xrdbProcess.setProcessEnvironment(env);
++            xrdbProcess.start(QStringLiteral("xrdb"), QStringList{QStringLiteral("-nocpp"), QStringLiteral("-merge")});
++            xrdbProcess.write(QStringLiteral("Xcursor.theme: %1").arg(xcursorTheme).toUtf8());
++            xrdbProcess.closeWriteChannel();
++            xrdbProcess.waitForFinished(1000);
++        }
++
+         // start display setup script
+         qDebug() << "Running display setup script " << mainConfig.X11.DisplayCommand.get();
+         QStringList displayCommand = QProcess::splitCommand(mainConfig.X11.DisplayCommand.get());
+--- a/src/helper/xorguserhelper.cpp
++++ b/src/helper/xorguserhelper.cpp
+@@ -200,9 +200,12 @@ bool XOrgUserHelper::startServer(const QString &cmd)
+ 
+ void XOrgUserHelper::startDisplayCommand()
+ {
++    const QString xcursorTheme = mainConfig.Theme.CursorTheme.get();
++
+     auto env = QProcessEnvironment::systemEnvironment();
+     env.insert(QStringLiteral("DISPLAY"), m_display);
+     env.insert(QStringLiteral("XAUTHORITY"), m_xauth.authPath());
++    env.insert(QStringLiteral("XCURSOR_THEME"), xcursorTheme);
+ 
+     // Set cursor
+     qInfo("Setting default cursor...");
+@@ -215,6 +218,16 @@ void XOrgUserHelper::startDisplayCommand()
+         setCursor->deleteLater();
+     }
+ 
++    // Unlike libXcursor, xcb-util-cursor no longer looks at XCURSOR_THEME. Set the resource.
++    if (!xcursorTheme.isEmpty()) {
++        QProcess xrdbProcess;
++        xrdbProcess.setProcessEnvironment(env);
++        xrdbProcess.start(QStringLiteral("xrdb"), QStringList{QStringLiteral("-nocpp"), QStringLiteral("-merge")});
++        xrdbProcess.write(QStringLiteral("Xcursor.theme: %1").arg(xcursorTheme).toUtf8());
++        xrdbProcess.closeWriteChannel();
++        xrdbProcess.waitForFinished(1000);
++    }
++
+     // Display setup script
+     auto cmd = mainConfig.X11.DisplayCommand.get();
+     qInfo("Running display setup script: %s", qPrintable(cmd));

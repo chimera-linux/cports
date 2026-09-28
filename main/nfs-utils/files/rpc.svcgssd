@@ -1,0 +1,7 @@
+# rpc-svcgssd service
+
+type = process
+depends-on = local.target
+depends-on = network.target
+depends-on = nfs-rpc_pipefs
+command = /usr/bin/rpc.svcgssd -f

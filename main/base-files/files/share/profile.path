@@ -1,0 +1,63 @@
+# /etc/profile.path
+#
+# Handles filtering and fixup of the user's PATH variable
+#
+# The goal is to preserve the semantics PATH components that came in, but
+# filter out everything that is symlinks in Chimera (in order to ensure that
+# all binaries resolve to their canonical path without any symlinks in the
+# way). And if some necessary components are missing, ensure they get added.
+# And while at it, ensure /usr/local always beats /usr.
+#
+# We do not want to replace the PATH; in environments like WSL it needs to be
+# preserved for most part, and elsewhere we rely on the defaults given to us
+# by the shell, ssh, login(1) and others.
+#
+
+_OLD_IFS="$IFS"
+IFS=":"
+
+_HAVE_BIN=
+_HAVE_LBIN=
+
+for p in $PATH; do
+    case "$p" in
+        /usr/local/bin|/usr/local/sbin)
+            if [ -z "$_HAVE_LBIN" ]; then
+                _NEW_PATH="$_NEW_PATH:/usr/local/bin"
+                _HAVE_LBIN=1
+            fi
+            ;;
+        /usr/bin|/usr/sbin|/bin|/sbin)
+            if [ -z "$_HAVE_BIN" ]; then
+                if [ -z "$_HAVE_LBIN" ]; then
+                    _NEW_PATH="$_NEW_PATH:/usr/local/bin:/usr/bin"
+                    _HAVE_LBIN=1
+                else
+                    _NEW_PATH="$_NEW_PATH:/usr/bin"
+                fi
+                _HAVE_BIN=1
+            fi
+            ;;
+        *)
+            _NEW_PATH="$_NEW_PATH:$p"
+            ;;
+    esac
+done
+unset p
+
+IFS="$_OLD_IFS"
+
+if [ -z "$_HAVE_BIN" ]; then
+    if [ -z "$_HAVE_LBIN" ]; then
+        _NEW_PATH="$_NEW_PATH:/usr/local/bin:/usr/bin"
+    else
+        _NEW_PATH="$_NEW_PATH:/usr/bin"
+    fi
+fi
+
+export PATH="${_NEW_PATH#:}"
+
+unset _HAVE_BIN
+unset _HAVE_LBIN
+unset _NEW_PATH
+unset _OLD_IFS

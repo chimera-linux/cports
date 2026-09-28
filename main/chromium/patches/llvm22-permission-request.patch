@@ -1,0 +1,28 @@
+a const PermissionRequest& is not convertible to
+raw_ref<PermissionRequest, ...> due to losing qualifier.
+
+--- a/components/permissions/permission_request_manager.cc
++++ b/components/permissions/permission_request_manager.cc
+@@ -437,7 +437,8 @@ bool PermissionRequestManager::ReprioritizeCurrentRequestIfNeeded() {
+ bool PermissionRequestManager::
+     HasActiveSourceFrameOrDisallowActivationOtherwise(
+         const PermissionRequest& request) const {
+-  const auto iter = request_sources_map_.find(request);
++  auto *req = const_cast<PermissionRequest*>(&request);
++  const auto iter = request_sources_map_.find(base::raw_ref(*req));
+   if (iter != request_sources_map_.end()) {
+     return !iter->second.IsSourceFrameInactiveAndDisallowActivation();
+   }
+--- a/chrome/browser/ui/startup/profile_launch_observer.cc
++++ b/chrome/browser/ui/startup/profile_launch_observer.cc
+@@ -73,8 +73,8 @@ void ProfileLaunchObserver::OnProfileWillBeDestroyed(Profile* profile) {
+ 
+ bool ProfileLaunchObserver::HasBeenLaunchedAndBrowserOpenInternal(
+     const Profile* profile) const {
+-  return opened_profiles_.contains(profile) &&
+-         launched_profiles_.contains(profile);
++  return opened_profiles_.contains(const_cast<Profile*>(profile)) &&
++         launched_profiles_.contains(const_cast<Profile*>(profile));
+ }
+ 
+ void ProfileLaunchObserver::AddLaunchedInternal(Profile* profile) {

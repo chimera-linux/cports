@@ -1,0 +1,785 @@
+Patch-Source: https://gitlab.com/accounts-sso/signon-plugin-oauth2/-/merge_requests/28
+--
+From d3ba6d4c19ca0b1081fbafc757d3c496cc21ada2 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 18:34:07 +0200
+Subject: [PATCH 01/10] Port QSignalSpys to PMF syntax
+
+---
+ tests/oauth2plugintest.cpp | 86 ++++++++++++++++----------------------
+ 1 file changed, 37 insertions(+), 49 deletions(-)
+
+diff --git a/tests/oauth2plugintest.cpp b/tests/oauth2plugintest.cpp
+index 94e5c43..b257dc7 100644
+--- a/tests/oauth2plugintest.cpp
++++ b/tests/oauth2plugintest.cpp
+@@ -244,7 +244,7 @@ void OAuth2PluginTest::testPluginCancel()
+     m_testPlugin->cancel();
+ 
+     //then real cancel
+-    QSignalSpy pluginError(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
++    QSignalSpy pluginError(m_testPlugin, &Plugin::error);
+ 
+     OAuth2PluginData userAgentData;
+     userAgentData.setHost("https://localhost");
+@@ -435,11 +435,10 @@ void OAuth2PluginTest::testPluginProcess()
+     QFETCH(QVariantMap, response);
+     QFETCH(QVariantMap, stored);
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
+-    QSignalSpy store(m_testPlugin, SIGNAL(store(const SignOn::SessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
++    QSignalSpy store(m_testPlugin, &Plugin::store);
+ 
+     m_testPlugin->process(sessionData, mechanism);
+     if (errorCode < 0) {
+@@ -696,11 +695,10 @@ void OAuth2PluginTest::testPluginHmacSha1Process()
+     QFETCH(QVariantMap, response);
+     QFETCH(QVariantMap, stored);
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
+-    QSignalSpy store(m_testPlugin, SIGNAL(store(const SignOn::SessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
++    QSignalSpy store(m_testPlugin, &Plugin::store);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -777,11 +775,10 @@ void OAuth2PluginTest::testPluginUseragentUserActionFinished()
+     QStringList scopes = QStringList() << "scope1" << "scope2";
+     data.setScope(scopes);
+ 
+-    QSignalSpy resultSpy(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
+-    QSignalSpy store(m_testPlugin, SIGNAL(store(const SignOn::SessionData&)));
++    QSignalSpy resultSpy(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
++    QSignalSpy store(m_testPlugin, &Plugin::store);
+ 
+     m_testPlugin->process(data, QString("user_agent"));
+ 
+@@ -1286,10 +1283,9 @@ void OAuth2PluginTest::testPluginWebserverUserActionFinished()
+     data.setScope(QStringList() << "one" << "two" << "three");
+     data.setDisableStateParameter(disableStateParameter);
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1362,9 +1358,8 @@ void OAuth2PluginTest::testUserActionFinishedErrors()
+     data.setClientSecret("fa28f40b5a1f8c1d5628963d880636fbkjkjkj");
+     data.setRedirectUri("http://localhost/resp.html");
+ 
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     m_testPlugin->process(data, QString("web_server"));
+     QTRY_COMPARE(userActionRequired.count(), 1);
+@@ -1486,10 +1481,9 @@ void OAuth2PluginTest::testOauth1UserActionFinished()
+     data.setConsumerSecret("fa28f40b5a1f8c1d5628963d880636fbkjkjkj");
+     data.setRealm("MyHost");
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1610,9 +1604,8 @@ void OAuth2PluginTest::testOAuth2Errors()
+     data.setClientSecret("fa28f40b5a1f8c1d5628963d880636fbkjkjkj");
+     data.setRedirectUri("http://localhost/resp.html");
+ 
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1683,8 +1676,8 @@ void OAuth2PluginTest::testRefreshToken()
+ 
+     SignOn::UiSessionData info;
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1766,9 +1759,8 @@ void OAuth2PluginTest::testRefreshTokenError()
+ 
+     SignOn::UiSessionData info;
+ 
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1842,10 +1834,9 @@ void OAuth2PluginTest::testClientAuthentication()
+     data.setRedirectUri("http://localhost/resp.html");
+     data.setForceClientAuthViaRequestBody(forceAuthViaRequestBody);
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1908,10 +1899,9 @@ void OAuth2PluginTest::testTokenPath()
+     data.setClientId("104660106251471");
+     data.setRedirectUri("http://localhost/resp.html");
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     TestNetworkAccessManager *nam = new TestNetworkAccessManager;
+     m_testPlugin->m_networkAccessManager = nam;
+@@ -1995,10 +1985,9 @@ void OAuth2PluginTest::testTokenQuery()
+     data.setClientId("104660106251471");
+     data.setRedirectUri("http://localhost/resp.html");
+ 
+-    QSignalSpy result(m_testPlugin, SIGNAL(result(const SignOn::SessionData&)));
+-    QSignalSpy error(m_testPlugin, SIGNAL(error(const SignOn::Error &)));
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy result(m_testPlugin, &Plugin::result);
++    QSignalSpy error(m_testPlugin, &Plugin::error);
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     QScopedPointer<TestNetworkAccessManager> nam(new TestNetworkAccessManager);
+     m_testPlugin->m_networkAccessManager = nam.data();
+@@ -2062,8 +2051,7 @@ void OAuth2PluginTest::testOAuth2AuthRequestUri()
+     QFETCH(QVariantMap, sessionData);
+     QFETCH(QString, expectedUri);
+ 
+-    QSignalSpy userActionRequired(m_testPlugin,
+-                                  SIGNAL(userActionRequired(const SignOn::UiSessionData&)));
++    QSignalSpy userActionRequired(m_testPlugin, &Plugin::userActionRequired);
+ 
+     m_testPlugin->process(sessionData, mechanism);
+     QCOMPARE(userActionRequired.count(), 1);
+-- 
+GitLab
+
+
+From a0b372dfb6d37d0a81a545239128fec5ee94283c Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 18:51:29 +0200
+Subject: [PATCH 02/10] Port to new connection syntax
+
+---
+ example/oauthclient.cpp    |  8 ++++----
+ src/base-plugin.cpp        | 12 ++++++------
+ src/plugin.cpp             | 18 ++++++------------
+ tests/oauth2plugintest.cpp |  4 ++--
+ 4 files changed, 18 insertions(+), 24 deletions(-)
+
+diff --git a/example/oauthclient.cpp b/example/oauthclient.cpp
+index adfcabf..328e8b7 100644
+--- a/example/oauthclient.cpp
++++ b/example/oauthclient.cpp
+@@ -47,10 +47,10 @@ OAuthClient::~OAuthClient()
+ void OAuthClient::authenticate()
+ {
+     SignOn::AuthSession *m_session = m_identity->createSession("oauth2");
+-    QObject::connect(m_session, SIGNAL(response(const SignOn::SessionData &)),
+-                     this, SLOT(onResponse(const SignOn::SessionData &)));
+-    QObject::connect(m_session, SIGNAL(error(const SignOn::Error &)),
+-                     this, SLOT(onError(const SignOn::Error &)));
++    QObject::connect(m_session, &SignOn::AuthSession::response,
++                     this, &OAuthClient::onResponse);
++    QObject::connect(m_session, &SignOn::AuthSession::error,
++                     this, &OAuthClient::onError);
+ 
+     OAuth2PluginData data;
+     data.setHost("www.facebook.com");
+diff --git a/src/base-plugin.cpp b/src/base-plugin.cpp
+index aa2d639..d5ce81c 100644
+--- a/src/base-plugin.cpp
++++ b/src/base-plugin.cpp
+@@ -124,12 +124,12 @@ void BasePlugin::postRequest(const QNetworkRequest &request,
+     Q_D(BasePlugin);
+ 
+     d->m_reply = d->m_networkAccessManager->post(request, data);
+-    connect(d->m_reply, SIGNAL(finished()),
+-            this, SLOT(onPostFinished()));
+-    connect(d->m_reply, SIGNAL(error(QNetworkReply::NetworkError)),
+-            this, SLOT(onNetworkError(QNetworkReply::NetworkError)));
+-    connect(d->m_reply, SIGNAL(sslErrors(QList<QSslError>)),
+-            this, SLOT(handleSslErrors(QList<QSslError>)));
++    connect(d->m_reply, &QNetworkReply::finished,
++            this, &BasePlugin::onPostFinished);
++    connect(d->m_reply, &QNetworkReply::error,
++            this, &BasePlugin::onNetworkError);
++    connect(d->m_reply, &QNetworkReply::sslErrors,
++            this, &BasePlugin::handleSslErrors);
+ }
+ 
+ void BasePlugin::serverReply(QNetworkReply *reply)
+diff --git a/src/plugin.cpp b/src/plugin.cpp
+index e6af807..c764609 100644
+--- a/src/plugin.cpp
++++ b/src/plugin.cpp
+@@ -107,18 +107,12 @@ void Plugin::process(const SignOn::SessionData &inData,
+     impl->setNetworkAccessManager(m_networkAccessManager);
+ 
+     // Forward the signals from the implementation
+-    connect(impl, SIGNAL(result(const SignOn::SessionData &)),
+-            SIGNAL(result(const SignOn::SessionData &)));
+-    connect(impl, SIGNAL(store(const SignOn::SessionData &)),
+-            SIGNAL(store(const SignOn::SessionData &)));
+-    connect(impl, SIGNAL(error(const SignOn::Error &)),
+-            SIGNAL(error(const SignOn::Error &)));
+-    connect(impl, SIGNAL(userActionRequired(const SignOn::UiSessionData &)),
+-            SIGNAL(userActionRequired(const SignOn::UiSessionData &)));
+-    connect(impl, SIGNAL(refreshed(const SignOn::UiSessionData &)),
+-            SIGNAL(refreshed(const SignOn::UiSessionData &)));
+-    connect(impl, SIGNAL(statusChanged(const AuthPluginState, const QString&)),
+-            SIGNAL(statusChanged(const AuthPluginState, const QString&)));
++    connect(impl, &BasePlugin::result, this, &Plugin::result);
++    connect(impl, &BasePlugin::store, this, &Plugin::store);
++    connect(impl, &BasePlugin::error, this, &Plugin::error);
++    connect(impl, &BasePlugin::userActionRequired, this, &Plugin::userActionRequired);
++    connect(impl, &BasePlugin::refreshed, this, &Plugin::refreshed);
++    connect(impl, &BasePlugin::statusChanged, this, &Plugin::statusChanged);
+ 
+     impl->process(inData, mechanism);
+ }
+diff --git a/tests/oauth2plugintest.cpp b/tests/oauth2plugintest.cpp
+index b257dc7..9e16950 100644
+--- a/tests/oauth2plugintest.cpp
++++ b/tests/oauth2plugintest.cpp
+@@ -142,8 +142,8 @@ public:
+         open(ReadOnly | Unbuffered);
+         setHeader(QNetworkRequest::ContentLengthHeader, QVariant(content.size()));
+ 
+-        QTimer::singleShot(0, this, SIGNAL(readyRead()));
+-        QTimer::singleShot(10, this, SLOT(finish()));
++        QTimer::singleShot(0, this, &TestNetworkReply::readyRead);
++        QTimer::singleShot(10, this, &TestNetworkReply::finish);
+     }
+ 
+ public Q_SLOTS:
+-- 
+GitLab
+
+
+From 8211fd4a3ca31370069c6953db1589c1110dca90 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 18:59:12 +0200
+Subject: [PATCH 03/10] Port away from deprecated error() signal
+
+---
+ src/base-plugin.cpp        | 7 ++++++-
+ tests/oauth2plugintest.cpp | 8 +++++++-
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/src/base-plugin.cpp b/src/base-plugin.cpp
+index d5ce81c..ffc8ad5 100644
+--- a/src/base-plugin.cpp
++++ b/src/base-plugin.cpp
+@@ -126,8 +126,13 @@ void BasePlugin::postRequest(const QNetworkRequest &request,
+     d->m_reply = d->m_networkAccessManager->post(request, data);
+     connect(d->m_reply, &QNetworkReply::finished,
+             this, &BasePlugin::onPostFinished);
+-    connect(d->m_reply, &QNetworkReply::error,
++#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
++    connect(d->m_reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
+             this, &BasePlugin::onNetworkError);
++#else
++    connect(d->m_reply, &QNetworkReply::errorOccurred,
++            this, &BasePlugin::onNetworkError);
++#endif
+     connect(d->m_reply, &QNetworkReply::sslErrors,
+             this, &BasePlugin::handleSslErrors);
+ }
+diff --git a/tests/oauth2plugintest.cpp b/tests/oauth2plugintest.cpp
+index 9e16950..f5221cc 100644
+--- a/tests/oauth2plugintest.cpp
++++ b/tests/oauth2plugintest.cpp
+@@ -148,7 +148,13 @@ public:
+ 
+ public Q_SLOTS:
+     void finish() { setFinished(true); Q_EMIT finished(); }
+-    void fail() { Q_EMIT error(error()); }
++    void fail() {
++#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
++        Q_EMIT error(error());
++#else
++        Q_EMIT errorOccurred(error());
++#endif
++    }
+ 
+ protected:
+     void abort() Q_DECL_OVERRIDE {}
+-- 
+GitLab
+
+
+From 039dab8db2e16d02872c6e12c698157e05dc43e2 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:02:04 +0200
+Subject: [PATCH 04/10] Port away from deprecated qrand
+
+---
+ src/oauth1plugin.cpp | 7 +++++++
+ src/oauth2plugin.cpp | 6 ++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/src/oauth1plugin.cpp b/src/oauth1plugin.cpp
+index 8ec7645..6c38cbb 100644
+--- a/src/oauth1plugin.cpp
++++ b/src/oauth1plugin.cpp
+@@ -94,8 +94,10 @@ public:
+     {
+         TRACE();
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+         // Initialize randomizer
+         qsrand(QTime::currentTime().msec());
++#endif
+     }
+ 
+     ~OAuth1PluginPrivate()
+@@ -437,8 +439,13 @@ QString OAuth1Plugin::createOAuth1Header(const QString &aUrl,
+                       .arg(urlEncode(inData.ConsumerKey())));
+     authHeader.append(DELIMITER);
+     // Nonce
++#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+     unsigned long nonce1 = (unsigned long) qrand();
+     unsigned long nonce2 = (unsigned long) qrand();
++#else
++    unsigned long nonce1 = QRandomGenerator::global()->generate64();
++    unsigned long nonce2 = QRandomGenerator::global()->generate64();
++#endif
+     QString oauthNonce = QString("%1%2").arg(nonce1).arg(nonce2);
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_NONCE)
+                       .arg(urlEncode(oauthNonce)));
+diff --git a/src/oauth2plugin.cpp b/src/oauth2plugin.cpp
+index 418e7db..8763f00 100644
+--- a/src/oauth2plugin.cpp
++++ b/src/oauth2plugin.cpp
+@@ -84,8 +84,10 @@ public:
+     {
+         TRACE();
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+         // Initialize randomizer
+         qsrand(QTime::currentTime().msec());
++#endif
+     }
+ 
+     ~OAuth2PluginPrivate()
+@@ -180,7 +182,11 @@ void OAuth2Plugin::sendOAuth2AuthRequest()
+     QString redirectUri = d->m_oauth2Data.RedirectUri();
+     query.addQueryItem(REDIRECT_URI, QUrl::toPercentEncoding(redirectUri));
+     if (!d->m_oauth2Data.DisableStateParameter()) {
++#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+         d->m_state = QString::number(qrand());
++#else
++        d->m_state = QString::number(QRandomGenerator::global()->generate());
++#endif
+         query.addQueryItem(STATE, d->m_state);
+     }
+     QStringList responseType = d->m_oauth2Data.ResponseType();
+-- 
+GitLab
+
+
+From 47ff5a950e54ae2a570183be21312bcaa5271396 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:04:44 +0200
+Subject: [PATCH 05/10] Fix string concatenation in Qt6
+
+---
+ src/oauth1plugin.cpp | 33 ++++++++++++++++-----------------
+ src/oauth1plugin.h   |  2 +-
+ src/oauth2plugin.cpp |  4 ++--
+ src/oauth2plugin.h   |  2 +-
+ 4 files changed, 20 insertions(+), 21 deletions(-)
+
+diff --git a/src/oauth1plugin.cpp b/src/oauth1plugin.cpp
+index 6c38cbb..3a1bbd5 100644
+--- a/src/oauth1plugin.cpp
++++ b/src/oauth1plugin.cpp
+@@ -60,7 +60,6 @@ const QString TIMESTAMP = QString("timestamp");
+ const QString AUTH_ERROR = QString("error");
+ 
+ const QString EQUAL = QString("=");
+-const QString AMPERSAND = QString("&");
+ const QString EQUAL_WITH_QUOTES = QString("%1=\"%2\"");
+ const QString DELIMITER = QString(", ");
+ const QString SPACE = QString(" ");
+@@ -321,7 +320,7 @@ void OAuth1Plugin::process(const SignOn::SessionData &inData,
+     sendOAuth1PostRequest();
+ }
+ 
+-QString OAuth1Plugin::urlEncode(QString strData)
++QByteArray OAuth1Plugin::urlEncode(QString strData)
+ {
+     return QUrl::toPercentEncoding(strData).constData();
+ }
+@@ -399,7 +398,7 @@ QByteArray OAuth1Plugin::constructSignatureBaseString(const QString &aUrl,
+     bool first = true;
+     for (i = oAuthHeaderMap.begin(); i != oAuthHeaderMap.end(); ++i) {
+         if(!first) {
+-            oAuthHeaderString.append(AMPERSAND);
++            oAuthHeaderString.append(QLatin1Char('&'));
+         } else {
+             first = false;
+         }
+@@ -411,9 +410,9 @@ QByteArray OAuth1Plugin::constructSignatureBaseString(const QString &aUrl,
+ 
+     QByteArray signatureBase;
+     signatureBase.append("POST");
+-    signatureBase.append(AMPERSAND);
++    signatureBase.append('&');
+     signatureBase.append(urlEncode(urlWithHostAndPath));
+-    signatureBase.append(AMPERSAND);
++    signatureBase.append('&');
+     signatureBase.append(urlEncode(oAuthHeaderString));
+     return signatureBase;
+ }
+@@ -427,16 +426,16 @@ QString OAuth1Plugin::createOAuth1Header(const QString &aUrl,
+     QString authHeader = OAUTH + SPACE;
+     if (!inData.Realm().isEmpty()) {
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_REALM)
+-                          .arg(urlEncode(inData.Realm())));
++                          .arg(urlEncode(inData.Realm()).constData()));
+         authHeader.append(DELIMITER);
+     }
+     if (!inData.Callback().isEmpty()) {
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_CALLBACK)
+-                          .arg(urlEncode(inData.Callback())));
++                          .arg(urlEncode(inData.Callback()).constData()));
+         authHeader.append(DELIMITER);
+     }
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_CONSUMERKEY)
+-                      .arg(urlEncode(inData.ConsumerKey())));
++                      .arg(urlEncode(inData.ConsumerKey()).constData()));
+     authHeader.append(DELIMITER);
+     // Nonce
+ #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+@@ -448,32 +447,32 @@ QString OAuth1Plugin::createOAuth1Header(const QString &aUrl,
+ #endif
+     QString oauthNonce = QString("%1%2").arg(nonce1).arg(nonce2);
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_NONCE)
+-                      .arg(urlEncode(oauthNonce)));
++                      .arg(urlEncode(oauthNonce).constData()));
+     authHeader.append(DELIMITER);
+     // Timestamp
+     QString oauthTimestamp =
+         QString("%1").arg(QDateTime::currentDateTime().toSecsSinceEpoch());
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_TIMESTAMP)
+-                      .arg(urlEncode(oauthTimestamp)));
++                      .arg(urlEncode(oauthTimestamp).constData()));
+     authHeader.append(DELIMITER);
+     if (!d->m_oauth1Token.isEmpty()) {
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_TOKEN)
+-                          .arg(urlEncode(d->m_oauth1Token)));
++                          .arg(urlEncode(d->m_oauth1Token).constData()));
+         authHeader.append(DELIMITER);
+     }
+ 
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_SIGNATURE_METHOD)
+-                      .arg(urlEncode(d->m_mechanism)));
++                      .arg(urlEncode(d->m_mechanism).constData()));
+     authHeader.append(DELIMITER);
+     // Creating the signature
+     // PLAINTEXT signature method
+     QByteArray secretKey;
+-    secretKey.append(urlEncode(inData.ConsumerSecret()) + AMPERSAND +
++    secretKey.append(urlEncode(inData.ConsumerSecret()) + '&' +
+                      urlEncode(d->m_oauth1TokenSecret));
+     if (d->m_mechanism == PLAINTEXT) {
+         TRACE() << "Signature = " << secretKey;
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_SIGNATURE)
+-                          .arg(urlEncode(secretKey)));
++                          .arg(urlEncode(secretKey).constData()));
+         authHeader.append(DELIMITER);
+     }
+     // HMAC-SHA1 signature method
+@@ -484,7 +483,7 @@ QString OAuth1Plugin::createOAuth1Header(const QString &aUrl,
+         QByteArray signature = hashHMACSHA1(secretKey, signatureBase);
+         TRACE() << "Signature = " << signature;
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_SIGNATURE)
+-                          .arg(urlEncode(signature.toBase64())));
++                          .arg(urlEncode(signature.toBase64()).constData()));
+         authHeader.append(DELIMITER);
+     }
+     // TODO: RSA-SHA1 signature method should be implemented
+@@ -494,11 +493,11 @@ QString OAuth1Plugin::createOAuth1Header(const QString &aUrl,
+ 
+     if (!d->m_oauth1TokenVerifier.isEmpty()) {
+         authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_VERIFIER)
+-                          .arg(urlEncode(d->m_oauth1TokenVerifier)));
++                          .arg(urlEncode(d->m_oauth1TokenVerifier).constData()));
+         authHeader.append(DELIMITER);
+     }
+     authHeader.append(EQUAL_WITH_QUOTES.arg(OAUTH_VERSION)
+-                      .arg(urlEncode(OAUTH_VERSION_1)));
++                      .arg(urlEncode(OAUTH_VERSION_1).constData()));
+ 
+     return authHeader;
+ }
+diff --git a/src/oauth1plugin.h b/src/oauth1plugin.h
+index 3ff227a..aa37e26 100644
+--- a/src/oauth1plugin.h
++++ b/src/oauth1plugin.h
+@@ -65,7 +65,7 @@ private:
+                                             const OAuth1PluginData &inData,
+                                             const QString &timestamp,
+                                             const QString &nonce);
+-    QString urlEncode(QString strData);
++    QByteArray urlEncode(QString strData);
+     QString createOAuth1Header(const QString &aUrl, OAuth1PluginData inData);
+     QByteArray hashHMACSHA1(const QByteArray &keyForHash ,const QByteArray &secret);
+     OAuth1PluginTokenData oauth1responseFromMap(const QVariantMap &map);
+diff --git a/src/oauth2plugin.cpp b/src/oauth2plugin.cpp
+index 8763f00..c7f7f84 100644
+--- a/src/oauth2plugin.cpp
++++ b/src/oauth2plugin.cpp
+@@ -393,9 +393,9 @@ void OAuth2Plugin::process(const SignOn::SessionData &inData,
+     }
+ }
+ 
+-QString OAuth2Plugin::urlEncode(QString strData)
++QByteArray OAuth2Plugin::urlEncode(QString strData)
+ {
+-    return QUrl::toPercentEncoding(strData).constData();
++    return QUrl::toPercentEncoding(strData);
+ }
+ 
+ void OAuth2Plugin::userActionFinished(const SignOn::UiSessionData &data)
+diff --git a/src/oauth2plugin.h b/src/oauth2plugin.h
+index a16c316..389d3c3 100644
+--- a/src/oauth2plugin.h
++++ b/src/oauth2plugin.h
+@@ -84,7 +84,7 @@ private:
+     QVariantMap parseJSONReply(const QByteArray &reply);
+     QVariantMap parseTextReply(const QByteArray &reply);
+     void handleOAuth2Error(const QByteArray &reply);
+-    QString urlEncode(QString strData);
++    QByteArray urlEncode(QString strData);
+     QUrl getAuthUrl();
+     QUrl getTokenUrl();
+ 
+-- 
+GitLab
+
+
+From bef68f45e80c13501f836ec9d14aa3df682748e8 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:05:13 +0200
+Subject: [PATCH 06/10] Port away from deprecated QRegExp
+
+---
+ tests/oauth2plugintest.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tests/oauth2plugintest.cpp b/tests/oauth2plugintest.cpp
+index f5221cc..5cbbab2 100644
+--- a/tests/oauth2plugintest.cpp
++++ b/tests/oauth2plugintest.cpp
+@@ -26,7 +26,7 @@
+ #include <QNetworkAccessManager>
+ #include <QNetworkReply>
+ #include <QPointer>
+-#include <QRegExp>
++#include <QRegularExpression>
+ #include <QScopedPointer>
+ #include <QSignalSpy>
+ #include <QTimer>
+@@ -749,7 +749,7 @@ void OAuth2PluginTest::testPluginHmacSha1Process()
+             QString authorizationHeader =
+                 QString::fromUtf8(nam->m_lastRequest.rawHeader("Authorization"));
+             QStringList authorizationHeaderParts =
+-                authorizationHeader.split(QRegExp(",?\\s+"));
++                authorizationHeader.split(QRegularExpression(",?\\s+"));
+             QCOMPARE(authorizationHeaderParts[0], QString("OAuth"));
+ 
+             /* The rest of the header should be a mapping, let's parse it */
+@@ -1535,7 +1535,7 @@ void OAuth2PluginTest::testOauth1UserActionFinished()
+         QString authorizationHeader =
+             QString::fromUtf8(nam->m_lastRequest.rawHeader("Authorization"));
+         QStringList authorizationHeaderParts =
+-            authorizationHeader.split(QRegExp(",?\\s+"));
++            authorizationHeader.split(QRegularExpression(",?\\s+"));
+         QCOMPARE(authorizationHeaderParts[0], QString("OAuth"));
+ 
+         /* The rest of the header should be a mapping, let's parse it */
+-- 
+GitLab
+
+
+From e9d3bdbd4eb8331a03b0c49d6b3a6c020db11c7f Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:06:05 +0200
+Subject: [PATCH 07/10] Build with C++17
+
+Needed for Qt6
+---
+ common-project-config.pri | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common-project-config.pri b/common-project-config.pri
+index 1d5cdc6..dc9b95d 100644
+--- a/common-project-config.pri
++++ b/common-project-config.pri
+@@ -8,7 +8,7 @@
+ #-----------------------------------------------------------------------------
+ 
+ CONFIG += \
+-    c++11 \
++    c++17 \
+     link_pkgconfig
+ #MOC_DIR         = .moc
+ #OBJECTS_DIR     = .obj
+-- 
+GitLab
+
+
+From a275d6eacc71a1c0ac6a95e2c77a29b13e6c189e Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:10:17 +0200
+Subject: [PATCH 08/10] Use correct signon in example
+
+---
+ example/example.pro | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/example/example.pro b/example/example.pro
+index 9b8ec65..1b2c6a8 100644
+--- a/example/example.pro
++++ b/example/example.pro
+@@ -11,11 +11,7 @@ CONFIG += \
+     link_pkgconfig
+ QT -= gui
+ 
+-lessThan(QT_MAJOR_VERSION, 5) {
+-    PKGCONFIG += libsignon-qt
+-} else {
+-    PKGCONFIG += libsignon-qt5
+-}
++PKGCONFIG += libsignon-qt$$QT_MAJOR_VERSION
+ 
+ HEADERS += \
+     oauthclient.h
+-- 
+GitLab
+
+
+From 3ead61662e9b931ff2487869904c9be33cf97a85 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:13:10 +0200
+Subject: [PATCH 09/10] Port away from deprecated QString::SplitBehavior
+
+---
+ src/oauth2plugin.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/oauth2plugin.cpp b/src/oauth2plugin.cpp
+index c7f7f84..45510ad 100644
+--- a/src/oauth2plugin.cpp
++++ b/src/oauth2plugin.cpp
+@@ -436,7 +436,11 @@ void OAuth2Plugin::userActionFinished(const SignOn::UiSessionData &data)
+                 } else if (pair.first == STATE) {
+                     state = pair.second;
+                 } else if (pair.first == SCOPE) {
++#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+                     respData.setScope(pair.second.split(' ', QString::SkipEmptyParts));
++#else
++                    respData.setScope(pair.second.split(' ', Qt::SkipEmptyParts));
++#endif
+                 } else {
+                     extraFields.insert(pair.first, pair.second);
+                 }
+@@ -587,7 +591,11 @@ void OAuth2Plugin::serverReply(QNetworkReply *reply)
+         QStringList scope;
+         if (map.contains(SCOPE)) {
+             QString rawScope = QString::fromUtf8(map.take(SCOPE).toByteArray());
++#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+             scope = rawScope.split(' ', QString::SkipEmptyParts);
++#else
++            scope = rawScope.split(' ', Qt::SkipEmptyParts);
++#endif
+         } else {
+             scope = d->m_oauth2Data.Scope();
+         }
+-- 
+GitLab
+
+
+From fab698862466994a8fdc9aa335c87b4f05430ce6 Mon Sep 17 00:00:00 2001
+From: Nicolas Fella <nicolas.fella@gmx.de>
+Date: Sun, 15 Oct 2023 19:15:56 +0200
+Subject: [PATCH 10/10] Port away from deprecated QList::toSet
+
+---
+ src/oauth2plugin.cpp | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/src/oauth2plugin.cpp b/src/oauth2plugin.cpp
+index 45510ad..0c23b99 100644
+--- a/src/oauth2plugin.cpp
++++ b/src/oauth2plugin.cpp
+@@ -256,9 +256,15 @@ bool OAuth2Plugin::respondWithStoredToken(const QVariantMap &token,
+      * we cannot use it now */
+     if (!scopes.isEmpty()) {
+         if (!token.contains(SCOPES)) return false;
+-        QSet<QString> cachedScopes =
+-            token.value(SCOPES).toStringList().toSet();
++
++        QStringList scopesList = token.value(SCOPES).toStringList();
++#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
++        QSet<QString> cachedScopes = scopesList.toSet();
+         if (!cachedScopes.contains(scopes.toSet())) return false;
++#else
++        QSet<QString> cachedScopes(scopesList.begin(), scopesList.end());
++        if (!cachedScopes.contains(QSet(scopes.begin(), scopes.end()))) return false;
++#endif
+     }
+ 
+     if (token.contains(TOKEN)) {
+-- 
+GitLab
+

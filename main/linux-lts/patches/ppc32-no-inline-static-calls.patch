@@ -1,0 +1,15 @@
+this pulls in objtool, which segfaults, seemingly
+for the same reason as the btf stuff (it's in shared
+utility code) so we should probably figure out what
+is up with that and then drop this
+
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -288,7 +288,6 @@ config PPC
+ 	select HAVE_STACKPROTECTOR		if PPC32 && $(cc-option,$(m32-flag) -mstack-protector-guard=tls -mstack-protector-guard-reg=r2 -mstack-protector-guard-offset=0)
+ 	select HAVE_STACKPROTECTOR		if PPC64 && $(cc-option,$(m64-flag) -mstack-protector-guard=tls -mstack-protector-guard-reg=r13 -mstack-protector-guard-offset=0)
+ 	select HAVE_STATIC_CALL			if PPC32
+-	select HAVE_STATIC_CALL_INLINE		if PPC32
+ 	select HAVE_SYSCALL_TRACEPOINTS
+ 	select HAVE_VIRT_CPU_ACCOUNTING
+ 	select HAVE_VIRT_CPU_ACCOUNTING_GEN

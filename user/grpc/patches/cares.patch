@@ -1,0 +1,12 @@
+there is no cmakeconfig for c-ares...
+
+--- a/cmake/modules/Findc-ares.cmake
++++ b/cmake/modules/Findc-ares.cmake
+@@ -15,7 +15,6 @@ foreach(_suffix IN LISTS _cares_version_var_suffixes)
+   set(_cares_save_FIND_VERSION${_suffix} ${c-ares_FIND_VERSION${_suffix}})
+   unset(c-ares_FIND_VERSION${_suffix})
+ endforeach()
+-find_package(c-ares CONFIG)
+ foreach(_suffix IN LISTS _cares_version_var_suffixes)
+   set(c-ares_FIND_VERSION${_suffix} ${_cares_save_FIND_VERSION${_suffix}})
+ endforeach()

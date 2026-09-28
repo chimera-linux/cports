@@ -1,0 +1,50 @@
+pkgname = "helvum"
+pkgver = "0.6.2"
+pkgrel = 0
+build_style = "meson"
+configure_args = ["--buildtype=release"]
+hostmakedepends = [
+    "cargo-auditable",
+    "desktop-file-utils",
+    "gtk+3-update-icon-cache",
+    "meson",
+    "ninja",
+    "pkgconf",
+]
+makedepends = [
+    "glib-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "pipewire-devel",
+    "rust-std",
+]
+pkgdesc = "GTK patchbay for PipeWire"
+license = "GPL-3.0-only"
+url = "https://gitlab.freedesktop.org/pipewire/helvum"
+source = f"{url}/-/archive/{pkgver}/helvum-{pkgver}.tar.bz2"
+sha256 = "edcdcbc8c061c14b0b3348d131ed6122ccc383d850a10418928309b36c1ae120"
+
+if self.profile.wordsize == 32:
+    broken = "expected *mut i64, found *mut i32"
+
+if self.profile.arch in ["loongarch64"]:
+    broken = "old nix crate, can't update"
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self, wrksrc=".").vendor()
+
+
+def init_build(self):
+    from cbuild.util import cargo
+
+    renv = cargo.get_environment(self)
+    self.make_env.update(renv)
+
+
+def post_install(self):
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "helvum", f"{self.make_dir}/src"))

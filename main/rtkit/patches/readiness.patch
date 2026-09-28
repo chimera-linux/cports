@@ -1,0 +1,48 @@
+commit 962c4b8eca0c110cb736bb23b27e758077597657
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jun 27 16:39:48 2023 +0200
+
+    add readiness notification support
+
+diff --git a/org.freedesktop.RealtimeKit1.service.in b/org.freedesktop.RealtimeKit1.service.in
+index 9a4dd38..6ec6fcd 100644
+--- a/org.freedesktop.RealtimeKit1.service.in
++++ b/org.freedesktop.RealtimeKit1.service.in
+@@ -17,6 +17,6 @@
+ 
+ [D-BUS Service]
+ Name=org.freedesktop.RealtimeKit1
+-Exec=@LIBEXECDIR@/rtkit-daemon
++Exec=/usr/bin/dinitctl --quiet start rtkit
+ SystemdService=rtkit-daemon.service
+ User=root
+diff --git a/rtkit-daemon.c b/rtkit-daemon.c
+index 17122fa..300af51 100644
+--- a/rtkit-daemon.c
++++ b/rtkit-daemon.c
+@@ -2274,6 +2274,7 @@ int main(int argc, char *argv[]) {
+         int ret = 1;
+         struct rtkit_user *u;
+         unsigned long slack_ns;
++        const char *rvar;
+ 
+         if (parse_command_line(argc, argv, &ret) <= 0)
+                 goto finish;
+@@ -2311,6 +2312,17 @@ int main(int argc, char *argv[]) {
+ 
+         syslog(LOG_DEBUG, "Running.\n");
+ 
++        /* readiness */
++        rvar = getenv("RTKIT_DAEMON_READY_FD");
++        if (rvar) {
++                int fdn = atoi(rvar);
++                errno = 0;
++                if (fdn && fcntl(fdn, F_GETFD) >= 0) {
++                        write(fdn, "READY=1", sizeof("READY=1"));
++                        close(fdn);
++                }
++        }
++
+ #ifdef HAVE_LIBSYSTEMD
+         sd_notify(0, "STATUS=Running.");
+ #endif

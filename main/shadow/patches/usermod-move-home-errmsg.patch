@@ -1,0 +1,18 @@
+Patch-Source: https://src.fedoraproject.org/rpms/shadow-utils/blob/f35/f/shadow-4.6-move-home.patch
+
+diff --git a/src/usermod.c b/src/usermod.c
+index f889698..bb158e0 100644
+--- a/src/usermod.c
++++ b/src/usermod.c
+@@ -1779,6 +1779,11 @@ static void usr_update (void)
+ 			         Prog, user_name, spw_dbname ());
+ 			fail_exit (E_PW_UPDATE);
+ 		}
++	} else {
++		fprintf (stderr,
++		         _("%s: The previous home directory (%s) does "
++		           "not exist or is inaccessible. Move cannot be completed.\n"),
++		         Prog, prefix_user_home);
+ 	}
+ }
+ 

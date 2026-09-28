@@ -1,0 +1,41 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -30,7 +30,7 @@ endif()
+ # -----------------------------------------------------
+ # Static library
+ 
+-if(NOT VOLK_HEADERS_ONLY OR VOLK_INSTALL)
++if(NOT VOLK_HEADERS_ONLY AND VOLK_INSTALL)
+   add_library(volk STATIC volk.h volk.c)
+   add_library(volk::volk ALIAS volk)
+   target_include_directories(volk PUBLIC
+@@ -99,7 +99,7 @@ if(VOLK_INSTALL)
+   install(FILES volk.h volk.c DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ 
+   # Install library target and add it and any dependencies to export set.
+-  install(TARGETS volk volk_headers
++  install(TARGETS volk_headers
+     EXPORT volk-targets
+     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+--- a/cmake/volkConfig.cmake.in
++++ b/cmake/volkConfig.cmake.in
+@@ -1,6 +1,6 @@
+ get_filename_component(volk_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+ 
+-if(NOT TARGET volk::volk)
++if(NOT TARGET volk::volk_headers)
+   include("${volk_CMAKE_DIR}/volkTargets.cmake")
+ endif()
+ 
+@@ -12,10 +12,8 @@ endif()
+ if(VOLK_PULL_IN_VULKAN)
+   find_package(Vulkan QUIET)
+   if(TARGET Vulkan::Vulkan) 
+-    add_dependencies(volk::volk Vulkan::Vulkan)
+     add_dependencies(volk::volk_headers Vulkan::Vulkan)
+   elseif(DEFINED ENV{VULKAN_SDK})
+-    target_include_directories(volk::volk INTERFACE "$ENV{VULKAN_SDK}/include")
+     target_include_directories(volk::volk_headers INTERFACE "$ENV{VULKAN_SDK}/include")
+   endif()
+ endif()

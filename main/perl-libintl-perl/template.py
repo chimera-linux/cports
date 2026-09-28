@@ -1,0 +1,12 @@
+pkgname = "perl-libintl-perl"
+pkgver = "1.35"
+pkgrel = 1
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Gettext-compatible perl library"
+license = "GPL-3.0-or-later"
+url = "https://metacpan.org/dist/libintl-perl"
+source = f"https://cpan.metacpan.org/authors/id/G/GU/GUIDO/libintl-perl-{pkgver}.tar.gz"
+sha256 = "64abed956aa07d1c8cc816c91cf78642c02faf03ab704ed38031baa07f06b16a"

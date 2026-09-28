@@ -1,0 +1,13 @@
+diff --git a/src/gpgme.pc.in b/src/gpgme.pc.in
+index 9ddef5c..be288b8 100644
+--- a/src/gpgme.pc.in
++++ b/src/gpgme.pc.in
+@@ -7,7 +7,7 @@ api_version=@GPGME_CONFIG_API_VERSION@
+ 
+ Name: gpgme
+ Description: GnuPG Made Easy to access GnuPG
+-Requires.private: gpg-error, libassuan
++Requires: gpg-error, libassuan
+ Version: @PACKAGE_VERSION@
+ Cflags: @GPGME_CONFIG_CFLAGS@
+ Libs: @GPGME_CONFIG_LIBS@

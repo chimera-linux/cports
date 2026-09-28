@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -r /etc/default/incus ]; then
+    set -a
+    . /etc/default/incus
+    set +a
+fi
+
+exec /usr/bin/incusd "$@"

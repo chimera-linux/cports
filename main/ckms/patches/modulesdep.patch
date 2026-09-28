@@ -1,0 +1,44 @@
+commit 66eff0406f8b5ac1857e9d06024f902f1cc2e58a
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Dec 12 23:09:20 2024 +0100
+
+    don't rely on modules.dep existence
+
+diff --git a/ckms b/ckms
+index 67be4b6..9310e95 100755
+--- a/ckms
++++ b/ckms
+@@ -445,20 +445,10 @@ def get_compsfx():
+     if opt_comp:
+         return f".{opt_comp}"
+     # figure out whether to compress modules
+-    depf = kern_path / opt_kernver / "modules.dep"
+-    compsfx = None
+-    if depf:
+-        with open(depf) as df:
+-            for l in df:
+-                if l.find(".ko.gz") > 0:
+-                    compsfx = ".gz"
+-                    break
+-                if l.find(".ko.xz") > 0:
+-                    compsfx = ".xz"
+-                    break
+-                if l.find(".ko.zst") > 0:
+-                    compsfx = ".zst"
+-                    break
++    for f in sorted((kern_path / opt_kernver).rglob("*.ko*")):
++        if f.suffix in [".gz", ".xz", ".zst"]:
++            compsfx = f.suffix
++            break
+ 
+     return compsfx
+ 
+@@ -663,7 +653,7 @@ def do_uninstall(cmd):
+     slinkp.unlink(missing_ok = True)
+ 
+     # only do this if the kernel still exists
+-    if (kernpath / "modules.dep").is_file() and do_depmod(pkg):
++    if (kernpath / "modules.order").is_file() and do_depmod(pkg):
+         do_initramfs(pkg)
+ 
+     log(f"uninstalled {pkg.pkgver} for {opt_kernver}")

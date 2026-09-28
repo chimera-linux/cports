@@ -1,0 +1,32 @@
+--- a/audio/CMakeLists.txt	2024-01-03 21:13:44.000000000 +0100
++++ b/audio/CMakeLists.txt	2024-03-11 08:12:54.420123491 +0100
+@@ -151,6 +151,7 @@
+ 
+ add_library(${PROJECT_NAME} ${LIBRARY_TYPE} ${AUDIO_FILES})
+ set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
++set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 0)
+ target_compile_definitions(${PROJECT_NAME} PUBLIC ${AUDIO_DEFS})
+ target_include_directories(${PROJECT_NAME}
+ 	PUBLIC $<BUILD_INTERFACE:${LIBVGM_SOURCE_DIR}> $<INSTALL_INTERFACE:${LIBVGM_INSTALL_INCLUDE_DIR}>
+
+--- a/emu/CMakeLists.txt	2024-01-03 21:13:44.000000000 +0100
++++ b/emu/CMakeLists.txt	2024-03-11 08:13:56.062551458 +0100
+@@ -610,6 +610,7 @@
+ 
+ add_library(${PROJECT_NAME} ${LIBRARY_TYPE} ${EMU_FILES})
+ set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
++set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 0)
+ target_compile_definitions(${PROJECT_NAME} PUBLIC ${EMU_DEFS})
+ target_include_directories(${PROJECT_NAME}
+ 	PUBLIC $<BUILD_INTERFACE:${LIBVGM_SOURCE_DIR}> $<INSTALL_INTERFACE:${LIBVGM_INSTALL_INCLUDE_DIR}>
+
+--- a/player/CMakeLists.txt	2024-01-03 21:13:44.000000000 +0100
++++ b/player/CMakeLists.txt	2024-03-11 08:14:31.339224110 +0100
+@@ -33,6 +33,7 @@
+ 
+ add_library(${PROJECT_NAME} ${LIBRARY_TYPE} ${PLAYER_FILES})
+ set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
++set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 0)
+ target_compile_definitions(${PROJECT_NAME} PUBLIC ${PLAYER_DEFS})
+ target_include_directories(${PROJECT_NAME}
+ 	PUBLIC $<BUILD_INTERFACE:${LIBVGM_SOURCE_DIR}> $<INSTALL_INTERFACE:${LIBVGM_INSTALL_INCLUDE_DIR}>

@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/cupsd -f
+depends-on = local.target
+smooth-recovery = true

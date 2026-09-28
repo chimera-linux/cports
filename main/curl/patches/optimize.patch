@@ -1,0 +1,25 @@
+curl's buildsystem is garbage and it fucks with things
+we don't want it to fuck with (it strips our -O2 and
+replaces it with -O0 when no optimizations are requested,
+what the fuck?)
+
+diff --git a/configure.ac b/configure.ac
+index d06024b..8369a15 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -45,7 +45,6 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+ 
+ CURL_CHECK_OPTION_DEBUG
+ AM_CONDITIONAL(DEBUGBUILD, test "$want_debug" = "yes")
+-CURL_CHECK_OPTION_OPTIMIZE
+ CURL_CHECK_OPTION_WARNINGS
+ CURL_CHECK_OPTION_WERROR
+ CURL_CHECK_OPTION_SYMBOL_HIDING
+@@ -604,7 +603,6 @@ fi
+ 
+ CURL_SET_COMPILER_BASIC_OPTS
+ CURL_SET_COMPILER_DEBUG_OPTS
+-CURL_SET_COMPILER_OPTIMIZE_OPTS
+ CURL_SET_COMPILER_WARNING_OPTS
+ 
+ if test "$compiler_id" = "INTEL_UNIX_C"; then

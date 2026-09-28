@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# we want to make these available on the session bus
+dbus-update-activation-environment DISPLAY XAUTHORITY

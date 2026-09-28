@@ -1,0 +1,11 @@
+--- a/third_party/blurhash/blurhash.cpp
++++ b/third_party/blurhash/blurhash.cpp
+@@ -84,7 +84,7 @@
+                         throw std::invalid_argument("invalid character in blurhash");
+ 
+         for (char c : value)
+-                temp = temp * 83 + b83_to_int[static_cast<unsigned char>(c)];
++                temp = temp * (unsigned)83 + b83_to_int[static_cast<unsigned char>(c)];
+         return temp;
+ }
+ 

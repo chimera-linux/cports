@@ -1,0 +1,107 @@
+diff --git a/daemon/gamemode-context.c b/daemon/gamemode-context.c
+index 1e8ed9d..458aaf1 100644
+--- a/daemon/gamemode-context.c
++++ b/daemon/gamemode-context.c
+@@ -49,7 +49,6 @@ POSSIBILITY OF SUCH DAMAGE.
+ #include <stdatomic.h>
+ #include <stdlib.h>
+ #include <sys/time.h>
+-#include <systemd/sd-daemon.h> /* TODO: Move usage to gamemode-dbus.c */
+ #include <unistd.h>
+ 
+ /**
+@@ -415,7 +414,7 @@ unlock:
+ static void game_mode_context_enter(GameModeContext *self)
+ {
+ 	LOG_MSG("Entering Game Mode...\n");
+-	sd_notifyf(0, "STATUS=%sGameMode is now active.%s\n", "\x1B[1;32m", "\x1B[0m");
++	// sd_notifyf(0, "STATUS=%sGameMode is now active.%s\n", "\x1B[1;32m", "\x1B[0m");
+ 
+ 	if (game_mode_set_governor(self, GAME_MODE_GOVERNOR_DESIRED) == 0) {
+ 		/* We just switched to a non-default governor.  Enable the iGPU
+@@ -456,7 +455,7 @@ static void game_mode_context_enter(GameModeContext *self)
+ static void game_mode_context_leave(GameModeContext *self)
+ {
+ 	LOG_MSG("Leaving Game Mode...\n");
+-	sd_notifyf(0, "STATUS=%sGameMode is currently deactivated.%s\n", "\x1B[1;36m", "\x1B[0m");
++	// sd_notifyf(0, "STATUS=%sGameMode is currently deactivated.%s\n", "\x1B[1;36m", "\x1B[0m");
+ 
+ 	/* Remove GPU optimisations */
+ 	game_mode_apply_gpu(self->stored_gpu);
+diff --git a/daemon/gamemode-dbus.c b/daemon/gamemode-dbus.c
+index 29f897a..121dad2 100644
+--- a/daemon/gamemode-dbus.c
++++ b/daemon/gamemode-dbus.c
+@@ -39,6 +39,8 @@ POSSIBILITY OF SUCH DAMAGE.
+ #ifdef USE_ELOGIND
+ #include <elogind/sd-bus.h>
+ #include <elogind/sd-daemon.h>
++#elif defined(USE_TANGLE)
++#include <tangle/sd-bus.h>
+ #else
+ #include <systemd/sd-bus.h>
+ #include <systemd/sd-daemon.h>
+@@ -686,7 +688,7 @@ void game_mode_context_loop(GameModeContext *context)
+ 	}
+ 
+ 	LOG_MSG("Successfully initialised bus with name [%s]...\n", "com.feralinteractive.GameMode");
+-	sd_notifyf(0, "STATUS=%sGameMode is ready to be activated.%s\n", "\x1B[1;36m", "\x1B[0m");
++	// sd_notifyf(0, "STATUS=%sGameMode is ready to be activated.%s\n", "\x1B[1;36m", "\x1B[0m");
+ 
+ 	/* Now loop, waiting for callbacks */
+ 	for (;;) {
+diff --git a/daemon/gamemoded.c b/daemon/gamemoded.c
+index 4fb62d5..f503bd0 100644
+--- a/daemon/gamemoded.c
++++ b/daemon/gamemoded.c
+@@ -61,7 +61,6 @@ POSSIBILITY OF SUCH DAMAGE.
+ #include <getopt.h>
+ #include <signal.h>
+ #include <sys/stat.h>
+-#include <systemd/sd-daemon.h> /* TODO: Move usage to gamemode-dbus.c */
+ #include <unistd.h>
+ 
+ #define USAGE_TEXT                                                                                 \
+@@ -83,7 +82,7 @@ POSSIBILITY OF SUCH DAMAGE.
+ static void sigint_handler(__attribute__((unused)) int signo)
+ {
+ 	LOG_MSG("Quitting by request...\n");
+-	sd_notify(0, "STATUS=GameMode is quitting by request...\n");
++	// sd_notify(0, "STATUS=GameMode is quitting by request...\n");
+ 
+ 	/* Clean up nicely */
+ 	game_mode_context_destroy(game_mode_context_instance());
+@@ -337,5 +336,5 @@ int main(int argc, char *argv[])
+ 
+ 	/* Log we're finished */
+ 	LOG_MSG("Quitting naturally...\n");
+-	sd_notify(0, "STATUS=GameMode is quitting naturally...\n");
++	// sd_notify(0, "STATUS=GameMode is quitting naturally...\n");
+ }
+diff --git a/meson.build b/meson.build
+index 56f9e40..5d1d411 100644
+--- a/meson.build
++++ b/meson.build
+@@ -91,6 +91,9 @@ if sd_bus_provider == 'systemd'
+ elif sd_bus_provider == 'elogind'
+     sd_bus_args += ['-DUSE_ELOGIND']
+     sd_bus_dep = dependency('libelogind')
++elif sd_bus_provider == 'tangle'
++    sd_bus_args += ['-DUSE_TANGLE']
++    sd_bus_dep = dependency('tangle')
+ endif
+ 
+ # For the client, libdbus is used
+diff --git a/meson_options.txt b/meson_options.txt
+index 342b225..b77376a 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -3,7 +3,7 @@ option('with-pam-renicing', type: 'boolean', description: 'Install the limits.d
+ option('with-pam-limits-dir', type: 'string', description: 'Explicitly set the PAM limits.d directory', value: '/etc/security/limits.d')
+ 
+ # sd-bus provider
+-option('with-sd-bus-provider', type: 'combo', choices: ['systemd', 'elogind', 'no-daemon'], value: 'systemd')
++option('with-sd-bus-provider', type: 'combo', choices: ['systemd', 'elogind', 'tangle', 'no-daemon'], value: 'systemd')
+ 
+ # systemd specific
+ option('with-systemd-user-unit', type: 'boolean', description: 'Install systemd user unit', value: 'true')

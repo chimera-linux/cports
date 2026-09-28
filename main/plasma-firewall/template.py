@@ -1,0 +1,26 @@
+pkgname = "plasma-firewall"
+pkgver = "6.7.5"
+pkgrel = 0
+build_style = "cmake"
+make_check_wrapper = ["wlheadless-run", "--"]
+hostmakedepends = [
+    "cmake",
+    "extra-cmake-modules",
+    "gettext",
+    "ninja",
+    "pkgconf",
+]
+makedepends = [
+    "kauth-devel",
+    "kcmutils-devel",
+    "kconfig-devel",
+    "ki18n-devel",
+    "libplasma-devel",
+    "qt6-qtdeclarative-devel",
+]
+checkdepends = ["xwayland-run"]
+pkgdesc = "KDE control panel for the system firewall"
+license = "GPL-3.0-only"
+url = "https://invent.kde.org/plasma/plasma-firewall"
+source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-firewall-{pkgver}.tar.xz"
+sha256 = "adbc6a62d272a3866461274bb78de49e0f83c9971225f619adb3042399be6997"

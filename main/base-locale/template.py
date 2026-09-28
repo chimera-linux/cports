@@ -1,0 +1,9 @@
+pkgname = "base-locale"
+pkgver = "0.2"
+pkgrel = 0
+build_style = "meta"
+depends = ["musl-locales"]
+pkgdesc = "Base package for locale data"
+license = "custom:meta"
+url = "https://chimera-linux.org"
+options = ["empty"]

@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 0a0a60b..956d291 100644
+--- a/Makefile
++++ b/Makefile
+@@ -108,7 +108,7 @@ $(BASEBIN): %:
+ 
+ passt: $(PASST_SRCS) $(PASST_HEADERS) seccomp.h
+ 
+-passt.avx2: BASE_CFLAGS += -Ofast -mavx2 -ftree-vectorize -funroll-loops
++passt.avx2: BASE_CFLAGS += -mavx2
+ passt.avx2: $(PASST_SRCS) $(PASST_HEADERS) seccomp.h
+ 
+ pasta.avx2 pasta.1 pasta: pasta%: passt%

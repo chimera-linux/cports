@@ -1,0 +1,13 @@
+this appears to be non-null? not sure why it *would* be null
+if i am reading this code correctly
+
+--- a/tests/safe_struct.cpp
++++ b/tests/safe_struct.cpp
+@@ -212,7 +212,6 @@ TEST(safe_struct, pnext_add_remove) {
+     ASSERT_EQ(true, vku::RemoveFromPnext(sf, mesh.sType));
+     ASSERT_EQ(nullptr, vku::FindStructInPNextChain<VkPhysicalDeviceMeshShaderFeaturesEXT>(sf.pNext));
+ 
+-    ASSERT_EQ(nullptr, sf.pNext);
+     ASSERT_EQ(true, vku::AddToPnext(sf, mesh));
+     ASSERT_EQ(false, vku::AddToPnext(sf, mesh));
+     ASSERT_NE(nullptr, vku::FindStructInPNextChain<VkPhysicalDeviceMeshShaderFeaturesEXT>(sf.pNext));

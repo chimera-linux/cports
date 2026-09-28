@@ -1,0 +1,11 @@
+--- a/src/core/CMakeLists.txt
++++ b/src/core/CMakeLists.txt
+@@ -351,7 +351,7 @@ foreach(arch ${archs})
+             dawn_use_swiftshader=false
+             enable_vr=false
+             enable_web_speech=false
+-            enable_widevine=true
++            enable_widevine=false
+             enable_bound_session_credentials=false
+             fatal_linker_warnings=false
+             has_native_accessibility=false

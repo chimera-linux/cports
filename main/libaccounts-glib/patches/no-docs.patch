@@ -1,0 +1,8 @@
+--- a/meson.build
++++ b/meson.build
+@@ -36,5 +36,4 @@
+ subdir('libaccounts-glib')
+ subdir('tools')
+ subdir('data')
+-subdir('docs')
+ subdir('tests')

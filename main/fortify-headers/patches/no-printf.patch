@@ -1,0 +1,72 @@
+commit 459aabe80642045e596cc9b330edc86acc6579d8
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 21 22:51:32 2026 +0100
+
+    disable *printf fortify stuff
+    
+    This has known issues; under clang all the actually variadic
+    ones are disabled by default but some are still enabled.
+
+diff --git a/include/stdio.h b/include/stdio.h
+index 2a19cd0..9ce9269 100644
+--- a/include/stdio.h
++++ b/include/stdio.h
+@@ -32,10 +32,15 @@ extern "C" {
+ #undef fgets
+ #undef fread
+ #undef fwrite
++
++#if defined(__has_builtin)
++#if __has_builtin(__builtin_va_arg_pack)
+ #undef vsprintf
+ #undef vsnprintf
+ #undef snprintf
+ #undef sprintf
++#endif
++#endif
+ 
+ __fortify_access(read_write, 1, 2)
+ __fortify_access(read_only, 3)
+@@ -76,6 +81,9 @@ _FORTIFY_FN(fwrite) size_t fwrite(const void * _FORTIFY_POS0 __d, size_t __n,
+ 	return __orig_fwrite(__d, __n, __m, __f);
+ }
+ 
++#if defined(__has_builtin)
++#if __has_builtin(__builtin_va_arg_pack)
++
+ __fortify__format(printf, 3, 0)
+ __fortify_access(write_only, 1, 2)
+ __fortify_access(read_only, 3)
+@@ -108,9 +116,6 @@ _FORTIFY_FN(vsprintf) int vsprintf(char * _FORTIFY_POS0 __s, const char *__f,
+ 	return __r;
+ }
+ 
+-#if defined(__has_builtin)
+-#if __has_builtin(__builtin_va_arg_pack)
+-
+ /* clang is missing __builtin_va_arg_pack, so we cannot use these impls
+  * outside of gcc; we then have a few options:
+  *
+diff --git a/tests/Makefile b/tests/Makefile
+index c80fdfd..d2091b8 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -67,8 +67,6 @@ RUNTIME_TARGETS= \
+ 	test_send_static              \
+ 	test_sendto_dynamic           \
+ 	test_sendto_static            \
+-	test_sprintf                  \
+-	test_sprintf_62               \
+ 	test_stpcpy_dynamic_write     \
+ 	test_stpcpy_static_write      \
+ 	test_stpncpy_dynamic_write    \
+@@ -89,9 +87,6 @@ RUNTIME_TARGETS= \
+ 	test_swab_static_read         \
+ 	test_ttyname_r_dynamic        \
+ 	test_ttyname_r_static         \
+-	test_vsnprintf_dynamic        \
+-	test_vsnprintf_static         \
+-	test_vsprintf                 \
+ 	test_wcscat_static_write      \
+ 	test_wcscpy_static_write      \
+ 	test_wcsncat_static_write     \

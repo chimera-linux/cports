@@ -1,0 +1,22 @@
+From a2aed8e566f59376a1b25aa6d489fc052808fa6f Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Fri, 20 Mar 2026 05:38:49 +0100
+Subject: [PATCH] Unfortify DisplayItemList
+
+---
+ .../blink/renderer/platform/graphics/paint/display_item_list.h  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/third_party/blink/renderer/platform/graphics/paint/display_item_list.h b/third_party/blink/renderer/platform/graphics/paint/display_item_list.h
+index b2e70daf80d38..375ee2d0292e2 100644
+--- a/third_party/blink/renderer/platform/graphics/paint/display_item_list.h
++++ b/third_party/blink/renderer/platform/graphics/paint/display_item_list.h
+@@ -262,7 +262,7 @@ class PLATFORM_EXPORT DisplayItemList {
+   }
+ 
+   DisplayItem& MoveItem(DisplayItem& item, ItemSlot* new_item_slot) {
+-    UNSAFE_TODO(memcpy(static_cast<void*>(new_item_slot),
++    UNSAFE_TODO(__builtin_memcpy(static_cast<void*>(new_item_slot),
+                        static_cast<void*>(&item), kMaxItemSize));
+ 
+     // Created a tombstone/"dead display item" that can be safely destructed but

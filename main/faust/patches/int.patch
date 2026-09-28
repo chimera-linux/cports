@@ -1,0 +1,22 @@
+--- a/compiler/interval/intervalPow.cpp
++++ b/compiler/interval/intervalPow.cpp
+@@ -57,7 +57,7 @@
+             p2 = floor((double)std::log2(delta));
+         }
+ 
+-        precision = p1 + p2;
++        precision = (unsigned)p1 + p2;
+     }
+ 
+     if ((k & 1) == 0) {
+--- a/compiler/interval/intervalExp.cpp
++++ b/compiler/interval/intervalExp.cpp
+@@ -42,7 +42,7 @@
+     } else {
+         p2 = std::floor((double)std::log2(delta));
+     }
+-    int precision = p1 + p2;
++    int precision = (unsigned)p1 + p2;
+ 
+     return {exp(x.lo()), exp(x.hi()), precision};
+ }

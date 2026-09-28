@@ -1,0 +1,14 @@
+we need this because fltk uses "select" as a name
+and this conflicts with musl redirs and breaks all
+
+diff --git a/bits/alltypes.h b/bits/alltypes.h
+new file mode 100644
+index 0000000..f703c22
+--- /dev/null
++++ b/bits/alltypes.h
+@@ -0,0 +1,5 @@
++#include_next <bits/alltypes.h>
++
++#ifdef _REDIR_TIME64
++#undef _REDIR_TIME64
++#endif

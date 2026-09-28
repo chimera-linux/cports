@@ -1,0 +1,8 @@
+--- a/valadoc/tests/libvaladoc/tests-extra-environment.sh
++++ b/valadoc/tests/libvaladoc/tests-extra-environment.sh
+@@ -14,4 +14,4 @@
+ 	$abs_top_srcdir/valadoc/tests/libvaladoc/parser-generic-scanner.vala \
+ "
+ export PKG_CONFIG_PATH=$abs_top_builddir:$abs_top_builddir/libvaladoc
+-export LD_LIBRARY_PATH=$abs_top_builddir/vala/.libs:$abs_top_builddir/libvaladoc/.libs
++export LD_LIBRARY_PATH=$abs_top_builddir/vala/.libs:$abs_top_builddir/libvaladoc/.libs:$abs_top_builddir/codegen/.libs

@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-master
+logfile = /var/log/salt/master
+before: login.target
+depends-on: local.target
+depends-on: network.target

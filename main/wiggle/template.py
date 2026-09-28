@@ -1,0 +1,14 @@
+pkgname = "wiggle"
+pkgver = "1.3"
+pkgrel = 0
+build_style = "makefile"
+make_build_target = "wiggle"
+make_check_target = "test"
+makedepends = ["ncurses-devel"]
+checkdepends = ["bash"]
+pkgdesc = "Tool for applying patches with conflicts"
+license = "GPL-2.0-or-later"
+url = "https://github.com/neilbrown/wiggle"
+source = f"https://neil.brown.name/wiggle/wiggle-{pkgver}.tar.gz"
+sha256 = "6a26af1c121cf2a275168f6f31594ad61e3fc72cdb0ae83c1a07494678821c11"
+tool_flags = {"CFLAGS": ["-I."]}

@@ -1,0 +1,11 @@
+--- a/kmidi/tables.h
++++ b/kmidi/tables.h
+@@ -24,7 +24,7 @@
+ extern float sine(int x);
+ #else
+ #include <math.h>
+-#define sine(x) (sin((2*PI/1024.0) * (x)))
++#define sine(x) (sin((2*M_PI/1024.0) * (x)))
+ #endif
+ 
+ #define SINE_CYCLE_LENGTH 1024

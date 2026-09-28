@@ -1,0 +1,10 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -2,7 +2,6 @@
+ # SPDX-FileCopyrightText: 2002-2022 Oswald Buddenhagen <ossi@users.sf.net>
+ dnl SPDX-License-Identifier: GPL-2.0-or-later
+ 
+-m4_syscmd([./version.sh])
+ AC_INIT([isync], m4_chomp(m4_sinclude([VERSION])))
+ AC_CONFIG_HEADERS([autodefs.h])
+ 

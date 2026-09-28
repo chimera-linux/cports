@@ -1,0 +1,797 @@
+From 9ee3840706cc2b72247482cdc15436c601fd5046 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Fri, 29 Mar 2024 18:34:43 +0100
+Subject: [PATCH] Use openssl
+
+---
+ Cargo.lock                               | 306 +++++++----------------
+ Cargo.toml                               |   9 +-
+ crates/atuin-ai/src/stream.rs            |   2 -
+ crates/atuin-client/src/api_client.rs    |   5 -
+ crates/atuin-client/src/auth.rs          |  14 +-
+ crates/atuin-client/src/hub.rs           |  11 +-
+ crates/atuin-common/Cargo.toml           |   1 -
+ crates/atuin-common/src/lib.rs           |   1 -
+ crates/atuin-common/src/tls.rs           |  15 --
+ crates/atuin-server/src/handlers/user.rs |   3 -
+ 10 files changed, 96 insertions(+), 271 deletions(-)
+ delete mode 100644 crates/atuin-common/src/tls.rs
+
+diff --git a/Cargo.lock b/Cargo.lock
+index cc1444b1..07b9f4ac 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -388,7 +388,6 @@ dependencies = [
+  "eyre",
+  "getrandom 0.2.17",
+  "pretty_assertions",
+- "rustls",
+  "semver",
+  "serde",
+  "sqlx",
+@@ -796,12 +795,6 @@ dependencies = [
+  "shlex",
+ ]
+ 
+-[[package]]
+-name = "cesu8"
+-version = "1.1.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6d43a04d8753f35258c91f8ec639f792891f748a1edbd759cf1dcea3382ad83c"
+-
+ [[package]]
+ name = "cfg-if"
+ version = "1.0.4"
+@@ -950,16 +943,6 @@ dependencies = [
+  "windows-sys 0.59.0",
+ ]
+ 
+-[[package]]
+-name = "combine"
+-version = "4.6.7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
+-dependencies = [
+- "bytes",
+- "memchr",
+-]
+-
+ [[package]]
+ name = "compact_str"
+ version = "0.9.0"
+@@ -1689,6 +1672,21 @@ version = "0.2.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
+ 
++[[package]]
++name = "foreign-types"
++version = "0.3.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f6f339eb8adc052cd2ca78910fda869aefa38d22d5cb648e6485e4d3fc06f3b1"
++dependencies = [
++ "foreign-types-shared",
++]
++
++[[package]]
++name = "foreign-types-shared"
++version = "0.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
++
+ [[package]]
+ name = "form_urlencoded"
+ version = "1.2.2"
+@@ -2096,31 +2094,31 @@ dependencies = [
+ ]
+ 
+ [[package]]
+-name = "hyper-rustls"
+-version = "0.27.7"
++name = "hyper-timeout"
++version = "0.5.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e3c93eb611681b207e1fe55d5a71ecf91572ec8a6705cdb6857f7d8d5242cf58"
++checksum = "2b90d566bffbce6a75bd8b09a05aa8c2cb1fabb6cb348f8840c9e4c90a0d83b0"
+ dependencies = [
+- "http",
+  "hyper",
+  "hyper-util",
+- "rustls",
+- "rustls-pki-types",
++ "pin-project-lite",
+  "tokio",
+- "tokio-rustls",
+  "tower-service",
+ ]
+ 
+ [[package]]
+-name = "hyper-timeout"
+-version = "0.5.2"
++name = "hyper-tls"
++version = "0.6.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2b90d566bffbce6a75bd8b09a05aa8c2cb1fabb6cb348f8840c9e4c90a0d83b0"
++checksum = "70206fc6890eaca9fde8a0bf71caa2ddfc9fe045ac9e5c70df101a7dbde866e0"
+ dependencies = [
++ "bytes",
++ "http-body-util",
+  "hyper",
+  "hyper-util",
+- "pin-project-lite",
++ "native-tls",
+  "tokio",
++ "tokio-native-tls",
+  "tower-service",
+ ]
+ 
+@@ -2472,28 +2470,6 @@ version = "1.0.17"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "92ecc6618181def0457392ccd0ee51198e065e016d1d527a7ac1b6dc7c1f09d2"
+ 
+-[[package]]
+-name = "jni"
+-version = "0.21.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1a87aa2bb7d2af34197c04845522473242e1aa17c12f4935d5856491a7fb8c97"
+-dependencies = [
+- "cesu8",
+- "cfg-if",
+- "combine",
+- "jni-sys",
+- "log",
+- "thiserror 1.0.69",
+- "walkdir",
+- "windows-sys 0.45.0",
+-]
+-
+-[[package]]
+-name = "jni-sys"
+-version = "0.3.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8eaf4bc02d17cbdd7ff4c7438cafcdf7fb9a4613313ad11b4f8fefe7d3fa0130"
+-
+ [[package]]
+ name = "js-sys"
+ version = "0.3.91"
+@@ -2867,6 +2843,23 @@ version = "0.10.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1d87ecb2933e8aeadb3e3a02b828fed80a7528047e68b4f424523a0981a3a084"
+ 
++[[package]]
++name = "native-tls"
++version = "0.2.18"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "465500e14ea162429d264d44189adc38b199b62b1c21eea9f69e4b73cb03bbf2"
++dependencies = [
++ "libc",
++ "log",
++ "openssl",
++ "openssl-probe",
++ "openssl-sys",
++ "schannel",
++ "security-framework",
++ "security-framework-sys",
++ "tempfile",
++]
++
+ [[package]]
+ name = "nix"
+ version = "0.28.0"
+@@ -3149,12 +3142,50 @@ dependencies = [
+  "pathdiff",
+ ]
+ 
++[[package]]
++name = "openssl"
++version = "0.10.78"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f38c4372413cdaaf3cc79dd92d29d7d9f5ab09b51b10dded508fb90bb70b9222"
++dependencies = [
++ "bitflags 2.11.0",
++ "cfg-if",
++ "foreign-types",
++ "libc",
++ "once_cell",
++ "openssl-macros",
++ "openssl-sys",
++]
++
++[[package]]
++name = "openssl-macros"
++version = "0.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.117",
++]
++
+ [[package]]
+ name = "openssl-probe"
+ version = "0.2.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7c87def4c32ab89d880effc9e097653c8da5d6ef28e6b539d313baaacfbafcbe"
+ 
++[[package]]
++name = "openssl-sys"
++version = "0.9.114"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "13ce1245cd07fcc4cfdb438f7507b0c7e4f3849a69fd84d52374c66d83741bb6"
++dependencies = [
++ "cc",
++ "libc",
++ "pkg-config",
++ "vcpkg",
++]
++
+ [[package]]
+ name = "option-ext"
+ version = "0.2.0"
+@@ -3983,20 +4014,19 @@ dependencies = [
+  "http-body",
+  "http-body-util",
+  "hyper",
+- "hyper-rustls",
++ "hyper-tls",
+  "hyper-util",
+  "js-sys",
+  "log",
++ "native-tls",
+  "percent-encoding",
+  "pin-project-lite",
+- "rustls",
+  "rustls-pki-types",
+- "rustls-platform-verifier",
+  "serde",
+  "serde_json",
+  "sync_wrapper",
+  "tokio",
+- "tokio-rustls",
++ "tokio-native-tls",
+  "tokio-util",
+  "tower",
+  "tower-http",
+@@ -4109,32 +4139,6 @@ dependencies = [
+  "windows-sys 0.61.2",
+ ]
+ 
+-[[package]]
+-name = "rustls"
+-version = "0.23.37"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "758025cb5fccfd3bc2fd74708fd4682be41d99e5dff73c377c0646c6012c73a4"
+-dependencies = [
+- "once_cell",
+- "ring",
+- "rustls-pki-types",
+- "rustls-webpki",
+- "subtle",
+- "zeroize",
+-]
+-
+-[[package]]
+-name = "rustls-native-certs"
+-version = "0.8.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "612460d5f7bea540c490b2b6395d8e34a953e52b491accd6c86c8164c5932a63"
+-dependencies = [
+- "openssl-probe",
+- "rustls-pki-types",
+- "schannel",
+- "security-framework",
+-]
+-
+ [[package]]
+ name = "rustls-pki-types"
+ version = "1.14.0"
+@@ -4144,44 +4148,6 @@ dependencies = [
+  "zeroize",
+ ]
+ 
+-[[package]]
+-name = "rustls-platform-verifier"
+-version = "0.6.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1d99feebc72bae7ab76ba994bb5e121b8d83d910ca40b36e0921f53becc41784"
+-dependencies = [
+- "core-foundation",
+- "core-foundation-sys",
+- "jni",
+- "log",
+- "once_cell",
+- "rustls",
+- "rustls-native-certs",
+- "rustls-platform-verifier-android",
+- "rustls-webpki",
+- "security-framework",
+- "security-framework-sys",
+- "webpki-root-certs",
+- "windows-sys 0.61.2",
+-]
+-
+-[[package]]
+-name = "rustls-platform-verifier-android"
+-version = "0.1.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f87165f0995f63a9fbeea62b64d10b4d9d8e78ec6d7d51fb2125fda7bb36788f"
+-
+-[[package]]
+-name = "rustls-webpki"
+-version = "0.103.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d7df23109aa6c1567d1c575b9952556388da57401e4ace1d15f79eedad0d8f53"
+-dependencies = [
+- "ring",
+- "rustls-pki-types",
+- "untrusted",
+-]
+-
+ [[package]]
+ name = "rustversion"
+ version = "1.0.22"
+@@ -4655,9 +4621,9 @@ dependencies = [
+  "indexmap 2.13.0",
+  "log",
+  "memchr",
++ "native-tls",
+  "once_cell",
+  "percent-encoding",
+- "rustls",
+  "serde",
+  "serde_json",
+  "sha2",
+@@ -4669,7 +4635,6 @@ dependencies = [
+  "tracing",
+  "url",
+  "uuid",
+- "webpki-roots 0.26.11",
+ ]
+ 
+ [[package]]
+@@ -5187,12 +5152,12 @@ dependencies = [
+ ]
+ 
+ [[package]]
+-name = "tokio-rustls"
+-version = "0.26.4"
++name = "tokio-native-tls"
++version = "0.3.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1729aa945f29d91ba541258c8df89027d5792d85a8841fb65e8bf0f4ede4ef61"
++checksum = "bbae76ab933c85776efabc971569dd6119c580d8f5d448769dec1764bf796ef2"
+ dependencies = [
+- "rustls",
++ "native-tls",
+  "tokio",
+ ]
+ 
+@@ -6067,33 +6032,6 @@ dependencies = [
+  "wasm-bindgen",
+ ]
+ 
+-[[package]]
+-name = "webpki-root-certs"
+-version = "1.0.6"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "804f18a4ac2676ffb4e8b5b5fa9ae38af06df08162314f96a68d2a363e21a8ca"
+-dependencies = [
+- "rustls-pki-types",
+-]
+-
+-[[package]]
+-name = "webpki-roots"
+-version = "0.26.11"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "521bc38abb08001b01866da9f51eb7c5d647a19260e00054a8c7fd5f9e57f7a9"
+-dependencies = [
+- "webpki-roots 1.0.6",
+-]
+-
+-[[package]]
+-name = "webpki-roots"
+-version = "1.0.6"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "22cfaf3c063993ff62e73cb4311efde4db1efb31ab78a3e5c457939ad5cc0bed"
+-dependencies = [
+- "rustls-pki-types",
+-]
+-
+ [[package]]
+ name = "wezterm-bidi"
+ version = "0.2.3"
+@@ -6298,15 +6236,6 @@ dependencies = [
+  "windows-link",
+ ]
+ 
+-[[package]]
+-name = "windows-sys"
+-version = "0.45.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "75283be5efb2831d37ea142365f009c02ec203cd29a3ebecbc093d52315b66d0"
+-dependencies = [
+- "windows-targets 0.42.2",
+-]
+-
+ [[package]]
+ name = "windows-sys"
+ version = "0.48.0"
+@@ -6352,21 +6281,6 @@ dependencies = [
+  "windows-link",
+ ]
+ 
+-[[package]]
+-name = "windows-targets"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8e5180c00cd44c9b1c88adb3693291f1cd93605ded80c250a75d472756b4d071"
+-dependencies = [
+- "windows_aarch64_gnullvm 0.42.2",
+- "windows_aarch64_msvc 0.42.2",
+- "windows_i686_gnu 0.42.2",
+- "windows_i686_msvc 0.42.2",
+- "windows_x86_64_gnu 0.42.2",
+- "windows_x86_64_gnullvm 0.42.2",
+- "windows_x86_64_msvc 0.42.2",
+-]
+-
+ [[package]]
+ name = "windows-targets"
+ version = "0.48.5"
+@@ -6415,12 +6329,6 @@ dependencies = [
+  "windows_x86_64_msvc 0.53.1",
+ ]
+ 
+-[[package]]
+-name = "windows_aarch64_gnullvm"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "597a5118570b68bc08d8d59125332c54f1ba9d9adeedeef5b99b02ba2b0698f8"
+-
+ [[package]]
+ name = "windows_aarch64_gnullvm"
+ version = "0.48.5"
+@@ -6439,12 +6347,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
+ 
+-[[package]]
+-name = "windows_aarch64_msvc"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e08e8864a60f06ef0d0ff4ba04124db8b0fb3be5776a5cd47641e942e58c4d43"
+-
+ [[package]]
+ name = "windows_aarch64_msvc"
+ version = "0.48.5"
+@@ -6463,12 +6365,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
+ 
+-[[package]]
+-name = "windows_i686_gnu"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c61d927d8da41da96a81f029489353e68739737d3beca43145c8afec9a31a84f"
+-
+ [[package]]
+ name = "windows_i686_gnu"
+ version = "0.48.5"
+@@ -6499,12 +6395,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
+ 
+-[[package]]
+-name = "windows_i686_msvc"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "44d840b6ec649f480a41c8d80f9c65108b92d89345dd94027bfe06ac444d1060"
+-
+ [[package]]
+ name = "windows_i686_msvc"
+ version = "0.48.5"
+@@ -6523,12 +6413,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
+ 
+-[[package]]
+-name = "windows_x86_64_gnu"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8de912b8b8feb55c064867cf047dda097f92d51efad5b491dfb98f6bbb70cb36"
+-
+ [[package]]
+ name = "windows_x86_64_gnu"
+ version = "0.48.5"
+@@ -6547,12 +6431,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
+ 
+-[[package]]
+-name = "windows_x86_64_gnullvm"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "26d41b46a36d453748aedef1486d5c7a85db22e56aff34643984ea85514e94a3"
+-
+ [[package]]
+ name = "windows_x86_64_gnullvm"
+ version = "0.48.5"
+@@ -6571,12 +6449,6 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
+ 
+-[[package]]
+-name = "windows_x86_64_msvc"
+-version = "0.42.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9aec5da331524158c6d1a4ac0ab1541149c0b9505fde06423b02f5ef0106b9f0"
+-
+ [[package]]
+ name = "windows_x86_64_msvc"
+ version = "0.48.5"
+diff --git a/Cargo.toml b/Cargo.toml
+index 6f561f51..99724994 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -65,11 +65,6 @@ ratatui = "0.30.0"
+ sql-builder = "3"
+ tempfile = { version = "3.19" }
+ minijinja = "2.9.0"
+-rustls = { version = "0.23", default-features = false, features = [
+-  "ring",
+-  "std",
+-  "tls12",
+-] }
+ glob-match = "0.2.1"
+ imara-diff = "0.2"
+ xxhash-rust = { version = "0.8", features = ["xxh3"] }
+@@ -83,12 +78,12 @@ features = ["ansi", "fmt", "registry", "env-filter", "json"]
+ 
+ [workspace.dependencies.reqwest]
+ version = "0.13"
+-features = ["json", "rustls-no-provider", "stream"]
++features = ["json", "native-tls", "stream"]
+ default-features = false
+ 
+ [workspace.dependencies.sqlx]
+ version = "0.8"
+-features = ["runtime-tokio-rustls", "time", "postgres", "uuid"]
++features = ["runtime-tokio-native-tls", "time", "postgres", "uuid"]
+ 
+ # The profile that 'cargo dist' will build with
+ [profile.dist]
+diff --git a/crates/atuin-ai/src/stream.rs b/crates/atuin-ai/src/stream.rs
+index d921b39c..f4162103 100644
+--- a/crates/atuin-ai/src/stream.rs
++++ b/crates/atuin-ai/src/stream.rs
+@@ -3,7 +3,6 @@
+ // ───────────────────────────────────────────────────────────────────
+ 
+ use atuin_client::settings::AiCapabilities;
+-use atuin_common::tls::ensure_crypto_provider;
+ 
+ use eventsource_stream::Eventsource;
+ use eyre::{Context, Result};
+@@ -109,7 +108,6 @@ pub(crate) fn create_chat_stream(
+     skill_overflow: Option<String>,
+ ) -> std::pin::Pin<Box<dyn futures::Stream<Item = Result<StreamFrame>> + Send>> {
+     Box::pin(async_stream::stream! {
+-        ensure_crypto_provider();
+         let endpoint = match hub_url(&hub_address, "/api/cli/chat") {
+             Ok(url) => url,
+             Err(e) => {
+diff --git a/crates/atuin-client/src/api_client.rs b/crates/atuin-client/src/api_client.rs
+index 066fecb5..6bbd9a5b 100644
+--- a/crates/atuin-client/src/api_client.rs
++++ b/crates/atuin-client/src/api_client.rs
+@@ -11,7 +11,6 @@ use reqwest::{
+ use atuin_common::{
+     api::{ATUIN_CARGO_VERSION, ATUIN_HEADER_VERSION, ATUIN_VERSION},
+     record::{EncryptedData, HostId, Record, RecordIdx},
+-    tls::ensure_crypto_provider,
+ };
+ use atuin_common::{
+     api::{
+@@ -86,7 +85,6 @@ pub async fn register(
+     email: &str,
+     password: &str,
+ ) -> Result<RegisterResponse> {
+-    ensure_crypto_provider();
+     let mut map = HashMap::new();
+     map.insert("username", username);
+     map.insert("email", email);
+@@ -119,7 +117,6 @@ pub async fn register(
+ }
+ 
+ pub async fn login(address: &str, req: LoginRequest) -> Result<LoginResponse> {
+-    ensure_crypto_provider();
+     let url = make_url(address, "/login")?;
+     let client = reqwest::Client::new();
+ 
+@@ -143,7 +140,6 @@ pub async fn login(address: &str, req: LoginRequest) -> Result<LoginResponse> {
+ pub async fn latest_version() -> Result<Version> {
+     use atuin_common::api::IndexResponse;
+ 
+-    ensure_crypto_provider();
+     let url = "https://api.atuin.sh";
+     let client = reqwest::Client::new();
+ 
+@@ -228,7 +224,6 @@ impl<'a> Client<'a> {
+         connect_timeout: u64,
+         timeout: u64,
+     ) -> Result<Self> {
+-        ensure_crypto_provider();
+         let mut headers = HeaderMap::new();
+         headers.insert(AUTHORIZATION, auth.to_header_value().parse()?);
+ 
+diff --git a/crates/atuin-client/src/auth.rs b/crates/atuin-client/src/auth.rs
+index 8ea4b8ab..8656bb38 100644
+--- a/crates/atuin-client/src/auth.rs
++++ b/crates/atuin-client/src/auth.rs
+@@ -3,12 +3,9 @@ use eyre::{Context, Result, bail};
+ use reqwest::{StatusCode, Url, header::USER_AGENT};
+ use serde::Deserialize;
+ 
+-use atuin_common::{
+-    api::{
+-        ATUIN_CARGO_VERSION, ATUIN_HEADER_VERSION, ChangePasswordRequest, LoginRequest,
+-        LoginResponse, RegisterResponse,
+-    },
+-    tls::ensure_crypto_provider,
++use atuin_common::api::{
++    ATUIN_CARGO_VERSION, ATUIN_HEADER_VERSION, ChangePasswordRequest, LoginRequest, LoginResponse,
++    RegisterResponse,
+ };
+ 
+ use crate::settings::Settings;
+@@ -122,7 +119,6 @@ impl LegacyAuthClient {
+             .as_deref()
+             .ok_or_else(|| eyre::eyre!("Not logged in"))?;
+ 
+-        ensure_crypto_provider();
+         let mut headers = reqwest::header::HeaderMap::new();
+         headers.insert(
+             reqwest::header::AUTHORIZATION,
+@@ -254,7 +250,6 @@ impl AuthClient for HubAuthClient {
+         password: &str,
+         totp_code: Option<&str>,
+     ) -> Result<AuthResponse> {
+-        ensure_crypto_provider();
+         let url = make_url(&self.address, "/api/v0/login")?;
+         let client = reqwest::Client::new();
+ 
+@@ -302,7 +297,6 @@ impl AuthClient for HubAuthClient {
+     }
+ 
+     async fn register(&self, username: &str, email: &str, password: &str) -> Result<AuthResponse> {
+-        ensure_crypto_provider();
+         let url = make_url(&self.address, "/api/v0/register")?;
+         let client = reqwest::Client::new();
+ 
+@@ -356,7 +350,6 @@ impl AuthClient for HubAuthClient {
+             );
+         }
+ 
+-        ensure_crypto_provider();
+         let url = make_url(&self.address, "/api/v0/account/password")?;
+         let client = reqwest::Client::new();
+ 
+@@ -418,7 +411,6 @@ impl AuthClient for HubAuthClient {
+             );
+         }
+ 
+-        ensure_crypto_provider();
+         let url = make_url(&self.address, "/api/v0/account")?;
+         let client = reqwest::Client::new();
+ 
+diff --git a/crates/atuin-client/src/hub.rs b/crates/atuin-client/src/hub.rs
+index 2e40aad4..1e10e567 100644
+--- a/crates/atuin-client/src/hub.rs
++++ b/crates/atuin-client/src/hub.rs
+@@ -13,12 +13,8 @@ use std::time::Duration;
+ use eyre::{Context, Result, bail};
+ use reqwest::{StatusCode, Url, header::USER_AGENT};
+ 
+-use atuin_common::{
+-    api::{
+-        ATUIN_CARGO_VERSION, ATUIN_HEADER_VERSION, CliCodeResponse, CliVerifyResponse,
+-        ErrorResponse,
+-    },
+-    tls::ensure_crypto_provider,
++use atuin_common::api::{
++    ATUIN_CARGO_VERSION, ATUIN_HEADER_VERSION, CliCodeResponse, CliVerifyResponse, ErrorResponse,
+ };
+ 
+ use crate::settings::Settings;
+@@ -192,7 +188,6 @@ pub async fn link_account(hub_address: &str, cli_token: &str) -> Result<()> {
+ 
+     debug!("Linking CLI account to Hub at {}", hub_address);
+ 
+-    ensure_crypto_provider();
+     let client = reqwest::Client::new();
+ 
+     let resp = client
+@@ -264,7 +259,6 @@ async fn handle_resp_error(resp: reqwest::Response) -> Result<reqwest::Response>
+ 
+ /// Request a CLI auth code from the Atuin Hub
+ async fn request_code(address: &str) -> Result<CliCodeResponse> {
+-    ensure_crypto_provider();
+     let url = make_url(address, "/auth/cli/code")?;
+     let client = reqwest::Client::new();
+ 
+@@ -284,7 +278,6 @@ async fn request_code(address: &str) -> Result<CliCodeResponse> {
+ 
+ /// Poll to verify the CLI auth code and get the session token
+ async fn verify_code(address: &str, code: &str) -> Result<CliVerifyResponse> {
+-    ensure_crypto_provider();
+     let base = make_url(address, "/auth/cli/verify")?;
+     let url = format!("{base}?code={code}");
+     let client = reqwest::Client::new();
+diff --git a/crates/atuin-common/Cargo.toml b/crates/atuin-common/Cargo.toml
+index 811b0bdb..d65bdc68 100644
+--- a/crates/atuin-common/Cargo.toml
++++ b/crates/atuin-common/Cargo.toml
+@@ -25,7 +25,6 @@ directories = { workspace = true }
+ sysinfo = "0.30.7"
+ base64 = { workspace = true }
+ getrandom = "0.2"
+-rustls = { workspace = true }
+ 
+ [dev-dependencies]
+ pretty_assertions = { workspace = true }
+diff --git a/crates/atuin-common/src/lib.rs b/crates/atuin-common/src/lib.rs
+index 91164a82..75bfc3e9 100644
+--- a/crates/atuin-common/src/lib.rs
++++ b/crates/atuin-common/src/lib.rs
+@@ -56,5 +56,4 @@ macro_rules! new_uuid {
+ pub mod api;
+ pub mod record;
+ pub mod shell;
+-pub mod tls;
+ pub mod utils;
+diff --git a/crates/atuin-common/src/tls.rs b/crates/atuin-common/src/tls.rs
+deleted file mode 100644
+index e8c840e0..00000000
+--- a/crates/atuin-common/src/tls.rs
++++ /dev/null
+@@ -1,15 +0,0 @@
+-use std::sync::Once;
+-
+-static INIT: Once = Once::new();
+-
+-/// Ensure the rustls crypto provider (ring) is installed.
+-///
+-/// Must be called before creating any reqwest clients. Safe to call
+-/// multiple times — only the first call installs the provider.
+-pub fn ensure_crypto_provider() {
+-    INIT.call_once(|| {
+-        rustls::crypto::ring::default_provider()
+-            .install_default()
+-            .expect("Failed to install rustls crypto provider");
+-    });
+-}
+diff --git a/crates/atuin-server/src/handlers/user.rs b/crates/atuin-server/src/handlers/user.rs
+index dda7a381..1479272a 100644
+--- a/crates/atuin-server/src/handlers/user.rs
++++ b/crates/atuin-server/src/handlers/user.rs
+@@ -16,8 +16,6 @@ use metrics::counter;
+ use rand::rngs::OsRng;
+ use tracing::{debug, error, info, instrument};
+ 
+-use atuin_common::tls::ensure_crypto_provider;
+-
+ use super::{ErrorResponse, ErrorResponseStatus, RespExt};
+ use crate::router::{AppState, UserAuth};
+ use atuin_server_database::{
+@@ -40,7 +38,6 @@ pub fn verify_str(hash: &str, password: &str) -> bool {
+ // Try to send a Discord webhook once - if it fails, we don't retry. "At most once", and best effort.
+ // Don't return the status because if this fails, we don't really care.
+ async fn send_register_hook(url: &str, username: String, registered: String) {
+-    ensure_crypto_provider();
+     let hook = HashMap::from([
+         ("username", username),
+         ("content", format!("{registered} has just signed up!")),
+-- 
+2.52.0
+

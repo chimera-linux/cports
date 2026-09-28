@@ -1,0 +1,3 @@
+type = process
+command = /usr/bin/automount -f
+depends-on = early-fs-local.target

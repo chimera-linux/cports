@@ -1,0 +1,16 @@
+apk3 doesn't support hardlinks yet (and just falls back to copy which is less
+efficient), use a normal symlink
+--
+--- a/programs/CMakeLists.txt
++++ b/programs/CMakeLists.txt
+@@ -56,8 +56,8 @@
+         set(GZIP "${CMAKE_INSTALL_FULL_BINDIR}/libdeflate-gzip${CMAKE_EXECUTABLE_SUFFIX}")
+         set(GUNZIP "${CMAKE_INSTALL_FULL_BINDIR}/libdeflate-gunzip${CMAKE_EXECUTABLE_SUFFIX}")
+         install(CODE "message(\"-- Installing: \$ENV{DESTDIR}${GUNZIP}\")")
+-        install(CODE "file(CREATE_LINK \"\$ENV{DESTDIR}${GZIP}\"
+-                           \"\$ENV{DESTDIR}${GUNZIP}\" COPY_ON_ERROR)")
++        install(CODE "file(CREATE_LINK \"${GZIP}\"
++                           \"\$ENV{DESTDIR}${GUNZIP}\" COPY_ON_ERROR SYMBOLIC)")
+     else()
+         # The cmake version is too old to support file(CREATE_LINK).
+         # Just compile gzip.c again to build libdeflate-gunzip.

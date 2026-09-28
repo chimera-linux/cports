@@ -1,0 +1,78 @@
+commit 4c11759a5e446945a57deca15e04081af1fb3dd1
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jul 13 10:59:41 2024 +0200
+
+    rename symbols that conflict with udev in static linkage
+    
+    This allows lvm2 to statically link both libudev and libblkid.
+    Obviously it's a horrible hack but we have no better way to get
+    rid of the dupes.
+
+diff --git a/include/strutils.h b/include/strutils.h
+index b9f3e08..4e64c81 100644
+--- a/include/strutils.h
++++ b/include/strutils.h
+@@ -20,7 +20,7 @@
+ /* initialize a custom exit code for all *_or_err functions */
+ extern void strutils_set_exitcode(int exit_code);
+ 
+-extern int parse_size(const char *str, uintmax_t *res, int *power);
++extern int parse_size(const char *str, uintmax_t *res, int *power) __asm__("ul_parse_size");
+ extern int strtosize(const char *str, uintmax_t *res);
+ extern uintmax_t strtosize_or_err(const char *str, const char *errmesg);
+ 
+@@ -226,7 +226,7 @@ extern int string_to_bitarray(const char *list, char *ary,
+ extern int string_to_bitmask(const char *list,
+ 			     unsigned long *mask,
+ 			     long (*name2flag)(const char *, size_t));
+-extern int parse_range(const char *str, int *lower, int *upper, int def);
++extern int parse_range(const char *str, int *lower, int *upper, int def) __asm__("ul_parse_range");
+ 
+ extern int streq_paths(const char *a, const char *b);
+ 
+diff --git a/include/strv.h b/include/strv.h
+index db24ce4..873d46a 100644
+--- a/include/strv.h
++++ b/include/strv.h
+@@ -8,26 +8,26 @@
+ 
+ #include "c.h"
+ 
+-char **strv_free(char **l);
++char **strv_free(char **l) __asm__("ul_strv_free");
+ void strv_clear(char **l);
+ char **strv_copy(char * const *l);
+-unsigned strv_length(char * const *l);
++unsigned strv_length(char * const *l) __asm__("ul_strv_length");
+ 
+-int strv_extend_strv(char ***a, char **b);
++int strv_extend_strv(char ***a, char **b) __asm__("ul_strv_extend_strv");
+ int strv_extend_strv_concat(char ***a, char **b, const char *suffix);
+ int strv_extend(char ***l, const char *value);
+ 
+ int strv_extendv(char ***l, const char *format, va_list ap)
+ 		__attribute__ ((__format__ (__printf__, 2, 0)));
+-int strv_extendf(char ***l, const char *format, ...)
++int strv_extendf(char ***l, const char *format, ...) __asm__("ul_strv_extend")
+ 		__attribute__ ((__format__ (__printf__, 2, 3)));
+ 
+ int strv_push(char ***l, char *value);
+ int strv_push_prepend(char ***l, char *value);
+ int strv_consume(char ***l, char *value);
+-int strv_consume_prepend(char ***l, char *value);
++int strv_consume_prepend(char ***l, char *value) __asm__("ul_strv_consume_prepend");
+ 
+-char **strv_remove(char **l, const char *s);
++char **strv_remove(char **l, const char *s) __asm__("ul_strv_remove");
+ 
+ char **strv_new(const char *x, ...);
+ 
+@@ -53,7 +53,7 @@ char *strv_join(char **l, const char *separator);
+ 
+ #define STRV_MAKE_EMPTY ((char*[1]) { NULL })
+ 
+-char **strv_reverse(char **l);
++char **strv_reverse(char **l) __asm__("ul_strv_reverse");
+ 
+ #endif /* UTIL_LINUX_STRV */
+ 

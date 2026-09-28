@@ -1,0 +1,13 @@
+We want to enable man pages without regenerating them.
+
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -390,7 +390,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = lib $(am__append_1) src po contrib doc etc tests/unit \
++SUBDIRS = lib $(am__append_1) src po contrib doc etc man tests/unit \
+ 	$(am__append_2)
+ CLEANFILES = man/8.out man/po/remove-potcdate.* man/*/login.defs.d man/*/*.mo
+ EXTRA_DIST = NEWS README tests/

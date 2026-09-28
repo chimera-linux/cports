@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/kmscon --vt $1 --no-switchvt
+termsignal = HUP
+smooth-recovery = true
+depends-on: login.target

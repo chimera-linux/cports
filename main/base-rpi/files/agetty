@@ -1,0 +1,2 @@
+# Enable serial console on Raspberry Pi by default.
+EXTRA_GETTYS="/dev/ttyAMA0"

@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+# Adapted from Alpine initscript by Natanael Copa.
+#
+# Provided under the same license (BSD-2-Clause).
+
+: ${cfgfile:="/etc/network/interfaces"}
+: ${ifstate:="/run/ifstate"}
+
+single_iface=
+if [ $# -lt 1 ]; then
+    echo "no arguments provided (need at least start/stop)" >&2
+    exit 1
+fi
+case "$1" in
+    start|stop) ;;
+    *)
+        echo "invalid argument provided (start/stop expected)" >&2
+        exit 1
+        ;;
+esac
+if [ $# -gt 2 ]; then
+    echo "too many arguments provided (must be at most 2)" >&2
+    exit 1
+elif [ $# -eq 2 ]; then
+    single_iface="$2"
+fi
+
+# find interfaces we want to start
+find_ifaces() {
+    if [ -n "$single_iface" ]; then
+        echo $single_iface
+        return 0
+    fi
+
+    ifquery -i "$cfgfile" --list -a
+}
+
+# return the list of interfaces we should try stop
+find_running_ifaces() {
+    if [ -n "$single_iface" ]; then
+        echo $single_iface
+        return 0
+    fi
+
+    ifquery --state-file $ifstate -i "$cfgfile" --running
+}
+
+start() {
+    local iface= ret=1
+    echo "starting networking..."
+    for iface in $(find_ifaces); do
+        local r=0
+        echo -n "  starting '${iface}'..."
+        if ! ifup -i "$cfgfile" $iface >/dev/null; then
+            ifdown -i "$cfgfile" $iface >/dev/null 2>&1
+            r=1
+        fi
+        # atleast one interface needs to be started for action
+        # to be success
+        if [ $r -eq 0 ]; then
+            echo " ok"
+            ret=0
+        else
+            echo " failed"
+        fi
+    done
+    return $ret
+}
+
+stop() {
+    local iface=
+    echo "stopping networking..."
+    for iface in $(find_running_ifaces); do
+        echo -n "  stopping '${iface}'..."
+        ifdown -i "$cfgfile" -f $iface >/dev/null
+        if [ $? -eq 0 ]; then
+            echo " ok"
+        else
+            echo " failed"
+        fi
+    done
+    return 0
+}
+
+case "$1" in
+    start) start ;;
+    stop) stop ;;
+    *)
+        # unreachable
+        exit 1
+        ;;
+esac

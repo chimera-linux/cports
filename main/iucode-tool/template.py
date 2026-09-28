@@ -1,0 +1,13 @@
+pkgname = "iucode-tool"
+pkgver = "2.3.1"
+pkgrel = 0
+archs = ["x86_64"]
+build_style = "gnu_configure"
+configure_gen = ["./autogen.sh"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
+makedepends = ["argp-standalone"]
+pkgdesc = "Intel microcode manipulation utility"
+license = "GPL-2.0-or-later"
+url = "https://gitlab.com/iucode-tool/iucode-tool"
+source = f"{url}/-/archive/v{pkgver}/iucode-tool-v{pkgver}.tar.gz"
+sha256 = "e24951098b5753293e43689bd8e0a61c4fd2e68870672d20bb89b093dfd8b255"

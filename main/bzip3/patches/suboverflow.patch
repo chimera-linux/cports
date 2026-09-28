@@ -1,0 +1,14 @@
+workaround for https://github.com/chimera-linux/cports/issues/4131
+was too dumb to figure out fix
+diff --git a/include/libsais.h b/include/libsais.h
+index 6cdad57..dc26d28 100644
+--- a/include/libsais.h
++++ b/include/libsais.h
+@@ -3454,6 +3454,7 @@ static sa_sint_t libsais_renumber_unique_and_nonunique_lms_suffixes_32s(sa_sint_
+     return f;
+ }
+ 
++__attribute__((no_sanitize("signed-integer-overflow")))
+ static void libsais_compact_unique_and_nonunique_lms_suffixes_32s(sa_sint_t * RESTRICT SA, sa_sint_t m,
+                                                                   fast_sint_t * pl, fast_sint_t * pr,
+                                                                   fast_sint_t omp_block_start,

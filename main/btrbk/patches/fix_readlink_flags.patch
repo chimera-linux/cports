@@ -1,0 +1,13 @@
+--- a/btrbk	2023-03-25 17:19:14.000000000 +0100
++++ b/btrbk	2024-01-08 22:14:02.703529883 +0100
+@@ -1966,9 +1966,7 @@
+   my $vol = shift // die;
+   my $path = $vol->{PATH} // die;
+   my $compat = config_key_lru($vol, "compat", "busybox");
+-  my @options = ("-v");                # report error messages
+-  push @options, "-e" unless($compat); # all components must exist (not available in busybox!)
+-  push @options, "-f" if($compat);     # all but the last component must exist.
++  my @options = ("-f");                # all components must exist
+   my $ret = run_cmd(cmd => vinfo_cmd($vol, "readlink", @options, { unsafe => $path } ),
+                     rsh => vinfo_rsh($vol),
+                     non_destructive => 1,

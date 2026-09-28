@@ -1,0 +1,16 @@
+--- a/scripts/snapper-hourly
++++ b/scripts/snapper-hourly
+@@ -9,10 +9,10 @@
+ 
+ 
+ #
+-# get information from /etc/sysconfig/snapper
++# get information from /etc/snapper/snapper
+ #
+-if [ -f /etc/sysconfig/snapper ] ; then
+-    . /etc/sysconfig/snapper
++if [ -f /etc/snapper/snapper ] ; then
++    . /etc/snapper/snapper
+ fi
+ 
+ 

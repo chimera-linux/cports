@@ -1,0 +1,54 @@
+fixes:
+```
+../include/hash.h:27:2: error: Wordsize not 32 or 64                                                                                                                 
+   27 | #error Wordsize not 32 or 64                                                                                                                                 
+      |  ^                                                                        
+```
+
+--- a/include/hash.h
++++ b/include/hash.h
+@@ -6,7 +6,7 @@
+ #ifdef __GLIBC__
+ #include <bits/wordsize.h>
+ #else
+-#include <bits/reg.h>
++#include <sys/reg.h>
+ #endif
+ #include <linux/stddef.h>
+ #include <sys/types.h>
+
+--- a/daemon/automount.c
++++ b/daemon/automount.c
+@@ -19,6 +19,8 @@
+  *
+  * ----------------------------------------------------------------------- */
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ #include <dirent.h>
+ #include <getopt.h>
+ #include <signal.h>
+
+--- a/daemon/master.c
++++ b/daemon/master.c
+@@ -27,6 +27,8 @@
+ #include <ctype.h>
+ #include "automount.h"
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ /* The root of the map entry tree */
+ struct master *master_list = NULL;
+ 
+
+--- a/modules/lookup_file.c
++++ b/modules/lookup_file.c
+@@ -24,6 +24,8 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ #define MODULE_LOOKUP
+ #include "automount.h"
+ #include "nsswitch.h"

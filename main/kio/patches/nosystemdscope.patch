@@ -1,0 +1,12 @@
+these just log system spawn errors (and then spawn normally), so make it more quiet
+--- a/src/gui/kprocessrunner.cpp
++++ b/src/gui/kprocessrunner.cpp
+@@ -59,7 +59,7 @@
+ 
+ static KProcessRunner *makeInstance()
+ {
+-#if defined(Q_OS_LINUX) && defined(WITH_QTDBUS)
++#if 0 && defined(Q_OS_LINUX) && defined(WITH_QTDBUS)
+     switch (SystemdProcessRunner::modeAvailable()) {
+     case KProcessRunner::SystemdAsService:
+         return new SystemdProcessRunner();

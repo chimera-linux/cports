@@ -1,0 +1,33 @@
+From 7471e3e5ad2de5281b576ffd66ba61cd7f1a9996 Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Fri, 21 Apr 2023 18:28:07 +0530
+Subject: [PATCH] usb-backend: Fix compiling with i686 clang in mingw
+
+This adds the stdcall attribute to match the function prototype which
+is used with SetWindowSubclass Win32 API. Otherwise, clang 16 targeting
+i686-w64-windows-gnu shows the following compiler error:
+
+../src/usb-backend.c:269:38: error: incompatible function pointer types passing
+'LRESULT (HWND, UINT, WPARAM, LPARAM, UINT_PTR, DWORD_PTR)' (aka 'long (struct HWND__ *, unsigned int, unsigned int, long, unsigned int, unsigned long)') to parameter of type
+'SUBCLASSPROC' (aka 'long (*)(structHWND__ *, unsigned int, unsigned int, long, unsigned int, unsigned long) __attribute__((stdcall))') [-Wincompatible-function-pointer-types]
+    if (!SetWindowSubclass(be->hWnd, subclass_proc, 0, (DWORD_PTR)be)) {
+                                     ^~~~~~~~~~~~~
+
+Acked-by: Frediano Ziglio <freddy77@gmail.com>
+---
+ src/usb-backend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/usb-backend.c b/src/usb-backend.c
+index e4b55791..dd1ce99f 100644
+--- a/src/usb-backend.c
++++ b/src/usb-backend.c
+@@ -214,7 +214,7 @@ static int compare_dev_list_fire_callback(SpiceUsbBackend *be,
+     return num_changed;
+ }
+ 
+-static LRESULT subclass_proc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
++static LRESULT CALLBACK subclass_proc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
+                              UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+ {
+     SpiceUsbBackend *be = (SpiceUsbBackend *)dwRefData;

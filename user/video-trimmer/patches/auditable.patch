@@ -1,0 +1,13 @@
+diff --git a/build-aux/cargo.sh b/build-aux/cargo.sh
+index 4cea551..1885c1c 100755
+--- a/build-aux/cargo.sh
++++ b/build-aux/cargo.sh
+@@ -16,7 +16,7 @@ then
+         cp "$CARGO_TARGET_DIR"/debug/"$APP_BIN" "$OUTPUT"
+ else
+     echo "RELEASE MODE"
+-    cargo build --manifest-path \
++    cargo auditable build --manifest-path \
+         "$MESON_SOURCE_ROOT"/Cargo.toml --release && \
+         cp "$CARGO_TARGET_DIR"/release/"$APP_BIN" "$OUTPUT"
+ fi

@@ -1,0 +1,14 @@
+this allows version tracing of .pc files to work
+---
+diff -urN a/configure b/configure
+--- a/configure	2026-07-01 13:03:12.000000000 +0100
++++ b/configure	2026-09-11 09:27:01.148107656 +0100
+@@ -3848,7 +3848,7 @@
+ 
+ # Define the identity of the package.
+  PACKAGE='libevent'
+- VERSION='2.1.13-stable'
++ VERSION='2.1.13'
+ 
+ 
+ printf "%s\n" "#define PACKAGE \"$PACKAGE\"" >>confdefs.h

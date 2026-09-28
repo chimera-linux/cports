@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -302,7 +302,7 @@
+ gzip -c $(1) >$(DESTDIR)$(MANDIR)/man$(2)/$(3).gz;
+ endef
+ 
+-install-man: man
++install-man:
+ 	@echo "$(WHALE) $@"
+ 	$(foreach manpage,$(addprefix man/,$(MANPAGES)), $(call installmanpage,$(manpage),$(subst .,,$(suffix $(manpage))),$(notdir $(manpage))))
+ 

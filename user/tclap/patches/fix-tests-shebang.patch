@@ -1,0 +1,36 @@
+diff --git a/tests/test88.sh b/tests/test88.sh
+index 1234da7..eecf490 100755
+--- a/tests/test88.sh
++++ b/tests/test88.sh
+@@ -1,3 +1,3 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ ./test_wrapper $srcdir/test88.out ../examples/test27
+diff --git a/tests/test89.sh b/tests/test89.sh
+index e998b21..2b39396 100755
+--- a/tests/test89.sh
++++ b/tests/test89.sh
+@@ -1,3 +1,3 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ ./test_wrapper $srcdir/test89.out ../examples/test28
+diff --git a/tests/test90.sh b/tests/test90.sh
+index 07820a3..4921649 100755
+--- a/tests/test90.sh
++++ b/tests/test90.sh
+@@ -1,3 +1,3 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ ./test_wrapper $srcdir/test90.out ../examples/test29
+diff --git a/tests/test91.sh b/tests/test91.sh
+index 6139ffd..8e5d700 100755
+--- a/tests/test91.sh
++++ b/tests/test91.sh
+@@ -1,3 +1,3 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ ./test_wrapper $srcdir/test91.out ../examples/test30 '-p "1 2.3"'

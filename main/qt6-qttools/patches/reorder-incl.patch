@@ -1,0 +1,63 @@
+Getting issues like this:
+
+In file included from /usr/include/clang/Frontend/ASTUnit.h:32:
+In file included from /usr/include/clang/Serialization/ASTWriter.h:22:
+/usr/include/clang/Sema/Sema.h:8267:15: error: expected member name or ';' after declaration specifiers
+ 8267 |     void emit(const SemaDiagnosticBuilder &DB,
+      |     ~~~~      ^
+/usr/include/clang/Sema/Sema.h:8267:15: error: expected ')'
+/usr/include/clang/Sema/Sema.h:8267:14: note: to match this '('
+ 8267 |     void emit(const SemaDiagnosticBuilder &DB,
+      |              ^
+/usr/include/clang/Sema/Sema.h:8299:17: error: expected unqualified-id
+ 8299 |       this->emit(DB, std::index_sequence_for<Ts...>());
+
+
+It seems including qt stuff first probably defines some macro or whatever
+which fucks up the parsing of the clang headers and it breaks badly.
+
+--- a/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
++++ b/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+@@ -1,6 +1,21 @@
+ // Copyright (C) 2021 The Qt Company Ltd.
+ // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0
+ 
++#include <clang-c/Index.h>
++
++#include <clang/AST/Decl.h>
++#include <clang/AST/DeclFriend.h>
++#include <clang/AST/DeclTemplate.h>
++#include <clang/AST/Expr.h>
++#include <clang/AST/Type.h>
++#include <clang/AST/TypeLoc.h>
++#include <clang/Basic/SourceLocation.h>
++#include <clang/Frontend/ASTUnit.h>
++#include <clang/Lex/Lexer.h>
++#include <llvm/Support/Casting.h>
++
++#include "clang/AST/QualTypeNames.h"
++
+ #include "clangcodeparser.h"
+ #include "cppcodeparser.h"
+ 
+@@ -26,20 +41,6 @@
+ #include <QtCore/qtextstream.h>
+ #include <QtCore/qvarlengtharray.h>
+ 
+-#include <clang-c/Index.h>
+-
+-#include <clang/AST/Decl.h>
+-#include <clang/AST/DeclFriend.h>
+-#include <clang/AST/DeclTemplate.h>
+-#include <clang/AST/Expr.h>
+-#include <clang/AST/Type.h>
+-#include <clang/AST/TypeLoc.h>
+-#include <clang/Basic/SourceLocation.h>
+-#include <clang/Frontend/ASTUnit.h>
+-#include <clang/Lex/Lexer.h>
+-#include <llvm/Support/Casting.h>
+-
+-#include "clang/AST/QualTypeNames.h"
+ #include "template_declaration.h"
+ 
+ #include <cstdio>

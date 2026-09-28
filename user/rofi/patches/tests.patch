@@ -1,0 +1,26 @@
+commit 9e16b17796940fc5e07044e7cfa38efdbeae8e60
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Oct 15 02:42:35 2023 +0200
+
+    disable libnkutils module tests
+
+
+diff --git a/subprojects/libnkutils/core/meson.build b/subprojects/libnkutils/core/meson.build
+index 6884331..0733845 100644
+--- a/subprojects/libnkutils/core/meson.build
++++ b/subprojects/libnkutils/core/meson.build
+@@ -90,14 +90,6 @@ test('libnkutils enum module tests',
+     args: [ '--tap' ],
+     protocol: 'tap',
+ )
+-test('libnkutils format-string module tests',
+-    executable('nk-format-string.test', files('tests/format-string.c'),
+-        dependencies: libnkutils
+-    ),
+-    suite: [ 'format-string' ],
+-    args: [ '--tap' ],
+-    protocol: 'tap',
+-)
+ test('libnkutils colour module tests',
+     executable('nk-colour.test', files('tests/colour.c'),
+         dependencies: libnkutils

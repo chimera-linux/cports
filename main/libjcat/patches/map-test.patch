@@ -1,0 +1,10 @@
+--- a/libjcat/meson.build
++++ b/libjcat/meson.build
+@@ -179,6 +179,7 @@ if get_option('introspection')
+   mapfile_target = custom_target('jcat_mapfile',
+     input: jcat_gir[0],
+     output: 'jcat.map',
++    build_always: true,
+     command: [
+       python_interpreter,
+       join_paths(meson.project_source_root(), 'contrib', 'generate-version-script.py'),

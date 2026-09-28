@@ -1,0 +1,12 @@
+diff --git a/external/skia/UnpackedTarball_skia.mk b/external/skia/UnpackedTarball_skia.mk
+index cf2cd6c..37a32fd 100644
+--- a/external/skia/UnpackedTarball_skia.mk
++++ b/external/skia/UnpackedTarball_skia.mk
+@@ -23,7 +23,6 @@ skia_patches := \
+     windows-do-not-modify-logfont.patch.0 \
+     windows-force-unicode-api.patch.0 \
+     fix-without-gl.patch.1 \
+-    windows-typeface-directwrite.patch.1 \
+     windows-raster-surface-no-copies.patch.1 \
+     swap-buffers-rect.patch.1 \
+     ubsan.patch.1 \

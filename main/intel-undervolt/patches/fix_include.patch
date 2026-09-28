@@ -1,0 +1,12 @@
+diff --git a/measure.c b/measure.c
+index 075db94..63dd655 100644
+--- a/measure.c
++++ b/measure.c
+@@ -13,6 +13,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/time.h>
+ #include <time.h>
+ #include <unistd.h>
+ 

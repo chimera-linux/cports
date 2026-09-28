@@ -1,0 +1,12 @@
+diff --git a/locale.c b/locale.c
+index ede426d..856ae30 100644
+--- a/locale.c
++++ b/locale.c
+@@ -105,6 +105,7 @@ static int argp_parse(int argc, char *argv[])
+ static void list_locale()
+ {
+     const char *locpath = getenv("MUSL_LOCPATH");
++    if (locpath == NULL) locpath = "/usr/share/i18n/locales/musl";
+     printf("C\n");
+     printf("C.UTF-8\n");
+     if(locpath != NULL)

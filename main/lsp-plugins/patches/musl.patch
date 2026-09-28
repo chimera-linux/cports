@@ -1,0 +1,13 @@
+diff --git a/modules/lsp-runtime-lib/src/main/ipc/Library.cpp b/modules/lsp-runtime-lib/src/main/ipc/Library2.cpp
+index e66c7df..7440929 100644
+--- a/modules/lsp-runtime-lib/src/main/ipc/Library.cpp
++++ b/modules/lsp-runtime-lib/src/main/ipc/Library.cpp
+@@ -73,7 +73,7 @@ namespace lsp
+                 if (str == NULL)
+                     return STATUS_NO_MEM;
+ 
+-            #ifdef _GNU_SOURCE
++            #ifdef __GLIBC__
+                 void * const handle    = (new_namespace) ?
+                     ::dlmopen(LM_ID_NEWLM, str, RTLD_NOW) :
+                     ::dlopen(str, RTLD_NOW);

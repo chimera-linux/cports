@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/tlstunnel
+run-as = _tlstunnel
+working-dir = /var/lib/tlstunnel
+logfile = /var/log/tlstunnel.log
+depends-on: network.target
+depends-on: local.target

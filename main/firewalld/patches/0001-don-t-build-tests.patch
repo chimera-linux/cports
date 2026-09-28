@@ -1,0 +1,24 @@
+From 1136793b4e8c3b2b764bf75fef55a77893ccf698 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Mon, 15 Jan 2024 15:26:43 +0100
+Subject: [PATCH] don't build tests
+
+build breaks if we don't do this. the tests don't even work in our
+environment anyway
+---
+ src/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 58ada179..3ec1374c 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = icons tests
++SUBDIRS = icons
+ 
+ dist_bin_SCRIPTS_in = firewall-applet.in firewall-cmd.in firewall-offline-cmd.in firewall-config.in
+ dist_sbin_SCRIPTS_in = firewalld.in
+-- 
+2.43.0
+

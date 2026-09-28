@@ -1,0 +1,52 @@
+From 2d44513b21ad303b67a647c2dc1226c622c15ab2 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:14:35 +0100
+Subject: [PATCH 23/28] clang: link libcxxabi on linux when using libc++
+
+---
+ clang/lib/Driver/ToolChains/Linux.cpp | 15 +++++++++++++++
+ clang/lib/Driver/ToolChains/Linux.h   |  2 ++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
+index 28ca55b13..a42acae88 100644
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -844,6 +844,21 @@ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+   }
+ }
+ 
++void Linux::AddCXXStdlibLibArgs(const ArgList &Args,
++                                ArgStringList &CmdArgs) const {
++  switch (GetCXXStdlibType(Args)) {
++  case ToolChain::CST_Libcxx:
++    CmdArgs.push_back("-lc++");
++    if (Args.hasArg(options::OPT_fexperimental_library))
++      CmdArgs.push_back("-lc++experimental");
++    CmdArgs.push_back("-lc++abi");
++    break;
++  case ToolChain::CST_Libstdcxx:
++    CmdArgs.push_back("-lstdc++");
++    break;
++  }
++}
++
+ void Linux::AddCudaIncludeArgs(const ArgList &DriverArgs,
+                                ArgStringList &CC1Args) const {
+   CudaInstallation->AddCudaIncludeArgs(DriverArgs, CC1Args);
+diff --git a/clang/lib/Driver/ToolChains/Linux.h b/clang/lib/Driver/ToolChains/Linux.h
+index dfb75c727..a4602b91f 100644
+--- a/clang/lib/Driver/ToolChains/Linux.h
++++ b/clang/lib/Driver/ToolChains/Linux.h
+@@ -33,6 +33,8 @@ public:
+   void addLibStdCxxIncludePaths(
+       const llvm::opt::ArgList &DriverArgs,
+       llvm::opt::ArgStringList &CC1Args) const override;
++  void AddCXXStdlibLibArgs(const llvm::opt::ArgList &Args,
++                           llvm::opt::ArgStringList &CmdArgs) const override;
+   void AddCudaIncludeArgs(const llvm::opt::ArgList &DriverArgs,
+                           llvm::opt::ArgStringList &CC1Args) const override;
+   void AddHIPIncludeArgs(const llvm::opt::ArgList &DriverArgs,
+-- 
+2.52.0
+

@@ -1,0 +1,31 @@
+diff --git a/tests/test_metadata.py b/tests/test_metadata.py
+index 62152f55c..90352844a 100644
+--- a/tests/test_metadata.py
++++ b/tests/test_metadata.py
+@@ -1,7 +1,7 @@
+ import re
+ import sys
+ 
+-import toml
++import tomllib
+ import adblock
+ 
+ 
+@@ -12,7 +12,7 @@ def parse_version(version):
+ 
+ def get_version_value_cargo():
+     with open("Cargo.toml", encoding="utf-8") as f:
+-        cargo_toml = toml.loads(f.read())
++        cargo_toml = tomllib.loads(f.read())
+     return parse_version(cargo_toml["package"]["version"])
+ 
+ 
+@@ -58,7 +58,7 @@ def test_required_python_version():
+     falls into the required Python range.
+     """
+     with open("pyproject.toml", encoding="utf-8") as f:
+-        pyproject_toml = toml.loads(f.read())
++        pyproject_toml = tomllib.loads(f.read())
+ 
+     required_python = pyproject_toml["project"]["requires-python"]
+     assert required_python.startswith(">=")

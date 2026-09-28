@@ -1,0 +1,45 @@
+diff --git a/cmake/InstallAndPackage.cmake b/cmake/InstallAndPackage.cmake
+index 78c10a1b72..82c7e56389 100644
+--- a/cmake/InstallAndPackage.cmake
++++ b/cmake/InstallAndPackage.cmake
+@@ -95,7 +95,6 @@ endif()
+ if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN)
+     install(DIRECTORY
+                     ${CMAKE_BINARY_DIR}/media/icons
+-                    ${CMAKE_BINARY_DIR}/media/pixmaps
+             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}
+             COMPONENT media)
+ 
+diff --git a/media/CMakeLists.txt b/media/CMakeLists.txt
+index 17b10b5ec8..97a58a4754 100644
+--- a/media/CMakeLists.txt
++++ b/media/CMakeLists.txt
+@@ -35,28 +35,6 @@ foreach(MEDIA_PNG_SOURCE_FILE IN LISTS MEDIA_PNG_SOURCE_FILES)
+         list(APPEND MEDIA_BINARY_FILES ${MEDIA_PNG_BINARY_FILE})
+ endforeach()
+ 
+-set(MEDIA_XPM_SOURCE_FILES
+-        ${CMAKE_CURRENT_SOURCE_DIR}/openttd.32.xpm
+-        ${CMAKE_CURRENT_SOURCE_DIR}/openttd.64.xpm
+-)
+-
+-# Walk over all the xpm files, and generate a command to copy them
+-foreach(MEDIA_XPM_SOURCE_FILE IN LISTS MEDIA_XPM_SOURCE_FILES)
+-        get_filename_component(MEDIA_XPM_FILE_NAME "${MEDIA_XPM_SOURCE_FILE}" NAME)
+-        get_filename_component(MEDIA_XPM_FILE_EXT "${MEDIA_XPM_FILE_NAME}" EXT)
+-        set(MEDIA_XPM_BINARY_FILE "${CMAKE_CURRENT_BINARY_DIR}/pixmaps/${BINARY_NAME}${MEDIA_XPM_FILE_EXT}")
+-
+-        add_custom_command(OUTPUT ${MEDIA_XPM_BINARY_FILE}
+-            COMMAND ${CMAKE_COMMAND} -E copy
+-                    ${MEDIA_XPM_SOURCE_FILE}
+-                    ${MEDIA_XPM_BINARY_FILE}
+-            MAIN_DEPENDENCY ${MEDIA_XPM_SOURCE_FILE}
+-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+-            COMMENT "Copying ${MEDIA_XPM_FILE_NAME} file"
+-        )
+-
+-        list(APPEND MEDIA_BINARY_FILES ${MEDIA_XPM_BINARY_FILE})
+-endforeach()
+ 
+ # Create a new target which copies media files
+ add_custom_target(media_files

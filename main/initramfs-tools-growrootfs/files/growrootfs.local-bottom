@@ -1,0 +1,109 @@
+#!/bin/sh
+
+# if we have this, order it after the root partition is grown
+PREREQS="growroot"
+
+if [ "$1" = "prereqs" ]; then
+    echo "${PREREQS}"
+    exit 0
+fi
+
+. /scripts/functions
+
+msg() {
+    echo "GROWROOTFS:" "$@"
+}
+fail() {
+    [ $# -eq 0 ] || msg "$@"; exit 1
+}
+
+# figure out rootfs
+if [ ! -L "$ROOT" ]; then
+    rootdev="${ROOT}"
+else
+    rootdev=$(readlink -f "${ROOT}")
+fi
+
+if [ $? -ne 0 ]; then
+    fail "failed to resolve root device"
+fi
+
+if [ -z "${ROOTFSTYPE}" -o "${ROOTFSTYPE}" = "auto" ]; then
+    root_fstype=$(get_fstype "${ROOT}")
+else
+    root_fstype="${ROOTFSTYPE}"
+fi
+
+# check if we do need to resize
+if [ -e "${rootmnt}/etc/growrootfs" ]; then
+    msg "root resize requested..."
+else
+    exit 0
+fi
+
+case "$root_fstype" in
+    ext*)
+        command -v resize2fs > /dev/null 2>&1 || exit 0
+        ;;
+    f2fs)
+        command -v resize.f2fs > /dev/null 2>&1 || exit 0
+        ;;
+    btrfs)
+        command -v btrfs > /dev/null 2>&1 || exit 0
+        ;;
+    *)
+        # unsupported fs
+        exit 0
+        ;;
+esac
+
+case "$root_fstype" in
+    ext*|f2fs)
+        # unmount the root device for offline resize
+        umount "${rootmnt}" || fail "failed to unmount ${rootmnt}"
+        ;;
+esac
+
+# now perform the resize...
+msg "resizing '${root_fstype}' root filesystem..."
+
+# do a forced check if we haven't already
+if [ "$forcefsck" != "y" ]; then
+    forcefsck=y
+    # non-interactive, unless explicitly disabled
+    if [ "$fsckfix" != "n" ]; then
+        fsckfix=y
+    fi
+    checkfs "${rootdev}" root "${root_fstype}"
+fi
+
+case "$root_fstype" in
+    ext*)
+        resize2fs "$rootdev"
+        ;;
+    f2fs)
+        resize.f2fs "$rootdev"
+        ;;
+    btrfs)
+        btrfs filesystem resize max "$rootmnt"
+        ;;
+esac
+
+if [ $? -ne 0 ]; then
+    msg "resizing root filesystem failed, continuing..."
+else
+    # indicate we want to drop /etc/growrootfs
+    touch /run/growrootfs-done
+fi
+
+case "$root_fstype" in
+    ext*|f2fs)
+        # mount the filesystem again
+        roflag="-r"
+        [ "${readonly}" = "y" ] || roflag="-w"
+        mount ${roflag} -t "${root_fstype}" ${ROOTFLAGS} ${ROOT} "${rootmnt}" \
+            || fail "failed to re-mount root filesystem"
+        ;;
+esac
+
+exit 0

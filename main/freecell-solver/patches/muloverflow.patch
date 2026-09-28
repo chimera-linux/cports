@@ -1,0 +1,13 @@
+seen in kpat testsuite
+--
+--- a/rand.h
++++ b/rand.h
+@@ -24,7 +24,7 @@
+ 
+ static inline int fc_solve_rand_rand15(fcs_rand_gen *const my_rand)
+ {
+-    return ((((*my_rand) = ((*my_rand) * 214013 + 2531011)) >> 16) & 0x7fff);
++    return ((((*my_rand) = ((unsigned long)(*my_rand) * 214013 + 2531011)) >> 16) & 0x7fff);
+ }
+ 
+ // This function constructs a larger integral number of out of two

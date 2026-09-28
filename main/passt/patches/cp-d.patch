@@ -1,0 +1,20 @@
+no deref links
+--
+--- a/Makefile
++++ b/Makefile
+@@ -140,11 +140,11 @@
+ 
+ install: $(BIN) $(MANPAGES) docs
+ 	mkdir -p $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir)
+-	cp -d $(BIN) $(DESTDIR)$(bindir)
+-	cp -d $(MANPAGES) $(DESTDIR)$(man1dir)
++	cp -P $(BIN) $(DESTDIR)$(bindir)
++	cp -P $(MANPAGES) $(DESTDIR)$(man1dir)
+ 	mkdir -p $(DESTDIR)$(docdir)
+-	cp -d README.plain.md $(DESTDIR)$(docdir)/README.md
+-	cp -d doc/demo.sh $(DESTDIR)$(docdir)
++	cp -P README.plain.md $(DESTDIR)$(docdir)/README.md
++	cp -P doc/demo.sh $(DESTDIR)$(docdir)
+ 
+ uninstall:
+ 	$(RM) $(BIN:%=$(DESTDIR)$(prefix)/bin/%)

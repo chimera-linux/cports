@@ -1,0 +1,11 @@
+--- a/libraries/lib-string-utils/3party/fast_float.h
++++ b/libraries/lib-string-utils/3party/fast_float.h
+@@ -2463,7 +2463,7 @@
+     constexpr uint32_t mantissa_mask = 0x007FFFFF;
+     constexpr uint64_t hidden_bit_mask = 0x00800000;
+     uint32_t bits;
+-    ::memcpy(&bits, &value, sizeof(T));
++    ::memcpy(&bits, &value, sizeof(uint32_t));
+     if ((bits & exponent_mask) == 0) {
+       // denormal
+       am.power2 = 1 - bias;

@@ -1,0 +1,358 @@
+from cbuild.core import logger, paths, chroot as cbroot, profile
+
+from . import sign as asign, util as autil
+
+import os
+import json
+import pathlib
+import subprocess
+
+_use_net = True
+
+
+def set_network(use_net):
+    global _use_net
+    _use_net = use_net
+
+
+def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
+    ret = []
+    # sometimes we need no repos
+    if not mrepo:
+        return ret
+
+    if isinstance(mrepo, str):
+        srepos = [mrepo]
+    elif isinstance(mrepo, list):
+        srepos = mrepo
+    else:
+        srepos = mrepo.rparent.source_repositories
+
+    if not arch:
+        arch = cbroot.host_cpu()
+
+    prof = profile.get_profile(arch)
+    use_cache = False
+
+    rrepos = set(prof.repos)
+
+    for r in cbroot.get_confrepos():
+        if not r.startswith("/"):
+            # should be a remote repository, skip outright if we
+            # know that remote repos will not be used during this run
+            if not use_net:
+                continue
+            for cr in srepos:
+                if cr not in rrepos:
+                    continue
+                ret.append("--repository")
+                ret.append(r.replace("@section@", cr))
+                use_cache = True
+            continue
+        r = r.lstrip("/")
+        for cr in srepos:
+            rl = r.replace("@section@", cr)
+            rpath = paths.repository() / rl
+            spath = paths.stage_repository() / rl
+            # stage repo
+            if use_stage:
+                sbase = spath / arch
+                sidx = sbase / "Packages.adb"
+                if sidx.is_file():
+                    ret.append("--repository")
+                    if intree:
+                        ret.append(f"/stagepkgs/{rl}/{arch}/{sidx.name}")
+                    else:
+                        ret.append(str(sidx))
+            # regular repo
+            rbase = rpath / arch
+            ridx = rbase / "Packages.adb"
+            if ridx.is_file():
+                ret.append("--repository")
+                if intree:
+                    ret.append(f"/binpkgs/{rl}/{arch}/{ridx.name}")
+                else:
+                    ret.append(str(ridx))
+
+    # alt repository comes last in order to be lower priority
+    # also, always ignore stage for altrepo, as it should be considered opaque
+    if paths.alt_repository() and use_altrepo:
+        for r in cbroot.get_confrepos():
+            if not r.startswith("/"):
+                continue
+            r = r.lstrip("/")
+            for cr in srepos:
+                rl = r.replace("@section@", cr)
+                rpath = paths.alt_repository() / rl
+                rbase = rpath / arch
+                ridx = rbase / "Packages.adb"
+                if ridx.is_file():
+                    ret.append("--repository")
+                    if intree:
+                        ret.append(f"/altbinpkgs/{rl}/{arch}/{ridx.name}")
+                    else:
+                        ret.append(str(ridx))
+
+    if use_cache:
+        ret.append("--cache-dir")
+        cdir = paths.cbuild_cache() / "apk" / arch
+        cdir.mkdir(exist_ok=True, parents=True)
+        if intree:
+            ret.append(f"/cbuild_cache/apk/{arch}")
+        else:
+            ret.append(str(cdir))
+
+    return ret
+
+
+def call(
+    subcmd,
+    args,
+    mrepo,
+    cwd=None,
+    env=None,
+    capture_output=False,
+    root=None,
+    arch=None,
+    allow_untrusted=False,
+    use_altrepo=True,
+    use_stage=True,
+    allow_network=True,
+    return_repos=False,
+    chroot=False,
+):
+    if allow_network:
+        allow_network = _use_net
+    cmd = [
+        subcmd,
+        "--no-interactive",
+        "--repositories-file",
+        "/dev/null",
+    ]
+    if not chroot:
+        cmd += ["--root", root if root else paths.bldroot()]
+    if arch:
+        cmd += ["--arch", arch]
+    if not allow_network:
+        cmd += ["--no-network"]
+    if allow_untrusted:
+        cmd += ["--allow-untrusted"]
+    if subcmd in ["add", "del", "fix", "upgrade"]:
+        cmd += ["--clean-protected"]
+
+    crepos = collect_repos(
+        mrepo, chroot, arch, use_altrepo, use_stage, allow_network
+    )
+    cmd += crepos
+
+    if chroot:
+        retv = cbroot.enter(
+            "apk",
+            *cmd,
+            *args,
+            capture_output=capture_output,
+            fakeroot=True,
+            mount_binpkgs=True,
+            mount_cbuild_cache=subcmd
+            in ["add", "del", "fix", "update", "upgrade"],
+        )
+    else:
+        retv = subprocess.run(
+            [paths.apk(), *cmd, *args],
+            cwd=cwd,
+            env=env,
+            capture_output=capture_output,
+        )
+    if return_repos:
+        return retv, crepos
+    return retv
+
+
+def query(fields, args, mrepo, return_repos=False, **kwargs):
+    retv, crepos = call(
+        "query",
+        ["--format=json", f"--fields={','.join(fields)}", *args],
+        mrepo,
+        return_repos=True,
+        capture_output=True,
+        **kwargs,
+    )
+    if retv.returncode != 0:
+        if return_repos:
+            return None, crepos
+        return None
+    outv = json.loads(retv.stdout.decode())
+    if return_repos:
+        return outv, crepos
+    return outv
+
+
+def get_provider(pkgn, pkg=None):
+    cpf = pkg.rparent.profile if pkg else None
+
+    if pkg and cpf.cross:
+        sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
+        aarch = cpf.arch
+    else:
+        sysp = paths.bldroot()
+        aarch = None
+
+    qv = query(
+        ["name"],
+        ["--installed", "--match=name,provides", pkgn],
+        None,
+        root=sysp,
+        arch=aarch,
+        allow_untrusted=True,
+    )
+    if qv:
+        return qv[0]["name"]
+    return None
+
+
+def summarize_repo(repopath, olist, quiet=False):
+    rtimes = {}
+    obsolete = []
+
+    for f in repopath.glob("*.apk"):
+        fn = f.name
+        pf = fn[:-4]
+        rd = pf.rfind("-")
+        if rd > 0:
+            rd = pf.rfind("-", 0, rd)
+        if rd < 0:
+            if not quiet:
+                logger.get().out(
+                    f"\f[orange]WARNING: Malformed file name found, skipping: {fn}"
+                )
+            continue
+        pn = pf[0:rd]
+        mt = f.stat().st_mtime
+        if pn not in rtimes:
+            rtimes[pn] = (mt, f.name)
+        else:
+            omt, ofn = rtimes[pn]
+            # this package is newer, so prefer it
+            if mt > omt:
+                fromf = ofn
+                fromv = ofn[rd + 1 : -4]
+                tof = f.name
+                tov = pf[rd + 1 :]
+                rtimes[pn] = (mt, f.name)
+                obsolete.append(ofn)
+            elif mt < omt:
+                fromf = f.name
+                fromv = pf[rd + 1 :]
+                tof = ofn
+                tov = ofn[rd + 1 : -4]
+                obsolete.append(f.name)
+            else:
+                # same timestamp? should pretty much never happen
+                # take the newer version anyway
+                if autil.version_compare(pf[rd + 1 :], ofn[rd + 1 : -4]) > 0:
+                    rtimes[pn] = (mt, f.name)
+                    obsolete.append(ofn)
+                else:
+                    obsolete.append(f.name)
+                continue
+
+            if autil.version_compare(tov, fromv, False) < 0 and not quiet:
+                logger.get().out(
+                    f"\f[orange]WARNING: Using lower version ({fromf} => {tof}): newer timestamp..."
+                )
+
+    for k, v in rtimes.items():
+        olist.append(v[1])
+
+    return obsolete
+
+
+def prune(repopath, arch=None, dry=False):
+    if not arch:
+        arch = cbroot.host_cpu()
+
+    repopath = repopath / arch
+
+    if not repopath.is_dir():
+        return
+
+    logger.get().out(f"pruning old packages: {repopath}")
+
+    nlist = []
+    olist = summarize_repo(repopath, nlist, True)
+
+    for pkg in olist:
+        print(f"pruning: {pkg}")
+        if not dry:
+            (repopath / pkg).unlink()
+
+    logger.get().out("repo cleanup complete")
+
+
+def find_indexes(repopath):
+    for root, dirs, files in repopath.walk():
+        for fl in files:
+            if fl == "Packages.adb":
+                yield repopath / root / "Packages.adb"
+                break
+
+
+def build_index(repopath, epoch, allow_untrusted=False):
+    repopath = pathlib.Path(repopath)
+
+    aargs = ["--quiet", "--output", "Packages.adb", "--hash", "sha256-160"]
+
+    try:
+        if (repopath / "Packages.adb").stat().st_size > 0:
+            aargs += ["--index", "Packages.adb"]
+    except Exception:
+        # no incremental index
+        pass
+
+    keypath = None
+    if not allow_untrusted:
+        keypath = asign.get_keypath()
+
+    if keypath:
+        aargs += ["--sign-key", keypath]
+
+    aenv = {"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)}
+
+    ilen = len(aargs)
+
+    summarize_repo(repopath, aargs)
+
+    # no packages, just drop the index
+    if (len(aargs) - ilen) == 0:
+        (repopath / "APKINDEX.tar.gz").unlink(missing_ok=True)
+        (repopath / "Packages.adb").unlink(missing_ok=True)
+        return True
+
+    signr = call(
+        "mkndx",
+        aargs,
+        None,
+        cwd=repopath,
+        env=aenv,
+        allow_untrusted=not keypath,
+    )
+    if signr.returncode != 0:
+        logger.get().out("\f[red]Indexing failed!")
+        return False
+
+    # for compatibility
+    lidx = repopath / "APKINDEX.tar.gz"
+    lidx.unlink(missing_ok=True)
+    lidx.hardlink_to(repopath / "Packages.adb")
+
+    return True
+
+
+def get_arch():
+    sr = subprocess.run([paths.apk(), "--print-arch"], capture_output=True)
+    if sr.returncode != 0:
+        return None
+    rs = sr.stdout.strip().decode()
+    if not rs or len(rs) == 0:
+        return None
+    return rs

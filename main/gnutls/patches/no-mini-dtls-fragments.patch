@@ -1,0 +1,22 @@
+commit 749c49bd347ce3c5f633e1d5b5dbdacb8b415474
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jun 20 13:25:03 2026 +0200
+
+    mini-dtls-fragments has undefined reference to rpl_free
+    
+    fails to link to gnulib for some reason?
+
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 9c87dbe..111458d 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -243,8 +243,7 @@ ctests += mini-record-2 simple gnutls_hmac_fast set_pkcs12_cred cert certuniquei
+ 	 x509cert-dntypes id-on-xmppAddr tls13-compat-mode ciphersuite-name \
+ 	 x509-upnconstraint xts-key-check cipher-padding pkcs7-verify-double-free \
+ 	 fips-rsa-sizes tls12-rehandshake-ticket pathbuf tls-force-ems \
+-	 psk-importer privkey-derive dh-compute2 ecdh-compute2 pkcs7-pad \
+-	 mini-dtls-fragments
++	 psk-importer privkey-derive dh-compute2 ecdh-compute2 pkcs7-pad
+ 
+ ctests += tls-channel-binding
+ 

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+/usr/bin/mkdir -p /etc/ssl/certs/java > /dev/null 2>&1
+
+exec /usr/bin/trust extract \
+    --overwrite \
+    --format=java-cacerts \
+    --filter=ca-anchors \
+    --purpose server-auth \
+    /etc/ssl/certs/java/cacerts

@@ -1,0 +1,66 @@
+--- a/build/config/rust.gni
++++ b/build/config/rust.gni
+@@ -178,11 +178,11 @@
+ rust_abi_target = ""
+ if (is_linux || is_chromeos) {
+   if (current_cpu == "arm64") {
+-    rust_abi_target = "aarch64-unknown-linux-gnu"
++    rust_abi_target = "aarch64-chimera-linux-musl"
+   } else if (current_cpu == "x86") {
+     rust_abi_target = "i686-unknown-linux-gnu"
+   } else if (current_cpu == "x64") {
+-    rust_abi_target = "x86_64-unknown-linux-gnu"
++    rust_abi_target = "x86_64-chimera-linux-musl"
+   } else if (current_cpu == "arm") {
+     if (arm_float_abi == "hard") {
+       float_suffix = "hf"
+@@ -209,16 +209,16 @@
+       rust_abi_target = "arm-unknown-linux-gnueabi" + float_suffix
+     }
+   } else if (current_cpu == "riscv64") {
+-    rust_abi_target = "riscv64gc-unknown-linux-gnu"
++    rust_abi_target = "riscv64-chimera-linux-musl"
+   } else if (current_cpu == "ppc64") {
+-    rust_abi_target = "powerpc64le-unknown-linux-gnu"
++    rust_abi_target = "powerpc64le-chimera-linux-musl"
+   } else if (current_cpu == "s390x") {
+     rust_abi_target = "s390x-unknown-linux-gnu"
+   } else if (current_cpu == "loong64") {
+-    rust_abi_target = "loongarch64-unknown-linux-gnu"
++    rust_abi_target = "loongarch64-chimera-linux-musl"
+   } else {
+     # Best guess for other future platforms.
+-    rust_abi_target = current_cpu + "-unknown-linux-gnu"
++    rust_abi_target = current_cpu + "-chimera-linux-musl"
+   }
+ } else if (is_android) {
+   import("//build/config/android/abi.gni")
+--- a/build/rust/known-target-triples.txt
++++ b/build/rust/known-target-triples.txt
+@@ -13,6 +13,7 @@ aarch64-apple-ios-macabi
+ aarch64-apple-ios-sim
+ aarch64-apple-tvos
+ aarch64-apple-tvos-sim
++aarch64-chimera-linux-musl
+ aarch64-linux-android
+ aarch64-pc-windows-msvc
+ aarch64-unknown-fuchsia
+@@ -28,7 +29,10 @@ i386-apple-ios
+ i686-linux-android
+ i686-pc-windows-msvc
+ i686-unknown-linux-gnu
++loongarch64-chimera-linux-musl
+ loongarch64-unknown-linux-gnu
++powerpc64le-chimera-linux-musl
++riscv64-chimera-linux-musl
+ riscv64-linux-android
+ riscv64gc-unknown-linux-gnu
+ thumbv7neon-linux-androideabi
+@@ -37,6 +41,7 @@ x86_64-apple-darwin
+ x86_64-apple-ios
+ x86_64-apple-ios-macabi
+ x86_64-apple-tvos
++x86_64-chimera-linux-musl
+ x86_64-linux-android
+ x86_64-pc-windows-msvc
+ x86_64-unknown-fuchsia

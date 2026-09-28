@@ -1,0 +1,7 @@
+# kea-dhcp4 service
+
+type = process
+command = /usr/bin/kea-dhcp4 -c /etc/kea/kea-dhcp4.conf
+depends-on = local.target
+depends-on = network.target
+depends-on = time-sync.target

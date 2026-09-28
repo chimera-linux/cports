@@ -1,0 +1,13 @@
+diff --git a/plugins/netapp/netapp-nvme.c b/plugins/netapp/netapp-nvme.c
+index 5c2e3d4..2d0d332 100644
+--- a/plugins/netapp/netapp-nvme.c
++++ b/plugins/netapp/netapp-nvme.c
+@@ -27,6 +27,8 @@
+ #include "nvme.h"
+ #include "libnvme.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #include "util/suffix.h"
+ 
+ #define CREATE_CMD

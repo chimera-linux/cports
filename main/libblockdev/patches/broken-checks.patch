@@ -1,0 +1,11 @@
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -65,7 +65,7 @@ dnl file that just includes the HEADER using the given CFLAGS. In case of
+ dnl failure, the ERR_MSG will be printed using the LIBBLOCKDEV_FAILURES macro.
+ AC_DEFUN([LIBBLOCKDEV_CHECK_HEADER], [dnl
+ echo -n "Checking header [$1] existence and usability..."
+-temp_file=$(mktemp --tmpdir XXXXX.c)
++temp_file=/tmp/conftest-blockdev.c
+ echo "#include <$1>" > $temp_file
+ ${CC} -c [$2] $temp_file
+ status=$?

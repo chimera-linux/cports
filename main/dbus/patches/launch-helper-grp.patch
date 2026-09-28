@@ -1,0 +1,27 @@
+--- a/bus/activation-helper-bin.c
++++ b/bus/activation-helper-bin.c
+@@ -33,6 +33,10 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
++#include <errno.h>
++#include <err.h>
++#include <grp.h>
+ 
+ static int
+ convert_error_to_exit_code (DBusError *error)
+@@ -82,6 +85,13 @@ main (int argc, char **argv)
+   /* default is all okay */
+   retval = 0;
+ 
++  /* get the group structure */
++  errno = ENOENT;
++  struct group *gr = getgrnam("dbus");
++  if (!gr) err(1, "could not get dbus group");
++
++  if (getuid() != 0 && gr->gr_gid != getgid()) errx(1, "you are not allowed to use this");
++
+   /* have we used a help option or not specified the correct arguments? */
+   if (argc != 2 ||
+       strcmp (argv[1], "--help") == 0 ||

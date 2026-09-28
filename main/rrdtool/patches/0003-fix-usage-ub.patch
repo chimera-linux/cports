@@ -1,0 +1,13 @@
+diff --git a/src/rrd_tool.c b/src/rrd_tool.c
+index d598cb1d..cbd7d94f 100644
+--- a/src/rrd_tool.c
++++ b/src/rrd_tool.c
+@@ -310,7 +310,7 @@ static void PrintUsage(
+             help_cmd = C_PWD;
+     }
+ #ifdef BUILD_DATE
+-    fprintf(stdout, _(help_main), PACKAGE_VERSION, BUILD_DATE);
++    fprintf(stdout, _(help_main), PACKAGE_VERSION, BUILD_DATE, "");
+ #else
+     fprintf(stdout, _(help_main), PACKAGE_VERSION, __DATE__, __TIME__);
+ #endif

@@ -1,0 +1,21 @@
+--- Makefile
++++ Makefile
+@@ -6,7 +6,7 @@
+ binprefix = 
+ manprefix = /usr
+ exec_prefix = $(binprefix)/
+-sbindir = $(exec_prefix)sbin
++sbindir = $(exec_prefix)bin
+ mandir = $(manprefix)/share/man
+ oldmandir = $(manprefix)/man
+ 
+@@ -22,8 +22,7 @@
+ 
+ OBJS = hdparm.o identify.o sgio.o sysfs.o geom.o fallocate.o fibmap.o fwdownload.o dvdspeed.o wdidle3.o apt.o
+ 
+-all:
+-	$(MAKE) -j4 hdparm
++all: hdparm
+ 
+ static:
+ 	LDFLAGS=-static $(MAKE)

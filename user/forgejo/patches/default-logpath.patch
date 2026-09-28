@@ -1,0 +1,30 @@
+--- a/custom/conf/app.example.ini	2024-06-29 08:30:12.000000000 +0100
++++ b/custom/conf/app.example.ini	2024-07-17 10:47:09.650562791 +0100
+@@ -571,7 +571,7 @@
+ [log]
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+-;; Root path for the log files - defaults to %(GITEA_WORK_DIR)/log
++;; Root path for the log files - defaults to /var/log/forgejo
+ ;ROOT_PATH =
+ ;;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+--- a/modules/setting/log.go	2024-06-29 08:30:12.000000000 +0100
++++ b/modules/setting/log.go	2024-07-17 02:09:20.786568516 +0100
+@@ -7,7 +7,6 @@
+ 	"fmt"
+ 	golog "log"
+ 	"os"
+-	"path"
+ 	"path/filepath"
+ 	"strings"
+ 
+@@ -41,7 +40,7 @@
+ 	Log.BufferLen = sec.Key("BUFFER_LEN").MustInt(10000)
+ 	Log.Mode = sec.Key("MODE").MustString("console")
+ 
+-	Log.RootPath = sec.Key("ROOT_PATH").MustString(path.Join(AppWorkPath, "log"))
++	Log.RootPath = sec.Key("ROOT_PATH").MustString("/var/log/forgejo")
+ 	if !filepath.IsAbs(Log.RootPath) {
+ 		Log.RootPath = filepath.Join(AppWorkPath, Log.RootPath)
+ 	}

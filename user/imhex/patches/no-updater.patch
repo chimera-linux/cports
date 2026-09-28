@@ -1,0 +1,11 @@
+--- a/main/CMakeLists.txt
++++ b/main/CMakeLists.txt
+@@ -8,7 +8,3 @@ add_subdirectory(gui)
+ if (WIN32)
+     add_subdirectory(forwarder)
+ endif ()
+-
+-if (NOT EMSCRIPTEN)
+-    add_subdirectory(updater)
+-endif ()
+\ No newline at end of file

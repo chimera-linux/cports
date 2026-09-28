@@ -1,0 +1,27 @@
+previously this was only defined for the gcc toolset which broke
+the context library as the asm was not compiled in
+
+diff --git a/libs/context/build/Jamfile.v2 b/libs/context/build/Jamfile.v2
+index b9a3495..f78b4fa 100644
+--- a/libs/context/build/Jamfile.v2
++++ b/libs/context/build/Jamfile.v2
+@@ -224,6 +224,19 @@ alias asm_sources
+      <toolset>gcc
+    ;
+ 
++# LOONGARCH64
++# LOONGARCH64/SYSV/ELF
++alias asm_sources
++   : asm/make_loongarch64_sysv_elf_gas.S
++     asm/jump_loongarch64_sysv_elf_gas.S
++     asm/ontop_loongarch64_sysv_elf_gas.S
++   : <abi>sysv
++     <address-model>64
++     <architecture>loongarch
++     <binary-format>elf
++     <toolset>clang
++   ;
++
+ # LOONGARCH64
+ # LOONGARCH64/SYSV/ELF
+ alias asm_sources

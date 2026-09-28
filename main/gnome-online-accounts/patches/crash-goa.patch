@@ -1,0 +1,27 @@
+(lldb) bt
+* thread #1, name = 'goa-identity-se', stop reason = signal SIGSEGV: address not mapped to object
+  * frame #0: 0x0000729af6bdbd3a libkrb5.so.26`unparse_name(context=0x0000729af7040180, principal=0x0000000000000000, name=0x0000729af61bc7c0, flags=0) at principal.c:566:9
+    frame #1: 0x0000569dcd5c7311 goa-identity-service`goa_kerberos_identity_manager_thread_pool_func [inlined] get_principal_from_cache(self=0x0000729af70e1a80, cache=0x0000729af9820560) at goakerberosidentitymanager.c:550:16
+    frame #2: 0x0000569dcd5c72de goa-identity-service`goa_kerberos_identity_manager_thread_pool_func [inlined] import_credentials_cache(self=0x0000729af70e1a80, operation=0x0000729af70c09e0, refreshed_identities=0x0000729af98106e0, cache=0x0000729af9820560) at goakerberosidentitymanager.c:572:16
+    frame #3: 0x0000569dcd5c72de goa-identity-service`goa_kerberos_identity_manager_thread_pool_func [inlined] refresh_identities(self=0x0000729af70e1a80, operation=0x0000729af70c09e0) at goakerberosidentitymanager.c:646:7
+    frame #4: 0x0000569dcd5c6fbb goa-identity-service`goa_kerberos_identity_manager_thread_pool_func(data=0x0000729af70c09e0, user_data=<unavailable>) at goakerberosidentitymanager.c:1065:29
+    frame #5: 0x0000729af6d41d58 libglib-2.0.so.0`g_thread_pool_thread_proxy(data=<unavailable>) at gthreadpool.c:336:15
+    frame #6: 0x0000729af6d3f5ae libglib-2.0.so.0`g_thread_proxy(data=0x0000729af80104e0) at gthread.c:892:20
+    frame #7: 0x0000729afb1738db ld-musl-x86_64.so.1`start [inlined] __syscall4(n=14, a1=2, a2=<unavailable>, a3=0, a4=8) at syscall_arch.h:38:2
+    frame #8: 0x0000729afb1738d0 ld-musl-x86_64.so.1`start(p=0x0000729af61bc8b0) at pthread_create.c:207:2
+    frame #9: 0x0000729afb1766eb ld-musl-x86_64.so.1`__clone + 31
+
+the call fails but the null principal is passed to unparse_name below
+return early
+--
+--- a/src/goaidentity/goakerberosidentitymanager.c
++++ b/src/goaidentity/goakerberosidentitymanager.c
+@@ -546,6 +546,8 @@
+   char *principal_name;
+ 
+   error_code = krb5_cc_get_principal (self->kerberos_context, cache, &principal);
++  if (error_code != 0)
++    return NULL;
+ 
+   error_code = krb5_unparse_name_flags (self->kerberos_context, principal, 0, &unparsed_name);
+   krb5_free_principal (self->kerberos_context, principal);

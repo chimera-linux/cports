@@ -1,0 +1,58 @@
+--- a/tests/common
++++ b/tests/common
+@@ -698,12 +698,7 @@
+ # @1: filename
+ function get_filesize()
+ {
+-	if [[ "$(uname -s)" =~ (Linux|CYGWIN_NT-) ]]; then
+-		stat -c%s "$1"
+-	else
+-		# OpenBSD
+-		stat -f%z "$1"
+-	fi
++	stat -f%z "$1"
+ }
+ 
+ # Get the file mode bits in octal format
+@@ -711,12 +706,7 @@
+ # @1: filename
+ function get_filemode()
+ {
+-	if [[ "$(uname -s)" =~ (Linux|CYGWIN_NT-) ]]; then
+-		stat -c%a "$1"
+-	else
+-		# BSDs
+-		stat -f%Lp "$1"
+-	fi
++	stat -f%Lp "$1"
+ }
+ 
+ # Get the file owner uid and gid
+@@ -724,12 +714,7 @@
+ # @1: filename
+ function get_fileowner()
+ {
+-	if [[ "$(uname -s)" =~ (Linux|CYGWIN_NT-) ]]; then
+-		stat -c"%u %g" "$1"
+-	else
+-		# BSDs
+-		stat -f"%u %g" "$1"
+-	fi
++	stat -f"%u %g" "$1"
+ }
+ 
+ # Get the file owner user name and group name
+@@ -737,12 +722,7 @@
+ # @1: filename
+ function get_fileowner_names()
+ {
+-	if [[ "$(uname -s)" =~ (Linux|CYGWIN_NT-) ]]; then
+-		stat -c"%U %G" "$1"
+-	else
+-		# BSDs
+-		stat -f"%Su %Sg" "$1"
+-	fi
++	stat -f"%Su %Sg" "$1"
+ }
+ 
+ # Get the SHA1 of a file

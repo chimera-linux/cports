@@ -1,0 +1,4 @@
+set -default CHIMERA_REPO_URL=https://repo.chimera-linux.org
+set -default CHIMERA_REPO_RELEASE=current
+
+v3 ${CHIMERA_REPO_URL}/${CHIMERA_REPO_RELEASE}/main

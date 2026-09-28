@@ -1,0 +1,21 @@
+Requires kernel option that might not be enabled on the builder
+https://bugzilla.kernel.org/show_bug.cgi?id=206815
+diff --git a/Makefile.am b/Makefile.am
+index ff0df21..a384c31 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -692,14 +692,6 @@
+ 			$(GLIB_LIBS) $(ALSA_LIBS)
+ endif
+ 
+-if MESH
+-unit_tests += unit/test-mesh-crypto
+-unit_test_mesh_crypto_CPPFLAGS = $(ell_cflags)
+-unit_test_mesh_crypto_SOURCES = unit/test-mesh-crypto.c \
+-				mesh/crypto.h ell/internal ell/ell.h
+-unit_test_mesh_crypto_LDADD = $(ell_ldadd)
+-endif
+-
+ if MAINTAINER_MODE
+ noinst_PROGRAMS += $(unit_tests)
+ endif

@@ -1,0 +1,7 @@
+# chronyd service
+type = process
+command = /usr/bin/chronyd -n -u _chrony -N 11
+ready-notification = pipefd:11
+smooth-recovery = true
+depends-on: network.target
+depends-on: local.target

@@ -1,0 +1,45 @@
+From 9349a41435f10ebe1767248e6743c02e7f3d706e Mon Sep 17 00:00:00 2001
+From: Violet Purcell <vimproved@inventati.org>
+Date: Thu, 15 Jun 2023 18:46:27 +0000
+Subject: [PATCH 4/4] SystemStats: Only use locales on glibc
+
+---
+ modules/juce_core/native/juce_SystemStats_linux.cpp | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/modules/juce_core/native/juce_SystemStats_linux.cpp b/modules/juce_core/native/juce_SystemStats_linux.cpp
+index 3d6bebc74..6a21c6fbd 100644
+--- a/modules/juce_core/native/juce_SystemStats_linux.cpp
++++ b/modules/juce_core/native/juce_SystemStats_linux.cpp
+@@ -210,22 +210,22 @@ String SystemStats::getComputerName()
+ 
+ String SystemStats::getUserLanguage()
+ {
+-   #if JUCE_BSD
++   #if JUCE_GLIBC
++    return getLocaleValue (_NL_ADDRESS_LANG_AB);
++   #else
+     if (auto langEnv = getenv ("LANG"))
+         return String::fromUTF8 (langEnv).upToLastOccurrenceOf (".UTF-8", false, true);
+ 
+     return {};
+-   #else
+-    return getLocaleValue (_NL_ADDRESS_LANG_AB);
+    #endif
+ }
+ 
+ String SystemStats::getUserRegion()
+ {
+-   #if JUCE_BSD
+-    return {};
+-   #else
++   #if JUCE_GLIBC
+     return getLocaleValue (_NL_ADDRESS_COUNTRY_AB2);
++   #else
++    return {};
+    #endif
+ }
+ 
+-- 
+2.46.0
+

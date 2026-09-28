@@ -1,0 +1,83 @@
+From: Paulo Flabiano Smorigo <pfsmorigo@br.ibm.com>
+Date: Mon, 9 Jan 2023 18:30:38 -0500
+Subject: Add fw_path variable to detect config file on efi
+
+This patch makes grub look for its config file on efi where the app was
+found.
+
+Resolves: rhbz#857936, rhbz#1616395
+Co-authored-by: Matthew Garrett
+Co-authored-by: Javier Martinez Canillas <javierm@redhat.com>
+Co-authored-by: Robbie Harwood <rharwood@redhat.com>
+Signed-off-by: Paulo Flabiano Smorigo <pfsmorigo@br.ibm.com>
+Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Robbie Harwood <rharwood@redhat.com>
+---
+ grub-core/kern/main.c   | 14 +++++++-------
+ grub-core/normal/main.c | 25 ++++++++++++++++++++++++-
+ 2 files changed, 31 insertions(+), 8 deletions(-)
+
+diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
+index f21376e..0678237 100644
+--- a/grub-core/kern/main.c
++++ b/grub-core/kern/main.c
+@@ -128,16 +128,16 @@ grub_set_prefix_and_root (void)
+ 
+   grub_machine_get_bootlocation (&fwdevice, &fwpath);
+ 
+-  if (fwdevice)
++  if (fwdevice && fwpath)
+     {
+-      char *cmdpath;
++      char *fw_path;
+ 
+-      cmdpath = grub_xasprintf ("(%s)%s", fwdevice, fwpath ? : "");
+-      if (cmdpath)
++      fw_path = grub_xasprintf ("(%s)/%s", fwdevice, fwpath);
++      if (fw_path)
+ 	{
+-	  grub_env_set ("cmdpath", cmdpath);
+-	  grub_env_export ("cmdpath");
+-	  grub_free (cmdpath);
++	  grub_env_set ("fw_path", fw_path);
++	  grub_env_export ("fw_path");
++	  grub_free (fw_path);
+ 	}
+     }
+ 
+diff --git a/grub-core/normal/main.c b/grub-core/normal/main.c
+index 4f10c00..b1947c7 100644
+--- a/grub-core/normal/main.c
++++ b/grub-core/normal/main.c
+@@ -320,7 +320,30 @@ grub_cmd_normal (struct grub_command *cmd __attribute__ ((unused)),
+       /* Guess the config filename. It is necessary to make CONFIG static,
+ 	 so that it won't get broken by longjmp.  */
+       char *config;
+-      const char *prefix;
++      const char *prefix, *fw_path;
++
++      fw_path = grub_env_get ("fw_path");
++      if (fw_path)
++	{
++	  config = grub_xasprintf ("%s/grub.cfg", fw_path);
++	  if (config)
++	    {
++	      grub_file_t file;
++
++	      file = grub_file_open (config, GRUB_FILE_TYPE_CONFIG);
++	      if (file)
++		{
++		  grub_file_close (file);
++		  grub_enter_normal_mode (config);
++		}
++              else
++                {
++                  /* Ignore all errors.  */
++                  grub_errno = 0;
++                }
++	      grub_free (config);
++	    }
++	}
+ 
+       prefix = grub_env_get ("prefix");
+       if (prefix)

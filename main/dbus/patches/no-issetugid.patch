@@ -1,0 +1,15 @@
+this doesn't only trigger for setuid, but also for capabilities
+this means that dbus connections from e.g. cap_sys_nice kwin_wayland don't have
+an env, which breaks the process
+--
+--- a/dbus/dbus-sysdeps-unix.c
++++ b/dbus/dbus-sysdeps-unix.c
+@@ -4825,7 +4825,7 @@
+     extern int __libc_enable_secure;
+     return __libc_enable_secure;
+   }
+-#elif defined(HAVE_ISSETUGID)
++#elif 0 && defined(HAVE_ISSETUGID)
+   /* BSD: http://www.freebsd.org/cgi/man.cgi?query=issetugid&sektion=2 */
+   return issetugid ();
+ #else

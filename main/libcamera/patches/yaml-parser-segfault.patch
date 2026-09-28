@@ -1,0 +1,11 @@
+--- a/src/libcamera/yaml_parser.cpp
++++ b/src/libcamera/yaml_parser.cpp
+@@ -516,7 +516,7 @@ YamlParserContext::EventPtr YamlParserContext::nextEvent()
+ 				       << parser_.problem_mark.line << ":"
+ 				       << parser_.problem_mark.column << " "
+ 				       << parser_.problem << " "
+-				       << parser_.context;
++				       << (parser_.context ?: "(null)");
+ 
+ 		return nullptr;
+ 	}

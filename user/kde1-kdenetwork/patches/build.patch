@@ -1,0 +1,132 @@
+diff --git a/kmail/kmaddrbook.h b/kmail/kmaddrbook.h
+index f2b29b5..b0a20fc 100644
+--- a/kmail/kmaddrbook.h
++++ b/kmail/kmaddrbook.h
+@@ -53,7 +53,7 @@ protected:
+   virtual int compareItems(GCI item1, GCI item2);
+ 
+   /** Displays a detailed message box and returns 'status' */
+-  virtual int KMAddrBook::fileError(int status) const;
++  virtual int fileError(int status) const;
+ 
+   QString mDefaultFileName;
+   bool mModified;
+diff --git a/kmail/kmfolder.cpp b/kmail/kmfolder.cpp
+index 62da2fc..5e83d8b 100644
+--- a/kmail/kmfolder.cpp
++++ b/kmail/kmfolder.cpp
+@@ -808,7 +808,7 @@ int KMFolder::addMsg(KMMessage* aMsg, int* aIndex_ret)
+   fwrite("From aaa@aaa Mon Jan 01 00:00:00 1997\n", 38, 1, mStream);
+   offs = ftell(mStream);
+   fwrite(msgText, len, 1, mStream);
+-  if (msgText[len-1]!='\n') fwrite("\n\n", 1, 2, mStream);
++  if (msgText[(int)(len-1)]!='\n') fwrite("\n\n", 1, 2, mStream);
+   fflush(mStream);
+   size = ftell(mStream) - offs;
+ 
+diff --git a/kmail/kmfoldertree.h b/kmail/kmfoldertree.h
+index 9cb8f8f..656bfcf 100644
+--- a/kmail/kmfoldertree.h
++++ b/kmail/kmfoldertree.h
+@@ -44,7 +44,7 @@ protected slots:
+ 
+ protected:
+   // Updates the number of unread messages for all folders
+-  virtual void KMFolderTree::updateUnreadAll( );
++  virtual void updateUnreadAll( );
+ 
+   // Insert folder sorted by type and name
+   virtual void inSort(KMFolder*);
+diff --git a/kmail/kmheaders.h b/kmail/kmheaders.h
+index 744a31a..04d6458 100644
+--- a/kmail/kmheaders.h
++++ b/kmail/kmheaders.h
+@@ -130,7 +130,7 @@ protected:
+ private:
+   /** Override the tab list box so that we can control some
+       internal variables here */
+-  virtual void KMHeaders::removeItem(int itemIndex);
++  virtual void removeItem(int itemIndex);
+ 
+   virtual void updateMessageList(void);
+ 
+diff --git a/kmail/kpgp.cpp b/kmail/kpgp.cpp
+index a9bd1dc..29ae36c 100644
+--- a/kmail/kpgp.cpp
++++ b/kmail/kpgp.cpp
+@@ -810,7 +810,7 @@ KpgpKey::~KpgpKey()
+ }
+ 
+ QString 
+-KpgpKey::getKeyName(QWidget *parent, const QStrList *keys = NULL)
++KpgpKey::getKeyName(QWidget *parent, const QStrList *keys)
+ {
+   KpgpKey pgpkey(parent, i18n("Select key"), keys);
+   pgpkey.exec();
+diff --git a/kmail/main.cpp b/kmail/main.cpp
+index 4f0ca8e..b6765c3 100644
+--- a/kmail/main.cpp
++++ b/kmail/main.cpp
+@@ -697,7 +697,7 @@ void version() {
+ }
+ 
+ //-----------------------------------------------------------------------------
+-main(int argc, char *argv[])
++int main(int argc, char *argv[])
+ {
+   //--- Sven's pseudo IPC&locking start ---
+   app=0;
+diff --git a/korn/kornset.h b/korn/kornset.h
+index cd867a1..425dd34 100644
+--- a/korn/kornset.h
++++ b/korn/kornset.h
+@@ -42,7 +42,7 @@ private:
+ 	/** 
+ 	  * Check if --nomouse is set.
+ 	 */
+-	static bool KornSettings::checkNoMouse();
++	static bool checkNoMouse();
+ 
+ public:
+ 
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+index 0c6b65e..f6b4323 100644
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1,36 +1,3 @@
+-add_subdirectory(el)
+-add_subdirectory(pt)
+-add_subdirectory(fi)
+-add_subdirectory(ca)
+-add_subdirectory(da)
+-add_subdirectory(is)
+-add_subdirectory(ru)
+-add_subdirectory(et)
+-add_subdirectory(pt_BR)
+-add_subdirectory(no)
+-add_subdirectory(it)
+-add_subdirectory(cs)
+-add_subdirectory(hu)
+-add_subdirectory(sk)
+-add_subdirectory(pl)
+-add_subdirectory(fr)
+-add_subdirectory(es)
+-add_subdirectory(he)
+-add_subdirectory(ja)
+-add_subdirectory(ro)
+-add_subdirectory(eo)
+-add_subdirectory(br)
+-add_subdirectory(tr)
+-add_subdirectory(de)
+-add_subdirectory(hr)
+-add_subdirectory(hs)
+-add_subdirectory(zh_CN.GB2312)
+-add_subdirectory(nl)
+-add_subdirectory(sl)
+-add_subdirectory(mk)
+-add_subdirectory(sv)
+-add_subdirectory(ko)
+-
+ install(FILES
+     karchie.pot
+     kbiff.pot

@@ -1,0 +1,20 @@
+--- a/lib/Tempest/Engine/utility/utility.h
++++ b/lib/Tempest/Engine/utility/utility.h
+@@ -96,7 +96,7 @@ class BasicPoint<T,2> {
+       return { a.y, -a.x };
+       }
+     static BasicPoint<T,2> normalize(const BasicPoint<T,2>& t) {
+-      const T len = t.manhattanLength();
++      const T len = t.length();
+       if(len==T())
+         return t;
+       return t/len;
+@@ -190,7 +190,7 @@ class BasicPoint<T,4> {
+ 
+     static T dotProduct(const BasicPoint<T,4>& a,const BasicPoint<T,4>& b) { return a.x*b.x+a.y*b.y+a.z*b.z+a.w*b.w; }
+     static BasicPoint<T,4> normalize(const BasicPoint<T,4>& t) {
+-      const T len = t.manhattanLength();
++      const T len = t.length();
+       if(len==T())
+         return t;
+       return t/len;

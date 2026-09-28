@@ -1,0 +1,26 @@
+# /etc/profile
+#
+# The first file sourced by Bourne-type shells.
+#
+
+# Set default umask
+umask 022
+
+# Filter the PATH and make sure the necessary components exist
+if [ -r /etc/profile.custom ]; then
+    . /etc/profile.custom
+elif [ -r /etc/profile.path ]; then
+    . /etc/profile.path
+elif [ -r /usr/share/base-files/profile.path ]; then
+    . /usr/share/base-files/profile.path
+fi
+
+# Additional profile scripts
+if [ -x /usr/bin/run-parts -a ! -r /etc/profile.custom ]; then
+    while read -r profile_d; do
+        [ -e "$profile_d" ] && . "$profile_d"
+    done <<EOS
+$(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/profile.d /usr/lib/profile.d)
+EOS
+    unset profile_d
+fi

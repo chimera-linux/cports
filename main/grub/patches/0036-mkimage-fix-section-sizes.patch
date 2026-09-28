@@ -1,0 +1,118 @@
+From: Javier Martinez Canillas <javierm@redhat.com>
+Date: Fri, 16 Apr 2021 21:37:23 +0200
+Subject: util/mkimage: Some fixes to PE binaries section size calculation
+
+Commit f60ba9e5945 (util/mkimage: Refactor section setup to use a helper)
+added a helper function to setup PE sections, but it caused regressions
+in some arches where the natural alignment lead to wrong section sizes.
+
+This patch fixes a few things that were caused the section sizes to be
+calculated wrongly. These fixes are:
+
+ * Only align the virtual memory addresses but not the raw data offsets.
+ * Use aligned sizes for virtual memory sizes but not for raw data sizes.
+ * Always align the sizes to set the virtual memory sizes.
+
+These seems to not cause problems for x64 and aa64 EFI platforms but was
+a problem for ia64. Because the size of the ".data" and "mods" sections
+were wrong and didn't have the correct content. Which lead to GRUB not
+being able to load any built-in module.
+
+Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
+
+Bug-Debian: https://bugs.debian.org/987103
+
+Patch-Name: mkimage-fix-section-sizes.patch
+---
+ util/mkimage.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/util/mkimage.c b/util/mkimage.c
+index 4237383..ee0e6f6 100644
+--- a/util/mkimage.c
++++ b/util/mkimage.c
+@@ -857,7 +857,7 @@ init_pe_section(const struct grub_install_image_target_desc *image_target,
+ 
+   section->raw_data_offset = grub_host_to_target32 (*rda);
+   section->raw_data_size = grub_host_to_target32 (rsz);
+-  (*rda) = ALIGN_UP (*rda + rsz, GRUB_PE32_FILE_ALIGNMENT);
++  (*rda) = *rda + rsz;
+ 
+   section->characteristics = grub_host_to_target32 (characteristics);
+ 
+@@ -1325,7 +1325,7 @@ grub_install_generate_image (const char *dir, const char *prefix,
+ 	char *pe_img, *pe_sbat, *header;
+ 	struct grub_pe32_section_table *section;
+ 	size_t n_sections = 4;
+-	size_t scn_size;
++	size_t scn_size, raw_size;
+ 	grub_uint32_t vma, raw_data;
+ 	size_t pe_size, header_size;
+ 	struct grub_pe32_coff_header *c;
+@@ -1433,11 +1433,12 @@ grub_install_generate_image (const char *dir, const char *prefix,
+ 				   GRUB_PE32_SCN_MEM_EXECUTE |
+ 				   GRUB_PE32_SCN_MEM_READ);
+ 
+-	scn_size = ALIGN_UP (layout.kernel_size - layout.exec_size, GRUB_PE32_FILE_ALIGNMENT);
+ #if __GNUC__ >= 12
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdangling-pointer"
+ #endif
++	raw_size = layout.kernel_size - layout.exec_size;
++	scn_size = ALIGN_UP (raw_size, GRUB_PE32_FILE_ALIGNMENT);
+ 	/* ALIGN_UP (sbat_size, GRUB_PE32_FILE_ALIGNMENT) is done earlier. */
+ 	PE_OHDR (o32, o64, data_size) = grub_host_to_target32 (scn_size + sbat_size +
+ 							       ALIGN_UP (total_module_size,
+@@ -1448,15 +1449,16 @@ grub_install_generate_image (const char *dir, const char *prefix,
+ 
+ 	section = init_pe_section (image_target, section, ".data",
+ 				   &vma, scn_size, image_target->section_align,
+-				   &raw_data, scn_size,
++				   &raw_data, raw_size,
+ 				   GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
+ 				   GRUB_PE32_SCN_MEM_READ |
+ 				   GRUB_PE32_SCN_MEM_WRITE);
+ 
+-	scn_size = pe_size - layout.reloc_size - sbat_size - raw_data;
++	raw_size = pe_size - layout.reloc_size - sbat_size - raw_data;
++	scn_size = ALIGN_UP (raw_size, GRUB_PE32_FILE_ALIGNMENT);
+ 	section = init_pe_section (image_target, section, "mods",
+ 				   &vma, scn_size, image_target->section_align,
+-				   &raw_data, scn_size,
++				   &raw_data, raw_size,
+ 				   GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
+ 				   GRUB_PE32_SCN_MEM_READ |
+ 				   GRUB_PE32_SCN_MEM_WRITE);
+@@ -1466,19 +1468,20 @@ grub_install_generate_image (const char *dir, const char *prefix,
+ 	    pe_sbat = pe_img + raw_data;
+ 	    grub_util_load_image (sbat_path, pe_sbat);
+ 
++	    scn_size = ALIGN_UP (sbat_size, GRUB_PE32_FILE_ALIGNMENT);
+ 	    section = init_pe_section (image_target, section, ".sbat",
+-				       &vma, sbat_size,
++				       &vma, scn_size,
+ 				       image_target->section_align,
+ 				       &raw_data, sbat_size,
+ 				       GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
+ 				       GRUB_PE32_SCN_MEM_READ);
+ 	  }
+ 
+-	scn_size = layout.reloc_size;
+ #if __GNUC__ >= 12
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdangling-pointer"
+ #endif
++	scn_size = ALIGN_UP (layout.reloc_size, GRUB_PE32_FILE_ALIGNMENT);
+ 	PE_OHDR (o32, o64, base_relocation_table.rva) = grub_host_to_target32 (vma);
+ 	PE_OHDR (o32, o64, base_relocation_table.size) = grub_host_to_target32 (scn_size);
+ #if __GNUC__ >= 12
+@@ -1487,7 +1490,7 @@ grub_install_generate_image (const char *dir, const char *prefix,
+ 	memcpy (pe_img + raw_data, layout.reloc_section, scn_size);
+ 	init_pe_section (image_target, section, ".reloc",
+ 			 &vma, scn_size, image_target->section_align,
+-			 &raw_data, scn_size,
++			 &raw_data, layout.reloc_size,
+ 			 GRUB_PE32_SCN_CNT_INITIALIZED_DATA |
+ 			 GRUB_PE32_SCN_MEM_DISCARDABLE |
+ 			 GRUB_PE32_SCN_MEM_READ);

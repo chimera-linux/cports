@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# Intel microcode initramfs hook
+#
+# Copyright 2023 q66 <q66@chimera-linux.org>
+#
+
+IUCODE_CONF="/etc/default/ucode-intel"
+IUCODE_DIR="/usr/lib/firmware/intel-ucode"
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+IUCODE_TOOL_INITRAMFS=auto
+IUCODE_TOOL_SCANCPUS=yes
+IUCODE_TOOL_EXTRA_OPTIONS=""
+
+if [ "$verbose" = "y" ]; then
+    IUCODE_TOOL_OPTIONS="-l"
+else
+    IUCODE_TOOL_OPTIONS="-q"
+fi
+
+[ -r "$IUCODE_CONF" ] && . "$IUCODE_CONF"
+
+# in case the conf overwrites them
+[ -n "$IUCODE_DIR" -a -n "$DESTDIR" ] || exit 1
+
+[ -x /usr/bin/iucode_tool ] || exit 0
+
+case "$IUCODE_TOOL_INITRAMFS" in
+    no|0)
+        [ "$verbose" = "y" ] && echo "ucode-intel: disabled"
+        exit 0
+        ;;
+    yes|early|auto)
+        ;;
+    *)
+        [ "$verbose" = "y" ] && echo "ucode-intel: invalid value, using auto"
+        IUCODE_TOOL_INITRAMFS=auto
+        ;;
+esac
+
+if [ "$IUCODE_TOOL_INITRAMFS" = "auto" ]; then
+    if ! grep -q "^vendor_id[[:blank:]]*:[[:blank:]]*.*GenuineIntel" /proc/cpuinfo; then
+        [ "$verbose" = "y" ] && echo "ucode-intel: no intel cpu detected"
+        exit 0
+    fi
+fi
+
+case "$IUCODE_TOOL_SCANCPUS" in
+    no|0) ;;
+    *)
+        grep -q cpu/cpuid /proc/devices || modprobe -q cpuid
+        IUCODE_TOOL_OPTIONS="${IUCODE_TOOL_OPTIONS} --scan-system"
+        ;;
+esac
+
+
+[ "$verbose" = "y" ] && echo "ucode-intel: adding microcode..."
+
+UCODE=$(mktemp "/tmp/mkinitramfs-ucode-XXXXXX")
+if [ $? -ne 0 ]; then
+    echo "ucode-intel: failed to create temporary file"
+    exit 1
+fi
+
+/usr/bin/iucode_tool ${IUCODE_TOOL_OPTIONS} --overwrite --write-earlyfw "$UCODE" ${IUCODE_TOOL_EXTRA_OPTIONS} "${IUCODE_DIR}"
+if [ $? -ne 0 ]; then
+    echo "ucode-intel: failed to create image"
+    rm -f "$UCODE"
+    exit 1
+fi
+
+if ! prepend_earlyinitramfs "$UCODE"; then
+    echo "ucode-intel: failed to prepend initramfs"
+    rm -f "$UCODE"
+    exit 1
+fi
+
+rm -f "$UCODE"
+exit 0

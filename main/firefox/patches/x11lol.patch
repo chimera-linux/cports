@@ -1,0 +1,27 @@
+commit 2d2c4c64477bac6aa18a3a885dac486a3b927609
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Aug 24 11:00:27 2026 +0200
+
+    work around crappy x11 macros
+    
+    30:11.07 E /builddir/thunderbird-154.0/security/nss/lib/mozpkix/include/pkix/Input.h:224:12: error: cannot initialize return object of type 'Result' with an rvalue of type 'int'
+    30:11.07 E   224 |     return Success;
+    30:11.07 E       |            ^~~~~~~
+    30:11.07 E /usr/include/X11/X.h:350:21: note: expanded from macro 'Success'
+    30:11.07 E   350 | #define Success            0    /* everything's okay */
+
+diff --git a/security/nss/lib/mozpkix/include/pkix/Result.h b/security/nss/lib/mozpkix/include/pkix/Result.h
+index 7e391d0..604f25e 100644
+--- a/security/nss/lib/mozpkix/include/pkix/Result.h
++++ b/security/nss/lib/mozpkix/include/pkix/Result.h
+@@ -27,6 +27,10 @@
+ 
+ #include <cassert>
+ 
++#ifdef Success
++#undef Success
++#endif
++
+ namespace mozilla {
+ namespace pkix {
+ 

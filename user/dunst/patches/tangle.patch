@@ -1,0 +1,13 @@
+diff --git a/dunstctl b/dunstctl
+index d5e76de..0a690fa 100755
+--- a/dunstctl
++++ b/dunstctl
+@@ -53,7 +53,7 @@ show_help() {
+ 
+ busctl_checked() {
+ 	command -v busctl >/dev/null 2>/dev/null || die "Command busctl not found"
+-	busctl --user --json=pretty --no-pager call "${DBUS_NAME}" "${DBUS_PATH}" "${DBUS_IFAC_DUNST}" "$@"
++	busctl --user --json=pretty call "${DBUS_NAME}" "${DBUS_PATH}" "${DBUS_IFAC_DUNST}" "$@"
+ }
+ 
+ dbus_send_checked() {

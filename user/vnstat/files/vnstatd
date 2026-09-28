@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/vnstatd -n
+run-as = _vnstatd
+log-type = buffer
+depends-on: local.target
+depends-on: network.target

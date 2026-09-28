@@ -1,0 +1,33 @@
+lol musl
+
+--- a/Modules/posixmodule.c
++++ b/Modules/posixmodule.c
+@@ -7833,7 +7833,7 @@ os_sched_getscheduler_impl(PyObject *module, pid_t pid)
+ {
+     int policy;
+ 
+-    policy = sched_getscheduler(pid);
++    policy = syscall(__NR_sched_getscheduler, pid);
+     if (policy < 0)
+         return posix_error();
+     return PyLong_FromLong(policy);
+@@ -7933,7 +7933,7 @@ os_sched_setscheduler_impl(PyObject *module, pid_t pid, int policy,
+     ** scheduling policy under Solaris/Illumos, and others.
+     ** On error, -1 is returned in all Operating Systems.
+     */
+-    if (sched_setscheduler(pid, policy, &param) == -1)
++    if (syscall(__NR_sched_setscheduler, pid, policy, &param) < 0)
+         return posix_error();
+     Py_RETURN_NONE;
+ }
+--- a/Lib/test/test_posix.py
++++ b/Lib/test/test_posix.py
+@@ -39,6 +39,8 @@ requires_32b = unittest.skipUnless(
+ )
+ 
+ def _supports_sched():
++    return False
++
+     if not hasattr(posix, 'sched_getscheduler'):
+         return False
+     try:

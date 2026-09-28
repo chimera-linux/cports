@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/zrepl --config /etc/zrepl/zrepl.yml daemon
+depends-on = local.target
+logfile = /var/log/zrepl.log

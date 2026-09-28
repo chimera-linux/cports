@@ -1,0 +1,13 @@
+this fails on musl and since 3.13 the pgo tests have to
+succeed, so disable it, it wouldn't produce useful results
+
+--- a/Lib/test/libregrtest/pgo.py
++++ b/Lib/test/libregrtest/pgo.py
+@@ -38,7 +38,6 @@ PGO_TESTS = [
+     'test_patma',
+     'test_pickle',
+     'test_pprint',
+-    'test_re',
+     'test_set',
+     'test_sqlite3',
+     'test_statistics',

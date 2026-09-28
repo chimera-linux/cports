@@ -1,0 +1,2 @@
+pkgname = "u-boot"
+ignore = ["*.*.*"]

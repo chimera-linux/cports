@@ -1,0 +1,11 @@
+--- a/External/CMakeLists.txt
++++ b/External/CMakeLists.txt
+@@ -35,6 +35,8 @@
+ set_property(DIRECTORY APPEND PROPERTY COMPILE_OPTIONS -w)
+ 
+ if(GLSLANG_TESTS)
++    find_package(GTest)
++    add_library(gmock ALIAS GTest::gmock)
+     if(TARGET gmock)
+         message(STATUS "Google Mock already configured - use it")
+     elseif(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/googletest)

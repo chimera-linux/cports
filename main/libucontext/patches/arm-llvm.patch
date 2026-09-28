@@ -1,0 +1,54 @@
+From ea1bc3f7c923b40c738c631f710266803d5134d8 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Sat, 5 Apr 2025 03:12:09 +0200
+Subject: [PATCH] arm: make assembly compile with LLVM
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ arch/arm/getcontext.S  | 2 +-
+ arch/arm/setcontext.S  | 2 +-
+ arch/arm/swapcontext.S | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/getcontext.S b/arch/arm/getcontext.S
+index 0afa150..c65a03f 100644
+--- a/arch/arm/getcontext.S
++++ b/arch/arm/getcontext.S
+@@ -31,7 +31,7 @@ FUNC(libucontext_getcontext)
+         tst     r0, #64
+         pop     {r0-r1,fp,lr}
+ 	moveq	r2, #0
+-	ldrne	r2, =#0x56465001
++	ldrne	r2, =0x56465001
+ 	str	r2, [r0, #VFP_MAGIC_OFFSET]
+         beq     1f
+ #endif
+diff --git a/arch/arm/setcontext.S b/arch/arm/setcontext.S
+index 792d8f2..b475153 100644
+--- a/arch/arm/setcontext.S
++++ b/arch/arm/setcontext.S
+@@ -20,7 +20,7 @@ FUNC(libucontext_setcontext)
+ #ifndef FORCE_HARD_FLOAT
+ 	/* test for vfp magic number set by getcontext */
+ 	ldr	r2, [r0, #VFP_MAGIC_OFFSET]
+-	ldr	r3, =#0x56465001
++	ldr	r3, =0x56465001
+ 	cmp	r2, r3
+         bne     1f
+ #endif
+diff --git a/arch/arm/swapcontext.S b/arch/arm/swapcontext.S
+index e072002..6e853ec 100644
+--- a/arch/arm/swapcontext.S
++++ b/arch/arm/swapcontext.S
+@@ -24,7 +24,7 @@ FUNC(libucontext_swapcontext)
+ #ifndef FORCE_HARD_FLOAT
+ 	/* test for vfp magic number, copy to other ucontext */
+ 	ldr	r3, [r1, #VFP_MAGIC_OFFSET]
+-	ldr	r2, =#0x56465001
++	ldr	r2, =0x56465001
+ 	str	r3, [r0, #VFP_MAGIC_OFFSET]
+ 	cmp	r3, r2
+ 	bne	1f
+-- 
+2.49.0
+

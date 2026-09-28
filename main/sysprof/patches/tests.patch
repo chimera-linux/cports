@@ -1,0 +1,43 @@
+cli-unprivileged runs glxinfo/eglinfo
+
+flatpak-info has some icon mismatch
+
+diff --git a/src/libsysprof/tests/meson.build b/src/libsysprof/tests/meson.build
+index 2a35a9b..7c8e1cf 100644
+--- a/src/libsysprof/tests/meson.build
++++ b/src/libsysprof/tests/meson.build
+@@ -23,7 +23,6 @@ libsysprof_testsuite = {
+   'test-capture-model'            : {'skip': true},
+   'test-cplusplus'                : {'cpp': true},
+   'test-elf-loader'               : {'skip': true},
+-  'test-flatpak-info'             : {'link_args': ['-Wl,--build-id=sha1']},
+   'test-leak-detector'            : {'skip': true},
+   'test-list-counters'            : {'skip': true},
+   'test-list-cpu'                 : {'skip': true},
+diff --git a/src/sysprof-cli/meson.build b/src/sysprof-cli/meson.build
+index 85838f8..8980c5d 100644
+--- a/src/sysprof-cli/meson.build
++++ b/src/sysprof-cli/meson.build
+@@ -22,22 +22,3 @@ sysprof_cli = executable('sysprof-cli', sysprof_cli_sources,
+         c_args: release_flags + sysprof_cli_c_args,
+        install: true,
+ )
+-
+-test('sysprof-cli-unprivileged',
+-  sysprof_cli,
+-  args: [
+-    '--force',
+-    '--no-sysprofd',
+-    '--no-perf',
+-    '--no-cpu',
+-    '--no-battery',
+-    '--no-memory',
+-    '--no-disk',
+-    '--no-network',
+-    '--use-trace-fd',
+-    join_paths(meson.current_build_dir(), 'unprivileged.syscap'),
+-    '--',
+-    '/usr/bin/true',
+-  ],
+-  env: ['G_DEBUG=fatal-criticals'],
+-)

@@ -1,0 +1,33 @@
+commit f335103f16ebf2a0479799ee44e3d31a80a5f7bc
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Nov 20 20:11:36 2023 +0100
+
+    disable rpath
+
+diff --git a/SConstruct b/SConstruct
+index a96a94d..b966d6e 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -233,8 +233,7 @@ if sys.platform != 'win32':
+ else:
+   LIBNAMESTATIC = 'serf-${MAJOR}'
+ 
+-env.Append(RPATH=libdir,
+-           PDB='${TARGET.filebase}.pdb')
++env.Append(PDB='${TARGET.filebase}.pdb')
+ 
+ if sys.platform == 'darwin':
+ #  linkflags.append('-Wl,-install_name,@executable_path/%s.dylib' % (LIBNAME,))
+@@ -407,12 +406,6 @@ if gssapi and CALLOUT_OKAY:
+ if sys.platform == 'win32':
+   env.Append(CPPDEFINES=['SERF_HAVE_SSPI'])
+ 
+-# On some systems, the -R values that APR describes never make it into actual
+-# RPATH flags. We'll manually map all directories in LIBPATH into new
+-# flags to set RPATH values.
+-for d in env['LIBPATH']:
+-  env.Append(RPATH=':'+d)
+-
+ # Set up the construction of serf-*.pc
+ pkgconfig = env.Textfile('serf-%d.pc' % (MAJOR,),
+                          env.File('build/serf.pc.in'),

@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/dnsmasq -k --enable-dbus -u _dnsmasq -g _dnsmasq
+depends-on: dbus
+depends-on: local.target
+depends-on: pre-network.target
+before: network.target

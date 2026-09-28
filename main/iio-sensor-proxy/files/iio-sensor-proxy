@@ -1,0 +1,4 @@
+type = process
+command = /usr/lib/iio-sensor-proxy
+depends-on = local.target
+depends-on = dbus

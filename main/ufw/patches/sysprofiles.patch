@@ -1,0 +1,112 @@
+commit 220b3728e7553f8b8322c5a5dcadbd198d91fe87
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Aug 16 18:45:40 2025 +0200
+
+    add support for systemwide application profiles
+
+diff --git a/src/applications.py b/src/applications.py
+index a2b19cb..1b2445a 100644
+--- a/src/applications.py
++++ b/src/applications.py
+@@ -29,24 +29,33 @@ else:  # pragma: no cover
+     import configparser
+ 
+ 
+-def get_profiles(profiles_dir):
++def get_profiles(profiles_dir, sysprofiles_dir):
+     '''Get profiles found in profiles database.  Returns dictionary with
+        profile name as key and tuples for fields
+     '''
+-    if not os.path.isdir(profiles_dir):
++    if not os.path.isdir(sysprofiles_dir):
+         err_msg = _("Profiles directory does not exist")
+         raise UFWError(err_msg)
+ 
+     max_size = 10 * 1024 * 1024  # 10MB
+     profiles = {}
+ 
+-    files = os.listdir(profiles_dir)
+-    files.sort()
++    files = os.listdir(sysprofiles_dir)
++
++    if os.path.isdir(profiles_dir):
++        files += os.listdir(profiles_dir)
++
++    # setify
++    files = sorted(set(files))
+ 
+     total_size = 0
+     pat = re.compile(r'^\.')
+     for f in files:
+         abs_path = profiles_dir + "/" + f
++
++        if not os.path.isfile(abs_path):
++            abs_path = sysprofiles_dir + "/" + f
++
+         if not os.path.isfile(abs_path):
+             continue
+ 
+diff --git a/src/backend.py b/src/backend.py
+index 48cab46..cd82e3c 100644
+--- a/src/backend.py
++++ b/src/backend.py
+@@ -38,9 +38,12 @@ class UFWBackend:
+         self.rules6 = []
+ 
+         p = _findpath(ufw.common.config_dir, datadir)
++        sp = _findpath(ufw.common.state_dir, datadir)
++
+         self.files = {'defaults': os.path.join(p, 'default/ufw'),
+                       'conf': os.path.join(p, 'ufw/ufw.conf'),
+-                      'apps': os.path.join(p, 'ufw/applications.d') }
++                      'apps': os.path.join(p, 'ufw/applications.d'),
++                      'sysapps': os.path.join(sp, 'applications.d') }
+         if extra_files is not None:
+             self.files.update(extra_files)
+ 
+@@ -55,7 +58,7 @@ class UFWBackend:
+         self._get_defaults()
+         self._read_rules()
+ 
+-        self.profiles = ufw.applications.get_profiles(self.files['apps'])
++        self.profiles = ufw.applications.get_profiles(self.files['apps'], self.files['sysapps'])
+ 
+         self.iptables = os.path.join(ufw.common.iptables_dir, "iptables")
+         self.iptables_restore = os.path.join(ufw.common.iptables_dir, \
+@@ -208,10 +211,15 @@ class UFWBackend:
+         warned_owner = {}
+ 
+         profiles = []
+-        if not os.path.isdir(self.files['apps']):
+-            warn_msg = _("'%s' does not exist") % (self.files['apps'])
++        if not os.path.isdir(self.files['sysapps']):
++            warn_msg = _("'%s' does not exist") % (self.files['sysapps'])
+             warn(warn_msg)
+         else:
++            pat = re.compile(r'^\.')
++            for profile in os.listdir(self.files['sysapps']):
++                if not pat.search(profile):
++                    profiles.append(os.path.join(self.files['sysapps'], profile))
++        if os.path.isdir(self.files['apps']):
+             pat = re.compile(r'^\.')
+             for profile in os.listdir(self.files['apps']):
+                 if not pat.search(profile):
+@@ -227,6 +235,9 @@ class UFWBackend:
+                 if path == self.files['apps'] and \
+                            not os.path.isdir(self.files['apps']):
+                     break
++                if path == self.files['sysapps'] and \
++                           not os.path.isdir(self.files['sysapps']):
++                    break
+ 
+                 try:
+                     statinfo = os.stat(path)
+@@ -277,7 +288,7 @@ class UFWBackend:
+                                   (last_path))
+ 
+         for f in self.files:
+-            if f != 'apps' and not os.path.isfile(self.files[f]):
++            if f != 'apps' and f != 'sysapps' and not os.path.isfile(self.files[f]):
+                 err_msg = _("'%(f)s' file '%(name)s' does not exist") % \
+                            ({'f': f, 'name': self.files[f]})
+                 raise UFWError(err_msg)

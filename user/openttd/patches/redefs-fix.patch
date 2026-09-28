@@ -1,0 +1,10 @@
+--- a/cmake/CompileFlags.cmake
++++ b/cmake/CompileFlags.cmake
+@@ -30,7 +30,6 @@
+     # it does not appear to support the $<> tags.
+     add_compile_options(
+         "$<$<CONFIG:Debug>:-D_DEBUG>"
+-        "$<$<NOT:$<CONFIG:Debug>>:-D_FORTIFY_SOURCE=2>" # FORTIFY_SOURCE should only be used in non-debug builds (requires -O1+)
+     )
+     if(MINGW)
+         add_link_options(

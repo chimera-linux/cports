@@ -1,0 +1,9 @@
+diff --git a/configs/linux.mk b/configs/linux.mk
+index 9fa7436..682c4bc 100644
+--- a/configs/linux.mk
++++ b/configs/linux.mk
+@@ -26,4 +26,3 @@ BINOUT = .bin
+ 
+ # variables that will be embedded in the binary with -D definitions
+ DEFAULT_TARGET = $(ARCH)
+-VERSION = $$(./scripts/version)

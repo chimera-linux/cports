@@ -1,0 +1,11 @@
+--- a/makefile.in
++++ b/makefile.in
+@@ -235,7 +235,7 @@
+ 
+ check :
+ 	@echo "Verify that create-rc works"
+-	$(SHELL) -c "DIALOG=./$(PROG) ./run_test.sh $(srcdir)/samples"
++	$(SHELL) -c "DIALOG=./$(PROG) $(srcdir)/run_test.sh $(srcdir)/samples"
+ 
+ install :: install-bin install-man
+ 	@echo "made $@"

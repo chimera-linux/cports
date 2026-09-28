@@ -1,0 +1,40 @@
+change default restart delay from 0.2s to 1 second and allow up to 5 restarts.
+by default, three failures inside the 10s interval marks a service as failed, so
+with just a 0.2s delay transient issues would rarely get solved by themselves
+
+service-dependency related issues should still get detected and fixed, but this
+makes it more robust in rare reported cases where some (user) service was failed
+just due to startup randomness and these small values
+--
+--- a/src/includes/load-service.h
++++ b/src/includes/load-service.h
+@@ -986,7 +986,7 @@
+     // Restart limit interval / count; default is 10 seconds, 3 restarts:
+     timespec restart_interval = { .tv_sec = 10, .tv_nsec = 0 };
+-    int max_restarts = 3;
++    int max_restarts = 5;
+-    timespec restart_delay = { .tv_sec = 0, .tv_nsec = 200000000 };
++    timespec restart_delay = { .tv_sec = 1, .tv_nsec = 0 };
+     timespec stop_timeout = { .tv_sec = DEFAULT_STOP_TIMEOUT, .tv_nsec = 0 };
+     timespec start_timeout = { .tv_sec = DEFAULT_START_TIMEOUT, .tv_nsec = 0 };
+     std::vector<service_rlimits> rlimits;
+--- a/doc/manpages/dinit-service.5.m4
++++ b/doc/manpages/dinit-service.5.m4
+@@ -201,7 +201,7 @@
+ .TP
+ \fBrestart\-delay\fR = \fIXXX.YYYY\fR
+ Specifies the minimum time (in seconds) between automatic restarts.
+-The default is 0.2 (200 milliseconds).
++The default is 1.0 (1000 milliseconds).
+ .TP
+ \fBrestart\-limit\-interval\fR = \fIXXX.YYYY\fR
+ Sets the interval (in seconds) over which restarts are limited.
+@@ -213,7 +213,7 @@
+ Specifies the maximum number of times that a service can automatically restart
+ over the interval specified by \fBrestart\-limit\-interval\fR.
+ Specify a value of 0 to disable the restart limit.
+-The default value is 3.
++The default value is 5.
+ .TP
+ \fBstart\-timeout\fR = \fIXXX.YYY\fR
+ Specifies the time in seconds allowed for the service to start.

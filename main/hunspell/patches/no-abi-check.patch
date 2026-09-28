@@ -1,0 +1,15 @@
+the test assumes libstdc++, we don't use that
+
+https://github.com/hunspell/hunspell/issues/1134
+
+--- a/tests/abi-check.sh
++++ b/tests/abi-check.sh
+@@ -18,7 +18,7 @@ case "$MODE" in
+     *) echo "usage: $0 [check|update]" >&2; exit 2 ;;
+ esac
+ 
+-if [ "$(uname -s)" != "Linux" ]; then
++if :; then
+     echo "abi-check: skipping on $(uname -s)"
+     exit 77
+ fi

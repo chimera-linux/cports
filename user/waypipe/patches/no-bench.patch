@@ -1,0 +1,19 @@
+--- a/meson.build
++++ b/meson.build
+@@ -166,16 +166,6 @@ if get_option('build_rs')
+         timeout: 200,
+         priority: 100,
+     )
+-
+-    test(
+-        'running (shortened) waypipe bench',
+-        sh,
+-        args: [
+-            '-c',
+-            ' '.join([binary.full_path(), '--test-fast-bench', 'bench']),
+-        ],
+-        depends: binary,
+-    )
+ endif
+ 
+ if get_option('build_c')

@@ -1,0 +1,22 @@
+we install the lib separately
+--
+--- a/src/libsysprof-capture/meson.build
++++ b/src/libsysprof-capture/meson.build
+@@ -15,7 +15,7 @@
+   'sysprof-version-macros.h',
+ )
+ 
+-if not meson.is_subproject()
++if install_static
+   install_headers(libsysprof_capture_headers, subdir: sysprof_header_subdir)
+ endif
+ 
+@@ -41,7 +41,7 @@
+          output: 'sysprof-version.h',
+   configuration: sysprof_version_conf,
+     install_dir: join_paths(get_option('includedir'), sysprof_header_subdir),
+-        install: not meson.is_subproject(),
++        install: install_static,
+ )
+ 
+ libsysprof_capture_deps = [

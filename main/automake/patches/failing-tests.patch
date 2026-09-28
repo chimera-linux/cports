@@ -1,0 +1,28 @@
+From ba9220c875c133edef889cb6cec893907815af27 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 2 Nov 2021 00:51:44 +0100
+Subject: [PATCH] disable objcxx tests
+
+they do not like our clang setup
+---
+ Makefile.in | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 18850e7..c003610 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1657,10 +1657,6 @@ t/objc-basic.sh \
+ t/objc-minidemo.sh \
+ t/objc-flags.sh \
+ t/objc-deps.sh \
+-t/objcxx-basic.sh \
+-t/objcxx-minidemo.sh \
+-t/objcxx-flags.sh \
+-t/objcxx-deps.sh \
+ t/objc-megademo.sh \
+ t/objext-pr10128.sh \
+ t/oldvars.sh \
+-- 
+2.33.1
+

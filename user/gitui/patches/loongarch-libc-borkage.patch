@@ -1,0 +1,576 @@
+From d3ddb59489cf8438e04caf5cba3fd2869a32877b Mon Sep 17 00:00:00 2001
+From: WANG Rui <wangrui@loongson.cn>
+Date: Wed, 4 Feb 2026 14:21:22 +0800
+Subject: [PATCH] Revert "musl: convert inline timespecs to timespec"
+
+This reverts commit 55fa65b3e026594c6418eb2bc8e98c1feb7667da.
+---
+ libc-test/build.rs                            |  4 +-
+ src/unix/linux_like/linux/musl/b32/arm/mod.rs | 29 +++++++------
+ src/unix/linux_like/linux/musl/b32/hexagon.rs | 25 ++++++-----
+ .../linux_like/linux/musl/b32/mips/mod.rs     | 41 +++++++++++--------
+ src/unix/linux_like/linux/musl/b32/powerpc.rs | 29 +++++++------
+ .../linux_like/linux/musl/b32/riscv32/mod.rs  | 27 ++++++------
+ src/unix/linux_like/linux/musl/b32/x86/mod.rs | 23 +++++------
+ .../linux_like/linux/musl/b64/aarch64/mod.rs  | 15 -------
+ .../linux/musl/b64/loongarch64/mod.rs         | 15 -------
+ src/unix/linux_like/linux/musl/b64/mips64.rs  | 15 -------
+ .../linux_like/linux/musl/b64/powerpc64.rs    | 15 -------
+ .../linux_like/linux/musl/b64/riscv64/mod.rs  | 15 -------
+ src/unix/linux_like/linux/musl/b64/s390x.rs   | 15 -------
+ .../linux_like/linux/musl/b64/wasm32/mod.rs   | 15 -------
+ .../linux_like/linux/musl/b64/x86_64/mod.rs   | 24 ++++-------
+ 15 files changed, 102 insertions(+), 205 deletions(-)
+
+diff --git a/src/unix/linux_like/linux/musl/b32/arm/mod.rs b/src/unix/linux_like/linux/musl/b32/arm/mod.rs
+index ae8e4939bbcb2..26d3380eb7ba5 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/arm/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/arm/mod.rs
+@@ -27,27 +27,30 @@ s! {
+         #[cfg(musl32_time64)]
+         __st_ctim32: Padding<__c_anonymous_timespec32>,
+ 
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl_v1_2_3)]
++        pub st_ino: crate::ino_t,
++
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad0: Padding<u32>,
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad1: Padding<u32>,
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad2: Padding<u32>,
+         pub st_ctime_nsec: c_long,
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad2: Padding<u32>,
+ 
++        #[cfg(not(musl_v1_2_3))]
+         pub st_ino: crate::ino_t,
+-
+-        #[cfg(musl32_time64)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_ctim: crate::timespec,
+     }
+ 
+     struct __c_anonymous_timespec32 {
+diff --git a/src/unix/linux_like/linux/musl/b32/hexagon.rs b/src/unix/linux_like/linux/musl/b32/hexagon.rs
+index 7aa01d625cdcd..16530abdbe411 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/hexagon.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/hexagon.rs
+@@ -18,25 +18,24 @@ s! {
+         __st_blksize_padding: Padding<c_int>,
+         pub st_blocks: crate::blkcnt_t,
+ 
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad0: Padding<u32>,
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad1: Padding<u32>,
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad2: Padding<u32>,
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad2: Padding<u32>,
+ 
+         __unused: Padding<[c_int; 2]>,
+     }
+diff --git a/src/unix/linux_like/linux/musl/b32/mips/mod.rs b/src/unix/linux_like/linux/musl/b32/mips/mod.rs
+index 8c7ccbfc07450..7edcf573d2790 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/mips/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/mips/mod.rs
+@@ -25,33 +25,42 @@ s! {
+         #[cfg(musl32_time64)]
+         __st_ctim32: Padding<__c_anonymous_timespec32>,
+ 
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl_v1_2_3)]
++        pub st_blksize: crate::blksize_t,
++        #[cfg(musl_v1_2_3)]
++        __st_padding3: Padding<c_long>,
++        #[cfg(musl_v1_2_3)]
++        pub st_blocks: crate::blkcnt_t,
++
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad0: Padding<u32>,
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad1: Padding<u32>,
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad2: Padding<u32>,
+         pub st_ctime_nsec: c_long,
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad2: Padding<u32>,
+ 
++        #[cfg(not(musl_v1_2_3))]
+         pub st_blksize: crate::blksize_t,
++        #[cfg(not(musl_v1_2_3))]
+         __st_padding3: Padding<c_long>,
++        #[cfg(not(musl_v1_2_3))]
+         pub st_blocks: crate::blkcnt_t,
+-        #[cfg(not(musl32_time64))]
+-        __st_padding4: Padding<[c_long; 14]>,
+ 
+-        #[cfg(musl32_time64)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_ctim: crate::timespec,
+-
+-        #[cfg(musl32_time64)]
++        #[cfg(not(musl_v1_2_3))]
++        __st_padding4: Padding<[c_long; 14]>,
++        #[cfg(musl_v1_2_3)]
+         __st_padding4: Padding<[c_long; 2]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b32/powerpc.rs b/src/unix/linux_like/linux/musl/b32/powerpc.rs
+index cd11a44e43cd4..f0d92c0e936e7 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/powerpc.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/powerpc.rs
+@@ -37,27 +37,30 @@ s! {
+         #[cfg(musl32_time64)]
+         __st_ctim32: Padding<__c_anonymous_timespec32>,
+ 
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl_v1_2_3)]
++        __unused: Padding<[c_long; 2]>,
++
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad0: Padding<u32>,
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad1: Padding<u32>,
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad2: Padding<u32>,
+         pub st_ctime_nsec: c_long,
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad2: Padding<u32>,
+ 
++        #[cfg(not(musl_v1_2_3))]
+         __unused: Padding<[c_long; 2]>,
+-
+-        #[cfg(musl32_time64)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_ctim: crate::timespec,
+     }
+ 
+     struct __c_anonymous_timespec32 {
+diff --git a/src/unix/linux_like/linux/musl/b32/riscv32/mod.rs b/src/unix/linux_like/linux/musl/b32/riscv32/mod.rs
+index 5561dcb34d358..8589e4692335c 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/riscv32/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/riscv32/mod.rs
+@@ -21,27 +21,24 @@ s! {
+         pub st_blksize: crate::blksize_t,
+         pub __pad2: c_int,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad0: Padding<u32>,
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad1: Padding<u32>,
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_endian = "big"))]
++        __pad2: Padding<u32>,
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
++        #[cfg(all(musl32_time64, target_endian = "little"))]
++        __pad2: Padding<u32>,
+         __unused: Padding<[c_int; 2usize]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b32/x86/mod.rs b/src/unix/linux_like/linux/musl/b32/x86/mod.rs
+index 737438a594efb..1a348078764f0 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/x86/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b32/x86/mod.rs
+@@ -27,27 +27,24 @@ s! {
+         #[cfg(musl32_time64)]
+         __st_ctim32: Padding<__c_anonymous_timespec32>,
+ 
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl_v1_2_3)]
++        pub st_ino: crate::ino_t,
++
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl32_time64)]
++        __pad0: Padding<u32>,
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(musl32_time64)]
++        __pad1: Padding<u32>,
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
++        #[cfg(musl32_time64)]
++        __pad2: Padding<u32>,
+ 
++        #[cfg(not(musl_v1_2_3))]
+         pub st_ino: crate::ino_t,
+-
+-        #[cfg(musl32_time64)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl32_time64)]
+-        pub st_ctim: crate::timespec,
+     }
+ 
+     struct __c_anonymous_timespec32 {
+diff --git a/src/unix/linux_like/linux/musl/b64/aarch64/mod.rs b/src/unix/linux_like/linux/musl/b64/aarch64/mod.rs
+index 47f29d5e11abf..e28310be3ee32 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/aarch64/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/aarch64/mod.rs
+@@ -23,27 +23,12 @@ s! {
+         pub st_blksize: crate::blksize_t,
+         __pad1: Padding<c_int>,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_uint; 2]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b64/loongarch64/mod.rs b/src/unix/linux_like/linux/musl/b64/loongarch64/mod.rs
+index 29f7d49cc8320..8e890be51848f 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/loongarch64/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/loongarch64/mod.rs
+@@ -26,27 +26,12 @@ s! {
+         pub st_blksize: crate::blksize_t,
+         __pad2: Padding<c_int>,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_int; 2usize]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b64/mips64.rs b/src/unix/linux_like/linux/musl/b64/mips64.rs
+index d05b40bd38a11..1fb8618c30c0b 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/mips64.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/mips64.rs
+@@ -22,27 +22,12 @@ s! {
+         __pad2: Padding<[c_uint; 2]>,
+         pub st_size: off_t,
+         __pad3: Padding<c_int>,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         pub st_blksize: crate::blksize_t,
+         __pad4: Padding<c_uint>,
+         pub st_blocks: crate::blkcnt_t,
+diff --git a/src/unix/linux_like/linux/musl/b64/powerpc64.rs b/src/unix/linux_like/linux/musl/b64/powerpc64.rs
+index 6e0d6db6a1978..4885ea2f0e182 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/powerpc64.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/powerpc64.rs
+@@ -33,27 +33,12 @@ s! {
+         pub st_size: off_t,
+         pub st_blksize: crate::blksize_t,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_long; 3]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b64/riscv64/mod.rs b/src/unix/linux_like/linux/musl/b64/riscv64/mod.rs
+index ba9bebd84cc73..bd395e49cefc1 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/riscv64/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/riscv64/mod.rs
+@@ -26,27 +26,12 @@ s! {
+         pub st_blksize: crate::blksize_t,
+         __pad2: Padding<c_int>,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_int; 2usize]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b64/s390x.rs b/src/unix/linux_like/linux/musl/b64/s390x.rs
+index 7776e10b60dce..0ee6c11c6a1e6 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/s390x.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/s390x.rs
+@@ -40,27 +40,12 @@ s! {
+         pub st_gid: crate::gid_t,
+         pub st_rdev: crate::dev_t,
+         pub st_size: off_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         pub st_blksize: crate::blksize_t,
+         pub st_blocks: crate::blkcnt_t,
+         __unused: Padding<[c_long; 3]>,
+diff --git a/src/unix/linux_like/linux/musl/b64/wasm32/mod.rs b/src/unix/linux_like/linux/musl/b64/wasm32/mod.rs
+index 06b34c25d9238..1a4d89632dcc9 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/wasm32/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/wasm32/mod.rs
+@@ -24,27 +24,12 @@ s! {
+         pub st_size: off_t,
+         pub st_blksize: crate::blksize_t,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_long; 3]>,
+     }
+ 
+diff --git a/src/unix/linux_like/linux/musl/b64/x86_64/mod.rs b/src/unix/linux_like/linux/musl/b64/x86_64/mod.rs
+index ec9a31bccf577..39daf548d4ccf 100644
+--- a/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/x86_64/mod.rs
++++ b/vendor/libc-0.2.180/src/unix/linux_like/linux/musl/b64/x86_64/mod.rs
+@@ -23,27 +23,21 @@ s! {
+         pub st_size: off_t,
+         pub st_blksize: crate::blksize_t,
+         pub st_blocks: crate::blkcnt_t,
+-
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_atime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_pointer_width = "32"))]
++        pub st_atime_nsec: i64,
++        #[cfg(not(all(musl32_time64, target_pointer_width = "32")))]
+         pub st_atime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_mtime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_pointer_width = "32"))]
++        pub st_mtime_nsec: i64,
++        #[cfg(not(all(musl32_time64, target_pointer_width = "32")))]
+         pub st_mtime_nsec: c_long,
+-        #[cfg(not(musl_v1_2_3))]
+         pub st_ctime: crate::time_t,
+-        #[cfg(not(musl_v1_2_3))]
++        #[cfg(all(musl32_time64, target_pointer_width = "32"))]
++        pub st_ctime_nsec: i64,
++        #[cfg(not(all(musl32_time64, target_pointer_width = "32")))]
+         pub st_ctime_nsec: c_long,
+-
+-        #[cfg(musl_v1_2_3)]
+-        pub st_atim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_mtim: crate::timespec,
+-        #[cfg(musl_v1_2_3)]
+-        pub st_ctim: crate::timespec,
+-
+         __unused: Padding<[c_long; 3]>,
+     }
+ 

@@ -1,0 +1,45 @@
+commit 9de660169db7bca93c98bb26628fcd48d6638caa
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Oct 29 18:19:24 2023 +0100
+
+    disable asan/tsan checks
+    
+    These are prone to hanging e.g. in emulated environments where
+    we aren't running tests regardless so skip it for this run.
+
+diff --git a/configure b/configure
+index 7afd08c..3d13a7c 100755
+--- a/configure
++++ b/configure
+@@ -410,29 +410,8 @@ EOF
+     exit 1
+ fi
+ 
+-printf "C compiler supports address sanitizer... "
+-test_cmdline="${CC} ${CFLAGS} ${CPPFLAGS} -fsanitize=address minimal.c ${LDFLAGS} -o minimal"
+-if ${test_cmdline} >/dev/null 2>&1 && ./minimal
+-then
+-    printf "Yes.\n"
+-    have_asan=1
+-else
+-    printf "Nope, skipping those tests.\n"
+-    have_asan=0
+-fi
+-unset test_cmdline
+-
+-printf "C compiler supports thread sanitizer... "
+-test_cmdline="${CC} ${CFLAGS} ${CPPFLAGS} -fsanitize=thread minimal.c ${LDFLAGS} -o minimal"
+-if ${test_cmdline} >/dev/null 2>&1 && ./minimal
+-then
+-    printf "Yes.\n"
+-    have_tsan=1
+-else
+-    printf "Nope, skipping those tests.\n"
+-    have_tsan=0
+-fi
+-unset test_cmdline
++have_asan=0
++have_tsan=0
+ 
+ printf "Reading libnotmuch version from source... "
+ cat > _libversion.c <<EOF

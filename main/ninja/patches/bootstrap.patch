@@ -1,0 +1,8 @@
+--- a/configure.py
++++ b/configure.py
+@@ -714,5 +714,3 @@
+ 
+     if options.verbose:
+         rebuild_args.append('-v')
+-
+-    subprocess.check_call(rebuild_args)

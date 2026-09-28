@@ -1,0 +1,10 @@
+pkgname = "paperkey"
+pkgver = "1.6"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake"]
+pkgdesc = "Paper backups for OpenPGP keys"
+license = "GPL-2.0-only"
+url = "https://github.com/dmshaw/paperkey"
+source = f"{url}/releases/download/v{pkgver}/paperkey-{pkgver}.tar.gz"
+sha256 = "a245fd13271a8d2afa03dde979af3a29eb3d4ebb1fbcad4a9b52cf67a27d05f7"

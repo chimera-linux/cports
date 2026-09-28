@@ -1,0 +1,16 @@
+for whatever reason appstreamcli treats ca and
+ca@valencia as one, resulting in an error
+
+diff --git a/data/meson.build b/data/meson.build
+index 4952132f..be751e6c 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -57,7 +57,7 @@ appdata_file = i18n.merge_file(
+ )
+ # Validate the appdata file
+ appstreamcli = find_program('appstreamcli', required: false)
+-if appstreamcli.found()
++if false
+   test('validate-appdata', appstreamcli,
+     suite: 'data',
+     args: [

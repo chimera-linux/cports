@@ -1,0 +1,19 @@
+# /usr/share/bash/bashrc
+
+if [ -e /etc/bash/bashrc ]; then
+    . /etc/bash/bashrc
+    return
+fi
+
+if [[ $- != *i* ]] ; then
+    # non-interactive shell
+    return
+fi
+
+while read -r bashrc_d; do
+    [ -e "$bashrc_d" ] && . "$bashrc_d"
+done <<EOS
+$(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/bash/bashrc.d /usr/share/bash/bashrc.d)
+EOS
+
+unset bashrc_d

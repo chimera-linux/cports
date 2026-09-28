@@ -1,0 +1,74 @@
+commit 311f69f7506cfe692bf1bc0d977bf89ac8a73e16
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed May 10 03:48:17 2023 +0200
+
+    patch for clang-cpp
+
+diff --git a/examples/using_cpp_libc.py b/examples/using_cpp_libc.py
+index e930f5b..690fb75 100644
+--- a/examples/using_cpp_libc.py
++++ b/examples/using_cpp_libc.py
+@@ -25,6 +25,6 @@ if __name__ == "__main__":
+         filename = 'examples/c_files/year.c'
+ 
+     ast = parse_file(filename, use_cpp=True,
+-            cpp_path='cpp',
++            cpp_path='clang-cpp',
+             cpp_args=r'-Iutils/fake_libc_include')
+     ast.show()
+diff --git a/examples/using_gcc_E_libc.py b/examples/using_gcc_E_libc.py
+index bba4d3d..fea8074 100644
+--- a/examples/using_gcc_E_libc.py
++++ b/examples/using_gcc_E_libc.py
+@@ -25,6 +25,6 @@ if __name__ == "__main__":
+         filename = 'examples/c_files/year.c'
+ 
+     ast = parse_file(filename, use_cpp=True,
+-            cpp_path='gcc',
++            cpp_path='clang',
+             cpp_args=['-E', r'-Iutils/fake_libc_include'])
+     ast.show()
+diff --git a/pycparser/__init__.py b/pycparser/__init__.py
+index bf4b0d4..e0b2dfc 100644
+--- a/pycparser/__init__.py
++++ b/pycparser/__init__.py
+@@ -15,7 +15,7 @@ from subprocess import check_output
+ from .c_parser import CParser
+ 
+ 
+-def preprocess_file(filename, cpp_path='cpp', cpp_args=''):
++def preprocess_file(filename, cpp_path='clang-cpp', cpp_args=''):
+     """ Preprocess a file using cpp.
+ 
+         filename:
+@@ -48,7 +48,7 @@ def preprocess_file(filename, cpp_path='cpp', cpp_args=''):
+     return text
+ 
+ 
+-def parse_file(filename, use_cpp=False, cpp_path='cpp', cpp_args='',
++def parse_file(filename, use_cpp=False, cpp_path='clang-cpp', cpp_args='',
+                parser=None, encoding=None):
+     """ Parse a C file using pycparser.
+ 
+@@ -62,7 +62,7 @@ def parse_file(filename, use_cpp=False, cpp_path='cpp', cpp_args='',
+         cpp_path:
+             If use_cpp is True, this is the path to 'cpp' on your
+             system. If no path is provided, it attempts to just
+-            execute 'cpp', so it must be in your PATH.
++            execute 'clang-cpp', so it must be in your PATH.
+ 
+         cpp_args:
+             If use_cpp is True, set this to the command line arguments strings
+diff --git a/tests/test_util.py b/tests/test_util.py
+index 56835a0..a2d11d5 100644
+--- a/tests/test_util.py
++++ b/tests/test_util.py
+@@ -22,7 +22,7 @@ def cpp_path():
+     """Path to cpp command."""
+     if platform.system() == 'Darwin':
+         return 'gcc'
+-    return 'cpp'
++    return 'clang-cpp'
+ 
+ 
+ def cpp_args(args=[]):

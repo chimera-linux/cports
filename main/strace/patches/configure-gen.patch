@@ -1,0 +1,13 @@
+diff --git a/build-aux/file-date-gen b/build-aux/file-date-gen
+index 6ef01a632..fa16a2408 100755
+--- a/build-aux/file-date-gen
++++ b/build-aux/file-date-gen
+@@ -44,7 +44,7 @@ date=
+ 	exit 1
+ }
+ 
+-datestr="$(date -u "+${DATE_FORMAT}" -d "${date}")" &&
++datestr="$(date -f "${DATE_FORMAT}" -j "${date}" "+${DATE_FORMAT}")" &&
+ [ -n "${datestr}" ] || {
+ 	printf >&2 "%s: Invalid date: %s\n" "$0" "$date"
+ 	exit 1

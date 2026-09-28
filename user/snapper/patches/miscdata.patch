@@ -1,0 +1,14 @@
+fix --mode and the cron.hourly name aesthetic
+--
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -17,6 +17,6 @@
+ EXTRA_DIST = snapper-hourly bash-completion.bash zsh-completion.zsh $(pam_snapper_SCRIPTS)
+ 
+ install-data-local:
+-	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
+-	install -D --mode a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
+-	install -D --mode a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
++	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/snapper
++	install -D -m a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
++	install -D -m a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper

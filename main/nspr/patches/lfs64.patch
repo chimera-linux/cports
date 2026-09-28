@@ -1,0 +1,15 @@
+diff --git a/nspr/pr/include/md/_unixos.h b/nspr/pr/include/md/_unixos.h
+index 7d444cd..40ec47e 100644
+--- a/nspr/pr/include/md/_unixos.h
++++ b/nspr/pr/include/md/_unixos.h
+@@ -588,8 +588,8 @@ typedef struct stat64 _MDStat64;
+ typedef off64_t _MDOff64_t;
+ 
+ #elif defined(_PR_HAVE_OFF64_T)
+-typedef struct stat64 _MDStat64;
+-typedef off64_t _MDOff64_t;
++typedef struct stat _MDStat64;
++typedef off_t _MDOff64_t;
+ #elif defined(_PR_HAVE_LARGE_OFF_T)
+ typedef struct stat _MDStat64;
+ typedef off_t _MDOff64_t;

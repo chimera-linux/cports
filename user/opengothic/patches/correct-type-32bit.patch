@@ -1,0 +1,11 @@
+--- a/game/world/world.cpp
++++ b/game/world/world.cpp
+@@ -342,7 +342,7 @@ std::string_view World::roomAt(const zenkit::BspNode& node) {
+   for(auto& i:bsp.sectors) {
+     for(auto r:i.node_indices)
+       if(r<bsp.leaf_node_indices.size()){
+-        size_t idx = bsp.leaf_node_indices[r];
++        size_t idx = (size_t)bsp.leaf_node_indices[r];
+         if(idx>=bsp.nodes.size())
+           continue;
+         if(&bsp.nodes[idx]==&node) {

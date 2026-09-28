@@ -1,0 +1,44 @@
+https://github.com/nodejs/node/issues/58277
+
+From 2ba575f8ead8f3d18abf174f19cb8804fa8ac537 Mon Sep 17 00:00:00 2001
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Date: Tue, 20 May 2025 14:38:53 +0200
+Subject: [PATCH] PPC: Limit address space for 64-bit big-endian Linux
+
+In 643753953ac and d3de848bea7, support for 32-bit PowerPC was
+removed. Unfortunately, this also removed the address space limit
+for 64-bit big-endian Linux which still works fine otherwise.
+
+Re-add the address space limit for 64-bit big-endian Linux to
+unbreak V8 on this target.
+
+Change-Id: I16394bb8554a9f7e2848e4f1d7cb4b5a8b21ec1c
+---
+
+diff --git a/deps/v8/include/v8config.h b/deps/v8/include/v8config.h
+index a358e96..d51d431 100644
+--- a/deps/v8/include/v8config.h
++++ b/deps/v8/include/v8config.h
+@@ -970,7 +970,7 @@
+ #define V8_TARGET_LITTLE_ENDIAN 1
+ #endif
+ #elif V8_TARGET_ARCH_PPC64
+-#if V8_OS_AIX
++#if defined(__BIG_ENDIAN__) || defined(V8_OS_AIX)
+ #define V8_TARGET_BIG_ENDIAN 1
+ #else
+ #define V8_TARGET_LITTLE_ENDIAN 1
+diff --git a/deps/v8/src/base/platform/platform-posix.cc b/deps/v8/src/base/platform/platform-posix.cc
+index ddd4029..cd52a88 100644
+--- a/deps/v8/src/base/platform/platform-posix.cc
++++ b/deps/v8/src/base/platform/platform-posix.cc
+@@ -358,6 +358,9 @@
+   raw_addr &= uint64_t{0x3FFFF000};
+   // Use extra address space to isolate the mmap regions.
+   raw_addr += uint64_t{0x400000000000};
++#elif V8_TARGET_BIG_ENDIAN
++  // Big-endian Linux: 42 bits of virtual addressing.
++  raw_addr &= uint64_t{0x03FFFFFFF000};
+ #else
+   // Little-endian Linux: 46 bits of virtual addressing.
+   raw_addr &= uint64_t{0x3FFFFFFF0000};

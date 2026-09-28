@@ -1,0 +1,39 @@
+commit 8fc31eeea7398612584ea8e02b53486242334efd
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Dec 28 16:58:18 2023 +0100
+
+    explicitly pass libstdc++ for stage >1
+    
+    We need this for the compiler internals, even if we are not going
+    to ship the library. That is because the compiler uses its own
+    includes.
+
+    Also include the default path to the runtime as we don't have it
+    linked at this stage yet.
+
+diff --git a/configure b/configure
+index 3b0abeb..847ec69 100755
+--- a/configure
++++ b/configure
+@@ -8538,7 +8538,7 @@ else
+  # statically.  But if the user explicitly specified the libraries to
+  # use, trust that they are doing what they want.
+  if test "$poststage1_libs" = ""; then
+-   poststage1_ldflags="-static-libstdc++ -static-libgcc"
++   poststage1_ldflags="-L`dirname $(clang -print-libgcc-file-name)` -static-libstdc++ -static-libgcc -stdlib=libstdc++"
+  fi
+ fi
+ 
+diff --git a/gcc/configure b/gcc/configure
+index 8ccd3bc..6cdd3ef 100755
+--- a/gcc/configure
++++ b/gcc/configure
+@@ -3846,7 +3846,7 @@ else
+ fi
+ 
+ cat >>confdefs.h <<_ACEOF
+-#define ENABLE_STDLIB_OPTION $gcc_enable_stdlib_opt
++#define ENABLE_STDLIB_OPTION 1
+ _ACEOF
+ 
+ 

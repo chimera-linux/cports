@@ -1,0 +1,12 @@
+diff --git a/isolation.c b/isolation.c
+index 94cbe7f..6446627 100644
+--- a/isolation.c
++++ b/isolation.c
+@@ -93,6 +93,7 @@
+ #include "passt.h"
+ #include "log.h"
+ #include "isolation.h"
++#include "linux_dep.h"
+ #include "conf.h"
+ 
+ #define CAP_VERSION	_LINUX_CAPABILITY_VERSION_3

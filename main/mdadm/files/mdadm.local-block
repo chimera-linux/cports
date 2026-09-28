@@ -1,0 +1,61 @@
+#!/bin/sh
+
+PREREQ="multipath"
+
+prereqs() {
+    echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+    prereqs
+    exit 0
+    ;;
+esac
+
+# exit early if not active
+command -v mdadm > /dev/null 2>&1 || exit 0
+
+. /scripts/functions
+
+# Poor man's mdadm-last-resort@.timer
+# That kicks in 2/3rds into the ROOTDELAY
+
+if [ ! -f /run/count.mdadm.initrd ]; then
+    COUNT=0
+    # Unfortunately raid personalities can be registered _after_ block
+    # devices have already been added, and their rules processed, try
+    # triggering again.  See #830770
+    udevadm trigger --action=add -s block || true
+    wait_for_udev 10
+else
+    COUNT=$(cat /run/count.mdadm.initrd)
+fi
+COUNT=$((COUNT + 1))
+
+echo $COUNT > /run/count.mdadm.initrd
+
+# Run pure assemble command, even though we default to incremental
+# assembly it is supported for users to export variables via
+# param.conf such as IMSM_NO_PLATFORM.  See #830300
+mdadm -q --assemble --scan --no-degraded || true
+
+MAX=30
+if [ ${ROOTDELAY:-0} -gt $MAX ]; then
+    MAX=$ROOTDELAY
+fi
+MAX=$((MAX*2/3))
+
+if [ "$COUNT" = "$MAX" ]
+then
+    # Poor man's mdadm-last-resort@.service for incremental devices
+    mdadm -q --run /dev/md?*
+
+    # And last try for all others
+    mdadm -q --assemble --scan --run
+
+    rm -f /run/count.mdadm.initrd
+fi
+
+exit 0

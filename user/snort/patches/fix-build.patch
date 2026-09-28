@@ -1,0 +1,13 @@
+diff --git a/src/time/clock_defs.h b/src/time/clock_defs.h
+index 05d84fb..f1aa103 100644
+--- a/src/time/clock_defs.h
++++ b/src/time/clock_defs.h
+@@ -50,7 +50,7 @@ inline long clock_scale() { return 1; }
+ using hr_duration = SnortClock::duration;
+ using hr_time = SnortClock::time_point;
+ 
+-inline constexpr hr_duration operator "" _ticks (unsigned long long int v)
++inline constexpr hr_duration operator""_ticks (unsigned long long int v)
+ { return hr_duration(v); }
+ 
+ template<typename Clock,

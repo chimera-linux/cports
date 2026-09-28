@@ -1,0 +1,16 @@
+diff -ruN a/source/Makefile.mk b/source/Makefile.mk
+--- a/source/Makefile.mk	2024-09-21 23:56:30.000000000 +0200
++++ b/source/Makefile.mk	2024-10-21 11:55:19.594024382 +0200
+@@ -84,12 +84,6 @@
+ CXXFLAGS   += -fvisibility-inlines-hidden
+ endif
+ 
+-ifneq ($(MACOS_OR_WASM_OR_WINDOWS),true)
+-ifneq ($(BSD),true)
+-BASE_FLAGS += -fno-gnu-unique
+-endif
+-endif
+-
+ ifeq ($(WITH_LTO),true)
+ BASE_FLAGS += -fno-strict-aliasing -flto
+ LINK_OPTS  += -fno-strict-aliasing -flto -Werror=odr -Werror=lto-type-mismatch

@@ -1,0 +1,116 @@
+From: Julian Andres Klode <julian.klode@canonical.com>
+Date: Wed, 19 Jul 2023 15:52:09 +0200
+Subject: Disable fallback to legacy mode if shim is loaded on x86 archs
+
+This reverts commits
+- 6425c12cd77ad51ad24be84c092aefacf0875089:
+  this originally adds the fallback
+- e60015f574024584e43d1b3b245551e864aa8c4d:
+  this triggers it in another case
+---
+ grub-core/kern/efi/sb.c      | 18 ------------------
+ grub-core/loader/efi/linux.c | 17 -----------------
+ include/grub/efi/sb.h        |  5 +----
+ 3 files changed, 1 insertion(+), 39 deletions(-)
+
+diff --git a/grub-core/kern/efi/sb.c b/grub-core/kern/efi/sb.c
+index 8d3e413..80cfa08 100644
+--- a/grub-core/kern/efi/sb.c
++++ b/grub-core/kern/efi/sb.c
+@@ -32,8 +32,6 @@
+ 
+ static grub_guid_t shim_lock_guid = GRUB_EFI_SHIM_LOCK_GUID;
+ 
+-static bool shim_lock_enabled = false;
+-
+ /*
+  * Determine whether we're in secure boot mode.
+  *
+@@ -95,14 +93,6 @@ grub_efi_get_secureboot (void)
+   if (!(attr & GRUB_EFI_VARIABLE_RUNTIME_ACCESS) && *moksbstate == 1)
+     {
+       secureboot = GRUB_EFI_SECUREBOOT_MODE_DISABLED;
+-      /*
+-       * TODO: Replace this all with shim's LoadImage protocol, delegating policy to it.
+-       *
+-       * We need to set shim_lock_enabled here because we disabled secure boot
+-       * validation *inside* shim but not in the firmware, so we set this variable
+-       * here to trigger that code path, whereas the actual verifier is not enabled.
+-       */
+-      shim_lock_enabled = true;
+       goto out;
+     }
+ 
+@@ -225,14 +215,6 @@ grub_shim_lock_verifier_setup (void)
+   /* Enforce shim_lock_verifier. */
+   grub_verifier_register (&shim_lock_verifier);
+ 
+-  shim_lock_enabled = true;
+-
+   grub_env_set ("shim_lock", "y");
+   grub_env_export ("shim_lock");
+ }
+-
+-bool
+-grub_is_shim_lock_enabled (void)
+-{
+-  return shim_lock_enabled;
+-}
+diff --git a/grub-core/loader/efi/linux.c b/grub-core/loader/efi/linux.c
+index bfbd95a..dd6ca47 100644
+--- a/grub-core/loader/efi/linux.c
++++ b/grub-core/loader/efi/linux.c
+@@ -29,7 +29,6 @@
+ #include <grub/efi/fdtload.h>
+ #include <grub/efi/memory.h>
+ #include <grub/efi/pe32.h>
+-#include <grub/efi/sb.h>
+ #include <grub/i18n.h>
+ #include <grub/lib/cmdline.h>
+ #include <grub/verify.h>
+@@ -462,22 +461,6 @@ grub_cmd_linux (grub_command_t cmd __attribute__ ((unused)),
+ 
+   grub_dl_ref (my_mod);
+ 
+-  if (grub_is_shim_lock_enabled () == true)
+-    {
+-#if defined(__i386__) || defined(__x86_64__)
+-      grub_dprintf ("linux", "shim_lock enabled, falling back to legacy Linux kernel loader\n");
+-
+-      err = grub_cmd_linux_x86_legacy (cmd, argc, argv);
+-
+-      if (err == GRUB_ERR_NONE)
+-	return GRUB_ERR_NONE;
+-      else
+-	goto fail;
+-#else
+-      grub_dprintf ("linux", "shim_lock enabled, trying Linux kernel EFI stub loader\n");
+-#endif
+-    }
+-
+   if (argc == 0)
+     {
+       grub_error (GRUB_ERR_BAD_ARGUMENT, N_("filename expected"));
+diff --git a/include/grub/efi/sb.h b/include/grub/efi/sb.h
+index 49a9ad0..30c4335 100644
+--- a/include/grub/efi/sb.h
++++ b/include/grub/efi/sb.h
+@@ -22,7 +22,7 @@
+ #include <grub/types.h>
+ #include <grub/dl.h>
+ 
+-#define GRUB_EFI_SECUREBOOT_MODE_UNSET		0
++#define GRUB_EFI_SECUREBOOT_MODE_UNSET	0
+ #define GRUB_EFI_SECUREBOOT_MODE_UNKNOWN	1
+ #define GRUB_EFI_SECUREBOOT_MODE_DISABLED	2
+ #define GRUB_EFI_SECUREBOOT_MODE_ENABLED	3
+@@ -31,9 +31,6 @@
+ extern grub_uint8_t
+ EXPORT_FUNC (grub_efi_get_secureboot) (void);
+ 
+-extern bool
+-EXPORT_FUNC (grub_is_shim_lock_enabled) (void);
+-
+ extern void
+ grub_shim_lock_verifier_setup (void);
+ #else

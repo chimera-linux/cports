@@ -1,0 +1,13 @@
+These test seem to require installed MM.
+
+--- a/tools/tests/test-stub.c
++++ b/tools/tests/test-stub.c
+@@ -447,6 +447,8 @@ int main (int argc,
+ {
+     g_test_init (&argc, &argv, NULL);
+ 
++    return g_test_run ();
++
+     g_test_add ("/MM/stub/modem/interface",
+                 TestData *, NULL, setup,
+                 test_modem_interface,

@@ -1,0 +1,13 @@
+chicken be thinkin it's big endian
+
+--- a/chicken.h
++++ b/chicken.h
+@@ -179,7 +179,7 @@ void *alloca ();
+ # define C_BIG_ENDIAN
+ #elif defined(__MIPSEL__) || defined(__MIPSEL)
+ # define C_LITTLE_ENDIAN
+-#elif defined(__sparc__) || defined(__POWERPC__) || defined(__MC68K__) || defined(__mips__)
++#elif defined(__sparc__) || (defined(__powerpc__) && defined(__BIG_ENDIAN__)) || defined(__MC68K__) || defined(__mips__)
+ # define C_BIG_ENDIAN
+ #endif
+ 

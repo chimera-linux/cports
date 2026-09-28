@@ -1,0 +1,16 @@
+/builddir/vlc-3.0.20_git20240528/modules/demux/subtitle.c:2509:41: error: initializer element is not a compile-time constant
+ 2509 |         { "0:0:0,1",        VLC_TICK_0, strlen("0:0:0") },
+--
+--- a/modules/demux/subtitle.c
++++ b/modules/demux/subtitle.c
+@@ -2506,8 +2506,8 @@
+ 
+     static const struct test_sized_timing_value sized_timing_values_success[] =
+     {
+-        { "0:0:0,1",        VLC_TICK_0, strlen("0:0:0") },
+-        { "0:0:0.1",        VLC_TICK_0, strlen("0:0:0") },
++        { "0:0:0,1",        VLC_TICK_0, sizeof("0:0:0") - 1 },
++        { "0:0:0.1",        VLC_TICK_0, sizeof("0:0:0") - 1 },
+     };
+ 
+     static const char *timing_values_fail[] =

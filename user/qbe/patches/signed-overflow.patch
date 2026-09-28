@@ -1,0 +1,14 @@
+breaks hare tests on aarch64
+diff --git a/arm64/isel.c b/arm64/isel.c
+index 062beb3..9ce6adc 100644
+--- a/arm64/isel.c
++++ b/arm64/isel.c
+@@ -24,7 +24,7 @@ imm(Con *c, int k, int64_t *pn)
+ 	i = Iplo12;
+ 	if (n < 0) {
+ 		i = Inlo12;
+-		n = -n;
++		n = -(uint64_t)n;
+ 	}
+ 	*pn = n;
+ 	if ((n & 0x000fff) == n)

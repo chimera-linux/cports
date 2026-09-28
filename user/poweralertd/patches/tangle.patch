@@ -1,0 +1,31 @@
+diff --git a/dbus.h b/dbus.h
+index e9a1fbe..839d087 100644
+--- a/dbus.h
++++ b/dbus.h
+@@ -9,4 +9,8 @@
+ #include <systemd/sd-bus.h>
+ #endif
+ 
++#if defined(HAVE_TANGLE)
++#include <tangle/sd-bus.h>
++#endif
++
+ #endif
+diff --git a/meson.build b/meson.build
+index bad7ed9..d44ed9c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -25,8 +25,12 @@ configuration.set('bindir', join_paths(get_option('prefix'), get_option('bindir'
+ basu = dependency('basu', required: false)
+ elogind = dependency('libelogind', required: false)
+ systemd = dependency('libsystemd', required: false)
++tangle = dependency('tangle', required: false)
+ 
+-if basu.found()
++if tangle.found()
++	add_project_arguments('-DHAVE_TANGLE=1', language: 'c')
++	sdbus = tangle
++elif basu.found()
+ 	add_project_arguments('-DHAVE_BASU=1', language: 'c')
+ 	sdbus = basu
+ elif elogind.found()

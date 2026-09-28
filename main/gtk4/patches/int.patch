@@ -1,0 +1,15 @@
+diff --git a/gtk/gtklistview.c b/gtk/gtklistview.c
+index 53e8558dd8..f6309bf8ee 100644
+--- a/gtk/gtklistview.c
++++ b/gtk/gtklistview.c
+@@ -186,7 +186,9 @@ gtk_list_view_split (GtkListBase *base,
+                           new_tile,
+                           &(GdkRectangle) {
+                             tile->area.x,
+-                            tile->area.y + tile->area.height + spacing,
++                            /* ../gtk/gtklistview.c:189:42: runtime error: signed integer overflow: 2111085624 + 72796048 cannot be represented in type 'int'
++                              when starting nautilus */
++                            (guint)tile->area.y + tile->area.height + spacing,
+                             tile->area.width,
+                             row_height * new_tile->n_items + spacing * (new_tile->n_items - 1)
+                           });

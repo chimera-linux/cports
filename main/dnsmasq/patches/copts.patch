@@ -1,0 +1,12 @@
+diff --git a/src/config.h b/src/config.h
+index 0994f95..030eedc 100644
+--- a/src/config.h
++++ b/src/config.h
+@@ -477,3 +477,7 @@ static char *compile_opts =
+ "dumpfile";
+ 
+ #endif /* defined(DNSMASQ_COMPILE_OPTS) */
++#define HAVE_DNSSEC
++#define HAVE_DBUS
++#define HAVE_LIBIDN2
++#define HAVE_CONNTRACK

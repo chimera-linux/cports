@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/deluged -d -U _deluge -g _deluge -c /var/lib/deluge/.config/deluge
+smooth-recovery = true
+depends-on: login.target
+depends-on: network.target

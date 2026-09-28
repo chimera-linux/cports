@@ -1,0 +1,10 @@
+--- a/meson.build
++++ b/meson.build
+@@ -163,6 +163,7 @@
+ symbols_flag = '-Wl,--version-script,@0@/@1@'.format(meson.current_source_dir(), symbols_file)
+ lib_wlr = library(
+ 	versioned_name, wlr_files,
++	soversion: 0,
+ 	dependencies: wlr_deps,
+ 	include_directories: [wlr_inc],
+ 	install: true,

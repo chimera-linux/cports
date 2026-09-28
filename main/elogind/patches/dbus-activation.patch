@@ -1,0 +1,38 @@
+commit ef3fc2fa4f186e4d1785987bd4320b9d469f8d5e
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 2 17:54:11 2023 +0200
+
+    implement readiness notification and dbus activation
+
+diff --git a/src/login/logind.c b/src/login/logind.c
+index db88fc3..6b33916 100644
+--- a/src/login/logind.c
++++ b/src/login/logind.c
+@@ -1326,6 +1326,16 @@ static int run(int argc, char *argv[]) {
+                 return log_error_errno(r, "Failed to fully start up daemon: %m");
+ 
+         notify_message = notify_start(NOTIFY_READY, NOTIFY_STOPPING);
++        /* dinit notification */
++        const char *rvar = getenv("LOGIND_READY_FD");
++        if (rvar) {
++                int fdnum = atoi(rvar);
++                errno = 0;
++                if (fdnum && fcntl(fdnum, F_GETFD) >= 0) {
++                        write(fdnum, "READY=1", sizeof("READY=1"));
++                        close(fdnum);
++                }
++        }
+         return manager_run(m);
+ }
+ 
+diff --git a/src/login/org.freedesktop.login1.service.in b/src/login/org.freedesktop.login1.service.in
+index 822f476..283414c 100644
+--- a/src/login/org.freedesktop.login1.service.in
++++ b/src/login/org.freedesktop.login1.service.in
+@@ -7,5 +7,5 @@
+ 
+ [D-BUS Service]
+ Name=org.freedesktop.login1
+-Exec={{LIBEXECDIR}}/elogind --daemon
++Exec=/usr/bin/dinitctl --quiet start elogind
+ User=root

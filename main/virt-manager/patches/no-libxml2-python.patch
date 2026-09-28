@@ -1,0 +1,1451 @@
+From b191904408be29b817ca15c841d0752f0a20f3b3 Mon Sep 17 00:00:00 2001
+From: Cole Robinson <crobinso@redhat.com>
+Date: Wed, 17 Sep 2025 10:38:12 -0400
+Subject: [PATCH 1/4] xmlapi: split out xmlbase.py and xmllibxml2.py
+
+We will be adding new XMLAPI implementations shortly and separate
+files helps with code org
+
+Signed-off-by: Cole Robinson <crobinso@redhat.com>
+---
+ virtinst/meson.build   |   2 +
+ virtinst/xmlapi.py     | 437 +----------------------------------------
+ virtinst/xmlbase.py    | 290 +++++++++++++++++++++++++++
+ virtinst/xmllibxml2.py | 157 +++++++++++++++
+ 4 files changed, 451 insertions(+), 435 deletions(-)
+ create mode 100644 virtinst/xmlbase.py
+ create mode 100644 virtinst/xmllibxml2.py
+
+diff --git a/virtinst/meson.build b/virtinst/meson.build
+index f48daf696c..d8be0e8955 100644
+--- a/virtinst/meson.build
++++ b/virtinst/meson.build
+@@ -24,7 +24,9 @@ virtinst_sources = files(
+   'virtinstall.py',
+   'virtxml.py',
+   'xmlapi.py',
++  'xmlbase.py',
+   'xmlbuilder.py',
++  'xmllibxml2.py',
+   'xmlutil.py',
+ )
+ 
+diff --git a/virtinst/xmlapi.py b/virtinst/xmlapi.py
+index bbeba325c2..c20718c08b 100644
+--- a/virtinst/xmlapi.py
++++ b/virtinst/xmlapi.py
+@@ -4,439 +4,6 @@
+ # This work is licensed under the GNU GPLv2 or later.
+ # See the COPYING file in the top-level directory.
+ 
+-import libxml2
++from .xmllibxml2 import Libxml2API
+ 
+-from . import xmlutil
+-from .logger import log
+-
+-# pylint: disable=protected-access
+-
+-
+-class _XPathSegment:
+-    """
+-    Class representing a single 'segment' of an xpath string. For example,
+-    the xpath:
+-
+-        ./qemu:foo/bar[1]/baz[@somepro='someval']/@finalprop
+-
+-    will be split into the following segments:
+-
+-        #1: nodename=., fullsegment=.
+-        #2: nodename=foo, nsname=qemu, fullsegment=qemu:foo
+-        #3: nodename=bar, condition_num=1, fullsegment=bar[1]
+-        #4: nodename=baz, condition_prop=somepro, condition_val=someval,
+-                fullsegment=baz[@somepro='somval']
+-        #5: nodename=finalprop, is_prop=True, fullsegment=@finalprop
+-    """
+-
+-    def __init__(self, fullsegment):
+-        self.fullsegment = fullsegment
+-        self.nodename = fullsegment
+-
+-        self.condition_prop = None
+-        self.condition_val = None
+-        self.condition_num = None
+-        if "[" in self.nodename:
+-            self.nodename, cond = self.nodename.strip("]").split("[")
+-            if "=" in cond:
+-                (cprop, cval) = cond.split("=")
+-                self.condition_prop = cprop.strip("@")
+-                self.condition_val = cval.strip("'")
+-            elif cond.isdigit():
+-                self.condition_num = int(cond)
+-
+-        self.is_prop = self.nodename.startswith("@")
+-        if self.is_prop:
+-            self.nodename = self.nodename[1:]
+-
+-        self.nsname = None
+-        if ":" in self.nodename:
+-            self.nsname, self.nodename = self.nodename.split(":")
+-
+-
+-class _XPath:
+-    """
+-    Helper class for performing manipulations of XPath strings. Splits
+-    the xpath into segments.
+-    """
+-
+-    def __init__(self, fullxpath):
+-        self.fullxpath = fullxpath
+-        self.segments = []
+-        for s in self.fullxpath.split("/"):
+-            if s == "..":
+-                # Resolve and flatten .. in xpaths
+-                self.segments = self.segments[:-1]
+-                continue
+-            self.segments.append(_XPathSegment(s))
+-
+-        self.is_prop = self.segments[-1].is_prop
+-        self.propname = self.is_prop and self.segments[-1].nodename or None
+-        if self.is_prop:
+-            self.segments = self.segments[:-1]
+-        self.xpath = self.join(self.segments)
+-
+-    @staticmethod
+-    def join(segments):
+-        return "/".join(s.fullsegment for s in segments)
+-
+-    def parent_xpath(self):
+-        return self.join(self.segments[:-1])
+-
+-
+-class _XMLBase:
+-    NAMESPACES = {}
+-
+-    @classmethod
+-    def register_namespace(cls, nsname, uri):
+-        cls.NAMESPACES[nsname] = uri
+-
+-    def copy_api(self):
+-        raise NotImplementedError()
+-
+-    def count(self, xpath):
+-        raise NotImplementedError()
+-
+-    def _find(self, fullxpath):
+-        raise NotImplementedError()
+-
+-    def _node_tostring(self, node):
+-        raise NotImplementedError()
+-
+-    def _node_get_text(self, node):
+-        raise NotImplementedError()
+-
+-    def _node_set_text(self, node, setval):
+-        raise NotImplementedError()
+-
+-    def _node_get_property(self, node, propname):
+-        raise NotImplementedError()
+-
+-    def _node_set_property(self, node, propname, setval):
+-        raise NotImplementedError()
+-
+-    def _node_new(self, xpathseg, parentnode):
+-        raise NotImplementedError()
+-
+-    def _node_add_child(self, parentxpath, parentnode, newnode):
+-        raise NotImplementedError()
+-
+-    def _node_remove_child(self, parentnode, childnode):
+-        raise NotImplementedError()
+-
+-    def _node_replace_child(self, xpath, newnode):
+-        raise NotImplementedError()
+-
+-    def _node_from_xml(self, xml):
+-        raise NotImplementedError()
+-
+-    def _node_has_content(self, node):
+-        raise NotImplementedError()
+-
+-    def _node_get_name(self, node):
+-        raise NotImplementedError()
+-
+-    def node_clear(self, xpath):
+-        raise NotImplementedError()
+-
+-    def _sanitize_xml(self, xml):
+-        raise NotImplementedError()
+-
+-    def get_xml(self, xpath):
+-        node = self._find(xpath)
+-        if node is None:
+-            return ""
+-        return self._sanitize_xml(self._node_tostring(node))
+-
+-    def get_xpath_content(self, xpath, is_bool):
+-        node = self._find(xpath)
+-        if node is None:
+-            return None
+-        if is_bool:
+-            return True
+-        xpathobj = _XPath(xpath)
+-        if xpathobj.is_prop:
+-            return self._node_get_property(node, xpathobj.propname)
+-        return self._node_get_text(node)
+-
+-    def set_xpath_content(self, xpath, setval):
+-        node = self._find(xpath)
+-        if setval is False:
+-            # Boolean False, means remove the node entirely
+-            self.node_force_remove(xpath)
+-        elif setval is None:
+-            if node is not None:
+-                self._node_set_content(xpath, node, None)
+-            self._node_remove_empty(xpath)
+-        else:
+-            if node is None:
+-                node = self._node_make_stub(xpath)
+-
+-            if setval is True:
+-                # Boolean property, creating the node is enough
+-                return
+-            self._node_set_content(xpath, node, setval)
+-
+-    def node_add_xml(self, xml, xpath):
+-        newnode = self._node_from_xml(xml)
+-        parentnode = self._node_make_stub(xpath)
+-        self._node_add_child(xpath, parentnode, newnode)
+-
+-    def node_replace_xml(self, xpath, xml):
+-        """
+-        Replace the node at xpath with the passed in xml
+-        """
+-        newnode = self._node_from_xml(xml)
+-        self._node_replace_child(xpath, newnode)
+-
+-    def node_force_remove(self, fullxpath):
+-        """
+-        Remove the element referenced at the passed xpath, regardless
+-        of whether it has children or not, and then clean up the XML
+-        chain
+-        """
+-        xpathobj = _XPath(fullxpath)
+-        parentnode = self._find(xpathobj.parent_xpath())
+-        childnode = self._find(fullxpath)
+-        if parentnode is None or childnode is None:
+-            return
+-        self._node_remove_child(parentnode, childnode)
+-
+-    def validate_root_name(self, expected_root_name):
+-        rootname = self._node_get_name(self._find("."))
+-        if rootname == expected_root_name:
+-            return
+-        raise RuntimeError(
+-            _(
+-                "XML did not have expected root element name "
+-                "'%(expectname)s', found '%(foundname)s'"
+-            )
+-            % {"expectname": expected_root_name, "foundname": rootname}
+-        )
+-
+-    def _node_set_content(self, xpath, node, setval):
+-        xpathobj = _XPath(xpath)
+-        if setval is not None:
+-            setval = str(setval)
+-        if xpathobj.is_prop:
+-            self._node_set_property(node, xpathobj.propname, setval)
+-        else:
+-            self._node_set_text(node, setval)
+-
+-    def _node_make_stub(self, fullxpath):
+-        """
+-        Build all nodes for the passed xpath. For example, if XML is <foo/>,
+-        and xpath=./bar/@baz, after this function the XML will be:
+-
+-          <foo>
+-            <bar baz=''/>
+-          </foo>
+-
+-        And the node pointing to @baz will be returned, for the caller to
+-        do with as they please.
+-
+-        There's also special handling to ensure that setting
+-        xpath=./bar[@baz='foo']/frob will create
+-
+-          <bar baz='foo'>
+-            <frob></frob>
+-          </bar>
+-
+-        Even if <bar> didn't exist before. So we fill in the dependent property
+-        expression values
+-        """
+-        xpathobj = _XPath(fullxpath)
+-        parentxpath = "."
+-        parentnode = self._find(parentxpath)
+-        if not parentnode:
+-            raise xmlutil.DevError("Did not find XML root node for xpath=%s" % fullxpath)
+-
+-        for xpathseg in xpathobj.segments[1:]:
+-            oldxpath = parentxpath
+-            parentxpath += "/%s" % xpathseg.fullsegment
+-            tmpnode = self._find(parentxpath)
+-            if tmpnode is not None:
+-                # xpath node already exists, nothing to create yet
+-                parentnode = tmpnode
+-                continue
+-
+-            newnode = self._node_new(xpathseg, parentnode)
+-            self._node_add_child(oldxpath, parentnode, newnode)
+-            parentnode = newnode
+-
+-            # For a conditional xpath like ./foo[@bar='baz'],
+-            # we also want to implicitly set <foo bar='baz'/>
+-            if xpathseg.condition_prop:
+-                self._node_set_property(parentnode, xpathseg.condition_prop, xpathseg.condition_val)
+-
+-        return parentnode
+-
+-    def _node_remove_empty(self, fullxpath):
+-        """
+-        Walk backwards up the xpath chain, and remove each element
+-        if it doesn't have any children or attributes, so we don't
+-        leave stale elements in the XML
+-        """
+-        xpathobj = _XPath(fullxpath)
+-        segments = xpathobj.segments[:]
+-        parent = None
+-        while segments:
+-            xpath = _XPath.join(segments)
+-            segments.pop()
+-            child = parent
+-            parent = self._find(xpath)
+-            if parent is None:
+-                break
+-            if child is None:
+-                continue
+-            if self._node_has_content(child):
+-                break
+-
+-            self._node_remove_child(parent, child)
+-
+-
+-def node_is_text(n):
+-    return bool(n and n.type == "text")
+-
+-
+-class _Libxml2API(_XMLBase):
+-    def __init__(self, xml):
+-        _XMLBase.__init__(self)
+-
+-        # Use of gtksourceview in virt-manager changes this libxml
+-        # global setting which messes up whitespace after parsing.
+-        # We can probably get away with calling this less but it
+-        # would take some investigation
+-        libxml2.keepBlanksDefault(1)
+-
+-        self._doc = libxml2.parseDoc(xml)
+-        self._ctx = self._doc.xpathNewContext()
+-        self._ctx.setContextNode(self._doc.children)
+-        for key, val in self.NAMESPACES.items():
+-            self._ctx.xpathRegisterNs(key, val)
+-
+-    def __del__(self):
+-        if not hasattr(self, "_doc"):
+-            # In case we error when parsing the doc
+-            return
+-        self._doc.freeDoc()
+-        self._doc = None
+-        self._ctx.xpathFreeContext()
+-        self._ctx = None
+-
+-    def _sanitize_xml(self, xml):
+-        if not xml.endswith("\n") and "\n" in xml:
+-            xml += "\n"
+-        return xml
+-
+-    def copy_api(self):
+-        return _Libxml2API(self._doc.children.serialize())
+-
+-    def _find(self, fullxpath):
+-        xpath = _XPath(fullxpath).xpath
+-        try:
+-            node = self._ctx.xpathEval(xpath)
+-        except Exception as e:
+-            log.debug("fullxpath=%s xpath=%s eval failed", fullxpath, xpath, exc_info=True)
+-            raise RuntimeError("%s %s" % (fullxpath, str(e))) from None
+-        return node and node[0] or None
+-
+-    def count(self, xpath):
+-        return len(self._ctx.xpathEval(xpath))
+-
+-    def _node_tostring(self, node):
+-        return node.serialize()
+-
+-    def _node_from_xml(self, xml):
+-        return libxml2.parseDoc(xml).children
+-
+-    def _node_get_text(self, node):
+-        return node.content
+-
+-    def _node_set_text(self, node, setval):
+-        if setval is not None:
+-            setval = xmlutil.xml_escape(setval)
+-        node.setContent(setval)
+-
+-    def _node_get_property(self, node, propname):
+-        prop = node.hasProp(propname)
+-        if prop:
+-            return prop.content
+-
+-    def _node_set_property(self, node, propname, setval):
+-        if setval is None:
+-            prop = node.hasProp(propname)
+-            if prop:
+-                prop.unlinkNode()
+-                prop.freeNode()
+-        else:
+-            node.setProp(propname, setval)
+-
+-    def _node_new(self, xpathseg, parentnode):
+-        newnode = libxml2.newNode(xpathseg.nodename)
+-        if not xpathseg.nsname:
+-            return newnode
+-
+-        def _find_parent_ns():
+-            parent = parentnode
+-            while parent:
+-                for ns in xmlutil.listify(parent.nsDefs()):
+-                    if ns.name == xpathseg.nsname:
+-                        return ns
+-                parent = parent.get_parent()
+-
+-        ns = _find_parent_ns()
+-        if not ns:
+-            ns = newnode.newNs(self.NAMESPACES[xpathseg.nsname], xpathseg.nsname)
+-        newnode.setNs(ns)
+-        return newnode
+-
+-    def node_clear(self, xpath):
+-        node = self._find(xpath)
+-        if node:
+-            propnames = [p.name for p in (node.properties or [])]
+-            for p in propnames:
+-                node.unsetProp(p)
+-            node.setContent(None)
+-
+-    def _node_has_content(self, node):
+-        return node.type == "element" and (node.children or node.properties)
+-
+-    def _node_get_name(self, node):
+-        return node.name
+-
+-    def _node_remove_child(self, parentnode, childnode):
+-        node = childnode
+-
+-        # Look for preceding whitespace and remove it
+-        white = node.get_prev()
+-        if node_is_text(white):
+-            white.unlinkNode()
+-            white.freeNode()
+-
+-        node.unlinkNode()
+-        node.freeNode()
+-        if all([node_is_text(n) for n in parentnode.children]):
+-            parentnode.setContent(None)
+-
+-    def _node_add_child(self, parentxpath, parentnode, newnode):
+-        ignore = parentxpath
+-        if not node_is_text(parentnode.get_last()):
+-            prevsib = parentnode.get_prev()
+-            if node_is_text(prevsib):
+-                newlast = libxml2.newText(prevsib.content)
+-            else:
+-                newlast = libxml2.newText("\n")
+-            parentnode.addChild(newlast)
+-
+-        endtext = parentnode.get_last().content
+-        parentnode.addChild(libxml2.newText("  "))
+-        parentnode.addChild(newnode)
+-        parentnode.addChild(libxml2.newText(endtext))
+-
+-    def _node_replace_child(self, xpath, newnode):
+-        oldnode = self._find(xpath)
+-        oldnode.replaceNode(newnode)
+-
+-
+-XMLAPI = _Libxml2API
++XMLAPI = Libxml2API
+diff --git a/virtinst/xmlbase.py b/virtinst/xmlbase.py
+new file mode 100644
+index 0000000000..098e75f5a1
+--- /dev/null
++++ b/virtinst/xmlbase.py
+@@ -0,0 +1,290 @@
++#
++# XML API common infrastructure
++#
++# This work is licensed under the GNU GPLv2 or later.
++# See the COPYING file in the top-level directory.
++
++from . import xmlutil
++
++
++class _XPathSegment:
++    """
++    Class representing a single 'segment' of an xpath string. For example,
++    the xpath:
++
++        ./qemu:foo/bar[1]/baz[@somepro='someval']/@finalprop
++
++    will be split into the following segments:
++
++        #1: nodename=., fullsegment=.
++        #2: nodename=foo, nsname=qemu, fullsegment=qemu:foo
++        #3: nodename=bar, condition_num=1, fullsegment=bar[1]
++        #4: nodename=baz, condition_prop=somepro, condition_val=someval,
++                fullsegment=baz[@somepro='somval']
++        #5: nodename=finalprop, is_prop=True, fullsegment=@finalprop
++    """
++
++    def __init__(self, fullsegment):
++        self.fullsegment = fullsegment
++        self.nodename = fullsegment
++
++        self.condition_prop = None
++        self.condition_val = None
++        self.condition_num = None
++        if "[" in self.nodename:
++            self.nodename, cond = self.nodename.strip("]").split("[")
++            if "=" in cond:
++                (cprop, cval) = cond.split("=")
++                self.condition_prop = cprop.strip("@")
++                self.condition_val = cval.strip("'")
++            elif cond.isdigit():
++                self.condition_num = int(cond)
++
++        self.is_prop = self.nodename.startswith("@")
++        if self.is_prop:
++            self.nodename = self.nodename[1:]
++
++        self.nsname = None
++        if ":" in self.nodename:
++            self.nsname, self.nodename = self.nodename.split(":")
++
++
++class XPath:
++    """
++    Helper class for performing manipulations of XPath strings. Splits
++    the xpath into segments.
++    """
++
++    def __init__(self, fullxpath):
++        self.fullxpath = fullxpath
++        self.segments = []
++        for s in self.fullxpath.split("/"):
++            if s == "..":
++                # Resolve and flatten .. in xpaths
++                self.segments = self.segments[:-1]
++                continue
++            self.segments.append(_XPathSegment(s))
++
++        self.is_prop = self.segments[-1].is_prop
++        self.propname = self.is_prop and self.segments[-1].nodename or None
++        if self.is_prop:
++            self.segments = self.segments[:-1]
++        self.xpath = self.join(self.segments)
++
++    @staticmethod
++    def join(segments):
++        return "/".join(s.fullsegment for s in segments)
++
++    def parent_xpath(self):
++        return self.join(self.segments[:-1])
++
++
++class XMLBase:
++    NAMESPACES = {}
++
++    @classmethod
++    def register_namespace(cls, nsname, uri):
++        cls.NAMESPACES[nsname] = uri
++
++    def copy_api(self):
++        raise NotImplementedError()
++
++    def count(self, xpath):
++        raise NotImplementedError()
++
++    def _find(self, fullxpath):
++        raise NotImplementedError()
++
++    def _node_tostring(self, node):
++        raise NotImplementedError()
++
++    def _node_get_text(self, node):
++        raise NotImplementedError()
++
++    def _node_set_text(self, node, setval):
++        raise NotImplementedError()
++
++    def _node_get_property(self, node, propname):
++        raise NotImplementedError()
++
++    def _node_set_property(self, node, propname, setval):
++        raise NotImplementedError()
++
++    def _node_new(self, xpathseg, parentnode):
++        raise NotImplementedError()
++
++    def _node_add_child(self, parentxpath, parentnode, newnode):
++        raise NotImplementedError()
++
++    def _node_remove_child(self, parentnode, childnode):
++        raise NotImplementedError()
++
++    def _node_replace_child(self, xpath, newnode):
++        raise NotImplementedError()
++
++    def _node_from_xml(self, xml):
++        raise NotImplementedError()
++
++    def _node_has_content(self, node):
++        raise NotImplementedError()
++
++    def _node_get_name(self, node):
++        raise NotImplementedError()
++
++    def node_clear(self, xpath):
++        raise NotImplementedError()
++
++    def _sanitize_xml(self, xml):
++        raise NotImplementedError()
++
++    def get_xml(self, xpath):
++        node = self._find(xpath)
++        if node is None:
++            return ""
++        return self._sanitize_xml(self._node_tostring(node))
++
++    def get_xpath_content(self, xpath, is_bool):
++        node = self._find(xpath)
++        if node is None:
++            return None
++        if is_bool:
++            return True
++        xpathobj = XPath(xpath)
++        if xpathobj.is_prop:
++            return self._node_get_property(node, xpathobj.propname)
++        return self._node_get_text(node)
++
++    def set_xpath_content(self, xpath, setval):
++        node = self._find(xpath)
++        if setval is False:
++            # Boolean False, means remove the node entirely
++            self.node_force_remove(xpath)
++        elif setval is None:
++            if node is not None:
++                self._node_set_content(xpath, node, None)
++            self._node_remove_empty(xpath)
++        else:
++            if node is None:
++                node = self._node_make_stub(xpath)
++
++            if setval is True:
++                # Boolean property, creating the node is enough
++                return
++            self._node_set_content(xpath, node, setval)
++
++    def node_add_xml(self, xml, xpath):
++        newnode = self._node_from_xml(xml)
++        parentnode = self._node_make_stub(xpath)
++        self._node_add_child(xpath, parentnode, newnode)
++
++    def node_replace_xml(self, xpath, xml):
++        """
++        Replace the node at xpath with the passed in xml
++        """
++        newnode = self._node_from_xml(xml)
++        self._node_replace_child(xpath, newnode)
++
++    def node_force_remove(self, fullxpath):
++        """
++        Remove the element referenced at the passed xpath, regardless
++        of whether it has children or not, and then clean up the XML
++        chain
++        """
++        xpathobj = XPath(fullxpath)
++        parentnode = self._find(xpathobj.parent_xpath())
++        childnode = self._find(fullxpath)
++        if parentnode is None or childnode is None:
++            return
++        self._node_remove_child(parentnode, childnode)
++
++    def validate_root_name(self, expected_root_name):
++        rootname = self._node_get_name(self._find("."))
++        if rootname == expected_root_name:
++            return
++        raise RuntimeError(
++            _(
++                "XML did not have expected root element name "
++                "'%(expectname)s', found '%(foundname)s'"
++            )
++            % {"expectname": expected_root_name, "foundname": rootname}
++        )
++
++    def _node_set_content(self, xpath, node, setval):
++        xpathobj = XPath(xpath)
++        if setval is not None:
++            setval = str(setval)
++        if xpathobj.is_prop:
++            self._node_set_property(node, xpathobj.propname, setval)
++        else:
++            self._node_set_text(node, setval)
++
++    def _node_make_stub(self, fullxpath):
++        """
++        Build all nodes for the passed xpath. For example, if XML is <foo/>,
++        and xpath=./bar/@baz, after this function the XML will be:
++
++          <foo>
++            <bar baz=''/>
++          </foo>
++
++        And the node pointing to @baz will be returned, for the caller to
++        do with as they please.
++
++        There's also special handling to ensure that setting
++        xpath=./bar[@baz='foo']/frob will create
++
++          <bar baz='foo'>
++            <frob></frob>
++          </bar>
++
++        Even if <bar> didn't exist before. So we fill in the dependent property
++        expression values
++        """
++        xpathobj = XPath(fullxpath)
++        parentxpath = "."
++        parentnode = self._find(parentxpath)
++        if not parentnode:
++            raise xmlutil.DevError("Did not find XML root node for xpath=%s" % fullxpath)
++
++        for xpathseg in xpathobj.segments[1:]:
++            oldxpath = parentxpath
++            parentxpath += "/%s" % xpathseg.fullsegment
++            tmpnode = self._find(parentxpath)
++            if tmpnode is not None:
++                # xpath node already exists, nothing to create yet
++                parentnode = tmpnode
++                continue
++
++            newnode = self._node_new(xpathseg, parentnode)
++            self._node_add_child(oldxpath, parentnode, newnode)
++            parentnode = newnode
++
++            # For a conditional xpath like ./foo[@bar='baz'],
++            # we also want to implicitly set <foo bar='baz'/>
++            if xpathseg.condition_prop:
++                self._node_set_property(parentnode, xpathseg.condition_prop, xpathseg.condition_val)
++
++        return parentnode
++
++    def _node_remove_empty(self, fullxpath):
++        """
++        Walk backwards up the xpath chain, and remove each element
++        if it doesn't have any children or attributes, so we don't
++        leave stale elements in the XML
++        """
++        xpathobj = XPath(fullxpath)
++        segments = xpathobj.segments[:]
++        parent = None
++        while segments:
++            xpath = XPath.join(segments)
++            segments.pop()
++            child = parent
++            parent = self._find(xpath)
++            if parent is None:
++                break
++            if child is None:
++                continue
++            if self._node_has_content(child):
++                break
++
++            self._node_remove_child(parent, child)
+diff --git a/virtinst/xmllibxml2.py b/virtinst/xmllibxml2.py
+new file mode 100644
+index 0000000000..e704276e90
+--- /dev/null
++++ b/virtinst/xmllibxml2.py
+@@ -0,0 +1,157 @@
++#
++# XML API using libxml2
++#
++# This work is licensed under the GNU GPLv2 or later.
++# See the COPYING file in the top-level directory.
++
++import libxml2
++
++from . import xmlutil
++from .logger import log
++from .xmlbase import XMLBase, XPath
++
++# pylint: disable=protected-access
++
++
++def node_is_text(n):
++    return bool(n and n.type == "text")
++
++
++class Libxml2API(XMLBase):
++    def __init__(self, xml):
++        XMLBase.__init__(self)
++
++        # Use of gtksourceview in virt-manager changes this libxml
++        # global setting which messes up whitespace after parsing.
++        # We can probably get away with calling this less but it
++        # would take some investigation
++        libxml2.keepBlanksDefault(1)
++
++        self._doc = libxml2.parseDoc(xml)
++        self._ctx = self._doc.xpathNewContext()
++        self._ctx.setContextNode(self._doc.children)
++        for key, val in self.NAMESPACES.items():
++            self._ctx.xpathRegisterNs(key, val)
++
++    def __del__(self):
++        if not hasattr(self, "_doc"):
++            # In case we error when parsing the doc
++            return
++        self._doc.freeDoc()
++        self._doc = None
++        self._ctx.xpathFreeContext()
++        self._ctx = None
++
++    def _sanitize_xml(self, xml):
++        if not xml.endswith("\n") and "\n" in xml:
++            xml += "\n"
++        return xml
++
++    def copy_api(self):
++        return Libxml2API(self._doc.children.serialize())
++
++    def _find(self, fullxpath):
++        xpath = XPath(fullxpath).xpath
++        try:
++            node = self._ctx.xpathEval(xpath)
++        except Exception as e:
++            log.debug("fullxpath=%s xpath=%s eval failed", fullxpath, xpath, exc_info=True)
++            raise RuntimeError("%s %s" % (fullxpath, str(e))) from None
++        return node and node[0] or None
++
++    def count(self, xpath):
++        return len(self._ctx.xpathEval(xpath))
++
++    def _node_tostring(self, node):
++        return node.serialize()
++
++    def _node_from_xml(self, xml):
++        return libxml2.parseDoc(xml).children
++
++    def _node_get_text(self, node):
++        return node.content
++
++    def _node_set_text(self, node, setval):
++        if setval is not None:
++            setval = xmlutil.xml_escape(setval)
++        node.setContent(setval)
++
++    def _node_get_property(self, node, propname):
++        prop = node.hasProp(propname)
++        if prop:
++            return prop.content
++
++    def _node_set_property(self, node, propname, setval):
++        if setval is None:
++            prop = node.hasProp(propname)
++            if prop:
++                prop.unlinkNode()
++                prop.freeNode()
++        else:
++            node.setProp(propname, setval)
++
++    def _node_new(self, xpathseg, parentnode):
++        newnode = libxml2.newNode(xpathseg.nodename)
++        if not xpathseg.nsname:
++            return newnode
++
++        def _find_parent_ns():
++            parent = parentnode
++            while parent:
++                for ns in xmlutil.listify(parent.nsDefs()):
++                    if ns.name == xpathseg.nsname:
++                        return ns
++                parent = parent.get_parent()
++
++        ns = _find_parent_ns()
++        if not ns:
++            ns = newnode.newNs(self.NAMESPACES[xpathseg.nsname], xpathseg.nsname)
++        newnode.setNs(ns)
++        return newnode
++
++    def node_clear(self, xpath):
++        node = self._find(xpath)
++        if node:
++            propnames = [p.name for p in (node.properties or [])]
++            for p in propnames:
++                node.unsetProp(p)
++            node.setContent(None)
++
++    def _node_has_content(self, node):
++        return node.type == "element" and (node.children or node.properties)
++
++    def _node_get_name(self, node):
++        return node.name
++
++    def _node_remove_child(self, parentnode, childnode):
++        node = childnode
++
++        # Look for preceding whitespace and remove it
++        white = node.get_prev()
++        if node_is_text(white):
++            white.unlinkNode()
++            white.freeNode()
++
++        node.unlinkNode()
++        node.freeNode()
++        if all([node_is_text(n) for n in parentnode.children]):
++            parentnode.setContent(None)
++
++    def _node_add_child(self, parentxpath, parentnode, newnode):
++        ignore = parentxpath
++        if not node_is_text(parentnode.get_last()):
++            prevsib = parentnode.get_prev()
++            if node_is_text(prevsib):
++                newlast = libxml2.newText(prevsib.content)
++            else:
++                newlast = libxml2.newText("\n")
++            parentnode.addChild(newlast)
++
++        endtext = parentnode.get_last().content
++        parentnode.addChild(libxml2.newText("  "))
++        parentnode.addChild(newnode)
++        parentnode.addChild(libxml2.newText(endtext))
++
++    def _node_replace_child(self, xpath, newnode):
++        oldnode = self._find(xpath)
++        oldnode.replaceNode(newnode)
+
+From af745b710e679d3be40d91cfae646dcf86321ff9 Mon Sep 17 00:00:00 2001
+From: Cole Robinson <crobinso@redhat.com>
+Date: Tue, 23 Sep 2025 09:01:47 -0400
+Subject: [PATCH 2/4] xmlbase: fix parentnode None check
+
+Future XMLAPI implementation need this.
+
+Signed-off-by: Cole Robinson <crobinso@redhat.com>
+---
+ virtinst/xmlbase.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/virtinst/xmlbase.py b/virtinst/xmlbase.py
+index 098e75f5a1..8cff450bd7 100644
+--- a/virtinst/xmlbase.py
++++ b/virtinst/xmlbase.py
+@@ -243,7 +243,7 @@ def _node_make_stub(self, fullxpath):
+         xpathobj = XPath(fullxpath)
+         parentxpath = "."
+         parentnode = self._find(parentxpath)
+-        if not parentnode:
++        if parentnode is None:
+             raise xmlutil.DevError("Did not find XML root node for xpath=%s" % fullxpath)
+ 
+         for xpathseg in xpathobj.segments[1:]:
+
+From 9e2a588564bb27a9f285a2945f37d24cbe00a649 Mon Sep 17 00:00:00 2001
+From: Cole Robinson <crobinso@redhat.com>
+Date: Tue, 23 Sep 2025 10:46:19 -0400
+Subject: [PATCH 3/4] xmllibxml2: lazily import libxml2
+
+If we switch XML backends in the future, this will save us from
+having a hard dep on libxml2
+
+Signed-off-by: Cole Robinson <crobinso@redhat.com>
+---
+ virtinst/xmllibxml2.py | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/virtinst/xmllibxml2.py b/virtinst/xmllibxml2.py
+index e704276e90..947ae1c0ac 100644
+--- a/virtinst/xmllibxml2.py
++++ b/virtinst/xmllibxml2.py
+@@ -4,8 +4,6 @@
+ # This work is licensed under the GNU GPLv2 or later.
+ # See the COPYING file in the top-level directory.
+ 
+-import libxml2
+-
+ from . import xmlutil
+ from .logger import log
+ from .xmlbase import XMLBase, XPath
+@@ -21,13 +19,17 @@ class Libxml2API(XMLBase):
+     def __init__(self, xml):
+         XMLBase.__init__(self)
+ 
++        import libxml2
++
++        self._libxml2 = libxml2
++
+         # Use of gtksourceview in virt-manager changes this libxml
+         # global setting which messes up whitespace after parsing.
+         # We can probably get away with calling this less but it
+         # would take some investigation
+-        libxml2.keepBlanksDefault(1)
++        self._libxml2.keepBlanksDefault(1)
+ 
+-        self._doc = libxml2.parseDoc(xml)
++        self._doc = self._libxml2.parseDoc(xml)
+         self._ctx = self._doc.xpathNewContext()
+         self._ctx.setContextNode(self._doc.children)
+         for key, val in self.NAMESPACES.items():
+@@ -66,7 +68,7 @@ def _node_tostring(self, node):
+         return node.serialize()
+ 
+     def _node_from_xml(self, xml):
+-        return libxml2.parseDoc(xml).children
++        return self._libxml2.parseDoc(xml).children
+ 
+     def _node_get_text(self, node):
+         return node.content
+@@ -91,7 +93,7 @@ def _node_set_property(self, node, propname, setval):
+             node.setProp(propname, setval)
+ 
+     def _node_new(self, xpathseg, parentnode):
+-        newnode = libxml2.newNode(xpathseg.nodename)
++        newnode = self._libxml2.newNode(xpathseg.nodename)
+         if not xpathseg.nsname:
+             return newnode
+ 
+@@ -142,15 +144,15 @@ def _node_add_child(self, parentxpath, parentnode, newnode):
+         if not node_is_text(parentnode.get_last()):
+             prevsib = parentnode.get_prev()
+             if node_is_text(prevsib):
+-                newlast = libxml2.newText(prevsib.content)
++                newlast = self._libxml2.newText(prevsib.content)
+             else:
+-                newlast = libxml2.newText("\n")
++                newlast = self._libxml2.newText("\n")
+             parentnode.addChild(newlast)
+ 
+         endtext = parentnode.get_last().content
+-        parentnode.addChild(libxml2.newText("  "))
++        parentnode.addChild(self._libxml2.newText("  "))
+         parentnode.addChild(newnode)
+-        parentnode.addChild(libxml2.newText(endtext))
++        parentnode.addChild(self._libxml2.newText(endtext))
+ 
+     def _node_replace_child(self, xpath, newnode):
+         oldnode = self._find(xpath)
+
+From a9b912e43511927f7d9f7435d2e68cb08fd72ae4 Mon Sep 17 00:00:00 2001
+From: Cole Robinson <crobinso@redhat.com>
+Date: Wed, 17 Sep 2025 10:42:15 -0400
+Subject: [PATCH 4/4] xmlapi: add xmletree.py backend
+
+This is an XMLAPI backend using stock python ElementTree.
+We need to extend and re-implement some of ElementTree internals
+to make its output match what libvirt generates, so virt-xml edits
+don't generate extraneous diffs.
+
+This is disabled by default but will be used if libxml2 is not
+installed. You can explicitly opt in to using it by setting
+env var VIRTINST_XML_BACKEND=etree before virtinst is imported
+
+Signed-off-by: Cole Robinson <crobinso@redhat.com>
+---
+ .coveragerc            |   2 +-
+ tests/test_cli.py      |   4 +-
+ tests/test_xmlparse.py |   2 +-
+ virtinst/meson.build   |   1 +
+ virtinst/xmlapi.py     |  27 +++-
+ virtinst/xmletree.py   | 294 +++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 326 insertions(+), 4 deletions(-)
+ create mode 100644 virtinst/xmletree.py
+
+diff --git a/tests/test_cli.py b/tests/test_cli.py
+index daf6e2a801..b371e604b9 100644
+--- a/tests/test_cli.py
++++ b/tests/test_cli.py
+@@ -1148,7 +1148,9 @@ def add_compare(self, cat, args, compbase, **kwargs):
+ )  # URI doesn't support UEFI bits
+ c.add_invalid("--graphics type=vnc,keymap", grep="Option 'keymap' had no value set.")
+ c.add_invalid("--xml FOOXPATH", grep="form of XPATH=VALUE")  # failure parsing xpath value
+-c.add_invalid("--xml /@foo=bar", grep="/@foo xmlXPathEval")  # failure processing xpath
++c.add_invalid(
++    "--xml /@foo=bar", grep="(/@foo xmlXPathEval|not an iterator)"
++)  # failure processing xpath
+ 
+ 
+ ########################
+diff --git a/tests/test_xmlparse.py b/tests/test_xmlparse.py
+index 7f150f9183..052850437d 100644
+--- a/tests/test_xmlparse.py
++++ b/tests/test_xmlparse.py
+@@ -1008,7 +1008,7 @@ def testXMLBuilderCoverage():
+         # Ensure we validate root element
+         virtinst.DeviceDisk(conn, parsexml="<foo/>")
+ 
+-    with pytest.raises(Exception, match=".*xmlParseDoc.*"):
++    with pytest.raises(Exception, match=".*(xmlParseDoc|not 'int').*"):
+         # Ensure we validate root element
+         virtinst.DeviceDisk(conn, parsexml=-1)
+ 
+diff --git a/virtinst/meson.build b/virtinst/meson.build
+index d8be0e8955..f0ba054398 100644
+--- a/virtinst/meson.build
++++ b/virtinst/meson.build
+@@ -26,6 +26,7 @@ virtinst_sources = files(
+   'xmlapi.py',
+   'xmlbase.py',
+   'xmlbuilder.py',
++  'xmletree.py',
+   'xmllibxml2.py',
+   'xmlutil.py',
+ )
+diff --git a/virtinst/xmlapi.py b/virtinst/xmlapi.py
+index c20718c08b..38bca65fa2 100644
+--- a/virtinst/xmlapi.py
++++ b/virtinst/xmlapi.py
+@@ -4,6 +4,31 @@
+ # This work is licensed under the GNU GPLv2 or later.
+ # See the COPYING file in the top-level directory.
+ 
++import os
++
++from .logger import log
++from .xmletree import ETreeAPI
+ from .xmllibxml2 import Libxml2API
+ 
+-XMLAPI = Libxml2API
++_backend = os.environ.get("VIRTINST_XML_BACKEND")
++log.debug("VIRTINST_XML_BACKEND=%s", _backend)
++
++
++def _get_default():  # pragma: no cover
++    if _backend == "libxml2":
++        return Libxml2API
++    elif _backend == "etree":
++        return ETreeAPI
++
++    try:
++        import libxml2
++
++        _ignore = libxml2
++        return Libxml2API
++    except ImportError as e:
++        log.debug("libxml2 import error: %s", e)
++        return ETreeAPI
++
++
++XMLAPI = _get_default()
++log.debug("Using XMLAPI=%s", XMLAPI)
+diff --git a/virtinst/xmletree.py b/virtinst/xmletree.py
+new file mode 100644
+index 0000000000..f1bdcf6b1e
+--- /dev/null
++++ b/virtinst/xmletree.py
+@@ -0,0 +1,294 @@
++#
++# XML API using stock python ElementTree
++#
++# This work is licensed under the GNU GPLv2 or later.
++# See the COPYING file in the top-level directory.
++
++import io
++import re
++import xml.etree.ElementTree as ET
++
++from . import xmlutil
++from .xmlbase import XMLBase, XPath
++
++# We need to extend ElementTree to parse + rebuild XML with no diff
++# from default libvirt output. Otherwise `virt-xml --edit` diffs
++# are needlessly noisy.
++#
++# The main problematic area is xmlns namespace handling.
++#
++# 1) libvirt xml will preserve arbitrary xml definitions.
++#    ElementTree will _rename_ xmlns definition to ns0, ns1, etc
++#    unless `register_namespace` was called ahead of time.
++#
++# 2) ElementTree formats every xmlns attribute into the top
++#    element of the document, but libvirt may keep them inline,
++#    like for <domain> <metadata>.
++
++
++class _VirtinstElement(ET.Element):
++    """
++    Wrap Element to track specifically where an xmlns
++    was defined. Default ElementTree throws this away
++    """
++
++    def __init__(self, *args, **kwargs):
++        self.virtinst_namespaces = {}
++        ET.Element.__init__(self, *args, **kwargs)
++
++    def virtinst_add_namespace(self, prefix, uri):
++        self.virtinst_namespaces[prefix] = uri
++
++
++def _fromstring(xml):
++    namespaces = {}
++
++    class _VirtinstTreeBuilder(ET.TreeBuilder):
++        """
++        Custom tree builder to do two things:
++
++        1) track element where xmlns attribute was defined
++        2) build a mapping of xmlns prefix:uri for every xmlns we see
++        """
++
++        _ns_stack = []
++        _last_element = None
++
++        def end(self, tag):
++            self._last_element = ET.TreeBuilder.end(self, tag)
++            return self._last_element
++
++        def start_ns(self, prefix, uri):
++            self._ns_stack.append((prefix, uri))
++            return (prefix, uri)
++
++        def end_ns(self, _prefix):
++            prefix, uri = self._ns_stack.pop()
++            self._last_element.virtinst_add_namespace(prefix, uri)
++            namespaces[prefix] = uri
++            return prefix
++
++    builder = _VirtinstTreeBuilder(element_factory=_VirtinstElement, insert_comments=True)
++    parser = ET.XMLParser(target=builder)
++    parser.feed(xml)
++    node = parser.close()
++    return node, namespaces
++
++
++def _escape_cdata(xml):
++    if xml:
++        xml = xml.replace("&", "&amp;")
++        xml = xml.replace("<", "&lt;")
++        xml = xml.replace(">", "&gt;")
++    return xml
++
++
++def _convert_qname(tag, namespaces):
++    """
++    Convert ElementTree style namespace names to final
++    XML format. For example, given this XML:
++
++    <MYNS:FOO xmlns:MYNS="http://example.com"/>
++
++    ElementTree node.tag will be "{http://example.com}FOO",
++    and we turn it back into "MYNS:FOO"
++    """
++    if tag and tag.startswith("{"):
++        uri, tag = tag[1:].rsplit("}", 1)
++        for key, val in namespaces.items():
++            if uri == val:
++                tag = key + ":" + tag
++                break
++    return tag
++
++
++def _serialize_node(write, elem, namespaces):
++    # derived from ElementTree._serialize_xml
++    tag = elem.tag
++    text = elem.text
++    if tag is ET.Comment:
++        write("<!--%s-->" % text)
++    else:
++        use_ns = elem.virtinst_namespaces.copy()
++        use_ns.update(namespaces)
++
++        tag = _convert_qname(tag, use_ns)
++
++        if tag is None:  # pragma: no cover
++            # This is for CDATA, which libvirt will throw out anyways.
++            pass
++        else:
++            write("<" + tag)
++            for nsprefix, nsuri in elem.virtinst_namespaces.items():
++                write(' xmlns:%s="%s"' % (nsprefix, nsuri))
++            for k, v in list(elem.items()):
++                k = _convert_qname(k, use_ns)
++                v = xmlutil.xml_escape(v)
++                write(' %s="%s"' % (k, v))
++
++            if text or len(elem):
++                write(">")
++                if text:
++                    write(_escape_cdata(text))
++                for e in elem:
++                    _serialize_node(write, e, namespaces)
++                write("</" + tag + ">")
++            else:
++                write("/>")
++
++    if elem.tail:
++        write(_escape_cdata(elem.tail))
++
++
++def _tostring(node, namespaces):
++    stream = io.StringIO()
++
++    _serialize_node(stream.write, node, namespaces)
++    ret = stream.getvalue()
++    return ret.rstrip()
++
++
++class ETreeAPI(XMLBase):
++    def __init__(self, parsexml):
++        XMLBase.__init__(self)
++        node, namespaces = _fromstring(parsexml)
++        self._et = ET.ElementTree(node)
++        self._namespaces = namespaces
++
++    #######################
++    # Private helper APIs #
++    #######################
++
++    def _sanitize_xml(self, xml):
++        return xml
++
++    def _node_tostring(self, node):
++        return _tostring(node, self._namespaces)
++
++    def _node_from_xml(self, xml):
++        return _fromstring(xml)[0]
++
++    def _node_get_name(self, node):
++        name = _convert_qname(node.tag, self._namespaces)
++        if ":" in name:
++            name = name.split(":", 1)[1]
++        return name
++
++    def _node_get_text(self, node):
++        return node.text
++
++    def _node_set_text(self, node, setval):
++        node.text = setval
++
++    def _node_get_property(self, node, propname):
++        return node.attrib.get(propname)
++
++    def _node_set_property(self, node, propname, setval):
++        if setval is None:
++            node.attrib.pop(propname, None)
++        else:
++            node.attrib[propname] = setval
++
++    def _find(self, fullxpath):
++        xpath = XPath(fullxpath).xpath
++
++        root = "/" + self._node_get_name(self._et.getroot())
++        if xpath.startswith(root):
++            # ElementTree explicitly warns that absolute xpaths don't
++            # work as expected, and need a prepended .
++            xpath = "." + xpath[len(root) :]
++
++        node = self._et.find(xpath, self.NAMESPACES)
++        if node is None:
++            return None
++        return node
++
++    ###############
++    # Simple APIs #
++    ###############
++
++    def copy_api(self):
++        return ETreeAPI(self._node_tostring(self._et.getroot()))
++
++    def count(self, xpath):
++        return len(self._et.findall(xpath, self.NAMESPACES) or [])
++
++    ####################
++    # Private XML APIs #
++    ####################
++
++    def _node_add_child(self, parentxpath, parentnode, newnode):
++        """
++        Add 'newnode' as a child of 'parentnode', but try to preserve
++        whitespace and nicely format the result.
++        """
++        xpathobj = XPath(parentxpath)
++
++        if bool(len(parentnode)):
++            lastelem = list(parentnode)[-1]
++            newnode.tail = lastelem.tail
++            lastelem.tail = parentnode.text
++        elif xpathobj.parent_xpath():
++            grandparent = self._find(xpathobj.parent_xpath())
++            idx = list(grandparent).index(parentnode)
++            if idx == (len(list(grandparent)) - 1):
++                parentnode.text = (grandparent.text or "\n") + "  "
++                newnode.tail = (parentnode.tail or "\n") + "  "
++            else:
++                parentnode.text = list(grandparent)[0].tail + "  "
++                newnode.tail = list(grandparent)[0].tail
++        else:
++            parentnode.text = "\n  "
++            newnode.tail = "\n"
++
++        parentnode.append(newnode)
++
++    def _node_has_content(self, node):
++        return len(node) or node.attrib or re.search(r"\w+", (node.text or ""))
++
++    def _node_remove_child(self, parentnode, childnode):
++        idx = list(parentnode).index(childnode)
++
++        if idx != 0 and idx == (len(list(parentnode)) - 1):
++            prevsibling = list(parentnode)[idx - 1]
++            prevsibling.tail = prevsibling.tail[:-2]
++        elif idx == 0 and len(list(parentnode)) == 1:
++            parentnode.text = None
++
++        parentnode.remove(childnode)
++
++    def _node_new(self, xpathseg, _parentnode):
++        newname = xpathseg.nodename
++        nsname = xpathseg.nsname
++        nsuri = self.NAMESPACES.get(nsname, None)
++
++        if nsname:
++            newname = "{%s}%s" % (nsuri, newname)
++        element = _VirtinstElement(newname)
++        if nsname and nsname not in self._namespaces:
++            self._namespaces[nsname] = nsuri
++            element.virtinst_add_namespace(nsname, nsuri)
++        return element
++
++    def _node_replace_child(self, xpath, newnode):
++        oldnode = self._find(xpath)
++        parentnode = self._find(xpath + "...")
++        for idx, elem in list(enumerate(parentnode)):
++            if elem != oldnode:
++                continue
++            newnode.tail = oldnode.tail
++            parentnode.remove(oldnode)
++            parentnode.insert(idx, newnode)
++            break
++
++    ####################
++    # XML editing APIs #
++    ####################
++
++    def node_clear(self, xpath):
++        node = self._find(xpath)
++        if node is not None:
++            for c in list(node):
++                node.remove(c)
++            node.attrib.clear()
++            node.text = None

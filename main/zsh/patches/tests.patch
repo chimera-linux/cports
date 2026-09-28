@@ -1,0 +1,11 @@
+--- a/Test/E02xtrace.ztst
++++ b/Test/E02xtrace.ztst
+@@ -172,7 +172,7 @@
+ >	# traced
+ >	echo inner
+ >}
+->$'\M-c\M-\C-C\M-\C-L' () {
++>$'\udfe3\udf83\udf8c' () {
+ >	# traced
+ >	echo inner
+ >}

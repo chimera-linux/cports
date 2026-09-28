@@ -1,0 +1,38 @@
+leave us alone
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 577f90e..e48f207 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -145,12 +145,6 @@ else ()
+     message(FATAL_ERROR "Unsupported platform")
+ endif ()
+ 
+-if (ARCH_PPC64EL)
+-    set(ARCH_FLAG mcpu)
+-else ()
+-    set(ARCH_FLAG march)
+-endif ()
+-
+ # Detect Native arch flags if requested
+ include (${CMAKE_MODULE_PATH}/archdetect.cmake)
+ 
+@@ -158,18 +152,6 @@ include (${CMAKE_MODULE_PATH}/archdetect.cmake)
+ 
+ include (${CMAKE_MODULE_PATH}/sanitize.cmake)
+ 
+-if (NOT FAT_RUNTIME)
+-    if (GNUCC_TUNE)
+-        message(STATUS "GNUCC_TUNE is set")
+-        set(ARCH_C_FLAGS "-${ARCH_FLAG}=${GNUCC_ARCH} -${TUNE_FLAG}=${GNUCC_TUNE}")
+-        set(ARCH_CXX_FLAGS "-${ARCH_FLAG}=${GNUCC_ARCH} -${TUNE_FLAG}=${GNUCC_TUNE}")
+-    else()
+-        message(STATUS "GNUCC_TUNE is not set")
+-        set(ARCH_C_FLAGS "-${ARCH_FLAG}=${GNUCC_ARCH} -mtune=${TUNE_FLAG} ${ARCH_C_FLAGS}")
+-        set(ARCH_CXX_FLAGS "-${ARCH_FLAG}=${GNUCC_ARCH} -mtune=${TUNE_FLAG} ${ARCH_CXX_FLAGS}")
+-    endif()
+-endif()
+-
+ # remove CMake's idea of optimisation
+ foreach (CONFIG ${CMAKE_BUILD_TYPE} ${CMAKE_CONFIGURATION_TYPES})
+     string(REGEX REPLACE "-O[^ ]*" "" CMAKE_C_FLAGS_${CONFIG} "${CMAKE_C_FLAGS_${CONFIG}}")

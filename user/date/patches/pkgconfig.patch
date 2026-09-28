@@ -1,0 +1,42 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cd0c3f2..6a973fb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -184,6 +184,12 @@ if( BUILD_TZ_LIB )
+         find_package( CURL REQUIRED )
+         target_link_libraries( date-tz PRIVATE CURL::libcurl )
+     endif( )
++
++    # Cflags: -I${includedir} @TZ_COMPILE_DEFINITIONS@
++    set( TZ_COMPILE_DEFINITIONS "$<IF:$<TARGET_EXISTS:date-tz>,-D$<JOIN:$<TARGET_PROPERTY:date-tz,INTERFACE_COMPILE_DEFINITIONS>, -D>,>" )
++    configure_file(date.pc.in date.pc.cf @ONLY)
++    file( GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/date.pc"
++        INPUT "${CMAKE_CURRENT_BINARY_DIR}/date.pc.cf" )
+ endif( )
+ 
+ #[===================================================================[
+@@ -215,6 +221,8 @@ if( ENABLE_DATE_INSTALL )
+           LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+           RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )  # This is for Windows
+       export( TARGETS date-tz NAMESPACE date:: APPEND FILE dateTargets.cmake )
++      install( FILES ${CMAKE_BINARY_DIR}/date.pc
++          DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+   endif( )
+ 
+   if( WIN32 AND NOT CYGWIN)
+diff --git a/date.pc.in b/date.pc.in
+new file mode 100644
+index 0000000..2b19675
+--- /dev/null
++++ b/date.pc.in
+@@ -0,0 +1,10 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=@CMAKE_INSTALL_BINDIR@
++libdir=@CMAKE_INSTALL_LIB@
++includedir=@CMAKE_INSTALL_INCLUDE@
++
++Name: date
++Description: A date and time library based on the C++11/14/17 <chrono> header
++Version: @CMAKE_PROJECT_VERSION@
++Libs: -L${libdir} -ldate-tz
++Cflags: -I${includedir} @TZ_COMPILE_DEFINITIONS@

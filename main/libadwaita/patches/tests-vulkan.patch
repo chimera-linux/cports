@@ -1,0 +1,24 @@
+these two segfault, which turns out to be vulkan
+device enumeration, presumably chroot-specific
+
+trying to force gl renderer for gtk does not
+seem to work so just disable these tests for now
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 2597602..874a4ef 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -42,13 +42,11 @@ test_names = [
+   'test-animation-target',
+   'test-application-window',
+   'test-avatar',
+-  'test-back-button',
+   'test-banner',
+   'test-bin',
+   'test-bottom-sheet',
+   'test-breakpoint',
+   'test-breakpoint-bin',
+-  'test-button-content',
+   'test-button-row',
+   'test-carousel',
+   'test-carousel-indicator-dots',

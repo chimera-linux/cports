@@ -1,0 +1,39 @@
+From b469eef9ee76b63b757e5e314ff4d4c52bd28bdb Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 28 Aug 2024 14:01:17 +0200
+Subject: [PATCH 7/8] use fstype from klibc-kinit-standalone
+
+---
+ hook-functions | 2 +-
+ hooks/fsck     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/hook-functions b/hook-functions
+index 058b95d..c408c05 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -544,7 +544,7 @@ dep_add_modules_mount()
+ 	fi
+ 
+ 	# do not trust mount, check superblock
+-	eval "$(/usr/lib/klibc/bin/fstype "${dev_node}")"
++	eval "$(/usr/lib/kinit-standalone/fstype "${dev_node}")"
+ 
+ 	# check that fstype fs recognition
+ 	if [ "${FSTYPE}" = "unknown" ]; then
+diff --git a/hooks/fsck b/hooks/fsck
+index 3479dfc..58b5ee6 100755
+--- a/hooks/fsck
++++ b/hooks/fsck
+@@ -54,7 +54,7 @@ get_fsck_type_fstab () {
+ 		if [ "${MNT_DIR}" = "/" ] || [ "${MNT_TYPE}" = "auto" ]; then
+ 			device="$(resolve_device "${MNT_FSNAME}")"
+ 			# shellcheck disable=SC2317
+-			fstype() { "/usr/lib/klibc/bin/fstype" "$@"; }
++			fstype() { "/usr/lib/kinit-standalone/fstype" "$@"; }
+ 			if ! get_fstype "${device}"; then
+ 				echo "W: Couldn't identify type of $2 file system '$MNT_FSNAME' for fsck hook" >&2
+ 			fi
+-- 
+2.49.0
+

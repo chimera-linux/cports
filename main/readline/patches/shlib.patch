@@ -1,0 +1,19 @@
+commit 2df0c9c4c403ec699dd8696001c9b1eef4c46939
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Nov 14 02:40:59 2022 +0100
+
+    link libreadline against TERMCAP_LIB
+
+diff --git a/shlib/Makefile.in b/shlib/Makefile.in
+index d138524..ac5cc57 100644
+--- a/shlib/Makefile.in
++++ b/shlib/Makefile.in
+@@ -174,7 +174,7 @@ unsupported:
+ 
+ $(SHARED_READLINE):	$(SHARED_OBJ)
+ 	$(RM) $@
+-	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(SHLIB_LIBS)
++	$(SHOBJ_LD) ${SHOBJ_LDFLAGS} ${SHLIB_XLDFLAGS} -o $@ $(SHARED_OBJ) $(TERMCAP_LIB) $(SHLIB_LIBS)
+ 
+ $(SHARED_HISTORY):	$(SHARED_HISTOBJ) xmalloc.so xfree.so
+ 	$(RM) $@

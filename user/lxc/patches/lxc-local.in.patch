@@ -1,0 +1,55 @@
+--- a/templates/lxc-local.in
++++ b/templates/lxc-local.in
+@@ -72,7 +72,7 @@ EOF
+ }
+ 
+ # Show usage and exit if invalid arguments are passed
+-if ! options=$(getopt -o hm:f: -l help,metadata:,fstree:,no-dev:,name:,path:,rootfs:,mapped-uid:,mapped-gid: -- "$@"); then
++if ! options=$(ugetopt -o hm:f: -l help,metadata:,fstree:,no-dev:,name:,path:,rootfs:,mapped-uid:,mapped-gid: -- "$@"); then
+   usage
+   exit 1
+ fi
+@@ -184,7 +184,7 @@ extract_config() {
+   # The config will be merged later.
+ 
+   # Extract all the network config entries
+-  sed -i -e "/lxc.net.0/{w ${LXC_PATH}/config-network" -e "d}" "${LXC_PATH}/config"
++  sed -i "" -e "/lxc.net.0/{w ${LXC_PATH}/config-network" -e "d;}" "${LXC_PATH}/config"
+ 
+   if [ -e "${LXC_PATH}/config-network" ]; then
+     echo "Extracted network config to: ${LXC_PATH}/config-network"
+@@ -192,7 +192,7 @@ extract_config() {
+   fi
+ 
+   # Extract any other config entry
+-  sed -i -e "/lxc./{w ${LXC_PATH}/config-extra" -e "d}" "${LXC_PATH}/config"
++  sed -i "" -e "/lxc./{w ${LXC_PATH}/config-extra" -e "d;}" "${LXC_PATH}/config"
+ 
+   if [ -e "${LXC_PATH}/config-extra" ]; then
+     echo "Extracted additional config to: ${LXC_PATH}/config-extra"
+@@ -342,11 +342,11 @@ replace_template_vars() {
+   for file in ${TEMPLATE_FILES}; do
+     [ ! -f "${file}" ] && continue
+ 
+-    sed -i "s#LXC_NAME#${LXC_NAME}#g" "${file}"
+-    sed -i "s#LXC_PATH#${LXC_PATH}#g" "${file}"
+-    sed -i "s#LXC_ROOTFS#${LXC_ROOTFS}#g" "${file}"
+-    sed -i "s#LXC_TEMPLATE_CONFIG#${LXC_TEMPLATE_CONFIG}#g" "${file}"
+-    sed -i "s#LXC_HOOK_DIR#${LXC_HOOK_DIR}#g" "${file}"
++    sed -i "" "s#LXC_NAME#${LXC_NAME}#g" "${file}"
++    sed -i "" "s#LXC_PATH#${LXC_PATH}#g" "${file}"
++    sed -i "" "s#LXC_ROOTFS#${LXC_ROOTFS}#g" "${file}"
++    sed -i "" "s#LXC_TEMPLATE_CONFIG#${LXC_TEMPLATE_CONFIG}#g" "${file}"
++    sed -i "" "s#LXC_HOOK_DIR#${LXC_HOOK_DIR}#g" "${file}"
+   done
+   IFS=${OLD_IFS}
+ }
+@@ -355,7 +355,7 @@ fix_tty() {
+   # prevent mingetty from calling vhangup(2) since it fails with userns on CentOS / Oracle
+   if [ -f "${LXC_ROOTFS}/etc/init/tty.conf" ]; then
+     echo "Patching ${LXC_ROOTFS}/etc/init/tty.conf to prevent mingetty from calling vhangup."
+-    sed -i 's|mingetty|mingetty --nohangup|' "${LXC_ROOTFS}/etc/init/tty.conf"
++    sed -i "" 's|mingetty|mingetty --nohangup|' "${LXC_ROOTFS}/etc/init/tty.conf"
+   fi
+ }
+ 

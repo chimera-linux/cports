@@ -1,0 +1,318 @@
+diff --git a/kcontrol/info/memory_linux.cpp b/kcontrol/info/memory_linux.cpp
+index 6feb3ed..9ace678 100644
+--- a/kcontrol/info/memory_linux.cpp
++++ b/kcontrol/info/memory_linux.cpp
+@@ -1,6 +1,7 @@
+ #include <syscall.h>
+ #include <linux/kernel.h>
+ #include <unistd.h>
++#include <sys/sysinfo.h>
+ 
+ void KMemoryWidget::update()
+ {
+diff --git a/kdehelp/bookmark.cpp b/kdehelp/bookmark.cpp
+index 383cd8e..c0c245f 100644
+--- a/kdehelp/bookmark.cpp
++++ b/kdehelp/bookmark.cpp
+@@ -197,9 +197,9 @@ const char *KBookmarkManager::parse( BookmarkTokenizer *ht, KBookmark *parent,
+ 					}
+ 					else
+ 					{
+-						char *p2 = strchr( p, ' ' );
++						char *p2 = (char *)strchr( p, ' ' );
+ 						if ( p2 == 0L )
+-							p2 = strchr( p, '>');
++							p2 = (char *)strchr( p, '>');
+ 						else
+ 							p2++;
+ 						p = p2;
+diff --git a/kdehelp/info.cpp b/kdehelp/info.cpp
+index be28d4d..d573baa 100644
+--- a/kdehelp/info.cpp
++++ b/kdehelp/info.cpp
+@@ -324,7 +324,7 @@ void cTagTable::CreateTable(const char *filename)
+ 
+ 	while (FindMarker(stream))
+ 	{
+-		offset = stream.tellg() - 2;
++		offset = int(stream.tellg()) - 2;
+ 		file = 0;
+         node = 0;
+ 		stream.getline(buffer, 255);
+@@ -608,7 +608,7 @@ void cNodeLineList::AddMenu(const char *buffer)
+ 	char *ptr1, *ptr2;
+ 	cNodeMenu *nodeMenu = new cNodeMenu;
+ 
+-	ptr1 = strstr(buffer, "::");
++	ptr1 = (char *)strstr(buffer, "::");
+ 
+ 	if ( ptr1 && (*(ptr1+2) == ' ' || *(ptr1+2) == '\t' || *(ptr1+2) == '\0') )
+ 	{
+@@ -617,7 +617,7 @@ void cNodeLineList::AddMenu(const char *buffer)
+ 		nodeMenu->node = StrDup(buffer);
+ 		ptr1 += 2;
+ 	}
+-	else if ( (ptr1 = strchr(buffer, ':')) )
++	else if ( (ptr1 = (char *)strchr(buffer, ':')) )
+ 	{
+ 		char *nodePtr;
+ 		*ptr1 = '\0';
+@@ -630,7 +630,7 @@ void cNodeLineList::AddMenu(const char *buffer)
+ 			while ( *ptr1 != ')' )
+ 				ptr1++;
+ 		}
+-		if ( ( ptr2 = strchr( ptr1, '.' ) ) == 0 )
++		if ( ( ptr2 = (char *)strchr( ptr1, '.' ) ) == 0 )
+ 			 ptr2 = ptr1+1;
+ 		*ptr2 = '\0';
+ 		nodeMenu->node = StrDup(nodePtr);
+diff --git a/kdm/kgreeter.cpp b/kdm/kgreeter.cpp
+index 4d6fd41..5116d79 100644
+--- a/kdm/kgreeter.cpp
++++ b/kdm/kgreeter.cpp
+@@ -154,7 +154,7 @@ set_fixed( QWidget* w)
+      w->setFixedSize( w->size());
+ }
+ 
+-KGreeter::KGreeter(QWidget *parent = 0, const char *t = 0) 
++KGreeter::KGreeter(QWidget *parent, const char *t) 
+   : QWidget( parent, t, WStyle_Customize | WStyle_NoBorder | WStyle_Tool)
+ {
+      QFrame* winFrame = new QFrame( this);
+diff --git a/kdm/kgreeter.h b/kdm/kgreeter.h
+index dd52d55..db5d0cd 100644
+--- a/kdm/kgreeter.h
++++ b/kdm/kgreeter.h
+@@ -72,7 +72,7 @@ protected:
+ class KGreeter : public QWidget {
+      Q_OBJECT
+ public:
+-     KGreeter(QWidget *parent, const char *t);
++     KGreeter(QWidget *parent = 0, const char *t = 0);
+      void ReturnPressed();
+      void SetTimer();
+ public slots:
+diff --git a/kdm/session.c b/kdm/session.c
+index 59cd509..6e1c4f0 100644
+--- a/kdm/session.c
++++ b/kdm/session.c
+@@ -604,8 +604,7 @@ Display		*dpy;
+ 
+ extern void ResetServer( struct display *d );
+ 
+-void SessionExit (d, status, removeAuth)
+-    struct display  *d;
++void SessionExit (struct display *d, int status, int removeAuth)
+ {
+ #ifdef USE_PAM
+     if( pamh) {
+diff --git a/kfm/kcookiejar.cpp b/kfm/kcookiejar.cpp
+index e8b19fa..b019d4c 100644
+--- a/kfm/kcookiejar.cpp
++++ b/kfm/kcookiejar.cpp
+@@ -414,7 +414,7 @@ static time_t parseExpire(const char *expireDate)
+      }
+      monthStr[3] = '\0';
+      
+-     newPosStr = strstr(haystack, monthStr);
++     newPosStr = (char *)strstr(haystack, monthStr);
+ 
+      if (!newPosStr)
+      	return result;  // Invalid expire date
+diff --git a/kfm/kfmexec.cpp b/kfm/kfmexec.cpp
+index e5c946b..15c56c1 100644
+--- a/kfm/kfmexec.cpp
++++ b/kfm/kfmexec.cpp
+@@ -244,7 +244,7 @@ void KFMExec::slotMimeType( const char *_type )
+ 	}    
+ 	if ( aCharset != 0 )
+ 	{
+-	    tmp=strpbrk(aCharset," ;\t\n");
++	    tmp=(char *)strpbrk(aCharset," ;\t\n");
+ 	    if ( tmp != 0 ) *tmp=0;
+ 	}    
+     }  
+diff --git a/kfm/kfmman.cpp b/kfm/kfmman.cpp
+index 0d74b76..7f3f45e 100644
+--- a/kfm/kfmman.cpp
++++ b/kfm/kfmman.cpp
+@@ -1158,7 +1158,7 @@ void KFMManager::slotMimeType( const char *_type )
+ 	}    
+ 	if ( aCharset != 0 )
+ 	{
+-	    tmp = strpbrk( aCharset, " ;\t\n" );
++	    tmp = (char *)strpbrk( aCharset, " ;\t\n" );
+ 	    if ( tmp != 0 )
+ 	      *tmp = 0;
+ 	}    
+diff --git a/kfm/root.cpp b/kfm/root.cpp
+index a7877f0..eafe440 100644
+--- a/kfm/root.cpp
++++ b/kfm/root.cpp
+@@ -876,11 +876,11 @@ void KRootWidget::update()
+ 	    if ( buffer[ 0 ] != 0 )
+ 	    {
+ 		const char *p = buffer;
+-		char *p2 = strchr( p, ';' );
++		char *p2 = (char *)strchr( p, ';' );
+ 		*p2++ = 0;
+ 		QString u = p;
+ 		p = p2;
+-		p2 = strchr( p, ';' );
++		p2 = (char *)strchr( p, ';' );
+ 		*p2++ = 0;
+ 		int x = atoi( p );
+ 		p = p2;
+diff --git a/kmenuedit/button.h b/kmenuedit/button.h
+index 52869e4..2fe68f1 100644
+--- a/kmenuedit/button.h
++++ b/kmenuedit/button.h
+@@ -53,7 +53,7 @@ protected:
+   bool    greyed;
+ 
+   // drag and drop stuff
+-  virtual Window EditButton::findRootWindow( QPoint & p );
++  virtual Window findRootWindow( QPoint & p );
+   virtual void mouseMoveEvent( QMouseEvent * );
+   virtual void mouseReleaseEvent( QMouseEvent * );
+   virtual void rootDropEvent( int _x, int _y );
+diff --git a/konsole/src/main.C b/konsole/src/main.C
+index 5aed24d..4812a3e 100644
+--- a/konsole/src/main.C
++++ b/konsole/src/main.C
+@@ -506,7 +506,7 @@ void TEDemo::font_menu_activated(int item)
+ {
+   assert(se);
+   se->setFontNo(item);
+-  activateSession((int)session2no.find(se)); // for attribute change
++  activateSession((int)(unsigned long)session2no.find(se)); // for attribute change
+   // setFont(item) is probably enough
+ }
+ 
+@@ -515,7 +515,7 @@ void TEDemo::schema_menu_activated(int item)
+   assert(se);
+   //FIXME: save schema name
+   se->setSchemaNo(item);
+-  activateSession((int)session2no.find(se)); // for attribute change
++  activateSession((int)(unsigned long)session2no.find(se)); // for attribute change
+   // setSchema(item) is probably enough
+ }
+ 
+@@ -686,7 +686,7 @@ void TEDemo::activateSession(int sn)
+   if (se)
+   {
+     se->setConnect(FALSE);
+-    int no = (int)session2no.find(se);
++    int no = (int)(unsigned long)session2no.find(se);
+     m_sessions->setItemChecked(no,FALSE);
+   }
+   se = s;
+@@ -707,7 +707,7 @@ void TEDemo::activateSession(int sn)
+ 
+ void TEDemo::runSession(TESession* s)
+ {
+-  int session_no = (int)session2no.find(s);
++  int session_no = (int)(unsigned long)session2no.find(s);
+   activateSession(session_no);
+ 
+   // give some time to get through the
+@@ -786,7 +786,7 @@ void TEDemo::doneSession(TESession* s, int status)
+     KMsgBox::message( this, i18n("Error"), str, KMsgBox::EXCLAMATION );
+   }
+ #endif
+-  int no = (int)session2no.find(s);
++  int no = (int)(unsigned long)session2no.find(s);
+   if (!no) return; // oops
+   no2session.remove(no);
+   session2no.remove(s);
+@@ -957,7 +957,7 @@ int main(int argc, char* argv[])
+ 
+   int c = 0, l = 0;
+   if ( (strcmp("", sz) != 0) )
+-  { char *ls = strchr( sz, 'x' );
++  { char *ls = (char *)strchr( sz, 'x' );
+     if ( ls != NULL )
+     { *ls='\0'; ls++; c=atoi(sz); l=atoi(ls); }
+     else
+diff --git a/kvt/utmp.c b/kvt/utmp.c
+index 1d948f3..c096508 100644
+--- a/kvt/utmp.c
++++ b/kvt/utmp.c
+@@ -88,6 +88,8 @@
+ #include <sys/stat.h>
+ #include <sys/time.h>
+ 
++#include <time.h>
++#include <stdlib.h>
+ #include <utmp.h>
+ #include <unistd.h>
+ 
+diff --git a/kwm/manager.h b/kwm/manager.h
+index af9d056..4d9ff75 100644
+--- a/kwm/manager.h
++++ b/kwm/manager.h
+@@ -113,7 +113,7 @@ public:
+   Client* getClient(Window w);
+ 
+   // get a pointer to the Client object from the sizegrip
+-  Client* Manager::getClientFromSizegrip(Window w);
++  Client* getClientFromSizegrip(Window w);
+ 
+   // returns the current client (the client which has the focus) or 0
+   // if no client has the focus.
+diff --git a/kwmmodules/kpager/desktop.cpp b/kwmmodules/kpager/desktop.cpp
+index e1b89fc..57deedc 100644
+--- a/kwmmodules/kpager/desktop.cpp
++++ b/kwmmodules/kpager/desktop.cpp
+@@ -503,7 +503,7 @@ bool Desktop::contains(Window w)
+     return (getIndexOfWindow(w)==-1)? false : true;
+ }
+ 
+-WindowProperties *Desktop::windowAtPosition(const QPoint *p,bool *ok,QPoint *pos=0L)
++WindowProperties *Desktop::windowAtPosition(const QPoint *p,bool *ok,QPoint *pos)
+ {
+     WindowProperties *wp=window_list->last();
+     if (wp==0L) 
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+index dee36a6..6d1c0d9 100644
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1,38 +1,3 @@
+-add_subdirectory(is)
+-add_subdirectory(hr)
+-add_subdirectory(pl)
+-add_subdirectory(no)
+-add_subdirectory(hs)
+-add_subdirectory(tr)
+-add_subdirectory(cs)
+-add_subdirectory(sl)
+-add_subdirectory(eo)
+-add_subdirectory(ko)
+-add_subdirectory(pt)
+-add_subdirectory(zh_TW.Big5)
+-add_subdirectory(el)
+-add_subdirectory(es)
+-add_subdirectory(ro)
+-add_subdirectory(br)
+-add_subdirectory(fi)
+-add_subdirectory(pt_BR)
+-add_subdirectory(hu)
+-add_subdirectory(nl)
+-add_subdirectory(en_UK)
+-add_subdirectory(it)
+-add_subdirectory(da)
+-add_subdirectory(fr)
+-add_subdirectory(de)
+-add_subdirectory(he)
+-add_subdirectory(sk)
+-add_subdirectory(et)
+-add_subdirectory(mk)
+-add_subdirectory(ru)
+-add_subdirectory(ja)
+-add_subdirectory(sv)
+-add_subdirectory(zh_CN.GB2312)
+-add_subdirectory(ca)
+-
+ install(FILES
+     kbgndwm.pot
+     kcmbell.pot

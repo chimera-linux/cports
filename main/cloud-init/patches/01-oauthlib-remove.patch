@@ -1,0 +1,19 @@
+commit b9fcfb5b2398edee5606ff03ccfd15361dd3506b
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Feb 23 22:31:50 2025 +0100
+
+    remove oauthlib from python requirements
+
+diff --git a/requirements.txt b/requirements.txt
+index 05aac10..02c92a0 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -5,7 +5,7 @@ jinja2
+ 
+ # This one is currently only used by the MAAS datasource and the Event
+ # reporting feature when configured to use webhooks.
+-oauthlib
++#oauthlib
+ 
+ # This is only needed for places where we need to support configs in a manner
+ # that the built-in config parser is not sufficient (ie

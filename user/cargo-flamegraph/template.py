@@ -1,0 +1,36 @@
+# real flamegraph name is for the original perl project;
+# this also has a cargo plugin
+pkgname = "cargo-flamegraph"
+pkgver = "0.6.12"
+pkgrel = 0
+build_style = "cargo"
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
+depends = ["perf"]
+pkgdesc = "Perf-based flamegraph generator"
+license = "Apache-2.0 OR MIT"
+url = "https://github.com/flamegraph-rs/flamegraph"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "3b1158d30a5dd3496b271d5f55da47558cd84dd5ff7e11dbd67c2f6c51a3499e"
+# check: no tests
+# cross: generates completions with host binary
+options = ["!check", "!cross"]
+
+
+def post_build(self):
+    from cbuild.util import cargo
+
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"flamegraph.{shell}", "w") as f:
+            self.do(
+                cargo.target_path(self, "flamegraph"),
+                "--completions",
+                shell,
+                stdout=f,
+            )
+
+
+def post_install(self):
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"flamegraph.{shell}", shell, "flamegraph")
+    self.install_license("LICENSE-MIT")

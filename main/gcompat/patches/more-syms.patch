@@ -1,0 +1,48 @@
+commit bef561e3804926782b395103c3716be66a43b894
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Sep 12 02:56:37 2023 +0200
+
+    add more symbols
+
+diff --git a/libgcompat/wchar.c b/libgcompat/wchar.c
+index 78f7e02..ecce33a 100644
+--- a/libgcompat/wchar.c
++++ b/libgcompat/wchar.c
+@@ -140,3 +140,37 @@ double wcstod_l(const wchar_t *nptr, wchar_t **endptr, locale_t loc)
+ size_t __mbrlen(const char *restrict s, size_t n, mbstate_t *restrict st) {
+     return mbrlen(s, n, st);
+ }
++
++
++wchar_t *__wcscat_chk(wchar_t *dest, const wchar_t *src, size_t destlen)
++{
++        size_t n;
++        size_t total;
++
++        assert(dest != NULL);
++        assert(src != NULL);
++        n = wcslen(src) + 1;
++        total = wcsnlen(dest, destlen) + n;
++        assert(destlen >= total);
++        if (dest < src) {
++                assert(dest + total <= src);
++        } else {
++                assert(src + n <= dest);
++        }
++
++        return wcscat(dest, src);
++}
++
++wchar_t *__wcsncpy_chk(char *dest, const wchar_t *src, size_t n, size_t destlen)
++{
++        assert(dest != NULL);
++        assert(src != NULL);
++        assert(destlen >= n);
++        if (dest < src) {
++                assert(dest + n <= src);
++        } else {
++                assert(src + n <= dest);
++        }
++
++        return wcsncpy(dest, src, n);
++}

@@ -1,0 +1,12 @@
+the diff we have is different so this just prints warnings and doesn't do anything
+--
+--- a/tools/perf/Makefile.perf
++++ b/tools/perf/Makefile.perf
+@@ -261,7 +261,6 @@
+ $(goals) all: sub-make
+ 
+ sub-make: fixdep
+-	@./check-headers.sh
+ 	$(Q)$(MAKE) FIXDEP=1 -f Makefile.perf $(goals)
+ 
+ else # force_fixdep

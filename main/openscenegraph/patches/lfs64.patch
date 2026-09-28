@@ -1,0 +1,11 @@
+--- a/src/osgDB/FileUtils.cpp
++++ b/src/osgDB/FileUtils.cpp
+@@ -80,7 +80,7 @@
+     #if (MAC_OS_X_VERSION_MAX_ALLOWED <= 1040)
+         #define stat64 stat
+     #endif
+-#elif defined(__CYGWIN__) || defined(__FreeBSD__) || defined(__DragonFly__) || \
++#elif 1 || defined(__CYGWIN__) || defined(__FreeBSD__) || defined(__DragonFly__) || \
+       (defined(__hpux) && !defined(_LARGEFILE64_SOURCE))
+     #define stat64 stat
+ #endif

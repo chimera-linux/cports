@@ -1,0 +1,11 @@
+--- a/src/libespeak-ng/wavegen.c
++++ b/src/libespeak-ng/wavegen.c
+@@ -752,7 +752,7 @@ static int Wavegen(int length, int modulation, bool resume, frame_t *fr1, frame_
+ 		samplecount++;
+ 
+ 		if (wavephase > 0) {
+-			wavephase += phaseinc;
++			wavephase = (unsigned int)wavephase + phaseinc;
+ 			if (wavephase < 0) {
+ 				// sign has changed, reached a quiet point in the waveform
+ 				cbytes = wavemult_offset - (cycle_samples)/2;

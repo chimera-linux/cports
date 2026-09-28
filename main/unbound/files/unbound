@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/unbound -dp
+smooth-recovery = true
+before: network.target
+depends-on: pre-network.target

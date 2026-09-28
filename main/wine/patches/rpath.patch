@@ -1,0 +1,13 @@
+needed so the bins find libs from the wine libdir
+--
+diff -ruN a/configure.ac b/configure.ac
+--- a/configure.ac	2026-07-24 22:42:32.000000000 +0200
++++ b/configure.ac	2026-08-05 08:33:28.774220981 +0200
+@@ -1118,6 +1118,7 @@
+             ])
+             ;;
+         esac
++        WINE_TRY_CFLAGS([-Wl,-rpath,\\\$ORIGIN],[UNIXLDFLAGS="$UNIXLDFLAGS '-Wl,-rpath,\$\$ORIGIN'"])
+         ;;
+       *)
+         case $HOST_ARCH in

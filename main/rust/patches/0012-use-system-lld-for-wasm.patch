@@ -1,0 +1,27 @@
+From 26832684e2e21c2e5608525858c6e60612e34b10 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 4 Jan 2024 15:11:57 +0100
+Subject: [PATCH 12/16] use system lld for wasm
+
+---
+ compiler/rustc_target/src/spec/base/wasm.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/compiler/rustc_target/src/spec/base/wasm.rs b/compiler/rustc_target/src/spec/base/wasm.rs
+index 1596100e6..b6851c1fe 100644
+--- a/compiler/rustc_target/src/spec/base/wasm.rs
++++ b/compiler/rustc_target/src/spec/base/wasm.rs
+@@ -71,8 +71,8 @@ pub(crate) fn options() -> TargetOptions {
+         // threaded model which will legalize atomics to normal operations.
+         singlethread: true,
+ 
+-        // we use the LLD shipped with the Rust toolchain by default
+-        linker: Some("rust-lld".into()),
++        // we use the LLD shipped with the system by default
++        linker: Some("wasm-ld".into()),
+         linker_flavor: LinkerFlavor::WasmLld(Cc::No),
+ 
+         pre_link_args,
+-- 
+2.55.0
+

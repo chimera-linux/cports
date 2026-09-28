@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/lib/nftables-start /etc/nftables.conf
+stop-command = /usr/bin/nft flush ruleset
+before: pre-network.target
+depends-on: pre-local.target

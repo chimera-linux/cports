@@ -1,0 +1,15 @@
+diff --git a/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs b/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs
+index 14a94366..24509465 100644
+--- a/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs
++++ b/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs
+@@ -385,10 +385,6 @@ impl CcBuilder {
+             && !self.manifest_dir.to_string_lossy().contains(' ')
+         {
+             let path_str = self.manifest_dir.display().to_string();
+-            let asm_flag = format!("-Wa,--debug-prefix-map={path_str}=");
+-            if cc_build.is_flag_supported(&asm_flag).unwrap_or(false) {
+-                cc_build.asm_flag(asm_flag);
+-            }
+         }
+ 
+         cc_build

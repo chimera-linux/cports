@@ -1,0 +1,27 @@
+diff --git a/tests/functions b/tests/functions
+index bf6ed5a8..185533de 100644
+--- a/tests/functions
++++ b/tests/functions
+@@ -141,11 +141,11 @@ function run_cached {
+         [ -z "$RRDCACHED_SOCK" ] && RRDCACHED_SOCK="unix"
+ 
+         if [ $RRDCACHED_SOCK == "unix" ]; then
+-            export BASEDIR="${BUILDDIR}/cached"
++            export BASEDIR="$(readlink -f -- $BUILDDIR)/cached"
+             export BUILDDIR="${BASEDIR}"
+             ADDR="unix:$BASEDIR/$(basename $0)-rrdcached.sock"
+         else
+-            export BASEDIR="${BUILDDIR}/cached"
++            export BASEDIR="$(readlink -f -- $BUILDDIR)/cached"
+             export RRDCACHED_STRIPPATH="${BUILDDIR}"
+ 
+             function RRDTOOLCOMPAT() {
+@@ -216,7 +216,7 @@ HERE
+ 
+         CACHED_PID_FILE="$BASEDIR/$(basename $0)-rrdcached.pid"
+ 
+-        $CACHED -p "$CACHED_PID_FILE" -l "$ADDR" -b "$(readlink -f -- $BASEDIR)" -F -B
++        $CACHED -p "$CACHED_PID_FILE" -l "$ADDR" -b "$BASEDIR" -F -B
+ 
+         RRDCACHED_ADDRESS=$ADDR
+         export RRDCACHED_ADDRESS

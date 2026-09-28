@@ -1,0 +1,92 @@
+ Cargo.lock  | 21 ---------------------
+ Cargo.toml  |  3 ---
+ src/main.rs | 23 -----------------------
+ 3 files changed, 47 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 4e674b74e..133a18880 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -231,7 +231,6 @@ dependencies = [
+  "strsim",
+  "strum",
+  "terminal_size",
+- "tikv-jemallocator",
+  "tree-sitter",
+  "tree-sitter-ada",
+  "tree-sitter-asm",
+@@ -871,26 +870,6 @@ version = "0.4.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3369f5ac52d5eb6ab48c6b4ffdc8efbcad6b89c765749064ba298f2c68a16a76"
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.7.1+5.3.1-0-g81034ce1f1373e37dc865038e1bc8eeecf559ce8"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1a2825c78386b4ae0314074867860ba9577875de945f05992c38815cbec327f0"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.7.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "249f09e49ab1609436f34c776e84231bead18d6a955f119f939bdc1d847561bd"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "tree-sitter"
+ version = "0.26.10"
+diff --git a/Cargo.toml b/Cargo.toml
+index 8cdd62c22..07038ce4c 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -139,9 +139,6 @@ tree-sitter-zig = "1.1.2"
+ ts-parser-perl = "1.2.0"
+ 
+ 
+-[target.'cfg(not(any(windows, target_os = "illumos", target_os = "freebsd")))'.dependencies]
+-tikv-jemallocator = "0.7"
+-
+ [dev-dependencies]
+ assert_cmd = "2.0.17"
+ predicates = "3.1.3"
+diff --git a/src/main.rs b/src/main.rs
+index 4cb7258a3..49f62b43f 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -83,29 +83,6 @@ use crate::parse::guess_language::{
+ };
+ use crate::parse::syntax;
+ 
+-/// The global allocator used by difftastic.
+-///
+-/// Diffing allocates a large amount of memory, and both Jemalloc and
+-/// MiMalloc perform better than the system allocator.
+-///
+-/// Some versions of MiMalloc (specifically libmimalloc-sys greater
+-/// than 0.1.24) handle very large, mostly unused allocations
+-/// badly. This makes large line-oriented diffs very slow, as
+-/// discussed in #297.
+-///
+-/// MiMalloc is generally faster than Jemalloc, but older versions of
+-/// MiMalloc don't compile on GCC 15+, so use Jemalloc for now. See
+-/// #805.
+-///
+-/// For reference, Jemalloc uses 10-20% more time (although up to 33%
+-/// more instructions) when testing on sample files.
+-#[cfg(not(any(windows, target_os = "illumos", target_os = "freebsd")))]
+-use tikv_jemallocator::Jemalloc;
+-
+-#[cfg(not(any(windows, target_os = "illumos", target_os = "freebsd")))]
+-#[global_allocator]
+-static GLOBAL: Jemalloc = Jemalloc;
+-
+ use std::path::Path;
+ use std::{env, thread};
+ 

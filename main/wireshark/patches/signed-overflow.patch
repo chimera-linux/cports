@@ -1,0 +1,66 @@
+--- a/epan/wslua/wslua_int64.c
++++ b/epan/wslua/wslua_int64.c
+@@ -348,26 +348,26 @@ WSLUA_METAMETHOD Int64__unm(lua_State* L) {
+     WSLUA_RETURN(1); /* The new <<lua_class_Int64,`Int64`>>. */
+ }
+ 
+-#define WSLUA_MATH_OP_FUNC(obj,op) \
++#define WSLUA_MATH_OP_FUNC(obj,op,cast) \
+     /* use the 'get' form so we can accept numbers as well */ \
+     obj num1 = get##obj(L,1); \
+     obj num2 = get##obj(L,2); \
+-    push##obj(L,(num1) op (num2)); \
++    push##obj(L,(cast)(num1) op (cast)(num2)); \
+     return 1
+ 
+ WSLUA_METAMETHOD Int64__add(lua_State* L) {
+     /* Adds two <<lua_class_Int64,`Int64`>> together and returns a new one. The value may wrapped. */
+-    WSLUA_MATH_OP_FUNC(Int64,+);
++    WSLUA_MATH_OP_FUNC(Int64,+,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__sub(lua_State* L) {
+     /* Subtracts two <<lua_class_Int64,`Int64`>> and returns a new one. The value may wrapped. */
+-    WSLUA_MATH_OP_FUNC(Int64,-);
++    WSLUA_MATH_OP_FUNC(Int64,-,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__mul(lua_State* L) {
+     /* Multiplies two <<lua_class_Int64,`Int64`>> and returns a new one. The value may truncated. */
+-    WSLUA_MATH_OP_FUNC(Int64,*);
++    WSLUA_MATH_OP_FUNC(Int64,*,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__div(lua_State* L) {
+@@ -408,8 +408,8 @@ WSLUA_METAMETHOD Int64__pow(lua_State* L) {
+     }
+     else {
+         for (result = 1; num2 > 0; num2 >>= 1) {
+-            if (num2 & 1) result *= num1;
+-            num1 *= num1;
++            if (num2 & 1) result = (uint64_t)result * (uint64_t)num1;
++            num1 = (uint64_t)num1 * (uint64_t)num1;
+         }
+     }
+     pushInt64(L,result);
+@@ -845,17 +845,17 @@ WSLUA_METAMETHOD UInt64__unm(lua_State* L) {
+ 
+ WSLUA_METAMETHOD UInt64__add(lua_State* L) {
+     /* Adds two <<lua_class_UInt64,`UInt64`>> together and returns a new one. This may wrap the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,+);
++    WSLUA_MATH_OP_FUNC(UInt64,+,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__sub(lua_State* L) {
+     /* Subtracts two <<lua_class_UInt64,`UInt64`>> and returns a new one. This may wrap the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,-);
++    WSLUA_MATH_OP_FUNC(UInt64,-,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__mul(lua_State* L) {
+     /* Multiplies two <<lua_class_UInt64,`UInt64`>> and returns a new one. This may truncate the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,*);
++    WSLUA_MATH_OP_FUNC(UInt64,*,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__div(lua_State* L) {

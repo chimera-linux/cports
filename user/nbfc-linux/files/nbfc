@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/nbfc_service
+logfile = /var/log/nbfc.log
+logfile-permissions = 644
+depends-on: local.target

@@ -1,0 +1,35 @@
+From 5fde2bfd41561668b23598529c759b161ebae463 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 27 Nov 2021 22:42:00 +0100
+Subject: [PATCH] build crt and dlstart without LTO
+
+This fixes build and allows using the crt bits without Clang.
+---
+ Makefile | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index e8cc443..48f0d86 100644
+--- a/Makefile
++++ b/Makefile
+@@ -78,6 +78,8 @@ LDSO_PATHNAME = $(syslibdir)/ld-musl-$(ARCH)$(SUBARCH).so.1
+ -include config.mak
+ -include $(srcdir)/arch/$(ARCH)/arch.mak
+ 
++obj/ldso/dlstart.lo: CFLAGS_ALL += -fno-lto
++
+ ifeq ($(ARCH),)
+ 
+ all:
+@@ -127,7 +129,7 @@ NOSSP_OBJS = $(CRT_OBJS) $(LDSO_OBJS) $(filter \
+ 	, $(LIBC_OBJS))
+ $(NOSSP_OBJS) $(NOSSP_OBJS:%.o=%.lo): CFLAGS_ALL += $(CFLAGS_NOSSP)
+ 
+-$(CRT_OBJS): CFLAGS_ALL += -DCRT
++$(CRT_OBJS): CFLAGS_ALL += -DCRT -fno-lto
+ 
+ $(LOBJS) $(LDSO_OBJS): CFLAGS_ALL += -fPIC
+ 
+-- 
+2.34.0
+

@@ -1,0 +1,16 @@
+https://github.com/nmap/nmap/issues/3073
+
+diff --color -ruN nmap/libdnet-stripped/acconfig.h nmap-patched/libdnet-stripped/acconfig.h
+--- nmap/libdnet-stripped/acconfig.h	2025-03-31 19:30:47.000000000 +0000
++++ nmap-patched/libdnet-stripped/acconfig.h	2025-05-30 13:56:12.012101339 +0000
+@@ -19,10 +19,6 @@
+ int inet_pton(int, const char *, void *);
+ #endif
+ 
+-#ifndef HAVE_STRLCAT
+-int strlcat(char *, const char *, int);
+-#endif
+-
+ #ifndef HAVE_STRLCPY
+ int strlcpy(char *, const char *, int);
+ #endif

@@ -1,0 +1,26 @@
+From 4bb44c7b367fd9333f9052bffe19fdbf4faa3bcb Mon Sep 17 00:00:00 2001
+From: reuk <reuk@users.noreply.github.com>
+Date: Tue, 3 Jun 2025 11:57:06 +0100
+Subject: [PATCH] NetworkGraphicsDemo: Fix build issue due to missing
+ implementation of abstract function
+
+---
+ extras/NetworkGraphicsDemo/Source/SharedCanvas.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/extras/NetworkGraphicsDemo/Source/SharedCanvas.h b/extras/NetworkGraphicsDemo/Source/SharedCanvas.h
+index 1bc2b5a39580..51ec4d4ef3d0 100644
+--- a/extras/NetworkGraphicsDemo/Source/SharedCanvas.h
++++ b/extras/NetworkGraphicsDemo/Source/SharedCanvas.h
+@@ -429,6 +429,11 @@ class CanvasGeneratingContext final : public LowLevelGraphicsContext
+         }
+     }
+ 
++    std::unique_ptr<ImageType> getPreferredImageTypeForTemporaryImages() const override
++    {
++        return std::make_unique<NativeImageType>();
++    }
++
+ private:
+     //==============================================================================
+     struct SharedCanvasHolder final : public ReferenceCountedObject

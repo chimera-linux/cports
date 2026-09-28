@@ -1,0 +1,44 @@
+pkgname = "yazi"
+pkgver = "26.9.1"
+pkgrel = 0
+build_style = "cargo"
+make_build_args = ["--bins"]
+make_build_env = {"YAZI_GEN_COMPLETIONS": "true"}
+hostmakedepends = [
+    "cargo-auditable",
+    "pkgconf",
+]
+makedepends = ["oniguruma-devel", "rust-std"]
+pkgdesc = "Terminal file manager"
+license = "MIT"
+url = "https://yazi-rs.github.io"
+source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "66857f1b670469daf258edd0bb2ea51d9ad3e2cab4eea9684028c80059fd6862"
+# FIXME lintpixmaps
+options = ["!lintpixmaps"]
+
+if self.profile.wordsize == 32:
+    broken = "needs atomic64"
+
+
+def install(self):
+    from cbuild.util import cargo
+
+    for binary in ["yazi", "ya"]:
+        self.install_bin(cargo.target_path(self, binary))
+
+    with self.pushd("yazi-boot/completions"):
+        self.install_completion("yazi.bash", "bash")
+        self.install_completion("yazi.fish", "fish")
+        self.install_completion("_yazi", "zsh")
+        self.install_completion("yazi.nu", "nushell")
+
+    with self.pushd("yazi-cli/completions"):
+        self.install_completion("ya.bash", "bash", "ya")
+        self.install_completion("ya.fish", "fish", "ya")
+        self.install_completion("_ya", "zsh", "ya")
+        self.install_completion("ya.nu", "nushell", "ya")
+
+    self.install_file("assets/logo.png", "usr/share/pixmaps", name="yazi.png")
+    self.install_file("assets/yazi.desktop", "usr/share/applications")
+    self.install_license("LICENSE")

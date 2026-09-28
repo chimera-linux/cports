@@ -1,0 +1,33 @@
+/builddir/gnome-builder-46.2/src/libide/foundry/ide-run-command.c:119:17: error: declaration shadows a variable in the global scope [-Werror,-Wshadow]
+  119 |   g_auto(GStrv) environ = NULL;
+      |                 ^
+/usr/include/unistd.h:188:15: note: previous declaration is here
+  188 | extern char **environ;
+      |               ^
+/builddir/gnome-builder-46.2/src/libide/foundry/ide-run-command.c:552:50: error: declaration shadows a variable in the global scope [-Werror,-Wshadow]
+  552 |                              const char * const *environ)
+      |                                                  ^
+/usr/include/unistd.h:188:15: note: previous declaration is here
+  188 | extern char **environ;
+--
+/builddir/gnome-builder-46.2/src/libide/terminal/ide-terminal-palettes.h:54:21: error: array index 7 is past the end of the array (that has type 'char[7]') [-Werror,-Warray-bounds]
+   54 |           GDK_RGBA ("1e1e1e"),
+--
+--- a/meson.build
++++ b/meson.build
+@@ -164,7 +164,6 @@
+   '-Wcast-align',
+   '-Wdeclaration-after-statement',
+   '-Werror=address',
+-  '-Werror=array-bounds',
+   '-Werror=empty-body',
+   '-Werror=implicit',
+   '-Werror=implicit-function-declaration',
+@@ -184,7 +184,6 @@
+   '-Werror=redundant-decls',
+   '-Werror=return-type',
+   '-Werror=sequence-point',
+-  '-Werror=shadow',
+   '-Werror=trigraphs',
+   '-Werror=undef',
+   '-Werror=write-strings',

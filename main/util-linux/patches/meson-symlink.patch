@@ -1,0 +1,17 @@
+commit 1a306ccdaea7418bd427152da88027c5dc3c0b5b
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 30 04:10:06 2023 +0200
+
+    portable handling of symlinks
+
+diff --git a/tools/meson-make-symlink.sh b/tools/meson-make-symlink.sh
+index 061e81a..c831cec 100755
+--- a/tools/meson-make-symlink.sh
++++ b/tools/meson-make-symlink.sh
+@@ -8,5 +8,5 @@ mkdir -vp "$(dirname "${DESTDIR:-}$2")"
+ if [ "$(dirname $1)" = . ]; then
+     ln -fs -T "$1" "${DESTDIR:-}$2"
+ else
+-    ln -fs -T --relative "${DESTDIR:-}$1" "${DESTDIR:-}$2"
++    ln -fs -T -r "${DESTDIR:-}$1" "${DESTDIR:-}$2"
+ fi

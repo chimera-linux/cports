@@ -1,0 +1,19 @@
+this was accidentally dropped from https://salsa.debian.org/clint/fakeroot/-/commit/5810894237cf6301e66cfbf82ea2854915b9eb70
+
+diff --git a/libfakeroot_time64_entry.c b/libfakeroot_time64_entry.c
+index adbb57b..cee12fc 100644
+--- a/libfakeroot_time64_entry.c
++++ b/libfakeroot_time64_entry.c
+@@ -64,6 +64,7 @@
+     }
+   #endif
+ 
++  #ifdef STAT64_SUPPORT
+     #ifndef NO_WRAP_LSTAT64_SYMBOL
+     extern int WRAP_LSTAT64 LSTAT64_ARG (int ver, const char *file_name, void *st);
+ 
+@@ -97,3 +98,4 @@
+ 	 return WRAP_FSTATAT64 FSTATAT64_ARG(_STAT_VER, dir_fd, path, st, flags);
+       }
+     #endif
++  #endif

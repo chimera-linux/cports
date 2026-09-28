@@ -1,0 +1,118 @@
+The preauth stuff is still TODO. The API in heimdal seems to be pretty different
+for this and I have not yet figured out how to map it correctly.
+
+commit a1a51bf4dba1d05dad2367c3e7acee8fb08abead
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Aug 21 02:56:40 2024 +0200
+
+    port to heimdal
+
+diff --git a/src/goaidentity/goakerberosidentity.c b/src/goaidentity/goakerberosidentity.c
+index af12b4c..00daef7 100644
+--- a/src/goaidentity/goakerberosidentity.c
++++ b/src/goaidentity/goakerberosidentity.c
+@@ -316,7 +316,7 @@ get_identifier (GoaKerberosIdentity  *self,
+     }
+ 
+   identifier = g_strdup (unparsed_name);
+-  krb5_free_unparsed_name (self->kerberos_context, unparsed_name);
++  krb5_xfree (unparsed_name);
+ 
+ out:
+   krb5_free_principal (self->kerberos_context, principal);
+@@ -390,7 +390,7 @@ goa_kerberos_identity_get_principal_name (GoaKerberosIdentity *self)
+     }
+ 
+   principal_name = g_strdup (unparsed_name);
+-  krb5_free_unparsed_name (self->kerberos_context, unparsed_name);
++  krb5_xfree (unparsed_name);
+ 
+   return principal_name;
+ }
+@@ -400,7 +400,6 @@ goa_kerberos_identity_get_realm_name (GoaKerberosIdentity *self)
+ {
+   krb5_principal principal;
+   krb5_error_code error_code;
+-  krb5_data *realm;
+   char *realm_name;
+ 
+   if (self->identifier == NULL)
+@@ -416,8 +415,7 @@ goa_kerberos_identity_get_realm_name (GoaKerberosIdentity *self)
+       return NULL;
+     }
+ 
+-  realm = krb5_princ_realm (self->kerberos_context, principal);
+-  realm_name = g_strndup (realm->data, realm->length);
++  realm_name = g_strdup (krb5_principal_get_realm (self->kerberos_context, principal));
+   krb5_free_principal (self->kerberos_context, principal);
+ 
+   return realm_name;
+@@ -448,7 +446,7 @@ credentials_validate_existence (GoaKerberosIdentity *self,
+     return FALSE;
+ 
+   /* looking for the krbtgt / REALM pair, so it should be exactly 2 items */
+-  if (krb5_princ_size (self->kerberos_context, credentials->server) != 2)
++  if (krb5_principal_get_num_comp (self->kerberos_context, credentials->server) != 2)
+     return FALSE;
+ 
+   if (!krb5_realm_compare (self->kerberos_context, credentials->server, principal))
+@@ -457,16 +455,14 @@ credentials_validate_existence (GoaKerberosIdentity *self,
+       return FALSE;
+     }
+ 
+-  if (strncmp (credentials->server->data[0].data,
+-               KRB5_TGS_NAME, credentials->server->data[0].length) != 0)
++  if (!krb5_principal_is_krbtgt (self->kerberos_context, credentials->server))
+     {
+       /* credentials aren't for ticket granting */
+       return FALSE;
+     }
+ 
+-  if (credentials->server->data[1].length != principal->realm.length ||
+-      memcmp (credentials->server->data[1].data,
+-              principal->realm.data, principal->realm.length) != 0)
++  if (!strcmp (krb5_principal_get_comp_string (self->kerberos_context, credentials->server, 1),
++               krb5_principal_get_realm (self->kerberos_context, principal)))
+     {
+       /* credentials are for some other realm */
+       return FALSE;
+@@ -828,7 +824,7 @@ get_default_principal (GoaKerberosIdentity *self)
+     }
+ 
+   principal_name = g_strdup (unparsed_principal);
+-  krb5_free_unparsed_name (self->kerberos_context, unparsed_principal);
++  krb5_xfree (unparsed_principal);
+ 
+   krb5_cc_close (self->kerberos_context, default_cache);
+ 
+@@ -868,7 +864,7 @@ get_default_cache_name (GoaKerberosIdentity *self)
+       return NULL;
+     }
+ 
+-  krb5_free_unparsed_name (self->kerberos_context, principal_name);
++  krb5_xfree (principal_name);
+ 
+   default_cache_name = g_strdup (krb5_cc_get_name (self->kerberos_context, default_cache));
+   krb5_cc_close (self->kerberos_context, default_cache);
+@@ -1500,7 +1496,8 @@ goa_kerberos_identity_add_credentials_cache (GoaKerberosIdentity  *self,
+         g_debug ("GoaKerberosIdentity: Associating new identity with new credentials cache '%s'", cache_name);
+     }
+ 
+-  krb5_cc_dup (self->kerberos_context, credentials_cache, &copied_cache);
++  krb5_cc_new_unique (self->kerberos_context, NULL, NULL, &copied_cache);
++  krb5_cc_copy_cache (self->kerberos_context, credentials_cache, copied_cache);
+   g_hash_table_replace (self->credentials_caches, g_strdup (cache_name), copied_cache);
+ 
+   if (self->active_credentials_cache_name == NULL)
+@@ -1701,8 +1698,11 @@ goa_kerberos_identity_sign_in (GoaKerberosIdentity     *self,
+   if ((flags & GOA_IDENTITY_SIGN_IN_FLAGS_DISALLOW_RENEWAL) == 0)
+     krb5_get_init_creds_opt_set_renew_life (options, G_MAXINT);
+ 
++#if 0
++  /* not sure how to fix? */
+   if (preauth_source != NULL)
+     krb5_get_init_creds_opt_set_pa (self->kerberos_context, options, "X509_user_identity", preauth_source);
++#endif
+ 
+   /* Poke glibc in case the network changed
+    */

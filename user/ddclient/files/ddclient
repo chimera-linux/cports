@@ -1,0 +1,6 @@
+# ddclient service
+
+type = process
+command = /usr/bin/ddclient -foreground
+logfile = /var/log/ddclient.log
+depends-on: network.target

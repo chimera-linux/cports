@@ -1,0 +1,24 @@
+elogind's version of the command does not understand this flag, but its effect is the default anyway
+
+diff -ruN a/share/completions/loginctl.fish b/share/completions/loginctl.fish
+--- a/share/completions/loginctl.fish	2025-11-13 13:09:28.000000000 +0100
++++ b/share/completions/loginctl.fish	2025-12-08 10:01:34.716644104 +0100
+@@ -29,15 +29,15 @@
+ complete -c loginctl -f -n "not $seen $commands" -l version -d "Show package version"
+ 
+ function __fish_loginctl_list_sessions
+-    loginctl list-sessions --no-legend --no-pager --output=short | string replace -r '^\s*(\S+)\s+\d+\s+(\S+)\s+(\S+).*' '$1\t$2 at $3'
++    loginctl list-sessions --no-legend --no-pager | string replace -r '^\s*(\S+)\s+\d+\s+(\S+)\s+(\S+).*' '$1\t$2 at $3'
+ end
+ 
+ function __fish_loginctl_list_users
+-    loginctl list-users --no-legend --no-pager --output=short | string replace -r '(\d+) (\S+) .*' '$1\t$2'
++    loginctl list-users --no-legend --no-pager | string replace -r '(\d+) (\S+) .*' '$1\t$2'
+ end
+ 
+ function __fish_loginctl_list_seats
+-    loginctl list-seats --no-legend --no-pager --output=short
++    loginctl list-seats --no-legend --no-pager
+ end
+ 
+ complete -c loginctl -n "$seen session-status show-session activate lock-session unlock-session terminate-session kill-session" -a '(__fish_loginctl_list_sessions)'

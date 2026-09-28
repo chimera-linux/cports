@@ -1,0 +1,53 @@
+name: Lint tree and check format
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'main/**'
+      - 'user/**'
+      - 'src/**'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'main/**'
+      - 'user/**'
+      - 'src/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: 1
+
+jobs:
+  lint:
+    name: Lint tree and check format
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+
+      - name: Disable apparmor
+        run: |
+          sudo sysctl kernel.apparmor_restrict_unprivileged_unconfined=0
+          sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Install apt dependencies
+        run: |
+          sudo rm -f /var/lib/man-db/auto-update
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends python3-pip ca-certificates openssl git bubblewrap wget
+
+      - name: Install ruff
+        run: python3 -m pip install ruff --break-system-packages
+
+      - name: Set up cbuild configuration
+        run: sh .ci/setup-cbuild.sh
+
+      - name: Run checks and lints
+        run: sh .ci/lint.sh

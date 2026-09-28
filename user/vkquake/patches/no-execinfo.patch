@@ -1,0 +1,30 @@
+diff --git a/Quake/sys_sdl_unix.c b/Quake/sys_sdl_unix.c
+index bf360e6..a36b421 100644
+--- a/Quake/sys_sdl_unix.c
++++ b/Quake/sys_sdl_unix.c
+@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #include <sys/types.h>
+ #include <errno.h>
+ #include <unistd.h>
+-#include <execinfo.h>
+ #include <signal.h>
+ #ifdef PLATFORM_OSX
+ #include <libgen.h> /* dirname() and basename() */
+@@ -604,6 +603,7 @@ bool Sys_PinCurrentThread (int core_index)
+ 
+ const char *Sys_StackTrace (void)
+ {
++#if 0
+ #define MAX_STACK_FRAMES 24
+ 
+ 	char *output_buffer = NULL;
+@@ -635,6 +635,9 @@ const char *Sys_StackTrace (void)
+ 	return output_buffer;
+ 
+ #undef MAX_STACK_FRAMES
++#else
++	return q_strdup ("unsupported");
++#endif
+ }
+ 
+ bool Sys_IsInDebugger (void)

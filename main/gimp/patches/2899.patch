@@ -1,0 +1,61 @@
+From 0ac271887e84f21d641c0a4558bd65a4c16861c8 Mon Sep 17 00:00:00 2001
+From: Pranav P <pranav.p7@ibm.com>
+Date: Thu, 9 Jul 2026 18:41:39 +0530
+Subject: [PATCH] Issue #12522: Fixes build freeze in s390x
+
+In libgimpbase/gimpwire.c, _gimp_wire_write_gegl_color() was casting
+gsize* (64-bit) to guint32* (32-bit) before passing to
+_gimp_wire_write_int32(), which violates C strict aliasing rules
+causing undefined behavior. Additionally, this is inherently wrong on
+big-endian platforms like s390x where it reads the high-order 4 bytes
+(zeros) instead of the actual value. The undefined behavior caused a
+huge allocation followed by a huge read. That much of data was not
+there in the file associated and hence was waiting for the rest of the
+data. Fixed by creating temporary guint32 variables for proper value
+conversion.
+---
+ libgimpbase/gimpwire.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/libgimpbase/gimpwire.c b/libgimpbase/gimpwire.c
+index 02f060784f2..3c4b4b10999 100644
+--- a/libgimpbase/gimpwire.c
++++ b/libgimpbase/gimpwire.c
+@@ -716,24 +716,28 @@ _gimp_wire_write_gegl_color (GIOChannel  *channel,
+ 
+   for (i = 0; i < count; i++)
+     {
+-      const guint8 *pixel      = NULL;
+-      gsize         bpp        = 0;
+-      const guint8 *icc        = NULL;
+-      gsize         icc_length = 0;
++      const guint8 *pixel         = NULL;
++      gsize         bpp           = 0;
++      guint32       bpp_32        = 0;
++      const guint8 *icc           = NULL;
++      gsize         icc_length    = 0;
++      guint32       icc_length_32 = 0;
+ 
+       if (pixel_data[i])
+         pixel = g_bytes_get_data (pixel_data[i], &bpp);
+       if (icc_data[i])
+         icc = g_bytes_get_data (icc_data[i], &icc_length);
+ 
+-      if (! _gimp_wire_write_int32 (channel, (const guint32 *) &bpp, 1, user_data))
++      bpp_32 = (guint32) bpp;
++      if (! _gimp_wire_write_int32 (channel, &bpp_32, 1, user_data))
+         return FALSE;
+ 
+       if (bpp > 0 && ! _gimp_wire_write_int8 (channel, pixel, bpp, user_data))
+         return FALSE;
+ 
++      icc_length_32 = (guint32) icc_length;
+       if (! _gimp_wire_write_string (channel, &(encoding[i]), 1, user_data) ||
+-          ! _gimp_wire_write_int32 (channel, (const guint32 *) &icc_length, 1, user_data))
++          ! _gimp_wire_write_int32 (channel, &icc_length_32, 1, user_data))
+         return FALSE;
+ 
+       if (icc_length > 0 && ! _gimp_wire_write_int8 (channel, icc, icc_length, user_data))
+-- 
+GitLab
+

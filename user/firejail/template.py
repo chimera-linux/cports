@@ -1,0 +1,19 @@
+pkgname = "firejail"
+pkgver = "0.9.80"
+pkgrel = 0
+build_style = "gnu_configure"
+# does not regen cleanly
+configure_gen = []
+make_dir = "."
+make_check_target = "test"
+hostmakedepends = ["automake", "gawk"]
+makedepends = ["linux-headers"]
+checkdepends = ["bash"]
+pkgdesc = "SUID sandboxing tool"
+license = "GPL-2.0-only"
+url = "https://github.com/netblue30/firejail"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "1397bba6774a6361171c72464ddcdcfbc36d44fa413ecc9a1d56092f8da58825"
+file_modes = {"usr/bin/firejail": ("root", "root", 0o4755)}
+hardening = ["vis", "cfi"]
+options = ["etcfiles"]

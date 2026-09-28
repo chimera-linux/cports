@@ -1,0 +1,17 @@
+commit 572cd9ca843d4087693aa14f53426077af313994
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Jul 2 18:41:02 2026 +0200
+
+    we are not building from git, we use a release, patch for release
+
+diff --git a/testing/120/tagfile b/testing/120/tagfile
+index 09dacac..1377848 100644
+--- a/testing/120/tagfile
++++ b/testing/120/tagfile
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+-<tagfile doxygen_version="" doxygen_gitid="">
++<tagfile doxygen_version="1.17.0">
+   <compound kind="file">
+     <name>120_tagfile.cpp</name>
+     <path/>

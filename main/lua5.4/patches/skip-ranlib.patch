@@ -1,0 +1,23 @@
+diff --git a/src/Makefile b/src/Makefile
+index 81e6f64..0e0804e 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -11,7 +11,7 @@ CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS)
+ LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
+ LIBS= -lm $(SYSLIBS) $(MYLIBS)
+ 
+-AR= ar rcu
++AR= ar
+ RANLIB= ranlib
+ RM= rm -f
+ UNAME= uname
+@@ -58,8 +58,7 @@ o:	$(ALL_O)
+ a:	$(ALL_A)
+ 
+ $(LUA_A): $(BASE_O)
+-	$(AR) $@ $(BASE_O)
+-	$(RANLIB) $@
++	$(AR) rcs $@ $(BASE_O)
+ 
+ $(LUA_SO): $(BASE_O)
+ 	$(CC) -shared -ldl -Wl,-soname,$(LUA_SO).$(V) -o $@.$(R) $? -lm $(MYCFLAGS) $(MYLDFLAGS)

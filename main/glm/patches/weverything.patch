@@ -1,0 +1,33 @@
+commit 7ca3fead32f31e45f8cad81a2646e748623a9fc8
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Nov 15 22:04:24 2025 +0100
+
+    lol
+
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index c250a78..9cbb853 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -22,9 +22,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+ 	endif()
+ 
+ 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+-	if(NOT GLM_DISABLE_AUTO_DETECTION)
+-		add_compile_options(-Werror -Weverything)
+-	endif()
+ 
+ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+ 	if(NOT GLM_QUIET)
+@@ -32,12 +29,10 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+ 	endif()
+ 
+ 	if(NOT GLM_DISABLE_AUTO_DETECTION)
+-		add_compile_options(-Werror)
+ #		add_compile_options(-Wpedantic)
+ #		add_compile_options(-Wall)
+ #		add_compile_options(-Wextra)
+ 	endif()
+-	add_compile_options(-O2)
+ 	#add_compile_options(-Wno-long-long)
+ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+ 	if(NOT GLM_QUIET)

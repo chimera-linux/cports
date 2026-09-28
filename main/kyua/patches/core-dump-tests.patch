@@ -1,0 +1,14 @@
+fails in ci:
+20240712-001722 W 10759 ../utils/stacktrace.cpp:253: getrlimit returned 0 for RLIMIT_CORE rlim_max; cannot raise soft core limit
+diff --git a/utils/Kyuafile b/utils/Kyuafile
+index 042ad77..b529a3f 100644
+--- a/utils/Kyuafile
++++ b/utils/Kyuafile
+@@ -9,7 +9,6 @@ atf_test_program{name="memory_test"}
+ atf_test_program{name="optional_test"}
+ atf_test_program{name="passwd_test"}
+ atf_test_program{name="sanity_test"}
+-atf_test_program{name="stacktrace_test"}
+ atf_test_program{name="stream_test"}
+ atf_test_program{name="units_test"}
+ 

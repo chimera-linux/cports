@@ -1,0 +1,30 @@
+we don't run the tests, and they make up a hundred lto'd bins
+halve the build time by just skipping them
+--
+--- a/meson.build
++++ b/meson.build
+@@ -3902,10 +3902,6 @@
+ subdir('bsd-user')
+ subdir('linux-user')
+ 
+-# needed for fuzzing binaries
+-subdir('tests/qtest/libqos')
+-subdir('tests/qtest/fuzz')
+-
+ ##############################################
+ # Internal static_libraries and dependencies #
+ ##############################################
+@@ -4605,12 +4601,6 @@
+ subdir('tools')
+ subdir('pc-bios')
+ subdir('docs')
+-subdir('pyvenv')
+-# Tests are disabled on emscripten because they rely on host features that aren't
+-# supported by emscripten (e.g. fork and unix socket).
+-if host_os != 'emscripten'
+-  subdir('tests')
+-endif
+ if gtk.found()
+   subdir('po')
+ endif
+

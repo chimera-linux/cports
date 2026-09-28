@@ -1,0 +1,19 @@
+commit 77035a30511f9dac9e9312381aeadf365d4fc06a
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 30 13:30:42 2023 +0200
+
+    libparted-fs-resize: require libuuid
+
+diff --git a/libparted/fs/Makefile.in b/libparted/fs/Makefile.in
+index 3b552b8..ee8c8fd 100644
+--- a/libparted/fs/Makefile.in
++++ b/libparted/fs/Makefile.in
+@@ -249,7 +249,7 @@ AM_V_lt = $(am__v_lt_@AM_V@)
+ am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+ am__v_lt_0 = --silent
+ am__v_lt_1 = 
+-libparted_fs_resize_la_LIBADD =
++libparted_fs_resize_la_LIBADD = $(UUID_LIBS)
+ am_libparted_fs_resize_la_OBJECTS = r/filesys.lo r/fat/bootsector.lo \
+ 	r/fat/calc.lo r/fat/clstdup.lo r/fat/context.lo r/fat/count.lo \
+ 	r/fat/fat.lo r/fat/fatio.lo r/fat/resize.lo r/fat/table.lo \

@@ -1,0 +1,49 @@
+diff --git a/src/file/file.h b/src/file/file.h
+index 7410d9e..24615ce 100644
+--- a/src/file/file.h
++++ b/src/file/file.h
+@@ -38,27 +38,27 @@
+  * file access
+  */
+ 
+-static inline void file_close(AACS_FILE_H *fp)
++__attribute__((no_sanitize("cfi-icall"))) static inline void file_close(AACS_FILE_H *fp)
+ {
+     fp->close(fp);
+ }
+ 
+-static inline int64_t file_tell(AACS_FILE_H *fp)
++__attribute__((no_sanitize("cfi-icall"))) static inline int64_t file_tell(AACS_FILE_H *fp)
+ {
+     return fp->tell(fp);
+ }
+ 
+-static inline BD_USED int64_t file_seek(AACS_FILE_H *fp, int64_t offset, int32_t origin)
++__attribute__((no_sanitize("cfi-icall"))) static inline BD_USED int64_t file_seek(AACS_FILE_H *fp, int64_t offset, int32_t origin)
+ {
+     return fp->seek(fp, offset, origin);
+ }
+ 
+-static inline int64_t file_read(AACS_FILE_H *fp, void *buf, int64_t size)
++__attribute__((no_sanitize("cfi-icall"))) static inline int64_t file_read(AACS_FILE_H *fp, void *buf, int64_t size)
+ {
+     return fp->read(fp, buf, size);
+ }
+ 
+-static inline int64_t file_write(AACS_FILE_H *fp, const void *buf, int64_t size)
++__attribute__((no_sanitize("cfi-icall"))) static inline int64_t file_write(AACS_FILE_H *fp, const void *buf, int64_t size)
+ {
+     return fp->write ? fp->write(fp, buf, size) : 0;
+ }
+diff --git a/src/libaacs/aacs.c b/src/libaacs/aacs.c
+index 61d21ac..4374ae7 100644
+--- a/src/libaacs/aacs.c
++++ b/src/libaacs/aacs.c
+@@ -429,6 +429,7 @@ static int _calc_mk_dks(MKB *mkb, dk_list *dkl, uint8_t *mk)
+  * file access utils
+  */
+ 
++__attribute__((no_sanitize("cfi-icall")))
+ static AACS_FILE_H *_file_open(AACS *aacs, const char *file)
+ {
+     AACS_FILE_H *fp;

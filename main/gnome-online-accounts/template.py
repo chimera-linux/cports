@@ -1,0 +1,46 @@
+pkgname = "gnome-online-accounts"
+pkgver = "3.58.1"
+pkgrel = 0
+build_style = "meson"
+configure_args = [
+    "-Ddocumentation=false",
+    "-Dintrospection=true",
+    "-Dvapi=true",
+    "-Dman=true",
+    "-Dkerberos=true",
+]
+hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext-devel",
+    "glib-devel",
+    "gobject-introspection",
+    "libxslt-progs",
+    "meson",
+    "pkgconf",
+    "vala",
+]
+makedepends = [
+    "dbus-devel",
+    "gcr-devel",
+    "glib-devel",
+    "gtk4-devel",
+    "heimdal-devel",
+    "json-glib-devel",
+    "keyutils-devel",
+    "libadwaita-devel",
+    "librest-devel",
+    "libsecret-devel",
+    "libsoup-devel",
+    "libxml2-devel",
+]
+pkgdesc = "GNOME service to access online accounts"
+license = "LGPL-2.0-or-later"
+url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
+source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
+sha256 = "9ec1900cc51409c2067c07c828c10be06fe3bf68d2999bb72d7d5ed325ed9bbc"
+options = ["!cross"]
+
+
+@subpackage("gnome-online-accounts-devel")
+def _(self):
+    return self.default_devel()

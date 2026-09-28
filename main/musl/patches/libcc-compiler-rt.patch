@@ -1,0 +1,30 @@
+From 700ddf89376c23aa2a8c156950d45242e92dba29 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 17 Jul 2021 00:15:23 +0200
+Subject: [PATCH] force compiler-rt libcc without testing
+
+---
+ configure | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/configure b/configure
+index a5231a0..4f6a113 100755
+--- a/configure
++++ b/configure
+@@ -592,12 +592,7 @@ tryldflag LDFLAGS_AUTO -Wl,--exclude-libs=ALL
+ tryldflag LDFLAGS_AUTO -Wl,--dynamic-list="$srcdir/dynamic.list"
+ 
+ # Find compiler runtime library
+-test -z "$LIBCC" && tryldflag LIBCC -lgcc && tryldflag LIBCC -lgcc_eh
+-test -z "$LIBCC" && tryldflag LIBCC -lcompiler_rt
+-test -z "$LIBCC" && try_libcc=`$CC -print-libgcc-file-name 2>/dev/null` \
+-                 && tryldflag LIBCC "$try_libcc"
+-test -z "$LIBCC" && try_libcc=`$CC -print-file-name=libpcc.a 2>/dev/null` \
+-                 && tryldflag LIBCC "$try_libcc"
++test -z "$LIBCC" && LIBCC=`$CC -print-libgcc-file-name 2>/dev/null`
+ printf "using compiler runtime libraries: %s\n" "$LIBCC"
+ 
+ # Figure out arch variants for archs with variants
+-- 
+2.32.0
+

@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -34,7 +34,7 @@
+ optimization = get_option('optimization')
+ 
+ clapper_libdir = join_paths(prefix, libdir, clapper_api_name)
+-build_optimized = optimization in ['2', '3', 's']
++build_optimized = true
+ 
+ gst_dep = dependency('gstreamer-1.0',
+   version: gst_req,

@@ -1,0 +1,10 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -180,7 +180,6 @@
+ 
+ [tool.pytest.ini_options]
+ testpaths = ["test"]
+-addopts = "--cov-report html --cov-report term --junitxml=pytest.xml --cov pylsp --cov test"
+ 
+ [tool.coverage.run]
+ concurrency = ["multiprocessing", "thread"]

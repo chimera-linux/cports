@@ -1,0 +1,17 @@
+diff --git a/inc/private.h b/inc/private.h
+index d9bed03..f0e11b4 100644
+--- a/inc/private.h
++++ b/inc/private.h
+@@ -14,10 +14,10 @@
+ #endif
+ 
+ typedef short			word;		/* 16 bit signed int	*/
+-typedef long			longword;	/* 32 bit signed int	*/
++typedef int			longword;	/* 32 bit signed int	*/
+ 
+ typedef unsigned short		uword;		/* unsigned word	*/
+-typedef unsigned long		ulongword;	/* unsigned longword	*/
++typedef unsigned int		ulongword;	/* unsigned longword	*/
+ 
+ struct gsm_state {
+ 

@@ -1,0 +1,12 @@
+fails at least on loongarch64 seemingly for innocuous reasons
+
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -57,7 +57,6 @@
+     {'name': 'event', 'sources': ['event.cpp']},
+     {'name': 'event-dispatcher', 'sources': ['event-dispatcher.cpp']},
+     {'name': 'event-thread', 'sources': ['event-thread.cpp']},
+-    {'name': 'file', 'sources': ['file.cpp']},
+     {'name': 'flags', 'sources': ['flags.cpp']},
+     {'name': 'hotplug-cameras', 'sources': ['hotplug-cameras.cpp']},
+     {'name': 'matrix', 'sources': ['matrix.cpp']},

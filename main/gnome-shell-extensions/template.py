@@ -1,0 +1,11 @@
+pkgname = "gnome-shell-extensions"
+pkgver = "51.0"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
+depends = [f"gnome-shell~{pkgver[:-2]}", "nautilus", "gnome-menus"]
+pkgdesc = "Optional extensions for GNOME shell"
+license = "GPL-2.0-or-later"
+url = "https://wiki.gnome.org/Projects/GnomeShell/Extensions"
+source = f"$(GNOME_SITE)/gnome-shell-extensions/{pkgver[:-2]}/gnome-shell-extensions-{pkgver}.tar.xz"
+sha256 = "3c078d7b88faee3d0f68adcee1392b1bed84731b91a337ec894cc88aa8a8b813"

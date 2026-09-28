@@ -1,0 +1,75 @@
+diff --git a/src/runtime/ppc-linux-os.c b/src/runtime/ppc-linux-os.c
+index 90a4eef..29b85e1 100644
+--- a/src/runtime/ppc-linux-os.c
++++ b/src/runtime/ppc-linux-os.c
+@@ -58,6 +58,8 @@ int arch_os_thread_cleanup(struct thread *thread) {
+     return 1;                   /* success */
+ }
+ 
++#ifdef __powerpc64__
++
+ os_context_register_t   *
+ os_context_register_addr(os_context_t *context, int offset)
+ {
+@@ -82,6 +84,34 @@ os_context_cr_addr(os_context_t *context)
+     return &context->uc_mcontext.regs->ccr;
+ }
+ 
++#else
++
++os_context_register_t   *
++os_context_register_addr(os_context_t *context, int offset)
++{
++    return &((struct pt_regs *)context->uc_regs)->gpr[offset];
++}
++
++os_context_register_t *
++os_context_lr_addr(os_context_t *context)
++{
++    return &((struct pt_regs *)context->uc_regs)->link;
++}
++
++os_context_register_t *
++os_context_ctr_addr(os_context_t *context)
++{
++    return &((struct pt_regs *)context->uc_regs)->ctr;
++}
++
++os_context_register_t *
++os_context_cr_addr(os_context_t *context)
++{
++    return &((struct pt_regs *)context->uc_regs)->ccr;
++}
++
++#endif
++
+ sigset_t *
+ os_context_sigmask_addr(os_context_t *context)
+ {
+@@ -91,7 +121,11 @@ os_context_sigmask_addr(os_context_t *context)
+ unsigned long
+ os_context_fp_control(os_context_t *context)
+ {
++#ifdef __powerpc64__
+     return ((unsigned long*)context->uc_mcontext.regs)[PT_FPSCR];
++#else
++    return ((unsigned long*)context->uc_regs)[PT_FPSCR];
++#endif
+ }
+ 
+ void
+diff --git a/src/runtime/ppc-linux-os.h b/src/runtime/ppc-linux-os.h
+index cf3a482..d68a670 100644
+--- a/src/runtime/ppc-linux-os.h
++++ b/src/runtime/ppc-linux-os.h
+@@ -10,6 +10,10 @@ unsigned long os_context_fp_control(os_context_t *context);
+ #define RESTORE_FP_CONTROL_FROM_CONTEXT
+ void os_restore_fp_control(os_context_t *context);
+ 
++#ifdef __powerpc64__
+ #define OS_CONTEXT_PC(context) (context->uc_mcontext.regs)->nip
++#else
++#define OS_CONTEXT_PC(context) ((struct pt_regs *)context->uc_regs)->nip
++#endif
+ 
+ #endif /* _PPC_LINUX_OS_H */

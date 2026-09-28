@@ -1,0 +1,13 @@
+silence 'WARNING: U+FEF8: truncating width' spam
+--
+--- a/Fonts/bdf2psf
++++ b/Fonts/bdf2psf
+@@ -191,7 +191,7 @@
+ ########### FUNCTIONS ###############################################
+ 
+ sub warning {
+-    print STDERR  "WARNING: @_";
++    #print STDERR  "WARNING: @_";
+     print LOG  "WARNING: @_" if ("$log");
+ }
+ 

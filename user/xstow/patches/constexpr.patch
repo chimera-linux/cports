@@ -1,0 +1,23 @@
+-5000 is not representable within the enum
+ranges so that makes the cast not a constant
+expression which breaks the build
+
+--- a/src/cpputils/cpputilsshared/range.h
++++ b/src/cpputils/cpputilsshared/range.h
+@@ -8,6 +8,8 @@
+ 
+ #include <exception>
+ 
++#define INVALID__ static_cast<ETYPE>(-5000)
++
+ namespace Tools {
+ 
+   template<class EClass> class CopyNone
+@@ -35,7 +37,6 @@ public:
+ 
+     typedef typename EClass::ETYPE ETYPE;       
+ 
+-    static const ETYPE INVALID__ = static_cast<ETYPE>(-5000);
+     ETYPE value;
+ 
+     EnumRange( ETYPE value_ ) 

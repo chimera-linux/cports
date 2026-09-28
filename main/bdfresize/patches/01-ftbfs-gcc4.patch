@@ -1,0 +1,14 @@
+Description: Fix FTBFS with gcc 4.0
+Origin: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=258509#5
+Bug-Debian: http://bugs.debian.org/258509
+
+--- a/charresize.c
++++ b/charresize.c
+@@ -46,7 +46,6 @@ static int	bit[8] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
+ void
+ processChar(void)
+ {
+-  char	*malloc();
+   char	*srcimage;
+   int	*dstgray;
+ 

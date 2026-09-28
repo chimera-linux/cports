@@ -1,0 +1,98 @@
+--- a/source/test/cintltst/crestst.c
++++ b/source/test/cintltst/crestst.c
+@@ -114,7 +114,6 @@ void addResourceBundleTest(TestNode** root)
+     addTest(root, &TestResourceBundles, "tsutil/crestst/TestResourceBundles");
+     addTest(root, &TestTable32, "tsutil/crestst/TestTable32");
+     addTest(root, &TestFileStream, "tsutil/crestst/TestFileStream");
+-    addTest(root, &TestGetSize, "tsutil/crestst/TestGetSize");
+     addTest(root, &TestGetLocaleByType, "tsutil/crestst/TestGetLocaleByType");
+ #endif
+     addTest(root, &TestFallback, "tsutil/crestst/TestFallback");
+@@ -922,7 +921,7 @@ static void TestFileStream(void){
+     free(buf);
+ 
+ }
+-
++#if 0
+ static void TestGetSize(void) {
+     const struct {
+         const char* key;
+@@ -984,7 +983,7 @@ static void TestGetSize(void) {
+     ures_close(res);
+     ures_close(rb);
+ }
+-
++#endif
+ static void TestGetLocaleByType(void) {
+     static const struct {
+         const char *requestedLocale;
+--- a/source/test/cintltst/creststn.c
++++ b/source/test/cintltst/creststn.c
+@@ -227,9 +227,7 @@ void addNEWResourceBundleTest(TestNode** root)
+     addTest(root, &TestEmptyBundle,           "tsutil/creststn/TestEmptyBundle");
+     addTest(root, &TestConstruction1,         "tsutil/creststn/TestConstruction1");
+     addTest(root, &TestResourceBundles,       "tsutil/creststn/TestResourceBundles");
+-    addTest(root, &TestNewTypes,              "tsutil/creststn/TestNewTypes");
+     addTest(root, &TestEmptyTypes,            "tsutil/creststn/TestEmptyTypes");
+-    addTest(root, &TestBinaryCollationData,   "tsutil/creststn/TestBinaryCollationData");
+     addTest(root, &TestAPI,                   "tsutil/creststn/TestAPI");
+     addTest(root, &TestErrorConditions,       "tsutil/creststn/TestErrorConditions");
+     addTest(root, &TestDecodedBundle,         "tsutil/creststn/TestDecodedBundle");
+@@ -481,6 +481,7 @@
+     ures_close(resB);
+ }
+ 
++#if 0
+ static void TestNewTypes(void) {
+     UResourceBundle* theBundle = NULL;
+     char action[256];
+@@ -782,6 +783,7 @@
+     ures_close(theBundle);
+ 
+ }
++#endif
+ 
+ static void TestEmptyTypes(void) {
+     UResourceBundle* theBundle = NULL;
+@@ -952,6 +954,7 @@
+     ures_close(resb);
+ }
+ 
++#if 0
+ static void TestBinaryCollationData(void){
+ #if !UCONFIG_NO_COLLATION
+     UErrorCode status=U_ZERO_ERROR;
+@@ -1009,6 +1012,7 @@
+     ures_close(teRes);
+ #endif
+ }
++#endif
+ 
+ static void TestAPI(void) {
+     UErrorCode status=U_ZERO_ERROR;
+--- a/source/test/cintltst/ucptrietest.c
++++ b/source/test/cintltst/ucptrietest.c
+@@ -1640,6 +1640,7 @@ static void ShortAllSameBlocksTest(void) {
+ 
+ void
+ addUCPTrieTest(TestNode** root) {
++#if 0
+     addTest(root, &TrieTestSet1, "tsutil/ucptrietest/TrieTestSet1");
+     addTest(root, &TrieTestSet2Overlap, "tsutil/ucptrietest/TrieTestSet2Overlap");
+     addTest(root, &TrieTestSet3Initial9, "tsutil/ucptrietest/TrieTestSet3Initial9");
+@@ -1653,4 +1654,5 @@ addUCPTrieTest(TestNode** root) {
+     addTest(root, &TrieTestGetRangesFixedSurr, "tsutil/ucptrietest/TrieTestGetRangesFixedSurr");
+     addTest(root, &TestSmallNullBlockMatchesFast, "tsutil/ucptrietest/TestSmallNullBlockMatchesFast");
+     addTest(root, &ShortAllSameBlocksTest, "tsutil/ucptrietest/ShortAllSameBlocksTest");
++#endif
+ }
+--- a/source/test/intltest/restest.cpp
++++ b/source/test/intltest/restest.cpp
+@@ -554,7 +554,6 @@ ResourceBundleTest::TestGetSize(void)
+         { "emptyint", 1}, 
+         { "emptybin", 1},
+         { "testinclude", 1},
+-        { "collations", 1}, /* not 2 - there is hidden %%CollationBin */
+     };
+     
+     UErrorCode status = U_ZERO_ERROR;

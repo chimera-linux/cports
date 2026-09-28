@@ -1,0 +1,75 @@
+these tests require a postgresql installation
+
+diff -ruN a/hscontrol/db/db_test.go b/hscontrol/db/db_test.go
+--- a/hscontrol/db/db_test.go	2026-07-01 16:47:39.000000000 +0200
++++ b/hscontrol/db/db_test.go	2026-07-23 09:05:24.690394660 +0200
+@@ -4,7 +4,6 @@
+ 	"context"
+ 	"database/sql"
+ 	"os"
+-	"os/exec"
+ 	"path/filepath"
+ 	"strings"
+ 	"testing"
+@@ -430,10 +429,6 @@
+ 	}
+ 
+ 	for _, tt := range tests {
+-		t.Run(tt.name+"-postgres", func(t *testing.T) {
+-			db := newPostgresTestDB(t)
+-			tt.run(t, db.DB.Debug())
+-		})
+ 		t.Run(tt.name+"-sqlite", func(t *testing.T) {
+ 			db, err := newSQLiteTestDB()
+ 			if err != nil {
+@@ -441,50 +436,6 @@
+ 			}
+ 
+ 			tt.run(t, db.DB.Debug())
+-		})
+-	}
+-}
+-
+-// TestPostgresMigrationAndDataValidation tests specific PostgreSQL migration scenarios
+-// and validates data integrity after migration. All migrations that require data validation
+-// should be added here.
+-//
+-// TODO(kradalby): Convert to use plain text SQL dumps instead of binary .pssql dumps for consistency
+-// with SQLite tests and easier version control.
+-func TestPostgresMigrationAndDataValidation(t *testing.T) {
+-	tests := []struct {
+-		name     string
+-		dbPath   string
+-		wantFunc func(*testing.T, *HSDatabase)
+-	}{}
+-
+-	for _, tt := range tests {
+-		t.Run(tt.name, func(t *testing.T) {
+-			u := newPostgresDBForTest(t)
+-
+-			pgRestorePath, err := exec.LookPath("pg_restore")
+-			if err != nil {
+-				t.Fatal("pg_restore not found in PATH. Please install it and ensure it is accessible.")
+-			}
+-
+-			// Construct the pg_restore command
+-			cmd := exec.CommandContext(context.Background(), pgRestorePath, "--verbose", "--if-exists", "--clean", "--no-owner", "--dbname", u.String(), tt.dbPath)
+-
+-			// Set the output streams
+-			cmd.Stdout = os.Stdout
+-			cmd.Stderr = os.Stderr
+-
+-			// Execute the command
+-			err = cmd.Run()
+-			if err != nil {
+-				t.Fatalf("failed to restore postgres database: %s", err)
+-			}
+-
+-			db := newHeadscaleDBFromPostgresURL(t, u)
+-
+-			if tt.wantFunc != nil {
+-				tt.wantFunc(t, db)
+-			}
+ 		})
+ 	}
+ }

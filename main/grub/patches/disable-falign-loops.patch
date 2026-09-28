@@ -1,0 +1,13 @@
+disable falign-loops which is not supported on clang
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -801,7 +801,7 @@ if test "x$target_cpu" = xi386; then
+   AC_CACHE_CHECK([whether -falign-loops works], [grub_cv_cc_falign_loop], [
+     CFLAGS="$TARGET_CFLAGS -falign-loops=1 -Werror"
+     AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
+-        [grub_cv_cc_falign_loop=yes],
++        [grub_cv_cc_falign_loop=no],
+ 	[grub_cv_cc_falign_loop=no])
+   ])
+ 

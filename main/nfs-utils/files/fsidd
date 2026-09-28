@@ -1,0 +1,5 @@
+# fsidd service
+
+type = process
+command = /usr/bin/fsidd
+depends-on = early-fs-local.target

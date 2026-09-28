@@ -1,0 +1,46 @@
+From 4e834ebd5d2e4f556629062b4c01ec2775c1f805 Mon Sep 17 00:00:00 2001
+From: Johann Rudloff <johann@sinyax.net>
+Date: Sat, 30 Jul 2022 16:41:06 +0200
+Subject: [PATCH] Check for file write errors when dumping partitions
+
+---
+ main.cpp | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/main.cpp b/main.cpp
+index 31938a6..f6908d2 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -2479,7 +2479,12 @@ bool read_lba(
+ 			iTotalRead += iRead;
+ 
+ 			if (szFile) {
+-				fwrite(pBuf, 1, iRead * nSectorSize, file);
++				size_t written = fwrite(pBuf, 1, iRead * nSectorSize, file);
++				if (written != iRead * nSectorSize) {
++					fprintf(stderr, "Read LBA failed, err=%d, couldn't write to file: %s\n",
++							errno, szFile);
++					goto Exit_ReadLBA;
++				}
+ 				if (bFirst) {
+ 					if (iTotalRead >= 1024)
+ 						fprintf(stderr, "Read LBA to file (%d%%)\n",
+@@ -2515,8 +2520,13 @@ Exit_ReadLBA:
+ 		delete pComm;
+ 		pComm = nullptr;
+ 	}
+-	if (file)
+-		fclose(file);
++	if (file) {
++		if (fclose(file)) {
++			fprintf(stderr, "Read LBA failed, err=%d, couldn't close file: %s\n",
++					errno, szFile);
++			bSuccess = false;
++		}
++	}
+ 	return bSuccess;
+ }
+ 
+-- 
+GitLab
+

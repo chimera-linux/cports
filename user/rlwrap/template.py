@@ -1,0 +1,12 @@
+pkgname = "rlwrap"
+pkgver = "0.48"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = []
+hostmakedepends = ["autoconf", "automake"]
+makedepends = ["libptytty-devel", "ncurses-devel", "readline-devel"]
+pkgdesc = "Readline wrapper around commands"
+license = "GPL-2.0-or-later"
+url = "https://github.com/hanslub42/rlwrap"
+source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "cdf69074a216a8284574dddd145dd046c904ad5330a616e0eed53c9043f2ecbc"

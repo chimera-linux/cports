@@ -1,0 +1,25 @@
+diff --git a/dpi/fileutil.c b/dpi/fileutil.c
+index ccc32ea17..c99ec6954 100644
+--- a/dpi/fileutil.c
++++ b/dpi/fileutil.c
+@@ -18,6 +18,7 @@
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <sys/time.h>
++#include <time.h>
+ #include <fcntl.h>
+ 
+ #include "../dpip/dpip.h"
+diff --git a/lout/misc.hh b/lout/misc.hh
+index 80f227f..bab48b8 100644
+--- a/lout/misc.hh
++++ b/lout/misc.hh
+@@ -310,7 +310,7 @@ public:
+ template <class T> class NotSoSimpleVector
+ {
+ private:
+-   T *arrayMain, *arrayExtra1, *arrayExtra2;
++   T *arrayMain, *arrayExtra, *arrayExtra1, *arrayExtra2; 
+    int numMain, numExtra, numAllocMain, numAllocExtra, startExtra;
+ 
+    inline void resizeMain ()

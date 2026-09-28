@@ -1,0 +1,13 @@
+diff --git a/src/icecursor.cc b/src/icecursor.cc
+index 3a7a38ed..6fa26929 100644
+--- a/src/icecursor.cc
++++ b/src/icecursor.cc
+@@ -15,6 +15,8 @@
+ #error "Require Imlib2 or GdkPixbuf"
+ #endif
+ 
++const char *ApplicationName = "icecursor";
++
+ #if CONFIG_IMLIB2
+ static XcursorImage* load(const char* input_image) {
+     // Initialize Imlib2

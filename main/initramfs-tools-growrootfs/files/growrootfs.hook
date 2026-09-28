@@ -1,0 +1,32 @@
+#!/bin/sh
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+root_fstype=$(awk '{if ($2 == "/") print $3}' /etc/fstab)
+
+# no fstab? best-effort fallback
+if [ -z "$root_fstype" ]; then
+    root_fstype=$(findmnt -no fstype /)
+fi
+
+case "$root_fstype" in
+    ext*)
+        if [ -x /usr/bin/resize2fs ]; then
+            copy_exec /usr/bin/resize2fs /usr/bin
+        fi
+        ;;
+    f2fs)
+        if [ -x /usr/bin/resize.f2fs ]; then
+            copy_exec /usr/bin/resize.f2fs /usr/bin
+        fi
+        ;;
+    btrfs)
+        if [ -x /usr/bin/btrfs ]; then
+            copy_exec /usr/bin/btrfs /usr/bin
+        fi
+        ;;
+esac
+
+exit 0

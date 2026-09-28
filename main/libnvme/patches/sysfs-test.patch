@@ -1,0 +1,11 @@
+can't run this in build chroot
+--
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -108,6 +108,4 @@
+ subdir('nbft')
+ 
+ if json_c_dep.found()
+-    subdir('sysfs')
+-    subdir('config')
+ endif

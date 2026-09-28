@@ -1,0 +1,39 @@
+We don't want custom flags passed here, as e.g. LTO
+will result in generation of bitcode, which will make
+both readelf and objdump fail.
+
+--- a/cnf/configure_type.sh
++++ b/cnf/configure_type.sh
+@@ -32,11 +32,14 @@ checksize() {
+ 	try_includes $3
+ 	try_add "$2 foo;"
+ 
++	local saveoldflags="$ccflags"
++	ccflags=""
+ 	if not try_compile; then
+ 		define $1 'undef'
+ 		result 'missing'
+ 		return
+ 	fi
++	ccflags="$saveoldflags"
+ 
+ 	if not try_readelf --syms > try.out 2>>$cfglog; then
+ 		result 'unknown'
+--- a/cnf/configure_type_sel.sh
++++ b/cnf/configure_type_sel.sh
+@@ -113,12 +113,15 @@ if not hinted 'byteorder'; then
+ 		die "Cannot check byte order without known uvsize"
+ 	fi
+ 
++	saveoldflags="$ccflags"
++	ccflags=""
+ 	# Most targets use .data but PowerPC has .sdata instead
+ 	if try_compile && try_objdump -j .data -j .sdata -s; then
+ 		bo=`grep '11' try.out | grep '44' | sed -e 's/  .*//' -e 's/[^1-8]//g' -e 's/\([1-8]\)\1/\1/g'`
+ 	else
+ 		bo=''
+ 	fi
++	ccflags="$saveoldflags"
+ 
+ 	if [ -n "$bo" ]; then
+ 		define byteorder "$bo"

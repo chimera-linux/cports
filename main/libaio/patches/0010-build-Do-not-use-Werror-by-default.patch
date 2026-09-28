@@ -1,0 +1,25 @@
+From 4246fcf2c0c1c6518a5689c8a0ee2662f67c4030 Mon Sep 17 00:00:00 2001
+From: Guillem Jover <guillem@hadrons.org>
+Date: Sun, 12 Apr 2020 04:00:03 +0200
+Subject: [PATCH libaio 10/11] build: Do not use -Werror by default
+
+Using -Werror on a released project is in general not a good idea, as
+changes in the toolchain and environment can trigger unexpected build
+failures.
+
+Signed-off-by: Guillem Jover <guillem@hadrons.org>
+---
+ harness/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/harness/Makefile
++++ b/harness/Makefile
+@@ -6,7 +6,7 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
+ HARNESS_SRCS:=main.c
+ # io_queue.c
+ 
+-CFLAGS+=-Wall -Werror -I../src -g -O2
++CFLAGS+=-Wall -I../src -g -O2
+ #-lpthread -lrt
+ 
+ # gcc-11 does not like the test case in 3.t that

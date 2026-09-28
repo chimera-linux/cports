@@ -1,0 +1,57 @@
+From c4ebcdd7687c0d3475744205812e5850055fdaf7 Mon Sep 17 00:00:00 2001
+From: wipet <47226783+whypet@users.noreply.github.com>
+Date: Sat, 3 May 2025 19:07:38 +0200
+Subject: [PATCH] override flags and install license
+
+---
+ LICENSE  | 19 +++++++++++++++++++
+ Makefile |  4 ++--
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+ create mode 100644 LICENSE
+
+diff --git a/LICENSE b/LICENSE
+new file mode 100644
+index 0000000..68b6a04
+--- /dev/null
++++ b/LICENSE
+@@ -0,0 +1,19 @@
++/*
++ * calmwm - the calm window manager
++ *
++ * Copyright (c) 2004 Marius Aamodt Eriksen <marius@monkey.org>
++ *
++ * Permission to use, copy, modify, and distribute this software for any
++ * purpose with or without fee is hereby granted, provided that the above
++ * copyright notice and this permission notice appear in all copies.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
++ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
++ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
++ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++ *
++ * $OpenBSD$
++ */
+diff --git a/Makefile b/Makefile
+index 1f56cd4..b522bbe 100644
+--- a/Makefile
++++ b/Makefile
+@@ -16,11 +16,11 @@ OBJS=		calmwm.o screen.o xmalloc.o client.o menu.o \
+ 		
+ PKG_CONFIG?=	pkg-config
+ 
+-CPPFLAGS+=	`${PKG_CONFIG} --cflags x11 xft xrandr`
++override CPPFLAGS+=	`${PKG_CONFIG} --cflags x11 xft xrandr`
+ 
+ CFLAGS?=	-Wall -O2 -g -D_GNU_SOURCE
+ 
+-LDFLAGS+=	`${PKG_CONFIG} --libs x11 xft xrandr`
++override LDFLAGS+=	`${PKG_CONFIG} --libs x11 xft xrandr`
+ 
+ MANPREFIX?=	${PREFIX}/share/man
+ 
+-- 
+2.49.0
+

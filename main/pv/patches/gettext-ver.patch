@@ -1,0 +1,26 @@
+From eaea457a5e92b84ee1b3b9fbfa4934166e56b182 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 9 Apr 2025 20:02:52 +0200
+Subject: [PATCH] gettext version
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 4470b2f..c306f8c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -16,7 +16,7 @@ AC_USE_SYSTEM_EXTENSIONS
+ AC_C_CONST
+ AC_HEADER_STDBOOL
+ AC_SYS_LARGEFILE
+-AM_GNU_GETTEXT_VERSION([0.21])
++AM_GNU_GETTEXT_VERSION([0.23])
+ AM_GNU_GETTEXT([external])
+ if test "$USE_NLS" = "yes"; then
+   CPPFLAGS="$CPPFLAGS -DLOCALEDIR=\\\"\$(localedir)\\\""
+-- 
+2.49.0
+

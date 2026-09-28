@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/reaction start -c /etc/reaction/reaction.jsonnet
+working-dir = /var/lib/reaction
+logfile = /var/log/reaction.log
+before: network.target
+depends-on: pre-local.target

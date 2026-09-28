@@ -1,0 +1,6 @@
+# blkmapd service
+
+type = process
+command = /usr/bin/blkmapd -f
+depends-on = local.target
+depends-on = nfs-rpc_pipefs

@@ -1,0 +1,17 @@
+the latin1 sources contain some conversion
+routines for ppc64 which are required by the
+other ones on the platform
+
+--- a/meson.build
++++ b/meson.build
+@@ -65,7 +65,10 @@
+ 
+ simdutf_default_options = [
+   'ascii=true',
++  'base64=true',
++  'latin1=true',
+   'utf8=true',
++  'utf16=true',
+   'utf32=true',
+ ]
+

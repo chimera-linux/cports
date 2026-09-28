@@ -1,0 +1,90 @@
+diff --git a/testsuite/tools/data/db.ref b/testsuite/tools/data/db.ref
+index 3df3e95..84a4d32 100644
+--- a/testsuite/tools/data/db.ref
++++ b/testsuite/tools/data/db.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # The entries below are used to detect a USB device when it's plugged in
+ # and then run a script to change the ownership and
+diff --git a/testsuite/tools/data/html-backends-split.ref b/testsuite/tools/data/html-backends-split.ref
+index 8d3cdc7..9a33387 100644
+--- a/testsuite/tools/data/html-backends-split.ref
++++ b/testsuite/tools/data/html-backends-split.ref
+@@ -16496,6 +16496,6 @@ Grandtek Scopecam
+ >Contact</a>
+ </address>
+ <font size=-1>
+-This page was created by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++This page was created by sane-desc 3.6 from sane-backends 1.2.1
+ </font>
+ </body> </html>
+diff --git a/testsuite/tools/data/html-mfgs.ref b/testsuite/tools/data/html-mfgs.ref
+index 157e394..cfc02c7 100644
+--- a/testsuite/tools/data/html-mfgs.ref
++++ b/testsuite/tools/data/html-mfgs.ref
+@@ -23910,6 +23910,6 @@ qcam<br>(unmaintained)
+ >Contact</a>
+ </address>
+ <font size=-1>
+-This page was created by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++This page was created by sane-desc 3.6 from sane-backends 1.2.1
+ </font>
+ </body> </html>
+diff --git a/testsuite/tools/data/hwdb.ref b/testsuite/tools/data/hwdb.ref
+index 1dd6b2a..f366b72 100644
+--- a/testsuite/tools/data/hwdb.ref
++++ b/testsuite/tools/data/hwdb.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # hwdb file for supported USB devices
+ #
+diff --git a/testsuite/tools/data/udev+acl.ref b/testsuite/tools/data/udev+acl.ref
+index ebe1482..2cb6cbd 100644
+--- a/testsuite/tools/data/udev+acl.ref
++++ b/testsuite/tools/data/udev+acl.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.31-118-g5d3ce7806
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+diff --git a/testsuite/tools/data/udev+hwdb.ref b/testsuite/tools/data/udev+hwdb.ref
+index 7a2c034..15cb94c 100644
+--- a/testsuite/tools/data/udev+hwdb.ref
++++ b/testsuite/tools/data/udev+hwdb.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+diff --git a/testsuite/tools/data/udev.ref b/testsuite/tools/data/udev.ref
+index d68f357..9971c2d 100644
+--- a/testsuite/tools/data/udev.ref
++++ b/testsuite/tools/data/udev.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.31-118-g5d3ce7806
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+diff --git a/testsuite/tools/data/usermap.ref b/testsuite/tools/data/usermap.ref
+index 0b7281b..d77792b 100644
+--- a/testsuite/tools/data/usermap.ref
++++ b/testsuite/tools/data/usermap.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.0.29-241-g1f9590ab
++# by sane-desc 3.6 from sane-backends 1.2.1
+ #
+ # The entries below are used to detect a USB device and change owner
+ # and permissions on the "device node" used by libusb.

@@ -1,0 +1,70 @@
+commit 4db0952c022d47df3bd4133b1c7af205a9e1cd39
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Mar 17 04:10:49 2024 +0100
+
+    load .so files instead of .la so we can nuke them
+
+diff --git a/common.shi.in b/common.shi.in
+index 2c2ab1a..1ced64b 100644
+--- a/common.shi.in
++++ b/common.shi.in
+@@ -11,9 +11,9 @@ TOP_SRCDIR_NATIVE='@top_srcdir_native@'
+ GM="${MEMCHECK} @abs_top_builddir@/utilities/gm"
+ LD_LIBRARY_PATH="@abs_top_builddir@/magick/.libs:${LD_LIBRARY_PATH}"
+ 
+-MAGICK_CODER_MODULE_PATH='@abs_top_builddir@/coders'
++MAGICK_CODER_MODULE_PATH='@abs_top_builddir@/coders/.libs'
+ MAGICK_CONFIGURE_PATH='@abs_top_builddir@/config:@abs_top_srcdir@/config'
+-MAGICK_FILTER_MODULE_PATH='@abs_top_builddir@/filters'
++MAGICK_FILTER_MODULE_PATH='@abs_top_builddir@/filters/.libs'
+ MAGICK_CODER_STABILITY='BROKEN'
+ 
+ MAGICK_FONT='@abs_top_srcdir@/PerlMagick/demo/Generic.ttf'
+diff --git a/configure.ac b/configure.ac
+index 8bf1703..9b4701f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -201,10 +201,10 @@ AC_SUBST([WinPathScript])
+ #
+ # Compute variables useful for running uninstalled software
+ #
+-MAGICK_CODER_MODULE_PATH="${builddir}/coders"
++MAGICK_CODER_MODULE_PATH="${builddir}/coders/.libs"
+ MAGICK_CONFIGURE_SRC_PATH="${srcdirfull}/config"
+ MAGICK_CONFIGURE_BUILD_PATH="${builddir}/config"
+-MAGICK_FILTER_MODULE_PATH="${builddir}/filters"
++MAGICK_FILTER_MODULE_PATH="${builddir}/filters/.libs"
+ top_srcdir_native=${srcdirfull}
+ DIRSEP=':'
+ case "${build_os}" in
+diff --git a/magick/module.c b/magick/module.c
+index 7236f24..d92ce98 100644
+--- a/magick/module.c
++++ b/magick/module.c
+@@ -60,7 +60,7 @@
+ #define MAX_MODULES 511 /* Maximum number of modules supported by build. */
+ #define ModuleFilename  "modules.mgk"
+ #if defined(HasLTDL)
+-#  define ModuleGlobExpression "*.la"
++#  define ModuleGlobExpression "*.so"
+ #else
+ #  if defined(_DEBUG)
+ #    define ModuleGlobExpression "IM_MOD_DB_*.dll"
+@@ -1983,7 +1983,7 @@ TagToCoderModuleName(const char *tag,char *module_name)
+   assert(tag != (char *) NULL);
+   assert(module_name != (char *) NULL);
+ #if defined(HasLTDL)
+-  (void) FormatString(module_name,"%.1024s.la",tag);
++  (void) FormatString(module_name,"%.1024s.so",tag);
+   (void) LocaleLower(module_name);
+ #else
+ #if defined(MSWINDOWS)
+@@ -2030,7 +2030,7 @@ TagToFilterModuleName(const char *tag, char *module_name)
+   assert(tag != (char *) NULL);
+   assert(module_name != (char *) NULL);
+ #if defined(HasLTDL)
+-  (void) FormatString(module_name,"%.1024s.la",tag);
++  (void) FormatString(module_name,"%.1024s.so",tag);
+   (void) LocaleLower(module_name);
+ #else
+   (void) FormatString(module_name,"%.1024s.dll",tag);

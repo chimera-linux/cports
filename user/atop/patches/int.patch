@@ -1,0 +1,11 @@
+--- a/showlinux.c
++++ b/showlinux.c
+@@ -1990,7 +1990,7 @@ prisyst(struct sstat *sstat, int curline, int nsecs, int avgval,
+ 
+         if (swpbadness)
+         {
+-                badness = busy * 100 / swpbadness;
++                badness = (unsigned long long)busy * 100 / swpbadness;
+         }
+         else
+         {

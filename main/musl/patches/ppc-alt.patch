@@ -1,0 +1,35 @@
+From bc92eaff792463f1a9c6b69c32c773d8f916deec Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Thu, 29 Aug 2024 05:38:42 +0200
+Subject: [PATCH] fix MINSIGSTKSZ and SIGSTKSZ for powerpc64
+
+since kernel commit 2f82ec19757f58549467db568c56e7dfff8af283
+(https://github.com/torvalds/linux/commit/2f82ec19757f58549467db568c56e7dfff8af283)
+the kernel has updated these minimum values. having these small values breaks
+sysconf(_SC_MINSIGSTKSZ) too; it returns 4224 in musl currently which ends up
+returning ENOMEM from the syscall made in sigaltstack.
+
+raising these to match the kernel fixes sigaltstack use on powerpc64(le).
+caught by glib's 2.82 testsuite
+---
+ arch/powerpc64/bits/signal.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc64/bits/signal.h b/arch/powerpc64/bits/signal.h
+index d5493b18..3b16c4f9 100644
+--- a/arch/powerpc64/bits/signal.h
++++ b/arch/powerpc64/bits/signal.h
+@@ -2,8 +2,8 @@
+  || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+ 
+ #if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+-#define MINSIGSTKSZ 4096
+-#define SIGSTKSZ    10240
++#define MINSIGSTKSZ 8192
++#define SIGSTKSZ    32768
+ #endif
+ 
+ #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+-- 
+2.46.0
+

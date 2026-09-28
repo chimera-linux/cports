@@ -1,0 +1,25 @@
+--- a/podcasts-gtk/src/meson.build	2024-04-19 16:27:12.000000000 -0300
++++ b/podcasts-gtk/src/meson.build	2024-09-05 13:26:05.277214149 -0300
+@@ -29,20 +29,11 @@
+   message('Building in debug mode')
+ endif
+ 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-
+ cargo_release = custom_target('cargo-build',
+                         build_by_default: true,
+                         build_always_stale: true,
+                         output: ['gnome-podcasts'],
+-                        install: true,
+-                        install_dir: podcasts_bindir,
+                         console: true,
+                         depends: podcasts_resources,
+-                        command: ['env',
+-                                  cargo_env,
+-                                  cargo, 'build',
+-                                  cargo_options,
+-                                  '&&',
+-                                  'cp', 'podcasts-gtk' / 'src' / rust_target / 'podcasts-gtk', '@OUTPUT@',
+-                        ])
++                        command: [cargo, 'build',
++                                  cargo_options])

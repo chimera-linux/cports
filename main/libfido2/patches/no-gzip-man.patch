@@ -1,0 +1,11 @@
+--- a/man/CMakeLists.txt
++++ b/man/CMakeLists.txt
+@@ -374,7 +374,7 @@
+ 	endforeach()
+ endif()
+ 
+-if(GZIP_PATH)
++if(0)
+ 	add_dependencies(man_gzip man_copy)
+ 	add_dependencies(man_symlink_gzip man_gzip)
+ 	add_dependencies(man man_symlink_gzip)

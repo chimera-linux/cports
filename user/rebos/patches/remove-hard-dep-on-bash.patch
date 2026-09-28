@@ -1,0 +1,25 @@
+From ce14f9571cf9bdf5951f0bfa6ab237399f1ecb65 Mon Sep 17 00:00:00 2001
+From: aniruddhgutta <aniruddhgutta@disroot.org>
+Date: Thu, 9 Jul 2026 18:51:59 +0530
+Subject: [PATCH] remove hard dep on bash
+
+---
+ src/library.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/library.rs b/src/library.rs
+index 2d06e23..3fde4ac 100644
+--- a/src/library.rs
++++ b/src/library.rs
+@@ -26,7 +26,7 @@ pub fn abort() { // Try not to use this function!
+ }
+ 
+ pub fn run_command(command: &str) -> bool {
+-    match Command::new("bash").args(["-c", command]).status() {
++    match Command::new("sh").args(["-c", command]).status() {
+         Ok(o) => o,
+         Err(_e) => return false,
+     }.success()
+-- 
+2.52.0
+

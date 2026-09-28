@@ -1,0 +1,41 @@
+diff --git a/Makefile b/Makefile
+index 9044a76..b5484d9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -183,7 +183,7 @@ package: test-package-build create-package create-package-deb
+ .PHONY: update-version
+ update-version:
+ 	rm -f VERSION
+-	make VERSION xdo_version.h
++	$(MAKE) VERSION xdo_version.h
+ 
+ .PHONY: package-deb
+ package-deb: test-package-build create-package-deb
+@@ -221,10 +221,10 @@ test-package-build: NAME=xdotool-$(VERSION)
+ test-package-build: create-package
+ 	echo "Testing package $(NAME)"
+ 	tar -zxf $(NAME).tar.gz
+-	make -C ./$(NAME)
+-	make -C ./$(NAME) docs
+-	make -C ./$(NAME) install DESTDIR=$(NAME)/install-test/ LDCONFIG=:
+-	make -C ./$(NAME) test
++	$(MAKE) -C ./$(NAME)
++	$(MAKE) -C ./$(NAME) docs
++	$(MAKE) -C ./$(NAME) install DESTDIR=$(NAME)/install-test/ LDCONFIG=:
++	$(MAKE) -C ./$(NAME) test
+ 	rm -rf ./$(NAME)
+ 	echo "Package ready: $(NAME)";
+ 
+diff --git a/t/Makefile b/t/Makefile
+index b7c4ae4..ec01355 100644
+--- a/t/Makefile
++++ b/t/Makefile
+@@ -25,7 +25,7 @@ loop-all:
+ 
+ do-test:
+ 	@echo " => Running tests on $${XSERVER%% *}/$${WM:-no-windowmanager}"; \
+-	make -C ../
++	$(MAKE) -C ../
+ 	sh check-for-tools.sh
+ 	sh ephemeral-x.sh -q -x "$$XSERVER" -w "$$WM" ./run.sh ruby $(RUBYFLAGS) all.rb $(TESTFLAGS)
+ 

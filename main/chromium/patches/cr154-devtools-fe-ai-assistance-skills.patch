@@ -1,0 +1,113 @@
+From 1e7b64528042ebd13ebe3e6d7b2952ca7da53fbb Mon Sep 17 00:00:00 2001
+From: Takuto Ikuta <tikuta@chromium.org>
+Date: Wed, 2 Sep 2026 15:51:16 +0900
+Subject: [PATCH] [ai_assistance] Propagate generated skill JS files to bundle
+ action
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When building under remote execution (such as Siso with -strict_remote),
+actions only receive inputs that are explicitly declared in the GN
+graph.
+
+In front_end/models/ai_assistance, SkillRegistry.ts imports generated
+*.skill.js files from the skills/ subdirectory (e.g.
+accessibility.skill.js). These files are generated at build time from
+markdown by action_foreach. However, two issues prevented these
+generated files from being available during esbuild bundling under
+remote execution:
+
+1. In skills/BUILD.gn, action_foreach("generate_skills") defined outputs
+   for the generated *.skill.js files, but did not expose them via
+   public_inputs. Consequently, downstream targets depending on
+   skills:generate_skills did not receive the generated files as action inputs.
+2. In ai_assistance/BUILD.gn, the entrypoint bundle action
+   (devtools_entrypoint("bundle")) depends on ts_deps = [ ":ai_assistance" ],
+   which references the sources sub-target of ai_assistance. Because
+   devtools_module("ai_assistance") depends on skills:generate_skills via
+   public_deps rather than inputs/deps, the generated skill files were not
+   forwarded to the bundle action's dependencies.
+
+As a result, esbuild failed under remote execution with:
+  Cannot read file: .../front_end/models/ai_assistance/skills/accessibility.skill.js
+
+This CL fixes the issue by:
+
+1. Renaming the action_foreach to "_generate_skills" and creating a
+   group("generate_skills") in skills/BUILD.gn that exposes the generated
+   *.skill.js files as public_inputs.
+2. Adding "skills:generate_skills" to the deps of
+devtools_entrypoint("bundle")
+   in ai_assistance/BUILD.gn so that the esbuild bundling step explicitly
+   receives all generated skill JS files as inputs under remote execution.
+
+Bug: 547522497
+Change-Id: I6d68fe6d375ea4ad92a067d3f220af3017bffcae
+Reviewed-on: https://chromium-review.googlesource.com/c/devtools/devtools-frontend/+/8344907
+Auto-Submit: Takuto Ikuta <tikuta@chromium.org>
+Reviewed-by: Simon Zünd <szuend@chromium.org>
+Reviewed-by: Alex Rudenko <alexrudenko@chromium.org>
+Commit-Queue: Takuto Ikuta <tikuta@chromium.org>
+---
+ front_end/models/ai_assistance/BUILD.gn       |  2 ++
+ .../models/ai_assistance/skills/BUILD.gn      | 27 ++++++++++++-------
+ 2 files changed, 20 insertions(+), 9 deletions(-)
+
+diff --git a/third_party/devtools-frontend/src/front_end/models/ai_assistance/BUILD.gn b/third_party/devtools-frontend/src/front_end/models/ai_assistance/BUILD.gn
+index c49c747cb6..ec0c2e046f 100644
+--- a/third_party/devtools-frontend/src/front_end/models/ai_assistance/BUILD.gn
++++ b/third_party/devtools-frontend/src/front_end/models/ai_assistance/BUILD.gn
+@@ -115,6 +115,8 @@ devtools_entrypoint("bundle") {
+   split_compilation = true
+   entrypoint = "ai_assistance.ts"
+ 
++  deps = [ "skills:generate_skills" ]
++
+   ts_deps = [ ":ai_assistance" ]
+ 
+   visibility = [
+diff --git a/third_party/devtools-frontend/src/front_end/models/ai_assistance/skills/BUILD.gn b/third_party/devtools-frontend/src/front_end/models/ai_assistance/skills/BUILD.gn
+index 0201e52480..80c20acd83 100644
+--- a/third_party/devtools-frontend/src/front_end/models/ai_assistance/skills/BUILD.gn
++++ b/third_party/devtools-frontend/src/front_end/models/ai_assistance/skills/BUILD.gn
+@@ -10,17 +10,19 @@ import("../../../../scripts/build/ninja/vars.gni")
+ # gen/front_end/models/ai_assistance/skills/
+ # so they can be imported relatively by files in this directory.
+ 
+-action_foreach("generate_skills") {
++_skill_sources = [
++  "accessibility.md",
++  "network.md",
++  "performance.md",
++  "sources.md",
++  "storage.md",
++  "styling.md",
++]
++
++action_foreach("_generate_skills") {
+   script = "//third_party/node/node.py"
+ 
+-  sources = [
+-    "accessibility.md",
+-    "network.md",
+-    "performance.md",
+-    "sources.md",
+-    "storage.md",
+-    "styling.md",
+-  ]
++  sources = _skill_sources
+ 
+   inputs = [
+     "../../../../scripts/build/build_ai_skills.mjs",
+@@ -48,3 +50,10 @@ action_foreach("generate_skills") {
+     }
+   }
+ }
++
++group("generate_skills") {
++  public_deps = [ ":_generate_skills" ]
++  public_inputs =
++      process_file_template(_skill_sources,
++                            [ "$target_gen_dir/{{source_name_part}}.skill.js" ])
++}

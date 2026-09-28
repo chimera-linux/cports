@@ -1,0 +1,22 @@
+--- a/bin/cloud-localds
++++ b/bin/cloud-localds
+@@ -67,7 +67,7 @@ has_cmd() {
+ short_opts="hH:i:d:f:m:N:o:V:v"
+ long_opts="disk-format:,dsmode:,filesystem:,help,hostname:,interfaces:,"
+ long_opts="${long_opts}network-config:,output:,vendor-data:,verbose"
+-getopt_out=$(getopt -n "${0##*/}" \
++getopt_out=$(ugetopt -n "${0##*/}" \
+ 	-o "${short_opts}" -l "${long_opts}" -- "$@") &&
+ 	eval set -- "${getopt_out}" ||
+ 	bad_Usage
+--- a/bin/mount-image-callback
++++ b/bin/mount-image-callback
+@@ -351,7 +351,7 @@ mount_callback_umount() {
+ 
+ 	short_opts="Cdhm:P:psSv"
+ 	long_opts="cd-mountpoint,dev,help,format:,mountpoint:,overlay,partition:,proc,read-only,sys,system-mounts,system-resolvconf,verbose"
+-	getopt_out=$(getopt -n "${0##*/}" \
++	getopt_out=$(ugetopt -n "${0##*/}" \
+ 		-o "${short_opts}" -l "${long_opts}" -- "$@") &&
+ 		eval set -- "${getopt_out}" ||
+ 		{ bad_Usage; return 1; }

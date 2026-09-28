@@ -1,0 +1,53 @@
+From 75748cc9cfec8d061d7b1856232ce7b6242f6466 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 22 Apr 2025 16:31:40 +0200
+Subject: [PATCH 8/8] force ugetopt
+
+---
+ lsinitramfs      | 2 +-
+ mkinitramfs      | 2 +-
+ update-initramfs | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/lsinitramfs b/lsinitramfs
+index 8d2a967..0e75019 100755
+--- a/lsinitramfs
++++ b/lsinitramfs
+@@ -24,7 +24,7 @@ usage_error()
+ 
+ umi_opts="--list"
+ 
+-OPTIONS=$(getopt -o hl --long help,long -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o hl --long help,long -n "$0" -- "$@") || usage_error
+ 
+ eval set -- "$OPTIONS"
+ 
+diff --git a/mkinitramfs b/mkinitramfs
+index 6b5e2c6..325f54b 100755
+--- a/mkinitramfs
++++ b/mkinitramfs
+@@ -34,7 +34,7 @@ usage_error()
+ 	exit 2
+ }
+ 
+-OPTIONS=$(getopt -o c:d:hl:m:ko:r:v --long help,version -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o c:d:hl:m:ko:r:v --long help,version -n "$0" -- "$@") || usage_error
+ 
+ eval set -- "$OPTIONS"
+ 
+diff --git a/update-initramfs b/update-initramfs
+index 6db6aa1..579e521 100755
+--- a/update-initramfs
++++ b/update-initramfs
+@@ -301,7 +301,7 @@ verbose=0
+ 
+ ##
+ 
+-OPTIONS=$(getopt -o "k:cudvtb:s:h?" --long help,version -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o "k:cudvtb:s:h?" --long help,version -n "$0" -- "$@") || usage_error
+ 
+ eval set -- "$OPTIONS"
+ 
+-- 
+2.49.0
+

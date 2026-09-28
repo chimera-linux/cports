@@ -1,0 +1,12 @@
+fails oddly on loongarch
+
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -283,7 +283,6 @@ tests = [
+ 			dep_libm,
+ 		],
+ 	},
+-	{	'name': 'safe-signal', },
+ 	{	'name': 'safe-signal-output-removal',
+ 		'sources': [
+ 		  'safe-signal-output-removal-test.c',

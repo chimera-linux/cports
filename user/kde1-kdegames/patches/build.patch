@@ -1,0 +1,199 @@
+diff --git a/kabalone/Board.h b/kabalone/Board.h
+index f4755f8..b3b1253 100644
+--- a/kabalone/Board.h
++++ b/kabalone/Board.h
+@@ -93,7 +93,7 @@ class Board : public QObject
+ 	 * Always call with step 0 before actual playing the move !! */
+ 	void showStart(const Move& m, int step);
+ 
+-	Move& Board::lastMove()
++	Move& lastMove()
+ 	  { return storedMove[storedLast]; }
+ 	
+ 	void showHist();
+diff --git a/kasteroids/QwSpriteField/QwSpriteField-template.cpp b/kasteroids/QwSpriteField/QwSpriteField-template.cpp
+index 3efaf8f..f4942da 100644
+--- a/kasteroids/QwSpriteField/QwSpriteField-template.cpp
++++ b/kasteroids/QwSpriteField/QwSpriteField-template.cpp
+@@ -373,8 +373,8 @@ happen if the bounds action is set to Ignore.
+ template <class COORD>
+ bool QwMobilePositionedSprite<COORD>::outOfBounds()
+ {
+-    return (exact_x()<b_left) || (exact_x()>b_right)
+-        || (exact_y()<b_top) || (exact_y()>b_bottom);
++    return (QwPositionedSprite<COORD>::exact_x()<b_left) || (QwPositionedSprite<COORD>::exact_x()>b_right)
++        || (QwPositionedSprite<COORD>::exact_y()<b_top) || (QwPositionedSprite<COORD>::exact_y()>b_bottom);
+ }
+ 
+ /*!
+@@ -459,7 +459,7 @@ multiplied by the current velocity of the sprite.
+ template <class COORD>
+ void QwMobilePositionedSprite<COORD>::forward(COORD multiplier)
+ {
+-    QwPositionedSprite<COORD>::moveTo(exact_x()+multiplier*dx, exact_y()+multiplier*dy);
++    QwPositionedSprite<COORD>::moveTo(QwPositionedSprite<COORD>::exact_x()+multiplier*dx, QwPositionedSprite<COORD>::exact_y()+multiplier*dy);
+ }
+ 
+ /*!
+@@ -473,9 +473,9 @@ has already been dealt with.
+ template <class COORD>
+ Pix QwMobilePositionedSprite<COORD>::forwardHits(COORD multiplier, int frme) const
+ {
+-    int ix = int(exact_x()+multiplier*dx);
+-    int iy = int(exact_y()+multiplier*dy);
+-    if (ix == x() && iy == y())
++    int ix = int(QwPositionedSprite<COORD>::exact_x()+multiplier*dx);
++    int iy = int(QwPositionedSprite<COORD>::exact_y()+multiplier*dy);
++    if (ix == QwPositionedSprite<COORD>::x() && iy == QwPositionedSprite<COORD>::y())
+ 	return 0;
+     return QwPositionedSprite<COORD>::neighbourhood((COORD)ix, (COORD)iy, frme);
+ }
+@@ -491,9 +491,9 @@ has already been dealt with.
+ template <class COORD>
+ Pix QwMobilePositionedSprite<COORD>::forwardHits(COORD multiplier) const
+ {
+-    int ix = int(exact_x()+multiplier*dx);
+-    int iy = int(exact_y()+multiplier*dy);
+-    if (ix == x() && iy == y())
++    int ix = int(QwPositionedSprite<COORD>::exact_x()+multiplier*dx);
++    int iy = int(QwPositionedSprite<COORD>::exact_y()+multiplier*dy);
++    if (ix == QwPositionedSprite<COORD>::x() && iy == QwPositionedSprite<COORD>::y())
+ 	return 0;
+     return QwPositionedSprite<COORD>::neighbourhood(ix, iy);
+ }
+@@ -507,7 +507,7 @@ the given index.
+ template <class COORD>
+ void QwMobilePositionedSprite<COORD>::forward(COORD multiplier, int frme)
+ {
+-    moveTo(exact_x()+multiplier*dx, exact_y()+multiplier*dy, frme);
++    moveTo(QwPositionedSprite<COORD>::exact_x()+multiplier*dx, QwPositionedSprite<COORD>::exact_y()+multiplier*dy, frme);
+ }
+ 
+ /*!
+diff --git a/ksame/StoneWidget.cpp b/ksame/StoneWidget.cpp
+index a9ab6aa..84e8299 100644
+--- a/ksame/StoneWidget.cpp
++++ b/ksame/StoneWidget.cpp
+@@ -148,8 +148,8 @@ StoneWidget::remove(int x,int y,int force,int withsignal) {
+ }
+ int
+ StoneWidget::gameover() {
+-     register int i=stones_size-1;;
+-     register unsigned char color;
++     int i=stones_size-1;;
++     unsigned char color;
+     
+      if (f_gameover>=0) return f_gameover;
+      f_gameover=0;
+diff --git a/kshisen/board.cpp b/kshisen/board.cpp
+index 6bec747..a6cb866 100644
+--- a/kshisen/board.cpp
++++ b/kshisen/board.cpp
+@@ -39,6 +39,7 @@
+ #include "board.h"
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <time.h>
+ #include <qpainter.h>
+ #include <kapp.h>
+ #include <qimage.h>
+@@ -497,7 +498,7 @@ void Board::marked(int x, int y) {
+ 
+       // game is over?      
+       if(!getHint_I(dummyx,dummyx,dummyx,dummyx,dummyh)) {
+-	time_for_game = (int)time((time_t)NULL) - starttime;
++	time_for_game = (int)time((time_t*)NULL) - starttime;
+ 	emit endOfGame();
+       }
+       
+diff --git a/ksnake/game.h b/ksnake/game.h
+index 805c3ea..563e981 100644
+--- a/ksnake/game.h
++++ b/ksnake/game.h
+@@ -22,7 +22,7 @@ class Game : public KTopLevelWidget
+     Q_OBJECT
+ public:
+     Game();
+-    Game::~Game() {}
++    ~Game() {}
+ protected:
+     //   void keyPressEvent( QKeyEvent * );
+ private slots:
+diff --git a/ksnake/pixServer.cpp b/ksnake/pixServer.cpp
+index 222ffcf..aa1b9c8 100644
+--- a/ksnake/pixServer.cpp
++++ b/ksnake/pixServer.cpp
+@@ -57,7 +57,7 @@ void PixServer::restore(int pos)
+ 	    rect.x(), rect.y(), rect.width(), rect.height());
+ }
+ 
+-void PixServer::draw(int pos, PixMap pix, int i = 0)
++void PixServer::draw(int pos, PixMap pix, int i)
+ {
+     QPixmap p;
+     p.resize(16, 16);
+diff --git a/ksnake/score.cpp b/ksnake/score.cpp
+index bb6c5b9..ae4d8bf 100644
+--- a/ksnake/score.cpp
++++ b/ksnake/score.cpp
+@@ -40,7 +40,7 @@ QString Score::formatDate(int d, int m, int y)
+     return s;
+ }
+ 
+-void Score::display(int newHall = -1, int newToday = -1)
++void Score::display(int newHall, int newToday)
+ {
+     QDialog *dlg = new QDialog(0, "Hall Of Fame", TRUE);
+     dlg->setCaption(klocale->translate("Snake Race High Scores"));
+diff --git a/ksnake/snake.h b/ksnake/snake.h
+index 0062ca5..8da86af 100644
+--- a/ksnake/snake.h
++++ b/ksnake/snake.h
+@@ -17,7 +17,7 @@ class Snake : public QObject
+     Q_OBJECT
+ public:
+     Snake(Board *b, PixServer *p, Gate g, PixMap x);
+-    Snake::~Snake() {}
++    ~Snake() {}
+     void repaint( bool );
+     void zero();
+ signals:
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+index b26032a..6a20e63 100644
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1,34 +1,3 @@
+-add_subdirectory(br)
+-add_subdirectory(cs)
+-add_subdirectory(da)
+-add_subdirectory(de)
+-add_subdirectory(el)
+-add_subdirectory(eo)
+-add_subdirectory(es)
+-add_subdirectory(et)
+-add_subdirectory(fi)
+-add_subdirectory(fr)
+-add_subdirectory(he)
+-add_subdirectory(hr)
+-add_subdirectory(hs)
+-add_subdirectory(hu)
+-add_subdirectory(is)
+-add_subdirectory(it)
+-add_subdirectory(ja)
+-add_subdirectory(ko)
+-add_subdirectory(mk)
+-add_subdirectory(nl)
+-add_subdirectory(no)
+-add_subdirectory(pl)
+-add_subdirectory(pt)
+-add_subdirectory(pt_BR)
+-add_subdirectory(ro)
+-add_subdirectory(sk)
+-add_subdirectory(sl)
+-add_subdirectory(sv)
+-add_subdirectory(zh_CN.GB2312)
+-add_subdirectory(zh_TW.Big5)
+-
+ install(FILES
+     kabalone.pot
+     kasteroids.pot

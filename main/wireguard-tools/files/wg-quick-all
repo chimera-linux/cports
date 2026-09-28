@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/lib/wg-quick-all up
+stop-command = /usr/lib/wg-quick-all down
+depends-on: network.target
+depends-on: local.target

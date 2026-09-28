@@ -1,0 +1,25 @@
+--- cdrkit-1.1.11.orig/wodim/CMakeLists.txt
++++ cdrkit-1.1.11/wodim/CMakeLists.txt
+@@ -10,14 +10,14 @@ SET(CDRECORD_COMMON_SRCS cd_misc.c defau
+ INCLUDE(CheckIncludeFiles)
+ 
+ #force libcap usage on Linux
+-CHECK_INCLUDE_FILES("sys/capability.h" HAVE_SYS_CAPABILITY_H)
+-IF(HAVE_SYS_CAPABILITY_H)
+-	LIST(APPEND EXTRA_LIBS cap)
+-ELSE(HAVE_SYS_CAPABILITY_H)
+-   IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+-      MESSAGE(FATAL_ERROR "Error: found a Linux system but no libcap header. Install libcap-dev.")
+-   ENDIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+-ENDIF(HAVE_SYS_CAPABILITY_H)
++IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
++    CHECK_INCLUDE_FILES("sys/capability.h" HAVE_SYS_CAPABILITY_H)
++    IF(HAVE_SYS_CAPABILITY_H)
++        LIST(APPEND EXTRA_LIBS cap)
++    ELSE(HAVE_SYS_CAPABILITY_H)
++        MESSAGE(FATAL_ERROR "Error: found a Linux system but no libcap header. Install libcap-dev.")
++    ENDIF(HAVE_SYS_CAPABILITY_H)
++ENDIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+ 
+ LINK_DIRECTORIES(../librols ../libusal  ../libedc)
+ 

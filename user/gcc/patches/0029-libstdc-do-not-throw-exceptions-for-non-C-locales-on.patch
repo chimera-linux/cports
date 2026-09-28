@@ -1,0 +1,27 @@
+From 430c701a3cefbe09a9c7c8a2f5bbe957f9b2ecb2 Mon Sep 17 00:00:00 2001
+From: Samuel Holland <samuel@sholland.org>
+Date: Thu, 30 Jun 2022 16:44:51 +0000
+Subject: [PATCH 29/35] libstdc++: do not throw exceptions for non-C locales on
+ musl targets
+
+---
+ libstdc++-v3/config/locale/generic/c_locale.cc | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/libstdc++-v3/config/locale/generic/c_locale.cc b/libstdc++-v3/config/locale/generic/c_locale.cc
+index 8849d78fdfa..aff467f98fe 100644
+--- a/libstdc++-v3/config/locale/generic/c_locale.cc
++++ b/libstdc++-v3/config/locale/generic/c_locale.cc
+@@ -242,9 +242,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+     // Currently, the generic model only supports the "C" locale.
+     // See http://gcc.gnu.org/ml/libstdc++/2003-02/msg00345.html
+     __cloc = 0;
+-    if (strcmp(__s, "C"))
+-      __throw_runtime_error(__N("locale::facet::_S_create_c_locale "
+-			    "name not valid"));
+   }
+ 
+   void
+-- 
+2.41.0
+

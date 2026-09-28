@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -f /run/count.mdadm.initrd
+exit 0

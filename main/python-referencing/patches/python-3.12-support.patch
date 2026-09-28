@@ -1,0 +1,38 @@
+diff --git a/referencing/_core.py b/referencing/_core.py
+index ec2d51b..f72a292 100644
+--- a/referencing/_core.py
++++ b/referencing/_core.py
+@@ -599,7 +599,6 @@ AnchorOrResource = TypeVar(
+     "AnchorOrResource",
+     AnchorType[Any],
+     Resource[Any],
+-    default=Resource[Any],
+ )
+ 
+ 
+diff --git a/referencing/retrieval.py b/referencing/retrieval.py
+index 53e0512..ea52ddb 100644
+--- a/referencing/retrieval.py
++++ b/referencing/retrieval.py
+@@ -19,7 +19,7 @@ if TYPE_CHECKING:
+     from referencing.typing import URI, D, Retrieve
+ 
+ #: A serialized document (e.g. a JSON string)
+-_T = TypeVar("_T", default=str)
++_T = TypeVar("_T")
+ 
+ 
+ def to_cached_resource(
+diff --git a/referencing/typing.py b/referencing/typing.py
+index a614464..7b50b87 100644
+--- a/referencing/typing.py
++++ b/referencing/typing.py
+@@ -19,7 +19,7 @@ if TYPE_CHECKING:
+ URI = str
+ 
+ #: The type of documents within a registry.
+-D = TypeVar("D", default=Any)
++D = TypeVar("D")
+ 
+ 
+ class Retrieve(Protocol[D]):

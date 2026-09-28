@@ -1,0 +1,11 @@
+--- a/dedup-firmware.sh
++++ b/dedup-firmware.sh
+@@ -46,7 +46,7 @@
+ grep DUPTYPE_WITHIN_SAME_TREE results.txt | grep -o "$destdir.*" | while read -r l; do
+     target="$(realpath "$l")"
+     $verbose "Correcting path for $l"
+-    ln --force --symbolic --relative "$target" "$l"
++    ln -fsr "$target" "$l"
+ done
+ 
+ rm results.txt

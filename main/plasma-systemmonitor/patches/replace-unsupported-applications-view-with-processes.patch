@@ -1,0 +1,124 @@
+"Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
+--- a/src/page/systemmonitor.kcfg
++++ b/src/page/systemmonitor.kcfg
+@@ -16,9 +16,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
+             <default>-1</default>
+         </entry>
+         <entry name="pageOrder" type="StringList">
+-            <default>overview.page,applications.page,history.page,processes.page</default>
++            <default>overview.page,processes.page,history.page</default>
+         </entry>
+         <entry name="hiddenPages" type="StringList">
++            <default>applications.page</default>
+         </entry>
+         <entry name="startPage" type="String">
+             <default>overview.page</default>
+--- a/src/pages/overview.page
++++ b/src/pages/overview.page
+@@ -259,57 +259,56 @@ Title[zh_TW]=硬碟
+ highPrioritySensorIds=["disk/(?!all).*/used"]
+ 
+ [Face-108592549200736][Appearance]
+-chartFace=org.kde.ksysguard.applicationstable
++chartFace=org.kde.ksysguard.processtable
+ showTitle=true
+-Title=Applications
+-Title[ar]=التّطبيقات
+-Title[ast]=Aplicaciones
+-Title[az]=Tətbiqlər
+-Title[be]=Праграмы
+-Title[bg]=Приложения
+-Title[ca]=Aplicacions
+-Title[ca@valencia]=Aplicacions
+-Title[cs]=Aplikace
+-Title[da]=Programmer
+-Title[de]=Programme
+-Title[en_GB]=Applications
+-Title[eo]=Aplikoj
+-Title[es]=Aplicaciones
+-Title[eu]=Aplikazioak
+-Title[fi]=Sovellukset
+-Title[fr]=Applications
+-Title[gl]=Aplicacións
+-Title[he]=יישומים
+-Title[hi]=अनुप्रयोग
+-Title[hsb]=Aplikacije
+-Title[hu]=Alkalmazások
+-Title[ia]=Applicationes
+-Title[id]=Aplikasi
+-Title[ie]=Applicationes
+-Title[is]=Forrit
+-Title[it]=Applicazioni
+-Title[ja]=アプリケーション
+-Title[ka]=პლიკაციები
+-Title[ko]=앱
+-Title[lt]=Programos
+-Title[lv]=Programmas
+-Title[nl]=Toepassingen
+-Title[nn]=Program
+-Title[pa]=ਐਪਲੀਕੇਸ਼ਨਾਂ
+-Title[pl]=Programy
+-Title[pt]=Aplicações
+-Title[pt_BR]=Aplicativos
+-Title[ro]=Aplicații
+-Title[ru]=Приложения
+-Title[sa]=अनुप्रयोगाः
+-Title[sk]=Aplikácie
+-Title[sl]=Aplikacije
+-Title[sv]=Program
+-Title[ta]=செயலிகள்
+-Title[tr]=Uygulamalar
+-Title[uk]=Програми
+-Title[zh_CN]=应用程序
+-Title[zh_TW]=應用程式
++Title=Processes
++Title[ar]=العمليات
++Title[ast]=Procesos
++Title[az]=Proseslər
++Title[be]=Працэсы
++Title[bg]=Процеси
++Title[ca]=Processos
++Title[ca@valencia]=Processos
++Title[cs]=Procesy
++Title[da]=Processer
++Title[de]=Prozesse
++Title[en_GB]=Processes
++Title[eo]=Procezoj
++Title[es]=Procesos
++Title[eu]=Prozesuak
++Title[fi]=Prosessit
++Title[fr]=Processus
++Title[gl]=Procesos
++Title[he]=תהליכים
++Title[hi]=प्रक्रियाओं
++Title[hsb]=Procesy
++Title[hu]=Folyamatok
++Title[ia]=Processos
++Title[id]=Proses
++Title[ie]=Processes
++Title[is]=Vinnslur
++Title[it]=Processi
++Title[ja]=プロセス
++Title[ka]=პროცესები
++Title[ko]=프로세스
++Title[lt]=Procesai
++Title[lv]=Procesi
++Title[nl]=Processen
++Title[nn]=Prosessar
++Title[pa]=ਪਰੋਸੈੱਸ
++Title[pl]=Procesy
++Title[pt]=Processos
++Title[pt_BR]=Processos
++Title[ro]=Procese
++Title[ru]=Процессы
++Title[sa]=प्रक्रियाःTitle[sk]=Procesy
++Title[sl]=Procesi
++Title[sv]=Processer
++Title[ta]=பணிகள்s
++Title[tr]=Süreçler
++Title[uk]=Процеси
++Title[zh_CN]=进程列表
++Title[zh_TW]=行程
+ 
+ [Face-108592549200736][org.kde.ksysguard.applicationstable][General]
+ showToolBar=true

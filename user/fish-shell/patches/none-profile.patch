@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c40c82d31..cd2737829 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -62,8 +62,8 @@ add_custom_target(
+         "${CMAKE_COMMAND}" -E
+             env ${VARS_FOR_CARGO}
+                 ${Rust_CARGO}
+-                    build --bin fish
+-                    $<$<CONFIG:Release>:--release>
++                    auditable build --bin fish
++                    $<$<CONFIG:None>:--release>
+                     $<$<CONFIG:RelWithDebInfo>:--profile=release-with-debug>
+                     --target ${Rust_CARGO_TARGET}
+                     --no-default-features

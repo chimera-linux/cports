@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/rrdcached -g
+depends-on = local.target
+depends-on = network.target

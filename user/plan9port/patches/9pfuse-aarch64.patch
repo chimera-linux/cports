@@ -1,0 +1,14 @@
+https://github.com/9fans/plan9port/issues/619
+fixes 9pfuse on aarch64 on musl
+--
+--- a/src/cmd/9pfuse/main.c
++++ b/src/cmd/9pfuse/main.c
+@@ -38,7 +38,7 @@
+  * On ARM however, the O_LARGEFILE is set correctly.
+  */
+ 
+-#if defined(__linux__) && !defined(__arm__)
++#if defined(__GLIBC__) && !defined(__arm__)
+ #  undef O_LARGEFILE
+ #  define O_LARGEFILE 0100000
+ #endif

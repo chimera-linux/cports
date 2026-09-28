@@ -1,0 +1,38 @@
+diff --git a/Makefile b/Makefile
+index 5a51d51..4d6e60b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -29,16 +29,16 @@ LDFLAGS =
+ XCFLAGS	= -DTLF_FONTS
+ 
+ # Where to install files
+-prefix	= /usr/local
++PREFIX	= /usr/local
+ 
+ # Where the executables should be put
+-BINDIR	= $(prefix)/bin
++BINDIR	= $(PREFIX)/bin
+ 
+ # Where the man page should be put
+-MANDIR	= $(prefix)/man
++MANDIR	= $(PREFIX)/share/man
+ 
+ # Where figlet will search first for fonts (the ".flf" files).
+-DEFAULTFONTDIR = $(prefix)/share/figlet
++DEFAULTFONTDIR = $(PREFIX)/share/figlet
+ # Use this definition if you can't put things in $(prefix)/share/figlet
+ #DEFAULTFONTDIR = fonts
+ 
+@@ -68,10 +68,10 @@ DFILES	= Makefile Makefile.tc $(MANUAL) $(OBJS:.o=.c) chkfont.c getopt.c \
+ all: $(BINS)
+ 
+ figlet: $(OBJS)
+-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
++	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+ 
+ chkfont: chkfont.o
+-	$(LD) $(LDFLAGS) -o $@ chkfont.o
++	$(CC) $(LDFLAGS) -o $@ chkfont.o
+ 
+ clean:
+ 	rm -f *.o *~ core figlet chkfont

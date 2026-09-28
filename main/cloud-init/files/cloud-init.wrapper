@@ -1,0 +1,13 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+
+if grep -q "cloud-init=disabled" /proc/cmdline; then
+    echo "cloud-init is disabled on kernel cmdline, ignoring..."
+    exit 0
+elif test -e /etc/cloud/cloud-init.disabled; then
+    echo "cloud-init is disabled via /etc/cloud/cloud-init.disabled, ignoring..."
+    exit 0
+fi
+
+exec /usr/bin/cloud-init "$@"

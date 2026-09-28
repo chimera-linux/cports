@@ -1,0 +1,10 @@
+diff -ur jfsutils-1.1.15.old/fsck/fsck_message.c jfsutils-1.1.15.new/fsck/fsck_message.c
+--- jfsutils-1.1.15.old/fsck/fsck_message.c	2024-02-02 10:04:39.945415734 +0100
++++ jfsutils-1.1.15.new/fsck/fsck_message.c	2024-02-02 10:13:17.863923855 +0100
+@@ -1,5 +1,6 @@
+ #define _GNU_SOURCE	/* for basename() */
+ #include <config.h>
++#include <libgen.h>
+ #include <stdio.h>
+ #include <stdarg.h>
+ #include <string.h>

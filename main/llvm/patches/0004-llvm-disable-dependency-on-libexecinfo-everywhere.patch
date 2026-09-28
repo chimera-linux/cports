@@ -1,0 +1,75 @@
+From 7cfbc4d6e6bd74cf3d244ac63a3149d1f86b50f0 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 29 Nov 2024 19:33:12 +0100
+Subject: [PATCH 04/28] llvm: disable dependency on libexecinfo everywhere
+
+---
+ compiler-rt/cmake/config-ix.cmake       | 1 -
+ llvm/cmake/config-ix.cmake              | 2 --
+ llvm/include/llvm/Config/config.h.cmake | 5 -----
+ llvm/lib/Support/CMakeLists.txt         | 8 --------
+ 4 files changed, 16 deletions(-)
+
+diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
+index 1f82ff3cf..705d38aa6 100644
+--- a/compiler-rt/cmake/config-ix.cmake
++++ b/compiler-rt/cmake/config-ix.cmake
+@@ -191,7 +191,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
+ check_library_exists(rt shm_open "" COMPILER_RT_HAS_LIBRT)
+ check_library_exists(m pow "" COMPILER_RT_HAS_LIBM)
+ check_library_exists(pthread pthread_create "" COMPILER_RT_HAS_LIBPTHREAD)
+-check_library_exists(execinfo backtrace "" COMPILER_RT_HAS_LIBEXECINFO)
+ 
+ if (ANDROID AND COMPILER_RT_HAS_LIBDL)
+   # Android's libstdc++ has a dependency on libdl.
+diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
+index ed2bfa6df..5e6c66cae 100644
+--- a/llvm/cmake/config-ix.cmake
++++ b/llvm/cmake/config-ix.cmake
+@@ -343,8 +343,6 @@ endif()
+ # function checks
+ check_symbol_exists(arc4random "stdlib.h" HAVE_DECL_ARC4RANDOM)
+ find_package(Backtrace)
+-set(HAVE_BACKTRACE ${Backtrace_FOUND})
+-set(BACKTRACE_HEADER ${Backtrace_HEADER})
+ 
+ # Prevent check_symbol_exists from using API that is not supported for a given
+ # deployment target.
+diff --git a/llvm/include/llvm/Config/config.h.cmake b/llvm/include/llvm/Config/config.h.cmake
+index ce83de8e4..6a17819c0 100644
+--- a/llvm/include/llvm/Config/config.h.cmake
++++ b/llvm/include/llvm/Config/config.h.cmake
+@@ -23,11 +23,6 @@
+    backslashes. */
+ #cmakedefine01 LLVM_WINDOWS_PREFER_FORWARD_SLASH
+ 
+-/* Define to 1 if you have the `backtrace' function. */
+-#cmakedefine HAVE_BACKTRACE ${HAVE_BACKTRACE}
+-
+-#define BACKTRACE_HEADER <${BACKTRACE_HEADER}>
+-
+ /* Define to 1 if you have the <CrashReporterClient.h> header file. */
+ #cmakedefine HAVE_CRASHREPORTERCLIENT_H
+ 
+diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
+index 099b0e555..a6d28ee65 100644
+--- a/llvm/lib/Support/CMakeLists.txt
++++ b/llvm/lib/Support/CMakeLists.txt
+@@ -49,14 +49,6 @@ elseif( CMAKE_HOST_UNIX )
+   if( HAVE_LIBDL )
+     set(system_libs ${system_libs} ${CMAKE_DL_LIBS})
+   endif()
+-  if( HAVE_BACKTRACE AND NOT "${Backtrace_LIBRARIES}" STREQUAL "" )
+-    # On BSDs, CMake returns a fully qualified path to the backtrace library.
+-    # We need to remove the path and the 'lib' prefix, to make it look like a
+-    # regular short library name, suitable for appending to a -l link flag.
+-    get_filename_component(Backtrace_LIBFILE ${Backtrace_LIBRARIES} NAME_WE)
+-    STRING(REGEX REPLACE "^lib" "" Backtrace_LIBFILE ${Backtrace_LIBFILE})
+-    set(system_libs ${system_libs} ${Backtrace_LIBFILE})
+-  endif()
+   set(system_libs ${system_libs} ${LLVM_ATOMIC_LIB})
+   set(system_libs ${system_libs} ${LLVM_PTHREAD_LIB})
+   if( UNIX AND NOT (BEOS OR HAIKU) )
+-- 
+2.52.0
+

@@ -1,0 +1,14 @@
+diff --git a/tools/inetcat.c b/tools/inetcat.c
+index f70215b..70ed918 100644
+--- a/tools/inetcat.c
++++ b/tools/inetcat.c
+@@ -27,6 +27,9 @@
+ 
+ #define TOOL_NAME "inetcat"
+ 
++#ifndef fd_set
++#include <sys/select.h>
++#endif
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stdint.h>

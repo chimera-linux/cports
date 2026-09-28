@@ -1,0 +1,52 @@
+From 226bbcf4d95bbd70f2b3e6df65a192954a02e3b6 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Tue, 4 Mar 2025 15:43:22 +0100
+Subject: [PATCH 4/4] Add symlinks for U-Boot compatibility
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ ucm2/conf.d/sm8250/xiaomi-XiaomiMi9T-.conf             | 1 +
+ ucm2/conf.d/sm8250/xiaomi-XiaomiMiNote10-.conf         | 1 +
+ ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCHuaxing-.conf | 1 +
+ ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCTianma-.conf  | 1 +
+ 4 files changed, 4 insertions(+)
+ create mode 120000 ucm2/conf.d/sm8250/xiaomi-XiaomiMi9T-.conf
+ create mode 120000 ucm2/conf.d/sm8250/xiaomi-XiaomiMiNote10-.conf
+ create mode 120000 ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCHuaxing-.conf
+ create mode 120000 ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCTianma-.conf
+
+diff --git a/ucm2/conf.d/sm8250/xiaomi-XiaomiMi9T-.conf b/ucm2/conf.d/sm8250/xiaomi-XiaomiMi9T-.conf
+new file mode 120000
+index 0000000..991c8f0
+--- /dev/null
++++ b/ucm2/conf.d/sm8250/xiaomi-XiaomiMi9T-.conf
+@@ -0,0 +1 @@
++Xiaomi Mi 9T.conf
+\ No newline at end of file
+diff --git a/ucm2/conf.d/sm8250/xiaomi-XiaomiMiNote10-.conf b/ucm2/conf.d/sm8250/xiaomi-XiaomiMiNote10-.conf
+new file mode 120000
+index 0000000..293c671
+--- /dev/null
++++ b/ucm2/conf.d/sm8250/xiaomi-XiaomiMiNote10-.conf
+@@ -0,0 +1 @@
++Xiaomi Mi Note 10.conf
+\ No newline at end of file
+diff --git a/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCHuaxing-.conf b/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCHuaxing-.conf
+new file mode 120000
+index 0000000..6fae04b
+--- /dev/null
++++ b/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCHuaxing-.conf
+@@ -0,0 +1 @@
++POCO X3.conf
+\ No newline at end of file
+diff --git a/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCTianma-.conf b/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCTianma-.conf
+new file mode 120000
+index 0000000..6fae04b
+--- /dev/null
++++ b/ucm2/conf.d/sm8250/xiaomi-XiaomiPOCOX3NFCTianma-.conf
+@@ -0,0 +1 @@
++POCO X3.conf
+\ No newline at end of file
+-- 
+2.49.0
+

@@ -1,0 +1,93 @@
+pkgname = "cargo"
+pkgver = "1.98.0"
+pkgrel = 0
+build_wrksrc = "src/tools/cargo"
+build_style = "cargo"
+# PKG_CONFIG being in environment mysteriously brings target sysroot
+# into linker sequence for build script, breaking build entirely
+make_build_wrapper = ["env", "-u", "PKG_CONFIG"]
+hostmakedepends = [
+    "cargo-bootstrap",
+    "cmake",
+    "curl",
+    "pkgconf",
+    "python",
+]
+makedepends = ["curl-devel", "openssl3-devel", "sqlite-devel"]
+pkgdesc = "Rust package manager"
+license = "MIT OR Apache-2.0"
+url = "https://rust-lang.org"
+source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
+sha256 = "271fa73d8174f53d713c46a8310da7bf7cfdcfb8b7cfd1c2b74b84a83ae9fb1e"
+# global environment
+env = {
+    "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
+    "RUST_BACKTRACE": "1",
+}
+# disable check at least for now
+options = ["!check"]
+
+if self.current_target == "custom:bootstrap":
+    hostmakedepends += ["rust-bootstrap"]
+    makedepends += ["rust-bootstrap", "openssl3-devel-static"]
+    options += ["!debug"]
+else:
+    hostmakedepends += ["rust"]
+    makedepends += ["rust-std", "libgit2-devel"]
+    depends = ["rust"]
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self).vendor(wrksrc=self.build_wrksrc)
+
+
+def init_prepare(self):
+    if self.current_target == "custom:bootstrap":
+        self.make_env["LIBGIT2_NO_VENDOR"] = "0"
+        self.make_env["OPENSSL_STATIC"] = "1"
+        self.make_env["OPENSSL_NO_PKG_CONFIG"] = "1"
+        self.make_env["OPENSSL_DIR"] = str(self.profile.sysroot / "usr")
+
+
+def prepare(self):
+    # we patch the lockfile so vendor after patch
+    pass
+
+
+@custom_target("bootstrap", "build")
+def _(self):
+    from cbuild.util import cargo
+
+    binp = cargo.target_path(self, "cargo")
+    bdirn = f"cargo-{pkgver}-{self.profile.triplet}"
+    self.mkdir(bdirn)
+    self.cp(binp, bdirn)
+    self.cp("LICENSE-APACHE", bdirn)
+    self.cp("LICENSE-MIT", bdirn)
+    self.cp("LICENSE-THIRD-PARTY", bdirn)
+    self.do("tar", "cvJf", self.chroot_srcdir / f"{bdirn}.tar.xz", bdirn)
+    self.rm(bdirn, recursive=True)
+
+
+def install(self):
+    from cbuild.util import cargo
+
+    binp = cargo.target_path(self, "cargo")
+
+    self.install_bin(binp)
+
+    for f in (self.cwd / "src/etc/man").glob("*.?"):
+        self.install_man(f)
+
+    self.install_file(
+        "src/etc/cargo.bashcomp.sh",
+        "usr/share/bash-completion/completions",
+        name="cargo",
+    )
+    self.install_file("src/etc/_cargo", "usr/share/zsh/site-functions")
+
+    self.install_license("LICENSE-APACHE")
+    self.install_license("LICENSE-MIT")
+    self.install_license("LICENSE-THIRD-PARTY")

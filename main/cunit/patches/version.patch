@@ -1,0 +1,10 @@
+--- a/cunit.pc.in
++++ b/cunit.pc.in
+@@ -5,6 +5,6 @@
+ 
+ Name: CUnit
+ Description: C Unit Testing Framework
+-Version: @VERSION@-@RELEASE@
++Version: @VERSION@.@RELEASE@
+ Libs: -L${libdir} -lcunit
+ Cflags: -I${includedir}

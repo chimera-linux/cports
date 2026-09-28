@@ -1,0 +1,112 @@
+# This is a reference for the cbuild configuration file.
+# Every value specified here is the system's default.
+
+[alias]
+# you can define custom aliases for command names here
+#pu = prepare-upgrade
+
+# options related to your host apk
+[apk]
+# the fallback apk command to use
+# also overridden by environment variable CBUILD_APK_PATH
+# this is used to bootstrap, but once we have a bldroot,
+# static apk from inside of it is used always
+command = apk
+# the repository mirror to use
+repo = https://repo.chimera-linux.org/current
+
+# options related to building packages
+[build]
+# the bwrap command to use
+# also overriden by environment variable CBUILD_BWRAP_PATH
+bwrap = bwrap
+# whether to display build time for each log line
+timing = yes
+# whether -dbg packages will be generated
+build_dbg = yes
+# default build root path (absolute or relative to cports)
+build_root = bldroot
+# default physical path for builddir and destdir (absolute or relative
+# to cports); if empty, they will be directly in bldroot
+build_dir =
+# additional packages/constraints to always have in bldroot apk world
+extra_packages =
+# whether ccache will be used in the build
+ccache = no
+# whether sccache will be used for rust in the build (testing only)
+sccache = no
+# whether to use lld thinlto linker cache; not always entirely safe across runs
+thinlto_cache = no
+# thinlto cache size of enabled
+thinlto_cache_size = 10g
+# default path where all caches are stored (absolute or relative to cports)
+cbuild_cache_path = cbuild_cache
+# whether to run check phase
+check = yes
+# whether checks are allowed to fail (by default they will abort build)
+check_fail = no
+# what type of compression to use by default for packages
+compression = zstd
+# number of jobs to use when building; all available threads by default
+jobs = 0
+# number of linker threads to use; jobs by default
+link_threads = 0
+# default local repository path for packages (absolute or relative to cports)
+repository = packages
+# packages will be staged to this directory (before being migrated)
+stage_repository = pkgstage
+# alternative repository path, will be used instead of repository but deps
+# will be found in both the main repository and the alternative repo path
+#alt_repository = testpkgs
+# default source distfiles path (absolute or relative to cports)
+sources = sources
+# if set to yes, you will always have to explicitly unstage the repos
+keep_stage = no
+# whether to attempt using remote repositories (if available)
+remote = yes
+# categories that are permitted to build; primarily for bulk builds
+# custom categories are not supported! the mechanism though which
+# they work is an implementation detail subject to change at any time
+categories = main user
+# whether restricted packages can be considered for building
+allow_restricted = no
+# whether to allow packages that have the !ci option
+# (large packages that take very long in continuous integration)
+allow_ci = yes
+# maintainer field to use for packages, you can set it for personal repos
+maintainer = unknown <cports@local>
+# linter to use if available (auto = flake8 || ruff, none, flake8, ruff)
+# both linter and formatter are enforced unless set to none
+# both can be set to a custom path like e.g. flake8:/path/to/binary
+# they are only enforced at the build step (i.e. can't build unless lints
+# pass, but can still do update checks and other things as necessary)
+linter = auto
+# formatter to use if available (auto = black || ruff, none, black, ruff)
+formatter = auto
+
+# flags passed to tools
+[flags]
+# default user C compiler flags
+CFLAGS = -O2
+# default user C++ compiler flags
+CXXFLAGS = -O2
+# default user Fortran compiler flags
+FFLAGS = -O2
+# default user linker flags
+LDFLAGS =
+# default user rust flags
+RUSTFLAGS =
+
+# options related to signing packages
+[signing]
+# signing key name (in etc/keys) or path (absolute or relative to cports)
+key = your_private_key.rsa
+# default additional keys path (absolute or relative to cports)
+# its path is computed to be the parent of the currently set signing
+# key, unless set explicitly
+#keys = etc/keys
+
+# custom global stuff that can be read by templates
+# you can put things like personal auth tokens etc. here
+# [data]
+# keyname = valuename

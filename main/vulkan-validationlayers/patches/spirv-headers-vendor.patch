@@ -1,0 +1,14 @@
+this uses git commits of this so pass it that
+--
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2026-08-14 13:28:44.000000000 +0200
++++ b/CMakeLists.txt	2026-08-16 08:56:58.592302505 +0200
+@@ -135,7 +135,7 @@
+ endif()
+ 
+ 
+-find_package(SPIRV-Headers CONFIG QUIET)
++add_subdirectory(spirv-headers EXCLUDE_FROM_ALL)
+ 
+ find_package(SPIRV-Tools-opt CONFIG QUIET)
+ 

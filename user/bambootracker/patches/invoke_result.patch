@@ -1,0 +1,22 @@
+--- a/BambooTracker/utils.hpp	2023-09-02 10:43:24.000000000 +0200
++++ b/BambooTracker/utils.hpp	2024-03-05 12:50:10.972537867 +0100
+@@ -72,8 +72,7 @@
+ 		  class InputContainer, class UnaryOperation>
+ inline auto transform(InputContainer& input, UnaryOperation&& op)
+ {
+-	// std::result_of is deprecated in C++17 and obsoluted in C++20, use std::invoke_result after C++14
+-	using T = typename std::result_of<UnaryOperation&&(typename InputContainer::value_type)>::type;
++	using T = typename std::invoke_result_t<UnaryOperation&&, typename InputContainer::value_type>;
+ 	OutputContainer<T> output;
+ 	std::transform(input.begin(), input.end(), std::back_inserter(output), op);
+ 	return output;
+@@ -92,8 +91,7 @@
+ 		  class InputContainer, class Predicate, class UnaryOperation>
+ inline auto transformIf(const InputContainer& input, Predicate&& pred, UnaryOperation&& op)
+ {
+-	// std::result_of is deprecated in C++17 and obsoluted in C++20, use std::invoke_result after C++14
+-	using T = typename std::result_of<UnaryOperation&&(typename InputContainer::value_type)>::type;
++	using T = typename std::invoke_result_t<UnaryOperation&&, typename InputContainer::value_type>;
+ 	OutputContainer<T> output;
+ 	transformIf(input.begin(), input.end(), std::back_inserter(output), pred, op);
+ 	return output;

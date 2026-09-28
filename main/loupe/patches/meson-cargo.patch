@@ -1,0 +1,33 @@
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -16,7 +16,6 @@ elif profile == 'release'
+ endif
+ 
+ cargo_env = {
+-  'CARGO_HOME': build_root / 'cargo-home',
+   'APP_ID': app_id,
+   'VERSION': version,
+   'LOCALEDIR': localedir,
+@@ -37,22 +36,6 @@ cargo_build = custom_target(
+   ],
+ )
+ 
+-# Copy binary
+-custom_target(
+-  'cp-binary',
+-  depends: cargo_build,
+-  build_by_default: true,
+-  build_always_stale: true,
+-  install: true,
+-  install_dir: get_option('bindir'),
+-  output: meson.project_name(),
+-  command: [
+-    'cp',
+-    'src' / rust_target / meson.project_name(),
+-    '@OUTPUT@',
+-  ],
+-)
+-
+ custom_target(
+   'cargo-doc',
+   build_by_default: false,

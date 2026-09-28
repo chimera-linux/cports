@@ -1,0 +1,45 @@
+diff --git a/extensions/opengl/src/qgl.cpp b/extensions/opengl/src/qgl.cpp
+index 8d94b7e..245850b 100644
+--- a/extensions/opengl/src/qgl.cpp
++++ b/extensions/opengl/src/qgl.cpp
+@@ -1131,7 +1131,7 @@ bool QGLContext::chooseContext( const QGLContext* shareContext )
+     glFormat.setDirectRendering( glXIsDirect( paintDevice->x11Display(), 
+ 					      (GLXContext)cx ) );
+     if ( deviceIsPixmap() ) {
+-#ifdef GLX_MESA_pixmap_colormap
++#if 0
+ 	gpm = glXCreateGLXPixmapMESA( paintDevice->x11Display(),
+ 				      (XVisualInfo *)vi,
+ 				      paintDevice->handle(),
+@@ -1524,11 +1524,11 @@ QGLWidget::QGLWidget( const QGLFormat &format, QWidget *parent,
+ 
+ QGLWidget::~QGLWidget()
+ {
+-#if defined(GLX_MESA_release_buffers)
++#if 0
+     bool doRelease = ( glcx && glcx->windowCreated() );
+ #endif
+     delete glcx;
+-#if defined(GLX_MESA_release_buffers)
++#if 0
+     if ( doRelease )
+ 	glXReleaseBuffersMESA( dpy, winId() );
+ #endif
+@@ -1774,7 +1774,7 @@ void QGLWidget::setContext( QGLContext *context,
+ 	cmw[0] = w;
+     }
+ 
+-#if defined(GLX_MESA_release_buffers)
++#if 0
+     if ( oldcx && oldcx->windowCreated() )
+ 	glXReleaseBuffersMESA( dpy, winId() );
+ #endif
+@@ -1911,7 +1911,7 @@ QPixmap QGLWidget::renderPixmap( int w, int h, bool useContext )
+     if ( useContext && isValid() && 
+ 	 ( ((XVisualInfo*)glcx->vi)->depth == pm.depth() ) ) {
+ 	GLXPixmap glPm;
+-#ifdef GLX_MESA_pixmap_colormap
++#if 0
+ 	glPm = glXCreateGLXPixmapMESA( x11Display(),
+ 				       (XVisualInfo*)glcx->vi,
+ 				       (Pixmap)pm.handle(),

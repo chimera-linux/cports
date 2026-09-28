@@ -1,0 +1,72 @@
+--- cdrkit-1.1.11.orig/3rd-party/geteltorito/README.geteltorito
++++ cdrkit-1.1.11/3rd-party/geteltorito/README.geteltorito
+@@ -3,8 +3,8 @@ geteltorito
+ 
+ Author: Rainer Krienke
+ Email:  krienke@uni-koblenz.de
+-License: GPL
+-Version: 0.4
++License: GPL v2
++Version: 0.5
+ Description: A El Torito boot image extractor
+ 
+ call: 	geteltorito CD-image > toritoimagefile
+--- cdrkit-1.1.11.orig/3rd-party/geteltorito/geteltorito.pl
++++ cdrkit-1.1.11/3rd-party/geteltorito/geteltorito.pl
+@@ -11,10 +11,16 @@ use Getopt::Std;
+ # License: GPL
+ #
+ # Get latest version from:
+-# http://www.uni-koblenz.de/~krienke/ftp/noarch/geteltorito
++# http://userpages.uni-koblenz.de/~krienke/ftp/noarch/geteltorito
+ #
+-$utilVersion="0.4"; 
++$utilVersion="0.5"; 
+ #
++# Version 0.5
++#    2009/06/22
++#    A patch for harddisk emulation images from <colimit@gmail.com>.
++#    For BootMediaType=4 (harddisk emulation) SectorCount is always 1, and geteltorito.pl
++#    returns just MBR. This patch guesses the correct bootimage size
++#    from MBR (offset+size of the first partitition).
+ # Version 0.4
+ #    2007/02/01
+ #    A patch from Santiago Garcia <manty@debian.org> to use a virtual sector
+@@ -31,9 +37,7 @@ $utilVersion="0.4";
+ #    Initial release
+ #
+ # For information on El Torito see 
+-# http://wikipedia.org/
+-# or try this link directly:
+-# http://www.phoenix.com/en/Customer+Services/White+Papers-Specs/Platform+System+Software+Documents/default.htm
++# http://en.wikipedia.org/wiki/El_torito
+ 
+ $vSecSize=512;
+ $secSize=2048;
+@@ -179,19 +183,22 @@ if( $media == 0 ){
+ }
+ if( $media == 1 ){
+ 	print STDERR "1.2meg floppy";
+-       $count=1200*1024/$vSecSize;  
++        $count=1200*1024/$vSecSize;  
+ }
+ if( $media == 2 ){
+ 	print STDERR "1.44meg floppy";
+-       $count=1440*1024/$vSecSize;  
++        $count=1440*1024/$vSecSize;  
+ }
+ if( $media == 3 ){
+ 	print STDERR "2.88meg floppy";
+-       $count=2880*1024/$vSecSize;  
++        $count=2880*1024/$vSecSize;  
+ }
+ if( $media == 4 ){
+ 	print STDERR "harddisk";
+-	$count=0;
++	$MBR=getSector($imgStart, 1, $imageFile );
++	$partition1=substr($MBR, 446, 16);
++	($unUsed, $firstSector, $partitionSize) = unpack( "A8VV", $partition1);
++	$count=$firstSector + $partitionSize;
+ }
+ print STDERR "\n";
+ 

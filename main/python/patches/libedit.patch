@@ -1,0 +1,22 @@
+commit 99638ed9c6f93028ae50fab4e086ec00ff303255
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 21 05:46:04 2023 +0200
+
+    do not test for rl_completion_display_matches_hook
+    
+    This is unimplemented in libedit and results in readline module
+    failing to build.
+
+diff --git a/configure b/configure
+index a66a081..ddbdec5 100755
+--- a/configure.ac
++++ b/configure.ac
+@@ -6205,7 +6205,7 @@
+     # also in 4.0
+     AC_CACHE_CHECK([for rl_completion_display_matches_hook in -l$LIBREADLINE], [ac_cv_readline_rl_completion_display_matches_hook], [
+       AC_LINK_IFELSE(
+-        [AC_LANG_PROGRAM([readline_includes], [void *x = rl_completion_display_matches_hook])],
++        [AC_LANG_PROGRAM([readline_includes], [void *x = rl_completion_display_matches_hook_undef])],
+         [ac_cv_readline_rl_completion_display_matches_hook=yes], [ac_cv_readline_rl_completion_display_matches_hook=no]
+       )
+     ])

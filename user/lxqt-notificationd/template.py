@@ -1,0 +1,24 @@
+pkgname = "lxqt-notificationd"
+pkgver = "2.4.0"
+pkgrel = 0
+build_style = "cmake"
+configure_args = ["-DLXQT_NOTIFICATION_BUILD_TESTS=ON"]
+hostmakedepends = [
+    "cmake",
+    "lxqt-build-tools",
+    "ninja",
+    "perl",
+]
+makedepends = [
+    "kwindowsystem-devel",
+    "layer-shell-qt-devel",
+    "liblxqt-devel",
+    "qt6-qtbase-devel",
+    "qt6-qttools-devel",
+]
+pkgdesc = "LXQt notification daemon"
+license = "LGPL-2.1-or-later"
+url = "https://github.com/lxqt/lxqt-notificationd"
+source = f"{url}/releases/download/{pkgver}/lxqt-notificationd-{pkgver}.tar.xz"
+sha256 = "525a21feb622cb255f10b7ebd28b4af5afba9da4833560337f167ffe5f1d19d2"
+options = ["etcfiles"]

@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/gdm
+smooth-recovery = true
+depends-on: login.target
+depends-on: dbus
+depends-ms: elogind
+depends-ms: openrc-settingsd

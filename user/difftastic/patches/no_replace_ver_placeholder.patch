@@ -1,0 +1,14 @@
+ manual/book.toml | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/manual/book.toml b/manual/book.toml
+index 8c15ea0dd..0acb9a627 100644
+--- a/manual/book.toml
++++ b/manual/book.toml
+@@ -15,6 +15,3 @@ edit-url-template = "https://github.com/wilfred/difftastic/edit/master/manual/{p
+ 
+ [output.html.playground]
+ copyable = false
+-
+-[preprocessor.replace-version-placeholder]
+-command = "./replace_version_placeholder.sh"

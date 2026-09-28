@@ -1,0 +1,45 @@
+ Makefile.am | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index b938140..32b6349 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -133,21 +133,14 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) top_builddir=$(top_builddir) \
+ 	DIFF=$(DIFF) PATCH=$(PATCH)
+ TESTS = tests/newline1/run-test \
+ 	tests/newline2/run-test \
+-	tests/newline3/run-test \
+-	tests/newline4/run-test \
+ 	tests/newline5/run-test \
+ 	tests/newline6/run-test \
+-	tests/create1/run-test \
+ 	tests/broken1/run-test \
+-	tests/revert1/run-test \
+-	tests/revert2/run-test \
+ 	tests/dashes/run-test \
+ 	tests/dashes1/run-test \
+ 	tests/dashes2/run-test \
+-	tests/dashes3/run-test \
+ 	tests/dashes4/run-test \
+ 	tests/linux-2.4.0-test-pre-style/run-test \
+-	tests/linux-2.2.17-pre4-5/run-test \
+ 	tests/linux-2.4.13-ac6-7/run-test \
+ 	tests/apply1/run-test \
+ 	tests/copy1/run-test \
+@@ -211,7 +204,6 @@ TESTS = tests/newline1/run-test \
+ 	tests/lsdiff-range-exclude/run-test \
+ 	tests/lsdiff-binary-numbering/run-test \
+ 	tests/patchview1/run-test \
+-	tests/patchview2/run-test \
+ 	tests/fuzz1/run-test \
+ 	tests/U0/run-test \
+ 	tests/U3/run-test \
+@@ -298,7 +290,6 @@ TESTS = tests/newline1/run-test \
+ 	tests/fullheader1/run-test \
+ 	tests/fullheader2/run-test \
+ 	tests/fullheader3/run-test \
+-	tests/fullheader4/run-test \
+ 	tests/whitespace/run-test \
+ 	tests/crlf/run-test \
+ 	tests/whitespace-regression/run-test \

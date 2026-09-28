@@ -1,0 +1,17 @@
+From: Mate Kukri <mate.kukri@canonical.com>
+Date: Wed, 10 Jan 2024 16:39:12 +0000
+Subject: Checkout "extra_deps.lst" from upstream/master
+
+This file is unfortunately missing from upstream release tarball.
+---
+ grub-core/extra_deps.lst | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 grub-core/extra_deps.lst
+
+diff --git a/grub-core/extra_deps.lst b/grub-core/extra_deps.lst
+new file mode 100644
+index 0000000..f44ad6a
+--- /dev/null
++++ b/grub-core/extra_deps.lst
+@@ -0,0 +1 @@
++depends bli part_gpt

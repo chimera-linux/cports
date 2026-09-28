@@ -1,0 +1,62 @@
+--- a/arm64/emit.c	2024-01-29 10:24:41.000000000 +0100
++++ b/arm64/emit.c	2024-05-11 19:54:17.287256545 +0200
+@@ -37,7 +37,7 @@
+ static struct {
+ 	short op;
+ 	short cls;
+-	char *asm;
++	char *assembly;
+ } omap[] = {
+ 	{ Oadd,    Ki, "add %=, %0, %1" },
+ 	{ Oadd,    Ka, "fadd %=, %0, %1" },
+@@ -374,7 +374,7 @@
+ 			|| (omap[o].cls == Ki && KBASE(i->cls) == 0))
+ 				break;
+ 		}
+-		emitf(omap[o].asm, i, e);
++		emitf(omap[o].assembly, i, e);
+ 		break;
+ 	case Onop:
+ 		break;
+
+--- a/rv64/emit.c	2024-01-29 10:24:41.000000000 +0100
++++ b/rv64/emit.c	2024-05-11 19:54:45.581080747 +0200
+@@ -8,7 +8,7 @@
+ static struct {
+ 	short op;
+ 	short cls;
+-	char *asm;
++	char *assembly;
+ } omap[] = {
+ 	{ Oadd,    Ki, "add%k %=, %0, %1" },
+ 	{ Oadd,    Ka, "fadd.%k %=, %0, %1" },
+@@ -326,7 +326,7 @@
+ 			|| (omap[o].cls == Ki && KBASE(i->cls) == 0))
+ 				break;
+ 		}
+-		emitf(omap[o].asm, i, fn, f);
++		emitf(omap[o].assembly, i, fn, f);
+ 		break;
+ 	case Ocopy:
+ 		if (req(i->to, i->arg[0]))
+
+--- a/amd64/emit.c	2024-01-29 10:24:41.000000000 +0100
++++ b/amd64/emit.c	2024-05-11 19:55:43.540720608 +0200
+@@ -60,7 +60,7 @@
+ static struct {
+ 	short op;
+ 	short cls;
+-	char *asm;
++	char *assembly;
+ } omap[] = {
+ 	{ Oadd,    Ka, "+add%k %1, %=" },
+ 	{ Osub,    Ka, "-sub%k %1, %=" },
+@@ -393,7 +393,7 @@
+ 			|| (omap[o].cls == Ka))
+ 				break;
+ 		}
+-		emitf(omap[o].asm, &i, fn, f);
++		emitf(omap[o].assembly, &i, fn, f);
+ 		break;
+ 	case Onop:
+ 		/* just do nothing for nops, they are inserted

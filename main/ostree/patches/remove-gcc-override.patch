@@ -1,0 +1,15 @@
+diff --git a/Makefile-libostree.am b/Makefile-libostree.am
+index 11a7bbe..2f39b27 100644
+--- a/Makefile-libostree.am
++++ b/Makefile-libostree.am
+@@ -268,10 +268,6 @@ if USE_COMPOSEFS
+ libostree_1_la_LIBADD += $(OT_DEP_COMPOSEFS_LIBS)
+ endif # USE_COMPOSEFS
+ 
+-# XXX: work around clang being passed -fstack-clash-protection which it doesn't understand
+-# See: https://bugzilla.redhat.com/show_bug.cgi?id=1672012
+-INTROSPECTION_SCANNER_ENV = CC=gcc
+-
+ if BUILDOPT_INTROSPECTION
+ OSTree-1.0.gir: libostree-1.la Makefile
+ OSTree_1_0_gir_EXPORT_PACKAGES = ostree-1

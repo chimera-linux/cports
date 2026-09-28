@@ -1,0 +1,16 @@
+--- a/scripts/fakeroot.in
++++ b/scripts/fakeroot.in
+@@ -43,12 +43,7 @@ export FAKED_MODE
+ 
+ libfound=no
+ 
+-GETOPTTEST=`getopt -T`
+-if test "$?" -eq 4; then # GNU getopt
+-    FAKE_TEMP=`getopt -l lib: -l faked: -l unknown-is-real -l fd-base: -l version -l help -- +l:f:i:s:ub:vh "$@"`
+-else
+-    FAKE_TEMP=`getopt l:f:i:s:ub:vh "$@"`
+-fi
++FAKE_TEMP=`ugetopt -l lib: -l faked: -l unknown-is-real -l fd-base: -l version -l help -- +l:f:i:s:ub:vh "$@"`
+ 
+ if test "$?" -ne 0; then
+   usage

@@ -1,0 +1,12 @@
+ld: error: libucontext.so.1.p/arch_ppc64_startcontext.S.o:(.text+0x20): unknown relocation (18) against symbol exit
+
+--- a/arch/ppc64/startcontext.S
++++ b/arch/ppc64/startcontext.S
+@@ -28,6 +28,6 @@ FUNC(libucontext_trampoline)
+ 	li	3,-1
+ 
+ no_linked_context:
+-	b	exit@GOT
++	b	exit
+ 	nop
+ END(libucontext_trampoline)

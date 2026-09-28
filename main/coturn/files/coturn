@@ -1,0 +1,8 @@
+# coturn system service
+
+type = process
+command = /usr/bin/turnserver
+depends-on = local.target
+depends-on = network.target
+logfile = /var/log/coturn.log
+run-as = _coturn

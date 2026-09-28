@@ -1,0 +1,12 @@
+pkgname = "perl-io-tty"
+pkgver = "1.20"
+pkgrel = 2
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Low-level pseudo-tty allocation library"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/IO-Tty"
+source = f"$(CPAN_SITE)/IO/IO-Tty-{pkgver}.tar.gz"
+sha256 = "b15309fc85623893289cb9b2b88dfa9ed1e69156b75f29938553a45be6d730af"

@@ -1,0 +1,13 @@
+diff --git a/config/Makefile.in b/config/Makefile.in
+index e1fabf3..35a80ed 100644
+--- a/config/Makefile.in
++++ b/config/Makefile.in
+@@ -579,7 +579,7 @@ uninstall-am: uninstall-local uninstall-pkgconfigDATA
+ 
+ 
+ @LIBDEBUGINFOD_TRUE@all-local:
+-@LIBDEBUGINFOD_TRUE@	sed -i 's/{prefix}/prefix/g' profile.fish
++@LIBDEBUGINFOD_TRUE@	sed -i '' 's/{prefix}/prefix/g' profile.fish
+ 
+ @LIBDEBUGINFOD_TRUE@install-data-local:
+ @LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) -D profile.sh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh

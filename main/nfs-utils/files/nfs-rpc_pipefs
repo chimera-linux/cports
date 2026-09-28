@@ -1,0 +1,3 @@
+type = scripted
+command = /usr/lib/dinit-rpc_pipefs
+depends-on: early-fs-local.target

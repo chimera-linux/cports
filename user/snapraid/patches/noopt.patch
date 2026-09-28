@@ -1,0 +1,15 @@
+fails selftest with clang 22
+
+diff --git a/cmdline/museair.c b/cmdline/museair.c
+index bd431a1..a1afac4 100644
+--- a/cmdline/museair.c
++++ b/cmdline/museair.c
+@@ -43,7 +43,7 @@ static const uint64_t MUSEAIR_CONSTANT[7] = {
+ #define likely(a) tommy_likely(a)
+ #define unlikely(a) tommy_unlikely(a)
+ 
+-static void MuseAirLoong(const void* bytes, size_t len, const uint8_t* seed, uint8_t* out)
++[[clang::optnone]] static void MuseAirLoong(const void* bytes, size_t len, const uint8_t* seed, uint8_t* out)
+ {
+ 	const uint8_t* p = bytes;
+ 	size_t q = len;

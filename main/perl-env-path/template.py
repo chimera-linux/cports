@@ -1,0 +1,12 @@
+pkgname = "perl-env-path"
+pkgver = "0.19"
+pkgrel = 1
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Perl module for operations on PATH variables"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/dist/Env-Path"
+source = f"$(CPAN_SITE)/Env/Env-Path-{pkgver}.tar.gz"
+sha256 = "244bf093798832a7d841d9ee5b4b0e6b489996eef63541e505091aa34a9015e2"

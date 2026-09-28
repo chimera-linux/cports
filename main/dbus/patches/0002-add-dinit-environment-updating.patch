@@ -1,0 +1,99 @@
+From 9d719eb914d13ba5c07dd04ee46296e024bc9a83 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 24 Nov 2024 20:14:30 +0100
+Subject: [PATCH 2/2] add dinit environment updating
+
+---
+ bus/driver.c | 35 +++++++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
+
+diff --git a/bus/driver.c b/bus/driver.c
+index fa4213c..fa9acc2 100644
+--- a/bus/driver.c
++++ b/bus/driver.c
+@@ -1169,18 +1169,25 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+ 
+   _dbus_assert (_dbus_list_get_length (&keys) == _dbus_list_get_length (&values));
+ 
+-  if (bus_context_get_systemd_activation (bus_connection_get_context (connection)))
++  if (bus_context_get_systemd_activation (context) || bus_context_get_dinit (context))
+     {
++      dbus_bool_t dinit = bus_context_get_dinit (context);
+       /* Prepare a call to forward environment updates to systemd */
+-      systemd_message = dbus_message_new_method_call ("org.freedesktop.systemd1",
+-                                                      "/org/freedesktop/systemd1",
+-                                                      "org.freedesktop.systemd1.Manager",
+-                                                      "SetEnvironment");
++      if (dinit)
++        systemd_message = dbus_message_new_method_call ("org.chimera.dinit",
++                                                        "/org/chimera/dinit",
++                                                        "org.chimera.dinit.Manager",
++                                                        "SetEnvironment");
++      else
++        systemd_message = dbus_message_new_method_call ("org.freedesktop.systemd1",
++                                                        "/org/freedesktop/systemd1",
++                                                        "org.freedesktop.systemd1.Manager",
++                                                        "SetEnvironment");
+       if (systemd_message == NULL ||
+           !dbus_message_set_sender (systemd_message, DBUS_SERVICE_DBUS))
+         {
+           BUS_SET_OOM (error);
+-          _dbus_verbose ("No memory to create systemd message\n");
++          _dbus_verbose ("No memory to create environment message\n");
+           goto out;
+         }
+ 
+@@ -1191,7 +1198,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+                                              &systemd_iter))
+         {
+           BUS_SET_OOM (error);
+-          _dbus_verbose ("No memory to open systemd message container\n");
++          _dbus_verbose ("No memory to open environment message container\n");
+           goto out;
+         }
+     }
+@@ -1224,7 +1231,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+               !_dbus_string_append_printf (&envline, "%s=%s", key, value))
+             {
+               BUS_SET_OOM (error);
+-              _dbus_verbose ("No memory to format systemd environment line\n");
++              _dbus_verbose ("No memory to format environment line\n");
+               _dbus_string_free (&envline);
+               break;
+             }
+@@ -1235,7 +1242,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+                                                DBUS_TYPE_STRING, &s))
+             {
+               BUS_SET_OOM (error);
+-              _dbus_verbose ("No memory to append systemd environment line\n");
++              _dbus_verbose ("No memory to append environment line\n");
+               _dbus_string_free (&envline);
+               break;
+             }
+@@ -1263,7 +1270,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+       if (!dbus_message_iter_close_container (&iter, &systemd_iter))
+         {
+           BUS_SET_OOM (error);
+-          _dbus_verbose ("No memory to close systemd message container\n");
++          _dbus_verbose ("No memory to close environment message container\n");
+           goto out;
+         }
+ 
+@@ -3135,6 +3142,14 @@ features_getter (BusContext      *context,
+         goto abandon;
+     }
+ 
++  if (bus_context_get_dinit (context))
++    {
++      s = "Dinit";
++
++      if (!dbus_message_iter_append_basic (&arr_iter, DBUS_TYPE_STRING, &s))
++        goto abandon;
++    }
++
+   return dbus_message_iter_close_container (variant_iter, &arr_iter);
+ 
+ abandon:
+-- 
+2.48.0
+

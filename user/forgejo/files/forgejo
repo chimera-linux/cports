@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/forgejo web
+logfile = /var/log/forgejo.log
+smooth-recovery = true
+run-as = _forgejo
+depends-on: local.target
+depends-on: network.target
+load-options: export-passwd-vars

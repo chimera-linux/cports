@@ -1,0 +1,31 @@
+From c636d6626d5cd6f1e37adecef1c4f7d3fabf3e52 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 5 Nov 2022 04:22:48 +0100
+Subject: [PATCH] force .plt to be PROGBITS on ppc64
+
+this is NOBITS by default, which results in two RW PT_LOAD
+segments with memsz > filesz, which th kernel cannot handle
+---
+ arch/powerpc64/arch.mak | 1 +
+ arch/powerpc64/plt.s    | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 arch/powerpc64/arch.mak
+ create mode 100644 arch/powerpc64/plt.s
+
+diff --git a/arch/powerpc64/arch.mak b/arch/powerpc64/arch.mak
+new file mode 100644
+index 0000000..e370d77
+--- /dev/null
++++ b/arch/powerpc64/arch.mak
+@@ -0,0 +1 @@
++LDFLAGS_ALL+= $(srcdir)/arch/powerpc64/plt.s
+diff --git a/arch/powerpc64/plt.s b/arch/powerpc64/plt.s
+new file mode 100644
+index 0000000..1b2be7a
+--- /dev/null
++++ b/arch/powerpc64/plt.s
+@@ -0,0 +1 @@
++.section .plt,"awR",@progbits
+-- 
+2.38.1
+

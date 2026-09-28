@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -107,7 +107,7 @@ uninstall-linux: build-linux common-uninstall
+ uninstall-mini-linux: build-mini-linux common-uninstall
+ 
+ %.txt : %
+-	groff -mandoc -Tascii $< | col -bx >$@
++	mandoc -Tascii $< | col -bx >$@
+ 
+ txtmanpages := $./man/bdf2psf.1.txt $./man/console-setup.5.txt		\
+ 	$./man/setupcon.1.txt $./man/ckbcomp.1.txt $./man/keyboard.5.txt

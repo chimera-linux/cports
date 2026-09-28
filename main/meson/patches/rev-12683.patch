@@ -1,0 +1,60 @@
+reverts https://github.com/mesonbuild/meson/pull/12683 (and future amendments)
+this change leaves no good option since both b_ndebug=true and =false pass
+something that may be unwanted
+(note in 1.4.1: it now skips if the macro is in compiler defines, but libc++
+default system config does not count as a default compiler define?)
+--
+--- a/mesonbuild/compilers/cpp.py
++++ b/mesonbuild/compilers/cpp.py
+@@ -314,25 +314,6 @@ class ClangCPPCompiler(_StdCPPLibMixin, ClangCPPStds, ClangCompiler, CPPCompiler
+     def is_libcpp_enable_assertions_deprecated(self) -> bool:
+         return version_compare(self.version, ">=18")
+ 
+-    def get_assert_args(self, disable: bool, env: 'Environment') -> T.List[str]:
+-        if disable:
+-            return ['-DNDEBUG']
+-
+-        # Don't inject the macro if the compiler already has it pre-defined.
+-        for macro in ['_GLIBCXX_ASSERTIONS', '_LIBCPP_HARDENING_MODE', '_LIBCPP_ENABLE_ASSERTIONS']:
+-            if self.defines.get(macro) is not None:
+-                return []
+-
+-        if self.language_stdlib_provider(env) == 'stdc++':
+-            return ['-D_GLIBCXX_ASSERTIONS=1']
+-        else:
+-            if self.is_libcpp_enable_assertions_deprecated():
+-                return ['-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST']
+-            elif version_compare(self.version, '>=15'):
+-                return ['-D_LIBCPP_ENABLE_ASSERTIONS=1']
+-
+-        return []
+-
+     def get_pch_use_args(self, pch_dir: str, header: str) -> T.List[str]:
+         args = super().get_pch_use_args(pch_dir, header)
+         if version_compare(self.version, '>=11'):
+@@ -530,25 +511,6 @@ class GnuCPPCompiler(_StdCPPLibMixin, GnuCPPStds, GnuCompiler, CPPCompiler):
+             return libs
+         return []
+ 
+-    def get_assert_args(self, disable: bool, env: 'Environment') -> T.List[str]:
+-        if disable:
+-            return ['-DNDEBUG']
+-
+-        # Don't inject the macro if the compiler already has it pre-defined.
+-        for macro in ['_GLIBCXX_ASSERTIONS', '_LIBCPP_HARDENING_MODE', '_LIBCPP_ENABLE_ASSERTIONS']:
+-            if self.defines.get(macro) is not None:
+-                return []
+-
+-        if self.language_stdlib_provider(env) == 'stdc++':
+-            return ['-D_GLIBCXX_ASSERTIONS=1']
+-        else:
+-            if version_compare(self.version, '>=18'):
+-                return ['-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST']
+-            elif version_compare(self.version, '>=15'):
+-                return ['-D_LIBCPP_ENABLE_ASSERTIONS=1']
+-
+-        return []
+-
+     def get_pch_use_args(self, pch_dir: str, header: str) -> T.List[str]:
+         return ['-fpch-preprocess', '-include', os.path.basename(header)]
+ 

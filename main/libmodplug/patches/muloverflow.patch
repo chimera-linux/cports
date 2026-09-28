@@ -1,0 +1,17 @@
+--- a/src/load_pat.cpp
++++ b/src/load_pat.cpp
+@@ -925,12 +925,12 @@
+ 	if( sum == 0 ) return;
+ 	if( sum > s ) {
+ 		for( i=0; i<6; i++ )
+-			mpos[i] = (s * mpos[i]) / sum;
++			mpos[i] = ((unsigned)s * mpos[i]) / sum;
+ 	}
+ 	for( i=1; i<6; i++ )
+ 		mpos[i] += mpos[i-1];
+ 	for( i=0; i<6 ; i++ ) {
+-		mpos[i] = (256 * mpos[i]) / s;
++		mpos[i] = ((unsigned)256 * mpos[i]) / s;
+ 		mpos[i]++;
+ 		if( i > 0 && mpos[i] <= mpos[i-1] ) {
+ 			if( mvol[i] == mvol[i-1] ) mpos[i] = mpos[i-1];

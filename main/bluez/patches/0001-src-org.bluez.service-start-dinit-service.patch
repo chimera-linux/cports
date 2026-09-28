@@ -1,0 +1,23 @@
+From 50dfcecb1d32c239bba91914f77ee1afca0ea883 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Sat, 15 Jun 2024 06:19:06 +0200
+Subject: [PATCH] src/org.bluez.service: start dinit service
+
+---
+ src/org.bluez.service | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/org.bluez.service b/src/org.bluez.service
+index dd7ae8f1c..ea5a00ad5 100644
+--- a/src/org.bluez.service
++++ b/src/org.bluez.service
+@@ -1,5 +1,4 @@
+ [D-BUS Service]
+ Name=org.bluez
+-Exec=/bin/false
++Exec=/usr/bin/dinitctl --quiet start bluetoothd
+ User=root
+-SystemdService=dbus-org.bluez.service
+-- 
+2.45.2
+

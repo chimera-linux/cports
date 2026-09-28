@@ -1,0 +1,13 @@
+This is only used by the testing stuff and not the library itself, avoid
+runtime dep on gtest
+--- a/absl/status/CMakeLists.txt
++++ b/absl/status/CMakeLists.txt
+@@ -121,8 +121,6 @@ absl_cc_library(
+     absl::status
+     absl::statusor
+     absl::strings
+-    GTest::gmock
+-    GTest::gtest
+   PUBLIC
+   TESTONLY
+ )

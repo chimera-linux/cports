@@ -1,0 +1,13 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -349,10 +349,6 @@
+     check_both_flags_add(-mno-avx)
+ endif()
+ 
+-if(CMAKE_C_FLAGS MATCHES "-O" AND NOT CMAKE_C_FLAGS MATCHES "-O0" AND NOT MINGW)
+-    add_definitions(-D_FORTIFY_SOURCE=2)
+-endif()
+-
+ if(CMAKE_ASM_NASM_OBJECT_FORMAT MATCHES "win")
+     set(CMAKE_ASM_NASM_FLAGS_DEBUG "${CMAKE_ASM_NASM_FLAGS_DEBUG} -gcv8")
+ elseif(CMAKE_ASM_NASM_COMPILER MATCHES "nasm")

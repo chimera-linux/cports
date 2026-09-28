@@ -1,0 +1,26 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index a964f9b..7d5cd54 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -19,7 +19,6 @@ dependencies = [
+     "charset_normalizer>=2,<4",
+     "idna>=2.5,<4",
+     "urllib3>=1.26,<3",
+-    "certifi>=2023.5.7"
+ ]
+ dynamic = ["version"]
+ 
+diff --git a/src/requests/certs.py b/src/requests/certs.py
+index 4f85ac0..a8ddc23 100644
+--- a/src/requests/certs.py
++++ b/src/requests/certs.py
+@@ -12,7 +12,8 @@ environment, you can change the definition of where() to return a separately
+ packaged CA bundle.
+ """
+ 
+-from certifi import where
++def where():
++    return '/etc/ssl/certs/ca-certificates.crt'
+ 
+ if __name__ == "__main__":
+     print(where())

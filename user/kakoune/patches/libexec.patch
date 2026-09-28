@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index f91354f..c715806 100644
+--- a/Makefile
++++ b/Makefile
+@@ -40,7 +40,7 @@ PREFIX = /usr/local
+ DESTDIR = # root dir
+ 
+ bindir = $(DESTDIR)$(PREFIX)/bin
+-libexecdir = $(DESTDIR)$(PREFIX)/libexec/kak
++libexecdir = $(DESTDIR)$(PREFIX)/lib/kak
+ sharedir = $(DESTDIR)$(PREFIX)/share/kak
+ docdir = $(DESTDIR)$(PREFIX)/share/doc/kak
+ mandir = $(DESTDIR)$(PREFIX)/share/man/man1
+diff --git a/src/shell_manager.cc b/src/shell_manager.cc
+index ee382e1..2045ca5 100644
+--- a/src/shell_manager.cc
++++ b/src/shell_manager.cc
+@@ -78,7 +78,7 @@ ShellManager::ShellManager(ConstArrayView<EnvVarDesc> builtin_env_vars)
+     // have access to the kak command regardless of if the user installed it
+     {
+         const char* path = getenv("PATH");
+-        auto new_path = format("{}../libexec/kak:{}", split_path(get_kak_binary_path()).first, path);
++        auto new_path = format("{}../lib/kak:{}", split_path(get_kak_binary_path()).first, path);
+         setenv("PATH", new_path.c_str(), 1);
+     }
+ }

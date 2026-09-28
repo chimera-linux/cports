@@ -1,0 +1,15 @@
+needs strcasestr
+
+diff --git a/src/camel/tests/test-camel-provider-imapx.c b/src/camel/tests/test-camel-provider-imapx.c
+index bb5ec74..e9614bb 100644
+--- a/src/camel/tests/test-camel-provider-imapx.c
++++ b/src/camel/tests/test-camel-provider-imapx.c
+@@ -3,6 +3,8 @@
+  * SPDX-License-Identifier: LGPL-2.0-or-later
+  */
+ 
++#define _GNU_SOURCE
++
+ #include "evolution-data-server-config.h"
+ 
+ #include <string.h>

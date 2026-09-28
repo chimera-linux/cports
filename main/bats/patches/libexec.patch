@@ -1,0 +1,110 @@
+commit 460a57b2306828fa342c018e28020d73c22d6970
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 3 21:57:05 2026 +0200
+
+    unify lib and libexec
+
+diff --git a/bin/bats b/bin/bats
+index 25ad051..a7a187b 100755
+--- a/bin/bats
++++ b/bin/bats
+@@ -72,4 +72,4 @@ BATS_BASE_LIBDIR=lib # this will be patched with the true value in install.sh
+ 
+ export BATS_ROOT=${BATS_PATH%/*/*}
+ export -f bats_readlinkf
+-exec env BATS_ROOT="$BATS_ROOT" BATS_LIBDIR="${BATS_BASE_LIBDIR:-lib}" "$BATS_ROOT/libexec/bats-core/bats" "$@"
++exec env BATS_ROOT="$BATS_ROOT" BATS_LIBDIR="${BATS_BASE_LIBDIR:-lib}" "$BATS_ROOT/lib/bats-core/bats" "$@"
+diff --git a/install.sh b/install.sh
+index edc26af..cd32774 100755
+--- a/install.sh
++++ b/install.sh
+@@ -14,10 +14,9 @@ if [[ -z "$PREFIX" ]]; then
+   exit 1
+ fi
+ 
+-install -d -m 755 "$PREFIX"/{bin,libexec/bats-core,"${LIBDIR}"/bats-core,share/man/man{1,7}}
++install -d -m 755 "$PREFIX"/{bin,"${LIBDIR}"/bats-core,share/man/man{1,7}}
+ 
+ install -m 755 "$BATS_ROOT/bin"/* "$PREFIX/bin"
+-install -m 755 "$BATS_ROOT/libexec/bats-core"/* "$PREFIX/libexec/bats-core"
+ install -m 755 "$BATS_ROOT/lib/bats-core"/* "$PREFIX/${LIBDIR}/bats-core"
+ install -m 644 "$BATS_ROOT/man/bats.1" "$PREFIX/share/man/man1"
+ install -m 644 "$BATS_ROOT/man/bats.7" "$PREFIX/share/man/man7"
+diff --git a/lib/bats-core/preprocessing.bash b/lib/bats-core/preprocessing.bash
+index 069cfd4..7b22eb9 100644
+--- a/lib/bats-core/preprocessing.bash
++++ b/lib/bats-core/preprocessing.bash
+@@ -9,7 +9,7 @@ bats_export_preprocess_source_BATS_TEST_SOURCE() {
+ bats_preprocess_source() { # index
+   bats_export_preprocess_source_BATS_TEST_SOURCE
+   # shellcheck disable=SC2153
+-  CHECK_BATS_COMMENT_COMMANDS=1 "$BATS_ROOT/libexec/bats-core/bats-preprocess" "$BATS_TEST_FILENAME" >"$BATS_TEST_SOURCE"
++  CHECK_BATS_COMMENT_COMMANDS=1 "$BATS_ROOT/lib/bats-core/bats-preprocess" "$BATS_TEST_FILENAME" >"$BATS_TEST_SOURCE"
+ }
+ 
+ bats_evaluate_preprocessed_source() {
+diff --git a/lib/bats-core/tracing.bash b/lib/bats-core/tracing.bash
+index 0fc1210..b7145e7 100644
+--- a/lib/bats-core/tracing.bash
++++ b/lib/bats-core/tracing.bash
+@@ -358,7 +358,7 @@ bats_setup_tracing() {
+   BATS_DEBUG_EXCLUDE_PATHS=()
+   # exclude some paths by default
+   bats_add_debug_exclude_path "$BATS_ROOT/$BATS_LIBDIR/"
+-  bats_add_debug_exclude_path "$BATS_ROOT/libexec/"
++  bats_add_debug_exclude_path "$BATS_ROOT/lib/"
+ 
+   exec 4<&1 # used for tracing
+   if [[ "${BATS_TRACE_LEVEL:-0}" -gt 0 ]]; then
+diff --git a/test/bats.bats b/test/bats.bats
+index 0ef4011..0ae9d0d 100755
+--- a/test/bats.bats
++++ b/test/bats.bats
+@@ -1032,7 +1032,6 @@ END_OF_ERR_MSG
+   grep contrib/ <<<"$output"
+   grep docker/ <<<"$output"
+   grep lib/bats-core/ <<<"$output"
+-  grep libexec/bats-core/ <<<"$output"
+   grep test/fixtures <<<"$output"
+   grep install.sh <<<"$output"
+ }
+@@ -1627,4 +1626,4 @@ END_OF_ERR_MSG
+   # we should not reach the test that creates this file
+   # shellcheck disable=SC2314
+   ! cat "$MARKER_FILE"
+-}
+\ No newline at end of file
++}
+diff --git a/test/cat-formatter.bats b/test/cat-formatter.bats
+index c5c3991..4fe8951 100644
+--- a/test/cat-formatter.bats
++++ b/test/cat-formatter.bats
+@@ -48,7 +48,7 @@ fixtures bats # reuse bats fixtures
+ }
+ 
+ @test "Cat formatter prints the extended tap stream" {
+-  cd "$BATS_ROOT/libexec/bats-core/"
++  cd "$BATS_ROOT/lib/bats-core/"
+   
+   local formatter="bats-format-cat"
+ 
+@@ -67,4 +67,4 @@ unknown line
+ EOF
+ 
+   [[ "${#lines[@]}" -eq 11 ]]
+-}
+\ No newline at end of file
++}
+diff --git a/test/formatter.bats b/test/formatter.bats
+index f497f5f..c4b6cc6 100644
+--- a/test/formatter.bats
++++ b/test/formatter.bats
+@@ -53,7 +53,7 @@ setup() {
+ }
+ 
+ @test "All formatters (except cat) implement the callback interface" {
+-  cd "$BATS_ROOT/libexec/bats-core/"
++  cd "$BATS_ROOT/lib/bats-core/"
+   for formatter in bats-format-*; do
+     # the cat formatter is not expected to implement this interface
+     if [[ "$formatter" == *"bats-format-cat" ]]; then

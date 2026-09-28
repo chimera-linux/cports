@@ -1,0 +1,8 @@
+# so we always get a sane config by default without relying
+# on useradd copying stuff from skel and similar boomery
+
+if [ -n "$HOME" -a -r "${HOME}/.mkshrc" ]; then
+    . "${HOME}/.mkshrc"
+else
+    . /usr/share/mksh/dot.mkshrc
+fi

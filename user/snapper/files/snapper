@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/snapperd -s
+depends-on = local.target
+logfile = /var/log/snapper.log

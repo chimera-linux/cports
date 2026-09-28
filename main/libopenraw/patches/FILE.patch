@@ -1,0 +1,12 @@
+FILE for jpeglib.h
+--
+--- a/lib/jfifcontainer.cpp
++++ b/lib/jfifcontainer.cpp
+@@ -30,6 +30,7 @@
+  * as found on debian because some people have this installed.
+  */
+ extern "C" {
++#include <stdio.h>
+ #include <jpeglib.h>
+ }
+ 

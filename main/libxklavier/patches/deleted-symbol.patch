@@ -1,0 +1,40 @@
+From 1387c21a788ec1ea203c8392ea1460fc29d83f70 Mon Sep 17 00:00:00 2001
+From: "Sergey V. Udaltsov" <svu@gnome.org>
+Date: Sat, 22 Jun 2013 16:34:41 +0100
+Subject: [PATCH] xkl_engine_VOID__FLAGS_INT_BOOLEAN
+
+this symbol was removed some while ago
+---
+Upstream commit: https://gitlab.freedesktop.org/archived-projects/libxklavier/-/commit/1387c21a788ec1ea203c8392ea1460fc29d83f70
+
+ doc/reference/libxklavier-sections.txt | 2 +-
+ libxklavier/libxklavier.public         | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/doc/reference/libxklavier-sections.txt b/doc/reference/libxklavier-sections.txt
+index 6108bb7..b1b598a 100644
+--- a/doc/reference/libxklavier-sections.txt
++++ b/doc/reference/libxklavier-sections.txt
+@@ -298,6 +298,6 @@ xkl_xmm_term
+ <FILE>xkl_engine_marshal</FILE>
+ xkl_engine_VOID__VOID
+ xkl_engine_INT__LONG_LONG
+-xkl_engine_VOID__FLAGS_INT_BOOLEAN
++xkl_engine_VOID__ENUM_INT_BOOLEAN
+ </SECTION>
+ 
+diff --git a/libxklavier/libxklavier.public b/libxklavier/libxklavier.public
+index 11f27d5..2789e6b 100644
+--- a/libxklavier/libxklavier.public
++++ b/libxklavier/libxklavier.public
+@@ -83,7 +83,6 @@ xkl_engine_start_listen
+ xkl_engine_state_change_get_type
+ xkl_engine_stop_listen
+ xkl_engine_ungrab_key
+-xkl_engine_VOID__FLAGS_INT_BOOLEAN
+ xkl_engine_VOID__ENUM_INT_BOOLEAN
+ xkl_get_country_name
+ xkl_get_language_name
+-- 
+GitLab
+

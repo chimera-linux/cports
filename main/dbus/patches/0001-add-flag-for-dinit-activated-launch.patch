@@ -1,0 +1,96 @@
+From b60d7689eb6ac54554f3505aa3c7407b1f253d38 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 24 Nov 2024 20:08:28 +0100
+Subject: [PATCH 1/2] add flag for dinit-activated launch
+
+---
+ bus/bus.c  | 12 ++++++++++++
+ bus/bus.h  |  4 +++-
+ bus/main.c |  5 +++++
+ 3 files changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/bus/bus.c b/bus/bus.c
+index eaa8f2a..06bf7e3 100644
+--- a/bus/bus.c
++++ b/bus/bus.c
+@@ -77,6 +77,7 @@ struct BusContext
+   unsigned int keep_umask : 1;
+   unsigned int allow_anonymous : 1;
+   unsigned int systemd_activation : 1;
++  unsigned int dinit : 1;
+ #ifdef DBUS_ENABLE_EMBEDDED_TESTS
+   unsigned int quiet_log : 1;
+ #endif
+@@ -341,6 +342,11 @@ process_config_first_time_only (BusContext       *context,
+   else
+     context->systemd_activation = FALSE;
+ 
++  if (flags & BUS_CONTEXT_FLAG_DINIT)
++    context->dinit = TRUE;
++  else
++    context->dinit = FALSE;
++
+   /* Check for an existing pid file. Of course this is a race;
+    * we'd have to use fcntl() locks on the pid file to
+    * avoid that. But we want to check for the pid file
+@@ -1341,6 +1347,12 @@ bus_context_get_systemd_activation (BusContext *context)
+   return context->systemd_activation;
+ }
+ 
++dbus_bool_t
++bus_context_get_dinit (BusContext *context)
++{
++  return context->dinit;
++}
++
+ BusRegistry*
+ bus_context_get_registry (BusContext  *context)
+ {
+diff --git a/bus/bus.h b/bus/bus.h
+index b970be6..127683d 100644
+--- a/bus/bus.h
++++ b/bus/bus.h
+@@ -83,7 +83,8 @@ typedef enum
+   BUS_CONTEXT_FLAG_SYSTEMD_ACTIVATION = (1 << 4),
+   BUS_CONTEXT_FLAG_SYSLOG_ALWAYS = (1 << 5),
+   BUS_CONTEXT_FLAG_SYSLOG_NEVER = (1 << 6),
+-  BUS_CONTEXT_FLAG_SYSLOG_ONLY = (1 << 7)
++  BUS_CONTEXT_FLAG_SYSLOG_ONLY = (1 << 7),
++  BUS_CONTEXT_FLAG_DINIT = (1 << 8),
+ } BusContextFlags;
+ 
+ BusContext*       bus_context_new                                (const DBusString *config_file,
+@@ -104,6 +105,7 @@ const char*       bus_context_get_type                           (BusContext
+ const char*       bus_context_get_address                        (BusContext       *context);
+ const char*       bus_context_get_servicehelper                  (BusContext       *context);
+ dbus_bool_t       bus_context_get_systemd_activation             (BusContext       *context);
++dbus_bool_t       bus_context_get_dinit                          (BusContext       *context);
+ BusRegistry*      bus_context_get_registry                       (BusContext       *context);
+ BusConnections*   bus_context_get_connections                    (BusContext       *context);
+ BusActivation*    bus_context_get_activation                     (BusContext       *context);
+diff --git a/bus/main.c b/bus/main.c
+index cf1abc6..65fefa1 100644
+--- a/bus/main.c
++++ b/bus/main.c
+@@ -175,6 +175,7 @@ usage (void)
+ #ifdef DBUS_UNIX
+       " [--fork]"
+       " [--systemd-activation]"
++      " [--dinit]"
+ #endif
+       "\n");
+   exit (1);
+@@ -505,6 +506,10 @@ main (int argc, char **argv)
+         {
+           flags |= BUS_CONTEXT_FLAG_SYSTEMD_ACTIVATION;
+         }
++      else if (strcmp (arg, "--dinit") == 0)
++        {
++          flags |= BUS_CONTEXT_FLAG_DINIT;
++        }
+ #endif
+       else if (strcmp (arg, "--nopidfile") == 0)
+         {
+-- 
+2.48.0
+

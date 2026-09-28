@@ -1,0 +1,13 @@
+pkgname = "desktop-file-utils"
+pkgver = "0.28"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
+makedepends = ["glib-devel"]
+triggers = ["/usr/share/applications"]
+pkgdesc = "Utilities to manage desktop entries"
+license = "GPL-2.0-or-later"
+url = "https://freedesktop.org/wiki/Software/desktop-file-utils"
+source = f"$(FREEDESKTOP_SITE)/desktop-file-utils/releases/desktop-file-utils-{pkgver}.tar.xz"
+sha256 = "4401d4e231d842c2de8242395a74a395ca468cd96f5f610d822df33594898a70"
+hardening = ["vis", "cfi"]

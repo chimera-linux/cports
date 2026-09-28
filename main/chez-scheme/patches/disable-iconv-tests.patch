@@ -1,0 +1,17 @@
+They are incompatible with musl's iconv implementation relying on
+encodings that are not supported by musl libc et cetera.
+
+diff -upr csv10.0.0.orig/mats/io.ms csv10.0.0/mats/io.ms
+--- csv10.0.0.orig/mats/io.ms	2024-04-13 15:51:20.280352351 +0200
++++ csv10.0.0/mats/io.ms	2024-04-13 15:51:46.850399748 +0200
+@@ -534,9 +534,7 @@
+      1)
+  )
+ 
+-(if (case (machine-type)
+-     [(pb tpb) #t]
+-     [else (embedded?)])
++(if #t
+     (mat iconv-codec
+       (error? (errorf 'iconv-codec "-73 is not a string"))
+       (error? (errorf 'transcoded-port "unsupported encoding almost certainly bogus"))

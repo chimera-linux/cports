@@ -1,0 +1,13 @@
+--- a/strpool/Makefile.in
++++ b/strpool/Makefile.in
+@@ -231,8 +231,8 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AM_CFLAGS = @BUILD_CFLAGS@
+-AM_LDFLAGS = @BUILD_LDFLAGS@
++CFLAGS = @BUILD_CFLAGS@
++LDFLAGS = @BUILD_LDFLAGS@
+ strpool_SOURCES = \
+ 	../strpool.c
+ 

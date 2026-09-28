@@ -1,0 +1,8 @@
+#!/bin/sh
+
+conf="-autoconf"
+if [ -f /etc/yggdrasil.conf ]; then
+    conf="-useconffile /etc/yggdrasil.conf"
+fi
+
+exec /usr/bin/yggdrasil ${conf}

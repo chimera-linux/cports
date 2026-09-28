@@ -1,0 +1,10 @@
+--- a/src/survey/entries.h
++++ b/src/survey/entries.h
+@@ -5,6 +5,7 @@
+ 
+ #include <filesystem>
+ #include <vector>
++#include <sys/types.h>
+ 
+ #include <QString>
+ 

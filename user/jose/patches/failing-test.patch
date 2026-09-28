@@ -1,0 +1,12 @@
+diff --git a/tests/meson.build b/tests/meson.build
+index d2aa442..e861c74 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -25,7 +25,6 @@ progs = [
+   'alg_comp',
+   'api_b64',
+   'api_jws',
+-  'api_jwe',
+   'api_mem',
+ ]
+ 

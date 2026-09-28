@@ -1,0 +1,14 @@
+--- a/filters/html-converters/man2html
++++ b/filters/html-converters/man2html
+@@ -1,4 +1,4 @@
+ #!/bin/sh
+ echo "<div style=\"font-family: monospace\">"
+-groff -mandoc -T html -P -r -P -l | egrep -v '(<html>|<head>|<meta|<title>|</title>|</head>|<body>|</body>|</html>|<!DOCTYPE|"http://www.w3.org)'
++mandoc -T html -O fragment | egrep -v '(<html>|<head>|<meta|<title>|</title>|</head>|<body>|</body>|</html>|<!DOCTYPE|"http://www.w3.org)'
+ echo "</div>"
+--- a/filters/html-converters/rst2html
++++ b/filters/html-converters/rst2html
+@@ -1,2 +1,2 @@
+ #!/bin/bash
+-exec rst2html.py --template <(echo -e "%(stylesheet)s\n%(body_pre_docinfo)s\n%(docinfo)s\n%(body)s")
++exec rst2html5 --template <(echo -e "%(stylesheet)s\n%(body_pre_docinfo)s\n%(docinfo)s\n%(body)s")

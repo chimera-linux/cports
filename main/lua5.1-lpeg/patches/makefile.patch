@@ -1,0 +1,13 @@
+use cbuild compiler flags
+
+--- a/makefile
++++ b/makefile
+@@ -36,7 +36,7 @@
+ 	$(MAKE) lpeg.so "DLLFLAGS = -bundle -undefined dynamic_lookup"
+ 
+ lpeg.so: $(FILES)
+-	env $(CC) $(DLLFLAGS) $(FILES) -o lpeg.so
++	$(CC) -shared -fPIC $(CFLAGS) $(LDFLAGS) $(FILES) -o lpeg.so
+ 
+ $(FILES): makefile
+ 

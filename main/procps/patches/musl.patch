@@ -1,0 +1,18 @@
+commit c327e099829ef6971509e39fdcf5a8dad39685f7
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Feb 23 11:22:10 2023 +0000
+
+    musl build fixes
+
+diff --git a/library/escape.c b/library/escape.c
+index 16a2619..f3a4d70 100644
+--- a/library/escape.c
++++ b/library/escape.c
+@@ -23,6 +23,7 @@
+ #include <limits.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <langinfo.h>
+ 
+ #include "escape.h"
+ #include "readproc.h"

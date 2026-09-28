@@ -1,0 +1,38 @@
+pkgname = "zizmor"
+pkgver = "1.16.0"
+pkgrel = 0
+build_style = "cargo"
+prepare_after_patch = True
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
+pkgdesc = "Static analysis for GitHub Actions"
+license = "MIT"
+url = "https://docs.zizmor.sh"
+source = (
+    f"https://github.com/zizmorcore/zizmor/archive/refs/tags/v{pkgver}.tar.gz"
+)
+sha256 = "8c0f9ef81c6d5b12d2c85a5ede787c8588ed40100f8e1826251934f18f5e0755"
+# Generates completions using host binaries
+options = ["!cross"]
+
+
+def post_build(self):
+    from cbuild.util import cargo
+
+    for shell in ["bash", "fish", "zsh", "nushell"]:
+        with open(self.cwd / f"zizmor.{shell}", "w") as f:
+            self.do(
+                cargo.target_path(self, "zizmor"),
+                "--completions",
+                shell,
+                stdout=f,
+            )
+
+
+def install(self):
+    from cbuild.util import cargo
+
+    self.install_bin(cargo.target_path(self, "zizmor"))
+    for shell in ["bash", "fish", "zsh", "nushell"]:
+        self.install_completion(f"zizmor.{shell}", shell)
+    self.install_license("LICENSE")

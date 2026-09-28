@@ -1,0 +1,1075 @@
+From 3bb170c144c3c17d46b98f2d40a7319d6068e9bc Mon Sep 17 00:00:00 2001
+From: Gnarwhal <git.aspect893@passmail.net>
+Date: Mon, 15 Jul 2024 17:39:32 +0000
+Subject: [PATCH] localectl: implement
+
+Co-authored-by: q66 <q66@chimera-linux.org>
+---
+ meson.build         |  29 +++-
+ src/kbd_model_map.c | 238 +++++++++++++++++++++++++++
+ src/kbd_model_map.h |  53 ++++++
+ src/localectl.c     | 384 ++++++++++++++++++++++++++++++++++++++++++++
+ src/localed.c       | 220 +------------------------
+ src/version.h.in    |   1 +
+ 6 files changed, 711 insertions(+), 214 deletions(-)
+ create mode 100644 src/kbd_model_map.c
+ create mode 100644 src/kbd_model_map.h
+ create mode 100644 src/localectl.c
+ create mode 100644 src/version.h.in
+
+diff --git a/meson.build b/meson.build
+index 92353ee..af7c5f1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -22,6 +22,7 @@ sources = files([
+   'src/main.c',
+   'src/timedated.c',
+   'src/utils.c',
++  'src/kbd_model_map.c',
+   'src/copypaste/hwclock.c',
+   'src/copypaste/util.c',
+ ])
+@@ -31,17 +32,24 @@ sources += gnome.gdbus_codegen('hostname1-generated',
+   interface_prefix : 'org.freedesktop.',
+   namespace : 'OpenrcSettingsdHostnamed',
+ )
+-sources += gnome.gdbus_codegen('locale1-generated',
++locale1 = gnome.gdbus_codegen('locale1-generated',
+   sources: 'data/org.freedesktop.locale1.xml',
+   interface_prefix : 'org.freedesktop.',
+   namespace : 'OpenrcSettingsdLocaled',
+ )
++sources += locale1
+ sources += gnome.gdbus_codegen('timedate1-generated',
+   sources: 'data/org.freedesktop.timedate1.xml',
+   interface_prefix : 'org.freedesktop.',
+   namespace : 'OpenrcSettingsdTimedated',
+ )
+ 
++localectl_sources = files([
++  'src/kbd_model_map.c',
++  'src/localectl.c',
++])
++localectl_sources += locale1
++
+ conf_data = configuration_data()
+ conf_data.set('SYSCONFDIR', '"' + get_option('prefix') / get_option('sysconfdir') + '"')
+ conf_data.set('DATADIR', '"' + get_option('prefix') / get_option('datadir') + '"')
+@@ -81,6 +89,25 @@ executable(
+   install_dir : get_option('libexecdir'),
+ )
+ 
++configure_file(
++  input : 'src/version.h.in',
++  output : 'version.h',
++  configuration : {
++    'version' : meson.project_version(),
++  },
++)
++
++executable(
++  'localectl',
++  localectl_sources,
++  dependencies : [
++    gio_dep,
++    glib_dep,
++  ],
++  install : true,
++  install_dir : get_option('bindir'),
++)
++
+ install_data(
+   'data/kbd-model-map',
+   install_dir : get_option('datadir') / meson.project_name(),
+diff --git a/src/kbd_model_map.c b/src/kbd_model_map.c
+new file mode 100644
+index 0000000..0841f59
+--- /dev/null
++++ b/src/kbd_model_map.c
+@@ -0,0 +1,238 @@
++/*
++  Copyright 2012 Alexandre Rostovtsev
++  Copyright 2024 q66
++
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
++*/
++
++#include "config.h"
++
++#include "kbd_model_map.h"
++
++static GFile *kbd_model_map_file = NULL;
++
++static GRegex *kbd_model_map_line_comment_re = NULL;
++static GRegex *kbd_model_map_line_re = NULL;
++
++static gboolean
++_g_match_info_clear (GMatchInfo **match_info)
++{
++    if (match_info == NULL || *match_info == NULL)
++        return TRUE;
++    g_match_info_free (*match_info);
++    *match_info = NULL;
++    return TRUE;
++}
++
++void
++kbd_model_map_init (void)
++{
++#ifdef LOCALE_STYLE_GENTOO
++    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
++#else
++    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
++#endif
++    if (kbd_model_map_line_comment_re == NULL) {
++        kbd_model_map_line_comment_re = g_regex_new ("^\\s*(?:#.*)?$", G_REGEX_ANCHORED, 0, NULL);
++        g_assert (kbd_model_map_line_comment_re != NULL);
++    }
++    if (kbd_model_map_line_re == NULL) {
++        kbd_model_map_line_re = g_regex_new ("^\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)", G_REGEX_ANCHORED, 0, NULL);
++        g_assert (kbd_model_map_line_re != NULL);
++    }
++}
++
++void kbd_model_map_destroy (void)
++{
++    g_object_unref (kbd_model_map_file);
++    if (kbd_model_map_line_comment_re != NULL) {
++        g_regex_unref (kbd_model_map_line_comment_re);
++        kbd_model_map_line_comment_re = NULL;
++    }
++    if (kbd_model_map_line_re != NULL) {
++        g_regex_unref (kbd_model_map_line_re);
++        kbd_model_map_line_re = NULL;
++    }
++}
++
++gchar *kbd_model_map_get_filename (void)
++{
++    return g_file_get_path (kbd_model_map_file);
++}
++
++GList*
++kbd_model_map_load (GError **error)
++{
++    GList *ret = NULL;
++    gchar *filename = NULL, *filebuf = NULL, *line = NULL, *newline = NULL;
++    struct kbd_model_map_entry *entry = NULL;
++
++    filename = g_file_get_path (kbd_model_map_file);
++    g_debug ("Parsing keyboard model map file file: '%s'", filename);
++
++    if (!g_file_load_contents (kbd_model_map_file, NULL, &filebuf, NULL, NULL, error)) {
++        g_prefix_error (error, "Unable to read '%s': ", filename);
++        goto out;
++    }
++
++    for (line = filebuf; *line != 0; line = newline + 1) {
++        struct kbd_model_map_entry *entry = NULL;
++        GMatchInfo *match_info = NULL;
++        gboolean m = FALSE;
++
++        if ((newline = strstr (line, "\n")) != NULL)
++            *newline = 0;
++        else
++            newline = line + strlen (line) - 1;
++
++        m = g_regex_match (kbd_model_map_line_comment_re, line, 0, &match_info);
++        _g_match_info_clear (&match_info);
++        if (m)
++            continue;
++
++        if (!g_regex_match (kbd_model_map_line_re, line,  0, &match_info)) {
++            g_propagate_error (error,
++                               g_error_new (G_FILE_ERROR, G_FILE_ERROR_FAILED,
++                                            "Failed to parse line '%s' in '%s'", line, filename));
++            g_match_info_free (match_info);
++            if (ret != NULL) {
++                g_list_free_full (ret, (GDestroyNotify)kbd_model_map_entry_free);
++                ret = NULL;
++            }
++            goto out;
++        }
++        entry = g_new0 (struct kbd_model_map_entry, 1);
++        entry->vconsole_keymap = g_match_info_fetch (match_info, 1);
++        entry->x11_layout = g_match_info_fetch (match_info, 2);
++        entry->x11_model = g_match_info_fetch (match_info, 3);
++        entry->x11_variant = g_match_info_fetch (match_info, 4);
++        entry->x11_options = g_match_info_fetch (match_info, 5);
++
++        // "-" in the map file stands for an empty string
++        if (!g_strcmp0 (entry->x11_model, "-"))
++            entry->x11_model[0] = 0;
++        if (!g_strcmp0 (entry->x11_variant, "-"))
++            entry->x11_variant[0] = 0;
++        if (!g_strcmp0 (entry->x11_options, "-"))
++            entry->x11_options[0] = 0;
++
++        ret = g_list_prepend (ret, entry);
++        _g_match_info_clear (&match_info);
++    }
++  out:
++    if (ret != NULL)
++        ret = g_list_reverse (ret);
++
++    g_free (filename);
++    g_free (filebuf);
++    return ret;
++}
++
++gboolean
++kbd_model_map_entry_matches_vconsole (const struct kbd_model_map_entry *entry,
++                                      const gchar *vconsole_keymap)
++{
++    return !g_strcmp0 (vconsole_keymap, entry->vconsole_keymap);
++}
++
++static gboolean
++matches_delimeted (const gchar *left,
++                   const gchar *right,
++                   const gchar *delimeter,
++                   unsigned int *failure_score)
++{
++    gboolean ret = FALSE;
++    gchar **leftv = NULL, **rightv = NULL;
++    gchar **leftcur = NULL, **rightcur = NULL;
++
++    if (left == NULL || left[0] == 0)
++        leftv = g_new0 (gchar *, 1);
++    else
++        leftv = g_strsplit (left, delimeter, 0);
++
++    if (right == NULL || right[0] == 0)
++        rightv = g_new0 (gchar *, 1);
++    else
++        rightv = g_strsplit (right, delimeter, 0);
++
++    if (failure_score != NULL)
++        *failure_score = 0;
++
++    for (leftcur = leftv; *leftcur != NULL; leftcur++) {
++        gboolean found = FALSE;
++        for (rightcur = rightv; *rightcur != NULL; rightcur++)
++            if (!g_strcmp0 (*leftcur, *rightcur)) {
++                found = TRUE;
++                break;
++            }
++        if (found)
++            ret = TRUE;
++        else if (failure_score != NULL)
++            (*failure_score)++;
++    }
++
++    for (rightcur = rightv; *rightcur != NULL; rightcur++) {
++        gboolean found = FALSE;
++        for (leftcur = leftv; *leftcur != NULL; leftcur++)
++            if (!g_strcmp0 (*rightcur, *leftcur)) {
++                found = TRUE;
++                break;
++            }
++        if (found)
++            ret = TRUE;
++        else if (failure_score != NULL)
++            (*failure_score)++;
++    }
++
++    g_strfreev (leftv);
++    g_strfreev (rightv);
++    return ret;
++}
++
++gboolean
++kbd_model_map_entry_matches_x11 (const struct kbd_model_map_entry *entry,
++                                 const gchar *_x11_layout,
++                                 const gchar *_x11_model,
++                                 const gchar *_x11_variant,
++                                 const gchar *_x11_options,
++                                 unsigned int *failure_score)
++{
++    unsigned int x11_layout_failures;
++    gboolean ret = FALSE;
++
++    ret = matches_delimeted (_x11_layout, entry->x11_layout, ",", &x11_layout_failures);
++    if (failure_score != NULL)
++        *failure_score = 10000 * !ret +
++                         100 * x11_layout_failures +
++                         (g_strcmp0 (_x11_model, entry->x11_model) ? 1 : 0) +
++                         10 * (g_strcmp0 (_x11_variant, entry->x11_variant) ? 1 : 0) +
++                         !matches_delimeted (_x11_options, entry->x11_options, ",", NULL);
++    return ret;
++}
++
++void
++kbd_model_map_entry_free (struct kbd_model_map_entry *entry)
++{
++    if (entry == NULL)
++        return;
++
++    g_free (entry->vconsole_keymap);
++    g_free (entry->x11_layout);
++    g_free (entry->x11_model);
++    g_free (entry->x11_variant);
++    g_free (entry->x11_options);
++
++    g_free (entry);
++}
+diff --git a/src/kbd_model_map.h b/src/kbd_model_map.h
+new file mode 100644
+index 0000000..91aba22
+--- /dev/null
++++ b/src/kbd_model_map.h
+@@ -0,0 +1,53 @@
++/*
++  Copyright 2012 Alexandre Rostovtsev
++  Copyright 2024 q66
++
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
++*/
++
++#ifndef OPENRC_KBD_MODEL_MAP_H
++#define OPENRC_KBD_MODEL_MAP_H
++
++#include <stddef.h>
++#include <glib.h>
++#include <gio/gio.h>
++
++struct kbd_model_map_entry {
++    gchar *vconsole_keymap;
++    gchar *x11_layout;
++    gchar *x11_model;
++    gchar *x11_variant;
++    gchar *x11_options;
++};
++
++#define KBD_MODEL_MAP_ENTRY_FIELD_IDX(name) (offsetof (struct kbd_model_map_entry, name) / sizeof (void *))
++
++void kbd_model_map_init (void);
++void kbd_model_map_destroy (void);
++gchar *kbd_model_map_get_filename (void);
++
++GList* kbd_model_map_load (GError **error);
++
++gboolean kbd_model_map_entry_matches_vconsole (const struct kbd_model_map_entry *entry, const gchar *vconsole_keymap);
++gboolean kbd_model_map_entry_matches_x11 (const struct kbd_model_map_entry *entry,
++                                          const gchar *_x11_layout,
++                                          const gchar *_x11_model,
++                                          const gchar *_x11_variant,
++                                          const gchar *_x11_options,
++                                          unsigned int *failure_score);
++
++void kbd_model_map_entry_free (struct kbd_model_map_entry *entry);
++
++#endif
+diff --git a/src/localectl.c b/src/localectl.c
+new file mode 100644
+index 0000000..21342f5
+--- /dev/null
++++ b/src/localectl.c
+@@ -0,0 +1,388 @@
++/*
++  Copyright 2024 Gnarwhal <git.aspect893@passmail.net>
++  Copyright 2024 q66 <q66@chimera-linux.org>
++
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  GNU General Public License for more details.
++
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
++*/
++
++#include <err.h>
++#include <ctype.h>
++#include <dirent.h>
++#include <getopt.h>
++#include <gio/gio.h>
++#include <stddef.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/param.h>
++#include <sys/stat.h>
++#include <sys/types.h>
++
++#include "config.h"
++
++#include "kbd_model_map.h"
++#include "locale1-generated.h"
++#include "version.h"
++
++static void
++status (OpenrcSettingsdLocaledLocale1 *proxy)
++{
++    const gchar *const *locale = openrc_settingsd_localed_locale1_get_locale (proxy);
++    printf ("   System Locale: %s\n", locale[0] ? locale[0] : "LANG=");
++    if (locale[0]) {
++        for (int i = 1; locale[i]; ++i) {
++            printf ("                  %s\n", locale[i]);
++        }
++    }
++
++    const gchar *rest_of_status[] = {
++        openrc_settingsd_localed_locale1_get_vconsole_keymap (proxy),
++        openrc_settingsd_localed_locale1_get_x11_layout (proxy),
++        openrc_settingsd_localed_locale1_get_x11_model (proxy),
++        openrc_settingsd_localed_locale1_get_x11_variant (proxy)
++    };
++
++    static const int STATUS_LENGTH = sizeof (rest_of_status) / sizeof (const gchar *);
++    for (int i = 0; i < STATUS_LENGTH; ++i) {
++        if (rest_of_status[i] == NULL) {
++            rest_of_status[i] = "";
++        }
++    }
++
++    printf (
++        "       VC Keymap: %s\n"
++        "      X11 Layout: %s\n"
++        "       X11 Model: %s\n"
++        "     X11 Variant: %s\n",
++        rest_of_status[0],
++        rest_of_status[1],
++        rest_of_status[2],
++        rest_of_status[3]
++    );
++}
++
++static int
++set_locale (OpenrcSettingsdLocaledLocale1 *proxy,
++            gchar **locales,
++            gboolean ask_password)
++{
++    gchar *newloc[2] = {NULL, NULL};
++    GError *error = NULL;
++    const gchar * const *loclist = (const gchar * const *)locales;
++
++    /* when one argument is provided, it can be a lang name; convert it
++     * to a variable input as the dbus method expects
++     */
++    if (locales[1] == NULL && strchr (locales[0], '=') == NULL) {
++        newloc[0] = g_strdup_printf ("LANG=%s", locales[0]);
++        loclist = (const gchar * const *)newloc;
++    }
++
++    openrc_settingsd_localed_locale1_call_set_locale_sync (proxy,
++                                                           loclist,
++                                                           ask_password,
++                                                           NULL,
++                                                           &error);
++    g_free(newloc[0]);
++
++    if (error) {
++        if (error->code == 16) {
++            warn ("failed to issue method call: invalid locale data");
++        } else {
++            /* Not sure what other errors it can give, but they're handled if they happen */
++            warn ("error setting locale: %s", error->message);
++        }
++        g_object_unref (proxy);
++        g_error_free (error);
++        return 1;
++    }
++    return 0;
++}
++
++static void
++list_locales (void)
++{
++    g_spawn_command_line_sync ("locale -a", NULL, NULL, NULL, NULL);
++}
++
++static void
++set_keymap (OpenrcSettingsdLocaledLocale1 *proxy,
++            const gchar *keymap,
++            gboolean convert,
++            gboolean ask_password)
++{
++    GError *error = NULL;
++    openrc_settingsd_localed_locale1_call_set_vconsole_keyboard_sync (proxy,
++                                                                      keymap,
++                                                                      "",
++                                                                      convert,
++                                                                      ask_password,
++                                                                      NULL,
++                                                                      &error);
++    if (error) {
++        warn ("error setting keymap: %s", error->message);
++        g_object_unref (proxy);
++        g_error_free (error);
++        exit (1);
++    }
++}
++
++static gint
++sort_field (gconstpointer a, gconstpointer b, gpointer data)
++{
++    size_t idx = (size_t)data;
++    const gchar **as = (const gchar **)a;
++    const gchar **bs = (const gchar **)b;
++    return strcmp (as[idx], bs[idx]);
++}
++
++static int
++list_model_map (size_t idx, const gchar *cmpd, size_t cmpidx)
++{
++    GError *err = NULL;
++    GList *cur;
++    GList *kbd_model_map = kbd_model_map_load (&err);
++    if (err != NULL) {
++        warn ("%s", err->message);
++        return 1;
++    }
++    kbd_model_map = g_list_sort_with_data (kbd_model_map, sort_field, (void *)idx);
++    const gchar **prev_entry = NULL;
++    for (cur = kbd_model_map; cur->next != NULL; cur = cur->next) {
++        const gchar **cur_entry = (const gchar **)cur->data;
++        if (prev_entry && strcmp (cur_entry[idx], prev_entry[idx]) == 0)
++            continue;
++        if (!*cur_entry[idx])
++            continue;
++        if (cmpd && strcmp (cur_entry[cmpidx], cmpd) != 0)
++            continue;
++        prev_entry = cur_entry;
++        printf ("%s\n", cur_entry[idx]);
++    }
++    g_list_free_full (kbd_model_map, (GDestroyNotify)kbd_model_map_entry_free);
++    return 0;
++}
++
++static int
++set_x11_keymap (OpenrcSettingsdLocaledLocale1 *proxy,
++                const gchar *layout,
++                const gchar *model,
++                const gchar *variant,
++                const gchar *options,
++                gboolean convert,
++                gboolean ask_password)
++{
++    GError *error = NULL;
++    openrc_settingsd_localed_locale1_call_set_x11_keyboard_sync (proxy,
++                                                                 layout,
++                                                                 model,
++                                                                 variant,
++                                                                 options,
++                                                                 convert,
++                                                                 ask_password,
++                                                                 NULL,
++                                                                 &error);
++    if (error) {
++        warn ("error setting x11 keymap: %s", error->message);
++        g_object_unref (proxy);
++        g_error_free (error);
++        return 1;
++    }
++    return 0;
++}
++
++static void
++help (void)
++{
++    /* --- Help message courtesy of systemd-localectl --- */
++    printf ("localectl [OPTIONS...] COMMAND ...\n"
++           "\n"
++           "Query or change system locale and keyboard settings.\n"
++           "\n"
++           "Commands:\n"
++           "  status                   Show current locale settings\n"
++           "  set-locale LOCALE...     Set system locale\n"
++           "  list-locales             Show known locales\n"
++           "  set-keymap MAP [MAP]     Set console and X11 keyboard mappings\n"
++           "  list-keymaps             Show known virtual console keyboard mappings\n"
++           "  set-x11-keymap LAYOUT [MODEL [VARIANT [OPTIONS]]]\n"
++           "                           Set X11 and console keyboard mappings\n"
++           "  list-x11-keymap-models   Show known X11 keyboard mapping models\n"
++           "  list-x11-keymap-layouts  Show known X11 keyboard mapping layouts\n"
++           "  list-x11-keymap-variants [LAYOUT]\n"
++           "                           Show known X11 keyboard mapping variants\n"
++           "  list-x11-keymap-options  Show known X11 keyboard mapping options\n"
++           "\nOptions:\n"
++           "  -h --help                Show this help\n"
++           "     --version             Show package version\n"
++           "     --no-ask-password     Do not prompt for password\n"
++           "     --no-convert          Don't convert keyboard mappings\n"
++           "\n"
++    );
++}
++
++void
++version (void)
++{
++    printf ("localectl version "VERSION_STR"\n");
++}
++
++int
++main (int argc, gchar *argv[])
++{
++    /* --- Option parsing courtesy of systemd-localectl --- */
++    enum {
++        ARG_VERSION,
++        ARG_NO_CONVERT,
++        ARG_NO_ASK_PASSWORD
++    };
++    static const struct option options[] = {
++        { "help",            no_argument,       NULL, 'h'                 },
++        { "version",         no_argument,       NULL, ARG_VERSION         },
++        { "host",            required_argument, NULL, 'H'                 },
++        { "machine",         required_argument, NULL, 'M'                 },
++        { "no-ask-password", no_argument,       NULL, ARG_NO_ASK_PASSWORD },
++        { "no-convert",      no_argument,       NULL, ARG_NO_CONVERT      },
++        {},
++    };
++
++    int c;
++    gboolean arg_ask_password = TRUE;
++    gboolean arg_convert = TRUE;
++
++    g_assert (argc >= 0);
++    g_assert (argv);
++
++    const char * badopt;
++    while ((c = getopt_long (argc, argv, "h", options, NULL)) >= 0) {
++        switch (c) {
++            case 'h':
++                help ();
++                return 0;
++
++            case ARG_VERSION:
++                version ();
++                return 0;
++
++            case ARG_NO_CONVERT:
++                arg_convert = FALSE;
++                break;
++
++            case ARG_NO_ASK_PASSWORD:
++                arg_ask_password = FALSE;
++                break;
++
++            default:
++                badopt = argv[optind - 1];
++                while (*++badopt == '-');
++                warn ("invalid option -- '%s'", badopt);
++                return 1;
++        }
++    }
++
++    /* --- DBus Proxy Variables --- */
++    OpenrcSettingsdLocaledLocale1 *proxy = NULL;
++    GError *error = NULL;
++
++    /* --- Setup DBus Proxy --- */
++    proxy = openrc_settingsd_localed_locale1_proxy_new_for_bus_sync (G_BUS_TYPE_SYSTEM,
++                                                                     G_DBUS_PROXY_FLAGS_NONE,
++                                                                     "org.freedesktop.locale1",
++                                                                     "/org/freedesktop/locale1",
++                                                                     NULL,
++                                                                     &error);
++
++    if (error) {
++        warn ("error creating proxy: %s", error->message);
++        g_error_free (error);
++        return 1;
++    }
++
++    /* Default to `status` if there is no command specified */
++    if (optind == argc) {
++        status (proxy);
++        return 0;
++    }
++
++    argc -= optind + 1;
++    argv += optind;
++    optind = 0;
++
++    const gchar *name = argv[0];
++    int ret = 0;
++
++    kbd_model_map_init ();
++
++    if (strcmp ("status", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        status (proxy);
++    } else if (strcmp ("set-locale", name) == 0) {
++        if (argc < 1) goto bad_argc;
++        ret = set_locale (proxy, argv + 1, arg_ask_password);
++    } else if (strcmp ("list-locales", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        list_locales ();
++    } else if (strcmp ("set-keymap", name) == 0) {
++        if (argc != 1) goto bad_argc;
++        set_keymap (proxy,
++                    argv[1],
++                    arg_convert,
++                    arg_ask_password);
++    } else if (strcmp ("list-keymaps", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        ret = list_model_map (KBD_MODEL_MAP_ENTRY_FIELD_IDX (vconsole_keymap), NULL, 0);
++    } else if (strcmp ("set-x11-keymap", name) == 0) {
++        if (argc < 1 || argc > 4) goto bad_argc;
++        ret = set_x11_keymap (proxy,
++                              argv[1],
++                              argc >= 2 ? argv[2] : "",
++                              argc >= 3 ? argv[3] : "",
++                              argc >= 4 ? argv[4] : "",
++                              arg_convert,
++                              arg_ask_password);
++    } else if (strcmp ("list-x11-keymap-models", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        ret = list_model_map (KBD_MODEL_MAP_ENTRY_FIELD_IDX (x11_model), NULL, 0);
++    } else if (strcmp ("list-x11-keymap-layouts", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        ret = list_model_map (KBD_MODEL_MAP_ENTRY_FIELD_IDX (x11_layout), NULL, 0);
++    } else if (strcmp ("list-x11-keymap-variants", name) == 0) {
++        if (argc > 1) goto bad_argc;
++        ret = list_model_map (KBD_MODEL_MAP_ENTRY_FIELD_IDX (x11_variant),
++                              argc >= 1 ? argv[1] : NULL,
++                              KBD_MODEL_MAP_ENTRY_FIELD_IDX (x11_layout));
++    } else if (strcmp ("list-x11-keymap-options", name) == 0) {
++        if (argc != 0) goto bad_argc;
++        ret = list_model_map (KBD_MODEL_MAP_ENTRY_FIELD_IDX (x11_options), NULL, 0);
++    } else if (strcmp ("help", name) == 0) {
++        help ();
++    } else {
++        warn ("unknown operation '%s'", name);
++        ret = 1;
++    }
++    goto do_ret;
++
++bad_argc:
++    warn ("invalid number of arguments");
++    ret = 1;
++
++do_ret:
++    if (proxy) {
++        g_object_unref (proxy);
++    }
++
++    kbd_model_map_destroy ();
++
++    return ret;
++}
+diff --git a/src/localed.c b/src/localed.c
+index 1618a0f..92b1826 100644
+--- a/src/localed.c
++++ b/src/localed.c
+@@ -29,6 +29,7 @@
+ #include "locale1-generated.h"
+ #include "main.h"
+ #include "utils.h"
++#include "kbd_model_map.h"
+ 
+ #define SERVICE_NAME "openrc-settingsd localed"
+ 
+@@ -58,212 +59,6 @@ static GFile *x11_gentoo_file = NULL;
+ static GFile *x11_systemd_file = NULL;
+ G_LOCK_DEFINE_STATIC (xorg_conf);
+ 
+-/* keyboard model map file parser */
+-
+-static GFile *kbd_model_map_file = NULL;
+-
+-GRegex *kbd_model_map_line_comment_re = NULL;
+-GRegex *kbd_model_map_line_re = NULL;
+-
+-struct kbd_model_map_entry {
+-    gchar *vconsole_keymap;
+-    gchar *x11_layout;
+-    gchar *x11_model;
+-    gchar *x11_variant;
+-    gchar *x11_options;
+-};
+-
+-static void
+-kbd_model_map_regex_destroy ()
+-{
+-    if (kbd_model_map_line_comment_re != NULL) {
+-        g_regex_unref (kbd_model_map_line_comment_re);
+-        kbd_model_map_line_comment_re = NULL;
+-    }
+-    if (kbd_model_map_line_re != NULL) {
+-        g_regex_unref (kbd_model_map_line_re);
+-        kbd_model_map_line_re = NULL;
+-    }
+-}
+-
+-static void
+-kbd_model_map_regex_init ()
+-{
+-    if (kbd_model_map_line_comment_re == NULL) {
+-        kbd_model_map_line_comment_re = g_regex_new ("^\\s*(?:#.*)?$", G_REGEX_ANCHORED, 0, NULL);
+-        g_assert (kbd_model_map_line_comment_re != NULL);
+-    }
+-    if (kbd_model_map_line_re == NULL) {
+-        kbd_model_map_line_re = g_regex_new ("^\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)", G_REGEX_ANCHORED, 0, NULL);
+-        g_assert (kbd_model_map_line_re != NULL);
+-    }
+-}
+-
+-static gboolean
+-kbd_model_map_entry_matches_vconsole (const struct kbd_model_map_entry *entry,
+-                                      const gchar *vconsole_keymap)
+-{
+-    return !g_strcmp0 (vconsole_keymap, entry->vconsole_keymap);
+-}
+-
+-static gboolean
+-matches_delimeted (const gchar *left,
+-                   const gchar *right,
+-                   const gchar *delimeter,
+-                   unsigned int *failure_score)
+-{
+-    gboolean ret = FALSE;
+-    gchar **leftv = NULL, **rightv = NULL;
+-    gchar **leftcur = NULL, **rightcur = NULL;
+-
+-    if (left == NULL || left[0] == 0)
+-        leftv = g_new0 (gchar *, 1);
+-    else
+-        leftv = g_strsplit (left, delimeter, 0);
+-
+-    if (right == NULL || right[0] == 0)
+-        rightv = g_new0 (gchar *, 1);
+-    else
+-        rightv = g_strsplit (right, delimeter, 0);
+-
+-    if (failure_score != NULL)
+-        *failure_score = 0;
+-
+-    for (leftcur = leftv; *leftcur != NULL; leftcur++) {
+-        gboolean found = FALSE;
+-        for (rightcur = rightv; *rightcur != NULL; rightcur++)
+-            if (!g_strcmp0 (*leftcur, *rightcur)) {
+-                found = TRUE;
+-                break;
+-            }
+-        if (found)
+-            ret = TRUE;
+-        else if (failure_score != NULL)
+-            (*failure_score)++;
+-    }
+-
+-    for (rightcur = rightv; *rightcur != NULL; rightcur++) {
+-        gboolean found = FALSE;
+-        for (leftcur = leftv; *leftcur != NULL; leftcur++)
+-            if (!g_strcmp0 (*rightcur, *leftcur)) {
+-                found = TRUE;
+-                break;
+-            }
+-        if (found)
+-            ret = TRUE;
+-        else if (failure_score != NULL)
+-            (*failure_score)++;
+-    }
+-
+-    g_strfreev (leftv);
+-    g_strfreev (rightv);
+-    return ret;
+-}
+-
+-static gboolean
+-kbd_model_map_entry_matches_x11 (const struct kbd_model_map_entry *entry,
+-                                 const gchar *_x11_layout,
+-                                 const gchar *_x11_model,
+-                                 const gchar *_x11_variant,
+-                                 const gchar *_x11_options,
+-                                 unsigned int *failure_score)
+-{
+-    unsigned int x11_layout_failures;
+-    gboolean ret = FALSE;
+-
+-    ret = matches_delimeted (_x11_layout, entry->x11_layout, ",", &x11_layout_failures);
+-    if (failure_score != NULL)
+-        *failure_score = 10000 * !ret +
+-                         100 * x11_layout_failures +
+-                         (g_strcmp0 (_x11_model, entry->x11_model) ? 1 : 0) +
+-                         10 * (g_strcmp0 (_x11_variant, entry->x11_variant) ? 1 : 0) +
+-                         !matches_delimeted (_x11_options, entry->x11_options, ",", NULL);
+-    return ret;
+-}
+-
+-static void
+-kbd_model_map_entry_free (struct kbd_model_map_entry *entry)
+-{
+-    if (entry == NULL)
+-        return;
+-
+-    g_free (entry->vconsole_keymap);
+-    g_free (entry->x11_layout);
+-    g_free (entry->x11_model);
+-    g_free (entry->x11_variant);
+-    g_free (entry->x11_options);
+-
+-    g_free (entry);
+-}
+-
+-static GList*
+-kbd_model_map_load (GError **error)
+-{
+-    GList *ret = NULL;
+-    gchar *filename = NULL, *filebuf = NULL, *line = NULL, *newline = NULL;
+-    struct kbd_model_map_entry *entry = NULL;
+-
+-    filename = g_file_get_path (kbd_model_map_file);
+-    g_debug ("Parsing keyboard model map file file: '%s'", filename);
+-
+-    if (!g_file_load_contents (kbd_model_map_file, NULL, &filebuf, NULL, NULL, error)) {
+-        g_prefix_error (error, "Unable to read '%s':", filename);
+-        goto out;
+-    }
+-
+-    for (line = filebuf; *line != 0; line = newline + 1) {
+-        struct kbd_model_map_entry *entry = NULL;
+-        GMatchInfo *match_info = NULL;
+-        gboolean m = FALSE;
+-
+-        if ((newline = strstr (line, "\n")) != NULL)
+-            *newline = 0;
+-        else
+-            newline = line + strlen (line) - 1;
+-
+-        m = g_regex_match (kbd_model_map_line_comment_re, line, 0, &match_info);
+-        _g_match_info_clear (&match_info);
+-        if (m)
+-            continue;
+-
+-        if (!g_regex_match (kbd_model_map_line_re, line,  0, &match_info)) {
+-            g_propagate_error (error,
+-                               g_error_new (G_FILE_ERROR, G_FILE_ERROR_FAILED,
+-                                            "Failed to parse line '%s' in '%s'", line, filename));
+-            g_match_info_free (match_info);
+-            if (ret != NULL) {
+-                g_list_free_full (ret, (GDestroyNotify)kbd_model_map_entry_free);
+-                ret = NULL;
+-            }
+-            goto out;
+-        }
+-        entry = g_new0 (struct kbd_model_map_entry, 1);
+-        entry->vconsole_keymap = g_match_info_fetch (match_info, 1);
+-        entry->x11_layout = g_match_info_fetch (match_info, 2);
+-        entry->x11_model = g_match_info_fetch (match_info, 3);
+-        entry->x11_variant = g_match_info_fetch (match_info, 4);
+-        entry->x11_options = g_match_info_fetch (match_info, 5);
+-
+-        // "-" in the map file stands for an empty string
+-        if (!g_strcmp0 (entry->x11_model, "-"))
+-            entry->x11_model[0] = 0;
+-        if (!g_strcmp0 (entry->x11_variant, "-"))
+-            entry->x11_variant[0] = 0;
+-        if (!g_strcmp0 (entry->x11_options, "-"))
+-            entry->x11_options[0] = 0;
+-
+-        ret = g_list_prepend (ret, entry);
+-        _g_match_info_clear (&match_info);
+-    }
+-  out:
+-    if (ret != NULL)
+-        ret = g_list_reverse (ret);
+-
+-    g_free (filename);
+-    g_free (filebuf);
+-    return ret;
+-}
+-
+ /* Trivial /etc/X11/xorg.conf.d/30-keyboard.conf parser */
+ 
+ enum XORG_CONFD_LINE_TYPE {
+@@ -985,7 +780,7 @@ on_handle_set_vconsole_keyboard_authorized_cb (GObject *source_object,
+     if (data->convert) {
+         if (best_entry == NULL) {
+             gchar *filename;
+-            filename = g_file_get_path (kbd_model_map_file);
++            filename = kbd_model_map_get_filename ();
+             g_printerr ("Failed to find conversion entry for console keymap '%s' in '%s'\n", data->vconsole_keymap, filename);
+             g_free (filename);
+             G_UNLOCK (xorg_conf);
+@@ -1160,7 +955,7 @@ on_handle_set_x11_keyboard_authorized_cb (GObject *source_object,
+     if (data->convert) {
+         if (best_entry == NULL) {
+             gchar *filename;
+-            filename = g_file_get_path (kbd_model_map_file);
++            filename = kbd_model_map_get_filename ();
+             g_printerr ("Failed to find conversion entry for x11 layout '%s' in '%s'\n", data->x11_layout, filename);
+             g_free (filename);
+         } else {
+@@ -1284,15 +1079,16 @@ localed_init (gboolean _read_only)
+     struct xorg_confd_parser *x11_parser = NULL;
+ 
+     read_only = _read_only;
++
++    kbd_model_map_init();
++
+ #ifdef LOCALE_STYLE_GENTOO
+-    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
+     locale_file = g_file_new_for_path (SYSCONFDIR "/env.d/02locale");
+     keymaps_file = g_file_new_for_path (SYSCONFDIR "/conf.d/keymaps");
+     /* See http://www.gentoo.org/doc/en/xorg-config.xml */
+     x11_gentoo_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/30-keyboard.conf");
+     x11_systemd_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/00-keyboard.conf");
+ #else
+-    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
+     locale_file = g_file_new_for_path (SYSCONFDIR "/locale.conf");
+     keymaps_file = g_file_new_for_path (SYSCONFDIR "/default/keyboard");
+     /* Use systemd-style always */
+@@ -1331,7 +1127,6 @@ localed_init (gboolean _read_only)
+     /* We don't have a good equivalent for this in openrc at the moment */
+     vconsole_keymap_toggle = g_strdup ("");
+ 
+-    kbd_model_map_regex_init ();
+     xorg_confd_regex_init ();
+ 
+     if (!g_file_query_exists (x11_gentoo_file, NULL) && g_file_query_exists (x11_systemd_file, NULL))
+@@ -1364,7 +1159,7 @@ localed_destroy (void)
+     bus_id = 0;
+     read_only = FALSE;
+     g_strfreev (locale);
+-    kbd_model_map_regex_destroy ();
++    kbd_model_map_destroy ();
+     xorg_confd_regex_destroy ();
+     g_free (vconsole_keymap);
+     g_free (vconsole_keymap_toggle);
+@@ -1377,5 +1172,4 @@ localed_destroy (void)
+     g_object_unref (keymaps_file);
+     g_object_unref (x11_gentoo_file);
+     g_object_unref (x11_systemd_file);
+-    g_object_unref (kbd_model_map_file);
+ }
+diff --git a/src/version.h.in b/src/version.h.in
+new file mode 100644
+index 0000000..c796e41
+--- /dev/null
++++ b/src/version.h.in
+@@ -0,0 +1 @@
++#define VERSION_STR "@version@"
+-- 
+2.46.0
+

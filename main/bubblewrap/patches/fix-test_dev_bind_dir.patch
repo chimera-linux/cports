@@ -1,0 +1,17 @@
+diff -urN a/tests/test-sandbox.py b/tests/test-sandbox.py
+--- a/tests/test-sandbox.py	2026-08-26 11:08:29.000000000 +0100
++++ b/tests/test-sandbox.py	2026-08-26 20:11:00.345678705 +0100
+@@ -186,13 +186,6 @@
+         self.assertMountFlags('/tmp/d',
+                               [os.ST_NOSUID, os.ST_NODEV], [os.ST_RDONLY])
+ 
+-    @in_sandbox('--dev-bind', '/dev', '/tmp/d')
+-    def test_dev_bind_dir(self):
+-        self.assertIsDir('/tmp/d')
+-        self.assertIsMountpoint('/tmp/d')
+-        self.assertMountFlags('/tmp/d',
+-                              [os.ST_NOSUID], [os.ST_RDONLY, os.ST_NODEV])
+-
+     # ------ Source is a symlink (should resolve to target) ------
+ 
+     @in_sandbox('--ro-bind', lambda self: self.src.symlink_to_file, '/tmp/f')

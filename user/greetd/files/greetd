@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/greetd
+depends-on = login.target
+smooth-recovery = true

@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/gmid -f
+run-as = _gmid
+logfile = /var/log/gmid.log
+depends-on = local.target
+depends-on = network.target

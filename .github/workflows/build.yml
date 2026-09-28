@@ -1,0 +1,82 @@
+name: Build packages
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'main/**'
+      - 'user/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: 1
+  SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+jobs:
+  build:
+    name: Build packages
+
+    strategy:
+        matrix:
+            runner: [ubuntu-24.04, ubuntu-24.04-arm]
+        fail-fast: false
+
+    runs-on: ${{ matrix.runner }}
+    if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
+
+    env:
+      update_check: |-
+        ${{
+          ( !contains(github.event.pull_request.title, '[update skip]')
+          && !contains(github.event.pull_request.body, '[update skip]') )
+          && '--update-check'
+          || ''
+        }}
+
+    steps:
+      - name: Checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+
+      - name: Disable apparmor
+        run: |
+          sudo sysctl kernel.apparmor_restrict_unprivileged_unconfined=0
+          sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Install dependencies
+        run: |
+          sudo rm -f /var/lib/man-db/auto-update
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends python3 ca-certificates openssl git bubblewrap wget
+
+      - name: Restore cbuild cache
+        id: cache-cbuild
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            ./cbuild_cache
+            ./sources
+          key: ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache-${{ github.run_id }}
+          # checks prefix of cache stored below and grabs the one from the latest run_id that is
+          # always saved. we do this because things like source fetch / dependencies don't care
+          # about success.
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache
+
+      - name: Set up cbuild configuration
+        run: sh .ci/setup-cbuild.sh
+
+      - name: Build and test packages
+        run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
+
+      - name: Save cbuild cache
+        uses: actions/cache/save@v5
+        if: ${{ !cancelled() }}
+        with:
+          path: |
+            ./cbuild_cache
+            ./sources
+          key: ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache-${{ github.run_id }}

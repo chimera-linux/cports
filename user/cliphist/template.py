@@ -1,0 +1,11 @@
+pkgname = "cliphist"
+pkgver = "0.7.0"
+pkgrel = 6
+build_style = "go"
+hostmakedepends = ["go"]
+depends = ["wl-clipboard", "xdg-utils"]
+pkgdesc = "Wayland clipboard manager"
+license = "GPL-3.0-only"
+url = "https://github.com/sentriz/cliphist"
+source = f"{url}/archive/v{pkgver}.tar.gz"
+sha256 = "8d7dc7b4495e5812b5613274c250ba5d3900933d78888ce7921c01247f191cc8"

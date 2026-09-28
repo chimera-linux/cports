@@ -1,0 +1,14 @@
+clang has 'fstrict-overflow' but ignores no-strict-overflow and generates a warning
+this breaks test_cppext which passes this and has -Werror
+--
+--- a/configure.ac
++++ b/configure.ac
+@@ -2186,7 +2186,7 @@
+ 
+ AS_VAR_IF([ac_cv_cc_supports_fstrict_overflow], [yes],
+           [STRICT_OVERFLOW_CFLAGS="-fstrict-overflow"
+-           NO_STRICT_OVERFLOW_CFLAGS="-fno-strict-overflow"],
++           NO_STRICT_OVERFLOW_CFLAGS=""],
+           [STRICT_OVERFLOW_CFLAGS=""
+            NO_STRICT_OVERFLOW_CFLAGS=""])
+ 

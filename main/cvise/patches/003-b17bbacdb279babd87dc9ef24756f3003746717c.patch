@@ -1,0 +1,55 @@
+From b17bbacdb279babd87dc9ef24756f3003746717c Mon Sep 17 00:00:00 2001
+From: Maksim Ivanov <emaxx@google.com>
+Date: Tue, 14 Oct 2025 20:12:59 +0200
+Subject: [PATCH] clang_delta: Support for LLVM 22 20251014 (#430)
+
+Migrate away from the removed TypeLoc::getNonPrefixBeginLoc().
+---
+ clang_delta/MemberToGlobal.cpp | 6 +++---
+ clang_delta/RewriteUtils.cpp   | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/clang_delta/MemberToGlobal.cpp b/clang_delta/MemberToGlobal.cpp
+index c4ac5a8dd..cc959e628 100644
+--- a/clang_delta/MemberToGlobal.cpp
++++ b/clang_delta/MemberToGlobal.cpp
+@@ -29,7 +29,7 @@ The pass supports functions, variables, typedefs and nested records. \n";
+ static RegisterTransformation<MemberToGlobal>
+          Trans("member-to-global", DescriptionMsg);
+ 
+-class MemberToGlobal::CollectionVisitor : public 
++class MemberToGlobal::CollectionVisitor : public
+   RecursiveASTVisitor<CollectionVisitor> {
+ 
+ public:
+@@ -107,7 +107,7 @@ class MemberToGlobal::RewriteVisitor : public RecursiveASTVisitor<RewriteVisitor
+   MemberToGlobal *ConsumerInstance;
+ };
+ 
+-void MemberToGlobal::Initialize(ASTContext &context) 
++void MemberToGlobal::Initialize(ASTContext &context)
+ {
+   Transformation::Initialize(context);
+ }
+@@ -135,7 +135,7 @@ void MemberToGlobal::removeRecordQualifier(const NestedNameSpecifierLoc& NNSLoc)
+     SourceRange SR = NNSLoc.getLocalSourceRange();
+ #if LLVM_VERSION_MAJOR >= 22
+     if (TypeLoc TL = NNSLoc.getAsTypeLoc())
+-      SR.setBegin(TL.getNonPrefixBeginLoc());
++      SR.setBegin(TL.castAs<TagTypeLoc>().getNameLoc());
+ #endif
+     SR.setEnd(SR.getEnd().getLocWithOffset(1));
+ 
+diff --git a/clang_delta/RewriteUtils.cpp b/clang_delta/RewriteUtils.cpp
+index e8199c02b..a5a921d4f 100644
+--- a/clang_delta/RewriteUtils.cpp
++++ b/clang_delta/RewriteUtils.cpp
+@@ -1717,7 +1717,7 @@ bool RewriteUtils::replaceRecordType(RecordTypeLoc &RTLoc,
+ #if LLVM_VERSION_MAJOR < 22
+   SourceLocation LocStart = RTLoc.getBeginLoc();
+ #else
+-  SourceLocation LocStart = RTLoc.getNonPrefixBeginLoc();
++  SourceLocation LocStart = RTLoc.getNameLoc();
+ #endif
+ 
+   // Loc could be invalid, for example:

@@ -1,0 +1,217 @@
+--- /dev/null
++++ b/res/linux/Makefile
+@@ -0,0 +1,55 @@
++
++# Install destination
++PREFIX ?= /usr/local
++
++# Files to be compiled
++SRC = ../../snibbetracker/src/CAllocator.c ../../snibbetracker/src/CEngine.c ../../snibbetracker/src/CInput.c ../../snibbetracker/src/CSynth.c ../../snibbetracker/src/cJSON/cJSON.c ../../snibbetracker/src/dir_posix.c ../../snibbetracker/src/main.c
++OBJ = $(SRC:.c=.o) # replaces the .c from SRC with .o
++DEP = $(SRC:.c=.d)
++
++# Compiler
++CC = gcc
++
++RM = rm -f
++
++# Include paths
++INCLUDE_PATHS = -I../../snibbetracker/src/cJSON
++
++# Library paths
++# LIBRARY_PATHS = -LC:\Downloads\SDL2-devel-2.0.4-mingw\i686-w64-mingw32\lib
++
++# Compiler flags
++COMPILER_FLAGS = -Wall -std=gnu99 -lasound -Wno-unused-function $(CFLAGS)
++
++# Linker flags
++LINKER_FLAGS = -lSDL2 -lm $(LDFLAGS) $(CFLAGS)
++
++# Executable file
++EXE = snibbetracker
++
++# Compile command
++#all:
++#	$(SRC)
++#	$(CC) $(SRC) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(EXE)
++
++%.o: %.c         # combined w/ next line will compile recently changed .c files
++	$(CC) -MD -MP $(COMPILER_FLAGS) $(INCLUDE_PATHS) -o $@ -c $<
++
++.PHONY : all     # .PHONY ignores files named all
++all: $(EXE)      # all is dependent on $(EXE) to be complete
++
++.PHONY : install
++install: all
++	install -d $(DESTDIR)$(PREFIX)/bin
++	install -m755 snibbetracker $(DESTDIR)$(PREFIX)/bin/snibbetracker
++	install -d $(DESTDIR)$(PREFIX)/share/lundstroem/snibbetracker/demos
++	cp ../demos/*.snibb $(DESTDIR)$(PREFIX)/share/lundstroem/snibbetracker/demos/
++
++$(EXE): $(OBJ)   # $(EXE) is dependent on all of the files in $(OBJ) to exist
++	$(CC) $(OBJ) $(LINKER_FLAGS) -o $@
++
++.PHONY : clean   # .PHONY ignores files named clean
++clean:
++	-$(RM) $(OBJ) $(DEP) $(EXE)
++
++-include $(DEP)
+diff --git a/snibbetracker/src/CEngine.c b/snibbetracker/src/CEngine.c
+index 96f8b16..0f68800 100644
+--- a/snibbetracker/src/CEngine.c
++++ b/snibbetracker/src/CEngine.c
+@@ -161,10 +161,9 @@ struct CStr *cStrPrintWithSize(size_t size, struct CStr *cstr, const char *fmt,.
+     if (cstr != NULL) {
+         if (cstr->chars != NULL) {
+             size_t count = cstr->size;
+-            size_t ret;
+             va_list ap;
+             va_start(ap, fmt);
+-            ret = vsnprintf(cstr->chars, count, fmt, ap);
++            vsnprintf(cstr->chars, count, fmt, ap);
+             va_end(ap);
+         }
+     }
+@@ -184,10 +183,9 @@ struct CStr *cStrPrint(struct CStr *cstr, const char *fmt,...) {
+     if (cstr != NULL) {
+         if (cstr->chars != NULL) {
+             size_t count = cstr->size;
+-            size_t ret;
+             va_list ap;
+             va_start(ap, fmt);
+-            ret = vsnprintf(cstr->chars, count, fmt, ap);
++            vsnprintf(cstr->chars, count, fmt, ap);
+             va_end(ap);
+         }
+     }
+@@ -425,6 +423,7 @@ static void cEngineRenderSprite(unsigned int **raster, int sprite_x, int sprite_
+         alpha = (color >> (8*3)) & 0xff;
+         bg_alpha = (bg_color >> (8*3)) & 0xff;
+     }
++    (void)alpha; // unused
+     
+     screen_x *= width;
+     screen_y *= height;
+diff --git a/snibbetracker/src/main.c b/snibbetracker/src/main.c
+index 80913e4..42d4aaf 100644
+--- a/snibbetracker/src/main.c
++++ b/snibbetracker/src/main.c
+@@ -63,6 +63,10 @@
+ #endif
+ #elif __linux
+ // linux
++    #define TARGET_OS_LINUX 1
++    // define something for Linux
++    #define platform_linux
++    #include "dir_posix.h"
+ #elif __unix // all unices not caught above
+ // Unix
+ #elif __posix
+@@ -79,6 +83,7 @@ static bool redraw_screen = true;
+ static bool passive_rendering = true;
+ static bool preview_enabled = true;
+ static char *conf_default_dir = NULL;
++static char *base_dir = NULL;
+ static int current_pattern = 0;
+ static int current_track = 0;
+ static int quit = 0;
+@@ -361,7 +366,7 @@ static void cleanup_synth(void);
+ static void main_loop(void);
+ static void debug_log(char *str);
+ static int get_buffer_size_from_index(int i);
+-static void copy_project_win(const char *name);
++static void copy_project_win_lin(const char *name);
+ static void load_config(void);
+ static bool parse_config(char *json);
+ static void st_log(char *message);
+@@ -713,7 +718,7 @@ static void exit_file_editor(void) {
+ 
+ 
+ static int getDirectoryList(char *dir_string) {
+-#if defined(platform_osx)
++#if defined(platform_osx)||defined(platform_linux)
+     return getDirectoryListPosix(dir_string, file_settings);
+ #elif defined(platform_windows)
+     return getDirectoryListWin(dir_string, file_settings);
+@@ -1408,7 +1413,7 @@ void handle_key_up(SDL_Keysym* keysym) {
+         if(!input->key_lock_lgui) {
+             modifier = false;
+         }
+-    #elif defined(platform_windows)
++    #elif defined(platform_windows)||defined(platform_linux)
+         if(!input->key_lock_lctrl) {
+             modifier = false;
+         }
+@@ -1868,7 +1873,7 @@ void handle_key_down(SDL_Keysym* keysym) {
+             if(input->key_lgui) {
+                 modifier = true;
+             }
+-        #elif defined(platform_windows)
++        #elif defined(platform_windows)||defined(platform_linux)
+             if(input->key_lctrl) {
+                 modifier = true;
+             }
+@@ -2534,6 +2539,7 @@ static void sdl_key_mapping(SDL_Keysym* keysym, bool down) {
+         case SDLK_F12: input->key_f12 = down; break;
+             
+     }
++
+ }
+ 
+ static void handle_reset_confirmation_keys(void) {
+@@ -4588,9 +4594,13 @@ static int get_buffer_size_from_index(int i) {
+ 
+ }
+ 
+-static void copy_project_win(const char *name) {
++static void copy_project_win_lin(const char *name) {
+     char *read_path = cAllocatorAlloc((1024 * sizeof(char*)), "win path 1");
++    #if defined(platform_windows)
+     snprintf(read_path, 1023, "%s%s", "demos\\", name);
++    #else
++    snprintf(read_path, 1023, "%s/../share/lundstroem/snibbetracker/demos/%s", base_dir, name);
++    #endif
+ 	char *write_path = cAllocatorAlloc((1024 * sizeof(char*)), "win path 2");
+     snprintf(write_path, 1023, "%s%s", conf_default_dir, name);
+     char *b = load_file(read_path);
+@@ -4632,15 +4642,15 @@ static void load_config(void) {
+         if(b != NULL) {
+             success = parse_config(b);
+             cAllocatorFree(b);
+-            copy_project_win("catslayer.snibb");
+-            copy_project_win("dunsa2.snibb");
+-            copy_project_win("fiskbolja.snibb");
+-            copy_project_win("horizon.snibb");
+-            copy_project_win("kissemisse.snibb");
+-            copy_project_win("korvhastig.snibb");
+-            copy_project_win("websnacks.snibb");
+-            copy_project_win("wrestchest.snibb");
+-			copy_project_win("projectcart.snibb");
++            copy_project_win_lin("catslayer.snibb");
++            copy_project_win_lin("dunsa2.snibb");
++            copy_project_win_lin("fiskbolja.snibb");
++            copy_project_win_lin("horizon.snibb");
++            copy_project_win_lin("kissemisse.snibb");
++            copy_project_win_lin("korvhastig.snibb");
++            copy_project_win_lin("websnacks.snibb");
++            copy_project_win_lin("wrestchest.snibb");
++            copy_project_win_lin("projectcart.snibb");
+         } else {
+             if(debuglog) { printf("could not find config file after writing. path:%s\n", path); }
+         }
+@@ -4920,8 +4930,14 @@ int main(int argc, char* argv[]) {
+             if(debuglog) { printf("SDL_GetPrefPath returned NULL\n"); }
+         }
+     }
++	
++    base_dir = SDL_GetBasePath();
++    if (base_dir == NULL) {
++        if(debuglog) { printf("SDL_GetBasePath returned NULL\n"); }
++        return 1;
++    }
+     
+-    #if defined(platform_windows)
++    #if defined(platform_windows)||defined(platform_linux)
+         load_config();
+         st_log("started executing.");
+     #elif defined(platform_osx)

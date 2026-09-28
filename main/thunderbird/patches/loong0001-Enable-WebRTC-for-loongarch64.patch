@@ -1,0 +1,15 @@
+diff --git a/third_party/chromium/build/build_config.h b/third_party/chromium/build/build_config.h
+index c39ae9da5..28191de02 100644
+--- a/third_party/chromium/build/build_config.h
++++ b/third_party/chromium/build/build_config.h
+@@ -210,6 +210,10 @@
+ #define ARCH_CPU_SPARC 1
+ #define ARCH_CPU_32_BITS 1
+ #define ARCH_CPU_BIG_ENDIAN 1
++#elif defined(__loongarch_lp64)
++#define ARCH_CPU_LOONGARCH64 1
++#define ARCH_CPU_64_BITS 1
++#define ARCH_CPU_LITTLE_ENDIAN 1
+ #else
+ #error Please add support for your architecture in build/build_config.h
+ #endif

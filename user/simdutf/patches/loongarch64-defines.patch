@@ -1,0 +1,15 @@
+diff --git a/include/simdutf/internal/isadetection.h b/include/simdutf/internal/isadetection.h
+index 2f59d60..427bbf6 100644
+--- a/include/simdutf/internal/isadetection.h
++++ b/include/simdutf/internal/isadetection.h
+@@ -73,8 +73,8 @@ struct simdutf_riscv_hwprobe {
+ #if defined(__loongarch__) && defined(__linux__)
+   #include <sys/auxv.h>
+ // bits/hwcap.h
+-// #define HWCAP_LOONGARCH_LSX             (1 << 4)
+-// #define HWCAP_LOONGARCH_LASX            (1 << 5)
++  #define HWCAP_LOONGARCH_LSX             (1 << 4)
++  #define HWCAP_LOONGARCH_LASX            (1 << 5)
+ #endif
+ 
+ namespace simdutf {

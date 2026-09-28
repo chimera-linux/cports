@@ -1,0 +1,12 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -22,8 +22,7 @@
+ AM_MAINTAINER_MODE([enable])
+ 
+ AC_CANONICAL_HOST
+-_LT_SET_OPTION([LT_INIT],[win32-dll])
+-LT_INIT
++LT_INIT([win32-dll])
+ 
+ AC_C_BIGENDIAN
+ AC_C_CONST

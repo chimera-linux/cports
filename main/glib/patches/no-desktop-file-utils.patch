@@ -1,0 +1,31 @@
+these need desktop-file-utils to run, which is circular as they need glib
+--
+--- a/gio/tests/meson.build
++++ b/gio/tests/meson.build
+@@ -278,10 +278,6 @@
+ #  Test programs buildable on UNIX only
+ if host_machine.system() != 'windows'
+   gio_tests += {
+-    'file' : {
+-      # FIXME: https://gitlab.gnome.org/GNOME/glib/-/issues/3148
+-      'can_fail' : host_system == 'gnu',
+-    },
+     'gdbus-peer-object-manager' : {},
+     'gdbus-sasl' : {},
+     'live-g-file' : {},
+@@ -620,14 +616,6 @@
+           ],
+         },
+         'dbus-appinfo' : {
+-          'extra_sources' : [extra_sources, fake_document_portal_sources],
+-        },
+-        'desktop-app-info' : {
+-          'install' : false,
+-          'depends' : gio_launch_desktop,
+-          'extra_programs' : ['apps', 'appinfo-test', 'snapinfo-test'],
+-          # FIXME: https://gitlab.gnome.org/GNOME/glib/-/issues/3148
+-          'can_fail' : host_system == 'gnu',
+           'extra_sources' : [extra_sources, fake_document_portal_sources],
+         },
+       }
+

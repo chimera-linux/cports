@@ -1,0 +1,44 @@
+commit d96adcd072994b7a917d08140fd4ed9c1716e7ec
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 31 02:49:18 2021 +0100
+
+    pass CFLAGS during linking
+
+diff --git a/build/make/Makefile b/build/make/Makefile
+index 9ca97c8..17f2b8e 100644
+--- a/build/make/Makefile
++++ b/build/make/Makefile
+@@ -280,13 +280,13 @@
+ $(1): $(filter-out -%,$(2))
+ $(1):
+ 	$(if $(quiet),@echo    "    [LD] $$@")
+-	$(qexec)$$(LD) $$(strip $$(INTERNAL_LDFLAGS) $$(LDFLAGS) -o $$@ $(2) $(3) $$(extralibs))
++	$(qexec)$$(LD) $$(strip $$(INTERNAL_LDFLAGS) $$(CFLAGS) $$(LDFLAGS) -o $$@ $(2) $(3) $$(extralibs))
+ endef
+ define linkerxx_template
+ $(1): $(filter-out -%,$(2))
+ $(1):
+ 	$(if $(quiet),@echo    "    [LD] $$@")
+-	$(qexec)$$(CXX) $$(strip $$(INTERNAL_LDFLAGS) $$(LDFLAGS) -o $$@ $(2) $(3) $$(extralibs))
++	$(qexec)$$(CXX) $$(strip $$(INTERNAL_LDFLAGS) $$(CFLAGS) $$(LDFLAGS) -o $$@ $(2) $(3) $$(extralibs))
+ endef
+ # make-3.80 has a bug with expanding large input strings to the eval function,
+ # which was triggered in some cases by the following component of
+@@ -333,7 +333,7 @@
+ # This needs further abstraction for dealing with non-GNU linkers.
+ $(1):
+ 	$(if $(quiet),@echo "    [LD] $$@")
+-	$(qexec)$$(LD) -shared $$(LDFLAGS) \
++	$(qexec)$$(LD) -shared $$(CFLAGS) $$(LDFLAGS) \
+             $(NO_UNDEFINED) \
+             -Wl,-soname,$$(SONAME) \
+             -Wl,--version-script,$$(EXPORTS_FILE) -o $$@ \
+@@ -346,7 +346,7 @@
+ # for creating them.
+ $(1):
+ 	$(if $(quiet),@echo "    [LD] $$@")
+-	$(qexec)$$(LD) -dynamiclib $$(LDFLAGS) \
++	$(qexec)$$(LD) -dynamiclib $$(CFLAGS) $$(LDFLAGS) \
+ 	    -exported_symbols_list $$(EXPORTS_FILE) \
+         -Wl,-headerpad_max_install_names,-compatibility_version,1.0,-current_version,$$(VERSION_MAJOR) \
+         -o $$@ \

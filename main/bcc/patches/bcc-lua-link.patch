@@ -1,0 +1,17 @@
+https://github.com/iovisor/bcc/issues/1621#issuecomment-1999070371
+bcc-lua-static with basic set is not global, so it's an empty list and all the
+symbols are missing.
+hack around this by forcing a bcc-shared link. it will get removed as there are
+no direct symbol references- they are looked up at runtime, so no-as-needed it
+--
+--- a/src/lua/CMakeLists.txt
++++ b/src/lua/CMakeLists.txt
+@@ -23,7 +23,7 @@
+ 	add_executable(bcc-lua src/main.c bcc.o)
+ 	set_target_properties(bcc-lua PROPERTIES LINKER_LANGUAGE C)
+ 	target_link_libraries(bcc-lua ${LUAJIT_LIBRARIES})
+-	target_link_libraries(bcc-lua ${bcc-lua-static})
++	target_link_libraries(bcc-lua -Wl,--no-as-needed bcc-shared -Wl,--as-needed)
+ 	if (NOT COMPILER_NOPIE_FLAG EQUAL "")
+ 		target_link_libraries(bcc-lua ${COMPILER_NOPIE_FLAG})
+ 	endif()

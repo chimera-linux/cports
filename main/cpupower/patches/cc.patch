@@ -1,0 +1,18 @@
+--- a/tools/power/x86/turbostat/Makefile
++++ b/tools/power/x86/turbostat/Makefile
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+-CC		= $(CROSS_COMPILE)gcc
++CC		?= $(CROSS_COMPILE)gcc
+ BUILD_OUTPUT	:= $(CURDIR)
+ PREFIX		?= /usr
+ DESTDIR		?=
+--- a/tools/power/x86/x86_energy_perf_policy/Makefile
++++ b/tools/power/x86/x86_energy_perf_policy/Makefile
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+-CC		= $(CROSS_COMPILE)gcc
++CC		?= $(CROSS_COMPILE)gcc
+ BUILD_OUTPUT    := $(CURDIR)
+ PREFIX		:= /usr
+ DESTDIR		:=

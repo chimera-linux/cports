@@ -1,0 +1,15 @@
+--- a/wpa_supplicant/Makefile
++++ b/wpa_supplicant/Makefile
+@@ -41,9 +41,9 @@
+ endif
+ endif
+ 
+-export LIBDIR ?= /usr/local/lib
+-export INCDIR ?= /usr/local/include
+-export BINDIR ?= /usr/local/sbin
++export LIBDIR ?= /usr/lib
++export INCDIR ?= /usr/include
++export BINDIR ?= /usr/bin
+ PKG_CONFIG ?= pkg-config
+ 
+ CFLAGS += $(EXTRA_CFLAGS)

@@ -1,0 +1,20 @@
+Patch status: likely here forever unless upstream adds a similar var
+
+EXTRA_GN is our own invention supported by chromium and the older
+Qt5 webengine ebuild[1]. Provided for users to append gn arguments
+to the args.gn files (like EXTRA_ECONF), but in this case also
+intended to help the ebuild pass its own.
+
+Unfortunately harder to support quoted spaces without `gn --args`
+(that Qt5 used to use), and cannot use --args given it overrides
+the args files. cmake's separate_arguments() will strip quotes
+which we actually need to keep, so just doing dumb splitting.
+
+[1] https://bugs.gentoo.org/774186
+--- a/cmake/Functions.cmake
++++ b/cmake/Functions.cmake
+@@ -1251,2 +1251,4 @@
+ 
++    string(REGEX MATCHALL "([^\t\n ]+)" GENTOO_GN_ARGS "$ENV{EXTRA_GN}")
++    list(APPEND arg_GN_ARGS ${GENTOO_GN_ARGS})
+     list(JOIN arg_GN_ARGS "\n" arg_GN_ARGS)

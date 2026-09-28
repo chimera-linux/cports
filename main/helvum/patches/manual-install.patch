@@ -1,0 +1,25 @@
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -10,22 +10,15 @@
+   message('Building in debug mode')
+ endif
+ 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-
+ custom_target(
+   'cargo-build',
+   build_by_default: true,
+   build_always_stale: true,
+   output: meson.project_name(),
+   console: true,
+-  install: true,
+   install_dir: bindir,
+   command: [
+-    'env',
+-    cargo_env,
+     cargo, 'build',
+     cargo_options,
+-    '&&',
+-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+   ],
+ )

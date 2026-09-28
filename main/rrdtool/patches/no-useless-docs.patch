@@ -1,0 +1,57 @@
+commit 0f70619b8530f1924a9f765b46bcaa4ef7d6155c
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Mar 17 17:56:27 2024 +0100
+
+    disable docs except manpages
+
+diff --git a/configure.ac b/configure.ac
+index b8240c7..12ebf02 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -992,18 +992,6 @@ AM_CONDITIONAL(BUILD_PYTHON,[test $enable_python = "yes"])
+ 
+ if test $enable_docs != no; then
+ 
+-dnl Check for nroff
+-AC_ARG_VAR(NROFF, [path to the local nroff version])
+-AC_PATH_PROGS(NROFF, [gnroff nroff])
+-if test x$NROFF = x; then
+-  AC_MSG_ERROR([I need a copy of *nroff to format the documentation])
+-fi
+-AC_ARG_VAR(TROFF, [path to the local troff version])
+-AC_PATH_PROGS(TROFF, [groff troff])
+-if test x$TROFF = x; then
+-  AC_MSG_ERROR([I need a copy of *troff to format the documentation])
+-fi
+-
+ AC_ARG_VAR(RRDDOCDIR, [[DATADIR/doc/PACKAGE-VERSION] Documentation directory])
+ if test -z "$RRDDOCDIR"; then
+    RRDDOCDIR='${datadir}/doc/${PACKAGE}-${VERSION}'; fi
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index f7ac476..a6b04c2 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -50,16 +50,12 @@ CLEANFILES = $(GENERATED_EXTRADIST) pod2htm*.tmp
+ EXTRA_DIST= $(GENERATED_EXTRADIST) $(POD) $(POD3) rrdtool-dump.dtd rrdtool-xport.dtd rrdgraph_libdbi.pod rrdlua.pod \
+             rrdpython.pod rrdrados.pod rrdruby.pod
+ 
+-idocdir = $(RRDDOCDIR)/txt
+-idoc_DATA = $(POD) $(TXT)
+-ihtmldir = $(RRDDOCDIR)/html
+-ihtml_DATA = $(HTML)
+ imandir = $(mandir)/man1
+ iman_DATA = $(MAN)
+ iman3dir = $(mandir)/man3
+ iman3_DATA = $(MAN3)
+ 
+-all-local: link man txt html-local
++all-local: man
+ 
+ .src.pod:
+ 	perl -n -e 'if (/^=include\s+(\S+)/){open F,"$$1.inc" || die $$?;print <F>; close F} else {print}'  $<  > $@
+@@ -97,5 +93,3 @@ pdf-local: $(PDF)
+ 
+ pod: $(POD) $(POD3)
+ 
+-install-data-hook:
+-	$(AM_V_GEN)cd $(DESTDIR)$(ihtmldir) && rm -f index.html && $(LN_S) rrdtool.html index.html

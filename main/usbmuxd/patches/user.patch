@@ -1,0 +1,36 @@
+commit 4198303603a2d7d00afeaf3b163de757cabaf9fc
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Dec 18 19:05:16 2023 +0100
+
+    prefix the user
+
+diff --git a/docs/usbmuxd.8 b/docs/usbmuxd.8
+index 590afdc..9bf4d75 100644
+--- a/docs/usbmuxd.8
++++ b/docs/usbmuxd.8
+@@ -20,7 +20,7 @@ auto-insertion messages or by systemd) it provides a socket interface in
+ "/var/run/usbmuxd" that is designed to be compatible with the socket interface
+ that is provided on Mac OS X.
+ 
+-You should also create a "usbmux" user that has access to USB devices on your
++You should also create a "_usbmux" user that has access to USB devices on your
+ system. Alternatively, you can pass a different username using the -U argument.
+ 
+ Due to iOS 7 the daemon now also manages pairing records with iOS devices and
+diff --git a/udev/39-usbmuxd.rules.in b/udev/39-usbmuxd.rules.in
+index 11d33c6..91aad41 100644
+--- a/udev/39-usbmuxd.rules.in
++++ b/udev/39-usbmuxd.rules.in
+@@ -4,10 +4,10 @@
+ SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", TAG+="systemd"
+ 
+ # Initialize iOS devices into "deactivated" USB configuration state and activate usbmuxd
+-SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", ACTION=="add", ENV{USBMUX_SUPPORTED}="1", ATTR{bConfigurationValue}="0", OWNER="usbmux", @udev_activation_rule@
++SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", ACTION=="add", ENV{USBMUX_SUPPORTED}="1", ATTR{bConfigurationValue}="0", OWNER="_usbmux", @udev_activation_rule@
+ 
+ # Make sure properties don't get lost when bind action is called
+-SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", ACTION=="bind", ENV{USBMUX_SUPPORTED}="1", OWNER="usbmux", @udev_activation_rule@
++SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", ACTION=="bind", ENV{USBMUX_SUPPORTED}="1", OWNER="_usbmux", @udev_activation_rule@
+ 
+ # Exit usbmuxd when the last device is removed
+ SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="5ac/12[9a][0-9a-f]/*|5ac/8600/*", ACTION=="remove", RUN+="@sbindir@/usbmuxd -x"

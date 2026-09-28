@@ -1,0 +1,11 @@
+--- a/tests/qcoronetworkreply.cpp
++++ b/tests/qcoronetworkreply.cpp
+@@ -175,7 +175,7 @@ private:
+         auto reply = co_await nam.get(request);
+         QCORO_VERIFY(reply != nullptr);
+         QCORO_VERIFY(reply->isFinished());
+-        QCORO_COMPARE(reply->error(), QNetworkReply::OperationCanceledError);
++        QCORO_COMPARE(reply->error(), QNetworkReply::TimeoutError);
+         // QNAM is destroyed here and so is all its associated state, which could
+         // crash (or cause invalid memory access)
+     }

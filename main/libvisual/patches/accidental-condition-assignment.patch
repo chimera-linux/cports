@@ -1,0 +1,11 @@
+--- a/libvisual/lv_hashmap.c	2023-03-20 02:04:17.000000000 +0000
++++ b/libvisual/lv_hashmap.c	2024-05-29 23:40:33.468500094 +0100
+@@ -261,7 +261,7 @@
+ {
+ 	if (keytype == VISUAL_HASHMAP_KEY_TYPE_INTEGER)
+ 		return integer_hash (*((uint32_t *) key)) % hashmap->tablesize;
+-	else if (keytype = VISUAL_HASHMAP_KEY_TYPE_STRING)
++	else if (keytype == VISUAL_HASHMAP_KEY_TYPE_STRING)
+ 		return string_hash ((char *) key) % hashmap->tablesize;
+ 
+ 	return 0;

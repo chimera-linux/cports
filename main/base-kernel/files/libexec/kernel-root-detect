@@ -1,0 +1,111 @@
+#!/bin/sh
+
+if [ -z "$ROOT_PATH" ]; then
+    ROOT_PATH=/
+fi
+
+CMDLINE="$*"
+
+# there might be root= in the original cmdline
+for part in $CMDLINE; do
+    case "$part" in
+        root=*)
+            echo "$CMDLINE"
+            exit 0
+            ;;
+    esac
+done
+
+BDEV=$(findmnt -no source "$ROOT_PATH" 2>/dev/null)
+
+# not a mount point?
+if [ $? -ne 0 ]; then
+    echo "$CMDLINE"
+    exit 1
+fi
+
+# should not happen
+if [ -z "$BDEV" ]; then
+    echo "$CMDLINE"
+    exit 1
+fi
+
+# root device search starts here
+ROOTDEV=
+ROOTFLAGS=
+
+# pool-based systems
+if [ ! -b "$BDEV" ]; then
+    FSNAME=$(findmnt -no fstype "$ROOT_PATH")
+    case "$FSNAME" in
+        zfs)
+            # origin is what we need
+            ROOTDEV="ZFS=$BDEV"
+            ;;
+        btrfs)
+            # may need rootflags
+            ROOTFLAGS=${BDEV#*[/}
+            ROOTFLAGS=${ROOTFLAGS%]}
+            if [ -z "$ROOTFLAGS" ]; then
+                echo "$CMDLINE"
+                exit 1
+            fi
+            ROOTFLAGS="subvol=$ROOTFLAGS"
+            # resolve normally
+            BDEV=${BDEV%[*}
+            ;;
+        *)
+            # unknown
+            echo "$CMDLINE"
+            exit 0
+            ;;
+    esac
+fi
+
+scan_rootdev() {
+    [ -n "$ROOTDEV" ] && return 0
+
+    for f in "$1"/*; do
+        [ -b "$f" ] || continue
+        MAPNAME=$(realpath -q "$f" 2>/dev/null)
+        [ -n "$MAPNAME" ] || continue
+        if [ "$MAPNAME" = "$BDEV" ]; then
+            if [ -n "$2" ]; then
+                ROOTDEV="$2=$(basename $f)"
+            else
+                ROOTDEV="$f"
+            fi
+            break
+        fi
+    done
+}
+
+# first try partuuid, as that can be handled by
+# the kernel (in this format) even without initramfs
+scan_rootdev /dev/disk/by-partuuid PARTUUID
+
+# next try mapper devices, which need an initramfs
+# and are identified by a full path in /dev/mapper
+scan_rootdev /dev/mapper
+
+# last try uuid, which is a part of the filesystem
+# and thus only works when you do have an initramfs
+scan_rootdev /dev/disk/by-uuid UUID
+
+# fall back to /dev path
+if [ -z "$ROOTDEV" ]; then
+    ROOTDEV="$BDEV"
+fi
+
+if [ -n "$ROOTFLAGS" ]; then
+    ROOTDEV="$ROOTDEV rootflags=$ROOTFLAGS"
+fi
+
+# prepend as necessary
+if [ -n "$CMDLINE" ]; then
+    echo "root=$ROOTDEV $CMDLINE"
+else
+    echo "root=$ROOTDEV"
+fi
+
+exit 0

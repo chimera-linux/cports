@@ -1,0 +1,16 @@
+<command line>:7:9: warning: '_FORTIFY_SOURCE' macro redefined [-Wmacro-redefined]
+    7 | #define _FORTIFY_SOURCE 2
+      |         ^
+<built-in>:384:9: note: previous definition is here
+  384 | #define _FORTIFY_SOURCE 3
+      |         ^
+--- a/common/cmake/clang.cmake
++++ b/common/cmake/clang.cmake
+@@ -91,7 +91,6 @@
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility-inlines-hidden") # makes all inline symbols hidden by default
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")        # disables strict aliasing rules
+   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-tree-vectorize")         # disable auto vectorizer
+-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_FORTIFY_SOURCE=2")         # perform extra security checks for some standard library calls
+   IF (EMBREE_STACK_PROTECTOR)
+     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector")           # protects against return address overrides
+   ENDIF()

@@ -1,0 +1,13 @@
+Patch-Source: https://gitweb.gentoo.org/repo/gentoo.git/commit/app-cdr/dvd+rw-tools/files/dvd+rw-tools-7.0-reload.patch?id=8f2938a48efdf12e2c766c2f7ea64b4de765466f
+--
+--- a/growisofs_mmc.cpp
++++ b/growisofs_mmc.cpp
+@@ -138,7 +138,7 @@ int media_reload (char *name=NULL,struct
+ 		cmd[0] = 0x1B;		// START/STOP UNIT
+ 		cmd[4] = 0x2;		// "Eject"
+ 		cmd[5] = 0;
+-		if (cmd.transport()) return 1;
++		cmd.transport();
+ 	    }
+ #if defined(__sun) || defined(sun)
+ 	    else if (volmgt_running())

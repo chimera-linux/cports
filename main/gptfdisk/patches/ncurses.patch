@@ -1,0 +1,11 @@
+--- gptcurses.cc	2022-04-15 02:17:12.000000000 +0300
++++ gptcurses.cc	2023-10-20 23:43:09.216063640 +0300
+@@ -26,7 +26,7 @@
+ #if defined (__APPLE__) || (__FreeBSD__)
+ #include <ncurses.h>
+ #else
+-#include <ncursesw/ncurses.h>
++#include <ncurses.h>
+ #endif
+ #include "gptcurses.h"
+ #include "support.h"

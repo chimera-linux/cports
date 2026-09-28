@@ -1,0 +1,51 @@
+From a6d51ae582c863c01c581f1e31492910d53b0427 Mon Sep 17 00:00:00 2001
+From: Luca Boccassi <luca.boccassi@gmail.com>
+Date: Thu, 13 Feb 2025 19:43:00 +0000
+Subject: [PATCH] ukify: fix zboot parsing with zstd
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The header starts with 'zstd', not 'zstd22':
+
+$ ukify build --linux vmlinuz-6.13+unreleased-cloud-arm64 --initrd /boot/initrd.img-6.12.12-amd64 --output uki
+Kernel version not specified, starting autodetection 😖.
+Real-Mode Kernel Header magic not found
++ readelf --notes vmlinuz-6.13+unreleased-cloud-arm64
+readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
+Traceback (most recent call last):
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 2510, in <module>
+    main()
+    ~~~~^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 2499, in main
+    make_uki(opts)
+    ~~~~~~~~^^^^^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 1328, in make_uki
+    opts.uname = Uname.scrape(linux, opts=opts)
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 384, in scrape
+    version = func(filename, opts=opts)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 374, in scrape_generic
+    text = maybe_decompress(filename)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 221, in maybe_decompress
+    return get_zboot_kernel(f)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 201, in get_zboot_kernel
+    raise NotImplementedError(f'unknown compressed type: {comp_type!r}')
+NotImplementedError: unknown compressed type: b'zstd\x00\x00'
+---
+ src/ukify/ukify.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/ukify/ukify.py b/src/ukify/ukify.py
+index 85b8d612f5246..001ab956da290 100755
+--- a/src/ukify/ukify.py
++++ b/src/ukify/ukify.py
+@@ -194,7 +194,7 @@ def get_zboot_kernel(f: IO[bytes]) -> bytes:
+         raise NotImplementedError('lzo decompression not implemented')
+     elif comp_type.startswith(b'xzkern'):
+         raise NotImplementedError('xzkern decompression not implemented')
+-    elif comp_type.startswith(b'zstd22'):
++    elif comp_type.startswith(b'zstd'):
+         zstd = try_import('zstandard')
+         return zstd.ZstdDecompressor().stream_reader(f.read(size)).read()
+     else:

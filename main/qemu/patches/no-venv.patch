@@ -1,0 +1,99 @@
+diff --git a/configure b/configure
+index eea9030..10fb133 100755
+--- a/configure
++++ b/configure
+@@ -932,93 +932,7 @@ fi
+ 
+ # Resolve PATH
+ python="$(command -v "$python")"
+-
+-# Create a Python virtual environment using our configured python.
+-# The stdout of this script will be the location of a symlink that
+-# points to the configured Python.
+-# Entry point scripts for pip, meson, and sphinx are generated if those
+-# packages are present.
+-
+-# Defaults assumed for now:
+-# - venv is cleared if it exists already;
+-# - venv is allowed to use system packages;
+-# - all setup can be performed offline;
+-# - missing packages may be fetched from PyPI,
+-#   unless --disable-download is passed.
+-# - pip is not installed into the venv when possible,
+-#   but ensurepip is called as a fallback when necessary.
+-
+-echo "python determined to be '$python'"
+-echo "python version: $($python --version)"
+-
+-python="$($python -B "${source_path}/python/scripts/mkvenv.py" create pyvenv)"
+-if test "$?" -ne 0 ; then
+-    error_exit "python venv creation failed"
+-fi
+-
+-# Suppress writing compiled files
+-python="$python -B"
+-mkvenv="$python ${source_path}/python/scripts/mkvenv.py"
+-
+-# Finish preparing the virtual environment using vendored .whl files.
+-# Even if PyPI is allowed, we disallow it here to force installation
+-# from our preferred vendored versions.
+-
+-$mkvenv ensuregroup --dir "${source_path}/python/wheels" \
+-     ${source_path}/pythondeps.toml meson || exit 1
+-
+-# At this point, we expect Meson to be installed and available.
+-# We expect mkvenv or pip to have created pyvenv/bin/meson for us.
+-# We ignore PATH completely here: we want to use the venv's Meson
+-# *exclusively*.
+-
+-# for msys2
+-get_pwd() {
+-    if pwd -W >/dev/null 2>&1; then
+-        pwd -W
+-    else
+-        pwd
+-    fi
+-}
+-
+-meson="$(cd pyvenv/bin; get_pwd)/meson"
+-if [ -f "$meson$EXESUF" ]; then
+-  meson="$meson$EXESUF"
+-fi
+-
+-# On Haiku, meson might show up in a "non-packaged" subfolder instead, see
+-# https://github.com/haiku/haiku/blob/r1beta5/docs/user/storage/storageintro.dox
+-if test "$host_os" = "haiku" && test ! -e "$meson" ; then
+-    meson="$(cd pyvenv/non-packaged/bin; get_pwd)/meson"
+-fi
+-
+-mkvenv_online_flag=""
+-if test "$download" = "enabled" ; then
+-    mkvenv_online_flag=" --online"
+-fi
+-
+-# Unconditionally install our tooling group. PyPI is allowed if enabled here.
+-
+-$mkvenv ensuregroup $mkvenv_online_flag \
+-        --dir "${source_path}/python/wheels" \
+-        ${source_path}/pythondeps.toml tooling || exit 1
+-
+-# Conditionally ensure Sphinx is installed.
+-
+-if test "$docs" != "disabled" ; then
+-    if ! $mkvenv ensuregroup \
+-         $(test "$docs" = "enabled" && echo "$mkvenv_online_flag") \
+-         ${source_path}/pythondeps.toml docs;
+-    then
+-        if test "$docs" = "enabled" ; then
+-            exit 1
+-        fi
+-        echo "Sphinx not found/usable, disabling docs."
+-        docs=disabled
+-    else
+-        docs=enabled
+-    fi
+-fi
++meson=meson
+ 
+ # Probe for ninja
+ 

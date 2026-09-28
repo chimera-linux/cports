@@ -1,0 +1,13 @@
+This removes a bunch of parsing of /proc/cpuinfo and the
+likes since that's not reproducible and broken for packaging.
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -3,7 +3,6 @@ project (vid.stab C)
+ 
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules/")
+ 
+-include (FindSSE)
+ include (GNUInstallDirs)
+ find_package(OpenMP)
+ 

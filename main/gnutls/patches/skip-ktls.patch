@@ -1,0 +1,18 @@
+skip the ktls tests as they fail if the machine can't use ktls in the test env
+--
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -527,13 +527,6 @@
+ #
+ 
+ if ENABLE_KTLS
+-indirect_tests += gnutls_ktls
+-dist_check_SCRIPTS += ktls.sh
+-
+-indirect_tests += ktls_keyupdate
+-ktls_keyupdate_SOURCES = tls13/key_update.c
+-ktls_keyupdate_CFLAGS = -DUSE_KTLS
+-dist_check_SCRIPTS += ktls_keyupdate.sh
+ endif
+ 
+ dist_check_SCRIPTS += dtls/dtls.sh dtls/dtls-resume.sh #dtls/dtls-nb

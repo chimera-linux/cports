@@ -1,0 +1,29 @@
+From 5d0a4ae87f156baca41891ed765ba192ef741811 Mon Sep 17 00:00:00 2001
+From: "Paul A. Patience" <paul@apatience.com>
+Date: Sat, 6 Jan 2024 04:26:21 -0500
+Subject: [PATCH] Update libc to fix missing open64
+
+See <https://github.com/rust-lang/libc/pull/2935>.
+---
+ Cargo.lock | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index da5786a..377543d 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -656,9 +656,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+ 
+ [[package]]
+ name = "libc"
+-version = "0.2.122"
++version = "0.2.146"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ec647867e2bf0772e28c8bcde4f0d19a9216916e890543b5a03ed8ef27b8f259"
++checksum = "f92be4933c13fd498862a9e02a3055f8a8d9c039ce33db97306fd5a6caa7f29b"
+ 
+ [[package]]
+ name = "llvm-sys"
+-- 
+2.41.0
+

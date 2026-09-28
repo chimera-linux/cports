@@ -1,0 +1,8 @@
+# rpc.mountd service
+
+type = process
+command = /usr/bin/rpc.mountd -F
+depends-on = local.target
+depends-on = network.target
+depends-on = nfs-proc-nfsd
+depends-on = rpcbind

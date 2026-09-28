@@ -1,0 +1,21 @@
+diff -ruN a/src/core/bpf/meson.build b/src/core/bpf/meson.build
+--- a/src/core/bpf/meson.build	2026-07-20 15:33:30.000000000 +0200
++++ b/src/core/bpf/meson.build	2026-07-21 09:19:24.617169929 +0200
+@@ -166,16 +166,7 @@
+ 
+ bpf_o_unstripped_cmd += ['-I.']
+ 
+-if cc.get_id() == 'gcc' or meson.is_cross_build()
+-  if cc.get_id() != 'gcc'
+-    warning('Cross compiler is not gcc. Guessing the target triplet for bpf likely fails.')
+-  endif
+-  target_triplet_cmd = run_command(cc.cmd_array(), '-print-multiarch', check: false)
+-else
+-  # clang does not support -print-multiarch (D133170) and its -dump-machine
+-  # does not match multiarch. Query gcc instead.
+-  target_triplet_cmd = run_command('gcc', '-print-multiarch', check: false)
+-endif
++target_triplet_cmd = run_command('clang', '-dumpmachine', check: false)
+ 
+ if target_triplet_cmd.returncode() == 0
+   target_triplet = target_triplet_cmd.stdout().strip()

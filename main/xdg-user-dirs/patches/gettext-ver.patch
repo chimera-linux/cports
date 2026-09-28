@@ -1,0 +1,25 @@
+From 282537071606066f7481811cbfea224ac7aa543b Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 9 Apr 2025 19:46:33 +0200
+Subject: [PATCH] gettext fixup
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configure.ac b/configure.ac
+index 2cce082..aca8a81 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,6 +21,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [The gettext domain name]
+ AC_SUBST(GETTEXT_PACKAGE)
+ 
+ AM_GNU_GETTEXT([external])
++AM_GNU_GETTEXT_VERSION([0.23])
+ 
+ dnl ==========================================================================
+ dnl Turn on the additional warnings last, so -Werror doesn't affect other tests.
+-- 
+2.49.0
+

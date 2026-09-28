@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/iwgtk -i
+log-type = buffer
+depends-on: graphical.target

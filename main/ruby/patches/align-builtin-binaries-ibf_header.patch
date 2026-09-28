@@ -1,0 +1,45 @@
+From e25889951f39aff6e3c16ecee10e678912454e69 Mon Sep 17 00:00:00 2001
+From: Nobuyoshi Nakada <nobu@ruby-lang.org>
+Date: Sun, 6 Apr 2025 12:24:23 +0900
+Subject: [PATCH] Ensure builtin binaries are aligned to ibf_header
+
+Since IBF result string size should be multiple of 4, this should not
+increase the binary size actually.
+---
+ template/builtin_binary.inc.tmpl | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/template/builtin_binary.inc.tmpl b/template/builtin_binary.inc.tmpl
+index 2c2f0717057531..1e3fc636801d17 100644
+--- a/template/builtin_binary.inc.tmpl
++++ b/template/builtin_binary.inc.tmpl
+@@ -5,19 +5,24 @@
+ % unless ARGV.include?('--cross=yes')
+ %   ary = RubyVM.enum_for(:each_builtin).to_a
+ %   ary.each{|feature, iseq|
++%     bin = iseq.to_binary
+ 
+-static const unsigned char <%= feature %>_bin[] = {
+-%     iseq                   \
+-%     . to_binary            \
++static const union {
++    unsigned char binary[<%= bin.bytesize %>];
++    uint32_t align_as_ibf_header;
++} <%= feature %>_builtin = {
++    .binary = {
++%     bin                    \
+ %     . each_byte            \
+ %     . each_slice(12) {|a|
+-    <%= a.map{ '0x%02x,' % _1 }.join(' ') %>
++        <%= a.map{ '0x%02x,' % _1 }.join(' ') %>
+ %     }
++    }
+ };
+ %   }
+ 
+ #define BUILTIN_BIN(feature) \
+-    { #feature, feature ## _bin, sizeof(feature ## _bin), }
++    { #feature, feature ## _builtin.binary, sizeof(feature ## _builtin.binary), }
+ static const struct builtin_binary builtin_binary[] = {
+ %   ary.each{|feature, |
+     BUILTIN_BIN(<%= feature %>),

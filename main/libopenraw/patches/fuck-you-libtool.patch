@@ -1,0 +1,11 @@
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -123,7 +123,7 @@
+ 	-version-info @LIBOPENRAW_VERSION_INFO@ \
+ 	--all-static \
+ 	-lpthread -ldl
+-libopenraw_la_LIBADD = -ljpeg $(RUST_LIB) libopenraw_internals.la
++libopenraw_la_LIBADD = -ljpeg $(RUST_LIB) -lc++ -lc++abi libopenraw_internals.la
+ libopenraw_la_SOURCES = \
+ 	capi/capi.h \
+ 	capi/capi.cpp \

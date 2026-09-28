@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/rsyncd
+smooth-recovery = true
+depends-on: local.target
+depends-on: network.target

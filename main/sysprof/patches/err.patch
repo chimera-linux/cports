@@ -1,0 +1,15 @@
+../src/sysprof/sysprof-greeter.c:629:21: error: declaration shadows a variable in the global scope [-Werror,-Wshadow]
+  629 |       g_auto(GStrv) environ = NULL;
+      |                     ^
+/usr/include/unistd.h:188:15: note: previous declaration is here
+--- a/meson.build	2025-03-15 19:45:16.000000000 +0000
++++ b/meson.build	2025-07-03 00:43:16.825276699 +0100
+@@ -194,7 +194,6 @@
+   '-Werror=overflow',
+   '-Werror=parenthesis',
+   '-Werror=return-type',
+-  '-Werror=shadow',
+   '-Werror=strict-prototypes',
+   '-Werror=undef',
+ ]
+

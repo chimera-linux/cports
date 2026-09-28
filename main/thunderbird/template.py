@@ -1,0 +1,218 @@
+pkgname = "thunderbird"
+pkgver = "155.0"
+pkgrel = 0
+hostmakedepends = [
+    "automake",
+    "cargo",
+    "cbindgen",
+    "clang-devel",
+    "dbus",
+    "gettext",
+    "libtool",
+    "llvm-devel",
+    "nasm",
+    "nodejs",
+    "pkgconf",
+    "python",
+    "rust",
+    "wasi-sdk",
+    "zip",
+]
+makedepends = [
+    "alsa-lib-devel",
+    "dbus-devel",
+    "ffmpeg-devel",
+    "freetype-devel",
+    "glib-devel",
+    "gtk+3-devel",
+    "icu-devel",
+    "libevent-devel",
+    "libffi8-devel",
+    "libjpeg-turbo-devel",
+    "libnotify-devel",
+    "libogg-devel",
+    "libpng-devel",
+    "libpulse-devel",
+    "libtheora-devel",
+    "libvorbis-devel",
+    "libvpx-devel",
+    "libwebp-devel",
+    "libxcomposite-devel",
+    "libxscrnsaver-devel",
+    "libxt-devel",
+    "mesa-devel",
+    "nspr-devel",
+    "nss-devel",
+    "pipewire-jack-devel",
+    "pixman-devel",
+    "rust-std",
+    "zlib-ng-compat-devel",
+]
+provides = [
+    # backwards-compatibility with old subpackages
+    self.with_pkgver("thunderbird-default"),
+    self.with_pkgver("thunderbird-wayland"),
+]
+pkgdesc = "Thunderbird mail client"
+license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
+url = "https://www.thunderbird.net"
+source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
+sha256 = "116a5eff70f3405f62247960ac6ca7c781ae99f313c5fc499c9c93b21f28b242"
+debug_level = 1  # defatten, especially with LTO
+tool_flags = {
+    "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
+}
+env = {
+    "SHELL": "/usr/bin/sh",
+    "BUILD_OFFICIAL": "1",
+    "MOZILLA_OFFICIAL": "1",
+    "USE_SHORT_LIBNAME": "1",
+    "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
+    "MOZ_APP_REMOTINGNAME": "thunderbird",
+    "MOZ_NOSPAM": "1",
+    # thunderbird checks for it by calling --help
+    "CBUILD_BYPASS_STRIP_WRAPPER": "1",
+}
+# FIXME: see firefox
+hardening = ["!int"]
+# XXX: maybe someday
+options = ["!cross", "!check"]
+
+if self.profile.endian == "big":
+    broken = "broken colors, needs patching, etc."
+
+# crashes compiler in gl.c
+if self.profile.arch == "riscv64":
+    tool_flags["CXXFLAGS"] = ["-U_FORTIFY_SOURCE"]
+
+
+def post_extract(self):
+    self.cp(
+        self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
+    )
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    # lolrust failed to calculate checksum of: /builddir/thunderbird-147.0/comm/third_party/rust/minimal-lexical/.gitmodules
+    for crate in [
+        "cubeb-sys",
+        "glslopt",
+        "minimal-lexical",
+        "sfv",
+        "wasi",
+        "yaml-rust2",
+    ]:
+        cargo.clear_vendor_checksums(
+            self, crate, vendor_dir="comm/third_party/rust"
+        )
+
+
+def init_configure(self):
+    from cbuild.util import cargo
+
+    self.env["MOZBUILD_STATE_PATH"] = str(self.chroot_srcdir / ".mozbuild")
+    self.env["AS"] = self.get_tool("CC")
+    self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
+    self.env["RUST_TARGET"] = self.profile.triplet
+    # use all the cargo env vars we enforce
+    self.env.update(cargo.get_environment(self))
+
+
+def configure(self):
+    conf_opts = [
+        "--prefix=/usr",
+        "--libdir=/usr/lib",
+        "--host=" + self.profile.triplet,
+        "--target=" + self.profile.triplet,
+        "--disable-install-strip",
+        "--disable-strip",
+        "--enable-linker=lld",
+        "--enable-optimize",
+        "--enable-release",
+        "--with-wasi-sysroot=/usr/wasm32-unknown-wasi",
+        # we have our own flags and better
+        "--disable-hardening",
+        # system libs
+        "--with-system-ffi",
+        "--with-system-icu",
+        "--with-system-jpeg",
+        "--with-system-libevent",
+        "--with-system-libvpx",
+        "--with-system-nspr",
+        "--with-system-nss",
+        "--with-system-pixman",
+        "--with-system-webp",
+        "--with-system-zlib",
+        # no apng support
+        "--without-system-png",
+        # features
+        "--enable-audio-backends=pulseaudio",
+        "--enable-dbus",
+        "--enable-default-toolkit=cairo-gtk3-wayland",
+        "--enable-ffmpeg",
+        "--enable-jack",
+        "--enable-necko-wifi",
+        "--enable-pulseaudio",
+        # disabled features
+        "--disable-alsa",
+        "--disable-jemalloc",
+        "--disable-profiling",
+        "--disable-tests",
+        "--disable-updater",
+        # mail options
+        "--allow-addon-sideload",
+        "--enable-application=comm/mail",
+        "--enable-official-branding",
+        "--with-distribution-id=org.chimera-linux",
+    ]
+
+    match self.profile.arch:
+        case "x86_64" | "aarch64":
+            # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
+            # conf_opts += ["--enable-rust-simd"]
+            pass
+        case "loongarch64":
+            conf_opts += ["--disable-crashreporter"]
+
+    if self.has_lto():
+        conf_opts += ["--enable-lto=cross"]
+
+    self.log("configuring final thunderbird...")
+    self.do("./mach", "configure", *conf_opts)
+
+
+def build(self):
+    self.do("./mach", "build", "--priority", "normal")
+
+
+def install(self):
+    self.do(
+        "./mach",
+        "install",
+        env={"DESTDIR": str(self.chroot_destdir)},
+    )
+
+    self.install_file(
+        self.files_path / "vendor.js",
+        "usr/lib/thunderbird/defaults/preferences",
+    )
+    self.install_file(
+        self.files_path / "distribution.ini", "usr/lib/thunderbird/distribution"
+    )
+    self.install_file(
+        self.files_path / "thunderbird.desktop", "usr/share/applications"
+    )
+
+    # icons
+    for sz in [16, 22, 24, 32, 48, 128, 256]:
+        self.install_file(
+            f"comm/mail/branding/thunderbird/default{sz}.png",
+            f"usr/share/icons/hicolor/{sz}x{sz}/apps",
+            name="thunderbird.png",
+        )
+
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+    self.uninstall("usr/lib/thunderbird/thunderbird-bin")
+    self.install_link("usr/lib/thunderbird/thunderbird-bin", "thunderbird")

@@ -1,0 +1,72 @@
+diff --git a/libisofs/ecma119_tree.c b/libisofs/ecma119_tree.c
+index 825c68b..6c5d174 100644
+--- a/libisofs/ecma119_tree.c
++++ b/libisofs/ecma119_tree.c
+@@ -614,6 +614,10 @@ void sort_tree(Ecma119Node *root)
+     }
+ }
+ 
++static int strcmp_f(const void *a, const void *b) {
++    return strcmp(a, b);
++}
++
+ /**
+  * Ensures that the ISO name of each children of the given dir is unique,
+  * changing some of them if needed.
+@@ -639,7 +643,7 @@ int mangle_single_dir(Ecma119Image *img, Ecma119Node *dir, int max_file_len,
+ 
+     /* a hash table will temporary hold the names, for fast searching */
+     ret = iso_htable_create((nchildren * 100) / 80, iso_str_hash,
+-                            (compare_function_t)strcmp, &table);
++                            strcmp_f, &table);
+     if (ret < 0) {
+         return ret;
+     }
+diff --git a/libisofs/iso1999.c b/libisofs/iso1999.c
+index fe40b6b..8a668eb 100644
+--- a/libisofs/iso1999.c
++++ b/libisofs/iso1999.c
+@@ -308,6 +308,10 @@ void sort_tree(Iso1999Node *root)
+     }
+ }
+ 
++static int strcmp_f(const void *a, const void *b) {
++    return strcmp(a, b);
++}
++
+ static
+ int mangle_single_dir(Ecma119Image *img, Iso1999Node *dir)
+ {
+@@ -329,7 +333,7 @@ int mangle_single_dir(Ecma119Image *img, Iso1999Node *dir)
+ 
+     /* a hash table will temporary hold the names, for fast searching */
+     ret = iso_htable_create((nchildren * 100) / 80, iso_str_hash,
+-                            (compare_function_t)strcmp, &table);
++                            strcmp_f, &table);
+     if (ret < 0) {
+         goto ex;
+     }
+diff --git a/libisofs/joliet.c b/libisofs/joliet.c
+index 47375b8..6dcf32c 100644
+--- a/libisofs/joliet.c
++++ b/libisofs/joliet.c
+@@ -423,6 +423,10 @@ int joliet_create_mangled_name(uint16_t *dest, uint16_t *src, int digits,
+     return ISO_SUCCESS;
+ }
+ 
++static int ucscmp_f(const void *a, const void *b) {
++    return ucscmp(a, b);
++}
++
+ /*
+  * From Joliet specs:
+  * "ISO 9660 (Section 7.5.1) states that the sum of the following shall not
+@@ -462,7 +466,7 @@ int mangle_single_dir(Ecma119Image *t, JolietNode *dir)
+ 
+     /* a hash table will temporary hold the names, for fast searching */
+     ret = iso_htable_create((nchildren * 100) / 80, iso_str_hash,
+-                            (compare_function_t)ucscmp, &table);
++                            ucscmp_f, &table);
+     if (ret < 0) {
+         goto ex;
+     }

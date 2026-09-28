@@ -1,0 +1,26 @@
+diff --git a/Engine/Media/Controller.cpp b/Engine/Media/Controller.cpp
+index 9008e2f..49c7b98 100644
+--- a/Engine/Media/Controller.cpp
++++ b/Engine/Media/Controller.cpp
+@@ -475,7 +475,7 @@ int MediaProcController::Decoder::decodeFrameFromPacket(bool &frameFinished, AVP
+ 		return 0;
+ 
+ 	frameFinished = true;
+-	return frame->pkt_size;
++	return packet->size;
+ }
+ 
+ void MediaProcController::Decoder::decodeFrame(MediaEntries index) {
+diff --git a/Engine/Media/VideoDecoder.cpp b/Engine/Media/VideoDecoder.cpp
+index aa22b11..7ea35ca 100644
+--- a/Engine/Media/VideoDecoder.cpp
++++ b/Engine/Media/VideoDecoder.cpp
+@@ -17,7 +17,7 @@ extern "C" {
+ //Should be noticed that this function works approximately, because the timeCodes received are taken before decoding
+ long double MediaProcController::VideoDecoder::getVideoFramerate(bool &isVFR, bool &isCorrupted) {
+ 
+-	long double fromTimeBase = av_q2d(codecContext->time_base) * codecContext->ticks_per_frame;
++	long double fromTimeBase = av_q2d(codecContext->time_base) * ((codecContext->codec_descriptor->props & AV_CODEC_PROP_FIELDS) ? 2 : 1);
+ 	if (fromTimeBase <= 0)
+ 		fromTimeBase = 0;
+ 	else

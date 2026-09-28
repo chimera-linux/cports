@@ -1,0 +1,88 @@
+diff --git a/config/aerc.conf b/config/aerc.conf
+index fbc1f3ba..8761a7ee 100644
+--- a/config/aerc.conf
++++ b/config/aerc.conf
+@@ -739,9 +739,9 @@
+ #   ${XDG_CONFIG_HOME:-~/.config}/aerc/filters
+ #   ~/.local/libexec/aerc/filters
+ #   ${XDG_DATA_HOME:-~/.local/share}/aerc/filters
+-#   $PREFIX/libexec/aerc/filters
++#   $PREFIX/lib/aerc/filters
+ #   $PREFIX/share/aerc/filters
+-#   /usr/libexec/aerc/filters
++#   /usr/lib/aerc/filters
+ #   /usr/share/aerc/filters
+ #
+ # If you want to run a program in your default $PATH which has the same name
+diff --git a/config/config.go b/config/config.go
+index 14c4b233..e3e22330 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -38,7 +38,7 @@ func buildDefaultDirs() []string {
+ 	libexecDir := strings.TrimRight(libexecDir, "\x00")
+ 
+ 	// Add custom buildtime dirs
+-	if libexecDir != "" && libexecDir != "/usr/local/libexec/aerc" {
++	if libexecDir != "" && libexecDir != "/usr/local/lib/aerc" {
+ 		defaultDirs = append(defaultDirs, xdg.ExpandHome(libexecDir))
+ 	}
+ 	if shareDir != "" && shareDir != "/usr/local/share/aerc" {
+@@ -46,9 +46,9 @@ func buildDefaultDirs() []string {
+ 	}
+ 
+ 	// Add fixed fallback locations
+-	defaultDirs = append(defaultDirs, "/usr/local/libexec/aerc")
++	defaultDirs = append(defaultDirs, "/usr/local/lib/aerc")
+ 	defaultDirs = append(defaultDirs, "/usr/local/share/aerc")
+-	defaultDirs = append(defaultDirs, "/usr/libexec/aerc")
++	defaultDirs = append(defaultDirs, "/usr/lib/aerc")
+ 	defaultDirs = append(defaultDirs, "/usr/share/aerc")
+ 
+ 	return defaultDirs
+diff --git a/doc/aerc-config.5.scd b/doc/aerc-config.5.scd
+index 1e3daaa9..6c7774cb 100644
+--- a/doc/aerc-config.5.scd
++++ b/doc/aerc-config.5.scd
+@@ -1019,7 +1019,7 @@ will be set to the terminal TTY. The filter is expected to implement its own
+ paging.
+ 
+ aerc ships with some default filters installed in the libexec directory (usually
+-_/usr/libexec/aerc/filters_). Note that these may have additional dependencies
++_/usr/lib/aerc/filters_). Note that these may have additional dependencies
+ that aerc does not have alone.
+ 
+ The filter commands are invoked with _sh -c command_. The following folders are
+@@ -1029,9 +1029,9 @@ prepended to the system *$PATH* to allow referencing filters from their name onl
+ ${XDG_CONFIG_HOME:-~/.config}/aerc/filters
+ ~/.local/libexec/aerc/filters
+ ${XDG_DATA_HOME:-~/.local/share}/aerc/filters
+-$PREFIX/libexec/aerc/filters
++$PREFIX/lib/aerc/filters
+ $PREFIX/share/aerc/filters
+-/usr/libexec/aerc/filters
++/usr/lib/aerc/filters
+ /usr/share/aerc/filters
+ ```
+ 
+diff --git a/doc/aerc-templates.7.scd b/doc/aerc-templates.7.scd
+index a6deb584..6bb7ad4b 100644
+--- a/doc/aerc-templates.7.scd
++++ b/doc/aerc-templates.7.scd
+@@ -398,7 +398,7 @@ aerc provides the following additional functions:
+ 	Attaches a file to the message being composed.
+ 
+ 	```
+-	{{.Attach '/usr/libexec/aerc/filters/html'}}
++	{{.Attach '/usr/lib/aerc/filters/html'}}
+ 	```
+ 
+ *exec*
+@@ -581,7 +581,7 @@ aerc provides the following additional functions:
+ 
+ 	```
+ 	{{if eq .OriginalMIMEType "text/html"}}
+-	{{exec `/usr/libexec/aerc/filters/html` .OriginalText | wrap 72 | quote}}
++	{{exec `/usr/lib/aerc/filters/html` .OriginalText | wrap 72 | quote}}
+ 	{{else}}
+ 	{{wrap 72 .OriginalText | trimSignature | quote}}
+ 	{{end}}

@@ -1,0 +1,12 @@
+diff --git a/oslib/linux-blkzoned.c b/oslib/linux-blkzoned.c
+index 78e25fca..62ca043f 100644
+--- a/oslib/linux-blkzoned.c
++++ b/oslib/linux-blkzoned.c
+@@ -22,6 +22,7 @@
+ #include "zbd_types.h"
+ 
+ #include <linux/blkzoned.h>
++#include <linux/falloc.h>
+ #ifndef BLKFINISHZONE
+ #define BLKFINISHZONE _IOW(0x12, 136, struct blk_zone_range)
+ #endif

@@ -1,0 +1,18 @@
+diff --git a/meson.build b/meson.build
+index 7af6fb9..ad99e45 100644
+--- a/meson.build
++++ b/meson.build
+@@ -57,11 +57,11 @@ endif
+ 
+ if get_option('bash-completions')
+   bashdir = datadir + '/bash-completion/completions'
+-  install_data('completions/wlogout.bash', install_dir: bashdir)
++  install_data('completions/wlogout.bash', install_dir: bashdir, rename: 'wlogout')
+ endif
+ 
+ if get_option('fish-completions')
+-  fishdir = datadir + '/fish/completions'
++  fishdir = datadir + '/fish/vendor_completions.d'
+   install_data('completions/wlogout.fish', install_dir: fishdir)
+ endif
+

@@ -1,0 +1,59 @@
+commit 123e890eece753bcd3c572ed18abf3b196610203
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat May 16 23:12:22 2026 +0200
+
+    revert more changes for GDM 48
+    
+    Reverts https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/4057
+
+diff --git a/js/misc/loginManager.js b/js/misc/loginManager.js
+index a66ebed..a93e0cb 100644
+--- a/js/misc/loginManager.js
++++ b/js/misc/loginManager.js
+@@ -61,7 +61,7 @@ export async function registerSessionWithGDM() {
+             '/org/gnome/DisplayManager/Manager',
+             'org.gnome.DisplayManager.Manager',
+             'RegisterSession',
+-            null, null,
++            GLib.Variant.new('(a{sv})', [{}]), null,
+             Gio.DBusCallFlags.NONE, -1, null);
+     } catch (e) {
+         if (!e.matches(Gio.DBusError, Gio.DBusError.UNKNOWN_METHOD))
+@@ -71,24 +71,6 @@ export async function registerSessionWithGDM() {
+     }
+ }
+ 
+-export async function registerDisplayWithGDM() {
+-    log('Registering display with GDM');
+-    try {
+-        await Gio.DBus.system.call(
+-            'org.gnome.DisplayManager',
+-            '/org/gnome/DisplayManager/Manager',
+-            'org.gnome.DisplayManager.Manager',
+-            'RegisterDisplay',
+-            null, null,
+-            Gio.DBusCallFlags.NONE, -1, null);
+-    } catch (e) {
+-        if (!e.matches(Gio.DBusError, Gio.DBusError.UNKNOWN_METHOD))
+-            log(`Error registering display with GDM: ${e.message}`);
+-        else
+-            log('Not calling RegisterDisplay(): method not exported, GDM too old?');
+-    }
+-}
+-
+ let _loginManager = null;
+ 
+ /**
+diff --git a/js/ui/main.js b/js/ui/main.js
+index 01a18b5..99227c2 100644
+--- a/js/ui/main.js
++++ b/js/ui/main.js
+@@ -370,8 +370,6 @@ async function _initializeUI() {
+             sessionMode.currentMode !== 'initial-setup')
+             _handleLockScreenWarning();
+ 
+-        LoginManager.registerDisplayWithGDM();
+-
+         if (perfModule) {
+             const perfOutput = GLib.getenv('SHELL_PERF_OUTPUT');
+             Scripting.runPerfScript(perfModule, perfOutput);

@@ -1,0 +1,28 @@
+From 994cea88f0a679befec9a71debb3d211b02132b4 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Tue, 15 Apr 2025 20:13:44 +0200
+Subject: [PATCH] CMP0004 was removed
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b05e3da..b8b1eb8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -156,10 +156,6 @@ elseif(WIN32)
+     message(STATUS "Enabled MIDI support (WinMM)")
+     add_subdirectory(src/midi)
+ else()
+-    # Workaround for SDL bug #3295, which occurs in SDL2 <2.0.5
+-    # https://bugzilla.libsdl.org/show_bug.cgi?id=3295
+-    cmake_policy(SET CMP0004 OLD)
+-
+     find_package(SDL2 REQUIRED)
+ endif()
+ 
+-- 
+2.49.0
+

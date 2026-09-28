@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/monerod --non-interactive --config-file /etc/monerod.conf
+run-as = _monero
+logfile = /var/log/monerod.log
+depends-on: local.target

@@ -1,0 +1,32 @@
+--- a/lib/Tempest/Engine/CMakeLists.txt
++++ b/lib/Tempest/Engine/CMakeLists.txt
+@@ -66,25 +66,11 @@ if(APPLE)
+   add_definitions(-D_LARGEFILE64_SOURCE)
+ endif()
+ 
+-### zlib
+-add_subdirectory("thirdparty/zlib" EXCLUDE_FROM_ALL)
+-set(ZLIB_LIBRARY zlibstatic)
+-set(ZLIB_INCLUDE_DIR "thirdparty/zlib")
+-target_include_directories(${PROJECT_NAME} PRIVATE "thirdparty/zlib")
+-
+ ### libpng16
+-set(PNG_SHARED                 OFF CACHE INTERNAL "")
+-set(PNG_STATIC                 ON  CACHE INTERNAL "")
+-set(PNG_TESTS                  OFF CACHE INTERNAL "")
+-set(PNG_BUILD_ZLIB             ON  CACHE INTERNAL "")
+-set(SKIP_INSTALL_ALL           ON  CACHE INTERNAL "")
+-set(PNG_HARDWARE_OPTIMIZATIONS OFF CACHE INTERNAL "")
+-add_definitions(-DPNG_ARM_NEON_OPT=0)
+-add_subdirectory("thirdparty/libpng" EXCLUDE_FROM_ALL)
+-target_include_directories(png_static PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+-target_include_directories(png_static PRIVATE "thirdparty/zlib")
+-target_include_directories(${PROJECT_NAME} PRIVATE "thirdparty/libpng")
+-target_link_libraries(${PROJECT_NAME} PRIVATE png_static)
++include(FindPkgConfig)
++pkg_check_modules(LIBPNG libpng REQUIRED)
++target_include_directories(${PROJECT_NAME} PRIVATE ${LIBPNG_INCLUDE_DIRS})
++target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBPNG_LIBRARIES})
+ 
+ ### stb
+ add_definitions(-DSTB_IMAGE_IMPLEMENTATION)

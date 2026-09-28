@@ -1,0 +1,95 @@
+install dbus services outside of systemd, allow activation with Exec= instead of
+service-only until we have dbussy broker
+--
+--- a/Makefile.am 2019-10-30 06:50:34.000000000 -0400
++++ b/Makefile.am	2019-10-30 09:10:08.542128891 -0400
+@@ -169,14 +169,14 @@
+ if DBUS_POLICY
+ dbus_datadir = @DBUS_DATADIR@/dbus-1/system.d
+ dist_dbus_data_DATA =
++dbus_busdir = @DBUS_BUSDIR@
++dbus_bus_DATA =
+ endif
+ 
+ if SYSTEMD_SERVICE
+ systemd_unitdir = @SYSTEMD_UNITDIR@
+ systemd_unit_DATA =
+ 
+-dbus_busdir = @DBUS_BUSDIR@
+-dbus_bus_DATA =
+ 
+ systemd_networkdir = @SYSTEMD_NETWORKDIR@
+ systemd_network_DATA =
+@@ -282,13 +282,13 @@
+ 
+ if DBUS_POLICY
+ dist_dbus_data_DATA += src/iwd-dbus.conf
++dbus_bus_DATA += src/net.connman.iwd.service
+ endif
+ 
+ if SYSTEMD_SERVICE
+ src_iwd_DEPENDENCIES += src/iwd.service
+ 
+ systemd_unit_DATA += src/iwd.service
+-dbus_bus_DATA += src/net.connman.iwd.service
+ 
+ systemd_network_DATA += src/80-iwd.link
+ endif
+@@ -370,13 +370,13 @@
+ 
+ if DBUS_POLICY
+ dist_dbus_data_DATA += wired/ead-dbus.conf
++dbus_bus_DATA += wired/net.connman.ead.service
+ endif
+ 
+ if SYSTEMD_SERVICE
+ wired_ead_DEPENDENCIES += wired/ead.service
+ 
+ systemd_unit_DATA += wired/ead.service
+-dbus_bus_DATA += wired/net.connman.ead.service
+ endif
+ 
+ if MANUAL_PAGES
+--- a/configure.ac
++++ b/configure.ac
+@@ -238,7 +238,7 @@
+ AC_ARG_WITH([dbus-busdir], AS_HELP_STRING([--with-dbus-busdir=DIR],
+ 				[path to D-Bus bus services directory]),
+ 					[path_dbus_busdir=${withval}])
+-if (test "${enable_systemd_service}" != "no" && test -z "${path_dbus_busdir}"); then
++if (test -z "${path_dbus_busdir}"); then
+ 	AC_MSG_CHECKING([D-Bus bus services directory])
+ 	path_dbus_busdir="`$PKG_CONFIG --variable=system_bus_services_dir dbus-1`"
+ 	if (test -z "${path_dbus_busdir}"); then
+--- a/src/net.connman.iwd.service
++++ /dev/null
+@@ -1,5 +0,0 @@
+-[D-BUS Service]
+-Name=net.connman.iwd
+-Exec=/bin/false
+-User=root
+-SystemdService=iwd.service
+--- /dev/null
++++ b/src/net.connman.iwd.service.in
+@@ -0,0 +1,5 @@
++[D-BUS Service]
++Name=net.connman.iwd
++Exec=@libexecdir@/iwd
++User=root
++SystemdService=iwd.service
+--- a/wired/net.connman.ead.service
++++ /dev/null
+@@ -1,5 +0,0 @@
+-[D-BUS Service]
+-Name=net.connman.ead
+-Exec=/bin/false
+-User=root
+-SystemdService=ead.service
+--- /dev/null
++++ b/wired/net.connman.ead.service.in
+@@ -0,0 +1,5 @@
++[D-BUS Service]
++Name=net.connman.ead
++Exec=@libexecdir@/ead
++User=root
++SystemdService=ead.service

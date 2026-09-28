@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/cloud-init-hotplugd
+depends-on: cloud-init-local
+depends-on: pre-local.target
+before: cloud-init

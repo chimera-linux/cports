@@ -1,0 +1,17 @@
+In very specific situations `glamor_composite_clipped_region` has some overflows,
+Mostly seems benign, and when attaching the actual UBSan runtime they disappear
+
+So just disable it for that function
+
+diff --git a/glamor/glamor_render.c b/glamor/glamor_render.c
+index 2af65bf9..84042055 100644
+--- a/glamor/glamor_render.c
++++ b/glamor/glamor_render.c
+@@ -1386,6 +1386,7 @@ glamor_convert_gradient_picture(ScreenPtr screen,
+     return dst;
+ }
+ 
++__attribute__((no_sanitize("signed-integer-overflow")))
+ Bool
+ glamor_composite_clipped_region(CARD8 op,
+                                 PicturePtr source,

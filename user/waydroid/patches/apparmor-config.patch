@@ -1,0 +1,9 @@
+--- a/data/configs/config_3	2024-08-07 18:01:14.000000000 -0300
++++ b/data/configs/config_3	2024-09-07 14:21:28.466488580 -0300
+@@ -1,6 +1,5 @@
+ lxc.uts.name = waydroid
+ 
+-lxc.apparmor.profile = unconfined
+ lxc.seccomp.profile = /var/lib/waydroid/lxc/waydroid/waydroid.seccomp
+ 
+ lxc.no_new_privs = 1

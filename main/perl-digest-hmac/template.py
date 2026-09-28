@@ -1,0 +1,12 @@
+pkgname = "perl-digest-hmac"
+pkgver = "1.05"
+pkgrel = 1
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Perl interface to HMAC message-digest algorithms"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/Digest-HMAC"
+source = f"$(CPAN_SITE)/Digest/Digest-HMAC-{pkgver}.tar.gz"
+sha256 = "215cb59cba610745cfb2d4b3f8ef756d590e57e3ad7986a992e87c4969fcdc7a"

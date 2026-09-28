@@ -1,0 +1,29 @@
+diff --git a/configure.ac b/configure.ac
+index 31f5368..1735c82 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -322,7 +322,7 @@ dnl It should always work but with libtool 1.4.3 on OS X it breaks the build.
+ dnl So we only turn it on for platforms where we know we really need it.
+ AC_MSG_CHECKING([whether libtool needs -no-undefined])
+ case $host in
+-  *-*-cygwin*)
++  *linux*)
+     AC_MSG_RESULT([yes])
+     LT_NO_UNDEFINED="-no-undefined"
+     ;;
+diff --git a/subversion/bindings/swig/perl/native/Makefile.PL.in b/subversion/bindings/swig/perl/native/Makefile.PL.in
+index 984b38f..3d380d7 100644
+--- a/subversion/bindings/swig/perl/native/Makefile.PL.in
++++ b/subversion/bindings/swig/perl/native/Makefile.PL.in
+@@ -69,10 +69,7 @@ $cflags =~ s/-Wmissing-declarations//g;
+ $cflags =~ s/-Wmissing-prototypes//g;
+ $cflags =~ s/-Wredundant-decls//g;
+ 
+-# According to the log of r7937, the flags guarded by the conditional break
+-# the build on FreeBSD if not conditionalized.
+-my $apr_ldflags = '@SVN_APR_LIBS@'
+-   if $^O eq 'darwin' or $^O eq 'cygwin';
++my $apr_ldflags = '@SVN_APR_LIBS@';
+ 
+ chomp $apr_shlib_path_var;
+ 

@@ -1,0 +1,35 @@
+This reverts https://gitlab.gnome.org/GNOME/libdex/-/commit/b06bc9d523491663392f73ff2102a0593a214e29.
+
+It seems dynamically allocating the error results into
+issues with stack utilization when invoked from a
+fiber context, crashing. Work around this for now.
+
+--- a/src/dex-fiber.c
++++ b/src/dex-fiber.c
+@@ -205,21 +205,11 @@ dex_fiber_start (DexFiber *fiber)
+     }
+   else
+     {
+-      const char *name = dex_future_get_name (DEX_FUTURE (fiber));
+-      GError *error;
+-
+-      if (name == NULL)
+-        error = g_error_new (DEX_ERROR,
+-                             DEX_ERROR_FIBER_EXITED,
+-                             "The fiber function at %p exited without a result",
+-                             fiber->func);
+-      else
+-        error = g_error_new (DEX_ERROR,
+-                             DEX_ERROR_FIBER_EXITED,
+-                             "The fiber %s with function at %p exited without a result",
+-                             name, fiber->func);
+-
+-      dex_future_complete (DEX_FUTURE (fiber), NULL, g_steal_pointer (&error));
++      dex_future_complete (DEX_FUTURE (fiber),
++                           NULL,
++                           g_error_new_literal (DEX_ERROR,
++                                                DEX_ERROR_FIBER_EXITED,
++                                                "The fiber exited without a result"));
+     }
+ 
+   /* Mark the fiber as exited */

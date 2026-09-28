@@ -1,0 +1,53 @@
+--- a/lib/ZenKit/CMakeLists.txt
++++ b/lib/ZenKit/CMakeLists.txt
+@@ -127,27 +127,22 @@ else ()
+     message(WARNING "ZenKit: Building WITHOUT memory mapping support")
+ endif ()
+ 
++find_package(glm)
++find_package(doctest)
++
+ target_sources(zenkit PRIVATE ${_ZK_SOURCES} ${_ZK_HEADERS})
+ target_include_directories(zenkit PUBLIC include)
++target_include_directories(zenkit PRIVATE ${GLM_INCLUDE_DIRS} ${DOCTEST_INCLUDE_DIRS})
+ target_compile_definitions(zenkit PRIVATE _ZKEXPORT=1 ZKNO_REM=1)
+ target_compile_options(zenkit PRIVATE ${_ZK_COMPILE_FLAGS})
+ target_link_options(zenkit PUBLIC ${_ZK_LINK_FLAGS})
+-target_link_libraries(zenkit PUBLIC glm::glm_static squish)
++target_link_libraries(zenkit PUBLIC squish)
+ set_target_properties(zenkit PROPERTIES DEBUG_POSTFIX "d" VERSION ${PROJECT_VERSION})
+ 
+ if (ZK_ENABLE_INSTALL)
+     install(TARGETS zenkit ARCHIVE LIBRARY RUNTIME)
+     install(DIRECTORY "include/phoenix" TYPE INCLUDE)
+     install(DIRECTORY "include/zenkit" TYPE INCLUDE)
+-
+-    if (NOT ZK_BUILD_SHARED)
+-        # For static linking we'll need to provide the dependency static libraries
+-        install(DIRECTORY "${glm_SOURCE_DIR}/glm" TYPE INCLUDE FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.h")
+-
+-        foreach (lib glm::glm_static)
+-            install(FILES "$<TARGET_LINKER_FILE:${lib}>" TYPE LIB)
+-        endforeach ()
+-    endif ()
+ endif ()
+ 
+ # when building tests, create a test executable and load it into CTest
+--- a/lib/ZenKit/vendor/CMakeLists.txt
++++ b/lib/ZenKit/vendor/CMakeLists.txt
+@@ -31,13 +31,11 @@ function(px_add_dependency NAME URL URL_HASH)
+     endif ()
+ endfunction()
+ 
+-px_add_dependency(doctest https://github.com/doctest/doctest/archive/refs/tags/v2.4.9.zip d1563419fa370c34c90e028c2e903a70c8dc07b2)
+-px_add_dependency(glm https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip 45408897f419944fb28d8fd835791f237be2ec19)
+-px_add_dependency(libsquish https://github.com/lmichaelis/phoenix-libsquish/archive/cc82beff55210816e1bd531fc6057203dc309807.zip 953f5cd072cd6674d1aeaff5ff91225f2197283c)
++add_subdirectory(libsquish)
+ 
+ # msvc: disable -wno-* flags
+ if (NOT MSVC)
+     target_compile_options(squish PRIVATE -Wno-unused-but-set-variable)
+ endif ()
+ 
+-target_include_directories(squish PUBLIC ${libsquish_SOURCE_DIR})
++target_include_directories(squish PUBLIC libsquish)

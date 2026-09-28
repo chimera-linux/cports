@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -323,7 +323,7 @@ if test "$gcc" -eq 1 && ($cc $CFLAGS -c $test.c) >> configure.log 2>&1; then
+       if test $build32 -ne 1; then
+         ARCH=$CC_ARCH
+       fi ;;
+-    arm | armeb)
++    arm | armeb | armv7)
+       ARCH=arm
+       if test "${uname}" = "eabi"; then
+         uname=arm

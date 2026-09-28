@@ -1,0 +1,48 @@
+commit 578d9c84e93786e53f75eceb723d47c5b869e520
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Jun 1 23:02:13 2023 +0200
+
+    drop groff requirement
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 6c5e77e..409c42e 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -26,13 +26,10 @@ BUILT_VAPIS = util.vapi
+ util.h util.vapi: libutil.la
+ 
+ dist_man_MANS = enchant-@ENCHANT_MAJOR_VERSION@.1 enchant-lsmod-@ENCHANT_MAJOR_VERSION@.1
+-nodist_doc_DATA = enchant-@ENCHANT_MAJOR_VERSION@.html enchant-lsmod-@ENCHANT_MAJOR_VERSION@.html
++nodist_doc_DATA =
+ 
+ DISTCLEANFILES = $(dist_man_MANS) $(nodist_doc_DATA) dummy.vala
+-
+-.1.html:
+-	groff -mandoc -Thtml $< > $@
+ 
+ enchant-@ENCHANT_MAJOR_VERSION@.1: $(builddir)/enchant.1 Makefile.am $(top_builddir)/config.status
+ 	cp $(abs_builddir)/enchant.1 $@
+ 
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index 5b47714..7ea4382 100644
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -43,7 +43,7 @@ libenchant_datadir = $(pkgdatadir)-@ENCHANT_MAJOR_VERSION@
+ libenchant_data_DATA = enchant.ordering
+ 
+ dist_man_MANS = enchant.5
+-nodist_doc_DATA = enchant.html
++nodist_doc_DATA =
+ 
+ edit = sed \
+ 	-e 's|@PKGDATADIR[@]|$(pkgdatadir)|g' \
+@@ -56,9 +56,6 @@ enchant.5: $(builddir)/enchant.5.in Makefile.am $(top_builddir)/config.status
+ 	$(edit) $(abs_builddir)/enchant.5.in >$@.tmp
+ 	mv $@.tmp $@
+-
+-enchant.html: enchant.5
+-	groff -mandoc -Thtml $< > $@
+ 
+ EXTRA_DIST = $(libenchant_data_DATA) $(VAPIS)
+ 
+ loc-local:

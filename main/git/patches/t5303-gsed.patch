@@ -1,0 +1,20 @@
+--- a/t/t5303-pack-corruption-resilience.sh
++++ b/t/t5303-pack-corruption-resilience.sh
+@@ -103,7 +103,7 @@
+ 	create_new_pack &&
+ 	git prune-packed &&
+ 	chmod +w ${pack}.pack &&
+-	sed "s/ base /abcdef/" ${pack}.pack >${pack}.pack.munged &&
++	gsed "s/ base /abcdef/" ${pack}.pack >${pack}.pack.munged &&
+ 	mv ${pack}.pack.munged ${pack}.pack &&
+ 	test_must_fail git cat-file blob $blob_1 > /dev/null &&
+ 	test_must_fail git cat-file blob $blob_2 > /dev/null &&
+@@ -161,7 +161,7 @@
+ 	create_new_pack &&
+ 	git prune-packed &&
+ 	chmod +w ${pack}.pack &&
+-	sed "s/ delta1 /abcdefgh/" ${pack}.pack >${pack}.pack.munged &&
++	gsed "s/ delta1 /abcdefgh/" ${pack}.pack >${pack}.pack.munged &&
+ 	mv ${pack}.pack.munged ${pack}.pack &&
+ 	git cat-file blob $blob_1 > /dev/null &&
+ 	test_must_fail git cat-file blob $blob_2 > /dev/null &&

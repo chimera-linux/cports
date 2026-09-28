@@ -1,0 +1,90 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-6.1.2-devendor_libs.patch
+
+diff -ruN a/extras/Projucer/Source/ProjectSaving/jucer_ProjectExporter.cpp b/extras/Projucer/Source/ProjectSaving/jucer_ProjectExporter.cpp
+--- a/extras/Projucer/Source/ProjectSaving/jucer_ProjectExporter.cpp	2024-07-29 13:47:03.000000000 +0200
++++ b/extras/Projucer/Source/ProjectSaving/jucer_ProjectExporter.cpp	2024-08-31 13:44:23.424004213 +0200
+@@ -612,6 +612,39 @@
+         packages.add ("gtk+-x11-3.0");
+         dependencies.push_back (PackageDependency { "webkit2gtk-4.1", "webkit2gtk-4.0" });
+     }
++ 
++    // as vendored libraries were removed, we need to link against system libraries
++    if (project.getEnabledModules().isModuleEnabled ("juce_core"))
++    {
++        packages.add ("zlib");
++    }
++    if (project.getEnabledModules().isModuleEnabled ("juce_graphics"))
++    {
++        packages.add ("libjpeg");
++        packages.add ("libpng");
++    }
++    if (project.getEnabledModules().isModuleEnabled ("juce_audio_formats"))
++    {
++        if(project.isConfigFlagEnabled ("JUCE_USE_FLAC", true))
++        {
++            packages.add ("flac");
++        }
++
++        if(project.isConfigFlagEnabled ("JUCE_USE_OGGVORBIS", true))
++        {
++            packages.add ("vorbis");
++            packages.add ("vorbisfile");
++            packages.add ("vorbisenc");
++            packages.add ("ogg");
++        }
++    }
++    if (project.getEnabledModules().isModuleEnabled ("juce_audio_devices"))
++    {
++        if(project.isConfigFlagEnabled ("JUCE_JACK", true))
++        {
++            packages.add ("jack");
++        }
++    }
+ 
+     packages.removeEmptyStrings();
+     packages.removeDuplicates (false);
+diff -ruN a/modules/juce_core/juce_core.h b/modules/juce_core/juce_core.h
+--- a/modules/juce_core/juce_core.h	2024-07-29 13:47:03.000000000 +0200
++++ b/modules/juce_core/juce_core.h	2024-08-31 13:43:32.219375343 +0200
+@@ -75,7 +75,32 @@
+ #endif
+ 
+ #include "system/juce_TargetPlatform.h"
++ 
++#ifdef JUCE_INCLUDE_ZLIB_CODE
++# undef JUCE_INCLUDE_ZLIB_CODE
++#endif
++#define JUCE_INCLUDE_ZLIB_CODE 0
+ 
++#ifdef JUCE_INCLUDE_FLAC_CODE
++# undef JUCE_INCLUDE_FLAC_CODE
++#endif
++#define JUCE_INCLUDE_FLAC_CODE 0
++
++#ifdef JUCE_INCLUDE_OGGVORBIS_CODE
++# undef JUCE_INCLUDE_OGGVORBIS_CODE
++#endif
++#define JUCE_INCLUDE_OGGVORBIS_CODE 0
++
++#ifdef JUCE_INCLUDE_JPEGLIB_CODE
++# undef JUCE_INCLUDE_JPEGLIB_CODE
++#endif
++#define JUCE_INCLUDE_JPEGLIB_CODE 0
++
++#ifdef JUCE_INCLUDE_PNGLIB_CODE
++# undef JUCE_INCLUDE_PNGLIB_CODE
++#endif
++#define JUCE_INCLUDE_PNGLIB_CODE 0
++
+ //==============================================================================
+ /** Config: JUCE_FORCE_DEBUG
+ 
+@@ -135,7 +160,7 @@
+     specify the path where your zlib headers live.
+ */
+ #ifndef JUCE_INCLUDE_ZLIB_CODE
+- #define JUCE_INCLUDE_ZLIB_CODE 1
++ #define JUCE_INCLUDE_ZLIB_CODE 0
+ #endif
+ 
+ #ifndef JUCE_ZLIB_INCLUDE_PATH

@@ -1,0 +1,13 @@
+--- a/src/engine/platform/pcspkr.cpp
++++ b/src/engine/platform/pcspkr.cpp
+@@ -91,8 +91,8 @@ void DivPlatformPCSpeaker::pcSpeakerThread() {
+ #ifdef HAVE_LINUX_INPUT
+         case 0: { // evdev
+           static struct input_event ie;
+-          ie.time.tv_sec=r.tv_sec;
+-          ie.time.tv_usec=r.tv_nsec/1000;
++          ie.input_event_sec=r.tv_sec;
++          ie.input_event_usec=r.tv_nsec/1000;
+           ie.type=EV_SND;
+           ie.code=SND_TONE;
+           if (r.val>0) {

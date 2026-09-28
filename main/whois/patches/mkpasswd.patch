@@ -1,0 +1,45 @@
+diff --git a/Makefile b/Makefile
+index f258701..1f18929 100644
+--- a/Makefile
++++ b/Makefile
+@@ -134,8 +134,8 @@ install-whois: whois
+ install-mkpasswd: mkpasswd
+ 	$(INSTALL) -d $(BASEDIR)$(prefix)/bin/
+ 	$(INSTALL) -d $(BASEDIR)$(prefix)/share/man/man1/
+-	$(INSTALL) -m 0755 mkpasswd $(BASEDIR)$(prefix)/bin/
+-	$(INSTALL) -m 0644 mkpasswd.1 $(BASEDIR)$(prefix)/share/man/man1/
++	$(INSTALL) -m 0755 mkpasswd $(BASEDIR)$(prefix)/bin/whois-mkpasswd
++	$(INSTALL) -m 0644 mkpasswd.1 $(BASEDIR)$(prefix)/share/man/man1/whois-mkpasswd.1
+ 
+ install-pos:
+ 	cd po && $(MAKE) install
+diff --git a/mkpasswd.1 b/mkpasswd.1
+index 4097f53..fe7dbd5 100644
+--- a/mkpasswd.1
++++ b/mkpasswd.1
+@@ -1,12 +1,12 @@
+-.TH MKPASSWD 1 "2019-12-30" "Marco d'Itri" "Debian GNU/Linux"
++.TH WHOIS-MKPASSWD 1 "2019-12-30" "Marco d'Itri" "Debian GNU/Linux"
+ .SH NAME
+-mkpasswd \- Overfeatured front end to crypt(3)
++whois-mkpasswd \- Overfeatured front end to crypt(3)
+ .SH SYNOPSIS
+-.B mkpasswd
++.B whois-mkpasswd
+ .I PASSWORD
+ .RI [ SALT ]
+ .SH DESCRIPTION
+-.B mkpasswd
++.B whois-mkpasswd
+ encrypts the given password with the
+ .BR crypt (3)
+ libc function, using the given salt.
+@@ -84,7 +84,7 @@ This program suffers of a bad case of featuritis.
+ .BR crypt_gensalt (3),
+ .BR getpass (3).
+ .SH AUTHOR
+-.B mkpasswd
++.B whois-mkpasswd
+ and this man page were written by Marco d'Itri
+ .RI < md@linux.it >
+ and are licensed under the terms of the GNU General Public License,

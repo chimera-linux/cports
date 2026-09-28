@@ -1,0 +1,1 @@
+ignore = ["*a*", "*pre*", "*post*"]

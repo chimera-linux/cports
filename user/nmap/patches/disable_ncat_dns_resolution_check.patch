@@ -1,0 +1,30 @@
+diff --color -ruN nmap-7.97/ncat/test/test-addrset.sh nmap-7.97-patched/ncat/test/test-addrset.sh
+--- nmap-7.97/ncat/test/test-addrset.sh	2021-03-01 18:42:00.000000000 +0000
++++ nmap-7.97-patched/ncat/test/test-addrset.sh	2024-07-09 18:57:27.412463072 +0000
+@@ -246,26 +246,6 @@
+ ff::00
+ EOF
+ 
+-# Name lookup.
+-test_addrset "scanme.nmap.org" "scanme.nmap.org" <<EOF
+-1:2::3:4
+-1.2.3.4
+-scanme.nmap.org
+-EOF
+-
+-# Name lookup combined with CIDR netmask.
+-test_addrset "scanme.nmap.org/30" "scanme.nmap.org" <<EOF
+-1:2::3:4
+-1.2.3.4
+-scanme.nmap.org
+-EOF
+-
+-# Name lookup combined with /0 CIDR netmask.
+-test_addrset "scanme.nmap.org/0" "1.2.3.4 scanme.nmap.org" <<EOF
+-1.2.3.4
+-scanme.nmap.org
+-EOF
+-
+ expect_fail "."
+ expect_fail "-"
+ expect_fail ","

@@ -1,0 +1,49 @@
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -44,7 +44,7 @@
+ 
+ install: all
+ 	install -d -m 755 $(INSTALLROOT)$(autofslibdir)
+-	install -c $(LIB) -m 755 $(INSTALLROOT)$(sharedlibdir)
++	install -c -m 755 $(LIB) $(INSTALLROOT)$(sharedlibdir)
+ 
+ clean:
+ 	rm -f $(LIB) $(RPCS) $(OBJS) $(YACCSRC) *.output *~
+
+--- a/daemon/Makefile
++++ b/daemon/Makefile
+@@ -56,6 +56,6 @@
+ 
+ install: all
+ 	install -d -m 755 $(INSTALLROOT)$(sbindir)
+-	install -c automount -m 755 $(INSTALLROOT)$(sbindir)
++	install -c -m 755 automount $(INSTALLROOT)$(sbindir)
+ 
+ 
+
+--- a/modules/Makefile
++++ b/modules/Makefile
+@@ -74,7 +74,7 @@
+ # mount_smbfs.so is an obsolete module which must be removed
+ install: all
+ 	install -d -m 755 $(INSTALLROOT)$(autofslibdir)
+-	install -c $(MODS) -m 755 $(INSTALLROOT)$(autofslibdir)
++	install -c -m 755 $(MODS) $(INSTALLROOT)$(autofslibdir)
+ 	-rm -f $(INSTALLROOT)$(autofslibdir)/mount_smbfs.so
+ 	ln -fs lookup_file.so $(INSTALLROOT)$(autofslibdir)/lookup_files.so
+ ifeq ($(YPCLNT), 1)
+
+--- a/man/Makefile
++++ b/man/Makefile
+@@ -16,9 +16,9 @@
+ 
+ install: all
+ 	install -d -m 755 $(INSTALLROOT)$(mandir)/man5
+-	install -c *.5 -m 644 $(INSTALLROOT)$(mandir)/man5
++	install -c -m 644 *.5 $(INSTALLROOT)$(mandir)/man5
+ 	install -d -m 755 $(INSTALLROOT)$(mandir)/man8
+-	install -c *.8 -m 644 $(INSTALLROOT)$(mandir)/man8
++	install -c -m 644 *.8 $(INSTALLROOT)$(mandir)/man8
+ 
+ clean:
+ 	rm -f $(GENFILES)

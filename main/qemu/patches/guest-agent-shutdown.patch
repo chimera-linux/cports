@@ -1,0 +1,13 @@
+diff --git a/qga/commands-posix.c b/qga/commands-posix.c
+index 954efed01..61427652c 100644
+--- a/qga/commands-posix.c
++++ b/qga/commands-posix.c
+@@ -223,7 +223,7 @@
+     const char *powerdown_flag = "-i5";
+     const char *halt_flag = "-i0";
+     const char *reboot_flag = "-i6";
+-#elif defined(CONFIG_BSD)
++#elif 1
+     const char *powerdown_flag = "-p";
+     const char *halt_flag = "-h";
+     const char *reboot_flag = "-r";

@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/fail2ban-server -f
+before = network.target
+depends-on = local.target
+depends-on = pre-network.target

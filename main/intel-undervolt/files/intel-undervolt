@@ -1,0 +1,5 @@
+# intel-undervolt service
+
+type = scripted
+command = /usr/bin/intel-undervolt apply
+depends-on = local.target

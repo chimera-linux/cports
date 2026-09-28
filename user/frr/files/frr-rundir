@@ -1,0 +1,2 @@
+type = scripted
+command = /usr/bin/install -d -m 0750 -o _frr -g _frr /run/frr /var/tmp/frr

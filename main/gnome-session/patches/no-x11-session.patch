@@ -1,0 +1,108 @@
+commit a987ba9955edd269f215ad9ecdc5367b9214c971
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri May 15 15:50:44 2026 +0200
+
+    eliminate xorg session from being visible
+    
+    We still need the SM stuff for non-systemd gnome-shell interactions
+    but don't try to pretend that gnome on xorg is still a thing.
+
+diff --git a/data/meson.build b/data/meson.build
+index bd66ff0..d451543 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -4,9 +4,6 @@ desktops = [
+   desktop_plain,
+   'gnome-wayland',
+ ]
+-if have_x11
+-  desktops += ['gnome-xorg']
+-endif
+ 
+ shell_component = {
+   desktop_plain: 'org.gnome.Shell',
+@@ -49,9 +46,7 @@ foreach name: desktops
+     configuration: desktop_conf
+   )
+ 
+-  if name.endswith('-xorg') and have_x11
+-    install_dir = session_datadir / 'xsessions'
+-  elif name.endswith('-wayland')
++  if name.endswith('-wayland')
+     install_dir = session_datadir / 'wayland-sessions'
+   else
+     # FIXME: The same target can not be copied into two directories.
+diff --git a/gnome-session/main.c b/gnome-session/main.c
+index 9e49c6b..cac117e 100644
+--- a/gnome-session/main.c
++++ b/gnome-session/main.c
+@@ -229,6 +229,7 @@ require_dbus_session (int      argc,
+         return TRUE;
+ }
+ 
++#if 0
+ static gboolean
+ check_gl (GError **error)
+ {
+@@ -251,6 +252,7 @@ check_gl (GError **error)
+         return g_spawn_check_exit_status (status, error);
+ #endif
+ }
++#endif
+ 
+ static void
+ initialize_gio (void)
+@@ -571,6 +573,7 @@ main (int argc, char **argv)
+         gdm_log_init ();
+         gdm_log_set_debug (debug);
+ 
++#if 0
+         if (systemd_service) {
+                 /* XXX: This is an optimization, but we actually need to do
+                  *      it right now as the DISPLAY environment might leak
+@@ -604,6 +607,10 @@ main (int argc, char **argv)
+                 gsm_main ();
+                 exit (1);
+         }
++#else
++        if (disable_acceleration_check)
++                g_warning ("Wayland assumes that acceleration works, so --disable-acceleration-check is deprecated!");
++#endif
+ 
+         if (please_fail) {
+                 gsm_fail_whale_dialog_we_failed (TRUE, TRUE, NULL);
+diff --git a/tools/meson.build b/tools/meson.build
+index 2ad36e7..0c63237 100644
+--- a/tools/meson.build
++++ b/tools/meson.build
+@@ -4,20 +4,9 @@ programs = [
+   # name, deps, cflags, install_dir
+   ['gnome-session-ctl', session_bin_deps, cflags, session_libexecdir],
+   ['gnome-session-inhibit', session_deps, cflags, session_bindir],
++  ['gnome-session-quit', session_deps, cflags, session_bindir],
+ ]
+ 
+-if have_x11
+-  deps = session_deps + [
+-    sm_dep,
+-    ice_dep
+-  ]
+-
+-  programs += [
+-    # name, deps, cflags, install_dir
+-    ['gnome-session-quit', deps, cflags, session_bindir],
+-  ]
+-endif
+-
+ if enable_session_selector
+   deps = [
+     glib_dep,
+@@ -34,7 +23,7 @@ if enable_session_selector
+   programs += [['gnome-session-selector', deps, cflags, session_bindir]]
+ endif
+ 
+-if have_x11
++if false
+   deps = [
+     gtk_dep,
+     x11_dep,

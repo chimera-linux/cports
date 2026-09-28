@@ -1,0 +1,18 @@
+ld: error: undefined reference due to --no-allow-shlib-undefined: operator delete(void*)
+>>> referenced by ../libkkc/.libs/libkkc.so
+
+ld: error: undefined reference due to --no-allow-shlib-undefined: operator new(unsigned long)
+>>> referenced by ../libkkc/.libs/libkkc.so
+
+some dep information is not propagated so cxx runtime is missing, and the linker is also ccld
+--
+--- a/libkkc/Makefile.am
++++ b/libkkc/Makefile.am
+@@ -53,6 +53,7 @@
+ libkkc_la_LDFLAGS =							\
+ 	$(CODE_COVERAGE_LDFLAGS)					\
+ 	-version-info "$(LT_CURRENT)":"$(LT_REVISION)":"$(LT_AGE)"	\
++	-lc++ -lc++abi \
+ 	-export-dynamic							\
+ 	-export-symbols $(srcdir)/libkkc.symbols			\
+ 	$(NULL)

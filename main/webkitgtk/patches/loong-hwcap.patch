@@ -1,0 +1,11 @@
+--- a/Source/ThirdParty/skia/src/core/SkCpu.cpp
++++ b/Source/ThirdParty/skia/src/core/SkCpu.cpp
+@@ -32,6 +32,7 @@
+     #endif
+ #elif defined(SK_CPU_LOONGARCH)
+     #include <sys/auxv.h>
++    #include <asm/hwcap.h>
+ #endif
+ 
+ namespace {
+

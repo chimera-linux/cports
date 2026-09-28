@@ -1,0 +1,11 @@
+--- a/package-files/linux/deb/jedit.desktop
++++ b/package-files/linux/deb/jedit.desktop
+@@ -11,7 +11,7 @@ Comment[cs]=Edituje textové soubory
+ Comment[de]=Editiere Textdateien
+ Comment[es]=Modifique archivos de texto
+ Exec=jedit %U
+-Icon=/usr/share/jEdit/doc/jedit.png
++Icon=jedit
+ Terminal=false
+ Type=Application
+ Categories=Development;TextEditor;

@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index ff07cbf..7f4f299 100644
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@ CFLAGS ?= -O2
+ all: $(PROGRAMS)
+ 
+ clickclack: clickclack.c
+-	$(CC) $(CFLAGS) -o clickclack clickclack.c -l SDL2
++	$(CC) $(CFLAGS) -o clickclack clickclack.c -l SDL2 $(LDFLAGS)
+ 
+ clean:
+ 	rm -f clickclack

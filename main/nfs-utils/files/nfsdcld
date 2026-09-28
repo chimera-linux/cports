@@ -1,0 +1,6 @@
+# nfsdcld service
+
+type = process
+command = /usr/bin/nfsdcld -F
+depends-on = nfs-proc-nfsd
+depends-on = nfs-rpc_pipefs

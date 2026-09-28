@@ -1,0 +1,7 @@
+# kea-dhcp6 service
+
+type = process
+command = /usr/bin/kea-dhcp6 -c /etc/kea/kea-dhcp6.conf
+depends-on = local.target
+depends-on = network.target
+depends-on = time-sync.target

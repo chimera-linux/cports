@@ -1,0 +1,82 @@
+This patches the bridge helper so it can be safely used as
+a regular suid executable. Only users in the _qemu group
+are allowed to call it (or root).
+
+--- a/qemu-bridge-helper.c
++++ b/qemu-bridge-helper.c
+@@ -48,6 +48,11 @@
+ #include <cap-ng.h>
+ #endif
+ 
++#include <errno.h>
++#include <err.h>
++#include <grp.h>
++#include <pwd.h>
++
+ #define DEFAULT_ACL_FILE CONFIG_QEMU_CONFDIR "/bridge.conf"
+ 
+ enum {
+@@ -209,8 +214,63 @@ static int send_fd(int c, int fd)
+ }
+ 
+ #ifdef CONFIG_LIBCAP_NG
++static int user_allowed(void)
++{
++    /* actual root */
++    if (getuid() == 0) return 0;
++
++    /* get the group structure */
++    errno = ENOENT;
++    struct group *gr = getgrnam("_qemu");
++    if (!gr) {
++        warn("could not get _qemu group");
++        return -1;
++    }
++
++    /* primary group */
++    if (getgid() == gr->gr_gid) return 0;
++
++    gid_t gbuf[32];
++
++    int ngrp = getgroups(32, gbuf);
++    if (ngrp < 0) {
++        warn("could not get supplementary groups");
++        return -1;
++    }
++
++    gid_t *glist = gbuf;
++    if (ngrp > 32) {
++        glist = malloc(ngrp * sizeof(glist));
++        if (!glist) {
++            warn("out of memory");
++            return -1;
++        }
++        if (getgroups(ngrp, glist) < 0) {
++            free(glist);
++            warn("could not get supplementary groups");
++            return -1;
++        }
++    }
++
++    for (int i = 0; i < ngrp; ++i) {
++        if (glist[i] == gr->gr_gid) {
++            if (glist != gbuf) free(glist);
++            return 0;
++        }
++    }
++
++    if (glist != gbuf) free(glist);
++
++    return -1;
++}
++
+ static int drop_privileges(void)
+ {
++    if (user_allowed() < 0) {
++        warnx("you are not allowed to call this");
++        return -1;
++    }
++
+     /* clear all capabilities */
+     capng_clear(CAPNG_SELECT_BOTH);
+ 

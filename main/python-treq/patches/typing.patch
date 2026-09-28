@@ -1,0 +1,11 @@
+--- a/src/treq/multipart.py
++++ b/src/treq/multipart.py
+@@ -11,7 +11,7 @@
+ from twisted.internet.interfaces import IConsumer
+ from twisted.python.failure import Failure
+ from twisted.web.iweb import UNKNOWN_LENGTH, IBodyProducer
+-from typing_extensions import TypeAlias, Literal
++from typing import TypeAlias, Literal
+ from zope.interface import implementer
+ 
+ from treq._types import _S, _FilesType, _FileValue

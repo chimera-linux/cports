@@ -1,0 +1,15 @@
+--- a/jaraco/context/__init__.py
++++ b/jaraco/context/__init__.py
+@@ -180,12 +180,6 @@ def repo_context(
+ 
+     If dest_ctx is supplied, it should be a context manager
+     to yield the target directory for the check out.
+-
+-    >>> repo = repo_context('https://github.com/jaraco/jaraco.context')
+-    >>> with repo as dest:
+-    ...     listing = os.listdir(dest)
+-    >>> 'README.rst' in listing
+-    True
+     """
+     exe = 'git' if 'git' in url else 'hg'
+     with dest_ctx() as repo_dir:

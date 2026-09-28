@@ -1,0 +1,13 @@
+diff --git a/vendor/go.podman.io/storage/pkg/unshare/unshare.c b/vendor/go.podman.io/storage/pkg/unshare/unshare.c
+index a2800654..fbabb447 100644
+--- a/vendor/go.podman.io/storage/pkg/unshare/unshare.c
++++ b/vendor/go.podman.io/storage/pkg/unshare/unshare.c
+@@ -20,6 +20,8 @@
+ #include <sys/mount.h>
+ #include <linux/limits.h>
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ /* Open Source projects like conda-forge, want to package podman and are based
+    off of centos:6, Conda-force has minimal libc requirements and is lacking
+    the memfd.h file, so we use mmam.h

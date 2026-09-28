@@ -1,0 +1,58 @@
+diff --git a/tests/cli-tests/common/mtime.sh b/tests/cli-tests/common/mtime.sh
+index 344074d3..cd736b8a 100644
+--- a/tests/cli-tests/common/mtime.sh
++++ b/tests/cli-tests/common/mtime.sh
+@@ -1,9 +1,6 @@
+ . "$COMMON/platform.sh"
+ 
+-MTIME="stat -c %Y"
+-case "$UNAME" in
+-    Darwin | FreeBSD | OpenBSD | NetBSD) MTIME="stat -f %m" ;;
+-esac
++MTIME="stat -f %m"
+ 
+ assertSameMTime() {
+     MT1=$($MTIME "$1")
+diff --git a/tests/cli-tests/common/permissions.sh b/tests/cli-tests/common/permissions.sh
+index 6bce1f0b..63c7d486 100644
+--- a/tests/cli-tests/common/permissions.sh
++++ b/tests/cli-tests/common/permissions.sh
+@@ -1,9 +1,6 @@
+ . "$COMMON/platform.sh"
+ 
+-GET_PERMS="stat -c %a"
+-case "$UNAME" in
+-    Darwin | FreeBSD | OpenBSD | NetBSD) GET_PERMS="stat -f %Lp" ;;
+-esac
++GET_PERMS="stat -f %Lp"
+ 
+ assertFilePermissions() {
+     STAT1=$($GET_PERMS "$1")
+diff --git a/tests/playTests.sh b/tests/playTests.sh
+index 02649005..1533797d 100755
+--- a/tests/playTests.sh
++++ b/tests/playTests.sh
+@@ -128,10 +128,7 @@ case "$UNAME" in
+   *) MD5SUM="md5sum" ;;
+ esac
+ 
+-MTIME="stat -c %Y"
+-case "$UNAME" in
+-    Darwin | FreeBSD | OpenBSD | NetBSD) MTIME="stat -f %m" ;;
+-esac
++MTIME="stat -f %m"
+ 
+ assertSameMTime() {
+     MT1=$($MTIME "$1")
+@@ -140,10 +137,7 @@ assertSameMTime() {
+     [ "$MT1" = "$MT2" ] || die "mtime on $1 doesn't match mtime on $2 ($MT1 != $MT2)"
+ }
+ 
+-GET_PERMS="stat -c %a"
+-case "$UNAME" in
+-    Darwin | FreeBSD | OpenBSD | NetBSD) GET_PERMS="stat -f %Lp" ;;
+-esac
++GET_PERMS="stat -f %Lp"
+ 
+ assertFilePermissions() {
+     STAT1=$($GET_PERMS "$1")

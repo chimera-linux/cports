@@ -1,0 +1,38 @@
+From c88dca2ad08ac83b3d350ea8a4df1d6ee41f0f2e Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 6 Apr 2022 01:02:44 +0200
+Subject: [PATCH 18/19] lldb: cross-compiling workarounds for python
+
+---
+ lldb/CMakeLists.txt | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/lldb/CMakeLists.txt b/lldb/CMakeLists.txt
+index 59cdc45..819ccbf 100644
+--- a/lldb/CMakeLists.txt
++++ b/lldb/CMakeLists.txt
+@@ -67,9 +67,9 @@
+   endif()
+ 
+   foreach(var LLDB_PYTHON_RELATIVE_PATH LLDB_PYTHON_EXE_RELATIVE_PATH LLDB_PYTHON_EXT_SUFFIX)
+-    if(NOT DEFINED ${var} AND NOT CMAKE_CROSSCOMPILING)
++    if(NOT DEFINED ${var})
+       execute_process(
+-        COMMAND ${Python3_EXECUTABLE}
++        COMMAND python3
+           ${CMAKE_CURRENT_SOURCE_DIR}/bindings/python/get-python-config.py
+           ${stable_abi}
+           ${var}
+@@ -77,11 +77,6 @@
+         OUTPUT_STRIP_TRAILING_WHITESPACE)
+       file(TO_CMAKE_PATH "${value}" value)
+       set(${var} ${value} CACHE STRING ${cachestring_${var}})
+-    else()
+-      if ("${${var}}" STREQUAL "")
+-        message(FATAL_ERROR
+-          "Crosscompiling LLDB with Python requires manually setting ${var}.")
+-      endif()
+     endif()
+   endforeach()
+   # Make sure lldb extension has "_d" suffix on Windows in Debug mode.
+

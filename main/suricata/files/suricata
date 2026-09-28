@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/suricata --af-packet -c /etc/suricata/suricata.yaml
+depends-on = local.target
+depends-on = network.target

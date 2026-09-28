@@ -1,0 +1,42 @@
+mode 0 relies on systemd cgroup isolation
+
+diff --git a/data/intel_lpmd_config.xml b/data/intel_lpmd_config.xml
+index 2ef361a..d8f3e6c 100644
+--- a/data/intel_lpmd_config.xml
++++ b/data/intel_lpmd_config.xml
+@@ -17,7 +17,7 @@ for Intel Energy Optimizer (LPMD) daemon
+ 		1: Cgroup v2 isolate
+ 		2: CPU idle injection
+ 	-->
+-	<Mode>0</Mode>
++	<Mode>1</Mode>
+ 
+ 	<!--
+ 		Default behavior when Performance power setting is used
+diff --git a/data/intel_lpmd_config_F6_M204.xml b/data/intel_lpmd_config_F6_M204.xml
+index ba5d4e4..78e7d8e 100644
+--- a/data/intel_lpmd_config_F6_M204.xml
++++ b/data/intel_lpmd_config_F6_M204.xml
+@@ -23,8 +23,8 @@ for Intel Energy Optimizer (LPMD) daemon
+ 		0: Cgroup v2
+ 		1: Cgroup v2 isolate
+ 		2: CPU idle injection
+-	<Mode>0</Mode>
+ 	-->
++	<Mode>1</Mode>
+ 
+ 	<!--
+ 		Default behavior when Performance power setting is used
+diff --git a/data/intel_lpmd_config_examples.xml b/data/intel_lpmd_config_examples.xml
+index fcfbe88..29ecd70 100644
+--- a/data/intel_lpmd_config_examples.xml
++++ b/data/intel_lpmd_config_examples.xml
+@@ -24,7 +24,7 @@ for Intel Energy Optimizer (LPMD) daemon
+ 		1: Cgroup v2 isolate
+ 		2: CPU idle injection
+ 	-->
+-	<Mode>0</Mode>
++	<Mode>1</Mode>
+ 
+ 	<!--
+ 		Default behavior when Performance power setting is used

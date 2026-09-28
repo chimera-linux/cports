@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Acme
+GenericName=Editor
+Comment=Editor from Plan 9
+Exec=9 acme
+Categories=Application;Development;TextEditor

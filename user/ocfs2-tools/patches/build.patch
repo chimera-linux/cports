@@ -1,0 +1,253 @@
+various build fixes by q66
+
+query printf operation is unimplemented due to using a glibc-only printf
+registration stuff, maybe we can work around it later but for now it is
+disabled entirely
+
+diff --git a/configure.in b/configure.in
+index 5b0d20b..a7481ed 100644
+--- a/configure.in
++++ b/configure.in
+@@ -85,8 +85,8 @@ fi
+ 
+ AC_ARG_WITH([root-prefix], [  --with-root-prefix=PREFIX override prefix variable for files to be placed in the root], root_prefix=$withval, root_prefix="")
+ 
+-root_bindir='${root_prefix}/bin'
+-root_sbindir='${root_prefix}/sbin'
++root_bindir='${root_prefix}/usr/bin'
++root_sbindir='${root_prefix}/usr/bin'
+ root_sysconfdir='${root_prefix}/etc'
+ 
+ AC_SUBST(root_prefix)
+diff --git a/debugfs.ocfs2/include/main.h b/debugfs.ocfs2/include/main.h
+index bc7e786..dc726eb 100644
+--- a/debugfs.ocfs2/include/main.h
++++ b/debugfs.ocfs2/include/main.h
+@@ -45,7 +45,6 @@
+ #include <arpa/inet.h>
+ #include <netinet/in.h>
+ #include <signal.h>
+-#include <sys/raw.h>
+ #include <linux/kdev_t.h>
+ #include <inttypes.h>
+ #include <utime.h>
+diff --git a/debugfs.ocfs2/main.c b/debugfs.ocfs2/main.c
+index 3113295..b67f81f 100644
+--- a/debugfs.ocfs2/main.c
++++ b/debugfs.ocfs2/main.c
+@@ -28,6 +28,7 @@
+ #include "main.h"
+ #include <sys/types.h>
+ #include <dirent.h>
++#include <libgen.h>
+ 
+ #define PROMPT "debugfs: "
+ 
+diff --git a/defragfs.ocfs2/main.c b/defragfs.ocfs2/main.c
+index f029cd9..db78418 100644
+--- a/defragfs.ocfs2/main.c
++++ b/defragfs.ocfs2/main.c
+@@ -1,4 +1,5 @@
+ #define _GNU_SOURCE
++#define _LARGEFILE64_SOURCE
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+diff --git a/fsck.ocfs2/problem.c b/fsck.ocfs2/problem.c
+index acd8790..6376a8e 100644
+--- a/fsck.ocfs2/problem.c
++++ b/fsck.ocfs2/problem.c
+@@ -28,6 +28,11 @@
+  * 	to tell fsck to stop asking the same freaking question over and over
+  * 	until a different question is asked.
+  */
++
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#endif
++
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <string.h>
+diff --git a/fswreck/include/main.h b/fswreck/include/main.h
+index 24aeadf..8260e75 100644
+--- a/fswreck/include/main.h
++++ b/fswreck/include/main.h
+@@ -43,7 +43,6 @@
+ #include <arpa/inet.h>
+ #include <netinet/in.h>
+ #include <signal.h>
+-#include <sys/raw.h>
+ #include <linux/kdev_t.h>
+ #include <inttypes.h>
+ 
+diff --git a/fswreck/main.c b/fswreck/main.c
+index 7fa9404..a180b68 100644
+--- a/fswreck/main.c
++++ b/fswreck/main.c
+@@ -22,6 +22,8 @@
+  *
+  */
+ 
++#include <libgen.h>
++
+ #include "main.h"
+ 
+ 
+diff --git a/include/ocfs2/ocfs2.h b/include/ocfs2/ocfs2.h
+index b937ca3..ae6eda6 100644
+--- a/include/ocfs2/ocfs2.h
++++ b/include/ocfs2/ocfs2.h
+@@ -219,7 +219,7 @@ struct _ocfs2_cached_inode {
+ typedef unsigned int qid_t;
+ 
+ struct _ocfs2_cached_dquot {
+-	loff_t d_off;	/* Offset of structure in the file */
++	off_t d_off;	/* Offset of structure in the file */
+ 	struct _ocfs2_cached_dquot *d_next;	/* Next entry in hashchain */
+ 	struct _ocfs2_cached_dquot **d_pprev;	/* Previous pointer in hashchain */
+ 	struct ocfs2_global_disk_dqblk d_ddquot;	/* Quota entry */
+diff --git a/libocfs2/crc32table.h b/libocfs2/crc32table.h
+index 67eae31..63a09f5 100644
+--- a/libocfs2/crc32table.h
++++ b/libocfs2/crc32table.h
+@@ -16,6 +16,12 @@
+ # error Invalid byte order __BYTE_ORDER
+ #endif
+ 
++#ifndef __bswap_constant_32
++#define __bswap_constant_32(x) \
++     ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >>  8) |		      \
++      (((x) & 0x0000ff00) <<  8) | (((x) & 0x000000ff) << 24))
++#endif
++
+ static const uint32_t crc32table_le[] = {
+ tole(0x00000000L), tole(0x77073096L), tole(0xee0e612cL), tole(0x990951baL), 
+ tole(0x076dc419L), tole(0x706af48fL), tole(0xe963a535L), tole(0x9e6495a3L), 
+diff --git a/libtools-internal/verbose.c b/libtools-internal/verbose.c
+index c9eb88d..8f247e9 100644
+--- a/libtools-internal/verbose.c
++++ b/libtools-internal/verbose.c
+@@ -27,6 +27,7 @@
+ #include <limits.h>
+ #include <et/com_err.h>
+ #include <inttypes.h>
++#include <libgen.h>
+ 
+ #include "tools-internal/verbose.h"
+ #include "tools-internal/progress.h"
+diff --git a/mount.ocfs2/mount.ocfs2.c b/mount.ocfs2/mount.ocfs2.c
+index 2704999..a28e07b 100644
+--- a/mount.ocfs2/mount.ocfs2.c
++++ b/mount.ocfs2/mount.ocfs2.c
+@@ -22,6 +22,8 @@
+  *
+  */
+ 
++#include <libgen.h>
++
+ #include "mount.ocfs2.h"
+ 
+ #define OCFS2_CLUSTER_STACK_ARG		"cluster_stack="
+diff --git a/mount.ocfs2/sundries.h b/mount.ocfs2/sundries.h
+index 52b1267..3c428e5 100644
+--- a/mount.ocfs2/sundries.h
++++ b/mount.ocfs2/sundries.h
+@@ -9,9 +9,6 @@
+ #include <signal.h>
+ #include <stdarg.h>
+ #include <stdlib.h>
+-#if !defined(bool_t) && !defined(__GLIBC__)
+-#include <rpc/types.h>
+-#endif
+ 
+ extern int nocluster_opt;
+ extern int mount_quiet;
+diff --git a/o2info/operations.c b/o2info/operations.c
+index 5c393b4..1b28044 100644
+--- a/o2info/operations.c
++++ b/o2info/operations.c
+@@ -21,8 +21,8 @@
+ #define _LARGEFILE64_SOURCE
+ #define _GNU_SOURCE /* Because libc really doesn't want us using O_DIRECT? */
+ 
++#include <sys/ioctl.h>
+ #include <errno.h>
+-#include <sys/raw.h>
+ #include <inttypes.h>
+ 
+ #include "ocfs2/ocfs2.h"
+diff --git a/o2info/utils.c b/o2info/utils.c
+index 74a4266..b25ad02 100644
+--- a/o2info/utils.c
++++ b/o2info/utils.c
+@@ -17,6 +17,7 @@
+  * General Public License for more details.
+  */
+ 
++#define __USE_MISC
+ #define _XOPEN_SOURCE 600
+ #define _LARGEFILE64_SOURCE
+ #define _GNU_SOURCE /* Because libc really doesn't want us using O_DIRECT? */
+diff --git a/o2monitor/o2hbmonitor.c b/o2monitor/o2hbmonitor.c
+index 94092a1..6ef2025 100644
+--- a/o2monitor/o2hbmonitor.c
++++ b/o2monitor/o2hbmonitor.c
+@@ -45,6 +45,7 @@
+ #include <errno.h>
+ #include <sys/ipc.h>
+ #include <sys/sem.h>
++#include <limits.h>
+ 
+ #define SYS_CONFIG_DIR			"/sys/kernel/config"
+ #define O2HB_CLUSTER_DIR		SYS_CONFIG_DIR"/cluster"
+diff --git a/tunefs.ocfs2/Makefile b/tunefs.ocfs2/Makefile
+index d63bb11..26bf588 100644
+--- a/tunefs.ocfs2/Makefile
++++ b/tunefs.ocfs2/Makefile
+@@ -42,7 +42,6 @@ OCFS2NE_OPERATIONS =			\
+ 	op_cloned_volume		\
+ 	op_features			\
+ 	op_list_sparse_files		\
+-	op_query			\
+ 	op_reset_uuid			\
+ 	op_resize_volume		\
+ 	op_set_label			\
+diff --git a/tunefs.ocfs2/ocfs2ne.c b/tunefs.ocfs2/ocfs2ne.c
+index 368d316..3457eb4 100644
+--- a/tunefs.ocfs2/ocfs2ne.c
++++ b/tunefs.ocfs2/ocfs2ne.c
+@@ -89,7 +89,7 @@ struct tunefs_run {
+ 
+ 
+ extern struct tunefs_operation list_sparse_op;
+-extern struct tunefs_operation query_op;
++//extern struct tunefs_operation query_op;
+ extern struct tunefs_operation reset_uuid_op;
+ extern struct tunefs_operation features_op;
+ extern struct tunefs_operation resize_volume_op;
+@@ -498,6 +498,7 @@ static struct tunefs_option no_option = {
+ 	.opt_handle	= handle_answer,
+ };
+ 
++#if 0
+ static struct tunefs_option query_option = {
+ 	.opt_option	= {
+ 		.name		= "query",
+@@ -508,6 +509,7 @@ static struct tunefs_option query_option = {
+ 	.opt_handle	= &generic_handle_arg,
+ 	.opt_op		= &query_op,
+ };
++#endif
+ 
+ static struct tunefs_option list_sparse_option = {
+ 	.opt_option	= {
+@@ -652,7 +654,7 @@ static struct tunefs_option *options[] = {
+ 	&resize_volume_option,
+ 	&reset_uuid_option,
+ 	&journal_option,
+-	&query_option,
++	//&query_option,
+ 	&list_sparse_option,
+ 	&mount_type_option,
+ 	&backup_super_option,

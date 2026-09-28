@@ -1,0 +1,18 @@
+Patch-Source: https://dev.gentoo.org/~juippis/mozilla/patchsets/firefox-124-patches-04.tar.xz
+
+--- a/build/moz.configure/toolchain.configure
++++ b/build/moz.configure/toolchain.configure
+@@ -2408,10 +2408,10 @@
+ set_define("_LIBCPP_REMOVE_TRANSITIVE_INCLUDES", True, when=using_libcxx)
+ 
+ 
+-@depends(target, build_environment)
+-def visibility_flags(target, env):
++@depends(target, build_environment, c_compiler)
++def visibility_flags(target, env, c_compiler):
+     if target.os != "WINNT":
+-        if target.kernel in ("Darwin", "FreeBSD", "OpenBSD"):
++        if target.kernel in ("Darwin", "FreeBSD", "OpenBSD") or (c_compiler.type == "clang" and c_compiler.version >= "17.0.0"):
+             return ("-fvisibility=hidden", "-fvisibility-inlines-hidden")
+         return (
+             "-I%s/system_wrappers" % os.path.join(env.dist),

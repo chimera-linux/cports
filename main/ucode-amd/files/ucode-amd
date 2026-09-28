@@ -1,0 +1,7 @@
+# Configuration file for ucode-amd
+
+# Set to "no" to disable initramfs microcode inclusion
+# Set to "auto" to detect if to include the microcode
+# Set to "yes" or "early" to always include the microcode
+# Any other value will use "auto"
+#AMD64UCODE_INITRAMFS=auto

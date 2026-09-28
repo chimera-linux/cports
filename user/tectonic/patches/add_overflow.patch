@@ -1,0 +1,14 @@
+xetex/xetex-ini.c:673:61: runtime error: signed integer overflow: 996063783 + 1151442456 cannot be represented in type 'int'
+
+diff -ruN a/crates/engine_xetex/xetex/xetex-ini.c b/crates/engine_xetex/xetex/xetex-ini.c
+--- a/crates/engine_xetex/xetex/xetex-ini.c	2026-07-27 02:33:26.000000000 +0200
++++ b/crates/engine_xetex/xetex/xetex-ini.c	2026-07-28 11:07:12.765357526 +0200
+@@ -670,7 +670,7 @@
+ {
+     trie_pointer h;
+     trie_pointer q;
+-    h = abs(trie_c[p] + 1009 * trie_o[p] + 2718 * trie_l[p] + 3142 * trie_r[p]) % trie_size;
++    h = abs(trie_c[p] + 1009u * trie_o[p] + 2718u * trie_l[p] + 3142u * trie_r[p]) % trie_size;
+     while (true) {
+ 
+         q = trie_hash[h];

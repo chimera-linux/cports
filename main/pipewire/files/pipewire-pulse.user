@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/pipewire-pulse
+log-type = buffer
+smooth-recovery = true
+depends-on: pipewire
+before: login.target

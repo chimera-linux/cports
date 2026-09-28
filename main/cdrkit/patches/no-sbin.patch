@@ -1,0 +1,9 @@
+--- a/netscsid/CMakeLists.txt
++++ b/netscsid/CMakeLists.txt
+@@ -9,5 +9,5 @@ ADD_EXECUTABLE (netscsid netscsid.c)
+ #SET_SOURCE_FILES_PROPERTIES(netscsid.c )
+ TARGET_LINK_LIBRARIES(netscsid ${EXTRA_LIBS} )
+ #SET_TARGET_PROPERTIES(netscsid PROPERTIES  SKIP_BUILD_RPATH TRUE)
+-INSTALL(TARGETS netscsid DESTINATION sbin)
++INSTALL(TARGETS netscsid DESTINATION bin)
+ 

@@ -1,0 +1,17 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-6.1.2-projucer_disable_update_check.patch
+
+diff -ruN a/extras/Projucer/Source/Application/jucer_AutoUpdater.cpp b/extras/Projucer/Source/Application/jucer_AutoUpdater.cpp
+--- a/extras/Projucer/Source/Application/jucer_AutoUpdater.cpp	2024-07-29 13:47:03.000000000 +0200
++++ b/extras/Projucer/Source/Application/jucer_AutoUpdater.cpp	2024-08-31 13:50:09.414496609 +0200
+@@ -50,11 +50,6 @@
+ 
+ void LatestVersionCheckerAndUpdater::checkForNewVersion (bool background)
+ {
+-    if (! isThreadRunning())
+-    {
+-        backgroundCheck = background;
+-        startThread (Priority::low);
+-    }
+ }
+ 
+ //==============================================================================

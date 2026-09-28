@@ -1,0 +1,253 @@
+
+From cedc4b27f5d0746769ba8b6dd9db29d93f0b7260 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 22 Apr 2025 16:21:48 +0200
+Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
+
+---
+ hook-functions   | 35 ++++++++---------------------------
+ mkinitramfs      | 33 ++++++++++++---------------------
+ update-initramfs |  2 +-
+ 4 files changed, 31 insertions(+), 60 deletions(-)
+
+diff --git a/hook-functions b/hook-functions
+index fa4a48e..058b95d 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -260,30 +260,10 @@ copy_exec() {
+ 	copy_file binary "${src}" "${target}" || return $(($? - 1))
+ 
+ 	# Copy the dependant libraries
+-	for x in $(env --unset=LD_PRELOAD ldd "${src}" 2>/dev/null | sed -e '
+-		/^[^\t]/d;
+-		/\//!d;
+-		/linux-gate/d;
+-		/=>/ {s/.*=>[[:blank:]]*\([^[:blank:]]*\).*/\1/};
+-		s/[[:blank:]]*\([^[:blank:]]*\) (.*)/\1/' 2>/dev/null); do
+-
+-		# Try to use non-optimised libraries where possible.
+-		# We assume that all HWCAP libraries will be in tls,
+-		# sse2, vfp or neon.
+-		nonoptlib=$(echo "${x}" | sed -e 's#/lib/\([^/]*/\)\?\(tls\|i686\|sse2\|neon\|vfp\).*/\(lib.*\)#/lib/\1\3#')
+-		nonoptlib=$(echo "${nonoptlib}" | sed -e 's#-linux-gnu/\(tls\|i686\|sse2\|neon\|vfp\).*/\(lib.*\)#-linux-gnu/\2#')
+-
+-		if [ -e "${nonoptlib}" ]; then
+-			x="${nonoptlib}"
+-		fi
+-
+-		# Handle common dlopen() dependency (Debian bug #950254)
+-		case "${x}" in
+-		*/libpthread.so.*)
+-			copy_libgcc || return
+-			;;
+-		esac
+-
++	for x in $(env -u LD_PRELOAD ldd "${src}" 2>/dev/null | awk '{print $3}'); do
++		# XXX: when running ldd on a .solib, the libc.so dependency is resolved
++		# as `ldd` and not the ld-musl loader, so this loop would copy `ldd` and fail
++		if [ "$x" = "ldd" ]; then continue; fi
+ 		copy_file binary "${x}" || {
+ 			ret=$?
+ 			[ ${ret} = 1 ] || return $((ret - 1))
+@@ -339,7 +319,8 @@ copy_modules_dir()
+ 	done
+ 
+ 	# shellcheck disable=SC2044
+-	for kmod in $(find "${MODULESDIR}/${dir}" "$@" -name '*.ko*' -printf '%f\n'); do
++	for kmod in $(find "${MODULESDIR}/${dir}" "$@" -name '*.ko*'); do
++		kmod=$(basename "$kmod")
+ 		modules="$modules ${kmod%%.*}"
+ 	done
+ 	# shellcheck disable=SC2086
+@@ -435,8 +416,8 @@ block_dev_mod_add()
+ 	dev_node="$1"
+ 
+ 	# Look up device number and convert to decimal as it appears in sysfs
+-	dev_num="$(stat -L -c %t:%T "$dev_node")"
+-	dev_num="$((0x${dev_num%:*})):$((0x${dev_num#*:}))"
++	dev_num="$(stat -L -f %Z "$dev_node")"
++	dev_num="$(echo $dev_num | tr ',' ':')"
+ 
+ 	# Look up device in sysfs
+ 	dev_sys_path="/sys/dev/block/$dev_num"
+diff --git a/mkinitramfs b/mkinitramfs
+index 2102d1d..6b5e2c6 100755
+--- a/mkinitramfs
++++ b/mkinitramfs
+@@ -393,16 +393,16 @@ add_builtin_firmware
+ cp -p /usr/share/initramfs-tools/init "${DESTDIR}/init"
+ 
+ # add existant boot scripts
+-for b in $(cd /usr/share/initramfs-tools/scripts/ && find . \
+-	-regextype posix-extended -regex '.*/[[:alnum:]\._-]+$' -type f); do
++for b in $(cd /usr/share/initramfs-tools/scripts/ && find -E . \
++	-regex '.*/[[:alnum:]\._-]+$' -type f); do
+ 	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
+ 		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
+ 	cp -p "/usr/share/initramfs-tools/scripts/${b}" \
+ 		"${DESTDIR}/scripts/$(dirname "${b}")/"
+ done
+ # Prune dot-files/directories and limit depth to exclude VCS files
+-for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
+-	-regextype posix-extended -regex '.*/[[:alnum:]\._-]+$' -type f -print); do
++for b in $(cd "${CONFDIR}/scripts" && find -E . -maxdepth 2 -name '.?*' -prune -o \
++	-regex '.*/[[:alnum:]\._-]+$' -type f -print); do
+ 	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
+ 		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
+ 	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
+@@ -456,19 +456,6 @@ hidden_dep_add_modules
+ depmod -a -b "${DESTDIR}" "${version}"
+ rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
+ 
+-# make sure that library search path is up to date
+-cp -pPr /etc/ld.so.conf* "$DESTDIR"/etc/
+-if ! ldconfig -r "$DESTDIR" ; then
+-	[ "$(id -u)" != "0" ] \
+-	&& echo "ldconfig might need uid=0 (root) for chroot()" >&2
+-fi
+-# The auxiliary cache is not reproducible and is always invalid at boot
+-# (see #845034)
+-if [ -d "${DESTDIR}"/var/cache/ldconfig ]; then
+-	rm -f "${DESTDIR}"/var/cache/ldconfig/aux-cache
+-	rmdir --ignore-fail-on-non-empty "${DESTDIR}"/var/cache/ldconfig
+-fi
+-
+ # Apply DSDT to initramfs
+ if [ -e "${CONFDIR}/DSDT.aml" ]; then
+ 	copy_file DSDT "${CONFDIR}/DSDT.aml"
+@@ -485,8 +472,8 @@ if [ -n "${SOURCE_DATE_EPOCH}" ]; then
+ 	find "${DESTDIR}" -newermt "@${SOURCE_DATE_EPOCH}" -print0 | \
+ 		xargs -0r touch --no-dereference --date="@${SOURCE_DATE_EPOCH}"
+ 
+-	# --reproducible requires cpio >= 2.12
+-	cpio_reproducible="--reproducible"
++	# FIXME handle
++	cpio_reproducible=
+ fi
+ 
+ # Read list of files and echo them plus all leading directories.
+@@ -537,14 +524,18 @@ cd  "${DESTDIR}" || exit 1
+ 		fi
+ 
+ 		if [ -s "${__TMPUNCOMPRESSEDFILES}" ]; then
++		{
++			cd "$DESTDIR"
+ 			# shellcheck disable=SC2086
+-			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc -D "${DESTDIR}" <"${__TMPUNCOMPRESSEDFILES}" ||
++			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc <"${__TMPUNCOMPRESSEDFILES}" ||
+ 				{ echo "E: mkinitramfs failure uncompressed cpio $?" >&2; echo 1 >&3; exit; }
++		}
+ 		fi
+ 
+ 		{
++			cd "$DESTDIR"
+ 			# shellcheck disable=SC2086
+-			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc -D "${DESTDIR}" <"${__TMPMAINFILES}" ||
++			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc <"${__TMPMAINFILES}" ||
+ 				{ echo "E: mkinitramfs failure cpio $?" >&2; echo 1 >&3; exit; }
+ 		} | $compress -c ||
+ 			{ echo "E: mkinitramfs failure $compress $?" >&2; echo 1 >&3; exit; }
+diff --git a/unmkinitramfs.c b/unmkinitramfs.c
+index d69fd7a..30ea754 100644
+--- a/unmkinitramfs.c
++++ b/unmkinitramfs.c
+@@ -155,7 +155,7 @@ static void warn_after_fread_failure(FILE *file, const char *name)
+  */
+ static bool cpio_parse_hex(const char *field, uint32_t *value_p)
+ {
+-	const char digits[] = "0123456789ABCDEF", *p;
++	const char digits[] = "0123456789abcdef", *p;
+ 	uint32_t value = 0;
+ 	unsigned int i;
+ 	bool found_digit = false;
+@@ -166,7 +166,7 @@ static bool cpio_parse_hex(const char *field, uint32_t *value_p)
+ 
+ 	/* Parse digits up to end of field or null */
+ 	for (; i < 8 && field[i] != 0; ++i) {
+-		p = strchr(digits, field[i]);
++		p = strchr(digits, field[i] | 32);
+ 		if (!p)
+ 			return false;
+ 		value = (value << 4) | (p - digits);
+@@ -420,7 +420,7 @@ static bool write_trailer(int out_pipe)
+ 	return true;
+ }
+ 
+-static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
++static bool spawn_cpio(int optc, const char *dir, const char **optv, struct cpio_proc *proc)
+ {
+ 	const char *argv[10];
+ 	int pipe_fds[2], pid;
+@@ -430,8 +430,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
+ 	argc = 0;
+ 	argv[argc++] = "cpio";
+ 	argv[argc++] = "-i";
++	argv[argc++] = "-f";
++	argv[argc++] = ".";
+ 	argv[argc++] = "--preserve-modification-time";
+-	argv[argc++] = "--no-absolute-filenames";
+ 	argv[argc++] = "--quiet";
+ 	assert(argc + optc < sizeof(argv) / sizeof(argv[0]));
+ 	while (optc--)
+@@ -458,6 +459,9 @@ static bool spawn_cpio(int optc, const char **optv, struct cpio_proc *proc)
+ 		dup2(pipe_fds[0], 0);
+ 		close(pipe_fds[0]);
+ 
++		if (dir && chdir(dir) < 0)
++			err(1, "chdir");
++
+ 		execvp("cpio", (char **)argv);
+ 		_exit(127);
+ 	}
+@@ -522,6 +526,7 @@ int main(int argc, char **argv)
+ 	const char *out_dirname = NULL;
+ 	char *out_subdirname = NULL;
+ 	const char *cpio_optv[3];
++	const char *cpio_dir = NULL;
+ 	int cpio_optc;
+ 	struct cpio_proc cpio_proc = { 0 };
+ 	unsigned int early_count = 0;
+@@ -571,8 +576,7 @@ int main(int argc, char **argv)
+ 	if (do_list) {
+ 		cpio_optv[cpio_optc++] = "--list";
+ 	} else {
+-		cpio_optv[cpio_optc++] = "-D";
+-		cpio_optv[cpio_optc++] = out_subdirname;
++		cpio_dir = out_subdirname;
+ 	}
+ 	if (verbose)
+ 		cpio_optv[cpio_optc++] = "-v";
+@@ -636,7 +640,7 @@ int main(int argc, char **argv)
+ 				ok = false;
+ 				break;
+ 			}
+-			if (!spawn_cpio(cpio_optc, cpio_optv,
++			if (!spawn_cpio(cpio_optc, cpio_dir, cpio_optv,
+ 					&early_cpio_proc)) {
+ 				ok = false;
+ 				break;
+@@ -670,7 +674,7 @@ int main(int argc, char **argv)
+ 				} else {
+ 					strcpy(out_subdirname, out_dirname);
+ 				}
+-				if (!spawn_cpio(cpio_optc, cpio_optv,
++				if (!spawn_cpio(cpio_optc, cpio_dir, cpio_optv,
+ 						&cpio_proc)) {
+ 					ok = false;
+ 					break;
+diff --git a/update-initramfs b/update-initramfs
+index 30131e0..6db6aa1 100755
+--- a/update-initramfs
++++ b/update-initramfs
+@@ -224,7 +224,7 @@ set_highest_version()
+ 
+ has_been_updated_since_timestamp() {
+ 	local initramfs_timestamp timestamp="$1"
+-	initramfs_timestamp=$(stat -c %Y "${initramfs}")
++	initramfs_timestamp=$(stat -f %m "${initramfs}")
+ 	test "$initramfs_timestamp" -gt "$timestamp"
+ }
+ 
+-- 
+2.49.0
+

@@ -1,0 +1,51 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 0cfeaec2..f2711044 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -4103,26 +4103,6 @@ dependencies = [
+  "zune-jpeg",
+ ]
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.7.1+5.3.1-0-g81034ce1f1373e37dc865038e1bc8eeecf559ce8"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1a2825c78386b4ae0314074867860ba9577875de945f05992c38815cbec327f0"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.7.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "249f09e49ab1609436f34c776e84231bead18d6a955f119f939bdc1d847561bd"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "time"
+ version = "0.3.55"
+@@ -5419,7 +5399,6 @@ dependencies = [
+  "ratatui-core",
+  "ratatui-widgets",
+  "signal-hook-tokio",
+- "tikv-jemallocator",
+  "tokio",
+  "tokio-stream",
+  "tracing",
+diff --git a/yazi-fm/src/main.rs b/yazi-fm/src/main.rs
+index 31afc1b5..2503eb6a 100644
+--- a/yazi-fm/src/main.rs
++++ b/yazi-fm/src/main.rs
+@@ -1,6 +1,4 @@
+-#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
++
+ 
+ extern crate self as yazi_fm;
+ 

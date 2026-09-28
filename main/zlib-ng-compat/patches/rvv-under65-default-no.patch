@@ -1,0 +1,14 @@
+--- a/arch/riscv/riscv_features.c
++++ b/arch/riscv/riscv_features.c
+@@ -31,11 +31,7 @@ int Z_INTERNAL is_kernel_version_greater_or_equal_to_6_5() {
+ }
+ 
+ void Z_INTERNAL riscv_check_features_compile_time(struct riscv_cpu_features *features) {
+-#if defined(__riscv_v) && defined(__linux__)
+-    features->has_rvv = 1;
+-#else
+     features->has_rvv = 0;
+-#endif
+ }
+ 
+ void Z_INTERNAL riscv_check_features_runtime(struct riscv_cpu_features *features) {

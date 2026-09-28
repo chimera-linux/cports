@@ -1,0 +1,6 @@
+type = process
+command = /usr/lib/agetty-service $1
+depends-on = login.target
+termsignal = HUP
+restart = true
+smooth-recovery = true

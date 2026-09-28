@@ -1,0 +1,105 @@
+commit 8eb5b1224063a41f1d56d2895be4e2868ecc4684
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Dec 11 22:19:04 2025 +0100
+
+    allow building without udev to untie dependency cycle with systemd
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2630e26..1a6f0ec 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,6 +46,7 @@ option(USE_HIDAPI        "Use hidapi as the HID backend"           OFF)
+ option(USE_PCSC          "Enable experimental PCSC support"        OFF)
+ option(USE_WINHELLO      "Abstract Windows Hello as a FIDO device" ON)
+ option(NFC_LINUX         "Enable NFC support on Linux"             ON)
++option(BOOTSTRAP         "Minimal bootstrap build"                 OFF)
+ 
+ add_definitions(-D_FIDO_MAJOR=${FIDO_MAJOR})
+ add_definitions(-D_FIDO_MINOR=${FIDO_MINOR})
+@@ -244,7 +245,7 @@ else()
+ 		set(CRYPTO_LIBRARIES "crypto")
+ 	endif()
+ 
+-	if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
++	if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT BOOTSTRAP)
+ 		pkg_search_module(UDEV libudev REQUIRED)
+ 		set(UDEV_NAME "udev")
+ 		# If using hidapi, use hidapi-hidraw.
+@@ -500,7 +501,7 @@ if(NOT WIN32)
+ 	if(FUZZ)
+ 		add_subdirectory(fuzz)
+ 	endif()
+-	if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
++	if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT BOOTSTRAP)
+ 		add_subdirectory(udev)
+ 	endif()
+ endif()
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 4c54198..4d41ef0 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -71,6 +71,8 @@ elseif(WIN32)
+ 	endif()
+ elseif(APPLE)
+ 	list(APPEND FIDO_SOURCES hid_osx.c)
++elseif(BOOTSTRAP)
++	list(APPEND FIDO_SOURCES hid_dummy.c hid_unix.c)
+ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+ 	list(APPEND FIDO_SOURCES hid_linux.c hid_unix.c)
+ elseif(CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+diff --git a/src/hid_dummy.c b/src/hid_dummy.c
+new file mode 100644
+index 0000000..f1f66af
+--- /dev/null
++++ b/src/hid_dummy.c
+@@ -0,0 +1,50 @@
++#include <sys/types.h>
++
++#include "fido.h"
++
++int
++fido_hid_manifest(fido_dev_info_t *devlist __attribute__((unused)), size_t ilen __attribute__((unused)), size_t *olen __attribute__((unused)))
++{
++	return (FIDO_OK);
++}
++
++void *
++fido_hid_open(const char *path __attribute__((unused)))
++{
++	return NULL;
++}
++
++void
++fido_hid_close(void *handle __attribute__((unused)))
++{
++}
++
++int
++fido_hid_set_sigmask(void *handle __attribute__((unused)), const fido_sigset_t *sigmask __attribute__((unused)))
++{
++	return (FIDO_OK);
++}
++
++int
++fido_hid_read(void *handle __attribute__((unused)), unsigned char *buf __attribute__((unused)), size_t len __attribute__((unused)), int ms __attribute__((unused)))
++{
++	return (-1);
++}
++
++int
++fido_hid_write(void *handle __attribute__((unused)), const unsigned char *buf __attribute__((unused)), size_t len __attribute__((unused)))
++{
++	return (-1);
++}
++
++size_t
++fido_hid_report_in_len(void *handle __attribute__((unused)))
++{
++	return (CTAP_MAX_REPORT_LEN);
++}
++
++size_t
++fido_hid_report_out_len(void *handle __attribute__((unused)))
++{
++	return (CTAP_MAX_REPORT_LEN);
++}

@@ -1,0 +1,44 @@
+--- a/unittests/map.hpp
++++ b/unittests/map.hpp
+@@ -62,7 +62,7 @@
+ 
+     std::map<int8_t, StructExternalSplit> o_esplmap;
+     for(int j=0; j<100; ++j)
+-      o_esplmap.insert({random_value<char>(gen),  { random_value<int>(gen), random_value<int>(gen) }});
++      o_esplmap.insert({random_value<int8_t>(gen),  { random_value<int>(gen), random_value<int>(gen) }});
+ 
+     std::ostringstream os;
+     {
+--- a/unittests/unordered_multimap.hpp
++++ b/unittests/unordered_multimap.hpp
+@@ -71,7 +71,7 @@
+     std::unordered_multimap<int8_t, StructExternalSplit> o_esplunordered_multimap;
+     for(int j=0; j<100; ++j)
+     {
+-      auto key = random_value<char>(gen);
++      auto key = random_value<int8_t>(gen);
+       o_esplunordered_multimap.insert({key,  { random_value<int>(gen), random_value<int>(gen) }});
+       o_esplunordered_multimap.insert({key,  { random_value<int>(gen), random_value<int>(gen) }});
+     }
+--- a/unittests/unordered_map.hpp
++++ b/unittests/unordered_map.hpp
+@@ -54,7 +54,7 @@
+ 
+     std::unordered_map<int8_t, StructExternalSplit> o_esplunordered_map;
+     for(int j=0; j<100; ++j)
+-      o_esplunordered_map.insert({random_value<char>(gen),  { random_value<int>(gen), random_value<int>(gen) }});
++      o_esplunordered_map.insert({random_value<int8_t>(gen),  { random_value<int>(gen), random_value<int>(gen) }});
+ 
+     std::ostringstream os;
+     {
+--- a/unittests/multimap.hpp
++++ b/unittests/multimap.hpp
+@@ -71,7 +71,7 @@
+     std::multimap<int8_t, StructExternalSplit> o_esplmultimap;
+     for(int j=0; j<100; ++j)
+     {
+-      auto key = random_value<char>(gen);
++      auto key = random_value<int8_t>(gen);
+       o_esplmultimap.insert({key,  { random_value<int>(gen), random_value<int>(gen) }});
+       o_esplmultimap.insert({key,  { random_value<int>(gen), random_value<int>(gen) }});
+     }

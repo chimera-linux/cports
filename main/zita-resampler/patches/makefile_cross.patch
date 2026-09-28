@@ -1,0 +1,11 @@
+--- a/source/Makefile	2023-08-28 12:19:50.000000000 +0200
++++ b/source/Makefile	2024-02-10 14:51:32.858216255 +0100
+@@ -33,8 +33,6 @@
+ CPPFLAGS += -I. -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS
+-CPPFLAGS += -DENABLE_SSE2
+ #CPPFLAGS += -DENABLE_NEON  
+ CXXFLAGS += -Wall -fPIC -O2 -ffast-math
+-CXXFLAGS += -march=native
+ LDFLAGS += 
+ LDLIBS +=
+ 

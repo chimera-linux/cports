@@ -1,0 +1,14 @@
+Don't choke if bash is not installed (e.g. if cross build).
+
+diff --git a/meson.build b/meson.build
+index 72257af..b389780 100644
+--- a/meson.build
++++ b/meson.build
+@@ -166,6 +166,6 @@ if not meson.is_subproject()
+   subdir('completions')
+ endif
+ 
+-if get_option('tests')
++if get_option('tests') and bash.found()
+   subdir('tests')
+ endif

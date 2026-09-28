@@ -1,0 +1,23 @@
+From ff614575c96a6850948ff69f33d66e8f013a6318 Mon Sep 17 00:00:00 2001
+From: Martin Kroeker <martin@ruby.chemie.uni-freiburg.de>
+Date: Wed, 9 Jul 2025 14:44:25 +0200
+Subject: [PATCH] Fix arm64 HAVE_SME setting for DYNAMIC_ARCH builds
+
+---
+ kernel/CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/CMakeLists.txt b/kernel/CMakeLists.txt
+index 1a5d32e071..0ec08827d7 100644
+--- a/kernel/CMakeLists.txt
++++ b/kernel/CMakeLists.txt
+@@ -238,6 +238,9 @@ function (build_core TARGET_CORE KDIR TSUFFIX KERNEL_DEFINITIONS)
+     if (X86_64 OR ARM64)
+        set(USE_DIRECT_SGEMM true)
+     endif()
++    if (UC_TARGET_CORE MATCHES ARMV9SME)
++          set (HAVE_SME true)
++    endif ()
+ 
+     if (USE_DIRECT_SGEMM)
+ 	    #	    if (NOT DEFINED SGEMMDIRECTKERNEL)

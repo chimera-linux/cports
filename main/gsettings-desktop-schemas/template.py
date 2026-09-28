@@ -1,0 +1,37 @@
+pkgname = "gsettings-desktop-schemas"
+pkgver = "51.0"
+pkgrel = 0
+build_style = "meson"
+configure_args = ["-Dintrospection=true"]
+hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "meson",
+    "pkgconf",
+]
+makedepends = ["glib-devel"]
+depends = [
+    "adwaita-icon-theme",
+    "chimera-artwork",
+    "fonts-adwaita-ttf",
+]
+pkgdesc = "Collection of GSettings schemas"
+license = "LGPL-2.1-or-later"
+url = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
+source = f"$(GNOME_SITE)/gsettings-desktop-schemas/{pkgver[:-2]}/gsettings-desktop-schemas-{pkgver}.tar.xz"
+sha256 = "1e2419a5f21d26c324b28ae1c00e29e9175e8b596fff385a04c2172b36652226"
+options = ["!cross"]
+
+
+def post_install(self):
+    self.install_file(
+        self.files_path / "10_chimera_theme.gschema.override",
+        "usr/share/glib-2.0/schemas",
+    )
+
+
+@subpackage("gsettings-desktop-schemas-devel")
+def _(self):
+    self.depends += [self.parent]
+    return self.default_devel()

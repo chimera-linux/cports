@@ -1,0 +1,21 @@
+--- a/test/cp-atest
++++ b/test/cp-atest
+@@ -16,12 +16,12 @@ chmod 0644 empty
+ chown 1:2 empty
+ cp -a empty empty-a
+ cp -r empty empty-r
+-empty_mode=`stat -c %a empty`
+-empty_owner=`stat -c %u:%g empty`
+-empty_a_mode=`stat -c %a empty-a`
+-empty_a_owner=`stat -c %u:%g empty-a`
+-empty_r_mode=`stat -c %a empty-r`
+-empty_r_owner=`stat -c %u:%g empty-r`
++empty_mode=`stat -f %OLp empty`
++empty_owner=`stat -f %u:%g empty`
++empty_a_mode=`stat -f %OLp empty-a`
++empty_a_owner=`stat -f %u:%g empty-a`
++empty_r_mode=`stat -f %OLp empty-r`
++empty_r_owner=`stat -f %u:%g empty-r`
+ 
+ if ! [ "${empty_mode} ${empty_owner}" = "644 1:2" ]
+ then

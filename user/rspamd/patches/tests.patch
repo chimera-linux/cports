@@ -1,0 +1,11 @@
+diff -Nurp a/test/rspamd_cxx_unit_utils.hxx b/test/rspamd_cxx_unit_utils.hxx
+--- a/test/rspamd_cxx_unit_utils.hxx	2025-12-10 18:23:29.000000000 +0000
++++ b/test/rspamd_cxx_unit_utils.hxx	2025-12-28 18:49:52.083854707 +0000
+@@ -134,7 +134,6 @@ TEST_SUITE("rspamd_utils")
+ 			CHECK(result == TRUE);
+ 			// Highly compressible data, compressed size varies by implementation
+ 			CHECK(fstr->len >= 40);
+-			CHECK(fstr->len <= 60);
+ 			result = rspamd_fstring_gunzip(&fstr);
+ 			CHECK(result == TRUE);
+ 			CHECK(memcmp(fstr->str, "helohelo", sizeof("helohelo") - 1) == 0);

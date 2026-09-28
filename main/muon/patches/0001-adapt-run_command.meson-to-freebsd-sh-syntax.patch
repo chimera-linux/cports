@@ -1,0 +1,25 @@
+From b22fcb84d4ae6876745119a4d495523db27dcb3f Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Wed, 14 Feb 2024 01:01:09 +0100
+Subject: [PATCH] adapt run_command.meson to freebsd sh syntax
+
+---
+ tests/lang/run_command.meson | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/lang/run_command.meson b/tests/lang/run_command.meson
+index 24692ac8..b00645e5 100644
+--- a/tests/lang/run_command.meson
++++ b/tests/lang/run_command.meson
+@@ -33,7 +33,7 @@ stdout = run_command(
+ assert(stdout == ' '.join(expect))
+ 
+ stdout = run_command(
+-    [find_program('sh'), '-c', 'echo $#', '--', '', 'a', '', 'b', ''],
++    [find_program('sh'), '-c', 'echo $#', 'sh', '', 'a', '', 'b', ''],
+     check: true,
+     env: env,
+ ).stdout().strip()
+-- 
+2.43.1
+

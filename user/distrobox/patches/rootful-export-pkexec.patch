@@ -1,0 +1,39 @@
+From 44851cddbd00dcc5dc8269cb233117546f34e6a4 Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Sat, 30 Mar 2024 13:15:23 +0200
+Subject: [PATCH] export: default to pkexec instead of sudo for
+ DBX_SUDO_PROGRAM
+
+Since there's no sudo(1) and doas(1) doesn't support something like
+SUDO_ASKPASS this is the best we can do to get privileges to launch
+exported apps from a rootful container; it does make the UX a bit worse
+by prompting for the password twice.
+---
+ distrobox-export | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/distrobox-export b/distrobox-export
+index 54e7c91..0df874c 100755
+--- a/distrobox-export
++++ b/distrobox-export
+@@ -208,7 +208,7 @@ if grep -q "rootless=0" /run/.containerenv 2> /dev/null; then
+ 
+ 	# We need an askpass script for SUDO_ASKPASS, to launch graphical apps
+ 	# from the drawer
+-	if [ ! -e "${sudo_askpass_path}" ]; then
++	if false; then
+ 		echo "${sudo_askpass_script}" > "${sudo_askpass_path}"
+ 		chmod +x "${sudo_askpass_path}"
+ 	fi
+@@ -299,7 +299,7 @@ fi
+ container_command_prefix="${DISTROBOX_ENTER_PATH:-"distrobox-enter"} ${rootful} -n ${container_name} ${enter_flags} -- ${sudo_prefix} "
+ 
+ if [ -n "${rootful}" ]; then
+-	container_command_prefix="env SUDO_ASKPASS=\"${sudo_askpass_path}\" DBX_SUDO_PROGRAM=\"sudo --askpass\" ${container_command_prefix}"
++	container_command_prefix="env DBX_SUDO_PROGRAM=\"pkexec\" ${container_command_prefix}"
+ fi
+ 
+ if [ -z "${exported_app_label}" ]; then
+-- 
+2.44.0
+

@@ -1,0 +1,1526 @@
+From eb58457f16766b7ef82fa259723cbb57d36574a3 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 30 Jun 2024 11:47:26 +0200
+Subject: [PATCH 22/22] chimera hacks
+
+---
+ factory/templates/meson.build               |   4 +-
+ hwdb.d/60-autosuspend.hwdb                  |   2 +-
+ hwdb.d/60-evdev.hwdb                        |   2 +-
+ hwdb.d/60-input-id.hwdb                     |   2 +-
+ hwdb.d/60-keyboard.hwdb                     |   2 +-
+ hwdb.d/60-sensor.hwdb                       |   2 +-
+ hwdb.d/70-av-production.hwdb                |   2 +-
+ hwdb.d/70-joystick.hwdb                     |   2 +-
+ hwdb.d/70-mouse.hwdb                        |   2 +-
+ hwdb.d/70-pointingstick.hwdb                |   2 +-
+ hwdb.d/70-sound-card.hwdb                   |   2 +-
+ hwdb.d/70-touchpad.hwdb                     |   2 +-
+ hwdb.d/80-ieee1394-unit-function.hwdb       |   2 +-
+ hwdb.d/README                               |   7 +-
+ man/hwdb.xml                                |   4 +-
+ man/meson.build                             |  41 ++-
+ man/rules/meson.build                       |   2 +-
+ man/{systemd-hwdb.xml => udev-hwdb.xml}     |  18 +-
+ man/udev.conf.xml                           |  12 +-
+ man/udev.xml                                |  34 +--
+ man/udevadm.xml                             |  69 ++---
+ meson.build                                 | 263 +-------------------
+ shell-completion/bash/meson.build           |   4 +-
+ shell-completion/zsh/_udevadm               |  14 +-
+ shell-completion/zsh/meson.build            |   4 +-
+ src/basic/cgroup-util.h                     |   1 +
+ src/basic/linux/if_ether.h                  |   2 +-
+ src/basic/syslog-util.c                     |   2 +-
+ src/core/exec-invoke.c                      |   1 +
+ src/core/meson.build                        |   9 -
+ src/hwdb/hwdb.c                             |   2 +-
+ src/hwdb/meson.build                        |   2 +-
+ src/libsystemd/sd-bus/test-bus-watch-bind.c |   5 +
+ src/libsystemd/sd-hwdb/sd-hwdb.c            |   2 +-
+ src/shared/dev-setup.c                      |   1 +
+ src/shared/edit-util.c                      |   8 +-
+ src/shared/edit-util.h                      |   2 +-
+ src/shared/user-record-nss.c                |  10 +-
+ src/test/meson.build                        |  23 --
+ src/test/test-fileio.c                      |   5 +
+ src/test/test-install-root.c                |   5 +
+ src/test/test-install.c                     |   5 +
+ src/test/test-mountpoint-util.c             |   5 +
+ src/test/test-parse-argument.c              |   5 +
+ src/test/test-path-util.c                   |   5 +
+ src/test/test-pidref.c                      |   1 +
+ src/udev/meson.build                        |   3 -
+ src/udev/udevadm-hwdb.c                     |   4 +-
+ 48 files changed, 154 insertions(+), 454 deletions(-)
+ rename man/{systemd-hwdb.xml => udev-hwdb.xml} (80%)
+
+diff --git a/factory/templates/meson.build b/factory/templates/meson.build
+index a3ba7b1..d104e31 100644
+--- a/factory/templates/meson.build
++++ b/factory/templates/meson.build
+@@ -7,7 +7,7 @@ custom_target(
+         input : 'locale.conf.in',
+         output : 'locale.conf',
+         command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
+-        install : true,
++        install : false,
+         install_dir : factory_etc_dir)
+ 
+ custom_target(
+@@ -15,5 +15,5 @@ custom_target(
+         input : 'vconsole.conf.in',
+         output : 'vconsole.conf',
+         command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
+-        install : true,
++        install : false,
+         install_dir : factory_etc_dir)
+diff --git a/hwdb.d/60-autosuspend.hwdb b/hwdb.d/60-autosuspend.hwdb
+index 1bdc041..66b14ab 100644
+--- a/hwdb.d/60-autosuspend.hwdb
++++ b/hwdb.d/60-autosuspend.hwdb
+@@ -11,7 +11,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/61-autosuspend-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/…
+ #
+ # If your changes are generally applicable, preferably send them as a pull
+diff --git a/hwdb.d/60-evdev.hwdb b/hwdb.d/60-evdev.hwdb
+index 372ae68..e3b13eb 100644
+--- a/hwdb.d/60-evdev.hwdb
++++ b/hwdb.d/60-evdev.hwdb
+@@ -33,7 +33,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/61-evdev-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the device in question. If in doubt, simply use
+ # /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/60-input-id.hwdb b/hwdb.d/60-input-id.hwdb
+index dfb035d..614349a 100644
+--- a/hwdb.d/60-input-id.hwdb
++++ b/hwdb.d/60-input-id.hwdb
+@@ -9,7 +9,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/61-input-id-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the device in question. If in
+ # doubt, simply use /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/60-keyboard.hwdb b/hwdb.d/60-keyboard.hwdb
+index 5a08931..bc654bf 100644
+--- a/hwdb.d/60-keyboard.hwdb
++++ b/hwdb.d/60-keyboard.hwdb
+@@ -46,7 +46,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/61-keyboard-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the keyboard in question. If in doubt, simply use
+ # /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/60-sensor.hwdb b/hwdb.d/60-sensor.hwdb
+index 8054783..ed0489a 100644
+--- a/hwdb.d/60-sensor.hwdb
++++ b/hwdb.d/60-sensor.hwdb
+@@ -23,7 +23,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/61-sensor-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger -v -p DEVNAME=/dev/iio:deviceXXX
+ # where /dev/iio:deviceXXX is the device in question.
+ #
+diff --git a/hwdb.d/70-av-production.hwdb b/hwdb.d/70-av-production.hwdb
+index 91c757b..ada7948 100644
+--- a/hwdb.d/70-av-production.hwdb
++++ b/hwdb.d/70-av-production.hwdb
+@@ -8,7 +8,7 @@
+ # To add local entries, copy this file to
+ #   /etc/udev/hwdb.d/
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger
+ 
+ ################
+diff --git a/hwdb.d/70-joystick.hwdb b/hwdb.d/70-joystick.hwdb
+index 8e942c8..3161fb9 100644
+--- a/hwdb.d/70-joystick.hwdb
++++ b/hwdb.d/70-joystick.hwdb
+@@ -13,7 +13,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/71-joystick-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the joystick in question. If in
+ # doubt, simply use /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/70-mouse.hwdb b/hwdb.d/70-mouse.hwdb
+index 20079d6..7b765c7 100644
+--- a/hwdb.d/70-mouse.hwdb
++++ b/hwdb.d/70-mouse.hwdb
+@@ -28,7 +28,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/71-mouse-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the mouse in question. If in doubt, simply use
+ # /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/70-pointingstick.hwdb b/hwdb.d/70-pointingstick.hwdb
+index 6ff228b..1a160bf 100644
+--- a/hwdb.d/70-pointingstick.hwdb
++++ b/hwdb.d/70-pointingstick.hwdb
+@@ -37,7 +37,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/71-pointingstick-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the pointingstick in question. If in doubt, simply
+ # use /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/70-sound-card.hwdb b/hwdb.d/70-sound-card.hwdb
+index a7ea8c6..bdd6772 100644
+--- a/hwdb.d/70-sound-card.hwdb
++++ b/hwdb.d/70-sound-card.hwdb
+@@ -5,7 +5,7 @@
+ # To add local entries, copy this file to
+ #   /etc/udev/hwdb.d/
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger
+ 
+ ###########################################################
+diff --git a/hwdb.d/70-touchpad.hwdb b/hwdb.d/70-touchpad.hwdb
+index 262bca3..4355c12 100644
+--- a/hwdb.d/70-touchpad.hwdb
++++ b/hwdb.d/70-touchpad.hwdb
+@@ -13,7 +13,7 @@
+ # To add local entries, create a new file
+ #   /etc/udev/hwdb.d/71-touchpad-local.hwdb
+ # and add your rules there. To load the new rules execute (as root):
+-#   systemd-hwdb update
++#   udev-hwdb update
+ #   udevadm trigger /dev/input/eventXX
+ # where /dev/input/eventXX is the touchpad in question. If in
+ # doubt, simply use /dev/input/event* to reload all input rules.
+diff --git a/hwdb.d/80-ieee1394-unit-function.hwdb b/hwdb.d/80-ieee1394-unit-function.hwdb
+index 62a8dda..38579ce 100644
+--- a/hwdb.d/80-ieee1394-unit-function.hwdb
++++ b/hwdb.d/80-ieee1394-unit-function.hwdb
+@@ -21,7 +21,7 @@
+ #  - ven0x000000units*0x000000:0x000000*
+ #
+ # The hexadecimal digits part of the customized key should be lower-case. Linux FireWire subsystem
+-# uses lower-case value for attributes of sysfs node, and systemd-hwdb parses the custom key by
++# uses lower-case value for attributes of sysfs node, and udev-hwdb parses the custom key by
+ # case-sensitive way. On the other hand, it parses kernel alias by case-insensitive way.
+ #
+ # The entry should have some of IEEE1394_UNIT_FUNCTION_XXX environment variables to express function
+diff --git a/hwdb.d/README b/hwdb.d/README
+index 594f5bf..58e9052 100644
+--- a/hwdb.d/README
++++ b/hwdb.d/README
+@@ -3,9 +3,6 @@ of mappings from modalias-like keys (which identify specific hardware devices)
+ to udev properties.
+ 
+ Files in this directory are not read by udev directly. Instead,
+-man:systemd-hwdb(8) compiles them into a binary database.
++man:udev-hwdb(8) compiles them into a binary database.
+ 
+-See man:hwdb(7) for an overview of the configuration file format, and
+-man:systemd-udevd.service(8) for a description of the udev daemon.
+-
+-Use 'systemd-analyze cat-config udev/hwdb.d' to display the effective config.
++See man:hwdb(7) for an overview of the configuration file format.
+diff --git a/man/hwdb.xml b/man/hwdb.xml
+index 3822552..9420b2d 100644
+--- a/man/hwdb.xml
++++ b/man/hwdb.xml
+@@ -73,7 +73,7 @@
+       higher priority.</para>
+ 
+       <para>The content of all hwdb files is read by
+-      <citerefentry><refentrytitle>systemd-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry>
++      <citerefentry><refentrytitle>udev-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+       and compiled to a binary database located at <filename>/etc/udev/hwdb.bin</filename>,
+       or alternatively <filename>/usr/lib/udev/hwdb.bin</filename> if you want ship the
+       compiled database in an immutable image.  During runtime, only the binary database
+@@ -146,7 +146,7 @@ PROPERTY_WITH_SPACES=some string</programlisting>
+   <refsect1>
+     <title>See Also</title>
+     <para><simplelist type="inline">
+-      <member><citerefentry><refentrytitle>systemd-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
++      <member><citerefentry><refentrytitle>udev-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
+     </simplelist></para>
+   </refsect1>
+ </refentry>
+diff --git a/man/meson.build b/man/meson.build
+index 69ea5c4..633428c 100644
+--- a/man/meson.build
++++ b/man/meson.build
+@@ -67,6 +67,18 @@ foreach tuple : manpages
+                 endif
+         endforeach
+ 
++        if stem.contains('systemd')
++            have = false
++        endif
++        if not stem.contains('udev')
++            have = false
++        endif
++        if stem == 'hwdb' or stem == 'bootctl' or stem == 'loader.conf'
++            have = true
++        elif stem == 'sd-boot' or stem == 'systemd-boot' or stem == 'systemd-stub' or stem == 'ukify'
++            have = true
++        endif
++
+         if have
+                 file = files(tuple[0] + '.xml')
+                 source_xml_files += file
+@@ -128,14 +140,8 @@ systemd_directives_xml = custom_target(
+         command : [make_directive_index_py, '@OUTPUT@', '@INPUT@'])
+ 
+ nonindex_xml_files = source_xml_files + [systemd_directives_xml]
+-systemd_index_xml = custom_target(
+-        'systemd.index.xml',
+-        input : nonindex_xml_files,
+-        output : 'systemd.index.xml',
+-        command : [make_man_index_py, '@OUTPUT@'] + nonindex_xml_files)
+ 
+-foreach tuple : xsltproc.found() ? [['systemd.directives', '7', systemd_directives_xml],
+-                                    ['systemd.index',      '7', systemd_index_xml]] : []
++foreach tuple : []
+         stem = tuple[0]
+         section = tuple[1]
+         xml = tuple[2]
+@@ -222,25 +228,6 @@ configure_file(
+ 
+ ############################################################
+ 
+-update_dbus_docs = custom_target(
+-        'update-dbus-docs-impl',
+-        output : 'update-dbus-docs',
+-        command : [update_dbus_docs_py, '--build-dir', project_build_root, '@INPUT@'],
+-        input : dbus_docs)
+-
+-if conf.get('BUILD_MODE_DEVELOPER') == 1
+-        test('dbus-docs-fresh',
+-             update_dbus_docs_py,
+-             suite : 'dist',
+-             args : ['--build-dir', project_build_root, '--test', dbus_docs],
+-             depends : dbus_programs)
+-
+-        test('check-version-history',
+-             check_version_history_py,
+-             suite : 'dist',
+-             args : source_xml_files)
+-endif
+-
+ update_man_rules = custom_target(
+         'update-man-rules-impl',
+         output : 'update-man-rules',
+diff --git a/man/rules/meson.build b/man/rules/meson.build
+index a9a2a25..4ca0a31 100644
+--- a/man/rules/meson.build
++++ b/man/rules/meson.build
+@@ -949,7 +949,7 @@ manpages = [
+   'ENABLE_HIBERNATE'],
+  ['systemd-homed.service', '8', ['systemd-homed'], 'ENABLE_HOMED'],
+  ['systemd-hostnamed.service', '8', ['systemd-hostnamed'], 'ENABLE_HOSTNAMED'],
+- ['systemd-hwdb', '8', [], 'ENABLE_HWDB'],
++ ['udev-hwdb', '8', [], 'ENABLE_HWDB'],
+  ['systemd-id128', '1', [], ''],
+  ['systemd-importd.service', '8', ['systemd-importd'], 'ENABLE_IMPORTD'],
+  ['systemd-inhibit', '1', [], ''],
+diff --git a/man/systemd-hwdb.xml b/man/udev-hwdb.xml
+similarity index 80%
+rename from man/systemd-hwdb.xml
+rename to man/udev-hwdb.xml
+index 3c6feb2..080c82c 100644
+--- a/man/systemd-hwdb.xml
++++ b/man/udev-hwdb.xml
+@@ -3,34 +3,34 @@
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+ <!-- SPDX-License-Identifier: LGPL-2.1-or-later -->
+ 
+-<refentry id="systemd-hwdb" conditional="ENABLE_HWDB"
++<refentry id="udev-hwdb" conditional="ENABLE_HWDB"
+           xmlns:xi="http://www.w3.org/2001/XInclude">
+ 
+   <refentryinfo>
+-    <title>systemd-hwdb</title>
++    <title>udev-hwdb</title>
+     <productname>systemd</productname>
+   </refentryinfo>
+ 
+   <refmeta>
+-    <refentrytitle>systemd-hwdb</refentrytitle>
++    <refentrytitle>udev-hwdb</refentrytitle>
+     <manvolnum>8</manvolnum>
+   </refmeta>
+ 
+   <refnamediv>
+-    <refname>systemd-hwdb</refname><refpurpose>hardware database management tool</refpurpose>
++    <refname>udev-hwdb</refname><refpurpose>hardware database management tool</refpurpose>
+   </refnamediv>
+ 
+   <refsynopsisdiv>
+     <cmdsynopsis>
+-      <command>systemd-hwdb <optional>options</optional> update</command>
++      <command>udev-hwdb <optional>options</optional> update</command>
+     </cmdsynopsis>
+     <cmdsynopsis>
+-      <command>systemd-hwdb <optional>options</optional> query <replaceable>modalias</replaceable></command>
++      <command>udev-hwdb <optional>options</optional> query <replaceable>modalias</replaceable></command>
+     </cmdsynopsis>
+   </refsynopsisdiv>
+ 
+   <refsect1><title>Description</title>
+-    <para><command>systemd-hwdb</command> expects a command and command
++    <para><command>udev-hwdb</command> expects a command and command
+     specific arguments.  It manages the binary hardware database.</para>
+   </refsect1>
+ 
+@@ -66,13 +66,13 @@
+       <xi:include href="standard-options.xml" xpointer="help" />
+     </variablelist>
+ 
+-    <refsect2><title>systemd-hwdb
++    <refsect2><title>udev-hwdb
+       <optional><replaceable>options</replaceable></optional>
+       update</title>
+       <para>Update the binary database.</para>
+     </refsect2>
+ 
+-    <refsect2><title>systemd-hwdb
++    <refsect2><title>udev-hwdb
+       <optional><replaceable>options</replaceable></optional>
+       query
+       <replaceable>MODALIAS</replaceable>
+diff --git a/man/udev.conf.xml b/man/udev.conf.xml
+index 5e42bf3..05c672c 100644
+--- a/man/udev.conf.xml
++++ b/man/udev.conf.xml
+@@ -41,7 +41,7 @@
+     <title>Description</title>
+ 
+     <para>These files contain configuration options for
+-      <citerefentry><refentrytitle>systemd-udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
++      <citerefentry><refentrytitle>udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
+       The syntax of these files is very simple: a list
+       of assignments, one per line.
+       All empty lines or lines beginning with <literal>#</literal> are
+@@ -117,7 +117,7 @@
+         <term><varname>resolve_names=</varname></term>
+ 
+         <listitem>
+-          <para>Specifies when systemd-udevd should resolve names of users and groups.  When set to
++          <para>Specifies when udevd should resolve names of users and groups.  When set to
+           <option>early</option> (the default), names will be resolved when the rules are parsed.
+           When set to <option>late</option>, names will be resolved for every event.  When set to
+           <option>never</option>, names will never be resolved and all devices will be owned by
+@@ -133,7 +133,7 @@
+         <term><varname>timeout_signal=</varname></term>
+ 
+         <listitem>
+-          <para>Specifies a signal that <filename>systemd-udevd</filename> will send on worker
++          <para>Specifies a signal that <filename>udevd</filename> will send on worker
+           timeouts. Note that both workers and spawned processes will be killed using this
+           signal. Defaults to <option>SIGKILL</option>.</para>
+ 
+@@ -143,16 +143,16 @@
+     </variablelist>
+ 
+     <para>
+-      In addition, <filename>systemd-udevd</filename> can be configured
++      In addition, <filename>udevd</filename> can be configured
+       by command line options and the kernel command line (see
+-      <citerefentry><refentrytitle>systemd-udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry>).
++      <citerefentry><refentrytitle>udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry>).
+     </para>
+   </refsect1>
+ 
+   <refsect1>
+     <title>See Also</title>
+     <para><simplelist type="inline">
+-      <member><citerefentry><refentrytitle>systemd-udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
++      <member><citerefentry><refentrytitle>udevd</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
+       <member><citerefentry><refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum></citerefentry></member>
+       <member><citerefentry><refentrytitle>udevadm</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
+     </simplelist></para>
+diff --git a/man/udev.xml b/man/udev.xml
+index 6719c1b..efb5b0a 100644
+--- a/man/udev.xml
++++ b/man/udev.xml
+@@ -32,8 +32,7 @@
+     names provide a way to reliably identify devices based on their properties or
+     current configuration.</para>
+ 
+-    <para>The udev daemon, <citerefentry><refentrytitle>systemd-udevd.service</refentrytitle>
+-    <manvolnum>8</manvolnum></citerefentry>, receives device uevents directly from
++    <para>The udev daemon (udevd) receives device uevents directly from
+     the kernel whenever a device is added or removed from the system, or it changes its
+     state. When udev receives a device event, it matches its configured set of rules
+     against various device attributes to identify the device. Rules that match may
+@@ -273,9 +272,7 @@
+                 <varlistentry>
+                   <term><literal>arch</literal></term>
+                   <listitem>
+-                    <para>System's architecture. See <option>ConditionArchitecture=</option> in
+-                    <citerefentry><refentrytitle>systemd.unit</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+-                    for possible values.</para>
++                    <para>System's architecture.</para>
+ 
+                   <xi:include href="version-info.xml" xpointer="v244"/>
+                   </listitem>
+@@ -283,9 +280,7 @@
+                 <varlistentry>
+                   <term><literal>virt</literal></term>
+                   <listitem>
+-                    <para>System's virtualization environment. See
+-                    <citerefentry><refentrytitle>systemd-detect-virt</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+-                    for possible values.</para>
++                    <para>System's virtualization environment.</para>
+ 
+                     <xi:include href="version-info.xml" xpointer="v244"/>
+                   </listitem>
+@@ -404,9 +399,7 @@
+           <varlistentry>
+             <term><varname>NAME</varname></term>
+             <listitem>
+-              <para>The name to use for a network interface. See
+-              <citerefentry><refentrytitle>systemd.link</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+-              for a higher-level mechanism for setting the interface name.
++              <para>The name to use for a network interface.
+               The name of a device node cannot be changed by udev, only additional
+               symlinks can be created.</para>
+             </listitem>
+@@ -532,15 +525,10 @@
+               a long period of time may block all further events for this or a dependent device.</para>
+ 
+               <para>Note that running programs that access the network or mount/unmount filesystems is not
+-              allowed inside of udev rules, due to the default sandbox that is enforced on
+-              <filename>systemd-udevd.service</filename>.</para>
++              allowed inside of udev rules, due to the default sandbox that is enforced.</para>
+ 
+               <para>Starting daemons or other long-running processes is not allowed; the forked processes,
+-              detached or not, will be unconditionally killed after the event handling has finished. In order
+-              to activate long-running processes from udev rules, provide a service unit and pull it in from a
+-              udev device using the <varname>SYSTEMD_WANTS</varname> device property. See
+-              <citerefentry><refentrytitle>systemd.device</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+-              for details.</para>
++              detached or not, will be unconditionally killed after the event handling has finished.</para>
+             </listitem>
+           </varlistentry>
+ 
+@@ -663,7 +651,7 @@
+                     <filename>/run/udev/static_node-tags/<replaceable>tag</replaceable></filename>
+                     pointing at the static device node with the specified name.
+                     Static device node creation is performed by systemd-tmpfiles
+-                    before systemd-udevd is started. The static nodes might not
++                    before udevd is started. The static nodes might not
+                     have a corresponding kernel device; they are used to trigger
+                     automatic kernel module loading when they are accessed.</para>
+                   </listitem>
+@@ -702,7 +690,7 @@
+                     level name is specified, the maximum log level is changed to that level. When
+                     <literal>reset</literal> is set, then the previously specified log level is
+                     revoked. Defaults to the log level of the main process of
+-                    <command>systemd-udevd</command>.</para>
++                    <command>udevd</command>.</para>
+                     <para>This may be useful when debugging events for certain devices. Note that the
+                     log level is applied when the line including this rule is processed. So, for
+                     debugging, it is recommended that this is specified at earlier place, e.g., the
+@@ -886,15 +874,9 @@ SUBSYSTEM=="net", OPTIONS="log_level=debug"</programlisting></para>
+   <refsect1>
+     <title>See Also</title>
+     <para><simplelist type="inline">
+-      <member><citerefentry>
+-        <refentrytitle>systemd-udevd.service</refentrytitle><manvolnum>8</manvolnum>
+-      </citerefentry></member>
+       <member><citerefentry>
+         <refentrytitle>udevadm</refentrytitle><manvolnum>8</manvolnum>
+       </citerefentry></member>
+-      <member><citerefentry>
+-        <refentrytitle>systemd.link</refentrytitle><manvolnum>5</manvolnum>
+-      </citerefentry></member>
+     </simplelist></para>
+   </refsect1>
+ </refentry>
+diff --git a/man/udevadm.xml b/man/udevadm.xml
+index b515f3c..29d5f2d 100644
+--- a/man/udevadm.xml
++++ b/man/udevadm.xml
+@@ -64,7 +64,7 @@
+   <refsect1><title>Description</title>
+     <para><command>udevadm</command> expects a command and command
+     specific options.  It controls the runtime behavior of
+-    <command>systemd-udevd</command>, requests kernel events, manages
++    <command>udevd</command>, requests kernel events, manages
+     the event queue, and provides simple debugging mechanisms.</para>
+   </refsect1>
+ 
+@@ -90,10 +90,8 @@
+       <para>Query the udev database for device information.</para>
+ 
+       <para>Positional arguments should be used to specify one or more devices. Each one may be a device name
+-      (in which case it must start with <filename>/dev/</filename>), a sys path (in which case it must start
+-      with <filename>/sys/</filename>), or a systemd device unit name (in which case it must end with
+-      <literal>.device</literal>, see
+-      <citerefentry><refentrytitle>systemd.device</refentrytitle><manvolnum>5</manvolnum></citerefentry>).
++      (in which case it must start with <filename>/dev/</filename>) or a sys path (in which case it must start
++      with <filename>/sys/</filename>).
+       </para>
+ 
+       <variablelist>
+@@ -542,10 +540,10 @@
+           <term><option>--initialized-nomatch</option></term>
+           <listitem>
+             <para>When <option>--initialized-match</option> is specified, trigger events for devices
+-            that are already initialized by <command>systemd-udevd</command>, and skip devices that
++            that are already initialized by <command>udevd</command>, and skip devices that
+             are not initialized yet.</para>
+             <para>When <option>--initialized-nomatch</option> is specified, trigger events for devices
+-            that are not initialized by <command>systemd-udevd</command> yet, and skip devices that
++            that are not initialized by <command>udevd</command> yet, and skip devices that
+             are already initialized.</para>
+             <para>Typically, it is essential that applications which intend to use such a match, make
+             sure a suitable udev rule is installed that sets at least one property on devices that
+@@ -591,7 +589,7 @@
+         <varlistentry>
+           <term><option>--wait-daemon[=<replaceable>SECONDS</replaceable>]</option></term>
+           <listitem>
+-            <para>Before triggering uevents, wait for systemd-udevd daemon to be initialized.
++            <para>Before triggering uevents, wait for udevd daemon to be initialized.
+             Optionally takes timeout value. Default timeout is 5 seconds. This is equivalent to invoking
+             <command>udevadm control --ping</command> before <command>udevadm trigger</command>.</para>
+ 
+@@ -636,9 +634,6 @@
+         <xi:include href="standard-options.xml" xpointer="help" />
+       </variablelist>
+ 
+-      <para>See
+-      <citerefentry><refentrytitle>systemd-udev-settle.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+-      for more information.</para>
+     </refsect2>
+ 
+     <refsect2><title>udevadm control <replaceable>option</replaceable></title>
+@@ -648,12 +643,8 @@
+           <term><option>-e</option></term>
+           <term><option>--exit</option></term>
+           <listitem>
+-            <para>Signal and wait for systemd-udevd to exit. No option except for
++            <para>Signal and wait for udevd to exit. No option except for
+             <option>--timeout</option> can be specified after this option.
+-            Note that <filename>systemd-udevd.service</filename> contains
+-            <option>Restart=always</option> and so as a result, this option restarts systemd-udevd.
+-            If you want to stop <filename>systemd-udevd.service</filename>, please use the following:
+-            <programlisting>systemctl stop systemd-udevd-control.socket systemd-udevd-kernel.socket systemd-udevd.service</programlisting>
+             </para>
+           </listitem>
+         </varlistentry>
+@@ -662,7 +653,7 @@
+           <term><option>--log-level=<replaceable>value</replaceable></option></term>
+           <listitem>
+             <para>Set the internal log level of
+-            <filename>systemd-udevd</filename>. Valid values are the
++            <filename>udevd</filename>. Valid values are the
+             numerical syslog priorities or their textual
+             representations: <option>emerg</option>,
+             <option>alert</option>, <option>crit</option>,
+@@ -675,7 +666,7 @@
+           <term><option>-s</option></term>
+           <term><option>--stop-exec-queue</option></term>
+           <listitem>
+-            <para>Signal systemd-udevd to stop executing new events. Incoming events
++            <para>Signal udevd to stop executing new events. Incoming events
+             will be queued.</para>
+           </listitem>
+         </varlistentry>
+@@ -683,14 +674,14 @@
+           <term><option>-S</option></term>
+           <term><option>--start-exec-queue</option></term>
+           <listitem>
+-            <para>Signal systemd-udevd to enable the execution of events.</para>
++            <para>Signal udevd to enable the execution of events.</para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term><option>-R</option></term>
+           <term><option>--reload</option></term>
+           <listitem>
+-            <para>Signal systemd-udevd to reload the rules files and other databases like the kernel
++            <para>Signal udevd to reload the rules files and other databases like the kernel
+             module index. Reloading rules and databases does not apply any changes to already
+             existing devices; the new configuration will only be applied to new events.</para>
+           </listitem>
+@@ -706,15 +697,15 @@
+           <term><option>-m</option></term>
+           <term><option>--children-max=<replaceable>value</replaceable></option></term>
+           <listitem>
+-            <para>Set the maximum number of events, systemd-udevd will handle at the same time. When 0 is
++            <para>Set the maximum number of events, udevd will handle at the same time. When 0 is
+             specified, then the maximum is determined based on the system resources.</para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term><option>--ping</option></term>
+           <listitem>
+-            <para>Send a ping message to systemd-udevd and wait for the reply. This may be useful to check that
+-            systemd-udevd daemon is running.</para>
++            <para>Send a ping message to udevd and wait for the reply. This may be useful to check that
++            udevd daemon is running.</para>
+ 
+             <xi:include href="version-info.xml" xpointer="v241"/>
+           </listitem>
+@@ -723,7 +714,7 @@
+           <term><option>-t</option></term>
+           <term><option>--timeout=<replaceable>seconds</replaceable></option></term>
+           <listitem>
+-            <para>The maximum number of seconds to wait for a reply from systemd-udevd.</para>
++            <para>The maximum number of seconds to wait for a reply from udevd.</para>
+           </listitem>
+         </varlistentry>
+ 
+@@ -760,9 +751,9 @@
+             </variablelist>
+ 
+             <para>Note, this <emphasis>does not</emphasis> imply <option>--reload</option> option. So, if
+-            <command>systemd-udevd</command> is already running, please consider to also specify
++            <command>udevd</command> is already running, please consider to also specify
+             <option>-reload</option> to make the copied udev rules files used by
+-            <command>systemd-udevd</command>.</para>
++            <command>udevd</command>.</para>
+ 
+             <xi:include href="version-info.xml" xpointer="v256"/>
+           </listitem>
+@@ -962,12 +953,12 @@
+       </title>
+ 
+       <para>Wait for devices or device symlinks being created and initialized by
+-      <command>systemd-udevd</command>. Each device path must start with
++      <command>udevd</command>. Each device path must start with
+       <literal>/dev/</literal> or <literal>/sys/</literal>, e.g. <literal>/dev/sda</literal>,
+       <literal>/dev/disk/by-path/pci-0000:3c:00.0-nvme-1-part1</literal>,
+       <literal>/sys/devices/pci0000:00/0000:00:1f.6/net/eth0</literal>, or
+       <literal>/sys/class/net/eth0</literal>. This can take multiple devices. This may be useful for
+-      waiting for devices being processed by <command>systemd-udevd</command> after e.g. partitioning
++      waiting for devices being processed by <command>udevd</command> after e.g. partitioning
+       or formatting the devices.</para>
+ 
+       <variablelist>
+@@ -985,7 +976,7 @@
+         <varlistentry>
+           <term><option>--initialized=<replaceable>BOOL</replaceable></option></term>
+           <listitem>
+-            <para>Check if <command>systemd-udevd</command> initialized devices. Defaults to true. When
++            <para>Check if <command>udevd</command> initialized devices. Defaults to true. When
+             false, the command only checks if the specified devices exist. Set false to this setting if
+             there is no udev rules for the specified devices, as the devices will never be considered
+             as initialized in that case. See Initialized Devices section below for more details.</para>
+@@ -1008,7 +999,7 @@
+           <term><option>--settle</option></term>
+           <listitem>
+             <para>When specified, also watches the udev event queue, and wait for all queued events
+-            being processed by <command>systemd-udevd</command>.</para>
++            being processed by <command>udevd</command>.</para>
+ 
+             <xi:include href="version-info.xml" xpointer="v251"/>
+           </listitem>
+@@ -1031,14 +1022,6 @@
+       are automatically released and its return value is propagated as exit code of <command>udevadm
+       lock</command>.</para>
+ 
+-      <para>This tool is in particular useful to ensure that
+-      <citerefentry><refentrytitle>systemd-udevd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+-      does not probe a block device while changes are made to it, for example partitions created or file
+-      systems formatted. Note that many tools that interface with block devices natively support taking
+-      relevant locks, see for example
+-      <citerefentry project='man-pages'><refentrytitle>sfdisk</refentrytitle><manvolnum>8</manvolnum></citerefentry>'s
+-      <option>--lock</option> switch.</para>
+-
+       <para>The command expects at least one block device specified via <option>--device=</option> or
+       <option>--backing=</option>, and a command line to execute as arguments.</para>
+ 
+@@ -1078,8 +1061,7 @@
+           <term><option>-t <replaceable>SECS</replaceable></option></term>
+ 
+           <listitem><para>Specifies how long to wait at most until all locks can be taken. Takes a value in
+-          seconds, or in the usual supported time units, see
+-          <citerefentry><refentrytitle>systemd.time</refentrytitle><manvolnum>7</manvolnum></citerefentry>. If
++          seconds, or in the usual supported time units. If
+           specified as zero the lock is attempted and if not successful the invocation will immediately
+           fail. If passed as <literal>infinity</literal> (the default) the invocation will wait indefinitely
+           until the lock can be acquired. If the lock cannot be taken in the specified time the specified
+@@ -1127,7 +1109,7 @@
+       <title>Format a File System</title>
+ 
+       <para>Take a lock on the backing block device while creating a file system, to ensure that
+-      <command>systemd-udevd</command> doesn't probe or announce the new superblock before it is
++      <command>udevd</command> doesn't probe or announce the new superblock before it is
+       comprehensively written:</para>
+ 
+       <programlisting># udevadm lock --device=/dev/sda1 mkfs.ext4 /dev/sda1</programlisting>
+@@ -1145,7 +1127,7 @@
+       <title>Copy in a File System</title>
+ 
+       <para>Take a lock on the backing block device while copying in a prepared file system image, to ensure
+-      that <command>systemd-udevd</command> doesn't probe or announce the new superblock before it is fully
++      that <command>udevd</command> doesn't probe or announce the new superblock before it is fully
+       written:</para>
+ 
+       <programlisting># udevadm lock -d /dev/sda1 dd if=fs.raw of=/dev/sda1</programlisting>
+@@ -1158,9 +1140,6 @@
+       <member><citerefentry>
+         <refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum>
+       </citerefentry></member>
+-      <member><citerefentry>
+-        <refentrytitle>systemd-udevd.service</refentrytitle><manvolnum>8</manvolnum>
+-      </citerefentry></member>
+     </simplelist></para>
+   </refsect1>
+ </refentry>
+diff --git a/meson.build b/meson.build
+index 3f7aa38..fbf7397 100644
+--- a/meson.build
++++ b/meson.build
+@@ -724,10 +722,6 @@ foreach prog : progs
+         conf.set_quoted(name, path)
+ endforeach
+ 
+-if run_command(ln, '--relative', '--help', check : false).returncode() != 0
+-        error('ln does not support --relative (added in coreutils 8.16)')
+-endif
+-
+ #####################################################################
+ 
+ gperf = find_program('gperf')
+@@ -829,7 +823,7 @@ if time_epoch <= 0
+         endif
+         if time_epoch == ''
+                 NEWS = files('NEWS')
+-                time_epoch = run_command(stat, '-c', '%Y', NEWS,
++                time_epoch = run_command(stat, '-f', '%m', NEWS,
+                                          check : true).stdout()
+         endif
+         time_epoch = time_epoch.strip().to_int()
+@@ -2298,116 +2292,12 @@ subdir('src/libsystemd-network')
+ # hwdb requires 'udev_link_with' and 'udev_rpath'
+ subdir('src/udev')
+ 
+-subdir('src/ac-power')
+-subdir('src/analyze')
+-subdir('src/ask-password')
+-subdir('src/backlight')
+-subdir('src/battery-check')
+-subdir('src/binfmt')
+ subdir('src/boot')
+ subdir('src/boot/efi')
+-subdir('src/busctl')
+-subdir('src/cgls')
+-subdir('src/cgroups-agent')
+-subdir('src/cgtop')
+-subdir('src/coredump')
+-subdir('src/creds')
+-subdir('src/cryptenroll')
+-subdir('src/cryptsetup')
+-subdir('src/debug-generator')
+-subdir('src/delta')
+-subdir('src/detect-virt')
+-subdir('src/dissect')
+-subdir('src/environment-d-generator')
+-subdir('src/escape')
+-subdir('src/firstboot')
+-subdir('src/fsck')
+-subdir('src/fstab-generator')
+-subdir('src/getty-generator')
+-subdir('src/gpt-auto-generator')
+-subdir('src/hibernate-resume')
+-subdir('src/home')
+-subdir('src/hostname')
+ subdir('src/hwdb')
+-subdir('src/id128')
+-subdir('src/import')
+-subdir('src/initctl')
+-subdir('src/integritysetup')
+-subdir('src/journal')
+-subdir('src/journal-remote')
+-subdir('src/kernel-install')
+-subdir('src/locale')
+-subdir('src/login')
+-subdir('src/machine')
+-subdir('src/machine-id-setup')
+-subdir('src/mountfsd')
+-subdir('src/modules-load')
+-subdir('src/mount')
+-subdir('src/network')
+-subdir('src/notify')
+-subdir('src/nspawn')
+-subdir('src/nsresourced')
+-subdir('src/nss-myhostname')
+-subdir('src/nss-mymachines')
+-subdir('src/nss-resolve')
+-subdir('src/nss-systemd')
+-subdir('src/oom')
+-subdir('src/partition')
+-subdir('src/path')
+-subdir('src/pcrextend')
+-subdir('src/pcrlock')
+-subdir('src/portable')
+-subdir('src/pstore')
+-subdir('src/quotacheck')
+-subdir('src/random-seed')
+-subdir('src/rc-local-generator')
+-subdir('src/remount-fs')
+-subdir('src/reply-password')
+-subdir('src/resolve')
+-subdir('src/rfkill')
+-subdir('src/rpm')
+-subdir('src/run')
+-subdir('src/run-generator')
+-subdir('src/shutdown')
+-subdir('src/sleep')
+-subdir('src/socket-activate')
+-subdir('src/socket-proxy')
+-subdir('src/ssh-generator')
+-subdir('src/stdio-bridge')
+-subdir('src/sulogin-shell')
+-subdir('src/sysctl')
+-subdir('src/sysext')
+-subdir('src/system-update-generator')
+-subdir('src/systemctl')
+-subdir('src/sysupdate')
+-subdir('src/sysusers')
+-subdir('src/sysv-generator')
+-subdir('src/storagetm')
+-subdir('src/timedate')
+-subdir('src/timesync')
+-subdir('src/tmpfiles')
+-subdir('src/tpm2-setup')
+-subdir('src/tty-ask-password-agent')
+-subdir('src/update-done')
+-subdir('src/update-utmp')
+-subdir('src/user-sessions')
+-subdir('src/userdb')
+-subdir('src/varlinkctl')
+-subdir('src/vconsole')
+-subdir('src/veritysetup')
+-subdir('src/vmspawn')
+-subdir('src/volatile-root')
+-subdir('src/vpick')
+-subdir('src/xdg-autostart-generator')
+-
+-subdir('src/systemd')
+ 
+ subdir('src/test')
+-subdir('src/fuzz')
+ subdir('src/ukify/test')  # needs to be last for test_env variable
+-subdir('test/fuzz')
+-
+-subdir('mime')
+ 
+ alias_target('devel', libsystemd_pc, libudev_pc, systemd_pc, udev_pc)
+ 
+@@ -2421,10 +2311,6 @@ foreach test : libsystemd_tests
+         executables += test_template + test
+ endforeach
+ 
+-foreach fuzzer : simple_fuzzers
+-        executables += fuzz_template + { 'sources' : [fuzzer] }
+-endforeach
+-
+ foreach dict : executables
+         name = dict.get('name', '')
+         if name == ''
+@@ -2467,12 +2353,6 @@ foreach dict : executables
+                 endforeach
+         endif
+ 
+-        if is_fuzz
+-                foreach key, val : fuzz_additional_kwargs
+-                        kwargs += { key : [ kwargs.get(key, []), val ] }
+-                endforeach
+-        endif
+-
+         exe = executable(
+                 name,
+                 kwargs : kwargs,
+@@ -2511,43 +2391,8 @@ foreach dict : executables
+                              is_parallel : dict.get('parallel', true))
+                 endif
+         endif
+-
+-        if is_fuzz
+-                fuzzer_exes += exe
+-
+-                if want_tests != 'false'
+-                        # Run the fuzz regression tests without any sanitizers enabled.
+-                        # Additional invocations with sanitizers may get added below.
+-                        fuzz_ins = fuzz_regression_tests.get(name, {})
+-                        foreach directive : fuzz_ins.get('directives', [])
+-                                tt = '@0@_@1@'.format(name, fs.name(directive.full_path()))
+-                                if tt.substring(45) != ''
+-                                        error('Directive sample name is too long:', directive.full_path())
+-                                endif
+-
+-                                test(tt,
+-                                     exe,
+-                                     suite : 'fuzz',
+-                                     args : directive.full_path(),
+-                                     depends : directive)
+-                        endforeach
+-                        foreach file : fuzz_ins.get('files', [])
+-                                tt = '@0@_@1@'.format(name, fs.name(file))
+-                                if tt.substring(45) != ''
+-                                        error('Fuzz sample name is too long:', fs.name(file))
+-                                endif
+-
+-                                test(tt,
+-                                     exe,
+-                                     suite : 'fuzz',
+-                                     args : file)
+-                        endforeach
+-                endif
+-        endif
+ endforeach
+ 
+-alias_target('fuzzers', fuzzer_exes)
+-
+ #####################################################################
+ 
+ test_dlopen = executables_by_name.get('test-dlopen')
+@@ -2683,50 +2520,13 @@ endif
+ 
+ ############################################################
+ 
+-subdir('rules.d')
+-subdir('test')
+-
+ #####################################################################
+ 
+-subdir('docs/sysvinit')
+-subdir('docs/var-log')
++subdir('rules.d')
+ subdir('hwdb.d')
+ subdir('man')
+-subdir('modprobe.d')
+-subdir('network')
+-subdir('presets')
+ subdir('shell-completion/bash')
+ subdir('shell-completion/zsh')
+-subdir('sysctl.d')
+-subdir('sysusers.d')
+-subdir('tmpfiles.d')
+-subdir('units')
+-
+-install_subdir('factory/etc',
+-               install_dir : factorydir)
+-subdir('factory/templates')
+-
+-if install_sysconfdir
+-        install_data('xorg/50-systemd-user.sh',
+-                     install_dir : xinitrcdir)
+-endif
+-install_data('LICENSE.GPL2',
+-             'LICENSE.LGPL2.1',
+-             'NEWS',
+-             'README',
+-             'docs/CODING_STYLE.md',
+-             'docs/DISTRO_PORTING.md',
+-             'docs/ENVIRONMENT.md',
+-             'docs/HACKING.md',
+-             'docs/TRANSIENT-SETTINGS.md',
+-             'docs/TRANSLATORS.md',
+-             'docs/UIDS-GIDS.md',
+-             install_dir : docdir)
+-
+-install_subdir('LICENSES',
+-               install_dir : docdir)
+-
+-install_emptydir(systemdstatedir)
+ 
+ #####################################################################
+ 
+@@ -2767,52 +2567,6 @@ foreach exec : public_programs
+         endif
+ endforeach
+ 
+-# Enable tests for all supported sanitizers
+-foreach tuple : fuzz_sanitizers
+-        sanitizer = tuple[0]
+-        build = tuple[1]
+-
+-        if cc.has_link_argument('-fsanitize=@0@'.format(sanitizer))
+-                foreach fuzzer, fuzz_ins : fuzz_regression_tests
+-                        name = '@0@:@1@'.format(fuzzer, sanitizer)
+-                        if want_tests == 'false'
+-                                message('Not compiling @0@ because tests is set to false'.format(name))
+-                                continue
+-                        endif
+-                        if not want_fuzz_tests
+-                                message('Not compiling @0@ because fuzz-tests is set to false'.format(name))
+-                                continue
+-                        endif
+-                        exe = custom_target(
+-                                name,
+-                                output : name,
+-                                depends : build,
+-                                command : [ln, '-fs',
+-                                           build.full_path() / fuzzer,
+-                                           '@OUTPUT@'],
+-                                build_by_default : true)
+-
+-                        foreach directive : fuzz_ins.get('directives', [])
+-                                test('@0@_@1@_@2@'.format(fuzzer, fs.name(directive.full_path()), sanitizer),
+-                                     env,
+-                                     suite : 'fuzz+san',
+-                                     env : ['UBSAN_OPTIONS=print_stacktrace=1:print_summary=1:halt_on_error=1'],
+-                                     timeout : 60,
+-                                     args : [exe.full_path(), directive.full_path()],
+-                                     depends : directive)
+-                        endforeach
+-                        foreach file : fuzz_ins.get('files', [])
+-                                test('@0@_@1@_@2@'.format(fuzzer, fs.name(file), sanitizer),
+-                                     env,
+-                                     suite : 'fuzz+san',
+-                                     env : ['UBSAN_OPTIONS=print_stacktrace=1:print_summary=1:halt_on_error=1'],
+-                                     timeout : 60,
+-                                     args : [exe.full_path(), file])
+-                        endforeach
+-                endforeach
+-        endif
+-endforeach
+-
+ #####################################################################
+ 
+ if git.found()
+@@ -2878,7 +2632,6 @@ run_target(
+         depends : [man, libsystemd, libudev],
+         command : [check_api_docs_sh, libsystemd.full_path(), libudev.full_path()])
+ 
+-alias_target('update-dbus-docs', update_dbus_docs)
+ alias_target('update-man-rules', update_man_rules)
+ 
+ if not meson.is_cross_build()
+@@ -2900,9 +2653,6 @@ custom_target('installed-unit-files.txt',
+ 
+ #####################################################################
+ 
+-alt_time_epoch = run_command('date', '-Is', '-u', '-d', '@@0@'.format(time_epoch),
+-                             check : true).stdout().strip()
+-
+ summary({
+         'split bin-sbin' :                  split_bin,
+         'prefix directory' :                prefixdir,
+@@ -2957,8 +2707,7 @@ summary({
+         'default status unit format' :      status_unit_format_default,
+         'default user $PATH' :
+                 default_user_path != '' ? default_user_path : '(same as system services)',
+-        'systemd service watchdog' :        service_watchdog == '' ? 'disabled' : service_watchdog,
+-        'time epoch' :                      '@0@ (@1@)'.format(time_epoch, alt_time_epoch)})
++        'systemd service watchdog' :        service_watchdog == '' ? 'disabled' : service_watchdog})
+ 
+ # TODO:
+ # CFLAGS:   ${OUR_CFLAGS} ${CFLAGS}
+@@ -3079,7 +2828,6 @@ foreach tuple : [
+         ['debug siphash'],
+         ['trace logging',          conf.get('LOG_TRACE') == 1],
+         ['slow tests',             want_slow_tests],
+-        ['fuzz tests',             want_fuzz_tests],
+         ['install tests',          install_tests],
+         ['link-udev-shared',       get_option('link-udev-shared')],
+         ['link-systemctl-shared',  get_option('link-systemctl-shared')],
+diff --git a/rules.d/README b/rules.d/README
+index 08edb4d..58871da 100644
+--- a/rules.d/README
++++ b/rules.d/README
+@@ -1,8 +1,5 @@
+-Files in this directory contain configuration for systemd-udevd.service, a
++Files in this directory contain configuration for udevd, a
+ daemon that manages symlinks to device nodes, permissions of devices nodes,
+ emits device events for userspace, and renames network interfaces.
+ 
+-See man:udev(7) for an overview of the configuration file format, and
+-man:systemd-udevd.service(8) for a description of service itself.
+-
+-Use 'systemd-analyze cat-config udev/rules.d' to display the effective config.
++See man:udev(7) for an overview of the configuration file format.
+diff --git a/rules.d/meson.build b/rules.d/meson.build
+index 3040fae..51747b2 100644
+--- a/rules.d/meson.build
++++ b/rules.d/meson.build
+@@ -38,9 +38,6 @@ rules = [
+ 
+         [files('70-memory.rules'),
+          conf.get('HAVE_DMI') == 1],
+-
+-        [files('70-power-switch.rules'),
+-         enable_logind],
+ ]
+ 
+ all_rules = []
+@@ -57,11 +54,6 @@ rules_in = [
+         ['50-udev-default.rules'],
+         ['60-persistent-storage.rules'],
+         ['64-btrfs.rules'],
+-        ['99-systemd.rules'],
+-
+-        ['70-uaccess.rules',   enable_logind and conf.get('HAVE_ACL') == 1],
+-        ['71-seat.rules',      enable_logind],
+-        ['73-seat-late.rules', enable_logind],
+ 
+         ['90-vconsole.rules',  conf.get('ENABLE_VCONSOLE') == 1],
+ ]
+diff --git a/shell-completion/bash/meson.build b/shell-completion/bash/meson.build
+index 91635df..f52aa9a 100644
+--- a/shell-completion/bash/meson.build
++++ b/shell-completion/bash/meson.build
+@@ -15,7 +15,7 @@ custom_target(
+         input : 'systemctl.in',
+         output : 'systemctl',
+         command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
+-        install : bashcompletiondir != 'no',
++        install : false,
+         install_dir : bashcompletiondir)
+ 
+ items = [['busctl',              ''],
+@@ -54,6 +54,8 @@ items = [['busctl',              ''],
+          ['systemd-vmspawn',     'ENABLE_VMSPAWN'],
+          ['timedatectl',         'ENABLE_TIMEDATED']]
+ 
++items = [['udevadm', ''], ['bootctl', 'ENABLE_BOOTLOADER']]
++
+ foreach item : items
+         if bashcompletiondir != 'no' and (item[1] == '' or conf.get(item[1]) == 1)
+                 install_data(item[0],
+diff --git a/shell-completion/zsh/_udevadm b/shell-completion/zsh/_udevadm
+index 9ff87d8..1e701b1 100644
+--- a/shell-completion/zsh/_udevadm
++++ b/shell-completion/zsh/_udevadm
+@@ -58,14 +58,14 @@ _udevadm_control(){
+     _arguments \
+         '(-)'{-h,--help}'[Show help]' \
+         '(-)'{-V,--version}'[Show package version]' \
+-        '(-e --exit)'{-e,--exit}'[Signal and wait for systemd-udevd to exit.]' \
+-        '(-l --log-level)'{-l,--log-level=}'[Set the internal log level of systemd-udevd.]:LEVEL:(err info debug)' \
+-        '(-s --stop-exec-queue)'{-s,--stop-exec-queue}'[Signal systemd-udevd to stop executing new events. Incoming events will be queued.]' \
+-        '(-S --start-exec-queue)'{-S,--start-exec-queue}'[Signal systemd-udevd to enable the execution of events.]' \
+-        '(-R --reload)'{-R,--reload}'[Signal systemd-udevd to reload the rules files and other databases like the kernel module index.]' \
++        '(-e --exit)'{-e,--exit}'[Signal and wait for udevd to exit.]' \
++        '(-l --log-level)'{-l,--log-level=}'[Set the internal log level of udevd.]:LEVEL:(err info debug)' \
++        '(-s --stop-exec-queue)'{-s,--stop-exec-queue}'[Signal udevd to stop executing new events. Incoming events will be queued.]' \
++        '(-S --start-exec-queue)'{-S,--start-exec-queue}'[Signal udevd to enable the execution of events.]' \
++        '(-R --reload)'{-R,--reload}'[Signal udevd to reload the rules files and other databases like the kernel module index.]' \
+         '(-p --property)'{-p,--property=}'[Set a global property for all events.]:KEY=VALUE' \
+         '(-m --children-max=)'{-m,--children-max=}'[Set the maximum number of events.]:N' \
+-        '(-t --timeout=)'{-t,--timeout=}'[The maximum number of seconds to wait for a reply from systemd-udevd.]:SECONDS'
++        '(-t --timeout=)'{-t,--timeout=}'[The maximum number of seconds to wait for a reply from udevd.]:SECONDS'
+ }
+ 
+ (( $+functions[_udevadm_monitor] )) ||
+@@ -128,7 +128,7 @@ _udevadm_wait(){
+         '(- *)'{-h,--help}'[Print help]' \
+         '(- *)'{-V,--version}'[Print version of the program]' \
+         '--timeout=[Maximum number of seconds to wait for the devices being created.]:SEC' \
+-        '--initialized=[Wait for devices being initialized by systemd-udevd.]:boolean:(yes no)' \
++        '--initialized=[Wait for devices being initialized by udevd.]:boolean:(yes no)' \
+         '--removed[Wait for devices being removed.]' \
+         '--settle[Also wait for udev queue being empty.]' \
+         '*::devpath:_files -P /dev/ -W /dev'
+diff --git a/shell-completion/zsh/meson.build b/shell-completion/zsh/meson.build
+index ea540c7..76210ad 100644
+--- a/shell-completion/zsh/meson.build
++++ b/shell-completion/zsh/meson.build
+@@ -10,7 +10,7 @@ custom_target(
+         input : '_systemctl.in',
+         output : '_systemctl',
+         command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
+-        install : zshcompletiondir != 'no',
++        install : false,
+         install_dir : zshcompletiondir)
+ 
+ items = [['_busctl',                   ''],
+@@ -42,6 +42,8 @@ items = [['_busctl',                   ''],
+          ['_systemd-tmpfiles',         'ENABLE_TMPFILES'],
+          ['_timedatectl',              'ENABLE_TIMEDATED']]
+ 
++items = [['_udevadm', ''], ['_bootctl', 'ENABLE_BOOTLOADER']]
++
+ foreach item : items
+         if zshcompletiondir != 'no' and (item[1] == '' or conf.get(item[1]) == 1)
+                 install_data(item[0],
+diff --git a/src/basic/cgroup-util.h b/src/basic/cgroup-util.h
+index a887178..792807f 100644
+--- a/src/basic/cgroup-util.h
++++ b/src/basic/cgroup-util.h
+@@ -6,6 +6,7 @@
+ #include <stdbool.h>
+ #include <stdint.h>
+ #include <stdio.h>
++#include <signal.h>
+ #include <sys/statfs.h>
+ #include <sys/types.h>
+ 
+diff --git a/src/basic/linux/if_ether.h b/src/basic/linux/if_ether.h
+index 69e0457..4bf6341 100644
+--- a/src/basic/linux/if_ether.h
++++ b/src/basic/linux/if_ether.h
+@@ -166,7 +166,7 @@
+ 
+ /* allow libcs like musl to deactivate this, glibc does not implement this. */
+ #ifndef __UAPI_DEF_ETHHDR
+-#define __UAPI_DEF_ETHHDR		1
++#define __UAPI_DEF_ETHHDR		0
+ #endif
+ 
+ #if __UAPI_DEF_ETHHDR
+diff --git a/src/basic/syslog-util.c b/src/basic/syslog-util.c
+index 0371922..57b0c6f 100644
+--- a/src/basic/syslog-util.c
++++ b/src/basic/syslog-util.c
+@@ -56,7 +56,7 @@ int syslog_parse_priority(const char **p, int *priority, bool with_facility) {
+         return 1;
+ }
+ 
+-static const char *const log_facility_unshifted_table[LOG_NFACILITIES] = {
++static const char *const log_facility_unshifted_table[LOG_FACMASK] = {
+         [LOG_FAC(LOG_KERN)]     = "kern",
+         [LOG_FAC(LOG_USER)]     = "user",
+         [LOG_FAC(LOG_MAIL)]     = "mail",
+diff --git a/src/boot/efi/efi.h b/src/boot/efi/efi.h
+index e8217c1..e06fe4c 100644
+--- a/src/boot/efi/efi.h
++++ b/src/boot/efi/efi.h
+@@ -1,6 +1,14 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
++#if SD_BOOT
++#define __DEFINED_wchar_t
++/* uchar.h/wchar.h are not suitable for freestanding environments. */
++typedef __WCHAR_TYPE__ wchar_t;
++typedef __CHAR16_TYPE__ char16_t;
++typedef __CHAR32_TYPE__ char32_t;
++#endif
++
+ #include <stdarg.h>
+ #include <stdbool.h>
+ #include <stddef.h>
+@@ -9,11 +17,6 @@
+ #include "macro-fundamental.h"
+ 
+ #if SD_BOOT
+-/* uchar.h/wchar.h are not suitable for freestanding environments. */
+-typedef __WCHAR_TYPE__ wchar_t;
+-typedef __CHAR16_TYPE__ char16_t;
+-typedef __CHAR32_TYPE__ char32_t;
+-
+ /* Let's be paranoid and do some sanity checks. */
+ assert_cc(__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__);
+ assert_cc(__STDC_HOSTED__ == 0);
+diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
+index 3cd9fa7..b4399fa 100644
+--- a/src/boot/efi/meson.build
++++ b/src/boot/efi/meson.build
+@@ -152,8 +152,10 @@ if get_option('mode') == 'developer' and get_option('debug')
+         efi_c_args += '-DEFI_DEBUG'
+ endif
+ 
++rtlib = run_command(cc, '-print-libgcc-file-name', check: true)
++
+ efi_c_ld_args = [
+-        '-lgcc',
++        rtlib.stdout().strip(),
+         '-nostdlib',
+         '-static-pie',
+         '-Wl,--entry=efi_main',
+diff --git a/src/core/meson.build b/src/core/meson.build
+index dbeb752..97ca850 100644
+--- a/src/core/meson.build
++++ b/src/core/meson.build
+@@ -252,16 +252,7 @@ install_emptydir(systemsleepdir)
+ install_emptydir(systemgeneratordir)
+ install_emptydir(usergeneratordir)
+ 
+-if install_sysconfdir
+-        install_emptydir(pkgsysconfdir / 'system')
+-        install_emptydir(pkgsysconfdir / 'user')
+-        install_emptydir(sysconfdir / 'xdg/systemd')
+-        meson.add_install_script(sh, '-c', ln_s.format(pkgsysconfdir / 'user',
+-                                                       sysconfdir / 'xdg/systemd/user'))
+-endif
+-
+ install_emptydir(sbindir)
+-meson.add_install_script(sh, '-c', ln_s.format(libexecdir / 'systemd', sbindir / 'init'))
+ 
+ ############################################################
+ 
+diff --git a/src/fundamental/memory-util-fundamental.h b/src/fundamental/memory-util-fundamental.h
+index 6870f54..a4eb540 100644
+--- a/src/fundamental/memory-util-fundamental.h
++++ b/src/fundamental/memory-util-fundamental.h
+@@ -1,11 +1,10 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
+-#include <stddef.h>
+-
+ #if SD_BOOT
+ #  include "efi-string.h"
+ #else
++#  include <stddef.h>
+ #  include <string.h>
+ #endif
+ 
+diff --git a/src/fundamental/string-util-fundamental.c b/src/fundamental/string-util-fundamental.c
+index a18b2bc..cc81ac2 100644
+--- a/src/fundamental/string-util-fundamental.c
++++ b/src/fundamental/string-util-fundamental.c
+@@ -4,8 +4,8 @@
+ #  include <ctype.h>
+ #endif
+ 
+-#include "macro-fundamental.h"
+ #include "string-util-fundamental.h"
++#include "macro-fundamental.h"
+ 
+ sd_char *startswith(const sd_char *s, const sd_char *prefix) {
+         size_t l;
+diff --git a/src/hwdb/hwdb.c b/src/hwdb/hwdb.c
+index 2ce8b2d..09500fd 100644
+--- a/src/hwdb/hwdb.c
++++ b/src/hwdb/hwdb.c
+@@ -32,7 +32,7 @@ static int help(void) {
+         _cleanup_free_ char *link = NULL;
+         int r;
+ 
+-        r = terminal_urlify_man("systemd-hwdb", "8", &link);
++        r = terminal_urlify_man("udev-hwdb", "8", &link);
+         if (r < 0)
+                 return log_oom();
+ 
+diff --git a/src/hwdb/meson.build b/src/hwdb/meson.build
+index 385ed85..5731ebb 100644
+--- a/src/hwdb/meson.build
++++ b/src/hwdb/meson.build
+@@ -2,7 +2,7 @@
+ 
+ executables += [
+         executable_template + {
+-                'name' : 'systemd-hwdb',
++                'name' : 'udev-hwdb',
+                 'public' : true,
+                 'conditions' : ['ENABLE_HWDB'],
+                 'sources' : files('hwdb.c'),
+diff --git a/src/libsystemd/sd-hwdb/sd-hwdb.c b/src/libsystemd/sd-hwdb/sd-hwdb.c
+index f623d47..3f137d9 100644
+--- a/src/libsystemd/sd-hwdb/sd-hwdb.c
++++ b/src/libsystemd/sd-hwdb/sd-hwdb.c
+@@ -313,7 +313,7 @@ static int hwdb_new(const char *path, sd_hwdb **ret) {
+ 
+                 if (!hwdb->f)
+                         return log_debug_errno(SYNTHETIC_ERRNO(ENOENT),
+-                                               "hwdb.bin does not exist, please run 'systemd-hwdb update'.");
++                                               "hwdb.bin does not exist, please run 'udev-hwdb update'.");
+         }
+ 
+         if (fstat(fileno(hwdb->f), &hwdb->st) < 0)
+diff --git a/src/test/meson.build b/src/test/meson.build
+index 9d3c7d6..702a491 100644
+--- a/src/test/meson.build
++++ b/src/test/meson.build
+@@ -11,7 +11,6 @@ test_hashmap_ordered_c = custom_target(
+ 
+ path = run_command(sh, '-c', 'echo "$PATH"', check: true).stdout().strip()
+ test_env = environment()
+-test_env.set('SYSTEMD_LANGUAGE_FALLBACK_MAP', language_fallback_map)
+ test_env.set('PATH', project_build_root + ':' + path)
+ test_env.set('PROJECT_BUILD_ROOT', project_build_root)
+ test_env.set('SYSTEMD_SLOW_TESTS', want_slow_tests ? '1' : '0')
+@@ -24,14 +23,6 @@ endif
+ 
+ generate_sym_test_py = find_program('generate-sym-test.py')
+ 
+-test_libsystemd_sym_c = custom_target(
+-        'test-libsystemd-sym.c',
+-        input : [libsystemd_sym_path] + systemd_headers + libsystemd_sources,
+-        output : 'test-libsystemd-sym.c',
+-        command : [generate_sym_test_py, libsystemd_sym_path, libsystemd_dir_path] + systemd_headers,
+-        capture : true,
+-        build_by_default : want_tests != 'false')
+-
+ test_libudev_sym_c = custom_target(
+         'test-libudev-sym.c',
+         input : [libudev_sym_path, libudev_h_path] + libudev_sources,
+@@ -439,20 +430,6 @@ executables += [
+         },
+ 
+         # Symbol tests
+-        test_template + {
+-                'name' : 'test-libsystemd-sym',
+-                'sources' : test_libsystemd_sym_c,
+-                'link_with' : libsystemd,
+-                'suite' : 'libsystemd',
+-        },
+-        test_template + {
+-                'name' : 'test-libsystemd-static-sym',
+-                'sources' : test_libsystemd_sym_c,
+-                'link_with' : install_libsystemd_static,
+-                'build_by_default' : want_tests != 'false' and static_libsystemd != 'false',
+-                'install' : install_tests and static_libsystemd != 'false',
+-                'suite' : 'libsystemd',
+-        },
+         test_template + {
+                 'name' : 'test-libudev-sym',
+                 'sources' : test_libudev_sym_c,
+diff --git a/src/udev/meson.build b/src/udev/meson.build
+index 3535551..2072476 100644
+--- a/src/udev/meson.build
++++ b/src/udev/meson.build
+@@ -251,9 +251,6 @@ executables += [
+         },
+ ]
+ 
+-meson.add_install_script(sh, '-c', ln_s.format(bindir / 'udevadm',
+-                                               libexecdir / 'systemd-udevd'))
+-
+ if install_sysconfdir_samples
+         install_data('udev.conf',
+                      install_dir : configfiledir / 'udev')
+diff --git a/src/udev/udevadm-hwdb.c b/src/udev/udevadm-hwdb.c
+index f306a4f..1e1b0c4 100644
+--- a/src/udev/udevadm-hwdb.c
++++ b/src/udev/udevadm-hwdb.c
+@@ -22,7 +22,7 @@ static int help(void) {
+                "  -r --root=PATH       Alternative root path in the filesystem\n\n"
+                "NOTE:\n"
+                "The sub-command 'hwdb' is deprecated, and is left for backwards compatibility.\n"
+-               "Please use systemd-hwdb instead.\n",
++               "Please use udev-hwdb instead.\n",
+                program_invocation_short_name);
+ 
+         return 0;
+@@ -87,7 +87,7 @@ int hwdb_main(int argc, char *argv[], void *userdata) {
+                 return log_error_errno(SYNTHETIC_ERRNO(EINVAL),
+                                        "Either --update or --test must be used.");
+ 
+-        log_notice("udevadm hwdb is deprecated. Use systemd-hwdb instead.");
++        log_notice("udevadm hwdb is deprecated. Use udev-hwdb instead.");
+ 
+         if (arg_update && !hwdb_bypass()) {
+                 r = hwdb_update(arg_root, arg_hwdb_bin_dir, arg_strict, true);

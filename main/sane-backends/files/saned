@@ -1,0 +1,5 @@
+# TODO: configuration
+type = process
+command = /usr/bin/saned -l -u _saned
+depends-on = local.target
+smooth-recovery = true

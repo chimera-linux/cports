@@ -1,0 +1,14 @@
+needs kernel-doc from linux docs
+diff --git a/doc/meson.build b/doc/meson.build
+index f12f3b9..09a6fb9 100644
+--- a/doc/meson.build
++++ b/doc/meson.build
+@@ -52,7 +52,7 @@ want_docs_build = get_option('docs-build')
+ kernel_doc = find_program(top_source_dir + 'scripts/kernel-doc')
+ kernel_doc_check = find_program(top_source_dir +'scripts/kernel-doc-check')
+ 
+-test('kdoc', kernel_doc_check, args: api_paths)
++#test('kdoc', kernel_doc_check, args: api_paths)
+ 
+ if want_docs != 'false'
+ 

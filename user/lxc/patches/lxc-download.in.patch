@@ -1,0 +1,48 @@
+--- a/templates/lxc-download.in
++++ b/templates/lxc-download.in
+@@ -137,7 +137,7 @@ EOF
+   return 0
+ }
+ 
+-if ! options=$(getopt -o d:r:a:hl -l dist:,release:,arch:,help,list,variant:,\
++if ! options=$(ugetopt -o d:r:a:hl -l dist:,release:,arch:,help,list,variant:,\
+ server:,flush-cache,force-cache,verbose,name:,path:,\
+ rootfs:,mapped-uid:,mapped-gid: -- "$@"); then
+   usage
+@@ -413,10 +413,10 @@ if [ ! -e "${configfile}" ]; then
+ fi
+ 
+ ## Extract all the network config entries
+-sed -i -e "/lxc.net.0/{w ${LXC_PATH}/config-network" -e "d}" "${LXC_PATH}/config"
++sed -i "" -e "/lxc.net.0/{w ${LXC_PATH}/config-network" -e "d;}" "${LXC_PATH}/config"
+ 
+ ## Extract any other config entry
+-sed -i -e "/lxc./{w ${LXC_PATH}/config-auto" -e "d}" "${LXC_PATH}/config"
++sed -i "" -e "/lxc./{w ${LXC_PATH}/config-auto" -e "d;}" "${LXC_PATH}/config"
+ 
+ ## Append the defaults
+ {
+@@ -471,17 +471,17 @@ OLD_IFS=${IFS}
+ IFS=";"
+ for file in ${TEMPLATE_FILES}; do
+     [ ! -f "${file}" ] && continue
+-  sed -i "s#LXC_NAME#${LXC_NAME}#g" "${file}"
+-  sed -i "s#LXC_PATH#${LXC_PATH}#g" "${file}"
+-  sed -i "s#LXC_ROOTFS#${LXC_ROOTFS}#g" "${file}"
+-  sed -i "s#LXC_TEMPLATE_CONFIG#${LXC_TEMPLATE_CONFIG}#g" "${file}"
+-  sed -i "s#LXC_HOOK_DIR#${LXC_HOOK_DIR}#g" "${file}"
++  sed -i "" "s#LXC_NAME#${LXC_NAME}#g" "${file}"
++  sed -i "" "s#LXC_PATH#${LXC_PATH}#g" "${file}"
++  sed -i "" "s#LXC_ROOTFS#${LXC_ROOTFS}#g" "${file}"
++  sed -i "" "s#LXC_TEMPLATE_CONFIG#${LXC_TEMPLATE_CONFIG}#g" "${file}"
++  sed -i "" "s#LXC_HOOK_DIR#${LXC_HOOK_DIR}#g" "${file}"
+ done
+ IFS=${OLD_IFS}
+ 
+ # prevent mingetty from calling vhangup(2) since it fails with userns on CentOS / Oracle
+ if [ -f "${LXC_ROOTFS}/etc/init/tty.conf" ]; then
+-  sed -i 's|mingetty|mingetty --nohangup|' "${LXC_ROOTFS}/etc/init/tty.conf"
++  sed -i "" 's|mingetty|mingetty --nohangup|' "${LXC_ROOTFS}/etc/init/tty.conf"
+ fi
+ 
+ if [ -n "${LXC_MAPPED_UID}" ] && [ "${LXC_MAPPED_UID}" != "-1" ]; then

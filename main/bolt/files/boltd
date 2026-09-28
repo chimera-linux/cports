@@ -1,0 +1,7 @@
+type = process
+command = /usr/lib/boltd
+smooth-recovery = true
+before: login.target
+waits-for: polkitd
+depends-on: local.target
+depends-on: dbus

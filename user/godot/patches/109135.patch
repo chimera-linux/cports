@@ -1,0 +1,57 @@
+From 4f19ef92cc3b2131404ee63ac6c0a17aef5e0f3b Mon Sep 17 00:00:00 2001
+From: DeeJayLSP <djlsp@proton.me>
+Date: Wed, 30 Jul 2025 16:36:27 -0300
+Subject: [PATCH] Patch `qoa.h` to fix sanitizer error
+
+---
+ thirdparty/README.md                                |  2 ++
+ thirdparty/misc/patches/qoa-0001-div-safe-int.patch | 13 +++++++++++++
+ thirdparty/misc/qoa.h                               |  2 +-
+ 3 files changed, 16 insertions(+), 1 deletion(-)
+ create mode 100644 thirdparty/misc/patches/qoa-0001-div-safe-int.patch
+
+diff --git a/thirdparty/README.md b/thirdparty/README.md
+index 7b8091d44d95..e64be36a9d47 100644
+--- a/thirdparty/README.md
++++ b/thirdparty/README.md
+@@ -823,6 +823,8 @@ Collection of single-file libraries used in Godot components.
+   * Version: git (ae07b57deb98127a5b40916cb57775823d7437d2, 2025)
+   * License: MIT
+   * Modifications: Added implementation through `qoa.c`.
++  * Patches:
++    - `qoa-0001-div-safe-int.patch` (GH-109099)
+ - `r128.{c,h}`
+   * Upstream: https://github.com/fahickman/r128
+   * Version: git (6fc177671c47640d5bb69af10cf4ee91050015a1, 2023)
+diff --git a/thirdparty/misc/patches/qoa-0001-div-safe-int.patch b/thirdparty/misc/patches/qoa-0001-div-safe-int.patch
+new file mode 100644
+index 000000000000..adbb326b5dfd
+--- /dev/null
++++ b/thirdparty/misc/patches/qoa-0001-div-safe-int.patch
+@@ -0,0 +1,13 @@
++diff --git a/thirdparty/misc/qoa.h b/thirdparty/misc/qoa.h
++index e11c842697..f52b1f1330 100644
++--- a/thirdparty/misc/qoa.h
+++++ b/thirdparty/misc/qoa.h
++@@ -293,7 +293,7 @@ argument, so it can do the division with a cheaper integer multiplication. */
++ 
++ static inline int qoa_div(int v, int scalefactor) {
++ 	int reciprocal = qoa_reciprocal_tab[scalefactor];
++-	int n = (v * reciprocal + (1 << 15)) >> 16;
+++	int n = (int)(((long long)v * reciprocal + (1 << 15)) >> 16);
++ 	n = n + ((v > 0) - (v < 0)) - ((n > 0) - (n < 0)); /* round away from 0 */
++ 	return n;
++ }
+diff --git a/thirdparty/misc/qoa.h b/thirdparty/misc/qoa.h
+index e11c84269711..f52b1f1330ba 100644
+--- a/thirdparty/misc/qoa.h
++++ b/thirdparty/misc/qoa.h
+@@ -293,7 +293,7 @@ argument, so it can do the division with a cheaper integer multiplication. */
+ 
+ static inline int qoa_div(int v, int scalefactor) {
+ 	int reciprocal = qoa_reciprocal_tab[scalefactor];
+-	int n = (v * reciprocal + (1 << 15)) >> 16;
++	int n = (int)(((long long)v * reciprocal + (1 << 15)) >> 16);
+ 	n = n + ((v > 0) - (v < 0)) - ((n > 0) - (n < 0)); /* round away from 0 */
+ 	return n;
+ }

@@ -1,0 +1,21 @@
+--- a/tools/perf/util/probe-event.c
++++ b/tools/perf/util/probe-event.c
+@@ -18,6 +18,7 @@
+ #include <stdarg.h>
+ #include <limits.h>
+ #include <elf.h>
++#include <libgen.h>
+ 
+ #include "build-id.h"
+ #include "event.h"
+--- a/tools/bpf/bpftool/gen.c
++++ b/tools/bpf/bpftool/gen.c
+@@ -23,6 +23,8 @@
+ #include "json_writer.h"
+ #include "main.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #define MAX_OBJ_NAME_LEN 64
+ 
+ static void sanitize_identifier(char *name)

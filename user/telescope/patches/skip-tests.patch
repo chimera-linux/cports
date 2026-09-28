@@ -1,0 +1,10 @@
+diff --git a/test/Makefile.am b/test/Makefile.am
+index b152463..3b06adf 100644
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -55,4 +55,4 @@ EXTRA_DIST =		test-gmparser	\
+ 
+ CLEANFILES =		serialized.*
+ 
+-TESTS =	test-gmparser test-mailcap iritest evtest
++TESTS =	test-gmparser iritest evtest

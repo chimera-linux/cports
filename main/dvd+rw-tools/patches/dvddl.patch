@@ -1,0 +1,15 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/dvd-rw-tools/-/blob/8840627804fa08c799ae953c721ca83384b50d9e/dvd+rw-tools-7.0-dvddl.patch
+--
+--- a/growisofs_mmc.cpp
++++ b/growisofs_mmc.cpp
+@@ -1412,9 +1412,7 @@
+     blocks += 15, blocks &= ~15;
+ 
+     if (blocks <= split)
+-	fprintf (stderr,":-( more than 50%% of space will be *wasted*!\n"
+-			"    use single layer media for this recording\n"),
+-	exit (FATAL_START(EMEDIUMTYPE));
++	fprintf (stderr,":-? more than 50%% of space will be *wasted*!\n");
+ 
+     blocks /= 16;
+     blocks += 1;

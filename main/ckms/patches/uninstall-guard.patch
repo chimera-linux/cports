@@ -1,0 +1,42 @@
+commit 2caf578178d02bad735569d1da9296a017b0304d
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 13 01:38:46 2024 +0100
+
+    guard uninstall a bit better
+
+diff --git a/ckms b/ckms
+index 9310e95..8f51208 100755
+--- a/ckms
++++ b/ckms
+@@ -632,6 +632,20 @@ def do_uninstall(cmd):
+ 
+     pkg.ensure_builtins(kernhdrs, opt_machine, opt_kernver)
+ 
++    slinkn = f"kernel-{opt_kernver}-{opt_machine}"
++    slinkp = pkg.pkgpath.parent / slinkn
++
++    slinkr = slinkp.resolve()
++    # installed module does not match this...
++    if slinkr.is_dir() and slinkr.parent.parent.name != pkg.pkgver:
++        return
++
++    slinkp.unlink(missing_ok = True)
++
++    # not installed
++    if not (pkg.pkgpath / opt_kernver).is_dir():
++        return
++
+     for modn, mpath, mdest, dostrip in pkg.modules:
+         dpath = kernpath / mdest
+         if not dpath.is_dir():
+@@ -648,10 +662,6 @@ def do_uninstall(cmd):
+             # stop at first non-empty
+             pass
+ 
+-    slinkn = f"kernel-{opt_kernver}-{opt_machine}"
+-    slinkp = pkg.pkgpath.parent / slinkn
+-    slinkp.unlink(missing_ok = True)
+-
+     # only do this if the kernel still exists
+     if (kernpath / "modules.order").is_file() and do_depmod(pkg):
+         do_initramfs(pkg)

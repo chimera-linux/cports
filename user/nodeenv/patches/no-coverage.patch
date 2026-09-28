@@ -1,0 +1,41 @@
+diff --git a/tests/nodeenv_test.py b/tests/nodeenv_test.py
+index c0dd36b..1512188 100644
+--- a/tests/nodeenv_test.py
++++ b/tests/nodeenv_test.py
+@@ -24,36 +24,6 @@ from nodeenv import IncompleteRead
+ HERE = os.path.abspath(os.path.dirname(__file__))
+ 
+ 
+-@pytest.mark.integration
+-def test_smoke(tmpdir):
+-    nenv_path = tmpdir.join('nenv').strpath
+-    subprocess.check_call([
+-        # Enable coverage
+-        'coverage', 'run', '-p',
+-        '-m', 'nodeenv', '--prebuilt', nenv_path,
+-    ])
+-    assert os.path.exists(nenv_path)
+-    activate = _quote(os.path.join(nenv_path, 'bin', 'activate'))
+-    subprocess.check_call([
+-        'sh', '-c', '. {} && node --version'.format(activate),
+-    ])
+-
+-
+-@pytest.mark.integration
+-@pytest.mark.skipif(sys.platform == 'win32', reason='-n system is posix only')
+-def test_smoke_n_system_special_chars(tmpdir):
+-    nenv_path = tmpdir.join('nenv (production env)').strpath
+-    subprocess.check_call((
+-        'coverage', 'run', '-p',
+-        '-m', 'nodeenv', '-n', 'system', nenv_path,
+-    ))
+-    assert os.path.exists(nenv_path)
+-    activate = _quote(os.path.join(nenv_path, 'bin', 'activate'))
+-    subprocess.check_call([
+-        'sh', '-c', '. {} && node --version'.format(activate),
+-    ])
+-
+-
+ @pytest.fixture
+ def mock_index_json():
+     # retrieved 2019-12-31

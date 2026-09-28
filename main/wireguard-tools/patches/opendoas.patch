@@ -1,0 +1,13 @@
+Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/main/wireguard-tools/wg-quick-different-sudo.patch
+(but defaulting to doas as that's the only one we have)
+--- a/src/wg-quick/linux.bash
++++ b/src/wg-quick/linux.bash
+@@ -82,7 +82,7 @@ read_bool() {
+ }
+ 
+ auto_su() {
+-	[[ $UID == 0 ]] || exec sudo -p "$PROGRAM must be run as root. Please enter the password for %u to continue: " -- "$BASH" -- "$SELF" "${ARGS[@]}"
++	[[ $UID == 0 ]] || exec "${SUDO:-doas}" "$BASH" -- "$SELF" "${ARGS[@]}"
+ }
+ 
+ add_if() {

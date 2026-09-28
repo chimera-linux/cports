@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -r /etc/default/iiod ]; then
+    set -a
+    . /etc/default/iiod
+    set +a
+fi
+
+exec /usr/bin/iiod "$@"

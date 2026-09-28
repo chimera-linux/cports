@@ -1,0 +1,14 @@
+diff --git a/util/grub-module-verifier.c b/util/grub-module-verifier.c
+index 163529c..198a325 100644
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -130,7 +130,6 @@ struct grub_module_verifier_arch archs[] = {
+       R_RISCV_SUB16,
+       R_RISCV_SUB32,
+       R_RISCV_SUB64,
+-      R_RISCV_ALIGN,
+       R_RISCV_BRANCH,
+       R_RISCV_CALL,
+       R_RISCV_CALL_PLT,
+-- 
+2.37.3

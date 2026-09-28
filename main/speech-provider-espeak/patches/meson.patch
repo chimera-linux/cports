@@ -1,0 +1,32 @@
+--- a/cargo.py
++++ b/cargo.py
+@@ -5,16 +5,10 @@ import subprocess
+ import os
+ import shutil
+ 
+-env = os.environ
+-
+ (MESON_BUILD_ROOT, MESON_SOURCE_ROOT, OUTPUT, APP_BIN, OFFLINE) = sys.argv[1:]
+ 
+-CARGO_TARGET_DIR = os.path.join (MESON_BUILD_ROOT, "target")
+-env["CARGO_TARGET_DIR"] = CARGO_TARGET_DIR
+-
+ CMD = ['cargo', 'build', '--release', '--manifest-path', os.path.join(MESON_SOURCE_ROOT, 'Cargo.toml')]
+ if len(OFFLINE) > 0:
+     CMD += [OFFLINE]
+ 
+-subprocess.run(CMD, env=env)
+-shutil.copy2(os.path.join(CARGO_TARGET_DIR, 'release', APP_BIN), OUTPUT)
+\ No newline at end of file
++subprocess.run(CMD)
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -33,8 +33,6 @@ custom_target('speech-provider-espeak',
+               depends: espeak_provider_depends,
+               env: espeak_provider_env,
+               console: true,
+-              install: true,
+-              install_dir: bindir,
+               command: [cargo_script,
+                   meson.project_build_root(),
+                   meson.project_source_root(),

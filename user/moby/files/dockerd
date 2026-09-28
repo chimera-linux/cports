@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/dockerd
+logfile = /var/log/docker.log
+depends-on: local.target
+depends-on: containerd
+options: signal-process-only

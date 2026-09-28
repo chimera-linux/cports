@@ -1,0 +1,18 @@
+fails to find the libraries without static lib on
+
+--- a/cpp/CMakeLists.txt
++++ b/cpp/CMakeLists.txt
+@@ -588,13 +588,6 @@ if(BUILD_TESTING)
+       DEPENDS libphonenumber_test
+     )
+   endif ()
+-
+-  # Build an example program using geocoding, mainly to make sure that both
+-  # libraries are built properly.
+-  if (BUILD_GEOCODER)
+-    add_executable (geocoding_test_program "test/phonenumbers/geocoding/geocoding_test_program.cc")
+-    target_link_libraries (geocoding_test_program geocoding phonenumber)
+-  endif ()
+ endif()
+ 
+ #----------------------------------------------------------------

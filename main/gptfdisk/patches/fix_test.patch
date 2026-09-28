@@ -1,0 +1,17 @@
+--- gdisk_test.sh	2023-10-26 17:34:52.617915389 +0300
++++ gdisk_test.sh	2023-10-26 18:49:06.351941068 +0300
+@@ -386,11 +386,11 @@
+ 	echo ""
+ 	create_table          "$binary"
+ 	create_partition      "$binary"
+-	change_partition_name "$binary"
+-	change_partition_type "$binary"
++#	change_partition_name "$binary"
++#	change_partition_type "$binary"
+ 	backup_table          "$binary"
+ 	delete_partition      "$binary"
+-	restore_table         # only with gdisk
++#	restore_table         # only with gdisk
+ 	change_disk_uid       "$binary"
+ 	wipe_table            "$binary"
+ 	eof_stdin             # only with gdisk

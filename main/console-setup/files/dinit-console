@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$1" = "keyboard" ]; then
+    exec /usr/bin/setupcon -k
+fi
+
+exec /usr/bin/setupcon

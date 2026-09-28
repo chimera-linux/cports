@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/darkman run
+smooth-recovery = yes
+log-type = buffer
+depends-on: graphical.target

@@ -1,0 +1,40 @@
+Disables use of a binary for preloading the Media Engagement index
+Said binary is: chrome/browser/resources/media/mei_preload/preloaded_data.pb
+According to media/base/media_switches (for PreloadMediaEngagementData), it
+"enables a list of origins to be considered as having a high MEI until there
+is enough local data to determine the user's preferred behavior." This feature
+does not seem to outweigh the benefit of removing the binary, thus this patch.
+--
+diff --git a/chrome/BUILD.gn b/chrome/BUILD.gn
+index 19c940ccf3..9b45db7d91 100644
+--- a/chrome/BUILD.gn
++++ b/chrome/BUILD.gn
+@@ -368,7 +368,6 @@ if (!is_android && !is_mac) {
+     }
+ 
+     data_deps += [
+-      "//chrome/browser/resources/media/mei_preload:component",
+       "//chrome/browser/web_applications/isolated_web_apps/key_distribution/preload:component",
+       "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
+       "//third_party/widevine/cdm",
+diff --git a/chrome/installer/linux/BUILD.gn b/chrome/installer/linux/BUILD.gn
+index 51f7c978a0..e4bd1692d6 100644
+--- a/chrome/installer/linux/BUILD.gn
++++ b/chrome/installer/linux/BUILD.gn
+@@ -72,8 +72,6 @@
+ packaging_files = packaging_files_binaries + [
+                     "common/installer.py",
+                     "$root_out_dir/locales/en-US.pak",
+-                    "$root_out_dir/MEIPreload/manifest.json",
+-                    "$root_out_dir/MEIPreload/preloaded_data.pb",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/manifest.json",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/privacy-sandbox-attestations.dat",
+                   ]
+@@ -374,7 +372,6 @@ group("installer_deps") {
+   public_deps += [
+     "//chrome:packed_resources",
+     "//chrome/browser/enterprise/connectors/device_trust/key_management/installer/management_service:chrome_management_service",
+-    "//chrome/browser/resources/media/mei_preload:component",
+     "//components/crash/core/app:chrome_crashpad_handler",
+     "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
+     "//sandbox/linux:chrome_sandbox",

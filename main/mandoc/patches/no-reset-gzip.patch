@@ -1,0 +1,9 @@
+--- a/read.c
++++ b/read.c
+@@ -692,6 +692,5 @@ mparse_reset(struct mparse *curp)
+ 	roff_man_reset(curp->man);
+ 	free_buf_list(curp->secondary);
+ 	curp->secondary = NULL;
+-	curp->gzip = 0;
+ 	tag_alloc();
+ }

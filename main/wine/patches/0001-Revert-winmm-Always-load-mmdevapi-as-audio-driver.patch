@@ -1,0 +1,95 @@
+From 3ef05799eefd95eb3bbe32cf3345eb5efa2567fc Mon Sep 17 00:00:00 2001
+From: Erica Z <zerica@callcc.eu>
+Date: Tue, 15 Jul 2025 22:33:42 +0200
+Subject: [PATCH] Revert "winmm: Always load mmdevapi as audio driver."
+
+This reverts commit f7044c4b8f3ab02ca8070cb37c7cc90e311d512f.
+---
+ dlls/winmm/lolvldrv.c | 62 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 61 insertions(+), 1 deletion(-)
+
+diff --git a/dlls/winmm/lolvldrv.c b/dlls/winmm/lolvldrv.c
+index b0283e7db8f..e664021dc64 100644
+--- a/dlls/winmm/lolvldrv.c
++++ b/dlls/winmm/lolvldrv.c
+@@ -34,6 +34,11 @@
+ #include "wine/debug.h"
+ #include "wine/exception.h"
+ 
++#include "wingdi.h"
++#include "ole2.h"
++#include "devpkey.h"
++#include "mmdeviceapi.h"
++
+ WINE_DEFAULT_DEBUG_CHANNEL(winmm);
+ 
+ /* each known type of driver has an instance of this structure */
+@@ -481,9 +486,64 @@ static	BOOL	MMDRV_Install(LPCSTR drvRegName, LPCSTR drvFileName, BOOL bIsMapper)
+  */
+ static void MMDRV_Init(void)
+ {
+-    MMDRV_Install("mmdevapi", "mmdevapi.dll", FALSE);
++    IMMDeviceEnumerator *devenum;
++    IMMDevice *device;
++    IPropertyStore *ps;
++    PROPVARIANT pv;
++    DWORD size;
++    char *drvA;
++    HRESULT init_hr, hr;
++
++    TRACE("()\n");
++
++    init_hr = CoInitialize(NULL);
++
++    hr = CoCreateInstance(&CLSID_MMDeviceEnumerator, NULL,
++            CLSCTX_INPROC_SERVER, &IID_IMMDeviceEnumerator, (void**)&devenum);
++    if(FAILED(hr)){
++        ERR("CoCreateInstance failed: %08lx\n", hr);
++        goto exit;
++    }
++
++    hr = IMMDeviceEnumerator_GetDevice(devenum, L"Wine info device", &device);
++    IMMDeviceEnumerator_Release(devenum);
++    if(FAILED(hr)){
++        ERR("GetDevice failed: %08lx\n", hr);
++        goto exit;
++    }
++
++    hr = IMMDevice_OpenPropertyStore(device, STGM_READ, &ps);
++    if(FAILED(hr)){
++        ERR("OpenPropertyStore failed: %08lx\n", hr);
++        IMMDevice_Release(device);
++        goto exit;
++    }
++
++    hr = IPropertyStore_GetValue(ps,
++            (const PROPERTYKEY *)&DEVPKEY_Device_Driver, &pv);
++    IPropertyStore_Release(ps);
++    IMMDevice_Release(device);
++    if(FAILED(hr)){
++        ERR("GetValue failed: %08lx\n", hr);
++        goto exit;
++    }
++
++    size = WideCharToMultiByte(CP_ACP, 0, pv.pwszVal, -1,
++            NULL, 0, NULL, NULL);
++    drvA = malloc(size);
++    WideCharToMultiByte(CP_ACP, 0, pv.pwszVal, -1, drvA, size, NULL, NULL);
++
++    MMDRV_Install(drvA, drvA, FALSE);
++
++    free(drvA);
++    PropVariantClear(&pv);
++
+     MMDRV_Install("wavemapper", "msacm32.drv", TRUE);
+     MMDRV_Install("midimapper", "midimap.dll", TRUE);
++
++exit:
++    if(SUCCEEDED(init_hr))
++        CoUninitialize();
+ }
+ 
+ /******************************************************************
+-- 
+2.50.1
+

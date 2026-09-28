@@ -1,0 +1,31 @@
+From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Date: Thu, 24 Mar 2022 13:21:26 +0100
+Subject: [PATCH] fdt: add debug output to devicetree command
+
+For debugging we need feedback that the devicetree command has be executed.
+
+Signed-off-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+---
+ grub-core/loader/efi/fdt.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/grub-core/loader/efi/fdt.c b/grub-core/loader/efi/fdt.c
+index 439964b..510958d 100644
+--- a/grub-core/loader/efi/fdt.c
++++ b/grub-core/loader/efi/fdt.c
+@@ -127,6 +127,7 @@ grub_cmd_devicetree (grub_command_t cmd __attribute__ ((unused)),
+   /* No arguments means "use firmware FDT".  */
+   if (argc == 0)
+     {
++      grub_dprintf ("fdt", "Using firmware FDT\n");
+       return GRUB_ERR_NONE;
+     }
+ 
+@@ -158,6 +159,7 @@ out:
+ 
+   if (blob)
+     {
++      grub_dprintf ("fdt", "Device-tree %s loaded\n", argv[0]);
+       if (grub_errno == GRUB_ERR_NONE)
+ 	loaded_fdt = blob;
+       else

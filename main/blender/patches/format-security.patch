@@ -1,0 +1,19 @@
+commit 19d9337347c0695a83c5bad72678ebfce25b5dc0
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu May 7 12:19:26 2026 +0200
+
+    ../source/blender/gpu/vulkan/vk_texture_pool.cc:559:20: error: format string is not a string literal (potentially insecure) [-Werror,-Wformat-security]
+
+diff --git a/source/blender/gpu/vulkan/vk_texture_pool.cc b/source/blender/gpu/vulkan/vk_texture_pool.cc
+index 0cb7be3..fa4039f 100644
+--- a/source/blender/gpu/vulkan/vk_texture_pool.cc
++++ b/source/blender/gpu/vulkan/vk_texture_pool.cc
+@@ -556,7 +556,7 @@ void VKTexturePool::log_usage_data()
+     log_message += std::format(" ({} cached VkImages)", current_usage_data_.image_cache_size);
+   }
+ 
+-  CLOG_TRACE(&LOG, log_message.c_str());
++  CLOG_TRACE(&LOG, "%s", log_message.c_str());
+ }
+ 
+ }  // namespace gpu

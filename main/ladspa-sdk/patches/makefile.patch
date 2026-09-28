@@ -1,0 +1,83 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -15,10 +15,8 @@ INSTALL_BINARY_DIR	=	/usr/bin/
+ 
+ INCLUDES	=	-I.
+ LIBRARIES	=	-ldl -lm -lsndfile
+-CFLAGS		=	$(INCLUDES) -Wall -Werror -O2 -fPIC 		\
++DEFCFLAGS	=	$(INCLUDES) -Wall -Werror -O2 -fPIC 		\
+ 			-DDEFAULT_LADSPA_PATH=$(INSTALL_PLUGINS_DIR)
+-BINFLAGS	=	-fPIE -pie
+-CXXFLAGS	=	$(CFLAGS)
+ PLUGINS		=	../plugins/amp.so				\
+ 			../plugins/delay.so				\
+ 			../plugins/filter.so				\
+@@ -28,7 +26,7 @@ PROGRAMS	=	../bin/analyseplugin				\
+ 			../bin/applyplugin 				\
+ 			../bin/listplugins
+ CC		=	cc
+-CPP		=	c++
++CXX		=	c++
+ 
+ ###############################################################################
+ #
+@@ -36,22 +34,22 @@ CPP		=	c++
+ #
+ 
+ ../plugins/%.so:	plugins/%.c ladspa.h gcc_exports.map
+-	$(CC) $(CFLAGS) -o plugins/$*.o -c plugins/$*.c
++	$(CC) $(DEFCFLAGS) $(CFLAGS) -o plugins/$*.o -c plugins/$*.c
+ 	$(CC)	-o ../plugins/$*.so					\
+ 		plugins/$*.o						\
+ 		-shared							\
+-		$(CFLAGS)						\
++		$(DEFCFLAGS) $(CFLAGS) $(LDFLAGS)	\
+ 		-fvisibility=hidden					\
+ 		-fvisibility-inlines-hidden				\
+ 		-s							\
+ 		-Wl,--version-script=gcc_exports.map			
+ 
+ ../plugins/%.so:	plugins/%.cpp ladspa.h gcc_exports.map
+-	$(CPP) $(CXXFLAGS) -o plugins/$*.o -c plugins/$*.cpp
+-	$(CPP)	-o ../plugins/$*.so					\
++	$(CXX) $(DEFCFLAGS) $(CXXFLAGS) -o plugins/$*.o -c plugins/$*.cpp
++	$(CXX)	-o ../plugins/$*.so					\
+ 		plugins/$*.o						\
+ 		-shared							\
+-		$(CXXFLAGS)						\
++		$(DEFCFLAGS) $(CXXFLAGS) $(LDFLAGS)	\
+ 		-fvisibility=hidden					\
+ 		-fvisibility-inlines-hidden				\
+ 		-s							\
+@@ -62,6 +60,8 @@ CPP		=	c++
+ # TARGETS
+ #
+ 
++all: targets
++
+ test:	/tmp/test.wav ../snd/noise.wav always
+ 	@echo ---------------------------------------------
+ 	@echo First listen to the white noise input signal:
+@@ -106,19 +106,19 @@ targets:	$(PLUGINS) $(PROGRAMS)
+ #
+ 
+ ../bin/applyplugin:	applyplugin.o load.o default.o
+-	$(CC) $(CFLAGS) $(BINFLAGS)					\
++	$(CC) $(DEFCFLAGS) $(CFLAGS) $(LDFLAGS)	\
+ 		-o ../bin/applyplugin					\
+ 		applyplugin.o load.o default.o				\
+ 		$(LIBRARIES)
+ 
+ ../bin/analyseplugin:	analyseplugin.o load.o default.o
+-	$(CC) $(CFLAGS) $(BINFLAGS)					\
++	$(CC) $(DEFCFLAGS) $(CFLAGS) $(LDFLAGS)	\
+ 		-o ../bin/analyseplugin 				\
+ 		analyseplugin.o load.o default.o			\
+ 		$(LIBRARIES)
+ 
+ ../bin/listplugins:	listplugins.o search.o
+-	$(CC) $(CFLAGS) $(BINFLAGS)					\
++	$(CC) $(DEFCFLAGS) $(CFLAGS) $(LDFLAGS)	\
+ 		-o ../bin/listplugins	 				\
+ 		listplugins.o search.o					\
+ 		$(LIBRARIES)

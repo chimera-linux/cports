@@ -1,0 +1,18 @@
+causes build to output copious amounts of warnings
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 24fa0cb..5f682d7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -31,12 +31,6 @@ if(ENABLE_WERROR)
+     add_definitions("-Werror")
+ endif()
+ 
+-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+-    add_definitions("-Weverything")
+-else()
+-    add_definitions("-Wall")
+-endif()
+-
+ # Thread fix for old CMake
+ 
+ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")

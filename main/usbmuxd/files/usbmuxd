@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/usbmuxd -f -u -U _usbmux
+depends-on = local.target
+smooth-recovery = true

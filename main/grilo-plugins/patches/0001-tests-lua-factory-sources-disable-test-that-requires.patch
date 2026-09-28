@@ -1,0 +1,28 @@
+From 63082fe8e40b0a7db94a26ddcf23937be39d9f1e Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Mon, 26 Feb 2024 20:59:45 +0100
+Subject: [PATCH 1/2] tests/lua-factory/sources: disable test that requires
+ network
+
+---
+ tests/lua-factory/sources/meson.build | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/tests/lua-factory/sources/meson.build b/tests/lua-factory/sources/meson.build
+index 929b6d72..7b3e8b2f 100644
+--- a/tests/lua-factory/sources/meson.build
++++ b/tests/lua-factory/sources/meson.build
+@@ -9,9 +9,7 @@ acoustid_resources = gnome.compile_resources('acoustidresources',
+     'test_lua_acoustid.gresource.xml',
+     c_name: '_grl_lua_acoustid')
+ 
+-source_tests = [
+-    'test_lua_theaudiodb'
+-]
++source_tests = []
+ 
+ if chromaprint_enabled
+     source_tests += [
+-- 
+2.44.0
+

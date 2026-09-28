@@ -1,0 +1,13 @@
+the default install only installs manpages but the all rule in doc also builds
+html, which then needs `convert`
+--- a/Makefile
++++ b/Makefile
+@@ -90,7 +90,7 @@
+ all: $(LIBGIFSO) libgif.a $(LIBUTILSO) libutil.a $(UTILS)
+ ifeq ($(UNAME), Darwin)
+ else
+-	$(MAKE) -C doc
++	$(MAKE) -C doc manpages
+ endif
+ 
+ $(UTILS):: libgif.a libutil.a

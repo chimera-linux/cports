@@ -1,0 +1,172 @@
+commit 2e9c1647a3c60ecb695b2fdb742862e99cd331ea
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Dec 2 12:10:44 2023 +0100
+
+    update default compiler
+
+diff --git a/tools/faust2appls/faust2csound b/tools/faust2appls/faust2csound
+index 6e2ffc9..32190db 100755
+--- a/tools/faust2appls/faust2csound
++++ b/tools/faust2appls/faust2csound
+@@ -78,7 +78,7 @@ done
+ for SRC in $FILES; do
+     opname=`basename ${SRC%.dsp}`
+     faust -i -uim -double -a $ARCHFILE $OPTIONS "$SRC" -o "$SRC.cpp"  || exit
+-    ${CXX=g++} ${CXXFLAGS=-O3} $FAUSTTOOLSFLAGS  $OMP $LIB -DOPCODE_NAME=$opname "$SRC.cpp" -o "${SRC%.dsp}""$EXT" || exit
++    ${CXX=c++} ${CXXFLAGS=-O3} $FAUSTTOOLSFLAGS  $OMP $LIB -DOPCODE_NAME=$opname "$SRC.cpp" -o "${SRC%.dsp}""$EXT" || exit
+     rm "$SRC.cpp"
+     BINARIES="$BINARIES${SRC%.dsp}""$EXT;"
+ done
+diff --git a/tools/faust2appls/faust2dssi b/tools/faust2appls/faust2dssi
+index d7b6b7a..8284707 100755
+--- a/tools/faust2appls/faust2dssi
++++ b/tools/faust2appls/faust2dssi
+@@ -82,7 +82,7 @@ for f in $FILES; do
+ 
+     # compile c++ to binary
+     (
+-        ${CXX=g++} $FAUSTTOOLSFLAGS  -I. -Wall -O2 -fPIC -DPIC $PROCARCH $SPEC $CXXFLAGS "$f.cpp" -o $dst
++        ${CXX=c++} $FAUSTTOOLSFLAGS  -I. -Wall -O2 -fPIC -DPIC $PROCARCH $SPEC $CXXFLAGS "$f.cpp" -o $dst
+     ) > /dev/null || exit
+     rm "$f.cpp"
+ 
+diff --git a/tools/faust2appls/faust2ladspa b/tools/faust2appls/faust2ladspa
+index d48c3af..e87a390 100755
+--- a/tools/faust2appls/faust2ladspa
++++ b/tools/faust2appls/faust2ladspa
+@@ -89,7 +89,7 @@ for f in $FILES; do
+ 
+     # compile c++ to binary
+     (
+-        ${CXX=g++} $CXXFLAGS $FAUSTTOOLSFLAGS $PROCARCH $SPEC -Dmydsp=$module -I/usr/local/share/faust "$f.cpp" -o $dst
++        ${CXX=c++} $CXXFLAGS $FAUSTTOOLSFLAGS $PROCARCH $SPEC -Dmydsp=$module -I/usr/local/share/faust "$f.cpp" -o $dst
+     ) > /dev/null || exit
+     rm "$f.cpp"
+ 
+diff --git a/tools/faust2appls/faust2linuxunity b/tools/faust2appls/faust2linuxunity
+index b8ba4e6..a9c8339 100755
+--- a/tools/faust2appls/faust2linuxunity
++++ b/tools/faust2appls/faust2linuxunity
+@@ -64,10 +64,10 @@ shift
+ done
+ 
+ #------------------------------------------------------------------------------
+-# Compiler g++
++# Compiler c++
+ #
+ 
+-CXX="g++"
++CXX="c++"
+ (which "$CXX" >/dev/null) || (echo "compiler $CXX not found. See -help for more info"; exit 1)
+ 
+ #-------------------------------------------------------------------
+diff --git a/tools/faust2appls/faust2lv2 b/tools/faust2appls/faust2lv2
+index b0e4320..0a57e30 100755
+--- a/tools/faust2appls/faust2lv2
++++ b/tools/faust2appls/faust2lv2
+@@ -178,13 +178,13 @@ if [ -n "$STYLE" ]; then
+ fi
+ 
+ if [ -z ${CXX} ]; then
+-CXX=g++
++CXX=c++
+ echo "Using ${CXX}"
+ else
+ echo "compiler overridden: using ${CXX}"
+ fi
+ 
+-HOST_CXX=g++
++HOST_CXX=c++
+ 
+ CPPFLAGS="-DPLUGIN_URI=\"$URI_PREFIX/$clsname\" -DFAUST_META=$FAUST_META -DFAUST_MIDICC=$FAUST_MIDICC -DFAUST_MTS=$FAUST_MTS -DFAUST_UI=$FAUST_UI -DVOICE_CTRLS=$VOICE_CTRLS"
+ if [ $NVOICES -ge 0 ]; then
+diff --git a/tools/faust2appls/faust2msp b/tools/faust2appls/faust2msp
+index 5c0138b..911ebb2 100755
+--- a/tools/faust2appls/faust2msp
++++ b/tools/faust2appls/faust2msp
+@@ -151,7 +151,7 @@ PATH=$PATH:/usr/local/bin
+ 
+ for p in $FILES; do
+ 
+-    CC=g++
++    CC=c++
+ 
+     CUR=$(pwd)
+     f=$(basename "$p")
+diff --git a/tools/faust2appls/faust2octave b/tools/faust2appls/faust2octave
+index 2cd9dac..a5556c3 100755
+--- a/tools/faust2appls/faust2octave
++++ b/tools/faust2appls/faust2octave
+@@ -42,7 +42,7 @@ for f in $FILES; do
+ 
+     # compile c++ to binary
+     (
+-        ${CXX=g++} ${CXXFLAGS=-O3} $OMP "$f.cpp" -o "${f%.dsp}"
++        ${CXX=c++} ${CXXFLAGS=-O3} $OMP "$f.cpp" -o "${f%.dsp}"
+     ) > /dev/null || exit
+ 
+     # run binary to generate data file
+diff --git a/tools/faust2appls/faust2pure b/tools/faust2appls/faust2pure
+index 7cb1b4b..f85b230 100755
+--- a/tools/faust2appls/faust2pure
++++ b/tools/faust2appls/faust2pure
+@@ -88,7 +88,7 @@ soname="$clsname$dllext"
+ fi
+ tmpdir=`mktemp -d /tmp/faust2pure.XXXXXX`
+ 
+-CXX=g++
++CXX=c++
+ LLVMCC="clang -emit-llvm"
+ 
+ # Create the temp directory
+diff --git a/tools/faust2appls/faust2sndfile b/tools/faust2appls/faust2sndfile
+index a47f3c1..9d5ba22 100755
+--- a/tools/faust2appls/faust2sndfile
++++ b/tools/faust2appls/faust2sndfile
+@@ -34,7 +34,7 @@ fi
+ #-------------------------------------------------------------------
+ # Set Faust include path
+ 
+-CXX=g++
++CXX=c++
+ 
+ #PHASE 2 : dispatch command arguments
+ while [ $1 ]
+diff --git a/tools/faust2appls/faust2vst b/tools/faust2appls/faust2vst
+index 3c58289..6d24350 100755
+--- a/tools/faust2appls/faust2vst
++++ b/tools/faust2appls/faust2vst
+@@ -124,11 +124,11 @@ for p in $FILES; do
+     cd "$TMP"
+     install -d "${f%.dsp}$EXT/Contents/MacOS"
+     if [[ $(uname) == "Darwin" ]]; then
+-        g++ -arch arm64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.arm64" "${f%.dsp}.cpp" $SOURCES
+-        g++ -arch x86_64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" "${f%.dsp}.cpp" $SOURCES
++        c++ -arch arm64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.arm64" "${f%.dsp}.cpp" $SOURCES
++        c++ -arch x86_64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" "${f%.dsp}.cpp" $SOURCES
+         lipo -create "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.arm64" "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" -output "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}"
+     else
+-        g++ -fPIC -shared $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -o "${f%.dsp}.so" "${f%.dsp}.cpp" $SOURCES
++        c++ -fPIC -shared $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -o "${f%.dsp}.so" "${f%.dsp}.cpp" $SOURCES
+     fi
+ 
+     createInfoPList "${f%.dsp}" "${f%.dsp}$EXT/Contents/Info.plist"
+diff --git a/tools/faust2appls/faust2vsti b/tools/faust2appls/faust2vsti
+index 97c7b30..5a80844 100755
+--- a/tools/faust2appls/faust2vsti
++++ b/tools/faust2appls/faust2vsti
+@@ -105,11 +105,11 @@ for p in $FILES; do
+     cd "$TMP"
+     install -d "${f%.dsp}$EXT/Contents/MacOS"
+     if [[ $(uname) == "Darwin" ]]; then
+-        g++ -arch i386 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.i386" "${f%.dsp}.cpp" $SOURCES
+-        g++ -arch x86_64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" "${f%.dsp}.cpp" $SOURCES
++        c++ -arch i386 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.i386" "${f%.dsp}.cpp" $SOURCES
++        c++ -arch x86_64 $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES -bundle $PROCARCH -o "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" "${f%.dsp}.cpp" $SOURCES
+         lipo -create "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.i386" "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}.x86_64" -output "${f%.dsp}$EXT/Contents/MacOS/${f%.dsp}"
+     else
+-        g++ -fPIC -shared $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES  -o "${f%.dsp}.so" "${f%.dsp}.cpp" $SOURCES
++        c++ -fPIC -shared $CXXFLAGS $FAUSTTOOLSFLAGS $INCLUDES  -o "${f%.dsp}.so" "${f%.dsp}.cpp" $SOURCES
+     fi
+     )> /dev/null || exit
+ 

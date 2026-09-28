@@ -1,0 +1,7 @@
+# dunst user service
+
+type = process
+command = /usr/bin/dunst
+depends-on = dbus
+depends-on = graphical.target
+log-type = buffer

@@ -1,0 +1,24 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -43,21 +43,6 @@ docstring_to_markdown =
+ 	plain = docstring_to_markdown.plain:PlainTextConverter
+ 	cpython = docstring_to_markdown.cpython:CPythonConverter
+ 
+-[tool:pytest]
+-addopts = 
+-	--pyargs tests
+-	--cov docstring_to_markdown
+-	--cov-fail-under=100
+-	--cov-report term-missing:skip-covered
+-	-p no:warnings
+-	--flake8
+-	-vv
+-
+-[coverage:report]
+-exclude_lines = 
+-	pragma: no cover
+-	if TYPE_CHECKING:
+-
+ [flake8]
+ max-line-length = 120
+ max-complexity = 15

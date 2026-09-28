@@ -1,0 +1,26 @@
+commit d93b99e018f1a4b9934287539914324d1988d890
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 1 00:00:11 2025 +0100
+
+    configure:46377: checking for stack direction
+    configure:46454: clang -o conftest -ffile-prefix-map=/builddir/gm4-1.4.19=. ...
+    conftest.c:13:1: error: second parameter of 'main' (argument array) must be of type 'char **'
+       13 | main (int argc, char *argv)
+          | ^
+    1 error generated.
+    configure:46457: $? = 1
+    configure:46472: result: unknown
+
+diff --git a/configure b/configure
+index 883336a..3d33e86 100755
+--- a/configure
++++ b/configure
+@@ -46445,7 +46445,7 @@ find_stack_direction (int *addr, int depth)
+   return dir + dummy;
+ }
+ int
+-main (int argc, char *argv)
++main (int argc, char *argv[])
+ {
+   printf ("%d\n", find_stack_direction (NULL, argc + 20));
+   return 0;

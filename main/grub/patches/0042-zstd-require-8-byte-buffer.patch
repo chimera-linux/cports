@@ -1,0 +1,63 @@
+From: Julian Andres Klode <julian.klode@canonical.com>
+Date: Thu, 2 Dec 2021 13:08:30 +0100
+Subject: zstd: Require at least 8 byte buffer in entropy_common
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+This fixes the build on s390x which was rightfully complaining that
+iend - 7 = buffer + 4 - 7 = buffer -3 is outside the array bounds.
+
+../../grub-core/lib/zstd/entropy_common.c: In function ‘FSE_readNCount’:
+../../grub-core/lib/zstd/entropy_common.c:121:28: error: array subscript -3 is outside array bounds of ‘char[4]’ [-Werror=array-bounds]
+  121 |             if ((ip <= iend-7) || (ip + (bitCount>>3) <= iend-4)) {
+      |                        ~~~~^~
+../../grub-core/lib/zstd/entropy_common.c:77:14: note: while referencing ‘buffer’
+   77 |         char buffer[4];
+      |              ^~~~~~
+../../grub-core/lib/zstd/entropy_common.c:105:30: error: array subscript -1 is outside array bounds of ‘char[4]’ [-Werror=array-bounds]
+  105 |                 if (ip < iend-5) {
+      |                          ~~~~^~
+../../grub-core/lib/zstd/entropy_common.c:77:14: note: while referencing ‘buffer’
+   77 |         char buffer[4];
+      |              ^~~~~~
+../../grub-core/lib/zstd/entropy_common.c:150:28: error: array subscript -3 is outside array bounds of ‘char[4]’ [-Werror=array-bounds]
+  150 |             if ((ip <= iend-7) || (ip + (bitCount>>3) <= iend-4)) {
+      |                        ~~~~^~
+../../grub-core/lib/zstd/entropy_common.c:77:14: note: while referencing ‘buffer’
+   77 |         char buffer[4];
+      |              ^~~~~~
+
+This is fixed in more recent zstd versions in basically the same way,
+but the new versions needs more work to import.
+
+Patch-Name: zstd-require-8-byte-buffer.patch
+---
+ grub-core/lib/zstd/entropy_common.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/grub-core/lib/zstd/entropy_common.c b/grub-core/lib/zstd/entropy_common.c
+index b12944e..834fa4b 100644
+--- a/grub-core/lib/zstd/entropy_common.c
++++ b/grub-core/lib/zstd/entropy_common.c
+@@ -72,9 +72,9 @@ size_t FSE_readNCount (short* normalizedCounter, unsigned* maxSVPtr, unsigned* t
+     unsigned charnum = 0;
+     int previous0 = 0;
+ 
+-    if (hbSize < 4) {
++    if (hbSize < 8) {
+         /* This function only works when hbSize >= 4 */
+-        char buffer[4];
++        char buffer[8];
+         memset(buffer, 0, sizeof(buffer));
+         memcpy(buffer, headerBuffer, hbSize);
+         {   size_t const countSize = FSE_readNCount(normalizedCounter, maxSVPtr, tableLogPtr,
+@@ -83,7 +83,7 @@ size_t FSE_readNCount (short* normalizedCounter, unsigned* maxSVPtr, unsigned* t
+             if (countSize > hbSize) return ERROR(corruption_detected);
+             return countSize;
+     }   }
+-    assert(hbSize >= 4);
++    assert(hbSize >= 8);
+ 
+     /* init */
+     memset(normalizedCounter, 0, (*maxSVPtr+1) * sizeof(normalizedCounter[0]));   /* all symbols not present in NCount have a frequency of 0 */

@@ -1,0 +1,51 @@
+diff --git a/mouse/gridbag.cpp b/mouse/gridbag.cpp
+index 3f6de1b..85d6de1 100644
+--- a/mouse/gridbag.cpp
++++ b/mouse/gridbag.cpp
+@@ -91,6 +91,7 @@ GridBagConstraints::GridBagConstraints()
+ }
+ 
+ GridBagConstraints::GridBagConstraints(const GridBagConstraints& c)
++  : RELATIVE(-1)
+ {
+     copy(c);
+ }
+@@ -180,6 +181,9 @@ GridBagLayout::GridBagLayout(Insets i)
+ 
+ 
+ GridBagLayout::GridBagLayout()
++  : MAXGRIDSIZE(128),
++    MINSIZE(1),
++    PREFERREDSIZE(2)
+ {
+ //    comptable = new QDict<GridBagConstraints>(100,false);
+ //    defaultConstraints = new GridBagConstraints();
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+index a028c9d..b127a19 100644
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1,24 +1,3 @@
+-add_subdirectory(br)
+-add_subdirectory(cs)
+-add_subdirectory(da)
+-add_subdirectory(de)
+-add_subdirectory(es)
+-add_subdirectory(et)
+-add_subdirectory(fi)
+-add_subdirectory(fr)
+-add_subdirectory(hr)
+-add_subdirectory(is)
+-add_subdirectory(ja)
+-add_subdirectory(no)
+-add_subdirectory(pl)
+-add_subdirectory(pt)
+-add_subdirectory(pt_BR)
+-add_subdirectory(ro)
+-add_subdirectory(sk)
+-add_subdirectory(sl)
+-add_subdirectory(sv)
+-add_subdirectory(zh_CN.GB2312)
+-
+ install(FILES
+     kmoon.pot
+     kworldwatch.pot

@@ -1,0 +1,16 @@
+harmless here
+
+https://github.com/chimera-linux/cports/issues/4115
+
+diff --git a/libavfilter/vsrc_testsrc.c b/libavfilter/vsrc_testsrc.c
+index bfc3491..925a8ec 100644
+--- a/libavfilter/vsrc_testsrc.c
++++ b/libavfilter/vsrc_testsrc.c
+@@ -2116,6 +2116,7 @@ static const AVOption zoneplate_options[] = {
+ AVFILTER_DEFINE_CLASS(zoneplate);
+ 
+ #define ZONEPLATE_SLICE(name, type)                                \
++__attribute__((no_sanitize("signed-integer-overflow")))            \
+ static int zoneplate_fill_slice_##name(AVFilterContext *ctx,       \
+                                        void *arg, int job,         \
+                                        int nb_jobs)                \

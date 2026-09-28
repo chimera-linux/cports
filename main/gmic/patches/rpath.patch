@@ -1,0 +1,24 @@
+diff -ruN a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
+--- a/gmic-qt/gmic_qt.pro	2026-07-20 13:51:23.000000000 +0200
++++ b/gmic-qt/gmic_qt.pro	2026-07-24 12:00:26.670762888 +0200
+@@ -452,7 +452,7 @@
+ 
+ equals(GMIC_DYNAMIC_LINKING, "on" )|equals(GMIC_DYNAMIC_LINKING, "ON" ) {
+   message(Dynamic linking with libgmic)
+-  LIBS += -Wl,-rpath,. $$GMIC_PATH/libgmic.so
++  LIBS += $$GMIC_PATH/libgmic.so
+ }
+ 
+ equals(GMIC_DYNAMIC_LINKING, "off" )|equals(GMIC_DYNAMIC_LINKING, "OFF" ) {
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2026-07-20 13:51:23.000000000 +0200
++++ b/src/Makefile	2026-07-24 12:01:15.542453160 +0200
+@@ -191,7 +191,7 @@
+ ifeq ($(BUILD_OS),Darwin)
+ MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
+ else ifneq ($(BUILD_OS),Windows)
+-MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB) -Wl,-rpath,.
++MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
+ else
+ MANDATORY_LIBS += -L. -L$(PREFIX)/$(LIB)
+ endif

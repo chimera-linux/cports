@@ -1,0 +1,14 @@
+diff --git a/rsop/build.rs b/rsop/build.rs
+index 5bff14e..7a22a54 100644
+--- a/rsop/build.rs
++++ b/rsop/build.rs
+@@ -21,7 +21,8 @@ fn main() {
+     #[cfg(any(feature = "cli", feature = "cliv"))]
+     {
+         #[allow(dead_code)]
+-        let outdir = std::env::var_os("CARGO_TARGET_DIR")
++        let outdir = std::env::var_os("CLAP_ARTIFACTS")
++            .or(std::env::var_os("CARGO_TARGET_DIR"))
+             .or(std::env::var_os("OUT_DIR"))
+             .expect("cargo to set OUT_DIR");
+

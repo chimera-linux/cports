@@ -1,0 +1,26 @@
+From f9946edd87fcf27eedcadaa72d525d0dcb8a42e5 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 2 Apr 2025 02:02:11 +0200
+Subject: [PATCH] Apply ARMv7 workaround to all ARMv7 targets
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ arch/arm/neon_intrins.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/neon_intrins.h b/arch/arm/neon_intrins.h
+index 937c670f..4e13506c 100644
+--- a/arch/arm/neon_intrins.h
++++ b/arch/arm/neon_intrins.h
+@@ -29,7 +29,7 @@
+ #   define IS_IOS
+ #endif
+ 
+-#  if defined(__arm__) && (defined(__ANDROID__) || defined(IS_IOS))
++#  if defined(__arm__)
+ /* Android & iOS have too strict alignment requirement (:256) for x4 NEON intrinsics */
+ #    undef ARM_NEON_HASLD4
+ #    undef vld1q_u16_x4
+-- 
+2.49.0
+

@@ -1,0 +1,18 @@
+diff --color=auto -urN a/Makefile b/Makefile
+--- a/Makefile	2025-09-03 08:47:25.000000000 +0100
++++ b/Makefile	2026-06-24 15:41:30.790598720 +0100
+@@ -11,14 +11,11 @@
+ 
+ cc-option = $(shell set -e ; $(CC) $(1) -c -x c /dev/null -o /dev/null >/dev/null 2>&1 && echo '$(1)')
+ 
+-CFLAGS_EVAL := $(call cc-option,-Wstringop-overflow=4)
+-
+ CFLAGS ?= -O2 -g
+ CFLAGS += -Wall -Wextra -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common
+ CFLAGS += -Werror-implicit-function-declaration -Wsign-compare -Wno-unused-parameter
+ CFLAGS += -Wdeclaration-after-statement
+ CFLAGS += -D__SANE_USERSPACE_TYPES__
+-CFLAGS += $(CFLAGS_EVAL)
+ CFLAGS += $(EXTRA_CFLAGS)
+ 
+ _OBJS := $(sort $(patsubst %.c,%.o,$(wildcard *.c)))

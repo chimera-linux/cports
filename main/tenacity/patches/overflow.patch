@@ -1,0 +1,33 @@
+commit 44a273a1ab6603aeb3627a2d802c485a2f862596
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Dec 5 16:05:14 2023 +0100
+
+    make PixelDiff not prone to overflows
+    
+    If using signed values, the expression `a - b` is prone to
+    overflowing whenever the result is out of bounds of the signed
+    integer, which may happen e.g. when the second operand becomes
+    INT64_MIN (which may realistically happen) and the first operand
+    is >= 0 (INT64_MAX is actually one lower than the absolute value
+    of INT64_MIN, so an expression like `0 - INT64_MIN` is equivalent
+    to `INT64_MAX + 1`).
+    
+    Use unsigned arithmetic, and then cast the result to signed. This
+    correctly does wraparound without any undefined behavior.
+
+diff --git a/src/Snap.cpp b/src/Snap.cpp
+index 0ec6b90..6c84839 100644
+--- a/src/Snap.cpp
++++ b/src/Snap.cpp
+@@ -129,8 +129,9 @@ double SnapManager::Get(size_t index)
+ // Returns the difference in time between t and the point at a given index
+ wxInt64 SnapManager::PixelDiff(double t, size_t index)
+ {
+-   return std::abs(mZoomInfo->TimeToPosition(t, 0) -
+-                   mZoomInfo->TimeToPosition(Get(index), 0));
++   auto a = static_cast<wxUint64>(mZoomInfo->TimeToPosition(t, 0));
++   auto b = static_cast<wxUint64>(mZoomInfo->TimeToPosition(Get(index), 0));
++   return std::abs(static_cast<wxInt64>(a - b));
+ }
+ 
+ // Find the index where this SnapPoint should go in

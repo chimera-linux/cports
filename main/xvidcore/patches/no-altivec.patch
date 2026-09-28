@@ -1,0 +1,13 @@
+this does not compile and would only be used on ppc32
+
+--- a/build/generic/configure.in
++++ b/build/generic/configure.in
+@@ -196,7 +196,7 @@ if test x"$assembly" = x"yes" ; then
+ 		;;	
+ 		powerpc)
+ 		AC_MSG_RESULT(PowerPC)
+-		ARCHITECTURE="PPC"
++		ARCHITECTURE="GENERIC"
+ 		;;
+ 		ia64)
+ 		AC_MSG_RESULT(ia64)

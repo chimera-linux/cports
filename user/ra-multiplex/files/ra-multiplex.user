@@ -1,0 +1,7 @@
+# ra-multiplex user service
+
+type = process
+command = /usr/bin/ra-multiplex server
+log-type = buffer
+depends-on = dbus
+before = login.target

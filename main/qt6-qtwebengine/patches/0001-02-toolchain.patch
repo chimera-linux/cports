@@ -1,0 +1,40 @@
+Patch status: here forever(?)
+
+Respect user flags, and provide readelf path.
+
+Upstream has seemingly intentionally left out extra_* variables so
+flags are not respected. It may arguably be easier to overwrite this
+file with chromium's toolchain/linux/unbundle/BUILD.gn which then uses
+e.g. CC+CFLAGS and BUILD_CC+BUILD_CFLAGS env vars and bypass cmake.
+
+Albeit qtwebengine's does set a few extras in there and so
+still using for now.
+
+File is processed twice for host(CBUILD) and target(CHOST), so it
+is better to use CMAKE_* variables where possible (still subpar).
+Odds are cross is still completely broken for many reasons though.
+
+https://bugs.gentoo.org/652172
+--- a/src/host/BUILD.toolchain.gn.in
++++ b/src/host/BUILD.toolchain.gn.in
+@@ -1,13 +1,16 @@
+ import("//build/config/sysroot.gni")
+ import("//build/toolchain/gcc_toolchain.gni")
+ gcc_toolchain("@GN_TOOLCHAIN@") {
+-  cc = "@GN_C_COMPILER@"
+-  cxx = "@GN_CXX_COMPILER@"
++  cc = "@CMAKE_C_COMPILER@"
++  cxx = "@CMAKE_CXX_COMPILER@"
+   ld = "@CMAKE_CXX_COMPILER@"
+   ar = "@CMAKE_AR@"
+   nm = "@CMAKE_NM@"
+-  extra_cppflags = "@GN_EXTRA_CXX_FLAGS@"
+-  extra_cflags = "@GN_EXTRA_C_FLAGS@"
++  readelf = "@CMAKE_READELF@"
++  extra_cflags = "@CMAKE_C_FLAGS@"
++  extra_cppflags = getenv("CPPFLAGS")
++  extra_cxxflags = "@CMAKE_CXX_FLAGS@"
++  extra_ldflags = "@CMAKE_EXE_LINKER_FLAGS@"
+   toolchain_args = {
+     current_os = "@GN_OS@"
+     current_cpu = "@GN_CPU@"

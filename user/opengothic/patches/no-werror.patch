@@ -1,0 +1,24 @@
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2024-12-23 16:29:29.000000000 +0100
++++ b/CMakeLists.txt	2026-08-16 11:13:23.074385354 +0200
+@@ -23,7 +23,7 @@
+ endif()
+ 
+ if(NOT MSVC)
+-  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wconversion -Wno-strict-aliasing -Werror)
++  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wconversion -Wno-strict-aliasing)
+ 
+   if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "7.1" AND NOT APPLE AND NOT ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
+     target_compile_options(${PROJECT_NAME} PRIVATE -Wno-format-truncation)
+diff -ruN a/lib/ZenKit/support/BuildSupport.cmake b/lib/ZenKit/support/BuildSupport.cmake
+--- a/lib/ZenKit/support/BuildSupport.cmake	2024-12-10 11:51:36.000000000 +0100
++++ b/lib/ZenKit/support/BuildSupport.cmake	2026-08-16 11:13:34.816342798 +0200
+@@ -54,7 +54,7 @@
+ ##   COMPILE(list): A list containing the compiler flags
+ ##   LINK(list): A list containing the linker flags
+ function(bs_internal_select_cflags_gcc SANITIZERS COMPILE LINK)
+-    list(APPEND _INTERNAL_FLAGS "-Wall" "-Wextra" "-Werror" "-Wshadow" "-Wpedantic" "-fPIC" "-Wno-deprecated-declarations")
++    list(APPEND _INTERNAL_FLAGS "-Wall" "-Wextra" "-Wshadow" "-Wpedantic" "-fPIC" "-Wno-deprecated-declarations")
+ 
+     if (CMAKE_BUILD_TYPE MATCHES "^Debug" AND ${SANITIZERS} AND NOT WIN32)
+         list(APPEND _INTERNAL_FLAGS "-fsanitize=address" "-fsanitize=undefined" "-fsanitize=leak")

@@ -1,0 +1,21 @@
+From 8214e2dae461c67801cbf8a6a27038c0d7bc7061 Mon Sep 17 00:00:00 2001
+From: Philippe Normand <philn@igalia.com>
+Date: Fri, 25 Apr 2025 17:28:59 +0100
+Subject: [PATCH] Install spiel-registry.h
+
+---
+ libspiel/meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libspiel/meson.build b/libspiel/meson.build
+index 9cccfe7..03b0781 100644
+--- a/libspiel/meson.build
++++ b/libspiel/meson.build
+@@ -46,6 +46,7 @@ spiel_public_headers = [
+   'spiel-voice.h',
+   'spiel-speaker.h',
+   'spiel-provider.h',
++  'spiel-registry.h',
+   'spiel-voices-list-model.h',
+ ]
+ 

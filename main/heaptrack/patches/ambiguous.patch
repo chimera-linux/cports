@@ -1,0 +1,19 @@
+/builddir/heaptrack-1.5.0/src/analyze/gui/gui.cpp:26:6: error: 'maybe_unused' attribute cannot be applied to types
+   26 | void Q_DECL_UNUSED initRCCIconTheme()
+      |      ^
+/usr/include/qt6/QtCore/qcompilerdetection.h:984:27: note: expanded from macro 'Q_DECL_UNUSED'
+  984 | #  define Q_DECL_UNUSED [[maybe_unused]]
+      |                           ^
+1 error generated.
+--
+--- a/src/analyze/gui/gui.cpp
++++ b/src/analyze/gui/gui.cpp
+@@ -23,7 +23,7 @@
+ #include <QResource>
+ 
+ // FIXME: patch KIconTheme so that this isn't needed here
+-void Q_DECL_UNUSED initRCCIconTheme()
++void initRCCIconTheme()
+ {
+     const QString iconThemeRcc = qApp->applicationDirPath() + QStringLiteral("/../share/icons/breeze/breeze-icons.rcc");
+     if (!QFile::exists(iconThemeRcc)) {

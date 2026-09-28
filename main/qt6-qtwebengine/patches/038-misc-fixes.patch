@@ -1,0 +1,48 @@
+sys hwids, no git in vpx regen, fix shim headers
+--
+diff --git a/services/device/public/cpp/usb/BUILD.gn b/services/device/public/cpp/usb/BUILD.gn
+index 04d08955d7..ddf90a76ec 100644
+--- a/src/3rdparty/chromium/services/device/public/cpp/usb/BUILD.gn
++++ b/src/3rdparty/chromium/services/device/public/cpp/usb/BUILD.gn
+@@ -2,7 +2,7 @@
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+ 
+-source_ids = "//third_party/usb_ids/usb.ids"
++source_ids = "/usr/share/hwdata/usb.ids"
+ generated_ids = "$target_gen_dir/usb_ids_gen.cc"
+ 
+ action("usb_device_ids") {
+diff --git a/third_party/libvpx/generate_gni.sh b/third_party/libvpx/generate_gni.sh
+index a605ebb3ab..680a374dc2 100755
+--- a/src/3rdparty/chromium/third_party/libvpx/generate_gni.sh
++++ b/src/3rdparty/chromium/third_party/libvpx/generate_gni.sh
+@@ -384,7 +384,6 @@ EOF
+ }
+ 
+ # Fetch the latest tags; used in creating vpx_version.h.
+-git -C "${LIBVPX_SRC_DIR}" fetch --tags
+ 
+ find_duplicates
+ 
+@@ -618,7 +617,6 @@ cd $BASE_DIR
+ rm -rf $TEMP_DIR
+ 
+ cd $BASE_DIR/$LIBVPX_SRC_DIR
+-update_readme
+ 
+ cd $BASE_DIR
+ git cl format > /dev/null \
+diff --git a/tools/generate_shim_headers/generate_shim_headers.py b/tools/generate_shim_headers/generate_shim_headers.py
+index 8df3f14601..1b7a4b469a 100755
+--- a/src/3rdparty/chromium/tools/generate_shim_headers/generate_shim_headers.py
++++ b/src/3rdparty/chromium/tools/generate_shim_headers/generate_shim_headers.py
+@@ -18,7 +18,7 @@ import sys
+ 
+ 
+ SHIM_TEMPLATE = """
+-#if defined(GOOGLE_CHROME_BUILD) && defined(OFFICIAL_BUILD)
++#if defined(GOOGLE_CHROME_BUILD)
+ #error shim headers must not be used in official Chrome builds!
+ #endif
+ """

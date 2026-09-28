@@ -1,0 +1,19 @@
+commit 4bc20745a6a47cba1f68c7e9487c687e106fdbf7
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jul 17 04:27:47 2021 +0200
+
+    use llvm-objdump
+
+diff --git a/cnf/configure_tool.sh b/cnf/configure_tool.sh
+index 7b0baa4..0f10f7f 100644
+--- a/cnf/configure_tool.sh
++++ b/cnf/configure_tool.sh
+@@ -89,7 +89,7 @@ whichprog ar AR ar || die "Cannot find ar"
+ whichprog nm NM nm
+ whichprog ranlib RANLIB ranlib
+ whichprog readelf READELF readelf || die "Cannot find readelf"
+-whichprog objdump OBJDUMP objdump || die "Cannot find objdump"
++whichprog objdump OBJDUMP llvm-objdump || die "Cannot find objdump"
+ 
+ # XXX: this looks wrong, but the usemmldlt code depends on $ld being able
+ # to compile try.c. What kind of moron could have written that. Oh wait.

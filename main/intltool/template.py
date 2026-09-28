@@ -1,0 +1,12 @@
+pkgname = "intltool"
+pkgver = "0.51.0"
+pkgrel = 2
+build_style = "gnu_configure"
+hostmakedepends = ["automake", "libtool", "perl-xml-parser"]
+makedepends = ["perl-xml-parser", "gettext"]
+depends = ["file", *makedepends]
+pkgdesc = "Internationalization tools"
+license = "GPL-2.0-or-later"
+url = "https://edge.launchpad.net/intltool"
+source = f"http://launchpad.net/intltool/trunk/{pkgver}/+download/intltool-{pkgver}.tar.gz"
+sha256 = "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"

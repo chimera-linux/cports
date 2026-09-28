@@ -1,0 +1,5 @@
+if [ -r /etc/zsh/zprofile ]; then
+    source /etc/zsh/zprofile
+else
+    emulate sh -c 'source /etc/profile'
+fi

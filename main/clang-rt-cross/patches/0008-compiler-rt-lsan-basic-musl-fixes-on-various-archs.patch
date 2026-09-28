@@ -1,0 +1,51 @@
+From bb21cbd1c0da6b56642494ff12ddc026caaea370 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 14 Apr 2024 14:41:14 +0200
+Subject: [PATCH 08/28] compiler-rt: lsan: basic musl fixes on various archs
+
+---
+ .../lib/sanitizer_common/sanitizer_linux_libcdep.cpp  | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
+index 530ff90c4..6fbbd7ef5 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
+@@ -28,6 +28,14 @@
+ #  include "sanitizer_procmaps.h"
+ #  include "sanitizer_solaris.h"
+ 
++#if defined(__powerpc__)
++#define DTP_OFFSET 0x8000
++#elif SANITIZER_RISCV64
++#define DTP_OFFSET 0x800
++#else
++#define DTP_OFFSET 0
++#endif
++
+ #  if SANITIZER_HAIKU
+ #    define _GNU_SOURCE
+ #    define _DEFAULT_SOURCE
+@@ -470,6 +478,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
+     begin = (uptr)__tls_get_addr(mod_and_off);
+ #    endif
+   }
++  begin -= DTP_OFFSET;
+   for (unsigned i = 0; i != info->dlpi_phnum; ++i)
+     if (info->dlpi_phdr[i].p_type == PT_TLS) {
+       static_cast<InternalMmapVector<TlsBlock> *>(data)->push_back(
+@@ -627,9 +636,11 @@ static void GetTls(uptr *addr, uptr *size) {
+ #        elif SANITIZER_FREEBSD
+   *size += 128;  // RTLD_STATIC_TLS_EXTRA
+ #          if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64
++#          if SANITIZER_GLIBC
+   const uptr pre_tcb_size = TlsPreTcbSize();
+   *addr -= pre_tcb_size;
+   *size += pre_tcb_size;
++#          endif
+ #          else
+   // arm and aarch64 reserve two words at TP, so this underestimates the range.
+   // However, this is sufficient for the purpose of finding the pointers to
+-- 
+2.52.0
+

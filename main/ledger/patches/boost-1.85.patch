@@ -1,0 +1,24 @@
+Patch-Source: https://github.com/ledger/ledger/pull/2337/files
+--
+From 1da89f6ffb44a44257b9774c4ceb71e7b495d677 Mon Sep 17 00:00:00 2001
+From: Michael Cho <michael@michaelcho.dev>
+Date: Thu, 25 Apr 2024 11:29:49 -0400
+Subject: [PATCH] Fix build with Boost 1.85.0
+
+Signed-off-by: Michael Cho <michael@michaelcho.dev>
+---
+ src/system.hh.in | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/system.hh.in b/src/system.hh.in
+index 05f28fc24..070f1cd4a 100644
+--- a/src/system.hh.in
++++ b/src/system.hh.in
+@@ -140,7 +140,6 @@
+ #include <boost/date_time/posix_time/posix_time_io.hpp>
+ #include <boost/date_time/gregorian/gregorian_io.hpp>
+ 
+-#include <boost/filesystem/convenience.hpp>
+ #include <boost/filesystem/exception.hpp>
+ #include <boost/filesystem/fstream.hpp>
+ #include <boost/filesystem/operations.hpp>

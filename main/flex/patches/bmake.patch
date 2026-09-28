@@ -1,0 +1,16 @@
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -1695,11 +1695,11 @@ skel.c: flex.skl mkskel.sh flexint.h tables_shared.h tables_shared.c
+ @ENABLE_BOOTSTRAP_TRUE@stage1scan.c: scan.l stage1flex$(EXEEXT)
+ @ENABLE_BOOTSTRAP_TRUE@	./stage1flex$(EXEEXT) $(AM_LFLAGS) $(LFLAGS) -o $@ $(srcdir)/scan.l
+ @ENABLE_BOOTSTRAP_FALSE@stage1scan.c: scan.c
+-@ENABLE_BOOTSTRAP_FALSE@	sed 's|^\(#line .*\)"'`printf %s $< | sed 's|[][\\\\.*]|\\\\&|g'`'"|\1"$@"|g' $< > $@
++@ENABLE_BOOTSTRAP_FALSE@	sed 's|^\(#line .*\)"'`printf %s $(srcdir)/scan.c | sed 's|[][\\\\.*]|\\\\&|g'`'"|\1"stage1scan.c"|g' $(srcdir)/scan.c > stage1scan.c
+ 
+ dist-hook: scan.l flex$(EXEEXT)
+ 	chmod u+w $(distdir)/scan.c && \
+-	./flex$(EXEEXT) -o scan.c $< && \
++	./flex$(EXEEXT) -o $(srcdir)/scan.c scan.l && \
+ 	mv scan.c $(distdir)
+ 
+ # make needs to be told to make parse.h so that parallelized runs will

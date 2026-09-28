@@ -1,0 +1,33 @@
+From dff714d02547a8dd44e6066f2db44a342b170ff3 Mon Sep 17 00:00:00 2001
+From: bk1773ns <bk1773ns@tuta.io>
+Date: Tue, 7 Oct 2025 14:26:41 +0100
+Subject: [PATCH] x86_64: Fix stack alignment in breakpad_getcontext.S
+
+breakpad_getcontext.S calls sigprocmask without aligning %rsp to a
+16-byte boundary, as required by the x86_64 calling convention.
+This may crash sandboxed processes, such as during early startup
+in devtools profiling scenarios.
+
+Align %rsp before the call and restore it afterward to prevent
+such crashes.
+---
+ .../google-breakpad/src/common/linux/breakpad_getcontext.S      | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/toolkit/crashreporter/google-breakpad/src/common/linux/breakpad_getcontext.S b/toolkit/crashreporter/google-breakpad/src/common/linux/breakpad_getcontext.S
+index fea0109d1502..61923c6b49a7 100644
+--- a/toolkit/crashreporter/google-breakpad/src/common/linux/breakpad_getcontext.S
++++ b/toolkit/crashreporter/google-breakpad/src/common/linux/breakpad_getcontext.S
+@@ -473,7 +473,9 @@ breakpad_getcontext:
+   leaq UCONTEXT_SIGMASK_OFFSET(%rdi), %rdx  // arg3
+   xorq %rsi, %rsi  // arg2 NULL
+   xorq %rdi, %rdi  // arg1 SIGBLOCK == 0
++  subq $8, %rsp
+   call sigprocmask@PLT
++  addq $8, %rsp
+ 
+   /* Always return 0 for success, even if sigprocmask failed. */
+   xorl %eax, %eax
+-- 
+2.51.0
+

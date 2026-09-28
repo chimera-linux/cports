@@ -1,0 +1,14 @@
+this tries to load libsystemd for systemd scope support in 0.35, but it always
+fails and prints a 'failed to find libsystemd' warning
+just silence it since it can never succeed for us
+--
+--- a/kitty/systemd.c
++++ b/kitty/systemd.c
+@@ -181,7 +181,6 @@
+ 
+ static bool
+ ensure_initialized_and_useable(void) {
+-    ensure_initialized();
+     if (!systemd.ok) {
+         if (!systemd.lib) PyErr_SetString(PyExc_NotImplementedError, "Could not load libsystemd");
+         else if (!systemd.functions_loaded) PyErr_SetString(PyExc_NotImplementedError, "Could not load libsystemd functions");

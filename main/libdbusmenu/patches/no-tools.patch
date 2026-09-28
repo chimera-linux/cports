@@ -1,0 +1,16 @@
+these are
+
+libexecdir/dbusmenu-bench
+libexecdir/dbusmenu-testapp
+and do nothing
+--
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -16,7 +16,6 @@
+ SUBDIRS = \
+ 	libdbusmenu-glib \
+ 	$(LIBDBUSMENUGTK_SUBDIR) \
+-	tools \
+ 	$(TESTS_SUBDIR) \
+ 	docs \
+ 	po

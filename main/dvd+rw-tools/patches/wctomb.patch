@@ -1,0 +1,21 @@
+diff --git a/transport.hxx b/transport.hxx
+index 9883cbc..3385aec 100644
+--- a/transport.hxx
++++ b/transport.hxx
+@@ -17,6 +17,7 @@
+ #include <fcntl.h>
+ #include <poll.h>
+ #include <sys/time.h>
++#include <limits.h>
+ 
+ inline long getmsecs()
+ { struct timeval tv;
+@@ -124,7 +125,7 @@ class autofree {
+ extern "C" char *plusminus_locale()
+ { static class __plusminus {
+     private:
+-	char str[4];
++	char str[MB_LEN_MAX];
+     public:
+ 	__plusminus()	{   setlocale(LC_CTYPE,ENV_LOCALE);
+ 			    int l = wctomb(str,(wchar_t)'\x1b');

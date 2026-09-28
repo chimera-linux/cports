@@ -1,0 +1,20 @@
+--- a/libweston/backend-drm/libbacklight.c
++++ b/libweston/backend-drm/libbacklight.c
+@@ -37,6 +37,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <linux/types.h>
++#include <libgen.h>
+ #include <dirent.h>
+ #include <drm.h>
+ #include <fcntl.h>
+--- a/tools/zunitc/src/zunitc_impl.c
++++ b/tools/zunitc/src/zunitc_impl.c
+@@ -36,6 +36,7 @@
+ #include <sys/wait.h>
+ #include <time.h>
+ #include <unistd.h>
++#include <libgen.h>
+ 
+ #include "zunitc/zunitc_impl.h"
+ #include "zunitc/zunitc.h"

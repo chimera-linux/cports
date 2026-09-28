@@ -1,0 +1,11 @@
+--- a/tests/check_rsi_block_access.c
++++ b/tests/check_rsi_block_access.c
+@@ -70,7 +70,7 @@
+     }
+ 
+     size_t nvalues = ctx->obuf_len / nbytes;
+-    size_t mask = (1 << (ctx->bits_per_sample - 1))-1;
++    size_t mask = ((unsigned)1 << (ctx->bits_per_sample - 1))-1;
+ 
+     for (size_t i = 0; i < nvalues; i++) {
+         size_t value = rand() & mask;

@@ -1,0 +1,25 @@
+Introspection is unaware of uid_t and fails
+since g-i 1.82, use the underlying type instead.
+
+--- a/src/libaccountsservice/act-user-manager.h
++++ b/src/libaccountsservice/act-user-manager.h
+@@ -78,7 +78,7 @@ GSList *            act_user_manager_list_users (ActUserManager *manager);
+ ActUser *           act_user_manager_get_user (ActUserManager *manager,
+                                                const char     *username);
+ ActUser *           act_user_manager_get_user_by_id (ActUserManager *manager,
+-                                                     uid_t           id);
++                                                     unsigned int    id);
+ 
+ gboolean            act_user_manager_activate_user_session (ActUserManager *manager,
+                                                             ActUser        *user);
+--- a/src/libaccountsservice/act-user.h
++++ b/src/libaccountsservice/act-user.h
+@@ -46,7 +46,7 @@ typedef enum
+ 
+ const char *act_user_get_object_path (ActUser *user);
+ 
+-uid_t          act_user_get_uid (ActUser *user);
++unsigned int act_user_get_uid (ActUser *user);
+ const char *act_user_get_user_name (ActUser *user);
+ const char *act_user_get_real_name (ActUser *user);
+ ActUserAccountType act_user_get_account_type (ActUser *user);

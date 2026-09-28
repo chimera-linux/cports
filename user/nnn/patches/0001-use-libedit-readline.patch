@@ -1,0 +1,25 @@
+From c88e36636a8f53364f88bbf5508e4e7ab3e306cc Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Sat, 13 Jan 2024 19:18:21 +0100
+Subject: [PATCH] use libedit-readline
+
+---
+ src/nnn.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/nnn.c b/src/nnn.c
+index 77829dc6..6d2e23c8 100644
+--- a/src/nnn.c
++++ b/src/nnn.c
+@@ -8955,7 +8955,7 @@ int main(int argc, char *argv[])
+ 	/* Bind TAB to cycling */
+ 	rl_variable_bind("completion-ignore-case", "on");
+ #ifdef __linux__
+-	rl_bind_key('\t', rl_menu_complete);
++	rl_bind_key('\t', rl_complete);
+ #else
+ 	rl_bind_key('\t', rl_complete);
+ #endif
+-- 
+2.43.0
+

@@ -1,0 +1,11 @@
+--- a/src/collectd.conf.in	09:33:14.960686846 +0000
++++ a/src/collectd.conf.in	2024-07-24 09:33:21.835667786 +0000
+@@ -11,7 +11,7 @@
+ ##############################################################################
+
+ #Hostname    "localhost"
+-#FQDNLookup   true
++FQDNLookup   false
+ #BaseDir     "@localstatedir@/lib/@PACKAGE_NAME@"
+ #PIDFile     "@localstatedir@/run/@PACKAGE_NAME@.pid"
+ #PluginDir   "@libdir@/@PACKAGE_NAME@"

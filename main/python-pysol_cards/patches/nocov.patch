@@ -1,0 +1,10 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -8,7 +8,6 @@
+ 
+ [tool:pytest]
+ norecursedirs = .git
+-addopts = --cov=pysol_cards --cov-report term-missing
+ 
+ [coverage:run]
+ branch = True

@@ -1,0 +1,13 @@
+--- a/deps/v8/third_party/simdutf/simdutf.h
++++ b/deps/v8/third_party/simdutf/simdutf.h
+@@ -963,8 +963,8 @@
+ #if defined(__loongarch__) && defined(__linux__)
+   #include <sys/auxv.h>
+ // bits/hwcap.h
+-// #define HWCAP_LOONGARCH_LSX             (1 << 4)
+-// #define HWCAP_LOONGARCH_LASX            (1 << 5)
++#define HWCAP_LOONGARCH_LSX             (1 << 4)
++#define HWCAP_LOONGARCH_LASX            (1 << 5)
+ #endif
+ 
+ namespace simdutf {

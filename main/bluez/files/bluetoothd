@@ -1,0 +1,8 @@
+# TODO: log output to syslog redirection
+type = process
+command = /usr/lib/bluetooth/bluetoothd -n
+smooth-recovery = true
+logfile = /var/log/bluetoothd.log
+before: login.target
+depends-on: local.target
+depends-on: dbus

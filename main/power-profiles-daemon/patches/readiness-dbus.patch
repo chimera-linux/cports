@@ -1,0 +1,57 @@
+commit ba8d4dc04fcb2bad5785451fa11b2afa8383dc8c
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Nov 21 15:41:02 2023 +0100
+
+    readiness notification and dbus activation support
+
+diff --git a/data/power-profiles-daemon.dbus.service.in b/data/power-profiles-daemon.dbus.service.in
+index 5baefa1..dfc7258 100644
+--- a/data/power-profiles-daemon.dbus.service.in
++++ b/data/power-profiles-daemon.dbus.service.in
+@@ -6,6 +6,6 @@
+ 
+ [D-BUS Service]
+ Name=@dbus_name@
+-Exec=/bin/false
++Exec=/usr/bin/dinitctl --quiet start power-profiles-daemon
+ User=root
+ SystemdService=power-profiles-daemon.service
+diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
+index 73ca470..4d64b52 100644
+--- a/src/power-profiles-daemon.c
++++ b/src/power-profiles-daemon.c
+@@ -12,6 +12,7 @@
+ 
+ #include "config.h"
+ 
++#include <fcntl.h>
+ #include <glib-unix.h>
+ #include <locale.h>
+ #include <polkit/polkit.h>
+@@ -1734,6 +1735,7 @@ int main (int argc, char **argv)
+   g_autoptr(PpdApp) data = NULL;
+   g_autoptr(GOptionContext) option_context = NULL;
+   g_autoptr(GError) error = NULL;
++  const char *rvar;
+ 
+   debug_options->log_level = G_LOG_LEVEL_MESSAGE;
+   debug_options->group = g_option_group_new ("debug",
+@@ -1779,6 +1781,15 @@ int main (int argc, char **argv)
+     return EXIT_FAILURE;
+   }
+ 
++  rvar = g_getenv("PPD_READY_FD");
++  if (rvar) {
++      int fdn = atoi(rvar);
++      if (fdn && fcntl(fdn, F_GETFD) >= 0) {
++          write(fdn, "READY=1\n", sizeof("READY=1"));
++      }
++      close(fdn);
++  }
++
+   g_main_loop_run (data->main_loop);
+ 
+   return data->ret;
+-- 
+2.44.0
+

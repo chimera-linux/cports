@@ -1,0 +1,25 @@
+commit 2b90ce886b23bf977716e065246b6fcb610687c1
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Dec 9 16:30:17 2021 +0100
+
+    ensure that off64_t and fpos64_t are never used
+    
+    On musl these are just macros behing _GNU_SOURCE, which may cause
+    some problems when building external stuff with no _GNU_SOURCE
+    defined.
+
+diff --git a/cnf/configure_type.sh b/cnf/configure_type.sh
+index 1acd3b1..a1514b4 100644
+--- a/cnf/configure_type.sh
++++ b/cnf/configure_type.sh
+@@ -103,8 +103,8 @@ test "$d_longdbl" = 'define'  && checksize longdblsize 'long double'
+ test "$d_longlong" = 'define' && checksize longlongsize 'long long'
+ 
+ checktype d_fd_set 'fd_set' 'sys/types.h'
+-checktype d_fpos64_t 'fpos64_t' 'stdio.h'
+-checktype d_off64_t 'off64_t' 'sys/types.h'
++define d_fpos64_t 'undef'
++define d_off64_t 'undef'
+ checktype d_ptrdiff_t 'ptrdiff_t' 'stddef.h'
+ checktype d_cmsghdr_s 'struct cmsghdr' 'netinet/in.h'
+ checktype d_fs_data_s 'struct fs_data' 'sys/vfs.h'

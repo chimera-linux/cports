@@ -1,0 +1,21 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+-override CFLAGS := -MD -Wall -Werror -D_GNU_SOURCE -g $(CFLAGS)
+-OBJS=reptyr.o reallocarray.o attach.o
++override CFLAGS := -MD -Wall -D_GNU_SOURCE -g $(CFLAGS)
++OBJS=reptyr.o attach.o
+ DEPS=$(wildcard *.d platform/*/*.d)
+ UNAME_S := $(shell uname -s)
+ ifeq ($(UNAME_S),Linux)
+--- a/attach.c
++++ b/attach.c
+@@ -50,7 +50,7 @@ int fd_array_push(struct fd_array *fda, int fd) {
+ 
+     if (fda->n == fda->allocated) {
+         fda->allocated = fda->allocated ? 2 * fda->allocated : 2;
+-        tmp = xreallocarray(fda->fds, fda->allocated, sizeof *tmp);
++        tmp = reallocarray(fda->fds, fda->allocated, sizeof *tmp);
+         if (tmp == NULL) {
+             free(fda->fds);
+             fda->fds = NULL;

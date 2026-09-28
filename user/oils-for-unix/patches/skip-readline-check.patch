@@ -1,0 +1,14 @@
+obviously fails for a cross build otherwise
+
+diff -ruN a/configure b/configure
+--- a/configure	2025-04-25 18:35:02.000000000 +0200
++++ b/configure	2025-06-13 13:44:10.322674551 +0200
+@@ -269,7 +269,7 @@
+ 
+   # User requested specific location
+   if test -n "$FLAG_readline"; then
+-    if cc_quiet build/detect-readline.c \
++    if true build/detect-readline.c \
+       -L "$FLAG_readline/lib" \
+       -I "$FLAG_readline/include" \
+       -l readline; then

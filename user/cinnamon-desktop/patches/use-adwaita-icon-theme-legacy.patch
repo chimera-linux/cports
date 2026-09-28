@@ -1,0 +1,12 @@
+diff -ru a/schemas/org.cinnamon.desktop.interface.gschema.xml.in b/schemas/org.cinnamon.desktop.interface.gschema.xml.in
+--- a/schemas/org.cinnamon.desktop.interface.gschema.xml.in	2024-06-11 23:14:16.000000000 +0800
++++ b/schemas/org.cinnamon.desktop.interface.gschema.xml.in	2024-09-28 10:19:19.079387356 +0800
+@@ -102,7 +102,7 @@
+       </description>
+     </key>
+     <key name="icon-theme" type="s">
+-      <default>'gnome'</default>
++      <default>'AdwaitaLegacy'</default>
+       <summary>Icon Theme</summary>
+       <description>
+         Icon theme to use for the panel, nautilus etc.

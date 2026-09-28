@@ -1,0 +1,13 @@
+our .pc name
+--
+--- a/meson.build
++++ b/meson.build
+@@ -143,7 +143,7 @@
+ endif
+ 
+ pygobject_dep = dependency('pygobject-3.0', version: pygobject_req, required: false)
+-lua51_dep = dependency('lua51', version: lua_req, required: false)
++lua51_dep = dependency('lua5.1', version: lua_req, required: false)
+ if not lua51_dep.found()
+   lua51_dep = dependency('lua-5.1', version: lua_req, required: false)
+ endif

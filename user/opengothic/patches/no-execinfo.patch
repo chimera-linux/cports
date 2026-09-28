@@ -1,0 +1,19 @@
+--- a/game/utils/crashlog.cpp
++++ b/game/utils/crashlog.cpp
+@@ -11,7 +11,6 @@
+ #include <cstring>
+ 
+ #if defined(__LINUX__) || defined(__APPLE__)
+-#include <execinfo.h> // backtrace
+ #include <dlfcn.h>    // dladdr
+ #include <cxxabi.h>   // __cxa_demangle
+ #endif
+@@ -141,7 +140,7 @@ void CrashLog::dumpStack(const char *sig, const char *extGpuLog) {
+   }
+ 
+ void CrashLog::tracebackLinux(std::ostream &out) {
+-#if defined(__LINUX__) || defined(__APPLE__)
++#if defined(__GLIBC__) || defined(__APPLE__)
+   // inspired by https://gist.github.com/fmela/591333/36faca4c2f68f7483cd0d3a357e8a8dd5f807edf (BSD)
+   void *callstack[64] = {};
+   char **symbols = nullptr;

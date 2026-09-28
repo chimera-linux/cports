@@ -1,0 +1,21 @@
+commit 0817082c764ea6c64d18ca36897ca28cc08ea60e
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri May 19 22:10:25 2023 +0200
+
+    use dinit in dbus activation
+    
+    Since we have readiness support for polkitd acquiring the bus,
+    this should behave correctly, and never result in a spurious
+    polkitd.
+
+diff --git a/data/org.freedesktop.PolicyKit1.service.in b/data/org.freedesktop.PolicyKit1.service.in
+index 10bbab0..4581c85 100644
+--- a/data/org.freedesktop.PolicyKit1.service.in
++++ b/data/org.freedesktop.PolicyKit1.service.in
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=org.freedesktop.PolicyKit1
+-Exec=@libprivdir@/polkitd --no-debug
++Exec=/usr/bin/dinitctl --quiet start polkitd
+ User=root
+ SystemdService=polkit.service

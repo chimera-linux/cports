@@ -1,0 +1,3 @@
+type = process
+command = /usr/bin/mpd --no-daemon
+depends-on: login.target

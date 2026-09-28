@@ -1,0 +1,19 @@
+diff --git a/librz/include/rz_types.h b/librz/include/rz_types.h
+index 1650376..b392341 100644
+--- a/librz/include/rz_types.h
++++ b/librz/include/rz_types.h
+@@ -289,6 +289,14 @@ extern "C" {
+ 	#else
+ 		#define RZ_SYS_BITS (RZ_SYS_BITS_32 | RZ_SYS_BITS_64)
+ 	#endif
++#elif __loongarch__
++	#define RZ_SYS_ARCH   "loongarch"
++	#define RZ_SYS_ENDIAN RZ_SYS_ENDIAN_LITTLE
++	#if __loongarch_grlen == 32
++		#define RZ_SYS_BITS RZ_SYS_BITS_32
++	#else
++		#define RZ_SYS_BITS (RZ_SYS_BITS_32 | RZ_SYS_BITS_64)
++	#endif
+ #elif __alpha__
+ 	#define RZ_SYS_ARCH "alpha"
+ 	#define RZ_SYS_BITS RZ_SYS_BITS_64

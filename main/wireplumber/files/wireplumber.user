@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/wireplumber
+log-type = buffer
+smooth-recovery = true
+depends-on: pipewire
+before: login.target

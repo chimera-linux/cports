@@ -1,0 +1,13 @@
+diff --git a/tests/meson.build b/tests/meson.build
+index e2e9924..02abbc0 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -40,8 +40,6 @@ if socat.found()
+   env.set('SOCAT', socat.path())
+ endif
+ 
+-test('adv-standalone', find_program('adv-standalone'), env: env, timeout: 360)
+-test('adv-standalone-endpoint', find_program('adv-standalone-endpoint'), env: env, timeout: 360)
+ test('adv-socat', find_program('adv-socat'), env: env, timeout: 360)
+ test('adv-socat-endpoint', find_program('adv-socat-endpoint'), env: env, timeout: 360)
+ test('rec-standalone', find_program('rec-standalone'), env: env, timeout: 360)

@@ -1,0 +1,20 @@
+--- a/app/signals.c
++++ b/app/signals.c
+@@ -121,10 +122,13 @@
+    * deal with hangs (just get a spin dump)
+    */
+ #ifndef PLATFORM_OSX
+-  gimp_signal_private (SIGABRT, gimp_sigfatal_handler, 0);
+-  gimp_signal_private (SIGBUS,  gimp_sigfatal_handler, 0);
+-  gimp_signal_private (SIGSEGV, gimp_sigfatal_handler, 0);
+-  gimp_signal_private (SIGFPE,  gimp_sigfatal_handler, 0);
++  const gchar *i_wanna_debug_uwu = g_getenv("CAN_I_DEBUG_PWEASE_UWU");
++  if (!i_wanna_debug_uwu) {
++    gimp_signal_private (SIGABRT, gimp_sigfatal_handler, 0);
++    gimp_signal_private (SIGBUS,  gimp_sigfatal_handler, 0);
++    gimp_signal_private (SIGSEGV, gimp_sigfatal_handler, 0);
++    gimp_signal_private (SIGFPE,  gimp_sigfatal_handler, 0);
++  }
+ #endif
+ 
+   /* Ignore SIGPIPE because plug_in.c handles broken pipes */

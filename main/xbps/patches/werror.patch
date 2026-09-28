@@ -1,0 +1,19 @@
+commit 7e0ab90d5da2aea87caa1488f5f97f73d4e67f5b
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Sep 11 04:07:10 2023 +0200
+
+    fuck off werror
+
+diff --git a/configure b/configure
+index 57df730..444cf95 100755
+--- a/configure
++++ b/configure
+@@ -275,7 +275,7 @@ fi
+ #
+ # Check for some compiler warning flags.
+ #
+-for f in all extra error shadow "format=2" missing-prototypes \
++for f in all extra shadow "format=2" missing-prototypes \
+ 	missing-declarations nested-externs vla overlength-strings \
+ 	unsafe-loop-optimizations undef sign-compare \
+ 	missing-include-dirs old-style-definition \

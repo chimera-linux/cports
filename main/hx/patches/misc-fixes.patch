@@ -1,0 +1,105 @@
+diff --git a/Makefile b/Makefile
+index 6b37510..4b2a5b6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,23 +1,20 @@
+-hx_git_hash != git rev-parse --verify HEAD --short=12
+-hx_version != git describe --tags 2>/dev/null || echo "1.0.0"
+-
+ CPPFLAGS = -DNDEBUG -DHX_GIT_HASH=\"$(hx_git_hash)\" -DHX_VERSION=\"$(hx_version)\"
+ CPPFLAGS += -D_POSIX_SOURCE # sigaction
+ CPPFLAGS += -D__BSD_VISIBLE # SIGWINCH on FreeBSD.
+-CFLAGS = -std=c99 -Wall -Wextra -pedantic -O3 -MMD -MP
+-LDFLAGS = -O3
+ 
+ objects := hx.o editor.o charbuf.o util.o undo.o
+ 
+ PREFIX ?= /usr/local
+ bindir = /bin
+-mandir = /man
++mandir = /share/man
+ 
+-%.gz: %
+-	gzip -k $<
++all: hxed
+ 
+-all: hx hx.1.gz
+-hx: $(objects)
++hxed: $(objects)
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(objects) -o $@ $(LDFLAGS)
++
++%.c: %.o
++	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+ 
+ debug: all
+ debug: CPPFLAGS += -UNDEBUG # undefine the NDEBUG flag to allow assert().
+@@ -25,8 +22,10 @@ debug: CFLAGS += -ggdb -Og
+ debug: LDFLAGS += -ggdb -Og
+ 
+ install: all
+-	install -Dm755 -s ./hx -t $(DESTDIR)$(PREFIX)$(bindir)
+-	install -Dm644 ./hx.1.gz -t $(DESTDIR)$(PREFIX)$(mandir)/man1
++	install -d $(DESTDIR)$(PREFIX)$(bindir)
++	install -d $(DESTDIR)$(PREFIX)$(mandir)/man1
++	install -m 755 ./hxed $(DESTDIR)$(PREFIX)$(bindir)/hxed
++	install -m 644 ./hx.1 $(DESTDIR)$(PREFIX)$(mandir)/man1/hxed.1
+ 
+ static: all
+ static: LDFLAGS += -static
+diff --git a/hx.1 b/hx.1
+index 90afeec..96e337f 100644
+--- a/hx.1
++++ b/hx.1
+@@ -1,4 +1,4 @@
+-.\" This groff file is part of hx, a terminal hex editor.
++.\" This groff file is part of hxed, a terminal hex editor.
+ .\"
+ .\" Copyright (c) 2017 Kevin Pors. See LICENSE for details.
+ .\"
+@@ -7,11 +7,11 @@
+ .Os Linux
+ 
+ .Sh NAME
+-.Nm hx
++.Nm hxed
+ .Nd tiny hex editor for virtual terminals.
+ 
+ .Sh SYNOPSIS
+-.Nm hx
++.Nm hxed
+ .Op Fl g Ar num
+ .Op Fl o Ar num
+ .Op Fl v
+@@ -44,9 +44,9 @@ displays version info and exits.
+ .\" Section for the examples.
+ .\" ===================================================================
+ .Sh EXAMPLES
+-Open the hx binary in hex view, with default grouping of 4 bytes, and 16 octets per line.
++Open the hxed binary in hex view, with default grouping of 4 bytes, and 16 octets per line.
+ .Pp
+-.Dl hx /usr/bin/hx
++.Dl hxed /usr/bin/hxed
+ .Bd -literal -offset indent
+ 000000000: 7f454c46 01010100 00000000 00000000  .ELF............
+ 000000010: 02000300 01000000 4c8d0408 34000000  ........L...4...
+@@ -56,7 +56,7 @@ Open the hx binary in hex view, with default grouping of 4 bytes, and 16 octets
+ .Pp
+ Specifying a grouping of 2 bytes:
+ .Pp
+-.Dl hx -g 2 /usr/bin/hx
++.Dl hxed -g 2 /usr/bin/hxed
+ .Bd -literal -offset indent
+ 000000000: 7f45 4c46 0101 0100 0000 0000 0000 0000  .ELF............
+ 000000010: 0200 0300 0100 0000 4c8d 0408 3400 0000  ........L...4...
+@@ -65,7 +65,7 @@ Specifying a grouping of 2 bytes:
+ .Pp
+ 8 byte grouping, 24 octets per line:
+ .Pp
+-.Dl hx -g 8 -o 24 /usr/bin/hx
++.Dl hxed -g 8 -o 24 /usr/bin/hxed
+ .Bd -literal -offset indent
+ 000000000: 7f454c4601010100 0000000000000000 0200030001000000  .ELF....................
+ 000000018: 4c8d040834000000 b0dc000000000000 3400200009002800  L...4...........4. ...(.
+-- 
+2.44.0
+

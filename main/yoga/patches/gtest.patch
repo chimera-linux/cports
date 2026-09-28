@@ -1,0 +1,23 @@
+diff -ruN a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+--- a/tests/CMakeLists.txt	2024-12-13 02:41:47.000000000 +0100
++++ b/tests/CMakeLists.txt	2026-07-21 11:17:12.953608372 +0200
+@@ -14,12 +14,7 @@
+ set(YOGA_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/..)
+ include(${YOGA_ROOT}/cmake/project-defaults.cmake)
+ 
+-# Fetch GTest
+-FetchContent_Declare(
+-  googletest
+-  URL https://github.com/google/googletest/archive/refs/tags/release-1.12.1.zip
+-)
+-FetchContent_MakeAvailable(googletest)
++find_package(GTest REQUIRED)
+ 
+ add_subdirectory(${YOGA_ROOT}/yoga ${CMAKE_CURRENT_BINARY_DIR}/yoga)
+ 
+@@ -31,5 +26,3 @@
+ 
+ add_executable(yogatests ${SOURCES})
+ target_link_libraries(yogatests yogacore GTest::gtest_main)
+-
+-gtest_discover_tests(yogatests)

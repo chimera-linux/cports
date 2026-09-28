@@ -1,0 +1,14 @@
+diff --git a/Makefile.am b/Makefile.am
+index 6d7085a..8acad91 100755
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -892,8 +892,7 @@ test_apps += \
+ 	tests/test_reqrep_ipc \
+ 	tests/test_use_fd \
+ 	tests/test_zmq_poll_fd \
+-	tests/test_timeo \
+-	tests/test_filter_ipc
++	tests/test_timeo
+ 
+ tests_test_shutdown_stress_SOURCES = tests/test_shutdown_stress.cpp
+ tests_test_shutdown_stress_LDADD = ${TESTUTIL_LIBS} src/libzmq.la

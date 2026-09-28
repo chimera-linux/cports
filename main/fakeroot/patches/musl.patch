@@ -1,0 +1,78 @@
+From bf368a8c12636ea0a63cc555a0c80b465c62180a Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 6 Nov 2021 19:15:09 +0100
+Subject: [PATCH] musl build
+
+---
+ communicate.h   | 3 ---
+ configure       | 2 +-
+ doc/Makefile.in | 2 +-
+ faked.c         | 8 ++++----
+ libfakeroot.c   | 9 ++-------
+ 5 files changed, 8 insertions(+), 16 deletions(-)
+
+diff --git a/communicate.h b/communicate.h
+index 3f9ca39..08f82b9 100644
+--- a/communicate.h
++++ b/communicate.h
+@@ -69,9 +69,6 @@
+ 	|| (defined __UCLIBC__ && defined __UCLIBC_HAS_LFS__)
+ # define STAT64_SUPPORT
+ #else
+-# ifndef __APPLE__
+-#  warning Not using stat64 support
+-# endif
+ /* if glibc is 2.0 or older, undefine these again */
+ # undef STAT64_SUPPORT
+ # undef _LARGEFILE64_SOURCE
+diff --git a/configure b/configure
+index 827fa11..b112240 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -385,7 +385,7 @@ for SEARCH in %stat f%stat l%stat f%statat %stat64 f%stat64 l%stat64 f%statat64
+   FUNC=`echo $SEARCH|sed -e 's/.*%//'`
+   PRE=`echo $SEARCH|sed -e 's/%.*//'`
+   FOUND=
+-  for WRAPPED in __${PRE}x${FUNC} _${PRE}x${FUNC} __${PRE}${FUNC}13 ${PRE}${FUNC} __${PRE}${FUNC}; do
++  for WRAPPED in ${PRE}${FUNC}; do
+     AC_CHECK_FUNCS($WRAPPED,FOUND=$WRAPPED)
+ dnl
+ dnl to unconditionally define only the _* functions, comment out the 2 lines above,
+diff --git a/faked.c b/faked.c
+index a970184..3223ba3 100644
+--- a/faked.c
++++ b/faked.c
+@@ -610,11 +610,11 @@ int save_database(const uint32_t remote)
+ 
+ #ifdef FAKEROOT_DB_PATH
+     if (find_path(i->buf.dev, i->buf.ino, roots, path))
+-      fprintf(f,"mode=%llo,uid=%llu,gid=%llu,nlink=%llu,rdev=%llu %s\n",
++      fprintf(f,"mode=%"PRIo64",uid=%"PRIu64",gid=%"PRIu64",nlink=%"PRIu64",rdev=%"PRIu64" %s\n",
+               (uint64_t) i->buf.mode,(uint64_t) i->buf.uid,(uint64_t) i->buf.gid,
+               (uint64_t) i->buf.nlink,(uint64_t) i->buf.rdev,path);
+ #else
+-    fprintf(f,"dev=%llx,ino=%llu,mode=%llo,uid=%llu,gid=%llu,nlink=%llu,rdev=%llu\n",
++    fprintf(f,"dev=%"PRIx64",ino=%"PRIu64",mode=%"PRIo64",uid=%"PRIu64",gid=%"PRIu64",nlink=%"PRIu64",rdev=%"PRIu64"\n",
+             (uint64_t) i->buf.dev,(uint64_t) i->buf.ino,(uint64_t) i->buf.mode,
+             (uint64_t) i->buf.uid,(uint64_t) i->buf.gid,(uint64_t) i->buf.nlink,
+             (uint64_t) i->buf.rdev);
+@@ -640,7 +640,7 @@ int load_database(const uint32_t remote)
+ 
+   while(1){
+ #ifdef FAKEROOT_DB_PATH
+-    r=scanf("mode=%llo,uid=%llu,gid=%llu,nlink=%llu,rdev=%llu "DB_PATH_SCAN"\n",
++    r=scanf("mode=%"PRIo64",uid=%"PRIu64",gid=%"PRIu64",nlink=%"PRIu64",rdev=%"PRIu64" "DB_PATH_SCAN"\n",
+             &stmode, &stuid, &stgid, &stnlink, &strdev, &path);
+     if (r != 6)
+       break;
+@@ -655,7 +655,7 @@ int load_database(const uint32_t remote)
+     stdev = path_st.st_dev;
+     stino = path_st.st_ino;
+ #else
+-    r=scanf("dev=%llx,ino=%llu,mode=%llo,uid=%llu,gid=%llu,nlink=%llu,rdev=%llu\n",
++    r=scanf("dev=%"PRIx64",ino=%"PRIu64",mode=%"PRIo64",uid=%"PRIu64",gid=%"PRIu64",nlink=%"PRIu64",rdev=%"PRIu64"\n",
+             &stdev, &stino, &stmode, &stuid, &stgid, &stnlink, &strdev);
+     if (r != 7)
+       break;
+-- 
+2.33.1

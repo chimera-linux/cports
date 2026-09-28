@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/gpm -D -m /dev/input/mice -t imps2
+depends-on = local.target
+smooth-recovery = true

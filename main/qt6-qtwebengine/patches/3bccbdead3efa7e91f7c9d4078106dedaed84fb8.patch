@@ -1,0 +1,37 @@
+From 3bccbdead3efa7e91f7c9d4078106dedaed84fb8 Mon Sep 17 00:00:00 2001
+From: Levi Zim <rsworktech@outlook.com>
+Date: Mon, 16 Mar 2026 09:27:53 -0700
+Subject: [PATCH] Fix blink compilation for platforms other than x86 and arm
+
+Commit https://crrev.com/c/7649841 forgot to update the generic
+implementation, causing compilation failures for platforms other than
+x86 and arm.
+
+This CL fixes it.
+
+Bug: 401184803
+Change-Id: I9460ada952eeaa22fd571d299235fcfb5e1ef1c1
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/7666544
+Commit-Queue: Michael Wilson <mjwilson@chromium.org>
+Auto-Submit: Levi Zim <rsworktech@outlook.com>
+Reviewed-by: Michael Wilson <mjwilson@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1599945}
+---
+ third_party/blink/renderer/platform/audio/delay.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/third_party/blink/renderer/platform/audio/delay.cc b/third_party/blink/renderer/platform/audio/delay.cc
+index ea4159a8ce3f8c..97db2039aff2c7 100644
+--- a/src/3rdparty/chromium/third_party/blink/renderer/platform/audio/delay.cc
++++ b/src/3rdparty/chromium/third_party/blink/renderer/platform/audio/delay.cc
+@@ -102,8 +102,8 @@ double Delay::DelayTime(float sample_rate) {
+ #if !(defined(ARCH_CPU_X86_FAMILY) || defined(CPU_ARM_NEON))
+ // Default scalar versions if simd/neon are not available.
+ std::tuple<size_t, size_t> Delay::ProcessARateVector(
+-    float* destination,
+-    uint32_t frames_to_process) const {
++    base::span<float> destination,
++    size_t frames_to_process) const {
+   // We don't have a vectorized version, so just do nothing and return the 0 to
+   // indicate no frames processed and return the current write_index_.
+   return std::make_tuple(0, write_index_);

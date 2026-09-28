@@ -1,0 +1,42 @@
+to get around build_ext always deferring to the host sysconfig values, allow
+the most relevant ones to be overriden through the environment.
+
+see src/cbuild/build_style/python.py
+
+--- a/setuptools/_distutils/command/build_ext.py
++++ b/setuptools/_distutils/command/build_ext.py
+@@ -136,6 +136,11 @@
+ 
+         See python/cpython#44264 and python/cpython#48686
+         """
++        override = os.environ.get('PYTHON_CROSS_LIBDIR')
++        if override:
++            yield override
++            return
++
+         if not sysconfig.get_config_var('Py_ENABLE_SHARED'):
+             return
+ 
+@@ -167,6 +172,8 @@
+             ('plat_name', 'plat_name'),
+         )
+ 
++        incdir_override = os.environ.get('PYTHON_CROSS_INCDIR')
++
+         if self.package is None:
+             self.package = self.distribution.ext_package
+ 
+@@ -174,7 +181,10 @@
+ 
+         # Make sure Python's include directories (for Python.h, pyconfig.h,
+         # etc.) are in the include search path.
+-        py_include = sysconfig.get_python_inc()
+-        plat_py_include = sysconfig.get_python_inc(plat_specific=True)
++        if incdir_override:
++            py_include = plat_py_include = incdir_override
++        else:
++            py_include = sysconfig.get_python_inc()
++            plat_py_include = sysconfig.get_python_inc(plat_specific=True)
+         if self.include_dirs is None:
+             self.include_dirs = self.distribution.include_dirs or []
+         if isinstance(self.include_dirs, str):

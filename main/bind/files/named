@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/named -g
+smooth-recovery = yes
+depends-on: local.target
+depends-on: network.target

@@ -1,0 +1,1 @@
+pkgname = "python_dotenv"

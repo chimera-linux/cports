@@ -1,0 +1,16 @@
+There is no <asm/fence.h>, but there is one present in the same directory,
+so include that instead
+
+diff --git a/tools/arch/riscv/include/asm/barrier.h b/tools/arch/riscv/include/asm/barrier.h
+index e63eabc..12ebc65 100644
+--- a/tools/arch/riscv/include/asm/barrier.h
++++ b/tools/arch/riscv/include/asm/barrier.h
+@@ -10,7 +10,7 @@
+ #ifndef _TOOLS_LINUX_ASM_RISCV_BARRIER_H
+ #define _TOOLS_LINUX_ASM_RISCV_BARRIER_H
+ 
+-#include <asm/fence.h>
++#include "fence.h"
+ #include <linux/compiler.h>
+ 
+ /* These barriers need to enforce ordering on both devices and memory. */

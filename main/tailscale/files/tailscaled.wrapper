@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -r /etc/default/tailscaled ]; then
+    set -a
+    . /etc/default/tailscaled
+    set +a
+fi
+
+if [ -n "$PORT" ]; then
+    set -- "--port=$PORT" "$@"
+fi
+
+exec /usr/bin/tailscaled $FLAGS "$@"

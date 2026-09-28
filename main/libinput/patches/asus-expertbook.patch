@@ -1,0 +1,47 @@
+From: burakgon <burakgon12@gmail.com>
+Subject: [PATCH libinput] quirks: Add PixArt I2C-HID 093A:4F05 haptic touchpad
+
+The 2026 ASUS ExpertBook Ultra (B9406CAA) ships a PixArt I2C-HID haptic
+touchpad with VID:PID 093A:4F05 (ACPI ASCP1D80). The kernel's
+hid-multitouch parser reports an inflated ABS_MT_PRESSURE max for this
+device — observed kernel-reported max is 2601 (the same value as the
+Y-axis logical max) while the real hardware pressure range tops out
+around 1000.
+
+Real touch pressure values fall into 5..150 typically, which on the
+inflated 2601 scale is well below libinput's pressure activation
+threshold. libinput consequently rejects every motion as
+'kernel bug: Touch jump detected and discarded' and the cursor never
+moves on the user's display.
+
+Workaround is identical to the Asus UX302LA entry already in
+50-system-asus.quirks: tell libinput to ignore the pressure axes
+entirely on this device (BTN_TOUCH is reliable, libinput uses that for
+touch state), so the broken pressure scale stops driving false-jump
+verdicts.
+
+Tested on ASUS ExpertBook Ultra B9406CAA. With the quirk active the
+cursor responds normally to light touches; without it, no motion
+registers at all.
+
+Signed-off-by: burakgon <burakgon12@gmail.com>
+---
+ quirks/30-vendor-pixart.quirks | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/quirks/30-vendor-pixart.quirks b/quirks/30-vendor-pixart.quirks
+--- a/quirks/30-vendor-pixart.quirks
++++ b/quirks/30-vendor-pixart.quirks
+@@ -22,3 +22,12 @@
+ MatchVendor=0x093A
+ MatchProduct=0x1336
+ AttrEventCode=-BTN_RIGHT
++
++# ASUS ExpertBook Ultra B9406CAA (2026)
++# Kernel mis-reports ABS_MT_PRESSURE max; ignore pressure entirely.
++[Pixart Touchpad (093A:4F05)]
++MatchBus=i2c
++MatchUdevType=touchpad
++MatchVendor=0x093A
++MatchProduct=0x4F05
++AttrEventCode=-ABS_MT_PRESSURE;-ABS_PRESSURE;

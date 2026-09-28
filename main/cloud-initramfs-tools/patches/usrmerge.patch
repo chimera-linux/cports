@@ -1,0 +1,133 @@
+diff --git a/Makefile b/Makefile
+index eeff269..48dcddd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -38,8 +38,8 @@ install:
+ 		mkdir -p "$(ULIB_PRE)$$d/" && \
+ 		install "$$d/tools"/* "$(ULIB_PRE)$$d/" ; \
+ 		done
+-	mkdir -p "$(DESTDIR)/usr/sbin" "$(DESTDIR)/usr/share/man/man8"
+-	install -m 755 "overlayroot/usr/sbin/overlayroot-chroot" "$(DESTDIR)/usr/sbin"
++	mkdir -p "$(DESTDIR)/usr/bin" "$(DESTDIR)/usr/share/man/man8"
++	install -m 755 "overlayroot/usr/sbin/overlayroot-chroot" "$(DESTDIR)/usr/bin"
+ 	install -m 644 "overlayroot/usr/share/man/man8/overlayroot-chroot.8" "$(DESTDIR)/usr/share/man/man8"
+ 
+ #
+diff --git a/dyn-netconf/scripts/init-bottom/cloud-initramfs-dyn-netconf b/dyn-netconf/scripts/init-bottom/cloud-initramfs-dyn-netconf
+index 94c9af8..f9240df 100644
+--- a/dyn-netconf/scripts/init-bottom/cloud-initramfs-dyn-netconf
++++ b/dyn-netconf/scripts/init-bottom/cloud-initramfs-dyn-netconf
+@@ -8,7 +8,7 @@ esac
+ 
+ . /scripts/functions
+ 
+-PATH=/usr/sbin:/usr/bin:/sbin:/bin
++PATH=/usr/bin
+ 
+ # doc in klibc-utils /usr/share/doc/libklibc/README.ipconfig.gz
+ # example below:
+diff --git a/dyn-netconf/scripts/init-top/cloud-initramfs-dyn-netconf b/dyn-netconf/scripts/init-top/cloud-initramfs-dyn-netconf
+index 6c6f235..bf7a15b 100644
+--- a/dyn-netconf/scripts/init-top/cloud-initramfs-dyn-netconf
++++ b/dyn-netconf/scripts/init-top/cloud-initramfs-dyn-netconf
+@@ -9,7 +9,7 @@ esac
+ 
+ . /scripts/functions
+ 
+-PATH=/usr/sbin:/usr/bin:/sbin:/bin
++PATH=/usr/bin
+ 
+ error() { echo "${0##*/}:" "$@" 1>&2; }
+ fail() { [ $# -eq 0 ] || error "$@"; exit 0; }
+diff --git a/growroot/hooks/growroot b/growroot/hooks/growroot
+index ab69e83..8f2ba4e 100644
+--- a/growroot/hooks/growroot
++++ b/growroot/hooks/growroot
+@@ -9,9 +9,9 @@ esac
+ . /usr/share/initramfs-tools/hook-functions
+ 
+ ##
+-copy_exec /sbin/sfdisk /sbin
+-copy_exec /usr/bin/growpart /sbin
+-copy_exec /bin/udevadm /sbin
++copy_exec /usr/bin/sfdisk /bin
++copy_exec /usr/bin/growpart /bin
++copy_exec /usr/bin/udevadm /bin
+ copy_exec /usr/bin/awk /bin
+ copy_exec /usr/bin/flock /bin
+ copy_exec /usr/bin/grep /bin
+diff --git a/overlayroot/hooks/overlayroot b/overlayroot/hooks/overlayroot
+index 60a3ab5..8cf6bd2 100755
+--- a/overlayroot/hooks/overlayroot
++++ b/overlayroot/hooks/overlayroot
+@@ -11,9 +11,9 @@ esac
+ ##
+ copy_exec /usr/bin/head /bin
+ copy_exec /usr/bin/sha512sum /bin
+-copy_exec /sbin/wipefs /sbin
+-copy_exec /sbin/cryptsetup /sbin
+-copy_exec /sbin/mke2fs /sbin
++copy_exec /usr/bin/wipefs /bin
++copy_exec /usr/bin/cryptsetup /bin
++copy_exec /usr/bin/mke2fs /bin
+ 
+ manual_add_modules overlayfs
+ manual_add_modules overlay
+diff --git a/overlayroot/scripts/init-bottom/overlayroot b/overlayroot/scripts/init-bottom/overlayroot
+index dd8cee3..9bdd4ef 100755
+--- a/overlayroot/scripts/init-bottom/overlayroot
++++ b/overlayroot/scripts/init-bottom/overlayroot
+@@ -32,7 +32,7 @@ esac
+ 
+ . /scripts/functions
+ 
+-PATH=/usr/sbin:/usr/bin:/sbin:/bin
++PATH=/usr/bin
+ MYTAG="overlayroot"
+ 
+ TEMP_D="${TMPDIR:-/tmp}/${0##*/}.configs"
+@@ -548,7 +548,7 @@ fix_upstart_overlayfs() {
+ 	# for upstart, which uses inotify on /etc/init. So ensure that the overlay
+ 	# explicitly has a /etc/init (LP: #1213925)
+ 	local root="$1"
+-	local initctl="$root/sbin/initctl"
++	local initctl="$root/usr/bin/initctl"
+ 	local eifile="/etc/init/.overlayfs-upstart-helper"
+ 
+ 	[ -e "$initctl" -o -L "$initctl" ] || return 0
+diff --git a/rescuevol/hooks/rescuevol b/rescuevol/hooks/rescuevol
+index 2ad84ca..899a717 100644
+--- a/rescuevol/hooks/rescuevol
++++ b/rescuevol/hooks/rescuevol
+@@ -8,6 +8,6 @@ esac
+ 
+ . /usr/share/initramfs-tools/hook-functions
+ 
+-copy_exec /sbin/blkid /sbin
++copy_exec /usr/bin/blkid /usr/bin
+ 
+ # vi: ts=4 noexpandtab
+diff --git a/rescuevol/scripts/local-premount/rescuevol b/rescuevol/scripts/local-premount/rescuevol
+index f8581c6..c3d02be 100644
+--- a/rescuevol/scripts/local-premount/rescuevol
++++ b/rescuevol/scripts/local-premount/rescuevol
+@@ -26,8 +26,8 @@ hasvol() {
+ 		return 1;
+ 	}
+ 
+-	# if /sbin/rescuevol-init exists, then use it rather than /sbin/init
+-	[ -e "${mp}/sbin/rescuevol-init" ] && myinit="/sbin/rescuevol-init"
++	# if /usr/bin/rescuevol-init exists, then use it rather than /usr/bin/init
++	[ -e "${mp}/usr/bin/rescuevol-init" ] && myinit="/usr/bin/rescuevol-init"
+ 
+ 	_RET_DEV=${dev}
+ 	_RET_INIT=${myinit}
+@@ -71,7 +71,7 @@ trap cleanup EXIT
+ 
+ add_mountroot_fail_hook
+ 
+-hasvol "${RESCUE_LABEL}" "${init:-/sbin/init}" || exit 0
++hasvol "${RESCUE_LABEL}" "${init:-/usr/bin/init}" || exit 0
+ cat > /conf/param.conf <<EOF
+ init=${_RET_INIT}
+ ROOT=${_RET_DEV}

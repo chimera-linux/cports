@@ -1,0 +1,43 @@
+diff --git a/src/stacktrace.c b/src/stacktrace.c
+index 438cb1d..bcc7dfe 100644
+--- a/src/stacktrace.c
++++ b/src/stacktrace.c
+@@ -72,6 +72,7 @@
+ #include <config.h>
+ #include <assert.h>
+ #include <argp.h>
++#include <locale.h>
+ #include <stdbool.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -1312,7 +1313,7 @@ sysprof_unwind_cb (SysprofCaptureFrame *frame, void *arg)
+  ****************/
+ 
+ /* Required to match our signal handling with that of a sysprof parent process. */
+-static void sigint_handler (int /* signo */)
++static void sigint_handler (int signo)
+ {
+   if (signal_count >= 2)
+     {
+diff --git a/src/Makefile.in b/src/Makefile.in
+index ae59f40..edea014 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -549,7 +549,7 @@ AM_CFLAGS = -std=gnu99 -Wall -Wshadow -Wformat=2 \
+ 	    $(LOGICAL_OP_WARNING) $(DUPLICATED_COND_WARNING) \
+ 	    $(NULL_DEREFERENCE_WARNING) $(IMPLICIT_FALLTHROUGH_WARNING) \
+ 	    $(USE_AFTER_FREE3_WARNING) \
+-	    $(if $($(*F)_no_Werror),,-Werror) \
++	    $(if $($(*F)_no_Werror),,) \
+ 	    $(if $($(*F)_no_Wunused),,-Wunused -Wextra) \
+ 	    $(if $($(*F)_no_Wstack_usage),,$(STACK_USAGE_WARNING)) \
+ 	    $(if $($(*F)_no_Wpacked_not_aligned),$(NO_PACKED_NOT_ALIGNED_WARNING),) \
+@@ -559,7 +559,7 @@ AM_CXXFLAGS = -std=c++11 -Wall -Wshadow \
+ 	   $(TRAMPOLINES_WARNING) \
+ 	   $(LOGICAL_OP_WARNING) $(DUPLICATED_COND_WARNING) \
+ 	   $(NULL_DEREFERENCE_WARNING) $(IMPLICIT_FALLTHROUGH_WARNING) \
+-	   $(if $($(*F)_no_Werror),,-Werror) \
++	   $(if $($(*F)_no_Werror),,) \
+ 	   $(if $($(*F)_no_Wunused),,-Wunused -Wextra) \
+ 	   $(if $($(*F)_no_Wstack_usage),,$(STACK_USAGE_WARNING)) \
+ 	   $(if $($(*F)_no_Wpacked_not_aligned),$(NO_PACKED_NOT_ALIGNED_WARNING),) \

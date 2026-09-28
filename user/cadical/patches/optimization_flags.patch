@@ -1,0 +1,12 @@
+diff -ruN a/configure b/configure
+--- a/configure	2025-02-10 16:43:14.000000000 +0100
++++ b/configure	2025-08-05 13:35:28.268497368 +0200
+@@ -285,7 +285,7 @@
+   CXXFLAGS="$CXXFLAGS -g"
+ else
+   case x"$CXX" in
+-    x*g++*|x*clang++*) CXXFLAGS="$CXXFLAGS -O3";;
++    x*g++*|x*clang++*) CXXFLAGS="$CXXFLAGS";;
+     *) CXXFLAGS="$CXXFLAGS -O";;
+   esac
+ fi

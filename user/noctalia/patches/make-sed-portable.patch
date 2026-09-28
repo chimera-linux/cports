@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index 21939b5..8b2415e 100644
+--- a/meson.build
++++ b/meson.build
+@@ -397,7 +397,7 @@ _wlr_ls_h = custom_target('wlr-layer-shell-unstable-v1-client-header',
+   output:  'wlr-layer-shell-unstable-v1-client-protocol.h',
+   command: [
+     'sh', '-c',
+-    '"$1" client-header "$2" "$3" && sed -i s/namespace/name_space/g "$3"',
++    '"$1" client-header "$2" "$3" && sed s/namespace/name_space/g "$3" > "$3.tmp" && mv "$3.tmp" "$3"',
+     '_', wayland_scanner.full_path(), '@INPUT@', '@OUTPUT@',
+   ],
+ )

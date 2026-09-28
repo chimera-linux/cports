@@ -1,0 +1,14 @@
+our fortify headers do __fh_malloc(malloc and similar so including them fails
+when the identifiers are poisoned even though the unwrapped functions are not
+called
+--
+--- a/src/alloc-private.h
++++ b/src/alloc-private.h
+@@ -98,7 +98,6 @@
+ #define wpe_free                free
+ 
+ /* Prevent usage of unwrapped functions from this point onwards. */
+-#pragma GCC poison malloc
+ #pragma GCC poison realloc
+ #pragma GCC poison calloc
+ #pragma GCC poison free

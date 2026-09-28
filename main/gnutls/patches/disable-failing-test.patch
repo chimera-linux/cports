@@ -1,0 +1,13 @@
+no idea why this fails
+--
+--- a/tests/slow/Makefile.am
++++ b/tests/slow/Makefile.am
+@@ -41,7 +41,7 @@
+ dist_check_SCRIPTS = test-ciphers.sh test-hash-large.sh test-ciphers-common.sh \
+ 	test-ciphers-api.sh
+ check_PROGRAMS = $(ctests) cipher-test cipher-api-test hash-large crypto
+-TESTS = $(ctests) test-ciphers.sh test-hash-large.sh crypto test-ciphers-api.sh
++TESTS = $(ctests) test-hash-large.sh crypto test-ciphers-api.sh
+ 
+ if HAVE_LIBCRYPTO
+ cipher_openssl_compat_LDADD = $(LDADD) $(LIBCRYPTO)

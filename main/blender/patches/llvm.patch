@@ -1,0 +1,13 @@
+--- a/build_files/cmake/platform/platform_unix.cmake
++++ b/build_files/cmake/platform/platform_unix.cmake
+@@ -532,10 +532,6 @@
+ endif()
+ 
+ if(WITH_LLVM)
+-  if(DEFINED LIBDIR)
+-    set(LLVM_STATIC ON)
+-  endif()
+-
+   find_package_wrapper(LLVM)
+   set_and_warn_library_found("LLVM" LLVM_FOUND WITH_LLVM)
+ 

@@ -1,0 +1,14 @@
+decrease maximum re-resolving delay from ~1 hour
+to a few minutes
+
+--- a/ntp_sources.c
++++ b/ntp_sources.c
+@@ -87,7 +85,7 @@
+ 
+ #define RESOLVE_INTERVAL_UNIT 7
+ #define MIN_RESOLVE_INTERVAL 2
+-#define MAX_RESOLVE_INTERVAL 9
++#define MAX_RESOLVE_INTERVAL 6
+ #define MAX_REPLACEMENT_INTERVAL 9
+ 
+ static struct UnresolvedSource *unresolved_sources = NULL;

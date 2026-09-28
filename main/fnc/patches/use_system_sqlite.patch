@@ -1,0 +1,69 @@
+diff -ruN a/fnc.bld.mk b/fnc.bld.mk
+--- a/fnc.bld.mk	2024-09-15 15:29:42.328943886 +0200
++++ b/fnc.bld.mk	2024-09-16 10:54:42.778018701 +0200
+@@ -12,31 +12,6 @@
+ 
+ CFLAGS +=	-Wall -Werror -Wsign-compare -pedantic -std=c99
+ 
+-# FLAGS NEEDED TO BUILD SQLITE3
+-SQLITE_CFLAGS =	${CFLAGS} \
+-		-DNDEBUG=1 \
+-		-DSQLITE_DQS=0 \
+-		-DSQLITE_DEFAULT_MEMSTATUS=0 \
+-		-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1 \
+-		-DSQLITE_LIKE_DOESNT_MATCH_BLOBS \
+-		-DSQLITE_OMIT_DECLTYPE \
+-		-DSQLITE_OMIT_PROGRESS_CALLBACK \
+-		-DSQLITE_OMIT_SHARED_CACHE \
+-		-DSQLITE_OMIT_LOAD_EXTENSION \
+-		-DSQLITE_MAX_EXPR_DEPTH=0 \
+-		-DSQLITE_ENABLE_LOCKING_STYLE=0 \
+-		-DSQLITE_DEFAULT_FILE_FORMAT=4 \
+-		-DSQLITE_ENABLE_EXPLAIN_COMMENTS \
+-		-DSQLITE_ENABLE_FTS4 \
+-		-DSQLITE_ENABLE_DBSTAT_VTAB \
+-		-DSQLITE_ENABLE_JSON1 \
+-		-DSQLITE_ENABLE_FTS5 \
+-		-DSQLITE_ENABLE_STMTVTAB \
+-		-DSQLITE_HAVE_ZLIB \
+-		-DSQLITE_INTROSPECTION_PRAGMAS \
+-		-DSQLITE_ENABLE_DBPAGE_VTAB \
+-		-DSQLITE_TRUSTED_SCHEMA=0
+-
+ # FLAGS NEEDED TO BUILD LIBFOSSIL
+ FOSSIL_CFLAGS =	${CFLAGS}
+ 
+@@ -47,7 +22,7 @@
+ 		-Wunused-variable -I./lib -I./include -I/usr/include/ncursesw \
+ 		-DFNC_VERSION=${VERSION} -DFNC_HASH=${HASH} -DFNC_DATE="${DATE}"
+ 
+-FNC_LDFLAGS =	${LDFLAGS} -lm -lutil -lz -lpthread
++FNC_LDFLAGS =	${LDFLAGS} -lm -lutil -lz -lpthread -lsqlite3
+ 
+ # Compile-time checks and runtime protection mechanisms from the compiler
+ # hardening document: https://best.openssf.org/Compiler-Hardening-Guides
+@@ -63,11 +38,8 @@
+ 
+ all: bin
+ 
+-bin: lib/sqlite3.o lib/libfossil.o src/fnc.o src/fnc
++bin: lib/libfossil.o src/fnc.o src/fnc
+ 
+-lib/sqlite3.o: lib/sqlite3.c lib/sqlite3.h
+-	${CC} ${SQLITE_CFLAGS} -c $< -o $@
+-
+ lib/libfossil.o: lib/libfossil.c lib/libfossil.h
+ 	${CC} ${FOSSIL_CFLAGS} -c $< -o $@
+ 
+@@ -85,9 +57,9 @@
+ 	${CC} ${FNC_CFLAGS} -c $< -o $@
+ 
+ src/fnc: src/fnc.o src/diff.o src/error.o compat/reallocarray.o \
+-	lib/libfossil.o lib/sqlite3.o fnc.bld.mk
++	lib/libfossil.o fnc.bld.mk
+ 	${CC} -o $@ src/fnc.o src/diff.o src/error.o compat/reallocarray.o \
+-	lib/libfossil.o lib/sqlite3.o ${FNC_LDFLAGS}
++	lib/libfossil.o ${FNC_LDFLAGS}
+ 
+ dev:
+ 	${MAKE} GOHARD=1

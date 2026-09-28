@@ -1,0 +1,13 @@
+pkgname = "perl-net-ip"
+pkgver = "1.26"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "IPv4/IPv6 address manipulation"
+license = "Artistic-1.0-Perl"
+url = "https://metacpan.org/pod/Net::IP"
+source = f"$(CPAN_SITE)/Net/Net-IP-{pkgver}.tar.gz"
+sha256 = "040f16f3066647d761b724a3b70754d28cbd1e6fe5ea01c63ed1cd857117d639"

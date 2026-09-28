@@ -1,0 +1,23 @@
+Author: Felix Lechner <felix.lechner@lease-up.com>
+Description: Exit gracefully when md device not found (Closes: #970329).
+
+diff -Naurp mdadm.orig/Monitor.c mdadm/Monitor.c
+--- mdadm.orig/Monitor.c
++++ mdadm/Monitor.c
+@@ -554,8 +554,14 @@ static int check_array(struct state *st,
+ 	if (fd < 0)
+ 		goto disappeared;
+ 
+-	if (st->devnm[0] == 0)
+-		snprintf(st->devnm, MD_NAME_MAX, "%s", fd2devnm(fd));
++	if (st->devnm[0] == 0) {
++		char *found = fd2devnm(fd);
++		if (!found) {
++			alert(EVENT_DEVICE_DISAPPEARED, NULL, 0, dev, NULL);
++			goto out;
++		}
++		snprintf(st->devnm, MD_NAME_MAX, "%s", found);
++	}
+ 
+ 	for (mse2 = mdstat; mse2; mse2 = mse2->next)
+ 		if (strcmp(mse2->devnm, st->devnm) == 0) {

@@ -1,0 +1,10 @@
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -16,7 +16,6 @@
+ ]
+ 
+ cargo_env = {
+-  'CARGO_HOME': meson.project_build_root() / 'cargo',
+   'LOCALEDIR': get_option('prefix') / get_option('localedir'),
+   'APPLICATION_ID_SUFFIX': get_option('app_id_suffix'),
+ }

@@ -1,0 +1,22 @@
+diff --git a/wgetpaste b/wgetpaste
+index f96ed08..edbba43 100755
+--- a/wgetpaste
++++ b/wgetpaste
+@@ -974,7 +974,7 @@ fi
+ 
+ # create tmpfile for use with tee
+ if [[ $TEE ]]; then
+-	TMPF=$(mktemp -q --tmpdir wgetpaste.XXXXXX)
++	TMPF=$(mktemp -q -p "${TMPDIR:-/tmp}" wgetpaste.XXXXXX)
+ 	[[ -f $TMPF ]] || die "Could not create a temporary file for use with tee."
+ fi
+ 
+@@ -1078,7 +1078,7 @@ if [[ $SERVICE == tinyurl ]]; then
+ else
+ 	# create temp file (wget is much more reliable reading
+ 	# large input via --post-file rather than --post-data)
+-	[[ -f $TMPF ]] || TMPF=$(mktemp -q --tmpdir wgetpaste.XXXXXX)
++	[[ -f $TMPF ]] || TMPF=$(mktemp -q -p "${TMPDIR:-/tmp}" wgetpaste.XXXXXX)
+ 	if [[ -f $TMPF ]]; then
+ 		postdata > "$TMPF" || die "Failed to write to temporary file: \"$TMPF\"."
+ 		WGETARGS="--post-file=$TMPF"

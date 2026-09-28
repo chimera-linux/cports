@@ -1,0 +1,12 @@
+pkgname = "perl-mailtools"
+pkgver = "2.22"
+pkgrel = 1
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl", "perl-timedate"]
+depends = ["perl", "perl-timedate"]
+pkgdesc = "Various e-mail related modules"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/MailTools"
+source = f"$(CPAN_SITE)/Mail/MailTools-{pkgver}.tar.gz"
+sha256 = "3bf68bb212298fa699a52749dddff35583a74f36a92ca89c843b854f29d87c77"

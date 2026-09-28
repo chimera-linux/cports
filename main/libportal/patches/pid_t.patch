@@ -1,0 +1,66 @@
+When using pid_t, we get the following:
+
+FAILED: libportal/libportal.vapi 
+/usr/bin/vapigen --quiet --library=libportal --directory=/builddir/libportal-0.8.1/build/libportal --pkg=gio-2.0 --metadatadir=/builddir/libportal-0.8.1/libportal /builddir/libportal-0.8.1/build/libportal/Xdp-1.0.gir
+Xdp-1.0.gir:4531.33-4531.33: error: The type name `pid_t' could not be found
+Xdp-1.0.gir:4568.35-4568.35: error: The type name `pid_t' could not be found
+
+when building using latest gobject-introspection;
+this is an ugly hack but the types are identical
+
+--- a/libportal/spawn.c
++++ b/libportal/spawn.c
+@@ -76,7 +76,7 @@ spawned (GObject      *bus,
+     g_task_return_error (call->task, error);
+   else
+     {
+-      pid_t pid;
++      int pid;
+ 
+       g_variant_get (ret, "(u)", &pid);
+       g_task_return_int (call->task, (gssize)pid);
+@@ -262,7 +262,7 @@ xdp_portal_spawn (XdpPortal            *portal,
+  * Returns: the pid of the spawned process.
+  */
+ 
+-pid_t
++int
+ xdp_portal_spawn_finish (XdpPortal     *portal,
+                          GAsyncResult  *result,
+                          GError       **error)
+@@ -271,7 +271,7 @@ xdp_portal_spawn_finish (XdpPortal     *portal,
+   g_return_val_if_fail (g_task_is_valid (result, portal), 0);
+   g_return_val_if_fail (g_task_get_source_tag (G_TASK (result)) == xdp_portal_spawn, 0);
+ 
+-  return (pid_t) g_task_propagate_int (G_TASK (result), error);
++  return (int) g_task_propagate_int (G_TASK (result), error);
+ }
+ 
+ /**
+@@ -287,7 +287,7 @@ xdp_portal_spawn_finish (XdpPortal     *portal,
+  */
+ void
+ xdp_portal_spawn_signal (XdpPortal *portal,
+-                         pid_t      pid,
++                         int        pid,
+                          int        signal,
+                          gboolean   to_process_group)
+ {
+--- a/libportal/spawn.h
++++ b/libportal/spawn.h
+@@ -60,13 +60,13 @@ void         xdp_portal_spawn                 (XdpPortal            *portal,
+                                                gpointer              data);
+ 
+ XDP_PUBLIC
+-pid_t        xdp_portal_spawn_finish          (XdpPortal            *portal,
++int          xdp_portal_spawn_finish          (XdpPortal            *portal,
+                                                GAsyncResult         *result,
+                                                GError              **error);
+ 
+ XDP_PUBLIC
+ void        xdp_portal_spawn_signal           (XdpPortal            *portal,
+-                                               pid_t                 pid,
++                                               int                   pid,
+                                                int                   signal,
+                                                gboolean              to_process_group);
+ 

@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/nscd
+depends-on = local.target
+smooth-recovery = true

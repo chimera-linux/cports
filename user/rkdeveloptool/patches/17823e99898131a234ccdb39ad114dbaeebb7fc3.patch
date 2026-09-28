@@ -1,0 +1,33 @@
+From 17823e99898131a234ccdb39ad114dbaeebb7fc3 Mon Sep 17 00:00:00 2001
+From: Christopher Obbard <chris.obbard@collabora.com>
+Date: Thu, 6 Jul 2023 17:06:04 +0100
+Subject: [PATCH] manpage: Fix spelling of seperate=>separate
+
+Signed-off-by: Christopher Obbard <chris.obbard@collabora.com>
+---
+ doc/rkdeveloptool.1.scd | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/doc/rkdeveloptool.1.scd b/doc/rkdeveloptool.1.scd
+index de363bc..75a297a 100644
+--- a/doc/rkdeveloptool.1.scd
++++ b/doc/rkdeveloptool.1.scd
+@@ -97,7 +97,7 @@ bootloader mode
+ 	Merge a boot image
+ 
+ *unpack* [FILENAME]
+-	Unpack a boot image into the seperate files
++	Unpack a boot image into the separate files
+ 
+ *tag-spl* [TAG] [SPL-FILE]
+ 	Prepend the tag to the SPL-FILE and save it as filename.tag
+@@ -114,4 +114,4 @@ Restore a partition of the device
+ 
+ Read the bootloader magic block from sector 64
+ 
+-	rkdeveloptool read 64 512 bootloader-magic.bin
+\ No newline at end of file
++	rkdeveloptool read 64 512 bootloader-magic.bin
+-- 
+GitLab
+

@@ -1,0 +1,11 @@
+--- a/test/SonivoxTest.cpp
++++ b/test/SonivoxTest.cpp
+@@ -151,7 +151,7 @@
+     uint32_t mAudioplayTimeMs;
+     uint32_t mTotalAudioChannels;
+     uint32_t mAudioSampleRate;
+-    off64_t mBase;
++    off_t mBase;
+     int64_t mLength;
+     int mFd;
+ 

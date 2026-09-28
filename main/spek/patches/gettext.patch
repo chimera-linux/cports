@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -68,7 +68,7 @@ fi
+ GETTEXT_PACKAGE=spek
+ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext Package])
+ AC_SUBST(GETTEXT_PACKAGE)
+-AM_GNU_GETTEXT_VERSION([0.21])
++AM_GNU_GETTEXT_VERSION([0.23])
+ AM_GNU_GETTEXT([external])
+
+ AC_CONFIG_FILES([

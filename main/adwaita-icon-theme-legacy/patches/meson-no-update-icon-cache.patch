@@ -1,0 +1,19 @@
+--- a/meson.build
++++ b/meson.build
+@@ -21,15 +21,3 @@
+   strip_directory : true,
+   install_tag : 'runtime',
+ )
+-
+-gtk_update_icon_cache = find_program(
+-  'gtk4-update-icon-cache',
+-  'gtk-update-icon-cache',
+-  required : true,
+-)
+-meson.add_install_script(
+-  gtk_update_icon_cache,
+-  '-qtf',
+-  get_option('prefix') / adwaita_dir,
+-  skip_if_destdir: true,
+-)
+

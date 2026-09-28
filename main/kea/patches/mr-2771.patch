@@ -1,0 +1,60 @@
+diff --git a/doc/sphinx/arm/install.rst b/doc/sphinx/arm/install.rst
+index b3bffc772652e68b744ab13c2872a5eac6c515fa..fe532640af3844641a729dcc9b471735bbd1545b 100644
+--- a/doc/sphinx/arm/install.rst
++++ b/doc/sphinx/arm/install.rst
+@@ -160,8 +160,8 @@ the system:
+ -  The development tools meson, ninja, and pkg-config.
+ 
+ -  Boost C++ libraries (https://www.boost.org/). The oldest Boost version
+-   used for testing is 1.67 (although Kea may also work with older
+-   versions e.g. 1.66). The Boost system library must also be installed.
++   used for testing is 1.71 (although Kea may also work with older
++   versions e.g. 1.69). The Boost system library must also be installed.
+    Installing a header-only version of Boost is not recommended.
+ 
+ -  OpenSSL (at least version 1.0.2) or Botan (at least version 2).
+diff --git a/meson.build b/meson.build
+index 434abf58313c19ef163bfc2df9b669224027c52f..68ebc1b3a75d03e05b65545a85500e2ea4ed1983 100644
+--- a/meson.build
++++ b/meson.build
+@@ -189,7 +189,7 @@ message(f'Detected system "@SYSTEM@".')
+ 
+ #### Dependencies
+ 
+-boost_dep = dependency('boost', version: '>=1.66', modules: ['system'])
++boost_dep = dependency('boost', version: '>=1.69')
+ dl_dep = dependency('dl')
+ threads_dep = dependency('threads')
+ add_project_dependencies(boost_dep, dl_dep, threads_dep, language: ['cpp'])
+@@ -200,6 +200,7 @@ boost_headers = [
+     'boost/asio/coroutine.hpp',
+     'boost/asio/io_context.hpp',
+     'boost/asio/ip/address.hpp',
++    'boost/asio/deadline_timer.hpp',
+     'boost/asio/signal_set.hpp',
+     'boost/circular_buffer.hpp',
+     'boost/date_time/posix_time/posix_time_types.hpp',
+diff --git a/src/lib/asiodns/io_fetch.h b/src/lib/asiodns/io_fetch.h
+index 6fcbb78abb01d962c3393eac6827fdc400c199c2..3053cc2e0a2d10711577d5640d2262a5635e001a 100644
+--- a/src/lib/asiodns/io_fetch.h
++++ b/src/lib/asiodns/io_fetch.h
+@@ -16,6 +16,7 @@
+ #include <util/buffer.h>
+ 
+ #include <boost/asio/coroutine.hpp>
++#include <boost/asio/deadline_timer.hpp>
+ #include <boost/shared_array.hpp>
+ #include <boost/shared_ptr.hpp>
+ #include <boost/date_time/posix_time/posix_time_types.hpp>
+diff --git a/src/lib/asiolink/interval_timer.h b/src/lib/asiolink/interval_timer.h
+index 0b1c10c7882301c0a7fa948c304f1c98b05507e7..790d132b42a61cfae0567aff544246c1a4332632 100644
+--- a/src/lib/asiolink/interval_timer.h
++++ b/src/lib/asiolink/interval_timer.h
+@@ -7,6 +7,7 @@
+ #ifndef ASIOLINK_INTERVAL_TIMER_H
+ #define ASIOLINK_INTERVAL_TIMER_H 1
+ 
++#include <boost/asio/deadline_timer.hpp>
+ #include <boost/shared_ptr.hpp>
+ #include <functional>
+ 

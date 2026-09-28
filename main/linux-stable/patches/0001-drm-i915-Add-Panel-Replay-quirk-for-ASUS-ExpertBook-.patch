@@ -1,0 +1,51 @@
+From: burakgon <burakgon12@gmail.com>
+Subject: [PATCH] drm/i915: Disable Panel Replay on ASUS ExpertBook Ultra B9406CAA
+
+The Panel Replay Selective Update (Early Transport) implementation on the
+eDP panel in the 2026 ASUS ExpertBook Ultra (B9406CAA, Panther Lake) hangs
+the xe display engine. dmesg shows:
+
+  xe 0000:00:02.0: [drm] *ERROR* Timed out waiting PSR idle state
+  xe 0000:00:02.0: [drm] *ERROR* [CRTC:151:pipe A] DSB 0 timed out waiting for idle
+
+and KWin reports "Pageflip timed out! This is a bug in the xe kernel
+driver" until the internal panel goes black; only a reboot recovers it.
+
+Mirror the existing quirk for the Dell XPS 14 DA14260 (which has the same
+class of problem) for this ASUS subsystem. The panel reports IEEE OUI
+00:aa:01 in DPCD register 0x300, and the laptop's PCI subsystem
+identifier is 0x1043:0x15e4.
+
+Tested on:
+  - ASUS ExpertBook Ultra B9406CAA, Panther Lake Core Ultra X7
+  - Linux 7.0.x and 7.1-rc1 (CachyOS variants)
+  - eDP panel: Samsung Display Corp ("SDC") product 0x4217
+
+Without this patch the laptop's only workaround is xe.enable_psr=0 on
+the kernel cmdline, which globally disables Panel Replay for the system
+even when other displays could use it safely.
+
+Signed-off-by: burakgon <burakgon12@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 1abbdd4..2e78a90 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -269,6 +269,14 @@
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* ASUS ExpertBook Ultra B9406CAA */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1043,
++		.subsystem_device = 0x15e4,
++		.sink_oui = SINK_OUI(0x00, 0xaa, 0x01),
++		.hook = quirk_disable_edp_panel_replay,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)

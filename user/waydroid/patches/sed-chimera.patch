@@ -1,0 +1,28 @@
+--- a/Makefile	2024-08-07 18:01:14.000000000 -0300
++++ b/Makefile	2024-09-08 13:55:52.827469906 -0300
+@@ -54,7 +54,7 @@
+ 		cp systemd/waydroid-container.service $(INSTALL_SYSD_DIR); \
+ 	fi
+ 	if [ $(USE_NFTABLES) = 1 ]; then \
+-		sed '/LXC_USE_NFT=/ s/false/true/' -i $(INSTALL_WAYDROID_DIR)/data/scripts/waydroid-net.sh; \
++		sed -i '' '/LXC_USE_NFT=/ s/false/true/' $(INSTALL_WAYDROID_DIR)/data/scripts/waydroid-net.sh; \
+ 	fi
+ 
+ install_apparmor:
+--- a/tools/helpers/lxc.py	2024-09-07 13:39:38.419147354 -0300
++++ b/tools/helpers/lxc.py	2024-09-07 14:10:55.719543931 -0300
+@@ -157,12 +157,12 @@
+     tools.helpers.run.user(args, command)
+     command = ["sh", "-c", "cat {} > \"{}\"".format(' '.join('"{0}"'.format(w) for w in config_snippets), lxc_path + "/config")]
+     tools.helpers.run.user(args, command)
+-    command = ["sed", "-i", "s/LXCARCH/{}/".format(platform.machine()), lxc_path + "/config"]
++    command = ["sed", "-i", "","s/LXCARCH/{}/".format(platform.machine()), lxc_path + "/config"]
+     tools.helpers.run.user(args, command)
+     command = ["cp", "-fpr", seccomp_profile, lxc_path + "/waydroid.seccomp"]
+     tools.helpers.run.user(args, command)
+     if get_apparmor_status(args):
+-        command = ["sed", "-i", "-E", "/lxc.aa_profile|lxc.apparmor.profile/ s/unconfined/{}/g".format(LXC_APPARMOR_PROFILE), lxc_path + "/config"]
++        command = ["sed", "-i", "", "-E", "/lxc.aa_profile|lxc.apparmor.profile/ s/unconfined/{}/g".format(LXC_APPARMOR_PROFILE), lxc_path + "/config"]
+         tools.helpers.run.user(args, command)
+ 
+     nodes = generate_nodes_lxc_config(args)

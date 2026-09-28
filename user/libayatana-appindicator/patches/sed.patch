@@ -1,0 +1,12 @@
+diff -ruN a/example/CMakeLists.txt b/example/CMakeLists.txt
+--- a/example/CMakeLists.txt	2026-06-10 17:49:10.000000000 +0200
++++ b/example/CMakeLists.txt	2026-07-26 07:32:50.265062102 +0200
+@@ -25,7 +25,7 @@
+         VERBATIM
+         COMMAND
+         sed
+-        -i "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
++        -i "" "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
+         "${CMAKE_CURRENT_BINARY_DIR}/simple-client-vala.c"
+     )
+ 

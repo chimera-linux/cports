@@ -1,0 +1,18 @@
+--- a/seccomp.sh
++++ b/seccomp.sh
+@@ -67,13 +67,13 @@ sub() {
+ 	__template="$(eval printf '%s' "\${${2}}")"
+ 	shift; shift
+ 
+-	sed -i "${__line_no}s#.*#${__template}#" "${TMP}"
++	sed -i '' "${__line_no}s#.*#${__template}#" "${TMP}"
+ 
+ 	IFS=' '
+ 	for __def in ${@}; do
+ 		__key="@${__def%%:*}@"
+ 		__value="${__def#*:}"
+-		sed -i "${__line_no}s/${__key}/${__value}/" "${TMP}"
++		sed -i '' "${__line_no}s/${__key}/${__value}/" "${TMP}"
+ 	done
+ 	unset IFS
+ }

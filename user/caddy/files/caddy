@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/caddy run --config /etc/caddy/Caddyfile
+run-as = _caddy
+working-dir = /var/lib/caddy
+logfile = /var/log/caddy.log
+capabilities = ^cap_net_bind_service
+depends-on: local.target
+load-options: export-passwd-vars

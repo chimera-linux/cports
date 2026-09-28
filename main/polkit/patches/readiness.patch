@@ -1,0 +1,35 @@
+commit 2db5863e4f9b6b89d37fc05b1522edb469f84cbd
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri May 19 21:54:49 2023 +0200
+
+    add dinit readiness support
+
+diff --git a/src/polkitbackend/polkitd.c b/src/polkitbackend/polkitd.c
+index c3ec32f..7e28b4d 100644
+--- a/src/polkitbackend/polkitd.c
++++ b/src/polkitbackend/polkitd.c
+@@ -23,6 +23,7 @@
+ 
+ #include <signal.h>
+ #include <stdlib.h>
++#include <unistd.h>
+ 
+ #include <glib-unix.h>
+ 
+@@ -68,6 +69,16 @@ on_bus_acquired (GDBusConnection *connection,
+       g_error_free (error);
+       g_main_loop_quit (loop); /* exit */
+     }
++
++  /* readiness */
++  const char *rvar = g_getenv("POLKITD_READY_FD");
++  if (!rvar) return;
++  int fdnum = atoi(rvar);
++  errno = 0;
++  if (!fdnum || fcntl(fdnum, F_GETFD) < 0 || errno == EBADF)
++    return;
++  write(fdnum, "READY=1", sizeof("READY=1"));
++  close(fdnum);
+ }
+ 
+ static void

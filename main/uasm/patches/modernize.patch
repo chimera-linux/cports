@@ -1,0 +1,72 @@
+fix all the missing protos
+--
+diff --git a/H/globals.h b/H/globals.h
+index 223d015..3c056f7 100644
+--- a/H/globals.h
++++ b/H/globals.h
+@@ -946,4 +946,15 @@ extern char             *num2hex64(uint_64 value, char *buffer);
+ extern char             *ConvertSectionName( const struct asym *, enum seg_type *pst, char *buffer );
+ extern void             RewindToWin64(void);
+ 
++void AddSimdTypes(void);
++char *strupr(char *);
++void RunLineQueue(void);
++void CreateMacroLibCases32(void);
++void CreateMacroLibCases64(void);
++void SymSimd(struct dsym *);
++void OutputInterleavedBytes(const unsigned char *, int, struct fixup *);
++ret_code BackPatch(struct asym *);
++unsigned get_curr_srcfile(void);
++uint_32 GetLineNumber(void);
++
+ #endif
+diff --git a/Makefile-Linux-GCC-64.mak b/Makefile-Linux-GCC-64.mak
+index 9d4431a..56c525d 100644
+--- a/Makefile-Linux-GCC-64.mak
++++ b/Makefile-Linux-GCC-64.mak
+@@ -12,17 +12,17 @@ inc_dirs  = -IH
+ #cflags stuff
+ 
+ ifeq ($(DEBUG),0)
+-extra_c_flags = -DNDEBUG -O2 -funsigned-char -Wwrite-strings
++extra_c_flags = -DNDEBUG -funsigned-char -Wwrite-strings -Wno-incompatible-function-pointer-types
+ OUTD=GccUnixR
+ else
+ extra_c_flags = -DDEBUG_OUT -g
+ OUTD=GccUnixD
+ endif
+ 
+-c_flags =-D __UNIX__ $(extra_c_flags)
++c_flags =-D __UNIX__ $(extra_c_flags) $(CFLAGS)
+ 
+ #From CLANG 11+, default has changed from allowing global variables to be defined in the headers (-fcommon) to not allowing it (-fno-common)."   USE: make CC="clang -fcommon" -f gccLinux64.mak
+-CC = gcc
++CC ?= gcc
+ 
+ .SUFFIXES:
+ .SUFFIXES: .c .o
+diff --git a/codegenv2.c b/codegenv2.c
+index 6bcc08d..7501e2b 100644
+--- a/codegenv2.c
++++ b/codegenv2.c
+@@ -1,6 +1,7 @@
+ 
+ #include "codegenv2.h"
+ 
++#include <ctype.h>
+ #include <time.h>
+ #include "globals.h"
+ #include "parser.h"
+diff --git a/macho64.c b/macho64.c
+index 8e74842..437b229 100644
+--- a/macho64.c
++++ b/macho64.c
+@@ -725,7 +725,7 @@ static ret_code macho_write_module( struct module_info *modinfo )
+ 		mm.header.cputype = CPU_TYPE_X86_64;
+ 		mm.header.cpusubtype = CPU_SUBTYPE_LITTLE_ENDIAN | CPU_SUBTYPE_X86_64_ALL;
+ 		mm.header.filetype = MH_OBJECT;
+-		mm.header.flags = NULL;
++		mm.header.flags = 0;
+ 		
+ 		macho_build_structures(modinfo, mm);	
+ 	}

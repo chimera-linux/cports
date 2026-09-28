@@ -1,0 +1,123 @@
+diff a/utils/gssd/gssd_proc.c b/utils/gssd/gssd_proc.c
+--- a/utils/gssd/gssd_proc.c
++++ b/utils/gssd/gssd_proc.c
+@@ -581,6 +581,7 @@
+ 	int	nocache = 0;
+ 	int	success = 0;
+ 	pthread_t tid = pthread_self();
++	const char *errmsg;
+ 
+ 	printerr(2, "krb5_use_machine_creds(0x%lx): uid %d tgtname %s\n", 
+ 		tid, uid, tgtname);
+@@ -603,9 +604,11 @@
+ 
+ 			if (gss_krb5_ccache_name(&min_stat, *ccname, NULL) !=
+ 					GSS_S_COMPLETE) {
++				errmsg = gssd_k5_err_msg(NULL, min_stat);
+ 				printerr(1, "WARNING: gss_krb5_ccache_name "
+ 					 "with name '%s' failed (%s)\n",
+-					 *ccname, error_message(min_stat));
++					 *ccname, errmsg);
++				free(errmsg);
+ 				continue;
+ 			}
+ 			if ((create_auth_rpc_client(clp, tgtname, rpc_clnt,
+diff a/utils/gssd/krb5_util.c b/utils/gssd/krb5_util.c
+--- a/utils/gssd/krb5_util.c
++++ b/utils/gssd/krb5_util.c
+@@ -909,7 +909,11 @@
+ 		myhostad[i+1] = 0;
+ 	}
+ 	if (adhostoverride)
++#ifdef HAVE_KRB5
+ 		krb5_free_string(context, adhostoverride);
++#else
++		free(adhostoverride);
++#endif
+ 
+ 	code = krb5_get_default_realm(context, &default_realm);
+ 	if (code) {
+@@ -1077,6 +1081,7 @@
+ 
+ 	while (!found &&
+ 		(ret = krb5_cc_next_cred(context, ccache, &cur, &creds)) == 0) {
++#ifdef HAVE_KRB5
+ 		if (creds.server->length == 2 &&
+ 				data_is_equal(creds.server->realm,
+ 					      principal->realm) &&
+@@ -1086,6 +1091,19 @@
+ 				data_is_equal(creds.server->data[1],
+ 					      principal->realm) &&
+ 				creds.times.endtime > time(NULL))
++#else
++		if (strcmp(
++			krb5_principal_get_realm(context, creds.server),
++			krb5_principal_get_realm(context, principal)) == 0 &&
++			krb5_principal_get_comp_string(context, creds.server, 0) != NULL &&
++			strcmp(
++				krb5_principal_get_comp_string(context, creds.server, 0),
++				"krbtgt") == 0 &&
++			krb5_principal_get_comp_string(context, creds.server, 1) != NULL &&
++			strcmp(
++				krb5_principal_get_comp_string(context, creds.server, 1),
++				krb5_principal_get_realm(context, principal)) == 0)
++#endif
+ 			found = 1;
+ 		krb5_free_cred_contents(context, &creds);
+ 	}
+@@ -1255,6 +1273,7 @@
+ 	struct dirent		*d;
+ 	int			err, i, j;
+ 	u_int			maj_stat, min_stat;
++	const char		*errmsg;
+ 
+ 	printerr(3, "looking for client creds with uid %u for "
+ 		    "server %s in %s\n", uid, servername, dirpattern);
+@@ -1295,8 +1314,10 @@
+ 		 buf);
+ 	maj_stat = gss_krb5_ccache_name(&min_stat, buf, NULL);
+ 	if (maj_stat != GSS_S_COMPLETE) {
++		errmsg = gssd_k5_err_msg(NULL, min_stat);
+ 		printerr(0, "ERROR: unable to get user cred cache '%s' "
+-			 "failed (%s)\n", buf, error_message(min_stat));
++			 "failed (%s)\n", buf, errmsg);
++		free(errmsg);
+ 		return maj_stat;
+ 	}
+ 	return 0;
+@@ -1476,21 +1497,12 @@
+ 	char *msg = NULL;
+ 
+ #if HAVE_KRB5_GET_ERROR_MESSAGE
+-	if (context != NULL) {
+-		origmsg = krb5_get_error_message(context, code);
+-		msg = strdup(origmsg);
+-		krb5_free_error_message(context, origmsg);
+-	}
+-#endif
+-	if (msg != NULL)
+-		return msg;
+-#if HAVE_KRB5
+-	return strdup(error_message(code));
++	origmsg = krb5_get_error_message(context, code);
++	msg = strdup(origmsg);
++	krb5_free_error_message(context, origmsg);
++	return msg;
+ #else
+-	if (context != NULL)
+-		return strdup(krb5_get_err_text(context, code));
+-	else
+-		return strdup(error_message(code));
++	return strdup(error_message(code));
+ #endif
+ }
+ 
+@@ -1629,7 +1629,7 @@ get_allowed_enctypes(void)
+ 				ret = ENOMEM;
+ 				goto out_err;
+ 			}
+-			ret = krb5_string_to_enctype(node->field,
++			ret = krb5_string_to_enctype(NULL, node->field,
+ 						     &allowed_enctypes[num_allowed_enctypes]);
+ 			if (ret) {
+ 				printerr(0, "%s: invalid enctype %s",

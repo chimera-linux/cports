@@ -1,0 +1,27 @@
+pkgname = "libxmlb"
+pkgver = "0.3.29"
+pkgrel = 0
+build_style = "meson"
+configure_args = [
+    "-Dgtkdoc=false",
+]
+hostmakedepends = ["pkgconf", "meson", "gobject-introspection"]
+makedepends = ["xz-devel", "zstd-devel"]
+checkdepends = ["shared-mime-info"]
+depends = ["shared-mime-info"]
+pkgdesc = "Library to help create and query binary XML blobs"
+license = "LGPL-2.1-or-later"
+url = "https://github.com/hughsie/libxmlb"
+source = f"https://github.com/hughsie/libxmlb/releases/download/{pkgver}/libxmlb-{pkgver}.tar.xz"
+sha256 = "448294be33bfae62f00fa66e506f1cae80237ce71b7ab6530aefa75005eeb08a"
+options = ["!cross"]
+
+
+def post_install(self):
+    self.uninstall("usr/lib/installed-tests")
+    self.uninstall("usr/share/installed-tests")
+
+
+@subpackage("libxmlb-devel")
+def _(self):
+    return self.default_devel()

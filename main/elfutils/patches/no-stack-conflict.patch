@@ -1,0 +1,25 @@
+We can't have an executable called "stack" in build dir as
+it would break compiling C++ programs when using the -I. flag.
+
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 943b74c..ae59f40 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -95,7 +95,7 @@ bin_PROGRAMS = readelf$(EXEEXT) nm$(EXEEXT) size$(EXEEXT) \
+ 	strip$(EXEEXT) elflint$(EXEEXT) findtextrel$(EXEEXT) \
+ 	addr2line$(EXEEXT) elfcmp$(EXEEXT) objdump$(EXEEXT) \
+ 	ranlib$(EXEEXT) strings$(EXEEXT) ar$(EXEEXT) unstrip$(EXEEXT) \
+-	stack$(EXEEXT) elfcompress$(EXEEXT) elfclassify$(EXEEXT) \
++	eustack$(EXEEXT) elfcompress$(EXEEXT) elfclassify$(EXEEXT) \
+ 	srcfiles$(EXEEXT) $(am__EXEEXT_1)
+ @ENABLE_STACKTRACE_TRUE@am__append_2 = stacktrace
+ subdir = src
+@@ -761,7 +761,7 @@ srcfiles$(EXEEXT): $(srcfiles_OBJECTS) $(srcfiles_DEPENDENCIES) $(EXTRA_srcfiles
+ 	@rm -f srcfiles$(EXEEXT)
+ 	$(AM_V_CXXLD)$(CXXLINK) $(srcfiles_OBJECTS) $(srcfiles_LDADD) $(LIBS)
+ 
+-stack$(EXEEXT): $(stack_OBJECTS) $(stack_DEPENDENCIES) $(EXTRA_stack_DEPENDENCIES) 
++eustack$(EXEEXT): $(stack_OBJECTS) $(stack_DEPENDENCIES) $(EXTRA_stack_DEPENDENCIES) 
+ 	@rm -f stack$(EXEEXT)
+ 	$(AM_V_CCLD)$(LINK) $(stack_OBJECTS) $(stack_LDADD) $(LIBS)
+ 

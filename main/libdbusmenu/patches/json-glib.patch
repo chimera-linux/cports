@@ -1,0 +1,11 @@
+--- a/tests/dbusmenu-gtk/mago_tests/data/test-gtk-label.json
++++ b/tests/dbusmenu-gtk/mago_tests/data/test-gtk-label.json
+@@ -152,7 +152,7 @@
+ 			{"id": 39,
+ 			 "label": "value39"}
+ 		 ]
+-		},
++		}
+ 	 ]
+ 	}
+ ]

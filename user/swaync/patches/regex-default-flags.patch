@@ -1,0 +1,13 @@
+diff --git a/src/controlCenter/widgets/mpris/mpris.vala b/src/controlCenter/widgets/mpris/mpris.vala
+index 2c170ae..776b2f7 100644
+--- a/src/controlCenter/widgets/mpris/mpris.vala
++++ b/src/controlCenter/widgets/mpris/mpris.vala
+@@ -275,7 +275,7 @@ namespace SwayNotificationCenter.Widgets.Mpris {
+                 if (blacklistedPattern == null || blacklistedPattern.length == 0) {
+                     continue;
+                 }
+-                if (GLib.Regex.match_simple (blacklistedPattern, name, RegexCompileFlags.DEFAULT, 0)) {
++                if (GLib.Regex.match_simple (blacklistedPattern, name, 0, 0)) {
+                     message ("\"%s\" is blacklisted", name);
+                     return true;
+                 }

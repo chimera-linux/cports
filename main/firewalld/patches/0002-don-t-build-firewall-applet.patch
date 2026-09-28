@@ -1,0 +1,64 @@
+From 20ab495f7602b0600496b2e18ca07ce8620d73fd Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Mon, 15 Jan 2024 14:58:18 +0100
+Subject: [PATCH 2/4] don't build firewall-applet
+
+requires pyqt5, which isn't packaged in chimera
+---
+ config/Makefile.am  | 6 ------
+ doc/xml/Makefile.am | 1 -
+ src/Makefile.am     | 2 +-
+ 3 files changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/config/Makefile.am b/config/Makefile.am
+index 2b4ae095..dac841d5 100644
+--- a/config/Makefile.am
++++ b/config/Makefile.am
+@@ -10,12 +10,7 @@ appdata_FILES = firewall-config.appdata.xml.in
+ appdatadir = $(datadir)/metainfo/
+ appdata_DATA = $(appdata_FILES:.in=)
+ 
+-applet_desktop_FILES = firewall-applet.desktop.in
+-applet_desktopdir = $(sysconfdir)/xdg/autostart
+-applet_desktop_DATA = $(applet_desktop_FILES:.in=)
+-
+ confdir = $(sysconfdir)/firewall
+-dist_conf_DATA = applet.conf
+ 
+ polkit1_action_FILES = org.fedoraproject.FirewallD1.server.policy.in \
+                        org.fedoraproject.FirewallD1.desktop.policy.in
+@@ -39,7 +34,6 @@ dist_xmlschema_SCRIPTS = xmlschema/check.sh
+ BUILT_SOURCES = \
+ 	$(desktop_DATA) \
+ 	$(appdata_DATA) \
+-	$(applet_desktop_DATA) \
+ 	$(polkit1_action_DATA) \
+ 	$(gsettings_SCHEMAS) \
+ 	firewalld-sysctls.conf \
+diff --git a/doc/xml/Makefile.am b/doc/xml/Makefile.am
+index 3924e7c2..30d4f3f6 100644
+--- a/doc/xml/Makefile.am
++++ b/doc/xml/Makefile.am
+@@ -11,7 +11,6 @@ man_MANS = $(man1_MANS) $(man5_MANS)
+ HTMLS = $(man1_MANS:../man/man1/%.1=../html/%.html) $(man5_MANS:../man/man5/%.5=../html/%.html)
+ 
+ man1_MANS = \
+-	../man/man1/firewall-applet.1 \
+ 	../man/man1/firewall-cmd.1 \
+ 	../man/man1/firewall-config.1 \
+ 	../man/man1/firewalld.1 \
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 3ec1374c..d4801427 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,6 +1,6 @@
+ SUBDIRS = icons
+ 
+-dist_bin_SCRIPTS_in = firewall-applet.in firewall-cmd.in firewall-offline-cmd.in firewall-config.in
++dist_bin_SCRIPTS_in = firewall-cmd.in firewall-offline-cmd.in firewall-config.in
+ dist_sbin_SCRIPTS_in = firewalld.in
+ 
+ dist_bin_SCRIPTS = $(dist_bin_SCRIPTS_in:.in=)
+-- 
+2.43.0
+

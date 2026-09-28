@@ -1,0 +1,43 @@
+seccompiler doesn't really support anything else
+
+mise supports even less in practice (aarch64 x86_64)
+
+explicitly unsandbox on all other archs which also unbreaks big endian
+
+--- a/src/sandbox/mod.rs
++++ b/src/sandbox/mod.rs
+@@ -4,7 +4,7 @@ use std::path::PathBuf;
+ mod landlock;
+ #[cfg(target_os = "macos")]
+ mod macos;
+-#[cfg(target_os = "linux")]
++#[cfg(all(target_os = "linux", any(target_arch = "aarch64", target_arch = "riscv64", target_arch = "x86_64")))]
+ mod seccomp;
+ 
+ /// Configuration for process sandboxing.
+@@ -186,6 +186,7 @@ impl SandboxConfig {
+                      Use --deny-net to block all network, or remove --allow-net."
+                 );
+             }
++            #[cfg(any(target_arch = "aarch64", target_arch = "riscv64", target_arch = "x86_64"))]
+             seccomp::apply_seccomp_net_filter()?;
+         }
+         Ok(())
+@@ -229,11 +230,16 @@ pub fn landlock_apply(config: &SandboxConfig) -> eyre::Result<()> {
+ }
+ 
+ /// Apply seccomp network filter (Linux only).
+-#[cfg(target_os = "linux")]
++#[cfg(all(target_os = "linux", any(target_arch = "aarch64", target_arch = "riscv64", target_arch = "x86_64")))]
+ pub fn seccomp_apply() -> eyre::Result<()> {
+     seccomp::apply_seccomp_net_filter()
+ }
+ 
++#[cfg(all(target_os = "linux", not(any(target_arch = "aarch64", target_arch = "riscv64", target_arch = "x86_64"))))]
++pub fn seccomp_apply() -> eyre::Result<()> {
++    Ok(())
++}
++
+ /// Generate a macOS Seatbelt profile string (macOS only).
+ #[cfg(target_os = "macos")]
+ pub async fn macos_generate_profile(config: &SandboxConfig) -> String {

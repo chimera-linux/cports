@@ -1,0 +1,34 @@
+diff --git a/data/80xapp-gtk3-module.sh b/data/80xapp-gtk3-module.sh
+index 180aa54..b63f04e 100644
+--- a/data/80xapp-gtk3-module.sh
++++ b/data/80xapp-gtk3-module.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # This file is sourced by xinit(1) or a display manager's Xsession, not executed.
+ 
+ if [ -z "$GTK3_MODULES" ] ; then
+diff --git a/scripts/xfce4-set-wallpaper b/scripts/xfce4-set-wallpaper
+index 52fa374..33429cc 100755
+--- a/scripts/xfce4-set-wallpaper
++++ b/scripts/xfce4-set-wallpaper
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ # Author: Weitian Leung <weitianleung@gmail.com>
+ # Version: 2.1
+@@ -6,11 +6,11 @@
+ # Description: set a picture as xfce4 wallpaper
+ 
+ # xfce4-desktop requires an absolute path.
+-wallpaper="$(realpath "$1")"
++wallpaper=$(realpath "$1")
+ 
+ # check image
+ mime_type=`file --mime-type -b "$wallpaper"`
+-if [[ ! "$mime_type" == image/* ]]; then
++if [ "$mime_type" == "image/*" ]; then
+         echo "Invalid image"
+         exit 1
+ fi

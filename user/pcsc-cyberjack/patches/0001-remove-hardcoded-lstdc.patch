@@ -1,0 +1,62 @@
+From b4b50e64a27ac896b46197d2abfc98ddb7c293c9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Thu, 1 May 2025 14:26:21 +0200
+Subject: [PATCH 1/2] remove hardcoded -lstdc++
+
+---
+ ifd/Makefile.am           | 2 +-
+ libcyberjack/Makefile.am  | 6 +++---
+ tools/cjflash/Makefile.am | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/ifd/Makefile.am b/ifd/Makefile.am
+index ba74059..9fc52a8 100644
+--- a/ifd/Makefile.am
++++ b/ifd/Makefile.am
+@@ -26,5 +26,5 @@ endif
+ libifd_cyberjack_la_SOURCES=ifd.cpp
+ libifd_cyberjack_la_LDFLAGS=-version-info @CYBERJACK_SO_CURRENT@:@CYBERJACK_SO_REVISION@:@CYBERJACK_SO_AGE@ -no-undefined
+ #libifd_cyberjack_la_LIBADD=$(top_builddir)/cjeca32/libeca.la $(top_builddir)/cjeca32/ausb/libausb.la
+-libifd_cyberjack_la_LIBADD=$(top_builddir)/cjeca32/libeca.la -lstdc++
++libifd_cyberjack_la_LIBADD=$(top_builddir)/cjeca32/libeca.la
+ 
+diff --git a/libcyberjack/Makefile.am b/libcyberjack/Makefile.am
+index d045edb..5f0bc3c 100644
+--- a/libcyberjack/Makefile.am
++++ b/libcyberjack/Makefile.am
+@@ -21,10 +21,10 @@ libcyberjack_la_SOURCES=\
+ if ENABLE_NONSERIAL
+ libcyberjack_la_LIBADD=\
+  ../cjeca32/ausb/libausb.la \
+- -lstdc++ @THREAD_LIBS@ $(hal_libs) $(pcsc_libraries) $(pcsc_lib) $(libusb_LIBS)
++ @THREAD_LIBS@ $(hal_libs) $(pcsc_libraries) $(pcsc_lib) $(libusb_LIBS)
+ else
+ libcyberjack_la_LIBADD=\
+- -lstdc++ @THREAD_LIBS@ $(pcsc_libraries) $(pcsc_lib)
++ @THREAD_LIBS@ $(pcsc_libraries) $(pcsc_lib)
+ endif
+ 
+ if USE_XML2
+@@ -45,5 +45,5 @@ noinst_HEADERS=\
+ noinst_PROGRAMS=libtest
+ 
+ libtest_SOURCES=libtest.cpp
+-libtest_LDADD=libcyberjack.la -ldl -lstdc++ $(pcsc_libraries) $(pcsc_lib) $(libusb_LIBS)
++libtest_LDADD=libcyberjack.la -ldl $(pcsc_libraries) $(pcsc_lib) $(libusb_LIBS)
+ #libtest_LDFLAGS=-all-static
+diff --git a/tools/cjflash/Makefile.am b/tools/cjflash/Makefile.am
+index ec39b54..1efd320 100644
+--- a/tools/cjflash/Makefile.am
++++ b/tools/cjflash/Makefile.am
+@@ -4,6 +4,6 @@ DEFS+=@cyberjack_platform_def@
+ 
+ bin_PROGRAMS=cjflash
+ cjflash_SOURCES=cjflash.cpp
+-cjflash_LDADD=../../cjeca32/libeca.la @libusb_libs@ $(hal_libs) @THREAD_LIBS@ -lstdc++
++cjflash_LDADD=../../cjeca32/libeca.la @libusb_libs@ $(hal_libs) @THREAD_LIBS@
+ 
+ 
+-- 
+2.49.0
+

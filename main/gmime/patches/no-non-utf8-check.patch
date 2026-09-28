@@ -1,0 +1,51 @@
+From 2252f683ed4b6143405d3ac7ba677b927dff575f Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Wed, 2 Aug 2023 18:44:51 +0000
+Subject: [PATCH] remove non-utf8 checks
+
+---
+ tests/test-filters.c | 1 -
+ tests/test-iconv.c   | 4 ----
+ 2 files changed, 5 deletions(-)
+
+diff --git a/tests/test-filters.c b/tests/test-filters.c
+index d877e8c8..459a94de 100644
+--- a/tests/test-filters.c
++++ b/tests/test-filters.c
+@@ -499,7 +499,6 @@ int main (int argc, char **argv)
+ 	test_charset_conversion (datadir, "cyrillic", "iso-8859-5", "utf-8");
+ 	test_charset_conversion (datadir, "cyrillic", "utf-8", "koi8-r");
+ 	test_charset_conversion (datadir, "cyrillic", "koi8-r", "utf-8");
+-	test_charset_conversion (datadir, "japanese", "utf-8", "iso-2022-jp");
+ 	test_charset_conversion (datadir, "japanese", "iso-2022-jp", "utf-8");
+ 	test_charset_conversion (datadir, "japanese", "utf-8", "shift-jis");
+ 	test_charset_conversion (datadir, "japanese", "shift-jis", "utf-8");
+diff --git a/tests/test-iconv.c b/tests/test-iconv.c
+index f42fa5ac..f6e5b7de 100644
+--- a/tests/test-iconv.c
++++ b/tests/test-iconv.c
+@@ -50,8 +50,6 @@ struct {
+ 	{ "F\xe1""brica", "iso-8859-1" },                                                          /* gl */
+ 	{ "Szem\x1b-B\xe9lyh\xedv\xf3\x1b-A ", "iso-8859-2" },                                     /* hu */
+ 	{ "Non c'\xe9 corrispondenza", "iso-8859-1" },                                             /* it */
+-	{ "\x1b$(B>e5i8!:w\x1b(B", "euc-jp" },                                                     /* ja */
+-	{ "\x1b$(C0m1^\x1b(B \x1b$(C0K;v\x1b(B", "euc-kr" },                                       /* ko */
+ 	{ "I\xf0sami paie\xf0ka", "iso-8859-13" },                                                 /* lt */
+ 	{ "Papla\xf0in\xe2t\xe2 Mekl\xe7\xf0""ana", "iso-8859-13" },                               /* lv */
+ 	{ "Kopi\xebren", "iso-8859-15" },                                                          /* nl */
+@@ -59,12 +57,10 @@ struct {
+ 	{ "Avansert s\xf8k", "iso-8859-1" },                                                       /* no */
+ 	{ "\x1b-B\xacr\xf3""d\xb3""a\x1b-A ksi\x1b-B\xb1\xbfki\x1b-A adresowej", "iso-8859-2" },   /* pl */
+ 	{ "C\x1b-B\xe3utare\x1b-A avansat\x1b-B\xe3\x1b-A ", "iso-8859-2" },                       /* ro */
+-	{ "\x1b-L\xc0\xd0\xe1\xe8\xd8\xe0\xd5\xdd\xdd\xeb\xd9\x1b-A \x1b-L\xdf\xde\xd8\xe1\xda\x1b-A ", "koi8-r" }, /* ru */
+ 	{ "Pokro\xc4\x8dil\xc3\xa9 h\xc4\xbe""adanie", "utf-8" },                                  /* sk */
+ 	{ "Ga \xc5\xbe""elite", "utf-8" },                                                         /* sl */
+ 	{ "den \xe4nd\xe5?", "iso-8859-1" },                                                       /* sv */
+ 	{ "Geli\x1b-M\xfemi\xfe\x1b-A Arama", "iso-8859-9" },                                      /* tr */
+-	{ "\xf5\xc4\xcf\xd3\xcb\xcf\xce\xc1\xcc\xc5\xce\xc9\xca \xd0\xcf\xdb\xd5\xcb", "koi8-u" }, /* uk */
+ 	
+ #if 0
+ 	/* this is expected to fail */
+-- 
+2.41.0
+

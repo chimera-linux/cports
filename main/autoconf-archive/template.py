@@ -1,0 +1,10 @@
+pkgname = "autoconf-archive"
+pkgver = "2024.10.16"
+pkgrel = 1
+build_style = "gnu_configure"
+makedepends = ["automake", "texinfo"]
+pkgdesc = "Collection of re-usable Autoconf macros"
+license = "GPL-3.0-or-later"
+url = "https://www.gnu.org/software/autoconf-archive"
+source = f"$(GNU_SITE)/autoconf-archive/autoconf-archive-{pkgver}.tar.xz"
+sha256 = "7bcd5d001916f3a50ed7436f4f700e3d2b1bade3ed803219c592d62502a57363"

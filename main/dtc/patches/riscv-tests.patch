@@ -1,0 +1,33 @@
+asm_tree_dump test fails on riscv for mysterious reasons
+
+and linker relaxation breaks the asm-to-so compiler invocations
+due to alignment shenanigans
+
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -98,12 +98,6 @@ tests += [
+ ]
+ 
+ dl = cc.find_library('dl', required: false)
+-if dl.found() and not static_build
+-  tests += [
+-    'asm_tree_dump',
+-    'value-labels',
+-  ]
+-endif
+ 
+ test_deps = [testutil_dep, util_dep, libfdt_dep]
+ if not static_build
+--- a/tests/run_tests.sh
++++ b/tests/run_tests.sh
+@@ -7,6 +7,10 @@ if [ -z "$CC" ]; then
+     CC=cc
+ fi
+ 
++case $($CC -print-target-triple) in
++    riscv*) CC="$CC -mno-relax" ;;
++esac
++
+ if [ -z "$PYTHON" ]; then
+     PYTHON=python3
+ fi

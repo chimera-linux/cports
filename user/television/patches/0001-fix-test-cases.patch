@@ -1,0 +1,44 @@
+From 30ec1569a57a5c9a3a417a4f1a44d0b708e4d9af Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Wed, 27 Aug 2025 22:30:21 +0200
+Subject: [PATCH 1/2] fix test cases
+
+---
+ tests/cli/ui.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tests/cli/ui.rs b/tests/cli/ui.rs
+index c3bc927..ad40cb0 100644
+--- a/tests/cli/ui.rs
++++ b/tests/cli/ui.rs
+@@ -471,7 +471,7 @@ fn test_no_preview_disables_preview_panel() {
+     tester.send("o"); // Toggle preview key
+ 
+     // Verify no preview elements are shown (no scrollbar, no panel frame)
+-    tester.assert_tui_frame_contains_none(&["───╮╭───", "Show Preview"]);
++    tester.assert_tui_frame_contains_none(&["─╮╭─", "Show Preview"]);
+ 
+     // Send Ctrl+C to exit
+     tester.send(&ctrl('c'));
+@@ -489,7 +489,7 @@ fn test_show_preview_starts_with_preview_visible() {
+     let mut child = tester.spawn_command_tui(cmd);
+ 
+     // Verify preview panel is initially visible (landscape layout shows side-by-side panels)
+-    tester.assert_tui_frame_contains_all(&["───╮╭───", "Hide Preview"]);
++    tester.assert_tui_frame_contains_all(&["─╮╭─", "Hide Preview"]);
+ 
+     // Send Ctrl+C to exit
+     tester.send(&ctrl('c'));
+@@ -545,7 +545,7 @@ fn test_hide_preview_scrollbar_hides_scrollbar() {
+     let mut child = tester.spawn_command_tui(cmd);
+ 
+     // The preview panel should still be visible but without scrollbar indicators
+-    tester.assert_tui_frame_contains_all(&["Hide Preview", "───╮╭───"]);
++    tester.assert_tui_frame_contains_all(&["Hide Preview", "─╮╭─"]);
+     tester.assert_not_tui_frame_contains("▲");
+ 
+     // Send Ctrl+C to exit
+-- 
+2.51.0
+

@@ -1,0 +1,22 @@
+From 377a804a248bfb909a5f9c079781c165c30f9507 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 30 Jan 2023 23:34:13 +0100
+Subject: [PATCH] use lib instead of lib64 for default install path
+
+---
+ Modules/GNUInstallDirs.cmake | 4 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Modules/GNUInstallDirs.cmake b/Modules/GNUInstallDirs.cmake
+index d626688c..1ea404c3 100644
+--- a/Modules/GNUInstallDirs.cmake
++++ b/Modules/GNUInstallDirs.cmake
+@@ -368,6 +368,8 @@ function(_GNUInstallDirs_get_system_type_for_install out_var)
+   if(NOT ${out_var})
+     if (EXISTS "/etc/alpine-release")
+       set(${out_var} "alpine")
++       elseif (EXISTS "/etc/chimera-release")
++               set(${out_var} "chimera")
+     elseif (EXISTS "/etc/arch-release")
+       set(${out_var} "arch linux")
+     elseif (EXISTS "/etc/debian_version")

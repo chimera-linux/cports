@@ -1,0 +1,25 @@
+From: Brian May <bam@debian.org>
+Date: Wed, 26 Apr 2017 06:29:22 +1000
+Subject: installsh
+
+===================================================================
+---
+ po/Makefile.am | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/po/Makefile.am b/po/Makefile.am
+index b488b9f..9f635fb 100644
+--- a/po/Makefile.am
++++ b/po/Makefile.am
+@@ -41,9 +41,9 @@ install-data-hook:
+ 	    domain=`echo $$x | sed 's@/.*@@'`; \
+ 	    lang=`echo $$x | sed 's@.*/\(.*\)\\.mo$$@\1@'`; \
+ 	    echo "installing lang $$domain $$lang" ; \
+-	    $(top_srcdir)/install-sh -d \
++	    sh $(top_srcdir)/install-sh -d \
+ 		"$(DESTDIR)$(localedir)/$$lang/LC_MESSAGES" ; \
+-	    $(top_srcdir)/install-sh $(srcdir)/$$x \
++	    sh $(top_srcdir)/install-sh $(srcdir)/$$x \
+ 	        "$(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$$domain.mo" ; \
+ 	done
+ 

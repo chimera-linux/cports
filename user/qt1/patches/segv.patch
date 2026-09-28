@@ -1,0 +1,147 @@
+diff --git a/include/qcolor.h b/include/qcolor.h
+index 51cd724..1595d2d 100644
+--- a/include/qcolor.h
++++ b/include/qcolor.h
+@@ -174,25 +174,25 @@ inline bool QColor::operator!=( const QColor &c ) const
+   Global colors
+  *****************************************************************************/
+ 
+-extern Q_EXPORT const QColor color0;
+-extern Q_EXPORT const QColor color1;
+-extern Q_EXPORT const QColor black;
+-extern Q_EXPORT const QColor white;
+-extern Q_EXPORT const QColor darkGray;
+-extern Q_EXPORT const QColor gray;
+-extern Q_EXPORT const QColor lightGray;
+-extern Q_EXPORT const QColor red;
+-extern Q_EXPORT const QColor green;
+-extern Q_EXPORT const QColor blue;
+-extern Q_EXPORT const QColor cyan;
+-extern Q_EXPORT const QColor magenta;
+-extern Q_EXPORT const QColor yellow;
+-extern Q_EXPORT const QColor darkRed;
+-extern Q_EXPORT const QColor darkGreen;
+-extern Q_EXPORT const QColor darkBlue;
+-extern Q_EXPORT const QColor darkCyan;
+-extern Q_EXPORT const QColor darkMagenta;
+-extern Q_EXPORT const QColor darkYellow;
++extern Q_EXPORT QColor color0;
++extern Q_EXPORT QColor color1;
++extern Q_EXPORT QColor black;
++extern Q_EXPORT QColor white;
++extern Q_EXPORT QColor darkGray;
++extern Q_EXPORT QColor gray;
++extern Q_EXPORT QColor lightGray;
++extern Q_EXPORT QColor red;
++extern Q_EXPORT QColor green;
++extern Q_EXPORT QColor blue;
++extern Q_EXPORT QColor cyan;
++extern Q_EXPORT QColor magenta;
++extern Q_EXPORT QColor yellow;
++extern Q_EXPORT QColor darkRed;
++extern Q_EXPORT QColor darkGreen;
++extern Q_EXPORT QColor darkBlue;
++extern Q_EXPORT QColor darkCyan;
++extern Q_EXPORT QColor darkMagenta;
++extern Q_EXPORT QColor darkYellow;
+ 
+ 
+ /*****************************************************************************
+diff --git a/src/kernel/qcolor.cpp b/src/kernel/qcolor.cpp
+index 879676b..0fbe20c 100644
+--- a/src/kernel/qcolor.cpp
++++ b/src/kernel/qcolor.cpp
+@@ -107,25 +107,25 @@
+ #define COLOR1_PIX 1
+ #endif
+ 
+-const QColor color0	( 0x00ffffff, COLOR0_PIX );
+-const QColor color1	( 0x00000000, COLOR1_PIX );
+-const QColor black	(   0,	 0,   0 );
+-const QColor white	( 255, 255, 255 );
+-const QColor darkGray	( 128, 128, 128 );
+-const QColor gray	( 160, 160, 164 );
+-const QColor lightGray	( 192, 192, 192 );
+-const QColor red	( 255,	 0,   0 );
+-const QColor green	(   0, 255,   0 );
+-const QColor blue	(   0,	 0, 255 );
+-const QColor cyan	(   0, 255, 255 );
+-const QColor magenta	( 255,	 0, 255 );
+-const QColor yellow	( 255, 255,   0 );
+-const QColor darkRed	( 128,	 0,   0 );
+-const QColor darkGreen	(   0, 128,   0 );
+-const QColor darkBlue	(   0,	 0, 128 );
+-const QColor darkCyan	(   0, 128, 128 );
+-const QColor darkMagenta( 128,	 0, 128 );
+-const QColor darkYellow ( 128, 128,   0 );
++QColor color0	( 0x00ffffff, COLOR0_PIX );
++QColor color1	( 0x00000000, COLOR1_PIX );
++QColor black	(   0,	 0,   0 );
++QColor white	( 255, 255, 255 );
++QColor darkGray	( 128, 128, 128 );
++QColor gray	( 160, 160, 164 );
++QColor lightGray	( 192, 192, 192 );
++QColor red	( 255,	 0,   0 );
++QColor green	(   0, 255,   0 );
++QColor blue	(   0,	 0, 255 );
++QColor cyan	(   0, 255, 255 );
++QColor magenta	( 255,	 0, 255 );
++QColor yellow	( 255, 255,   0 );
++QColor darkRed	( 128,	 0,   0 );
++QColor darkGreen	(   0, 128,   0 );
++QColor darkBlue	(   0,	 0, 128 );
++QColor darkCyan	(   0, 128, 128 );
++QColor darkMagenta( 128,	 0, 128 );
++QColor darkYellow ( 128, 128,   0 );
+ 
+ 
+ /*****************************************************************************
+diff --git a/src/kernel/qcolor.h b/src/kernel/qcolor.h
+index 51cd724..1595d2d 100644
+--- a/src/kernel/qcolor.h
++++ b/src/kernel/qcolor.h
+@@ -174,25 +174,25 @@ inline bool QColor::operator!=( const QColor &c ) const
+   Global colors
+  *****************************************************************************/
+ 
+-extern Q_EXPORT const QColor color0;
+-extern Q_EXPORT const QColor color1;
+-extern Q_EXPORT const QColor black;
+-extern Q_EXPORT const QColor white;
+-extern Q_EXPORT const QColor darkGray;
+-extern Q_EXPORT const QColor gray;
+-extern Q_EXPORT const QColor lightGray;
+-extern Q_EXPORT const QColor red;
+-extern Q_EXPORT const QColor green;
+-extern Q_EXPORT const QColor blue;
+-extern Q_EXPORT const QColor cyan;
+-extern Q_EXPORT const QColor magenta;
+-extern Q_EXPORT const QColor yellow;
+-extern Q_EXPORT const QColor darkRed;
+-extern Q_EXPORT const QColor darkGreen;
+-extern Q_EXPORT const QColor darkBlue;
+-extern Q_EXPORT const QColor darkCyan;
+-extern Q_EXPORT const QColor darkMagenta;
+-extern Q_EXPORT const QColor darkYellow;
++extern Q_EXPORT QColor color0;
++extern Q_EXPORT QColor color1;
++extern Q_EXPORT QColor black;
++extern Q_EXPORT QColor white;
++extern Q_EXPORT QColor darkGray;
++extern Q_EXPORT QColor gray;
++extern Q_EXPORT QColor lightGray;
++extern Q_EXPORT QColor red;
++extern Q_EXPORT QColor green;
++extern Q_EXPORT QColor blue;
++extern Q_EXPORT QColor cyan;
++extern Q_EXPORT QColor magenta;
++extern Q_EXPORT QColor yellow;
++extern Q_EXPORT QColor darkRed;
++extern Q_EXPORT QColor darkGreen;
++extern Q_EXPORT QColor darkBlue;
++extern Q_EXPORT QColor darkCyan;
++extern Q_EXPORT QColor darkMagenta;
++extern Q_EXPORT QColor darkYellow;
+ 
+ 
+ /*****************************************************************************

@@ -1,0 +1,13 @@
+--- a/mtools.conf
++++ b/mtools.conf
+@@ -14,9 +14,7 @@
+ # You should have received a copy of the GNU General Public License
+ # along with Mtools.  If not, see <http://www.gnu.org/licenses/>.
+ 
+-# Example mtools.conf files.  Uncomment the lines which correspond to
+-# your architecture and comment out the "SAMPLE FILE" line below
+-SAMPLE FILE
++# Example mtools.conf file.
+ 
+ # # Linux floppy drives
+ # drive a: file="/dev/fd0" exclusive

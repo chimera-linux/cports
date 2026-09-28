@@ -1,0 +1,1049 @@
+From b4ca213bb863c81575edd83eebb2511f5839ff89 Mon Sep 17 00:00:00 2001
+From: Andrei Pavel <andrei@isc.org>
+Date: Thu, 23 Oct 2025 14:35:15 +0300
+Subject: [PATCH 1/5] [#4100] Fix compatibility with LLVM libc++ 21
+
+---
+ src/bin/d2/d2_queue_mgr.h                 | 18 +++++++++---------
+ src/hooks/dhcp/radius/radius_accounting.h | 22 +++++++++++-----------
+ src/lib/asiodns/io_fetch.h                |  2 +-
+ src/lib/cryptolink/cryptolink.h           |  4 ++--
+ src/lib/d2srv/dns_client.h                | 14 +++++++-------
+ src/lib/d2srv/nc_trans.cc                 |  5 ++---
+ src/lib/dhcp_ddns/ncr_io.h                | 12 ++++++------
+ src/lib/dhcpsrv/host.h                    | 14 +++++++-------
+ src/lib/dhcpsrv/lease.h                   |  6 +++---
+ 9 files changed, 48 insertions(+), 49 deletions(-)
+
+diff --git a/src/bin/d2/d2_queue_mgr.h b/src/bin/d2/d2_queue_mgr.h
+index b201446c4d7..4c730b83b14 100644
+--- a/src/bin/d2/d2_queue_mgr.h
++++ b/src/bin/d2/d2_queue_mgr.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -135,14 +135,14 @@ public:
+     static const size_t MAX_QUEUE_DEFAULT = 1024;
+ 
+     /// @brief Defines the list of possible states for D2QueueMgr.
+-    enum State {
+-      NOT_INITTED,
+-      INITTED,
+-      RUNNING,
+-      STOPPING,
+-      STOPPED_QUEUE_FULL,
+-      STOPPED_RECV_ERROR,
+-      STOPPED,
++    enum State : int {
++      NOT_INITTED = 0,
++      INITTED = 1,
++      RUNNING = 2,
++      STOPPING = 3,
++      STOPPED_QUEUE_FULL = 4,
++      STOPPED_RECV_ERROR = 5,
++      STOPPED = 6,
+     };
+ 
+     /// @brief Constructor
+diff --git a/src/hooks/dhcp/radius/radius_accounting.h b/src/hooks/dhcp/radius/radius_accounting.h
+index aeb9b973cba..52a05684293 100644
+--- a/src/hooks/dhcp/radius/radius_accounting.h
++++ b/src/hooks/dhcp/radius/radius_accounting.h
+@@ -22,17 +22,17 @@ namespace isc {
+ namespace radius {
+ 
+ /// @brief Type of accounting events.
+-typedef enum {
+-    EVENT_CREATE,  //< A new lease was created (leaseX_select hooks).
+-    EVENT_RENEW,   //< A lease was renewed (leaseX_renew hooks).
+-    EVENT_REBIND,  //< A lease was rebound (lease6_rebind hook).
+-    EVENT_EXPIRE,  //< A lease was expired (leaseX_expire hooks).
+-    EVENT_RELEASE, //< A lease was released (leaseX_release hooks).
+-    EVENT_DECLINE, //< A lease was declined (leaseX_decline hooks).
+-    EVENT_ADD,     //< A command added a lease (command_processed hook).
+-    EVENT_UPDATE,  //< A command updated a lease (command_processed hook).
+-    EVENT_DEL      //< A command deleted a lease (command_processed hook).
+-} Event;
++enum Event : int {
++    EVENT_CREATE = 0,  //< A new lease was created (leaseX_select hooks).
++    EVENT_RENEW = 1,   //< A lease was renewed (leaseX_renew hooks).
++    EVENT_REBIND = 2,  //< A lease was rebound (lease6_rebind hook).
++    EVENT_EXPIRE = 3,  //< A lease was expired (leaseX_expire hooks).
++    EVENT_RELEASE = 4, //< A lease was released (leaseX_release hooks).
++    EVENT_DECLINE = 5, //< A lease was declined (leaseX_decline hooks).
++    EVENT_ADD = 6,     //< A command added a lease (command_processed hook).
++    EVENT_UPDATE = 7,  //< A command updated a lease (command_processed hook).
++    EVENT_DEL = 8,     //< A command deleted a lease (command_processed hook).
++};
+ 
+ /// @brief Translate an event to text.
+ ///
+diff --git a/src/lib/asiodns/io_fetch.h b/src/lib/asiodns/io_fetch.h
+index 3053cc2e0a2..8bdda974e81 100644
+--- a/src/lib/asiodns/io_fetch.h
++++ b/src/lib/asiodns/io_fetch.h
+@@ -56,7 +56,7 @@ public:
+     /// @note that this applies to the status of I/Os in the fetch - a fetch that
+     /// resulted in a packet being received from the server is a SUCCESS, even if
+     /// the contents of the packet indicate that some error occurred.
+-    enum Result {
++    enum Result : int {
+         SUCCESS = 0,       // Success, fetch completed
+         TIME_OUT = 1,      // Failure, fetch timed out
+         STOPPED = 2,       // Control code, fetch has been stopped
+diff --git a/src/lib/cryptolink/cryptolink.h b/src/lib/cryptolink/cryptolink.h
+index 7c2f596978d..6dd375a2588 100644
+--- a/src/lib/cryptolink/cryptolink.h
++++ b/src/lib/cryptolink/cryptolink.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2011-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2011-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -20,7 +20,7 @@ namespace isc {
+ namespace cryptolink {
+ 
+ /// @brief Hash algorithm identifiers.
+-enum HashAlgorithm {
++enum HashAlgorithm : int {
+     UNKNOWN_HASH = 0,   // This value can be used in conversion
+                         // functions, to be returned when the
+                         // input is unknown (but a value MUST be
+diff --git a/src/lib/d2srv/dns_client.h b/src/lib/d2srv/dns_client.h
+index 831a233683c..cf2f60f4acc 100644
+--- a/src/lib/d2srv/dns_client.h
++++ b/src/lib/d2srv/dns_client.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -55,12 +55,12 @@ public:
+     };
+ 
+     /// @brief A status code of the DNSClient.
+-    enum Status {
+-        SUCCESS,           ///< Response received and is ok.
+-        TIMEOUT,           ///< No response, timeout.
+-        IO_STOPPED,        ///< IO was stopped.
+-        INVALID_RESPONSE,  ///< Response received but invalid.
+-        OTHER              ///< Other, unclassified error.
++    enum Status : int {
++        SUCCESS = 0,            ///< Response received and is ok.
++        TIMEOUT = 1,            ///< No response, timeout.
++        IO_STOPPED = 2,         ///< IO was stopped.
++        INVALID_RESPONSE = 3,   ///< Response received but invalid.
++        OTHER = 4,              ///< Other, unclassified error.
+     };
+ 
+     /// @brief Callback for the @c DNSClient class.
+diff --git a/src/lib/d2srv/nc_trans.cc b/src/lib/d2srv/nc_trans.cc
+index 4fd822e1b6d..434a39bd5fc 100644
+--- a/src/lib/d2srv/nc_trans.cc
++++ b/src/lib/d2srv/nc_trans.cc
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -158,8 +158,7 @@ NameChangeTransaction::responseString() const {
+             stream << "OTHER";
+             break;
+         default:
+-            stream << "UNKNOWN("
+-                   << static_cast<int>(getDnsUpdateStatus()) << ")";
++            stream << "UNKNOWN(" << getDnsUpdateStatus() << ")";
+             break;
+ 
+     }
+diff --git a/src/lib/dhcp_ddns/ncr_io.h b/src/lib/dhcp_ddns/ncr_io.h
+index 8bde34bd131..f759d4332bc 100644
+--- a/src/lib/dhcp_ddns/ncr_io.h
++++ b/src/lib/dhcp_ddns/ncr_io.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -475,11 +475,11 @@ public:
+     static const size_t MAX_QUEUE_DEFAULT = 1024;
+ 
+     /// @brief Defines the outcome of an asynchronous NCR send.
+-    enum Result {
+-        SUCCESS,
+-        TIME_OUT,
+-        STOPPED,
+-        ERROR
++    enum Result : int {
++        SUCCESS = 0,
++        TIME_OUT = 1,
++        STOPPED = 2,
++        ERROR = 3,
+     };
+ 
+     /// @brief Abstract class for defining application layer send callbacks.
+diff --git a/src/lib/dhcpsrv/host.h b/src/lib/dhcpsrv/host.h
+index 13c98ff3646..620afe13910 100644
+--- a/src/lib/dhcpsrv/host.h
++++ b/src/lib/dhcpsrv/host.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2014-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2014-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -334,12 +334,12 @@ public:
+     /// - DUID (DHCPv4 and DHCPv6) (identifier name: "duid"),
+     /// - circuit identifier (DHCPv4) (identifier name: "circuit-id"),
+     /// - client identifier (DHCPv4) (identifier name: "client-id")
+-    enum IdentifierType {
+-        IDENT_HWADDR,
+-        IDENT_DUID,
+-        IDENT_CIRCUIT_ID,
+-        IDENT_CLIENT_ID,
+-        IDENT_FLEX, ///< Flexible host identifier.
++    enum IdentifierType : int {
++        IDENT_HWADDR = 0,
++        IDENT_DUID = 1,
++        IDENT_CIRCUIT_ID = 2,
++        IDENT_CLIENT_ID = 3,
++        IDENT_FLEX = 4,  ///< Flexible host identifier.
+     };
+ 
+     /// @brief Constant pointing to the last identifier of the
+diff --git a/src/lib/dhcpsrv/lease.h b/src/lib/dhcpsrv/lease.h
+index 479f1c5e99e..9618fd5ee83 100644
+--- a/src/lib/dhcpsrv/lease.h
++++ b/src/lib/dhcpsrv/lease.h
+@@ -43,12 +43,12 @@ struct Lease : public isc::data::UserContext, public isc::data::CfgToElement {
+     static std::string lifetimeToText(uint32_t lifetime);
+ 
+     /// @brief Type of lease or pool
+-    typedef enum {
++    enum Type : int {
+         TYPE_NA = 0, ///< the lease contains non-temporary IPv6 address
+         TYPE_TA = 1, ///< the lease contains temporary IPv6 address
+         TYPE_PD = 2, ///< the lease contains IPv6 prefix (for prefix delegation)
+-        TYPE_V4 = 3  ///< IPv4 lease
+-    } Type;
++        TYPE_V4 = 3, ///< IPv4 lease
++    };
+ 
+     /// @brief returns text representation of a lease type
+     /// @param type lease or pool type to be converted
+-- 
+GitLab
+
+
+From 19095d7f6d5358e0a4019a96d01e202946d4e491 Mon Sep 17 00:00:00 2001
+From: Andrei Pavel <andrei@isc.org>
+Date: Thu, 23 Oct 2025 15:02:35 +0300
+Subject: [PATCH 2/5] [#4100] Log enums as strings where possible
+
+---
+ src/bin/d2/d2_queue_mgr.cc                 |  4 +--
+ src/bin/d2/d2_queue_mgr.h                  | 26 ++++++++++++--
+ src/bin/dhcp4/dhcp4_srv.cc                 |  8 ++---
+ src/bin/dhcp6/dhcp6_srv.cc                 |  8 ++---
+ src/hooks/d2/gss_tsig/tkey_exchange.cc     |  2 +-
+ src/hooks/dhcp/mysql/mysql_lease_mgr.cc    | 10 +++---
+ src/hooks/dhcp/pgsql/pgsql_lease_mgr.cc    | 10 +++---
+ src/lib/asiodns/io_fetch.h                 | 20 +++++++++--
+ src/lib/cryptolink/cryptolink.h            |  2 +-
+ src/lib/cryptolink/tests/hmac_unittests.cc | 42 +++++++++++++++-------
+ src/lib/d2srv/dns_client.h                 | 17 +++++++++
+ src/lib/dhcp_ddns/ncr_io.h                 | 22 ++++++++++--
+ src/lib/dhcpsrv/host.h                     |  2 +-
+ 13 files changed, 129 insertions(+), 44 deletions(-)
+
+diff --git a/src/bin/d2/d2_queue_mgr.cc b/src/bin/d2/d2_queue_mgr.cc
+index f902b221b83..4943fcd7efd 100644
+--- a/src/bin/d2/d2_queue_mgr.cc
++++ b/src/bin/d2/d2_queue_mgr.cc
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -78,7 +78,7 @@ D2QueueMgr::operator()(const dhcp_ddns::NameChangeListener::Result result,
+                 // this is unexpected so we will treat it as a receive error.
+                 // This is most likely an unforeseen programmatic issue.
+                 LOG_ERROR(dhcp_to_d2_logger, DHCP_DDNS_QUEUE_MGR_UNEXPECTED_STOP)
+-                          .arg(mgr_state_);
++                          .arg(D2QueueMgr::stateToText(mgr_state_));
+                 stopListening(STOPPED_RECV_ERROR);
+             }
+ 
+diff --git a/src/bin/d2/d2_queue_mgr.h b/src/bin/d2/d2_queue_mgr.h
+index 4c730b83b14..4d34b726b1c 100644
+--- a/src/bin/d2/d2_queue_mgr.h
++++ b/src/bin/d2/d2_queue_mgr.h
+@@ -10,13 +10,14 @@
+ /// @file d2_queue_mgr.h This file defines the class D2QueueMgr.
+ 
+ #include <asiolink/io_service.h>
+-#include <exceptions/exceptions.h>
+-#include <dhcp_ddns/ncr_msg.h>
+ #include <dhcp_ddns/ncr_io.h>
++#include <dhcp_ddns/ncr_msg.h>
++#include <exceptions/exceptions.h>
+ 
+-#include <boost/noncopyable.hpp>
+ #include <deque>
+ 
++#include <boost/noncopyable.hpp>
++
+ namespace isc {
+ namespace d2 {
+ 
+@@ -145,6 +146,25 @@ public:
+       STOPPED = 6,
+     };
+ 
++    /// @brief Convert enum to string.
++    ///
++    /// @param state input enum
++    ///
++    /// @return reference to static string
++    static std::string const& stateToText(State const& state) {
++        static std::vector<std::string> const text_vector {
++            "NOT_INITTED",
++            "INITTED",
++            "RUNNING",
++            "STOPPING",
++            "STOPPED_QUEUE_FULL",
++            "STOPPED_RECV_ERROR",
++            "STOPPED",
++        };
++        static std::string const unknown("UNKNOWN");
++        return (state < text_vector.size() ? text_vector[state] : unknown);
++    }
++
+     /// @brief Constructor
+     ///
+     /// Creates a D2QueueMgr instance.  Note that the listener is not created
+diff --git a/src/bin/dhcp4/dhcp4_srv.cc b/src/bin/dhcp4/dhcp4_srv.cc
+index 3dd73ec1d89..b1de5c68a82 100644
+--- a/src/bin/dhcp4/dhcp4_srv.cc
++++ b/src/bin/dhcp4/dhcp4_srv.cc
+@@ -5106,11 +5106,11 @@ Dhcpv4Srv::stopD2() {
+ }
+ 
+ void
+-Dhcpv4Srv::d2ClientErrorHandler(const
+-                                dhcp_ddns::NameChangeSender::Result result,
++Dhcpv4Srv::d2ClientErrorHandler(const dhcp_ddns::NameChangeSender::Result result,
+                                 dhcp_ddns::NameChangeRequestPtr& ncr) {
+-    LOG_ERROR(ddns4_logger, DHCP4_DDNS_REQUEST_SEND_FAILED).
+-              arg(result).arg((ncr ? ncr->toText() : " NULL "));
++    LOG_ERROR(ddns4_logger, DHCP4_DDNS_REQUEST_SEND_FAILED)
++        .arg(NameChangeSender::resultToText(result))
++        .arg((ncr ? ncr->toText() : " NULL "));
+     // We cannot communicate with kea-dhcp-ddns, suspend further updates.
+     /// @todo We may wish to revisit this, but for now we will simply turn
+     /// them off.
+diff --git a/src/bin/dhcp6/dhcp6_srv.cc b/src/bin/dhcp6/dhcp6_srv.cc
+index 78145dedebb..c7cb73f3600 100644
+--- a/src/bin/dhcp6/dhcp6_srv.cc
++++ b/src/bin/dhcp6/dhcp6_srv.cc
+@@ -5060,11 +5060,11 @@ Dhcpv6Srv::stopD2() {
+ }
+ 
+ void
+-Dhcpv6Srv::d2ClientErrorHandler(const
+-                                dhcp_ddns::NameChangeSender::Result result,
++Dhcpv6Srv::d2ClientErrorHandler(const dhcp_ddns::NameChangeSender::Result result,
+                                 dhcp_ddns::NameChangeRequestPtr& ncr) {
+-    LOG_ERROR(ddns6_logger, DHCP6_DDNS_REQUEST_SEND_FAILED).
+-              arg(result).arg((ncr ? ncr->toText() : " NULL "));
++    LOG_ERROR(ddns6_logger, DHCP6_DDNS_REQUEST_SEND_FAILED)
++        .arg(NameChangeSender::resultToText(result))
++        .arg((ncr ? ncr->toText() : " NULL "));
+     // We cannot communicate with kea-dhcp-ddns, suspend further updates.
+     /// @todo We may wish to revisit this, but for now we will simply turn
+     /// them off.
+diff --git a/src/hooks/d2/gss_tsig/tkey_exchange.cc b/src/hooks/d2/gss_tsig/tkey_exchange.cc
+index c79aa157271..f7293b7d4e1 100644
+--- a/src/hooks/d2/gss_tsig/tkey_exchange.cc
++++ b/src/hooks/d2/gss_tsig/tkey_exchange.cc
+@@ -256,7 +256,7 @@ TKeyExchangeImpl::operator()(IOFetch::Result result) {
+ 
+     default:
+         LOG_ERROR(gss_tsig_logger, TKEY_EXCHANGE_FAIL_IO_ERROR)
+-            .arg(result);
++            .arg(IOFetch::resultToText(result));
+         incrStats("tkey-error");
+         callCallback(TKeyExchange::OTHER);
+         return;
+diff --git a/src/hooks/dhcp/mysql/mysql_lease_mgr.cc b/src/hooks/dhcp/mysql/mysql_lease_mgr.cc
+index 8668752619b..7b3bfb3a71b 100644
+--- a/src/hooks/dhcp/mysql/mysql_lease_mgr.cc
++++ b/src/hooks/dhcp/mysql/mysql_lease_mgr.cc
+@@ -2380,7 +2380,7 @@ bool
+ MySqlLeaseMgr::addLease(const Lease6Ptr& lease) {
+     LOG_DEBUG(mysql_lb_logger, MYSQL_LB_DBG_TRACE_DETAIL, MYSQL_LB_ADD_ADDR6)
+         .arg(lease->addr_.toText())
+-        .arg(lease->type_);
++        .arg(Lease::typeToText(lease->type_));
+ 
+     lease->extended_info_action_ = Lease6::ACTION_IGNORE;
+ 
+@@ -2847,7 +2847,7 @@ MySqlLeaseMgr::getLease6(Lease::Type lease_type,
+                          const IOAddress& addr) const {
+     LOG_DEBUG(mysql_lb_logger, MYSQL_LB_DBG_TRACE_DETAIL, MYSQL_LB_GET_ADDR6)
+         .arg(addr.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     MYSQL_BIND inbind[2];
+@@ -2928,7 +2928,7 @@ MySqlLeaseMgr::getLeases6(Lease::Type lease_type, const DUID& duid,
+     LOG_DEBUG(mysql_lb_logger, MYSQL_LB_DBG_TRACE_DETAIL, MYSQL_LB_GET_IAID_DUID)
+         .arg(iaid)
+         .arg(duid.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     MYSQL_BIND inbind[3];
+@@ -2992,7 +2992,7 @@ MySqlLeaseMgr::getLeases6(Lease::Type lease_type, const DUID& duid,
+         .arg(iaid)
+         .arg(subnet_id)
+         .arg(duid.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     MYSQL_BIND inbind[4];
+@@ -3386,7 +3386,7 @@ MySqlLeaseMgr::updateLease6(const Lease6Ptr& lease) {
+ 
+     LOG_DEBUG(mysql_lb_logger, MYSQL_LB_DBG_TRACE_DETAIL, MYSQL_LB_UPDATE_ADDR6)
+         .arg(lease->addr_.toText())
+-        .arg(lease->type_);
++        .arg(Lease::typeToText(lease->type_));
+ 
+     // Get the recorded action and reset it.
+     Lease6::ExtendedInfoAction recorded_action = lease->extended_info_action_;
+diff --git a/src/hooks/dhcp/pgsql/pgsql_lease_mgr.cc b/src/hooks/dhcp/pgsql/pgsql_lease_mgr.cc
+index 0aaddd7ebee..1a315cf3b18 100644
+--- a/src/hooks/dhcp/pgsql/pgsql_lease_mgr.cc
++++ b/src/hooks/dhcp/pgsql/pgsql_lease_mgr.cc
+@@ -1821,7 +1821,7 @@ bool
+ PgSqlLeaseMgr::addLease(const Lease6Ptr& lease) {
+     LOG_DEBUG(pgsql_lb_logger, PGSQL_LB_DBG_TRACE_DETAIL, PGSQL_LB_ADD_ADDR6)
+         .arg(lease->addr_.toText())
+-        .arg(lease->type_);
++        .arg(Lease::typeToText(lease->type_));
+ 
+     lease->extended_info_action_ = Lease6::ACTION_IGNORE;
+ 
+@@ -2162,7 +2162,7 @@ PgSqlLeaseMgr::getLease6(Lease::Type lease_type,
+                          const IOAddress& addr) const {
+     LOG_DEBUG(pgsql_lb_logger, PGSQL_LB_DBG_TRACE_DETAIL, PGSQL_LB_GET_ADDR6)
+         .arg(addr.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     PsqlBindArray bind_array;
+@@ -2220,7 +2220,7 @@ PgSqlLeaseMgr::getLeases6(Lease::Type lease_type, const DUID& duid,
+     LOG_DEBUG(pgsql_lb_logger, PGSQL_LB_DBG_TRACE_DETAIL, PGSQL_LB_GET_IAID_DUID)
+         .arg(iaid)
+         .arg(duid.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     PsqlBindArray bind_array;
+@@ -2255,7 +2255,7 @@ PgSqlLeaseMgr::getLeases6(Lease::Type lease_type, const DUID& duid,
+         .arg(iaid)
+         .arg(subnet_id)
+         .arg(duid.toText())
+-        .arg(lease_type);
++        .arg(Lease::typeToText(lease_type));
+ 
+     // Set up the WHERE clause value
+     PsqlBindArray bind_array;
+@@ -2583,7 +2583,7 @@ PgSqlLeaseMgr::updateLease6(const Lease6Ptr& lease) {
+ 
+     LOG_DEBUG(pgsql_lb_logger, PGSQL_LB_DBG_TRACE_DETAIL, PGSQL_LB_UPDATE_ADDR6)
+         .arg(lease->addr_.toText())
+-        .arg(lease->type_);
++        .arg(Lease::typeToText(lease->type_));
+ 
+     // Get the recorded action and reset it.
+     Lease6::ExtendedInfoAction recorded_action = lease->extended_info_action_;
+diff --git a/src/lib/asiodns/io_fetch.h b/src/lib/asiodns/io_fetch.h
+index 8bdda974e81..a2c8c92dd27 100644
+--- a/src/lib/asiodns/io_fetch.h
++++ b/src/lib/asiodns/io_fetch.h
+@@ -17,9 +17,9 @@
+ 
+ #include <boost/asio/coroutine.hpp>
+ #include <boost/asio/deadline_timer.hpp>
++#include <boost/date_time/posix_time/posix_time_types.hpp>
+ #include <boost/shared_array.hpp>
+ #include <boost/shared_ptr.hpp>
+-#include <boost/date_time/posix_time/posix_time_types.hpp>
+ #include <boost/system/error_code.hpp>
+ 
+ namespace isc {
+@@ -60,9 +60,25 @@ public:
+         SUCCESS = 0,       // Success, fetch completed
+         TIME_OUT = 1,      // Failure, fetch timed out
+         STOPPED = 2,       // Control code, fetch has been stopped
+-        NOTSET = 3         // For testing, indicates value not set
++        NOTSET = 3,        // For testing, indicates value not set
+     };
+ 
++    /// @brief Convert enum to string.
++    ///
++    /// @param result input enum
++    ///
++    /// @return reference to static string
++    static std::string const& resultToText(Result const& result) {
++        static std::vector<std::string> const text_vector {
++            "SUCCESS",
++            "TIME_OUT",
++            "STOPPED",
++            "NOTSET",
++        };
++        static std::string const unknown("UNKNOWN");
++        return (result < text_vector.size() ? text_vector[result] : unknown);
++    }
++
+     /// @note The next enum is a "trick" to allow constants to be defined in a class
+     /// declaration.
+ 
+diff --git a/src/lib/cryptolink/cryptolink.h b/src/lib/cryptolink/cryptolink.h
+index 6dd375a2588..4749dc136b1 100644
+--- a/src/lib/cryptolink/cryptolink.h
++++ b/src/lib/cryptolink/cryptolink.h
+@@ -32,7 +32,7 @@ enum HashAlgorithm : int {
+     SHA256 = 3,         // SHA-256
+     SHA224 = 4,         // SHA-224
+     SHA384 = 5,         // SHA-384
+-    SHA512 = 6          // SHA-512
++    SHA512 = 6,         // SHA-512
+ };
+ 
+ /// @brief Forward declaration for createHash().
+diff --git a/src/lib/cryptolink/tests/hmac_unittests.cc b/src/lib/cryptolink/tests/hmac_unittests.cc
+index d5c6a83ab2b..b737f321c13 100644
+--- a/src/lib/cryptolink/tests/hmac_unittests.cc
++++ b/src/lib/cryptolink/tests/hmac_unittests.cc
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2011-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2011-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -6,29 +6,45 @@
+ 
+ #include <config.h>
+ 
++#include <cryptolink/crypto_hmac.h>
++#include <cryptolink/cryptolink.h>
++#include <exceptions/exceptions.h>
++#include <util/buffer.h>
++#include <util/encode/encode.h>
++
+ #include <string>
+ #include <vector>
+ 
+ #include <boost/lexical_cast.hpp>
++#include <boost/shared_ptr.hpp>
+ 
+ #include <gtest/gtest.h>
+ 
+-#include <util/encode/encode.h>
+-
+-#include <cryptolink/cryptolink.h>
+-#include <cryptolink/crypto_hmac.h>
+-
+-#include <util/buffer.h>
+-#include <exceptions/exceptions.h>
+-
+-#include <boost/shared_ptr.hpp>
+-
+ using boost::lexical_cast;
+ using namespace isc::util;
+ using namespace isc::util::encode;
+ using namespace isc::cryptolink;
+ 
+ namespace {
++    /// @brief Convert enum to string.
++    ///
++    /// @param algorithm input enum
++    ///
++    /// @return reference to static string
++    static std::string const& hashAlgorithmToText(HashAlgorithm const& algorithm) {
++        static std::vector<std::string> const text_vector {
++            "UNKNOWN_HASH",
++            "MD5",
++            "SHA1",
++            "SHA256",
++            "SHA224",
++            "SHA384",
++            "SHA512",
++        };
++        static std::string const unknown("UNKNOWN");
++        return (algorithm < text_vector.size() ? text_vector[algorithm] : unknown);
++    }
++
+     /// @brief Fill a string with copies of an out of char range value
+     /// @param data String to fill
+     /// @param len Number of copies
+@@ -479,8 +495,8 @@ doRFC4231Tests(HashAlgorithm hash_algorithm,
+ 
+     for (std::vector<std::string>::size_type i = 0;
+          i < data_list.size(); ++i) {
+-        SCOPED_TRACE("RFC4231 HMAC test for algorithm ID: " +
+-                     lexical_cast<std::string>(hash_algorithm) +
++        SCOPED_TRACE("RFC4231 HMAC test for algorithm " +
++                     hashAlgorithmToText(hash_algorithm) +
+                      ", data ID: " + lexical_cast<std::string>(i));
+         // Until #920 is resolved we have to skip truncation cases.
+         if (data_list[i] == "Test With Truncation") {
+diff --git a/src/lib/d2srv/dns_client.h b/src/lib/d2srv/dns_client.h
+index cf2f60f4acc..5c1f2c2f2a3 100644
+--- a/src/lib/d2srv/dns_client.h
++++ b/src/lib/d2srv/dns_client.h
+@@ -63,6 +63,23 @@ public:
+         OTHER = 4,              ///< Other, unclassified error.
+     };
+ 
++    /// @brief Convert enum to string.
++    ///
++    /// @param status input enum
++    ///
++    /// @return reference to static string
++    static std::string const& statusToText(Status const& status) {
++        static std::vector<std::string> const text_vector {
++            "SUCCESS",
++            "TIMEOUT",
++            "IO_STOPPED",
++            "INVALID_RESPONSE",
++            "OTHER",
++        };
++        static std::string const unknown("UNKNOWN");
++        return (status < text_vector.size() ? text_vector[status] : unknown);
++    }
++
+     /// @brief Callback for the @c DNSClient class.
+     ///
+     /// This is an abstract class which represents the external callback for the
+diff --git a/src/lib/dhcp_ddns/ncr_io.h b/src/lib/dhcp_ddns/ncr_io.h
+index f759d4332bc..db0d572cfc7 100644
+--- a/src/lib/dhcp_ddns/ncr_io.h
++++ b/src/lib/dhcp_ddns/ncr_io.h
+@@ -52,12 +52,12 @@
+ #include <dhcp_ddns/ncr_msg.h>
+ #include <exceptions/exceptions.h>
+ 
+-#include <boost/scoped_ptr.hpp>
+-#include <boost/enable_shared_from_this.hpp>
+-
+ #include <deque>
+ #include <mutex>
+ 
++#include <boost/enable_shared_from_this.hpp>
++#include <boost/scoped_ptr.hpp>
++
+ namespace isc {
+ namespace dhcp_ddns {
+ 
+@@ -482,6 +482,22 @@ public:
+         ERROR = 3,
+     };
+ 
++    /// @brief Convert enum to string.
++    ///
++    /// @param result input enum
++    ///
++    /// @return reference to static string
++    static std::string const& resultToText(Result const& result) {
++        static std::vector<std::string> const text_vector {
++            "SUCCESS",
++            "TIME_OUT",
++            "STOPPED",
++            "ERROR",
++        };
++        static std::string const unknown("UNKNOWN");
++        return (result < text_vector.size() ? text_vector[result] : unknown);
++    }
++
+     /// @brief Abstract class for defining application layer send callbacks.
+     ///
+     /// Applications which will send NameChangeRequests must provide a
+diff --git a/src/lib/dhcpsrv/host.h b/src/lib/dhcpsrv/host.h
+index 620afe13910..1ef85c25e32 100644
+--- a/src/lib/dhcpsrv/host.h
++++ b/src/lib/dhcpsrv/host.h
+@@ -339,7 +339,7 @@ public:
+         IDENT_DUID = 1,
+         IDENT_CIRCUIT_ID = 2,
+         IDENT_CLIENT_ID = 3,
+-        IDENT_FLEX = 4,  ///< Flexible host identifier.
++        IDENT_FLEX = 4, ///< Flexible host identifier.
+     };
+ 
+     /// @brief Constant pointing to the last identifier of the
+-- 
+GitLab
+
+
+From 546292ce1539c0188c6d4a77f54fdb83814fee87 Mon Sep 17 00:00:00 2001
+From: Andrei Pavel <andrei@isc.org>
+Date: Thu, 23 Oct 2025 15:27:43 +0300
+Subject: [PATCH 3/5] [#4100] Give credit in AUTHORS
+
+---
+ AUTHORS | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/AUTHORS b/AUTHORS
+index aa9ccc9453c..cc3f9d8c6c5 100644
+--- a/AUTHORS
++++ b/AUTHORS
+@@ -276,6 +276,7 @@ We have received the following contributions:
+ 
+  - Khem Raj
+    2021-05: gcc11 compilation fixes.
++   2025-10: clang++21 compilation fixes.
+ 
+  - Sriram Rajagopalan
+    2021-08: fix for a type mismatch in libdhcp which could have lead to an
+-- 
+GitLab
+
+
+From 4a3e848cbd0a746e09045a2933190f0a0e05e2ee Mon Sep 17 00:00:00 2001
+From: Andrei Pavel <andrei@isc.org>
+Date: Fri, 24 Oct 2025 10:27:16 +0300
+Subject: [PATCH 4/5] [#4100] Change enums to uint16_t
+
+Addresses the range checks in *toText() functions.
+---
+ src/bin/d2/d2_queue_mgr.h                 |  2 +-
+ src/hooks/dhcp/radius/radius_accounting.h |  2 +-
+ src/lib/asiodns/io_fetch.h                |  2 +-
+ src/lib/cc/data.h                         |  4 ++--
+ src/lib/cryptolink/cryptolink.h           |  2 +-
+ src/lib/d2srv/dns_client.h                |  2 +-
+ src/lib/dhcp/option4_client_fqdn.h        |  4 ++--
+ src/lib/dhcp/option6_client_fqdn.h        |  4 ++--
+ src/lib/dhcp/option_data_types.h          |  4 ++--
+ src/lib/dhcp_ddns/ncr_io.h                |  2 +-
+ src/lib/dhcpsrv/cfg_globals.h             |  2 +-
+ src/lib/dhcpsrv/host.h                    |  2 +-
+ src/lib/dhcpsrv/lease.h                   |  2 +-
+ src/lib/dns/message.h                     |  6 +++---
+ src/lib/eval/token.h                      | 10 +++++-----
+ 15 files changed, 25 insertions(+), 25 deletions(-)
+
+diff --git a/src/bin/d2/d2_queue_mgr.h b/src/bin/d2/d2_queue_mgr.h
+index 4d34b726b1c..00b87db2c96 100644
+--- a/src/bin/d2/d2_queue_mgr.h
++++ b/src/bin/d2/d2_queue_mgr.h
+@@ -136,7 +136,7 @@ public:
+     static const size_t MAX_QUEUE_DEFAULT = 1024;
+ 
+     /// @brief Defines the list of possible states for D2QueueMgr.
+-    enum State : int {
++    enum State : uint16_t {
+       NOT_INITTED = 0,
+       INITTED = 1,
+       RUNNING = 2,
+diff --git a/src/hooks/dhcp/radius/radius_accounting.h b/src/hooks/dhcp/radius/radius_accounting.h
+index 52a05684293..9a826c4213c 100644
+--- a/src/hooks/dhcp/radius/radius_accounting.h
++++ b/src/hooks/dhcp/radius/radius_accounting.h
+@@ -22,7 +22,7 @@ namespace isc {
+ namespace radius {
+ 
+ /// @brief Type of accounting events.
+-enum Event : int {
++enum Event : uint16_t {
+     EVENT_CREATE = 0,  //< A new lease was created (leaseX_select hooks).
+     EVENT_RENEW = 1,   //< A lease was renewed (leaseX_renew hooks).
+     EVENT_REBIND = 2,  //< A lease was rebound (lease6_rebind hook).
+diff --git a/src/lib/asiodns/io_fetch.h b/src/lib/asiodns/io_fetch.h
+index a2c8c92dd27..e9c85b58c5b 100644
+--- a/src/lib/asiodns/io_fetch.h
++++ b/src/lib/asiodns/io_fetch.h
+@@ -56,7 +56,7 @@ public:
+     /// @note that this applies to the status of I/Os in the fetch - a fetch that
+     /// resulted in a packet being received from the server is a SUCCESS, even if
+     /// the contents of the packet indicate that some error occurred.
+-    enum Result : int {
++    enum Result : uint16_t {
+         SUCCESS = 0,       // Success, fetch completed
+         TIME_OUT = 1,      // Failure, fetch timed out
+         STOPPED = 2,       // Control code, fetch has been stopped
+diff --git a/src/lib/cc/data.h b/src/lib/cc/data.h
+index b93e2ec29ec..f684581cb28 100644
+--- a/src/lib/cc/data.h
++++ b/src/lib/cc/data.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2010-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2010-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -136,7 +136,7 @@ public:
+     ///
+     /// any is a special type used in list specifications, specifying that the
+     /// elements can be of any type.
+-    enum types : int {
++    enum types : uint16_t {
+         integer = 0,
+         real = 1,
+         boolean = 2,
+diff --git a/src/lib/cryptolink/cryptolink.h b/src/lib/cryptolink/cryptolink.h
+index 4749dc136b1..cd7ac99f986 100644
+--- a/src/lib/cryptolink/cryptolink.h
++++ b/src/lib/cryptolink/cryptolink.h
+@@ -20,7 +20,7 @@ namespace isc {
+ namespace cryptolink {
+ 
+ /// @brief Hash algorithm identifiers.
+-enum HashAlgorithm : int {
++enum HashAlgorithm : uint16_t {
+     UNKNOWN_HASH = 0,   // This value can be used in conversion
+                         // functions, to be returned when the
+                         // input is unknown (but a value MUST be
+diff --git a/src/lib/d2srv/dns_client.h b/src/lib/d2srv/dns_client.h
+index 5c1f2c2f2a3..c7cbd3c43bd 100644
+--- a/src/lib/d2srv/dns_client.h
++++ b/src/lib/d2srv/dns_client.h
+@@ -55,7 +55,7 @@ public:
+     };
+ 
+     /// @brief A status code of the DNSClient.
+-    enum Status : int {
++    enum Status : uint16_t {
+         SUCCESS = 0,            ///< Response received and is ok.
+         TIMEOUT = 1,            ///< No response, timeout.
+         IO_STOPPED = 2,         ///< IO was stopped.
+diff --git a/src/lib/dhcp/option4_client_fqdn.h b/src/lib/dhcp/option4_client_fqdn.h
+index 07dacd6d215..47392b42f9f 100644
+--- a/src/lib/dhcp/option4_client_fqdn.h
++++ b/src/lib/dhcp/option4_client_fqdn.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -145,7 +145,7 @@ public:
+ 
+ 
+     /// @brief Type of the domain-name: partial or full.
+-    enum DomainNameType : int {
++    enum DomainNameType : uint16_t {
+         PARTIAL,
+         FULL
+     };
+diff --git a/src/lib/dhcp/option6_client_fqdn.h b/src/lib/dhcp/option6_client_fqdn.h
+index f51e18584d1..9d625354b42 100644
+--- a/src/lib/dhcp/option6_client_fqdn.h
++++ b/src/lib/dhcp/option6_client_fqdn.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2013-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2013-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -102,7 +102,7 @@ public:
+     static const uint16_t FLAG_FIELD_LEN = 1;
+ 
+     /// @brief Type of the domain-name: partial or full.
+-    enum DomainNameType : int {
++    enum DomainNameType : uint16_t {
+         PARTIAL,
+         FULL
+     };
+diff --git a/src/lib/dhcp/option_data_types.h b/src/lib/dhcp/option_data_types.h
+index 6621d2fec01..9a0596d4566 100644
+--- a/src/lib/dhcp/option_data_types.h
++++ b/src/lib/dhcp/option_data_types.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2012-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2012-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -42,7 +42,7 @@ public:
+ /// must always be and OPT_RECORD_TYPE must be at second to last.
+ /// This is because some functions perform sanity checks on data type
+ /// values using '>' operators, assuming that all values beyond the
+-enum OptionDataType : int {
++enum OptionDataType : uint16_t {
+     OPT_EMPTY_TYPE          = 0,
+     OPT_BINARY_TYPE         = 1,
+     OPT_BOOLEAN_TYPE        = 2,
+diff --git a/src/lib/dhcp_ddns/ncr_io.h b/src/lib/dhcp_ddns/ncr_io.h
+index db0d572cfc7..3965db391f4 100644
+--- a/src/lib/dhcp_ddns/ncr_io.h
++++ b/src/lib/dhcp_ddns/ncr_io.h
+@@ -475,7 +475,7 @@ public:
+     static const size_t MAX_QUEUE_DEFAULT = 1024;
+ 
+     /// @brief Defines the outcome of an asynchronous NCR send.
+-    enum Result : int {
++    enum Result : uint16_t {
+         SUCCESS = 0,
+         TIME_OUT = 1,
+         STOPPED = 2,
+diff --git a/src/lib/dhcpsrv/cfg_globals.h b/src/lib/dhcpsrv/cfg_globals.h
+index 1129f24d4cc..88d587037f8 100644
+--- a/src/lib/dhcpsrv/cfg_globals.h
++++ b/src/lib/dhcpsrv/cfg_globals.h
+@@ -36,7 +36,7 @@ public:
+     /// @c SimpleParser6::GLOBAL6_PARAMETERS, first part with common
+     /// parameters followed by DHCPv4 and DHCPv6 specific parameters.
+     /// Keep the order, enum element names is uppercase with - replaced by _.
+-    enum Index : int {
++    enum Index : uint16_t {
+         // Common parameters.
+         VALID_LIFETIME,
+         MIN_VALID_LIFETIME,
+diff --git a/src/lib/dhcpsrv/host.h b/src/lib/dhcpsrv/host.h
+index 1ef85c25e32..63a84b04faf 100644
+--- a/src/lib/dhcpsrv/host.h
++++ b/src/lib/dhcpsrv/host.h
+@@ -334,7 +334,7 @@ public:
+     /// - DUID (DHCPv4 and DHCPv6) (identifier name: "duid"),
+     /// - circuit identifier (DHCPv4) (identifier name: "circuit-id"),
+     /// - client identifier (DHCPv4) (identifier name: "client-id")
+-    enum IdentifierType : int {
++    enum IdentifierType : uint16_t {
+         IDENT_HWADDR = 0,
+         IDENT_DUID = 1,
+         IDENT_CIRCUIT_ID = 2,
+diff --git a/src/lib/dhcpsrv/lease.h b/src/lib/dhcpsrv/lease.h
+index 9618fd5ee83..1096d5d1127 100644
+--- a/src/lib/dhcpsrv/lease.h
++++ b/src/lib/dhcpsrv/lease.h
+@@ -43,7 +43,7 @@ struct Lease : public isc::data::UserContext, public isc::data::CfgToElement {
+     static std::string lifetimeToText(uint32_t lifetime);
+ 
+     /// @brief Type of lease or pool
+-    enum Type : int {
++    enum Type : uint16_t {
+         TYPE_NA = 0, ///< the lease contains non-temporary IPv6 address
+         TYPE_TA = 1, ///< the lease contains temporary IPv6 address
+         TYPE_PD = 2, ///< the lease contains IPv6 prefix (for prefix delegation)
+diff --git a/src/lib/dns/message.h b/src/lib/dns/message.h
+index 1dea110ddb0..6240a380d27 100644
+--- a/src/lib/dns/message.h
++++ b/src/lib/dns/message.h
+@@ -1,4 +1,4 @@
+-// Copyright (C) 2009-2024 Internet Systems Consortium, Inc. ("ISC")
++// Copyright (C) 2009-2025 Internet Systems Consortium, Inc. ("ISC")
+ //
+ // This Source Code Form is subject to the terms of the Mozilla Public
+ // License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -199,7 +199,7 @@ public:
+     /// introducing a separately defined class considering the balance
+     /// between the complexity and advantage, but hopefully the cast notation
+     /// is sufficiently ugly to prevent proliferation of the usage.
+-    enum HeaderFlag : int {
++    enum HeaderFlag : uint16_t {
+         HEADERFLAG_QR = 0x8000, // Query (if cleared) or response (if set)
+         HEADERFLAG_AA = 0x0400, // Authoritative answer
+         HEADERFLAG_TC = 0x0200, // Truncation
+@@ -239,7 +239,7 @@ public:
+     ///
+     /// <b>Future Extension:</b> We'll probably also define constants for
+     /// the section names used in dynamic updates in future versions.
+-    enum Section : int {
++    enum Section : uint16_t {
+         SECTION_QUESTION = 0,   // Question section
+         SECTION_ANSWER = 1,     // Answer section
+         SECTION_AUTHORITY = 2,  // Authority section
+diff --git a/src/lib/eval/token.h b/src/lib/eval/token.h
+index 8c1570b3a11..c87dcc28b2a 100644
+--- a/src/lib/eval/token.h
++++ b/src/lib/eval/token.h
+@@ -570,7 +570,7 @@ class TokenPkt : public Token {
+ public:
+ 
+     /// @brief enum value that determines the field.
+-    enum MetadataType : int {
++    enum MetadataType : uint16_t {
+         IFACE, ///< interface name (string)
+         SRC,   ///< source (IP address)
+         DST,   ///< destination (IP address)
+@@ -620,7 +620,7 @@ class TokenPkt4 : public Token {
+ public:
+ 
+     /// @brief enum value that determines the field.
+-    enum FieldType : int {
++    enum FieldType : uint16_t {
+         CHADDR, ///< chaddr field (up to 16 bytes link-layer address)
+         GIADDR, ///< giaddr (IPv4 address)
+         CIADDR, ///< ciaddr (IPv4 address)
+@@ -674,7 +674,7 @@ private:
+ class TokenPkt6 : public Token {
+ public:
+     /// @brief enum value that determines the field.
+-    enum FieldType : int {
++    enum FieldType : uint16_t {
+         MSGTYPE, ///< msg type
+         TRANSID  ///< transaction id (integer but manipulated as a string)
+     };
+@@ -727,7 +727,7 @@ class TokenRelay6Field : public Token {
+ public:
+ 
+     /// @brief enum value that determines the field.
+-    enum FieldType : int {
++    enum FieldType : uint16_t {
+         PEERADDR, ///< Peer address field (IPv6 address)
+         LINKADDR  ///< Link address field (IPv6 address)
+     };
+@@ -1137,7 +1137,7 @@ class TokenVendor : public TokenOption {
+ public:
+ 
+     /// @brief Specifies a field of the vendor option
+-    enum FieldType : int {
++    enum FieldType : uint16_t {
+         SUBOPTION,     ///< If this token fetches a suboption, not a field.
+         ENTERPRISE_ID, ///< enterprise-id field (vendor-info, vendor-class)
+         EXISTS,        ///< vendor[123].exists
+-- 
+GitLab
+
+
+From 6df3ef1076f2fa577e5092b2a41ce71cfe7f423b Mon Sep 17 00:00:00 2001
+From: Andrei Pavel <andrei@isc.org>
+Date: Fri, 24 Oct 2025 13:11:31 +0300
+Subject: [PATCH 5/5] [#4100] Add ChangeLog entry
+
+---
+ changelog_unreleased/4100-kea-build-fail-with-llvm-libc-21 | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 changelog_unreleased/4100-kea-build-fail-with-llvm-libc-21
+
+diff --git a/changelog_unreleased/4100-kea-build-fail-with-llvm-libc-21 b/changelog_unreleased/4100-kea-build-fail-with-llvm-libc-21
+new file mode 100644
+index 00000000000..528ad4c2d5b
+--- /dev/null
++++ b/changelog_unreleased/4100-kea-build-fail-with-llvm-libc-21
+@@ -0,0 +1,4 @@
++[build]		andrei
++	Kea now builds with Clang 21. Thanks to Khem Raj for reporting
++	the problem and suggesting a fix.
++	(Gitlab #4100)
+-- 
+GitLab
+

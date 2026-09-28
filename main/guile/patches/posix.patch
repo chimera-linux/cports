@@ -1,0 +1,53 @@
+FAIL: posix.test: spawn: wc with stdin and stdout redirects - arguments: (expected-value "2\n" actual-value "       2\n")
+our wc retains the padding at the start even for only -w so the string doesn't
+match
+FAIL: posix.test: spawn: ls /proc/self/fd - arguments: (expected-value "0\n1\n2\n3\n" actual-value "0\n1\n2\n3\n4\n")
+seems there's an extra fd in bwrap
+--
+--- a/test-suite/tests/posix.test
++++ b/test-suite/tests/posix.test
+@@ -413,24 +413,6 @@
+         (close-port (car input+output))
+         (list (cdr (waitpid pid)) str))))
+ 
+-  (pass-if-equal "wc with stdin and stdout redirects"
+-      "2\n"
+-    (let* ((a+b (pipe))
+-           (c+d (pipe))
+-           (pid (spawn "wc" '("wc" "-w")
+-                       #:input (car a+b)
+-                       #:output (cdr c+d))))
+-      (close-port (car a+b))
+-      (close-port (cdr c+d))
+-
+-      (display "Hello world.\n" (cdr a+b))
+-      (close-port (cdr a+b))
+-
+-      (let ((str (get-string-all (car c+d))))
+-        (close-port (car c+d))
+-        (waitpid pid)
+-        str)))
+-
+   (pass-if-equal "env with #:environment and #:output"
+       "GNU=guile\n"
+     (let* ((input+output (pipe))
+@@ -431,19 +431,6 @@
+             (string-drop str (+ 1 (string-index str #\newline)))
+             str))))
+ 
+-  (pass-if-equal "ls /proc/self/fd"
+-      "0\n1\n2\n3\n"                     ;fourth FD is for /proc/self/fd
+-    (if (file-exists? "/proc/self/fd")   ;Linux
+-        (let* ((input+output (pipe))
+-               (pid (spawn "ls" '("ls" "/proc/self/fd")
+-                           #:output (cdr input+output))))
+-          (close-port (cdr input+output))
+-          (let ((str (get-string-all (car input+output))))
+-            (close-port (car input+output))
+-            (waitpid pid)
+-            str))
+-        (throw 'unresolved)))
+-
+   (pass-if-equal "file not found"
+       ENOENT
+     (catch 'system-error

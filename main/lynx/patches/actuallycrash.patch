@@ -1,0 +1,28 @@
+--- a/src/LYMain.c
++++ b/src/LYMain.c
+@@ -2015,12 +2015,7 @@
+     if (!TRACE && !dump_output_immediately && !stack_dump) {
+ 	(void) signal(SIGINT, cleanup_sig);
+ #ifndef __linux__
+-#ifdef SIGBUS
+-	(void) signal(SIGBUS, FatalProblem);
+-#endif /* SIGBUS */
+ #endif /* !__linux__ */
+-	(void) signal(SIGSEGV, FatalProblem);
+-	(void) signal(SIGILL, FatalProblem);
+ 	/*
+ 	 * Since we're doing lots of TCP, just ignore SIGPIPE altogether.
+ 	 *
+@@ -4470,12 +4465,7 @@
+     (void) signal(SIGTERM, SIG_IGN);
+     (void) signal(SIGINT, SIG_IGN);
+ #ifndef __linux__
+-#ifdef SIGBUS
+-    (void) signal(SIGBUS, SIG_IGN);
+-#endif /* ! SIGBUS */
+ #endif /* !__linux__ */
+-    (void) signal(SIGSEGV, SIG_IGN);
+-    (void) signal(SIGILL, SIG_IGN);
+ 
+     /*
+      * Flush all messages.  - FM

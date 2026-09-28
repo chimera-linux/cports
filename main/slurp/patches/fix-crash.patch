@@ -1,0 +1,57 @@
+https://github.com/emersion/slurp/pull/124
+--
+From 6a21ddcdde33affc74f45bcd322292db90984293 Mon Sep 17 00:00:00 2001
+From: Thayne McCombs <astrothayne@gmail.com>
+Date: Sun, 26 Mar 2023 01:55:54 -0600
+Subject: [PATCH 1/2] Fix segfault if key event precedes kbd setup
+
+Fixes: #123
+---
+ main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/main.c b/main.c
+index 1eefc55..1c013bc 100644
+--- a/main.c
++++ b/main.c
+@@ -342,8 +342,11 @@ static void keyboard_handle_modifiers(void *data, struct wl_keyboard *wl_keyboar
+ 		const uint32_t mods_latched, const uint32_t mods_locked,
+ 		const uint32_t group) {
+ 	struct slurp_seat *seat = data;
+-	xkb_state_update_mask(seat->xkb_state, mods_depressed, mods_latched,
+-			mods_locked, 0, 0, group);
++	// Avoid segfault if this is called before we initialize the keyboard state
++	if (seat->xkb_state) {
++		xkb_state_update_mask(seat->xkb_state, mods_depressed, mods_latched,
++				mods_locked, 0, 0, group);
++	}
+ }
+ 
+ static const struct wl_keyboard_listener keyboard_listener = {
+
+From 820041f4f17437b16701c16deed5f2188d9b4993 Mon Sep 17 00:00:00 2001
+From: Thayne McCombs <astrothayne@gmail.com>
+Date: Sat, 1 Apr 2023 01:03:18 -0600
+Subject: [PATCH 2/2] Harden against null pointer deref in key handler
+
+Make sure the keyboard has been initialized before using it in the key
+press handler.
+---
+ main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/main.c b/main.c
+index 1c013bc..e952973 100644
+--- a/main.c
++++ b/main.c
+@@ -296,6 +296,10 @@ static void keyboard_handle_key(void *data, struct wl_keyboard *wl_keyboard,
+ 		const uint32_t key_state) {
+ 	struct slurp_seat *seat = data;
+ 	struct slurp_state *state = seat->state;
++	// ignore any key presses we get before we have initialized the keyboard
++	if (seat->xkb_state == NULL) {
++		return;
++	}
+ 	const xkb_keysym_t keysym = xkb_state_key_get_one_sym(seat->xkb_state, key + 8);
+ 
+ 	switch (key_state) {

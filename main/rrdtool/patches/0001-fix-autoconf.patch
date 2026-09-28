@@ -1,0 +1,37 @@
+diff --git a/configure.ac b/configure.ac
+index be8b4d6e..468b1181 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -230,8 +230,8 @@ HW_FUNC_ASPRINTF
+ CONFIGURE_PART(Test Library Functions)
+ 
+ dnl Checks for libraries.
+-AC_CHECK_FUNC(acos,  , AC_CHECK_LIB(m, acos))
+-AC_CHECK_FUNC(round, , AC_CHECK_LIB(m, round))
++AC_CHECK_FUNC(acos,  , [AC_CHECK_LIB(m, acos)])
++AC_CHECK_FUNC(round, , [AC_CHECK_LIB(m, round)])
+ 
+ 
+ 
+@@ -260,7 +260,7 @@ dnl AC_CHECK_DECLS(fdatasync, [], [], [#include <unistd.h>])
+ 
+ dnl check for fdatasync. Solaris has fdatasync in the librt
+ 
+-AC_CHECK_FUNCS(fdatasync, [],  AC_CHECK_LIB(rt, fdatasync, [LIBS="${LIBS} -lrt"; AC_DEFINE(HAVE_FDATASYNC)],[]))
++AC_CHECK_FUNCS(fdatasync, [],  [AC_CHECK_LIB(rt, fdatasync, [LIBS="${LIBS} -lrt"; AC_DEFINE(HAVE_FDATASYNC)],[])])
+ dnl if there is no fdatasync we may get lucky with fsync
+ AC_CHECK_FUNCS(fsync)
+ 
+@@ -270,9 +270,9 @@ dnl link with ws2_32 (Winsock2 library) in case of MinGW or MinGW-w64 builds
+ case "${target}" in
+   *mingw*) LIBS="${LIBS} -lws2_32";;
+ esac
+-AC_CHECK_FUNCS(socket, [],  AC_CHECK_LIB(socket, socket, [LIBS="${LIBS} -lsocket"; AC_DEFINE(HAVE_SOCKET)],[]))
+-AC_CHECK_FUNCS(getaddrinfo, [],  AC_CHECK_LIB(nsl, getaddrinfo, [LIBS="${LIBS} -lnsl"; AC_DEFINE(HAVE_GETADDRINFO)],[]))
+-AC_CHECK_FUNCS(sigwaitinfo, [],  AC_CHECK_LIB(rt, sigwaitinfo, [LIBS="${LIBS} -lrt"; AC_DEFINE(HAVE_SIGWAITINFO)],[]))
++AC_CHECK_FUNCS(socket, [],  [AC_CHECK_LIB(socket, socket, [LIBS="${LIBS} -lsocket"; AC_DEFINE(HAVE_SOCKET)],[])])
++AC_CHECK_FUNCS(getaddrinfo, [],  [AC_CHECK_LIB(nsl, getaddrinfo, [LIBS="${LIBS} -lnsl"; AC_DEFINE(HAVE_GETADDRINFO)],[])])
++AC_CHECK_FUNCS(sigwaitinfo, [],  [AC_CHECK_LIB(rt, sigwaitinfo, [LIBS="${LIBS} -lrt"; AC_DEFINE(HAVE_SIGWAITINFO)],[])])
+ 
+ dnl XXX: dunno about windows.. add AC_CHECK_FUNCS(munmap) there too?
+ if test "x$enable_mmap" = "xyes"; then

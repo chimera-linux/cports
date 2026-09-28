@@ -1,0 +1,18 @@
+commit 1e27dd42ba0e7bd035aa29f08af52d8ee72d1043
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jul 24 22:10:32 2026 +0200
+
+    bsd tar does not support --mode=go-w
+
+diff --git a/python/mozbuild/mozbuild/action/package.py b/python/mozbuild/mozbuild/action/package.py
+index 42e845a..548238b 100644
+--- a/python/mozbuild/mozbuild/action/package.py
++++ b/python/mozbuild/mozbuild/action/package.py
+@@ -93,6 +93,7 @@ def main(argv):
+     parser.add_argument("--icon", default=None)
+     parser.add_argument("--volume-name", default=None)
+     args = parser.parse_args(argv)
++    args.tar = "/usr/bin/gtar"
+ 
+     cwd = mozpath.normsep(os.path.abspath(args.cwd))
+     filename = args.basename + FORMAT_SUFFIX[args.format]

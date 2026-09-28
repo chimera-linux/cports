@@ -1,0 +1,36 @@
+commit 0c00511118404ab13139f0c869f488f30028ccb3
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Oct 9 13:30:22 2022 +0200
+
+    include cflags when linking
+
+diff --git a/Makefile b/Makefile
+index 71c11f1..93c63af 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ # To compile with MinGW please run: mingw32-make -f Makefile.mingw
+ 
+ # Include path where lua.h, luaconf.h and lauxlib.h reside:
+-INCLUDES= -I/usr/local/include
++INCLUDES= -I$(CBUILD_TARGET_SYSROOT)/usr/include/lua5.1
+ 
+ DEFINES=
+ # Use this for the old ARM ABI with swapped FPA doubles.
+@@ -11,14 +11,13 @@ DEFINES=
+ #DEFINES= -DSWAPPED_DOUBLE
+ 
+ # Lua executable name. Used to find the install path and for testing.
+-LUA= lua
++LUA= lua5.1
+ 
+ CC= gcc
+-CCOPT= -O2 -fomit-frame-pointer
+ CCWARN= -Wall
+ SOCC= $(CC) -shared
+ SOCFLAGS= -fPIC $(CCOPT) $(CCWARN) $(DEFINES) $(INCLUDES) $(CFLAGS)
+-SOLDFLAGS= -fPIC $(LDFLAGS)
++SOLDFLAGS= -fPIC $(CCOPT) $(CCWARN) $(DEFINES) $(INCLUDES) $(CFLAGS) $(LDFLAGS)
+ RM= rm -f
+ INSTALL= install -p
+ INSTALLPATH= $(LUA) installpath.lua

@@ -1,0 +1,30 @@
+https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
+diff -ruN a/schism/version.c b/schism/version.c
+--- a/schism/version.c	2026-05-24 22:49:08.000000000 +0200
++++ b/schism/version.c	2026-07-24 10:14:06.215005210 +0200
+@@ -76,11 +76,12 @@
+ 		on gcc-like compilers. (not like anyone's really using schism with anything else...)
+ 
+ */
+-#if !defined(EMPTY_VERSION) && defined(VERSION)
+-# define TOP_BANNER_NORMAL "Schism Tracker " VERSION
++#if 1
++# define TOP_BANNER_NORMAL "Schism Tracker " VERSION2
+ #else
+ # define TOP_BANNER_NORMAL "Schism Tracker built " __DATE__ " " __TIME__
+ #endif
++
+ 	;
+ 
+ /* -------------------------------------------------------- */
+@@ -412,8 +413,8 @@
+ // Tries multiple methods to get a reasonable date to start with.
+ static int get_version_date(uint32_t *pyear, uint32_t *pmonth, uint32_t *pday)
+ {
+-#if !defined(EMPTY_VERSION) && defined(VERSION)
+-	if (ver_parse_schism_version(VERSION, pyear, pmonth, pday) == 0)
++#if 1
++	if (ver_parse_schism_version(VERSION2, pyear, pmonth, pday) == 0)
+ 		return 0;
+ #endif
+ 

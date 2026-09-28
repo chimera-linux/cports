@@ -1,0 +1,22 @@
+--- a/src/nm-openconnect-service.h	2023-05-17 18:19:17.000000000 +0200
++++ b/src/nm-openconnect-service.h	2024-06-07 22:45:54.708618016 +0200
+@@ -44,6 +44,6 @@
+ 
+ NMOpenconnectPlugin *nm_openconnect_plugin_new (const char *bus_name);
+ 
+-#define NM_OPENCONNECT_USER "nm-openconnect"
++#define NM_OPENCONNECT_USER "_nm-openconnect"
+ 
+ #endif /* NM_OPENCONNECT_PLUGIN_H */
+
+--- a/nm-openconnect-service.conf	2023-05-17 18:19:17.000000000 +0200
++++ b/nm-openconnect-service.conf	2024-06-07 22:48:37.051564228 +0200
+@@ -6,7 +6,7 @@
+ 		<allow own_prefix="org.freedesktop.NetworkManager.openconnect"/>
+ 		<allow send_destination="org.freedesktop.NetworkManager.openconnect"/>
+ 	</policy>
+-	<policy user="nm-openconnect">
++	<policy user="_nm-openconnect">
+ 		<allow own_prefix="org.freedesktop.NetworkManager.openconnect"/>
+ 		<allow send_destination="org.freedesktop.NetworkManager.openconnect"/>
+ 		<allow send_interface="org.freedesktop.NetworkManager.VPN.Plugin"/>

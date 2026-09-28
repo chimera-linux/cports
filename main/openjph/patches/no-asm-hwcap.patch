@@ -1,0 +1,10 @@
+--- a/src/core/others/ojph_arch.cpp
++++ b/src/core/others/ojph_arch.cpp
+@@ -173,7 +173,6 @@ namespace ojph {
+       #if defined(__aarch64__) || defined(_M_ARM64) // 64-bit ARM
+ 
+         #include <sys/auxv.h>
+-        #include <asm/hwcap.h>
+ 
+         bool init_cpu_ext_level(int& level) {
+           unsigned long hwcaps = getauxval(AT_HWCAP);

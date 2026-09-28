@@ -1,0 +1,10 @@
+--- a/tools/power/x86/turbostat/turbostat.c
++++ b/tools/power/x86/turbostat/turbostat.c
+@@ -46,6 +46,7 @@
+ #include <sys/resource.h>
+ #include <sys/mman.h>
+ #include <fcntl.h>
++#include <limits.h>
+ #include <signal.h>
+ #include <sys/time.h>
+ #include <stdlib.h>

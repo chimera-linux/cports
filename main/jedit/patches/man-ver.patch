@@ -1,0 +1,11 @@
+--- a/package-files/linux/jedit.1
++++ b/package-files/linux/jedit.1
+@@ -153,7 +153,7 @@ in the "Customizing jEdit" section of the online help.
+ .BR java (1)
+ 
+ .SH VERSION
+-\fBjEdit\fP @jedit.version@
++\fBjEdit\fP 5.6.0
+ 
+ .SH BUGS
+ See http://www.jEdit.org/index.php?page=feedback for bug reporting information.

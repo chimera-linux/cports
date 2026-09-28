@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/nsd -dP ""
+before = network.target
+depends-on = pre-network.target
+smooth-recovery = true

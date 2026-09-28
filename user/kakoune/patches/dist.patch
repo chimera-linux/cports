@@ -1,0 +1,20 @@
+diff --git a/Makefile b/Makefile
+index b1f70826..d7d81be8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -16,7 +16,6 @@ CPPFLAGS-debug-yes = -DKAK_DEBUG
+ CXXFLAGS-debug-yes = -O0 -g3
+ tag-debug-yes = .debug
+ 
+-CXXFLAGS-debug-no = -O3 -g3
+ tag-debug-no = .opt
+ 
+ CXXFLAGS-sanitize-address = -fsanitize=address
+@@ -206,6 +205,7 @@ install-gzip-man-yes: gzip-man-yes installdirs
+ 	chmod 0644 $(mandir)/kak.1.gz
+ 
+ install-gzip-man-no: gzip-man-no installdirs
++	install -d $(mandir)
+ 	cp -f doc/kak.1 $(mandir)
+ 	chmod 0644 $(mandir)/kak.1
+ 

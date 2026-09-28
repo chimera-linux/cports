@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/transmission-daemon --foreground --config-dir /etc/transmission-daemon --download-dir /var/lib/transmission-daemon
+depends-on = network.target
+depends-on = local.target
+logfile = /var/log/transmission-daemon.log
+run-as = _transmission

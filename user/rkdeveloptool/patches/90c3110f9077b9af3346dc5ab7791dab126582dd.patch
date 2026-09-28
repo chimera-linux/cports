@@ -1,0 +1,69 @@
+From 90c3110f9077b9af3346dc5ab7791dab126582dd Mon Sep 17 00:00:00 2001
+From: Johann Rudloff <johann@sinyax.net>
+Date: Sat, 30 Jul 2022 11:58:11 +0200
+Subject: [PATCH] Fix reading partitions and sector ranges larger than 4 GiB
+
+Fix was taken from [1] and slightly adapted to match the surrounding
+naming conventions.
+
+[1] https://github.com/tpwrules/nixos-pinenote/blob/96d2c9158edb9da59afcb952cc864fada18382f9/nix/rkdeveloptool/0001-fix-large-dumps.patch
+---
+ main.cpp | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+diff --git a/main.cpp b/main.cpp
+index 029f0e2..31938a6 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -2455,12 +2455,6 @@ bool read_lba(
+ 
+ 	if (!check_device_type(dev, RKUSB_LOADER | RKUSB_MASKROM))
+ 		return false;
+-	if (uiLen % 512) {
+-		fprintf(stderr, "Length must be a multiple of sector size (%d)\n",
+-				SECTOR_SIZE);
+-		return false;
+-	}
+-	uiLen /= 512;
+ 
+ 	if (!bRet) {
+ 		fprintf(stderr, "Read LBA quit, creating comm object failed!\n");
+@@ -3265,7 +3259,7 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
+ 				bRet = get_lba_from_gpt(master_gpt, argv[2], &lba, &lba_end);
+ 				if (bRet) {
+ 					bSuccess = read_lba(dev, (u32)lba,
+-							((u32)(lba_end - lba + 1)) * 512, argv[3]);
++							(u32)(lba_end - lba + 1), argv[3]);
+ 				} else {
+ 					fprintf(stderr, "Could not find the %s partition\n", argv[2]);
+ 				}
+@@ -3276,7 +3270,7 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
+ 	} else if (strcmp(strCmd.c_str(), "RL") == 0 ||
+ 			strcmp(strCmd.c_str(), "READ") == 0) {
+ 		char *pszEnd;
+-		UINT uiBegin, uiLen;
++		UINT uiBegin;
+ 		if (argc != 5)
+ 			fprintf(stderr, "Usage: rkdeveloptool read start-sector num-bytes "
+ 				   "filename\n");
+@@ -3285,11 +3279,14 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
+ 			if (*pszEnd)
+ 				fprintf(stderr, "Begin is invalid, please check!\n");
+ 			else {
+-				uiLen = strtoul(argv[3], &pszEnd, 0);
++				unsigned long long ullLen = strtoull(argv[3], &pszEnd, 0);
+ 				if (*pszEnd)
+ 					fprintf(stderr, "Len is invalid, please check!\n");
+-				else {
+-					bSuccess = read_lba(dev, uiBegin, uiLen, argv[4]);
++				else if (ullLen % 512) {
++					fprintf(stderr, "Length must be a multiple of sector size (%d)\n",
++							SECTOR_SIZE);
++				} else {
++					bSuccess = read_lba(dev, uiBegin, ullLen / 512, argv[4]);
+ 				}
+ 			}
+ 		}
+-- 
+GitLab
+

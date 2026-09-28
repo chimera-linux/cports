@@ -1,0 +1,22 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-6.1.2-projucer_juce_paths.patch
+
+diff -ruN a/extras/Projucer/Source/Settings/jucer_StoredSettings.cpp b/extras/Projucer/Source/Settings/jucer_StoredSettings.cpp
+--- a/extras/Projucer/Source/Settings/jucer_StoredSettings.cpp	2024-07-29 13:47:03.000000000 +0200
++++ b/extras/Projucer/Source/Settings/jucer_StoredSettings.cpp	2024-08-31 13:46:30.794081079 +0200
+@@ -356,13 +356,13 @@
+ static String getFallbackPathForOS (const Identifier& key, DependencyPathOS os)
+ {
+     if (key == Ids::jucePath)
+-        return (os == TargetOS::windows ? "C:\\JUCE" : "~/JUCE");
++        return (os == TargetOS::windows ? "C:\\JUCE" : "/usr/share/doc/juce");
+ 
+     if (key == Ids::defaultJuceModulePath)
+-        return (os == TargetOS::windows ? "C:\\JUCE\\modules" : "~/JUCE/modules");
++        return (os == TargetOS::windows ? "C:\\JUCE\\modules" : "/usr/share/juce/modules");
+ 
+     if (key == Ids::defaultUserModulePath)
+-        return (os == TargetOS::windows ? "C:\\modules" : "~/modules");
++        return (os == TargetOS::windows ? "C:\\modules" : "~/.local/share/juce/modules");
+ 
+     if (key == Ids::vstLegacyPath)
+         return {};

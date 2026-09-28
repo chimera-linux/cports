@@ -1,0 +1,9 @@
+[flake8]
+# E501: we stick to 80 cols but some source strings are longer
+# W503, E203: conflicts with black
+extend-ignore = E501,W503,E203
+max-line-length = 80
+builtins =
+    custom_target,
+    self,
+    subpackage,

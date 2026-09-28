@@ -1,0 +1,9 @@
+--- a/examples/chrony.conf.example1
++++ b/examples/chrony.conf.example1
+@@ -10,3 +10,6 @@
+ 
+ # Enable kernel synchronization of the real-time clock (RTC).
+ rtcsync
++
++# Disable reading/writing the pid file by default.
++pidfile /

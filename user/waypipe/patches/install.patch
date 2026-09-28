@@ -1,0 +1,29 @@
+diff --git a/compile_wrapper.sh b/compile_wrapper.sh
+index db027ec..be71dff 100644
+--- a/compile_wrapper.sh
++++ b/compile_wrapper.sh
+@@ -18,5 +18,4 @@ features:
+   zstd: $8
+   dmabuf: $9
+   video: ${10}"
+-env WAYPIPE_VERSION="$version" cargo build --frozen -v --bin waypipe --profile "$1" --manifest-path "$2" --no-default-features --target-dir "$3" --features "$4"
+-cp "$3/$1/waypipe" "$5"
++env WAYPIPE_VERSION="$version" cargo auditable build --frozen -v --bin waypipe --profile "$1" --manifest-path "$2" --no-default-features --target-dir "$3" --features "$4"
+--- a/meson.build
++++ b/meson.build
+@@ -126,6 +126,7 @@ if get_option('build_rs')
+     binary = custom_target(
+         'waypipe',
+         build_always_stale: true,
++        build_by_default: true,
+         output: 'waypipe',
+         command: [
+             sh,
+@@ -141,7 +142,6 @@ if get_option('build_rs')
+             has_dmabuf.to_string('true', 'false'),
+             has_video.to_string('true', 'false'),
+         ],
+-        install: true,
+         install_dir: get_option('bindir'),
+     )
+ 

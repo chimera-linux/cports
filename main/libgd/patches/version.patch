@@ -1,0 +1,23 @@
+commit fc49d8307cd0d3dbe4e0522b8a8d2aaa934fdb56
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Oct 12 16:16:09 2023 +0200
+
+    bla
+
+diff --git a/src/gd.h b/src/gd.h
+index b033238..b90fb15 100644
+--- a/src/gd.h
++++ b/src/gd.h
+@@ -12,9 +12,9 @@ extern "C" {
+  * whitespace, take the form GD_*_VERSION and contain the magical
+  * trailing comment. */
+ #define GD_MAJOR_VERSION    2           /*version605b5d1778*/
+-#define GD_MINOR_VERSION    4           /*version605b5d1778*/
+-#define GD_RELEASE_VERSION  0           /*version605b5d1778*/
+-#define GD_EXTRA_VERSION    "-dev"      /*version605b5d1778*/
++#define GD_MINOR_VERSION    3           /*version605b5d1778*/
++#define GD_RELEASE_VERSION  3           /*version605b5d1778*/
++#define GD_EXTRA_VERSION    ""      /*version605b5d1778*/
+ /* End parsable section. */
+ 
+ /* The version string.  This is constructed from the version number

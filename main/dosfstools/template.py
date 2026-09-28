@@ -1,0 +1,17 @@
+pkgname = "dosfstools"
+pkgver = "4.2"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = ["--enable-compat-symlinks"]
+hostmakedepends = ["automake", "gettext-devel", "pkgconf"]
+makedepends = ["udev-devel", "linux-headers"]
+pkgdesc = "DOS filesystem tools"
+license = "GPL-3.0-or-later"
+url = "https://github.com/dosfstools/dosfstools"
+source = f"{url}/releases/download/v{pkgver}/dosfstools-{pkgver}.tar.gz"
+sha256 = "64926eebf90092dca21b14259a5301b7b98e7b1943e8a201c7d726084809b527"
+hardening = ["vis", "cfi"]
+
+
+def post_install(self):
+    self.uninstall("usr/share/doc")

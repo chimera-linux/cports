@@ -1,0 +1,29 @@
+commit 91131a337c4be1d8ec4abb6062336a8d4eb4664e
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Aug 26 19:14:36 2023 +0200
+
+    we don't want your optimizations
+
+diff --git a/tools/power/acpi/Makefile.config b/tools/power/acpi/Makefile.config
+index cd71068..0b2aecb 100644
+--- a/tools/power/acpi/Makefile.config
++++ b/tools/power/acpi/Makefile.config
+@@ -84,6 +84,5 @@ ifeq ($(strip $(DEBUG)),true)
+ 	CFLAGS += -O1 -g -DDEBUG
+ 	STRIPCMD = /bin/true -Since_we_are_debugging
+ else
+-	CFLAGS += $(OPTIMIZATION) -fomit-frame-pointer
+ 	STRIPCMD = $(STRIP) -s --remove-section=.note --remove-section=.comment
+ endif
+diff --git a/tools/power/cpupower/Makefile b/tools/power/cpupower/Makefile
+index 59bfa05..15300fb 100644
+--- a/tools/power/cpupower/Makefile
++++ b/tools/power/cpupower/Makefile
+@@ -187,7 +187,6 @@ ifeq ($(strip $(DEBUG)),true)
+ 	override CFLAGS += -O1 -g -DDEBUG
+ 	STRIPCMD = /bin/true -Since_we_are_debugging
+ else
+-	override CFLAGS += $(OPTIMIZATION) -fomit-frame-pointer
+ 	STRIPCMD = $(STRIP) -s --remove-section=.note --remove-section=.comment
+ endif
+ 

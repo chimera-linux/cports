@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/mpris-proxy
+log-type = buffer
+depends-on: dbus

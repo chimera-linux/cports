@@ -1,0 +1,13 @@
+bash interprets -- as $0 but freebsd sh does not
+diff --git a/tests/integration_test.py b/tests/integration_test.py
+index b88c728..d06d5df 100644
+--- a/tests/integration_test.py
++++ b/tests/integration_test.py
+@@ -1790,6 +1790,7 @@ class Tests(dbusmock.DBusTestCase):
+                     "-c",
+                     f'echo "$@" > {tmpf.name}',
+                     "--",
++                    "foo",
+                     "--foo",
+                     "--bar",
+                     "-v",

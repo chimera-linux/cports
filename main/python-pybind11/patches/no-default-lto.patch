@@ -1,0 +1,15 @@
+the tooling should not be choosing this for us, we already pass
+our own lto flags when necessary
+
+--- a/tools/pybind11Common.cmake
++++ b/tools/pybind11Common.cmake
+@@ -332,6 +332,9 @@ function(_pybind11_return_if_cxx_and_linker_flags_work result cxxflags linkerfla
+ endfunction()
+ 
+ function(_pybind11_generate_lto target prefer_thin_lto)
++  # this is garbage
++  return()
++
+   if(MINGW)
+     message(STATUS "${target} disabled (problems with undefined symbols for MinGW for now)")
+     return()

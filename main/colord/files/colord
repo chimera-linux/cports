@@ -1,0 +1,5 @@
+type = process
+command = /usr/lib/colord
+run-as = _colord
+depends-on: login.target
+depends-on: dbus
