@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "156.0"
+pkgver = "157.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -65,7 +65,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "1f2768c043510009abaa3f078123664e106d3ab9dfce75d1819ad96b2145aab9"
+sha256 = "259c564dd4bbd56bbe8a9a6cf001fc8812853567fd3a78e77c9ddf10d7d4e982"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -92,9 +92,6 @@ if self.profile.endian == "big":
 # crashes compiler in gl.c
 if self.profile.arch == "riscv64":
     tool_flags["CXXFLAGS"] = ["-U_FORTIFY_SOURCE"]
-elif self.profile.arch == "ppc64le":
-    # early profile build libxul takes 7 hours to link for some reason
-    options += ["eepy"]
 
 
 def post_extract(self):
@@ -152,7 +149,6 @@ def configure(self):
         "--enable-audio-backends=pulseaudio",
         "--enable-dbus",
         "--enable-default-toolkit=cairo-gtk3-wayland",
-        "--enable-ffmpeg",
         "--enable-jack",
         "--enable-necko-wifi",
         "--enable-pulseaudio",
@@ -182,8 +178,9 @@ def configure(self):
 
     _use_pgo = self.has_lto()
 
-    # gets stuck busy-looping in profiling pass in ff140
-    if self.profile.arch == "aarch64":
+    # aarch64: gets stuck busy-looping in profiling pass in ff140
+    # ppc64le: takes long to link and generates a broken binary
+    if self.profile.arch in ["aarch64", "ppc64le"]:
         _use_pgo = False
 
     if _use_pgo:
