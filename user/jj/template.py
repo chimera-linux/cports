@@ -1,6 +1,6 @@
 pkgname = "jj"
 pkgver = "0.45.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 prepare_after_patch = True
 make_check_args = [
@@ -35,10 +35,12 @@ def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(f"{self.cwd}/jj.{shell}", "w") as o:
             self.do(
-                cargo.target_path(self, "jj"),
+                "jj",
                 "util",
                 "completion",
                 shell,
+                path=[cargo.target_path(self)],
+                env={"COMPLETE": shell} if shell != "nushell" else {},
                 stdout=o,
             )
 
