@@ -1,0 +1,12 @@
+--- a/third_party/libwebrtc/rtc_base/platform_thread_types.cc
++++ b/third_party/libwebrtc/rtc_base/platform_thread_types.cc
+@@ -12,7 +12,9 @@
+ 
+ // IWYU pragma: begin_keep
+ #if defined(WEBRTC_LINUX)
++#if defined(__GLIBC__)
+ #include <linux/prctl.h>
++#endif
+ #include <sys/prctl.h>
+ #include <sys/syscall.h>
+ 

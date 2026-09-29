@@ -1,0 +1,22 @@
+Reference: https://github.com/torvalds/linux/blob/v6.11/lib/raid6/loongarch.h
+
+diff --git a/gfx/skia/skia/src/core/SkCpu.cpp b/gfx/skia/skia/src/core/SkCpu.cpp
+index cdac7db2b..11c160513 100644
+--- a/gfx/skia/skia/src/core/SkCpu.cpp
++++ b/gfx/skia/skia/src/core/SkCpu.cpp
+@@ -216,6 +216,14 @@
+         uint32_t features = 0;
+         uint64_t hwcap = getauxval(AT_HWCAP);
+ 
++        /* have to supply these defines for glibc 2.37- and musl */
++        #ifndef HWCAP_LOONGARCH_LSX
++        #define HWCAP_LOONGARCH_LSX	(1 << 4)
++        #endif
++        #ifndef HWCAP_LOONGARCH_LASX
++        #define HWCAP_LOONGARCH_LASX	(1 << 5)
++        #endif
++
+         if (hwcap & HWCAP_LOONGARCH_LSX)  { features |= SkLoongArch::SX; }
+         if (hwcap & HWCAP_LOONGARCH_LASX) { features |= SkLoongArch::ASX; }
+ 
+
