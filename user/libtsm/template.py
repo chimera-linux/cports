@@ -1,5 +1,5 @@
 pkgname = "libtsm"
-pkgver = "4.7.1"
+pkgver = "4.8.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Terminal emulator state machine"
 license = "MIT"
 url = "https://github.com/kmscon/libtsm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "40d7f11698f0ce87af8da67a3142ee9f02e2b5d914f8ad83aa080e052fe1ae2b"
+sha256 = "50811e9e94fc798eb5dcbaff20f81067c942ec47f329f91bbe4caeb35a61ff05"
 
 
 def post_install(self):
