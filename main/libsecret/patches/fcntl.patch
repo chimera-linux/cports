@@ -1,0 +1,24 @@
+../libsecret/secret-file-collection.c:836:7: error: call to undeclared function 'open'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  836 |         fd = g_open (lock_path, O_CREAT | O_RDWR, 0600);
+      |              ^
+/usr/include/glib-2.0/glib/gstdio.h:73:19: note: expanded from macro 'g_open'
+   73 | #define g_open    open
+      |                   ^
+../libsecret/secret-file-collection.c:836:26: error: use of undeclared identifier 'O_CREAT'
+  836 |         fd = g_open (lock_path, O_CREAT | O_RDWR, 0600);
+      |                                 ^~~~~~~
+../libsecret/secret-file-collection.c:836:36: error: use of undeclared identifier 'O_RDWR'
+  836 |         fd = g_open (lock_path, O_CREAT | O_RDWR, 0600);
+      |                                           ^~~~~~
+
+diff -ruN a/libsecret/secret-file-collection.c b/libsecret/secret-file-collection.c
+--- a/libsecret/secret-file-collection.c	2026-09-13 00:05:54.000000000 +0200
++++ b/libsecret/secret-file-collection.c	2026-09-29 11:47:04.066126094 +0200
+@@ -23,6 +23,7 @@
+ 
+ #include <sys/file.h>
+ #include <errno.h>
++#include <fcntl.h>
+ 
+ EGG_SECURE_DECLARE (secret_file_collection);
+ 
