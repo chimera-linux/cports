@@ -4,12 +4,12 @@ pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DSDLIMAGE_AVIF=ON",
-    "-DSDLIMAGE_AVIF_SHARED=ON",
+    "-DSDLIMAGE_AVIF_SHARED=OFF",
     "-DSDLIMAGE_JPG=ON",
     "-DSDLIMAGE_JPG_SHARED=OFF",
     "-DSDLIMAGE_GIF=ON",
     "-DSDLIMAGE_JXL=ON",
-    "-DSDLIMAGE_JXL_SHARED=ON",
+    "-DSDLIMAGE_JXL_SHARED=OFF",
     "-DSDLIMAGE_PNG=ON",
     "-DSDLIMAGE_PNG_SHARED=OFF",
     "-DSDLIMAGE_SAMPLES=OFF",
@@ -31,8 +31,6 @@ makedepends = [
     "libwebp-devel",
     "sdl3-devel",
 ]
-# sigh, dynamically loaded
-depends = ["so:libjxl.so.0.11!libjxl", "so:libavif.so.16!libavif"]
 pkgdesc = "SDL image loading library"
 license = "Zlib"
 url = "https://github.com/libsdl-org/SDL_image"
