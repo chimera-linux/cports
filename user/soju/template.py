@@ -1,6 +1,6 @@
 pkgname = "soju"
-pkgver = "0.10.1"
-pkgrel = 2
+pkgver = "0.11.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -16,7 +16,7 @@ pkgdesc = "IRC bouncer"
 license = "AGPL-3.0-only"
 url = "https://soju.im"
 source = f"https://codeberg.org/emersion/soju/archive/v{pkgver}.tar.gz"
-sha256 = "d35bd4a1e43248106a7eaddd74fd4318f5987b7bf1b22cab72280d1952958a83"
+sha256 = "5dcb56885fb74524b53111b976757d1e587b1f7a5bad1a937ba8a5dfb1ed1346"
 file_modes = {
     "usr/bin/soju": ("root", "root", 0o755),
 }
