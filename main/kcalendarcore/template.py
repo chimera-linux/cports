@@ -1,6 +1,6 @@
 pkgname = "kcalendarcore"
 pkgver = "6.30.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 make_check_wrapper = ["wlheadless-run", "--"]
