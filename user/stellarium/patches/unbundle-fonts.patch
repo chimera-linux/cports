@@ -1,0 +1,34 @@
+diff --git a/data/CMakeLists.txt b/data/CMakeLists.txt
+index 1612198c0..8b55e3905 100644
+--- a/data/CMakeLists.txt
++++ b/data/CMakeLists.txt
+@@ -4,9 +4,6 @@ INSTALL(FILES ssystem_major.ini ssystem_minor.ini ssystem_1000comets.ini
+ 	base_locations.bin.gz default_cfg.ini languages.tab iso3166.tab 
+ 	regions-geoscheme.tab constellations_spans.dat
+         nomenclature.dat asteroid_elements.json DESTINATION ${SDATALOC}/data)
+-# install fonts
+-INSTALL(FILES NotoSans-Regular.ttf NotoSansMono-Regular.ttf NotoSansSC-Regular.otf 
+-	DejaVuSans.ttf DejaVuSansMono.ttf DESTINATION ${SDATALOC}/data)
+ # install shaders
+ INSTALL(DIRECTORY shaders/ DESTINATION ${SDATALOC}/data/shaders FILES_MATCHING
+ 	PATTERN "planet*")
+diff --git a/src/main.cpp b/src/main.cpp
+index 17d38f7fd..6a2aa9629 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -416,15 +416,6 @@ int main(int argc, char **argv)
+ 
+ 	StelFileMgr::setObsListDir(confSettings->value("main/observinglists_dir", StelFileMgr::getUserDir()).toString());
+ 
+-	// Add the Noto & DejaVu fonts that we use everywhere in the program
+-	const QStringList customFonts = { "NotoSans-Regular.ttf", "NotoSansMono-Regular.ttf", "NotoSansSC-Regular.otf", "DejaVuSans.ttf", "DejaVuSansMono.ttf" };
+-	for (auto &font: std::as_const(customFonts))
+-	{
+-		QString customFont = StelFileMgr::findFile(QString("data/%1").arg(font));
+-		if (!customFont.isEmpty())
+-			QFontDatabase::addApplicationFont(customFont);
+-	}
+-	
+ 	QString fileFont = confSettings->value("gui/base_font_file", "").toString();
+ 	if (!fileFont.isEmpty())
+ 	{
