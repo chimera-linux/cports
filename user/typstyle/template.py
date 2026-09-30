@@ -1,6 +1,6 @@
 pkgname = "typstyle"
 pkgver = "0.15.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
@@ -17,7 +17,22 @@ if self.profile.arch in ["loongarch64"]:
     broken = "sigbus in tests"
 
 
+def post_build(self):
+    from cbuild.util import cargo
+
+    for shell in ["bash", "fish", "zsh"]:
+        with open(f"{self.cwd}/typstyle.{shell}", "w") as o:
+            self.do(
+                cargo.target_path(self, "typstyle"),
+                "completions",
+                shell,
+                stdout=o,
+            )
+
+
 def install(self):
     from cbuild.util import cargo
 
     self.install_bin(cargo.target_path(self, "typstyle"))
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"typstyle.{shell}", shell)
