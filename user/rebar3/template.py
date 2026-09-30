@@ -1,5 +1,5 @@
 pkgname = "rebar3"
-pkgver = "3.27.0"
+pkgver = "3.27.1"
 pkgrel = 0
 hostmakedepends = ["erlang"]
 depends = ["erlang"]
@@ -7,7 +7,7 @@ pkgdesc = "Erlang build tool"
 license = "Apache-2.0"
 url = "https://github.com/erlang/rebar3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "985cae6e957334cfa549190b9f5efb9185c184a18fc181c87b8dde096ba79f38"
+sha256 = "e34cf5e8f25fc7e59b2ff5c56fed507cf1378d4eef2a4aa7957b3c7e80812d64"
 # tests require network access
 options = ["!check"]
 
