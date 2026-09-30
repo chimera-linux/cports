@@ -1,0 +1,39 @@
+diff --git a/src/actions/gsm_gksu.cpp b/src/actions/gsm_gksu.cpp
+index c2e3c28..62e27ee 100644
+--- a/src/actions/gsm_gksu.cpp
++++ b/src/actions/gsm_gksu.cpp
+@@ -18,6 +18,8 @@ load_gksu (void)
+ {
+   static GModule *module = NULL;
+ 
++  return;
++
+   if (g_once_init_enter_pointer (&module)) {
+     GModule *gksu = g_module_open ("libgksu2.so",
+                                    static_cast<GModuleFlags>(G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL));
+diff --git a/src/actions/gsm_gnomesu.cpp b/src/actions/gsm_gnomesu.cpp
+index e6c9cd0..50f7821 100644
+--- a/src/actions/gsm_gnomesu.cpp
++++ b/src/actions/gsm_gnomesu.cpp
+@@ -18,6 +18,8 @@ load_gnomesu (void)
+ {
+   static GModule *module = NULL;
+ 
++  return;
++
+   if (g_once_init_enter_pointer (&module)) {
+     GModule *gnomesu = g_module_open ("libgnomesu.so.0",
+                                       static_cast<GModuleFlags>(G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL));
+diff --git a/src/selinux/gsm-selinux.c b/src/selinux/gsm-selinux.c
+index e3d2fe9..1df1e42 100644
+--- a/src/selinux/gsm-selinux.c
++++ b/src/selinux/gsm-selinux.c
+@@ -19,6 +19,8 @@ load_selinux (void)
+ {
+   static GModule *module = NULL;
+ 
++  return FALSE;
++
+   if (g_once_init_enter_pointer (&module)) {
+     GModule *selinux = g_module_open ("libselinux.so.1",
+                                       G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);

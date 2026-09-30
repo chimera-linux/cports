@@ -1,6 +1,6 @@
 pkgname = "gnome-system-monitor"
 pkgver = "51.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
