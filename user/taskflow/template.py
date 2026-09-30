@@ -15,6 +15,9 @@ hardening = ["!int"]
 if self.profile.cross:
     # doctest execs tests during build, not check, so cbuild's cross skip doesn't help
     configure_args += ["-DTF_BUILD_TESTS=OFF"]
+elif self.profile.arch in ["ppc64le", "loongarch64"]:
+    # can't test TaggedHead64 because the virtual address space is larger than 48 bits
+    configure_args += ["-DTF_BUILD_TESTS=OFF"]
 
 
 def post_install(self):
