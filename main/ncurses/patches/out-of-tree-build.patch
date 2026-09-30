@@ -1,0 +1,13 @@
+diff --git a/test/Makefile.in b/test/Makefile.in
+index 661aa57..313e95c 100644
+--- a/test/Makefile.in
++++ b/test/Makefile.in
+@@ -167,7 +167,7 @@ all::
+ 
+ # Verify that each header-file can be compiled without including another.
+ check::
+-	@$(SHELL) -c "for header in *.h;\
++	@$(SHELL) -c "for header in $(srcdir)/*.h;\
+ 		do \
+ 			echo \"** testing \$${header}\" ; \
+ 			echo \"#include <\$${header}>\" >headers.c; \

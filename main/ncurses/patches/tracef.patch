@@ -1,0 +1,20 @@
+diff --git a/ncurses/tty/hardscroll.c b/ncurses/tty/hardscroll.c
+index 767b970..01802f8 100644
+--- a/ncurses/tty/hardscroll.c
++++ b/ncurses/tty/hardscroll.c
+@@ -307,6 +307,7 @@ NCURSES_EXPORT(void)
+ NCURSES_SP_NAME(_nc_linedump) (NCURSES_SP_DCL0)
+ /* dump the state of the real and virtual oldnum fields */
+ {
++#ifdef TRACE
+     if (USE_TRACEF(TRACE_UPDATE | TRACE_MOVE)) {
+ 	char *buf = NULL;
+ 	size_t want = ((size_t) screen_lines(SP_PARM) + 1) * 4;
+@@ -329,6 +330,7 @@ NCURSES_SP_NAME(_nc_linedump) (NCURSES_SP_DCL0)
+ 	    free(buf);
+ 	}
+     }
++#endif
+ }
+ 
+ #if NCURSES_SP_FUNCS
