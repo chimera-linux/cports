@@ -1,6 +1,6 @@
 pkgname = "libpsl"
-pkgver = "0.21.5"
-pkgrel = 1
+pkgver = "0.23.3"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["icu-devel", "libidn2-devel", "libunistring-devel"]
@@ -8,7 +8,7 @@ pkgdesc = "Public Suffix List library"
 license = "MIT"
 url = "https://rockdaboot.github.io/libpsl"
 source = f"https://github.com/rockdaboot/libpsl/releases/download/{pkgver}/libpsl-{pkgver}.tar.gz"
-sha256 = "1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208"
+sha256 = "93941f85a1e7bd593fa94f299233cb5dfc91cd144fd9a78a6ceb75001c5b03be"
 
 
 def post_install(self):
