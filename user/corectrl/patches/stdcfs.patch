@@ -1,0 +1,22 @@
+assumes libstdc++ and isn't needed even there on any modern system
+
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -381,7 +381,6 @@ target_compile_definitions(corectrl_lib PRIVATE ${APP_COMPILE_DEFINITIONS})
+ target_link_libraries(corectrl_lib PRIVATE
+   Qt6::Core
+   QuaZip::QuaZip
+-  stdc++fs
+   pthread
+   spdlog::spdlog
+   pugixml::pugixml
+--- a/src/helper/CMakeLists.txt
++++ b/src/helper/CMakeLists.txt
+@@ -106,7 +106,6 @@ target_compile_definitions(corectrl_helper PRIVATE ${HELPER_COMPILE_DEFINITIONS}
+ target_link_libraries(corectrl_helper PRIVATE
+   Qt6::Core
+   Qt6::DBus
+-  stdc++fs
+   pthread
+   spdlog::spdlog
+   ${Botan_LIBRARIES}
