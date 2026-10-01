@@ -4,11 +4,10 @@ Date:   Tue Feb 25 01:22:05 2025 +0100
 
     rip out the hwdb update junk
 
-diff --git a/tools/libwacom-update-db.py b/tools/libwacom-update-db.py
-index 4e14778..6af1b20 100755
---- a/tools/libwacom-update-db.py
-+++ b/tools/libwacom-update-db.py
-@@ -176,19 +176,6 @@ def find_udev_base_dir(paths):
+diff -ruN a/tools/libwacom-update-db.py b/tools/libwacom-update-db.py
+--- a/tools/libwacom-update-db.py	2026-09-07 08:48:53.000000000 +0200
++++ b/tools/libwacom-update-db.py	2026-10-01 08:22:48.614082374 +0200
+@@ -175,19 +175,6 @@
      raise FileNotFoundError(paths)
  
  
@@ -28,7 +27,7 @@ index 4e14778..6af1b20 100755
  if __name__ == "__main__":
      parser = argparse.ArgumentParser(
          description="Update the system according to the current set of tablet data files"
-@@ -208,18 +195,6 @@ if __name__ == "__main__":
+@@ -207,18 +194,6 @@
          default=False,
          help="be used by the build system only",
      )
@@ -47,7 +46,7 @@ index 4e14778..6af1b20 100755
      ns = parser.parse_args()
  
      if ns.path is None:
-@@ -255,31 +230,10 @@ if __name__ == "__main__":
+@@ -254,41 +229,10 @@
                  "WARNING: Running this command as root will not pick up .tablet files in $XDG_CONFIG_HOME/libwacom"
              )
  
@@ -56,11 +55,21 @@ index 4e14778..6af1b20 100755
 -            hwdbfile = guess_hwdb_filename(udevdir)
 -
 -            with tempfile.NamedTemporaryFile(
--                mode="w+", prefix=f"{hwdbfile.name}-XXXXXX", encoding="utf-8"
+-                mode="w+",
+-                prefix=f"{hwdbfile.name}-",
+-                suffix=".tmp",
+-                dir=tempfile.gettempdir(),
+-                encoding="utf-8",
+-                delete=True,
 -            ) as fd:
 -                hwdb.print(fd)
+-                fd.flush()
+-                os.fsync(fd.fileno())
 -                print(f"Using sudo to copy hwdb file to {hwdbfile}")
--                subprocess.run(["sudo", "cp", f"{fd.name}", hwdbfile.absolute()])
+-                subprocess.run(
+-                    ["sudo", "cp", "--", fd.name, str(hwdbfile.absolute())],
+-                    check=True,
+-                )
 -
 -            if not ns.skip_systemd_hwdb_update:
 -                print("Using sudo to run systemd-hwdb update")
