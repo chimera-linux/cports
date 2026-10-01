@@ -1,0 +1,11 @@
+pkgname = "opencsg"
+pkgver = "1.8.2"
+pkgrel = 0
+build_style = "cmake"
+hostmakedepends = ["cmake", "ninja"]
+makedepends = ["freeglut-devel"]
+pkgdesc = "Constructive Solid Geometry rendering library using OpenGL"
+license = "GPL-2.0-or-later"
+url = "https://opencsg.org"
+source = "https://www.opencsg.org/OpenCSG-1.8.2.tar.gz"
+sha256 = "5ac5df73b1ad3340dd6705ff90e009f1a946bb9536c21c2263a6f974265664c0"

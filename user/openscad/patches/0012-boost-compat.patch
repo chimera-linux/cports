@@ -1,0 +1,128 @@
+From a8af494e4a7e2efb40582083a95a4cc8c2d167bf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sun, 15 Mar 2026 13:32:25 +0100
+Subject: [PATCH 12/13] boost compat
+
+---
+ CMakeLists.txt     |  2 +-
+ features/boost.prf | 16 ++++++++--------
+ src/FileModule.cc  |  2 +-
+ src/openscad.cc    |  4 ++--
+ 4 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 545559461..dcfcbc658 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -80,7 +80,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+   endif()
+ endif()
+ 
+-set(BOOST_DIRECTLY_REQUIRED_LIBRARIES filesystem system regex program_options)
++set(BOOST_DIRECTLY_REQUIRED_LIBRARIES filesystem regex program_options)
+ 
+ find_package(PkgConfig)
+ 
+diff --git a/features/boost.prf b/features/boost.prf
+index 518d08b8f..4e092f6e7 100644
+--- a/features/boost.prf
++++ b/features/boost.prf
+@@ -17,7 +17,7 @@ CONFIG(mingw-cross-env)|CONFIG(mingw-cross-env-shared) {
+     DEFINES += BOOST_STATIC
+     DEFINES += Boost_USE_STATIC_LIBS
+   }
+-  BOOST_LINK_FLAGS = -lboost_thread_win32-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt
++  BOOST_LINK_FLAGS = -lboost_thread_win32-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_regex-mt -lboost_chrono-mt
+ }
+ 
+ # MSYS2
+@@ -25,7 +25,7 @@ isEmpty(BOOST_LINK_FLAGS):win32-g++ {
+   DEFINES += BOOST_STATIC
+   DEFINES += BOOST_THREAD_USE_LIB
+   DEFINES += Boost_USE_STATIC_LIBS
+-  BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_system-mt -lboost_regex-mt
++  BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_regex-mt
+ } 
+ 
+ # check for OPENSCAD_LIBDIR + multithread
+@@ -33,10 +33,10 @@ isEmpty(BOOST_LINK_FLAGS) {
+   OPENSCAD_LIBDIR = $$(OPENSCAD_LIBRARIES)
+   !isEmpty(OPENSCAD_LIBDIR) {
+     exists($$OPENSCAD_LIBDIR/lib/libboost*thread-mt*) {
+-      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_system-mt -lboost_regex-mt
++      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_regex-mt
+     } else {
+       exists($$OPENSCAD_LIBDIR/lib/libboost*thread*) {
+-        BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_system -lboost_regex
++        BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_regex
+       }
+     }
+   }
+@@ -47,10 +47,10 @@ isEmpty(BOOST_LINK_FLAGS) {
+   BOOST_DIR = $$(BOOSTDIR)
+   !isEmpty(BOOST_DIR) {
+     exists($$BOOST_DIR/lib/libboost*thread-mt*) {
+-      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_system-mt -lboost_regex-mt
++      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_regex-mt
+     } else {
+       exists($$BOOST_DIR/lib/libboost*thread*) {
+-        BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_system -lboost_regex
++        BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_regex
+       }
+     }
+   }
+@@ -64,14 +64,14 @@ isEmpty(BOOST_LINK_FLAGS) {
+     BMT_TEST4 = /usr/local/lib/libboost*thread-mt* # homebrew
+     BMT_TEST5 = /opt/local/lib/libboost*thread-mt* # macports
+     exists($$BMT_TEST1)|exists($$BMT_TEST2)|exists($$BMT_TEST3)|exists($$BMT_TEST4)|exists($$BMT_TEST5) {
+-      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_system-mt -lboost_regex-mt
++      BOOST_LINK_FLAGS = -lboost_thread-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_regex-mt
+     }
+   }
+ }
+ 
+ isEmpty(BOOST_LINK_FLAGS) {
+   unix|macx {
+-    BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_system -lboost_regex
++    BOOST_LINK_FLAGS = -lboost_thread -lboost_program_options -lboost_filesystem -lboost_regex
+   }
+ }
+ 
+diff --git a/src/FileModule.cc b/src/FileModule.cc
+index ce57b1fac..71e343cd7 100644
+--- a/src/FileModule.cc
++++ b/src/FileModule.cc
+@@ -65,7 +65,7 @@ void FileModule::registerUse(const std::string path, const Location &loc)
+ 	auto ext = fs::path(path).extension().generic_string();
+ 
+ 	if (boost::iequals(ext, ".otf") || boost::iequals(ext, ".ttf")) {
+-		if (fs::is_regular(path)) {
++		if (fs::is_regular_file(path)) {
+ 			FontCache::instance()->register_font_file(path);
+ 		} else {
+ 			LOG(message_group::Error,Location::NONE,"","Can't read font with path '%1$s'",path);
+diff --git a/src/openscad.cc b/src/openscad.cc
+index 2fdd1cc01..a42787295 100644
+--- a/src/openscad.cc
++++ b/src/openscad.cc
+@@ -307,7 +307,7 @@ void set_render_color_scheme(const std::string color_scheme, const bool exit_if_
+ 	}
+ 
+ 	if (exit_if_not_found) {
+-		LOG(message_group::None,Location::NONE,"",(boost::join(ColorMap::inst()->colorSchemeNames(), "\n")));
++		LOG(message_group::None,Location::NONE,"",(boost::algorithm::join(ColorMap::inst()->colorSchemeNames(), "\n")));
+ 
+ 		exit(1);
+ 	} else {
+@@ -963,7 +963,7 @@ int main(int argc, char **argv)
+ 		("render", po::value<string>()->implicit_value(""), "for full geometry evaluation when exporting png")
+ 		("preview", po::value<string>()->implicit_value(""), "[=throwntogether] -for ThrownTogether preview png")
+ 		("animate", po::value<unsigned>(), "export N animated frames")
+-		("view", po::value<CommaSeparatedVector>(), ("=view options: " + boost::join(viewOptions.names(), " | ")).c_str())
++		("view", po::value<CommaSeparatedVector>(), ("=view options: " + boost::algorithm::join(viewOptions.names(), " | ")).c_str())
+ 		("projection", po::value<string>(), "=(o)rtho or (p)erspective when exporting png")
+ 		("csglimit", po::value<unsigned int>(), "=n -stop rendering at n CSG elements when exporting png")
+ 		("colorscheme", po::value<string>(), ("=colorscheme: " +
+-- 
+2.52.0
+
