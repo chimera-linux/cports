@@ -1,5 +1,5 @@
 pkgname = "libwacom"
-pkgver = "2.16.1"
+pkgver = "2.20.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocumentation=disabled", "-Dtests=enabled"]
@@ -17,7 +17,7 @@ pkgdesc = "Library to handle Wacom tablets"
 license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
 source = f"{url}/releases/download/libwacom-{pkgver}/libwacom-{pkgver}.tar.xz"
-sha256 = "0f9bc90babad92b2c4c6571b53af3aee065f437cce01c06c860599e1a10680aa"
+sha256 = "370b45b5e05a91960df0aeb9c9481ae05846aab92ab2d4ec66945a0da4216888"
 
 
 def post_install(self):
