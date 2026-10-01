@@ -1,5 +1,5 @@
 pkgname = "qt6-qttools"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -31,7 +31,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "9ea75af35c512f7e09e61c8c3af3997f13b4d43bb099cf43fcec470126b4041e"
+sha256 = "8dab8f3611496486a470ad5f115ceea584f36bc22a2b8b6f6ebdbafbb8160693"
 # FIXME
 hardening = ["!int"]
 # TODO

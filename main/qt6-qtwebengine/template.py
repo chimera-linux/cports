@@ -1,12 +1,12 @@
 pkgname = "qt6-qtwebengine"
-pkgver = "6.11.2"
-pkgrel = 1
+pkgver = "6.140.0"
+pkgrel = 0
 # latest from https://github.com/qt/qtwebengine-chromium/commits/140-based
 # check CHROMIUM_VERSION on qt majors
 # note that like half the chromium patches are probably unneeded but
 # they are taken directly from chromium patches/ for that major for
 # ease of maintenance
-_qtwebengine_gitrev = "27afa1b49a57bb4adb4b0b45b692da7179a780d1"
+_qtwebengine_gitrev = "63179c7711d66e4e3070e590de443cec10eec9b4"
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -93,13 +93,14 @@ license = (
 )
 url = "https://www.qt.io"
 source = [
-    f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebengine-everywhere-src-{pkgver}.tar.xz",
+    # f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebengine-everywhere-src-{pkgver}.tar.xz",
+    f"https://download.qt.io/development_releases/qtwebengine/{pkgver}-rc/qtwebengine-everywhere-src-{pkgver}-rc.tar.xz",
     f"https://github.com/qt/qtwebengine-chromium/archive/{_qtwebengine_gitrev}.tar.gz",
 ]
 source_paths = [".", "+src/3rdparty"]
 sha256 = [
-    "6101c1aa00ff933d1b65ee5d167f76e8d71b9ac5b378b0111277723ebda7c163",
-    "3a1f08a634eaf56b5c414cbc828e5aafa7fae382945e757aecc8f70aed3f5deb",
+    "61257967afd9803a1db6403e86ea25c4efff8fad479bda365a9d81bfd709f621",
+    "16b551a6cea0b6767e6fe9dffa0e4bc354d43ed96afdaba95212ffe8862b11e0",
 ]
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {

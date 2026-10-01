@@ -1,5 +1,5 @@
 pkgname = "qt6-qtwebview"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 # hangs for 2 minutes then fails on initing gl
@@ -16,7 +16,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebview-everywhere-src-{pkgver}.tar.xz"
-sha256 = "7e21e109ee89dadeef2d3edd786bcb9d64a5562ea546f89dcc79b3f52f881f4c"
+sha256 = "bee0642225614d7fc9486a2ca6db7d2c82a28c311404d1503185a360792c504e"
 # cross: TODO
 options = ["!cross"]
 
@@ -41,8 +41,8 @@ def post_install(self):
 @subpackage("qt6-qtwebview-devel")
 def _(self):
     self.depends += [
-        f"qt6-qtbase-devel~{pkgver[:-2]}",
-        f"qt6-qtwebengine-devel~{pkgver[:-2]}",
+        "qt6-qtbase-devel",
+        "qt6-qtwebengine-devel",
     ]
     return self.default_devel(
         extra=[

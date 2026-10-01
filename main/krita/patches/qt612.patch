@@ -1,0 +1,13 @@
+diff --git a/plugins/assistants/Assistants/AssistantsToolOptions.ui b/plugins/assistants/Assistants/AssistantsToolOptions.ui
+index 5d048fe..848f4a1 100644
+--- a/plugins/assistants/Assistants/AssistantsToolOptions.ui
++++ b/plugins/assistants/Assistants/AssistantsToolOptions.ui
+@@ -284,7 +284,7 @@
+       </layout>
+      </item>
+    <item>
+-    <widget class=" QWidget" name="showDockerOptionsPanel">
++    <widget class="QWidget" name="showDockerOptionsPanel">
+       <property name="visible">
+           <bool>false</bool>
+         </property>

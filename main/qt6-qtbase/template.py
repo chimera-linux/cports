@@ -1,7 +1,7 @@
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.11.2"
-pkgrel = 1
+pkgver = "6.12.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -75,7 +75,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "5b2e00eccaf5a4d8c14134ffa0ea8dfd0a35ae1ffc7f8d87fa4305a1ed23cf22"
+sha256 = "a951bd163c7b80fc6b8c88d7668fb56abf91c152373e13c10666763238131307"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME
 hardening = ["!int"]
@@ -191,7 +191,6 @@ def post_install(self):
     self.uninstall("usr/lib/qt6/tests")
     self.uninstall("usr/lib/qt6/bin/syslocaleapp")
     self.uninstall("usr/lib/qt6/bin/socketprocess")
-    self.uninstall("usr/lib/qt6/bin/qfileopeneventexternal")
     self.uninstall("usr/lib/qt6/bin/qcommandlineparser_test_helper")
     self.uninstall("usr/lib/qt6/bin/paster")
     self.uninstall("usr/lib/qt6/bin/modal_helper")

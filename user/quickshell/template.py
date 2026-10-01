@@ -1,6 +1,6 @@
 pkgname = "quickshell"
 pkgver = "0.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DDISTRIBUTOR=Chimera Linux",

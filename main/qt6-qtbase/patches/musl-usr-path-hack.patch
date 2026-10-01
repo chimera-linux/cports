@@ -19,5 +19,5 @@ Using realpath instead would probably be a more correct solution.
 +    }
 +#endif
  #elif defined(Q_OS_WIN)
-     Q_UNUSED(usageMode);
      HMODULE hModule = getWindowsModuleHandle();
+     const int kBufferSize = 4096;

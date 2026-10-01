@@ -1,5 +1,5 @@
 pkgname = "qt6-qtshadertools"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -13,7 +13,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtshadertools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "805046b8b7757665586890b375940047e874ae3ab00adb6d3f2b38fc6b200b1c"
+sha256 = "c7d84f436e1aaef39fdcadebf2bd71bdf24dc69497e13f2e0198873cbbfea2ab"
 # FIXME
 hardening = ["!int"]
 # TODO

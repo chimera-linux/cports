@@ -1,5 +1,5 @@
 pkgname = "qt6-qtquick3d"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_FEATURE_system_assimp=ON"]
@@ -22,7 +22,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtquick3d-everywhere-src-{pkgver}.tar.xz"
-sha256 = "3ab8e1f08edb26373a37cf9d42c23e7d092c1334566b953fbb51cb1b936737b4"
+sha256 = "6ced6edbd25fb5a632fe770ae820b376bf50233e8d62002c79a69a505a2e429e"
 # cross: TODO
 options = ["!cross"]
 

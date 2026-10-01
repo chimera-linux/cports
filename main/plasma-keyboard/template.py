@@ -1,6 +1,6 @@
 pkgname = "plasma-keyboard"
 pkgver = "6.7.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [

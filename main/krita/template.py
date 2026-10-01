@@ -1,6 +1,6 @@
 pkgname = "krita"
-pkgver = "6.0.2.1"
-pkgrel = 4
+pkgver = "6.0.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DALLOW_UNSTABLE=QT6", "-DBUILD_WITH_QT6=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -70,7 +70,7 @@ pkgdesc = "Digital painting program"
 license = "GPL-2.0-or-later"
 url = "https://krita.org"
 source = f"$(KDE_SITE)/krita/{pkgver}/krita-{pkgver}.tar.xz"
-sha256 = "f77daae0290c387063fafe1d2084517ddb0490d077dc0e6a2bd4f75e5dd5a100"
+sha256 = "ef73e57fe20fa5bd896d53d4af6eb254e5ade83e6a39b47273dd320f9823ab4b"
 hardening = ["!int"]
 # 1/3 of tests just crash
 options = ["!check"]

@@ -1,6 +1,6 @@
 pkgname = "kconfigwidgets"
 pkgver = "6.30.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # relies on clipboard presence in kwidgetsaddons
 make_check_args = ["-E", "kconfigdialog_unittest"]

@@ -1,5 +1,5 @@
 pkgname = "qt6-qttranslations"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,6 +14,6 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttranslations-everywhere-src-{pkgver}.tar.xz"
-sha256 = "021684c1a7937a9fabc3b056a6698ad5978794caf9ac190fd6cc11399e67c014"
+sha256 = "85929c0c30d6f273f23bd879bb69803ea17b010ab73cab2f8abf95357f6f6bbb"
 # locale files belong here
 options = ["!autosplit"]

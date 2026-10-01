@@ -1,6 +1,6 @@
 pkgname = "lxqt-panel"
 pkgver = "2.4.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DSYSSTAT_PLUGIN=OFF",

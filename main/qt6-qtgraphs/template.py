@@ -1,5 +1,5 @@
 pkgname = "qt6-qtgraphs"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 # hangs forever
@@ -20,7 +20,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtgraphs-everywhere-src-{pkgver}.tar.xz"
-sha256 = "9f2109854afa45dd144116c11461989c411a17065c63da5068441a1200fb8b21"
+sha256 = "18c4e968785447051d94b01f8e3c975e31ddc46065c0777443cecc50753a4d8c"
 # FIXME? crashes with eg easyeffects
 hardening = ["!int"]
 

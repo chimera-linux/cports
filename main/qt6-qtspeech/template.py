@@ -1,5 +1,5 @@
 pkgname = "qt6-qtspeech"
-pkgver = "6.11.2"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtspeech-everywhere-src-{pkgver}.tar.xz"
-sha256 = "9c1d05dc9d710049f20a67680fc6b4293c9b584a90f04f4cf6cc36e758c5cb98"
+sha256 = "9a60ce5bee54a9343740feab2582bffb996812f43d6c5585aade26dbd04933db"
 # FIXME?
 hardening = ["!int"]
 # cross: TODO

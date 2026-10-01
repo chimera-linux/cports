@@ -1,0 +1,27 @@
+From eebdf2970377d9aab970505501ca9b56e1263bf7 Mon Sep 17 00:00:00 2001
+From: Albert Astals Cid <aacid@kde.org>
+Date: Mon, 14 Sep 2026 17:22:09 +0000
+Subject: [PATCH] Fix test to work with Qt 6.12
+
+I'm not totally sure this is correct, but i think it is.
+
+The reason we don't want to click here is because click is never what
+happens in real life on toolbar buttons that have menus, i.e. they get the button press but
+they do not get the button release because the menu has been shown.
+---
+ autotests/khamburgermenutest.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/autotests/khamburgermenutest.cpp b/autotests/khamburgermenutest.cpp
+index 3725e46c0..f24cab45b 100644
+--- a/autotests/khamburgermenutest.cpp
++++ b/autotests/khamburgermenutest.cpp
+@@ -182,7 +182,7 @@ void openAndCloseToolButton(QToolButton *button)
+         button->menu()->close();
+     }); // This seems to be the only way because code that isn't already set in motion through a timer doesn't get executed after the menu pops up.
+ 
+-    QTest::mouseClick(button, Qt::LeftButton);
++    QTest::mousePress(button, Qt::LeftButton);
+ }
+ 
+ void KHamburgerMenuTest::menuContentsTest()
