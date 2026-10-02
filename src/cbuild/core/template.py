@@ -2663,6 +2663,10 @@ class Subpackage(Package):
                                 f"usr/share/fish/completions/{p.name}.fish",
                                 True,
                             )
+                            self._take_impl(
+                                f"usr/share/fish/vendor_completions.d/{p.name}.fish",
+                                True,
+                            )
 
                         # and then take the command itself
                         return self._take_impl(
