@@ -1,5 +1,5 @@
 pkgname = "libxkbcommon"
-pkgver = "1.13.1"
+pkgver = "1.13.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,6 +8,8 @@ configure_args = [
     "-Denable-xkbregistry=true",
     "-Denable-docs=false",
 ]
+# pulling in xserver-xorg-xvfb creates a cycle
+make_check_args = ["--no-suite", "x11"]
 hostmakedepends = [
     "bison",
     "meson",
@@ -29,7 +31,7 @@ pkgdesc = "Library to handle keyboard descriptions"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "aeb951964c2f7ecc08174cb5517962d157595e9e3f38fc4a130b91dc2f9fec18"
+sha256 = "acc4d5f7c3cbba5f9f8d08d8bdbeede84ecede46792f47929aa9321873385528"
 
 
 def post_install(self):
