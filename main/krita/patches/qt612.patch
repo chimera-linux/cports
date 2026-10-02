@@ -11,3 +11,48 @@ index 5d048fe..848f4a1 100644
        <property name="visible">
            <bool>false</bool>
          </property>
+diff --git a/sdk/tests/kistest.h b/sdk/tests/kistest.h
+index 2c813ac..e18f2a3 100644
+--- a/sdk/tests/kistest.h
++++ b/sdk/tests/kistest.h
+@@ -49,12 +49,6 @@
+ #endif
+ #include <QtTest/qtest_widgets.h>
+ 
+-#ifdef QT_KEYPAD_NAVIGATION
+-#  define QTEST_DISABLE_KEYPAD_NAVIGATION QApplication::setNavigationMode(Qt::NavigationModeNone);
+-#else
+-#  define QTEST_DISABLE_KEYPAD_NAVIGATION
+-#endif
+-
+ 
+ #if defined(TESTRESOURCES) || defined(TESTPIGMENT) || defined (TESTFLAKE) || defined(TESTBRUSH) || defined(TESTIMAGE) || defined(TESTUI)
+ #include <QImageReader>
+@@ -259,7 +253,6 @@ int main(int argc, char *argv[]) \
+     qputenv("KRITA_PLUGIN_PATH", QByteArray(KRITA_PLUGINS_DIR_FOR_TESTS)); \
+     QApplication app(argc, argv); \
+     app.setAttribute(Qt::AA_Use96Dpi, true); \
+-    QTEST_DISABLE_KEYPAD_NAVIGATION \
+     registerResources(); \
+     TestObject tc; \
+     QTEST_SET_MAIN_SOURCE_PATH \
+@@ -280,7 +273,6 @@ int main(int argc, char *argv[]) \
+     QStandardPaths::setTestModeEnabled(true); \
+     QApplication app(argc, argv); \
+     app.setAttribute(Qt::AA_Use96Dpi, true); \
+-    QTEST_DISABLE_KEYPAD_NAVIGATION \
+     TestObject tc; \
+     QTEST_SET_MAIN_SOURCE_PATH \
+     return QTest::qExec(&tc, argc, argv); \
+diff --git a/sdk/tests/simpletest.h b/sdk/tests/simpletest.h
+index 26c8e8f..54f972f 100644
+--- a/sdk/tests/simpletest.h
++++ b/sdk/tests/simpletest.h
+@@ -19,7 +19,6 @@
+     app.setAttribute(Qt::AA_Use96Dpi, true); \
+     /*QLocale en_US(QLocale::English, QLocale::UnitedStates); \
+     KLocalizedString::setLanguages(QStringList() << QStringLiteral("en_US"));*/ \
+-    QTEST_DISABLE_KEYPAD_NAVIGATION \
+     TestObject tc; \
+     QTEST_SET_MAIN_SOURCE_PATH \
+     return QTest::qExec(&tc, argc, argv);
