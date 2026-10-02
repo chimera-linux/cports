@@ -1,9 +1,10 @@
 pkgname = "neomutt"
 pkgver = "2026.06.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--gpgme",
+    "--lmdb",
     "--notmuch",
     "--pcre2",
     "--ssl",
@@ -22,6 +23,7 @@ hostmakedepends = [
 makedepends = [
     "gpgme-devel",
     "libidn2-devel",
+    "lmdb-devel",
     "ncurses-devel",
     "notmuch-devel",
     "openssl3-devel",
