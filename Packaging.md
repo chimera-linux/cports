@@ -2229,8 +2229,6 @@ The following environment variables are exported into the sandbox:
   Python subprocesses, which allows output to be printed right away,
   since `cbuild` captures it for logging purposes.
 * `SOURCE_DATE_EPOCH` The timestamp for reproducible builds.
-* `CBUILD_STATEDIR` Points to where current package build metadata
-  is stored, such as stamps for finished phases.
 * `CFLAGS` Target C compiler flags.
 * `FFLAGS` Target Fortran compiler flags.
 * `CXXFLAGS` Target C++ compiler flags.
@@ -2265,7 +2263,6 @@ All `BUILD_foo` variables are also exported as `foo_FOR_BUILD`.
 
 Additionally, when using `ccache`, the following are also exported:
 
-* `CCACHEPATH` The path to `ccache` toolchain symlinks.
 * `CCACHE_DIR` The path to `ccache` data.
 * `CCACHE_BASEDIR` Set to the `cbuild`-set current working directory.
 * `CCACHE_TEMPDIR` Set to `/tmp/ccache`.

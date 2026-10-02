@@ -1242,8 +1242,6 @@ class Template(Package):
 
         self.chroot_destdir = self.chroot_destdir_base / self.pkgname
 
-        self.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + self.pkgname
-
         # now do it for all known subpackages
         for sp in self.subpkg_list:
             sp.setup_paths()
@@ -1880,6 +1878,7 @@ class Template(Package):
         tmpfiles=None,
     ):
         cpf = self.profile
+        binpath = []
 
         cenv = {
             "CBUILD_TARGET_MACHINE": cpf.arch,
@@ -1905,7 +1904,7 @@ class Template(Package):
             cenv["CBUILD_TARGET_TRIPLET"] = cpf.triplet
 
         if self.use_ccache:
-            cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
+            binpath += ["/usr/lib/ccache/bin"]
             cenv["CCACHE_DIR"] = "/cbuild_cache/ccache"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
             cenv["CCACHE_TEMPDIR"] = "/tmp/ccache"
@@ -1981,6 +1980,11 @@ class Template(Package):
                 "--thinlto-cache-dir=/cbuild_cache/lld_thinlto_cache",
             ]
 
+        binpath += [str(self.chroot_statedir / "wrappers")]
+
+        if path:
+            binpath += path
+
         return chroot.enter(
             cmd,
             *args,
@@ -1999,7 +2003,7 @@ class Template(Package):
             stderr=stderr,
             input=input,
             lldargs=lld_args,
-            binpath=path,
+            binpath=binpath,
             term=True,
             tmpfiles=tmpfiles,
         )
