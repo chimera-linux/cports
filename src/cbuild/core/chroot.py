@@ -112,6 +112,11 @@ def _prepare_etc():
                 dpath.parent.mkdir(0o755, parents=True, exist_ok=True)
                 shutil.copy(spath, dpath.parent)
 
+    # ccache static values
+    with open(tfp / "ccache.conf", "w") as mf:
+        mf.write("cache_dir = /cbuild_cache/ccache\n")
+        mf.write("temporary_dir = /tmp/ccache\n")
+
     # delete potential shadow so sysusers does not fail
     (tfp / "shadow").unlink(missing_ok=True)
     # delete potential previous cbuild file so we are clean
