@@ -1,0 +1,13 @@
+diff --git a/src/vte.cc b/src/vte.cc
+index 72bd374..5782577 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -11068,7 +11068,7 @@ Terminal::time_process_incoming()
+ 	process_incoming();
+ 	auto elapsed = g_timer_elapsed(process_timer, NULL) * 1000;
+ 	gssize target = VTE_MAX_PROCESS_TIME / elapsed * m_input_bytes;
+-	m_max_input_bytes = (m_max_input_bytes + target) / 2;
++	m_max_input_bytes = (static_cast<unsigned long long>(m_max_input_bytes) + target) / 2;
+ }
+ 
+ bool

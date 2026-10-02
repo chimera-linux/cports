@@ -1,6 +1,6 @@
 pkgname = "vte"
 pkgver = "0.84.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
