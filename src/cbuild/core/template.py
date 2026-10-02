@@ -1203,7 +1203,7 @@ class Template(Package):
         self.patches_path = self.template_path / "patches"
         self.sources_path = paths.sources() / f"{self.pkgname}-{self.pkgver}"
         self.bldroot_path = paths.bldroot()
-        self.statedir = bdirbase / (".cbuild-" + self.pkgname)
+        self.statedir = bdirbase / f"{self.pkgname}-{self.pkgver}"
         self.wrapperdir = self.statedir / "wrappers"
 
         self.destdir_base = (
@@ -1214,7 +1214,7 @@ class Template(Package):
 
         self.destdir = self.destdir_base / self.pkgname
 
-        self.srcdir = bdirbase / f"{self.pkgname}-{self.pkgver}"
+        self.srcdir = self.statedir / "wrksrc"
         self.cwd = self.srcdir / self.build_wrksrc
 
         if self.stage == 0:
