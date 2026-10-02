@@ -1,59 +1,293 @@
-From 50fe324ff953eedd210054ffc21715d22134b3c1 Mon Sep 17 00:00:00 2001
-From: Natanael Copa <ncopa@alpinelinux.org>
-Date: Wed, 16 Nov 2022 11:55:34 +0100
-Subject: [PATCH] lvresize: use POSIX shell
-
----
- scripts/lvresize_fs_helper.sh | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
-
 diff --git a/scripts/lvresize_fs_helper.sh b/scripts/lvresize_fs_helper.sh
-index 90b1a97..1c48a71 100755
+index 7d64409a6..1eeb209f0 100755
 --- a/scripts/lvresize_fs_helper.sh
 +++ b/scripts/lvresize_fs_helper.sh
 @@ -1,4 +1,4 @@
 -#!/bin/bash
 +#!/bin/sh
  #
- # Copyright (C) 2022 Red Hat, Inc. All rights reserved.
+ # Copyright (C) 2022-2025 Red Hat, Inc. All rights reserved.
  #
-@@ -69,7 +69,7 @@ fsextend() {
+@@ -12,7 +12,7 @@
+ # along with this program; if not, write to the Free Software Foundation,
+ # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ 
+-set -euE -o pipefail
++set -eu
+ 
+ PATH="/sbin:/usr/sbin:/bin:/usr/bin:$PATH"
+ GETOPT="getopt"
+@@ -156,7 +156,7 @@ btrfs_devid() {
+ 
+ 	# It could be a multi-devices btrfs, filter the output.
+ 	# Device in `btrfs filesystem show $devpath` could be /dev/mapper/* so call `readlink -e`
+-	for devinfo in $(LC_ALL=C btrfs filesystem show "$devpath"); do
++	while read -r devinfo; do
+ 		case "$devinfo" in
+ 		*devid*)
+ 			path_major_minor=$(btrfs_path_major_minor "${devinfo#* path }")
+@@ -171,7 +171,9 @@ btrfs_devid() {
+ 			return 0
+ 			;;
+ 		esac
+-	done
++	done << EOF
++$(LC_ALL=C btrfs filesystem show "$devpath")
++EOF
+ 
+ 	# fail, devid not found
+ 	return 1
+@@ -186,8 +188,7 @@ RESIZEFS_FAILED=0
+ detect_xfs_mount_options() {
+ 	local device=$1
+ 	local qflags_output qflags_hex
+-	local prefix acct_flag enfd_flag
+-	local -a opts=()
++	local prefix acct_flag enfd_flag opts
+ 	MOUNT_OPTIONS=""
+ 
+ 	# Get quota flags using xfs_db.
+@@ -200,12 +201,16 @@ detect_xfs_mount_options() {
+ 	qflags_hex="${qflags_output#qflags = }"
+ 
+ 	# No flags set, no extra mount options needed.
+-	[[ "$qflags_hex" == "0" ]] && return 0
+-
+-	if [[ ! "$qflags_hex" =~ ^0x[0-9a-fA-F]+$ ]]; then
+-		logerror "xfs_db unexpected output for \"$device\": got \"$qflags_hex\""
+-		return 1
+-	fi
++	[ "$qflags_hex" = "0" ] && return 0
++
++	# Validate hex format using case instead of regex.
++	case "$qflags_hex" in
++		0x[0-9a-fA-F]*)  ;;
++		*)
++			logerror "xfs_db unexpected output for \"$device\": got \"$qflags_hex\""
++			return 1
++			;;
++	esac
+ 
+ 	# Check XFS quota flags and build mount options
+ 	# The quota flags as defined in Linux kernel source: fs/xfs/libxfs/xfs_log_format.h:
+@@ -215,20 +220,28 @@ detect_xfs_mount_options() {
+ 	#
+ 	# Format: "prefix acct_flag enfd_flag"
+ 	for quota_type in "u 0x0001 0x0002" "g 0x0040 0x0080" "p 0x0008 0x0200"; do
+-		read -r prefix acct_flag enfd_flag <<< "$quota_type"
+-		if [ $((qflags_hex & acct_flag)) -ne 0 ]; then
+-			if [ $((qflags_hex & enfd_flag)) -ne 0 ]; then
+-				opts+=("${prefix}quota")
++		prefix="${quota_type%% *}"
++		rest="${quota_type#* }"
++		acct_flag="${rest%% *}"
++		enfd_flag="${rest#* }"
++
++		if [ $(( qflags_hex & acct_flag )) -ne 0 ]; then
++			if [ $(( qflags_hex & enfd_flag )) -ne 0 ]; then
++				opt="${prefix}quota"
++			else
++				opt="${prefix}qnoenforce"
++			fi
++			if [ -z "$opts" ]; then
++				opts="$opt"
+ 			else
+-				opts+=("${prefix}qnoenforce")
++				opts="$opts,$opt"
+ 			fi
+ 		fi
+ 	done
+ 
+-	# Join array elements with commas
+-	MOUNT_OPTIONS=$(IFS=,; echo "${opts[*]}")
++	MOUNT_OPTIONS="$opts"
+ 
+-	[[ -n "$MOUNT_OPTIONS" ]] && logmsg "mount options for xfs: ${MOUNT_OPTIONS}"
++	[ -n "$MOUNT_OPTIONS" ] && logmsg "mount options for xfs: ${MOUNT_OPTIONS}"
+ }
+ 
+ fsextend() {
+@@ -243,10 +256,12 @@ fsextend() {
+ 	fi
+ 
+ 	if [ "$DO_FSCK" -eq 1 ]; then
+-		if [[ "$FSTYPE" == "ext"* ]]; then
++		case "$FSTYPE" in
++		ext*)
+ 			logmsg "e2fsck ${DEVPATH}"
+ 			accept_e2fsck e2fsck -f -p "$DEVPATH"
+-		elif [[ "$FSTYPE" == "btrfs" ]]; then
++			;;
++		btrfs)
+ 			logmsg "btrfs check ${DEVPATH}"
+ 			if btrfs check "$DEVPATH"; then
+ 				logmsg "btrfs check done"
+@@ -254,7 +269,8 @@ fsextend() {
+ 				logerror "btrfs check failed on \"$DEVPATH\""
+ 				exit 1
+ 			fi
+-		fi
++			;;
++		esac
+ 	fi
+ 
+ 	if [ "$DO_CRYPTRESIZE" -eq 1 ]; then
+@@ -268,7 +284,7 @@ fsextend() {
+ 	fi
+ 
+ 	if [ "$DO_MOUNT" -eq 1 ]; then
+-		if [[ "$FSTYPE" == "xfs" ]]; then
++		if [ "$FSTYPE" = "xfs" ]; then
+ 			detect_xfs_mount_options "$DEVPATH" || logmsg "not using XFS mount options"
+ 		fi
+ 
+@@ -282,7 +298,8 @@ fsextend() {
  		fi
  	fi
  
 -	if [[ "$FSTYPE" == "ext"* ]]; then
-+	if [ "${FSTYPE#ext}" != "$FSTYPE" ]; then
++	case "$FSTYPE" in
++	ext*)
  		logmsg "resize2fs ${DEVPATH}"
  		if resize2fs "$DEVPATH"; then
  			logmsg "resize2fs done"
-@@ -77,7 +77,7 @@ fsextend() {
- 			logmsg "resize2fs failed"
+@@ -290,7 +307,8 @@ fsextend() {
+ 			logerror "resize2fs failed on \"$DEVPATH\""
  			RESIZEFS_FAILED=1
  		fi
 -	elif [[ "$FSTYPE" == "xfs" ]]; then
-+	elif [ "$FSTYPE" = "xfs" ]; then
++		;;
++	xfs)
  		logmsg "xfs_growfs ${DEVPATH}"
  		if xfs_growfs "$DEVPATH"; then
  			logmsg "xfs_growfs done"
-@@ -102,7 +102,7 @@ fsextend() {
+@@ -298,12 +316,13 @@ fsextend() {
+ 			logerror "xfs_growfs failed on \"$DEVPATH\""
+ 			RESIZEFS_FAILED=1
+ 		fi
+-	elif [[ "$FSTYPE" == "btrfs" ]]; then
++		;;
++	btrfs)
+ 		NEWSIZEBYTES=${NEWSIZEBYTES:-max}
+ 		BTRFS_DEVID="$(btrfs_devid "$DEVPATH")"
+ 		REAL_MOUNTPOINT="$MOUNTDIR"
+ 
+-		if [ $TMP_MOUNT_DONE -eq 1 ]; then
++		if [ "$TMP_MOUNT_DONE" -eq 1 ]; then
+ 			REAL_MOUNTPOINT="$TMPDIR"
+ 		fi
+ 
+@@ -314,10 +333,11 @@ fsextend() {
+ 			logerror "btrfs filesystem resize failed: devid $BTRFS_DEVID to $NEWSIZEBYTES on \"$REAL_MOUNTPOINT\""
+ 			RESIZEFS_FAILED=1
+ 		fi
+-	fi
++		;;
++	esac
+ 
+ 	# If the fs was temporarily mounted, now unmount it.
+-	if [ $TMP_MOUNT_DONE -eq 1 ]; then
++	if [ "$TMP_MOUNT_DONE" -eq 1 ]; then
+ 		logmsg "cleanup unmount ${TMPDIR}"
+ 		if umount "$TMPDIR"; then
+ 			logmsg "cleanup unmount done"
+@@ -331,8 +351,8 @@ fsextend() {
  
  	# If the fs was temporarily unmounted, now remount it.
  	# Not considered a command failure if this fails.
 -	if [[ $DO_UNMOUNT -eq 1 && $REMOUNT -eq 1 ]]; then
+-		if [[ "$FSTYPE" == "xfs" ]]; then
 +	if [ "$DO_UNMOUNT" -eq 1 ] && [ "$REMOUNT" -eq 1 ]; then
- 		logmsg "remount ${DEVPATH} ${MOUNTDIR}"
- 		if mount -t "$FSTYPE" "$DEVPATH" "$MOUNTDIR"; then
- 			logmsg "remount done"
-@@ -151,7 +151,7 @@ fsreduce() {
++		if [ "$FSTYPE" = "xfs" ]; then
+ 			detect_xfs_mount_options "$DEVPATH" || logmsg "not using XFS mount options"
+ 		fi
+ 
+@@ -344,7 +364,7 @@ fsextend() {
+ 		fi
+ 	fi
+ 
+-	if [ $RESIZEFS_FAILED -eq 1 ]; then
++	if [ "$RESIZEFS_FAILED" -eq 1 ]; then
+ 		logerror "File system extend failed."
+ 		exit 1
+ 	fi
+@@ -364,10 +384,12 @@ fsreduce() {
+ 	fi
+ 
+ 	if [ "$DO_FSCK" -eq 1 ]; then
+-		if [[ "$FSTYPE" == "ext"* ]]; then
++		case "$FSTYPE" in
++		ext*)
+ 			logmsg "e2fsck ${DEVPATH}"
+ 			accept_e2fsck e2fsck -f -p "$DEVPATH"
+-		elif [[ "$FSTYPE" == "btrfs" ]]; then
++			;;
++		btrfs)
+ 			logmsg "btrfs check ${DEVPATH}"
+ 			if btrfs check "$DEVPATH"; then
+ 				logmsg "btrfs check done"
+@@ -375,7 +397,8 @@ fsreduce() {
+ 				logerror "btrfs check failed on \"$DEVPATH\""
+ 				exit 1
+ 			fi
+-		fi
++			;;
++		esac
+ 	fi
+ 
+ 	if [ "$DO_MOUNT" -eq 1 ]; then
+@@ -389,21 +412,22 @@ fsreduce() {
  		fi
  	fi
  
 -	if [[ "$FSTYPE" == "ext"* ]]; then
-+	if [ "${FSTYPE#ext}" != "$FSTYPE" ]; then
++	case "$FSTYPE" in
++	ext*)
  		NEWSIZEKB=$(( NEWSIZEBYTES / 1024 ))
  		logmsg "resize2fs ${DEVPATH} ${NEWSIZEKB}k"
- 		if resize2fs "$DEVPATH" "$NEWSIZEKB"k; then
-@@ -194,7 +194,7 @@ fsreduce() {
+-		if resize2fs "$DEVPATH" "$NEWSIZEKB"k; then
++		if resize2fs "$DEVPATH" "${NEWSIZEKB}k"; then
+ 			logmsg "resize2fs done"
+ 		else
+ 			logerror "resize2fs failed on \"$DEVPATH\" to ${NEWSIZEKB}k"
+-			# will exit after cleanup unmount
+ 			RESIZEFS_FAILED=1
+ 		fi
+-	elif [[ "$FSTYPE" == "btrfs" ]]; then
++		;;
++	btrfs)
+ 		BTRFS_DEVID="$(btrfs_devid "$DEVPATH")"
+ 		REAL_MOUNTPOINT="$MOUNTDIR"
+ 
+-		if [ $TMP_MOUNT_DONE -eq 1 ]; then
++		if [ "$TMP_MOUNT_DONE" -eq 1 ]; then
+ 			REAL_MOUNTPOINT="$TMPDIR"
+ 		fi
+ 
+@@ -414,10 +438,11 @@ fsreduce() {
+ 			logerror "btrfs filesystem resize failed: devid $BTRFS_DEVID to $NEWSIZEBYTES on \"$REAL_MOUNTPOINT\""
+ 			RESIZEFS_FAILED=1
+ 		fi
+-	fi
++		;;
++	esac
+ 
+ 	# If the fs was temporarily mounted, now unmount it.
+-	if [ $TMP_MOUNT_DONE -eq 1 ]; then
++	if [ "$TMP_MOUNT_DONE" -eq 1 ]; then
+ 		logmsg "cleanup unmount ${TMPDIR}"
+ 		if umount "$TMPDIR"; then
+ 			logmsg "cleanup unmount done"
+@@ -429,7 +454,7 @@ fsreduce() {
+ 		fi
+ 	fi
+ 
+-	if [ $RESIZEFS_FAILED -eq 1 ]; then
++	if [ "$RESIZEFS_FAILED" -eq 1 ]; then
+ 		logerror "File system reduce failed."
+ 		exit 1
+ 	fi
+@@ -447,7 +472,7 @@ fsreduce() {
  
  	# If the fs was temporarily unmounted, now remount it.
  	# Not considered a command failure if this fails.
@@ -62,21 +296,32 @@ index 90b1a97..1c48a71 100755
  		logmsg "remount ${DEVPATH} ${MOUNTDIR}"
  		if mount -t "$FSTYPE" "$DEVPATH" "$MOUNTDIR"; then
  			logmsg "remount done"
-@@ -291,7 +291,7 @@ DO_FSCK=0
- # mounted and the script unmounted it.
- REMOUNT=0
+@@ -497,8 +522,7 @@ MOUNTDIR=""
+ OPTIONS=$("$GETOPT" -o h -l help,fsextend,fsreduce,cryptresize,mount,unmount,remount,fsck,fstype:,lvpath:,newsizebytes:,mountdir:,cryptpath: -n "${SCRIPTNAME}" -- "$@")
+ eval set -- "$OPTIONS"
+ 
+-while [ $# -gt 0 ]
+-do
++while [ $# -gt 0 ]; do
+ 	case $1 in
+ 	--fsextend)	DO_FSEXTEND=1 ;;
+ 	--fsreduce)	DO_FSREDUCE=1 ;;
+@@ -519,7 +543,7 @@ do
+ 	shift
+ done
  
 -if [ "$UID" != 0 ] && [ "$EUID" != 0 ]; then
 +if [ "$(id -u)" != 0 ]; then
  	errorexit "${SCRIPTNAME} must be run as root."
  fi
  
-@@ -372,11 +372,11 @@ done
+@@ -527,16 +551,15 @@ fi
+ # Input arg checking
  #
  
- # There are three top level commands: --fsextend, --fsreduce, --cryptresize.
+-# There are three top level commands: --fsextend, --fsreduce, --cryptresize.
 -if [[ "$DO_FSEXTEND" -eq 0 && "$DO_FSREDUCE" -eq 0 && "$DO_CRYPTRESIZE" -eq 0 ]]; then
-+if [ "$DO_FSEXTEND" -eq 0 ] && [ "$DO_FSREDUCE" -eq 0 ]  && [ "$DO_CRYPTRESIZE" -eq 0 ]; then
++if [ "$DO_FSEXTEND" -eq 0 ] && [ "$DO_FSREDUCE" -eq 0 ] && [ "$DO_CRYPTRESIZE" -eq 0 ]; then
  	errorexit "Missing --fsextend|--fsreduce|--cryptresize."
  fi
  
@@ -84,8 +329,14 @@ index 90b1a97..1c48a71 100755
 +if [ "$DO_FSEXTEND" -eq 1 ] || [ "$DO_FSREDUCE" -eq 1 ]; then
  	case "$FSTYPE" in
  	  ext[234]) ;;
- 	  "xfs")    ;;
-@@ -388,7 +388,7 @@ if [[ "$DO_FSEXTEND" -eq 1 || "$DO_FSREDUCE" -eq 1 ]]; then
+-	  "xfs")    ;;
+-	  "btrfs")  ;;
++	  xfs)      ;;
++	  btrfs)    ;;
+ 	  *) errorexit "Cannot resize --fstype \"$FSTYPE\"."
+ 	esac
+ 
+@@ -545,7 +568,7 @@ if [[ "$DO_FSEXTEND" -eq 1 || "$DO_FSREDUCE" -eq 1 ]]; then
  	fi
  fi
  
@@ -94,7 +345,7 @@ index 90b1a97..1c48a71 100755
  	errorexit "Missing required --cryptpath for --cryptresize."
  fi
  
-@@ -406,15 +406,15 @@ if [ ! -e "$DEVPATH" ]; then
+@@ -563,15 +586,15 @@ if [ ! -e "$DEVPATH" ]; then
  	errorexit "Device does not exist \"$DEVPATH\"."
  fi
  
@@ -113,7 +364,7 @@ index 90b1a97..1c48a71 100755
  	errorexit "Cannot use --fsck with xfs."
  fi
  
-@@ -424,7 +424,7 @@ if [ "$DO_MOUNT" -eq 1 ]; then
+@@ -581,7 +604,7 @@ if [ "$DO_MOUNT" -eq 1 ]; then
  		errorexit "Failed to create temp dir."
  	fi
  	# In case the script terminates without doing cleanup
