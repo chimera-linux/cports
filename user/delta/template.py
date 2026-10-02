@@ -1,5 +1,5 @@
 pkgname = "delta"
-pkgver = "0.19.2"
+pkgver = "0.20.1"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -14,7 +14,7 @@ pkgdesc = "Syntax-highlighting pager for git, diff, and grep output"
 license = "MIT"
 url = "https://github.com/dandavison/delta"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f59b86f8c8dda4d76a3ba34b8553777a20c3b461646917d8e480fac6531bba9f"
+sha256 = "d9d502396e3595ee8fd926f1ed2e54ac9935baabd3569a3753efab36304f90fa"
 # generates completions with host binary
 options = ["!cross"]
 
