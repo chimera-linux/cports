@@ -1,4 +1,4 @@
-From 26832684e2e21c2e5608525858c6e60612e34b10 Mon Sep 17 00:00:00 2001
+From c4a2dc7f6231c0776739d8fc9d4964eb96a17b2b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:11:57 +0100
 Subject: [PATCH 12/16] use system lld for wasm

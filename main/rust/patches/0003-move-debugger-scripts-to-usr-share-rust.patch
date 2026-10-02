@@ -1,4 +1,4 @@
-From fd277aa1a840e4f17bfac78d58e85a7262cfb447 Mon Sep 17 00:00:00 2001
+From a8c5e4d81ddc53ee106562048dc90f5cfc9a2c47 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 114387d96..07483dd9b 100644
+index 43ac42a81..cea3edddd 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -714,7 +714,7 @@ impl Step for DebuggerScripts {
+@@ -712,7 +712,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let target = self.target;
          let sysroot = self.sysroot;
@@ -24,7 +24,7 @@ index 114387d96..07483dd9b 100644
          let cp_debugger_script = |file: &str| {
              builder.install(&builder.src.join("src/etc/").join(file), &dst, FileType::Regular);
 diff --git a/src/etc/rust-gdb b/src/etc/rust-gdb
-index 9abed30ea..4c7f953ed 100755
+index 885f69bfb..3108b15d5 100755
 --- a/src/etc/rust-gdb
 +++ b/src/etc/rust-gdb
 @@ -12,7 +12,7 @@ fi

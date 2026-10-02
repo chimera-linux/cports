@@ -1,4 +1,4 @@
-From 8c73e2995d16e21a883a970c991165724de4607d Mon Sep 17 00:00:00 2001
+From e39c9fa1fd684a8393682eb3018402486551354f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:44:45 +0100
 Subject: [PATCH 10/16] do not export LD_LIBRARY_PATH
