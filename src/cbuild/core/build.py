@@ -625,6 +625,9 @@ def _build(
     pkg.statedir.mkdir(parents=True, exist_ok=True)
     pkg.wrapperdir.mkdir(parents=True, exist_ok=True)
 
+    with open(pkg.statedir / "ccache.conf", "w") as mf:
+        mf.write(f"base_dir = {pkg.chroot_srcdir}\n")
+
     pkg.setup_reproducible()
 
     oldcwd = pkg.cwd

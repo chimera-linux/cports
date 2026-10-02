@@ -1905,7 +1905,6 @@ class Template(Package):
 
         if self.use_ccache:
             binpath += ["/usr/lib/ccache/bin"]
-            cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
 
         if (
             self.use_sccache
