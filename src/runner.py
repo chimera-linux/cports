@@ -1625,7 +1625,7 @@ def _get_unbuilt(outdated=False):
 
 
 def do_print_build_deps(tgt):
-    from cbuild.core import template, chroot
+    from cbuild.core import template, chroot, errors
 
     if len(cmdline.command) < 2:
         raise errors.CbuildException("print-build-graph needs a package name")
