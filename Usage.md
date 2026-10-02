@@ -589,6 +589,10 @@ The following commands are recognized:
   sources, update the `sha256` fields appropriately to match what was
   downloaded, and reset `pkgrel` to zero. Note that you still need to manually
   check whether the downloaded sources are good, don't trust it blindly.
+* `print-build-dependencies` Given at least one template name, print a list
+  of build dependencies for the template(s), i.e. `hostmakedepends` as well
+  as `makedepends`. The list is consolidated and sorted. This is useful to
+  build packages outside the `cbuild` environment.
 * `print-build-graph` Given a template name, print the build graph like if the
   repository was empty, accounting for dependencies. Each further build level
   (i.e. when a template is built as a dependency of another) is indented by

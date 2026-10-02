@@ -1624,6 +1624,32 @@ def _get_unbuilt(outdated=False):
     return fvers
 
 
+def do_print_build_deps(tgt):
+    from cbuild.core import template, chroot
+
+    if len(cmdline.command) < 2:
+        raise errors.CbuildException("print-build-graph needs a package name")
+
+    mdeps = []
+
+    for pkgn in cmdline.command[1:]:
+        tmpl = template.Template(
+            pkgn,
+            opt_arch if opt_arch else chroot.host_cpu(),
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+        )
+        mdeps += tmpl.hostmakedepends
+        mdeps += tmpl.makedepends
+
+    print(" ".join(sorted(set(mdeps))))
+
+
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot
 
@@ -2776,6 +2802,10 @@ command_handlers = {
     "prepare-upgrade": (
         do_prepare_upgrade,
         "Update template checksums and reset pkgrel",
+    ),
+    "print-build-dependencies": (
+        do_print_build_deps,
+        "Print the build dependencies of a template",
     ),
     "print-build-graph": (
         do_print_build_graph,
