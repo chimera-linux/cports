@@ -1,5 +1,5 @@
 pkgname = "cargo"
-pkgver = "1.98.0"
+pkgver = "1.99.0"
 pkgrel = 0
 build_wrksrc = "src/tools/cargo"
 build_style = "cargo"
@@ -18,7 +18,7 @@ pkgdesc = "Rust package manager"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "271fa73d8174f53d713c46a8310da7bf7cfdcfb8b7cfd1c2b74b84a83ae9fb1e"
+sha256 = "cc41916a8c84f5d9ec4f55561b44e39f43b647b133f8a6f51be9ea13c83f7036"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -82,11 +82,11 @@ def install(self):
         self.install_man(f)
 
     self.install_file(
-        "src/etc/cargo.bashcomp.sh",
+        "etc/cargo.bashcomp.sh",
         "usr/share/bash-completion/completions",
         name="cargo",
     )
-    self.install_file("src/etc/_cargo", "usr/share/zsh/site-functions")
+    self.install_file("etc/_cargo", "usr/share/zsh/site-functions")
 
     self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")

@@ -1,18 +1,18 @@
-From 31c7a45eb97fa76741e67d19df11e89c0fbb9eea Mon Sep 17 00:00:00 2001
+From a264109014537c1b1d511293e1e22e4c55928153 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 20 Aug 2026 20:29:44 +0200
+Date: Fri, 2 Oct 2026 15:47:51 +0200
 Subject: [PATCH] Selectively downgrade some crates in cargo
 
 Until we can figure out why it's busted on ppc64le, downgrade
 some dependencies until things no longer crash. This is not
 sustainable forever but for now it makes it work.
 ---
- src/tools/cargo/Cargo.lock | 13 +++++++------
+ src/tools/cargo/Cargo.lock | 12 +++++++-----
  src/tools/cargo/Cargo.toml |  6 +++---
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/src/tools/cargo/Cargo.lock b/src/tools/cargo/Cargo.lock
-index c3cd70694..335472209 100644
+index 4780a2427..9c01bdb33 100644
 --- a/src/tools/cargo/Cargo.lock
 +++ b/src/tools/cargo/Cargo.lock
 @@ -148,9 +148,9 @@ dependencies = [
@@ -27,7 +27,7 @@ index c3cd70694..335472209 100644
  
  [[package]]
  name = "arc-swap"
-@@ -2829,16 +2829,17 @@ dependencies = [
+@@ -2830,16 +2830,18 @@ dependencies = [
  
  [[package]]
  name = "ignore"
@@ -37,7 +37,7 @@ index c3cd70694..335472209 100644
 -checksum = "b915661dd01db3f05050265b2477bcc6527b3792388e2749b41623cc592be67d"
 +checksum = "dbe7873dab538a9a44ad79ede1faf5f30d49f9a5c883ddbab48bce81b64b7492"
  dependencies = [
-- "crossbeam-deque",
+  "crossbeam-deque",
   "globset",
 + "lazy_static",
   "log",
@@ -50,7 +50,7 @@ index c3cd70694..335472209 100644
   "winapi-util",
  ]
 diff --git a/src/tools/cargo/Cargo.toml b/src/tools/cargo/Cargo.toml
-index c4ae20cd6..d94d7ceb3 100644
+index b2fc229f6..a0db0611a 100644
 --- a/src/tools/cargo/Cargo.toml
 +++ b/src/tools/cargo/Cargo.toml
 @@ -22,7 +22,7 @@ anstream = "1.0.0"
