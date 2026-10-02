@@ -1,7 +1,7 @@
 # mirrors firefox package; own patches as version may drift
 # always incorporate changes from firefox commits to keep in sync
 pkgname = "librewolf"
-pkgver = "156.0.1"
+pkgver = "157.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -61,7 +61,7 @@ pkgdesc = "LibreWolf web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://librewolf.net"
 source = f"https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/{pkgver}-1/librewolf-{pkgver}-1.source.tar.gz"
-sha256 = "93b6d0189fa1171b9ce9ee42c95f8721f7f10df0c1214922ee965a4efbc64f46"
+sha256 = "bea3cc7c57f3fb8928d583a0603b0f40130b02f662e032746345a51e0f55ffb3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/librewolf", "-Wl,-z,stack-size=2097152"]
@@ -248,10 +248,18 @@ def build(self):
 
 
 def install(self):
+    with open(self.cwd / "browser/locales/shipped-locales") as f:
+        locales = [line.strip() for line in f]
+    # Leave the multi-locale repack to the build system as it's quite involved.
+    # Accept the disadvantage of pointless compressed tarball creation.
+    self.do("./mach", "package-multi-locale", "--locales", *locales)
     self.do(
         "./mach",
         "install",
-        env={"DESTDIR": str(self.chroot_destdir)},
+        env={
+            "DESTDIR": str(self.chroot_destdir),
+            "MOZ_CHROME_MULTILOCALE": " ".join(locales),
+        },
     )
 
     self.install_file(
