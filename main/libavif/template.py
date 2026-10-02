@@ -1,6 +1,6 @@
 pkgname = "libavif"
-pkgver = "1.3.0"
-pkgrel = 1
+pkgver = "1.4.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DAVIF_BUILD_APPS=ON",
@@ -31,7 +31,7 @@ source = [
 ]
 source_paths = [".", "ext/libargparse"]
 sha256 = [
-    "0a545e953cc049bf5bcf4ee467306a2f113a75110edf59e61248873101cd26c1",
+    "2b645287340ba5a631d268b551dc2d72bd73ac33335962dd36dcdb6d8366921d",
     "7727b0498851e5b6a6fcd734eb667a8a231897e2c86a357aec51cc0664813060",
 ]
 hardening = ["!vis", "!cfi"]
