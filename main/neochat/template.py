@@ -1,6 +1,6 @@
 pkgname = "neochat"
 pkgver = "26.08.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # depends on qthttpserver, which is not packaged
 configure_args = ["-DBUILD_TESTING=OFF"]
