@@ -1,17 +1,17 @@
 pkgname = "acl"
-pkgver = "2.3.2"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
 # cycle chimerautils -> acl -> automake -> chimerautils
 configure_gen = []
 hostmakedepends = ["pkgconf"]
-makedepends = ["attr-devel"]
+makedepends = ["attr-devel", "linux-headers"]
 checkdepends = ["perl"]
 pkgdesc = "Access Control List filesystem support"
 license = "LGPL-2.1-or-later"
 url = "https://savannah.nongnu.org/projects/acl"
 source = f"$(NONGNU_SITE)/acl/acl-{pkgver}.tar.gz"
-sha256 = "5f2bdbad629707aa7d85c623f994aa8a1d2dec55a73de5205bac0bf6058a2f7c"
+sha256 = "73c853c3d44e1f693e5a96a986f1bd19d3d0dac2c7d453e796177774bc4e5f6a"
 # test suite makes assumptions about a GNU environment
 options = ["bootstrap", "!check"]
 

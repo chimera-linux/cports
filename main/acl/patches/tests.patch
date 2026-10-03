@@ -7,16 +7,15 @@ Subject: [PATCH] acl: do not use bash for runwrapper
  test/runwrapper | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/test/runwrapper b/test/runwrapper
-index 6e0e899..ae3cb20 100755
---- a/test/runwrapper
-+++ b/test/runwrapper
+-- 
+2.33.0
+
+diff -ruN a/test/runwrapper b/test/runwrapper
+--- a/test/runwrapper	2026-06-28 22:44:30.000000000 +0200
++++ b/test/runwrapper	2026-10-03 09:24:38.994346958 +0200
 @@ -1,4 +1,4 @@
 -#!/bin/bash
 +#!/bin/sh
  
- if [ -e "$PWD/.libs/libtestlookup.so" ]; then
- 	export LD_PRELOAD="$PWD/.libs/libtestlookup.so"
--- 
-2.33.0
-
+ cleanup() {
+ 	# remove the temporary location
