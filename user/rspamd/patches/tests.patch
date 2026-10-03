@@ -1,6 +1,52 @@
+diff -Nurp a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2026-10-01 11:07:39
++++ b/CMakeLists.txt	2026-10-04 09:41:25
+@@ -341,7 +341,7 @@ add_custom_target(run-test DEPENDS check
+ add_custom_target(run-test DEPENDS check
+         COMMAND test/rspamd-test-cxx
+         COMMAND sh -c 'LUA_PATH="${CMAKE_SOURCE_DIR}/lualib/?.lua\;${CMAKE_SOURCE_DIR}/lualib/?/?.lua\;${CMAKE_SOURCE_DIR}/lualib/?/init.lua\;${CMAKE_SOURCE_DIR}/contrib/lua-?/?.lua"
+-        test/rspamd-test -p /rspamd/lua')
++        LUALIBDIR="${CMAKE_SOURCE_DIR}/lualib" test/rspamd-test -p /rspamd/lua')
+ 
+ # Setup PVS Studio if available
+ include(SetupPVSStudio)
+diff -Nurp a/test/CMakeLists.txt b/test/CMakeLists.txt
+--- a/test/CMakeLists.txt	2026-10-01 11:07:39
++++ b/test/CMakeLists.txt	2026-10-04 09:00:26
+@@ -40,6 +40,7 @@ RspamdLinkJemalloc(rspamd-test-cxx)
+ add_executable(rspamd-test-cxx ${CXX_TEST_SOURCES})
+ target_link_libraries(rspamd-test-cxx PRIVATE rspamd-server)
+ RspamdLinkJemalloc(rspamd-test-cxx)
++target_compile_definitions(rspamd-test-cxx PRIVATE RSPAMD_TEST_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+ set_target_properties(rspamd-test-cxx PROPERTIES
+         LINKER_LANGUAGE CXX
+ )
+diff -Nurp a/test/rspamd_cxx_unit_http_timeout.hxx b/test/rspamd_cxx_unit_http_timeout.hxx
+--- a/test/rspamd_cxx_unit_http_timeout.hxx	2026-10-01 11:07:39
++++ b/test/rspamd_cxx_unit_http_timeout.hxx	2026-10-04 09:00:06
+@@ -177,8 +177,7 @@ struct client_fixture : http_conn_fixture {
+ 		if (tls) {
+ 			tls_ctx = SSL_CTX_new(TLS_server_method());
+ 			REQUIRE(tls_ctx != nullptr);
+-			std::string path = __FILE__;
+-			path = path.substr(0, path.find_last_of('/')) + "/functional/util/server.pem";
++			std::string path = RSPAMD_TEST_SOURCE_DIR "/test/functional/util/server.pem";
+ 			REQUIRE(SSL_CTX_use_certificate_chain_file(tls_ctx, path.c_str()) == 1);
+ 			REQUIRE(SSL_CTX_use_PrivateKey_file(tls_ctx, path.c_str(), SSL_FILETYPE_PEM) == 1);
+ 			peer = SSL_new(tls_ctx);
+@@ -342,8 +341,7 @@ TEST_SUITE("http_timeout")
+ 
+ 	TEST_CASE("TLS server response uses the write deadline")
+ 	{
+-		std::string path = __FILE__;
+-		path = path.substr(0, path.find_last_of('/')) + "/functional/util/server.pem";
++		std::string path = RSPAMD_TEST_SOURCE_DIR "/test/functional/util/server.pem";
+ 		std::unique_ptr<void, decltype(&rspamd_ssl_ctx_free)> server_ctx(
+ 			rspamd_init_ssl_ctx_server(path.c_str(), path.c_str()), rspamd_ssl_ctx_free);
+ 		REQUIRE(server_ctx != nullptr);
 diff -Nurp a/test/rspamd_cxx_unit_utils.hxx b/test/rspamd_cxx_unit_utils.hxx
---- a/test/rspamd_cxx_unit_utils.hxx	2025-12-10 18:23:29.000000000 +0000
-+++ b/test/rspamd_cxx_unit_utils.hxx	2025-12-28 18:49:52.083854707 +0000
+--- a/test/rspamd_cxx_unit_utils.hxx	2026-10-01 11:07:39
++++ b/test/rspamd_cxx_unit_utils.hxx	2026-10-04 09:00:06
 @@ -134,7 +134,6 @@ TEST_SUITE("rspamd_utils")
  			CHECK(result == TRUE);
  			// Highly compressible data, compressed size varies by implementation
