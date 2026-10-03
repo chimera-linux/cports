@@ -1,10 +1,21 @@
 pkgname = "kwin"
-pkgver = "6.7.5"
-pkgrel = 1
+pkgver = "6.8.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
     "(kwin-testClientMachine"  # initTestCase() segfaults in libc.so after 5s
+    + "|kwin-testActivation"  # needs compositing
+    + "|kwin-testTranslucency"  # needs compositing
+    + "|kwin-testPopupOpenCloseAnimation"  # needs compositing
+    + "|kwin-testDontCrashCancelAnimation"  # needs compositing
+    + "|kwin-testWindowSelection"  # needs compositing
+    + "|kwin-testSubsurface"  # needs compositing
+    + "|kwin-testOutputChanges"  # needs compositing
+    + "|kwin-testTouchInput"  # needs compositing
+    + "|kwin-testLayerShellV1Window"  # needs compositing
+    + "|kwin-testFakeInput"  # needs compositing
+    + "|kwin-testIdleInhibition"  # needs compositing
     + "|kwin-testPlasmaWindow"  # libc++abi: terminating; testLockScreenNoPlasmaWindow() 'lockStateChangedSpy.wait()' returned FALSE, plasmawindow_test.cpp(262)
     + "|kwin-test(|Mock)Drm"  # no DRM device access / testAmsDetection() segfaults
     + "|kwin-testButtonRebind"  # ppc64le fail weirdness?
@@ -36,6 +47,7 @@ make_check_args = [
     + "|^kwin-testFractionalRepaint$"  # testBottomRow() segfault in cbuild chroot, passes on host
     + "|^kwin-testXwaylandSelection$"  # primarySelectionX11ToWayland* subtests fail only on builders with 'seatPrimarySelectionChangedSpy.wait()' returned FALSE
     + "|^kwin-testSelection$"  # KWin::SelectionTest::unsetSupersededSelection() '!secondDataDeviceSelectionClearedSpy.wait(100)' returned FALSE
+    + "|^kwin-testXwaylandServer.*"  # seems to need glamor
     + "|kcm_kwindecoration_smoketest"  # ???
     + ")",
     # parallel tests cause a bunch of flakes
@@ -73,6 +85,7 @@ makedepends = [
     "knotifications-devel",
     "kpackage-devel",
     "kpipewire-devel",
+    "krunner-devel",
     "kscreenlocker-devel",
     "kservice-devel",
     "ksvg-devel",
@@ -81,6 +94,7 @@ makedepends = [
     "kxmlgui-devel",
     "lcms2-devel",
     "libcanberra-devel",
+    "libcap-devel",
     "libdisplay-info-devel",
     "libei-devel",
     "libplasma-devel",
@@ -107,7 +121,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2"
+sha256 = "4bfaf31e29a8f9fdf231dc3bbb9b09b0ce07cae9fee7a01cfc86425ece796258"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }
@@ -117,6 +131,8 @@ file_xattrs = {
     },
 }
 hardening = ["vis"]
+# like half the tests now require render device; filtering it is futile
+options = ["etcfiles", "!check"]
 
 
 def post_install(self):

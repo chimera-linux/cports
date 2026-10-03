@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
-pkgver = "6.7.5"
-pkgrel = 1
+pkgver = "6.8.0"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -45,11 +45,13 @@ makedepends = [
     "libcanberra-devel",
     "libksysguard-devel",
     "libplasma-devel",
+    "libxkbfile-devel",
     "plasma-activities-devel",
     "plasma-activities-stats-devel",
     "plasma-wayland-protocols",
     "plasma-workspace-devel",
     "plasma5support-devel",
+    "polkit-qt-1-devel",
     "qt6-qt5compat-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
@@ -59,8 +61,6 @@ makedepends = [
     "sonnet-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    "xserver-xorg-devel",
-    "xserver-xorg-input-libinput-devel",
     # TODO: PackageKitQt6? (Software Manager integration, KRunner plugin installer)
 ]
 checkdepends = [
@@ -114,7 +114,7 @@ pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "079fcf6b87d7bf65e3f2a4670d605fac9469344c279a285a98ad549332d7b53e"
+sha256 = "6272ec39d9f4661ca8d043a33c2fb71cc07969c9a290559126b2bed1071343aa"
 hardening = ["vis"]
 options = ["etcfiles"]
 
@@ -181,22 +181,6 @@ def _(self):
         "power-profiles-daemon-meta",  # battery power saving
         "xdg-desktop-portal-gtk",  # flatpak gtk font sync
     ]
-    self.options = ["empty"]
-
-    return []
-
-
-@subpackage("plasma-desktop-x11-meta")
-def _(self):
-    self.subdesc = "X11 session recommends package"
-    self.depends = [
-        "kgamma",  # monitor gamma settings
-        "plasma-workspace-x11",  # xsession
-        "setxkbmap",  # configure non-us layout
-        "wacomtablet",  # wacom tablet settings
-        "xserver-xorg-input-libinput",  # general input
-    ]
-    self.install_if = [self.parent, "xserver-xorg-core"]
     self.options = ["empty"]
 
     return []

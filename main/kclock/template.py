@@ -1,6 +1,6 @@
 pkgname = "kclock"
 pkgver = "26.08.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

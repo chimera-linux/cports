@@ -1,6 +1,6 @@
 # TODO: rename to sound-theme-ocean?
 pkgname = "ocean-sound-theme"
-pkgver = "6.7.5"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,4 +15,4 @@ pkgdesc = "Ocean Sound Theme for KDE Plasma"
 license = "CC-BY-SA-4.0"
 url = "https://invent.kde.org/plasma/ocean-sound-theme"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ocean-sound-theme-{pkgver}.tar.xz"
-sha256 = "452e5ab04f5e2d7cbf9357e4e12badf8493aefda437ba130eb38c9e511313b72"
+sha256 = "dd5e5d254faa90054e2cc3e9325db8202a965c24592921d52f68cd5fca371a4e"
