@@ -1,5 +1,5 @@
 pkgname = "systemsettings"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -33,7 +33,7 @@ depends = ["plasma-workspace"]
 pkgdesc = "KDE System settings"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
-source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
-sha256 = "317a21165709d61796fba19f5454397577ffd8aa96655b29dd286a1df252cddb"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
+sha256 = "b79dd93b98de39e9f4b1b80fa2ddd89f76e9083399a0f470f0063577342c4596"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "polkit-kde-agent-1"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,8 +22,10 @@ makedepends = [
 pkgdesc = "KDE polkit authentication daemon"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/polkit-kde-agent-1"
-source = f"$(KDE_SITE)/plasma/{pkgver}/polkit-kde-agent-1-{pkgver}.tar.xz"
-sha256 = "fb731dd979c0296994b5efe37b0a9cdeec5e704f91565540930effdbd7efee58"
+source = (
+    f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/polkit-kde-agent-1-{pkgver}.tar.xz"
+)
+sha256 = "6c2ecdffcec5f3d66f6e64627a039cff6b333070e7c38786f4a1a4fecf65cbe6"
 hardening = ["vis"]
 options = ["etcfiles"]
 

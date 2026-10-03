@@ -1,5 +1,5 @@
 pkgname = "krdp"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,6 +24,7 @@ makedepends = [
     "kirigami-devel",
     "kpipewire-devel",
     "kstatusnotifieritem-devel",
+    "libei-devel",
     "linux-pam-devel",
     "plasma-wayland-protocols",
     "qt6-qtdeclarative-devel",
@@ -33,8 +34,8 @@ makedepends = [
 pkgdesc = "KDE RDP server library and examples"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/krdp"
-source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/krdp-{pkgver}.tar.xz"
-sha256 = "483fb1d9ffd6954e7b12aa4321763a31726e5c0daac10e135cd13a503ced5330"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/krdp-{pkgver}.tar.xz"
+sha256 = "1bb2c98e919dbe73b53dfa0c852f37665a7d13c453276bcacefc2aad16aab462"
 
 
 def post_install(self):

@@ -1,5 +1,5 @@
 pkgname = "qqc2-breeze-style"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,8 +22,10 @@ makedepends = [
 pkgdesc = "Breeze inspired QQC2 style"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/qqc2-breeze-style"
-source = f"$(KDE_SITE)/plasma/{pkgver}/qqc2-breeze-style-{pkgver}.tar.xz"
-sha256 = "788f0698c904112cc33bf6f8fb446b2e4fd7231d38c0955cbc3baa50d375d1ee"
+source = (
+    f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/qqc2-breeze-style-{pkgver}.tar.xz"
+)
+sha256 = "15f1306b9edb83002af948d03baac68cdb4d5a3239bb7447dc148c5f885b24d8"
 hardening = ["vis"]
 
 
