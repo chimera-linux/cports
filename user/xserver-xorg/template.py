@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg"
 pkgver = "21.1.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
