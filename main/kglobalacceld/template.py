@@ -1,6 +1,6 @@
 pkgname = "kglobalacceld"
-pkgver = "6.7.5"
-pkgrel = 1
+pkgver = "6.7.91"
+pkgrel = 0
 build_style = "cmake"
 # needs full init of kglobalaccel
 # migrateconfigtest passes at times but flaky
@@ -24,14 +24,10 @@ checkdepends = ["dbus"]
 pkgdesc = "KDE Daemon for global keyboard shortcut functionality"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
-source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
-sha256 = "83e9a4e226e695fe1544cfa19a9659c5f1000be46c669fe3a9e299029c6c2abf"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
+sha256 = "1981ba850567d14e8de05fa2c74980e688cd01bb654b5b43e07ccccd0762da3b"
 hardening = ["vis"]
 options = ["etcfiles"]
-
-
-def post_install(self):
-    self.uninstall("usr/lib/systemd/user")
 
 
 @subpackage("kglobalacceld-devel")

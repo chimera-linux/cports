@@ -1,5 +1,5 @@
 pkgname = "oxygen-sounds"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,5 +14,5 @@ makedepends = [
 pkgdesc = "Ocean Sound Theme for KDE Plasma"
 license = "CC-BY-SA-4.0"
 url = "https://invent.kde.org/plasma/oxygen-sounds"
-source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-sounds-{pkgver}.tar.xz"
-sha256 = "0cc5b60004d8feb8b1de032cb5d3c056c98f62a8713589b90b471e5943e31ad9"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/oxygen-sounds-{pkgver}.tar.xz"
+sha256 = "65e06bb888fd03df1d7dbb60097e414ff4717a83d3c89247fe60f143bc3926cb"
