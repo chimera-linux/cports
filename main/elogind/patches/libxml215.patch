@@ -1,0 +1,35 @@
+this doesn't work properly for some reason and fails to parse
+
+diff --git a/man/elogind.syntax.xml b/man/elogind.syntax.xml
+index 987d247..390b818 100644
+--- a/man/elogind.syntax.xml
++++ b/man/elogind.syntax.xml
+@@ -2,7 +2,6 @@
+ <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+ <!ENTITY % entities SYSTEM "custom-entities.ent" >
+-%entities;
+ ]>
+ <!-- SPDX-License-Identifier: LGPL-2.1-or-later -->
+ 
+diff --git a/man/logind.conf.xml b/man/logind.conf.xml
+index 05b41e9..6d09918 100644
+--- a/man/logind.conf.xml
++++ b/man/logind.conf.xml
+@@ -2,7 +2,6 @@
+ <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+ <!ENTITY % entities SYSTEM "custom-entities.ent" >
+-%entities;
+ ]>
+ <!-- SPDX-License-Identifier: LGPL-2.1-or-later -->
+ 
+@@ -124,7 +123,7 @@
+         corresponding to the session and all processes inside that scope will be
+         terminated. If false, the scope is "abandoned", see
+         <citerefentry><refentrytitle>systemd.scope</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+-        and processes are not killed. Defaults to <literal>&KILL_USER_PROCESSES;</literal>,
++        and processes are not killed. Defaults to <literal>no</literal>,
+         --><!-- else // 0 -->
+         user should be killed when the user logs out. If true, the processes
+         listed in their session cgroup will be terminated. If false, the session cgroup
