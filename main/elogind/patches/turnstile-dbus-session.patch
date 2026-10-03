@@ -1,0 +1,30 @@
+diff --git a/src/login/logind-session-dbus.c b/src/login/logind-session-dbus.c
+index c2b718f..2621ff1 100644
+--- a/src/login/logind-session-dbus.c
++++ b/src/login/logind-session-dbus.c
+@@ -26,6 +26,16 @@
+ #include "terminal-util.h"
+ #include "user-util.h"
+ 
++static Session *turnstile_session(Session *s) {
++        if (!s->service || strcmp(s->service, "turnstiled"))
++                return s;
++
++        if (s->user && s->user->display)
++                return s->user->display;
++
++        return s;
++}
++
+ static int property_get_user(
+                 sd_bus *bus,
+                 const char *path,
+@@ -569,7 +579,7 @@ static int method_set_brightness(sd_bus_message *message, void *userdata, sd_bus
+         _cleanup_(sd_bus_creds_unrefp) sd_bus_creds *creds = NULL;
+         _cleanup_(sd_device_unrefp) sd_device *d = NULL;
+         const char *subsystem, *name, *seat;
+-        Session *s = ASSERT_PTR(userdata);
++        Session *s = turnstile_session(ASSERT_PTR(userdata));
+         uint32_t brightness;
+         uid_t uid;
+         int r;
