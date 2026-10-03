@@ -15,7 +15,7 @@
              <default>overview.page</default>
 --- a/src/pages/overview.page
 +++ b/src/pages/overview.page
-@@ -259,57 +259,56 @@ Title[zh_TW]=硬碟
+@@ -272,58 +272,56 @@
  highPrioritySensorIds=["disk/(?!all).*/used"]
  
  [Face-108592549200736][Appearance]
@@ -68,6 +68,7 @@
 -Title[sv]=Program
 -Title[ta]=செயலிகள்
 -Title[tr]=Uygulamalar
+-Title[ug]=پىروگرامما
 -Title[uk]=Програми
 -Title[zh_CN]=应用程序
 -Title[zh_TW]=應用程式

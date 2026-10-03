@@ -1,8 +1,8 @@
 pkgname = "print-manager"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
-make_check_args = ["-E", "pm-modeltests"]
+make_check_args = ["-E", "(pm-modeltests|print-queue_smoketest)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
@@ -30,6 +30,6 @@ makedepends = [
 pkgdesc = "KDE tool for printers"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/print-manager"
-source = f"$(KDE_SITE)/plasma/{pkgver}/print-manager-{pkgver}.tar.xz"
-sha256 = "f1658390a7104f2b806176f188ea38f148e7900cb928b4ddfcae0616af52f6ce"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/print-manager-{pkgver}.tar.xz"
+sha256 = "6e7c2ebe538f81bd658ac04dec8b713ec40046fbee4866f0d99d4f325a05c11c"
 hardening = ["vis"]

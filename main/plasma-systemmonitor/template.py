@@ -1,5 +1,5 @@
 pkgname = "plasma-systemmonitor"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -33,6 +33,8 @@ depends = [
 pkgdesc = "KDE System Resource Usage Monitor"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/plasma-systemmonitor"
-source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-systemmonitor-{pkgver}.tar.xz"
-sha256 = "5708e8f0e1833e0829144a14aba1f177262661cc57b20c4a5a34bfd6973d1f1b"
+source = (
+    f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/plasma-systemmonitor-{pkgver}.tar.xz"
+)
+sha256 = "f1574fe5f12c4d8d94cb62fea7d9cb29d0e4795c781081bfd65491d5dbc766b9"
 hardening = ["vis"]

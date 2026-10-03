@@ -1,5 +1,5 @@
 pkgname = "kinfocenter"
-pkgver = "6.7.5"
+pkgver = "6.7.91"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,14 +20,15 @@ makedepends = [
     "kirigami-addons-devel",
     "libusb-devel",
     "qt6-qtbase-devel",
+    "qt6-qtgraphs-devel",
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
-depends = ["kdeclarative", "systemsettings"]
+depends = ["kdeclarative", "qt6-qtgraphs", "systemsettings"]
 pkgdesc = "Utility providing information about your system"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kinfocenter"
-source = f"$(KDE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
-sha256 = "e3aeb4b6f7237fddff4e68f4d7d715772cc47bd0ac376febe24ae3d717680416"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
+sha256 = "e8bc6e9f78cb97f6e901c24270a87991171d0b06009b48cd63e773400006ced1"
 # symlink to systemsettings, runtime dep provided
 broken_symlinks = ["usr/bin/kinfocenter"]
 hardening = ["vis"]

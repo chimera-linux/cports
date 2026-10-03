@@ -588,6 +588,7 @@ sites = {
     "pypi": "https://files.pythonhosted.org/packages/source",
     "gnu": "https://ftp.gnu.org/gnu",
     "kde": "https://download.kde.org/stable",
+    "kde_unstable": "https://download.kde.org/unstable",
     "xfce": "https://archive.xfce.org/src",
 }
 

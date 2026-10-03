@@ -1,8 +1,7 @@
 pkgname = "plasma-workspace"
-pkgver = "6.7.5"
-pkgrel = 1
+pkgver = "6.7.91"
+pkgrel = 0
 build_style = "cmake"
-# TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = [
     "-DGLIBC_LOCALE_GEN=OFF",
 ]
@@ -107,6 +106,7 @@ makedepends = [
     "qt6-qtpositioning-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
+    "union-devel",
     "wayland-protocols",
     "xcb-util-devel",
     # NOTE: make sure PolkitQt6-1 doesn't get pulled in?! just -DGLIBC_LOCALE_GEN=OFF
@@ -134,8 +134,8 @@ replaces = ["xdg-desktop-portal-kde<6.2.1", "plasma-desktop<6.4.0"]
 pkgdesc = "KDE Plasma Workspace"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://kde.org/plasma-desktop"
-source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "94ab21e2243b7876f65c315f1e545081c6437f5bd0a041ca4fb6c2533ae874c9"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
+sha256 = "9955233756c0485b98bf0623cff2d93c308e0e0539dd8e1d560ec06548e44ed1"
 hardening = ["vis"]
 options = ["etcfiles"]
 
@@ -154,14 +154,6 @@ def post_install(self):
         self.uninstall(f"{previews_path}/*", glob=True)
 
     self.uninstall("usr/lib/systemd/user")
-
-
-@subpackage("plasma-workspace-x11")
-def _(self):
-    self.subdesc = "X11 session support"
-    self.depends = ["kwin-x11"]
-
-    return ["cmd:startplasma-x11", "usr/share/xsessions/plasmax11.desktop"]
 
 
 @subpackage("plasma-workspace-devel")
