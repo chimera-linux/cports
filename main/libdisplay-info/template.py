@@ -1,5 +1,5 @@
 pkgname = "libdisplay-info"
-pkgver = "0.3.0"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "EDID and DisplayID library"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/libdisplay-info"
 source = f"{url}/-/archive/{pkgver}/libdisplay-info-{pkgver}.tar.gz"
-sha256 = "2b467e3336aec63819d6aca28d7310d3dc7415b2b3a3c3a5aec9d3727053c078"
+sha256 = "787b58aec473830b0030251ba2b880560b4b3853dc5d6961a6e9701abae29b55"
 
 
 def post_install(self):
