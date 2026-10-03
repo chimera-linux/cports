@@ -1,6 +1,6 @@
 pkgname = "kwin-x11"
 pkgver = "6.7.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",

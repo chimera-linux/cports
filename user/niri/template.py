@@ -1,6 +1,6 @@
 pkgname = "niri"
 pkgver = "26.04"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",

@@ -1,6 +1,6 @@
 pkgname = "lact"
 pkgver = "0.10.1"
-pkgrel = 0
+pkgrel = 1
 _release_tag = "30dc182"
 build_style = "cargo"
 make_build_env = {"VERGEN_GIT_SHA": _release_tag}

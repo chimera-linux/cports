@@ -1,6 +1,6 @@
 pkgname = "weston"
 pkgver = "14.0.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
