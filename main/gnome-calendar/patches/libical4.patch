@@ -1,0 +1,77 @@
+diff -ruN a/src/core/gcal-recurrence.c b/src/core/gcal-recurrence.c
+--- a/src/core/gcal-recurrence.c	2026-09-13 22:37:54.000000000 +0200
++++ b/src/core/gcal-recurrence.c	2026-09-29 11:13:26.202139471 +0200
+@@ -185,13 +185,13 @@
+ 
+       case I_CAL_WEEKLY_RECURRENCE:
+         {
+-          if (i_cal_recurrence_get_by_day (rrule, 0) == I_CAL_MONDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 1) == I_CAL_TUESDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 2) == I_CAL_WEDNESDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 3) == I_CAL_THURSDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 4) == I_CAL_FRIDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 5) != I_CAL_SATURDAY_WEEKDAY &&
+-              i_cal_recurrence_get_by_day (rrule, 6) != I_CAL_SUNDAY_WEEKDAY)
++          if (i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 0) == I_CAL_MONDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 1) == I_CAL_TUESDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 2) == I_CAL_WEDNESDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 3) == I_CAL_THURSDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 4) == I_CAL_FRIDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 5) != I_CAL_SATURDAY_WEEKDAY &&
++              i_cal_recurrence_get_by (rrule, I_CAL_BY_DAY, 6) != I_CAL_SUNDAY_WEEKDAY)
+             {
+               recur->frequency = GCAL_RECURRENCE_MON_FRI;
+             }
+@@ -289,11 +289,11 @@
+     case GCAL_RECURRENCE_MON_FRI:
+       {
+         i_cal_recurrence_set_freq (rrule, I_CAL_WEEKLY_RECURRENCE);
+-        i_cal_recurrence_set_by_day (rrule, 0, I_CAL_MONDAY_WEEKDAY);
+-        i_cal_recurrence_set_by_day (rrule, 1, I_CAL_TUESDAY_WEEKDAY);
+-        i_cal_recurrence_set_by_day (rrule, 2, I_CAL_WEDNESDAY_WEEKDAY);
+-        i_cal_recurrence_set_by_day (rrule, 3, I_CAL_THURSDAY_WEEKDAY);
+-        i_cal_recurrence_set_by_day (rrule, 4, I_CAL_FRIDAY_WEEKDAY);
++        i_cal_recurrence_set_by (rrule, I_CAL_BY_DAY, 0, I_CAL_MONDAY_WEEKDAY);
++        i_cal_recurrence_set_by (rrule, I_CAL_BY_DAY, 1, I_CAL_TUESDAY_WEEKDAY);
++        i_cal_recurrence_set_by (rrule, I_CAL_BY_DAY, 2, I_CAL_WEDNESDAY_WEEKDAY);
++        i_cal_recurrence_set_by (rrule, I_CAL_BY_DAY, 3, I_CAL_THURSDAY_WEEKDAY);
++        i_cal_recurrence_set_by (rrule, I_CAL_BY_DAY, 4, I_CAL_FRIDAY_WEEKDAY);
+         break;
+       }
+ 
+diff -ruN a/src/gui/importer/gcal-importer.c b/src/gui/importer/gcal-importer.c
+--- a/src/gui/importer/gcal-importer.c	2026-09-13 22:37:54.000000000 +0200
++++ b/src/gui/importer/gcal-importer.c	2026-09-29 11:13:26.202521375 +0200
+@@ -147,7 +147,7 @@
+   g_assert (g_utf8_validate (contents, length, NULL));
+ 
+   component = i_cal_parser_parse_string (contents);
+-  ical_error = i_cal_errno_return ();
++  ical_error = i_cal_error_icalerrno ();
+ 
+   if (ical_error != I_CAL_NO_ERROR)
+     {
+diff -ruN a/src/utils/gcal-utils.h b/src/utils/gcal-utils.h
+--- a/src/utils/gcal-utils.h	2026-09-13 22:37:54.000000000 +0200
++++ b/src/utils/gcal-utils.h	2026-09-29 11:13:26.202521375 +0200
+@@ -51,8 +51,6 @@
+                                            GcalRecurrenceModType  modtype,
+                                            gpointer               user_data);
+ 
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (ICalTime, g_object_unref)
+-
+ gchar*               gcal_get_weekday                            (gint                i);
+ 
+ gchar*               gcal_get_month_name                         (gint                i);
+diff -ruN a/tests/test-event.c b/tests/test-event.c
+--- a/tests/test-event.c	2026-09-13 22:37:54.000000000 +0200
++++ b/tests/test-event.c	2026-09-29 11:13:29.182502239 +0200
+@@ -353,7 +353,7 @@
+ 
+   ical_string = i_cal_component_as_ical_string (ical_comp);
+   g_assert_true (strstr (ical_string, "DTSTART;TZID=Europe/London:20170818T010000\r\n") != NULL);
+-  g_assert_true (strstr (ical_string, "DTEND;TZID=/freeassociation.sourceforge.net/Europe/London:\r\n 20170818T030000\r\n") != NULL);
++  g_assert_true (strstr (ical_string, "DTEND;TZID=/freeassociation.sourceforge.net/Europe/London:20170818T030000\r\n") != NULL);
+   g_clear_pointer (&ical_string, g_free);
+ 
+   g_setenv ("TZ", "UTC", TRUE);

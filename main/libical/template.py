@@ -1,12 +1,13 @@
 pkgname = "libical"
-pkgver = "3.0.20"
-pkgrel = 1
+pkgver = "4.0.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DICAL_BUILD_DOCS=OFF",
-    "-DGOBJECT_INTROSPECTION=ON",
-    "-DICAL_GLIB_VAPI=ON",
+    "-DLIBICAL_BUILD_DOCS=OFF",
     "-DLIBICAL_BUILD_EXAMPLES=OFF",
+    "-DLIBICAL_GLIB_VAPI=ON",
+    "-DLIBICAL_GOBJECT_INTROSPECTION=ON",
+    "-DLIBICAL_JAVA_BINDINGS=OFF",
 ]
 make_check_args = ["-E", "(icalrecurtest|icalrecurtest_r)"]
 hostmakedepends = [
@@ -31,7 +32,7 @@ pkgdesc = "Open source implementation of iCalendar protocols and formats"
 license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
 source = f"https://github.com/libical/libical/archive/v{pkgver}.tar.gz"
-sha256 = "e73de92f5a6ce84c1b00306446b290a2b08cdf0a80988eca0a2c9d5c3510b4c2"
+sha256 = "cc09a3ac41d60e6144e644bd3fcf97d47106d659c4a0b8965102581401e67c9c"
 options = ["!cross"]
 
 
