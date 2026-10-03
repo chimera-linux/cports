@@ -1,5 +1,5 @@
 pkgname = "rspamd"
-pkgver = "4.2.0"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -38,7 +38,7 @@ pkgdesc = "Spam filtering system"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d1f5739410ee7c084a5d109d7d7f25b682f6ce43bbae25e089b66c029cd08434"
+sha256 = "ea3f90ea4b68728fc4a5e2a36acd8a6d6e8b1b583a3353b95ae7a5f6fb4cd0e1"
 # check may be disabled
 options = ["etcfiles"]
 
