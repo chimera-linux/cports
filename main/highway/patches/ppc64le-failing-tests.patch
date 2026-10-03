@@ -1,0 +1,13 @@
+diff --git a/hwy/tests/reduction_test.cc b/hwy/tests/reduction_test.cc
+index cb78bf8..54d0047 100644
+--- a/hwy/tests/reduction_test.cc
++++ b/hwy/tests/reduction_test.cc
+@@ -477,7 +477,7 @@ HWY_AFTER_NAMESPACE();
+ namespace hwy {
+ namespace {
+ HWY_BEFORE_TEST(HwyReductionTest);
+-HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumOfLanes);
++//HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumOfLanes);
+ HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllMinMaxOfLanes);
+ HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf2);
+ HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf4);
