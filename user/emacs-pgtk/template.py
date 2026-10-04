@@ -1,12 +1,13 @@
 pkgname = "emacs-pgtk"
 pkgver = "31.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
     "--with-gpm",
     "--with-jpeg",
     "--with-json",
+    "--with-native-compilation",
     "--with-pgtk",
     "--with-webp",
     "--with-x-toolkit=gtk3",
@@ -37,6 +38,7 @@ makedepends = [
     "gtk+3-devel",
     "harfbuzz-devel",
     "lcms2-devel",
+    "libgccjit-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "librsvg-devel",

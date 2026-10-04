@@ -1,12 +1,13 @@
 pkgname = "emacs-gtk3"
 pkgver = "31.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
     "--with-gpm",
     "--with-json",
     "--with-jpeg",
+    "--with-native-compilation",
     "--with-webp",
     "--with-x-toolkit=gtk3",
     "--with-xft",
@@ -38,6 +39,7 @@ makedepends = [
     "gtk+3-devel",
     "harfbuzz-devel",
     "lcms2-devel",
+    "libgccjit-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "librsvg-devel",

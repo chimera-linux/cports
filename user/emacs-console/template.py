@@ -1,12 +1,13 @@
 pkgname = "emacs-console"
 pkgver = "31.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # TODO gccjit (cba to figure it out for now)
 configure_args = [
     "--with-gameuser=:_games",
     "--with-gpm",
     "--with-json",
+    "--with-native-compilation",
     "--without-file-notification",
     "--without-sound",
     "--without-x",
@@ -29,6 +30,7 @@ makedepends = [
     "gmp-devel",
     "gnutls-devel",
     "lcms2-devel",
+    "libgccjit-devel",
     "libxml2-devel",
     "linux-headers",
     "ncurses-devel",
