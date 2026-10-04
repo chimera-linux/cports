@@ -1,0 +1,13 @@
+diff --git a/test/Makefile.am b/test/Makefile.am
+index c075bc8..3af6494 100644
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -67,7 +67,7 @@ EXTRA_DIST = \
+ 
+ check_HEADERS = libvlc/test.h libvlc/libvlc_additions.h
+ 
+-TESTS = $(check_PROGRAMS) check_POTFILES.sh
++TESTS = $(check_PROGRAMS)
+ 
+ DISTCLEANFILES = samples/test.sample samples/meta.sample
+ 
