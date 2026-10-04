@@ -1,5 +1,5 @@
 pkgname = "grpc"
-pkgver = "1.82.1"
+pkgver = "1.84.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -43,6 +43,7 @@ url = "https://grpc.io"
 source = [
     f"https://github.com/grpc/grpc/archive/refs/tags/v{pkgver}.tar.gz",
     "https://github.com/google/googletest/archive/v1.17.0.tar.gz",
+    "https://github.com/grpc/grpc-proto/archive/ec30f58.tar.gz",
     "https://github.com/envoyproxy/data-plane-api/archive/6ef568c.tar.gz",
     "https://github.com/googleapis/googleapis/archive/2193a2bf.tar.gz",
     "https://github.com/bufbuild/protoc-gen-validate/archive/v1.2.1.tar.gz",
@@ -51,14 +52,16 @@ source = [
 source_paths = [
     ".",
     "third_party/googletest",
+    "third_party/grpc-proto",
     "third_party/envoy-api",
     "third_party/googleapis",
     "third_party/protoc-gen-validate",
     "third_party/xds",
 ]
 sha256 = [
-    "d74186d8fa221cc7f07ec2db970098302559f73612f6cf340cfe754848c4fc29",
+    "17a4d25717f4871eb71cfdf191f7491f66a59c8ebc782ab53d52fcbfc478959f",
     "65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c",
+    "5e9b520b22afbd53a662cc29017064be253c1dfa6df8958738594e7fec6ade33",
     "ed5e6c319f8ebcdf24a9491f866a599bb9a3c193b859a94ad13bd31f85b46855",
     "3de3a199400eea7a766091aeb96c4b84c86266ad1f933f9933bbb7c359e727fe",
     "e4718352754df1393b8792b631338aa8562f390e8160783e365454bc11d96328",
