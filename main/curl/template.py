@@ -50,7 +50,7 @@ checkdepends = [
 ]
 depends = ["ca-certificates"]
 pkgdesc = "Command line tool for transferring data with URL syntax"
-license = "MIT"
+license = "curl"
 url = "https://curl.se"
 source = f"{url}/download/curl-{pkgver}.tar.xz"
 sha256 = "f7ef3ae8a22e521f289803fe93543eb64c329b58aa73a9e224dfd915a2a5f4f7"
