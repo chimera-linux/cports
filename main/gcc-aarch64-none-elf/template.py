@@ -1,6 +1,6 @@
 pkgname = "gcc-aarch64-none-elf"
 _trip = pkgname.removeprefix("gcc-")
-pkgver = "16.1.0"
+pkgver = "16.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -55,7 +55,7 @@ pkgdesc = "GNU C compiler for ARM bare metal targets"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "50efb4d94c3397aff3b0d61a5abd748b4dd31d9d3f2ab7be05b171d36a510f79"
+sha256 = "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
