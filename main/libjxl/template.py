@@ -1,6 +1,6 @@
 pkgname = "libjxl"
 pkgver = "0.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -54,11 +54,6 @@ tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 # CFI: a bunch of test failures
 # vis also broken
 hardening = ["!vis", "!cfi"]
-
-
-# FIXME
-if self.profile.arch == "riscv64":
-    configure_args += ["-DBUILD_TESTING=OFF"]
 
 
 def post_install(self):
