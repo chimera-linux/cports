@@ -1,0 +1,56 @@
+diff --git a/gcc/jit/jit-target.h b/gcc/jit/jit-target.h
+index 19659c194..34ec0e06f 100644
+--- a/gcc/jit/jit-target.h
++++ b/gcc/jit/jit-target.h
+@@ -28,11 +28,11 @@
+ 
+ #include <unordered_map>
+ #include <unordered_set>
++#include <string_view>
+ 
+ static size_t hash_cstr (const char *s)
+ {
+-  const size_t seed = 0;
+-  return std::_Hash_bytes (s, std::strlen (s), seed);
++  return std::hash<std::string_view>{}({s, std::strlen(s)});
+ }
+ 
+ struct CStringHash {
+diff --git a/gcc/system.h b/gcc/system.h
+index 01fa00550..6b0530976 100644
+--- a/gcc/system.h
++++ b/gcc/system.h
+@@ -931,12 +931,12 @@ extern void fancy_abort (const char *, int, const char *)
+ #undef calloc
+ #undef strdup
+ #undef strndup
+- #pragma GCC poison calloc strdup strndup
++// #pragma GCC poison calloc strdup strndup
+ 
+ #if !defined(FLEX_SCANNER) && !defined(YYBISON)
+ #undef malloc
+ #undef realloc
+- #pragma GCC poison malloc realloc
++// #pragma GCC poison malloc realloc
+ #endif
+ 
+ /* The %m format should be used when GCC's main diagnostic functions
+diff --git a/include/safe-ctype.h b/include/safe-ctype.h
+index 66de4329b..07a0f6ebf 100644
+--- a/include/safe-ctype.h
++++ b/include/safe-ctype.h
+@@ -120,6 +120,7 @@ extern const unsigned char  _sch_tolower[256];
+    So we include ctype.h here and then immediately redefine its macros.  */
+ 
+ #include <ctype.h>
++#if 0
+ #undef isalpha
+ #define isalpha(c) do_not_use_isalpha_with_safe_ctype
+ #undef isalnum
+@@ -146,5 +147,6 @@ extern const unsigned char  _sch_tolower[256];
+ #define toupper(c) do_not_use_toupper_with_safe_ctype
+ #undef tolower
+ #define tolower(c) do_not_use_tolower_with_safe_ctype
++#endif
+ 
+ #endif /* SAFE_CTYPE_H */
