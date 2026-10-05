@@ -1,6 +1,6 @@
 pkgname = "nuspell"
-pkgver = "5.1.6"
-pkgrel = 3
+pkgver = "5.1.9"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -13,7 +13,7 @@ pkgdesc = "Fast and safe spell checking software"
 license = "LGPL-3.0-or-later"
 url = "https://nuspell.github.io"
 source = f"https://github.com/nuspell/nuspell/archive/v{pkgver}.tar.gz"
-sha256 = "5d4baa1daf833a18dc06ae0af0571d9574cc849d47daff6b9ce11dac0a5ded6a"
+sha256 = "658a28d2c622b6da5271544043a5b7b3e09881be8516a23efc11c43971b4b046"
 hardening = ["!vis", "!cfi"]
 
 
