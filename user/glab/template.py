@@ -15,7 +15,12 @@ license = "MIT"
 url = "https://gitlab.com/gitlab-org/cli"
 source = f"{url}/-/releases/v{pkgver}/downloads/glab_{pkgver}_source.tar.gz"
 sha256 = "7a3e501a83f27b567432cc932ca99a31af46ee1ab6a9c0839e96e7fbc6bad55a"
+# check may be disabled
 options = ["!cross"]
+
+if self.profile.arch not in ["aarch64", "x86_64"]:
+    # some tests are platform-specific
+    options += ["!check"]
 
 
 def post_build(self):
