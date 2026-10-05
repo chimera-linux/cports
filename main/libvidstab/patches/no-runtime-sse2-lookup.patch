@@ -1,13 +1,18 @@
 This removes a bunch of parsing of /proc/cpuinfo and the
 likes since that's not reproducible and broken for packaging.
+---
+ CMakeLists.txt | 1 -
+ 1 file changed, 1 deletion(-)
 
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 4d2cdc2..b18e16d 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
 @@ -3,7 +3,6 @@ project (vid.stab C)
  
- set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules/")
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/")
  
 -include (FindSSE)
  include (GNUInstallDirs)
- find_package(OpenMP)
- 
+ # include (ExternalProject) # There must be a nicer way to include this
+ # include (sse2neon)
