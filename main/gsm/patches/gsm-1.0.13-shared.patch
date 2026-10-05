@@ -1,6 +1,17 @@
---- a/Makefile	2006-04-26 22:14:26.000000000 +0300
-+++ b/Makefile	2009-09-08 14:50:02.000000000 +0300
-@@ -96,7 +96,7 @@
+From fa12ea2f39ab161d631912cdd87e263f1520679d Mon Sep 17 00:00:00 2001
+From: flukey <flukey@vapourmail.eu>
+Date: Tue, 6 Oct 2026 11:08:31 +0100
+Subject: [PATCH 2/3] gsm-1.0.13-shared.patch
+
+---
+ Makefile | 84 +++++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 56 insertions(+), 28 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 2ad5e5d..380d90e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -96,7 +96,7 @@ TOAST_INSTALL_MAN = $(TOAST_INSTALL_ROOT)/man/man1
  #  Other tools
  
  SHELL		= /bin/sh
@@ -9,7 +20,7 @@
  BASENAME 	= basename
  AR		= ar
  ARFLAGS		= cr
-@@ -140,6 +140,7 @@
+@@ -140,6 +140,7 @@ LFLAGS	= $(LDFLAGS) $(LDINC)
  # Targets
  
  LIBGSM	= $(LIB)/libgsm.a
@@ -17,7 +28,7 @@
  
  TOAST	= $(BIN)/toast
  UNTOAST	= $(BIN)/untoast
-@@ -203,24 +204,43 @@
+@@ -203,24 +204,43 @@ SOURCES	=	$(GSM_SOURCES)		\
  
  # Object files
  
@@ -79,7 +90,7 @@
  
  TOAST_OBJECTS =	$(SRC)/toast.o 		\
  		$(SRC)/toast_lin.o	\
-@@ -228,7 +248,7 @@
+@@ -228,7 +248,7 @@ TOAST_OBJECTS =	$(SRC)/toast.o 		\
  		$(SRC)/toast_alaw.o	\
  		$(SRC)/toast_audio.o
  
@@ -88,7 +99,7 @@
  
  # Manuals
  
-@@ -277,9 +297,12 @@
+@@ -277,9 +297,12 @@ TOAST_INSTALL_TARGETS =	\
  		$(CC) $(CFLAGS) $?
  		@-mv `$(BASENAME) $@` $@ > /dev/null 2>&1
  
@@ -102,7 +113,7 @@
  		@-echo $(ROOT): Done.
  
  tst:		$(TST)/lin2cod $(TST)/cod2lin $(TOAST) $(TST)/test-result
-@@ -299,24 +322,29 @@
+@@ -299,24 +322,29 @@ install:	toastinstall gsminstall
  
  # The basic API: libgsm
  
@@ -137,7 +148,7 @@
  
  
  # The local bin and lib directories
-@@ -357,11 +357,11 @@ $(TOAST_INSTALL_BIN)/toast:	$(TOAST)
+@@ -357,11 +385,11 @@ $(TOAST_INSTALL_BIN)/toast:	$(TOAST)
  
  $(TOAST_INSTALL_BIN)/untoast:	$(TOAST_INSTALL_BIN)/toast
  		-rm $(RMFLAGS) $@
@@ -151,3 +162,6 @@
  
  $(TOAST_INSTALL_MAN)/toast.1:	$(MAN)/toast.1
  		-rm $(RMFLAGS) $@
+-- 
+2.56.0
+
