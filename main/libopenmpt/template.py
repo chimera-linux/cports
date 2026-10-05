@@ -1,5 +1,5 @@
 pkgname = "libopenmpt"
-pkgver = "0.8.2"
+pkgver = "0.8.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,7 +23,7 @@ pkgdesc = "Library for rendering tracker music to PCM"
 license = "BSD-3-Clause"
 url = "https://lib.openmpt.org/libopenmpt"
 source = f"https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-{pkgver}+release.autotools.tar.gz"
-sha256 = "844e4ff98dbd9942bbe4a1048226f91f8bc5b460b7bec6489e67cedb3e0aac37"
+sha256 = "d7ce84fd05d686c4bcf66af40eae857afa371442db60eeda3f874bd6cf6fc318"
 
 
 def post_install(self):
