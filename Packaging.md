@@ -707,9 +707,9 @@ should always go there and not in `/etc`.
 Editable configuration files go in `/etc`.
 
 Cross-compiling sysroots are in `/usr/<triplet>` where triplet is for
-example `powerpc64-linux-musl` (i.e. short triplet). These contain a
-simplified filesystem layout (the `usr` directory with the usual files
-and symlinks, and the `bin`, `lib` etc symlinks at top level).
+example `powerpc64le-chimera-linux-musl`. These contain a simplified
+filesystem layout (the `usr` directory with the usual files and
+symlinks, and the `bin`, `lib` etc symlinks at top level).
 
 <a id="bootstrap_packages"></a>
 ### Bootstrap Packages
@@ -2026,10 +2026,10 @@ variables are exported (therefore, actual explicit env vars take priority).
 
 The `CC`, `CXX`, `CPP`, `LD` and `PKG_CONFIG` tools are treated specially
 for cross-compiling targets; when a cross-compiling target is detected,
-the short tripet is prepended. This also happens when the user overrides
-the tool via the `tools` variable in the template. Therefore, if you set
-`CC` to `foo` and you cross-compile to `aarch64`, you may get something
-like `aarch64-linux-musl-foo`.
+the triplet is prepended. This also happens when the user overrides the
+tool via the `tools` variable in the template. Therefore, if you set `CC`
+to `foo` and you cross-compile to `aarch64`, you may get something like
+`aarch64-linux-musl-foo`.
 
 Additionally, these tools are also exported into the environment with
 their host values, as `BUILD_CC`, `BUILD_LD` and so on, as well as GNU-style
@@ -2111,8 +2111,7 @@ RUSTFLAGS =
 ```
 
 These are also the fields it has to define. The `triplet` must always
-be the full triplet (`cbuild` will take care of building the short
-triplet from it if needed). The compiler flags are optional.
+be the full triplet. The compiler flags are optional.
 
 The `repos` field specifies which categories are provided by remote
 repositories. As different architectures may provide different
@@ -2142,7 +2141,6 @@ is represented as a `Profile` object. It looks like this:
 class Profile:
     arch = ...
     triplet = ...
-    short_triplet = ...
     machine = ...
     sysroot = ...
     wordsize = ...
@@ -2156,8 +2154,7 @@ class Profile:
 The properties have the following meanings:
 
 * `arch` The `apk` architecture name of the profile.
-* `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
-* `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
+* `triplet` The target triplet (e.g. `aarch64-unknown-linux-musl`)
 * `machine` The `uname` machine of the profile. Matches `arch` if not explicit.
 * `sysroot` A `pathlib` path representing the sysroot.
 * `wordsize` The integer word size of the target (typically 64 or 32).
@@ -2169,9 +2166,9 @@ The properties have the following meanings:
 * `goarm` For 32-bit ARM (`goarch` is `arm`) this is the ARM architecture
   version (ARMv5/6/7).
 
-For the `bootstrap` profile, `triplet` and `short_triplet` are `None`.
+For the `bootstrap` profile, `triplet` is `None`.
 
-The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
+The `sysroot` refers to `/` for native targets and `/usr/<triplet>` for
 cross-compiling targets.
 
 In general, you will not want to use the profile's methods, and the member
