@@ -1,5 +1,5 @@
 pkgname = "meld"
-pkgver = "3.24.0"
+pkgver = "3.24.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -26,4 +26,4 @@ pkgdesc = "Visual diff and merge tool"
 license = "GPL-2.0-or-later"
 url = "https://meldmerge.org"
 source = f"$(GNOME_SITE)/meld/{pkgver[:-2]}/meld-{pkgver}.tar.xz"
-sha256 = "19f036297e7c89514516bcd2e56182db2bb2ba13b4850893c1ce597445018b94"
+sha256 = "29dfee0d857b89c2fa4dad7c9fb9e48506d8bde3f71b6634798659e6697c6b1e"
