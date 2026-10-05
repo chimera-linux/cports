@@ -1,16 +1,15 @@
-commit 9f9924cab244b2065ebf6de869f434cc1f336469
-Author: q66 <q66@chimera-linux.org>
-Date:   Wed Nov 16 12:26:51 2022 +0100
+Commit ID: 628f50601b9b4b1988f52f6d599b7d94efb81a89
+Change ID: ovmwlzvksrwsmtkqxrrnlxlyrzqkyvzx
+Author   : flukey <flukey@vapourmail.eu> (2026-10-05 15:34:16)
+Committer: flukey <flukey@vapourmail.eu> (2026-10-05 16:04:37)
 
-    support new udev activation without systemd
-    
-    Debian import: https://salsa.debian.org/lvm-team/lvm2/-/commit/2340adad4b3875331be1ba7abba881cc1b6e6738
+    udev no systemd
 
 diff --git a/udev/69-dm-lvm.rules.in b/udev/69-dm-lvm.rules.in
-index 14e7dd2..b32b94a 100644
+index 432049a5df..25ab610ff2 100644
 --- a/udev/69-dm-lvm.rules.in
 +++ b/udev/69-dm-lvm.rules.in
-@@ -76,8 +76,14 @@ LABEL="lvm_scan"
+@@ -89,8 +89,14 @@
  # it's better suited to appearing in the journal.
  
  IMPORT{program}="(LVM_EXEC)/lvm pvscan --cache --listvg --checkcomplete --vgonline --autoactivation event --udevoutput --journal=output $env{DEVNAME}"
