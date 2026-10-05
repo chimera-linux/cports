@@ -513,10 +513,10 @@ will be clear.
 <a id="phases"></a>
 ## Build Phases
 
-Building a package consists of several phases. All phases other after `setup`
-until and including `install`  can have template specified behavior. The build
-system itself runs outside of the sandboxed container, while most actions
-(such as building) run inside.
+Building a package consists of several phases. All phases after `setup` until
+and including `install`  can have template specified behavior. The build system
+itself runs outside of the sandboxed container, while most actions (such as
+building) run inside.
 
 Except for the `setup` and `fetch` phases, the build system is configured
 to unshare all namespaces when performing actions within the sandbox. That
@@ -1049,7 +1049,7 @@ Keep in mind that default values may be overridden by build styles.
   the extraction of the source. The rest of the string must be a URL. The
   resulting filename will normally be extracted from the URL by finding the
   last forward slash (The filename follows the slash). If `>` is present in
-  the string later than a `/`, the filename instead follows the `>` and
+  the string later than the last `/`, the filename instead follows the `>` and
   the `>` with the filename is stripped from the URL before download. This
   can be useful in cases where the URL does not have an obvious filename,
   or when the filename is ambiguous.
