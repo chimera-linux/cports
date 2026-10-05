@@ -1,10 +1,9 @@
-diff --git a/configure.ac b/configure.ac
-index 816b0a9..dfa1f9a 100644
---- a/configure.ac
-+++ b/configure.ac
+diff -uraN a/configure.ac b/configure.ac
+--- a/configure.ac	2026-08-19 10:21:10.000000000 +0100
++++ b/configure.ac	2026-10-06 12:07:54.541120499 +0100
 @@ -1,4 +1,4 @@
--AC_INIT([libopenmpt], [0.8.2+release.autotools], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
-+AC_INIT([libopenmpt], [0.8.2], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
+-AC_INIT([libopenmpt], [0.8.9+release.autotools], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
++AC_INIT([libopenmpt], [0.8.9], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
  AC_PREREQ([2.69])
  # we do want 2.70, but distributions are not ready yet
  #AC_PREREQ([2.70])
