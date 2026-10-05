@@ -1,6 +1,6 @@
 pkgname = "libbytesize"
-pkgver = "2.11"
-pkgrel = 2
+pkgver = "2.12"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -14,7 +14,7 @@ pkgdesc = "Library for operations with sizes in bytes"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
 source = f"{url}/releases/download/{pkgver}/libbytesize-{pkgver}.tar.gz"
-sha256 = "1f6ce157750ed1201ce83edd3c23d997a615c7da30f9a0e5bb44635f66768d81"
+sha256 = "8356bac2cafd2f31f39bf1ad373cef8448cab08b817aeaee5c526d54e81c3c5a"
 
 
 @subpackage("libbytesize-devel")
