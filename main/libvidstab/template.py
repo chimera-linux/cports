@@ -1,6 +1,6 @@
 pkgname = "libvidstab"
-pkgver = "1.1.1"
-pkgrel = 1
+pkgver = "1.1.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Video stabilization library"
 license = "GPL-2.0-or-later"
 url = "http://public.hronopik.de/vid.stab"
 source = f"https://github.com/georgmartius/vid.stab/archive/v{pkgver}.tar.gz"
-sha256 = "9001b6df73933555e56deac19a0f225aae152abbc0e97dc70034814a1943f3d4"
+sha256 = "96db34d48a9e3aa13736a48744b56dfb76731ac9bb5193c716de8534c9fd709d"
 # sketchy tests
 options = ["!check"]
 
