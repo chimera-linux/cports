@@ -1,5 +1,5 @@
 pkgname = "sdl2_mixer"
-pkgver = "2.8.1"
+pkgver = "2.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -44,7 +44,7 @@ pkgdesc = "SDL audio mixer library"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_mixer"
 source = f"{url}/release/SDL2_mixer-{pkgver}.tar.gz"
-sha256 = "cb760211b056bfe44f4a1e180cc7cb201137e4d1572f2002cc1be728efd22660"
+sha256 = "938dff531d00ace2296557a6599abe6f34599e2f34f0a4a08a397e2ccac8b8f7"
 # no check target
 options = ["!check"]
 
