@@ -1,6 +1,6 @@
 pkgname = "sdl2_net"
-pkgver = "2.2.0"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
@@ -10,7 +10,7 @@ pkgdesc = "SDL networking library"
 license = "BSD-3-Clause"
 url = "https://libsdl.org/projects/SDL_net"
 source = f"{url}/release/SDL2_net-{pkgver}.tar.gz"
-sha256 = "4e4a891988316271974ff4e9585ed1ef729a123d22c08bd473129179dc857feb"
+sha256 = "9cbca2527feb3f1a622d48ba65cc7dee9b1e3f2c55ceafb7d7720bb058aafb30"
 # no check target
 options = ["!check"]
 
