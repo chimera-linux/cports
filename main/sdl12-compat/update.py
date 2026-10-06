@@ -1,1 +1,1 @@
-pattern = r"release-([0-9.]+)\""
+pattern = r"release-([0-9.]+)"
