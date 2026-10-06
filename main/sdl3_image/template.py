@@ -1,6 +1,6 @@
 pkgname = "sdl3_image"
-pkgver = "3.4.6"
-pkgrel = 3
+pkgver = "3.4.8"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSDLIMAGE_AVIF=ON",
@@ -37,7 +37,7 @@ url = "https://github.com/libsdl-org/SDL_image"
 source = (
     f"https://libsdl.org/projects/SDL_image/release/SDL3_image-{pkgver}.tar.gz"
 )
-sha256 = "d2e4637ae700f72e5196b8fbd749850ed2e5e1e09c5a5be8d06ff55aaccf3b01"
+sha256 = "e8223b424bc7541cf84ffff5cf7e4f24ec3711c60462cb1bd6dc1d7bd7f25477"
 # no check target
 options = ["!check"]
 
