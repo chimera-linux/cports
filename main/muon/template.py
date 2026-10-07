@@ -1,7 +1,8 @@
 pkgname = "muon"
-pkgver = "0.6.0"
+pkgver = "0.7.0"
 pkgrel = 0
 build_style = "meson"
+_docs_commit = "589bc119dfc06bb678fb1688488e508ec51a87b8"
 configure_args = [
     "-Dmeson-docs=enabled",
     "-Dlibarchive=enabled",
@@ -26,12 +27,12 @@ license = "GPL-3.0-only AND Apache-2.0 AND MIT AND Unlicense"
 url = "https://muon.build"
 source = [
     f"https://git.sr.ht/~lattis/muon/archive/{pkgver}.tar.gz",
-    "https://github.com/muon-build/meson-docs/archive/1017b3413601044fb41ad04977445e68a80e8181.tar.gz",
+    f"https://github.com/muon-build/meson-docs/archive/{_docs_commit}.tar.gz",
 ]
 source_paths = [".", "subprojects/meson-docs"]
 sha256 = [
-    "5300e58c4b4d43e3026856004c79d746075aaa9d9e66d76ba9f32ce249495b81",
-    "ba247999ac7ab9542cb2966a7006b595889ab64f91276f176683ece2a306d97b",
+    "e7095741dc11338f5ed8e0aa02e993fc34df4295dad4296127bbb212bcf56e07",
+    "55df8d07cb2d430629599ca3913417b91e466dcee9668b139c63d187c9a774f9",
 ]
 # hidden visibility breaks almost all tests
 hardening = ["!vis"]
