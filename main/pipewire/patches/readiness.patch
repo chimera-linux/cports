@@ -5,7 +5,7 @@ Date:   Wed Nov 29 14:53:26 2023 +0100
     add dinit readiness notification support
 
 diff --git a/src/pipewire/context.c b/src/pipewire/context.c
-index f3e1b4d..c90c0d4 100644
+index 82ce4c0..6a6416a 100644
 --- a/src/pipewire/context.c
 +++ b/src/pipewire/context.c
 @@ -6,6 +6,7 @@
@@ -16,7 +16,7 @@ index f3e1b4d..c90c0d4 100644
  #include <regex.h>
  #include <limits.h>
  #include <sys/mman.h>
-@@ -111,6 +112,22 @@ static void fill_core_properties(struct pw_context *context)
+@@ -112,6 +113,22 @@ static void fill_core_properties(struct pw_context *context)
  	pw_properties_set(properties, PW_KEY_CORE_NAME, context->core->info.name);
  }
  
@@ -39,12 +39,12 @@ index f3e1b4d..c90c0d4 100644
  static int context_set_freewheel(struct pw_context *context, bool freewheel)
  {
  	struct impl *impl = SPA_CONTAINER_OF(context, struct impl, this);
-@@ -374,6 +391,8 @@ struct pw_context *pw_context_new(struct pw_loop *main_loop,
- 	this->properties = properties;
+@@ -587,6 +604,8 @@ struct pw_context *pw_context_new(struct pw_loop *main_loop,
+ 	}
  
- 	fill_properties(this);
+ 	pw_settings_expose(this);
 +	/* at this point wireplumber etc can launch */
 +	ready_notification();
  
- 	conf = pw_properties_new(NULL, NULL);
- 	if (conf == NULL) {
+ 	pw_log_debug("%p: created", this);
+ 
