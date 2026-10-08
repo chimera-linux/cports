@@ -1,0 +1,26 @@
+diff --git a/scripts/lvmpersist.sh b/scripts/lvmpersist.sh
+index a2e61d4..11079d6 100755
+--- a/scripts/lvmpersist.sh
++++ b/scripts/lvmpersist.sh
+@@ -1395,7 +1395,7 @@ if [ "$UID" != 0 ] && [ "$EUID" != 0 ] && [ "$CMD" != "help" ]; then
+ 	errorexit "must be run as root."
+ fi
+ 
+-GETOPT="getopt"
++GETOPT="ugetopt"
+ 
+ OPTIONS=$("$GETOPT" -o h -l help,ourkey:,removekey:,key:,prtype:,access:,ptpl,debug,device:,vg: -n "${SCRIPTNAME}" -- "$@") ||
+ 	errorexit "invalid option."
+diff --git a/scripts/lvresize_fs_helper.sh b/scripts/lvresize_fs_helper.sh
+index 7d64409..8cb91f0 100755
+--- a/scripts/lvresize_fs_helper.sh
++++ b/scripts/lvresize_fs_helper.sh
+@@ -15,7 +15,7 @@
+ set -euE -o pipefail
+ 
+ PATH="/sbin:/usr/sbin:/bin:/usr/bin:$PATH"
+-GETOPT="getopt"
++GETOPT="ugetopt"
+ SCRIPTNAME=$(basename "$0")
+ DM_DEV_DIR="${DM_DEV_DIR:-/dev}"
+ 

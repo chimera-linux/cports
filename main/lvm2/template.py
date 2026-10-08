@@ -1,9 +1,8 @@
 pkgname = "lvm2"
-pkgver = "2.03.33"
-pkgrel = 1
+pkgver = "2.03.43"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--libexecdir=/usr/libexec",  # TODO switch libexec
     "--enable-editline",
     "--enable-pkgconfig",
     "--enable-fsadm",
@@ -26,6 +25,7 @@ configure_args = [
     "--with-cache-repair=/usr/bin/cache_repair",
     "--with-cache-restore=/usr/bin/cache_restore",
     "--with-dmeventd-path=/usr/bin/dmeventd",
+    "--with-libexecdir=/usr/lib",
     "--with-usrsbindir=/usr/bin",
     "--with-udevdir=/usr/lib/udev/rules.d",
     "--with-default-pid-dir=/run",
@@ -53,13 +53,15 @@ makedepends = [
     "util-linux-blkid-devel",
     "util-linux-blkid-devel-static",
 ]
+depends = ["bash", "jq", "nvme-cli", "ugetopt"]
+renames = ["lvm2-extra"]
 pkgdesc = "Logical Volume Manager"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = (
     f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
 )
-sha256 = "be4babd8a986d73279f1e75fbb1d33cb41559b75c2063611781bfeb8c2def139"
+sha256 = "d87ec0dac9061f1fa58ebced5c6b1360c87d4c5cd7b455dc0ebe1d3f036920d7"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["etcfiles", "!check"]
 # otherwise we're in for a world of pain
@@ -91,8 +93,7 @@ def post_install(self):
 def _(self):
     # rest ist tracked by udev
     self.depends += ["linux-headers"]
-    # transitional
-    self.provides = [self.with_pkgver("device-mapper-devel")]
+    self.renames = ["device-mapper-devel"]
 
     return [
         "usr/lib/pkgconfig/devmapper*.pc",
@@ -116,8 +117,7 @@ def _(self):
 @subpackage("lvm2-dm")
 def _(self):
     self.subdesc = "Device Mapper"
-    # transitional
-    self.provides = [self.with_pkgver("device-mapper")]
+    self.renames = ["device-mapper"]
 
     return [
         "usr/lib/dinit.d/dmeventd",
@@ -130,16 +130,4 @@ def _(self):
         "usr/lib/udev/rules.d/95-dm-notify.rules",
         "usr/share/initramfs-tools/hooks/dmsetup",
         "usr/share/man/man8/dm*",
-    ]
-
-
-@subpackage("lvm2-extra")
-def _(self):
-    self.subdesc = "extra utilities"
-    self.depends = [self.parent, "bash", "ugetopt"]
-    return [
-        "usr/bin/blkdeactivate",
-        "usr/bin/fsadm",
-        "usr/bin/lvm_import_vdo",
-        "usr/bin/lvmdump",
     ]
