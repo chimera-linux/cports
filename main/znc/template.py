@@ -1,6 +1,6 @@
 pkgname = "znc"
-pkgver = "1.10.1"
-pkgrel = 2
+pkgver = "1.10.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWANT_PERL=ON",
@@ -30,7 +30,7 @@ pkgdesc = "IRC bouncer with module support"
 license = "Apache-2.0"
 url = "https://znc.in"
 source = f"{url}/releases/archive/znc-{pkgver}.tar.gz"
-sha256 = "4e6e76851dbf2606185972b53ec5decad68fe53b63a56e4df8b8b3c0a6c46800"
+sha256 = "68f3f6641b480c041010c5596e1234043e05c9137eda06233845017603095f5b"
 
 
 def post_install(self):
