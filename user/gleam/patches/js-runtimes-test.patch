@@ -1,30 +1,26 @@
---- a/test-output/src/tests/echo.rs
-+++ b/test-output/src/tests/echo.rs
-@@ -85,8 +85,8 @@
+diff --git a/test-output/src/tests/output.rs b/test-output/src/tests/output.rs
+index 9833e8a..34be3aa 100644
+--- a/test-output/src/tests/output.rs
++++ b/test-output/src/tests/output.rs
+@@ -98,8 +98,8 @@ macro_rules! assert_output {
          let snapshot_name = snapshot_name(None, None, $project_name);
          insta::allow_duplicates! {
-             assert_echo!(&snapshot_name, Some(Target::Erlang), None, $project_name);
--            assert_echo!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Bun), $project_name);
--            assert_echo!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Deno), $project_name);
-+            // assert_echo!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Bun), $project_name);
-+            // assert_echo!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Deno), $project_name);
-             assert_echo!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::NodeJs), $project_name);
+             assert_output!(&snapshot_name, Some(Target::Erlang), None, $project_name);
+-            assert_output!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Bun), $project_name);
+-            assert_output!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Deno), $project_name);
++            // assert_output!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Bun), $project_name);
++            // assert_output!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::Deno), $project_name);
+             assert_output!(&snapshot_name, Some(Target::JavaScript), Some(Runtime::NodeJs), $project_name);
          }
      };
-@@ -95,8 +95,8 @@
+@@ -108,8 +108,8 @@ macro_rules! assert_output {
          let snapshot_name = snapshot_name(Some($target), None, $project_name);
          match $target {
              Target::JavaScript => insta::allow_duplicates! {
--                assert_echo!(&snapshot_name, Some($target), Some(Runtime::Bun), $project_name);
--                assert_echo!(&snapshot_name, Some($target), Some(Runtime::Deno), $project_name);
-+                // assert_echo!(&snapshot_name, Some($target), Some(Runtime::Bun), $project_name);
-+                // assert_echo!(&snapshot_name, Some($target), Some(Runtime::Deno), $project_name);
-                 assert_echo!(&snapshot_name, Some($target), Some(Runtime::NodeJs), $project_name);
+-                assert_output!(&snapshot_name, Some($target), Some(Runtime::Bun), $project_name);
+-                assert_output!(&snapshot_name, Some($target), Some(Runtime::Deno), $project_name);
++                // assert_output!(&snapshot_name, Some($target), Some(Runtime::Bun), $project_name);
++                // assert_output!(&snapshot_name, Some($target), Some(Runtime::Deno), $project_name);
+                 assert_output!(&snapshot_name, Some($target), Some(Runtime::NodeJs), $project_name);
              },
              Target::Erlang => {
-@@ -142,4 +142,4 @@
- #[test]
- fn echo_dict() {
--    assert_echo!("echo_dict");
-+    // assert_echo!("echo_dict");
- }

@@ -1,5 +1,5 @@
 pkgname = "gleam"
-pkgver = "1.18.1"
+pkgver = "1.19.1"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -10,6 +10,8 @@ make_check_args = [
     "--skip=tests::all_files_have_copyright_notice",
     # tries to access network to fetch dependency
     "--skip=tests::escript_success_with_dependency",
+    # tries to access network to choose version of gleam_stdlib
+    "--skip=tests::output::echo_dict",
 ]
 hostmakedepends = ["cargo-auditable"]
 checkdepends = ["erlang", "git", "nodejs"]
@@ -20,7 +22,13 @@ url = "https://gleam.run"
 source = (
     f"https://github.com/gleam-lang/gleam/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "0691b50bd3592a549abbbd7a0dea4b11f8930988c1e398d1d1429faf48933a3c"
+sha256 = "5a717b4013d5599d73a99b3a1a4bb9168e62bfc18afff2f5bbab43244f860df0"
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "aws-lc-sys-0.44.0")
 
 
 def install(self):
