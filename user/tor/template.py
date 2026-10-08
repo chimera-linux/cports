@@ -1,5 +1,5 @@
 pkgname = "tor"
-pkgver = "0.4.9.13"
+pkgver = "0.4.9.14"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -21,7 +21,7 @@ pkgdesc = "Anonymizing overlay network"
 license = "BSD-3-Clause"
 url = "https://gitlab.com/torproject/tor"
 source = f"{url}/-/archive/tor-{pkgver}/tor-tor-{pkgver}.tar.gz"
-sha256 = "72cbba45e583f3be32854cdc4f55c5f82e6686475e1054b3718891bcd20ae057"
+sha256 = "1eca189920bc14316e2f2c5e662916e4fc90eae898705d1374af870bde7d8d5d"
 
 
 def post_install(self):
