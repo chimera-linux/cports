@@ -1,6 +1,6 @@
 pkgname = "jq"
 pkgver = "1.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -9,6 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = ["oniguruma-devel"]
+renames = ["jq-libs"]
 pkgdesc = "Command-line JSON processor"
 license = "MIT"
 url = "https://github.com/jqlang/jq"
@@ -33,8 +34,3 @@ def post_install(self):
 @subpackage("jq-devel")
 def _(self):
     return self.default_devel()
-
-
-@subpackage("jq-libs")
-def _(self):
-    return self.default_libs()
