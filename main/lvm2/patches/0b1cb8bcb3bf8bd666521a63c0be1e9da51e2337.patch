@@ -1,0 +1,192 @@
+From 0b1cb8bcb3bf8bd666521a63c0be1e9da51e2337 Mon Sep 17 00:00:00 2001
+From: Amin Vakil <info@aminvakil.com>
+Date: Wed, 30 Sep 2026 21:46:06 +0330
+Subject: [PATCH] pvscan: preserve preferred device name when importing
+ DEVLINKS
+
+DEVLINKS may contain symlinks that udev has not created yet. Adding
+these aliases through _add_alias can promote a pending symlink over the
+usable device path, causing size detection and autoactivation to fail.
+
+Restore the original preferred alias after adding each DEVLINKS entry,
+while retaining allocation from the device-cache memory pool.
+
+Add an in-memory regression test for preferred-name preservation and
+alias retention, with a dependency on the generated command header.
+
+Fixes: 5d399b814e7a ("pvscan: fix UAF in DEVLINKS alias handling")
+---
+ WHATS_NEW               |  1 +
+ lib/device/dev-cache.c  | 16 +++++++-
+ test/unit/Makefile      |  4 ++
+ test/unit/dev_cache_t.c | 88 +++++++++++++++++++++++++++++++++++++++++
+ test/unit/units.h       |  2 +
+ 5 files changed, 110 insertions(+), 1 deletion(-)
+ create mode 100644 test/unit/dev_cache_t.c
+
+diff --git a/lib/device/dev-cache.c b/lib/device/dev-cache.c
+index ec48d3474..8cb7a7c57 100644
+--- a/lib/device/dev-cache.c
++++ b/lib/device/dev-cache.c
+@@ -336,7 +336,21 @@ out:
+ 
+ int dev_cache_add_alias(struct device *dev, const char *name)
+ {
+-	return _add_alias(dev, name, NO_HASH);
++	struct dm_list *preferred = dm_list_first(&dev->aliases);
++
++	if (!_add_alias(dev, name, NO_HASH))
++		return 0;
++
++	/*
++	 * pvscan imports DEVLINKS for regex filters before udev creates symlinks.
++	 * Keep the existing preferred name for opening the device.
++	 */
++	if (preferred) {
++		dm_list_del(preferred);
++		dm_list_add_h(&dev->aliases, preferred);
++	}
++
++	return 1;
+ }
+ 
+ int get_sysfs_binary(const char *path, char *buf, size_t buf_size, int *retlen)
+diff --git a/test/unit/Makefile b/test/unit/Makefile
+index 40cc545fe..4ee651dd2 100644
+--- a/test/unit/Makefile
++++ b/test/unit/Makefile
+@@ -16,6 +16,7 @@
+ UNIT_SOURCE=\
+ 	test/unit/bcache_t.c \
+ 	test/unit/daemon_stray_t.c \
++	test/unit/dev_cache_t.c \
+ 	test/unit/bcache_utils_t.c \
+ 	test/unit/bitset_t.c \
+ 	test/unit/config_t.c \
+@@ -49,6 +50,9 @@ CLEAN_TARGETS += $(UNIT_DEPENDS) $(UNIT_OBJECTS) \
+ lib/liblvm-internal.a: lib
+ libdaemon/client/libdaemonclient.a: libdaemon
+ 
++# toolcontext.h requires the generated cmds.h.
++test/unit/dev_cache_t.o: | include
++
+ $(UNIT_TARGET): $(UNIT_OBJECTS) $(LVMINTERNAL_LIBS)
+ 	$(SHOW) "    [LD] $@"
+ 	$(Q) $(CC) $(CFLAGS) $(LDFLAGS) $(EXTRA_EXEC_LDFLAGS) \
+diff --git a/test/unit/dev_cache_t.c b/test/unit/dev_cache_t.c
+new file mode 100644
+index 000000000..8e748a9fa
+--- /dev/null
++++ b/test/unit/dev_cache_t.c
+@@ -0,0 +1,88 @@
++/*
++ * This file is part of LVM2.
++ *
++ * This copyrighted material is made available to anyone wishing to use,
++ * modify, copy, or redistribute it subject to the terms and conditions
++ * of the GNU General Public License v.2.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software Foundation,
++ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ */
++
++#include "lib/misc/lib.h"
++#include "lib/commands/toolcontext.h"
++#include "units.h"
++
++static void *_fixture_init(void)
++{
++	struct cmd_context *cmd = calloc(1, sizeof(*cmd));
++
++	if (!cmd)
++		goto bad;
++
++	dm_strncpy(cmd->dev_dir, "/dev/", sizeof(cmd->dev_dir));
++	cmd->cft = dm_config_from_string("devices { preferred_names = [] }");
++	if (!cmd->cft || !dev_cache_init(cmd))
++		goto bad;
++
++	return cmd;
++bad:
++	fprintf(stderr, "could not initialize device cache test\n");
++	exit(1);
++}
++
++static void _fixture_exit(void *fixture)
++{
++	struct cmd_context *cmd = fixture;
++
++	dev_cache_exit();
++	dm_config_destroy(cmd->cft);
++	free(cmd);
++}
++
++static void test_devlinks_preserve_preferred_name(void *fixture)
++{
++	struct device dev = { 0 };
++	struct dm_str_list *sl;
++	unsigned aliases_found = 0;
++
++	/* Only alias strings are used; no device nodes are opened or scanned. */
++	dev_init(&dev);
++	T_ASSERT(dev_cache_add_alias(&dev, "/dev/dm-0"));
++
++	/* DEVLINKS may advertise these names before udev creates the symlinks. */
++	T_ASSERT(dev_cache_add_alias(&dev, "/dev/mapper/cryptlvm"));
++	T_ASSERT(!strcmp(dev_name(&dev), "/dev/dm-0"));
++	T_ASSERT(dev_cache_add_alias(&dev, "/dev/disk/by-id/lvm-test"));
++	T_ASSERT(!strcmp(dev_name(&dev), "/dev/dm-0"));
++
++	/* Retain pending aliases for regex filters, without adding duplicates. */
++	T_ASSERT(dev_cache_add_alias(&dev, "/dev/mapper/cryptlvm"));
++	T_ASSERT(dev_cache_add_alias(&dev, "/dev/dm-0"));
++	T_ASSERT(!strcmp(dev_name(&dev), "/dev/dm-0"));
++	T_ASSERT_EQUAL(dm_list_size(&dev.aliases), 3);
++	dm_list_iterate_items(sl, &dev.aliases) {
++		if (!strcmp(sl->str, "/dev/mapper/cryptlvm"))
++			aliases_found |= 1;
++		if (!strcmp(sl->str, "/dev/disk/by-id/lvm-test"))
++			aliases_found |= 2;
++	}
++	T_ASSERT_EQUAL(aliases_found, 3);
++}
++
++void dev_cache_tests(struct dm_list *all_tests)
++{
++	struct test_suite *ts = test_suite_create(_fixture_init, _fixture_exit);
++
++	if (!ts) {
++		fprintf(stderr, "out of memory\n");
++		exit(1);
++	}
++
++	register_test(ts, "/device/dev-cache/devlinks-preferred-name",
++		      "pending DEVLINKS aliases preserve the usable device name",
++		      test_devlinks_preserve_preferred_name);
++
++	dm_list_add(all_tests, &ts->list);
++}
+diff --git a/test/unit/units.h b/test/unit/units.h
+index a66896b66..780c12a37 100644
+--- a/test/unit/units.h
++++ b/test/unit/units.h
+@@ -25,6 +25,7 @@ void bcache_utils_tests(struct dm_list *all_tests);
+ void bitset_tests(struct dm_list *all_tests);
+ void config_tests(struct dm_list *all_tests);
+ void daemon_stray_tests(struct dm_list *all_tests);
++void dev_cache_tests(struct dm_list *all_tests);
+ void dm_list_tests(struct dm_list *all_tests);
+ void dm_hash_tests(struct dm_list *all_tests);
+ void dm_status_tests(struct dm_list *all_tests);
+@@ -50,6 +51,7 @@ static inline void register_all_tests(struct dm_list *all_tests)
+ 	bitset_tests(all_tests);
+ 	config_tests(all_tests);
+ 	daemon_stray_tests(all_tests);
++	dev_cache_tests(all_tests);
+ 	dm_list_tests(all_tests);
+ 	dm_hash_tests(all_tests);
+ 	dm_status_tests(all_tests);
+-- 
+GitLab
+
