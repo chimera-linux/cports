@@ -11,5 +11,5 @@ it instead of computing the version
 -  if (!defined(invoker.libname) || is_wasm) {
 +  if (true) {
      not_needed(invoker, "*")
+ 
      config(target_name) {
-     }

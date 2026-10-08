@@ -1,8 +1,8 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "154.0.8037.97"
+pkgver = "155.0.8059.39"
 # tools/rust/update_rust.py -> CRUBIT_REVISION
-_crubit_ver = "69b85cba43f85a6439dc0be86a6fe424bb07a100"
+_crubit_ver = "40fbac34597084a0863256d633889eac2c23b91b"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -37,6 +37,7 @@ configure_args = [
     "symbol_level=1",
     "treat_warnings_as_errors=false",
     "safe_browsing_use_unrar=false",
+    "v8_use_metagen_instance_types=false",
     "use_clang_modules=false",
     "use_custom_libcxx=false",
     "use_dwarf5=true",
@@ -146,13 +147,11 @@ url = "https://www.chromium.org"
 source = [
     f"https://github.com/chromium-linux-tarballs/chromium-tarballs/releases/download/{pkgver}/chromium-{pkgver}-linux.tar.xz",
     f"https://github.com/google/crubit/archive/{_crubit_ver}/crubit-{_crubit_ver}.tar.gz",
-    "https://registry.npmjs.org/@rollup/wasm-node/-/wasm-node-4.22.4.tgz",
 ]
-source_paths = [".", "crubit", "rollup", "typescript"]
+source_paths = [".", "crubit", "typescript"]
 sha256 = [
-    "add9e5afc38e2ad8a64ebefabe6081d5f3192e387fab6430333cc1d0d204d7e3",
-    "af8910353d7694c2a97231b7ce346f8cf7a27912dd4fe52bf631bb82a99f4bcd",
-    "ee49bf67bd9bee869405af78162d028e2af0fcfca80497404f56b1b99f272717",
+    "b84bbab0eef2dd4abd73544a95f15dd2c3c815980c4fa47496f3d0ce4f8a2aa7",
+    "07b57fedcffc8c1e8df4875fc314c2290c8cd50ab8d04340b12c945e9c331f5a",
 ]
 debug_level = 1
 tool_flags = {
@@ -306,11 +305,6 @@ def post_patch(self):
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
-
-    self.rm(
-        "third_party/devtools-frontend/src/node_modules/rollup", recursive=True
-    )
-    self.mv("rollup", "third_party/devtools-frontend/src/node_modules")
 
 
 def configure(self):
