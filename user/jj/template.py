@@ -1,6 +1,6 @@
 pkgname = "jj"
-pkgver = "0.45.1"
-pkgrel = 1
+pkgver = "0.46.0"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 make_check_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Git-compatible VCS frontend"
 license = "Apache-2.0"
 url = "https://www.jj-vcs.dev"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "72bf95905a92c592dd0e7316e2cbbad9a8f2ca04ca770cc4f4f7960495a44e15"
+sha256 = "6489f79d59dc4f9c11230c51d309dc9c6ec392921772b738546966c494b6d72c"
 # generates completions with host binary
 options = ["!cross"]
 
