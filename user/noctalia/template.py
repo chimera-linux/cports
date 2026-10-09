@@ -1,6 +1,6 @@
 pkgname = "noctalia"
-pkgver = "5.1.0"
-pkgrel = 1
+pkgver = "5.2.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -40,7 +40,7 @@ pkgdesc = "Desktop shell for Wayland"
 license = "MIT"
 url = "https://noctalia.dev"
 source = f"https://github.com/noctalia-dev/noctalia/archive/v{pkgver}.tar.gz"
-sha256 = "fcf37d99ecb6093b38df8f0d6a18012f518895cd8d3934fd16164a7d0b7b3062"
+sha256 = "5418f6b759de96e56a4bbca809c5a4c60a8a9594bdf67ecb8c5a341f97c221d1"
 
 
 def post_install(self):
