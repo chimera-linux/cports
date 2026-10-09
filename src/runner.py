@@ -1472,6 +1472,8 @@ def _get_unbuilt(outdated=False):
             return
         outp = subprocess.run(
             [
+                "env",
+                "APK_CONFIG=/dev/null",
                 paths.apk(),
                 "--arch",
                 tarch,

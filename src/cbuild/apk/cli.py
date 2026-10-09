@@ -158,7 +158,7 @@ def call(
         )
     else:
         retv = subprocess.run(
-            [paths.apk(), *cmd, *args],
+            ["env", "APK_CONFIG=/dev/null", paths.apk(), *cmd, *args],
             cwd=cwd,
             env=env,
             capture_output=capture_output,
@@ -349,7 +349,10 @@ def build_index(repopath, epoch, allow_untrusted=False):
 
 
 def get_arch():
-    sr = subprocess.run([paths.apk(), "--print-arch"], capture_output=True)
+    sr = subprocess.run(
+        ["env", "APK_CONFIG=/dev/null", paths.apk(), "--print-arch"],
+        capture_output=True,
+    )
     if sr.returncode != 0:
         return None
     rs = sr.stdout.strip().decode()

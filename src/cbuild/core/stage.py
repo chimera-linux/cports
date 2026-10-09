@@ -17,6 +17,8 @@ def check_stage(arch, force=False, remote=False):
     def _call_apk(*args):
         return subprocess.run(
             [
+                "env",
+                "APK_CONFIG=/dev/null",
                 paths.apk(),
                 "--quiet",
                 "--arch",
