@@ -1,5 +1,5 @@
 pkgname = "ngtcp2"
-pkgver = "1.23.0"
+pkgver = "1.25.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-gnutls", "--with-openssl"]
@@ -13,7 +13,7 @@ pkgdesc = "C IETF QUIC protocol implementation"
 license = "MIT"
 url = "https://github.com/ngtcp2/ngtcp2"
 source = f"{url}/releases/download/v{pkgver}/ngtcp2-{pkgver}.tar.xz"
-sha256 = "59d5b4211e96970f2d3d5e6876f73dce03414800ba04aa56835b132fce8de730"
+sha256 = "2a34d2484ba17847a5d11965704e9dd0fac4c6d8efc75ffe1ec7de66d8c6b6fb"
 
 
 def post_install(self):
