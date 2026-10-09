@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "26.2.3"
+pkgver = "26.2.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -67,7 +67,7 @@ pkgdesc = "Mesa 3D Graphics Library"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://archive.mesa3d.org/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "1628058a8d2c0615975de5a15ab7bbb9638c50000b5bed9456ff423ea034a81f"
+sha256 = "bce5f7fbebb934373b86c999a064d52fb5065878dc57f287f95346648ec832e9"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
