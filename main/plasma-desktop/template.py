@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
-pkgver = "6.7.5"
-pkgrel = 1
+pkgver = "6.7.91"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -45,6 +45,7 @@ makedepends = [
     "libcanberra-devel",
     "libksysguard-devel",
     "libplasma-devel",
+    "libxkbfile-devel",
     "plasma-activities-devel",
     "plasma-activities-stats-devel",
     "plasma-wayland-protocols",
@@ -59,8 +60,6 @@ makedepends = [
     "sonnet-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    "xserver-xorg-devel",
-    "xserver-xorg-input-libinput-devel",
     # TODO: PackageKitQt6? (Software Manager integration, KRunner plugin installer)
 ]
 checkdepends = [
@@ -113,8 +112,8 @@ replaces = ["sddm<0.21.0-r7"]
 pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
-source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "079fcf6b87d7bf65e3f2a4670d605fac9469344c279a285a98ad549332d7b53e"
+source = f"$(KDE_UNSTABLE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
+sha256 = "ef7bbbca9e107496d45cb6be6a0337ec65f2bd4bc5c1e1d25815e02843a4b33a"
 hardening = ["vis"]
 options = ["etcfiles"]
 
@@ -181,22 +180,6 @@ def _(self):
         "power-profiles-daemon-meta",  # battery power saving
         "xdg-desktop-portal-gtk",  # flatpak gtk font sync
     ]
-    self.options = ["empty"]
-
-    return []
-
-
-@subpackage("plasma-desktop-x11-meta")
-def _(self):
-    self.subdesc = "X11 session recommends package"
-    self.depends = [
-        "kgamma",  # monitor gamma settings
-        "plasma-workspace-x11",  # xsession
-        "setxkbmap",  # configure non-us layout
-        "wacomtablet",  # wacom tablet settings
-        "xserver-xorg-input-libinput",  # general input
-    ]
-    self.install_if = [self.parent, "xserver-xorg-core"]
     self.options = ["empty"]
 
     return []
