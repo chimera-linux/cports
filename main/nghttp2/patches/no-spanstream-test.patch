@@ -1,0 +1,41 @@
+spanstream is only included in util.cc and its only invocation there is
+gated behind #ifdef _WIN32, so I guess just do the same here as LLVM hasn't
+implemented it yet.
+---
+ src/template_test.cc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/template_test.cc b/src/template_test.cc
+index de97442a..4beabccc 100644
+--- a/src/template_test.cc
++++ b/src/template_test.cc
+@@ -25,9 +25,9 @@
+ #include "template_test.h"
+ 
+ #include <cstring>
+-#ifndef __APPLE__
++#ifdef _WIN32
+ #  include <spanstream>
+-#endif // !defined(__APPLE__)
++#endif // defined(_WIN32)
+ 
+ #include "munitxx.h"
+ 
+@@ -136,7 +136,7 @@ void test_template_immutable_string(void) {
+     assert_true(c != b);
+   }
+ 
+-#ifndef __APPLE__
++#ifdef _WIN32
+   // operator<<
+   {
+     ImmutableString a("foo");
+@@ -146,7 +146,7 @@ void test_template_immutable_string(void) {
+ 
+     assert_stdsv_equal("foo", std::string_view{ss.span()});
+   }
+-#endif // !defined(__APPLE__)
++#endif // !defined(_WIN32)
+ 
+   // operator +=(std::string &, const ImmutableString &)
+   {
