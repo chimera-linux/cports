@@ -1,10 +1,10 @@
 diff --git a/Makefile b/Makefile
-index 94f76e3..0e516c1 100644
+index 76a11e4..f84f9d6 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -51,7 +51,7 @@ pkgincludedir=$(includedir:$(prefix)/%=%)
  
- .PHONY: all clean data update manifest install
+ .PHONY: all clean data update manifest install test_install_uninstall
  
 -all: libutf8proc.a libutf8proc.$(SHLIB_EXT)
 +all: libutf8proc.$(SHLIB_EXT)
