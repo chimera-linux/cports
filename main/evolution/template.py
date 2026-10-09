@@ -1,6 +1,6 @@
 pkgname = "evolution"
 pkgver = "3.62.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLIBEXEC_INSTALL_DIR=/usr/lib",
