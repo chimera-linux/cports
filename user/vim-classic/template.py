@@ -1,7 +1,6 @@
-# the vimrc is shared with vim-classic, rebuild that too if you change it
-pkgname = "vim"
-pkgver = "9.1.0880"
-pkgrel = 5
+pkgname = "vim-classic"
+pkgver = "8.3.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -25,12 +24,12 @@ makedepends = [
     "python-devel",
     "ruby-devel",
 ]
-depends = [self.with_pkgver("vim-xxd")]
-pkgdesc = "Vi-style text editor"
+depends = [self.with_pkgver("vim-classic-xxd")]
+pkgdesc = "Vim Classic is a fork of Vim 8.x for long-term maintenance"
 license = "Vim"
-url = "https://www.vim.org"
-source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "011d2653dffbd74239794348fdd01d67fcdaddb55c27f7b706f4cc00a3b16f22"
+url = "https://www.vim-classic.org"
+source = f"https://git.sr.ht/~sircmpwn/vim-classic/archive/v{pkgver}.tar.gz"
+sha256 = "6e1c97c8269e9354bbc474f0efa7e1e0b23fcdb6075067474d731a9bfac6e8ef"
 tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"']}
 # require a million system-specific fixes
 options = ["!check"]
@@ -49,7 +48,7 @@ def post_install(self):
     self.uninstall("usr/share/man/*/man1/view.1", glob=True)
 
 
-@subpackage("vim-xxd")
+@subpackage("vim-classic-xxd")
 def _(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
     self.provides = [self.with_pkgver("xxd")]
