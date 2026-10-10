@@ -4,12 +4,12 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_THREADING=ON",
+    "-DBUILD_APPS=OFF",
     "-DBUILD_STATIC_LIBS=ON",
     "-DDISABLE_WERROR=ON",
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
-checkdepends = ["vim-xxd"]
 pkgdesc = "JSON implementation in C"
 license = "MIT"
 url = "https://json-c.github.io/json-c"

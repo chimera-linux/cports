@@ -1,0 +1,25 @@
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 5d62171..2157f56 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -52,6 +52,7 @@ endif()
+ 
+ foreach(TESTNAME ${NOBUILD_TEST_NAMES})
+ add_test(NAME ${TESTNAME} COMMAND ${PROJECT_SOURCE_DIR}/tests/${TESTNAME}.test)
++set_property(TEST ${TESTNAME} PROPERTY SKIP_RETURN_CODE 77)
+ endforeach(TESTNAME)
+ 
+ foreach(TESTNAME ${ALL_TEST_NAMES})
+diff --git a/tests/test_json_parse_cli.test b/tests/test_json_parse_cli.test
+index 0982afe..104f0bc 100755
+--- a/tests/test_json_parse_cli.test
++++ b/tests/test_json_parse_cli.test
+@@ -8,6 +8,8 @@ if test -z "$srcdir"; then
+ fi
+ . "$srcdir/test-defs.sh"
+ 
++[ -x ../apps/json_parse ] || exit 77
++
+ set -x -v
+ 
+ echo -n '"tenant=blue;note=CANARY_STACK_WINDOW_2026;status=ok"' > file1.dat
