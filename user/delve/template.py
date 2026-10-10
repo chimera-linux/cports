@@ -1,5 +1,5 @@
 pkgname = "delve"
-pkgver = "1.27.1"
+pkgver = "1.27.2"
 pkgrel = 0
 # supported archs
 archs = ["aarch64", "x86_64"]
@@ -11,7 +11,7 @@ pkgdesc = "Debugger for the Go programming language"
 license = "MIT"
 url = "https://github.com/go-delve/delve"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dca9ec6f2c392a00449ad748b3a229e92ba4efa67f4e7582f2cc45974429928f"
+sha256 = "8ea5979dfc5978c9690dc1dd533a830815441dd33617f4a61bcdff7d2c3c7e90"
 # cross: generates completions with host binary
 options = ["!cross"]
 
