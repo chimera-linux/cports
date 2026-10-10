@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
-pkgver = "2606"
-pkgrel = 2
+pkgver = "2609a"
+pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -73,7 +73,7 @@ _commit_rcheevos = "926e4608f8dca7989267c787bbefb3ab1c835ac5"
 _commit_spirv = "ebe2aa0cd80f5eb5cd8a605da604cacf72205f3b"
 _commit_vulkan_memory = "3bab6924988e5f19bf36586a496156cf72f70d9f"
 _commit_mgba = "0b40863f64d0940f333fa1c638e75f86f8a26a33"
-_commit_cpp_ipc = "ce0773b3e6d5abaa8d104100c5704321113853ca"
+_commit_cpp_ipc = "b6cbbc940e25ff898f09a40b107781cef6027b13"
 _commit_cpp_optparse = "2265d647232249a53a03b411099863ceca35f0d3"
 _commit_watcher = "b03bdcfc11549df595b77239cefe2643943a3e2f"
 source = [
@@ -105,7 +105,7 @@ source_paths = [
     "Externals/watcher/watcher",
 ]
 sha256 = [
-    "9c83727723db7dd5d0502857b745a21ac03dce1129566d0893581cca72933066",
+    "6e813c7994e093d9c95c208cafe5a36baf2a85a0aa46c60f31a37528baba9a13",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
     "97484925aec2f4d3e913d6644d46b234f8d6d8d98c6aa9c50109e0f0df772090",
@@ -114,7 +114,7 @@ sha256 = [
     "ff848426a2eabfa0dfb5ee961440210f6cdec190883ed438ee7252ba595c9128",
     "618dc35e4f571a508575fc1fc914eb15ab513e4443986509aff08dfb8844ba24",
     "9b59ed1422914f605ce912e9cafcd84d1c5b1bf9abcf0fef1b49e1d810f6f5e5",
-    "01613a09deb56de754d5f3b284cb7d21c7286dbb61cd148f26515b1a0bd04d79",
+    "33991ccd0620ab1bd244c6e94c519f4bf7e64247cec90a772e20f5eccd468a30",
     "6f38fff3c4d2788eead7a28626b3220cc4c101510fc984678ad55f77756b107e",
     "61e97c12c3d23f2b6588d99ce61c8ad462b4382f979d14c7a338a11af507edd1",
 ]
