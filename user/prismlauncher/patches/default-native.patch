@@ -1,7 +1,8 @@
-diff -ruN a/CMakeLists.txt b/CMakeLists.txt
---- a/CMakeLists.txt	2026-07-11 20:26:38.000000000 +0200
-+++ b/CMakeLists.txt	2026-07-24 10:35:43.145421849 +0200
-@@ -240,12 +240,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3923a80a6..66d55a09f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -240,12 +240,15 @@ option(Launcher_ENABLE_JAVA_DOWNLOADER "Build the java downloader feature" ${Lau
  if(UNIX AND APPLE)
      set(Launcher_GLFW_LIBRARY_NAME "libglfw.dylib" CACHE STRING "Name of native glfw library")
      set(Launcher_OPENAL_LIBRARY_NAME "libopenal.dylib" CACHE STRING "Name of native openal library")
@@ -17,10 +18,11 @@ diff -ruN a/CMakeLists.txt b/CMakeLists.txt
  endif()
  
  # API Keys
-diff -ruN a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
---- a/buildconfig/BuildConfig.cpp.in	2026-07-11 20:26:38.000000000 +0200
-+++ b/buildconfig/BuildConfig.cpp.in	2026-07-24 10:35:43.145974310 +0200
-@@ -117,6 +117,7 @@
+diff --git a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
+index 14d8236d8..535583d71 100644
+--- a/buildconfig/BuildConfig.cpp.in
++++ b/buildconfig/BuildConfig.cpp.in
+@@ -117,6 +117,7 @@ Config::Config()
  
      GLFW_LIBRARY_NAME = "@Launcher_GLFW_LIBRARY_NAME@";
      OPENAL_LIBRARY_NAME = "@Launcher_OPENAL_LIBRARY_NAME@";
@@ -28,10 +30,11 @@ diff -ruN a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
  
      BUG_TRACKER_URL = "@Launcher_BUG_TRACKER_URL@";
      TRANSLATIONS_URL = "@Launcher_TRANSLATIONS_URL@";
-diff -ruN a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
---- a/buildconfig/BuildConfig.h	2026-07-11 20:26:38.000000000 +0200
-+++ b/buildconfig/BuildConfig.h	2026-07-24 10:35:43.145974310 +0200
-@@ -165,6 +165,7 @@
+diff --git a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
+index a5851bfba..fd2add9f9 100644
+--- a/buildconfig/BuildConfig.h
++++ b/buildconfig/BuildConfig.h
+@@ -165,6 +165,7 @@ class Config {
  
      QString GLFW_LIBRARY_NAME;
      QString OPENAL_LIBRARY_NAME;
@@ -39,27 +42,27 @@ diff -ruN a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
  
      QString BUG_TRACKER_URL;
      QString TRANSLATIONS_URL;
-diff -ruN a/launcher/Application.cpp b/launcher/Application.cpp
---- a/launcher/Application.cpp	2026-07-11 20:26:38.000000000 +0200
-+++ b/launcher/Application.cpp	2026-07-24 10:35:43.145974310 +0200
-@@ -757,10 +757,12 @@
+diff --git a/launcher/Application.cpp b/launcher/Application.cpp
+index 2b9433ae0..f9aa43dab 100644
+--- a/launcher/Application.cpp
++++ b/launcher/Application.cpp
+@@ -757,10 +757,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
          m_settings->registerSetting("OnlineFixes", false);
  
          // Native library workarounds
 -        m_settings->registerSetting("UseNativeOpenAL", false);
 -        m_settings->registerSetting("CustomOpenALPath", "");
--        m_settings->registerSetting("UseNativeGLFW", false);
--        m_settings->registerSetting("CustomGLFWPath", "");
 +        m_settings->registerSetting("UseNativeOpenAL", true);
 +        m_settings->registerSetting("CustomOpenALPath", "/usr/lib/libopenal.so.1");
-+        m_settings->registerSetting("UseNativeGLFW", true);
+         m_settings->registerSetting("UseNativeGLFW", false);
+-        m_settings->registerSetting("CustomGLFWPath", "");
 +        m_settings->registerSetting("CustomGLFWPath", "/usr/lib/libglfw.so.3");
 +        m_settings->registerSetting("UseNativeJemalloc", true);
 +        m_settings->registerSetting("CustomJemallocPath", "/usr/lib/libjemalloc.so.2");
  
          // Performance related options
          m_settings->registerSetting("EnableFeralGamemode", false);
-@@ -1847,7 +1849,8 @@
+@@ -1841,7 +1843,8 @@ void Application::detectLibraries()
  #ifdef Q_OS_LINUX
      m_detectedGLFWPath = LibraryUtils::find(BuildConfig.GLFW_LIBRARY_NAME);
      m_detectedOpenALPath = LibraryUtils::find(BuildConfig.OPENAL_LIBRARY_NAME);
@@ -69,10 +72,11 @@ diff -ruN a/launcher/Application.cpp b/launcher/Application.cpp
  #endif
  }
  
-diff -ruN a/launcher/Application.h b/launcher/Application.h
---- a/launcher/Application.h	2026-07-11 20:26:38.000000000 +0200
-+++ b/launcher/Application.h	2026-07-24 10:35:43.145974310 +0200
-@@ -305,6 +305,7 @@
+diff --git a/launcher/Application.h b/launcher/Application.h
+index 936e13d71..acb8f657f 100644
+--- a/launcher/Application.h
++++ b/launcher/Application.h
+@@ -305,6 +305,7 @@ class Application : public QApplication {
     public:
      QString m_detectedGLFWPath;
      QString m_detectedOpenALPath;
@@ -80,10 +84,11 @@ diff -ruN a/launcher/Application.h b/launcher/Application.h
      QString m_instanceIdToLaunch;
      QString m_serverToJoin;
      QString m_worldToJoin;
-diff -ruN a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/MinecraftInstance.cpp
---- a/launcher/minecraft/MinecraftInstance.cpp	2026-07-11 20:26:38.000000000 +0200
-+++ b/launcher/minecraft/MinecraftInstance.cpp	2026-07-24 10:35:43.145974310 +0200
-@@ -218,6 +218,8 @@
+diff --git a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/MinecraftInstance.cpp
+index c92e924c7..ebe0d7407 100644
+--- a/launcher/minecraft/MinecraftInstance.cpp
++++ b/launcher/minecraft/MinecraftInstance.cpp
+@@ -218,6 +218,8 @@ void MinecraftInstance::loadSpecificSettings()
          m_settings->registerOverride(global_settings->getSetting("CustomOpenALPath"), nativeLibraryWorkaroundsOverride);
          m_settings->registerOverride(global_settings->getSetting("UseNativeGLFW"), nativeLibraryWorkaroundsOverride);
          m_settings->registerOverride(global_settings->getSetting("CustomGLFWPath"), nativeLibraryWorkaroundsOverride);
@@ -92,7 +97,7 @@ diff -ruN a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/Minecr
  
          // Performance related options
          auto performanceOverride = m_settings->registerSetting("OverridePerformance", false);
-@@ -541,6 +543,7 @@
+@@ -543,6 +545,7 @@ QStringList MinecraftInstance::extraArguments()
      {
          QString openALPath;
          QString glfwPath;
@@ -100,7 +105,7 @@ diff -ruN a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/Minecr
  
          if (settings()->get("UseNativeOpenAL").toBool()) {
              openALPath = APPLICATION->m_detectedOpenALPath;
-@@ -554,14 +557,23 @@
+@@ -556,14 +559,23 @@ QStringList MinecraftInstance::extraArguments()
              if (!customPath.isEmpty())
                  glfwPath = customPath;
          }
@@ -124,7 +129,7 @@ diff -ruN a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/Minecr
      }
  
      return list;
-@@ -965,11 +977,14 @@
+@@ -967,11 +979,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
      auto settings = this->settings();
      bool nativeOpenAL = settings->get("UseNativeOpenAL").toBool();
      bool nativeGLFW = settings->get("UseNativeGLFW").toBool();
@@ -140,10 +145,11 @@ diff -ruN a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/Minecr
          out << emptyLine;
      }
  
-diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.cpp b/launcher/ui/widgets/MinecraftSettingsWidget.cpp
---- a/launcher/ui/widgets/MinecraftSettingsWidget.cpp	2026-07-11 20:26:38.000000000 +0200
-+++ b/launcher/ui/widgets/MinecraftSettingsWidget.cpp	2026-07-24 10:35:43.145974310 +0200
-@@ -143,6 +143,7 @@
+diff --git a/launcher/ui/widgets/MinecraftSettingsWidget.cpp b/launcher/ui/widgets/MinecraftSettingsWidget.cpp
+index 80798a08f..0f4c31fcd 100644
+--- a/launcher/ui/widgets/MinecraftSettingsWidget.cpp
++++ b/launcher/ui/widgets/MinecraftSettingsWidget.cpp
+@@ -143,6 +143,7 @@ MinecraftSettingsWidget::MinecraftSettingsWidget(MinecraftInstance* instance, QW
  
      connect(m_ui->useNativeOpenALCheck, &QAbstractButton::toggled, m_ui->lineEditOpenALPath, &QWidget::setEnabled);
      connect(m_ui->useNativeGLFWCheck, &QAbstractButton::toggled, m_ui->lineEditGLFWPath, &QWidget::setEnabled);
@@ -151,7 +157,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.cpp b/launcher/ui/widget
  
      loadSettings();
  }
-@@ -215,6 +216,13 @@
+@@ -215,6 +216,13 @@ void MinecraftSettingsWidget::loadSettings()
  #else
      m_ui->lineEditOpenALPath->setPlaceholderText(tr("Path to %1 library file").arg(BuildConfig.OPENAL_LIBRARY_NAME));
  #endif
@@ -165,26 +171,27 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.cpp b/launcher/ui/widget
  
      // Performance
      m_ui->perfomanceGroupBox->setChecked(m_instance == nullptr || settings->get("OverridePerformance").toBool());
-@@ -394,11 +402,15 @@
-             settings->set("CustomGLFWPath", m_ui->lineEditGLFWPath->text());
-             settings->set("UseNativeOpenAL", m_ui->useNativeOpenALCheck->isChecked());
-             settings->set("CustomOpenALPath", m_ui->lineEditOpenALPath->text());
-+            settings->set("UseNativeJemalloc", m_ui->useNativeJemallocCheck->isChecked());
-+            settings->set("CustomJemallocPath", m_ui->lineEditJemallocPath->text());
-         } else {
-             settings->reset("UseNativeGLFW");
-             settings->reset("CustomGLFWPath");
-             settings->reset("UseNativeOpenAL");
-             settings->reset("CustomOpenALPath");
-+            settings->reset("UseNativeJemalloc");
-+            settings->reset("CustomJemallocPath");
-         }
+@@ -391,11 +399,15 @@ void MinecraftSettingsWidget::saveSettings()
+         settings->set("CustomGLFWPath", m_ui->lineEditGLFWPath->text());
+         settings->set("UseNativeOpenAL", m_ui->useNativeOpenALCheck->isChecked());
+         settings->set("CustomOpenALPath", m_ui->lineEditOpenALPath->text());
++        settings->set("UseNativeJemalloc", m_ui->useNativeJemallocCheck->isChecked());
++        settings->set("CustomJemallocPath", m_ui->lineEditJemallocPath->text());
+     } else {
+         settings->reset("UseNativeGLFW");
+         settings->reset("CustomGLFWPath");
+         settings->reset("UseNativeOpenAL");
+         settings->reset("CustomOpenALPath");
++        settings->reset("UseNativeJemalloc");
++        settings->reset("CustomJemallocPath");
+     }
  
-         // Performance
-diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets/MinecraftSettingsWidget.ui
---- a/launcher/ui/widgets/MinecraftSettingsWidget.ui	2026-07-11 20:26:38.000000000 +0200
-+++ b/launcher/ui/widgets/MinecraftSettingsWidget.ui	2026-07-24 10:37:11.996765122 +0200
-@@ -660,6 +660,7 @@
+     // Performance
+diff --git a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets/MinecraftSettingsWidget.ui
+index a063f9660..a3027f33b 100644
+--- a/launcher/ui/widgets/MinecraftSettingsWidget.ui
++++ b/launcher/ui/widgets/MinecraftSettingsWidget.ui
+@@ -660,6 +660,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                <property name="labelAlignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
@@ -192,7 +199,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="2" column="0">
                 <widget class="QLabel" name="labelGLFWPath">
                  <property name="text">
-@@ -670,6 +671,7 @@
+@@ -670,6 +671,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -200,7 +207,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="4" column="0">
                 <spacer name="verticalSpacer_6">
                  <property name="orientation">
-@@ -686,6 +688,7 @@
+@@ -686,6 +688,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </spacer>
                </item>
@@ -208,7 +215,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="6" column="0">
                 <widget class="QLabel" name="labelOpenALPath">
                  <property name="text">
-@@ -696,6 +699,35 @@
+@@ -696,6 +699,35 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -244,7 +251,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="2" column="1">
                 <widget class="QLineEdit" name="lineEditGLFWPath">
                  <property name="enabled">
-@@ -703,6 +735,7 @@
+@@ -703,6 +735,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -252,7 +259,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="1" column="0" colspan="2">
                 <widget class="QCheckBox" name="useNativeGLFWCheck">
                  <property name="text">
-@@ -710,6 +743,7 @@
+@@ -710,6 +743,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -260,7 +267,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="5" column="0" colspan="2">
                 <widget class="QCheckBox" name="useNativeOpenALCheck">
                  <property name="text">
-@@ -717,6 +751,7 @@
+@@ -717,6 +751,7 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -268,7 +275,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
                <item row="6" column="1">
                 <widget class="QLineEdit" name="lineEditOpenALPath">
                  <property name="enabled">
-@@ -724,6 +759,23 @@
+@@ -724,6 +759,23 @@ It is most likely you will need to change the path - please refer to the mod's w
                  </property>
                 </widget>
                </item>
@@ -292,7 +299,7 @@ diff -ruN a/launcher/ui/widgets/MinecraftSettingsWidget.ui b/launcher/ui/widgets
               </layout>
              </widget>
             </item>
-@@ -922,7 +974,10 @@
+@@ -922,7 +974,10 @@ It is most likely you will need to change the path - please refer to the mod's w
    <tabstop>lineEditGLFWPath</tabstop>
    <tabstop>useNativeOpenALCheck</tabstop>
    <tabstop>lineEditOpenALPath</tabstop>
