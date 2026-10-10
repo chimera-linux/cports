@@ -1,0 +1,20 @@
+--- a/test/core/test_pkgrepo.py
++++ b/test/core/test_pkgrepo.py
+@@ -16,6 +16,7 @@ def test_pkgrepo_paths_no_repos(pmb_args: None) -> None:
+         pkgrepo_paths()
+ 
+ 
++@pytest.mark.skip("requires network access or checked out pmaports")
+ def test_pkgrepo_pmaports(pmaports: None, monkeypatch: MonkeyPatch) -> None:
+     """Test pkgrepo_paths() with pmaports repository and systemd extra repo"""
+     # Disable results caching
+--- a/test/parse/test_deviceinfo.py
++++ b/test/parse/test_deviceinfo.py
+@@ -189,6 +189,7 @@ def random_valid_deviceinfo(tmp_path: Path) -> Path:
+ 
+ # Test deviceinfo files that are technically valid but have bogus data
+ # These are expected to get more strict as the parser is improved
++@pytest.mark.skip("requires network access or checked out pmaports")
+ def test_random_valid_deviceinfos(tmp_path: Path) -> None:
+     for _ in range(1000):
+         info_path = random_valid_deviceinfo(tmp_path)
