@@ -1,5 +1,5 @@
 pkgname = "rustypaste-cli"
-pkgver = "0.9.4"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -12,7 +12,7 @@ pkgdesc = "CLI client for rustypaste"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d12b8acb028a92fc6d16347ce3c4b3fa89c86cb902a4a291c116077cc41b1e92"
+sha256 = "cfa4fa94d950c59eb0474e2387e0171d77fba3abfbecef4ffbf520dbb897de44"
 # no tests defined
 options = ["!check"]
 
