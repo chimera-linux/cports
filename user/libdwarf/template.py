@@ -1,5 +1,5 @@
 pkgname = "libdwarf"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Library to access DWARF debugging information"
 license = "LGPL-2.1-only AND GPL-2.0-only AND BSD-2-Clause AND BSD-3-Clause"
 url = "https://www.prevanders.net/dwarf.html"
 source = f"https://github.com/davea42/libdwarf-code/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7be0e6e17847b503317ed11ebf28668e6300b198cae3ec36cfe9126767c3be27"
+sha256 = "5917068ba221d22c866331007b0bce8cb0d125513d3f4cdcc3efa0f20152feac"
 
 
 def post_install(self):
