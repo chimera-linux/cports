@@ -1,5 +1,5 @@
 pkgname = "tokei"
-pkgver = "14.0.0"
+pkgver = "15.0.0"
 pkgrel = 0
 build_style = "cargo"
 # we patch lockfile
@@ -10,7 +10,7 @@ pkgdesc = "CLI for counting lines of code with stats per language"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/XAMPPRocky/tokei"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4e561dbb83ef1b46359714fc623fd45eddfb14821ece63a219470500fdd1cd26"
+sha256 = "966da7b9a81ac6cb777b9f159f4c02e5b83a8b8bd30ebf5991007839926b600c"
 
 
 def post_install(self):

@@ -1,15 +1,5 @@
-From 7e0627eca9f8cd055098479f21d7e2d67a63bf33 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
-Date: Wed, 26 Nov 2025 23:39:52 +0100
-Subject: [PATCH] bump git2/libgit2-sys, bump libc
-
----
- Cargo.lock | 392 +++++++++++++++++++++++++++++++++++++++++++----------
- Cargo.toml |   2 +-
- 2 files changed, 325 insertions(+), 69 deletions(-)
-
 diff --git a/Cargo.lock b/Cargo.lock
-index 961422f..0d7bdf3 100644
+index 9ce1962..81e8843 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -113,9 +113,9 @@ checksum = "349f9b6a179ed607305526ca489b34ad0a41aed5f7980fa90eb03160b69598fb"
@@ -107,7 +97,7 @@ index 961422f..0d7bdf3 100644
  dependencies = [
   "bitflags",
   "libc",
-@@ -615,14 +645,106 @@ dependencies = [
+@@ -621,14 +651,106 @@ dependencies = [
   "cc",
  ]
  
@@ -218,7 +208,7 @@ index 961422f..0d7bdf3 100644
  ]
  
  [[package]]
-@@ -674,10 +796,11 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
+@@ -680,10 +802,11 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
  
  [[package]]
  name = "jobserver"
@@ -232,7 +222,7 @@ index 961422f..0d7bdf3 100644
   "libc",
  ]
  
-@@ -709,15 +832,15 @@ checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
+@@ -715,15 +838,15 @@ checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
  
  [[package]]
  name = "libc"
@@ -252,7 +242,7 @@ index 961422f..0d7bdf3 100644
  dependencies = [
   "cc",
   "libc",
-@@ -733,9 +856,9 @@ checksum = "4ec2a862134d2a7d32d7983ddcdd1c4923530833c9f2ea1a44fc5fa473989058"
+@@ -739,9 +862,9 @@ checksum = "4ec2a862134d2a7d32d7983ddcdd1c4923530833c9f2ea1a44fc5fa473989058"
  
  [[package]]
  name = "libz-sys"
@@ -264,7 +254,7 @@ index 961422f..0d7bdf3 100644
  dependencies = [
   "cc",
   "libc",
-@@ -749,6 +872,12 @@ version = "0.4.14"
+@@ -755,6 +878,12 @@ version = "0.4.14"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
  
@@ -277,7 +267,7 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "lock_api"
  version = "0.4.12"
-@@ -761,9 +890,9 @@ dependencies = [
+@@ -767,9 +896,9 @@ dependencies = [
  
  [[package]]
  name = "log"
@@ -289,7 +279,7 @@ index 961422f..0d7bdf3 100644
  
  [[package]]
  name = "memchr"
-@@ -840,9 +969,9 @@ dependencies = [
+@@ -846,9 +975,9 @@ dependencies = [
  
  [[package]]
  name = "percent-encoding"
@@ -301,7 +291,7 @@ index 961422f..0d7bdf3 100644
  
  [[package]]
  name = "pest"
-@@ -929,9 +1058,18 @@ dependencies = [
+@@ -935,9 +1064,18 @@ dependencies = [
  
  [[package]]
  name = "pkg-config"
@@ -322,7 +312,7 @@ index 961422f..0d7bdf3 100644
  
  [[package]]
  name = "ppv-lite86"
-@@ -944,9 +1082,9 @@ dependencies = [
+@@ -950,9 +1088,9 @@ dependencies = [
  
  [[package]]
  name = "proc-macro2"
@@ -334,7 +324,7 @@ index 961422f..0d7bdf3 100644
  dependencies = [
   "unicode-ident",
  ]
-@@ -979,13 +1117,19 @@ checksum = "a1d01941d82fa2ab50be1e79e6714289dd7cde78eba4c074bc5a4374f650dfe0"
+@@ -985,13 +1123,19 @@ checksum = "a1d01941d82fa2ab50be1e79e6714289dd7cde78eba4c074bc5a4374f650dfe0"
  
  [[package]]
  name = "quote"
@@ -356,7 +346,7 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "rand"
  version = "0.8.5"
-@@ -1013,7 +1157,7 @@ version = "0.6.4"
+@@ -1019,7 +1163,7 @@ version = "0.6.4"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
  dependencies = [
@@ -365,44 +355,7 @@ index 961422f..0d7bdf3 100644
  ]
  
  [[package]]
-@@ -1137,10 +1281,11 @@ checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
- 
- [[package]]
- name = "serde"
--version = "1.0.208"
-+version = "1.0.228"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "cff085d2cb684faa248efb494c39b68e522822ac0de72ccf08109abde717cfb2"
-+checksum = "9a8e94ea7f378bd32cbbd37198a4a91436180c5bb472411e48b5ec2e2124ae9e"
- dependencies = [
-+ "serde_core",
-  "serde_derive",
- ]
- 
-@@ -1154,11 +1299,20 @@ dependencies = [
-  "serde",
- ]
- 
-+[[package]]
-+name = "serde_core"
-+version = "1.0.228"
-+source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "41d385c7d4ca58e59fc732af25c3983b67ac852c1a25000afe1175de458b67ad"
-+dependencies = [
-+ "serde_derive",
-+]
-+
- [[package]]
- name = "serde_derive"
--version = "1.0.208"
-+version = "1.0.228"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "24008e81ff7613ed8e5ba0cfaf24e2c2f1e5b8a0495711e44fcd4882fca62bcf"
-+checksum = "d540f220d3187173da220f885ab66608367b6574e925011a9353e4badda91d79"
- dependencies = [
-  "proc-macro2",
-  "quote",
-@@ -1234,9 +1388,15 @@ dependencies = [
+@@ -1244,9 +1388,15 @@ dependencies = [
  
  [[package]]
  name = "smallvec"
@@ -420,14 +373,14 @@ index 961422f..0d7bdf3 100644
  
  [[package]]
  name = "strsim"
-@@ -1265,15 +1425,26 @@ dependencies = [
+@@ -1274,15 +1424,26 @@ dependencies = [
  
  [[package]]
  name = "syn"
--version = "2.0.74"
+-version = "2.0.87"
 +version = "2.0.117"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "1fceb41e3d546d0bd83421d3409b1460cc7444cd389341a4c880fe7a042cb3d7"
+-checksum = "25aa4ce346d03a6dcd68dd8b4010bcb74e54e62c90c573f394c46eae99aba32d"
 +checksum = "e665b8803e7b1d2a727f4023456bbbbe74da67099c585258af0ad9c5013b9b99"
  dependencies = [
   "proc-macro2",
@@ -449,7 +402,7 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "table_formatter"
  version = "0.6.1"
-@@ -1361,20 +1532,15 @@ dependencies = [
+@@ -1370,20 +1531,15 @@ dependencies = [
  ]
  
  [[package]]
@@ -474,8 +427,8 @@ index 961422f..0d7bdf3 100644
 -
  [[package]]
  name = "tokei"
- version = "14.0.0"
-@@ -1516,26 +1682,11 @@ dependencies = [
+ version = "15.0.0"
+@@ -1530,26 +1686,11 @@ dependencies = [
   "unic-common",
  ]
  
@@ -488,14 +441,14 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "unicode-ident"
 -version = "1.0.12"
-+version = "1.0.24"
- source = "registry+https://github.com/rust-lang/crates.io-index"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
 -checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
 -
 -[[package]]
 -name = "unicode-normalization"
 -version = "0.1.23"
--source = "registry+https://github.com/rust-lang/crates.io-index"
++version = "1.0.24"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
 -checksum = "a56d1686db2308d901306f92a263857ef59ea39678a5458e7cb17f01415101f5"
 -dependencies = [
 - "tinyvec",
@@ -504,7 +457,7 @@ index 961422f..0d7bdf3 100644
  
  [[package]]
  name = "unsafe-libyaml"
-@@ -1545,15 +1696,22 @@ checksum = "673aac59facbab8a9007c7f6108d11f63b603f7cabff99fabf650fea5c32b861"
+@@ -1559,15 +1700,22 @@ checksum = "673aac59facbab8a9007c7f6108d11f63b603f7cabff99fabf650fea5c32b861"
  
  [[package]]
  name = "url"
@@ -529,7 +482,7 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "utf8parse"
  version = "0.2.2"
-@@ -1597,6 +1755,15 @@ version = "0.11.0+wasi-snapshot-preview1"
+@@ -1611,6 +1759,15 @@ version = "0.11.0+wasi-snapshot-preview1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
  
@@ -545,9 +498,9 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "wasm-bindgen"
  version = "0.2.93"
-@@ -1849,6 +2016,41 @@ dependencies = [
-  "memchr",
- ]
+@@ -1866,6 +2023,41 @@ version = "1.0.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "09dac053f1cd375980747450bfc7250c264eaae0583872e845c0c7cd578872b5"
  
 +[[package]]
 +name = "wit-bindgen"
@@ -587,7 +540,7 @@ index 961422f..0d7bdf3 100644
  [[package]]
  name = "zerocopy"
  version = "0.7.35"
-@@ -1869,3 +2071,57 @@ dependencies = [
+@@ -1886,3 +2078,57 @@ dependencies = [
   "quote",
   "syn",
  ]
@@ -646,15 +599,12 @@ index 961422f..0d7bdf3 100644
 + "syn",
 +]
 diff --git a/Cargo.toml b/Cargo.toml
-index 076f6e9..b038c9c 100644
+index df8094e..9d016ae 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -89,4 +89,4 @@ proptest = "1.5.0"
- strum = "0.26.3"
- strum_macros = "0.26.4"
+ strum = "0.28.0"
+ strum_macros = "0.28.0"
  tempfile = "3.12.0"
 -git2 = { version = "0.19.0", default-features = false, features = [] }
 +git2 = { version = "0.20.2", default-features = false, features = [] }
--- 
-2.53.0
-
