@@ -1,22 +1,21 @@
 pkgname = "vim"
 pkgver = "9.1.0880"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
     "--enable-gui=no",
-    # makes them dynamically loaded so we don't install every scripting language
-    # by default
+    # dynamically loaded so the language runtimes don't need to be installed
     "--enable-luainterp=dynamic",
     "--enable-rubyinterp=dynamic",
     "--enable-python3interp=dynamic",
     "--with-compiledby=Chimera Linux",
     "--without-x",
 ]
-# completely broken reconf for some reason
-configure_gen = []
+configure_gen = ["autoreconf", "-if", "src"]
 make_dir = "."
 make_check_target = "test"
+hostmakedepends = ["automake"]
 makedepends = [
     "acl-devel",
     "libsodium-devel",
@@ -31,15 +30,16 @@ license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "011d2653dffbd74239794348fdd01d67fcdaddb55c27f7b706f4cc00a3b16f22"
-tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/etc/vim/vimrc"']}
-hardening = ["vis", "!cfi"]
+tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"']}
 # require a million system-specific fixes
-options = ["etcfiles", "!check"]
+options = ["!check"]
 
 
 def post_install(self):
-    self.install_file(self.files_path / "vimrc", "etc/vim")
+    self.install_file(self.files_path / "vimrc", "usr/share/vim")
     self.install_license("LICENSE")
+    # gui is not built, refers to nothing
+    self.uninstall("usr/share/applications/gvim.desktop")
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
     self.uninstall("usr/bin/ex")

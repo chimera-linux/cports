@@ -1,4 +1,9 @@
-" some sane defaults
+if filereadable("/etc/vim/vimrc")
+  " system override copy (our defaults replaced)
+  source /etc/vim/vimrc
+else
+
+" some sane defaults when not overridden
 set nocompatible        " Use Vim defaults (much better!)
 set bs=2                " Allow backspacing over everything in insert mode
 set ai                  " Always set auto-indenting on
@@ -15,5 +20,8 @@ set nomodeline
 syntax on
 
 if filereadable("/etc/vim/vimrc.local")
+  " system non-override vimrc (our defaults preserved)
   source /etc/vim/vimrc.local
+endif
+
 endif
