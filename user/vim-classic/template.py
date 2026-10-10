@@ -14,6 +14,8 @@ configure_args = [
 ]
 configure_gen = ["autoreconf", "-if", "src"]
 make_dir = "."
+# install targets race each other for directories
+make_install_args = ["-j1"]
 make_check_target = "test"
 hostmakedepends = ["automake"]
 makedepends = [
