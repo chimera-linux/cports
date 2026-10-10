@@ -1,10 +1,13 @@
+ Makefile | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
 diff --git a/Makefile b/Makefile
-index 94f76e3..0e516c1 100644
+index 76a11e4..b081d8f 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -51,7 +51,7 @@ pkgincludedir=$(includedir:$(prefix)/%=%)
  
- .PHONY: all clean data update manifest install
+ .PHONY: all clean data update manifest install test_install_uninstall
  
 -all: libutf8proc.a libutf8proc.$(SHLIB_EXT)
 +all: libutf8proc.$(SHLIB_EXT)
@@ -24,3 +27,11 @@ index 94f76e3..0e516c1 100644
  	$(INSTALL) -m 755 libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)
  	mkdir -m 755 -p $(DESTDIR)$(pkgconfigdir)
  	$(INSTALL) -m 644 libutf8proc.pc $(DESTDIR)$(pkgconfigdir)/libutf8proc.pc
+@@ -120,7 +119,6 @@ endif
+ 
+ uninstall:
+ 	$(RM) $(DESTDIR)$(includedir)/utf8proc.h
+-	$(RM) $(DESTDIR)$(libdir)/libutf8proc.a
+ 	$(RM) $(DESTDIR)$(libdir)/libutf8proc.$(SHLIB_VERS_EXT) $(DESTDIR)$(libdir)/libutf8proc.$(SHLIB_EXT)
+ 	$(RM) $(DESTDIR)$(pkgconfigdir)/libutf8proc.pc
+ ifneq ($(OS),Darwin)
