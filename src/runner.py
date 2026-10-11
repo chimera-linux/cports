@@ -2034,7 +2034,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
         ofailed = failed
         failed = False
         tp = _do_with_exc(
-            lambda: template.Template(
+            lambda pn=pn: template.Template(
                 pn,
                 tarch,
                 opt_force,
@@ -2125,9 +2125,9 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
                     continue
                 # ensure to write the status
                 if _do_with_exc(
-                    lambda: build.build(
+                    lambda tp=tp: build.build(
                         "pkg",
-                        templates[pn],
+                        tp,
                         {},
                         dirty=False,
                         keep_temp=False,

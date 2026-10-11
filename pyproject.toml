@@ -18,9 +18,6 @@ extend-select = [
     'ISC002',
 ]
 ignore = [
-    # unbound for argument in lambda: all our uses are harmless
-    # because we don't delay execution of the passed lambda
-    'B023',
     # no
     'C417',
     # long source lines
