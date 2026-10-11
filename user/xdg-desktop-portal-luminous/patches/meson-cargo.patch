@@ -1,0 +1,59 @@
+diff --git a/meson.build b/meson.build
+index d89cb88d..e9ef9444 100644
+--- a/meson.build
++++ b/meson.build
+@@ -16,36 +16,23 @@ if get_option('debug')
+     cargo,
+     'build',
+     '&&',
+-    'cp',
+-    meson.global_source_root() / 'target' / 'debug' / meson.project_name(),
+-    '@OUTPUT@',
+   ]
+   command_helper = [
+     cargo,
+     'build',
+     '--package', 'lumious_headless_helper',
+-    '&&',
+-    'cp',
+-    meson.global_source_root() / 'target' / 'debug' / helper_name,
+-    '@OUTPUT@',
+   ]
+ else
+   command_main = [
+     cargo,
+     'build',
+-    '--release', '&&',
+-    'cp',
+-    meson.global_source_root() / 'target' / 'release' / meson.project_name(),
+-    '@OUTPUT@',
++    '--release',
+   ]
+   command_helper = [
+     cargo,
+     'build',
+     '--package', 'lumious_headless_helper',
+-    '--release', '&&',
+-    'cp',
+-    meson.global_source_root() / 'target' / 'release' / helper_name,
+-    '@OUTPUT@',
++    '--release',
+   ]
+ endif
+
+@@ -80,7 +67,6 @@ custom_target(
+   'xdg-desktop-portal-luminous',
+   output: 'xdg-desktop-portal-luminous',
+   build_by_default: true,
+-  install: true,
+   install_dir: xdg_install_dir,
+   console: true,
+   command: command_main,
+@@ -89,7 +75,6 @@ custom_target(
+   'lumious_headless_helper',
+   output: helper_name,
+   build_by_default: true,
+-  install: true,
+   install_dir: bindir,
+   console: true,
+   command: command_helper,
