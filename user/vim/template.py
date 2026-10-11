@@ -1,7 +1,7 @@
 # the vimrc is shared with vim-classic, rebuild that too if you change it
 pkgname = "vim"
-pkgver = "9.1.0880"
-pkgrel = 5
+pkgver = "9.2.1172"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -30,7 +30,7 @@ pkgdesc = "Vi-style text editor"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "011d2653dffbd74239794348fdd01d67fcdaddb55c27f7b706f4cc00a3b16f22"
+sha256 = "d4f7a793d2cf80ad6bb09085746515979d049e79e5839d8b68325688b47af297"
 tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"']}
 # require a million system-specific fixes
 options = ["!check"]
