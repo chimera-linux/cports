@@ -124,7 +124,10 @@ def _prepare_etc():
 
     # Create groups for the chroot
     if (paths.bldroot() / "usr/bin/sd-sysusers").is_file():
-        enter("sd-sysusers", capture_output=True, check=True)
+        try:
+            enter("sd-sysusers", capture_output=True, check=True)
+        except Exception:
+            pass
 
 
 def _init():
