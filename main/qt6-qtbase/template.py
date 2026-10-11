@@ -236,7 +236,7 @@ def _(self):
     ]
 
 
-def _libpkg(name, libname, desc, extra=[]):
+def _libpkg(name, libname, desc, extra=None):
     @subpackage(f"qt6-qtbase-{name}")
     def _(self):
         self.subdesc = desc
@@ -246,7 +246,7 @@ def _libpkg(name, libname, desc, extra=[]):
                 "virtual:qt6-qttranslations!qt6-qtbase-translations-none"
             ]
 
-        return [f"usr/lib/libQt6{libname}.so.*", *extra]
+        return [f"usr/lib/libQt6{libname}.so.*", *(extra or [])]
 
 
 for _sp in [

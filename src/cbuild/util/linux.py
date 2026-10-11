@@ -30,7 +30,7 @@ def _build_env(pkg, menv, base_env, env):
     return renv
 
 
-def configure(pkg, extra_args=[], build_dir=None, env=None):
+def configure(pkg, extra_args=None, build_dir=None, env=None):
     cfgarch = pkg.profile.arch
 
     for f in pkg.files_path.glob("config-*"):
@@ -56,14 +56,14 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
         f"EPOCH={epoch}",
         f"SPLIT_DBG={'1' if pkg.build_dbg else '0'}",
         *args,
-        *extra_args,
+        *(extra_args or []),
         env=_build_env(pkg, pkg.configure_env, None, env),
     )
 
 
-def update_configs(pkg, archs, extra_args=[]):
+def update_configs(pkg, archs, extra_args=None):
     flavor = "generic"
-    for flv in extra_args:
+    for flv in extra_args or []:
         if flv.startswith("FLAVOR="):
             flavor = flv.removeprefix("FLAVOR=")
     for a in archs:

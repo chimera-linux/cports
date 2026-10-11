@@ -1,9 +1,9 @@
 class Make:
-    def __init__(self, tmpl, jobs=None, command=None, env={}, wrksrc=None):
+    def __init__(self, tmpl, jobs=None, command=None, env=None, wrksrc=None):
         self.template = tmpl
         self.command = command or tmpl.make_cmd
         self.wrksrc = wrksrc
-        self.env = env
+        self.env = env or {}
         self.jobs = jobs
 
     def _invoke(
@@ -13,7 +13,8 @@ class Make:
         if base_env:
             renv.update(base_env)
         renv.update(self.env)
-        renv.update(env)
+        if env:
+            renv.update(env)
 
         if not jobs:
             jobs = self.jobs
@@ -29,7 +30,8 @@ class Make:
             else:
                 argsbase.append(str(targets))
 
-        argsbase += args
+        if args:
+            argsbase += args
 
         if not wrksrc:
             wrksrc = self.wrksrc
@@ -37,8 +39,8 @@ class Make:
             wrksrc = self.template.make_dir
 
         return self.template.do(
-            *wrapper,
-            *ewrapper,
+            *(wrapper or []),
+            *(ewrapper or []),
             *self.template.make_wrapper,
             self.command,
             *argsbase,
@@ -47,11 +49,19 @@ class Make:
         )
 
     def invoke(
-        self, targets=[], args=[], jobs=None, env={}, wrksrc=None, wrapper=[]
+        self,
+        targets=None,
+        args=None,
+        jobs=None,
+        env=None,
+        wrksrc=None,
+        wrapper=None,
     ):
-        return self._invoke(targets, args, jobs, None, env, wrksrc, [], wrapper)
+        return self._invoke(
+            targets, args, jobs, None, env, wrksrc, None, wrapper
+        )
 
-    def build(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
+    def build(self, args=None, jobs=None, env=None, wrksrc=None, wrapper=None):
         pkg = self.template
         return self._invoke(
             pkg.make_build_target,
@@ -66,13 +76,13 @@ class Make:
 
     def install(
         self,
-        args=[],
+        args=None,
         jobs=None,
-        env={},
+        env=None,
         default_args=True,
         args_use_env=False,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         pkg = self.template
         argsbase = []
@@ -88,7 +98,8 @@ class Make:
                 env = renv
 
         argsbase += pkg.make_install_args
-        argsbase += args
+        if args:
+            argsbase += args
 
         return self._invoke(
             pkg.make_install_target,
@@ -101,7 +112,7 @@ class Make:
             wrapper,
         )
 
-    def check(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
+    def check(self, args=None, jobs=None, env=None, wrksrc=None, wrapper=None):
         pkg = self.template
         return self._invoke(
             pkg.make_check_target,

@@ -10,7 +10,9 @@ def call(args, gitconfig=False, foreground=False, cwd=None):
         # still use the rest of the environment
         bcmd = ["env", "-u", "HOME", "-u", "XDG_CONFIG_HOME", "--", "git"]
 
-    ret = subprocess.run(bcmd + args, capture_output=not foreground, cwd=cwd)
+    ret = subprocess.run(
+        bcmd + args, capture_output=not foreground, cwd=cwd, check=False
+    )
 
     if ret.returncode != 0:
         return None

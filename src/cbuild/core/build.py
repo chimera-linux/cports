@@ -849,7 +849,8 @@ def _build_locked(
                     "0",
                     "--",
                     *mkcmd,
-                ]
+                ],
+                check=False,
             )
         else:
             # better, still cannot use pkg.do :(

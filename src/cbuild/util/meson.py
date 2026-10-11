@@ -56,7 +56,7 @@ endian = '{pkg.profile.endian}'
     return cfpath
 
 
-def configure(pkg, build_dir, meson_dir=None, extra_args=[], env={}):
+def configure(pkg, build_dir, meson_dir=None, extra_args=None, env=None):
     if not meson_dir:
         meson_dir = "."
 
@@ -102,33 +102,39 @@ def configure(pkg, build_dir, meson_dir=None, extra_args=[], env={}):
         "-Dpkgconfig.relocatable=false",
         "-Dpython.bytecompile=0",
         *cargs,
-        *extra_args,
+        *(extra_args or []),
         meson_dir,
         build_dir,
         env=env,
     )
 
 
-def invoke(pkg, command, build_dir, extra_args=[], env={}, wrapper=[]):
+def invoke(pkg, command, build_dir, extra_args=None, env=None, wrapper=None):
     pkg.do(
-        *wrapper,
+        *(wrapper or []),
         "meson",
         command,
-        *extra_args,
+        *(extra_args or []),
         wrksrc=build_dir,
         env=env,
     )
 
 
-def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+def install(pkg, build_dir, extra_args=None, env=None, wrapper=None):
     renv = {"DESTDIR": str(pkg.chroot_destdir)}
-    renv.update(env)
+    if env:
+        renv.update(env)
     invoke(
-        pkg, "install", build_dir, ["--no-rebuild", *extra_args], renv, wrapper
+        pkg,
+        "install",
+        build_dir,
+        ["--no-rebuild", *(extra_args or [])],
+        renv,
+        wrapper,
     )
 
 
-def test(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+def test(pkg, build_dir, extra_args=None, env=None, wrapper=None):
     invoke(
         pkg,
         "test",
@@ -138,7 +144,7 @@ def test(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
             "--print-errorlogs",
             "--num-processes",
             str(pkg.make_jobs),
-            *extra_args,
+            *(extra_args or []),
         ],
         env,
         wrapper,

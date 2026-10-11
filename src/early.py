@@ -8,7 +8,7 @@ import subprocess
 
 def fire():
     # we need structural pattern matching in templates and cbuild itself
-    if sys.version_info < (3, 12):
+    if (sys.version_info[0] * 100 + sys.version_info[1]) < 312:
         sys.exit("Python 3.12 or newer is required")
 
     # we rely on this existing
@@ -26,7 +26,7 @@ def fire():
         "rev-parse",
         "--is-inside-work-tree",
     ]
-    if subprocess.run(rcmd, capture_output=True).returncode != 0:
+    if subprocess.run(rcmd, capture_output=True, check=False).returncode != 0:
         sys.exit("You have to run cbuild from a git clone")
 
     # running as root interferes with the sandbox functionality

@@ -2,9 +2,9 @@ import re
 import shlex
 
 
-def strip_attach(pkg, strip_list, no_split=[]):
+def strip_attach(pkg, strip_list, no_split=None):
     do_split = pkg.rparent.options["debug"] and pkg.rparent.build_dbg
-    noset = {str(arg) for arg in no_split}
+    noset = {str(arg) for arg in (no_split or [])}
 
     # prepare a makefile, oh no
     with open(pkg.destdir / "Makefile", "w") as mkf:

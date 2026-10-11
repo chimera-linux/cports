@@ -5,8 +5,8 @@ def configure(
     pkg,
     build_dir,
     cmake_dir=None,
-    extra_args=[],
-    env={},
+    extra_args=None,
+    env=None,
     generator=None,
     cross_build=None,
 ):
@@ -107,58 +107,60 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         "-DCMAKE_INSTALL_SBINDIR=bin",
         "-DCMAKE_INSTALL_BINDIR=bin",
         "--fresh",
-        *extra_args,
+        *(extra_args or []),
         cdir,
         wrksrc=build_dir,
         env=env,
     )
 
 
-def build(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+def build(pkg, build_dir, extra_args=None, env=None, wrapper=None):
     eargs = []
     if pkg.verbose:
         eargs += ["--verbose"]
 
     pkg.do(
-        *wrapper,
+        *(wrapper or []),
         "cmake",
         "--build",
         ".",
         "--parallel",
         str(pkg.make_jobs),
         *eargs,
-        *extra_args,
+        *(extra_args or []),
         wrksrc=build_dir,
         env=env,
     )
 
 
-def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+def install(pkg, build_dir, extra_args=None, env=None, wrapper=None):
     renv = {"DESTDIR": str(pkg.chroot_destdir)}
-    renv.update(env)
+    if env:
+        renv.update(env)
 
     eargs = []
     if pkg.verbose:
         eargs += ["--verbose"]
 
     pkg.do(
-        *wrapper,
+        *(wrapper or []),
         "cmake",
         "--install",
         ".",
         *eargs,
-        *extra_args,
+        *(extra_args or []),
         wrksrc=build_dir,
         env=renv,
     )
 
 
-def ctest(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+def ctest(pkg, build_dir, extra_args=None, env=None, wrapper=None):
     renv = {
         "CTEST_PARALLEL_LEVEL": str(pkg.make_jobs),
         "CTEST_OUTPUT_ON_FAILURE": "1",
     }
-    renv.update(env)
+    if env:
+        renv.update(env)
 
     eargs = []
     if pkg.verbose:
@@ -169,10 +171,10 @@ def ctest(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
         return
 
     pkg.do(
-        *wrapper,
+        *(wrapper or []),
         "ctest",
         *eargs,
-        *extra_args,
+        *(extra_args or []),
         wrksrc=build_dir,
         env=renv,
     )

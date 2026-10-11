@@ -162,6 +162,7 @@ def call(
             cwd=cwd,
             env=env,
             capture_output=capture_output,
+            check=False,
         )
     if return_repos:
         return retv, crepos
@@ -352,6 +353,7 @@ def get_arch():
     sr = subprocess.run(
         ["env", "APK_CONFIG=/dev/null", paths.apk(), "--print-arch"],
         capture_output=True,
+        check=False,
     )
     if sr.returncode != 0:
         return None

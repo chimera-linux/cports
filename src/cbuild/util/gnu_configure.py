@@ -57,9 +57,9 @@ def configure(
     configure_args=None,
     configure_script=None,
     build_dir=None,
-    extra_args=[],
+    extra_args=None,
     generator=None,
-    env={},
+    env=None,
     sysroot=True,
 ):
     if not configure_script:
@@ -133,7 +133,8 @@ def configure(
         _read_cache(cachedir, "musl-linux", eenv)
 
     eenv.update(pkg.configure_env)
-    eenv.update(env)
+    if env:
+        eenv.update(env)
 
     # generate configure
     if generator:
@@ -148,7 +149,7 @@ def configure(
         cscript,
         *cargs,
         *configure_args,
-        *extra_args,
+        *(extra_args or []),
         wrksrc=build_dir,
         env=eenv,
     )

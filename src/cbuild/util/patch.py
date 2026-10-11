@@ -3,7 +3,7 @@ from cbuild.core import git
 import shutil
 
 
-def patch(pkg, patch_list, wrksrc=None, apply_args=[], stamp=False):
+def patch(pkg, patch_list, wrksrc=None, apply_args=None, stamp=False):
     if len(patch_list) == 0:
         return
 
@@ -24,7 +24,7 @@ def patch(pkg, patch_list, wrksrc=None, apply_args=[], stamp=False):
     srcmd = [
         "apply",
         "--whitespace=nowarn",
-        *apply_args,
+        *(apply_args or []),
     ]
 
     def _apply(p):

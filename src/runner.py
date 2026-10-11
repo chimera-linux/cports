@@ -1494,6 +1494,7 @@ def _get_unbuilt(outdated=False):
                 "*",
             ],
             capture_output=True,
+            check=False,
         )
         if outp.returncode != 0:
             return
@@ -2946,7 +2947,9 @@ def fire():
     cli.set_network(not opt_nonet)
 
     try:
-        aret = subprocess.run([paths.apk(), "--version"], capture_output=True)
+        aret = subprocess.run(
+            [paths.apk(), "--version"], capture_output=True, check=False
+        )
     except FileNotFoundError:
         logger.get().out(
             f"\f[red]cbuild: apk not found (expected path: {paths.apk()})"
@@ -2958,7 +2961,9 @@ def fire():
         sys.exit(1)
 
     try:
-        subprocess.run([paths.bwrap(), "--version"], capture_output=True)
+        subprocess.run(
+            [paths.bwrap(), "--version"], capture_output=True, check=False
+        )
     except FileNotFoundError:
         logger.get().out(
             f"\f[red]cbuild: bwrap not found (expected path: {paths.bwrap()})"

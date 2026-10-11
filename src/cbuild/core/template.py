@@ -1776,10 +1776,10 @@ class Template(Package):
             self.error(f"linter '{lsplit[1]}' is not executable")
 
         if lsplit[0] == "flake8":
-            subp = subprocess.run([lintcmd, self.template_path])
+            subp = subprocess.run([lintcmd, self.template_path], check=False)
         elif lsplit[0] == "ruff":
             subp = subprocess.run(
-                [lintcmd, "check", "--quiet", self.template_path]
+                [lintcmd, "check", "--quiet", self.template_path], check=False
             )
 
         if subp.returncode != 0:
@@ -1831,11 +1831,13 @@ class Template(Package):
                     "--check",
                     "--quiet",
                     self.template_path,
-                ]
+                ],
+                check=False,
             )
         elif fsplit[0] == "ruff":
             subp = subprocess.run(
-                [formatcmd, "format", "--diff", "--quiet", self.template_path]
+                [formatcmd, "format", "--diff", "--quiet", self.template_path],
+                check=False,
             )
 
         if subp.returncode != 0:
@@ -2009,49 +2011,49 @@ class Template(Package):
         return StampCheck(self, name)
 
     def get_tool_flags(
-        self, name, extra_flags=[], hardening=[], shell=False, target=None
+        self, name, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return pkg_profile(self, target)._get_tool_flags(
             self, name, extra_flags, hardening, shell
         )
 
     def get_cflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "CFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_cxxflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "CXXFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_fflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "FFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_ldflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "LDFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_rustflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "RUSTFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_goflags(
-        self, extra_flags=[], hardening=[], shell=False, target=None
+        self, extra_flags=None, hardening=None, shell=False, target=None
     ):
         return self.get_tool_flags(
             "GOFLAGS", extra_flags, hardening, shell, target

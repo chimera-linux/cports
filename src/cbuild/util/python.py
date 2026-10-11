@@ -19,7 +19,7 @@ def precompile(pkg, path):
     )
 
 
-def setup_wheel_venv(pkg, dest, target="dist/*.whl", args=[], wrapper=[]):
+def setup_wheel_venv(pkg, dest, target="dist/*.whl", args=None, wrapper=None):
     whl = list(
         map(
             lambda p: str(p.relative_to(pkg.cwd)),
@@ -41,13 +41,13 @@ def setup_wheel_venv(pkg, dest, target="dist/*.whl", args=[], wrapper=[]):
     pybin = pkg.chroot_cwd / dest / "bin/python3"
 
     pkg.do(
-        *wrapper,
+        *(wrapper or []),
         pybin,
         "-m",
         "installer",
         "--compile-bytecode",
         "0",
-        *args,
+        *(args or []),
         *whl,
     )
 

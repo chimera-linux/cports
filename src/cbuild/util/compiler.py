@@ -18,7 +18,13 @@ class GnuLike:
         self.ldflags = default_ldflags
 
     def invoke(
-        self, inputs, output, obj_file=False, flags=[], ldflags=[], quiet=False
+        self,
+        inputs,
+        output,
+        obj_file=False,
+        flags=None,
+        ldflags=None,
+        quiet=False,
     ):
         pkg = self.template
         # default flags + inputs are always passed
@@ -27,12 +33,13 @@ class GnuLike:
         if not obj_file:
             argsbase += self.ldflags
         # custom flags always
-        argsbase += flags
+        if flags:
+            argsbase += flags
         # custom ldflags sometimes
         if obj_file:
             # to compile an object file
             argsbase.append("-c")
-        else:
+        elif ldflags:
             argsbase += ldflags
         # output always
         argsbase += ["-o", str(pkg.chroot_cwd / output)]

@@ -29,6 +29,7 @@ def check_stage(arch, force=False, remote=False):
                 *args,
             ],
             capture_output=True,
+            check=False,
         )
 
     def _query_apk(*args):

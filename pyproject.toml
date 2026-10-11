@@ -18,9 +18,6 @@ extend-select = [
     'ISC002',
 ]
 ignore = [
-    # mutable default arguments: we have a bunch of those
-    # and all are harmless; not worth fixing rn but maybe later...
-    'B006',
     # unbound for argument in lambda: all our uses are harmless
     # because we don't delay execution of the passed lambda
     'B023',
@@ -28,18 +25,12 @@ ignore = [
     'C417',
     # long source lines
     'E501',
-    # someone decided that assigning to lambdas is bad???
-    'E731',
-    # unused unpack sequences
-    'F841',
     # unsorted imports, don't care
     'I001',
     # allow redundant open(, 'r')
     'UP015',
     # percent format: fuck you i won't do what you tell me
     'UP031',
-    # we check this intentionally
-    'UP036',
     # edontcare
     'RUF012',
     'RUF015',
@@ -62,8 +53,6 @@ ignore = [
     'ISC004',
     # looping dictionaries without .items() is bad ???
     'PLC0206',
-    # subprocess.run without explicit check=
-    'PLW1510',
     # exception catchall
     'BLE001',
     # datetime without tz; we only use it in the logger and it's fine

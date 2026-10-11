@@ -87,10 +87,10 @@ def get_environment(pkg, jobs=None, cache=False):
 
 
 class Cargo:
-    def __init__(self, tmpl, jobs=None, env={}, wrksrc=None):
+    def __init__(self, tmpl, jobs=None, env=None, wrksrc=None):
         self.template = tmpl
         self.wrksrc = wrksrc
-        self.env = env
+        self.env = env or {}
         self.jobs = jobs
 
     def _invoke(
@@ -121,7 +121,8 @@ class Cargo:
             renv.update(base_env)
 
         renv.update(self.env)
-        renv.update(env)
+        if env:
+            renv.update(env)
 
         if not wrksrc:
             wrksrc = self.wrksrc
@@ -147,12 +148,12 @@ class Cargo:
             )
 
         return self.template.do(
-            *wrapper,
-            *ewrapper,
+            *(wrapper or []),
+            *(ewrapper or []),
             "cargo",
             command,
             *bargs,
-            *args,
+            *(args or []),
             env=renv,
             wrksrc=wrksrc,
             allow_network=not offline,
@@ -162,18 +163,18 @@ class Cargo:
     def invoke(
         self,
         command,
-        args=[],
+        args=None,
         jobs=None,
         offline=True,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         return self._invoke(
             command, args, jobs, offline, None, env, wrksrc, [], wrapper
         )
 
-    def vendor(self, args=[], env={}, wrksrc=None, wrapper=[]):
+    def vendor(self, args=None, env=None, wrksrc=None, wrapper=None):
         dirn = self.template.cwd
         if wrksrc is not None:
             dirn = dirn / wrksrc
@@ -209,17 +210,17 @@ class Cargo:
 
     def build(
         self,
-        args=[],
+        args=None,
         command="build",
         jobs=None,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         tmpl = self.template
         return self._invoke(
             command,
-            ["--release", *tmpl.make_build_args, *args],
+            ["--release", *tmpl.make_build_args, *(args or [])],
             jobs,
             True,
             tmpl.make_build_env,
@@ -231,12 +232,12 @@ class Cargo:
 
     def cbuild(
         self,
-        args=[],
+        args=None,
         command="cbuild",
         jobs=None,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         return self.build(
             [
@@ -246,7 +247,7 @@ class Cargo:
                 "cdylib",
                 "--library-type",
                 "staticlib",
-                *args,
+                *(args or []),
             ],
             command,
             jobs,
@@ -257,12 +258,12 @@ class Cargo:
 
     def install(
         self,
-        args=[],
+        args=None,
         command="install",
         jobs=None,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         tmpl = self.template
         retv = self._invoke(
@@ -274,7 +275,7 @@ class Cargo:
                 ".",
                 "--no-track",
                 *tmpl.make_install_args,
-                *args,
+                *(args or []),
             ],
             jobs,
             True,
@@ -288,12 +289,12 @@ class Cargo:
 
     def cinstall(
         self,
-        args=[],
+        args=None,
         command="cinstall",
         jobs=None,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         tmpl = self.template
         retv = self._invoke(
@@ -308,7 +309,7 @@ class Cargo:
                 "--destdir",
                 str(tmpl.chroot_destdir),
                 *tmpl.make_install_args,
-                *args,
+                *(args or []),
             ],
             jobs,
             True,
@@ -322,17 +323,17 @@ class Cargo:
 
     def check(
         self,
-        args=[],
+        args=None,
         command="test",
         jobs=None,
-        env={},
+        env=None,
         wrksrc=None,
-        wrapper=[],
+        wrapper=None,
     ):
         tmpl = self.template
         return self._invoke(
             command,
-            tmpl.make_check_args + args,
+            tmpl.make_check_args + (args or []),
             jobs,
             True,
             tmpl.make_check_env,
