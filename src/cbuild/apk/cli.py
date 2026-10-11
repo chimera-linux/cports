@@ -261,7 +261,7 @@ def summarize_repo(repopath, olist, quiet=False):
                     f"\f[orange]WARNING: Using lower version ({fromf} => {tof}): newer timestamp..."
                 )
 
-    for k, v in rtimes.items():
+    for v in rtimes.values():
         olist.append(v[1])
 
     return obsolete

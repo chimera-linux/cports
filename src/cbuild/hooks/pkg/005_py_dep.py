@@ -29,12 +29,12 @@ def invoke(pkg):
     if pkg.rparent.pkgname == f"python{pyver}":
         return
 
-    for i in range(0, len(pkg.install_if)):
+    for i in range(len(pkg.install_if)):
         if pkg.install_if[i] == "python-pycache":
             pkg.install_if[i] = f"python-pycache~{pyver}"
             break
 
-    for i in range(0, len(pkg.depends)):
+    for i in range(len(pkg.depends)):
         if pkg.depends[i] == "python":
             pkg.depends[i] = f"python{pyver}"
             break

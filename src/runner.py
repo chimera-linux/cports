@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 cbpath = None
 rtpath = None
 
@@ -1546,10 +1544,11 @@ def _get_unbuilt(outdated=False):
             or not hasattr(modv, "pkgrel")
         ):
             vers.append(pn)
+            continue
         # get the metadata we need
-        apn = getattr(modv, "pkgname")
-        apv = getattr(modv, "pkgver")
-        apr = getattr(modv, "pkgrel")
+        apn = modv.pkgname
+        apv = modv.pkgver
+        apr = modv.pkgrel
         if apv is None or apr is None:
             prv = ""
         else:
@@ -1678,10 +1677,8 @@ def do_update_check(tgt):
             target="lint",
         )
 
-        if len(tmpl.pkgver) > verlen:
-            verlen = len(tmpl.pkgver)
-        if len(tmpl.full_pkgname) > namelen:
-            namelen = len(tmpl.full_pkgname)
+        verlen = max(len(tmpl.pkgver), verlen)
+        namelen = max(len(tmpl.full_pkgname), namelen)
 
         return tmpl
 

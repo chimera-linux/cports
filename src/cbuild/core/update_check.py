@@ -413,7 +413,7 @@ def update_check(pkg, verbose=False, error=False):
         )
         modh = importlib.util.module_from_spec(modspec)
 
-        setattr(builtins, "self", uc)
+        builtins.self = uc
         modspec.loader.exec_module(modh)
         delattr(builtins, "self")
 

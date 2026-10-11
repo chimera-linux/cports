@@ -856,9 +856,9 @@ class Template(Package):
 
             return deco
 
-        setattr(builtins, "subpackage", subpkg_deco)
-        setattr(builtins, "custom_target", target_deco)
-        setattr(builtins, "self", self)
+        builtins.subpackage = subpkg_deco
+        builtins.custom_target = target_deco
+        builtins.self = self
 
         if contents:
             with tempfile.NamedTemporaryFile(

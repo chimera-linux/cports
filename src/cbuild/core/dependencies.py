@@ -55,8 +55,8 @@ def _srcpkg_ver(pkgn, pkgb):
     if not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
         return None, tmplv.full_pkgname
 
-    pver = getattr(modv, "pkgver")
-    prel = getattr(modv, "pkgrel")
+    pver = modv.pkgver
+    prel = modv.pkgrel
     if pver is None or prel is None:
         return None, tmplv.full_pkgname
 
@@ -315,7 +315,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     pprof = pkg.profile
     tarch = pprof.arch
-    cross = not not pprof.cross
+    cross = pprof.cross
 
     if pkg.pkgname != origpkg:
         pkg.log(f"building{style} (dependency of {origpkg}) for {tarch}...")

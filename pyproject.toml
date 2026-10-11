@@ -21,16 +21,11 @@ ignore = [
     # mutable default arguments: we have a bunch of those
     # and all are harmless; not worth fixing rn but maybe later...
     'B006',
-    # i will call getattr/setattr as much as i want
-    'B009',
-    'B010',
     # unbound for argument in lambda: all our uses are harmless
     # because we don't delay execution of the passed lambda
     'B023',
     # no
     'C417',
-    # black compat
-    'E203',
     # long source lines
     'E501',
     # someone decided that assigning to lambdas is bad???
@@ -61,15 +56,10 @@ ignore = [
     'SIM115',
     # they dislike nested with statements
     'SIM117',
-    # they dislike 'not not'; we want to turn it into a bool
-    'SIM208',
     # they dislike if checks for dictionaries
     'SIM401',
     # implicit string concat
     'ISC004',
-    # minor permissions thing, leave us alone
-    'EXE001',
-    'EXE002',
     # looping dictionaries without .items() is bad ???
     'PLC0206',
     # subprocess.run without explicit check=
@@ -91,14 +81,8 @@ ignore = [
     'RET501',
     # same as above, but different lol
     'PLR1711',
-    # range(0, x) vs range(x): unimportant
-    'PIE808',
     # multiple .startswith(): not important
     'PIE810',
     # i will not create my own exception
     'TRY002',
-    # iterating dict with key/value while only using the value
-    'PERF102',
-    # replace if statement with max() whatever
-    'PLR1730',
 ]
