@@ -143,6 +143,7 @@ def _prepare():
     if not (paths.bldroot() / "usr" / "bin" / "sh").is_file():
         raise errors.CbuildException("bootstrap not installed, can't continue")
 
+    (paths.bldroot() / "etc" / "localtime").unlink(missing_ok=True)
     (paths.bldroot() / "etc" / "localtime").symlink_to(
         "../usr/share/zoneinfo/UTC"
     )
