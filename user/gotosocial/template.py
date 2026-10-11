@@ -1,6 +1,6 @@
 pkgname = "gotosocial"
 pkgver = "0.22.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 prepare_after_patch = True
 make_build_args = [f"-ldflags=-X main.Version={pkgver}", "./cmd/gotosocial"]

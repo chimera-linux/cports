@@ -1,6 +1,6 @@
 pkgname = "dnscontrol"
 pkgver = "4.36.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "System for maintaining DNS zones"

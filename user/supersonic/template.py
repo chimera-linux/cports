@@ -1,6 +1,6 @@
 pkgname = "supersonic"
 pkgver = "0.22.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
 makedepends = [

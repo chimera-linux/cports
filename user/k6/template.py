@@ -1,6 +1,6 @@
 pkgname = "k6"
 pkgver = "1.6.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Load testing tool"

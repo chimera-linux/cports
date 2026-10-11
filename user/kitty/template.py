@@ -1,6 +1,6 @@
 pkgname = "kitty"
 pkgver = "0.46.2"
-pkgrel = 5
+pkgrel = 6
 hostmakedepends = [
     "fonts-nerd-symbols-only",
     "go",

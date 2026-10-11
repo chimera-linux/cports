@@ -1,6 +1,6 @@
 pkgname = "jjui"
 pkgver = "0.10.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/jjui"]
 hostmakedepends = ["go"]

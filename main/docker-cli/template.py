@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
 pkgver = "29.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 _commit = "4a63305d74332de5ceba7fcbccbc3cbb7412f5ba"
 make_build_target = "dynbinary"
