@@ -10,12 +10,17 @@ license = "MIT"
 url = "https://github.com/LouisBrunner/avahi2dns"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "6ccdaad8dfaa74e186b1592f3620af1b255fae719f70cfa3edfca1a1f66faeb1"
+# go generate fails with 1.27.2
+options = ["!check"]
 
 
-def pre_build(self):
-    from cbuild.util import golang
+def post_prepare(self):
+    # from cbuild.util import golang
 
-    self.do("go", "generate", ".", env=golang.get_go_env(self))
+    # self.do(
+    #     "go", "generate", ".", env=golang.get_go_env(self), allow_network=True
+    # )
+    pass
 
 
 def post_install(self):
