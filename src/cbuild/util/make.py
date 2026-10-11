@@ -65,7 +65,7 @@ class Make:
         pkg = self.template
         return self._invoke(
             pkg.make_build_target,
-            pkg.make_build_args + args,
+            pkg.make_build_args + (args or []),
             jobs,
             pkg.make_build_env,
             env,
