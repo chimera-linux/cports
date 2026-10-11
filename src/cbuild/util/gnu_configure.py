@@ -26,7 +26,7 @@ def _cache_expand(s, eenv):
         return eenv[v[0]]
 
     v = v[1]
-    if v.startswith("'") or v.startswith('"'):
+    if v.startswith(("'", '"')):
         vs = shlex.split(v)
         if len(vs) != 1:
             logger.get().log(f"Invalid cache entry value: {v}")
@@ -38,7 +38,7 @@ def _cache_expand(s, eenv):
 
 def _read_cache(cpath, cname, eenv):
     with open(cpath / cname) as f:
-        for ln in f.readlines():
+        for ln in f:
             ln = ln.strip()
             if len(ln) == 0 or ln[0] == "#":
                 continue

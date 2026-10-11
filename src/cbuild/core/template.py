@@ -1640,7 +1640,7 @@ class Template(Package):
                 # skip if it's a function and in hooks
                 if varn.startswith("pre_"):
                     cvarn = varn[4:]
-                elif varn.startswith("post_") or varn.startswith("init_"):
+                elif varn.startswith(("post_", "init_")):
                     cvarn = varn[5:]
                 else:
                     cvarn = varn
@@ -2812,7 +2812,7 @@ def _subpkg_install_list(self, lst):
 
 
 def _interp_url(pkg, url):
-    if not url.startswith("$(") and not url.startswith("!$("):
+    if not url.startswith(("$(", "!$(")):
         return url
 
     import re

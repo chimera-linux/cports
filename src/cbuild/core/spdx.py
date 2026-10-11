@@ -18,15 +18,7 @@ _license_inst = {
 def _license_install(lic):
     if lic in _license_inst:
         return True
-    if lic.startswith("AGPL-"):
-        return True
-    if lic.startswith("BSD-"):
-        return True
-    if lic.startswith("MIT"):
-        return True
-    if lic.startswith("OFL"):
-        return True
-    return False
+    return lic.startswith(("AGPL-", "BSD-", "MIT", "OFL"))
 
 
 class SPDXParser:
@@ -106,7 +98,7 @@ class SPDXParser:
                 tok = self.stream[0:idlen]
                 self.stream = self.stream[idlen:]
                 return tok
-            if tok.startswith("LicenseRef-") or tok.startswith("AdditionRef-"):
+            if tok.startswith(("LicenseRef-", "AdditionRef-")):
                 # licenseref, additionref stand on their own
                 self.stream = self.stream[idlen:]
                 return tok
@@ -149,7 +141,7 @@ class SPDXParser:
         if tok.endswith("+"):
             tok = tok[0 : len(tok) - 1]
         # custom licenses do not allow exceptions etc.
-        if tok.startswith("custom:") or tok.startswith("LicenseRef-"):
+        if tok.startswith(("custom:", "LicenseRef-")):
             if tok != "custom:none" and tok != "custom:meta":
                 self.need_install = True
         else:
@@ -169,7 +161,7 @@ class SPDXParser:
                 self.need_install = True
                 tok = self.token = self.lex()
             # custom exceptions
-            if tok.startswith("custom:") or tok.startswith("AdditionRef-"):
+            if tok.startswith(("custom:", "AdditionRef-")):
                 self.token = self.lex()
                 self.need_install = True
                 return

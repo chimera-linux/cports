@@ -39,8 +39,6 @@ ignore = [
     'S110',
     # they dislike nested if statements
     'SIM102',
-    # return bool(foo) directly: unimportant and subjective
-    'SIM103',
     # sometimes uncombined if branches are more readable
     'SIM114',
     # open without context manager: we only have a few and all are fine
@@ -60,16 +58,12 @@ ignore = [
     'FLY002',
     # for loop .write()
     'FURB122',
-    # f.readlines()
-    'FURB129',
     # string slicing is bad?
     'FURB188',
     # they dislike 'return None'
     'RET501',
     # same as above, but different lol
     'PLR1711',
-    # multiple .startswith(): not important
-    'PIE810',
     # i will not create my own exception
     'TRY002',
 ]
