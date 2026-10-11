@@ -506,7 +506,13 @@ def handle_options():
     if cmdline.accept_checksums:
         opt_acceptsum = True
 
-    ncores = len(os.sched_getaffinity(0))
+    try:
+        ncores = len(os.sched_getaffinity(0))
+    except Exception:
+        try:
+            ncores = os.cpu_count() or 1
+        except Exception:
+            ncores = 1
 
     if opt_makejobs == 0:
         opt_makejobs = ncores
