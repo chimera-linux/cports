@@ -6,10 +6,10 @@ build_style = "cmake"
 make_check_args = [
     "-E",
     "(default_configs_can_suspend_to_ram"
-    "|activities$"
-    "|activities_no_double_migration"
-    "|profiles$"
-    "|profiles_more)",
+    + "|activities$"
+    + "|activities_no_double_migration"
+    + "|profiles$"
+    + "|profiles_more)",
 ]
 hostmakedepends = [
     "cmake",

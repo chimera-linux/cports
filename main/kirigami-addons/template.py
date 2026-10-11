@@ -5,9 +5,9 @@ build_style = "cmake"
 make_check_args = [
     "-E",
     "(sounds"  # test_click() Compared values are not the same (0 vs 1), tst_sounds.qml:29
-    "|album_qmllistmodel"  # test_saveItem() & test_userCaption() Compared values are not the same (0 vs 1, true vs false), BaseAlbumMaximizeComponentTestCase.qml:(159,178)
-    "|album_abstractlistmodel"  # ^ same as above
-    "|album_qmlqobjectmodel)",  # ^ same as above
+    + "|album_qmllistmodel"  # test_saveItem() & test_userCaption() Compared values are not the same (0 vs 1, true vs false), BaseAlbumMaximizeComponentTestCase.qml:(159,178)
+    + "|album_abstractlistmodel"  # ^ same as above
+    + "|album_qmlqobjectmodel)",  # ^ same as above
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [

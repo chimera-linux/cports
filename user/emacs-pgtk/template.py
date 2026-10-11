@@ -15,11 +15,11 @@ configure_args = [
 ]
 make_check_args = [
     "EXCLUDE_TESTS="
-    " %eglot-tests.el"  # requires a variety of lsp servers
-    " %tramp-tests.el"  # TODO: fails mysteriously
-    " %shr-tests.el"  # TODO: zoom-image times out
-    " %process-tests.el"  # TODO: times out
-    " %package-vc-tests.el"  # TODO: hangs
+    + " %eglot-tests.el"  # requires a variety of lsp servers
+    + " %tramp-tests.el"  # TODO: fails mysteriously
+    + " %shr-tests.el"  # TODO: zoom-image times out
+    + " %process-tests.el"  # TODO: times out
+    + " %package-vc-tests.el"  # TODO: hangs
 ]
 hostmakedepends = [
     "automake",

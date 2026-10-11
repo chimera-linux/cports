@@ -6,7 +6,7 @@ build_style = "python_pep517"
 make_check_args = [
     "-k",
     "not test_link_to_dir_without_slashes "
-    "and not test_link_to_dir_with_slashes",
+    + "and not test_link_to_dir_with_slashes",
 ]
 hostmakedepends = [
     "python-build",

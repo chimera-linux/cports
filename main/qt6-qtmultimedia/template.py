@@ -9,7 +9,7 @@ configure_args = ["-DQT_BUILD_TESTS=OFF"]
 make_check_args = [
     "-E",
     "(tst_qscreencapturebackend"  # blacklisted on upstream CI, https://bugreports.qt.io/browse/QTBUG-111190
-    "|tst_qwindowcapturebackend)",  # cannot find any windows, "hangs" for 9 mins
+    + "|tst_qwindowcapturebackend)",  # cannot find any windows, "hangs" for 9 mins
 ]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [

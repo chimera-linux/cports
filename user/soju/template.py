@@ -4,8 +4,8 @@ pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags="
-    " -X codeberg.org/emersion/soju/config.DefaultPath=/etc/soju/config"
-    " -X codeberg.org/emersion/soju/config.DefaultUnixAdminPath=/run/soju/admin",
+    + " -X codeberg.org/emersion/soju/config.DefaultPath=/etc/soju/config"
+    + " -X codeberg.org/emersion/soju/config.DefaultUnixAdminPath=/run/soju/admin",
     "./contrib/...",
     "./cmd/...",
 ]

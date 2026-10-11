@@ -13,7 +13,7 @@ configure_env = {"CPPFLAGS": f"-I{self.profile.sysroot / 'usr/include'}"}
 # fail due to various reasons, mostly harmless ones
 make_check_args = [
     "TESTS=bpf.gen epoll_pwait.gen getcpu.gen open.gen read-write.gen "
-    "readlink.gen seccomp-filter.gen mmap ioctl caps"
+    + "readlink.gen seccomp-filter.gen mmap ioctl caps"
 ]
 hostmakedepends = ["automake", "libtool"]
 makedepends = ["elfutils-devel", "linux-headers"]

@@ -49,8 +49,6 @@ ignore = [
     'SIM117',
     # they dislike if checks for dictionaries
     'SIM401',
-    # implicit string concat
-    'ISC004',
     # looping dictionaries without .items() is bad ???
     'PLC0206',
     # exception catchall
