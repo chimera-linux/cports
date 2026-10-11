@@ -267,8 +267,7 @@ _langs = []
 def post_extract(self):
     # copy the files over
     for s in source[1:]:
-        if s.startswith("!"):
-            s = s[1:]
+        s = s.removeprefix("!")
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
 
 

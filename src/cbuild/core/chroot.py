@@ -63,7 +63,7 @@ def get_world_base():
 
 
 def _subst_in(pat, rep, src, dest=None):
-    inf = open(src, "r")
+    inf = open(src)
     if dest:
         outf = open(dest, "w")
     else:
@@ -551,7 +551,7 @@ def cleanup_world(bootstrapping, prof=None, perform=True):
     old_world = set()
     new_world = set()
 
-    with open(paths.bldroot() / "etc/apk/world", "r") as inf:
+    with open(paths.bldroot() / "etc/apk/world") as inf:
         for ln in inf:
             old_world.add(ln.strip())
 

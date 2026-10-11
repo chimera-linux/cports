@@ -132,7 +132,7 @@ hooks = {
 
 
 def register_hooks():
-    for stepn in hooks:
+    for stepn, harr in hooks.items():
         dirn = paths.cbuild() / "hooks" / stepn
         if dirn.is_dir():
             for f in dirn.glob("*.py"):
@@ -150,8 +150,8 @@ def register_hooks():
                     do_redir = modh.redir_log()
                 else:
                     do_redir = True
-                hooks[stepn].append((modh.invoke, f.stem, do_redir))
-            hooks[stepn].sort(key=lambda v: v[1])
+                harr.append((modh.invoke, f.stem, do_redir))
+            harr.sort(key=lambda v: v[1])
 
 
 def _restricted_importer(name, globals=None, locals=None, fromlist=(), level=0):

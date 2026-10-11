@@ -60,8 +60,8 @@ def get_hardening(prof, tmpl, hlist=None):
             raise errors.CbuildException("CFI requires hidden visibility")
 
     # ensure unsupported hardenings are never used
-    for k in supported_fields:
-        if archn not in supported_fields[k]:
+    for k, ka in supported_fields.items():
+        if archn not in ka:
             hdict[k] = False
 
     return hdict

@@ -330,8 +330,8 @@ def check_stage(arch, force=False, remote=False):
     # ensure repo remains staged
     # also print a list of stuff to rebuild and what causes
     # it to require rebuilding for informational purposes
-    for d in checkdeps:
-        print(f" rebuild: {', '.join(checkdeps[d])} ({d})")
+    for d, dv in checkdeps.items():
+        print(f" rebuild: {', '.join(dv)} ({d})")
 
     return None
 

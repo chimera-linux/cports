@@ -240,9 +240,9 @@ def invoke(pkg):
             else:
                 fname = d[bsl + 1 :]
             suffix = None
-            for key in suffixes:
+            for key, sfx in suffixes.items():
                 if fnmatch(fname, key):
-                    suffix = suffixes[key]
+                    suffix = sfx
                     break
             if not suffix:
                 pkg.error(f"unknown source suffix for '{fname}'")

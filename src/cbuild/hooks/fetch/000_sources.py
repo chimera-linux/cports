@@ -89,8 +89,7 @@ def link_cksum(dfile, sidx, pkg):
 
 
 def get_nameurl(pkg, d):
-    if d.startswith("!"):
-        d = d[1:]
+    d = d.removeprefix("!")
     bkt = d.rfind(">")
     bsl = d.rfind("/")
     if bkt < 0 and bsl < 0:
@@ -187,8 +186,8 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
         if ehdrs:
             hdrs.update(ehdrs)
         # delete none values in case we have them
-        for k in hdrs:
-            if hdrs[k] is None:
+        for k, hdr in hdrs.items():
+            if hdr is None:
                 del hdrs[k]
         if ntry > 0:
             with fmtx:

@@ -20,13 +20,13 @@ def invoke(pkg):
     deps = []
     log = logger.get()
 
-    for key in _trigdeps:
-        if (pkg.destdir / key).is_dir():
-            pkgn = _trigdeps[key]
-            # don't add self-dependency
-            if pkg.pkgname == pkgn:
-                continue
-            deps.append((key, pkgn))
+    for key, pkgn in _trigdeps.items():
+        if not (pkg.destdir / key).is_dir():
+            continue
+        # don't add self-dependency
+        if pkg.pkgname == pkgn:
+            continue
+        deps.append((key, pkgn))
 
     depl = list(filter(lambda tpl: tpl[1] not in pkg.depends, deps))
 

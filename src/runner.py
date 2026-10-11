@@ -1243,7 +1243,7 @@ def do_prune_sources(tgt):
     logger.get().out("Collecting checksums...")
     shaset = set()
     for tmpln in tmpls:
-        with (paths.distdir() / tmpln / "template.py").open("r") as inf:
+        with (paths.distdir() / tmpln / "template.py").open() as inf:
             for ln in inf.readlines():
                 for sha in re.findall(r'"[0-9a-fA-F]{64}"', ln):
                     shaset.add(sha.strip('"').lower())
@@ -1379,9 +1379,9 @@ def do_relink_subpkgs(tgt):
                 continue
 
     # recreate symlinks
-    for pn in links:
+    for pn, pv in links.items():
         repo, jpn = pn.split("/")
-        for sn in links[pn]:
+        for sn in pv:
             fp = ddir / repo / sn
             if fp.exists():
                 if not fp.is_symlink():
@@ -1626,7 +1626,7 @@ def _get_unbuilt(outdated=False):
         # recursively check for explicit brokenness
         if _check_tmpls(pn):
             continue
-        fvers.append((pn, tvers[pn] if pn in tvers else None))
+        fvers.append((pn, tvers.get(pn, None)))
 
     return fvers
 
@@ -2246,12 +2246,12 @@ def _collect_blist(pkgs):
             if pkg == "status:outdated":
                 rpkgs += list(map(lambda v: v[0], _get_unbuilt(True)))
                 continue
-            with open(pkg.removeprefix("status:"), "r") as inf:
+            with open(pkg.removeprefix("status:")) as inf:
                 rpkgs += _collect_status(inf)
             continue
         # files
         if pkg.startswith("file:") and pkg != "file:-":
-            with open(pkg.removeprefix("file:"), "r") as inf:
+            with open(pkg.removeprefix("file:")) as inf:
                 for ln in inf:
                     rpkgs += _collect_blist([ln.strip()])
             continue

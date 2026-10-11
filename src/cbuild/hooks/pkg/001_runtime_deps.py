@@ -292,8 +292,7 @@ def _scan_pc(pkg):
                 return sp.pkgname
         return None
 
-    for k in pcreq:
-        pn = pcreq[k]
+    for k, pn in pcreq.items():
         # provided by one of ours or by a dependency
         prov = subpkg_provides_pc(pn)
         if not prov:
@@ -369,8 +368,7 @@ def _scan_svc(pkg):
     for f in pkg.destdir.glob("usr/lib/dinit.d/user/*"):
         scan_svc(f, "usvc")
 
-    for sv in svcreq:
-        pfx = svcreq[sv]
+    for sv, pfx in svcreq.items():
         # provided by self
         if pkg_provides_svc(pkg, sv, pfx):
             continue

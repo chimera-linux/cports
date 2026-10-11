@@ -27,8 +27,6 @@ ignore = [
     'E501',
     # unsorted imports, don't care
     'I001',
-    # allow redundant open(, 'r')
-    'UP015',
     # percent format: fuck you i won't do what you tell me
     'UP031',
     # edontcare
@@ -37,18 +35,13 @@ ignore = [
     'RUF059',
     # unlogged exception, shut up
     'S110',
-    # they dislike nested if statements
+    # they dislike nested if/with statements
     'SIM102',
+    'SIM117',
     # sometimes uncombined if branches are more readable
     'SIM114',
     # open without context manager: we only have a few and all are fine
     'SIM115',
-    # they dislike nested with statements
-    'SIM117',
-    # they dislike if checks for dictionaries
-    'SIM401',
-    # looping dictionaries without .items() is bad ???
-    'PLC0206',
     # exception catchall
     'BLE001',
     # datetime without tz; we only use it in the logger and it's fine
@@ -58,11 +51,8 @@ ignore = [
     'FLY002',
     # for loop .write()
     'FURB122',
-    # string slicing is bad?
-    'FURB188',
     # they dislike 'return None'
     'RET501',
-    # same as above, but different lol
     'PLR1711',
     # i will not create my own exception
     'TRY002',

@@ -135,8 +135,7 @@ class UpdateCheck:
         urls = []
         # collect urls
         for s in self.template.source:
-            if s.startswith("!"):
-                s = s[1:]
+            s = s.removeprefix("!")
             bkt = s.rfind(">")
             bsl = s.rfind("/")
             if bkt > bsl:

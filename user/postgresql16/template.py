@@ -272,8 +272,8 @@ def _contrib_alt(pn, pl):
         return inst
 
 
-for _pn in _extra_cmds:
-    _contrib_alt(_pn, _extra_cmds[_pn])
+for _pn, _pv in _extra_cmds.items():
+    _contrib_alt(_pn, _pv)
 
 
 @subpackage("postgresql16-contrib")
