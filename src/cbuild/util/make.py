@@ -116,7 +116,7 @@ class Make:
         pkg = self.template
         return self._invoke(
             pkg.make_check_target,
-            pkg.make_check_args + args,
+            pkg.make_check_args + (args or []),
             jobs,
             pkg.make_check_env,
             env,
