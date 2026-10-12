@@ -1,0 +1,13 @@
+diff --git a/doc/mutt.man b/doc/mutt.man
+index a7b619b..e58a4cd 100644
+--- a/doc/mutt.man
++++ b/doc/mutt.man
+@@ -279,7 +279,7 @@ System definition for handling non-text MIME types.
+ .I ~/.mime.types
+ User's personal mapping between MIME types and file extensions.
+ .TP
+-.I @sysconfdir@/mime.types
++.I @sysconfdir@/mime.types or @pkgdatadir@/mime.types
+ System mapping between MIME types and file extensions.
+ .TP
+ .I @bindir@/mutt_dotlock
