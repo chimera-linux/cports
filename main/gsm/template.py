@@ -1,5 +1,5 @@
 pkgname = "gsm"
-pkgver = "1.0.22"
+pkgver = "1.0.24"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "tst"
@@ -9,7 +9,7 @@ pkgdesc = "GSM 06.10 lossy speech compression"
 license = "TU-Berlin-2.0"
 url = "http://www.quut.com/gsm"
 source = f"{url}/gsm-{pkgver}.tar.gz"
-sha256 = "f0072e91f6bb85a878b2f6dbf4a0b7c850c4deb8049d554c65340b3bf69df0ac"
+sha256 = "a3c40c6471928383f4abfcb2e8f24012a1f562be2f17b8d672145d5986681a92"
 # racey mess of a build system
 options = ["!parallel", "!lto"]
 
