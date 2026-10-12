@@ -1,5 +1,5 @@
 pkgname = "urlscan"
-pkgver = "1.1.2"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,6 +15,6 @@ pkgdesc = "Mutt and terminal url selector"
 license = "GPL-2.0-only"
 url = "https://github.com/firecat53/urlscan"
 source = f"$(PYPI_SITE)/u/urlscan/urlscan-{pkgver}.tar.gz"
-sha256 = "e4f01037dcb84f0cc5733b9423732ebf368cb9b4c9714bdaf7dd336d883a78b2"
+sha256 = "27ffbc49a98da0f3d0a533b23e04c71784d4e10fbf2ee4e1f443ef39364fce5b"
 # no tests defined
 options = ["!check"]
