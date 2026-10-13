@@ -7,6 +7,7 @@ make_build_args = [
     f"-X main.commit=v{pkgver} -X main.version={pkgver}",
     "gitlab.com/gitlab-org/cli/cmd/glab",
 ]
+make_check_args = ["-skip", "TestIsTelemetryEnabled", "./..."]
 hostmakedepends = ["go"]
 checkdepends = ["git"]
 depends = ["git"]
@@ -32,6 +33,9 @@ def post_build(self):
         "--path",
         "./share/man/man1",
     )
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"glab.{shell}", "w") as outf:
+            self.do("build/glab", "completion", "--shell", shell, stdout=outf)
 
 
 def pre_check(self):
@@ -42,3 +46,5 @@ def pre_check(self):
 def post_install(self):
     self.install_license("LICENSE")
     self.install_man("share/man/man1/*", glob=True)
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"glab.{shell}", shell)

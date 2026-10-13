@@ -1,0 +1,13 @@
+diff --git a/internal/config/schema.go b/internal/config/schema.go
+index d2ae139..32959ba 100644
+--- a/internal/config/schema.go
++++ b/internal/config/schema.go
+@@ -163,7 +163,7 @@ var KeySchema = []KeyDef{
+ 	},
+ 	{
+ 		Name: "telemetry", Scope: ScopeGlobal, Type: TypeBool,
+-		Default: "true", UserSettable: true,
++		Default: "false", UserSettable: true,
+ 		EnvVars:     []string{"GLAB_SEND_TELEMETRY"},
+ 		Description: "Set to false (0) to disable sending usage data to your GitLab instance or true (1) to enable.\nSee https://docs.gitlab.com/administration/settings/usage_statistics/\nfor more information",
+ 	},
