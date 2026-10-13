@@ -1,0 +1,23 @@
+--- a/internal/config/schema.go	2026-10-13 16:40:24.000000000 +0530
++++ b/internal/config/schema.go	2026-10-13 22:18:44.847701548 +0530
+@@ -163,7 +163,7 @@
+ 	},
+ 	{
+ 		Name: "telemetry", Scope: ScopeGlobal, Type: TypeBool,
+-		Default: "true", UserSettable: true,
++		Default: "false", UserSettable: true,
+ 		EnvVars:     []string{"GLAB_SEND_TELEMETRY"},
+ 		Description: "Set to false (0) to disable sending usage data to your GitLab instance or true (1) to enable.\nSee https://docs.gitlab.com/administration/settings/usage_statistics/\nfor more information",
+ 	},
+
+--- a/cmd/glab/telemetry_test.go	2026-10-13 16:40:24.000000000 +0530
++++ b/cmd/glab/telemetry_test.go	2026-10-13 22:29:44.918673375 +0530
+@@ -555,7 +555,7 @@
+ 		},
+ 		{
+ 			name:           "no config value set",
+-			expectedResult: true,
++			expectedResult: false,
+ 		},
+ 	}
+ 

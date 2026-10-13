@@ -1,6 +1,6 @@
 pkgname = "glab"
 pkgver = "1.123.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -33,6 +33,10 @@ def post_build(self):
         "./share/man/man1",
     )
 
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"glab.{shell}", "w") as cf:
+            self.do("build/glab", "completion", "--shell", shell, stdout=cf)
+
 
 def pre_check(self):
     # glab test requires the source root to be a git directory
@@ -42,3 +46,7 @@ def pre_check(self):
 def post_install(self):
     self.install_license("LICENSE")
     self.install_man("share/man/man1/*", glob=True)
+
+    self.install_completion("glab.bash", "bash", "glab")
+    self.install_completion("glab.fish", "fish", "glab")
+    self.install_completion("glab.zsh", "zsh", "glab")
