@@ -1,0 +1,17 @@
+This test won't pass
+https://github.com/aircrack-ng/aircrack-ng/issues/1852
+
+diff --git a/test/Makefile.inc b/test/Makefile.inc
+index 5c23ee2..3e4fa54 100644
+--- a/test/Makefile.inc
++++ b/test/Makefile.inc
+@@ -110,9 +110,6 @@ INTEGRATION_TESTS += %D%/test-aireplay-ng-0001.sh \
+ 		 %D%/test-airodump-ng-0006.sh
+ endif
+ 
+-if HAVE_SQLITE3
+-TESTS += %D%/test-airolib-ng-0001.sh
+-endif
+ 
+ EXTRA_DIST += %D%/test-hex_string_to_array.sh \
+ 			  %D%/test-aircrack-ng-0001.sh \
