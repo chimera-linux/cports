@@ -220,6 +220,7 @@ def _(self):
         "haruna",  # mpv frontend
         "isoimagewriter",  # iso to usb writer
         "kalk",  # calculator
+        "kamoso",  # camera
         "kate",  # text editor(s)
         "kcachegrind",  # callgrind data visualizer
         "kcharselect",  # fonts character picker
@@ -245,7 +246,6 @@ def _(self):
         "sweeper",  # cache cleaner
         "yakuake",  # drop-down terminal
         # - still qt5
-        # "kamoso",  # camera
         # "kipi-plugins",  # image export
         # "kmymoney",  # finance manager
         # "kompare",  # gui diff
