@@ -1,5 +1,5 @@
 pkgname = "ecl"
-pkgver = "24.5.10"
+pkgver = "26.5.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["autoreconf", "-if", "src"]
@@ -15,7 +15,7 @@ pkgdesc = "Embeddable Common Lisp"
 license = "LGPL-2.1-or-later"
 url = "https://ecl.common-lisp.dev"
 source = f"https://gitlab.com/embeddable-common-lisp/ecl/-/archive/{pkgver}/ecl-{pkgver}.tar.gz"
-sha256 = "7d21ac3bd99132cfb1bb2d73d31d602a536f3a31dac6b982007a8291372dd0bf"
+sha256 = "d3803d82fbbe772c9f8eed86223e722d15b8600139e81811791f51123ca3fbec"
 options = ["!cross", "!lto"]
 
 
