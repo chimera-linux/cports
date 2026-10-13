@@ -1,6 +1,6 @@
 pkgname = "restic"
-pkgver = "0.18.1"
-pkgrel = 8
+pkgver = "0.19.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}", "./cmd/restic"]
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ pkgdesc = "Backup tool"
 license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"
-sha256 = "4b8e2b6cb20e9707e14b9b9d92ddb6f2e913523754e1f123e2e6f3321e67f7ca"
+sha256 = "bb9b1a19040744d26d8a79be029d4e6b189c45ccc9d8831d7fe367d3c33df725"
 # fails in bwrap chroot
 options = ["!check"]
 
