@@ -1,5 +1,5 @@
 pkgname = "syntax-highlighting"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -18,7 +18,7 @@ pkgdesc = "KDE Syntax highlighting engine for structured text and code"
 license = "MIT"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syntax-highlighting-{pkgver}.tar.xz"
-sha256 = "fc429b093058bec4878306cbbfb3aa0560ff4a3f166c69504036c507fe72afcc"
+sha256 = "7c2a64d3fd42ae433e9737b9cf6733b9ad3cb0e212285fd6820157d86831316c"
 hardening = ["vis"]
 
 

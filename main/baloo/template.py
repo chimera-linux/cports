@@ -1,5 +1,5 @@
 pkgname = "baloo"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -31,7 +31,7 @@ pkgdesc = "KDE Framework for searching and metadata"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://community.kde.org/Baloo"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
-sha256 = "a59d33a919bfa1d164c8f3a6f992c609edaf2131ac5f52ea4ecb77f6fbc53be1"
+sha256 = "178d6550a7c55a820322182814a96a7564343a506772971e4aac8b1e7e4d1829"
 hardening = ["vis"]
 options = ["etcfiles"]
 

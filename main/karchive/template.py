@@ -1,5 +1,5 @@
 pkgname = "karchive"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 # fails with zlib-ng equality on comp data
@@ -22,7 +22,7 @@ pkgdesc = "Qt6 addon providing access to numerous types of archives"
 license = "LGPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/karchive"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/karchive-{pkgver}.tar.xz"
-sha256 = "4cf89d91e429d2ece3110e78f7ef7011952b0412cb15011329516b46f21e98e2"
+sha256 = "95acaf5a459593184104e1c157cef415ec59a33e71674186169e0df33cdacaac"
 hardening = ["vis"]
 
 

@@ -1,6 +1,6 @@
 pkgname = "kconfigwidgets"
-pkgver = "6.30.0"
-pkgrel = 1
+pkgver = "6.31.0"
+pkgrel = 0
 build_style = "cmake"
 # relies on clipboard presence in kwidgetsaddons
 make_check_args = ["-E", "kconfigdialog_unittest"]
@@ -31,7 +31,7 @@ pkgdesc = "KDE Widgets for configuration dialogs"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kconfigwidgets"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
-sha256 = "6efd9fc7786a7e979b32904aeadf1d2d8e69a5da110f8ebd45f95ec02de41f77"
+sha256 = "a9aa37565702ac1353c36cf16cc968c8aa336d33bcab9d0ff5419dd0b1dc92df"
 hardening = ["vis"]
 
 

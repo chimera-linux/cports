@@ -1,5 +1,5 @@
 pkgname = "kholidays"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "KDE library for holiday dates"
 license = "LGPL-2.0-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kholidays-{pkgver}.tar.xz"
-sha256 = "02bfbc33296fe86b364491f6d5cad9d83360bb4fdd2923386a325b309eac0b9b"
+sha256 = "bdbbe8b1ae6ad6af2116e3ca2c986a317e00f215f58ad32000e2aae2b9d7d612"
 hardening = ["vis"]
 
 

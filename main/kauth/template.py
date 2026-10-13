@@ -1,5 +1,5 @@
 pkgname = "kauth"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -17,7 +17,7 @@ pkgdesc = "KDE Execute actions as privileged user"
 license = "LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kauth"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
-sha256 = "60b75e02abc2bfbb247c586e3ab94def7ecd7b4e1ddb8260358951d84d9ea8c9"
+sha256 = "6fb4e3d1de3364bab82453bd635387e845f227764c4d75ad505348ba3a2e34f8"
 hardening = ["vis"]
 
 

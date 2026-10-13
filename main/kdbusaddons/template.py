@@ -1,6 +1,6 @@
 pkgname = "kdbusaddons"
-pkgver = "6.30.0"
-pkgrel = 1
+pkgver = "6.31.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "KDE Widgets for configuration dialogs"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdbusaddons-{pkgver}.tar.xz"
-sha256 = "063ef80460f76d86dc4b033ef04b65b69ba82ee0de410440fe609465e7f5a997"
+sha256 = "7110f9f07b6cef50a238b01b23f2adcb23552ea1e91e2a9c84f96c5d94a69036"
 hardening = ["vis"]
 
 

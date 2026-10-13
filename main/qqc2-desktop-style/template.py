@@ -1,5 +1,5 @@
 pkgname = "qqc2-desktop-style"
-pkgver = "6.30.0"
+pkgver = "6.31.0"
 pkgrel = 0
 build_style = "cmake"
 # testAnimationSpeedModifier_kconfig() write not going through? 'longDurationSpy.wait()' returned FALSE
@@ -25,7 +25,7 @@ pkgdesc = "Style for Qt Quick Controls 2 to follow your KDE desktop theme"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/qqc2-desktop-style-{pkgver}.tar.xz"
-sha256 = "74c6402fa697a76254e1c68ebd86136be49e03fad86482e86a27e5478f662c41"
+sha256 = "e01350ca31cf1250b9de0801ecba31a0406cab24c81a3e70dfc90c24acf8d717"
 hardening = ["vis"]
 
 
