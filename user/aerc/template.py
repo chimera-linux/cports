@@ -1,6 +1,6 @@
 pkgname = "aerc"
-pkgver = "0.21.0"
-pkgrel = 7
+pkgver = "0.22.0"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
 make_install_args = [*make_build_args]
@@ -20,7 +20,7 @@ pkgdesc = "Terminal email client"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
-sha256 = "3f1469bbaea982fc58352f2682932ecc2fb50c705994d96b2343e771747745a7"
+sha256 = "f1cd5e358fd836051d4d88c189ecaa025a108b729281985525b45b13bc49e70f"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
 
 
