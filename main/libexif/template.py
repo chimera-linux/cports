@@ -1,5 +1,5 @@
 pkgname = "libexif"
-pkgver = "0.6.25"
+pkgver = "0.6.26"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["ac_cv_path_DOXYGEN=false"]
@@ -8,7 +8,7 @@ pkgdesc = "EXIF metadata library"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libexif/libexif"
 source = f"{url}/archive/libexif-{pkgver.replace('.', '_')}-release.tar.gz"
-sha256 = "ee0795432c20d2fdb2a8a579dd6fc0e19d402e36f14f42c03ab60d2345950f09"
+sha256 = "974329442c4b0515814aa700073abbac592a29d1c2c14e4ec2bf0209764dabe9"
 
 
 @subpackage("libexif-devel")
