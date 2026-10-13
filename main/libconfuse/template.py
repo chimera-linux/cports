@@ -1,13 +1,13 @@
 pkgname = "libconfuse"
-pkgver = "3.3"
-pkgrel = 1
+pkgver = "3.4"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "gettext-devel", "libtool"]
 pkgdesc = "Configuration file parser library"
 license = "ISC"
 url = "https://github.com/martinh/libconfuse"
 source = f"{url}/releases/download/v{pkgver}/confuse-{pkgver}.tar.gz"
-sha256 = "3a59ded20bc652eaa8e6261ab46f7e483bc13dad79263c15af42ecbb329707b8"
+sha256 = "d98a793f4cafc1b3c18e2509ba54f6cb9ac6291b181bcda152dc987cb78f43ec"
 
 
 def post_install(self):
