@@ -1,6 +1,6 @@
 pkgname = "kdeconnect"
-pkgver = "26.08.1"
-pkgrel = 1
+pkgver = "26.08.2"
+pkgrel = 0
 build_style = "cmake"
 # needs more setup
 make_check_args = ["-E", "mdnstest"]
@@ -55,7 +55,7 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "2aed54ecd6b88a91d047714b384d7bd20d0a8d8bf399923c73cf3509372b36e0"
+sha256 = "efd9d58deea6857f18d0c77c8bc68192839a83e4d4a518fc829a725459a3dba5"
 options = ["etcfiles"]
 
 

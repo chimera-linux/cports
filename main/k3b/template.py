@@ -1,5 +1,5 @@
 pkgname = "k3b"
-pkgver = "26.08.1"
+pkgver = "26.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -53,7 +53,7 @@ pkgdesc = "KDE disc burning and ripping application"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/k3b"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/k3b-{pkgver}.tar.xz"
-sha256 = "84ca4a064553587e7c6a93ff9b29a36bf05c07dd08269bea43f1ab5ff92374f3"
+sha256 = "04bb92de933388cdfe17c8d38bd192256c6b868c1fa16d1e6679405ea6fd3aed"
 
 if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

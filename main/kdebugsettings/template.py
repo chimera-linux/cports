@@ -1,5 +1,5 @@
 pkgname = "kdebugsettings"
-pkgver = "26.08.1"
+pkgver = "26.08.2"
 pkgrel = 0
 build_style = "cmake"
 # dies quietly
@@ -32,4 +32,4 @@ url = "https://apps.kde.org/kdebugsettings"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdebugsettings-{pkgver}.tar.xz"
 )
-sha256 = "9e0a64d0eacc69b4b61c3e8d27d2e34c7c478e1a7c4b111f9e3fcb83018af2a0"
+sha256 = "dc2f45a9ac0002c6eb6dfc591332460fd0298b970e73bfbdbc980484c9d67e61"

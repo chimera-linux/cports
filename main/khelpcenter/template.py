@@ -1,5 +1,5 @@
 pkgname = "khelpcenter"
-pkgver = "26.08.1"
+pkgver = "26.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,4 +34,4 @@ pkgdesc = "KDE application documentation viewer"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/khelpcenter"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/khelpcenter-{pkgver}.tar.xz"
-sha256 = "061bd1a929b175cf35c9830f1306b1da8dc9cb3c70d9c371a3767f47401edcfa"
+sha256 = "3be3417b8326ee49a02e83a6187698d777207f97d2ed8973b3375524798eb44c"

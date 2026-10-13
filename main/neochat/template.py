@@ -1,6 +1,6 @@
 pkgname = "neochat"
-pkgver = "26.08.1"
-pkgrel = 1
+pkgver = "26.08.2"
+pkgrel = 0
 build_style = "cmake"
 # depends on qthttpserver, which is not packaged
 configure_args = ["-DBUILD_TESTING=OFF"]
@@ -50,4 +50,4 @@ pkgdesc = "Matrix client"
 license = "GPL-3.0-only"
 url = "https://apps.kde.org/neochat"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/neochat-{pkgver}.tar.xz"
-sha256 = "d745a8cd878c89d9bd3227ed027332933bcb9b5415b1d55ff2987c0587fd8182"
+sha256 = "d2cc861f00b975ade4813c9f4340a3d35ff24d9bcab9d737f7688dd133727d0d"
