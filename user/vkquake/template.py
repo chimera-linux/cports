@@ -1,10 +1,7 @@
 pkgname = "vkquake"
-pkgver = "1.36.0"
+pkgver = "1.37.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "-Ddo_userdirs=enabled",
-]
 hostmakedepends = [
     "glslang-progs",
     "meson",
@@ -26,12 +23,11 @@ pkgdesc = "Vulkan Quake port based on QuakeSpasm"
 license = "GPL-2.0-only"
 url = "https://github.com/Novum/vkQuake"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3dd1bd8c13e902db9c3d216ce065552cb975dfd8b1b17a21b49c5458eb8a306e"
+sha256 = "955a7777ee9456973b1f3ea278d9f3b34538c788dc5938e42a734fad2e2d761a"
 
 
 def install(self):
     self.install_bin("build/vkquake")
-    self.install_file("build/vkquake.pak", "usr/share/games/vkquake")
     self.install_file("Misc/vkquake.desktop", "usr/share/applications")
     self.install_file(
         "Misc/vkQuake_256.png",
