@@ -1,6 +1,6 @@
 pkgname = "firewalld"
-pkgver = "2.3.1"
-pkgrel = 1
+pkgver = "2.5.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
@@ -30,13 +30,9 @@ pkgdesc = "Stateful zone-based firewall daemon with D-Bus interface"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
-sha256 = "719890d82caa7d162b021ed646034883b9eb354a45de3685c28ead057d139d4d"
+sha256 = "99d7468c22f6cafd8c72aa53173a632f2ca29cb19aec913e8ed45b6102af322d"
 # tests don't work in our build env
 options = ["etcfiles", "!check"]
-
-
-def prepare(self):
-    self.rm("src/icons/*/*/firewall-applet*", recursive=True, glob=True)
 
 
 def post_install(self):
@@ -56,7 +52,27 @@ def _(self):
         "usr/share/applications",
         "usr/share/firewalld/gtk3_chooserbutton.py",
         "usr/share/firewalld/gtk3_niceexpander.py",
-        "usr/share/icons",
+        "usr/share/glib-2.0",
+        "usr/share/icons/hicolor/*/apps/firewall-config.*",
         "usr/share/man/man1/firewall-config.1",
         "usr/share/metainfo",
+    ]
+
+
+@subpackage("firewalld-firewall-applet")
+def _(self):
+    self.pkgdesc = "systray applet"
+    self.depends = [
+        self.parent,
+        self.with_pkgver("firewalld-firewall-config"),
+        "libnotify",
+        "python-pyqt6",
+    ]
+    self.options = ["etcfiles"]
+    return [
+        "usr/bin/firewall-applet",
+        "usr/share/icons/hicolor/*/apps/firewall-applet*.*",
+        "usr/share/man/man1/firewall-applet.1",
+        "etc/firewall/applet.conf",
+        "etc/xdg/autostart/firewall-applet.desktop",
     ]
