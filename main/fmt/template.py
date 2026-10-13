@@ -1,5 +1,5 @@
 pkgname = "fmt"
-pkgver = "12.1.0"
+pkgver = "12.2.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ url = "https://fmt.dev/latest/index.html"
 source = (
     f"https://github.com/fmtlib/fmt/releases/download/{pkgver}/fmt-{pkgver}.zip"
 )
-sha256 = "695fd197fa5aff8fc67b5f2bbc110490a875cdf7a41686ac8512fb480fa8ada7"
+sha256 = "870a49acec5bcdab236aeea834ebd7f0b8548a7d8cea33c996b6873a37f2d50c"
 # CFI: test failures
 hardening = ["vis", "!cfi"]
 
@@ -29,6 +29,16 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
+# cmake shenanigans
+@split("devel-static")
+def _(self):
+    self.depends = []
+
+    return ["usr/lib/*.a"]
+
+
 @split("devel")
 def _(self):
+    self.depends += [self.with_pkgver("fmt-devel-static")]
+
     return self.default_devel()
