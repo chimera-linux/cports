@@ -1,5 +1,5 @@
 pkgname = "tpm2-tss"
-pkgver = "4.1.3"
+pkgver = "4.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -10,12 +10,12 @@ configure_args = [
     "--with-tctidefaultconfig=/dev/tpmrm0",
 ]
 hostmakedepends = [
+    "autoconf-archive",
     "automake",
     "cmocka",
-    "libtool",
-    "libtool-devel",  # ltdl.m4
     "perl",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "cmocka-devel",
@@ -31,14 +31,12 @@ pkgdesc = "Implementation of TCG TPM2"
 license = "BSD-2-Clause"
 url = "https://github.com/tpm2-software/tpm2-tss"
 source = f"{url}/releases/download/{pkgver}/tpm2-tss-{pkgver}.tar.gz"
-sha256 = "37f1580200ab78305d1fc872d89241aaee0c93cbe85bc559bf332737a60d3be8"
+sha256 = "b53f0c5c8c4ce17f05701a410ca9688f725ca380c9bc4640eacd0eadb1fea124"
 options = ["etcfiles"]
 
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.rename("etc/tmpfiles.d", "usr/lib", keep_name=True, relative=False)
-    self.rename("etc/sysusers.d", "usr/lib", keep_name=True, relative=False)
 
 
 @subpackage("tpm2-tss-devel")
