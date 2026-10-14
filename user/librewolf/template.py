@@ -1,7 +1,7 @@
 # mirrors firefox package; own patches as version may drift
 # always incorporate changes from firefox commits to keep in sync
 pkgname = "librewolf"
-pkgver = "157.0.1"
+pkgver = "158.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -61,7 +61,7 @@ pkgdesc = "LibreWolf web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://librewolf.net"
 source = f"https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/{pkgver}-1/librewolf-{pkgver}-1.source.tar.gz"
-sha256 = "4b363d2c85eda694c671bda98fc1f0a0ad9cfa030c975ae4fd0e1092a3f59eb2"
+sha256 = "ea2424fb4c02916c0c531210f1dd8b460e85074f2d8ca0529d49553d36dd13c0"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/librewolf", "-Wl,-z,stack-size=2097152"]
@@ -175,7 +175,9 @@ def configure(self):
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
 
-    _use_pgo = self.has_lto()
+    # crashes during profiling on x86_64 starting with 158.x
+    _use_pgo = False
+    # _use_pgo = self.has_lto()
 
     # aarch64: gets stuck busy-looping in profiling pass in ff140
     # ppc64le: takes long to link and generates a broken binary
