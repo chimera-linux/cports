@@ -1,7 +1,7 @@
 # the vimrc is shared with vim-classic, rebuild that too if you change it
 pkgname = "vim"
 pkgver = "9.2.1172"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -15,6 +15,8 @@ configure_args = [
 ]
 configure_gen = ["autoreconf", "-if", "src"]
 make_dir = "."
+# install targets race each other for directories
+make_install_args = ["-j1"]
 make_check_target = "test"
 hostmakedepends = ["automake"]
 makedepends = [
@@ -44,8 +46,10 @@ def post_install(self):
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
     self.uninstall("usr/bin/ex")
+    self.uninstall("usr/share/man/man1/ex.1")
     self.uninstall("usr/share/man/*/man1/ex.1", glob=True)
     self.uninstall("usr/bin/view")
+    self.uninstall("usr/share/man/man1/view.1")
     self.uninstall("usr/share/man/*/man1/view.1", glob=True)
 
 
