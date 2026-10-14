@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "157.0.1"
+pkgver = "158.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -65,7 +65,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "483bedee9059df2479e4531c443b1073c6ebaed3570bda0c164eb562ee241c4c"
+sha256 = "fc77f7801d7580a600af683cc367e261eb1ec74647e84a91b4a1e3c1dd5aa2bb"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -176,7 +176,9 @@ def configure(self):
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
 
-    _use_pgo = self.has_lto()
+    # crashes during profiling on x86_64 starting with 158.x
+    _use_pgo = False
+    # _use_pgo = self.has_lto()
 
     # aarch64: gets stuck busy-looping in profiling pass in ff140
     # ppc64le: takes long to link and generates a broken binary
