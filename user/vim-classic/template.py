@@ -1,6 +1,6 @@
 pkgname = "vim-classic"
 pkgver = "8.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -45,8 +45,10 @@ def post_install(self):
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
     self.uninstall("usr/bin/ex")
+    self.uninstall("usr/share/man/man1/ex.1")
     self.uninstall("usr/share/man/*/man1/ex.1", glob=True)
     self.uninstall("usr/bin/view")
+    self.uninstall("usr/share/man/man1/view.1")
     self.uninstall("usr/share/man/*/man1/view.1", glob=True)
 
 
