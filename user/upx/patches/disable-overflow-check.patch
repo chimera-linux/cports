@@ -1,0 +1,47 @@
+This patch disables the runtime checks that -fno-strict-overflow is enabled as it causes an over/under-flow on purpose
+
+diff --git a/src/check/dt_check.cpp b/src/check/dt_check.cpp
+index e72c7448..3a71607e 100644
+--- a/src/check/dt_check.cpp
++++ b/src/check/dt_check.cpp
+@@ -1364,15 +1364,6 @@ void upx_compiler_sanity_check() noexcept {
+     assert_noexcept(TestIntegerWrap<unsigned>::neg_eq(0));
+     assert_noexcept(!TestIntegerWrap<unsigned>::neg_eq(1));
+     assert_noexcept(!TestIntegerWrap<unsigned>::neg_eq(UINT_MAX));
+-    // check working -fno-strict-overflow
+-    assert_noexcept(TestIntegerWrap<int>::inc_gt(0));
+-    assert_noexcept(!TestIntegerWrap<int>::inc_gt(INT_MAX));
+-    assert_noexcept(TestIntegerWrap<int>::dec_lt(0));
+-    assert_noexcept(!TestIntegerWrap<int>::dec_lt(INT_MIN));
+-    assert_noexcept(TestIntegerWrap<int>::neg_eq(0));
+-    assert_noexcept(!TestIntegerWrap<int>::neg_eq(1));
+-    assert_noexcept(!TestIntegerWrap<int>::neg_eq(INT_MAX));
+-    assert_noexcept(TestIntegerWrap<int>::neg_eq(INT_MIN)); // special case
+ #endif
+ }
+ 
+@@ -1455,24 +1446,6 @@ TEST_CASE("working -fno-strict-aliasing") {
+     UNUSED(ok);
+ }
+ 
+-TEST_CASE("working -fno-strict-overflow") {
+-    CHECK_EQ(acc_vget_int(INT_MAX, 0) + 1, INT_MIN);
+-    CHECK_EQ(acc_vget_int(INT_MIN, 0) - 1, INT_MAX);
+-    CHECK_EQ(acc_vget_long(LONG_MAX, 0) + 1, LONG_MIN);
+-    CHECK_EQ(acc_vget_long(LONG_MIN, 0) - 1, LONG_MAX);
+-    bool ok;
+-    int i;
+-    i = INT_MAX;
+-    i += 1;
+-    ok = i == INT_MIN;
+-    CHECK(ok);
+-    i = INT_MIN;
+-    i -= 1;
+-    ok = i == INT_MAX;
+-    CHECK(ok);
+-    UNUSED(ok);
+-}
+-
+ TEST_CASE("libc snprintf") {
+     // runtime check that Windows/MinGW <stdio.h> works as expected
+     char buf[64];
