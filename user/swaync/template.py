@@ -1,7 +1,8 @@
 pkgname = "swaync"
-pkgver = "0.12.2"
+pkgver = "0.12.6"
 pkgrel = 0
 build_style = "meson"
+configure_args = ["-Dsystemd-service=false"]
 hostmakedepends = [
     "blueprint-compiler",
     "meson",
@@ -29,10 +30,10 @@ pkgdesc = "Notification daemon for sway"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ErikReider/SwayNotificationCenter"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c440223f199b4f0d28e2434f879a2ad2103cb6aaac670313434b05926707535e"
+sha256 = "0c844eb5c9524f924495bd4145e5db575096de36f3ec87fb37e4c1ed6eacb897"
+hardening = ["vis"]
 options = ["etcfiles"]
 
 
 def post_install(self):
-    self.uninstall("usr/lib/systemd")
     self.install_service(self.files_path / "swaync.user")
