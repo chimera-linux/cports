@@ -1,0 +1,26 @@
+diff --git a/common/list_af_names.sh b/common/list_af_names.sh
+index a6f794c..3878346 100755
+--- a/common/list_af_names.sh
++++ b/common/list_af_names.sh
+@@ -11,7 +11,7 @@
+ # rewrite as "AF_".
+ 
+ echo "#include <sys/socket.h>" | \
+-  cpp -dM | \
++  clang-cpp -dM | \
+   LC_ALL=C sed -n \
+     -e '/PF_UNIX/d' \
+     -e 's/PF_LOCAL/PF_UNIX/' \
+diff --git a/common/list_capabilities.sh b/common/list_capabilities.sh
+index 4e37cda..3e7546b 100755
+--- a/common/list_capabilities.sh
++++ b/common/list_capabilities.sh
+@@ -7,7 +7,7 @@
+ # =====================
+ 
+ echo "#include <linux/capability.h>" | \
+-  cpp -dM | \
++  clang-cpp -dM | \
+   LC_ALL=C sed -n \
+     -e '/CAP_EMPTY_SET/d' \
+     -e 's/^\#define[ \t]\+CAP_\([A-Z0-9_]\+\)[ \t]\+\([0-9xa-f]\+\)\(.*\)$/CAP_\1/p' | \
