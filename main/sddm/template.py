@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 7
+pkgrel = 8
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -35,6 +35,7 @@ depends = [
     "elogind",
     "openrc-settingsd",
     "turnstile",
+    "virtual:sddm-compositor-default!sddm-default-none",
     "virtual:sddm-theme-default!sddm-theme-none",
     "xrdb",
 ]
@@ -52,10 +53,11 @@ def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "sddm")
-    self.install_file(
-        self.files_path / "00-default.conf",
-        "usr/lib/sddm/sddm.conf.d",
-    )
+    for f in ["default", "wayland-cage", "wayland-kwin", "wayland-weston"]:
+        self.install_file(
+            self.files_path / f"00-{f}.conf",
+            "usr/lib/sddm/sddm.conf.d",
+        )
     # all unusable
     self.uninstall("usr/share/sddm/themes")
     for pam in ["sddm", "sddm-autologin", "sddm-greeter"]:
@@ -64,16 +66,48 @@ def post_install(self):
         )
 
 
+@subpackage("sddm-default-cage")
+def _(self):
+    self.subdesc = "use cage"
+    self.install_if = [self.parent, "!plasma-desktop"]
+    self.provides = [self.with_pkgver("sddm-compositor-default")]
+    self.provider_priority = 10
+    self.depends += [self.parent, "cage"]
+
+    return ["usr/lib/sddm/sddm.conf.d/00-wayland-cage.conf"]
+
+
 @subpackage("sddm-default-kwin")
 def _(self):
-    self.subdesc = "Wayland compositor dependencies"
-    self.install_if = [self.parent]
+    self.subdesc = "use kwin"
+    self.install_if = [self.parent, "plasma-desktop"]
+    self.provides = [self.with_pkgver("sddm-compositor-default")]
+    self.provider_priority = 10
     self.depends += [
         self.parent,
         "kwin",
         # input method
         "plasma-keyboard",
     ]
+
+    return ["usr/lib/sddm/sddm.conf.d/00-wayland-kwin.conf"]
+
+
+@subpackage("sddm-default-weston")
+def _(self):
+    self.subdesc = "use weston"
+    self.provides = [self.with_pkgver("sddm-compositor-default")]
+    self.provider_priority = 0
+    self.depends += [self.parent, "weston"]
+
+    return ["usr/lib/sddm/sddm.conf.d/00-wayland-weston.conf"]
+
+
+@subpackage("sddm-default-none")
+def _(self):
+    self.subdesc = "custom compositor"
+    self.provides = [self.with_pkgver("sddm-compositor-default")]
+    self.provider_priority = 0
     self.options = ["empty"]
 
     return []
