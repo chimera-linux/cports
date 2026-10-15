@@ -1,6 +1,6 @@
 pkgname = "perl-io-tty"
 pkgver = "1.20"
-pkgrel = 2
+pkgrel = 3
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
