@@ -1,6 +1,6 @@
 pkgname = "perl-termreadkey"
 pkgver = "2.38"
-pkgrel = 2
+pkgrel = 3
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
