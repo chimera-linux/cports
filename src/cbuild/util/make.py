@@ -94,7 +94,8 @@ class Make:
                 argsbase.append("DESTDIR=" + str(pkg.chroot_destdir))
             else:
                 renv = {"DESTDIR": str(pkg.chroot_destdir)}
-                renv.update(env)
+                if env:
+                    renv.update(env)
                 env = renv
 
         argsbase += pkg.make_install_args
