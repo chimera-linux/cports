@@ -1,6 +1,6 @@
 pkgname = "perl-glib"
 pkgver = "1.3294"
-pkgrel = 2
+pkgrel = 3
 build_style = "perl_module"
 hostmakedepends = [
     "perl",

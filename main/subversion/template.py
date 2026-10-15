@@ -1,7 +1,7 @@
 # TODO: service
 pkgname = "subversion"
 pkgver = "1.14.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--config-cache",
