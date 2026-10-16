@@ -1,5 +1,5 @@
 pkgname = "gleam"
-pkgver = "1.19.1"
+pkgver = "1.19.2"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -22,7 +22,7 @@ url = "https://gleam.run"
 source = (
     f"https://github.com/gleam-lang/gleam/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "5a717b4013d5599d73a99b3a1a4bb9168e62bfc18afff2f5bbab43244f860df0"
+sha256 = "d8796325dad02802dccc91568a90a00e43247cad1d87ddbd9779a99d3c435d61"
 
 
 def post_patch(self):
