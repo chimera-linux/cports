@@ -1,0 +1,29 @@
+From a5c88eccdf3c7ad3a48f6def0d51f7d49fa40c63 Mon Sep 17 00:00:00 2001
+From: Egmont Koblinger <egmont@gmail.com>
+Date: Fri, 16 Oct 2026 10:04:03 +0200
+Subject: [PATCH] lib: Avoid a potential division by zero
+
+In time_process_incoming(), a potential division by zero was causing a
+signed integer overflow, and in turn probably suboptimal performance.
+
+https://gitlab.gnome.org/GNOME/vte/-/work_items/2967
+---
+ src/vte.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vte.cc b/src/vte.cc
+index ab5ce63b..8640f40f 100644
+--- a/src/vte.cc
++++ b/src/vte.cc
+@@ -11222,7 +11222,7 @@ Terminal::time_process_incoming()
+ 	g_timer_reset(process_timer);
+ 	process_incoming();
+ 	auto elapsed = g_timer_elapsed(process_timer, NULL) * 1000;
+-	gssize target = VTE_MAX_PROCESS_TIME / elapsed * m_input_bytes;
++	gssize target = VTE_MAX_PROCESS_TIME / std::max(elapsed, 1e-6) * m_input_bytes;
+ 	m_max_input_bytes = (m_max_input_bytes + target) / 2;
+ }
+ 
+-- 
+GitLab
+
