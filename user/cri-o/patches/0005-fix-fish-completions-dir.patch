@@ -1,0 +1,25 @@
+From ff17f730b5f808571cc344a7285cbf1640a315f7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sat, 31 Jan 2026 12:46:42 +0100
+Subject: [PATCH 5/5] fix fish completions dir
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 319891d47..436bd16b1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -37,7 +37,7 @@ MANPAGES_MD := $(wildcard docs/*.md)
+ MANPAGES    := $(MANPAGES_MD:%.md=%)
+ 
+ BASHINSTALLDIR=${DESTDIR}${PREFIX}/share/bash-completion/completions
+-FISHINSTALLDIR=${DESTDIR}${PREFIX}/share/fish/completions
++FISHINSTALLDIR=${DESTDIR}${PREFIX}/share/fish/vendor_completions.d
+ ZSHINSTALLDIR=${DESTDIR}${PREFIX}/share/zsh/site-functions
+ OCIUMOUNTINSTALLDIR=${DESTDIR}${PREFIX}/share/oci-umount/oci-umount.d
+ 
+-- 
+2.52.0
+

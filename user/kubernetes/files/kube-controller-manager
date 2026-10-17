@@ -1,0 +1,6 @@
+type = process
+env-file = /var/lib/kubernetes/kube-controller-manager-flags.env
+command = /usr/bin/kube-controller-manager
+logfile = /var/log/kube-controller-manager.log
+depends-on: network.target
+depends-on: local.target
