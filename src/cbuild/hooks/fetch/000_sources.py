@@ -6,14 +6,18 @@ import math
 import hashlib
 import pathlib
 import threading
-from time import time as timer
+from time import sleep, time as timer
 from urllib import request
+from urllib.error import HTTPError
 from http.client import responses
 from multiprocessing.pool import ThreadPool
 
 _empty_sha256 = (
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 )
+
+# seconds to wait before each retry of a failed request
+_retry_delays = (5, 15, 30, 60)
 
 
 def get_cksum(dfile, pkg):
@@ -106,7 +110,7 @@ flens = []
 fctx = None
 
 
-def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
+def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, resume, rqf, rbuf):
     # ensure the response if what we expect, otherwise error
     # it may be None for FTP and so on though
     if rqf.status is not None:
@@ -117,7 +121,7 @@ def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
                 status = responses[int(rqf.status)]
                 return url, dfile, f"unexpected status: {status}"
     # if resuming fetch the known length
-    if ntry > 0:
+    if resume:
         with fmtx:
             clen = flens[idx]
             if int(rqf.status) != 206:
@@ -137,6 +141,8 @@ def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
                 ntry = 0
     else:
         fmode = "wb"
+        with fmtx:
+            fstatus[idx] = 0
         if rqf.status is not None:
             clen = rqf.getheader("content-length")
             if clen:
@@ -180,7 +186,24 @@ def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
     return None, None, None
 
 
+def retry_delay(err, ntry):
+    """How long to wait before retrying after err, or None to give up."""
+    if ntry >= len(_retry_delays):
+        return None
+    if isinstance(err, HTTPError):
+        # client errors other than timeouts and rate limits will not go away
+        if err.code < 500 and err.code not in (408, 425, 429):
+            return None
+        after = err.headers.get("Retry-After") if err.headers else None
+        if after and after.isdigit():
+            return min(int(after), 120)
+    return _retry_delays[ntry]
+
+
 def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
+    # only resume when we know what is left, i.e. after a partial download
+    with fmtx:
+        resume = ntry > 0 and fstatus[idx] > 0 and flens[idx] > 0
     try:
         hdrs = dict(dhdrs)
         if ehdrs:
@@ -189,7 +212,7 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
         for k, hdr in hdrs.items():
             if hdr is None:
                 del hdrs[k]
-        if ntry > 0:
+        if resume:
             with fmtx:
                 hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
         rq = request.Request(
@@ -198,11 +221,16 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
             headers=hdrs,
         )
         with request.urlopen(rq, context=fctx) as rqf:
-            return fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf)
+            return fetch_stream(
+                url, dfile, dhdrs, ehdrs, idx, ntry, resume, rqf, rbuf
+            )
     except Exception as e:
-        if ntry > 3:
+        delay = retry_delay(e, ntry)
+        if delay is None:
             return url, dfile, str(e)
-        # try a few times on failures
+        # try a few times on failures, giving the server some time (it
+        # may be rate limiting us or failing temporarily)
+        sleep(delay)
         return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
 
 
