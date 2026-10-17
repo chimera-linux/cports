@@ -1,1 +1,1 @@
-pkgname = "libvirt-python"
+pkgname = "libvirt_python"
