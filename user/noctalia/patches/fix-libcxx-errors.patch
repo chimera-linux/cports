@@ -1,0 +1,103 @@
+From 936a62b7176ba52c90c8291e4831a6a9b08329a8 Mon Sep 17 00:00:00 2001
+From: Pepper Gray <hello@peppergray.xyz>
+Date: Fri, 16 Oct 2026 00:48:34 +0200
+Subject: [PATCH] fix libcxx-23 build errors (#4870)
+
+icon_resolver, theme_service:
+- file timestamps are 128 bit on some platforms and there is no overlad
+for it for in std::to_string. Cast to int64_t.
+
+calendar_reminders_test:
+- std::ranges::find_if() returns an iterator that has no base() in
+  libcxx. Use iterator instead of converting to pointer.
+
+diagnostics:
+- fix compiler warning: note: defaulted 'operator==' is implicitly
+deleted because there is no viable 'operator==' for member 'origin'
+
+process
+- fix compiler warning: header #warning redirecting incorrect #include
+<sys/poll.h> to <poll.h>
+
+Bug: #4869
+
+Signed-off-by: Pepper Gray <hello@peppergray.xyz>
+---
+ src/config/schema/diagnostics.h   | 2 ++
+ src/core/process/process.cpp      | 2 +-
+ src/system/icon_resolver.cpp      | 2 +-
+ src/theme/theme_service.cpp       | 2 +-
+ tests/calendar_reminders_test.cpp | 5 +++--
+ 5 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/src/config/schema/diagnostics.h b/src/config/schema/diagnostics.h
+index 570cfdb0e2..fe9f977335 100644
+--- a/src/config/schema/diagnostics.h
++++ b/src/config/schema/diagnostics.h
+@@ -17,6 +17,8 @@ namespace noctalia::config::schema {
+     std::uint32_t line = 0;
+     std::uint32_t column = 0;
+ 
++    bool operator==(const SourceOrigin&) const = default;
++
+     [[nodiscard]] bool valid() const { return !file.empty(); }
+ 
+     // "file:line:column", or empty when unknown.
+diff --git a/src/core/process/process.cpp b/src/core/process/process.cpp
+index 6db64c8402..ff49925365 100644
+--- a/src/core/process/process.cpp
++++ b/src/core/process/process.cpp
+@@ -18,10 +18,10 @@
+ #include <limits>
+ #include <mutex>
+ #include <optional>
++#include <poll.h>
+ #include <sstream>
+ #include <string>
+ #include <string_view>
+-#include <sys/poll.h>
+ #include <sys/wait.h>
+ #include <system_error>
+ #include <thread>
+diff --git a/src/system/icon_resolver.cpp b/src/system/icon_resolver.cpp
+index a62f0ed2ff..0dea68b8a6 100644
+--- a/src/system/icon_resolver.cpp
++++ b/src/system/icon_resolver.cpp
+@@ -215,7 +215,7 @@ namespace {
+       if (ec) {
+         signature += "missing";
+       } else {
+-        signature += std::to_string(modified.time_since_epoch().count());
++        signature += std::to_string(static_cast<std::int64_t>(modified.time_since_epoch().count()));
+       }
+       signature += '\n';
+     };
+diff --git a/src/theme/theme_service.cpp b/src/theme/theme_service.cpp
+index 2684a5aae5..d11199088b 100644
+--- a/src/theme/theme_service.cpp
++++ b/src/theme/theme_service.cpp
+@@ -449,7 +449,7 @@ namespace noctalia::theme {
+         .path = wallpaperPath,
+         .schemeName = cfg.wallpaperScheme,
+         .scheme = *scheme,
+-        .mtimeNs = ec ? 0 : writeTime.time_since_epoch().count(),
++        .mtimeNs = ec ? 0 : static_cast<std::int64_t>(writeTime.time_since_epoch().count()),
+     };
+   }
+ 
+diff --git a/tests/calendar_reminders_test.cpp b/tests/calendar_reminders_test.cpp
+index 6786674aa9..622a004bd8 100644
+--- a/tests/calendar_reminders_test.cpp
++++ b/tests/calendar_reminders_test.cpp
+@@ -253,8 +253,9 @@ int main() {
+     ok = expect(plan.due.size() == 2, "both due reminders should be recorded as fired") && ok;
+     ok = expect(notifying == 1, "two reminders for one event produced two notifications") && ok;
+     // The one shown must be the closest to the event, so the wording is accurate.
+-    const auto* shown = std::ranges::find_if(plan.due, [](const calendar::DueReminder& d) { return d.notify; }).base();
+-    ok = expect(shown != nullptr && shown->leadSeconds == 600, "the collapsed notification used the wrong lead") && ok;
++    const auto shown = std::ranges::find_if(plan.due, [](const calendar::DueReminder& d) { return d.notify; });
++    ok = expect(shown != plan.due.end() && shown->leadSeconds == 600, "the collapsed notification used the wrong lead")
++        && ok;
+   }
+ 
+   // ---- reminders coming due at different times still notify separately ----
