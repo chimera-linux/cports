@@ -1,5 +1,5 @@
 pkgname = "noctalia"
-pkgver = "5.2.1"
+pkgver = "5.3.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -41,7 +41,7 @@ pkgdesc = "Desktop shell for Wayland"
 license = "MIT"
 url = "https://noctalia.dev"
 source = f"https://github.com/noctalia-dev/noctalia/archive/v{pkgver}.tar.gz"
-sha256 = "5418f6b759de96e56a4bbca809c5a4c60a8a9594bdf67ecb8c5a341f97c221d1"
+sha256 = "7677b5d7da80cf89c7a8232de26d25380aa5fcaf34fb38abddd4fe7cb676161a"
 # Generates completions by running the built executable
 options = ["!cross"]
 
