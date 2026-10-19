@@ -1,0 +1,94 @@
+From c13174adb02b9bb48692877bbe56d5cc058d70d1 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Wed, 8 Jul 2026 12:24:55 +1000
+Subject: [PATCH] zpl_inode_owner_or_capable: generic over idmap style
+
+Sponsored-by: TrueNAS
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18769
+---
+ include/os/linux/kernel/linux/vfs_compat.h | 13 +++++++++++++
+ include/os/linux/zfs/sys/zpl.h             | 10 ----------
+ module/os/linux/zfs/zpl_xattr.c            | 12 ------------
+ 3 files changed, 13 insertions(+), 22 deletions(-)
+
+diff --git a/include/os/linux/kernel/linux/vfs_compat.h b/include/os/linux/kernel/linux/vfs_compat.h
+index 079e5606780a..32745f29422f 100644
+--- a/include/os/linux/kernel/linux/vfs_compat.h
++++ b/include/os/linux/kernel/linux/vfs_compat.h
+@@ -264,6 +264,19 @@ zpl_is_32bit_api(void)
+ #define	zpl_generic_fillattr(user_ns, ip, sp)	generic_fillattr(ip, sp)
+ #endif
+ 
++static inline bool
++zpl_inode_owner_or_capable(zidmap_t *idmap, struct inode *ip)
++{
++#if defined(HAVE_IDMAP_MNTIDMAP)
++	return (inode_owner_or_capable((struct mnt_idmap *)idmap, ip));
++#elif defined(HAVE_IDMAP_USERNS)
++	return (inode_owner_or_capable((struct user_namespace *)idmap, ip));
++#else
++	(void) idmap;
++	return (inode_owner_or_capable(ip));
++#endif
++}
++
+ #ifdef HAVE_INODE_GENERIC_DROP
+ /* 6.18 API change. These were renamed, alias the old names to the new. */
+ #define	generic_delete_inode(ip)	inode_just_drop(ip)
+diff --git a/include/os/linux/zfs/sys/zpl.h b/include/os/linux/zfs/sys/zpl.h
+index 13da6bc04be9..8508de602501 100644
+--- a/include/os/linux/zfs/sys/zpl.h
++++ b/include/os/linux/zfs/sys/zpl.h
+@@ -132,16 +132,6 @@
+ 	timespec64_trunc(ts, (ip)->i_sb->s_time_gran)
+ #endif
+ 
+-#if defined(HAVE_INODE_OWNER_OR_CAPABLE)
+-#define	zpl_inode_owner_or_capable(ns, ip)	inode_owner_or_capable(ip)
+-#elif defined(HAVE_INODE_OWNER_OR_CAPABLE_USERNS)
+-#define	zpl_inode_owner_or_capable(ns, ip)	inode_owner_or_capable(ns, ip)
+-#elif defined(HAVE_INODE_OWNER_OR_CAPABLE_IDMAP)
+-#define	zpl_inode_owner_or_capable(idmap, ip) inode_owner_or_capable(idmap, ip)
+-#else
+-#error "Unsupported kernel"
+-#endif
+-
+ #if defined(HAVE_SETATTR_PREPARE_USERNS) || defined(HAVE_SETATTR_PREPARE_IDMAP)
+ #define	zpl_setattr_prepare(ns, dentry, ia)	setattr_prepare(ns, dentry, ia)
+ #else
+diff --git a/module/os/linux/zfs/zpl_xattr.c b/module/os/linux/zfs/zpl_xattr.c
+index d93282d..7d72a66 100644
+--- a/module/os/linux/zfs/zpl_xattr.c
++++ b/module/os/linux/zfs/zpl_xattr.c
+@@ -1282,14 +1282,8 @@ __zpl_xattr_acl_set_access(zidmap_t *mnt_ns,
+ 	if (ITOZSB(ip)->z_acl_type != ZFS_ACLTYPE_POSIX)
+ 		return (-EOPNOTSUPP);
+ 
+-#if defined(HAVE_XATTR_SET_USERNS) || defined(HAVE_XATTR_SET_IDMAP)
+ 	if (!zpl_inode_owner_or_capable(mnt_ns, ip))
+ 		return (-EPERM);
+-#else
+-	(void) mnt_ns;
+-	if (!zpl_inode_owner_or_capable(zfs_init_idmap, ip))
+-		return (-EPERM);
+-#endif
+ 
+ 	if (value) {
+ 		acl = zpl_acl_from_xattr(value, size);
+@@ -1324,14 +1318,8 @@ __zpl_xattr_acl_set_default(zidmap_t *mnt_ns,
+ 	if (ITOZSB(ip)->z_acl_type != ZFS_ACLTYPE_POSIX)
+ 		return (-EOPNOTSUPP);
+ 
+-#if defined(HAVE_XATTR_SET_USERNS) || defined(HAVE_XATTR_SET_IDMAP)
+ 	if (!zpl_inode_owner_or_capable(mnt_ns, ip))
+ 		return (-EPERM);
+-#else
+-	(void) mnt_ns;
+-	if (!zpl_inode_owner_or_capable(zfs_init_idmap, ip))
+-		return (-EPERM);
+-#endif
+ 
+ 	if (value) {
+ 		acl = zpl_acl_from_xattr(value, size);

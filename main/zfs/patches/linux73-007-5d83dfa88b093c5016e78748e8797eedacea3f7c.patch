@@ -1,0 +1,148 @@
+From 5d83dfa88b093c5016e78748e8797eedacea3f7c Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Tue, 7 Jul 2026 13:07:53 +1000
+Subject: [PATCH] zpl_generic_fillattr: generic over idmap style
+
+Sponsored-by: TrueNAS
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18769
+---
+ include/os/linux/kernel/linux/vfs_compat.h | 39 +++++++++-----------
+ module/os/linux/zfs/zfs_vnops_os.c         |  5 +--
+ module/os/linux/zfs/zpl_ctldir.c           | 43 ++--------------------
+ 3 files changed, 21 insertions(+), 66 deletions(-)
+
+diff --git a/include/os/linux/kernel/linux/vfs_compat.h b/include/os/linux/kernel/linux/vfs_compat.h
+index 536a714..628cfa9 100644
+--- a/include/os/linux/kernel/linux/vfs_compat.h
++++ b/include/os/linux/kernel/linux/vfs_compat.h
+@@ -239,30 +239,25 @@ zpl_is_32bit_api(void)
+ #endif
+ }
+ 
+-/*
+- * 5.12 API change
+- * To support id-mapped mounts, generic_fillattr() was modified to
+- * accept a new struct user_namespace* as its first arg.
+- *
+- * 6.3 API change
+- * generic_fillattr() first arg is changed to struct mnt_idmap *
+- *
+- * 6.6 API change
+- * generic_fillattr() gets new second arg request_mask, a u32 type
+- *
+- */
+-#ifdef HAVE_GENERIC_FILLATTR_IDMAP
+-#define	zpl_generic_fillattr(idmap, ip, sp)	\
+-    generic_fillattr(idmap, ip, sp)
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP_REQMASK)
+-#define	zpl_generic_fillattr(idmap, rqm, ip, sp)	\
+-    generic_fillattr(idmap, rqm, ip, sp)
+-#elif defined(HAVE_GENERIC_FILLATTR_USERNS)
+-#define	zpl_generic_fillattr(user_ns, ip, sp)	\
+-    generic_fillattr(user_ns, ip, sp)
++static inline void
++zpl_generic_fillattr(zidmap_t *idmap, u32 request_mask, struct inode *ip,
++    struct kstat *stat)
++{
++#if defined(HAVE_IDMAP_MNTIDMAP)
++#if defined(HAVE_GENERIC_FILLATTR_IDMAP_REQMASK)
++	generic_fillattr((struct mnt_idmap *)idmap, request_mask, ip, stat);
+ #else
+-#define	zpl_generic_fillattr(user_ns, ip, sp)	generic_fillattr(ip, sp)
++	(void) request_mask;
++	generic_fillattr((struct mnt_idmap *)idmap, ip, stat);
++#endif /* HAVE_GENERIC_FILLATTR_IDMAP_REQMASK */
++#elif defined(HAVE_IDMAP_USERNS)
++	(void) request_mask;
++	generic_fillattr((struct user_namespace *)idmap, ip, stat);
++#else
++	(void) idmap, (void) request_mask;
++	generic_fillattr(ip, stat);
+ #endif
++}
+ 
+ static inline bool
+ zpl_inode_owner_or_capable(zidmap_t *idmap, struct inode *ip)
+diff --git a/module/os/linux/zfs/zfs_vnops_os.c b/module/os/linux/zfs/zfs_vnops_os.c
+index cb6321e..ed03da9 100644
+--- a/module/os/linux/zfs/zfs_vnops_os.c
++++ b/module/os/linux/zfs/zfs_vnops_os.c
+@@ -1747,11 +1747,8 @@ zfs_getattr_fast(zidmap_t *user_ns, struct inode *ip, struct kstat *sp)
+ 
+ 	mutex_enter(&zp->z_lock);
+ 
+-#ifdef HAVE_GENERIC_FILLATTR_IDMAP_REQMASK
+ 	zpl_generic_fillattr(user_ns, request_mask, ip, sp);
+-#else
+-	zpl_generic_fillattr(user_ns, ip, sp);
+-#endif
++
+ 	/*
+ 	 * +1 link count for root inode with visible '.zfs' directory.
+ 	 */
+diff --git a/module/os/linux/zfs/zpl_ctldir.c b/module/os/linux/zfs/zpl_ctldir.c
+index 453628a..38908aa 100644
+--- a/module/os/linux/zfs/zpl_ctldir.c
++++ b/module/os/linux/zfs/zpl_ctldir.c
+@@ -110,15 +110,7 @@ zpl_root_getattr_impl(const struct path *path, struct kstat *stat,
+ 	struct inode *ip = path->dentry->d_inode;
+ 
+ #if (defined(HAVE_USERNS_IOPS_GETATTR) || defined(HAVE_IDMAP_IOPS_GETATTR))
+-#ifdef HAVE_GENERIC_FILLATTR_USERNS
+-	generic_fillattr(user_ns, ip, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP)
+-	generic_fillattr(user_ns, ip, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP_REQMASK)
+-	generic_fillattr(user_ns, request_mask, ip, stat);
+-#else
+-	(void) user_ns;
+-#endif
++	zpl_generic_fillattr(user_ns, request_mask, ip, stat);
+ #else
+ 	generic_fillattr(ip, stat);
+ #endif
+@@ -435,20 +427,12 @@ zpl_snapdir_getattr_impl(const struct path *path, struct kstat *stat,
+ 
+ 	if ((error = zpl_enter(zfsvfs, FTAG)) != 0)
+ 		return (error);
++
+ #if (defined(HAVE_USERNS_IOPS_GETATTR) || defined(HAVE_IDMAP_IOPS_GETATTR))
+-#ifdef HAVE_GENERIC_FILLATTR_USERNS
+-	generic_fillattr(user_ns, ip, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP)
+-	generic_fillattr(user_ns, ip, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP_REQMASK)
+-	generic_fillattr(user_ns, request_mask, ip, stat);
+-#else
+-	(void) user_ns;
+-#endif
++	zpl_generic_fillattr(user_ns, request_mask, ip, stat);
+ #else
+ 	generic_fillattr(ip, stat);
+ #endif
+-
+ 	stat->nlink = stat->size = 2;
+ 
+ 	dsl_dataset_t *ds = dmu_objset_ds(zfsvfs->z_os);
+@@ -585,17 +569,9 @@ zpl_shares_getattr_impl(const struct path *path, struct kstat *stat,
+ 
+ 	if (zfsvfs->z_shares_dir == 0) {
+ #if (defined(HAVE_USERNS_IOPS_GETATTR) || defined(HAVE_IDMAP_IOPS_GETATTR))
+-#ifdef HAVE_GENERIC_FILLATTR_USERNS
+-		generic_fillattr(user_ns, path->dentry->d_inode, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP)
+-		generic_fillattr(user_ns, path->dentry->d_inode, stat);
+-#elif defined(HAVE_GENERIC_FILLATTR_IDMAP_REQMASK)
+-	generic_fillattr(user_ns, request_mask, ip, stat);
+-#else
+-		(void) user_ns;
+-#endif
++		zpl_generic_fillattr(user_ns, request_mask, ip, stat);
+ #else
+-		generic_fillattr(path->dentry->d_inode, stat);
++		generic_fillattr(ip, stat);
+ #endif
+ 		stat->nlink = stat->size = 2;
+ 		stat->atime = current_time(ip);

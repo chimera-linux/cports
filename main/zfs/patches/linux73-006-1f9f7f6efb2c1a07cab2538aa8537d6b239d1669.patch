@@ -1,0 +1,56 @@
+From 1f9f7f6efb2c1a07cab2538aa8537d6b239d1669 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Wed, 8 Jul 2026 14:20:06 +1000
+Subject: [PATCH] zpl_generic_permission: generic over idmap style
+
+Sponsored-by: TrueNAS
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18769
+---
+ include/os/linux/kernel/linux/vfs_compat.h | 13 +++++++++++++
+ module/os/linux/zfs/zfs_acl.c              |  7 +------
+ 2 files changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/include/os/linux/kernel/linux/vfs_compat.h b/include/os/linux/kernel/linux/vfs_compat.h
+index d11b2b0..7be2900 100644
+--- a/include/os/linux/kernel/linux/vfs_compat.h
++++ b/include/os/linux/kernel/linux/vfs_compat.h
+@@ -277,6 +277,19 @@ zpl_inode_owner_or_capable(zidmap_t *idmap, struct inode *ip)
+ #endif
+ }
+ 
++static inline int
++zpl_generic_permission(zidmap_t *idmap, struct inode *ip, int mask)
++{
++#if defined(HAVE_IDMAP_MNTIDMAP)
++	return (generic_permission((struct mnt_idmap *)idmap, ip, mask));
++#elif defined(HAVE_IDMAP_USERNS)
++	return (generic_permission((struct user_namespace *)idmap, ip, mask));
++#else
++	(void) idmap;
++	return (generic_permission(ip, mask));
++#endif
++}
++
+ #ifdef HAVE_INODE_GENERIC_DROP
+ /* 6.18 API change. These were renamed, alias the old names to the new. */
+ #define	generic_delete_inode(ip)	inode_just_drop(ip)
+diff --git a/module/os/linux/zfs/zfs_acl.c b/module/os/linux/zfs/zfs_acl.c
+index 4c929a4..fdacb59 100644
+--- a/module/os/linux/zfs/zfs_acl.c
++++ b/module/os/linux/zfs/zfs_acl.c
+@@ -2464,12 +2464,7 @@ zfs_zaccess_trivial(znode_t *zp, uint32_t *working_mode, cred_t *cr,
+ 		return (unmapped ? SET_ERROR(EPERM) : 0);
+ 	}
+ 
+-#if (defined(HAVE_IOPS_PERMISSION_USERNS) || \
+-	defined(HAVE_IOPS_PERMISSION_IDMAP))
+-	err = generic_permission(mnt_ns, ZTOI(zp), mask);
+-#else
+-	err = generic_permission(ZTOI(zp), mask);
+-#endif
++	err = zpl_generic_permission(mnt_ns, ZTOI(zp), mask);
+ 	if (err != 0) {
+ 		return (SET_ERROR(EPERM));
+ 	}

@@ -1,0 +1,78 @@
+From 9b89e2fa1898c4a5cdf8c33ebc92288c6ca66ec1 Mon Sep 17 00:00:00 2001
+From: Rob Norris <rob.norris@truenas.com>
+Date: Tue, 7 Jul 2026 13:12:27 +1000
+Subject: [PATCH] zpl_setattr_prepare: generic over idmap style
+
+Sponsored-by: TrueNAS
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Signed-off-by: Rob Norris <rob.norris@truenas.com>
+Closes #18769
+---
+ include/os/linux/kernel/linux/vfs_compat.h | 13 +++++++++++++
+ include/os/linux/zfs/sys/zpl.h             | 10 ----------
+ module/os/linux/zfs/zpl_inode.c            |  6 ------
+ 3 files changed, 13 insertions(+), 16 deletions(-)
+
+diff --git a/include/os/linux/kernel/linux/vfs_compat.h b/include/os/linux/kernel/linux/vfs_compat.h
+index 628cfa9..65e3e06 100644
+--- a/include/os/linux/kernel/linux/vfs_compat.h
++++ b/include/os/linux/kernel/linux/vfs_compat.h
+@@ -285,6 +285,19 @@ zpl_generic_permission(zidmap_t *idmap, struct inode *ip, int mask)
+ #endif
+ }
+ 
++static inline int
++zpl_setattr_prepare(zidmap_t *idmap, struct dentry *dentry, struct iattr *ia)
++{
++#if defined(HAVE_IDMAP_MNTIDMAP)
++	return (setattr_prepare((struct mnt_idmap *)idmap, dentry, ia));
++#elif defined(HAVE_IDMAP_USERNS)
++	return (setattr_prepare((struct user_namespace *)idmap, dentry, ia));
++#else
++	(void) idmap;
++	return (setattr_prepare(dentry, ia));
++#endif
++}
++
+ #ifdef HAVE_INODE_GENERIC_DROP
+ /* 6.18 API change. These were renamed, alias the old names to the new. */
+ #define	generic_delete_inode(ip)	inode_just_drop(ip)
+diff --git a/include/os/linux/zfs/sys/zpl.h b/include/os/linux/zfs/sys/zpl.h
+index 6184f67..133e2af 100644
+--- a/include/os/linux/zfs/sys/zpl.h
++++ b/include/os/linux/zfs/sys/zpl.h
+@@ -132,16 +132,6 @@ extern int zpl_dedupe_file_range(struct file *src_file, loff_t src_off,
+ 	timespec64_trunc(ts, (ip)->i_sb->s_time_gran)
+ #endif
+ 
+-#if defined(HAVE_SETATTR_PREPARE_USERNS) || defined(HAVE_SETATTR_PREPARE_IDMAP)
+-#define	zpl_setattr_prepare(ns, dentry, ia)	setattr_prepare(ns, dentry, ia)
+-#else
+-/*
+- * Use kernel-provided version, or our own from
+- * linux/vfs_compat.h
+- */
+-#define	zpl_setattr_prepare(ns, dentry, ia)	setattr_prepare(dentry, ia)
+-#endif
+-
+ #ifdef HAVE_INODE_GET_CTIME
+ #define	zpl_inode_get_ctime(ip)	inode_get_ctime(ip)
+ #else
+diff --git a/module/os/linux/zfs/zpl_inode.c b/module/os/linux/zfs/zpl_inode.c
+index 5c1741d..8d2fe17 100644
+--- a/module/os/linux/zfs/zpl_inode.c
++++ b/module/os/linux/zfs/zpl_inode.c
+@@ -588,13 +588,7 @@ zpl_setattr(struct dentry *dentry, struct iattr *ia)
+ 	int error;
+ 	fstrans_cookie_t cookie;
+ 
+-#ifdef HAVE_SETATTR_PREPARE_USERNS
+ 	error = zpl_setattr_prepare(user_ns, dentry, ia);
+-#elif defined(HAVE_SETATTR_PREPARE_IDMAP)
+-	error = zpl_setattr_prepare(user_ns, dentry, ia);
+-#else
+-	error = zpl_setattr_prepare(zfs_init_idmap, dentry, ia);
+-#endif
+ 	if (error)
+ 		return (error);
+ 
