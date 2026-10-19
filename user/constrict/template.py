@@ -1,5 +1,5 @@
 pkgname = "constrict"
-pkgver = "26.4"
+pkgver = "26.10"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,6 +13,7 @@ hostmakedepends = [
 ]
 depends = [
     "ffmpeg",
+    "glycin-gtk4",
     "libadwaita",
     "python-gobject",
 ]
@@ -20,4 +21,4 @@ pkgdesc = "Compress videos to target sizes"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Constrict"
 source = f"https://gitlab.gnome.org/World/Constrict/-/archive/{pkgver}/Constrict-{pkgver}.tar.gz"
-sha256 = "a84bc809519bec7d6e302861c4e508fb97305cb44a96d8e924f0b4907a794d39"
+sha256 = "082a8a3db65b7cfb86cee32f65160f9da31964fe9e5d142f78fb0765da1cf1d5"
