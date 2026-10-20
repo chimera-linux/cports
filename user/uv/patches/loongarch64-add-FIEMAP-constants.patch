@@ -1,0 +1,28 @@
+https://github.com/sunfishcode/linux-raw-sys/issues/192
+---
+diff -urN a/vendor/linux-raw-sys-0.12.1/src/loongarch64/ioctl.rs b/vendor/linux-raw-sys-0.12.1/src/loongarch64/ioctl.rs
+--- a/vendor/linux-raw-sys-0.12.1/src/loongarch64/ioctl.rs	2006-07-24 02:21:28.000000000 +0100
++++ b/vendor/linux-raw-sys-0.12.1/src/loongarch64/ioctl.rs	2026-10-20 22:28:17.076774730 +0100
+@@ -104,6 +104,22 @@
+ pub const BLKSECDISCARD: u32 = 4733;
+ pub const BLKROTATIONAL: u32 = 4734;
+ pub const BLKZEROOUT: u32 = 4735;
++pub const FIEMAP_MAX_OFFSET: u64 = 18446744073709551615;
++pub const FIEMAP_FLAG_SYNC: u32 = 1;
++pub const FIEMAP_FLAG_XATTR: u32 = 2;
++pub const FIEMAP_FLAG_CACHE: u32 = 4;
++pub const FIEMAP_FLAGS_COMPAT: u32 = 3;
++pub const FIEMAP_EXTENT_LAST: u32 = 1;
++pub const FIEMAP_EXTENT_UNKNOWN: u32 = 2;
++pub const FIEMAP_EXTENT_DELALLOC: u32 = 4;
++pub const FIEMAP_EXTENT_ENCODED: u32 = 8;
++pub const FIEMAP_EXTENT_DATA_ENCRYPTED: u32 = 128;
++pub const FIEMAP_EXTENT_NOT_ALIGNED: u32 = 256;
++pub const FIEMAP_EXTENT_DATA_INLINE: u32 = 512;
++pub const FIEMAP_EXTENT_DATA_TAIL: u32 = 1024;
++pub const FIEMAP_EXTENT_UNWRITTEN: u32 = 2048;
++pub const FIEMAP_EXTENT_MERGED: u32 = 4096;
++pub const FIEMAP_EXTENT_SHARED: u32 = 8192;
+ pub const UFFDIO_REGISTER: u32 = 3223366144;
+ pub const UFFDIO_UNREGISTER: u32 = 2148575745;
+ pub const UFFDIO_WAKE: u32 = 2148575746;

@@ -1,6 +1,6 @@
 pkgname = "uv"
 pkgver = "0.13.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo-auditable",
@@ -33,6 +33,7 @@ def prepare(self):
     cargo.Cargo(self).vendor()
 
     cargo.clear_vendor_checksums(self, "aws-lc-sys-0.44.0")
+    cargo.clear_vendor_checksums(self, "linux-raw-sys-0.12.1")
 
 
 def init_build(self):
