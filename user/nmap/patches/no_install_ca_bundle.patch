@@ -1,0 +1,15 @@
+force use of the system cert store
+---
+diff --git a/ncat/Makefile.in b/ncat/Makefile.in
+index 4ef3f4728..584b23068 100644
+--- a/ncat/Makefile.in
++++ b/ncat/Makefile.in
+@@ -84,7 +84,7 @@ DATAFILES =
+ ifneq ($(HAVE_OPENSSL),)
+ SRCS += http_digest.c
+ OBJS += http_digest.o
+-DATAFILES = certs/ca-bundle.crt
++DATAFILES =
+ endif
+ 
+ ifneq ($(NOLUA),yes)
