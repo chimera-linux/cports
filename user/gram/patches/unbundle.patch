@@ -1,0 +1,27 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 81e51aa62c..03d794b52d 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -360,7 +360,7 @@ jupyter-protocol = "2.0.2"
+ jupyter-websocket-client = "2.0.0"
+ jupyter-zmq-client = { version = "1.0.1", features = ["ring", "tokio-runtime"] }
+ libc = "0.2.190"
+-libsqlite3-sys = { version = "0.37.0", features = ["bundled", "min_sqlite_version_3_34_1"] }
++libsqlite3-sys = { version = "0.37.0" }
+ linkify = "0.11.0"
+ log = { version = "0.4.34", features = ["kv_unstable_serde", "serde"] }
+ lru = "0.18.5"
+diff --git a/crates/sqlez/src/connection.rs b/crates/sqlez/src/connection.rs
+index bca73612e2..2733aaaf93 100644
+--- a/crates/sqlez/src/connection.rs
++++ b/crates/sqlez/src/connection.rs
+@@ -34,6 +34,9 @@ fn open_with_flags(uri: &str, persistent: bool, flags: i32) -> Result<Self> {
+         unsafe {
+             sqlite3_open_v2(CString::new(uri)?.as_ptr(), &mut connection.sqlite3, flags, ptr::null());
+ 
++            // Turn on foreign keys (off by default in system sqlite3 builds, on in bundled)
++            sqlite3_db_config(connection.sqlite3, SQLITE_DBCONFIG_ENABLE_FKEY, 1, ptr::null_mut::<i32>());
++
+             // Turn on extended error codes
+             sqlite3_extended_result_codes(connection.sqlite3, 1);
+ 
