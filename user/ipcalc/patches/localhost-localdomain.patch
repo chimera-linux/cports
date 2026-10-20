@@ -1,0 +1,40 @@
+--- a/tests/ip-localhost-ipv4
++++ b/tests/ip-localhost-ipv4
+@@ -1 +1 @@
+-HOSTNAME=localhost
++HOSTNAME=localhost.localdomain
+--- a/tests/ip-localhost-ipv4-json
++++ b/tests/ip-localhost-ipv4-json
+@@ -1,6 +1,6 @@
+ {
+   "ADDRESS":"127.0.0.1",
+-  "HOSTNAME":"localhost",
++  "HOSTNAME":"localhost.localdomain",
+   "NETWORK":"127.0.0.1",
+   "NETMASK":"255.255.255.255",
+   "PREFIX":"32",
+--- a/tests/ip-localhost-ipv6
++++ b/tests/ip-localhost-ipv6
+@@ -1 +1 @@
+-HOSTNAME=localhost
++HOSTNAME=localhost.localdomain
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -2434,7 +2434,7 @@
+ foreach c : [
+ 	['FieldOrderNetworkNetmask', '-m -n 10.1.2.3/8', 'NETWORK=10.0.0.0\nNETMASK=255.0.0.0'],
+ 	['AddressAndLookupHost', '-a -o localhost -4', 'ADDRESS=127.0.0.1'],
+-	['HostnameHostPrefix', '-h 127.0.0.1/32', 'HOSTNAME=localhost'],
++	['HostnameHostPrefix', '-h 127.0.0.1/32', 'HOSTNAME=localhost.localdomain'],
+ ]
+ 	cmd = ipcalc.full_path() + ' ' + c[1]
+ 	test(c[0], testrunner,
+@@ -2489,7 +2489,7 @@
+ 	['FormatJsonFields', '--format=json -m -n 192.168.2.7/24', '{\n  "NETWORK":"192.168.2.0",\n  "NETMASK":"255.255.255.0"\n}'],
+ 	['FormatHumanFields', '--format=human -m -n 192.168.2.7/24', 'Network:\t192.168.2.0/24\nNetmask:\t255.255.255.0 = 24'],
+ 	['FormatJsonReverseDNS', '--format=json --reverse-dns 2001:db8::/31', '{\n  "REVERSEDNS":[\n    "8.b.d.0.1.0.0.2.ip6.arpa.",\n    "9.b.d.0.1.0.0.2.ip6.arpa."]\n}'],
+-	['FormatJsonHostname', '--format=json -h 127.0.0.1', '{\n  "HOSTNAME":"localhost"\n}'],
++	['FormatJsonHostname', '--format=json -h 127.0.0.1', '{\n  "HOSTNAME":"localhost.localdomain"\n}'],
+ 	['FormatJsonLookupHost', '--format=json -4 -o localhost', '{\n  "ADDRESS":"127.0.0.1"\n}'],
+ 	['FormatJsonWithJ', '-j --format=json -n 10.1.2.3/8', '{\n  "NETWORK":"10.0.0.0"\n}'],
+ 	['FormatValueWithNoDecorate', '--no-decorate --format=value -n 10.1.2.3/8', '10.0.0.0'],
