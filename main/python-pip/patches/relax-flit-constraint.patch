@@ -1,0 +1,40 @@
+commit 09a03f6cfaeecae8bf5774ae371d37c4369e2da4 but... forwardported?
+it's unclear how to build pip 23.2.2 right now otherwise.
+
+diff --git a/build-project/pyproject.toml b/build-project/pyproject.toml
+index 6dc112d87..bfa0ffd56 100644
+--- a/build-project/pyproject.toml
++++ b/build-project/pyproject.toml
+@@ -1,2 +1,2 @@
+ [dependency-groups]
+-build = ["build", "flit-core"]
++build = ["build", "flit-core >=3.11,<5"]
+diff --git a/pyproject.toml b/pyproject.toml
+index 48f64c801..fe6b39913 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -45,13 +45,13 @@ Source = "https://github.com/pypa/pip"
+ Changelog = "https://pip.pypa.io/en/stable/news/"
+ 
+ [build-system]
+-requires = ["flit-core >=3.11,<4"]
++requires = ["flit-core >=3.11,<5"]
+ build-backend = "flit_core.buildapi"
+ 
+ [dependency-groups]
+ test = [
+     "cryptography",
+-    "flit-core >= 3.11, < 4",
++    "flit-core >= 3.11, < 5",
+     "freezegun",
+     "installer",
+     # pytest-subket requires 7.0+
+@@ -69,7 +69,7 @@ test = [
+ ]
+ 
+ test-common-wheels = [
+-    "flit-core >= 3.11, < 4",
++    "flit-core >= 3.11, < 5",
+     # We pin setuptools<80 because our test suite currently
+     # depends on setup.py develop to generate egg-link files.
+     "setuptools >= 70.1.0, <80",
