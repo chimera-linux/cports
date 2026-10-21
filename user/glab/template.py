@@ -1,6 +1,6 @@
 pkgname = "glab"
 pkgver = "1.123.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags",

@@ -1,6 +1,6 @@
 pkgname = "dnsproxy"
 pkgver = "0.84.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["dinit-chimera"]

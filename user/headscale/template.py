@@ -1,6 +1,6 @@
 pkgname = "headscale"
 pkgver = "0.29.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 prepare_after_patch = True
 make_build_args = [

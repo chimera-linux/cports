@@ -1,6 +1,6 @@
 pkgname = "tlstunnel"
 pkgver = "0.4.0"
-pkgrel = 11
+pkgrel = 12
 build_style = "go"
 make_build_args = [
     "-ldflags= "

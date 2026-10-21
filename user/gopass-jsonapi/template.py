@@ -1,6 +1,6 @@
 pkgname = "gopass-jsonapi"
 pkgver = "1.17.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "JSON API for gopass"
