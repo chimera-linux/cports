@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.11.12"
+pkgver = "0.13.4"
 pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Python package installer"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "b535e471fcf0e343687a51e6f9935104eae19d6a328ad75d17e1b280ee8efb95"
+sha256 = "182d66815490dbb497b456a6fde93c7e66ae7f27a50a2065b3b5a06fbb3a20bd"
 # too many of them need net
 # completions with host bin
 options = ["!check", "!cross"]
@@ -31,6 +31,9 @@ def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()
+
+    cargo.clear_vendor_checksums(self, "aws-lc-sys-0.44.0")
+    cargo.clear_vendor_checksums(self, "linux-raw-sys-0.12.1")
 
 
 def init_build(self):

@@ -1,6 +1,6 @@
 pkgname = "protobuf-language-server"
 pkgver = "0.1.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Language server for protobuf"

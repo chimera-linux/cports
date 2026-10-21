@@ -1,6 +1,6 @@
 pkgname = "esbuild"
 pkgver = "0.28.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "go"
 make_build_args = ["./cmd/esbuild"]
 hostmakedepends = ["go", "nodejs"]

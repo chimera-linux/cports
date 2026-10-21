@@ -1,6 +1,6 @@
 pkgname = "ov"
 pkgver = "0.54.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terminal pager"

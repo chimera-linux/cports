@@ -1,6 +1,6 @@
 pkgname = "earlybird"
 pkgver = "4.6.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["git"]

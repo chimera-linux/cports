@@ -1,6 +1,6 @@
 pkgname = "opentofu"
 pkgver = "1.12.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 prepare_after_patch = True
 make_build_args = [

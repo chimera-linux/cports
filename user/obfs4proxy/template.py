@@ -1,6 +1,6 @@
 pkgname = "obfs4proxy"
 pkgver = "0.0.14"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = ["./obfs4proxy"]
 hostmakedepends = ["go", "libcap-progs"]

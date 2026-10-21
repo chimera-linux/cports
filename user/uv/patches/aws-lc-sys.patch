@@ -1,0 +1,14 @@
+diff -urN a/vendor/aws-lc-sys-0.44.0/builder/cc_builder.rs b/vendor/aws-lc-sys-0.44.0/builder/cc_builder.rs
+--- a/vendor/aws-lc-sys-0.44.0/builder/cc_builder.rs	2006-07-24 02:21:28.000000000 +0100
++++ b/vendor/aws-lc-sys-0.44.0/builder/cc_builder.rs	2026-10-20 21:54:44.720060229 +0100
+@@ -411,10 +411,6 @@
+             && !self.manifest_dir.to_string_lossy().contains(' ')
+         {
+             let path_str = self.manifest_dir.display().to_string();
+-            let asm_flag = format!("-Wa,--debug-prefix-map={path_str}=");
+-            if cc_build.is_flag_supported(&asm_flag).unwrap_or(false) {
+-                cc_build.asm_flag(asm_flag);
+-            }
+         }
+ 
+         cc_build

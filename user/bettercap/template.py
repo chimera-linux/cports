@@ -1,6 +1,6 @@
 pkgname = "bettercap"
 pkgver = "2.41.7"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
 makedepends = ["libnetfilter_queue-devel", "libpcap-devel", "libusb-devel"]

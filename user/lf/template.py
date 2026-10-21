@@ -1,6 +1,6 @@
 pkgname = "lf"
 pkgver = "41"
-pkgrel = 5
+pkgrel = 6
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.gVersion={pkgver}"]
 hostmakedepends = ["go"]
