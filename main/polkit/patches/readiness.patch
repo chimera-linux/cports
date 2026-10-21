@@ -1,22 +1,22 @@
-commit 2db5863e4f9b6b89d37fc05b1522edb469f84cbd
+commit 479c03129d82fe01998ad57a4d026ceb6f9595d0
 Author: q66 <q66@chimera-linux.org>
-Date:   Fri May 19 21:54:49 2023 +0200
+Date:   Wed Oct 21 11:44:55 2026 +0100
 
     add dinit readiness support
 
 diff --git a/src/polkitbackend/polkitd.c b/src/polkitbackend/polkitd.c
-index c3ec32f..7e28b4d 100644
+index a2141d8..585a2eb 100644
 --- a/src/polkitbackend/polkitd.c
 +++ b/src/polkitbackend/polkitd.c
-@@ -23,6 +23,7 @@
- 
+@@ -22,6 +22,7 @@
  #include <signal.h>
+ #include <errno.h>
  #include <stdlib.h>
 +#include <unistd.h>
  
  #include <glib-unix.h>
  
-@@ -68,6 +69,16 @@ on_bus_acquired (GDBusConnection *connection,
+@@ -168,6 +169,16 @@ on_bus_acquired (GDBusConnection *connection,
        g_error_free (error);
        g_main_loop_quit (loop); /* exit */
      }
