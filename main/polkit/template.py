@@ -1,5 +1,5 @@
 pkgname = "polkit"
-pkgver = "127"
+pkgver = "128"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -34,7 +34,7 @@ url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = (
     f"https://github.com/polkit-org/polkit/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "9b7bc16f086479dcc626c575976568ba4a85d34297a750d8ab3d2e57f6d8b988"
+sha256 = "6edb06bf1448e49e428f9597a97af6a05d62146dd0b58f86eeaebcee3f5ecfaa"
 file_modes = {
     "usr/lib/polkit-1/polkit-agent-helper-1": ("root", "root", 0o4755),
     "usr/bin/pkexec": ("root", "root", 0o4755),
