@@ -178,17 +178,20 @@ Other possible targets:
 
 In order to be included in `user`, there are few requirements. The software has
 to provide something of usefulness to the users, must not be malicious, and
-must not violate the project community guidelines. At the time of introduction,
-it must satisfy the general style requirements and must be buildable, it will
-receive a review from a maintainer and will be merged at their convenience.
+must not violate the project community guidelines; in most cases it should
+be packaged from source code (except for e.g. bootstrap toolchains). At the
+time of introduction, it must satisfy the general style requirements and must
+be buildable, it will receive a review from a maintainer and will be merged
+at their convenience. The software must be redistributable.
 
-For inclusion in `main`, it must be redistributable and must be open source,
-when possible, it must be packaged from source code (except for e.g. bootstrap
-toolchains), must be well maintained, and backed by an existing committer.
-In general, it should not be a VCS version, i.e. it should refer to some kind
+For inclusion in `main`, it must be open source, must be well maintained, and
+backed by an existing committer.
+
+In both cases, it should not be a VCS version, i.e. it should refer to some kind
 of stable tag, with some very rare exceptions. Vendoring of dependencies should
 be avoided if viable. Drive-by contributions will not be accepted in `main`
-directly in most cases. It must not be vetoed by anybody from core team.
+directly in most cases and must go in `user`. It must not be vetoed by anybody
+from core team.
 
 <a id="correct_style"></a>
 ### Correct Style
