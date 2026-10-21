@@ -1,15 +1,35 @@
+diff --git a/deps/v8/third_party/highway/src/hwy/detect_targets.h b/deps/v8/third_party/highway/src/hwy/detect_targets.h
+index 25b7d82..9057859 100644
 --- a/deps/v8/third_party/highway/src/hwy/detect_targets.h
 +++ b/deps/v8/third_party/highway/src/hwy/detect_targets.h
-@@ -271,7 +271,7 @@
+@@ -336,7 +336,7 @@
       (HWY_COMPILER_GCC_ACTUAL && HWY_COMPILER_GCC_ACTUAL < 1300))
  #define HWY_BROKEN_RVV (HWY_RVV)
  #else
 -#define HWY_BROKEN_RVV 0
 +#define HWY_BROKEN_RVV (HWY_RVV)
  #endif
+ #endif  // HWY_BROKEN_RVV
  
- // Allow the user to override this without any guarantee of success.
-@@ -715,9 +715,9 @@
+@@ -669,7 +669,7 @@
+ 
+ #if HWY_ARCH_RISCV && defined(__riscv_v) && defined(__riscv_v_intrinsic) && \
+     __riscv_v_intrinsic >= 11000
+-#define HWY_BASELINE_RVV HWY_RVV
++#define HWY_BASELINE_RVV 0
+ #else
+ #define HWY_BASELINE_RVV 0
+ #endif
+@@ -780,7 +780,7 @@
+ // #error check, whereas 14.1 fails with "argument type 'vuint16m8_t' requires
+ // the V ISA extension": https://gcc.gnu.org/bugzilla/show_bug.cgi?id=115325.
+ #if HWY_ARCH_RISCV && HWY_COMPILER_CLANG >= 1900 && 0
+-#define HWY_HAVE_RUNTIME_DISPATCH_RVV 1
++#define HWY_HAVE_RUNTIME_DISPATCH_RVV 0
+ #else
+ #define HWY_HAVE_RUNTIME_DISPATCH_RVV 0
+ #endif
+@@ -876,9 +876,9 @@
  #endif
  
  #if HWY_ARCH_RISCV && HWY_HAVE_RUNTIME_DISPATCH
@@ -20,4 +40,4 @@
 +#define HWY_ATTAINABLE_RISCV 0
  #endif
  
- #ifndef HWY_ATTAINABLE_TARGETS_X86  // allow override
+ #if HWY_ARCH_LOONGARCH && HWY_HAVE_RUNTIME_DISPATCH
