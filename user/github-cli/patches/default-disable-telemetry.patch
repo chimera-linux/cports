@@ -1,0 +1,13 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 6f36c7208..3b59d3e61 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -790,7 +790,7 @@ var Options = []ConfigOption{
+ 	{
+ 		Key:           telemetryKey,
+ 		Description:   "whether telemetry is enabled, disabled, or logging",
+-		DefaultValue:  "enabled",
++		DefaultValue:  "disabled",
+ 		AllowedValues: []string{"enabled", "disabled", "log"},
+ 		CurrentValue: func(c gh.Config, hostname string) string {
+ 			return c.Telemetry().Value
