@@ -2,6 +2,7 @@ pkgname = "glab"
 pkgver = "1.124.0"
 pkgrel = 0
 build_style = "go"
+prepare_after_patch = True
 make_build_args = [
     "-ldflags",
     f"-X main.commit=v{pkgver} -X main.version={pkgver}",
@@ -24,7 +25,11 @@ if self.profile.arch not in ["aarch64", "x86_64"]:
     options += ["!check"]
 
 
-def post_build(self):
+def post_extract(self):
+    self.rm("vendor", recursive=True)
+
+
+def post_prepare(self):
     self.do(
         "go",
         "run",
@@ -32,7 +37,11 @@ def post_build(self):
         "--manpage",
         "--path",
         "./share/man/man1",
+        allow_network=True,
     )
+
+
+def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"glab.{shell}", "w") as outf:
             self.do("build/glab", "completion", "--shell", shell, stdout=outf)
