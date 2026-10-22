@@ -1,7 +1,8 @@
 pkgname = "hugo"
-pkgver = "0.167.0"
-pkgrel = 2
+pkgver = "0.168.0"
+pkgrel = 0
 build_style = "go"
+prepare_after_patch = True
 make_build_args = [
     "-ldflags=-X github.com/gohugoio/hugo/common/hugo.vendorInfo=ChimeraLinux"
 ]
@@ -11,7 +12,7 @@ pkgdesc = "Static site generator"
 license = "Apache-2.0"
 url = "https://gohugo.io"
 source = f"https://github.com/gohugoio/hugo/archive/v{pkgver}.tar.gz"
-sha256 = "10a31991b4bbfbc458282e9ad3752b186ee5d118b3ca82dcf067d5a8cbf9363e"
+sha256 = "45ba430ac86cfe8e5fb07b81eaef78769973af9b4d1c51f1d88195e0d438be3e"
 # tests require network access
 # manpages and completions are generated with the resulting binary so no cross
 options = ["!check", "!cross"]
