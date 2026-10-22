@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.41.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -44,7 +44,7 @@ configure_args = [
     "-Dsdl2-video=disabled",
     "-Dx11-clipboard=disabled",
     # misc
-    "-Dlua=lua5.1",
+    "-Dlua=luajit",
 ]
 hostmakedepends = ["meson", "pkgconf", "python-docutils", "wayland-progs"]
 makedepends = [
@@ -67,7 +67,7 @@ makedepends = [
     "libxrandr-devel",
     "libxscrnsaver-devel",
     "libxv-devel",
-    "lua5.1-devel",
+    "luajit-devel",
     "mesa-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
