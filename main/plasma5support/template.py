@@ -1,5 +1,5 @@
 pkgname = "plasma5support"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 # needs plasma-workspace plugin and is circular with it
@@ -36,7 +36,7 @@ pkgdesc = "KDE Support components for porting from Qt5/KF5 to Qt6/KF6"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma5support"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma5support-{pkgver}.tar.xz"
-sha256 = "094a3959622ccb4ada2cd577d9d6f1f326f2c3a3a6630675d9218aa300772424"
+sha256 = "b834760bf532b5f479938c550093d27ef2b7778caba6e5e3e081792341ad7c5a"
 hardening = ["vis"]
 
 

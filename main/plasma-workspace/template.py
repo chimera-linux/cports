@@ -1,5 +1,5 @@
 pkgname = "plasma-workspace"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -135,7 +135,7 @@ pkgdesc = "KDE Plasma Workspace"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "01677cede8a94681a96bd0ee1b211acddaa4678cf7b89aa670b949bdf68c1973"
+sha256 = "e2abb7e5b5fc8d59fe369d3ab4ea776e10684af0fb1a8a3275e9df64eff97d20"
 hardening = ["vis"]
 options = ["etcfiles"]
 

@@ -1,5 +1,5 @@
 pkgname = "kmenuedit"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,5 +27,5 @@ pkgdesc = "KDE menu editor"
 license = "GPL-2.0-only"
 url = "https://invent.kde.org/plasma/kmenuedit"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kmenuedit-{pkgver}.tar.xz"
-sha256 = "1158e2a6cfdd8145e993e605d928beae56d7ac36e8db9ec390f353c3631c777e"
+sha256 = "d17bb16a46dc66e6a998e74acd38b4dbc3d1317b3dfdc4a1caa1484f3520f55c"
 hardening = ["vis"]

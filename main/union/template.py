@@ -1,5 +1,5 @@
 pkgname = "union"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -28,7 +28,7 @@ pkgdesc = "Style engine for KDE Plasma"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/union"
 source = f"$(KDE_SITE)/plasma/{pkgver}/union-{pkgver}.tar.xz"
-sha256 = "d7340ffe4e269c6ee676acc6c93b928932b06ee2654ae3e7b904b699fb46a46c"
+sha256 = "abea413c79fe9a52337a9b8a50ee8fb29be7ed38bd764eb7555d724e99b39f00"
 
 
 @subpackage("union-devel")

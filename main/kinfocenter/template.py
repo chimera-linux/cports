@@ -1,5 +1,5 @@
 pkgname = "kinfocenter"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -28,7 +28,7 @@ pkgdesc = "Utility providing information about your system"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kinfocenter"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
-sha256 = "56ca33428a14c7963e75be1c39025e62b70253b0e0fdc500072a38df9411a761"
+sha256 = "c1c5fa8dd9a03f2af774935076af2301849f315ac84309016d479cf6a654f03b"
 # symlink to systemsettings, runtime dep provided
 broken_symlinks = ["usr/bin/kinfocenter"]
 hardening = ["vis"]
