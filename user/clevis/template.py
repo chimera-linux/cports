@@ -1,5 +1,5 @@
 pkgname = "clevis"
-pkgver = "23"
+pkgver = "24"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,7 +36,7 @@ pkgdesc = "Pluggable framework for automated decryption"
 license = "GPL-3.0-or-later WITH custom:openssl-exception"
 url = "https://github.com/latchset/clevis"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a8a09f148d54d91aa0d21c5fa508dd1446c2a200be7679fbf6e7d19196aec164"
+sha256 = "6e2a35086560d7ad4af69bd98876f247c6a308a0e67e1ee065765f00bc265f04"
 # cfi causes some tests to fail
 hardening = ["vis", "!cfi"]
 
