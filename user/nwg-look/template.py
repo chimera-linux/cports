@@ -1,15 +1,22 @@
 pkgname = "nwg-look"
-pkgver = "1.1.2"
-pkgrel = 2
+pkgver = "1.2.1"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go", "pkgconf"]
 makedepends = ["gtk+3-devel"]
-depends = ["xcur2png"]
+depends = ["libcanberra-gtk3", "xcur2png"]
 pkgdesc = "GTK settings editor for wlroots"
 license = "MIT"
 url = "https://github.com/nwg-piotr/nwg-look"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2db9bf20042beec0e9e9bba5769c08e34197e3a0da595b743c39b384aa0e0af0"
+sha256 = "1c66053f559f1756b18b615987a450433117c6b6c08759debdef94b6fd906480"
+# ppc disables pie
+hardening = []
+
+match self.profile.arch:
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def install(self):
