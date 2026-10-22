@@ -15,9 +15,15 @@ license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "c15a3794f56f6b9c0dca05d5f5b357f27da3c1b7031523fb42c0870ef16c6aff"
+hardening = []
 # cross: uses native binary to generate completions
 # check: needs network access
 options = ["!cross", "!check"]
+
+match self.profile.arch:
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def post_build(self):
