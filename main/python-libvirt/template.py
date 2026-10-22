@@ -1,6 +1,6 @@
 pkgname = "python-libvirt"
-pkgver = "11.5.0"
-pkgrel = 1
+pkgver = "12.8.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -20,5 +20,5 @@ checkdepends = [
 pkgdesc = "Libvirt virtualization API Python3 binding"
 license = "LGPL-2.1-or-later"
 url = "https://pypi.org/project/libvirt-python"
-source = f"https://libvirt.org/sources/python/libvirt-python-{pkgver}.tar.gz"
-sha256 = "69aad89ec689526835bf7d2d224badafe52a2def0d719676166755a8eab7ac23"
+source = f"https://libvirt.org/sources/python/libvirt_python-{pkgver}.tar.gz"
+sha256 = "ab24a102ebf99b913ddc3459031aa71a48b0b1cdbb0f423b4ea278052791ac8a"

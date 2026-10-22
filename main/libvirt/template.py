@@ -1,5 +1,5 @@
 pkgname = "libvirt"
-pkgver = "11.6.0"
+pkgver = "12.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ configure_args = [
     f"-Dpackager_version={pkgver}",
     "-Dqemu_user=_libvirt-qemu",
     "-Dqemu_group=_libvirt-qemu",
-    "-Duserfaultfd_sysctl=disabled",
+    "-Dlibvirtd=disabled",
 ]
 hostmakedepends = [
     "gettext",
@@ -81,7 +81,7 @@ pkgdesc = "API, daemon, and management tool for virtualization"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "cc0e8c226559b479833c8bc9c77a8ec301482ab0305fcd98d27f11cc6877fd23"
+sha256 = "0cd46a8f3a2b9b63c35c6e6f42a6c2989183ef3b3d1499ee92b4876db35e6fe9"
 options = ["etcfiles"]
 
 if self.profile.wordsize != 32:
