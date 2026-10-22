@@ -1,5 +1,5 @@
 pkgname = "perl-crypt-urandom"
-pkgver = "0.54"
+pkgver = "0.55"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -7,6 +7,6 @@ makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for non-blocking randomness"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
-url = "https://metacpan.org/dist/Crypt-URandom"
-source = f"$(CPAN_SITE)/Crypt/Crypt-URandom-{pkgver}.tar.gz"
-sha256 = "4a73cd394933328da484aaeb8645d735b35465df60109e559e0a28b066053a57"
+url = "https://cpan.metacpan.org/dist/Crypt-URandom"
+source = f"$(CPAN_SITE)/Crypt/DDICK/Crypt-URandom-{pkgver}.tar.gz"
+sha256 = "ef9f44141073c13573e85b148ff9a9089c45825b7d6608d832e4263899d3a2d4"
