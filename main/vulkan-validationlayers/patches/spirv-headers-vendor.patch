@@ -1,11 +1,11 @@
 this uses git commits of this so pass it that
 --
 diff -ruN a/CMakeLists.txt b/CMakeLists.txt
---- a/CMakeLists.txt	2026-08-14 13:28:44.000000000 +0200
-+++ b/CMakeLists.txt	2026-08-16 08:56:58.592302505 +0200
-@@ -135,7 +135,7 @@
- endif()
+--- a/CMakeLists.txt	2026-10-22 15:35:43.291362524 +0400
++++ b/CMakeLists.txt	2026-10-22 15:36:03.497265798 +0400
+@@ -123,7 +123,7 @@
  
+ find_package(VulkanUtilityLibraries CONFIG QUIET)
  
 -find_package(SPIRV-Headers CONFIG QUIET)
 +add_subdirectory(spirv-headers EXCLUDE_FROM_ALL)

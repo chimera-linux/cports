@@ -1,5 +1,5 @@
 pkgname = "vulkan-utility-libraries"
-pkgver = "1.4.360"
+pkgver = "1.4.365"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON"]
@@ -17,7 +17,7 @@ pkgdesc = "Utility libraries for Vulkan"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bb7799ca9cbb817ad179138ad865be89733a1f035f47244115e3afdd02d3124b"
+sha256 = "257a8069bac42663471af2eda04901fd195c44eb92badab55124001215151857"
 # broken cmake files
 tool_flags = {"CXXFLAGS": ["-I/usr/include/magic_enum"]}
 # static-only library, so just keep it as one package
