@@ -12,10 +12,33 @@ def get_go_env(pkg):
         "CGO_CXXFLAGS": pkg.get_cxxflags(shell=True),
         "CGO_LDFLAGS": pkg.get_ldflags(shell=True),
     }
-    if env["GOARCH"] == "arm":
-        if not pkg.profile.goarm:
-            pkg.error("GOARCH is arm without matching GOARM")
-        env["GOARM"] = pkg.profile.goarm
+
+    match env["GOARCH"]:
+        case "arm":
+            if not pkg.profile.goarm:
+                pkg.error("GOARCH is arm without matching GOARM")
+            env["GOARM"] = pkg.profile.goarm
+        case "ppc64le" | "ppc64":
+            # check if we have x/sys v0.49.0
+            outv = pkg.do(
+                "go",
+                "list",
+                "-m",
+                "golang.org/x/sys",
+                capture_output=True,
+                check=False,
+                env=env,
+            )
+            if outv.returncode == 0:
+                ver = outv.stdout.strip().split()
+                if (
+                    len(ver) == 2
+                    and ver[1] == b"v0.49.0"
+                    and pkg.has_hardening("pie")
+                ):
+                    pkg.error(
+                        "found golang.org/x/sys v0.49.0, can't use PIE: https://github.com/golang/go/issues/82324"
+                    )
 
     return env
 
