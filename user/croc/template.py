@@ -1,7 +1,8 @@
 pkgname = "croc"
 pkgver = "11.5.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
+prepare_after_patch = True
 hostmakedepends = ["go"]
 pkgdesc = "File transfer tool"
 license = "MIT"
