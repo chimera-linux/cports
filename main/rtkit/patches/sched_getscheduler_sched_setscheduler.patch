@@ -1,8 +1,15 @@
-Provide thin stubs for the sched_getscheduler() and sched_getscheduler()
-syscalls, as musl has dropped their implementation. The thin stubs are exactly
-what glibc does and what rtkit expects.
---- rtkit-0.13.orig/rtkit-daemon.c
-+++ rtkit-0.13/rtkit-daemon.c
+commit f906178f56d7940bd5b69d913106ff1218aab7a6
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jun 27 16:00:25 2023 +0200
+
+    Provide thin stubs for the sched_getscheduler() and sched_getscheduler()
+    syscalls, as musl has dropped their implementation. The thin stubs are exactly
+    what glibc does and what rtkit expects.
+
+diff --git a/rtkit-daemon.c b/rtkit-daemon.c
+index 258e481..dcc4c05 100644
+--- a/rtkit-daemon.c
++++ b/rtkit-daemon.c
 @@ -32,6 +32,7 @@
  #include <sys/stat.h>
  #include <string.h>
@@ -11,7 +18,7 @@ what glibc does and what rtkit expects.
  #include <sys/time.h>
  #include <sys/resource.h>
  #include <stdlib.h>
-@@ -196,6 +197,14 @@
+@@ -212,6 +213,14 @@ static int quit_fd = -1, canary_fd = -1;
  static pthread_t canary_thread_id = 0, watchdog_thread_id = 0;
  static volatile uint32_t refuse_until = 0;
  
@@ -23,19 +30,19 @@ what glibc does and what rtkit expects.
 +        return syscall(SYS_sched_getscheduler, pid);
 +}
 +
- static const char *get_proc_path(void) {
-         /* Useful for chroot environments */
+ static int start_canary(void);
+ static void stop_canary(void);
  
-@@ -439,7 +448,7 @@
-         if (st != t->starttime)
-                 return FALSE;
+@@ -464,7 +473,7 @@ static bool thread_relevant(struct process *p, struct thread *t, bool reset) {
+         if (suspended && !reset)
+                 return TRUE;
  
 -        if ((r = sched_getscheduler(t->pid)) < 0) {
 +        if ((r = _sched_getscheduler(t->pid)) < 0) {
  
                  /* Maybe it died right now? */
                  if (errno == ESRCH)
-@@ -564,7 +573,7 @@
+@@ -589,7 +598,7 @@ static int self_set_realtime(unsigned priority) {
          memset(&param, 0, sizeof(param));
          param.sched_priority = priority;
  
@@ -44,7 +51,7 @@ what glibc does and what rtkit expects.
                  r = -errno;
                  syslog(LOG_ERR, "Failed to make ourselves RT: %s\n", strerror(errno));
                  goto finish;
-@@ -581,7 +590,7 @@
+@@ -606,7 +615,7 @@ static void self_drop_realtime(int nice_level) {
  
          memset(&param, 0, sizeof(param));
  
@@ -53,7 +60,7 @@ what glibc does and what rtkit expects.
                  syslog(LOG_WARNING, "Warning: Failed to reset scheduling to SCHED_OTHER: %s\n", strerror(errno));
  
          if (setpriority(PRIO_PROCESS, 0, nice_level) < 0)
-@@ -696,7 +705,7 @@
+@@ -721,7 +730,7 @@ static int thread_reset(pid_t tid) {
          memset(&param, 0, sizeof(param));
          param.sched_priority = 0;
  
@@ -62,7 +69,7 @@ what glibc does and what rtkit expects.
                  if (errno != ESRCH)
                          syslog(LOG_WARNING, "Warning: Failed to reset scheduling to SCHED_OTHER for thread %llu: %s\n", (unsigned long long) tid, strerror(errno));
                  r = -1;
-@@ -748,7 +757,7 @@
+@@ -769,7 +778,7 @@ static int process_set_realtime(struct rtkit_user *u, struct process *p, struct
          /* Ok, everything seems to be in order, now, let's do it */
          memset(&param, 0, sizeof(param));
          param.sched_priority = (int) priority;
@@ -71,7 +78,7 @@ what glibc does and what rtkit expects.
                  r = -errno;
                  syslog(LOG_ERR, "Failed to make thread %llu RT: %s\n", (unsigned long long) t->pid, strerror(errno));
                  goto finish;
-@@ -809,7 +818,7 @@
+@@ -842,7 +851,7 @@ static int process_set_high_priority(struct rtkit_user *u, struct process *p, st
          /* Ok, everything seems to be in order, now, let's do it */
          memset(&param, 0, sizeof(param));
          param.sched_priority = 0;
@@ -80,7 +87,7 @@ what glibc does and what rtkit expects.
                  r = -errno;
                  syslog(LOG_ERR, "Failed to make process %llu SCHED_NORMAL: %s\n", (unsigned long long) t->pid, strerror(errno));
                  goto finish;
-@@ -943,7 +952,7 @@
+@@ -999,7 +1008,7 @@ static int reset_all(void) {
                          if (errno != 0 || !e || *e != 0)
                                  continue;
  
