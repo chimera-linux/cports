@@ -1,0 +1,51 @@
+diff --git a/ext/filter/tests/oom_filter_default_encoded.phpt b/ext/filter/tests/oom_filter_default_encoded.phpt
+index 4e813266..099a939c 100644
+--- a/ext/filter/tests/oom_filter_default_encoded.phpt
++++ b/ext/filter/tests/oom_filter_default_encoded.phpt
+@@ -21,6 +21,7 @@ function oom_post_encoded(string $body, string $script): void
+     $p = proc_open(
+         [
+             getenv('TEST_PHP_CGI_EXECUTABLE'), '-n',
++            '-d', 'extension=' . ini_get('extension_dir') . '/filter.' . PHP_SHLIB_SUFFIX,
+             '-d', 'memory_limit=8M',
+             '-d', 'post_max_size=1G',
+             '-d', 'html_errors=0',
+diff --git a/ext/filter/tests/oom_filter_input.phpt b/ext/filter/tests/oom_filter_input.phpt
+index aef71dff..fa1e0531 100644
+--- a/ext/filter/tests/oom_filter_input.phpt
++++ b/ext/filter/tests/oom_filter_input.phpt
+@@ -23,7 +23,7 @@
+       . "\r\n--$boundary--\r\n";
+ 
+ $p = proc_open(
+-    [getenv('TEST_PHP_CGI_EXECUTABLE'), '-n', '-d', 'memory_limit=12M', '-d', 'html_errors=0'],
++    [getenv('TEST_PHP_CGI_EXECUTABLE'), '-n', '-d', 'extension=' . ini_get('extension_dir') . '/filter.' . PHP_SHLIB_SUFFIX, '-d', 'memory_limit=12M', '-d', 'html_errors=0'],
+     [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+     $pipes,
+     null,
+diff --git a/ext/filter/tests/oom_filter_input_array.phpt b/ext/filter/tests/oom_filter_input_array.phpt
+index a8e27122..453ef515 100644
+--- a/ext/filter/tests/oom_filter_input_array.phpt
++++ b/ext/filter/tests/oom_filter_input_array.phpt
+@@ -23,7 +23,7 @@
+       . "\r\n--$boundary--\r\n";
+ 
+ $p = proc_open(
+-    [getenv('TEST_PHP_CGI_EXECUTABLE'), '-n', '-d', 'memory_limit=12M', '-d', 'html_errors=0'],
++    [getenv('TEST_PHP_CGI_EXECUTABLE'), '-n', '-d', 'extension=' . ini_get('extension_dir') . '/filter.' . PHP_SHLIB_SUFFIX, '-d', 'memory_limit=12M', '-d', 'html_errors=0'],
+     [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+     $pipes,
+     null,
+diff --git a/tests/basic/oom_rfc1867.inc b/tests/basic/oom_rfc1867.inc
+index 57507459..23765ec7 100644
+--- a/tests/basic/oom_rfc1867.inc
++++ b/tests/basic/oom_rfc1867.inc
+@@ -41,6 +41,8 @@ function oom_rfc1867_request(callable $writeBody, string $memoryLimit = '8M', ar
+         getenv('TEST_PHP_CGI_EXECUTABLE'),
+         '-C',
+         '-n',
++        '-d', 'extension=' . ini_get('extension_dir') . '/mbstring.' . PHP_SHLIB_SUFFIX,
++        '-d', 'extension=' . ini_get('extension_dir') . '/session.' . PHP_SHLIB_SUFFIX,
+         '-d', 'memory_limit=' . $memoryLimit,
+         '-d', 'post_max_size=1G',
+         '-d', 'upload_max_filesize=1G',
