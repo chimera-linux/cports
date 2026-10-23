@@ -1,6 +1,6 @@
 pkgname = "qcoro"
-pkgver = "0.12.0"
-pkgrel = 10
+pkgver = "0.13.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DQCORO_BUILD_EXAMPLES=OFF"]
 hostmakedepends = [
@@ -13,7 +13,7 @@ makedepends = [
     "qt6-qtwebsockets-devel",
 ]
 checkdepends = [
-    "dbus-x11",
+    "dbus",
 ]
 pkgdesc = "Qt C++ Coroutine Library"
 license = "MIT"
@@ -21,7 +21,7 @@ url = "https://qcoro.dvratil.cz"
 source = (
     f"https://github.com/danvratil/qcoro/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "809afafab61593f994c005ca6e242300e1e3e7f4db8b5d41f8c642aab9450fbc"
+sha256 = "4bff7513c5c8e301b66308df05795043b1792ed16381a484e5c990171b8ff19e"
 # vis breaks symbols for test-qcorothread build,
 # cfi breaks at least test-qcoro{task,websocket}
 hardening = ["!vis", "!cfi"]
