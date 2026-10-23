@@ -1,4 +1,4 @@
-commit 962c4b8eca0c110cb736bb23b27e758077597657
+commit c7349103f3a097a3880cb446c0ac2c75b94e641c
 Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jun 27 16:39:48 2023 +0200
 
@@ -17,10 +17,10 @@ index 9a4dd38..6ec6fcd 100644
  SystemdService=rtkit-daemon.service
  User=root
 diff --git a/rtkit-daemon.c b/rtkit-daemon.c
-index 17122fa..300af51 100644
+index 07c2d3c..258e481 100644
 --- a/rtkit-daemon.c
 +++ b/rtkit-daemon.c
-@@ -2274,6 +2274,7 @@ int main(int argc, char *argv[]) {
+@@ -2586,6 +2586,7 @@ int main(int argc, char *argv[]) {
          int ret = 1;
          struct rtkit_user *u;
          unsigned long slack_ns;
@@ -28,7 +28,7 @@ index 17122fa..300af51 100644
  
          if (parse_command_line(argc, argv, &ret) <= 0)
                  goto finish;
-@@ -2311,6 +2312,17 @@ int main(int argc, char *argv[]) {
+@@ -2625,6 +2626,17 @@ int main(int argc, char *argv[]) {
  
          syslog(LOG_DEBUG, "Running.\n");
  
