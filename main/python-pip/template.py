@@ -1,6 +1,6 @@
 pkgname = "python-pip"
 pkgver = "25.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,6 +15,11 @@ source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
 sha256 = "578283f006390f85bb6282dffb876454593d637f5d1be494b5202ce4877e71f2"
 # unpackaged dependencies
 options = ["!check"]
+
+
+def post_extract(self):
+    # in tandem with devendor-certifi.patch
+    self.rm(self.cwd / "src/pip/_vendor/certifi", recursive=True)
 
 
 def post_install(self):
