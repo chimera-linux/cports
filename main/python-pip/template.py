@@ -17,6 +17,18 @@ sha256 = "3a8e5c800492787f33a4114ef54444546c340df428974ebba17e0fd47e11af2f"
 options = ["!check"]
 
 
+def post_prepare(self):
+    # de-vendor certifi to just always defer to the system's certificate store
+    certifi = self.cwd / "src/pip/_vendor/certifi"
+    self.rm(certifi, recursive=True)
+    self.mkdir(certifi)
+    with open(certifi / "__init__.py", "w") as fh:
+        fh.write("""
+def where():
+    return "/etc/ssl/certs/ca-certificates.crt"
+""")
+
+
 def post_install(self):
     self.install_license("LICENSE.txt")
     # replace shim with symlink
