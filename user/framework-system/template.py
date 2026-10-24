@@ -1,5 +1,5 @@
 pkgname = "framework-system"
-pkgver = "0.6.5"
+pkgver = "0.6.6"
 pkgrel = 0
 archs = ["x86_64"]
 build_style = "cargo"
@@ -16,13 +16,14 @@ pkgdesc = "Command line tools for Framework computers"
 license = "BSD-3-Clause"
 url = "https://github.com/FrameworkComputer/framework-system"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "51daef8eac68f3c8b69956f0250a2a4029243a5631a8ee9a537f6d4db730a890"
+sha256 = "5d285d508cc5b2d1df2d9573dda4a4e6118f1b16a5dcc24e50fc078995e3bb29"
 
 
 def install(self):
     from cbuild.util import cargo
 
     self.install_bin(cargo.target_path(self, "framework_tool"))
+    self.install_man("framework_tool/framework_tool.1")
     self.install_completion(
         "framework_tool/completions/bash/framework_tool",
         "bash",
