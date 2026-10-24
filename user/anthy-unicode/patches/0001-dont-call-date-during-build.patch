@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index f9f73b6..14049db 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,7 +1,6 @@
+ project('anthy-unicode',
+   ['c'],
+-  version: '1.0.0.@0@'.format(run_command('date', '+%Y%m%d',
+-                                          check: true).stdout().strip()),
++  version: '1.0.0.20260213',
+   license: 'LGPL2.1+',
+   meson_version: '>= 0.59',
+ )
