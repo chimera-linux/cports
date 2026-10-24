@@ -1,6 +1,6 @@
 pkgname = "perl-xml-parser"
 pkgver = "2.47"
-pkgrel = 2
+pkgrel = 3
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl", "libexpat-devel"]

@@ -1,0 +1,24 @@
+commit cd3f7d0e31d9cc55b3e22d9aa1ed8dffcc94253e
+Author: Eskild Hustvedt <code@zerodogg.org>
+Date:   Thu Oct 15 22:13:41 2026 +0200
+
+    Pod::Perldoc::ToMan: waitpid() our child in _filter_through_nroff
+    
+    This fixes filtering through ie. mandoc. Without this call the test for $?
+    isn't actually referring the the process that just finished, and we might end
+    up erroring out even though the process actually succeeded.
+
+diff --git a/cpan/Pod-Perldoc/lib/Pod/Perldoc/ToMan.pm b/cpan/Pod-Perldoc/lib/Pod/Perldoc/ToMan.pm
+index bfcb5c40ee..70744ee972 100644
+--- a/cpan/Pod-Perldoc/lib/Pod/Perldoc/ToMan.pm
++++ b/cpan/Pod-Perldoc/lib/Pod/Perldoc/ToMan.pm
+@@ -358,6 +358,9 @@ sub _filter_through_nroff {
+ 		length $done
+ 		);
+ 
++	# reap and retrieve exit status
++	waitpid($pid,0);
++
+ 	if( $? ) {
+ 		$self->warn( "Error from pipe to $render!\n" );
+ 		$self->debug( 'Error: ' . do { local $/; <$err> } );
