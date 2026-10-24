@@ -1,7 +1,8 @@
 pkgname = "rustypaste-cli"
 pkgver = "0.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features=use-native-certs",
