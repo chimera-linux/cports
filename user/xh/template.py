@@ -1,5 +1,5 @@
 pkgname = "xh"
-pkgver = "0.26.2"
+pkgver = "0.26.3"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Tool for sending HTTP requests"
 license = "MIT"
 url = "https://github.com/ducaale/xh"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "61a88a5b3beac225b75a11d6ed32659af78db7ff29c825def0ab7f4a2906cbd7"
+sha256 = "8c54c7e8e878600d1a322151e0158c4fa6e6793283a45e355d0c1f87ca6d5640"
 
 
 def install(self):
