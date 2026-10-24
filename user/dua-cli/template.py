@@ -1,5 +1,5 @@
 pkgname = "dua-cli"
-pkgver = "2.34.0"
+pkgver = "2.46.0"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -13,7 +13,7 @@ pkgdesc = "TUI disk usage analyzer"
 license = "MIT"
 url = "https://github.com/Byron/dua-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "eaa924f50efb425302c124f170644e95a08f8dad1f627b86f50d033ca5feb0c1"
+sha256 = "321e06440a8ba5dd05ecfd78904a127c9ffa556a40d886ab5862a9fe9aa9bd21"
 # Generates completions using host binary
 options = ["!cross"]
 
