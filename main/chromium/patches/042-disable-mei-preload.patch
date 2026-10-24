@@ -9,32 +9,32 @@ diff --git a/chrome/BUILD.gn b/chrome/BUILD.gn
 index 19c940ccf3..9b45db7d91 100644
 --- a/chrome/BUILD.gn
 +++ b/chrome/BUILD.gn
-@@ -368,7 +368,6 @@ if (!is_android && !is_mac) {
+@@ -387,7 +387,6 @@
      }
  
      data_deps += [
 -      "//chrome/browser/resources/media/mei_preload:component",
        "//chrome/browser/web_applications/isolated_web_apps/key_distribution/preload:component",
-       "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
        "//third_party/widevine/cdm",
+     ]
 diff --git a/chrome/installer/linux/BUILD.gn b/chrome/installer/linux/BUILD.gn
 index 51f7c978a0..e4bd1692d6 100644
 --- a/chrome/installer/linux/BUILD.gn
 +++ b/chrome/installer/linux/BUILD.gn
-@@ -72,8 +72,6 @@
+@@ -112,8 +112,6 @@
  packaging_files = packaging_files_binaries + [
                      "common/installer.py",
                      "$root_out_dir/locales/en-US.pak",
 -                    "$root_out_dir/MEIPreload/manifest.json",
 -                    "$root_out_dir/MEIPreload/preloaded_data.pb",
-                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/manifest.json",
-                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/privacy-sandbox-attestations.dat",
                    ]
-@@ -374,7 +372,6 @@ group("installer_deps") {
+ if (enable_swiftshader) {
+   packaging_files += [ "$root_out_dir/vk_swiftshader_icd.json" ]
+@@ -487,7 +485,6 @@
    public_deps += [
      "//chrome:packed_resources",
      "//chrome/browser/enterprise/connectors/device_trust/key_management/installer/management_service:chrome_management_service",
 -    "//chrome/browser/resources/media/mei_preload:component",
      "//components/crash/core/app:chrome_crashpad_handler",
-     "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
      "//sandbox/linux:chrome_sandbox",
+   ]

@@ -31,17 +31,17 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_al
 index d38db0a..038ffeb 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-@@ -29,6 +29,10 @@
+@@ -28,6 +28,10 @@
  // the second one 16. We could technically return something different for
  // malloc() and operator new(), but this would complicate things, and most of
  // our allocations are presumably coming from operator new() anyway.
 +#if defined(__powerpc64__)
 +/* we want this to be 16 here always */
-+constexpr size_t kAlignment = 16;
++constexpr inline size_t kAlignment = 16;
 +#else
  constexpr inline size_t kAlignment =
-     std::max(alignof(max_align_t),
-              static_cast<size_t>(__STDCPP_DEFAULT_NEW_ALIGNMENT__));
+     IntegralMax(alignof(max_align_t),
+                 static_cast<size_t>(__STDCPP_DEFAULT_NEW_ALIGNMENT__));
 @@ -37,6 +41,7 @@
  static_assert(kAlignment <= 16,
                "PartitionAlloc doesn't support a fundamental alignment larger "
@@ -184,15 +184,6 @@ index d7286c4..5db9ada 100644
 +#if defined(__i386__) || defined(__powerpc64__) || \
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
           SyscallSets::IsSocketCall(sysno) ||
- #endif
-@@ -260,7 +260,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
- 
-   // TODO(crbug.com/40528912): should i386 really be in this list?
- #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
--    defined(__aarch64__)
-+    defined(__aarch64__) || defined(__powerpc64__)
-   if (sysno == __NR_mmap)
-     return RestrictMmapFlags();
  #endif
 @@ -344,7 +344,7 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
      return Error(EPERM);
@@ -527,7 +518,16 @@ index f6e77d1..5e3cbfe 100644
      case __NR_mmap:
  #endif
  #if defined(__i386__) || defined(__arm__) || \
-@@ -584,7 +588,7 @@
+@@ -584,7 +584,7 @@
+ bool SyscallSets::IsMmap(int sysno) {
+   switch (sysno) {
+ #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
+-    defined(__aarch64__)
++    defined(__aarch64__) || defined(__powerpc64__)
+     case __NR_mmap:
+ #endif
+ #if !defined(__LP64__)
+@@ -599,7 +599,7 @@
  bool SyscallSets::IsAllowedGeneralIo(int sysno) {
    switch (sysno) {
      case __NR_lseek:
