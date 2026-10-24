@@ -1,6 +1,6 @@
 pkgname = "gnutls"
 pkgver = "3.8.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
