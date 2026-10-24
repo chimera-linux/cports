@@ -1,0 +1,34 @@
+try to use a trick to make sure `fpos_t` always is 64-bit
+without trying to refer to `fpos64_t` which is a glibc extension.
+--
+--- a/source/core/slang-stream.cpp
++++ b/source/core/slang-stream.cpp
+@@ -5,6 +5,7 @@
+ #include "slang-io.h"
+ #include "slang-process.h"
+ 
++#define _FILE_OFFSET_BITS 64
+ #include <stdio.h>
+ #include <thread>
+ 
+@@ -203,17 +204,9 @@ FileStream::~FileStream()
+ 
+ Int64 FileStream::getPosition()
+ {
+-#if defined(_WIN32) || defined(__CYGWIN__)
+     fpos_t pos;
+     fgetpos(m_handle, &pos);
+-    return pos;
+-#elif defined(__APPLE__)
+-    return ftell(m_handle);
+-#else
+-    fpos64_t pos;
+-    fgetpos64(m_handle, &pos);
+     return *(Int64*)(&pos);
+-#endif
+ }
+ 
+ SlangResult FileStream::seek(SeekOrigin seekOrigin, Int64 offset)
+diff --git a/use-fpos.patch b/use-fpos.patch
+new file mode 100644
+index 0000000000..e69de29bb2
