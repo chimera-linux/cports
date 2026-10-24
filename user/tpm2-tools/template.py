@@ -1,6 +1,6 @@
 pkgname = "tpm2-tools"
 pkgver = "5.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf-archive",
