@@ -1,11 +1,12 @@
 pkgname = "kitty"
-pkgver = "0.46.2"
-pkgrel = 7
+pkgver = "0.49.2"
+pkgrel = 0
 hostmakedepends = [
     "fonts-nerd-symbols-only",
     "go",
     "pkgconf",
     "python-setuptools",
+    "slang-compiler",
     "wayland-progs",
     "wayland-protocols",
 ]
@@ -37,7 +38,7 @@ pkgdesc = "Accelerated terminal emulator"
 license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"
-sha256 = "e8ea44b13a1c70032a35128a8c4c8c29c90a7cfbe0ad4f6aa2927a057d10f83e"
+sha256 = "aee888a42f6086f9cc5ee009c73f8191d2a3ea119dcaf737fdb37d7f176a54fc"
 # nah
 options = ["!cross"]
 

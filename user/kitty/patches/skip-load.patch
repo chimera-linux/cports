@@ -4,8 +4,8 @@ just silence it since it can never succeed for us
 --
 --- a/kitty/systemd.c
 +++ b/kitty/systemd.c
-@@ -181,7 +181,6 @@
- 
+@@ -194,7 +194,6 @@ finalize(void) {
+
  static bool
  ensure_initialized_and_useable(void) {
 -    ensure_initialized();

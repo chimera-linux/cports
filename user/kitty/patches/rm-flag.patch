@@ -1,6 +1,6 @@
 --- a/setup.py
 +++ b/setup.py
-@@ -478,8 +478,8 @@
+@@ -624,8 +624,8 @@ def init_env(
      if ccver >= (5, 0):
          df += ' -Og'
          float_conversion = '-Wfloat-conversion'
@@ -10,19 +10,19 @@
 +    optimize = df if debug or sanitize else ''
      sanitize_args = get_sanitize_args(cc, ccver) if sanitize else []
      cppflags_ = os.environ.get(
-         'OVERRIDE_CPPFLAGS', '-D{}DEBUG'.format('' if debug else 'N'),
-@@ -507,7 +507,7 @@
+         'OVERRIDE_CPPFLAGS',
+@@ -652,7 +652,7 @@ def init_env(
+         ),
      )
-     ldflags_ = os.environ.get(
-         'OVERRIDE_LDFLAGS',
--        '-Wall ' + ' '.join(sanitize_args) + ('' if debug else ' -O3')
-+        '-Wall ' + ' '.join(sanitize_args) + ('' if debug else ' ')
-     )
+     cflags = shlex.split(cflags_) + shlex.split(sysconfig.get_config_var('CCSHARED') or '')
+-    ldflags_ = os.environ.get('OVERRIDE_LDFLAGS', '-Wall ' + ' '.join(sanitize_args) + ('' if debug else ' -O3'))
++    ldflags_ = os.environ.get('OVERRIDE_LDFLAGS', '-Wall ' + ' '.join(sanitize_args) + ('' if debug else ' '))
      ldflags = shlex.split(ldflags_)
      ldflags.append('-shared')
-@@ -1277,7 +1277,7 @@
-         if args.profile:
-             libs.append('-lprofiler')
+     cppflags += env_cppflags
+@@ -1612,7 +1612,7 @@ def build_launcher(args: Options, launcher_dir: str = '.', bundle_type: str = 's
+             ldflags.extend(sanitize_args)
+             libs += ['-lasan'] if not is_macos and env.compiler_type is not CompilerType.clang else []
      else:
 -        cflags.append('-g3' if args.debug else '-O3')
 +        cflags.append('-g3' if args.debug else '')
