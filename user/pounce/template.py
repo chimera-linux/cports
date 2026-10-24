@@ -1,21 +1,18 @@
 pkgname = "pounce"
-pkgver = "3.1"
+pkgver = "3.2"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--enable-notify",
-    "--enable-palaver",
-]
+configure_args = ["--enable-notify"]
 configure_gen = []
 make_dir = "."
 make_build_target = "all"
 hostmakedepends = ["autoconf", "pkgconf"]
-makedepends = ["curl-devel", "libretls-devel", "sqlite-devel"]
+makedepends = ["libretls-devel"]
 pkgdesc = "TLS-only multi-client IRC bouncer"
 license = "GPL-3.0-or-later"
 url = "https://git.causal.agency/pounce"
 source = f"{url}/snapshot/pounce-{pkgver}.tar.gz"
-sha256 = "97f245556b1cc940553fca18f4d7d82692e6c11a30f612415e5e391e5d96604e"
+sha256 = "5aeebf6dd73a61dbd44b94d417f0e4e5cd30c90561ba5550ac6ea61bab391ac4"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
