@@ -1,5 +1,5 @@
 pkgname = "transmission"
-pkgver = "4.1.3"
+pkgver = "4.1.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ pkgdesc = "BitTorrent client"
 license = "GPL-2.0-or-later"
 url = "https://github.com/transmission/transmission"
 source = f"{url}/releases/download/{pkgver}/transmission-{pkgver}.tar.xz"
-sha256 = "ce7d2d8b101f7eb54bc3cf0bc55f52f7ebd4a25fa48e00bdca9a7e0fc02617da"
+sha256 = "86e7aa020cdf64826447034bc85f4d3b7c848d8c0891d9dc9b9fddfb2c805d22"
 # FIXME miscompiles:
 # https://gist.github.com/q66/f390de866e5bb9848715bb037e91bd0e
 # https://gist.github.com/q66/619638ff860450b0313eccff3beaa7c9
