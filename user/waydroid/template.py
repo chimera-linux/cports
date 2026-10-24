@@ -1,6 +1,6 @@
 pkgname = "waydroid"
-pkgver = "1.6.2"
-pkgrel = 3
+pkgver = "1.6.3"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = ["USE_SYSTEMD=0", "USE_NFTABLES=1"]
 hostmakedepends = ["python"]
@@ -19,7 +19,7 @@ pkgdesc = "Container-based approach to boot a full Android system"
 license = "GPL-3.0-or-later"
 url = "https://github.com/waydroid/waydroid"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4b963aceb9de2884020e98b26e40147b3f26a0444606633adc45b63752f57dca"
+sha256 = "f138a287eb8b0be7be7f7060971446490138bc2c8315665c8aa9c2c85576d8a5"
 # check: no tests
 options = ["etcfiles", "!check"]
 
