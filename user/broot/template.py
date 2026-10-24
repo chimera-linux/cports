@@ -1,5 +1,5 @@
 pkgname = "broot"
-pkgver = "1.56.2"
+pkgver = "1.61.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -13,7 +13,7 @@ pkgdesc = "Filesystem visualization and traversal tool"
 license = "MIT"
 url = "https://dystroy.org/broot"
 source = f"https://github.com/Canop/broot/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3e7be4252c76565f6d71b34bd07d26e1444b9ac2e1c8271c724f6e866fe75565"
+sha256 = "458f1be5d78fe3b062618e9b1dbc32cf53171b0ca0769b3f32dfae65e753c264"
 
 
 def install(self):
