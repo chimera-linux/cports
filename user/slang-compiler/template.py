@@ -74,6 +74,8 @@ sha256 = [
     "a1e4443190d78976e0901039dd2207e1d59a4b5b818489232568bdb69ff79ce6",
 ]
 hardening = ["vis"]
+# requires <asm/hwcap.h> on ARM, and kitty pkg does this too
+options = ["!cross"]
 
 
 @subpackage("slang-compiler-libs")

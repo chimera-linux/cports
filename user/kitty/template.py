@@ -1,11 +1,12 @@
 pkgname = "kitty"
-pkgver = "0.46.2"
-pkgrel = 7
+pkgver = "0.51.0"
+pkgrel = 0
 hostmakedepends = [
     "fonts-nerd-symbols-only",
     "go",
     "pkgconf",
     "python-setuptools",
+    "slang-compiler",
     "wayland-progs",
     "wayland-protocols",
 ]
@@ -37,7 +38,7 @@ pkgdesc = "Accelerated terminal emulator"
 license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"
-sha256 = "e8ea44b13a1c70032a35128a8c4c8c29c90a7cfbe0ad4f6aa2927a057d10f83e"
+sha256 = "084807db816a3de9f1a253eff232f17fe9f76ccd77da8101511f830431097ecf"
 tool_flags = {
     # musl/posix ioctl int argument crap
     "CFLAGS": ["-Wno-error=overflow"],
