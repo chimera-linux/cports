@@ -1,0 +1,11 @@
+pkgname = "ipcalc"
+pkgver = "1.2.0"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "ninja"]
+checkdepends = ["bash", "jq"]
+pkgdesc = "Network address calculations for IPv4 and IPv6"
+license = "GPL-2.0-or-later"
+url = "https://gitlab.com/ipcalc/ipcalc"
+source = f"{url}/-/archive/{pkgver}/ipcalc-{pkgver}.tar.gz"
+sha256 = "f6fc9076d3f1a64d1e050e1d6edd3fd61b91db71d0dfa1d9d184618e81865747"
