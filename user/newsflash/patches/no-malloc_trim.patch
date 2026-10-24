@@ -1,0 +1,14 @@
+Disable malloc_trim; not available on musl.
+---
+diff -urN a/Cargo.toml b/Cargo.toml
+--- a/Cargo.toml	2026-08-01 23:25:50.000000000 +0100
++++ b/Cargo.toml	2026-10-24 15:22:16.622221376 +0100
+@@ -68,7 +68,7 @@
+ #path = "../html2gtk"
+ 
+ [features]
+-default = ["libc"]
++default = []
+ libc = ["dep:libc"]
+ 
+ [profile.release]

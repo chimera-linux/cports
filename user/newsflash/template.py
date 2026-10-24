@@ -1,5 +1,5 @@
 pkgname = "newsflash"
-pkgver = "4.2.1"
+pkgver = "5.2.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -12,6 +12,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "clapper-devel",
+    "gtksourceview-devel",
     "libadwaita-devel",
     "libxml2-devel",
     "openssl3-devel",
@@ -22,16 +23,22 @@ pkgdesc = "Feed reader designed for the GNOME desktop"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
-sha256 = "a3c4e9d11c48d43692eb2b76b11ff1481c8712bb76f5a73bcdcf183d7ac11a4e"
+sha256 = "a52cd40581808e5fd8f0fef61463c1ff6e0bff45352b8b971979be95440e010c"
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
-def post_patch(self):
+def post_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc=".").vendor()
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "aws-lc-sys-0.43.0")
 
 
 def init_build(self):

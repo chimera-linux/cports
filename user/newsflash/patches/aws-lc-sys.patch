@@ -1,0 +1,27 @@
+diff -urN a/vendor/aws-lc-sys/builder/cc_builder.rs b/vendor/aws-lc-sys/builder/cc_builder.rs
+--- a/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs	2026-10-24 14:56:47.362825381 +0100
++++ b/vendor/aws-lc-sys-0.43.0/builder/cc_builder.rs	2026-10-24 14:57:52.916547495 +0100
+@@ -379,23 +379,6 @@
+             cc_build.asm_flag("-Wa,--noexecstack");
+         }
+ 
+-        // `-ffile-prefix-map` does not reach GNU `as` for `.S` sources, so in
+-        // release-style builds mirror it with `-Wa,--debug-prefix-map=...`.
+-        // Probe first because clang's integrated assembler rejects the flag,
+-        // and skip paths with spaces because `-Wa,...` must stay a bare token.
+-        let opt_level = cargo_env("OPT_LEVEL");
+-        if (target_os() == "linux" || target_os().ends_with("bsd"))
+-            && !is_cl_like
+-            && !matches!(opt_level.as_str(), "0" | "1" | "2")
+-            && !self.manifest_dir.to_string_lossy().contains(' ')
+-        {
+-            let path_str = self.manifest_dir.display().to_string();
+-            let asm_flag = format!("-Wa,--debug-prefix-map={path_str}=");
+-            if cc_build.is_flag_supported(&asm_flag).unwrap_or(false) {
+-                cc_build.asm_flag(asm_flag);
+-            }
+-        }
+-
+         cc_build
+     }
+ 
