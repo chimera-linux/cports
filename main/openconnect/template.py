@@ -1,6 +1,6 @@
 pkgname = "openconnect"
 pkgver = "9.12"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-vpnc-script=/usr/lib/vpnc-script",
