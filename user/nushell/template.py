@@ -14,6 +14,13 @@ make_check_args = [
     "--skip=shell::environment::env::path_is_a_list_in_repl",
     "--skip=shell::environment::env::env_shlvl_in_exec_repl",
     "--skip=shell::environment::env::env_shlvl_in_repl",
+    # fail with 'Couldn't fit table into 0 columns!' due to lack of pty
+    # https://github.com/nushell/nushell/issues/15328#issuecomment-5757878994
+    "--skip=eval::eval_rendered_matches::case_3_literal_range",
+    "--skip=eval::eval_rendered_matches::case_4_literal_list",
+    "--skip=eval::eval_rendered_matches::case_5_literal_record",
+    "--skip=eval::eval_rendered_matches::case_6_literal_table",
+    "--skip=eval::eval_rendered_matches::case_8_call_spread",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
