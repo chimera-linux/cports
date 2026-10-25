@@ -111,7 +111,7 @@ def check(self):
     with self.pushd("nginx-tests"):
         self.do(
             "prove",
-            f"--jobs={max(self.make_jobs * 2, 32)}",
+            f"--jobs={max(self.make_jobs, 16)}",
             ".",
             env={"TEST_NGINX_BINARY": "../objs/nginx"},
         )
