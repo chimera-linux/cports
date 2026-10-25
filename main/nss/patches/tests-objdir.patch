@@ -1,0 +1,19 @@
+they fucked it up in https://github.com/mozilla/nss/commit/119695e9cf9a81a41c685b7b652d6774827b742f
+
+diff --git a/nss/tests/common/init.sh b/nss/tests/common/init.sh
+index f5938d4..98c5e4e 100644
+--- a/nss/tests/common/init.sh
++++ b/nss/tests/common/init.sh
+@@ -475,11 +475,7 @@ NSS=trustOrder=100
+ 
+     # Both build.sh and "make nss_build_all" record the objdir in dist/latest.
+     if [ -z "${OBJDIR}" ]; then
+-        if [ ! -f ${DIST}/latest ]; then
+-            echo "${DIST}/latest not found; set OBJDIR to the dist subdirectory to test."
+-            exit 5
+-        fi
+-        OBJDIR=$(cat ${DIST}/latest)
++        OBJDIR=`(make -s -C $COMMON objdir_name)`
+     fi
+ 
+     # These mirror coreconf (arch.mk and the per-OS .mk files). Test whether
