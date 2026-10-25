@@ -1,0 +1,49 @@
+commit 7e459b7c0e485925cb8f269c47272be59a6b5c3c
+Author: Jonas Drotleff <jonas.drotleff@3j14.de>
+Date:   Tue Oct 20 19:56:45 2026 +0200
+
+    Remove usage of 'QTEST_DISABLE_KEYPAD_NAVIGATION'
+    
+    In Qt 6.12, 'QTEST_DISABLE_KEYPAD_NAVIGATION' has
+    been removed. The relevant commit is
+    https://github.com/qt/qtbase/commit/ebec7df5b64c2e21474b027cb9a9db29f5dba190
+    
+    QT_KEYPAD_NAVIGATION is not enabled since Qt 6.0,
+    so this is no longer used.
+
+diff --git a/tests/gui/TestGui.cpp b/tests/gui/TestGui.cpp
+index 4c7fabcb..0f0c5b5f 100644
+--- a/tests/gui/TestGui.cpp
++++ b/tests/gui/TestGui.cpp
+@@ -76,7 +76,6 @@ int main(int argc, char* argv[])
+     app.setApplicationVersion(CHIPASS_VERSION);
+     app.setQuitOnLastWindowClosed(false);
+     app.setAttribute(Qt::AA_Use96Dpi, true);
+-    QTEST_DISABLE_KEYPAD_NAVIGATION
+     TestGui tc;
+     QTEST_SET_MAIN_SOURCE_PATH
+     return QTest::qExec(&tc, argc, argv);
+diff --git a/tests/gui/TestGuiBrowser.cpp b/tests/gui/TestGuiBrowser.cpp
+index 148d8de5..09ddf69b 100644
+--- a/tests/gui/TestGuiBrowser.cpp
++++ b/tests/gui/TestGuiBrowser.cpp
+@@ -48,7 +48,6 @@ int main(int argc, char* argv[])
+     app.setApplicationVersion(CHIPASS_VERSION);
+     app.setQuitOnLastWindowClosed(false);
+     app.setAttribute(Qt::AA_Use96Dpi, true);
+-    QTEST_DISABLE_KEYPAD_NAVIGATION
+     TestGuiBrowser tc;
+     QTEST_SET_MAIN_SOURCE_PATH
+     return QTest::qExec(&tc, argc, argv);
+diff --git a/tests/gui/TestGuiFdoSecrets.cpp b/tests/gui/TestGuiFdoSecrets.cpp
+index 82da0f69..e3266141 100644
+--- a/tests/gui/TestGuiFdoSecrets.cpp
++++ b/tests/gui/TestGuiFdoSecrets.cpp
+@@ -54,7 +54,6 @@ int main(int argc, char* argv[])
+     app.setApplicationVersion(CHIPASS_VERSION);
+     app.setQuitOnLastWindowClosed(false);
+     app.setAttribute(Qt::AA_Use96Dpi, true);
+-    QTEST_DISABLE_KEYPAD_NAVIGATION
+     TestGuiFdoSecrets tc;
+     QTEST_SET_MAIN_SOURCE_PATH
+     return QTest::qExec(&tc, argc, argv);
