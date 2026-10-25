@@ -1,6 +1,6 @@
 pkgname = "chipass"
 pkgver = "2026.09.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DCHIPASS_WITH_UPDATE_CHECK=OFF"]
 # TODO: https://codeberg.org/ChiPass/ChiPass/issues/193
@@ -43,7 +43,6 @@ license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://codeberg.org/ChiPass/ChiPass"
 source = f"https://codeberg.org/ChiPass/ChiPass/releases/download/v{pkgver}/ChiPass-{pkgver}-source.tar.bz2"
 sha256 = "0e0fa8d3ccd3652c04bb82226fc85a6af505b60325a8f09ab94fcb4a6013f8a8"
-hardening = ["vis", "cfi"]
 # check may be disabled
 options = []
 
