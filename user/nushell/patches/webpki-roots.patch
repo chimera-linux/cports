@@ -1,0 +1,57 @@
+From 965ad78430b8502227a6d89a70557a6b2a0731b7 Mon Sep 17 00:00:00 2001
+From: Darren Schroeder <343840+fdncred@users.noreply.github.com>
+Date: Wed, 21 Oct 2026 04:24:16 -0700
+Subject: [PATCH] Bump webpki crates to clear the RustSec audit (#19308)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 70cea3dcfde74..9db5188e12bab 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -8278,9 +8278,9 @@ checksum = "f87165f0995f63a9fbeea62b64d10b4d9d8e78ec6d7d51fb2125fda7bb36788f"
+ 
+ [[package]]
+ name = "rustls-webpki"
+-version = "0.103.15"
++version = "0.103.16"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f3c3cf1d8b1e7d4927e2d154c3fcb02979afb9939629c62cd9048d4f07b60ac2"
++checksum = "4443b1b6d39d7c663139942cc4558262562d2c84123bb6282ef177009ca8b281"
+ dependencies = [
+  "aws-lc-rs",
+  "ring",
+@@ -10487,18 +10487,18 @@ dependencies = [
+ 
+ [[package]]
+ name = "webpki-root-certs"
+-version = "1.0.6"
++version = "1.0.10"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "804f18a4ac2676ffb4e8b5b5fa9ae38af06df08162314f96a68d2a363e21a8ca"
++checksum = "58ec80e73fd8baf57bf0d9615554c75348bda990d6d5bbeab964dd068319fecb"
+ dependencies = [
+  "rustls-pki-types",
+ ]
+ 
+ [[package]]
+ name = "webpki-roots"
+-version = "1.0.9"
++version = "1.0.10"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7dcd9d09a39985f5344844e66b0c530a33843579125f23e21e9f0f220850f22a"
++checksum = "1c1c8e20c8a38fc7d65abfe74eb7280e4aa667e8eec8bc84996d2874810748d9"
+ dependencies = [
+  "rustls-pki-types",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index 688a5cd8827f6..406c2805c5e49 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -295,7 +295,7 @@ v_htmlescape = "0.17.0"
+ memchr = "2.8.0"
+ wax = "0.7.0"
+ web-time = "1.1.0"
+-webpki-roots = "1.0.9"
++webpki-roots = "1.0.10"
+ which = "8.0.6"
+ win_uds = "=0.2.4"
+ windows = "0.62.2"

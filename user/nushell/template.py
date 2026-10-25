@@ -1,7 +1,8 @@
 pkgname = "nushell"
-pkgver = "0.114.1"
+pkgver = "0.116.1"
 pkgrel = 0
 build_style = "cargo"
+prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features=plugin,trash-support,lsp,local-socket,system-clipboard,sqlite,native-tls,network",
@@ -26,7 +27,7 @@ pkgdesc = "Shell with a focus on structured data"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "48ef2fb6bb3ec2b1dcff87a792aeebdfab10b29f3119a62291075b17e4ad25d5"
+sha256 = "0cca0c5bc9d9eb608dee00c75b6b511917df6e66c784b034468bab2ff0fbb9b4"
 _plugins = [
     "polars",
     "formats",
@@ -49,7 +50,7 @@ def install(self):
     nu_autoload_path = "usr/share/nushell/vendor/autoload"
     self.install_dir(nu_autoload_path)
     for _plugin in _plugins:
-        self.install_bin(cargo.target_path(f"nu_plugin_{_plugin}"))
+        self.install_bin(cargo.target_path(self, f"nu_plugin_{_plugin}"))
         with open(
             self.destdir / nu_autoload_path / f"enable_plugin_{_plugin}.nu", "w"
         ) as ofile:
