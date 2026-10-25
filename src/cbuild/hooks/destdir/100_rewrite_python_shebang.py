@@ -40,12 +40,18 @@ def invoke(pkg):
                 # write new shebang
                 nf.write(shebang)
                 nf.write(b"\n")
-                # write rest of original file
-                while True:
-                    ln = fhandle.readline()
-                    if len(ln) == 0:
-                        break
+                # check for python zipapps; they have the shebang followed
+                # by line feed followed by a standard zip archive
+                ln = fhandle.readline()
+                if ln.startswith(b"\x50\x4b\x03\x04"):
+                    pkg.error(
+                        f"found Python zipapp: {bfile}",
+                        hint="change the template to package plain Python sources",
+                    )
+                # write the rest of the script
+                while len(ln) > 0:
                     nf.write(ln)
+                    ln = fhandle.readline()
                 # remove old file
                 v.unlink()
                 # rename new file to old
