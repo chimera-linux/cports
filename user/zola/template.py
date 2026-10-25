@@ -1,14 +1,15 @@
 pkgname = "zola"
-pkgver = "0.22.1"
+pkgver = "0.23.6"
 pkgrel = 0
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["rust-std", "openssl3-devel", "oniguruma-devel"]
+makedepends = ["rust-std", "openssl3-devel", "oniguruma-devel", "zstd-devel"]
 pkgdesc = "Static site generator"
 license = "MIT"
 url = "https://www.getzola.org"
 source = f"https://github.com/getzola/zola/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0f59479e05bce79e8d5860dc7e807ea818986094469ed8bf0bb46588ade95982"
+sha256 = "193db594222cd9c1097387ce17272cbbe672c3a894c263f6f4c436a7fedb379f"
 # generates completions with host bins
 options = ["!cross"]
 

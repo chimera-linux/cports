@@ -1,0 +1,11 @@
+--- a/Cargo.toml	2026-10-25 14:19:59.030407816 +1000
++++ b/Cargo.toml	2026-10-25 14:21:48.051175396 +1000
+@@ -103,7 +103,7 @@
+ rayon = "1"
+ regex = "1"
+ relative-path = "2"
+-reqwest = { version = "0.13", features = ["blocking"] }
++reqwest = { version = "0.13", default-features = false, features = ["charset", "http2", "system-proxy", "blocking", "native-tls"] }
+ serde = { version = "1.0", features = ["derive"] }
+ serde_json = "1"
+ serde_yaml = "0.9"
