@@ -1,6 +1,6 @@
 pkgname = "musl-locales"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # We patch musl to default `MUSL_LOCPATH` to the appropriate path, so the
 # profile script isn't necessary

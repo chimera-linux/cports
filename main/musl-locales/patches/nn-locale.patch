@@ -1,0 +1,865 @@
+diff --git a/musl-po/nn_NO.po b/musl-po/nn_NO.po
+new file mode 100644
+index 0000000..a743088
+--- /dev/null
++++ b/musl-po/nn_NO.po
+@@ -0,0 +1,769 @@
++msgid ""
++msgstr ""
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Language: nn_NO\n"
++"X-Source-Language: C\n"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1700
++#, c-format
++msgid "Error loading shared library %s: %m"
++msgstr "Feil under lasting av delt bibliotek %s: %m"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1603
++#, c-format
++msgid "%s: Error getting %zu bytes thread-local storage: %m\n"
++msgstr "%s: Feil under tildeling av %zu byte for trådspesifikk lagring: %m\n"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1699
++#, c-format
++msgid "Library %s is not already loaded"
++msgstr "Biblioteket %s er ikkje lasta allereie"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1503
++#, c-format
++msgid "%s: %s: Not a valid dynamic program\n"
++msgstr "%s: %s: Ikkje eit gyldig dynamisk program\n"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1087
++#, c-format
++msgid "Error loading shared library %s: %m (needed by %s)"
++msgstr "Feil under lasting av delt bibliotek %s: %m (trengst av %s)"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1158
++#, c-format
++msgid "Error relocating %s: RELRO protection failed: %m"
++msgstr "Feil under flytting av %s: RELRO-beskyttelse mislukka: %m"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:875
++#, c-format
++msgid "Error allocating function descriptors for %s"
++msgstr "Feil under tildeling av funksjonsdeskriptor for %s"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:448
++#, c-format
++msgid "Error relocating %s: unsupported relocation type %d"
++msgstr "Feil under flytting av %s: ustøtta flyttetype %d"
++
++#: ../musl/musl-1.1.14/src/exit/assert.c:6
++#, c-format
++msgid "Assertion failed: %s (%s: %s: %d)\n"
++msgstr "Påstand mislukka: %s (%s: %s: %d)\n"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:340
++#, c-format
++msgid "Error relocating %s: %s: symbol not found"
++msgstr "Feil under flytting av %s: %s: fant ikkje symbol"
++
++#: ../musl/musl-1.1.14/ldso/dynlink.c:426
++#, c-format
++msgid "Error relocating %s: cannot allocate TLSDESC for %s"
++msgstr "Feil under flytting av %s: kan ikkje allokere TLSDESC for %s"
++
++#: ../musl/musl-1.1.14/src/ldso/dlerror.c:14
++msgid "Dynamic linker failed to allocate memory for error message"
++msgstr "Dynamisk lenker klarte ikkje allokere minne til feilmeldinga"
++
++#: ../musl/musl-1.1.14/src/ldso/dlerror.c:60
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1742
++#, c-format
++msgid "Invalid library handle %p"
++msgstr "Ugyldig bibliotekreferanse %p"
++
++#: ../musl/musl-1.1.14/src/ldso/dlopen.c:9
++msgid "Dynamic loading not supported"
++msgstr "Dynamisk lasting er ikkje støtta"
++
++#: ../musl/musl-1.1.14/src/ldso/dlinfo.c:14
++#, c-format
++msgid "Unsupported request %d"
++msgstr "Førespurnad ikkje støtta %d"
++
++#: ../musl/musl-1.1.14/src/ldso/__dlsym.c:9
++#: ../musl/musl-1.1.14/ldso/dynlink.c:1824
++#, c-format
++msgid "Symbol not found: %s"
++msgstr "Fann ikkje symbol: %s"
++
++#: ../musl/musl-1.1.14/src/malloc/malloc.c:143
++#, c-format
++msgid "missing from binmap!\n"
++msgstr "manglar frå binmap!\n"
++
++#: ../musl/musl-1.1.14/src/malloc/malloc.c:145
++#, c-format
++msgid "binmap wrongly contains %d!\n"
++msgstr "binmap inneheld %d ved ein feil!\n"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:30
++msgid "label"
++msgstr "merkelapp"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:30
++msgid "severity"
++msgstr "alvorlegheitsgrad"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:30
++msgid "text"
++msgstr "tekst"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:30
++msgid "action"
++msgstr "handling"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:30
++msgid "tag"
++msgstr "merkelapp"
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:36
++msgid "HALT: "
++msgstr "AVSLUTT: "
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:37
++msgid "ERROR: "
++msgstr "FEIL: "
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:38
++msgid "WARNING: "
++msgstr "ÅTVARING: "
++
++#: ../musl/musl-1.1.14/src/misc/fmtmsg.c:39
++msgid "INFO: "
++msgstr "INFO: "
++
++#: ../musl/musl-1.1.14/src/misc/getopt_long.c:84
++msgid ": option does not take an argument: "
++msgstr ": val tar ikkje eit argument"
++
++#: ../musl/musl-1.1.14/src/misc/getopt_long.c:95
++#: ../musl/musl-1.1.14/src/misc/getopt.c:91
++msgid ": option requires an argument: "
++msgstr ": val krev eit argument"
++
++#: ../musl/musl-1.1.14/src/misc/getopt_long.c:112
++msgid ": option is ambiguous: "
++msgstr ": val er tvetydig"
++
++#: ../musl/musl-1.1.14/src/misc/getopt_long.c:113
++#: ../musl/musl-1.1.14/src/misc/getopt.c:83
++msgid ": unrecognized option: "
++msgstr ": ukjent val"
++
++#: ../musl/musl-1.1.14/src/regex/regerror.c:13
++msgid "No error"
++msgstr "Ingen feil"
++
++#: ../musl/musl-1.1.14/src/string/strsignal.c:57
++msgid "Unknown signal"
++msgstr "Ukjent signal"
++
++#: ../musl/musl-1.1.14/src/network/hstrerror.c:6
++msgid "Host not found"
++msgstr "Vert ikkje funnet"
++
++#: ../musl/musl-1.1.14/src/network/gai_strerror.c:5
++msgid "Invalid flags"
++msgstr "Ugyldige flagg"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:89
++#, c-format
++msgid "%2d"
++msgstr "%2d"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:92
++msgid "%Y-%m-%d"
++msgstr "%Y-%m-%d"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:141
++msgid "\t"
++msgstr "\t"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:174
++#, c-format
++msgid "+%lld"
++msgstr "+%lld"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:184
++#, c-format
++msgid "%+.2d%.2d"
++msgstr "%+.2d%.2d"
++
++#: ../musl/musl-1.1.14/src/time/strftime.c:202
++#, c-format
++msgid "%0*lld"
++msgstr "%0*lld"
++
++msgid "Illegal byte sequence"
++msgstr "Ugyldig bytesekvens"
++
++msgid "Domain error"
++msgstr "Domenefeil"
++
++msgid "Result not representable"
++msgstr "Resultatet kan ikkje representerast"
++
++msgid "Not a tty"
++msgstr "Ikkje ein tty"
++
++msgid "Permission denied"
++msgstr "Tilgang nekta"
++
++msgid "Operation not permitted"
++msgstr "Operasjon ikkje tillatt"
++
++msgid "No such file or directory"
++msgstr "Fila eller mappa finst ikkje"
++
++msgid "No such process"
++msgstr "Prosessen finst ikkje"
++
++msgid "File exists"
++msgstr "Fila finst"
++
++msgid "Value too large for data type"
++msgstr "Verdien er for stor for datatypen"
++
++msgid "No space left on device"
++msgstr "Inga plass igjen på eininga"
++
++msgid "Resource busy"
++msgstr "Ressursen er oppteken"
++
++msgid "Interrupted system call"
++msgstr "Systemkallet vart avbrote"
++
++msgid "Resource temporarily unavailable"
++msgstr "Ressursen er midlertidig utilgjengeleg"
++
++msgid "Invalid seek"
++msgstr "Ugyldig søk"
++
++msgid "Cross-device link"
++msgstr "Lenkja kryssar einingar"
++
++msgid "Read-only file system"
++msgstr "Skrivebeskytta filsystem"
++
++msgid "Directory not empty"
++msgstr "Mappa er ikkje tom"
++
++msgid "Connection reset by peer"
++msgstr "Tilkopling avbrote av motparten"
++
++msgid "Operation timed out"
++msgstr "Operasjonen fekk eit tidsavbrot"
++
++msgid "Connection refused"
++msgstr "Tilkopling nekta"
++
++msgid "Host is down"
++msgstr "Tenaren er nede"
++
++msgid "Host is unreachable"
++msgstr "Tenaren kan ikkje bli nådd"
++
++msgid "Address in use"
++msgstr "Adressa er allereie i bruk"
++
++msgid "Broken pipe"
++msgstr "Datalinja (pipe) vart avbrutt"
++
++msgid "I/O error"
++msgstr "I/O feil"
++
++msgid "No such device or address"
++msgstr "Eininga eller adressa finst ikkje"
++
++msgid "Block device required"
++msgstr "Treng ei blokkeining"
++
++msgid "No such device"
++msgstr "Eininga finst ikkje"
++
++msgid "Not a directory"
++msgstr "Er ikkje ei mappe"
++
++msgid "Is a directory"
++msgstr "Er ei mappe"
++
++msgid "Text file busy"
++msgstr "Tekstfila er oppteken"
++
++msgid "Exec format error"
++msgstr "Feil med exec-format"
++
++msgid "Invalid argument"
++msgstr "Ugyldig argument"
++
++msgid "Argument list too long"
++msgstr "Argumentlista er for lang"
++
++msgid "Symbolic link loop"
++msgstr "Symbolske lenkjer går i sirkel"
++
++msgid "Filename too long"
++msgstr "Filnamnet er for langt"
++
++msgid "Too many open files in system"
++msgstr "For mange opne filer på systemet"
++
++msgid "No file descriptors available"
++msgstr "Ingen fildeskriptorar er tilgjengeleg"
++
++msgid "Bad file descriptor"
++msgstr "Ugyldig fildeskriptor"
++
++msgid "No child process"
++msgstr "Inga underprosess"
++
++msgid "Bad address"
++msgstr "Ugyldig adresse"
++
++msgid "File too large"
++msgstr "Fila er for stor"
++
++msgid "Too many links"
++msgstr "For mange lenkjer"
++
++msgid "No locks available"
++msgstr "Ingen låsar tilgjengeleg"
++
++msgid "Resource deadlock would occur"
++msgstr "Ein vranglås ville oppstå for ressursen"
++
++msgid "State not recoverable"
++msgstr "Tilstanden kan ikkje gjenopprettast"
++
++msgid "Previous owner died"
++msgstr "Førre eigar daude"
++
++msgid "Operation canceled"
++msgstr "Operasjonen vart avbrote"
++
++msgid "Function not implemented"
++msgstr "Funksjonen er ikkje implementert"
++
++msgid "No message of desired type"
++msgstr "Inga melding av den valde typen"
++
++msgid "Identifier removed"
++msgstr "Identifikatoren er fjerna"
++
++msgid "Device not a stream"
++msgstr "Eininga er ikkje ein straum"
++
++msgid "No data available"
++msgstr "Inga data tilgjengeleg"
++
++msgid "Device timeout"
++msgstr "Eininga fekk eit tidsavbrot"
++
++msgid "Out of streams resources"
++msgstr "Tom for straumressursar"
++
++msgid "Link has been severed"
++msgstr "Lenkja har blitt brutt"
++
++msgid "Protocol error"
++msgstr "Protokollfeil"
++
++msgid "Bad message"
++msgstr "Ugyldig melding"
++
++msgid "File descriptor in bad state"
++msgstr "Fildeskriptoren er i ein ugyldig stand"
++
++msgid "Not a socket"
++msgstr "Ikkje ein socket"
++
++msgid "Destination address required"
++msgstr "Destinasjonadressa er obligatorisk"
++
++msgid "Message too large"
++msgstr "Meldinga er for lang"
++
++msgid "Protocol wrong type for socket"
++msgstr "Protokollen er ugyldig for denne typen socket"
++
++msgid "Protocol not available"
++msgstr "Protokollen er ikkje tilgjengeleg"
++
++msgid "Protocol not supported"
++msgstr "Protokollen er ikkje støtta"
++
++msgid "Socket type not supported"
++msgstr "Sockettype er ikkje støtta"
++
++msgid "Not supported"
++msgstr "Ikkje støtta"
++
++msgid "Protocol family not supported"
++msgstr "Protokollfamilien er ikkje støtta"
++
++msgid "Address family not supported by protocol"
++msgstr "Adressefamilien er ikkje støtta av protokollen"
++
++msgid "Address not available"
++msgstr "Adressa er ikkje tilgjengeleg"
++
++msgid "Network is down"
++msgstr "Nettverket er nede"
++
++msgid "Network unreachable"
++msgstr "Kunne ikkje nå nettverket"
++
++msgid "Connection reset by network"
++msgstr "Nettverket nullstilte tilkoplinga"
++
++msgid "Connection aborted"
++msgstr "Tilkoplinga vart avbrote"
++
++msgid "No buffer space available"
++msgstr "Inga tilgjengeleg plass til buffer"
++
++msgid "Socket is connected"
++msgstr "Socket er tilkopla"
++
++msgid "Socket not connected"
++msgstr "Socket er ikkje tilkopla"
++
++msgid "Cannot send after socket shutdown"
++msgstr "Kan ikkje sende etter at socketen har avslutta"
++
++msgid "Operation already in progress"
++msgstr "Operasjonen er allereie i gang"
++
++msgid "Operation in progress"
++msgstr "Operasjonen er i gang"
++
++msgid "Stale file handle"
++msgstr "Ugyldig filreferanse"
++
++msgid "Remote I/O error"
++msgstr "Ekstern I/O-feil"
++
++msgid "Quota exceeded"
++msgstr "Kvoten er brukt opp"
++
++msgid "No medium found"
++msgstr "Inga medie funnet"
++
++msgid "Wrong medium type"
++msgstr "Feil medietype"
++
++msgid "No error information"
++msgstr "Inga feilinformasjon"
++
++msgid "Sun"
++msgstr "sun"
++
++msgid "Mon"
++msgstr "mån"
++
++msgid "Tue"
++msgstr "tys"
++
++msgid "Wed"
++msgstr "ons"
++
++msgid "Thu"
++msgstr "tor"
++
++msgid "Fri"
++msgstr "fre"
++
++msgid "Sat"
++msgstr "lau"
++
++msgid "Sunday"
++msgstr "sun"
++
++msgid "Monday"
++msgstr "måndag"
++
++msgid "Tuesday"
++msgstr "tysdag"
++
++msgid "Wednesday"
++msgstr "onsdag"
++
++msgid "Thursday"
++msgstr "torsdag"
++
++msgid "Friday"
++msgstr "fredag"
++
++msgid "Saturday"
++msgstr "laurdag"
++
++msgid "Jan"
++msgstr "jan"
++
++msgid "Feb"
++msgstr "feb"
++
++msgid "Mar"
++msgstr "mar"
++
++msgid "Apr"
++msgstr "apr"
++
++msgid "May"
++msgstr "mai"
++
++msgid "Jun"
++msgstr "jun"
++
++msgid "Jul"
++msgstr "jul"
++
++msgid "Aug"
++msgstr "aug"
++
++msgid "Sep"
++msgstr "sep"
++
++msgid "Oct"
++msgstr "okt"
++
++msgid "Nov"
++msgstr "nov"
++
++msgid "Dec"
++msgstr "des"
++
++msgid "January"
++msgstr "januar"
++
++msgid "February"
++msgstr "februar"
++
++msgid "March"
++msgstr "mars"
++
++msgid "April"
++msgstr "april"
++
++msgid "June"
++msgstr "juni"
++
++msgid "July"
++msgstr "juli"
++
++msgid "August"
++msgstr "august"
++
++msgid "September"
++msgstr "september"
++
++msgid "October"
++msgstr "oktober"
++
++msgid "November"
++msgstr "november"
++
++msgid "December"
++msgstr "desember"
++
++msgid "AM"
++msgstr ""
++
++msgid "PM"
++msgstr ""
++
++msgid "%a %b %e %T %Y"
++msgstr "%a %e %b %T %Y"
++
++#: ../musl/musl-1.1.14/src/time/strptime.c:54
++#: ../musl/musl-1.1.14/src/time/strftime.c:86
++msgid "%m/%d/%y"
++msgstr "%d/%m/%y"
++
++#: ../musl/musl-1.1.14/src/time/strptime.c:106
++#: ../musl/musl-1.1.14/src/time/strftime.c:130
++msgid "%H:%M"
++msgstr "%H:%M"
++
++#: ../musl/musl-1.1.14/src/time/strptime.c:115
++#: ../musl/musl-1.1.14/src/time/strftime.c:143
++msgid "%H:%M:%S"
++msgstr "%H:%M:%S"
++
++msgid "%I:%M:%S %p"
++msgstr "%H:%M:%S"
++
++msgid "0123456789"
++msgstr "0123456789"
++
++msgid "%a %b %e %T %Y %Z"
++msgstr "%a %e %b %T %Y %Z"
++
++msgid "^[yY]"
++msgstr "^[jJ]"
++
++msgid "^[nN]"
++msgstr "^[nN]"
++
++msgid "yes"
++msgstr "ja"
++
++msgid "no"
++msgstr "nei"
++
++msgid "."
++msgstr "."
++
++msgid "Name does not resolve"
++msgstr "Namnet kan ikkje bli slått opp"
++
++msgid "Try again"
++msgstr "Prøv igjen"
++
++msgid "Non-recoverable error"
++msgstr "Feil som ikkje kan gjenopprettast"
++
++msgid "Unknown error"
++msgstr "Ukjent feil"
++
++msgid "Unrecognized address family or invalid length"
++msgstr "Ukjent adressefamilie eller ugyldig lengde"
++
++msgid "Unrecognized socket type"
++msgstr "Ukjent sockettype"
++
++msgid "Unrecognized service"
++msgstr "Ukjent teneste"
++
++msgid "System error"
++msgstr "Systemfeil"
++
++msgid "Overflow"
++msgstr "Flyt over"
++
++msgid "No match"
++msgstr "Inga treff"
++
++msgid "Invalid regexp"
++msgstr "Ugyldig regexp"
++
++msgid "Unknown collating element"
++msgstr "Ugyldig sorteringselement"
++
++msgid "Unknown character class name"
++msgstr "Ugyldig namn for teiknklasse"
++
++msgid "Trailing backslash"
++msgstr "Etterfølgjande omvendt skråstrek (\\)"
++
++msgid "Invalid back reference"
++msgstr "Uglydig bakoverreferanse"
++
++msgid "Missing ']'"
++msgstr "Manglande «]»"
++
++msgid "Missing ')'"
++msgstr "Manglande «)»"
++
++msgid "Missing '}'"
++msgstr "Manglande «}»"
++
++msgid "Invalid contents of {}"
++msgstr "Ugyldig innhald i {}"
++
++msgid "Invalid character range"
++msgstr "Ugyldig teiknintervall"
++
++msgid "Repetition not preceded by valid expression"
++msgstr "Det er ikkje eit gyldig uttrykk før repetisjonen"
++
++msgid "Hangup"
++msgstr "Lagt på"
++
++msgid "Interrupt"
++msgstr "Avbrote"
++
++msgid "Quit"
++msgstr "Avslutt"
++
++msgid "Illegal instruction"
++msgstr "Ugyldig instruksjon"
++
++msgid "Trace/breakpoint trap"
++msgstr "Sporing/breakpoint vart fanget"
++
++msgid "Aborted"
++msgstr "Avbrote"
++
++msgid "Bus error"
++msgstr "Bussfeil"
++
++msgid "Arithmetic exception"
++msgstr "Aritmetisk unntak (exception)"
++
++msgid "Killed"
++msgstr "Drept"
++
++msgid "User defined signal 1"
++msgstr "Brukardefinert signal 1"
++
++msgid "Segmentation fault"
++msgstr "Minnepeikarfeil"
++
++msgid "User defined signal 2"
++msgstr "Brukardefinert signal 2"
++
++msgid "Alarm clock"
++msgstr "Alarmklokke"
++
++msgid "Terminated"
++msgstr "Avslutta"
++
++msgid "Stack fault"
++msgstr "Stabelfeil"
++
++msgid "Child process status"
++msgstr "Status for underprosess"
++
++msgid "Continued"
++msgstr "Fortsatt"
++
++msgid "Stopped (signal)"
++msgstr "Stoppa (signal)"
++
++msgid "Stopped"
++msgstr "Stoppa"
++
++msgid "Stopped (tty input)"
++msgstr "Stoppa (tty inndata)"
++
++msgid "Stopped (tty output)"
++msgstr "Stoppa (tty utdata)"
++
++msgid "Urgent I/O condition"
++msgstr "I/O-betingelse som hastar"
++
++msgid "CPU time limit exceeded"
++msgstr "CPU tidsgrensa er oppnådd"
++
++msgid "File size limit exceeded"
++msgstr "Grense for filstorleik er oppnådd"
++
++msgid "Virtual timer expired"
++msgstr "Virtuell tidtakar er gått ut på dato"
++
++msgid "Profiling timer expired"
++msgstr "Profileringstidtakaren er gått ut på dato"
++
++msgid "Window changed"
++msgstr "Vindauge endra"
++
++msgid "I/O possible"
++msgstr "I/O er mogleg"
++
++msgid "Power failure"
++msgstr "Straumfeil"
++
++msgid "Bad system call"
++msgstr "Ugyldig systemkall"
+diff --git a/po/LINGUAS b/po/LINGUAS
+index 906246b..baa676e 100644
+--- a/po/LINGUAS
++++ b/po/LINGUAS
+@@ -8,6 +8,7 @@ sv_SE
+ pt_BR
+ pt_PT
+ nb_NO
++nn_NO
+ cs_CZ
+ sr_RS
+ fi_FI
+diff --git a/po/nn_NO.po b/po/nn_NO.po
+new file mode 100644
+index 0000000..0495add
+--- /dev/null
++++ b/po/nn_NO.po
+@@ -0,0 +1,72 @@
++# musl-locales
++# Translation copyright (C) Eskild Hustvedt
++# This file is distributed under the same license as the musl-locales package.
++# Eskild Hustvedt <i18n@zerodogg.org>, 2026
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2021-03-10 12:48+0200\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Language: nn_NO\n"
++"X-Source-Language: C\n"
++
++#: ../locale.c:52
++#, c-format
++msgid ""
++"Usage: %s [-a | -m] [FORMAT] name...\n"
++"\n"
++"\t-a, --all-locales\tWrite names of all available locales\n"
++"\t-m, --charmaps\tWrite names of available charmaps\n"
++"\n"
++"FORMAT:\n"
++"\t-c, --category-name\tWrite names of selected categories\n"
++"\t-k, --keyword-name\tWrite names of selected keywords\n"
++msgstr ""
++"Bruk: %s [-a | -m] [FORMAT] namn ...\n"
++"\n"
++"\t-a, --all-locales\tList opp alle tilgjengelege lokalar\n"
++"\t-m, --charmaps\tList opp alle tilgjengelege teiknmappingar\n"
++"\n"
++"FORMAT:\n"
++"\t-c, --category-name\tList opp namna på dei valde kategoriane\n"
++"\t-k, --keyword-name\tList opp namna på dei valde nøkkelorda\n"
++
++#: ../locale.c:92
++#, c-format
++msgid "Unknown option.\n"
++msgstr "Ukjent val.\n"
++
++#: ../locale.c:97
++#, c-format
++msgid "This should never happen!\n"
++msgstr "Dette skal aldri kunne skje!\n"
++
++#: ../locale.c:203
++#, c-format
++msgid "Cannot set LC_CTYPE to default locale"
++msgstr "Kunne ikkje setje LC_CTYPE til standardspråket"
++
++#: ../locale.c:205
++#, c-format
++msgid "Cannot set LC_MESSAGES to default locale"
++msgstr "Kunne ikkje setje LC_MESSAGES til standardspråket"
++
++#: ../locale.c:214
++#, c-format
++msgid "Cannot set LC_COLLATE to default locale"
++msgstr "Kunne ikkje setje LC_COLLATE til standardspråket"
++
++#: ../locale.c:231
++#, c-format
++msgid "Cannot set LC_ALL to default locale"
++msgstr "Kunne ikkje setje LC_ALL til standardspråket"
