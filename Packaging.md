@@ -3230,11 +3230,17 @@ Usage:
 self.install_shell("/usr/bin/bash")
 ```
 
-##### def uninstall(self, path, glob = False)
+##### def uninstall(self, path, glob = False, missing_ok = False)
 
-Wipes the `path` (which must be a relative string) from the destination
-directory. The path must match some files or directories. It can optionally
-be globbed.
+Wipes the `path` (which must be a relative string, or below) from the
+destination directory. The path must match some files or directories.
+It can optionally be globbed.
+
+If `missing_ok` is True, then it's not an error if the target does not exist.
+
+In addition to relative path strings, the path can take the form `cmd:something`
+(uninstalls the given command binary plus any manpages and completions),
+`lib:something`, and `man:something.N`. The suffix can be globbed.
 
 ##### def rename(self, src, dest, relative = True, glob = False, keep_name = False)
 

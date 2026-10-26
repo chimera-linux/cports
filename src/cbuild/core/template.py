@@ -2115,18 +2115,51 @@ class Template(Package):
         finally:
             self._current_profile = old_tgt
 
-    def uninstall(self, path, glob=False):
+    def uninstall(self, path, glob=False, missing_ok=False):
         if path.startswith("/"):
             raise errors.TracebackException(
                 f"uninstall: path '{path}' must not be absolute"
             )
+        col = path.find(":")
+        if col > 0:
+            sfx = path[col + 1 :]
+            match path[0:col]:
+                case "cmd":
+                    # uninstall potential manpages and shell completions
+                    # but only if they actually exist, command must exist
+                    self.uninstall(f"man:{sfx}.1", glob, True)
+                    self.uninstall(f"man:{sfx}.8", glob, True)
+                    self.uninstall(
+                        f"usr/share/bash-completion/completions/{sfx}",
+                        glob,
+                        True,
+                    )
+                    self.uninstall(
+                        f"usr/share/zsh/site-functions/_{sfx}", glob, True
+                    )
+                    self.uninstall(
+                        f"usr/share/fish/vendor_completions.d/{sfx}.fish",
+                        glob,
+                        True,
+                    )
+                    return self.uninstall(f"usr/bin/{sfx}", glob, missing_ok)
+                case "lib":
+                    return self.uninstall(f"usr/lib/{sfx}", glob, missing_ok)
+                case "man":
+                    return self.uninstall(
+                        f"usr/share/man/**/man{sfx[sfx.rfind('.') + 1 :]}/{sfx}",
+                        True,
+                        missing_ok,
+                    )
         if not glob:
             dests = [self.destdir / path]
             if not dests[0].exists() and not dests[0].is_symlink():
+                if missing_ok:
+                    return
                 self.error(f"path '{path}' does not match anything", bt=True)
         else:
             dests = list(self.destdir.glob(path))
-            if len(dests) < 1:
+            if len(dests) < 1 and not missing_ok:
                 self.error(f"path '{path}' does not match anything", bt=True)
         for dst in dests:
             self.rm(dst, recursive=True, force=True)
