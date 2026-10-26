@@ -44,11 +44,8 @@ def post_install(self):
     # gui is not built, refers to nothing
     self.uninstall("usr/share/applications/gvim.desktop")
     # chimerautils-extra ex/view conflict with these symlinks
-    # TODO: just rename and update the code in main.c:parse_command_name
-    self.uninstall("usr/bin/ex")
-    self.uninstall("usr/share/man/**/man1/ex.1", glob=True)
-    self.uninstall("usr/bin/view")
-    self.uninstall("usr/share/man/**/man1/view.1", glob=True)
+    self.uninstall("cmd:ex")
+    self.uninstall("cmd:view")
 
 
 @subpackage("vim-xxd")
