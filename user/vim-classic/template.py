@@ -1,6 +1,6 @@
 pkgname = "vim-classic"
 pkgver = "8.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -28,6 +28,7 @@ makedepends = [
     "ruby-devel",
 ]
 depends = [self.with_pkgver("vim-classic-xxd")]
+provides = ["vim=8.2.0148"]
 pkgdesc = "Vim Classic is a fork of Vim 8.x for long-term maintenance"
 license = "Vim"
 url = "https://www.vim-classic.org"
