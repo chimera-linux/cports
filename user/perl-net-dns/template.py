@@ -1,5 +1,5 @@
 pkgname = "perl-net-dns"
-pkgver = "1.54"
+pkgver = "1.58"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -16,7 +16,7 @@ pkgdesc = "Domain Name System interface"
 license = "MIT"
 url = "https://metacpan.org/pod/Net::DNS"
 source = f"https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-{pkgver}.tar.gz"
-sha256 = "7abe0e03e8eead04bfe432d0d90ec0dd61b8ba71afad324a9c76acc6a6fbe2a4"
+sha256 = "6335e9e253bc457c7f7e26aaef673c613f62bde26ab8d1cbdd3ddfeb402871a7"
 
 
 def post_install(self):
