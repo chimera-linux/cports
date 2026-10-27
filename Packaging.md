@@ -1132,7 +1132,10 @@ Assuming the build proceeds, phase functions are called. Every phase may
 use up to 4 functions - `init_PHASE`, `pre_PHASE`, `PHASE` and `post_PHASE`.
 They are called in that order. The `pre_` and `post_` functions exist so that
 the template can specify additional logic for when the main function is
-already defined by a `build_style`.
+already defined by a `build_style`. This implies that if you're using a
+`build_style` and then declare a `build` method, you're effectively
+overwriting the `build` method from your `build_style`, thus in most cases
+you'll want to use either a `pre_` or a `post_` method instead.
 
 The `init_` prefixed function is, unlike the other 3, not subject to stamp
 checking. That means it is called every time, even during repeated builds,
