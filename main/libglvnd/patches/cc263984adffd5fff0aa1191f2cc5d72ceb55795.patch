@@ -1,0 +1,32 @@
+From cc263984adffd5fff0aa1191f2cc5d72ceb55795 Mon Sep 17 00:00:00 2001
+From: Kyle Brenneman <kbrenneman@nvidia.com>
+Date: Fri, 22 Sep 2023 08:51:48 -0600
+Subject: [PATCH] EGL: Fix error reporting for EGL_PLATFORM_DEVICE_EXT
+
+In eglGetPlatformDisplay, if the platform is EGL_PLATFORM_DEVICE_EXT and
+the native display is a valid EGLDeviceEXT handle, then as an
+optimization, libglvnd will dispatch to whichever vendor owns that
+device, rather than iterating through all of them.
+
+If the vendor's eglGetPlatformDisplay implementation returns
+EGL_NO_DISPLAY, then libglvnd would return that to the caller, but it
+does not correctly pass through the vendor's last EGL error code.
+
+Add a call to __eglSetLastVendor in that case, so that the next call to
+eglGetError() will correctly go to that vendor.
+---
+ src/EGL/libegl.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/EGL/libegl.c b/src/EGL/libegl.c
+index 61a526d..2a62f09 100644
+--- a/src/EGL/libegl.c
++++ b/src/EGL/libegl.c
+@@ -296,6 +296,7 @@ static EGLDisplay GetPlatformDisplayCommon(EGLenum platform,
+             return EGL_NO_DISPLAY;
+         }
+ 
++        __eglSetLastVendor(vendor);
+         dpy = vendor->eglvc.getPlatformDisplay(platform, native_display, attrib_list);
+         if (dpy == EGL_NO_DISPLAY) {
+             return EGL_NO_DISPLAY;

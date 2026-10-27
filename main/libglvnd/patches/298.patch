@@ -1,0 +1,163 @@
+From 30d69ffc80cee233401eeeedc5da3b8eda8ae024 Mon Sep 17 00:00:00 2001
+From: Kyle Brenneman <kbrenneman@nvidia.com>
+Date: Mon, 30 Mar 2026 12:49:06 -0600
+Subject: [PATCH] EGL: Improve EGL_EXT_device_base/query/enumeration reporting
+
+If a vendor library advertises EGL_EXT_device_base, then also include
+EGL_EXT_device_enumeration and EGL_EXT_device_query in the client
+extension string, even if the vendor doesn't explicitly list those.
+
+Likewise, if a vendor advertises only EGL_EXT_device_enumeration and
+EGL_EXT_device_query, then also include EGL_EXT_device_base.
+
+EGL_EXT_device_base is strictly equivalent to EGL_EXT_device_enumeration
+and EGL_EXT_device_query, so this gives a consistent result even if
+vendor libraries are inconsistent about which names they advertise.
+---
+ src/EGL/libegl.c       | 30 ++++++++++++++++++++++++++----
+ src/EGL/libeglvendor.c | 29 +++++++++++++++++++++++------
+ src/EGL/libeglvendor.h |  3 ++-
+ 3 files changed, 51 insertions(+), 11 deletions(-)
+
+diff --git a/src/EGL/libegl.c b/src/EGL/libegl.c
+index 2a62f09..311f3a0 100644
+--- a/src/EGL/libegl.c
++++ b/src/EGL/libegl.c
+@@ -59,9 +59,6 @@
+  */
+ static const char *SUPPORTED_CLIENT_EXTENSIONS =
+     "EGL_EXT_platform_base"
+-    " EGL_EXT_device_base"
+-    " EGL_EXT_device_enumeration"
+-    " EGL_EXT_device_query"
+     " EGL_EXT_platform_device"
+ 
+     // FIXME: Include the other platform extensions here to make testing
+@@ -872,6 +869,8 @@ static char *GetClientExtensionString(void)
+     struct glvnd_list *vendorList = __eglLoadVendors();
+     __EGLvendorInfo *vendor;
+     char *result = NULL;
++    EGLBoolean supportsDeviceEnum = EGL_FALSE;
++    EGLBoolean supportsDeviceQuery = EGL_FALSE;
+ 
+     // First, find the union of all available vendor libraries. Start with an
+     // empty string, then merge the extension string from every vendor library.
+@@ -890,6 +889,9 @@ static char *GetClientExtensionString(void)
+                 return NULL;
+             }
+         }
++
++        supportsDeviceEnum = supportsDeviceEnum || vendor->supportsDeviceEnum;
++        supportsDeviceQuery = supportsDeviceQuery || vendor->supportsDeviceQuery;
+     }
+ 
+     // Next, take the intersection of the client extensions from the vendors
+@@ -902,6 +904,26 @@ static char *GetClientExtensionString(void)
+         return NULL;
+     }
+ 
++    // Add the appropriate set of device extensions.
++    if (supportsDeviceEnum) {
++        result = UnionExtensionStrings(result, "EGL_EXT_device_enumeration");
++        if (result == NULL) {
++            return NULL;
++        }
++    }
++    if (supportsDeviceQuery) {
++        result = UnionExtensionStrings(result, "EGL_EXT_device_query");
++        if (result == NULL) {
++            return NULL;
++        }
++    }
++    if (supportsDeviceEnum && supportsDeviceQuery) {
++        result = UnionExtensionStrings(result, "EGL_EXT_device_base");
++        if (result == NULL) {
++            return NULL;
++        }
++    }
++
+     glvnd_list_for_each_entry(vendor, vendorList, entry) {
+         const char *vendorString = NULL;
+         if (vendor->eglvc.getVendorString != NULL) {
+@@ -963,7 +985,7 @@ static EGLBoolean QueryVendorDevices(__EGLvendorInfo *vendor, EGLint max_devices
+     EGLint vendorCount = 0;
+     EGLint i;
+ 
+-    if (!vendor->supportsDevice) {
++    if (!vendor->supportsDeviceEnum) {
+         return EGL_TRUE;
+     }
+ 
+diff --git a/src/EGL/libeglvendor.c b/src/EGL/libeglvendor.c
+index acece59..3cfb706 100644
+--- a/src/EGL/libeglvendor.c
++++ b/src/EGL/libeglvendor.c
+@@ -385,6 +385,7 @@ static void CheckVendorExtensionString(__EGLvendorInfo *vendor, const char *str)
+ {
+     static const char NAME_DEVICE_BASE[] = "EGL_EXT_device_base";
+     static const char NAME_DEVICE_ENUM[] = "EGL_EXT_device_enumeration";
++    static const char NAME_DEVICE_QUERY[] = "EGL_EXT_device_query";
+     static const char NAME_PLATFORM_DEVICE[] = "EGL_EXT_platform_device";
+     static const char NAME_MESA_PLATFORM_GBM[] = "EGL_MESA_platform_gbm";
+     static const char NAME_KHR_PLATFORM_GBM[] = "EGL_KHR_platform_gbm";
+@@ -397,10 +398,24 @@ static void CheckVendorExtensionString(__EGLvendorInfo *vendor, const char *str)
+         return;
+     }
+ 
+-    if (!vendor->supportsDevice) {
+-        if (IsTokenInString(str, NAME_DEVICE_BASE, sizeof(NAME_DEVICE_BASE) - 1, " ")
+-                || IsTokenInString(str, NAME_DEVICE_ENUM, sizeof(NAME_DEVICE_ENUM) - 1, " ")) {
+-            vendor->supportsDevice = EGL_TRUE;
++    if (!vendor->supportsDeviceEnum || !vendor->supportsDeviceQuery) {
++        /*
++         * EGL_EXT_device_base is equivalent to supporting both
++         * EGL_EXT_device_enumeration and EGL_EXT_device_query.
++         *
++         * Keep track of both so that we know which to include when we
++         * construct the client extension string.
++         */
++        if (IsTokenInString(str, NAME_DEVICE_BASE, sizeof(NAME_DEVICE_BASE) - 1, " ")) {
++            vendor->supportsDeviceEnum = EGL_TRUE;
++            vendor->supportsDeviceQuery = EGL_TRUE;
++        } else {
++            if (IsTokenInString(str, NAME_DEVICE_ENUM, sizeof(NAME_DEVICE_ENUM) - 1, " ")) {
++                vendor->supportsDeviceEnum = EGL_TRUE;
++            }
++            if (IsTokenInString(str, NAME_DEVICE_QUERY, sizeof(NAME_DEVICE_QUERY) - 1, " ")) {
++                vendor->supportsDeviceQuery = EGL_TRUE;
++            }
+         }
+     }
+ 
+@@ -443,10 +458,12 @@ static void CheckVendorExtensions(__EGLvendorInfo *vendor)
+     }
+ 
+     if (vendor->staticDispatch.queryDevicesEXT == NULL) {
+-        vendor->supportsDevice = EGL_FALSE;
++        vendor->supportsDeviceEnum = EGL_FALSE;
+     }
+ 
+-    if (!vendor->supportsDevice) {
++    if (!vendor->supportsDeviceEnum && !vendor->supportsDeviceQuery) {
++        // If we don't have either of the device extensions, then there's no
++        // way to get an EGLDeviceEXT handle from this vendor.
+         vendor->supportsPlatformDevice = EGL_FALSE;
+     }
+ }
+diff --git a/src/EGL/libeglvendor.h b/src/EGL/libeglvendor.h
+index 443f285..bc3fdef 100644
+--- a/src/EGL/libeglvendor.h
++++ b/src/EGL/libeglvendor.h
+@@ -29,7 +29,8 @@ struct __EGLvendorInfoRec {
+     EGLBoolean supportsGL;
+     EGLBoolean supportsGLES;
+ 
+-    EGLBoolean supportsDevice;
++    EGLBoolean supportsDeviceEnum;
++    EGLBoolean supportsDeviceQuery;
+     EGLBoolean supportsPlatformDevice;
+     EGLBoolean supportsPlatformGbm;
+     EGLBoolean supportsPlatformX11;
+-- 
+GitLab
+
