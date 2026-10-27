@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "26.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -9,7 +9,7 @@ configure_args = [
     "-Dgbm=enabled",
     "-Dgles1=enabled",
     "-Dgles2=enabled",
-    "-Dglvnd=disabled",
+    "-Dglvnd=enabled",
     "-Dglx=dri",
     "-Dllvm=enabled",
     "-Dlmsensors=enabled",
@@ -39,6 +39,7 @@ makedepends = [
     "libdrm-devel",
     "libexpat-devel",
     "libffi8-devel",
+    "libglvnd-devel",
     # video accel
     "libva-bootstrap",
     # x11
@@ -62,7 +63,8 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-provider_priority = 999
+depends = ["libglvnd"]
+provides = [self.with_pkgver("libglvnd-vendor")]
 pkgdesc = "Mesa 3D Graphics Library"
 license = "MIT"
 url = "https://www.mesa3d.org"
@@ -72,7 +74,7 @@ sha256 = "794b3d1729075dae7ebd47c7283b7ca0cdb5dec668f7f11cc0a5d82f6138a0a5"
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
 # they banned lto upstream lol
-options = ["!cross", "linkundefver", "fullrustflags", "!lto"]
+options = ["!cross", "linkundefver", "fullrustflags", "!lto", "!scanshlibs"]
 
 _gallium_drivers = []
 _vulkan_drivers = []
@@ -230,7 +232,6 @@ def post_install(self):
 @subpackage("mesa-gbm-libs")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
-    self.depends += [self.parent]
     self.renames = ["libgbm"]
 
     return [
@@ -245,46 +246,10 @@ def _(self):
     self.renames = ["libgbm-devel"]
 
     return [
-        "usr/include/gbm.h",
+        "usr/include/gbm*.h",
         "usr/lib/libgbm.so",
         "usr/lib/pkgconfig/gbm.pc",
     ]
-
-
-@subpackage("mesa-gles1-libs")
-def _(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
-    self.depends += [self.parent]
-    self.renames = ["libgles1"]
-
-    return ["usr/lib/libGLESv1_CM.so.*"]
-
-
-@subpackage("mesa-gles2-libs")
-def _(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
-    self.depends += [self.parent]
-    self.renames = ["libgles2"]
-
-    return ["usr/lib/libGLESv2.so.*"]
-
-
-@subpackage("mesa-egl-libs")
-def _(self):
-    self.pkgdesc = "Free implementation of the EGL API"
-    self.depends += [self.parent]
-    self.renames = ["libegl"]
-
-    return ["usr/lib/libEGL.so.*"]
-
-
-@subpackage("mesa-gl-libs")
-def _(self):
-    self.pkgdesc = "Free implementation of the OpenGL API"
-    self.depends += [self.parent]
-    self.renames = ["libgl"]
-
-    return ["usr/lib/libGL.so.*"]
 
 
 @subpackage("mesa-opencl", _have_opencl)
@@ -302,7 +267,6 @@ def _(self):
 @subpackage("mesa-libgallium")
 def _(self):
     self.pkgdesc = "Mesa gallium loader"
-    self.depends += [self.parent]
     self.renames = ["libglapi", "mesa-glapi-libs"]
 
     return ["usr/lib/libgallium-*.so"]
@@ -337,6 +301,10 @@ def _(self):
 
 @subpackage("mesa-devel")
 def _(self):
-    self.depends += [self.parent, self.with_pkgver("mesa-gbm-devel")]
+    self.depends += [
+        self.parent,
+        self.with_pkgver("mesa-gbm-devel"),
+        "libglvnd-devel",
+    ]
 
     return self.default_devel()
