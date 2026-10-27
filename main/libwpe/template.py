@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["mesa-devel", "libxkbcommon-devel"]
+makedepends = ["libglvnd-devel", "libxkbcommon-devel"]
 pkgdesc = "General-purpose library for WPE WebKit"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
