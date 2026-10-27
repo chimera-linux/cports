@@ -1,7 +1,7 @@
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
 pkgver = "6.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -44,6 +44,8 @@ makedepends = [
     "heimdal-devel",
     "icu-devel",
     "libb2-devel",
+    "libdrm-devel",
+    "libglvnd-devel",
     "libinput-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
@@ -51,7 +53,7 @@ makedepends = [
     "libxcb-devel",
     "libxkbcommon-devel",
     "linux-headers",
-    "mesa-devel",
+    "mesa-gbm-devel",
     "mtdev-devel",
     "pcre2-devel",
     "sqlite-devel",
