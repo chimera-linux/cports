@@ -1,0 +1,37 @@
+From ce2d1ebf93c8d72f31ae401a525a51cf24bb0665 Mon Sep 17 00:00:00 2001
+From: Icenowy Zheng <uwu@icenowy.me>
+Date: Fri, 6 Oct 2023 00:09:42 +0800
+Subject: [PATCH] meson.build: wire loongarch64_tsd dispatch type
+
+The loongarch64_tsd dispatch type is currently not used when libglvnd is
+built with Meson, although it's used by default on autotools.
+
+Wire it in the top-level meson.build.
+
+Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
+---
+ meson.build | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/meson.build b/meson.build
+index 236c188..3e6f6c0 100644
+--- a/meson.build
++++ b/meson.build
+@@ -82,6 +82,8 @@ if not with_asm.disabled()
+     add_project_arguments('-DUSE_AARCH64_ASM', language : 'c')
+   elif host_machine.cpu_family() == 'ppc64' and cc.get_define('_CALL_ELF') == '2'
+     add_project_arguments('-DUSE_PPC64_ASM', language : 'c')
++  elif host_machine.cpu_family() == 'loongarch64'
++    add_project_arguments('-DUSE_LOONGARCH64_ASM', language : 'c')
+   elif with_asm.enabled()
+     error('No ASM available for @0@ (@1@ endian)'.format(host_machine.system(), host_machine.endian()))
+   else
+@@ -163,6 +165,8 @@ if use_asm
+     gl_dispatch_type = 'aarch64_tsd'
+   elif host_machine.cpu_family() == 'ppc64'
+     gl_dispatch_type = 'ppc64_@0@'.format(thread_type)
++  elif host_machine.cpu_family() == 'loongarch64'
++    gl_dispatch_type = 'loongarch64_tsd'
+   endif
+   add_project_arguments('-DUSE_DISPATCH_ASM', language : 'c')
+ endif

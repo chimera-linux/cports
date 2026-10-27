@@ -1,0 +1,301 @@
+From 95c60d83e9f2742da55946abfc9facfba7593b23 Mon Sep 17 00:00:00 2001
+From: Icenowy Zheng <uwu@icenowy.me>
+Date: Fri, 6 Oct 2023 18:24:08 +0800
+Subject: [PATCH] add TSD dispatch assembly for RISCV64
+
+The code is just a translation of the LoongArch TSD code, ported to
+verify the linker issue of LoongArch Binutils 2.41. However it should
+also be useful on RISC-V machines, and verified to work on a SG2042.
+
+Signed-off-by: Icenowy Zheng <uwu@icenowy.me>
+---
+ configure.ac                                 |  12 ++
+ include/glvnd/GLdispatchABI.h                |   5 +
+ meson.build                                  |   4 +
+ src/GLX/glvnd_genentry.c                     |  10 ++
+ src/GLdispatch/vnd-glapi/entry_common.c      |   5 +
+ src/GLdispatch/vnd-glapi/entry_files.mk      |   6 +
+ src/GLdispatch/vnd-glapi/entry_riscv64_tsd.c | 121 +++++++++++++++++++
+ src/GLdispatch/vnd-glapi/meson.build         |   2 +
+ 8 files changed, 165 insertions(+)
+ create mode 100644 src/GLdispatch/vnd-glapi/entry_riscv64_tsd.c
+
+diff --git a/configure.ac b/configure.ac
+index 98c4175..48c29d0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -169,6 +169,9 @@ if test "x$enable_asm" = xyes; then
+     loongarch64)
+         asm_arch=loongarch64
+ 	;;
++    riscv64)
++        asm_arch=riscv64
++	;;
+     esac
+ 
+     case "$asm_arch" in
+@@ -196,6 +199,10 @@ if test "x$enable_asm" = xyes; then
+         DEFINES="$DEFINES -DUSE_LOONGARCH64_ASM"
+         AC_MSG_RESULT([yes, loongarch64])
+         ;;
++    riscv64)
++        DEFINES="$DEFINES -DUSE_RISCV64_ASM"
++        AC_MSG_RESULT([yes, riscv64])
++        ;;
+     *)
+         AC_MSG_RESULT([no, platform '$host_cpu' not supported])
+         ;;
+@@ -276,6 +283,10 @@ xloongarch64)
+     # For loongarch64, only the TSD stubs have been implemented yet.
+     gldispatch_entry_type=loongarch64_tsd
+     ;;
++xriscv64)
++    # For riscv64, only the TSD stubs have been implemented yet.
++    gldispatch_entry_type=riscv64_tsd
++    ;;
+ *)
+     # The C stubs will work with either TLS or TSD.
+     gldispatch_entry_type=pure_c
+@@ -326,6 +337,7 @@ AM_CONDITIONAL([GLDISPATCH_TYPE_PPC64_TSD], [test "x$gldispatch_entry_type" = "x
+ AM_CONDITIONAL([GLDISPATCH_TYPE_ARMV7_TSD], [test "x$gldispatch_entry_type" = "xarmv7_tsd"])
+ AM_CONDITIONAL([GLDISPATCH_TYPE_AARCH64_TSD], [test "x$gldispatch_entry_type" = "xaarch64_tsd"])
+ AM_CONDITIONAL([GLDISPATCH_TYPE_LOONGARCH64_TSD], [test "x$gldispatch_entry_type" = "xloongarch64_tsd"])
++AM_CONDITIONAL([GLDISPATCH_TYPE_RISCV64_TSD], [test "x$gldispatch_entry_type" = "xriscv64_tsd"])
+ AM_CONDITIONAL([GLDISPATCH_TYPE_PURE_C], [test "x$gldispatch_entry_type" = "xpure_c"])
+ 
+ AS_IF([test "x$gldispatch_entry_type" != "xpure_c"],
+diff --git a/include/glvnd/GLdispatchABI.h b/include/glvnd/GLdispatchABI.h
+index 0dce4cb..8ac99a7 100644
+--- a/include/glvnd/GLdispatchABI.h
++++ b/include/glvnd/GLdispatchABI.h
+@@ -104,6 +104,11 @@ enum {
+      * Used for stubs on LOONGARCH/loongarch64.
+      */
+     __GLDISPATCH_STUB_LOONGARCH64,
++
++    /*!
++     * Used for stubs on RISC-V RV64 systems.
++     */
++    __GLDISPATCH_STUB_RISCV64,
+ };
+ 
+ /*!
+diff --git a/meson.build b/meson.build
+index 3e6f6c0..cdaf8b6 100644
+--- a/meson.build
++++ b/meson.build
+@@ -84,6 +84,8 @@ if not with_asm.disabled()
+     add_project_arguments('-DUSE_PPC64_ASM', language : 'c')
+   elif host_machine.cpu_family() == 'loongarch64'
+     add_project_arguments('-DUSE_LOONGARCH64_ASM', language : 'c')
++  elif host_machine.cpu_family() == 'riscv64'
++    add_project_arguments('-DUSE_RISCV64_ASM', language : 'c')
+   elif with_asm.enabled()
+     error('No ASM available for @0@ (@1@ endian)'.format(host_machine.system(), host_machine.endian()))
+   else
+@@ -167,6 +169,8 @@ if use_asm
+     gl_dispatch_type = 'ppc64_@0@'.format(thread_type)
+   elif host_machine.cpu_family() == 'loongarch64'
+     gl_dispatch_type = 'loongarch64_tsd'
++  elif host_machine.cpu_family() == 'riscv64'
++    gl_dispatch_type = 'riscv64_tsd'
+   endif
+   add_project_arguments('-DUSE_DISPATCH_ASM', language : 'c')
+ endif
+diff --git a/src/GLX/glvnd_genentry.c b/src/GLX/glvnd_genentry.c
+index aa45e2f..b8b68a6 100644
+--- a/src/GLX/glvnd_genentry.c
++++ b/src/GLX/glvnd_genentry.c
+@@ -125,6 +125,16 @@ extern char glx_entrypoint_end[];
+     "ld.d $t0, $t0,0\n" \
+     "jirl $r0, $t0,0\n"
+ 
++#elif defined(USE_RISCV64_ASM)
++
++#define STUB_SIZE 32
++#define STUB_ASM_ARCH(slot) \
++    "la t0, entrypointFunctions\n" \
++    "li t1, " slot "*8\r\n" \
++    "add t0, t0, t1\r\n" \
++    "ld t0, 0(t0)\n" \
++    "jr t0\n"
++
+ #else
+ #error "Can't happen -- not implemented"
+ #endif
+diff --git a/src/GLdispatch/vnd-glapi/entry_common.c b/src/GLdispatch/vnd-glapi/entry_common.c
+index d98ccef..339854c 100644
+--- a/src/GLdispatch/vnd-glapi/entry_common.c
++++ b/src/GLdispatch/vnd-glapi/entry_common.c
+@@ -129,6 +129,11 @@ static void InvalidateCache(void)
+ {
+     __builtin___clear_cache(public_entry_start, public_entry_end);
+ }
++#elif defined(USE_RISCV64_ASM)
++static void InvalidateCache(void)
++{
++    __builtin___clear_cache(public_entry_start, public_entry_end);
++}
+ #else
+ static void InvalidateCache(void)
+ {
+diff --git a/src/GLdispatch/vnd-glapi/entry_files.mk b/src/GLdispatch/vnd-glapi/entry_files.mk
+index d9801ac..bda3d71 100644
+--- a/src/GLdispatch/vnd-glapi/entry_files.mk
++++ b/src/GLdispatch/vnd-glapi/entry_files.mk
+@@ -56,6 +56,12 @@ MAPI_GLDISPATCH_ENTRY_FILES += entry_simple_asm.c
+ MAPI_GLDISPATCH_ENTRY_FILES += entry_common.c
+ endif
+ 
++if GLDISPATCH_TYPE_RISCV64_TSD
++MAPI_GLDISPATCH_ENTRY_FILES = entry_riscv64_tsd.c
++MAPI_GLDISPATCH_ENTRY_FILES += entry_simple_asm.c
++MAPI_GLDISPATCH_ENTRY_FILES += entry_common.c
++endif
++
+ if GLDISPATCH_TYPE_PURE_C
+ MAPI_GLDISPATCH_ENTRY_FILES = entry_pure_c.c
+ endif
+diff --git a/src/GLdispatch/vnd-glapi/entry_riscv64_tsd.c b/src/GLdispatch/vnd-glapi/entry_riscv64_tsd.c
+new file mode 100644
+index 0000000..78f5220
+--- /dev/null
++++ b/src/GLdispatch/vnd-glapi/entry_riscv64_tsd.c
+@@ -0,0 +1,121 @@
++/*
++ * Copyright (c) 2023 Icenowy Zheng <uwu@icenowy.me>
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and/or associated documentation files (the
++ * "Materials"), to deal in the Materials without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sublicense, and/or sell copies of the Materials, and to
++ * permit persons to whom the Materials are furnished to do so, subject to
++ * the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * unaltered in all copies or substantial portions of the Materials.
++ * Any additions, deletions, or changes to the original source files
++ * must be clearly indicated in accompanying documentation.
++ *
++ * THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
++ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
++ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
++ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
++ * MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
++ */
++
++#include "entry.h"
++#include "entry_common.h"
++
++#include <string.h>
++#include <stdint.h>
++#include <unistd.h>
++#include <assert.h>
++
++#include "glapi.h"
++#include "u_macros.h"
++#include "u_current.h"
++#include "utils_misc.h"
++#include "glvnd/GLdispatchABI.h"
++
++/*
++ * The size of each dispatch stub.
++ */
++#define ENTRY_STUB_ALIGN 256
++#if !defined(GLDISPATCH_PAGE_SIZE)
++#define GLDISPATCH_PAGE_SIZE 4096
++#endif
++
++#define STUB_ASM_ENTRY(func) \
++    ".balign " U_STRINGIFY(ENTRY_STUB_ALIGN) "\n\t" \
++    ".global " func "\n\t" \
++    ".type " func ", %function\n\t" \
++    func ":\n\t"
++
++/*
++ * Looks up the current dispatch table, finds the stub address at the given slot
++ * then jumps to it.
++ *
++ * First tries to find a dispatch table in _glapi_Current[GLAPI_CURRENT_DISPATCH],
++ * if not found then it jumps to the 'lookup_dispatch' and calls
++ * _glapi_get_current() then jumps back to the 'found_dispatch' label.
++ *
++ * The 'found_dispatch' section computes the correct offset in the dispatch
++ * table then does a branch without link to the function address.
++ */
++#define STUB_ASM_CODE(slot) \
++    "addi sp, sp, -16 \n \t" \
++    "sd a1, 0(sp) \n \t" \
++    "sd a0, 8(sp) \n \t" \
++    "la a0, _glapi_Current \n \t" \
++    "ld a0, 0(a0) \n \t" \
++    "beqz a0, 10f \n \t" \
++    "11: \n \t" /* found dispatch */ \
++    "lla a1, 3f \n \t" \
++    "ld a1, 0(a1) \n \t" \
++    "add t1, a0, a1 \n \t" \
++    "ld t1, 0(t1) \n \t" \
++    "ld a1, 0(sp) \n \t" \
++    "ld a0, 8(sp) \n \t" \
++    "addi sp, sp, 16 \n \t" \
++    "jr t1 \n \t" \
++    "10: \n \t" /* lookup dispatch */ \
++    "addi sp, sp, -8*8 \n \t" \
++    "sd ra, 0(sp) \n \t" \
++    "sd a7, 8(sp) \n \t" \
++    "sd a6, 16(sp) \n \t" \
++    "sd a5, 24(sp) \n \t" \
++    "sd a4, 32(sp) \n \t" \
++    "sd a3, 40(sp) \n \t" \
++    "sd a2, 48(sp) \n \t" \
++    "la a0, _glapi_get_current \n \t" \
++    "jalr a0 \n \t" \
++    "ld ra, 0(sp) \n \t" \
++    "ld a7, 8(sp) \n \t" \
++    "ld a6, 16(sp) \n \t" \
++    "ld a5, 24(sp) \n \t" \
++    "ld a4, 32(sp) \n \t" \
++    "ld a3, 40(sp) \n \t" \
++    "ld a2, 48(sp) \n \t" \
++    "addi sp, sp, 8*8 \n \t" \
++    "j 11b \n \t" \
++    "3: \n \t" \
++    ".dword " slot " * 8 \n \t" /* size of (void *) */
++
++__asm__(".section wtext,\"ax\"\n"
++        ".balign " U_STRINGIFY(GLDISPATCH_PAGE_SIZE) "\n"
++       ".globl public_entry_start\n"
++       ".hidden public_entry_start\n"
++        "public_entry_start:\n");
++
++#define MAPI_TMP_STUB_ASM_GCC
++#include "mapi_tmp.h"
++
++__asm__(".balign " U_STRINGIFY(GLDISPATCH_PAGE_SIZE) "\n"
++       ".globl public_entry_end\n"
++       ".hidden public_entry_end\n"
++        "public_entry_end:\n"
++        ".text\n\t");
++
++const int entry_type = __GLDISPATCH_STUB_RISCV64;
++const int entry_stub_size = ENTRY_STUB_ALIGN;
++
+diff --git a/src/GLdispatch/vnd-glapi/meson.build b/src/GLdispatch/vnd-glapi/meson.build
+index 7408ac0..86d5bf3 100644
+--- a/src/GLdispatch/vnd-glapi/meson.build
++++ b/src/GLdispatch/vnd-glapi/meson.build
+@@ -56,6 +56,8 @@ else
+     _entry_files += 'entry_ppc64_tsd.c'
+   elif gl_dispatch_type == 'loongarch64_tsd'
+     _entry_files += 'entry_loongarch64_tsd.c'
++  elif gl_dispatch_type == 'riscv64_tsd'
++    _entry_files += 'entry_riscv64_tsd.c'
+   else
+     error('No matching ASM file for @0@'.format(gl_dispatch_type))
+   endif
+-- 
+GitLab
+
