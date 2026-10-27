@@ -1,0 +1,342 @@
+From 36c8b61af77f48524d55f95006e7c7a3a6d8ef45 Mon Sep 17 00:00:00 2001
+From: Simon Ser <contact@emersion.fr>
+Date: Thu, 19 Mar 2026 13:29:04 +0100
+Subject: [PATCH] Update EGL headers
+
+Updated the EGL headers and XML file to the Khronos repository,
+from commit 3d7796b3721d93976b6bfe536aa97bbc4bce8667.
+---
+ include/EGL/egl.h         |   4 +-
+ include/EGL/eglext.h      |  59 ++++++++++++++++++++--
+ include/EGL/eglplatform.h |   6 +++
+ src/generate/xml/egl.xml  | 103 ++++++++++++++++++++++++++++++++++++--
+ 4 files changed, 162 insertions(+), 10 deletions(-)
+
+diff --git a/include/EGL/egl.h b/include/EGL/egl.h
+index c419152..314ef43 100644
+--- a/include/EGL/egl.h
++++ b/include/EGL/egl.h
+@@ -14,7 +14,7 @@ extern "C" {
+ ** used to make the header, and the header can be found at
+ **   http://www.khronos.org/registry/egl
+ **
+-** Khronos $Git commit SHA1: 8c62b915dd $ on $Git commit date: 2021-11-05 23:32:01 -0400 $
++** Khronos $Git commit SHA1: e80a2e0050 $ on $Git commit date: 2026-03-19 06:21:49 +0100 $
+ */
+ 
+ #include <EGL/eglplatform.h>
+@@ -23,7 +23,7 @@ extern "C" {
+ #define EGL_EGL_PROTOTYPES 1
+ #endif
+ 
+-/* Generated on date 20211116 */
++/* Generated on date 20260319 */
+ 
+ /* Generated C header for:
+  * API: egl
+diff --git a/include/EGL/eglext.h b/include/EGL/eglext.h
+index 354145a..c3639e4 100644
+--- a/include/EGL/eglext.h
++++ b/include/EGL/eglext.h
+@@ -14,12 +14,12 @@ extern "C" {
+ ** used to make the header, and the header can be found at
+ **   http://www.khronos.org/registry/egl
+ **
+-** Khronos $Git commit SHA1: 992aa3914f $ on $Git commit date: 2021-11-23 18:20:45 +0100 $
++** Khronos $Git commit SHA1: e80a2e0050 $ on $Git commit date: 2026-03-19 06:21:49 +0100 $
+ */
+ 
+ #include <EGL/eglplatform.h>
+ 
+-#define EGL_EGLEXT_VERSION 20211210
++#define EGL_EGLEXT_VERSION 20260319
+ 
+ /* Generated C header for:
+  * API: egl
+@@ -551,6 +551,11 @@ EGLAPI EGLBoolean EGLAPIENTRY eglPresentationTimeANDROID (EGLDisplay dpy, EGLSur
+ #define EGL_RECORDABLE_ANDROID            0x3142
+ #endif /* EGL_ANDROID_recordable */
+ 
++#ifndef EGL_ANDROID_telemetry_hint
++#define EGL_ANDROID_telemetry_hint 1
++#define EGL_TELEMETRY_HINT_ANDROID        0x3570
++#endif /* EGL_ANDROID_telemetry_hint */
++
+ #ifndef EGL_ANGLE_d3d_share_handle_client_buffer
+ #define EGL_ANGLE_d3d_share_handle_client_buffer 1
+ #define EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE 0x3200
+@@ -723,6 +728,33 @@ EGLAPI EGLBoolean EGLAPIENTRY eglQueryDeviceBinaryEXT (EGLDeviceEXT device, EGLi
+ #define EGL_RENDERER_EXT                  0x335F
+ #endif /* EGL_EXT_device_query_name */
+ 
++#ifndef EGL_EXT_device_type
++#define EGL_EXT_device_type 1
++#define EGL_DEVICE_TYPE_EXT               0x3590
++#define EGL_DEVICE_TYPE_OTHER_EXT         0x3591
++#define EGL_DEVICE_TYPE_INTEGRATED_GPU_EXT 0x3592
++#define EGL_DEVICE_TYPE_DISCRETE_GPU_EXT  0x3593
++#define EGL_DEVICE_TYPE_CPU_EXT           0x3594
++#endif /* EGL_EXT_device_type */
++
++#ifndef EGL_EXT_display_alloc
++#define EGL_EXT_display_alloc 1
++#define EGL_ALLOC_NEW_DISPLAY_EXT         0x3379
++typedef EGLBoolean (EGLAPIENTRYP PFNEGLDESTROYDISPLAYEXTPROC) (EGLDisplay dpy);
++#ifdef EGL_EGLEXT_PROTOTYPES
++EGLAPI EGLBoolean EGLAPIENTRY eglDestroyDisplayEXT (EGLDisplay dpy);
++#endif
++#endif /* EGL_EXT_display_alloc */
++
++#ifndef EGL_EXT_explicit_device
++#define EGL_EXT_explicit_device 1
++#endif /* EGL_EXT_explicit_device */
++
++#ifndef EGL_EXT_gl_colorspace_bt2020_hlg
++#define EGL_EXT_gl_colorspace_bt2020_hlg 1
++#define EGL_GL_COLORSPACE_BT2020_HLG_EXT  0x3540
++#endif /* EGL_EXT_gl_colorspace_bt2020_hlg */
++
+ #ifndef EGL_EXT_gl_colorspace_bt2020_linear
+ #define EGL_EXT_gl_colorspace_bt2020_linear 1
+ #define EGL_GL_COLORSPACE_BT2020_LINEAR_EXT 0x333F
+@@ -919,6 +951,10 @@ EGLAPI EGLSurface EGLAPIENTRY eglCreatePlatformPixmapSurfaceEXT (EGLDisplay dpy,
+ #define EGL_EXT_protected_surface 1
+ #endif /* EGL_EXT_protected_surface */
+ 
++#ifndef EGL_EXT_query_reset_notification_strategy
++#define EGL_EXT_query_reset_notification_strategy 1
++#endif /* EGL_EXT_query_reset_notification_strategy */
++
+ #ifndef EGL_EXT_stream_consumer_egloutput
+ #define EGL_EXT_stream_consumer_egloutput 1
+ typedef EGLBoolean (EGLAPIENTRYP PFNEGLSTREAMCONSUMEROUTPUTEXTPROC) (EGLDisplay dpy, EGLStreamKHR stream, EGLOutputLayerEXT layer);
+@@ -967,9 +1003,9 @@ EGLAPI EGLBoolean EGLAPIENTRY eglStreamConsumerOutputEXT (EGLDisplay dpy, EGLStr
+ #define EGL_SURFACE_COMPRESSION_FIXED_RATE_10BPC_EXT 0x34BD
+ #define EGL_SURFACE_COMPRESSION_FIXED_RATE_11BPC_EXT 0x34BE
+ #define EGL_SURFACE_COMPRESSION_FIXED_RATE_12BPC_EXT 0x34BF
+-typedef EGLBoolean (EGLAPIENTRYP PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC) (EGLDisplay dpy, EGLConfig *configs, const EGLAttrib *attrib_list, EGLint *rates, EGLint rate_size, EGLint *num_rates);
++typedef EGLBoolean (EGLAPIENTRYP PFNEGLQUERYSUPPORTEDCOMPRESSIONRATESEXTPROC) (EGLDisplay dpy, EGLConfig config, const EGLAttrib *attrib_list, EGLint *rates, EGLint rate_size, EGLint *num_rates);
+ #ifdef EGL_EGLEXT_PROTOTYPES
+-EGLAPI EGLBoolean EGLAPIENTRY eglQuerySupportedCompressionRatesEXT (EGLDisplay dpy, EGLConfig *configs, const EGLAttrib *attrib_list, EGLint *rates, EGLint rate_size, EGLint *num_rates);
++EGLAPI EGLBoolean EGLAPIENTRY eglQuerySupportedCompressionRatesEXT (EGLDisplay dpy, EGLConfig config, const EGLAttrib *attrib_list, EGLint *rates, EGLint rate_size, EGLint *num_rates);
+ #endif
+ #endif /* EGL_EXT_surface_compression */
+ 
+@@ -1219,6 +1255,11 @@ EGLAPI EGLBoolean EGLAPIENTRY eglStreamReleaseImageNV (EGLDisplay dpy, EGLStream
+ #endif
+ #endif /* EGL_NV_stream_consumer_eglimage */
+ 
++#ifndef EGL_NV_stream_consumer_eglimage_use_scanout_attrib
++#define EGL_NV_stream_consumer_eglimage_use_scanout_attrib 1
++#define EGL_STREAM_CONSUMER_IMAGE_USE_SCANOUT_NV 0x3378
++#endif /* EGL_NV_stream_consumer_eglimage_use_scanout_attrib */
++
+ #ifndef EGL_NV_stream_consumer_gltexture_yuv
+ #define EGL_NV_stream_consumer_gltexture_yuv 1
+ #define EGL_YUV_PLANE0_TEXTURE_UNIT_NV    0x332C
+@@ -1428,6 +1469,16 @@ EGLAPI EGLuint64NV EGLAPIENTRY eglGetSystemTimeNV (void);
+ #define EGL_TRIPLE_BUFFER_NV              0x3230
+ #endif /* EGL_NV_triple_buffer */
+ 
++#ifndef EGL_QNX_image_native_buffer
++#define EGL_QNX_image_native_buffer 1
++#define EGL_NATIVE_BUFFER_QNX             0x3551
++#endif /* EGL_QNX_image_native_buffer */
++
++#ifndef EGL_QNX_platform_screen
++#define EGL_QNX_platform_screen 1
++#define EGL_PLATFORM_SCREEN_QNX           0x3550
++#endif /* EGL_QNX_platform_screen */
++
+ #ifndef EGL_TIZEN_image_native_buffer
+ #define EGL_TIZEN_image_native_buffer 1
+ #define EGL_NATIVE_BUFFER_TIZEN           0x32A0
+diff --git a/include/EGL/eglplatform.h b/include/EGL/eglplatform.h
+index 99362a2..6786afd 100644
+--- a/include/EGL/eglplatform.h
++++ b/include/EGL/eglplatform.h
+@@ -64,6 +64,12 @@ typedef HDC     EGLNativeDisplayType;
+ typedef HBITMAP EGLNativePixmapType;
+ typedef HWND    EGLNativeWindowType;
+ 
++#elif defined(__QNX__)
++
++typedef khronos_uintptr_t      EGLNativeDisplayType;
++typedef struct _screen_pixmap* EGLNativePixmapType;  /* screen_pixmap_t */
++typedef struct _screen_window* EGLNativeWindowType;  /* screen_window_t */
++
+ #elif defined(__EMSCRIPTEN__)
+ 
+ typedef int EGLNativeDisplayType;
+diff --git a/src/generate/xml/egl.xml b/src/generate/xml/egl.xml
+index e41aee5..ec184e7 100644
+--- a/src/generate/xml/egl.xml
++++ b/src/generate/xml/egl.xml
+@@ -885,7 +885,9 @@
+         <enum value="0x3375" name="EGL_STREAM_IMAGE_REMOVE_NV"/>
+         <enum value="0x3376" name="EGL_STREAM_IMAGE_AVAILABLE_NV"/>
+         <enum value="0x3377" name="EGL_DRM_RENDER_NODE_FILE_EXT"/>
+-            <unused start="0x3378" end="0x339F"/>
++        <enum value="0x3378" name="EGL_STREAM_CONSUMER_IMAGE_USE_SCANOUT_NV" />
++        <enum value="0x3379" name="EGL_ALLOC_NEW_DISPLAY_EXT"/>
++            <unused start="0x337A" end="0x339F"/>
+     </enums>
+ 
+     <enums namespace="EGL" start="0x33A0" end="0x33AF" vendor="ANGLE" comment="Reserved for Shannon Woods (Bug 13175)">
+@@ -1063,6 +1065,49 @@
+     <enums namespace="EGL" start="0x34F0" end="0x34FF" vendor="ANGLE" comment="Reserved for Ken Russell - ANGLE (via github pull request)">
+             <unused start="0x34F0" end="0x34FF"/>
+     </enums>
++
++    <enums namespace="EGL" start="0x3500" end="0x352F" vendor="COREAVI" comment="Reserved for Daniel Herring (via github pull request)">
++        <unused start="0x3500" end="0x352F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3530" end="0x353F" vendor="MESA" comment="Reserved for Simon Zeni (PR 165)">
++            <enum value="0x3530" name="EGL_GL_TEXTURE_CUBE_MAP_MESA"/>
++                <unused start="0x3531" end="0x353F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3540" end="0x354F" vendor="EXT" comment="Reserved for Chris Glover (EGL_EXT_gl_colorspace_bt2020)">
++            <enum value="0x3540" name="EGL_GL_COLORSPACE_BT2020_HLG_EXT"/>
++                <unused start="0x3541" end="0x354F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3550" end="0x355F" vendor="QNX" comment="Reserved for Mike Gorchak of QNX (QNX platform and native buffer)">
++        <enum value="0x3550" name="EGL_PLATFORM_SCREEN_QNX"/>
++        <enum value="0x3551" name="EGL_NATIVE_BUFFER_QNX"/>
++            <unused start="0x3552" end="0x355F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3560" end="0x356F" vendor="SAMSUNG" comment="Reserved for Jeff Vigil of Samsung (private extensions)">
++        <unused start="0x3560" end="0x356F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3570" end="0x357F" vendor="Google" comment="Reserved for Tom Murphy (EGL-Registry pull #204)">
++        <enum value="0x3570" name="EGL_TELEMETRY_HINT_ANDROID"/>
++            <unused start="0x3571" end="0x357F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3580" end="0x358F" vendor="QCOM" comment="Reserved for Ashish Mathur (QCOM extensions)">
++        <unused start="0x3580" end="0x358F"/>
++    </enums>
++
++    <enums namespace="EGL" start="0x3590" end="0x359F" vendor="EXT" comment="Reserved for Simon Ser (EGL-Registry issue #206)">
++        <enum value="0x3590" name="EGL_DEVICE_TYPE_EXT"/>
++        <enum value="0x3591" name="EGL_DEVICE_TYPE_OTHER_EXT"/>
++        <enum value="0x3592" name="EGL_DEVICE_TYPE_INTEGRATED_GPU_EXT"/>
++        <enum value="0x3593" name="EGL_DEVICE_TYPE_DISCRETE_GPU_EXT"/>
++        <enum value="0x3594" name="EGL_DEVICE_TYPE_CPU_EXT"/>
++            <unused start="0x3595" end="0x359F"/>
++    </enums>
++
+ <!-- Please remember that new enumerant allocations must be obtained by
+      request to the Khronos API registrar (see comments at the top of this
+      file) File requests in the Khronos Bugzilla, EGL project, Registry
+@@ -1072,8 +1117,8 @@
+ 
+ <!-- Reservable for future use. To generate a new range, allocate multiples
+      of 16 starting at the lowest available point in this block. -->
+-    <enums namespace="EGL" start="0x3500" end="0x3FFF" vendor="KHR" comment="Reserved for future use">
+-            <unused start="0x3500" end="0x3FFF"/>
++    <enums namespace="EGL" start="0x35A0" end="0x3FFF" vendor="KHR" comment="Reserved for future use">
++            <unused start="0x35A0" end="0x3FFF"/>
+     </enums>
+ 
+     <enums namespace="EGL" start="0x8F70" end="0x8F7F" vendor="HI" comment="For Mark Callow, Khronos bug 4055. Shared with GL.">
+@@ -1724,7 +1769,7 @@
+         <command>
+             <proto><ptype>EGLBoolean</ptype> <name>eglQuerySupportedCompressionRatesEXT</name></proto>
+             <param><ptype>EGLDisplay</ptype> <name>dpy</name></param>
+-            <param><ptype>EGLConfig</ptype> *<name>configs</name></param>
++            <param><ptype>EGLConfig</ptype> <name>config</name></param>
+             <param>const <ptype>EGLAttrib</ptype> *<name>attrib_list</name></param>
+             <param><ptype>EGLint</ptype> *<name>rates</name></param>
+             <param><ptype>EGLint</ptype> <name>rate_size</name></param>
+@@ -2036,6 +2081,10 @@
+              <param>void *<name>value</name></param>
+              <param>EGLint *<name>size</name></param>
+         </command>
++        <command>
++             <proto><ptype>EGLBoolean</ptype> <name>eglDestroyDisplayEXT</name></proto>
++             <param><ptype>EGLDisplay</ptype> <name>dpy</name></param>
++        </command>
+     </commands>
+ 
+     <!-- SECTION: EGL API interface definitions. -->
+@@ -2381,6 +2430,11 @@
+             </require>
+         </extension>
+         <extension name="EGL_ANDROID_GLES_layers" supported="egl"/>
++        <extension name="EGL_ANDROID_telemetry_hint" supported="egl">
++            <require>
++                <enum name="EGL_TELEMETRY_HINT_ANDROID"/>
++            </require>
++        </extension>
+         <extension name="EGL_ANGLE_d3d_share_handle_client_buffer" supported="egl">
+             <require>
+                 <enum name="EGL_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE"/>
+@@ -2486,6 +2540,11 @@
+                 <command name="eglQueryDisplayAttribEXT"/>
+             </require>
+         </extension>
++        <extension name="EGL_EXT_gl_colorspace_bt2020_hlg" supported="egl">
++            <require>
++                <enum name="EGL_GL_COLORSPACE_BT2020_HLG_EXT"/>
++            </require>
++        </extension>
+         <extension name="EGL_EXT_gl_colorspace_bt2020_linear" supported="egl">
+             <require>
+                 <enum name="EGL_GL_COLORSPACE_BT2020_LINEAR_EXT"/>
+@@ -2658,6 +2717,7 @@
+                 <enum name="EGL_PROTECTED_CONTENT_EXT"/>
+             </require>
+         </extension>
++        <extension name="EGL_EXT_query_reset_notification_strategy" supported="egl"/>
+         <extension name="EGL_EXT_stream_consumer_egloutput" supported="egl">
+             <require>
+                 <command name="eglStreamConsumerOutputEXT"/>
+@@ -3518,5 +3578,40 @@
+                 <enum name="EGL_DRM_RENDER_NODE_FILE_EXT"/>
+             </require>
+         </extension>
++        <extension name="EGL_EXT_explicit_device" supported="egl">
++            <require>
++                <enum name="EGL_DEVICE_EXT"/>
++            </require>
++        </extension>
++        <extension name="EGL_NV_stream_consumer_eglimage_use_scanout_attrib" supported="egl">
++            <require>
++                <enum name="EGL_STREAM_CONSUMER_IMAGE_USE_SCANOUT_NV"/>
++            </require>
++        </extension>
++        <extension name="EGL_QNX_platform_screen" supported="egl">
++            <require>
++                <enum name="EGL_PLATFORM_SCREEN_QNX"/>
++            </require>
++        </extension>
++        <extension name="EGL_QNX_image_native_buffer" supported="egl">
++            <require>
++                <enum name="EGL_NATIVE_BUFFER_QNX"/>
++            </require>
++        </extension>
++        <extension name="EGL_EXT_display_alloc" supported="egl">
++            <require>
++                <enum name="EGL_ALLOC_NEW_DISPLAY_EXT"/>
++                <command name="eglDestroyDisplayEXT"/>
++            </require>
++        </extension>
++        <extension name="EGL_EXT_device_type" supported="egl">
++            <require>
++                <enum name="EGL_DEVICE_TYPE_EXT"/>
++                <enum name="EGL_DEVICE_TYPE_OTHER_EXT"/>
++                <enum name="EGL_DEVICE_TYPE_INTEGRATED_GPU_EXT"/>
++                <enum name="EGL_DEVICE_TYPE_DISCRETE_GPU_EXT"/>
++                <enum name="EGL_DEVICE_TYPE_CPU_EXT"/>
++            </require>
++        </extension>
+     </extensions>
+ </registry>
+-- 
+GitLab
+

@@ -1,0 +1,60 @@
+From ff7635376c98bd68c07519105340af2b91d92818 Mon Sep 17 00:00:00 2001
+From: Kyle Brenneman <kbrenneman@nvidia.com>
+Date: Tue, 18 Oct 2022 10:54:54 -0600
+Subject: [PATCH] GLdispatch: Return an error for glGetError without a context
+
+Special-case the no-op stub for glGetError so that it will return
+GL_INVALID_OPERATION.
+
+Currently, it returns zero just like every other no-op stub, which is
+GL_NO_ERROR.
+---
+ src/generate/gen_gldispatch_mapi.py | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/src/generate/gen_gldispatch_mapi.py b/src/generate/gen_gldispatch_mapi.py
+index 5388d6c..c076a40 100755
+--- a/src/generate/gen_gldispatch_mapi.py
++++ b/src/generate/gen_gldispatch_mapi.py
+@@ -102,9 +102,23 @@ def generate_table(functions, allFunctions):
+ 
+ def generate_noop_array(functions):
+     text = "#ifdef MAPI_TMP_NOOP_ARRAY\n"
+-    text += "#ifdef DEBUG\n\n"
+ 
++    # Special-case glGetError to make sure that it doesn't return zero (i.e.,
++    # GL_NO_ERROR).
++
++    text += r"""
++static GLenum APIENTRY noopGetError(void)
++{
++   noop_warn("glGetError");
++   return GL_INVALID_OPERATION;
++}
++
++"""
++
++    text += "#ifdef DEBUG\n\n"
+     for func in functions:
++        if func.basename == "GetError":
++            continue
+         text += "static {f.rt} APIENTRY noop{f.basename}({f.decArgs})\n".format(f=func)
+         text += "{\n"
+         if (len(func.args) > 0):
+@@ -126,7 +140,12 @@ def generate_noop_array(functions):
+     text += "};\n\n"
+     text += "#else /* DEBUG */\n\n"
+     text += "const mapi_func table_noop_array[] = {\n"
+-    for i in range(len(functions) + genCommon.MAPI_TABLE_NUM_DYNAMIC - 1):
++    for func in functions:
++        if func.basename == "GetError":
++            text += "   (mapi_func) noop{f.basename},\n".format(f=func)
++        else:
++            text += "   (mapi_func) noop_generic,\n"
++    for i in range(genCommon.MAPI_TABLE_NUM_DYNAMIC - 1):
+         text += "   (mapi_func) noop_generic,\n"
+     text += "   (mapi_func) noop_generic\n"
+ 
+-- 
+GitLab
+

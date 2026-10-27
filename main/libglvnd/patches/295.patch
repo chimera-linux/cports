@@ -1,0 +1,78 @@
+From 16f5f0e2a520d730cbc33f76ba4d7b94a200f740 Mon Sep 17 00:00:00 2001
+From: abushwang <abushwang@tencent.com>
+Date: Fri, 21 Jun 2024 11:33:47 +0800
+Subject: [PATCH] fix possible SEGV (buffer overflow) in
+ __glXGetDrawableScreen()
+
+Signed-off-by: abushwang <abushwangs@gmail.com>
+---
+ src/GLX/libglxproto.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/GLX/libglxproto.c b/src/GLX/libglxproto.c
+index 1b674fe..2943691 100644
+--- a/src/GLX/libglxproto.c
++++ b/src/GLX/libglxproto.c
+@@ -50,7 +50,7 @@
+  * then the error code is returned. If something else fails, then -1 is
+  * returned.
+  */
+-static Status ReadReply(__GLXdisplayInfo *dpyInfo, xReply *reply, void **replyData)
++static Status ReadReply(__GLXdisplayInfo *dpyInfo, xReply *reply, void **replyData, int *replyLength)
+ {
+     Display *dpy = dpyInfo->dpy;
+     _XAsyncHandler async;
+@@ -88,6 +88,7 @@ static Status ReadReply(__GLXdisplayInfo *dpyInfo, xReply *reply, void **replyDa
+                 _XEatData(dpyInfo->dpy, length);
+                 error = -1;
+             }
++            *replyLength = length;
+         }
+         *replyData = data;;
+     }
+@@ -101,6 +102,7 @@ char *__glXQueryServerString(__GLXdisplayInfo *dpyInfo, int screen, int name)
+     xGLXQueryServerStringReq *req;
+     xGLXSingleReply rep;
+     char *ret = NULL;
++    int replyLength = 0;
+ 
+     if (!dpyInfo->glxSupported) {
+         return NULL;
+@@ -114,7 +116,7 @@ char *__glXQueryServerString(__GLXdisplayInfo *dpyInfo, int screen, int name)
+     req->screen = screen;
+     req->name = name;
+ 
+-    ReadReply(dpyInfo, (xReply *) &rep, (void **) &ret);
++    ReadReply(dpyInfo, (xReply *) &rep, (void **) &ret, &replyLength);
+ 
+     UnlockDisplay(dpy);
+     SyncHandle();
+@@ -128,6 +130,7 @@ int __glXGetDrawableScreen(__GLXdisplayInfo *dpyInfo, GLXDrawable drawable)
+     xGLXGetDrawableAttributesReply rep;
+     int *attribs = NULL;
+     Status st;
++    int replyLength = 0;
+ 
+     if (drawable == None) {
+         return -1;
+@@ -143,7 +146,7 @@ int __glXGetDrawableScreen(__GLXdisplayInfo *dpyInfo, GLXDrawable drawable)
+     req->glxCode = X_GLXGetDrawableAttributes;
+     req->drawable = drawable;
+ 
+-    st = ReadReply(dpyInfo, (xReply *) &rep, (void **) &attribs);
++    st = ReadReply(dpyInfo, (xReply *) &rep, (void **) &attribs, &replyLength);
+ 
+     UnlockDisplay(dpy);
+     SyncHandle();
+@@ -153,7 +156,7 @@ int __glXGetDrawableScreen(__GLXdisplayInfo *dpyInfo, GLXDrawable drawable)
+         unsigned int i;
+ 
+         if (attribs != NULL) {
+-            for (i=0; i<rep.numAttribs; i++) {
++            for (i=0; i<rep.numAttribs && i * 2 + 1 < replyLength; i++) {
+                 if (attribs[i * 2] == GLX_SCREEN) {
+                     screen = attribs[i * 2 + 1];
+                     break;
+-- 
+GitLab
+
