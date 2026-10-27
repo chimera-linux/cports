@@ -1,6 +1,6 @@
 pkgname = "glfw"
 pkgver = "3.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -34,5 +34,5 @@ sha256 = "ea79bc5feffc254c87291980c2d0bce9acebb68c4983b79f961dcd2cb8a611a0"
 
 @subpackage("glfw-devel")
 def _(self):
-    self.depends += ["libxrandr-devel", "mesa-devel"]
+    self.depends += ["pc:gl!libglvnd-devel"]
     return self.default_devel()
