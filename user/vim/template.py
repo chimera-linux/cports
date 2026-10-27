@@ -19,10 +19,11 @@ make_dir = "."
 make_install_args = ["-j1"]
 make_check_target = "test"
 hostmakedepends = ["automake"]
+_luaver = "5.4"
 makedepends = [
     "acl-devel",
     "libsodium-devel",
-    "lua5.4-devel",
+    f"lua{_luaver}-devel",
     "ncurses-devel",
     "python-devel",
     "ruby-devel",
@@ -33,7 +34,12 @@ license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d4f7a793d2cf80ad6bb09085746515979d049e79e5839d8b68325688b47af297"
-tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"']}
+tool_flags = {
+    "CFLAGS": [
+        '-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"',
+        f'-DDYNAMIC_LUA_DLL="liblua{_luaver}.so.{_luaver}"',
+    ]
+}
 # require a million system-specific fixes
 options = ["!check"]
 
