@@ -26,6 +26,8 @@ hostmakedepends = [
 makedepends = [
     "dbus-devel",
     "libdecor-devel",
+    "libdrm-devel",
+    "libglvnd-devel",
     "liburing-devel",
     "libusb-devel",
     "libx11-devel",
@@ -36,15 +38,16 @@ makedepends = [
     "libxrandr-devel",
     "libxscrnsaver-devel",
     "libxtst-devel",
-    "mesa-devel",
+    "linux-headers",
+    "mesa-gbm-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
     "wayland-devel",
 ]
 depends = [
-    "soname:libGL.so!mesa-gl-libs",
     # dynamically loaded
-    "soname:libGLESv2.so!mesa-gles2-libs",
+    "soname:libGL.so!libglvnd",
+    "soname:libGLESv2.so!libglvnd",
 ]
 pkgdesc = "Simple DirectMedia Layer version 3"
 license = "Zlib"
