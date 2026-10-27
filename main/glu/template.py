@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgl_provider=gl"]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["mesa-devel"]
+makedepends = ["libglvnd-devel"]
 pkgdesc = "Mesa OpenGL utility library"
 license = "SGI-B-2.0"
 url = "https://gitlab.freedesktop.org/mesa/glu"
