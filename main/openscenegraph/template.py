@@ -1,6 +1,6 @@
 pkgname = "openscenegraph"
 pkgver = "3.6.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     # avoid lib64
