@@ -1,0 +1,48 @@
+diff -ruN a/toolchain_generator.py.orig b/toolchain_generator.py > ../patches/generator.patch
+
+--- a/toolchain_generator.py	2026-10-27 17:04:32.235970409 +0400
++++ b/toolchain_generator.py	2026-10-27 17:10:35.303591997 +0400
+@@ -17,6 +17,9 @@
+ 		if self.arch == 'aarch64-w64-mingw32':
+ 			self.cpu_family = "arm"
+ 			self.processor = 'aarch64'
++		elif self.arch == "armv7-w64-mingw32":
++		    self.cpu_family = "arm"
++		    self.processor = "armv7"
+ 		elif self.arch == 'i686-w64-mingw32':
+ 			self.cpu_family = "x86"
+ 			self.processor = 'i686'
+@@ -34,17 +37,17 @@
+ 			config.write(configfile)
+ 
+ 	def get_binaries_section(self):
+-		binaries = {'c':"'mingw-clang'".format(self.arch),
+-				'cpp':"'mingw-clang++'".format(self.arch),
+-				'asm':"'mingw-clang'".format(self.arch),
++		binaries = {'c':"'{}-clang'".format(self.arch),
++				'cpp':"'{}-clang++'".format(self.arch),
++				'asm':"'{}-clang'".format(self.arch),
+ 				'fortran':"'flang'".format(self.arch),
+ 				'ar':"'llvm-ar'".format(self.arch),
+ 				'pkgconfig':"'{}-pkg-config'".format(self.arch),
+ 				'ranlib':"'llvm-ranlib'".format(self.arch),
+-				'strip':"'mingw-llvm-strip'".format(self.arch),
+-				'windres':"'mingw-llvm-windres'".format(self.arch),
+-				'dlltool':"'llvm-dlltool'".format(self.arch),
+-				'cmake':"'{}-cmake'".format(self.arch),
++				# 'strip':"'mingw-llvm-strip'".format(self.arch),
++				# 'windres':"'mingw-llvm-windres'".format(self.arch),
++				'dlltool':"'llvm-dlltool'".format(self.arch),
++				# 'cmake':"'{}-cmake'".format(self.arch),
+ 				}
+ 		if self.need_exe_wrapper:
+ 			binaries.update({'exe_wrapper':"'{}-wine'".format(self.arch)})
+@@ -76,7 +79,7 @@
+ 									add_help=False)
+ 	required = parser.add_argument_group('required arguments')
+ 	optional = parser.add_argument_group('optional arguments')
+-	required.add_argument('--arch', type=str, required=True, choices=['aarch64-w64-mingw32', 'i686-w64-mingw32', 'x86_64-w64-mingw32'],
++	required.add_argument('--arch', type=str, required=True, choices=['aarch64-w64-mingw32', "armv7-w64-mingw32", 'i686-w64-mingw32', 'x86_64-w64-mingw32'],
+ 					help='Architecture to use for cross file generation')
+ 	required.add_argument('--output-file', type=str, required=True, help='Write the generated cross file to this path')
+ 	optional.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS,
