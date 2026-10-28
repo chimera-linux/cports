@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "158.0.1"
+pkgver = "159.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -65,7 +65,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "b5beff55fa73a29a674a867da5922f5d7699f51e351e6bbe4405fcc4ba55a824"
+sha256 = "3d98df785894057fce60603e845828e758a5411ad79aaaaff2b8230597f500d9"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -103,7 +103,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in ["audio_thread_priority"]:
+    for crate in []:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
