@@ -1,6 +1,6 @@
 pkgname = "python-pyqt-builder"
-pkgver = "1.19.1"
-pkgrel = 1
+pkgver = "1.20.3"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -12,7 +12,7 @@ pkgdesc = "PEP517 backend for PyQt projects"
 license = "custom:sip"
 url = "https://github.com/Python-PyQt/PyQt-builder"
 source = f"$(PYPI_SITE)/P/PyQt-builder/pyqt_builder-{pkgver}.tar.gz"
-sha256 = "6af6646ba29668751b039bfdced51642cb510e300796b58a4d68b7f956a024d8"
+sha256 = "be65ff822a75d020fafc0edcaf9fd79b7e3f145a00995a177c98c3286a5f85d5"
 # no tests
 options = ["!check"]
 
