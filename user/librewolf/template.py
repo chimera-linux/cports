@@ -1,7 +1,7 @@
 # mirrors firefox package; own patches as version may drift
 # always incorporate changes from firefox commits to keep in sync
 pkgname = "librewolf"
-pkgver = "158.0.1"
+pkgver = "159.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -61,7 +61,7 @@ pkgdesc = "LibreWolf web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://librewolf.net"
 source = f"https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/{pkgver}-1/librewolf-{pkgver}-1.source.tar.gz"
-sha256 = "4609119dd67afd5c9786c17d987c85d5648678c120bc8b63b602f6917a1f0090"
+sha256 = "c2119c24ffbf22dcc998ac399bd95b97e8fdc785f1e57776847b468f3f9928cb"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/librewolf", "-Wl,-z,stack-size=2097152"]
@@ -100,7 +100,7 @@ def post_patch(self):
     self.rm("lw/mozconfig.new")
     self.rm("mozconfig")
 
-    for crate in ["audio_thread_priority"]:
+    for crate in []:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
