@@ -1,6 +1,6 @@
 pkgname = "fonts-noto"
 pkgver = "2026.10.01"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Google Noto fonts"
 license = "OFL-1.1"
 url = "https://github.com/notofonts/notofonts.github.io"
@@ -44,7 +44,6 @@ def _gensub(subn, subd, subc):
         self.depends = [
             self.with_pkgver(f"{pkgname}-extra"),
             f"!{pkgname}-extra-{subc}",
-            f"!{pkgname}-{subc}",
         ]
         if subn == "otf":
             self.install_if = [self.with_pkgver(f"{pkgname}-extra")]
