@@ -31,6 +31,7 @@ def build(self):
 def install(self):
     for an in _targets:
         at = an + "-w64-mingw32"
+        self.install_dir(f"usr/{at}/lib/pkgconfig")
         self.install_bin("mingw-pkgconfig.sh", name=f"{at}-pkg-config")
 
 
@@ -42,7 +43,7 @@ def _gen(an):
         self.subdesc = f"{an} support"
         # target specific LIBDIR should be present otherwise why would you even need this wrapper
         self.depends = ["cmd:pkg-config!pkgconf", f"mingw-w64-crt-{an}"]
-        return [f"usr/bin/{at}-pkg-config"]
+        return [f"usr/bin/{at}-pkg-config", f"usr/{at}/lib/pkgconfig"]
 
     depends.append(self.with_pkgver(f"mingw-w64-pkg-config-{an}"))
 
