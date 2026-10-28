@@ -4,7 +4,7 @@ pkgrel = 0
 depends = []
 pkgdesc = "Pkgconf tool wrapper for Windows development"
 license = "Zlib"
-url = "http://pkg-config.freedesktop.org"
+url = "https://pkg-config.freedesktop.org"
 
 source = [
     "!https://github.com/Martchus/PKGBUILDs/raw/a7036fac2108701dab2afa277d5d8eade63b708c/pkg-config/mingw-w64/mingw-pkgconfig.sh",
