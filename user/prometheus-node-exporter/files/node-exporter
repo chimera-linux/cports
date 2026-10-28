@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/node_exporter
+run-as = _node_exporter
+logfile = /var/log/node-exporter.log
+depends-on: local.target
+depends-on: network.target
