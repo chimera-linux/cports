@@ -1,0 +1,14 @@
+error: no member named 'stop_callback' in namespace 'std'
+---
+diff --git a/src/rendervulkan.cpp b/src/rendervulkan.cpp
+index 77134f29..11fefdd3 100644
+--- a/src/rendervulkan.cpp
++++ b/src/rendervulkan.cpp
+@@ -10,6 +10,7 @@
+ #include <array>
+ #include <bitset>
+ #include <deque>
++#include <stop_token>
+ #include <dlfcn.h>
+ #include "vulkan_include.h"
+ #include "Utils/Algorithm.h"

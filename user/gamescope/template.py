@@ -1,6 +1,6 @@
 pkgname = "gamescope"
-pkgver = "3.16.31"
-pkgrel = 1
+pkgver = "3.17.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=static",
@@ -59,10 +59,10 @@ license = "BSD-2-Clause"
 url = "https://github.com/ValveSoftware/gamescope"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
-    "https://github.com/ValveSoftware/openvr/archive/0924064316de3effbcd1acf1e309182a2deb1c05.tar.gz",
-    "https://github.com/misyltoad/vkroots/archive/5106d8a0df95de66cc58dc1ea37e69c99afc9540.tar.gz",
+    "https://github.com/ValveSoftware/openvr/archive/ff87f683f41fe26cc9353dd9d9d7028357fd8e1a.tar.gz",
+    "https://github.com/misyltoad/vkroots/archive/20733b938267dcac60f6ac105dbb757f9cc8df9c.tar.gz",
     "https://gitlab.freedesktop.org/emersion/libliftoff/-/archive/8b08dc1c14fd019cc90ddabe34ad16596b0691f4.tar.gz",
-    "https://github.com/misyltoad/reshade/archive/4245743a8c41abbe3dc73980c1810fe449359bf1.tar.gz",
+    "https://github.com/misyltoad/reshade/archive/696b14cd6006ae9ca174e6164450619ace043283.tar.gz",
 ]
 source_paths = [
     ".",
@@ -72,11 +72,11 @@ source_paths = [
     "src/reshade",
 ]
 sha256 = [
-    "3a99de576040aca972a8961f1727d32fd866816dbcf258d9e64e9db452929fba",
-    "95006a99a7fd26158055fbbeb03ae27421db7fa5fa863b3b9b76ffb55f84c3b1",
-    "37b77586e91f7ebee70380dcddd73bf01ae4acef1053e6be41d0485ede022422",
+    "77d96c2c68c7a98dd4e0b951407fa23dfb4fc30632d5ee740471c7d612f288e0",
+    "22ea84da76f0f37f15d3433aef5f202ad6f8df12c280da7caa47e0475eeb22fd",
+    "863ee36f80faa84d28e1f73b588f6f52d391d210267938a57f7a8fa14b9fd1ce",
     "8de28aee6f90f47b7fc7037dcd2360166197c0b5d2033f3afdbd34f2ea1bf216",
-    "a85d1e4c4546afd23fc4324654bcb08b281d8583820e74c178c4e983c81cb802",
+    "3aa6feda7773cc8ffa8fb012fe95e6207c776101e29198d0e0d34a0c5e339f6a",
 ]
 file_modes = {
     "usr/bin/gamescope": ("root", "root", 0o755),
