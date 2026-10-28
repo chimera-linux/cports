@@ -1,0 +1,32 @@
+diff --git a/mingw-configure.sh b/mingw-configure.sh
+old mode 100644
+new mode 100755
+index f745b92..8b62157
+--- a/mingw-configure.sh
++++ b/mingw-configure.sh
+@@ -1,6 +1,12 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+-. /usr/bin/mingw-env @TRIPLE@
++set -e
++
++# mingw-env assumes that _mingw_arch is set already  (POSIX compliance)
++_mingw_arch='@TRIPLE@'
++
++# source it mingw-env since it exports necessary env variables to setup cross-compilation
++. mingw-env
+ 
+ # check if last arg is a path to configure, else use parent
+ for last; do true; done
+@@ -10,7 +16,7 @@ else
+   config_path=".."
+ fi
+ 
+-${config_path}/configure \
+-  --host=@TRIPLE@ --target=@TRIPLE@ --build="$CHOST" \
+-  --prefix=/usr/@TRIPLE@ --libdir=/usr/@TRIPLE@/lib --includedir=/usr/@TRIPLE@/include \
++"${config_path}"/configure \
++  --host="${_mingw_arch}" --target="${_mingw_arch}" --build="$CHOST" \
++  --prefix=/usr/"${_mingw_arch}" --libdir=/usr/"${_mingw_arch}"/lib --includedir=/usr/"${_mingw_arch}"/include \
+   --enable-shared --enable-static "$@"
