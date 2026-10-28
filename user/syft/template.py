@@ -2,6 +2,7 @@ pkgname = "syft"
 pkgver = "1.55.0"
 pkgrel = 0
 build_style = "go"
+prepare_after_patch = True
 make_build_args = [
     f"-ldflags= -X main.version={pkgver}",
     "./cmd/syft",
