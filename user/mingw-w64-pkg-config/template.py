@@ -1,8 +1,8 @@
 pkgname = "mingw-w64-pkg-config"
-pkgver = "1.0.0"
+pkgver = "0.1"
 pkgrel = 0
 depends = ["cmd:pkg-config!pkgconf"]
-pkgdesc = "Support pkg-config script for Windows development"
+pkgdesc = "Pkgconf tool wrapper for Windows development"
 license = "Zlib"
 url = "http://pkg-config.freedesktop.org"
 
@@ -12,28 +12,40 @@ source = [
 sha256 = [
     "44d34883ea310396b88e25a1b20f0bb9c96d0ba4bf2501690ebfd4f8a31dc34b",
 ]
-
-# TODO implement proper conditional patching of mingw-pkgconfig.sh for arbitrary arch target. kinda like in arch PKGBUILD: @TRIPLE@ in the source file is substituted for a given architecture target
-# _targets = ["x86_64", "i686", "aarch64", "armv7"]
-_targets = ["x86_64"]
+options = ["empty"]
+_targets = ["x86_64", "i686", "aarch64", "armv7"]
 
 
 def post_patch(self):
-    self.cp(self.files_path / "configure.sh", self.cwd)
-    (self.cwd / "configure.sh").chmod(0o755)
+    self.cp(self.files_path / "set_target_arch.sh", self.cwd)
+    (self.cwd / "set_target_arch.sh").chmod(0o755)
     self.cp(self.sources_path / "mingw-pkgconfig.sh", self.cwd)
 
 
-def configure(self):
+def build(self):
     for an in _targets:
         at = an + "-w64-mingw32"
-        self.do("./configure.sh", f"{at}")
+        self.do("./set_target_arch.sh", f"{at}")
 
 
 def install(self):
     for an in _targets:
         at = an + "-w64-mingw32"
-        self.install_bin(
-            self.cwd / "mingw-pkgconfig.sh",
-            name=f"{at}-pkg-config",
-        )
+        self.install_bin("mingw-pkgconfig.sh", name=f"{at}-pkg-config")
+
+
+def _gen(an):
+    at = an + "-w64-mingw32"
+
+    @subpackage(f"mingw-w64-pkg-config-{an}")
+    def _(self):
+        self.subdesc = f"{an} support"
+        # target specific LIBDIR should be present otherwise why would you even need this wrapper
+        self.depends = [f"mingw-w64-crt-{an}"]
+        return [f"usr/bin/{at}-pkg-config"]
+
+    depends.append(self.with_pkgver(f"mingw-w64-pkg-config-{an}"))
+
+
+for _an in _targets:
+    _gen(_an)
