@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6-webengine"
-pkgver = "6.11.0"
-pkgrel = 1
+pkgver = "6.140.0"
+pkgrel = 0
 build_style = "makefile"
 make_dir = "build"
 make_use_env = True
@@ -23,8 +23,10 @@ depends = ["python-pyqt6"]
 pkgdesc = "Python bindings for QtWebengine"
 license = "GPL-2.0-or-later"
 url = "https://pypi.org/project/PyQt6-WebEngine"
-source = f"$(PYPI_SITE)/P/PyQt6_WebEngine/pyqt6_webengine-{pkgver}.tar.gz"
-sha256 = "15cf49efbbbd4c6bc87653b2c4ae80d6049f800e31620b336734ae2e37cbedae"
+# no stable version yet for 6.140.0
+# source = f"$(PYPI_SITE)/P/PyQt6_WebEngine/pyqt6_webengine-{pkgver}.tar.gz"
+source = f"https://www.riverbankcomputing.com/pypi/packages/pyqt6-webengine/pyqt6_webengine-{pkgver}.tar.gz"
+sha256 = "6c9090d470e3f5de30d17ce34a3002d4897079263a688dd02603b4ee8e7199a7"
 
 
 def configure(self):
