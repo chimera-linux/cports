@@ -1,7 +1,7 @@
 pkgname = "mingw-w64-pkg-config"
 pkgver = "0.1"
 pkgrel = 0
-depends = ["cmd:pkg-config!pkgconf"]
+depends = []
 pkgdesc = "Pkgconf tool wrapper for Windows development"
 license = "Zlib"
 url = "http://pkg-config.freedesktop.org"
@@ -41,7 +41,7 @@ def _gen(an):
     def _(self):
         self.subdesc = f"{an} support"
         # target specific LIBDIR should be present otherwise why would you even need this wrapper
-        self.depends = [f"mingw-w64-crt-{an}"]
+        self.depends = ["cmd:pkg-config!pkgconf", f"mingw-w64-crt-{an}"]
         return [f"usr/bin/{at}-pkg-config"]
 
     depends.append(self.with_pkgver(f"mingw-w64-pkg-config-{an}"))
