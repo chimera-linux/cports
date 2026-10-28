@@ -2,7 +2,7 @@ pkgname = "mingw-w64-configure"
 pkgver = "0.1"
 pkgrel = 0
 depends = []
-pkgdesc = "Pkgconf tool wrapper for Windows development"
+pkgdesc = "GNU Configure script wrapper for Windows development"
 license = "GPL-1.0-only"
 url = "https://www.mingw-w64.org"
 
@@ -42,10 +42,14 @@ def _gen(an):
     def _(self):
         self.subdesc = f"{an} support"
         # target specific LIBDIR should be present otherwise why would you even need this wrapper
-        self.depends = [f"clang-mingw-w64-{an}", f"mingw-w64-pkg-config-{an}", "mingw-w64-environment"]
+        self.depends = [
+            f"clang-mingw-w64-{an}",
+            f"mingw-w64-pkg-config-{an}",
+            "mingw-w64-environment",
+        ]
         return [f"usr/bin/{at}-configure"]
 
-    depends.append(self.with_pkgver(f"mingw-w64-pkg-config-{an}"))
+    depends.append(self.with_pkgver(f"mingw-w64-configure-{an}"))
 
 
 for _an in _targets:
