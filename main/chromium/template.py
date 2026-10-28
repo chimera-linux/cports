@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "156.0.8078.47"
+pkgver = "156.0.8078.73"
 # tools/rust/update_rust.py -> CRUBIT_REVISION
 _crubit_ver = "40fbac34597084a0863256d633889eac2c23b91b"
 pkgrel = 0
@@ -122,6 +122,7 @@ makedepends = [
     "libxshmfence-devel",
     "libxslt-devel",
     "linux-headers",
+    "mesa-devel",  # dri
     "minizip-devel",
     "musl-bsd-headers",
     "nss-devel",
@@ -150,7 +151,7 @@ source = [
 ]
 source_paths = [".", "crubit", "typescript"]
 sha256 = [
-    "4a289892051e1e2737cdd9c9497ec1e2a01cdcdeca7ac060c6b6993c8606b8f2",
+    "bb701465f0d3991e7266d24add8b0d39e202a1f209a5b169387785326b0d079a",
     "07b57fedcffc8c1e8df4875fc314c2290c8cd50ab8d04340b12c945e9c331f5a",
 ]
 debug_level = 1
