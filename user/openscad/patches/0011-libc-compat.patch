@@ -1,0 +1,39 @@
+From 7f3ca185466a278aefe07a6da4aba3d4fb77a761 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sun, 15 Mar 2026 12:41:49 +0100
+Subject: [PATCH 11/13] libc++ compat
+
+---
+ src/FreetypeRenderer.h | 2 +-
+ src/node.cc            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/FreetypeRenderer.h b/src/FreetypeRenderer.h
+index 65d9244fc..80bcfb2cf 100644
+--- a/src/FreetypeRenderer.h
++++ b/src/FreetypeRenderer.h
+@@ -124,7 +124,7 @@ private:
+         hb_glyph_position_t *glyph_pos;
+     };
+ 
+-    struct done_glyph : public std::unary_function<const GlyphData *, void> {
++    struct done_glyph {
+         void operator() (const GlyphData *glyph_data) {
+             FT_Done_Glyph(glyph_data->get_glyph());
+             delete glyph_data;
+diff --git a/src/node.cc b/src/node.cc
+index dd9bcc270..0ac8b41d0 100644
+--- a/src/node.cc
++++ b/src/node.cc
+@@ -104,7 +104,7 @@ std::string AbstractIntersectionNode::name() const
+ 
+ void AbstractNode::progress_prepare()
+ {
+-	std::for_each(this->children.begin(), this->children.end(), std::mem_fun(&AbstractNode::progress_prepare));
++	std::for_each(this->children.begin(), this->children.end(), std::mem_fn(&AbstractNode::progress_prepare));
+ 	this->progress_mark = ++progress_report_count;
+ }
+ 
+-- 
+2.52.0
+
