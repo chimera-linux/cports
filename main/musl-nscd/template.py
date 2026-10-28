@@ -1,6 +1,6 @@
 pkgname = "musl-nscd"
 pkgver = "1.1.1"
-pkgrel = 6
+pkgrel = 7
 build_style = "gnu_configure"
 configure_env = {"YACC": "bison"}
 configure_gen = []
@@ -12,7 +12,7 @@ license = "MIT"
 url = "https://github.com/pikhq/musl-nscd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "ddd5924f0355568a483cb8c83e63c7e3425b8c3f1dce4b9883ca75ed1a276675"
-hardening = ["vis", "cfi"]
+hardening = ["vis"]
 # no test suite
 options = ["!check"]
 
