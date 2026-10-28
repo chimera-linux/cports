@@ -1,6 +1,6 @@
 pkgname = "grype"
-pkgver = "0.117.0"
-pkgrel = 2
+pkgver = "0.121.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver}",
@@ -11,10 +11,16 @@ pkgdesc = "Vulnerability scanner for container images and filesystems"
 license = "Apache-2.0"
 url = "https://github.com/anchore/grype"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "314a955453e4f69b3cee1a1982eed8e779ff8ae70e017d37a211d734b9083a94"
+sha256 = "87244bc41b3fbd596d12f31f2f0e335d36c1059662f27baa31036584e427d169"
+hardening = []
 # Test suite depends on docker
 # generates manpages/completions with host bins
 options = ["!check", "!cross"]
+
+match self.profile.arch:
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def post_build(self):
