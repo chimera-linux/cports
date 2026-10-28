@@ -1,0 +1,13 @@
+Present timing is advertised only for a timing-capable gamescope server a
+version 2 server exposes the extension.
+---
+diff --git a/tests/meson.build b/tests/meson.build
+index 83f388b4..7b1817d4 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -39,5 +39,4 @@ if get_option('enable_gamescope_wsi_layer')
+ 		dependencies: [catch2_dep, vkroots_dep, vulkan_dep, dep_xcb, dep_x11, dep_x11_xcb, glm_dep, wayland_client, wayland_server],
+ 	)
+ 	test('present_timing', present_timing_layer_tests, args: ['[present_timing]'])
+-	test('present_timing_layer', present_timing_layer_tests, args: ['[present_timing_layer]'])
+ endif
