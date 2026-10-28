@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-markdown"
-pkgver = "0.5.3"
-pkgrel = 1
+pkgver = "0.5.4"
+pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Markdown grammar for tree-sitter"
 license = "MIT"
 url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "df845b1ab7c7c163ec57d7fa17170c92b04be199bddab02523636efec5224ab6"
+sha256 = "481ce2c1cce7b1130bc8455c186052bd0fa461f1ff488666994c6a3da7fca2ac"
 
 
 def configure(self):
