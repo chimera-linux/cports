@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6"
-pkgver = "6.11.0"
-pkgrel = 1
+pkgver = "6.12.0"
+pkgrel = 0
 build_style = "makefile"
 make_dir = "build"
 make_use_env = True
@@ -17,6 +17,8 @@ makedepends = [
     "qt6-qtbase-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
+    "qt6-qtpositioning-devel",
+    "qt6-qtsensors-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
     "qt6-qtwebchannel-devel",
@@ -26,8 +28,10 @@ depends = ["python-pyqt6_sip"]
 pkgdesc = "Python Qt6 bindings"
 license = "GPL-3.0-only"
 url = "https://www.riverbankcomputing.com/software/pyqt"
+# at the time of 6.12.0 update it doesn't have a stable pypi version
 source = f"$(PYPI_SITE)/P/PyQt6/pyqt6-{pkgver}.tar.gz"
-sha256 = "45dd60aa69976de1918b5ced6b4e7b6a25abd2a919ecef5fd5826ecc76718889"
+# source = f"https://www.riverbankcomputing.com/pypi/packages/pyqt6/pyqt6-{pkgver}.tar.gz"
+sha256 = "d3e021b716bae880224422f9d1b894d2d53de7e60e60dbc43f860723f9cc300b"
 # qmake needs a lot of setup to cross anything
 options = ["!cross"]
 
