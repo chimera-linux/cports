@@ -2,9 +2,7 @@ pkgname = "mingw-w64-libssp-static"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
-depends = [
-    "musl-libssp-static",
-]
+depends = []
 pkgdesc = "Metapackage providing libssp for Windows development"
 license = "custom:meta"
 url = "https://chimera-linux.org"
@@ -18,7 +16,7 @@ def _gen(an):
     @subpackage(f"mingw-w64-libssp-static-{an}")
     def _(self):
         self.subdesc = f"{an} support"
-        self.depends = [f"mingw-w64-crt-{an}"]
+        self.depends = ["musl-libssp-static", f"mingw-w64-crt-{an}"]
         self.options = ["brokenlinks"]
 
         return [
