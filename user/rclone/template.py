@@ -11,10 +11,6 @@ sha256 = "68afd7f68c84bd978966feae2116339aa7bf454b39c573910c462e87c3774d5a"
 # tests require network
 options = ["!check", "!cross"]
 
-if self.profile.arch in ["loongarch64"]:
-    broken = "saferith@v0.33.0/arith_decl.go:...: missing function body"
-
-
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         self.do(
