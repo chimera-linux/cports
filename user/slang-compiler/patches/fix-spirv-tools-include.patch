@@ -1,0 +1,27 @@
+index 0000000000..e69de29bb2
+diff --git a/tools/gfx/vulkan/glslang-module.h b/tools/gfx/vulkan/glslang-module.h
+index 16fca5ce9e..220669b38e 100644
+--- a/tools/gfx/vulkan/glslang-module.h
++++ b/tools/gfx/vulkan/glslang-module.h
+@@ -6,7 +6,7 @@
+ #include "slang-com-ptr.h"
+ #include "slang-glslang/slang-glslang.h"
+ #include "slang.h"
+-#include "spirv-tools/include/spirv-tools/linker.hpp"
++#include "spirv-tools/linker.hpp"
+ 
+ namespace gfx
+ {
+diff --git a/tools/gfx/vulkan/vk-shader-program.cpp b/tools/gfx/vulkan/vk-shader-program.cpp
+index dbe2cbb825..1a8e4f3d11 100644
+--- a/tools/gfx/vulkan/vk-shader-program.cpp
++++ b/tools/gfx/vulkan/vk-shader-program.cpp
+@@ -1,7 +1,7 @@
+ // vk-shader-program.cpp
+ #include "vk-shader-program.h"
+ 
+-#include "spirv-tools/include/spirv-tools/linker.hpp"
++#include "spirv-tools/linker.hpp"
+ #include "vk-device.h"
+ #include "vk-util.h"
+ 
