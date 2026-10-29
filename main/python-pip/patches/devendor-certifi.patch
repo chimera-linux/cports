@@ -1,0 +1,12 @@
+always defer to the system's certificate store.
+we as distro need to update it anyway + are likely to do so faster.
+see also https://github.com/chimera-linux/cports/issues/6467
+
+diff --git a/src/pip/_vendor/certifi/__init__.py b/src/pip/_vendor/certifi/__init__.py
+new file mode 100644
+index 000000000..718318352
+--- /dev/null
++++ b/src/pip/_vendor/certifi/__init__.py
+@@ -0,0 +1,2 @@
++def where():
++    return "/etc/ssl/certs/ca-certificates.crt"
