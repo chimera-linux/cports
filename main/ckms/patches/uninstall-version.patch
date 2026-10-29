@@ -1,0 +1,18 @@
+ckms uninstall: compare the version of the installed module
+
+The directory of the installed module is named after the version, not
+name=version, so the guard returned for every installed module and
+uninstall never removed anything.
+
+diff --git a/ckms b/ckms
+--- a/ckms
++++ b/ckms
+@@ -689,7 +689,7 @@
+ 
+     slinkr = slinkp.resolve()
+     # installed module does not match this...
+-    if slinkr.is_dir() and slinkr.parent.parent.name != pkg.pkgver:
++    if slinkr.is_dir() and slinkr.parent.parent.name != pkg.version:
+         return
+ 
+     slinkp.unlink(missing_ok = True)
