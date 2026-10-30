@@ -1,19 +1,15 @@
 pkgname = "rclone"
-pkgver = "1.73.5"
-pkgrel = 6
+pkgver = "1.75.2"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Rsync for cloud storage"
 license = "MIT"
 url = "https://rclone.org"
 source = f"https://github.com/rclone/rclone/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e52541bc238dd434a0335f467697d7d9575529698a74aab534ad39b8649f8a49"
+sha256 = "68afd7f68c84bd978966feae2116339aa7bf454b39c573910c462e87c3774d5a"
 # tests require network
 options = ["!check", "!cross"]
-
-if self.profile.arch in ["loongarch64"]:
-    broken = "saferith@v0.33.0/arith_decl.go:...: missing function body"
-
 
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
