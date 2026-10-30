@@ -1,0 +1,61 @@
+From 5b6579284f92770af5999bbcbb9169ca96f78643 Mon Sep 17 00:00:00 2001
+From: Sven Eden <sven@eden-worx.com>
+Date: Mon, 5 Oct 2026 09:07:44 +0200
+Subject: [PATCH] tools/xml_helper.py: Enable entity resolution for XML parsing
+
+Enable resolve_entities in XMLParser to load external parameter entities
+like custom-entities.ent, which are required for successful parsing of
+certain XML documents.
+
++# Add resolve_entities=True to XMLParser initialization
++# Add explanatory comment about necessity of entity resolution
++# Fix quoting style for consistency
+
+Signed-off-by: Sven Eden <sven@eden-worx.com>
+---
+
+ tools/xml_helper.py | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/tools/xml_helper.py b/tools/xml_helper.py
+index 6f71350f5b..2a85226b85 100755
+--- a/tools/xml_helper.py
++++ b/tools/xml_helper.py
+@@ -6,21 +6,31 @@
+ 
+ class CustomResolver(tree.Resolver):
+     def resolve(self, url, _id, context):
+-        if 'custom-entities.ent' in url:
+-            return self.resolve_filename('man/custom-entities.ent', context)
+-        if 'ethtool-link-mode' in url:
+-            return self.resolve_filename('src/shared/ethtool-link-mode.xml', context)
++        if "custom-entities.ent" in url:
++            return self.resolve_filename("man/custom-entities.ent", context)
++        if "ethtool-link-mode" in url:
++            return self.resolve_filename("src/shared/ethtool-link-mode.xml", context)
+ 
+         return None
+ 
+-_parser = tree.XMLParser()
++
++_parser = tree.XMLParser(resolve_entities=True)
++# resolve_entities (XML_PARSE_NOENT) is required so that libxml2 loads the
++# external parameter entity custom-entities.ent referenced via %entities;
++# in the internal DTD subset of some pages (e.g. man/elogind.syntax.xml,
++# man/logind.conf.xml). Without it the CustomResolver above is never
++# consulted and parsing fails with "Entity 'entities' not defined".
++# As a side effect, general entities (e.g. &KILL_USER_PROCESSES;) are
++# substituted with their values, which is what the index generators expect.
+ # pylint: disable=no-member
+ _parser.resolvers.add(CustomResolver())
+ 
++
+ def xml_parse(page):
+     doc = tree.parse(page, _parser)
+     doc.xinclude()
+     return doc
+ 
++
+ def xml_print(xml):
+-    return tree.tostring(xml, pretty_print=True, encoding='utf-8')
++    return tree.tostring(xml, pretty_print=True, encoding="utf-8")

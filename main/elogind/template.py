@@ -1,11 +1,10 @@
 pkgname = "elogind"
-pkgver = "255.17"
-pkgrel = 2
+pkgver = "257.16"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/elogind",
     "-Dman=enabled",
-    "-Dpamconfdir=/usr/lib/pam.d",
     "-Dpamlibdir=/usr/lib/security",
     "-Dhalt-path=/usr/bin/halt",
     "-Dreboot-path=/usr/bin/reboot",
@@ -14,6 +13,9 @@ configure_args = [
     "-Ddefault-kill-user-processes=false",
     "-Dutmp=false",
     "-Dpolkit=enabled",
+    "-Dnss-elogind=false",
+    "-Duserdb=false",
+    "-Dlibc=musl",
 ]
 hostmakedepends = [
     "docbook-xsl-nons",
@@ -41,7 +43,7 @@ pkgdesc = "Standalone version of logind"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "a9725ae3f73f8d910de84c108bc11bfd4c782bef6a4190b2ec70c5d2f22344db"
+sha256 = "3c8146409bfb9daa77f272212c2b0bf0ae727c782ec87ece0d2d25e0e5bf5f4c"
 # crashes in find_suitable_hibernation_device_full -> btrfs_get_file_physical_offset_fd
 # when logging into plasma from gdm
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
@@ -108,7 +110,6 @@ def _(self):
     self.provides = [self.with_pkgver("pam_elogind")]
 
     return [
-        "usr/lib/pam.d",
         "usr/lib/security",
         "usr/share/man/man8/pam_elogind.8",
     ]

@@ -1,0 +1,21 @@
+From 496c25e77d501461872c465d1e661bc3ff17083c Mon Sep 17 00:00:00 2001
+From: LinuxUserGD <hugegameartgd@gmail.com>
+Date: Sun, 14 Jun 2026 15:31:40 +0000
+Subject: [PATCH] Add missing stat.h include
+
+---
+ src/libelogind/sd-journal/journal-file.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/libelogind/sd-journal/journal-file.h b/src/libelogind/sd-journal/journal-file.h
+index 1d6ce462ef..361d5f86a2 100644
+--- a/src/libelogind/sd-journal/journal-file.h
++++ b/src/libelogind/sd-journal/journal-file.h
+@@ -3,6 +3,7 @@
+ 
+ #include <fcntl.h>
+ #include <inttypes.h>
++#include <sys/stat.h>
+ //#include <sys/uio.h>
+ 
+ #if HAVE_GCRYPT

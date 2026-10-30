@@ -5,11 +5,11 @@ Date:   Fri Jun 2 17:54:11 2023 +0200
     implement readiness notification and dbus activation
 
 diff --git a/src/login/logind.c b/src/login/logind.c
-index db88fc3..6b33916 100644
+index d761553..ba50a40 100644
 --- a/src/login/logind.c
 +++ b/src/login/logind.c
-@@ -1326,6 +1326,16 @@ static int run(int argc, char *argv[]) {
-                 return log_error_errno(r, "Failed to fully start up daemon: %m");
+@@ -1436,6 +1436,16 @@ static int run(int argc, char *argv[]) {
+ #endif // 1
  
          notify_message = notify_start(NOTIFY_READY, NOTIFY_STOPPING);
 +        /* dinit notification */

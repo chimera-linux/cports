@@ -1,0 +1,44 @@
+From d3421dba38d9dfd38752690698382a5788a2d33b Mon Sep 17 00:00:00 2001
+From: Sven Eden <sven@eden-worx.com>
+Date: Tue, 6 Oct 2026 14:17:53 +0200
+Subject: [PATCH] src/basic/time-util.c: Handle musl strtoll() behavior for
+ no-digits case
+
++# Change strtoll() errno check to exclude cases where no conversion
+  occurred
++# Align behavior with glibc by only considering errno when e != p
+
+Bug: #357
+Signed-off-by: Sven Eden <sven@eden-worx.com>
+---
+ src/basic/time-util.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/basic/time-util.c b/src/basic/time-util.c
+index c716c41d83..d4c4b09595 100644
+--- a/src/basic/time-util.c
++++ b/src/basic/time-util.c
+@@ -1182,7 +1182,11 @@ int parse_time(const char *t, usec_t *ret, usec_t default_unit) {
+ 
+                 errno = 0;
+                 l = strtoll(p, &e, 10);
++#if 0 /// elogind: musl strtoll() sets errno when no digits are found, unlike glibc; only honor it past a conversion
+                 if (errno > 0)
++#else // 0
++                if (errno > 0 && e != p)
++#endif // 0
+                         return -errno;
+                 if (l < 0)
+                         return -ERANGE;
+@@ -1362,7 +1366,11 @@ int parse_nsec(const char *t, nsec_t *ret) {
+ 
+                 errno = 0;
+                 l = strtoll(p, &e, 10);
++#if 0 /// elogind: musl strtoll() sets errno when no digits are found, unlike glibc; only honor it past a conversion
+                 if (errno > 0)
++#else // 0
++                if (errno > 0 && e != p)
++#endif // 0
+                         return -errno;
+                 if (l < 0)
+                         return -ERANGE;
