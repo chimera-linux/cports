@@ -1,0 +1,97 @@
+From: Anders Sundman <anders@4zm.org>
+Subject: ensure random new MAC is not same as old MAC
+ When requesting a random MAC with or without some specific prefix there is a
+ small probability (1 / 2^24 for -e) that the new adress is the same as the
+ old one. However unlikely, we don't want that.
+ .
+ If the requested mac is the same as the current mac; don't even try to change
+ it. Print an error message instead.
+
+---
+ src/mac.c  |   52 +++++++++++++++++++++++++++++++++-------------------
+ src/main.c |    1 +
+ 2 files changed, 34 insertions(+), 19 deletions(-)
+
+Index: macchanger/src/mac.c
+===================================================================
+--- macchanger.orig/src/mac.c
++++ macchanger/src/mac.c
+@@ -41,6 +41,13 @@ mc_mac_dup (const mac_t *mac)
+ 	return new;
+ }
+ 
++void
++mc_mac_copy (const mac_t *src_mac, mac_t *dst_mac)
++{
++	int i = 0;
++	for (i = 0; i < 6; ++i)
++		dst_mac->byte[i] = src_mac->byte[i];
++}
+ 
+ void
+ mc_mac_free (mac_t *mac)
+@@ -68,27 +75,32 @@ mc_mac_random (mac_t *mac, unsigned char
+ 	 * x1:, x3:, x5:, x7:, x9:, xB:, xD: and xF:
+ 	 */
+ 
+-	switch (last_n_bytes) {
+-	case 6:
+-		/* 8th bit: Unicast / Multicast address
+-		 * 7th bit: BIA (burned-in-address) / locally-administered
+-		 */
+-		mac->byte[0] = (random()%255) & 0xFC;
+-		mac->byte[1] = random()%255;
+-		mac->byte[2] = random()%255;
+-	case 3:
+-		mac->byte[3] = random()%255;
+-		mac->byte[4] = random()%255;
+-		mac->byte[5] = random()%255;
+-	}
++	mac_t origmac;
++	mc_mac_copy(mac, &origmac);
+ 
+-	/* Handle the burned-in-address bit
+-	 */
+-	if (set_bia) {
+-		mac->byte[0] &= ~2;
+-	} else {
+-		mac->byte[0] |= 2;
+-	}
++	do {
++		switch (last_n_bytes) {
++		case 6:
++			/* 8th bit: Unicast / Multicast address
++			 * 7th bit: BIA (burned-in-address) / locally-administered
++			 */
++			mac->byte[0] = (random()%255) & 0xFC;
++			mac->byte[1] = random()%255;
++			mac->byte[2] = random()%255;
++		case 3:
++			mac->byte[3] = random()%255;
++			mac->byte[4] = random()%255;
++			mac->byte[5] = random()%255;
++		}
++
++		/* Handle the burned-in-address bit
++		 */
++		if (set_bia) {
++			mac->byte[0] &= ~2;
++		} else {
++			mac->byte[0] |= 2;
++		}
++	} while (mc_mac_equal (&origmac, mac));
+ }
+ 
+ 
+Index: macchanger/src/main.c
+===================================================================
+--- macchanger.orig/src/main.c
++++ macchanger/src/main.c
+@@ -274,6 +274,7 @@ main (int argc, char *argv[])
+ 		/* Is the same MAC? */
+ 		if (mc_mac_equal (mac, mac_faked)) {
+ 			printf ("It's the same MAC!!\n");
++			exit (EXIT_ERROR);
+ 		}
+ 	}
+ 
