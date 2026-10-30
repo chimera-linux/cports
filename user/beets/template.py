@@ -1,12 +1,13 @@
 pkgname = "beets"
-pkgver = "2.12.0"
-pkgrel = 1
+pkgver = "2.14.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     # pytest fixture client not found
     "--ignore=test/plugins/test_aura.py",
     # requests_oauthlib
     "--ignore=test/plugins/test_beatport.py",
+    "--ignore=test/plugins/test_tidal.py",
     # discogs_client
     "--ignore=test/plugins/test_discogs.py",
     # pylast
@@ -16,23 +17,38 @@ make_check_args = [
     # flakes
     "--ignore=test/test_importer.py",
     "--ignore=test/test_ui.py",
+    # requests_mock
+    "--ignore=test/plugins/test_listenbrainz.py",
+    "--ignore=test/plugins/test_art.py",
+    "--ignore=test/plugins/test_plexupdate.py",
+    "--ignore=test/plugins/test_mbcollection.py",
+    "--ignore=test/plugins/test_deezer.py",
+    "--ignore=test/plugins/test_missing.py",
+    "--ignore=test/plugins/test_embedart.py",
+    "--ignore=test/plugins/test_parentwork.py",
+    # pytest-factoryboy
+    "--ignore=test/plugins/test_musicbrainz.py",
+    # beautifulsoup4
+    "--ignore=test/plugins/test_fetchart.py",
+    "--ignore=test/plugins/test_lyrics.py",
 ]
 hostmakedepends = [
     "python-build",
+    "python-hatchling",
     "python-installer",
-    "python-poetry-core",
 ]
 depends = [
     "python-confuse",
     "python-jellyfish",
     "python-lap",
     "python-mediafile",
-    "python-munkres",
+    "python-numpy",
     "python-packaging",
     "python-platformdirs",
     "python-pyyaml",
     "python-requests",
     "python-requests-ratelimiter",
+    "python-titlecase",
     "python-typing_extensions",
     "python-unidecode",
 ]
@@ -48,14 +64,7 @@ pkgdesc = "CLI media library management"
 license = "MIT"
 url = "https://beets.io"
 source = f"$(PYPI_SITE)/b/beets/beets-{pkgver}.tar.gz"
-sha256 = "c5e844c4785a8b2c53a791a2b7bcd5846b4d12b0e8209e8eabfee06cec57edf2"
-
-
-def init_check(self):
-    self.make_check_args += [
-        f"--numprocesses={self.make_jobs}",
-        "--dist=worksteal",
-    ]
+sha256 = "b25dc7bf8ed093d8b6e043e88013736902c1082c958b81a598af5db5275539a5"
 
 
 def post_install(self):
