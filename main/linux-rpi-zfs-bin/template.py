@@ -1,5 +1,5 @@
 pkgname = "linux-rpi-zfs-bin"
-pkgver = "2.4.4.6.18.56"
+pkgver = "2.4.4.6.18.59"
 _zfsver = ".".join(pkgver.split(".")[0:3])
 _kernver = pkgver[len(_zfsver) + 1 :]
 pkgrel = 0
