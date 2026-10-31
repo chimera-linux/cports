@@ -1,7 +1,7 @@
 # apply useful changes to user/sqlcipher
 pkgname = "sqlite"
-pkgver = "3.53.4"
-_amalg = "3530300"
+pkgver = "3.54.1"
+_amalg = "%d%02d%02d00" % tuple(map(int, pkgver.split(".")))
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "SQL Database Engine in a C library"
 license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2026/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "c917d7db16648ec95f714974ace5e5dcf46b7dc70e26600a0a102a3141125db0"
+sha256 = "926ef8d3eab93fbf6e06011901273eec076b25594a4e1cdadd50c987f4f6d64e"
 # no tests
 options = ["!parallel", "!check"]
 
