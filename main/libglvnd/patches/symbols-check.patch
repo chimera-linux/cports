@@ -1,0 +1,18 @@
+diff --git a/bin/symbols-check.py b/bin/symbols-check.py
+index 947105f..a323cfa 100644
+--- a/bin/symbols-check.py
++++ b/bin/symbols-check.py
+@@ -7,9 +7,13 @@ import subprocess
+ 
+ # This list contains symbols that _might_ be exported for some platforms
+ PLATFORM_SYMBOLS = [
++    '_GLOBAL_OFFSET_TABLE_',
+     '__bss_end__',
+     '__bss_start__',
+     '__bss_start',
++    '__deregister_frame_info',
++    '__register_frame_info',
++    '__cxa_finalize',
+     '__cxa_guard_abort',
+     '__cxa_guard_acquire',
+     '__cxa_guard_release',

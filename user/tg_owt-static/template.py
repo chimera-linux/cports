@@ -15,35 +15,45 @@ hostmakedepends = [
     "protobuf",
     "python",
 ]
-makedepends = [
+_rdeps = [
     "abseil-cpp-devel",
     "alsa-lib-devel",
+    "libdrm-devel",
+    "libpulse-devel",
+    "libx11-devel",
+    "libxdamage-devel",
+    "libxext-devel",
+    "libxfixes-devel",
+    "libxrandr-devel",
+    "libxtst-devel",
+    "linux-headers",
+    "mesa-gbm-devel",
+    "musl-bsd-headers",
+    "openssl3-devel",
+    "opus-devel",
+    "pipewire-devel",
+]
+makedepends = [
     "ffmpeg-devel",
     "glib-devel",
     "libdrm-devel",
     "libepoxy-devel",
     "libevent-devel",
+    "libglvnd-devel",
     "libjpeg-turbo-devel",
-    "libpulse-devel",
     "libsrtp-devel",
     "libvpx-devel",
     "libxcomposite-devel",
-    "libxdamage-devel",
-    "libxext-devel",
-    "libxfixes-devel",
-    "libxrandr-devel",
     "libxrender-devel",
-    "libxtst-devel",
-    "mesa-devel",
     "mesa-gbm-devel",
-    "musl-bsd-headers",
     "openh264-devel",
-    "openssl3-devel",
-    "opus-devel",
-    "pipewire-devel",
     "protobuf-devel",
+    *_rdeps,
 ]
-depends = [*makedepends]
+depends = [
+    "pc:gl!libglvnd-devel",
+    *_rdeps,
+]
 pkgdesc = "Telegram's fork of WebRTC"
 license = "BSD-3-Clause"
 url = "https://github.com/desktop-app/tg_owt"

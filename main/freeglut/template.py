@@ -1,10 +1,16 @@
 pkgname = "freeglut"
 pkgver = "3.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["libxxf86vm-devel", "libxi-devel", "mesa-devel", "glu-devel"]
+makedepends = [
+    "glu-devel",
+    "libglvnd-devel",
+    "libxi-devel",
+    "libxxf86vm-devel",
+    "linux-headers",
+]
 pkgdesc = "Open source implementation of the OpenGL Utility Toolkit library"
 license = "MIT"
 url = "http://freeglut.sourceforge.net"
@@ -18,5 +24,11 @@ def post_install(self):
 
 @subpackage("freeglut-devel")
 def _(self):
-    self.depends += makedepends
+    # untraced
+    self.depends += [
+        "pc:gl!libglvnd-devel",
+        "pc:x11!libx11-devel",
+        "pc:xrandr!libxrandr-devel",
+        "pc:xxf86vm!libxxf86vm-devel",
+    ]
     return self.default_devel()
