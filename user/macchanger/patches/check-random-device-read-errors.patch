@@ -1,0 +1,47 @@
+Description: Check for random device read errors
+ In some cases it is possible to open /dev/hwrng but not to read from it.
+ We need to check for errors and move on to the next possible random device
+ in this case.
+Author: Ben Hutchings <ben@decadent.org.uk>
+Bug-Debian: https://bugs.debian.org/775005
+
+---
+--- a/src/main.c
++++ b/src/main.c
+@@ -91,17 +91,29 @@ print_mac (const char *s, const mac_t *m
+ static void
+ random_seed (void)
+ {
++	static const char *const dev_names[] = {
++		"/dev/hwrng",
++		"/dev/random",
++		"/dev/urandom",
++		NULL,
++	};
+ 	int            fd;
+ 	struct timeval tv;
+ 	unsigned int   seed;
++	const char *const *name;
++	ssize_t        read_len = 0;
+ 
+-	if ((fd = open("/dev/hwrng", O_RDONLY)) >= 0 ||
+-	    (fd = open("/dev/random", O_RDONLY)) >= 0 ||
+-	    (fd = open("/dev/urandom", O_RDONLY)) >= 0)
+-	{
+-		read (fd, &seed, sizeof(seed));
+-		close (fd);
+-	} else {
++	for (name = dev_names; *name; name++) {
++		fd = open(*name, O_RDONLY);
++		if (fd >= 0) {
++			read_len = read (fd, &seed, sizeof(seed));
++			close (fd);
++			if (read_len == sizeof(seed))
++				break;
++		}
++	}
++
++	if (read_len != sizeof(seed)) {
+ 		gettimeofday (&tv, NULL);
+ 		seed = (getpid() << 16) ^ tv.tv_sec ^ tv.tv_usec;
+ 	}

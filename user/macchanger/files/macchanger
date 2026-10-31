@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/bin/macchanger --random $1
+stop-command = /usr/bin/macchanger --permanent $1
+before: pre-local.target
+depends-on: early-devices.target
