@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-wlr"
-pkgver = "0.8.4"
+pkgver = "0.8.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,14 +22,9 @@ pkgdesc = "XDG-desktop-portal implementation for wlroots"
 license = "MIT"
 url = "https://github.com/emersion/xdg-desktop-portal-wlr"
 source = f"https://github.com/emersion/xdg-desktop-portal-wlr/releases/download/v{pkgver}/xdg-desktop-portal-wlr-{pkgver}.tar.gz"
-sha256 = "41b9683acae9415005d7b62d801e34946cb95da5eaaa83528c7085759a635187"
+sha256 = "5d36f3c031d9c750f83a17a9468770df12f1ddc9d9d60eea81ad4062f7d71614"
 hardening = ["vis", "!cfi"]
-options = ["etcfiles"]
 
 
 def post_install(self):
     self.install_license("LICENSE")
-    # (at least an) empty config is a requirement for the portal screen picker apparently
-    self.install_file(
-        self.files_path / "config", "etc/xdg/xdg-desktop-portal-wlr"
-    )
