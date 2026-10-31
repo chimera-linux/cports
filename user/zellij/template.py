@@ -1,5 +1,5 @@
 pkgname = "zellij"
-pkgver = "0.44.3"
+pkgver = "0.45.1"
 pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
@@ -19,7 +19,7 @@ url = "https://zellij.dev"
 source = (
     f"https://github.com/zellij-org/zellij/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "33ae61fc802b59462fed49b424893596d3aa819646bdce53d5602f714c1264fe"
+sha256 = "5cbe711437d2a61afd9287165f6aca0bcccb9ab1473633665a5b11ed55467852"
 # generates completions with host bin
 # FIXME lintpixmaps
 options = ["!cross", "!lintpixmaps"]
