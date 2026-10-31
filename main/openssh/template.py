@@ -1,6 +1,6 @@
 pkgname = "openssh"
-pkgver = "10.5_p1"
-pkgrel = 1
+pkgver = "10.6_p1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/ssh",
@@ -43,7 +43,7 @@ pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-{pkgver.replace('_', '')}.tar.gz"
-sha256 = "d44d28a839ea9daf969cc69150fde59910b2b39361dad81a3bd6cbd19218db11"
+sha256 = "a9dc9565dffe8640f64d863cd29a32bc4a3dbdec0566a7fc44c5d6ee767d5f39"
 file_modes = {"usr/lib/ssh-keysign": ("root", "root", 0o4755)}
 # CFI: does not work; maybe make testsuite work first
 hardening = ["vis", "!cfi"]
