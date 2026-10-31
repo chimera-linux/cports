@@ -1,0 +1,16 @@
+diff --git a/test/ncurses.c b/test/ncurses.c
+index 06ce5f8..593bea4 100644
+--- a/test/ncurses.c
++++ b/test/ncurses.c
+@@ -56,8 +56,10 @@ $Id: ncurses.c,v 1.550 2025/11/01 20:12:49 tom Exp $
+ #include <sys/time.h>
+ #endif
+
+-#if HAVE_SYS_SELECT_H
++#if !defined(__MINGW32__)
+ #include <sys/select.h>
++#else
++#include <winsock2.h>
+ #endif
+
+ #if USE_LIBPANEL
