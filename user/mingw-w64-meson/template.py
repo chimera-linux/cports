@@ -1,6 +1,6 @@
 pkgname = "mingw-w64-meson"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 makedepends = [
     "gmake",
     "python",
@@ -44,30 +44,16 @@ def configure(self):
 def build(self):
     for an in _targets:
         at = an + "-w64-mingw32"
-        # some sane default flags that will be inserted in the packaged meson cross-toolchain file
-        _cross_clang_flags = (
-            "-rtlib=compiler-rt" + "-fuse-ld=lld",
-            f"-target {at}" + "-Xclang -triple" + f"-Xclang {at}",
-        )
-        _default_compiler_flags = (
-            _cross_clang_flags
-            + "-Wformat"
-            + "-Werror=format-security"
-            + "-ftrivial-auto-var-init=zero"
-            + "-fexceptions"
-            + "-fstack-protector-strong"
-            + "-fstack-clash-protection"
-            + "-flto=thin"
-            + "-pipe"
-            + "-O2"
-        )
+        # in order to be able to pass linker flags to clang when cross compiling the fuse-ld has to be specified directly
+        # see: https://github.com/mstorsjo/llvm-mingw/issues/379#issuecomment-1798016620
+        _cross_clang_flags = f"-fuse-ld=lld -target {at}"
         self.do(
             "make",
             f"toolchain-{at}.meson",
             env={
-                "CFLAGS": _default_compiler_flags,
-                "CXXFLAGS": _default_compiler_flags,
-                # the rest: LDFLAGS, etc will be taken from cbuild's environment
+                "CFLAGS": _cross_clang_flags,
+                "CXXFLAGS": _cross_clang_flags,
+                "LDFLAGS": "",
             },
         )
 
