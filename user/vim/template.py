@@ -1,7 +1,7 @@
 # the vimrc is shared with vim-classic, rebuild that too if you change it
 pkgname = "vim"
-pkgver = "9.2.1172"
-pkgrel = 1
+pkgver = "9.2.1245"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -19,10 +19,11 @@ make_dir = "."
 make_install_args = ["-j1"]
 make_check_target = "test"
 hostmakedepends = ["automake"]
+_luaver = "5.4"
 makedepends = [
     "acl-devel",
     "libsodium-devel",
-    "lua5.4-devel",
+    f"lua{_luaver}-devel",
     "ncurses-devel",
     "python-devel",
     "ruby-devel",
@@ -32,8 +33,13 @@ pkgdesc = "Vi-style text editor"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d4f7a793d2cf80ad6bb09085746515979d049e79e5839d8b68325688b47af297"
-tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"']}
+sha256 = "4238a92338251c1ef9da0a2e0d3ebfa21e723038687d75878e964d64ff51e13d"
+tool_flags = {
+    "CFLAGS": [
+        '-DSYS_VIMRC_FILE="/usr/share/vim/vimrc"',
+        f'-DDYNAMIC_LUA_DLL="liblua{_luaver}.so.{_luaver}"',
+    ]
+}
 # require a million system-specific fixes
 options = ["!check"]
 
