@@ -1,6 +1,6 @@
 pkgname = "fontconfig"
 pkgver = "2.18.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",
@@ -27,15 +27,6 @@ options = ["etcfiles"]
 
 def post_install(self):
     self.install_license("COPYING")
-    self.install_file(
-        self.files_path / "70-no-nonscalable.conf",
-        "usr/share/fontconfig/conf.avail",
-    )
-    # reject bitmap fonts by default, preventing them from being preferred
-    self.install_link(
-        "etc/fonts/conf.d/70-no-nonscalable.conf",
-        "../../../usr/share/fontconfig/conf.avail/70-no-nonscalable.conf",
-    )
 
 
 @subpackage("fontconfig-devel")
