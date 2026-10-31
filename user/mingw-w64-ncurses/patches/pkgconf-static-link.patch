@@ -1,0 +1,14 @@
+# see: https://github.com/msys2/MINGW-packages/commit/c1625c546c71ebe8110ab402092b7b7a9e7ef88f
+diff --git a/misc/gen-pkgconfig.in b/misc/gen-pkgconfig.in
+index c369dd2..707e856 100644
+--- a/misc/gen-pkgconfig.in
++++ b/misc/gen-pkgconfig.in
+@@ -244,7 +244,7 @@ ${USEURL}URL: https://invisible-island.net/ncurses
+ Requires.private: $reqs
+ Libs: $lib_flags $LIBS
+ Libs.private: @LIBS@ $main_libs
+-Cflags: $CFLAGS
++Cflags: $CFLAGS -DNCURSES_STATIC
+ EOF
+
+ done
