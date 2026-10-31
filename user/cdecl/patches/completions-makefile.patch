@@ -1,0 +1,30 @@
+diff --git a/share/bash-completions/completions/Makefile.am b/share/bash-completions/completions/Makefile.am
+index bc86f4f9..c008c6e5 100644
+--- a/share/bash-completions/completions/Makefile.am
++++ b/share/bash-completions/completions/Makefile.am
+@@ -25,8 +25,8 @@ EXTRA_DIST =	_cdecl
+ 
+ INSTALL_DIR =	$(DESTDIR)$(datarootdir)/bash-completions/completions
+ 
+-install-data-local: $(INSTALL_DIR) _cdecl
+-	$(INSTALL_SCRIPT) _cdecl $(INSTALL_DIR)
++install-data-local: $(INSTALL_DIR) $(srcdir)/_cdecl
++	$(INSTALL_SCRIPT) $(srcdir)/_cdecl $(INSTALL_DIR)
+ 
+ uninstall-local:
+ 	rm -f $(INSTALL_DIR)/_cdecl
+diff --git a/share/zsh/site-functions/Makefile.am b/share/zsh/site-functions/Makefile.am
+index 07f11f51..cf45a5d3 100644
+--- a/share/zsh/site-functions/Makefile.am
++++ b/share/zsh/site-functions/Makefile.am
+@@ -25,8 +25,8 @@ EXTRA_DIST =	_cdecl
+ 
+ INSTALL_DIR =	$(DESTDIR)$(datarootdir)/zsh/site-functions
+ 
+-install-data-local: $(INSTALL_DIR) _cdecl
+-	$(INSTALL_SCRIPT) _cdecl $(INSTALL_DIR)
++install-data-local: $(INSTALL_DIR) $(srcdir)/_cdecl
++	$(INSTALL_SCRIPT) $(srcdir)/_cdecl $(INSTALL_DIR)
+ 
+ uninstall-local:
+ 	rm -f $(INSTALL_DIR)/_cdecl
