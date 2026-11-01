@@ -1,0 +1,16 @@
+diff --git a/doc/nvidia-settings.desktop b/doc/nvidia-settings.desktop
+index a06fefb..f74ee3e 100644
+--- a/doc/nvidia-settings.desktop
++++ b/doc/nvidia-settings.desktop
+@@ -3,9 +3,9 @@ Type=Application
+ Encoding=UTF-8
+ Name=NVIDIA X Server Settings
+ Comment=Configure NVIDIA X Server Settings
+-Exec=__UTILS_PATH__/nvidia-settings
++Exec=nvidia-settings
+ Icon=nvidia-settings
+-Categories=__NVIDIA_SETTINGS_DESKTOP_CATEGORIES__
++Categories=Settings;HardwareSettings;
+ 
+ # Translation by Marcin Mikołajczak
+ Name[pl]=Ustawienia serwera X NVIDIA
