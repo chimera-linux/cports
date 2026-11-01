@@ -1,6 +1,8 @@
 pkgname = "gcompat"
 pkgver = "1.1.0"
-pkgrel = 2
+pkgrel = 3
+# because no releases in years
+_commit = "06600632096b14e03e32b234ec0b02a9d4d045e9"
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -12,8 +14,10 @@ makedepends = [
 pkgdesc = "Glibc compatibility shim for musl"
 license = "ISC"
 url = "https://git.adelielinux.org/adelie/gcompat"
-source = f"https://git.adelielinux.org/adelie/gcompat/-/archive/{pkgver}/gcompat-{pkgver}.tar.gz"
-sha256 = "82e56d2ecda3f11a93efe61001394a6e5db39c91127d0812d7ad5b0bda558010"
+source = (
+    f"https://git.adelielinux.org/adelie/gcompat/-/archive/{_commit}.tar.gz"
+)
+sha256 = "d6135408a5806742d66a76c9fa40b8a1f7a5fc74d0d2fe35b1301b0b2f119699"
 # no test suite
 options = ["!check", "brokenlinks"]
 
@@ -72,3 +76,8 @@ def post_install(self):
         "libutil.so.1",
     ]:
         self.install_link(f"usr/lib/{f}", "libgcompat.so.0")
+
+
+@subpackage("gcompat-libs")
+def _(self):
+    return ["usr/lib/libgcompat.so.0"]
