@@ -17,9 +17,15 @@ license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "862f12b3177d5e961f2a86cf82fb1ff3551786afcaf95f2dc9a8318889f98732"
+hardening = []
 # check: needs network access
 # cross: completions with host bin
 options = ["!check", "!cross"]
+
+match self.profile.arch:
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def post_build(self):
