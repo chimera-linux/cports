@@ -1,6 +1,5 @@
-The tests use glibc's error.h, which musl libc does not implement.
-Use err.h instead.
-
+diff --git a/test-lm-big.c b/test-lm-big.c
+index eb94d3b..c28133e 100644
 --- a/test-lm-big.c
 +++ b/test-lm-big.c
 @@ -19,7 +19,7 @@
@@ -21,6 +20,47 @@ Use err.h instead.
  
      assert(test_layout((range_t[]) {
          { 0, 1024 },                   /* LUKS header */
+diff --git a/test-lm-gap.c b/test-lm-gap.c
+index 613b72d..8bcd4cb 100644
+--- a/test-lm-gap.c
++++ b/test-lm-gap.c
+@@ -19,8 +19,9 @@
+ 
+ #include "test.h"
+ #include "crc32c.h"
+-#include <error.h>
++#include <endian.h>
++#include <err.h>
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -75,22 +75,19 @@ read_image(size_t off, size_t len)
+ 
+     buf = malloc(len);
+     if (!buf)
+-        error(EXIT_FAILURE, errno, "%s:%d", __FILE__, __LINE__);
++        err(EXIT_FAILURE, "%s:%d", __FILE__, __LINE__);
+ 
+     fd = open(filename, O_RDONLY);
+     if (fd < 0)
+-        error(EXIT_FAILURE, errno, "%s:%d", __FILE__, __LINE__);
+ 
+     if (lseek(fd, off, SEEK_SET) == -1) {
+         free(buf);
+         close(fd);
+-        error(EXIT_FAILURE, errno, "%s:%d", __FILE__, __LINE__);
+     }
+ 
+     if (read(fd, buf, len) != (ssize_t) len) {
+         free(buf);
+         close(fd);
+-        error(EXIT_FAILURE, errno, "%s:%d", __FILE__, __LINE__);
+     }
+ 
+     close(fd);
+diff --git a/test-lm-init.c b/test-lm-init.c
+index b16d597..22fe902 100644
 --- a/test-lm-init.c
 +++ b/test-lm-init.c
 @@ -22,7 +22,7 @@
@@ -47,6 +87,8 @@ Use err.h instead.
      close(fd);
      assert(luksmeta_save(cd, 2, UUID, UUID, sizeof(UUID)) == -EINVAL);
      assert(luksmeta_load(cd, 2, uuid, data, sizeof(data)) == -EINVAL);
+diff --git a/test-lm-one.c b/test-lm-one.c
+index 18613e0..ce00205 100644
 --- a/test-lm-one.c
 +++ b/test-lm-one.c
 @@ -18,7 +18,7 @@
@@ -67,6 +109,8 @@ Use err.h instead.
  
      /* Test the layout state. */
      assert(test_layout((range_t[]) {
+diff --git a/test-lm-two.c b/test-lm-two.c
+index 9f0b1c5..16eea51 100644
 --- a/test-lm-two.c
 +++ b/test-lm-two.c
 @@ -18,7 +18,7 @@
@@ -96,6 +140,8 @@ Use err.h instead.
  
      assert(test_layout((range_t[]) {
          { 0, 1024 },                   /* LUKS header */
+diff --git a/test.c b/test.c
+index 0398a85..4255834 100644
 --- a/test.c
 +++ b/test.c
 @@ -18,7 +18,7 @@
