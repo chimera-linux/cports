@@ -1,5 +1,5 @@
 pkgname = "vnstat"
-pkgver = "2.13"
+pkgver = "2.14"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["autoconf", "automake", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Network traffic monitor"
 license = "GPL-2.0-or-later"
 url = "https://humdi.net/vnstat"
 source = f"https://github.com/vergoh/vnstat/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "67a87e05acf09fb5ae368038656000ea50acae789a910b02ad3d3a815e75662c"
+sha256 = "da6ca8105fbdca42290ac36c4f01314709b959b798bddcd9227ea25bf60c187f"
 hardening = ["vis", "cfi"]
 
 
