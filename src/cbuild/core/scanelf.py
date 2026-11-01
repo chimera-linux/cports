@@ -173,8 +173,8 @@ def scan_one(fpath):
         shdr = _unpack(hdrdef_sect, hdr_sect[wsi], shoff, endian, mm)
         # SHT_DYNAMIC
         if shdr["type"] == 0x6:
-            dynsect = shdr
-            break
+            if not dynsect:
+                dynsect = shdr
         elif shdr["type"] == 0x3:
             strtabs.append(shdr)
         # march on
