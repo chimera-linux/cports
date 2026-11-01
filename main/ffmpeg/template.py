@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "8.1.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -67,6 +67,7 @@ configure_args = [
     "--enable-openssl",
     "--enable-runtime-cpudetect",
     "--enable-vaapi",
+    "--enable-vdpau",
     "--enable-vapoursynth",
     "--enable-vulkan",
 ]
@@ -104,6 +105,7 @@ makedepends = [
     "librsvg-devel",
     "libtheora-devel",
     "libva-devel",
+    "libvdpau-devel",
     "libvidstab-devel",
     "libvorbis-devel",
     "libvpx-devel",

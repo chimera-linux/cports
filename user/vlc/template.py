@@ -1,6 +1,6 @@
 pkgname = "vlc"
 pkgver = "3.0.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-a52",
@@ -15,7 +15,6 @@ configure_args = [
     "--disable-mad",
     "--disable-static",
     "--disable-upnp",
-    "--disable-vdpau",
     "--enable-bluray",
     "--enable-chromaprint",
     "--enable-chromecast",
@@ -64,6 +63,7 @@ configure_args = [
     "--enable-twolame",
     "--enable-udev",
     "--enable-v4l2",
+    "--enable-vdpau",
     "--enable-vpx",
     "--enable-wayland",
     "--enable-x264",
@@ -119,6 +119,7 @@ makedepends = [
     "libsecret-devel",
     "libtheora-devel",
     "libva-devel",
+    "libvdpau-devel",
     "libvpx-devel",
     "libx11-devel",
     "libxcb-devel",
