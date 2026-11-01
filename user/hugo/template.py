@@ -1,5 +1,5 @@
 pkgname = "hugo"
-pkgver = "0.168.0"
+pkgver = "0.169.0"
 pkgrel = 0
 build_style = "go"
 prepare_after_patch = True
@@ -12,7 +12,7 @@ pkgdesc = "Static site generator"
 license = "Apache-2.0"
 url = "https://gohugo.io"
 source = f"https://github.com/gohugoio/hugo/archive/v{pkgver}.tar.gz"
-sha256 = "45ba430ac86cfe8e5fb07b81eaef78769973af9b4d1c51f1d88195e0d438be3e"
+sha256 = "47edb66f76f2c3653210bdac09883fa0a232eba2de43a0a6fdea9855e8e542d9"
 # tests require network access
 # manpages and completions are generated with the resulting binary so no cross
 options = ["!check", "!cross"]
