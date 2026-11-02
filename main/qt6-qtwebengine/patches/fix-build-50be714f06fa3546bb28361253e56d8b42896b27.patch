@@ -1,0 +1,16 @@
+introduced in https://github.com/qt/qtwebengine-chromium/commit/50be714f06fa3546bb28361253e56d8b42896b27
+
+RetainedRefWrapper is undefined
+
+diff --git a/src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/cross_thread_copier_base.h b/src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/cross_thread_copier_base.h
+index cb826b42..9fdd616f 100644
+--- a/src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/cross_thread_copier_base.h
++++ b/src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/cross_thread_copier_base.h
+@@ -33,6 +33,7 @@
+ 
+ #include "base/files/file.h"
+ #include "base/files/file_error_or.h"
++#include "base/functional/bind.h"
+ #include "base/memory/scoped_refptr.h"
+ #include "base/memory/weak_ptr.h"
+ #include "mojo/public/cpp/base/big_buffer.h"
