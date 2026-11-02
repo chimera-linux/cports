@@ -1,6 +1,6 @@
 pkgname = "kwallet-pam"
-pkgver = "6.8.1"
-pkgrel = 1
+pkgver = "6.8.2"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "extra-cmake-modules", "ninja", "pkgconf"]
 makedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "KDE KWallet PAM plugin"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kwallet-pam"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwallet-pam-{pkgver}.tar.xz"
-sha256 = "89f8233c9d2d9793c146cac2b5ec7de38ab5e3376b908f9c0dd70cbe70ac2217"
+sha256 = "858025e222ba1cce66591d3a0cf4d41d60917e7b55418840422712910a853022"
 options = ["etcfiles"]
 
 

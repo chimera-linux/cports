@@ -1,5 +1,5 @@
 pkgname = "libkscreen"
-pkgver = "6.8.1"
+pkgver = "6.8.2"
 pkgrel = 0
 build_style = "cmake"
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
@@ -22,7 +22,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "081e39bc7fb7b0b894a71dc15897a2022ad0f8b78a8e1bec163cd566fa6712fb"
+sha256 = "6229bbcde7664a14f9cbf1e4e241e3dd88186a96295004c2749bdd0bebd627e3"
 # traps on some setups?
 # https://github.com/chimera-linux/cports/issues/4960
 hardening = ["!int"]
