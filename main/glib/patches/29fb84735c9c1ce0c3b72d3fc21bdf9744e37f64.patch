@@ -1,0 +1,25 @@
+From 29fb84735c9c1ce0c3b72d3fc21bdf9744e37f64 Mon Sep 17 00:00:00 2001
+From: Antoine Jacoutot <ajacoutot@openbsd.org>
+Date: Sun, 25 Oct 2026 19:33:56 +0000
+Subject: [PATCH] -Wsign-conversion warning on arm64 OpenBSD in GString tests
+
+---
+ glib/tests/string.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/glib/tests/string.c b/glib/tests/string.c
+index 3d92296169..73a125d411 100644
+--- a/glib/tests/string.c
++++ b/glib/tests/string.c
+@@ -348,7 +348,7 @@ test_string_prepend_c (void)
+   string = g_string_new ("hi pete!");
+ 
+   for (i = 0; i < 10000; i++)
+-    g_string_prepend_c (string, 'a'+(i%26));
++    g_string_prepend_c (string, (char)('a'+(i%26)));
+ 
+   g_assert((strlen("hi pete!") + 10000) == string->len);
+   g_assert((strlen("hi pete!") + 10000) == strlen(string->str));
+-- 
+GitLab
+
