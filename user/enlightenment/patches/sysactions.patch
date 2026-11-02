@@ -7,7 +7,7 @@
 +#if 1
 +   _cmd_halt = strdup("loginctl poweroff");
 +#else
- #if defined (__FreeBSD__) || defined (__OpenBSD__)
+ #if defined (__FreeBSD__) || defined (__OpenBSD__) || defined (__NetBSD__)
     _cmd_halt = strdup("shutdown -p now");
  #else
 @@ -43,11 +46,15 @@ _power_halt_init(void)
@@ -23,7 +23,7 @@
 +#if 1
 +   _cmd_reboot = strdup("loginctl reboot");
 +#else
- #if defined (__FreeBSD__) || defined (__OpenBSD__)
+ #if defined (__FreeBSD__) || defined (__OpenBSD__) || defined (__NetBSD__)
     _cmd_reboot = strdup("shutdown -r now");
  #else
 @@ -58,11 +65,15 @@ _power_reboot_init(void)
