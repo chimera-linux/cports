@@ -10,10 +10,10 @@ Subject: [PATCH] use turnstile's path for lingering
  3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/src/login/logind-dbus.c b/src/login/logind-dbus.c
-index a9c954c..7f27c0b 100644
+index aa4e9b2..e469cc9 100644
 --- a/src/login/logind-dbus.c
 +++ b/src/login/logind-dbus.c
-@@ -1291,8 +1291,8 @@ static int method_set_user_linger(sd_bus_message *message, void *userdata, sd_bu
+@@ -1642,8 +1642,8 @@ static int method_set_user_linger(sd_bus_message *message, void *userdata, sd_bu
          if (r == 0)
                  return 1; /* No authorization for now, but the async polkit stuff will call us again when it has it */
  
@@ -24,20 +24,20 @@ index a9c954c..7f27c0b 100644
          if (r < 0)
                  return r;
  
-@@ -1300,7 +1300,7 @@ static int method_set_user_linger(sd_bus_message *message, void *userdata, sd_bu
-         if (!cc)
+@@ -1655,7 +1655,7 @@ static int method_set_user_linger(sd_bus_message *message, void *userdata, sd_bu
+         if (!escaped)
                  return -ENOMEM;
  
--        path = strjoina("/var/lib/elogind/linger/", cc);
-+        path = strjoina("/var/lib/turnstiled/linger/", cc);
-         if (b) {
-                 User *u;
+-        path = strjoina("/var/lib/elogind/linger/", escaped);
++        path = strjoina("/var/lib/turnstiled/linger/", escaped);
  
+         if (enable) {
+                 r = touch(path);
 diff --git a/src/login/logind-user.c b/src/login/logind-user.c
-index d4d390d..2b3331f 100644
+index 3a9befd..2b15b40 100644
 --- a/src/login/logind-user.c
 +++ b/src/login/logind-user.c
-@@ -653,7 +653,7 @@ int user_check_linger_file(User *u) {
+@@ -743,7 +743,7 @@ int user_check_linger_file(const User *u) {
          if (!cc)
                  return -ENOMEM;
  
@@ -47,10 +47,10 @@ index d4d390d..2b3331f 100644
                  if (errno != ENOENT)
                          return -errno;
 diff --git a/src/login/logind.c b/src/login/logind.c
-index 1fa58aa..927f13d 100644
+index ba50a40..03432f3 100644
 --- a/src/login/logind.c
 +++ b/src/login/logind.c
-@@ -316,12 +316,12 @@ static int manager_enumerate_linger_users(Manager *m) {
+@@ -334,12 +334,12 @@ static int manager_enumerate_linger_users(Manager *m) {
  
          assert(m);
  
@@ -65,6 +65,3 @@ index 1fa58aa..927f13d 100644
          }
  
          FOREACH_DIRENT(de, d, return -errno) {
--- 
-2.38.1
-

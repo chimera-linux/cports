@@ -1,0 +1,40 @@
+From 5855b4500fcb717052037bd3176d5045f942fb63 Mon Sep 17 00:00:00 2001
+From: Sven Eden <sven@eden-worx.com>
+Date: Tue, 6 Oct 2026 15:14:23 +0200
+Subject: [PATCH] basic/fileio.c: Handle musl `fputs()`/`fputc()` EOF behavior
+ (no errno)
+
++# Check for `fputs()`/`fputc()` returning EOF on read-mode streams
++# Return `errno_or_else(EBADF)` when `errno` is not set (musl behavior)
++# Preserve glibc-style `-errno` return for standard behavior
+
+Bug: #357
+Signed-off-by: Sven Eden <sven@eden-worx.com>
+---
+ src/basic/fileio.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/basic/fileio.c b/src/basic/fileio.c
+index 926b7d7909..231271abd7 100644
+--- a/src/basic/fileio.c
++++ b/src/basic/fileio.c
+@@ -177,11 +177,19 @@ int write_string_stream_full(
+         }
+ 
+         if (fputs(line, f) == EOF)
++#if 0 /// elogind: musl fputs() to a read-mode stream returns EOF without setting errno, unlike glibc
+                 return -errno;
++#else // 0
++                return errno_or_else(EBADF);
++#endif // 0
+ 
+         if (needs_nl)
+                 if (fputc('\n', f) == EOF)
++#if 0 /// elogind: musl fputc() to a read-mode stream returns EOF without setting errno, unlike glibc
+                         return -errno;
++#else // 0
++                        return errno_or_else(EBADF);
++#endif // 0
+ 
+         if (flags & WRITE_STRING_FILE_SYNC)
+                 r = fflush_sync_and_check(f);

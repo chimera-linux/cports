@@ -1,14 +1,101 @@
-just like the other part it's already patched in, not actually used
---
+From 0ba931c7c6dfae18c819be9425ea74e9f18a0313 Mon Sep 17 00:00:00 2001
+From: Sven Eden <sven@eden-worx.com>
+Date: Tue, 6 Oct 2026 17:57:34 +0200
+Subject: [PATCH] meson: Add `libc` option and musl gshadow support
+
++ Add `libc` option (glibc/musl) to meson_options.txt
++ Include musl compatibility header `src/include/musl/gshadow.h` when
+  libc is musl
++ Use local `gshadow.h` instead of system one in `user-record-nss.h` for
+  musl
+
+Bug: #362
+Signed-off-by: Sven Eden <sven@eden-worx.com>
+---
+This commit was incomplete, see issue for more info
+https://github.com/elogind/elogind/issues/362
+
+ meson.build                  |  6 ++++++
+ meson_options.txt            |  5 +++++
+ src/include/musl/gshadow.h   | 22 ++++++++++++++++++++++
+ src/shared/user-record-nss.h |  4 ++++
+ 4 files changed, 37 insertions(+)
+ create mode 100644 src/include/musl/gshadow.h
+
+diff --git a/meson.build b/meson.build
+index bbf30d4..a7b65f3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -2536,6 +2536,12 @@ basic_includes = include_directories(
+         'src/systemd',
+         '.')
+ 
++#if 1 /// if elogind is built on musl, we have to include some overloads
++if get_option('libc') == 'musl'
++basic_includes = [include_directories('src/include/musl'), basic_includes]
++endif
++#endif // 1
++
+ #if 0 /// elogind has fewer subdirectories here, and needs a few others
+ # libsystemd_includes = [basic_includes, include_directories(
+ #         'src/libsystemd/sd-bus',
+diff --git a/meson_options.txt b/meson_options.txt
+index 4afd184..357316d 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -472,6 +472,11 @@ option('polkit', type : 'feature', deprecated : { 'true' : 'enabled', 'false' :
+ #        description : 'IPE support')
+ #endif // 0
+ 
++#if 1 /// early adoption of the 'libc' option, so elogind can keep supporting musl
++option('libc', type : 'combo', choices : ['glibc', 'musl'],
++       description : 'libc implementation to be used')
++#endif // 1
++
+ option('acl', type : 'feature', deprecated : { 'true' : 'enabled', 'false' : 'disabled' },
+        description : 'libacl support')
+ option('audit', type : 'feature', deprecated : { 'true' : 'enabled', 'false' : 'disabled' },
+diff --git a/src/include/musl/gshadow.h b/src/include/musl/gshadow.h
+new file mode 100644
+index 0000000..b57c74c
+--- /dev/null
++++ b/src/include/musl/gshadow.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: LGPL-2.1-or-later */
++#pragma once
++
++#include <errno.h>
++#include <stddef.h>
++
++struct sgrp {
++        char *sg_namp;
++        char *sg_passwd;
++        char **sg_adm;
++        char **sg_mem;
++};
++
++static inline int getsgnam_r(
++                const char *__name,
++                struct sgrp *__result_buf,
++                char *__buffer,
++                size_t __buflen,
++                struct sgrp **__result) {
++
++        return EOPNOTSUPP; /* this function returns positive errno in case of error. */
++}
 diff --git a/src/shared/user-record-nss.h b/src/shared/user-record-nss.h
-index 7a41be7..3a970a6 100644
+index 22ab04d..783bcf5 100644
 --- a/src/shared/user-record-nss.h
 +++ b/src/shared/user-record-nss.h
-@@ -2,7 +2,6 @@
+@@ -2,7 +2,11 @@
  #pragma once
  
  #include <grp.h>
--#include <gshadow.h>
++#if 0 /// to support musl, elogind uses a stub gshadow.h
+ #include <gshadow.h>
++#else // 0
++#include "gshadow.h"
++#endif // 0
  #include <pwd.h>
  #include <shadow.h>
  
