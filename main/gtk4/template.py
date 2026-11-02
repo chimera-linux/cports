@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.24.0"
+pkgver = "4.24.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -90,7 +90,7 @@ pkgdesc = "Gimp Toolkit version 4"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "28ba4ac1c04f86eac09b79a163cb163a4c2b54442d9f7eccc04679062a581044"
+sha256 = "e98abe720e16129c8c0f50761dee0a2e9ae2478055e31018f6cf977fcf6513e9"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]

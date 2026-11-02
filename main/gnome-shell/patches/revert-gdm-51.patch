@@ -1,6 +1,6 @@
-commit 718622083bbc586f204ac435ae0b5c9f34c8a53f
+commit 40cad07704634a622057751d76772ce75a3e7d39
 Author: q66 <q66@chimera-linux.org>
-Date:   Thu Sep 17 13:47:38 2026 +0200
+Date:   Mon Nov 2 15:40:47 2026 +0100
 
     revert all the gdm changes in 51 that broke gdm 48 interaction
     
@@ -10,22 +10,24 @@ Date:   Thu Sep 17 13:47:38 2026 +0200
     with current gnome-shell
 
 diff --git a/data/theme/gnome-shell-sass/widgets/_login-lock.scss b/data/theme/gnome-shell-sass/widgets/_login-lock.scss
-index 707aeb2d0..12a35de61 100644
+index d760b2e..eb8c280 100644
 --- a/data/theme/gnome-shell-sass/widgets/_login-lock.scss
 +++ b/data/theme/gnome-shell-sass/widgets/_login-lock.scss
-@@ -15,11 +15,6 @@ $_gdm_dialog_width: 25em;
+@@ -14,11 +14,11 @@ $_gdm_dialog_width: 25em;
+ 
    .login-dialog-prompt-layout {
      width: $_gdm_dialog_width * 1.2;
-     margin-top: 80px;
--
--    &.web-login-active {
--      width: $_gdm_dialog_width * 1.5;
--      margin-top: 0;
--    }
+-    height: 550px;
++    margin-top: 80px;
    }
  
    .login-dialog-input-well {
-@@ -62,7 +57,6 @@ $_gdm_dialog_width: 25em;
+-    margin: $base_padding * 1.5 0;
++    spacing: $base_padding * 1.5;
+   }
+ 
+   .login-dialog-prompt-entry-area {
+@@ -57,7 +57,6 @@ $_gdm_dialog_width: 25em;
    &.a11y-button,
    &.cancel-button,
    &.switch-user-button,
@@ -33,7 +35,7 @@ index 707aeb2d0..12a35de61 100644
    &.login-dialog-session-list-button {
      @extend .icon-button;
      @extend %system_button;
-@@ -81,65 +75,6 @@ $_gdm_dialog_width: 25em;
+@@ -76,65 +75,6 @@ $_gdm_dialog_width: 25em;
    }
  }
  
@@ -99,7 +101,28 @@ index 707aeb2d0..12a35de61 100644
  .login-dialog-button-box {
    height: 4em;
  }
-@@ -362,94 +297,6 @@ $_gdm_dialog_width: 25em;
+@@ -176,7 +116,6 @@ $_gdm_dialog_width: 25em;
+ 
+ .login-dialog-message {
+   text-align: center;
+-  margin-top: 2em;
+ }
+ 
+ .login-dialog-message-hint, .login-dialog-message {
+@@ -210,11 +149,11 @@ $_gdm_dialog_width: 25em;
+ // Authentication methods list
+ .login-dialog-auth-list-view {
+   -st-vfade-offset: 3em;
++  max-height: 13em;
+ }
+ 
+ .login-dialog-auth-list {
+   spacing: $base_padding * 1.5;
+-  margin-top: 0.5em;
+ }
+ 
+ .login-dialog {
+@@ -358,94 +297,6 @@ $_gdm_dialog_width: 25em;
    }
  }
  
@@ -178,7 +201,7 @@ index 707aeb2d0..12a35de61 100644
 -
 -  .web-login-prompt-button {
 -    padding: $base_padding * 2.5 $base_padding * 4;
--    margin: $base_margin * 6 $base_margin * 2;
+-    margin: $base_margin * 6 $base_margin * 2 0;
 -    min-width: 8em;
 -  }
 -}
@@ -194,9 +217,37 @@ index 707aeb2d0..12a35de61 100644
  // Screen Shield
  // a.k.a. the lockscreen, uses transparent styles
  .unlock-dialog {
+@@ -474,6 +325,7 @@ $_gdm_dialog_width: 25em;
+ .unlock-dialog-clock {
+   color: $_gdm_fg;
+   spacing: 2em;
++  margin-top: 150px;
+ 
+   .unlock-dialog-clock-time {
+     @extend %numeric;
+diff --git a/js/gdm/authList.js b/js/gdm/authList.js
+index 7535e5c..f0faa55 100644
+--- a/js/gdm/authList.js
++++ b/js/gdm/authList.js
+@@ -194,6 +194,7 @@ export class AuthList extends St.BoxLayout {
+         super({
+             orientation: Clutter.Orientation.VERTICAL,
+             style_class: 'login-dialog-auth-list-layout',
++            y_align: Clutter.ActorAlign.CENTER,
+             x_expand: true,
+         });
+ 
+@@ -206,7 +207,6 @@ export class AuthList extends St.BoxLayout {
+         this._scrollView = new St.ScrollView({
+             style_class: 'login-dialog-auth-list-view',
+             child: this._box,
+-            y_expand: true,
+         });
+         this.add_child(this._scrollView);
+ 
 diff --git a/js/gdm/authMenuButton.js b/js/gdm/authMenuButton.js
 deleted file mode 100644
-index 52ff6bb54..000000000
+index 52ff6bb..0000000
 --- a/js/gdm/authMenuButton.js
 +++ /dev/null
 @@ -1,519 +0,0 @@
@@ -720,7 +771,7 @@ index 52ff6bb54..000000000
 -    }
 -}
 diff --git a/js/gdm/authPrompt.js b/js/gdm/authPrompt.js
-index 06a875809..3bb57c97e 100644
+index e5371ea..074751f 100644
 --- a/js/gdm/authPrompt.js
 +++ b/js/gdm/authPrompt.js
 @@ -10,12 +10,10 @@ import St from 'gi://St';
@@ -769,7 +820,7 @@ index 06a875809..3bb57c97e 100644
  
          let reauthenticationOnly;
          if (this._mode === AuthPromptMode.UNLOCK_ONLY)
-@@ -182,16 +168,16 @@ export const AuthPrompt = GObject.registerClass({
+@@ -182,28 +168,28 @@ export const AuthPrompt = GObject.registerClass({
          this._userVerifier = this._createUserVerifier(this._gdmClient, {reauthenticationOnly});
  
          this._userVerifier.connectObject(
@@ -794,7 +845,30 @@ index 06a875809..3bb57c97e 100644
  
          this.connect('destroy', this._onDestroy.bind(this));
  
-@@ -237,7 +223,7 @@ export const AuthPrompt = GObject.registerClass({
+         this._userWell = new St.Bin({
+             x_expand: true,
++            y_expand: true,
+         });
+         this.add_child(this._userWell);
+ 
+         this._inputWell = new St.BoxLayout({
+             style_class: 'login-dialog-input-well',
+             orientation: Clutter.Orientation.VERTICAL,
+-            y_align: Clutter.ActorAlign.START,
+         });
+         this.add_child(this._inputWell);
+         this._mainContent = this._inputWell;
+@@ -226,7 +212,9 @@ export const AuthPrompt = GObject.registerClass({
+         this._message = new St.Label({
+             opacity: 0,
+             styleClass: 'login-dialog-message',
++            y_expand: true,
+             x_expand: true,
++            y_align: Clutter.ActorAlign.START,
+             x_align: Clutter.ActorAlign.CENTER,
+         });
+         this._message.clutter_text.line_wrap = true;
+@@ -235,7 +223,7 @@ export const AuthPrompt = GObject.registerClass({
      }
  
      _createUserVerifier(gdmClient, params) {
@@ -803,7 +877,7 @@ index 06a875809..3bb57c97e 100644
      }
  
      _onDestroy() {
-@@ -251,7 +237,7 @@ export const AuthPrompt = GObject.registerClass({
+@@ -251,7 +239,7 @@ export const AuthPrompt = GObject.registerClass({
  
      on_key_press_event(event) {
          if (event.get_key_symbol() === Clutter.KEY_Escape) {
@@ -812,7 +886,15 @@ index 06a875809..3bb57c97e 100644
              return Clutter.EVENT_STOP;
          }
          return Clutter.EVENT_PROPAGATE;
-@@ -274,13 +260,26 @@ export const AuthPrompt = GObject.registerClass({
+@@ -261,7 +249,6 @@ export const AuthPrompt = GObject.registerClass({
+         this._mainBox = new St.BoxLayout({
+             style_class: 'login-dialog-button-box',
+             orientation: Clutter.Orientation.HORIZONTAL,
+-            y_expand: false,
+         });
+         this._inputWell.add_child(this._mainBox);
+ 
+@@ -275,13 +262,26 @@ export const AuthPrompt = GObject.registerClass({
              y_align: Clutter.ActorAlign.CENTER,
              icon_name: 'go-previous-symbolic',
          });
@@ -841,7 +923,7 @@ index 06a875809..3bb57c97e 100644
          this._inputWell.add_child(this._authList);
  
          this._authListTitle = new St.Bin({
-@@ -378,22 +377,6 @@ export const AuthPrompt = GObject.registerClass({
+@@ -379,22 +379,6 @@ export const AuthPrompt = GObject.registerClass({
  
          this.setActorInDefaultButtonWell(this._nextButton);
  
@@ -864,7 +946,7 @@ index 06a875809..3bb57c97e 100644
          // center elements inside _mainBox between the cancel
          // button on the left and this spacer on the right
          this._mainBox.add_child(new Clutter.Actor({
-@@ -408,7 +391,7 @@ export const AuthPrompt = GObject.registerClass({
+@@ -409,7 +393,7 @@ export const AuthPrompt = GObject.registerClass({
          if (this._mode === AuthPromptMode.UNLOCK_OR_LOG_IN)
              return;
  
@@ -873,7 +955,7 @@ index 06a875809..3bb57c97e 100644
          this.cancelButton.opacity = cancelVisible ? 255 : 0;
          this.cancelButton.reactive = cancelVisible;
      }
-@@ -458,7 +441,7 @@ export const AuthPrompt = GObject.registerClass({
+@@ -459,7 +443,7 @@ export const AuthPrompt = GObject.registerClass({
              this.startSpinning({animate: true});
  
          if (this._queryingService)
@@ -882,7 +964,7 @@ index 06a875809..3bb57c97e 100644
          else
              this._preemptiveAnswer = this._entry.text;
  
-@@ -490,37 +473,18 @@ export const AuthPrompt = GObject.registerClass({
+@@ -491,37 +475,18 @@ export const AuthPrompt = GObject.registerClass({
          this._capsLockWarningLabel.visible = secret;
      }
  
@@ -924,7 +1006,7 @@ index 06a875809..3bb57c97e 100644
              return;
          }
  
-@@ -537,39 +501,63 @@ export const AuthPrompt = GObject.registerClass({
+@@ -538,39 +503,63 @@ export const AuthPrompt = GObject.registerClass({
          this.emit('prompted');
      }
  
@@ -998,7 +1080,7 @@ index 06a875809..3bb57c97e 100644
          const wigglePromise = shouldWiggle
              ? wiggle(this._message, {duration: 65, wiggleCount: 3})
              : Promise.resolve();
-@@ -577,73 +565,13 @@ export const AuthPrompt = GObject.registerClass({
+@@ -578,71 +567,13 @@ export const AuthPrompt = GObject.registerClass({
          showMessageResolver?.(wigglePromise);
      }
  
@@ -1045,7 +1127,6 @@ index 06a875809..3bb57c97e 100644
 -        this._mainBox.show();
 -
 -        this.webLoginActive = false;
--        this.remove_style_class_name('web-login-active');
 -    }
 -
 -    _openWebLoginDialog() {
@@ -1057,7 +1138,6 @@ index 06a875809..3bb57c97e 100644
 -        this.updateSensitivity({sensitive: true});
 -
 -        this.webLoginActive = true;
--        this.add_style_class_name('web-login-active');
 -    }
 -
 -    _onVerificationFailed({serviceName, canRetry}) {
@@ -1074,7 +1154,7 @@ index 06a875809..3bb57c97e 100644
              this.verificationStatus = AuthPromptStatus.VERIFYING;
              this._entry.text = '';
              this.startPreemptiveInput();
-@@ -661,13 +589,11 @@ export const AuthPrompt = GObject.registerClass({
+@@ -660,13 +591,11 @@ export const AuthPrompt = GObject.registerClass({
          this.stopSpinning({animate: true});
          this.verificationStatus = AuthPromptStatus.VERIFICATION_SUCCEEDED;
  
@@ -1093,7 +1173,7 @@ index 06a875809..3bb57c97e 100644
          });
  
          this.emit('verification-complete');
-@@ -739,9 +665,6 @@ export const AuthPrompt = GObject.registerClass({
+@@ -738,9 +667,6 @@ export const AuthPrompt = GObject.registerClass({
      stopSpinning({animate = false} = {}) {
          this.emit('loading', false);
          this.setActorInDefaultButtonWell(this._nextButton, animate);
@@ -1103,7 +1183,7 @@ index 06a875809..3bb57c97e 100644
      }
  
      clear(params) {
-@@ -761,56 +684,20 @@ export const AuthPrompt = GObject.registerClass({
+@@ -760,56 +686,20 @@ export const AuthPrompt = GObject.registerClass({
          this._authListTitle.child.text = '';
          this._authList.clear();
          this._authList.hide();
@@ -1163,7 +1243,7 @@ index 06a875809..3bb57c97e 100644
      _fadeInElement(element) {
          if (element.visible)
              return;
-@@ -864,12 +751,12 @@ export const AuthPrompt = GObject.registerClass({
+@@ -863,12 +753,12 @@ export const AuthPrompt = GObject.registerClass({
      }
  
      setMessage(message, type) {
@@ -1178,7 +1258,7 @@ index 06a875809..3bb57c97e 100644
              this._message.add_style_class_name('login-dialog-message-hint');
          else
              this._message.remove_style_class_name('login-dialog-message-hint');
-@@ -890,8 +777,6 @@ export const AuthPrompt = GObject.registerClass({
+@@ -889,8 +779,6 @@ export const AuthPrompt = GObject.registerClass({
  
          const authWidget = [
              this._authList,
@@ -1187,7 +1267,7 @@ index 06a875809..3bb57c97e 100644
          ].find(widget => widget.visible) ?? this._entry;
  
          if (authWidget === this._entry)
-@@ -929,22 +814,6 @@ export const AuthPrompt = GObject.registerClass({
+@@ -928,22 +816,6 @@ export const AuthPrompt = GObject.registerClass({
          this._userWell.set_child(userWidget);
      }
  
@@ -1210,7 +1290,7 @@ index 06a875809..3bb57c97e 100644
      reset(params) {
          let {reuseEntryText, softReset} = Params.parse(params, {
              reuseEntryText: false,
-@@ -955,18 +824,18 @@ export const AuthPrompt = GObject.registerClass({
+@@ -954,18 +826,18 @@ export const AuthPrompt = GObject.registerClass({
          this.verificationStatus = AuthPromptStatus.NOT_VERIFYING;
          if (oldStatus !== AuthPromptStatus.VERIFICATION_IN_PROGRESS)
              this._preemptiveAnswer = null;
@@ -1234,7 +1314,7 @@ index 06a875809..3bb57c97e 100644
          this.updateEntry(true);
  
          if (oldStatus === AuthPromptStatus.VERIFICATION_FAILED)
-@@ -982,7 +851,7 @@ export const AuthPrompt = GObject.registerClass({
+@@ -981,7 +853,7 @@ export const AuthPrompt = GObject.registerClass({
              if (oldStatus === AuthPromptStatus.VERIFICATION_CANCELLED)
                  return;
              resetType = ResetType.PROVIDE_USERNAME;
@@ -1243,7 +1323,7 @@ index 06a875809..3bb57c97e 100644
              // We don't need to know the username if the user preempted the login screen
              // with a smartcard or with preauthenticated oVirt credentials
              resetType = ResetType.DONT_PROVIDE_USERNAME;
-@@ -1041,8 +910,11 @@ export const AuthPrompt = GObject.registerClass({
+@@ -1040,8 +912,11 @@ export const AuthPrompt = GObject.registerClass({
          if (!this._preemptiveInput)
              this.updateSensitivity({sensitive: false});
  
@@ -1257,7 +1337,7 @@ index 06a875809..3bb57c97e 100644
          this.verificationStatus = AuthPromptStatus.VERIFYING;
      }
  
-@@ -1060,26 +932,12 @@ export const AuthPrompt = GObject.registerClass({
+@@ -1059,26 +934,12 @@ export const AuthPrompt = GObject.registerClass({
          });
      }
  
@@ -1287,7 +1367,7 @@ index 06a875809..3bb57c97e 100644
          }
 diff --git a/js/gdm/authServices.js b/js/gdm/authServices.js
 deleted file mode 100644
-index d0f7659a5..000000000
+index d0f7659..0000000
 --- a/js/gdm/authServices.js
 +++ /dev/null
 @@ -1,537 +0,0 @@
@@ -1830,7 +1910,7 @@ index d0f7659a5..000000000
 -}
 diff --git a/js/gdm/authServicesLegacy.js b/js/gdm/authServicesLegacy.js
 deleted file mode 100644
-index 12adc63fb..000000000
+index 12adc63..0000000
 --- a/js/gdm/authServicesLegacy.js
 +++ /dev/null
 @@ -1,450 +0,0 @@
@@ -2286,10 +2366,10 @@ index 12adc63fb..000000000
 -}
 diff --git a/js/gdm/authServicesSSSDSwitchable.js b/js/gdm/authServicesSSSDSwitchable.js
 deleted file mode 100644
-index cf6a4e1fb..000000000
+index 627d3a9..0000000
 --- a/js/gdm/authServicesSSSDSwitchable.js
 +++ /dev/null
-@@ -1,639 +0,0 @@
+@@ -1,643 +0,0 @@
 -import GLib from 'gi://GLib';
 -import GObject from 'gi://GObject';
 -
@@ -2591,7 +2671,8 @@ index cf6a4e1fb..000000000
 -    }
 -
 -    _handleOnInfo(serviceName, info) {
--        if (!this._eventExpected())
+-        if (serviceName !== SWITCHABLE_AUTH_SERVICE_NAME ||
+-            !this._eventExpected())
 -            return;
 -
 -        // sssd can't inform about expired password from JSON so it's needed
@@ -2611,7 +2692,8 @@ index cf6a4e1fb..000000000
 -    }
 -
 -    _handleOnProblem(serviceName, problem) {
--        if (!this._eventExpected())
+-        if (serviceName !== SWITCHABLE_AUTH_SERVICE_NAME ||
+-            !this._eventExpected())
 -            return;
 -
 -        if (serviceName === this._selectedMechanism?.serviceName) {
@@ -2623,14 +2705,16 @@ index cf6a4e1fb..000000000
 -        }
 -    }
 -
--    _handleOnInfoQuery() {
--        if (!this._eventExpected())
+-    _handleOnInfoQuery(serviceName) {
+-        if (serviceName !== SWITCHABLE_AUTH_SERVICE_NAME ||
+-            !this._eventExpected())
 -            // eslint-disable-next-line no-useless-return
 -            return;
 -    }
 -
 -    _handleOnSecretInfoQuery(serviceName, secretQuestion) {
--        if (!this._eventExpected())
+-        if (serviceName !== SWITCHABLE_AUTH_SERVICE_NAME ||
+-            !this._eventExpected())
 -            return;
 -
 -        if (serviceName === this._selectedMechanism?.serviceName &&
@@ -2931,7 +3015,7 @@ index cf6a4e1fb..000000000
 -}
 diff --git a/js/gdm/fido2TokenManager.js b/js/gdm/fido2TokenManager.js
 deleted file mode 100644
-index 82ed2e094..000000000
+index 82ed2e0..0000000
 --- a/js/gdm/fido2TokenManager.js
 +++ /dev/null
 @@ -1,69 +0,0 @@
@@ -3006,7 +3090,7 @@ index 82ed2e094..000000000
 -}
 diff --git a/js/gdm/fingerprintManager.js b/js/gdm/fingerprintManager.js
 deleted file mode 100644
-index 2577facbb..000000000
+index 2577fac..0000000
 --- a/js/gdm/fingerprintManager.js
 +++ /dev/null
 @@ -1,138 +0,0 @@
@@ -3149,7 +3233,7 @@ index 2577facbb..000000000
 -    }
 -}
 diff --git a/js/gdm/loginDialog.js b/js/gdm/loginDialog.js
-index 4cf02499f..6f6194ad2 100644
+index bb59fb7..e5c7b91 100644
 --- a/js/gdm/loginDialog.js
 +++ b/js/gdm/loginDialog.js
 @@ -27,13 +27,11 @@ import Pango from 'gi://Pango';
@@ -3166,7 +3250,7 @@ index 4cf02499f..6f6194ad2 100644
  import * as Layout from '../ui/layout.js';
  import * as LoginManager from '../misc/loginManager.js';
  import * as Main from '../ui/main.js';
-@@ -42,7 +40,6 @@ import * as PopupMenu from '../ui/popupMenu.js';
+@@ -42,16 +40,13 @@ import * as PopupMenu from '../ui/popupMenu.js';
  import * as Realmd from './realmd.js';
  import * as UserWidget from '../ui/userWidget.js';
  import {QuickSettingsMenu} from '../ui/quickSettings.js';
@@ -3174,8 +3258,9 @@ index 4cf02499f..6f6194ad2 100644
  import * as A11y from '../ui/status/accessibility.js';
  
  const _FADE_ANIMATION_TIME = 250;
-@@ -50,8 +47,6 @@ const _SCROLL_ANIMATION_TIME = 500;
- const _FIXED_TOP_ACTOR_HEIGHT = 550;
+ const _SCROLL_ANIMATION_TIME = 500;
+-const _AUTH_PROMPT_VERTICAL_CENTER_OFFSET = 50;
++const _FIXED_TOP_ACTOR_HEIGHT = 550;
  const _TIMED_LOGIN_IDLE_THRESHOLD = 5.0;
  const _CONFLICTING_SESSION_DIALOG_TIMEOUT = 60;
 -const _PRIMARY_LOGIN_METHOD_SECTION_NAME = _('Login Options');
@@ -3429,7 +3514,57 @@ index 4cf02499f..6f6194ad2 100644
      _getBannerAllocation(dialogBox) {
          const actorBox = new Clutter.ActorBox();
  
-@@ -844,7 +871,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -643,7 +670,29 @@ export const LoginDialog = GObject.registerClass({
+         return actorBox;
+     }
+ 
+-    _getCenterActorAllocation(dialogBox, actor, offsetY = 0) {
++    _getFixedTopActorAllocation(dialogBox, actor) {
++        const actorBox = new Clutter.ActorBox();
++
++        let [, , natWidth, natHeight] = actor.get_preferred_size();
++        const dialogWidth = dialogBox.x2 - dialogBox.x1;
++        const dialogHeight = dialogBox.y2 - dialogBox.y1;
++        const centerX = dialogBox.x1 + dialogWidth / 2;
++        const centerY = dialogBox.y1 + dialogHeight / 2;
++
++        const top = centerY - _FIXED_TOP_ACTOR_HEIGHT / 2;
++
++        natWidth = Math.min(natWidth, dialogWidth);
++        natHeight = Math.min(natHeight, dialogHeight);
++
++        actorBox.x1 = Math.floor(centerX - natWidth / 2);
++        actorBox.y1 = Math.floor(top);
++        actorBox.x2 = actorBox.x1 + natWidth;
++        actorBox.y2 = actorBox.y1 + natHeight;
++
++        return actorBox;
++    }
++
++    _getCenterActorAllocation(dialogBox, actor) {
+         const actorBox = new Clutter.ActorBox();
+ 
+         let [, , natWidth, natHeight] = actor.get_preferred_size();
+@@ -654,7 +703,7 @@ export const LoginDialog = GObject.registerClass({
+         natHeight = Math.min(natHeight, dialogBox.y2 - dialogBox.y1);
+ 
+         actorBox.x1 = Math.floor(centerX - natWidth / 2);
+-        actorBox.y1 = Math.floor(centerY - natHeight / 2) + offsetY;
++        actorBox.y1 = Math.floor(centerY - natHeight / 2);
+         actorBox.x2 = actorBox.x1 + natWidth;
+         actorBox.y2 = actorBox.y1 + natHeight;
+ 
+@@ -681,8 +730,7 @@ export const LoginDialog = GObject.registerClass({
+         let authPromptAllocation = null;
+         let authPromptWidth = 0;
+         if (this._authPrompt.visible) {
+-            authPromptAllocation = this._getCenterActorAllocation(
+-                dialogBox, this._authPrompt, _AUTH_PROMPT_VERTICAL_CENTER_OFFSET);
++            authPromptAllocation = this._getFixedTopActorAllocation(dialogBox, this._authPrompt);
+             authPromptWidth = authPromptAllocation.x2 - authPromptAllocation.x1;
+         }
+ 
+@@ -820,7 +868,7 @@ export const LoginDialog = GObject.registerClass({
      }
  
      _updateDisableUserList() {
@@ -3438,7 +3573,7 @@ index 4cf02499f..6f6194ad2 100644
  
          // Disable user list when there are no users.
          if (this._userListLoaded && this._userList.numItems() === 0)
-@@ -876,8 +903,8 @@ export const LoginDialog = GObject.registerClass({
+@@ -852,8 +900,8 @@ export const LoginDialog = GObject.registerClass({
      }
  
      _updateBannerMessageFile() {
@@ -3449,7 +3584,7 @@ index 4cf02499f..6f6194ad2 100644
              : null;
          const file = path
              ? Gio.File.new_for_path(path)
-@@ -904,7 +931,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -880,7 +928,7 @@ export const LoginDialog = GObject.registerClass({
      }
  
      async _getBannerText() {
@@ -3458,7 +3593,7 @@ index 4cf02499f..6f6194ad2 100644
          if (!enabled)
              return null;
  
-@@ -918,7 +945,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -894,7 +942,7 @@ export const LoginDialog = GObject.registerClass({
              }
          }
  
@@ -3467,7 +3602,7 @@ index 4cf02499f..6f6194ad2 100644
      }
  
      async _updateBanner() {
-@@ -964,15 +991,17 @@ export const LoginDialog = GObject.registerClass({
+@@ -940,15 +988,17 @@ export const LoginDialog = GObject.registerClass({
      }
  
      _updateLogo() {
@@ -3487,7 +3622,7 @@ index 4cf02499f..6f6194ad2 100644
          this._showPrompt();
      }
  
-@@ -999,7 +1028,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -975,7 +1025,7 @@ export const LoginDialog = GObject.registerClass({
  
      _onReset(authPrompt, resetType) {
          this._ensureGreeterProxy();
@@ -3496,7 +3631,7 @@ index 4cf02499f..6f6194ad2 100644
  
          const previousUser = this._user;
          this._user = null;
-@@ -1023,16 +1052,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -999,16 +1049,7 @@ export const LoginDialog = GObject.registerClass({
          }
      }
  
@@ -3514,7 +3649,7 @@ index 4cf02499f..6f6194ad2 100644
          this._bottomButtonGroup.reactive = false;
          this._bottomButtonGroup.ease({
              opacity: 0,
-@@ -1041,40 +1061,23 @@ export const LoginDialog = GObject.registerClass({
+@@ -1017,40 +1058,23 @@ export const LoginDialog = GObject.registerClass({
          });
      }
  
@@ -3568,7 +3703,7 @@ index 4cf02499f..6f6194ad2 100644
      }
  
      _showPrompt() {
-@@ -1100,8 +1103,7 @@ export const LoginDialog = GObject.registerClass({
+@@ -1076,8 +1100,7 @@ export const LoginDialog = GObject.registerClass({
  
          // Translators: this message is shown below the username entry field
          // to clue the user in on how to login to the local network realm
@@ -3578,7 +3713,7 @@ index 4cf02499f..6f6194ad2 100644
      }
  
      _askForUsernameAndBeginVerification() {
-@@ -1120,12 +1122,13 @@ export const LoginDialog = GObject.registerClass({
+@@ -1096,12 +1119,13 @@ export const LoginDialog = GObject.registerClass({
                  this._authPrompt.updateSensitivity({sensitive: false});
                  const answer = this._authPrompt.getAnswer();
                  this._user = this._userManager.get_user(answer);
@@ -3594,7 +3729,7 @@ index 4cf02499f..6f6194ad2 100644
          this._showPrompt();
      }
  
-@@ -1445,7 +1448,6 @@ export const LoginDialog = GObject.registerClass({
+@@ -1421,7 +1445,6 @@ export const LoginDialog = GObject.registerClass({
  
      _hideUserListAndBeginVerification() {
          this._hideUserList();
@@ -3602,7 +3737,7 @@ index 4cf02499f..6f6194ad2 100644
          this._authPrompt.begin();
      }
  
-@@ -1453,7 +1455,8 @@ export const LoginDialog = GObject.registerClass({
+@@ -1429,7 +1452,8 @@ export const LoginDialog = GObject.registerClass({
          this._ensureUserListLoaded();
          this._authPrompt.hide();
          this._hideBannerView();
@@ -3612,7 +3747,7 @@ index 4cf02499f..6f6194ad2 100644
          this._setUserListExpanded(true);
          this._notListedButton.show();
          this._userList.grab_key_focus();
-@@ -1472,8 +1475,6 @@ export const LoginDialog = GObject.registerClass({
+@@ -1448,8 +1472,6 @@ export const LoginDialog = GObject.registerClass({
      _onUserListActivated(activatedItem) {
          this._user = activatedItem.user;
  
@@ -3623,7 +3758,7 @@ index 4cf02499f..6f6194ad2 100644
          if (this._conflictingSessionNotification)
 diff --git a/js/gdm/settings.js b/js/gdm/settings.js
 deleted file mode 100644
-index bb44b0adb..000000000
+index bb44b0a..0000000
 --- a/js/gdm/settings.js
 +++ /dev/null
 @@ -1,14 +0,0 @@
@@ -3643,7 +3778,7 @@ index bb44b0adb..000000000
 -export const SWITCHABLE_AUTHENTICATION_KEY = 'enable-switchable-authentication';
 diff --git a/js/gdm/userVerifier.js b/js/gdm/userVerifier.js
 deleted file mode 100644
-index 039da1d55..000000000
+index 039da1d..0000000
 --- a/js/gdm/userVerifier.js
 +++ /dev/null
 @@ -1,506 +0,0 @@
@@ -4154,7 +4289,7 @@ index 039da1d55..000000000
 -    }
 -}
 diff --git a/js/gdm/util.js b/js/gdm/util.js
-index 10f9131d9..85d64fe26 100644
+index 10f9131..85d64fe 100644
 --- a/js/gdm/util.js
 +++ b/js/gdm/util.js
 @@ -1,10 +1,73 @@
@@ -5070,10 +5205,10 @@ index 10f9131d9..85d64fe26 100644
 +}
 diff --git a/js/gdm/webLogin.js b/js/gdm/webLogin.js
 deleted file mode 100644
-index cb8d1bfbc..000000000
+index a993246..0000000
 --- a/js/gdm/webLogin.js
 +++ /dev/null
-@@ -1,287 +0,0 @@
+@@ -1,327 +0,0 @@
 -// A widget showing a URL for web login
 -
 -import Clutter from 'gi://Clutter';
@@ -5087,6 +5222,43 @@ index cb8d1bfbc..000000000
 -const QR_CODE_SIZE = 150;
 -const WEB_LOGIN_SPINNER_SIZE = 35;
 -const URL_LABEL_LONG_THRESHOLD = 45;
+-
+-class LabelOverlayLayout extends Clutter.LayoutManager {
+-    static {
+-        GObject.registerClass(this);
+-    }
+-
+-    vfunc_get_preferred_width(_container, _forHeight) {
+-        return [0, 0];
+-    }
+-
+-    vfunc_get_preferred_height(container, forWidth) {
+-        const child = container.get_first_child();
+-        return child ? child.get_preferred_height(forWidth) : [0, 0];
+-    }
+-
+-    vfunc_allocate(container, box) {
+-        const child = container.get_first_child();
+-        if (!child)
+-            return;
+-
+-        const [, naturalWidth] = child.get_preferred_width(-1);
+-
+-        if (naturalWidth <= box.get_width()) {
+-            child.allocate(box);
+-            return;
+-        }
+-
+-        const center = (box.x1 + box.x2) / 2;
+-        const overflowBox = new Clutter.ActorBox({
+-            x1: Math.floor(center - naturalWidth / 2),
+-            x2: Math.floor(center + naturalWidth / 2),
+-            y1: box.y1,
+-            y2: box.y2,
+-        });
+-        child.allocate(overflowBox);
+-    }
+-}
 -
 -export class WebLoginPrompt extends St.BoxLayout {
 -    static {
@@ -5104,7 +5276,6 @@ index cb8d1bfbc..000000000
 -        super({
 -            styleClass: 'web-login-prompt',
 -            orientation: Clutter.Orientation.VERTICAL,
--            y_align: Clutter.ActorAlign.CENTER,
 -        });
 -
 -        this._urlTitleLabel = new St.Label({
@@ -5125,9 +5296,14 @@ index cb8d1bfbc..000000000
 -
 -        this._urlLabel = new St.Label({
 -            style_class: 'web-login-url-label',
+-            xAlign: Clutter.ActorAlign.CENTER,
+-        });
+-        const urlLabelBin = new St.Widget({
+-            layout_manager: new LabelOverlayLayout(),
 -            x_expand: true,
 -        });
--        this.add_child(this._urlLabel);
+-        urlLabelBin.add_child(this._urlLabel);
+-        this.add_child(urlLabelBin);
 -
 -        this._codeBox = new St.BoxLayout({
 -            x_align: Clutter.ActorAlign.CENTER,
@@ -5233,7 +5409,6 @@ index cb8d1bfbc..000000000
 -        this._contentBox = new St.BoxLayout({
 -            orientation: Clutter.Orientation.VERTICAL,
 -            x_expand: true,
--            y_expand: true,
 -        });
 -        this.add_child(this._contentBox);
 -
@@ -5362,7 +5537,7 @@ index cb8d1bfbc..000000000
 -    }
 -}
 diff --git a/js/js-resources.gresource.xml b/js/js-resources.gresource.xml
-index 9b9253bc5..d56abab07 100644
+index 9b9253b..d56abab 100644
 --- a/js/js-resources.gresource.xml
 +++ b/js/js-resources.gresource.xml
 @@ -2,25 +2,15 @@
@@ -5400,7 +5575,7 @@ index 9b9253bc5..d56abab07 100644
      <file>misc/timeLimitsManager.js</file>
      <file>misc/util.js</file>
 diff --git a/js/misc/dependencies.js b/js/misc/dependencies.js
-index fbb83d116..93f54c13e 100644
+index fbb83d1..93f54c1 100644
 --- a/js/misc/dependencies.js
 +++ b/js/misc/dependencies.js
 @@ -19,7 +19,6 @@ import 'gi://GnomeBG?version=4.0';
@@ -5415,7 +5590,7 @@ diff --git a/js/gdm/smartcardManager.js b/js/misc/smartcardManager.js
 similarity index 91%
 rename from js/gdm/smartcardManager.js
 rename to js/misc/smartcardManager.js
-index 911e74196..82c2cd6db 100644
+index 911e741..82c2cd6 100644
 --- a/js/gdm/smartcardManager.js
 +++ b/js/misc/smartcardManager.js
 @@ -1,7 +1,7 @@
@@ -5442,7 +5617,7 @@ index 911e74196..82c2cd6db 100644
  
          token.connectObject('g-properties-changed', (proxy, properties) => {
 diff --git a/js/ui/screenShield.js b/js/ui/screenShield.js
-index 5961ea149..ebed713bb 100644
+index 5961ea1..ebed713 100644
 --- a/js/ui/screenShield.js
 +++ b/js/ui/screenShield.js
 @@ -17,7 +17,7 @@ import * as Main from './main.js';
@@ -5455,7 +5630,7 @@ index 5961ea149..ebed713bb 100644
  import {adjustAnimationTime} from '../misc/animationUtils.js';
  
 diff --git a/js/ui/unlockDialog.js b/js/ui/unlockDialog.js
-index 21b47367c..a52c8e230 100644
+index 4a5e6d1..6705e3c 100644
 --- a/js/ui/unlockDialog.js
 +++ b/js/ui/unlockDialog.js
 @@ -16,14 +16,11 @@ import * as MessageTray from './messageTray.js';
@@ -5473,6 +5648,15 @@ index 21b47367c..a52c8e230 100644
  // The timeout before going back automatically to the lock screen (in seconds)
  const IDLE_TIMEOUT = 2 * 60;
  
+@@ -37,7 +34,7 @@ const FADE_OUT_SCALE = 0.3;
+ const BLUR_BRIGHTNESS = 0.65;
+ const BLUR_RADIUS = 90;
+ 
+-const AUTH_PROMPT_VERTICAL_CENTER_OFFSET = 50;
++const FIXED_PROMPT_HEIGHT = 550;
+ 
+ const NotificationsBox = GObject.registerClass({
+     Signals: {'wake-up-screen': {}},
 @@ -421,22 +418,10 @@ class UnlockDialogClock extends St.BoxLayout {
          this._date.text = formatDateWithCFormatString(date, dateFormat);
      }
@@ -5499,7 +5683,7 @@ index 21b47367c..a52c8e230 100644
      }
  
      _onDestroy() {
-@@ -448,13 +433,12 @@ class UnlockDialogClock extends St.BoxLayout {
+@@ -491,13 +476,12 @@ class UnlockStack extends Shell.Stack {
  
  const UnlockDialogLayout = GObject.registerClass(
  class UnlockDialogLayout extends Clutter.LayoutManager {
@@ -5515,7 +5699,21 @@ index 21b47367c..a52c8e230 100644
      }
  
      vfunc_get_preferred_width(container, forHeight) {
-@@ -506,40 +490,22 @@ class UnlockDialogLayout extends Clutter.LayoutManager {
+@@ -538,12 +522,8 @@ class UnlockDialogLayout extends Clutter.LayoutManager {
+         this._notifications.allocate(actorBox);
+ 
+         // Authentication Box
+-        // Offset applies only to the authPrompt, not the clock, so it fades
+-        // in/out together with the crossfade between the two.
+-        const progress = this._stack.progress;
+-        const offsetY = AUTH_PROMPT_VERTICAL_CENTER_OFFSET * progress;
+         const stackY = Math.min(
+-            Math.floor(centerY - stackHeight / 2.0) + offsetY,
++            Math.floor(centerY - FIXED_PROMPT_HEIGHT / 2.0),
+             height - stackHeight - maxNotificationsHeight);
+ 
+         actorBox.x1 = columnX1;
+@@ -553,40 +533,22 @@ class UnlockDialogLayout extends Clutter.LayoutManager {
  
          this._stack.allocate(actorBox);
  
@@ -5564,7 +5762,7 @@ index 21b47367c..a52c8e230 100644
          }
      }
  });
-@@ -565,7 +531,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -612,7 +574,6 @@ export const UnlockDialog = GObject.registerClass({
          try {
              this._gdmClient.set_enabled_extensions([
                  Gdm.UserVerifierChoiceList.interface_info().name,
@@ -5572,7 +5770,7 @@ index 21b47367c..a52c8e230 100644
              ]);
          } catch {
          }
-@@ -656,47 +621,19 @@ export const UnlockDialog = GObject.registerClass({
+@@ -701,47 +662,19 @@ export const UnlockDialog = GObject.registerClass({
          this._notificationsBox = new NotificationsBox();
          this._notificationsBox.connect('wake-up-screen', () => this.emit('wake-up-screen'));
  
@@ -5623,7 +5821,7 @@ index 21b47367c..a52c8e230 100644
  
          this._screenSaverSettings = new Gio.Settings({schema_id: 'org.gnome.desktop.screensaver'});
  
-@@ -727,13 +664,11 @@ export const UnlockDialog = GObject.registerClass({
+@@ -772,13 +705,11 @@ export const UnlockDialog = GObject.registerClass({
          mainBox.add_constraint(new Layout.MonitorConstraint({primary: true}));
          mainBox.add_child(this._stack);
          mainBox.add_child(this._notificationsBox);
@@ -5639,7 +5837,7 @@ index 21b47367c..a52c8e230 100644
          this.add_child(mainBox);
  
          this._idleMonitor = global.backend.get_core_idle_monitor();
-@@ -762,22 +697,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -807,22 +738,6 @@ export const UnlockDialog = GObject.registerClass({
          return Clutter.EVENT_PROPAGATE;
      }
  
@@ -5662,7 +5860,7 @@ index 21b47367c..a52c8e230 100644
      _createBackground(monitorIndex) {
          const monitor = Main.layoutManager.monitors[monitorIndex];
          const widget = new St.Widget({
-@@ -834,8 +753,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -879,8 +794,6 @@ export const UnlockDialog = GObject.registerClass({
              this._authPrompt.connect('failed', this._fail.bind(this));
              this._authPrompt.connect('cancelled', this._fail.bind(this));
              this._authPrompt.connect('reset', this._onReset.bind(this));
@@ -5671,7 +5869,7 @@ index 21b47367c..a52c8e230 100644
              this._promptBox.add_child(this._authPrompt);
          }
  
-@@ -862,7 +779,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -907,7 +820,6 @@ export const UnlockDialog = GObject.registerClass({
          if (this._authPrompt) {
              this._authPrompt.destroy();
              this._authPrompt = null;
@@ -5679,7 +5877,7 @@ index 21b47367c..a52c8e230 100644
          }
      }
  
-@@ -901,12 +817,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -948,12 +860,6 @@ export const UnlockDialog = GObject.registerClass({
              reactive: progress > 0,
              can_focus: progress > 0,
          });
@@ -5692,7 +5890,7 @@ index 21b47367c..a52c8e230 100644
  
          const {scaleFactor} = St.ThemeContext.get_for_stage(global.stage);
          const {reducedMotion} = St.Settings.get();
-@@ -936,15 +846,15 @@ export const UnlockDialog = GObject.registerClass({
+@@ -983,15 +889,15 @@ export const UnlockDialog = GObject.registerClass({
              ...clockMotionParams,
          });
  
@@ -5711,7 +5909,7 @@ index 21b47367c..a52c8e230 100644
          });
      }
  
-@@ -965,37 +875,6 @@ export const UnlockDialog = GObject.registerClass({
+@@ -1012,37 +918,6 @@ export const UnlockDialog = GObject.registerClass({
          this._authPrompt.begin({userName});
      }
  
@@ -5749,7 +5947,7 @@ index 21b47367c..a52c8e230 100644
      _escape() {
          if (this._authPrompt && this.allowCancel)
              this._authPrompt.cancel();
-@@ -1058,8 +937,7 @@ export const UnlockDialog = GObject.registerClass({
+@@ -1107,8 +982,7 @@ export const UnlockDialog = GObject.registerClass({
          this._otherUserButton.visible = this._userManager.can_switch() &&
              this._userManager.has_multiple_users &&
              this._screenSaverSettings.get_boolean('user-switch-enabled') &&
@@ -5760,7 +5958,7 @@ index 21b47367c..a52c8e230 100644
  
      _updateAuthBlocked() {
 diff --git a/js/ui/userWidget.js b/js/ui/userWidget.js
-index cb4150a27..944730849 100644
+index cb4150a..9447308 100644
 --- a/js/ui/userWidget.js
 +++ b/js/ui/userWidget.js
 @@ -215,12 +215,4 @@ class UserWidget extends St.BoxLayout {
@@ -5777,7 +5975,7 @@ index cb4150a27..944730849 100644
 -    }
  });
 diff --git a/po/POTFILES.in b/po/POTFILES.in
-index 7a4b97b37..bb669fe17 100644
+index 7a4b97b..bb669fe 100644
 --- a/po/POTFILES.in
 +++ b/po/POTFILES.in
 @@ -12,14 +12,9 @@ data/X-GNOME-Shell-Utilities.directory.desktop.in

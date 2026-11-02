@@ -1,8 +1,6 @@
 pkgname = "gnome-shell-extension-gsconnect"
-pkgver = "72"
-pkgrel = 1
-# until release with gnome 51
-_commit = "0be3a14d8a6db8bbd287d694e3397ce9f9888f0f"
+pkgver = "74"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
 make_check_wrapper = ["dbus-run-session", "--", "wlheadless-run", "--"]
@@ -22,8 +20,7 @@ checkdepends = ["dbus", "gnome-shell", "xwayland-run"]
 pkgdesc = "KDE Connect implementation for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
-source = f"{url}/archive/{_commit}.tar.gz"
-# source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "88ae39996b69f3a7e7d4f90bd1cec37991c01692eb82bb5c889fb49355280356"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "7eda214a9d48e3e8f674c4f37d551835d7c10f3695c5830294ff1562f4dbd184"
 # All tests fail in latest release https://github.com/GSConnect/gnome-shell-extension-gsconnect/issues/1786
 options = ["etcfiles", "!check"]

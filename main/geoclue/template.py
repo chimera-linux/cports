@@ -1,6 +1,6 @@
 pkgname = "geoclue"
-pkgver = "2.8.1"
-pkgrel = 2
+pkgver = "2.8.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddbus-srv-user=_geoclue",
@@ -28,7 +28,7 @@ pkgdesc = "D-Bus geoinformation service"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/{pkgver}/geoclue-{pkgver}.tar.bz2"
-sha256 = "1b5de03936bd8c031a1f6207c1857fa25a9aa1453ffe742f32a0a4a3281f2629"
+sha256 = "d4d65933b704d4c8d4ca9747dc511b883e35099abe534c8560f2aab3017e4cd4"
 options = ["etcfiles"]
 
 

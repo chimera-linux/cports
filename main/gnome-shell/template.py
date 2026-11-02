@@ -1,6 +1,6 @@
 pkgname = "gnome-shell"
-pkgver = "51.0"
-pkgrel = 2
+pkgver = "51.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -56,6 +56,6 @@ pkgdesc = "Core user interface for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/gnome-shell/{pkgver.split('.')[0]}/gnome-shell-{pkgver}.tar.xz"
-sha256 = "2179bab13af353427065096af8bf3d30da7b86e0c516e5ba86a14998af9575f6"
+sha256 = "c1eb08d9651a567ed5d9b2791371f1898e657cf45e75e1d88adefbab807977d6"
 # tests need libmutter-test
 options = ["!check", "!cross"]
