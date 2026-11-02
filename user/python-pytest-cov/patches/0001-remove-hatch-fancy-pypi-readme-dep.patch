@@ -1,0 +1,38 @@
+From 7512ad74101219fff8970b547e7fcf67551dfccb Mon Sep 17 00:00:00 2001
+From: Gnarwhal <git.aspect893@passmail.net>
+Date: Mon, 19 Oct 2026 14:54:14 +0000
+Subject: [PATCH] remove hatch fancy pypi readme dep
+
+
+---
+ pyproject.toml | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index c1641b1..c006499 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["hatchling", "hatch-fancy-pypi-readme"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [project]
+@@ -67,13 +67,6 @@ pytest_cov = "pytest_cov.plugin"
+ "Changelog" = "https://pytest-cov.readthedocs.io/en/latest/changelog.html"
+ "Issue Tracker" = "https://github.com/pytest-dev/pytest-cov/issues"
+ 
+-[tool.hatch.metadata.hooks.fancy-pypi-readme]
+-content-type = "text/x-rst"
+-fragments = [
+-    { path = "README.rst" },
+-    { path = "CHANGELOG.rst" },
+-]
+-
+ [tool.ruff]
+ extend-exclude = ["static", "ci/templates"]
+ line-length = 140
+-- 
+2.55.0
+
