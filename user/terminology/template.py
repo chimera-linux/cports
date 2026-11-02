@@ -1,6 +1,6 @@
 pkgname = "terminology"
 pkgver = "1.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext"]
 makedepends = ["efl-devel"]
