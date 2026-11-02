@@ -1,6 +1,6 @@
 pkgname = "efl"
-pkgver = "1.28.1"
-pkgrel = 2
+pkgver = "1.29.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dbuild-tests=false",  # enable if enabling tests
@@ -24,7 +24,8 @@ configure_args = [
     "-Dwl=true",
     "-Ddrm=true",
     "-Dgstreamer=true",
-    "-Dpulseaudio=true",
+    "-Dpipewire=true",
+    "-Dpulseaudio=false",
     "-Dharfbuzz=true",
     "-Dglib=true",
 ]
@@ -50,7 +51,6 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libjxl-devel",
     "libpng-devel",
-    "libpulse-devel",
     "libraw-devel",
     "librsvg-devel",
     "libsndfile-devel",
@@ -74,6 +74,7 @@ makedepends = [
     "mesa-devel",
     "openjpeg-devel",
     "openssl3-devel",
+    "pipewire-devel",
     "poppler-devel",
     "udev-devel",
     "util-linux-mount-devel",
@@ -98,7 +99,7 @@ pkgdesc = "Enlightenment Foundation Libraries"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/efl/efl-{pkgver}.tar.xz"
-sha256 = "84cf6145f9cc82bfff690005be24392c8f3c52f8e00ff04d8eea371429c09424"
+sha256 = "248bc76141f2b8b006ccba9e0bb2cb46cbcb1be4181a1cf2728187f778853654"
 tool_flags = {
     "CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"],
     "LDFLAGS": ["-Wl,-z,stack-size=0x200000"],
