@@ -205,7 +205,9 @@ def get_confrepos():
         return _crepos
 
     _crepos = []
-    for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
+    for f in sorted(
+        (paths.distdir() / "etc/apk/repositories.d").glob("*.conf")
+    ):
         with open(f) as repof:
             for repo in repof:
                 _crepos.append(repo.strip().replace("@mirror@", _mirror))
