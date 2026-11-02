@@ -23,7 +23,6 @@ def check_stage(arch, force=False, remote=False):
                 "--quiet",
                 "--arch",
                 arch,
-                "--allow-untrusted",
                 "--root",
                 paths.bldroot(),
                 *args,

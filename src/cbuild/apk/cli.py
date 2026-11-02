@@ -114,7 +114,6 @@ def call(
     capture_output=False,
     root=None,
     arch=None,
-    allow_untrusted=False,
     use_altrepo=True,
     use_stage=True,
     allow_network=True,
@@ -135,8 +134,6 @@ def call(
         cmd += ["--arch", arch]
     if not allow_network:
         cmd += ["--no-network"]
-    if allow_untrusted:
-        cmd += ["--allow-untrusted"]
     if subcmd in ["add", "del", "fix", "upgrade"]:
         cmd += ["--clean-protected"]
 
@@ -204,7 +201,6 @@ def get_provider(pkgn, pkg=None):
         None,
         root=sysp,
         arch=aarch,
-        allow_untrusted=True,
     )
     if qv:
         return qv[0]["name"]
@@ -298,10 +294,18 @@ def find_indexes(repopath):
                 break
 
 
-def build_index(repopath, epoch, allow_untrusted=False):
+def build_index(repopath, epoch):
     repopath = pathlib.Path(repopath)
 
-    aargs = ["--quiet", "--output", "Packages.adb", "--hash", "sha256-160"]
+    aargs = [
+        "--quiet",
+        "--output",
+        "Packages.adb",
+        "--hash",
+        "sha256-160",
+        "--sign-key",
+        asign.get_keypath(),
+    ]
 
     try:
         if (repopath / "Packages.adb").stat().st_size > 0:
@@ -309,13 +313,6 @@ def build_index(repopath, epoch, allow_untrusted=False):
     except Exception:
         # no incremental index
         pass
-
-    keypath = None
-    if not allow_untrusted:
-        keypath = asign.get_keypath()
-
-    if keypath:
-        aargs += ["--sign-key", keypath]
 
     aenv = {"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)}
 
@@ -335,7 +332,6 @@ def build_index(repopath, epoch, allow_untrusted=False):
         None,
         cwd=repopath,
         env=aenv,
-        allow_untrusted=not keypath,
     )
     if signr.returncode != 0:
         logger.get().out("\f[red]Indexing failed!")

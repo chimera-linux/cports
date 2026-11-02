@@ -141,7 +141,6 @@ def _scan_so(pkg):
             None,
             root=broot,
             arch=aarch,
-            allow_untrusted=True,
         )
         if not info and pkg.stage == 0:
             # when bootstrapping, check the repository...
@@ -149,7 +148,6 @@ def _scan_so(pkg):
                 ["name"],
                 ["--from=none", "--match=provides", f"so:{dep}"],
                 "main",
-                allow_untrusted=True,
             )
 
         # failed to query either way...

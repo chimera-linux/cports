@@ -564,12 +564,7 @@ def init_late():
     if opt_keypath:
         paths.init_keys(opt_keypath)
     else:
-        kp = sign.get_keypath()
-        if kp:
-            paths.init_keys(kp.parent)
-        else:
-            # fallback
-            paths.init_keys("etc/keys")
+        paths.init_keys(sign.get_keypath().parent)
 
     # set compression type
     autil.set_compression(opt_comp)
@@ -1480,7 +1475,6 @@ def _get_unbuilt(outdated=False):
                 paths.apk(),
                 "--arch",
                 tarch,
-                "--allow-untrusted",
                 "--root",
                 paths.bldroot(),
                 "--repository",

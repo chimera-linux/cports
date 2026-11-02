@@ -158,17 +158,12 @@ def setup_depends(pkg, only_names=False):
 
 
 def _install_from_repo(pkg, pkglist, cross=False):
-    from cbuild.apk import sign
-
-    signkey = sign.get_keypath()
-
     if pkg.stage == 0:
         ret = apki.call(
             "add",
             ["--usermode", "--no-scripts", *pkglist],
             pkg,
             capture_output=True,
-            allow_untrusted=not signkey,
         )
     elif cross and pkg.profile.cross:
         ret = apki.call(
@@ -182,7 +177,6 @@ def _install_from_repo(pkg, pkglist, cross=False):
             pkg,
             capture_output=True,
             arch=pkg.profile.arch,
-            allow_untrusted=not signkey,
             chroot=True,
         )
     else:
@@ -199,7 +193,6 @@ def _install_from_repo(pkg, pkglist, cross=False):
             [],
             pkg,
             capture_output=True,
-            allow_untrusted=not signkey,
             chroot=True,
         )
     if ret.returncode != 0:
@@ -232,7 +225,6 @@ def _get_vers(pkgs, pkg, sysp, arch):
             pkg,
             root=sysp,
             arch=arch,
-            allow_untrusted=True,
             return_repos=True,
         )
     if not vers:
@@ -293,7 +285,6 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
                 None,
                 root=sysp,
                 arch=arch,
-                allow_untrusted=True,
             )
             if not jsn:
                 continue

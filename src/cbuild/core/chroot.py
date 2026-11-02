@@ -174,10 +174,9 @@ def setup_keys(rootp):
         shutil.copy2(f, keydir)
 
     pkey = signi.get_keypath()
-    if pkey:
-        pubkey = pkey.with_suffix(pkey.suffix + ".pub")
-        if pubkey.is_file():
-            shutil.copy2(pubkey, keydir)
+    pubkey = pkey.with_suffix(pkey.suffix + ".pub")
+    if pubkey.is_file():
+        shutil.copy2(pubkey, keydir)
 
 
 _crepos = None
@@ -421,6 +420,8 @@ def _setup_dummy(rootp, archn):
             [
                 "--output",
                 repod / f"{pkgn}-{pkgv}.apk",
+                "--sign-key",
+                signi.get_keypath(),
                 "--info",
                 f"name:{pkgn}",
                 "--info",
@@ -442,7 +443,6 @@ def _setup_dummy(rootp, archn):
             root=rootp,
             capture_output=True,
             arch=archn,
-            allow_untrusted=True,
         )
         if ret.returncode != 0:
             outl = ret.stderr.strip().decode()
@@ -453,7 +453,7 @@ def _setup_dummy(rootp, archn):
                 f"failed to create virtual provider for {archn}"
             )
 
-        if not apki.build_index(repod, epoch, True):
+        if not apki.build_index(repod, epoch):
             raise errors.CbuildException(
                 f"failed to index virtual provider for {archn}"
             )
@@ -465,7 +465,6 @@ def _setup_dummy(rootp, archn):
             root=rootp,
             capture_output=True,
             arch=archn,
-            allow_untrusted=True,
         )
 
         if ret.returncode != 0:
@@ -585,7 +584,6 @@ def cleanup_world(bootstrapping, prof=None, perform=True):
         [],
         template.get_cats(),
         capture_output=True,
-        allow_untrusted=True,
         chroot=True,
     )
 

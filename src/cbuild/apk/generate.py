@@ -36,7 +36,6 @@ def _get_old_deps(pkg, arch):
             pkg,
             root=sysp,
             arch=arch,
-            allow_untrusted=True,
             allow_network=allow_net,
         )
 
@@ -236,11 +235,10 @@ def _get_cmdline(
         pargs += ["--trigger", t]
 
     # signing key
-    if signkey:
-        if pkg.rparent.stage > 0:
-            pargs += ["--sign-key", f"/tmp/{signkey.name}"]
-        else:
-            pargs += ["--sign-key", str(signkey)]
+    if pkg.rparent.stage > 0:
+        pargs += ["--sign-key", f"/tmp/{signkey.name}"]
+    else:
+        pargs += ["--sign-key", str(signkey)]
 
     # for stage 1, we have stage0 apk built without zstd
     if (pkg.stage > 1 and pkg.compression) or pkg.compression == "none":

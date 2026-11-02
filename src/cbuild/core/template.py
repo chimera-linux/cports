@@ -1855,7 +1855,6 @@ class Template(Package):
                 ["--from=none", self.pkgname],
                 self.repository,
                 arch=archn,
-                allow_untrusted=True,
                 allow_network=False,
                 use_altrepo=False,
             )
