@@ -1,6 +1,6 @@
 pkgname = "base-full"
-pkgver = "0.6"
-pkgrel = 3
+pkgver = "0.7"
+pkgrel = 0
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -173,7 +173,7 @@ def _(self):
     self.install_if = [self.parent, "!base-full-minimal"]
     self.depends = [
         "dhcpcd",
-        "iwd",
+        "networkmanager",
         "openssh",
     ]
     return []
