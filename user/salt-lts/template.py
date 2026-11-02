@@ -1,11 +1,14 @@
 pkgname = "salt-lts"
-pkgver = "3006.16"
-pkgrel = 1
+pkgver = "3008.5"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
+    "python-looseversion",
+    "python-packaging",
     "python-setuptools",
+    "python-wheel",
 ]
 makedepends = ["dinit-chimera"]
 depends = [
@@ -13,6 +16,7 @@ depends = [
     "python-croniter",
     "python-cryptography",
     "python-distro",
+    "python-idna",
     "python-jinja2",
     "python-jmespath",
     "python-looseversion",
@@ -26,14 +30,20 @@ depends = [
     "python-requests",
     "python-tornado",
     "python-urllib3",
+    "python-xxhash",
 ]
 pkgdesc = "Distributed remote execution and configuration management system"
 license = "Apache-2.0"
 url = "https://github.com/saltstack/salt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd6fd76eeea506e47352c454edd1d8184ba48c702cae0d407c1e4c73431d3334"
+sha256 = "5ceaf6730f1e795dda9d29466652a27a7663712c1a8090a9697eeb4b1adb8a21"
 # depends on pytestsalt
 options = ["!check"]
+
+
+def pre_build(self):
+    # no git metadata in the tarball, version would end up as 3008.0
+    (self.cwd / "salt/_version.txt").write_text(f"{self.pkgver}\n")
 
 
 def install(self):
