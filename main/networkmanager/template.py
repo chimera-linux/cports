@@ -1,6 +1,6 @@
 pkgname = "networkmanager"
 pkgver = "1.58.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd_journal=false",
@@ -8,7 +8,6 @@ configure_args = [
     "-Dovs=false",
     "-Dqt=false",
     "-Dsession_tracking_consolekit=false",
-    "-Diwd=true",
     "-Ddhcpcd=/usr/bin/dhcpcd",
     "-Diptables=/usr/bin/iptables",
     "-Dmodprobe=/usr/bin/modprobe",
@@ -20,7 +19,6 @@ configure_args = [
     "-Dsystemdsystemunitdir=no",
     "-Dconfig_logging_backend_default=syslog",
     "-Dconfig_dns_rc_manager_default=resolvconf",
-    # we might want to switch to iwd at some point, but not now
     "-Dconfig_wifi_backend_default=wpa_supplicant",
     "-Dconfig_dhcp_default=internal",
     "-Dkernel_firmware_dir=/usr/lib/firmware",
