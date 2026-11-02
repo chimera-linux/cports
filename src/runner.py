@@ -563,7 +563,7 @@ def init_late():
 
     if opt_keypath:
         paths.init_keys(opt_keypath)
-    else:
+    elif sign.get_keypath():
         paths.init_keys(sign.get_keypath().parent)
 
     # set compression type
