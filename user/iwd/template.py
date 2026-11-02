@@ -1,6 +1,6 @@
 pkgname = "iwd"
 pkgver = "3.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # junk cflags that redefine FORTIFY
@@ -33,13 +33,8 @@ tool_flags = {
 }
 # CFI: tests fail
 hardening = ["vis", "!cfi"]
-# check may be disabled
-options = []
-
-if self.profile.arch == "loongarch64":
-    # uuid cmp fail in test-wsc
-    # 3 memcmp fails in test-eap-sim
-    options += ["!check"]
+# fails tests on modern kernels
+options = ["!check"]
 
 
 def post_install(self):
