@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20260622"
+pkgver = "20261019"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -9,7 +9,7 @@ url = "https://www.kernel.org"
 # stuck and eventually generates 502
 # source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
-sha256 = "39dafafe787291de0010b58ae5828bc631a8f34a5d8f78c26730ff5e37fa5ff5"
+sha256 = "abf515553e6525c0314398e40d329c9b199ae614c17cb97b02536db3ca6be07a"
 options = ["empty"]
 
 _arch = self.profile.arch
@@ -22,6 +22,7 @@ _arch_arm64 = _arch == "aarch64"
 _pkgs = [
     ("advansys", "Advansys SCSI", None, "storage", ["advansys"]),
     ("aeonsemi", "Aeonsemi Ethernet PHY", None, "network", ["aeonsemi"]),
+    ("aic", "AIC Bluetooth and Wi-Fi", None, "network", ["aic"]),
     ("airoha", "Airoha Ethernet PHY", None, "network", ["airoha"]),
     ("amd-ucode", "AMD CPU microcode", _arch_x86, "misc", ["amd-ucode"]),
     ("amd-sev", "AMD SEV firmware", _arch_x86, "misc", ["amd"]),
@@ -244,6 +245,7 @@ _pkgs = [
         "misc",
         ["cadence/mhdp8546*"],
     ),
+    ("morsemicro", "Morse Micro Wi-Fi", None, "network", ["morsemicro"]),
     ("moxa", "Moxa USB-Serial hubs", None, "misc", ["moxa"]),
     ("mrvl-cpt", "Marvell Octeon crypto", _arch_arm64, "misc", ["mrvl/cpt*"]),
     (
