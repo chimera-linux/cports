@@ -1,5 +1,5 @@
 pkgname = "wget2"
-pkgver = "2.2.1"
+pkgver = "2.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +30,7 @@ pkgdesc = "GNU downloader"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/gnuwget/wget2"
 source = f"$(GNU_SITE)/wget/wget2-{pkgver}.tar.gz"
-sha256 = "d7544b13e37f18e601244fce5f5f40688ac1d6ab9541e0fbb01a32ee1fb447b4"
+sha256 = "4f1915b2a55a789a15f2f9ada7cc44bca81418e648f76fd88a7f4dd028b2149f"
 
 
 def post_install(self):
