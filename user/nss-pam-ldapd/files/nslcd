@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/nslcd -d
+logfile = /var/log/nslcd.log
+depends-on: local.target
+depends-on: network.target
+before: login.target
