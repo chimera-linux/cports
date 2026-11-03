@@ -1,5 +1,5 @@
 pkgname = "swayidle"
-pkgver = "1.9.0"
+pkgver = "1.9.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Idle management daemon for Wayland"
 license = "MIT"
 url = "https://github.com/swaywm/swayidle"
 source = f"{url}/releases/download/v{pkgver}/swayidle-{pkgver}.tar.gz"
-sha256 = "6c1b769038b60250c88e47380cbb021cfa57a65f872bf4d6c340b5e3057096ac"
+sha256 = "6e1655ecba30db14de3df1652ef9dd1db72784946fa65cb222404a87ac825d57"
 hardening = ["vis", "cfi"]
 
 
