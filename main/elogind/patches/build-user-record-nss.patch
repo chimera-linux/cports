@@ -1,4 +1,5 @@
-# Build user-record-nss.c unconditionally. It is unrelated to the nss-elogind module.
+Partial revert of upstream edaaee1eb. userdb.c is always built and relies on
+helpers in user-record-nss.c as the fallback.
 
 --- a/src/shared/meson.build
 +++ b/src/shared/meson.build
@@ -10,7 +11,7 @@
          'user-record-show.c',
          'user-record.c',
          'userdb-dropin.c',
-@@ -278,10 +279,6 @@
+@@ -278,11 +279,6 @@
          'wall.c',
          'xml.c',
  )
@@ -18,6 +19,7 @@
 -if get_option('nss-elogind') != false
 -	shared_sources += files('user-record-nss.c')
 -endif
- 
+-
  #endif // 0
  
+ if get_option('tests') != 'false'
