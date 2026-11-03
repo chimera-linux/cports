@@ -1,5 +1,5 @@
 pkgname = "chimera-image-keys"
-pkgver = "20251220"
+pkgver = "20261103"
 pkgrel = 0
 build_style = "meta"
 depends = ["minisign"]
