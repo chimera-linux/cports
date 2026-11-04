@@ -1,11 +1,13 @@
 this stuff just does not work correctly at all, pass it manually via env
---
+---
+diff --git a/configure b/configure
+index 39c377c..42b2460 100755
 --- a/configure
 +++ b/configure
-@@ -520,8 +520,6 @@
+@@ -660,8 +660,6 @@ echo "root=$root" >> $config_host_mak
  # Reset MAKEFLAGS
  MAKEFLAGS=
- MAKE_PRINT_VARS="include Makefile.common\nprint-%%: ; @echo \$(\$*)\n"
+ MAKE_PRINT_VARS="include $root/Makefile.common\nprint-%%: ; @echo \$(\$*)\n"
 -VERSION_MAJOR=$(printf "$MAKE_PRINT_VARS" | make -s --no-print-directory -f - print-VERSION_MAJOR)
 -VERSION_MINOR=$(printf "$MAKE_PRINT_VARS" | make -s --no-print-directory -f - print-VERSION_MINOR)
  io_uring_version_h="src/include/liburing/io_uring_version.h"
