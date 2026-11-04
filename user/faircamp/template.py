@@ -1,7 +1,6 @@
 pkgname = "faircamp"
 pkgver = "2.0.1"
 pkgrel = 0
-
 build_style = "cargo"
 make_build_args = ["--bin", "faircamp", "--bin", "faircamp-cli"]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -12,7 +11,6 @@ license = "AGPL-3.0-or-later AND OFL-1.1"
 url = "https://faircamp.org"
 source = f"https://codeberg.org/simonrepp/faircamp/archive/{pkgver}.tar.gz"
 sha256 = "c3518bb1a54609475ba7452f2e4b0fe82199818700083a0cd69d8997f59a4585"
-options = ["!check"]
 
 
 def install(self):
