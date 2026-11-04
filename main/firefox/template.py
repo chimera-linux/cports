@@ -68,7 +68,10 @@ source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.sou
 sha256 = "b5fe407199685f8bddf3b2c81feb8b805429e6f3d307c9430f53456f85b6e063"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
-    "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
+    "LDFLAGS": [
+        "-Wl,-rpath=/usr/lib/firefox,-rpath=$ORIGIN/obj/dist/firefox",
+        "-Wl,-z,stack-size=2097152",
+    ]
 }
 env = {
     "SHELL": "/usr/bin/sh",
