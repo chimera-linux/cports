@@ -33,13 +33,13 @@ Subject: [PATCH 2/2] IWYU css_style_sheet.h in generator
 Signed-off-by: Matt Jolly <kangie@gentoo.org>
 --- a/third_party/blink/renderer/bindings/scripts/bind_gen/observable_array.py
 +++ b/third_party/blink/renderer/bindings/scripts/bind_gen/observable_array.py
-@@ -434,6 +434,7 @@ def generate_observable_array(observable_array_identifier):
-         component_export_header(api_component, for_testing),
-         "third_party/blink/renderer/bindings/core/v8/idl_types.h",
-         "third_party/blink/renderer/platform/bindings/observable_array.h",
-+        "third_party/blink/renderer/core/css/css_style_sheet.h",
-     ])
-     source_node.accumulator.add_include_headers([
-         "third_party/blink/renderer/bindings/core/v8/generated_code_helper.h",
+@@ -532,6 +532,7 @@
+             component_export_header(api_component, for_testing),
+             "third_party/blink/renderer/bindings/core/v8/idl_types.h",
+             "third_party/blink/renderer/platform/bindings/observable_array.h",
++            "third_party/blink/renderer/core/css/css_style_sheet.h",
+         ]
+     )
+     source_node.accumulator.add_include_headers(
 -- 
 2.50.1

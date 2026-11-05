@@ -1,0 +1,22 @@
+From a0a3f33386f4f158524ecd0949a270555fa75ac5 Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Fri, 16 Oct 2026 18:06:50 +0200
+Subject: [PATCH] Fix build with unbundled brotli
+
+Dependency on brotli:headers is implied by dependency on :dec/:enc
+---
+ core/fxcodec/BUILD.gn | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/third_party/pdfium/core/fxcodec/BUILD.gn b/third_party/pdfium/core/fxcodec/BUILD.gn
+index 0484baa3d..754f4988d 100644
+--- a/third_party/pdfium/core/fxcodec/BUILD.gn
++++ b/third_party/pdfium/core/fxcodec/BUILD.gn
+@@ -146,7 +146,6 @@ source_set("fxcodec") {
+     ]
+     deps += [
+       "//third_party/brotli:dec",
+-      "//third_party/brotli:headers",
+     ]
+   }
+   if (pdf_enable_xfa) {

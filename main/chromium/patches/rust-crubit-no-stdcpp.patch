@@ -1,0 +1,13 @@
+diff --git a/tools/rust/build_crubit.py b/tools/rust/build_crubit.py
+index d1d2b73..dcc9214 100755
+--- a/tools/rust/build_crubit.py
++++ b/tools/rust/build_crubit.py
+@@ -410,7 +410,7 @@ def GetCxxRuntimeRustFlags():
+         # `build.py`).  `-static-libstdc++` would have no effect, because of
+         # `-nodefaultlibs`.  `SetUpCargoEnv` stops the `cc` crate from linking
+         # the shared libstdc++ (via `CXXSTDLIB`).
+-        return ['-Clink-arg=-l:libstdc++.a']
++        return []
+     if IS_MAC:
+         # The system libc++ (the macOS SDK has no static libc++), like
+         # `rustc` and Clang.

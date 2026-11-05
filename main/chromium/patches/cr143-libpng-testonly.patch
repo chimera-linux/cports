@@ -34,7 +34,7 @@ diff --git a/chrome/test/BUILD.gn b/chrome/test/BUILD.gn
 index a4703c3692d..2d70f7a5fe9 100644
 --- a/chrome/test/BUILD.gn
 +++ b/chrome/test/BUILD.gn
-@@ -11152,7 +11152,7 @@ if (!is_android) {
+@@ -4319,7 +4319,7 @@
          "//testing/gtest",
          "//third_party/hunspell",
          "//third_party/icu",
@@ -43,16 +43,7 @@ index a4703c3692d..2d70f7a5fe9 100644
          "//ui/base:test_support",
          "//ui/events:test_support",
          "//ui/ozone",
-@@ -11512,7 +11512,7 @@ if (!is_android && !is_chromeos_device) {
-       "//testing/gtest",
-       "//third_party/hunspell",
-       "//third_party/icu",
--      "//third_party/libpng:libpng_for_testonly",
-+      "//third_party/libpng",
-       "//ui/base:base_interactive_ui_tests",
-       "//ui/base:ozone_buildflags",
-       "//ui/base:test_support",
-@@ -12470,7 +12470,7 @@ if (!is_android) {
+@@ -4951,7 +4951,7 @@
        "//testing/gtest",
        "//third_party/hunspell",
        "//third_party/icu",
