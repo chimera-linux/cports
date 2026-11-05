@@ -74,6 +74,18 @@ index 7f8d9ae..07043d8 100644
  #define MUSTTAIL [[clang::musttail]]
  #else
  #define MUSTTAIL
+--- a/base/process/launch.h
++++ b/base/process/launch.h
+@@ -58,6 +58,9 @@ enum TerminationStatus : int;
+ #if defined(ARCH_CPU_ARM64) || defined(ARCH_CPU_LOONGARCH64)
+ #define PTHREAD_STACK_MIN_CONST \
+   (__builtin_constant_p(PTHREAD_STACK_MIN) ? PTHREAD_STACK_MIN : 131072)
++#elif defined(ARCH_CPU_PPC64)
++#define PTHREAD_STACK_MIN_CONST \
++  (__builtin_constant_p(PTHREAD_STACK_MIN) ? PTHREAD_STACK_MIN : 131072)
+ #else
+ #define PTHREAD_STACK_MIN_CONST \
+   (__builtin_constant_p(PTHREAD_STACK_MIN) ? PTHREAD_STACK_MIN : 16384)
 diff --git a/sandbox/features.gni b/sandbox/features.gni
 index 8434144..c92bf1a 100644
 --- a/sandbox/features.gni
@@ -314,6 +326,23 @@ index cfc37e2..e448a8f 100644
                   PTRACE_GETREGS, PTRACE_GETFPREGS, PTRACE_GET_THREAD_AREA,
                   PTRACE_GETREGSET,
  #endif
+@@ -534,13 +559,14 @@ SANDBOX_EXPORT bpf_dsl::ResultExpr Restr
+   size_t argIndex;
+   switch (sysno) {
+ #if defined(__arm__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS)) || \
++    defined(__powerpc64__)
+     case __NR_send:
+       argIndex = 3;
+       break;
+ #endif
+ #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
+-    defined(__mips__) || defined(__aarch64__)
++    defined(__mips__) || defined(__aarch64__) || defined(__powerpc64__)
+     case __NR_sendto:  // Could specify destination.
+       argIndex = 3;
+       break;
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
 index 171191e..a36cd8d 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
@@ -518,7 +547,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_mmap:
  #endif
  #if defined(__i386__) || defined(__arm__) || \
-@@ -584,7 +584,7 @@
+@@ -584,7 +588,7 @@
  bool SyscallSets::IsMmap(int sysno) {
    switch (sysno) {
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -527,7 +556,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_mmap:
  #endif
  #if !defined(__LP64__)
-@@ -599,7 +599,7 @@
+@@ -599,7 +603,7 @@
  bool SyscallSets::IsAllowedGeneralIo(int sysno) {
    switch (sysno) {
      case __NR_lseek:
@@ -536,7 +565,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR__llseek:
  #endif
-@@ -604,12 +604,12 @@
+@@ -619,12 +623,12 @@
      case __NR_read:
      case __NR_readv:
      case __NR_pread64:
@@ -551,7 +580,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_recvfrom:  // Could specify source.
      case __NR_recvmsg:   // Could specify source.
  #endif
-@@ -621,10 +621,10 @@
+@@ -636,10 +640,10 @@
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_recvmmsg_time64:  // Could specify source.
  #endif
@@ -564,13 +593,13 @@ index f6e77d1..5e3cbfe 100644
      case __NR__newselect:
  #endif
      case __NR_write:
-@@ -638,12 +638,12 @@
-     case __NR_tee:
+@@ -654,11 +658,12 @@
      case __NR_vmsplice:
  // send* syscalls need their flags filtered.
--#if defined(__arm__) || \
-+#if defined(__arm__) || defined(__powerpc64__) || \
-     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
+ #if defined(__arm__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS)) || \
++    defined(__powerpc64__)
      case __NR_send:
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
@@ -579,7 +608,13 @@ index f6e77d1..5e3cbfe 100644
      case __NR_sendmsg:  // Could specify destination.
      case __NR_sendto:   // Could specify destination.
  #endif
-@@ -661,7 +661,7 @@
+@@ -671,11 +676,12 @@
+ bool SyscallSets::IsSockSendOneMsg(int sysno) {
+   switch (sysno) {
+ #if defined(__arm__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS)) || \
++    defined(__powerpc64__)
      case __NR_send:
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
@@ -588,7 +623,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_sendmsg:  // Could specify destination.
      case __NR_sendto:   // Could specify destination.
  #endif
-@@ -697,7 +701,7 @@
+@@ -715,7 +721,7 @@
      case __NR_nanosleep:
        return true;
      case __NR_getpriority:
@@ -597,7 +632,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_nice:
  #endif
-@@ -709,7 +713,7 @@
+@@ -727,7 +733,7 @@
  
  bool SyscallSets::IsAdminOperation(int sysno) {
    switch (sysno) {
@@ -606,7 +641,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_bdflush:
  #endif
-@@ -726,7 +730,7 @@
+@@ -744,7 +750,7 @@
  
  bool SyscallSets::IsKernelModule(int sysno) {
    switch (sysno) {
@@ -615,7 +650,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_create_module:
      case __NR_get_kernel_syms:  // Should ENOSYS.
      case __NR_query_module:
-@@ -758,7 +762,7 @@
+@@ -776,7 +782,7 @@
      case __NR_quotactl:
      case __NR_swapoff:
      case __NR_swapon:
@@ -624,7 +659,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_umount:
  #endif
-@@ -775,7 +779,7 @@
+@@ -793,7 +799,7 @@
      case __NR_getcpu:
      case __NR_mbind:
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -633,7 +668,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_migrate_pages:
  #endif
      case __NR_move_pages:
-@@ -810,13 +814,13 @@
+@@ -828,13 +834,13 @@
    switch (sysno) {
      case __NR_acct:  // Privileged.
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -650,7 +685,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_ulimit:
  #endif
-@@ -851,7 +855,7 @@
+@@ -869,7 +875,7 @@
  #endif
      case __NR_sysinfo:
      case __NR_uname:
@@ -659,7 +694,24 @@ index f6e77d1..5e3cbfe 100644
      case __NR_olduname:
      case __NR_oldolduname:
  #endif
-@@ -933,8 +937,15 @@
+@@ -933,12 +939,15 @@
+ }
+ 
+ #if defined(__x86_64__) || defined(__arm__) || defined(__aarch64__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS)) || \
++    defined(__powerpc64__)
+ bool SyscallSets::IsSystemVSemaphores(int sysno) {
+   switch (sysno) {
+     case __NR_semctl:
+     case __NR_semget:
++#if !defined(__powerpc64__)
+     case __NR_semop:
++#endif
+     case __NR_semtimedop:
+ #if defined(__i386__) || defined(__arm__) || \
+     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
+@@ -951,8 +960,15 @@
  }
  #endif
  
@@ -676,7 +728,17 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
  // These give a lot of ambient authority and bypass the setuid sandbox.
  bool SyscallSets::IsSystemVSharedMemory(int sysno) {
-@@ -965,7 +976,7 @@
+@@ -969,7 +985,8 @@
+ #endif
+ 
+ #if defined(__x86_64__) || defined(__arm__) || defined(__aarch64__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS)) || \
++    defined(__powerpc64__)
+ bool SyscallSets::IsSystemVMessageQueue(int sysno) {
+   switch (sysno) {
+     case __NR_msgctl:
+@@ -983,7 +1000,7 @@
  }
  #endif
  
@@ -685,16 +747,17 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
  // Big system V multiplexing system call.
  bool SyscallSets::IsSystemVIpc(int sysno) {
-@@ -985,7 +996,7 @@
-     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
-   return IsSystemVMessageQueue(sysno) || IsSystemVSemaphores(sysno) ||
-          IsSystemVSharedMemory(sysno);
--#elif defined(__i386__) || \
-+#elif defined(__i386__) || defined(__powerpc64__) || \
+@@ -1006,6 +1023,9 @@
+ #elif defined(__i386__) || \
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
    return IsSystemVIpc(sysno);
++#elif defined(__powerpc64__)
++  return IsSystemVMessageQueue(sysno) || IsSystemVSemaphores(sysno) ||
++         IsSystemVSharedMemory(sysno) || IsSystemVIpc(sysno);
  #endif
-@@ -1043,7 +1054,7 @@
+ }
+ 
+@@ -1061,7 +1081,7 @@
  bool SyscallSets::IsTimer(int sysno) {
    switch (sysno) {
      case __NR_getitimer:
@@ -703,7 +766,7 @@ index f6e77d1..5e3cbfe 100644
      case __NR_alarm:
  #endif
      case __NR_setitimer:
-@@ -1122,17 +1133,17 @@
+@@ -1140,17 +1160,17 @@
      case __NR_syncfs:
      case __NR_vhangup:
  // The system calls below are not implemented.
@@ -725,7 +788,7 @@ index f6e77d1..5e3cbfe 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_gtty:
      case __NR_idle:
-@@ -1141,20 +1152,20 @@
+@@ -1159,20 +1179,20 @@
      case __NR_prof:
      case __NR_profil:
  #endif
@@ -771,24 +834,38 @@ index 9be7b03..35f6f15 100644
    static bool IsNetworkSocketInformation(int sysno);
  #endif
  
-@@ -83,7 +84,7 @@ class SANDBOX_EXPORT SyscallSets {
+@@ -81,23 +82,27 @@ class SANDBOX_EXPORT SyscallSets {
+   static bool IsAsyncIo(int sysno);
+   static bool IsKeyManagement(int sysno);
+ #if defined(__x86_64__) || defined(__arm__) || defined(__aarch64__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS)) || \
++    defined(__powerpc64__)
    static bool IsSystemVSemaphores(int sysno);
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__arm__) || \
--    defined(__aarch64__) ||                                         \
-+    defined(__aarch64__) || defined(__powerpc64__) || \
-     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
+     defined(__aarch64__) ||                                         \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS)) || \
++    defined(__powerpc64__)
    // These give a lot of ambient authority and bypass the setuid sandbox.
    static bool IsSystemVSharedMemory(int sysno);
-@@ -94,7 +95,7 @@ class SANDBOX_EXPORT SyscallSets {
+ #endif
+ 
+ #if defined(__x86_64__) || defined(__arm__) || defined(__aarch64__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS)) || \
++    defined(__powerpc64__)
    static bool IsSystemVMessageQueue(int sysno);
  #endif
  
--#if defined(__i386__) || \
-+#if defined(__i386__) || defined(__powerpc64__) || \
-     (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
+ #if defined(__i386__) || \
+-    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
++    (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS)) || \
++    defined(__powerpc64__)
    // Big system V multiplexing system call.
    static bool IsSystemVIpc(int sysno);
+ #endif
 diff --git a/sandbox/linux/seccomp-bpf/syscall.cc b/sandbox/linux/seccomp-bpf/syscall.cc
 index 6b772c5..873eec3 100644
 --- a/sandbox/linux/seccomp-bpf/syscall.cc
@@ -802,12 +879,10 @@ index 6b772c5..873eec3 100644
  // Number that's not currently used by any Linux kernel ABIs.
  const int kInvalidSyscallNumber = 0x351d3;
  #else
-@@ -311,12 +311,56 @@ asm(// We need to be able to tell the kernel exactly where we made a
-     // Enter the kernel
-     "svc 0\n"
+@@ -309,10 +309,57 @@ asm(// We need to be able to tell the ke
      "2:ret\n"
-+    ".cfi_endproc\n"
-+    ".size SyscallAsm, .-SyscallAsm\n"
+     ".cfi_endproc\n"
+     ".size SyscallAsm, .-SyscallAsm\n"
 +#elif defined(__powerpc64__)
 +    ".text\n"
 +    ".align 4\n"
@@ -815,9 +890,12 @@ index 6b772c5..873eec3 100644
 +    "SyscallAsm:\n"
 +    ".cfi_startproc\n"
 +
-+    // Check if r3 is negative
++    // Check if r3 is negative. If so, do not attempt to make a
++    // system call. Instead, compute the return address that is visible
++    // to the kernel after we execute "syscall". This address can be
++    // used as a marker that BPF code inspects.
 +    "cmpdi 3, 0\n"
-+    "bgt 2f\n"
++    "bge 2f\n"
 +
 +    // Load address of 3f into r3 and return
 +    "mflr 10\n"
@@ -844,14 +922,14 @@ index 6b772c5..873eec3 100644
 +
 +    // Magic return address
 +    "3:\n"
-+   // Like MIPS, ppc64 return values are always positive.
++    // Like MIPS, ppc64 return values are always positive.
 +    // Check for error in cr0.SO and negate upon error
 +    "bc 4, 3, 4f\n"
 +    "neg 3, 3\n"
 +    "4: blr\n"
 +
-     ".cfi_endproc\n"
-     ".size SyscallAsm, .-SyscallAsm\n"
++    ".cfi_endproc\n"
++    ".size SyscallAsm, .-SyscallAsm\n"
  #endif
      );  // asm
  
@@ -860,7 +938,7 @@ index 6b772c5..873eec3 100644
  extern "C" {
  intptr_t SyscallAsm(intptr_t nr, const intptr_t args[6]);
  }
-@@ -430,6 +474,8 @@ intptr_t Syscall::Call(int nr,
+@@ -426,6 +473,8 @@ intptr_t Syscall::Call(int nr,
      ret = inout;
    }
  
@@ -869,7 +947,7 @@ index 6b772c5..873eec3 100644
  #else
  #error "Unimplemented architecture"
  #endif
-@@ -446,8 +492,18 @@ void Syscall::PutValueInUcontext(intptr_t ret_val, ucontext_t* ctx) {
+@@ -442,8 +491,18 @@ void Syscall::PutValueInUcontext(intptr_
      // needs to be changed back.
      ret_val = -ret_val;
      SECCOMP_PARM4(ctx) = 1;
@@ -882,9 +960,9 @@ index 6b772c5..873eec3 100644
 +  // Same as MIPS, need to invert ret and set error register (cr0.SO)
 +  if (ret_val <= -1 && ret_val >= -4095) {
 +    ret_val = -ret_val;
-+    ((struct pt_regs *)ctx->uc_mcontext.regs)->ccr |= (1 << 28);
++    ctx->uc_mcontext.regs->ccr |= (1 << 28);
 +  } else {
-+    ((struct pt_regs *)ctx->uc_mcontext.regs)->ccr &= ~(1 << 28);
++    ctx->uc_mcontext.regs->ccr &= ~(1 << 28);
 +  }
  #endif
    SECCOMP_RESULT(ctx) = static_cast<greg_t>(ret_val);
@@ -1173,6 +1251,14 @@ index 52e239f..95501a0 100644
  } else {
    # All other targets use GAS-compatible assembler. BoringSSL's assembly files
    # are all wrapped in processor checks for the corresponding target, so there
+@@ -196,7 +196,6 @@
+ 
+     deps = [
+       ":boringssl",
+-      ":test_support_asm",
+       "//base",
+       "//testing/gtest",
+     ]
 diff --git a/third_party/boringssl/src/include/openssl/target.h b/third_party/boringssl/src/include/openssl/target.h
 index 2760f52..11401e7 100644
 --- a/third_party/boringssl/src/include/openssl/target.h
@@ -3663,6 +3749,17 @@ index 87b2129..d5a6eca 100644
      }
    }
  
+--- a/v8/gni/v8.gni
++++ b/v8/gni/v8.gni
+@@ -348,7 +348,7 @@ assert(
+ if (v8_enable_pointer_compression == "") {
+   v8_enable_pointer_compression =
+       v8_current_cpu == "arm64" || v8_current_cpu == "x64" ||
+-      v8_current_cpu == "loong64"
++      v8_current_cpu == "loong64" || v8_current_cpu == "ppc64"
+ }
+ 
+ # The Wasm interpreter is currently supported only on arm64 and x64, on
 diff --git a/v8/test/BUILD.gn b/v8/test/BUILD.gn
 index 6604cb9..4cd486f 100644
 --- a/v8/test/BUILD.gn
