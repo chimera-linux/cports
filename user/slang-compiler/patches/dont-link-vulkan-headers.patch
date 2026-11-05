@@ -1,0 +1,15 @@
+index 0000000000..e69de29bb2
+diff --git a/examples/hello-world/CMakeLists.txt b/examples/hello-world/CMakeLists.txt
+index ba8f5c8adc..70c1fbc669 100644
+--- a/examples/hello-world/CMakeLists.txt
++++ b/examples/hello-world/CMakeLists.txt
+@@ -1,1 +1,1 @@
+-example(hello-world LINK_WITH_PRIVATE Vulkan-Headers)
++example(hello-world)
+diff --git a/examples/reflection-parameter-blocks/CMakeLists.txt b/examples/reflection-parameter-blocks/CMakeLists.txt
+index 33725e2823..d3f53085d2 100644
+--- a/examples/reflection-parameter-blocks/CMakeLists.txt
++++ b/examples/reflection-parameter-blocks/CMakeLists.txt
+@@ -1,1 +1,1 @@
+-example(reflection-parameter-blocks LINK_WITH_PRIVATE Vulkan-Headers)
++example(reflection-parameter-blocks)
