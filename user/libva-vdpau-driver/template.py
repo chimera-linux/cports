@@ -1,0 +1,11 @@
+pkgname = "libva-vdpau-driver"
+pkgver = "0.7.4"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
+makedepends = ["libva-devel", "libvdpau-devel", "mesa-devel"]
+pkgdesc = "VDPAU-based backend for VA-API"
+license = "GPL-2.0-only"
+url = "https://www.freedesktop.org/wiki/Software/vaapi"
+source = f"$(FREEDESKTOP_SITE)/vaapi/releases/libva-vdpau-driver/libva-vdpau-driver-{pkgver}.tar.bz2"
+sha256 = "155c1982f0ac3f5435ba20b221bcaa11be212c37db548cd1f2a030ffa17e9bb9"
