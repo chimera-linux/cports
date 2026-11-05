@@ -1,9 +1,9 @@
 diff --git a/meson.build b/meson.build
-index 2f1b241..21939b5 100644
+index 3767c76..e5e40d1 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -188,11 +188,11 @@ mcu_dep = declare_dependency(
- )
+@@ -134,11 +134,11 @@ if not gles2_dep.found()
+ endif
  
  # ── System: stb_image_resize2 and stb_image_write (header-only) ─────────────────────────────────
 -if not cc.has_header('stb/stb_image_resize2.h')
@@ -17,22 +17,22 @@ index 2f1b241..21939b5 100644
 +  error('stb_image_write.h not found')
  endif
  
- # ── System: libwebp (WebP decode and thumbnail encode; demux for animations) ─
+ # ── System: libwebp (WebP decode; thumbnail and screenshot encode; demux for animations) ─
 diff --git a/src/capture/screenshot_service.cpp b/src/capture/screenshot_service.cpp
-index f7559bb..e446aba 100644
+index 80212cb..6b60ff7 100644
 --- a/src/capture/screenshot_service.cpp
 +++ b/src/capture/screenshot_service.cpp
-@@ -34,7 +34,7 @@
- #include <format>
+@@ -46,7 +46,7 @@
  #include <fstream>
  #include <nlohmann/json.hpp>
+ #include <sstream>
 -#include <stb/stb_image_resize2.h>
 +#include <stb_image_resize2.h>
  #include <sys/wait.h>
  #include <thread>
  #include <unistd.h>
 diff --git a/src/render/core/image_encoder.cpp b/src/render/core/image_encoder.cpp
-index d7b61ae..bdce31a 100644
+index c9979c0..1a79824 100644
 --- a/src/render/core/image_encoder.cpp
 +++ b/src/render/core/image_encoder.cpp
 @@ -1,7 +1,7 @@
@@ -42,10 +42,10 @@ index d7b61ae..bdce31a 100644
 -#include "stb/stb_image_write.h"
 +#include "stb_image_write.h"
  
- #include <cstring>
- 
+ #include <algorithm>
+ #include <cmath>
 diff --git a/src/render/core/image_file_loader.cpp b/src/render/core/image_file_loader.cpp
-index d5764ba..01ef252 100644
+index 6005270..0f82ca1 100644
 --- a/src/render/core/image_file_loader.cpp
 +++ b/src/render/core/image_file_loader.cpp
 @@ -10,7 +10,7 @@
@@ -66,7 +66,7 @@ index 20dc1b3..2ba1cce 100644
 -#include <stb/stb_image_resize2.h>
 +#include <stb_image_resize2.h>
 diff --git a/src/render/core/thumbnail_service.cpp b/src/render/core/thumbnail_service.cpp
-index 3debb10..9b9f8bb 100644
+index 91b8127..a560fae 100644
 --- a/src/render/core/thumbnail_service.cpp
 +++ b/src/render/core/thumbnail_service.cpp
 @@ -13,7 +13,7 @@
