@@ -209,7 +209,7 @@ and accessing the named fields (like "->nip") by the array index constants.
 --- old/src/hotspot/os_cpu/linux_ppc/thread_linux_ppc.cpp
 +++ new/src/hotspot/os_cpu/linux_ppc/thread_linux_ppc.cpp
 @@ -28,6 +28,10 @@
- #include "runtime/frame.inline.hpp"
+ #include "runtime/os.hpp"
  #include "runtime/thread.hpp"
  
 +#if ! (defined(__GLIBC__) || defined(__UCLIBC__))
