@@ -1,6 +1,6 @@
 pkgname = "mpv"
-pkgver = "0.41.0"
-pkgrel = 2
+pkgver = "0.42.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -11,6 +11,7 @@ configure_args = [
     "-Dcdda=enabled",
     "-Dcplugins=enabled",
     "-Ddrm=enabled",
+    "-Ddvda=enabled",
     "-Degl=enabled",
     "-Ddvbin=enabled",
     "-Ddvdnav=enabled",
@@ -19,10 +20,12 @@ configure_args = [
     "-Dlcms2=enabled",
     "-Dlibarchive=enabled",
     "-Dlibbluray=enabled",
+    "-Dlibcurl=enabled",
     "-Dmanpage-build=enabled",
     "-Dpipewire=enabled",
     "-Drubberband=enabled",
     "-Dsixel=enabled",
+    "-Dsubrandr=enabled",
     "-Duchardet=enabled",
     "-Dvapoursynth=enabled",
     "-Dvaapi=enabled",
@@ -49,6 +52,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "python-docutils", "wayland-progs"]
 makedepends = [
+    "curl-devel",
     "ffmpeg-devel",
     "harfbuzz-devel",
     "lcms2-devel",
@@ -79,6 +83,7 @@ makedepends = [
     "pipewire-devel",
     "pipewire-jack-devel",
     "rubberband-devel",
+    "subrandr-devel",
     "uchardet-devel",
     "util-linux-uuid-devel",
     "vapoursynth-devel",
@@ -93,7 +98,7 @@ pkgdesc = "Video player based on mplayer2"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
-sha256 = "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209"
+sha256 = "bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME: int causes haruna to crash when started up with some video files
 hardening = ["!int", "vis", "!cfi"]
