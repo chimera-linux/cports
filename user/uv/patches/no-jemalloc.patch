@@ -1,5 +1,5 @@
 diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
-index 32760cc32..185d3f8c2 100644
+index 6ec5ccb..eb4952c 100644
 --- a/crates/uv-dev/Cargo.toml
 +++ b/crates/uv-dev/Cargo.toml
 @@ -83,7 +83,7 @@ name = "uv-dev"
@@ -9,10 +9,10 @@ index 32760cc32..185d3f8c2 100644
 -default = ["performance"]
 +default = []
  # Actually build the dev CLI.
- dev = []
+ dev = ["dep:tracing-durations-export"]
  performance = ["performance-memory-allocator"]
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 220063165..710eb4e75 100644
+index 14b538f..9092e09 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
 @@ -151,7 +151,7 @@ wiremock = { workspace = true }
