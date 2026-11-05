@@ -1,1 +1,1 @@
-pattern = r">jdk-([\d.]+)-ga"
+pattern = r"refs/tags/jdk-([\d.]+)-ga"
