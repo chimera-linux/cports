@@ -1,6 +1,6 @@
 pkgname = "libglvnd"
 pkgver = "1.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtls=false"]
 make_check_wrapper = ["wlheadless-run", "--", "xwayland-run", "--"]
