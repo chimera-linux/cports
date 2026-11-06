@@ -1,0 +1,43 @@
+diff --git a/tools/pkcs11_make_hash_link b/tools/pkcs11_make_hash_link
+index d1bde36..cb14143
+--- a/tools/pkcs11_make_hash_link
++++ b/tools/pkcs11_make_hash_link
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # Shell-Script which creates a symbolic hash-link for each CA certificate
+ # and each CRL in the given directory.
+@@ -20,7 +20,7 @@
+ OPENSSL="openssl"
+ 
+ # function to create the hash link
+-function mk_link()
++mk_link()
+ {
+   nr=0
+   while [ -e $hash$nr ]; do
+@@ -40,19 +40,20 @@ if [ $1 ]; then
+     cd $1
+   else
+     echo "Error: $1 is not a valid directory!"
+-    exit -1
++    exit 1
+   fi
+ fi
+ # test the presence of openssl
+ if [ -z "`$OPENSSL version 2> /dev/null`" ]
+ then
+ 	echo "$OPENSSL not found! install openssl first"
+-	exit -1
++	exit 1
+ fi
+ # process all files
+ 
+ (
+-  IFS=$'\n'
++  IFS='
++'
+ 
+   for file in *; do
+     hash=`$OPENSSL x509 -inform pem -in $file -noout -hash 2> /dev/null`
