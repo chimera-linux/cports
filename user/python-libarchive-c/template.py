@@ -1,0 +1,12 @@
+pkgname = "python-libarchive-c"
+pkgver = "5.3"
+pkgrel = 0
+build_style = "python_pep517"
+hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
+depends = ["libarchive"]
+checkdepends = ["python-pytest", *depends]
+pkgdesc = "Python bindings to libarchive"
+license = "CC0-1.0"
+url = "https://github.com/Changaco/python-libarchive-c"
+source = f"$(PYPI_SITE)/l/libarchive-c/libarchive_c-{pkgver}.tar.gz"
+sha256 = "5ddb42f1a245c927e7686545da77159859d5d4c6d00163c59daff4df314dae82"
