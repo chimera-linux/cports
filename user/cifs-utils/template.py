@@ -10,6 +10,8 @@ configure_gen = []
 make_dir = "."
 make_install_args = ["ROOTSBINDIR=/usr/bin"]
 hostmakedepends = [
+    "autoconf",
+    "automake",
     "pkgconf",
 ]
 makedepends = [
