@@ -1,0 +1,33 @@
+diff --git a/extensions/common/value_counter.cc b/extensions/common/value_counter.cc
+index 445a738..284ea77 100644
+--- a/extensions/common/value_counter.cc
++++ b/extensions/common/value_counter.cc
+@@ -58,4 +58,8 @@ bool ValueCounter::Remove(const base::Value& value) {
+   return false;  // Nothing to remove.
+ }
+ 
++bool ValueCounter::is_empty() const { return entries_.empty(); }
++
++size_t ValueCounter::distinct_count() const { return entries_.size(); }
++
+ }  // namespace extensions
+diff --git a/extensions/common/value_counter.h b/extensions/common/value_counter.h
+index 8346f48..2578753 100644
+--- a/extensions/common/value_counter.h
++++ b/extensions/common/value_counter.h
+@@ -41,13 +41,13 @@ class ValueCounter {
+   bool Remove(const base::Value& value);
+ 
+   // Returns true if there are no values of any type being counted.
+-  bool is_empty() const { return entries_.empty(); }
++  bool is_empty() const;
+ 
+   // Returns the number of values being counted, including duplicates.
+   size_t total_count() const { return total_count_; }
+ 
+   // Returns the number of distinct values being counted.
+-  size_t distinct_count() const { return entries_.size(); }
++  size_t distinct_count() const;
+ 
+  private:
+   struct Entry;
