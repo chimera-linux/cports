@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.6"
-pkgrel = 4
+pkgrel = 5
 _commit = "9fa28ece75d8a2191de7c5bb53bed224c5947417"
 _mimalloc_ver = "2.2.7"
 build_style = "gnu_configure"
@@ -24,6 +24,7 @@ sha256 = [
     "d3baf222d234f2121e71b7eabd0c17667b7a3733b3077e99f9920c69cb5899df",
     "8e0ed89907a681276bff2e49e9a048b47ba51254ab60daf6b3c220acac456a95",
 ]
+tool_flags = {"CFLAGS": []}
 compression = "deflate"
 # scp makes it segfault
 hardening = ["!scp"]
@@ -35,16 +36,21 @@ options = ["bootstrap", "!check", "!lto"]
 _use_mng = self.profile.wordsize == 32
 
 _variant_mng = False
+_variant_nvidia = False
 
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]
 else:
     if self.stage >= 2:
+        if self.profile.arch in ["aarch64", "x86_64"]:
+            _variant_nvidia = True
         _variant_mng = True
     configure_args += ["--with-malloc=external"]
 
 if _variant_mng:
     replaces += [self.with_pkgver("musl-mallocng")]
+if _variant_nvidia:
+    replaces += [self.with_pkgver("musl-nvidia")]
 
 if self.stage > 0:
     # have base-files extract first in normal installations
@@ -92,22 +98,35 @@ def post_configure(self):
             build_dir="build-mng",
         )
 
+    if _variant_nvidia:
+        _cflags = list(self.tool_flags["CFLAGS"])
+        self.tool_flags["CFLAGS"] += ["-DLIBC_NVIDIA_BUILD"]
+        gnu_configure.configure(
+            self,
+            configure_args=[*_configure_base, "--disable-static"],
+            build_dir="build-nv",
+        )
+        self.tool_flags["CFLAGS"] = _cflags
+
 
 def build(self):
     from cbuild.util import compiler
 
+    _mi_args = [
+        "MALLOC_DIR=external",
+        "EXTRA_OBJ=$(srcdir)/src/malloc/external/mimalloc.o",
+    ]
+
     if _use_mng:
         self.make.build()
     else:
-        self.make.build(
-            [
-                "MALLOC_DIR=external",
-                "EXTRA_OBJ=$(srcdir)/src/malloc/external/mimalloc.o",
-            ]
-        )
+        self.make.build(_mi_args)
 
     if _variant_mng:
         self.make.build(wrksrc="build-mng")
+
+    if _variant_nvidia:
+        self.make.build(_mi_args, wrksrc="build-nv")
 
     self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getconf.c", ".")
@@ -152,6 +171,11 @@ def post_install(self):
         )
         self.install_file(
             "build-mng/lib/libc.a", "usr/lib", mode=0o644, name="libc-mng.a"
+        )
+
+    if _variant_nvidia:
+        self.install_file(
+            "build-nv/lib/libc.so", "usr/lib", mode=0o755, name="libc-nv.so"
         )
 
     # fix up ld-musl-whatever so it does not point to absolute path
@@ -216,6 +240,8 @@ def _(self):
     self.provides = ["so:libc.so=0"]
     self.provider_priority = 0
     self.replaces = [self.with_pkgver("musl")]
+    if _variant_nvidia:
+        self.replaces += [self.with_pkgver("musl-nvidia")]
 
     def _take():
         self.take("usr/lib/libc-mng.so")
@@ -236,6 +262,30 @@ def _(self):
         self.take("usr/lib/libc-mng.a")
         self.mv(
             self.destdir / "usr/lib/libc-mng.a", self.destdir / "usr/lib/libc.a"
+        )
+
+    return _take
+
+
+@subpackage("musl-nvidia", _variant_nvidia)
+def _(self):
+    self.subdesc = "NVIDIA hacks"
+    self.depends = [
+        "base-files",
+        self.with_pkgver("musl-ldso"),
+        self.with_pkgver("musl-progs"),
+    ]
+    self.provides = ["so:libc.so=0"]
+    self.provider_priority = 0
+    self.replaces = [self.with_pkgver("musl")]
+    if _variant_mng:
+        self.replaces += [self.with_pkgver("musl-mallocng")]
+
+    def _take():
+        self.take("usr/lib/libc-nv.so")
+        self.mv(
+            self.destdir / "usr/lib/libc-nv.so",
+            self.destdir / "usr/lib/libc.so",
         )
 
     return _take
