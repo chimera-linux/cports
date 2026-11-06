@@ -1,5 +1,5 @@
 pkgname = "bottom"
-pkgver = "0.14.9"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -18,9 +18,9 @@ source_paths = [
     "man",
 ]
 sha256 = [
-    "1dbb940c763fb583b7e1c7dfa165b73ed9a0ba712e72cc97311c5b1c098d5b72",
-    "9faff2df2cb37d96f5229b041c49032a8af74f6e5a064b7caad1f5231ad694d5",
-    "b244f0a6b2e5a6a53249c080540703c2aa44f3690cbfa7e4ccce9fe4bb926e5c",
+    "9b38fd551ef9e67bb8dc09a658e7c9594913fc5c43154f264d5b776416ad1c4d",
+    "a257001464e30b51c426b24f371f94fa6dd7f8b35ad66fa04b7203122bf24cdb",
+    "25b5df33a5c91ef885c8ea4f1e4890d0e6dcb3240cf36e5de3cc77aedc679159",
 ]
 
 
