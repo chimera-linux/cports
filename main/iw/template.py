@@ -1,11 +1,12 @@
 pkgname = "iw"
 pkgver = "6.17"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = ["SBINDIR=/usr/bin"]
 make_use_env = True
 hostmakedepends = ["gsed", "pkgconf", "libnl-devel"]
 makedepends = ["libnl-devel", "linux-headers"]
+depends = ["wireless-regdb"]
 pkgdesc = "Utility for nl80211 based CLI configuration of wireless devices"
 license = "ISC"
 url = "https://wireless.kernel.org/en/users/Documentation/iw"
