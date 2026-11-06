@@ -1,8 +1,7 @@
 pkgname = "glab"
-pkgver = "1.124.0"
+pkgver = "1.128.0"
 pkgrel = 0
 build_style = "go"
-prepare_after_patch = True
 make_build_args = [
     "-ldflags",
     f"-X main.commit=v{pkgver} -X main.version={pkgver}",
@@ -16,17 +15,18 @@ pkgdesc = "Command-line frontend to interact with GitLab"
 license = "MIT"
 url = "https://gitlab.com/gitlab-org/cli"
 source = f"{url}/-/releases/v{pkgver}/downloads/glab_{pkgver}_source.tar.gz"
-sha256 = "89042f881c50f14fca83d504d4c7999f59daa6d29557dea3a882514e3dcea3bb"
+sha256 = "908296f5aae4d63bb942f6da57910774fb67df79cfe0167caa0d8cb73e7e6a40"
+hardening = []
 # check may be disabled
 options = ["!cross"]
+
+if self.profile.arch in ["ppc64le", "ppc64"]:
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 if self.profile.arch not in ["aarch64", "x86_64"]:
     # some tests are platform-specific
     options += ["!check"]
-
-
-def post_extract(self):
-    self.rm("vendor", recursive=True)
 
 
 def post_prepare(self):
