@@ -1,0 +1,29 @@
+diff --git a/ui/base/metadata/base_type_conversion.cc b/ui/base/metadata/base_type_conversion.cc
+index 82d9b22..d4553af 100644
+--- a/ui/base/metadata/base_type_conversion.cc
++++ b/ui/base/metadata/base_type_conversion.cc
+@@ -440,9 +440,23 @@ std::u16string TypeConverter<UNIQUE_TYPE_NAME(SkColor)>::ToString(
+   return base::UTF8ToUTF16(color_utils::SkColorToRgbaString(source_value));
+ }
+ 
++struct public_char16_iter {
++    const char16_t *v;
++};
++
+ std::optional<SkColor> TypeConverter<UNIQUE_TYPE_NAME(SkColor)>::FromString(
+     std::u16string_view source_value) {
+-  return GetNextColor(source_value.cbegin(), source_value.cend());
++  /* gross but the iterator of a basic_string is a __wrap_iter (with the
++   * same layout) that has a private constructor, it's technically POD so
++   * as long as we're in control this is technically the fastest workaround
++   */
++  std::u16string::const_iterator cb{}, ce{};
++  public_char16_iter pit;
++  pit.v = source_value.cbegin();
++  memcpy(&cb, &pit, sizeof(pit));
++  pit.v = source_value.cend();
++  memcpy(&ce, &pit, sizeof(pit));
++  return GetNextColor(cb, ce);
+ }
+ 
+ ValidStrings TypeConverter<UNIQUE_TYPE_NAME(SkColor)>::GetValidStrings() {
