@@ -1,5 +1,5 @@
 pkgname = "perl-authen-sasl"
-pkgver = "2.1900"
+pkgver = "2.2100"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -7,6 +7,6 @@ makedepends = ["perl", "perl-crypt-urandom", "perl-digest-hmac"]
 depends = ["perl", "perl-crypt-urandom", "perl-digest-hmac"]
 pkgdesc = "SASL authentication framework"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
-url = "https://metacpan.org/release/Authen-SASL"
-source = f"$(CPAN_SITE)/Authen/Authen-SASL-{pkgver}.tar.gz"
-sha256 = "be3533a6891b2e677150b479c1a0d4bf11c8bbeebed3e7b8eba34053e93923b0"
+url = "https://metacpan.org/pod/Authen::SASL"
+source = f"$(CPAN_SITE)/Authen/EHUELS/Authen-SASL-{pkgver}.tar.gz"
+sha256 = "4f0f100aeed34b52977a94b7df973e7f0b8f92d167b09f2b249bab81e8590e57"
