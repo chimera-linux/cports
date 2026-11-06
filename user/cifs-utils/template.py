@@ -6,7 +6,6 @@ configure_args = [
     "--enable-systemd=no",
     "--with-libcap-ng=yes",
 ]
-configure_gen = []
 make_dir = "."
 make_install_args = ["ROOTSBINDIR=/usr/bin"]
 hostmakedepends = [
@@ -33,3 +32,4 @@ source = [
 sha256 = "9f3750f402520b15c2c8eb52fd485df6ea77e5e66fe5e39ce8ac4386c32c0296"
 # TODO test well
 # hardening = ["vis", "cfi"]
+# options = ["sanruntime"]
