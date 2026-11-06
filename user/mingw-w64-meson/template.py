@@ -1,6 +1,6 @@
 pkgname = "mingw-w64-meson"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 makedepends = [
     "gmake",
     "python",
