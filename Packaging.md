@@ -627,14 +627,12 @@ contents of the package. That is, when a library is called `foo`,
 the package should be called `foo`, not `libfoo`.
 
 If you need to split one or more libraries from the main package,
-the package should take on the `-libs` suffix. This should be the
-default approach. However, if the library or libraries are a subproject
-of the main project and are called `libfoo` upstream, you can use that
-name. Additionally, the `lib` prefix can also be used in cases when
-the main package is splitting off multiple libraries each into its
-own subpackage (this should be done sparingly and mostly only when
-combining the libraries would pull in unnecessary bulk, for example
-through different dependencies).
+the package should take on the `-libs` suffix. If splitting off into
+multiple library subpackages, they should follow the pattern of
+`pkgname-foo-libs`. In general splitting of libraries, and especially
+multiple library subpackages, should be done sparingly and with a good
+reason (e.g. when the subpackage is usable standalone and merging it
+with others would pull in too much bulk or significant dependencies).
 
 Development packages should use the `-devel` suffix, like `foo-devel`
 for the `foo` template. The convention with library subpackages and
