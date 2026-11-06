@@ -1,15 +1,15 @@
 pkgname = "libdvdread"
-pkgver = "6.1.3"
+pkgver = "7.1.1"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--with-libdvdcss"]
-hostmakedepends = ["automake", "libtool", "pkgconf"]
+build_style = "meson"
+configure_args = ["-Ddefault_library=shared", "-Dlibdvdcss=enabled"]
+hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = ["libdvdcss-devel"]
 pkgdesc = "DVD access library"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/libdvdread.html"
-source = f"https://download.videolan.org/pub/videolan/libdvdread/{pkgver}/libdvdread-{pkgver}.tar.bz2"
-sha256 = "ce35454997a208cbe50e91232f0e73fb1ac3471965813a13b8730a8f18a15369"
+source = f"https://download.videolan.org/pub/videolan/libdvdread/{pkgver}/libdvdread-{pkgver}.tar.xz"
+sha256 = "a0d47876548bec806774bbf8dbf20bb19ba139464383156b32eb8e59915b90a9"
 
 
 @subpackage("libdvdread-devel")
