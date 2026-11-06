@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/lib/apparmor/apparmor.systemd reload
+stop-command = /usr/lib/apparmor/apparmor.systemd stop
+depends-on: early-fs-local.target
+before: local.target

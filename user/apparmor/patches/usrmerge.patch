@@ -1,0 +1,35 @@
+diff --git a/init/apparmor.systemd b/init/apparmor.systemd
+index ada6d38..74fea9b 100644
+--- a/init/apparmor.systemd
++++ b/init/apparmor.systemd
+@@ -15,7 +15,7 @@
+ #    along with this program; if not, contact Novell, Inc.
+ # ----------------------------------------------------------------------
+ 
+-APPARMOR_FUNCTIONS=/lib/apparmor/rc.apparmor.functions
++APPARMOR_FUNCTIONS=/usr/lib/apparmor/rc.apparmor.functions
+ 
+ # This function is used in rc.apparmor.functions
+ # shellcheck disable=SC2317,SC2329
+diff --git a/init/rc.apparmor.functions b/init/rc.apparmor.functions
+index 96cb23d..549e1ef 100644
+--- a/init/rc.apparmor.functions
++++ b/init/rc.apparmor.functions
+@@ -31,7 +31,7 @@
+ 
+ # Some nice defines that we use
+ 
+-PARSER=/sbin/apparmor_parser
++PARSER=/usr/bin/apparmor_parser
+ PARSER_OPTS=
+ # Suppress warnings when booting in quiet mode
+ if [ "${QUIET:-no}" = yes ] || [ "${quiet:-n}" = y ]; then
+@@ -50,7 +50,7 @@ ADDITIONAL_PROFILE_DIR=
+ if [ -n "$ADDITIONAL_PROFILE_DIR" ] && [ -d "$ADDITIONAL_PROFILE_DIR" ]; then
+ 	PROFILE_DIRS="$PROFILE_DIRS $ADDITIONAL_PROFILE_DIR"
+ fi
+-AA_STATUS=/usr/sbin/aa-status
++AA_STATUS=/usr/bin/aa-status
+ SECURITYFS=/sys/kernel/security
+ SFS_MOUNTPOINT="${SECURITYFS}/apparmor"
+ 
