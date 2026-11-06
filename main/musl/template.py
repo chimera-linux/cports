@@ -1,16 +1,17 @@
 pkgname = "musl"
 pkgver = "1.2.6"
-pkgrel = 3
+pkgrel = 4
 _commit = "9fa28ece75d8a2191de7c5bb53bed224c5947417"
 _mimalloc_ver = "2.2.7"
 build_style = "gnu_configure"
-configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
+_configure_base = ["--prefix=/usr", "--disable-gcc-wrapper"]
+configure_args = [*_configure_base]
 configure_gen = []
 make_build_args = []
-depends = [self.with_pkgver("musl-progs")]
+depends = [self.with_pkgver("musl-ldso"), self.with_pkgver("musl-progs")]
 provides = ["so:libc.so=0"]
 provider_priority = 999
-replaces = [f"musl-mallocng~{pkgver}"]
+replaces = []
 pkgdesc = "Musl C library"
 license = "MIT"
 url = "http://www.musl-libc.org"
@@ -33,11 +34,17 @@ options = ["bootstrap", "!check", "!lto"]
 # for now 32-bit targets until we patch out 64-bit atomics in arena
 _use_mng = self.profile.wordsize == 32
 
+_variant_mng = False
+
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]
 else:
+    if self.stage >= 2:
+        _variant_mng = True
     configure_args += ["--with-malloc=external"]
-    make_build_args += ["EXTRA_OBJ=$(srcdir)/src/malloc/external/mimalloc.o"]
+
+if _variant_mng:
+    replaces += [self.with_pkgver("musl-mallocng")]
 
 if self.stage > 0:
     # have base-files extract first in normal installations
@@ -75,8 +82,32 @@ def init_configure(self):
         return
 
 
-def post_build(self):
+def post_configure(self):
+    from cbuild.util import gnu_configure
+
+    if _variant_mng:
+        gnu_configure.configure(
+            self,
+            configure_args=[*_configure_base, "--with-malloc=mallocng"],
+            build_dir="build-mng",
+        )
+
+
+def build(self):
     from cbuild.util import compiler
+
+    if _use_mng:
+        self.make.build()
+    else:
+        self.make.build(
+            [
+                "MALLOC_DIR=external",
+                "EXTRA_OBJ=$(srcdir)/src/malloc/external/mimalloc.o",
+            ]
+        )
+
+    if _variant_mng:
+        self.make.build(wrksrc="build-mng")
 
     self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getconf.c", ".")
@@ -114,6 +145,15 @@ def post_install(self):
     # no need for the symlink anymore
     self.uninstall("lib")
 
+    # install variants
+    if _variant_mng:
+        self.install_file(
+            "build-mng/lib/libc.so", "usr/lib", mode=0o755, name="libc-mng.so"
+        )
+        self.install_file(
+            "build-mng/lib/libc.a", "usr/lib", mode=0o644, name="libc-mng.a"
+        )
+
     # fix up ld-musl-whatever so it does not point to absolute path
     for f in (self.destdir / "usr/lib").glob("ld-musl-*.so.1"):
         f.unlink()
@@ -132,6 +172,15 @@ def post_install(self):
     self.install_man(self.files_path / "getconf.1")
 
     self.install_link("usr/bin/ldconfig", "true")
+
+
+@subpackage("musl-ldso")
+def _(self):
+    self.subdesc = "dynamic linker"
+    # should work with any variant
+    self.options = ["brokenlinks", "!scanrundeps"]
+    self.depends = ["so:libc.so!musl"]
+    return ["usr/lib/ld-musl-*.so.1"]
 
 
 @subpackage("musl-progs")
@@ -153,6 +202,43 @@ def _(self):
     self.depends = []
 
     return ["usr/lib/libssp_nonshared.a"]
+
+
+@subpackage("musl-mallocng", _variant_mng)
+def _(self):
+    self.subdesc = "malloc-ng allocator"
+    self.depends = [
+        "base-files",
+        self.with_pkgver("musl-ldso"),
+        self.with_pkgver("musl-progs"),
+        "virtual:musl-safety-override!base-files",
+    ]
+    self.provides = ["so:libc.so=0"]
+    self.provider_priority = 0
+    self.replaces = [self.with_pkgver("musl")]
+
+    def _take():
+        self.take("usr/lib/libc-mng.so")
+        self.mv(
+            self.destdir / "usr/lib/libc-mng.so",
+            self.destdir / "usr/lib/libc.so",
+        )
+
+    return _take
+
+
+@subpackage("musl-mallocng-devel-static", _variant_mng)
+def _(self):
+    self.subdesc = "static libraries for malloc-ng allocator"
+    self.depends = [self.with_pkgver("musl-devel")]
+
+    def _take():
+        self.take("usr/lib/libc-mng.a")
+        self.mv(
+            self.destdir / "usr/lib/libc-mng.a", self.destdir / "usr/lib/libc.a"
+        )
+
+    return _take
 
 
 @subpackage("musl-devel")
