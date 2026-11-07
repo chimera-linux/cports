@@ -1,5 +1,5 @@
 pkgname = "sushi"
-pkgver = "51.0"
+pkgver = "51.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -24,11 +24,11 @@ makedepends = [
     "papers-devel",
     "webkitgtk4-devel",
 ]
-depends = ["evince", "gtksourceview4", "nautilus", "webkitgtk"]
+depends = ["gtksourceview4", "nautilus", "papers", "webkitgtk"]
 pkgdesc = "File previewer for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/sushi"
 source = f"$(GNOME_SITE)/sushi/{pkgver[:-2]}/sushi-{pkgver}.tar.xz"
-sha256 = "d41b1b9e640fd949895bf0e871143249eb7baa38ed4ba666dbb2427fbbc9e9a5"
+sha256 = "928c0155bd5664098bdb4d591806e70e8219a4b66bf46c95382f72589e4e9a6e"
 # gir
 options = ["!cross"]
