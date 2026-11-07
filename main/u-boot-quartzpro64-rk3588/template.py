@@ -1,5 +1,5 @@
 pkgname = "u-boot-quartzpro64-rk3588"
-pkgver = "2025.10"
+pkgver = "2026.10"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "u_boot"
@@ -27,11 +27,11 @@ license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 _ddr_ver = "1.18"
 source = [
-    f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2",
+    f"https://git.u-boot-project.org/u-boot/u-boot/-/releases/v{pkgver}/downloads/u-boot-{pkgver}.tar.bz2",
     f"!https://github.com/rockchip-linux/rkbin/raw/refs/heads/master/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v{_ddr_ver}.bin>ddr-v{_ddr_ver}.bin",
 ]
 sha256 = [
-    "b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a",
+    "3f856da3cbbc93af51ff95fde18588a348b4a26723b01d9841e999d988481015",
     "d89d40a8183b099589bfcffc5cc2ce9d874eb5b1d19b78bdad2cfcf45b9cb68f",
 ]
 env = {

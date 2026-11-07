@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2025.10"
+pkgver = "2026.10"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "tools-all"
@@ -11,6 +11,7 @@ make_build_args = [
     "NO_SDL=1",
 ]
 hostmakedepends = [
+    "bash",
     "bison",
     "flex",
     "python",
@@ -29,8 +30,8 @@ makedepends = [
 pkgdesc = "Das U-Boot tools"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
-source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a"
+source = f"https://git.u-boot-project.org/u-boot/u-boot/-/releases/v{pkgver}/downloads/u-boot-{pkgver}.tar.bz2"
+sha256 = "3f856da3cbbc93af51ff95fde18588a348b4a26723b01d9841e999d988481015"
 hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
