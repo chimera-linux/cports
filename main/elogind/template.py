@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "255.17"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/elogind",

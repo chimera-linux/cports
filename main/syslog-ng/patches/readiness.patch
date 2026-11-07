@@ -37,7 +37,7 @@ index 1fbfdbd..58441be 100644
 +  errno = 0;
 +  if (!fdnum || fcntl(fdnum, F_GETFD) < 0 || errno == EBADF)
 +    return;
-+  write(fdnum, "READY=1", sizeof("READY=1") - 1);
++  write(fdnum, "READY=1\n", sizeof("READY=1"));
  }
  
  static gboolean

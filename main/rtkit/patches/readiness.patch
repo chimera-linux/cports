@@ -38,7 +38,7 @@ index 07c2d3c..258e481 100644
 +                int fdn = atoi(rvar);
 +                errno = 0;
 +                if (fdn && fcntl(fdn, F_GETFD) >= 0) {
-+                        write(fdn, "READY=1", sizeof("READY=1"));
++                        write(fdn, "READY=1\n", sizeof("READY=1"));
 +                        close(fdn);
 +                }
 +        }

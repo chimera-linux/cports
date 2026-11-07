@@ -18,7 +18,7 @@ index db88fc3..6b33916 100644
 +                int fdnum = atoi(rvar);
 +                errno = 0;
 +                if (fdnum && fcntl(fdnum, F_GETFD) >= 0) {
-+                        write(fdnum, "READY=1", sizeof("READY=1"));
++                        write(fdnum, "READY=1\n", sizeof("READY=1"));
 +                        close(fdnum);
 +                }
 +        }
