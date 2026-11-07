@@ -1,0 +1,13 @@
+--- a/meson.build
++++ b/meson.build
+@@ -241,8 +241,8 @@ install_data('assets/config.toml', install_dir : join_paths(sysconfdir, 'mango')
+ # WantedBy=graphical-session.target (portals, panels, ...) are started together
+ # with the session. mango activates the target itself, see
+ # set_activation_env() in src/main.c
+-install_data('assets/mango-session.target',
+-  install_dir : join_paths(prefix, 'lib/systemd/user'))
++# install_data('assets/mango-session.target',
++#   install_dir : join_paths(prefix, 'lib/systemd/user'))
+ 
+ # generate the mmsg man page at build time so the version always
+ # matches the project version
