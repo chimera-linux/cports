@@ -1,6 +1,6 @@
 pkgname = "font-manager"
-pkgver = "0.9.4"
-pkgrel = 3
+pkgver = "0.9.6"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dnautilus=true",
@@ -30,7 +30,7 @@ pkgdesc = "Font management application"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3e4aefdaa0fbd37410c35421501819b19ba1f6847bad7a1f51707209c4147063"
+sha256 = "2d887c93bba13139cb50e9f61480f37258584abbb5a7f5476ec4e475aa38e3a8"
 # gobject-introspection
 options = ["!cross"]
 
