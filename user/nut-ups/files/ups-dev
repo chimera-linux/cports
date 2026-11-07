@@ -1,0 +1,3 @@
+type = process
+command = /usr/bin/upsdrvctl -F start $1
+depends-on: upsd
