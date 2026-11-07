@@ -1,5 +1,5 @@
 pkgname = "noctalia-greeter"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -12,6 +12,7 @@ makedepends = [
     "fontconfig-devel",
     "freetype-devel",
     "harfbuzz-devel",
+    "libjxl-devel",
     "librsvg-devel",
     "libwebp-devel",
     "libxkbcommon-devel",
@@ -30,7 +31,7 @@ pkgdesc = "Greetd greeter"
 license = "MIT"
 url = "https://github.com/noctalia-dev/noctalia-greeter"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f23ebf07cbe4508971c08b0b81d2b5bfc4ec1ec45605d8f8fb01b799743a70b6"
+sha256 = "5b092784c0147bb6739efc2e8146d2d07e3572a59d7a370e93092f9f56d4fcc8"
 
 
 def post_install(self):
