@@ -1,0 +1,25 @@
+From f4b9ade269b1030f40b59d359b2be1803399c173 Mon Sep 17 00:00:00 2001
+From: Deadolus <4662005+Deadolus@users.noreply.github.com>
+Date: Tue, 21 Oct 2025 16:28:34 +0200
+Subject: [PATCH] Use sem_destroy instead sem_close
+
+Sem_destroy is correct way to get rid of unnamed semaphore
+
+Signed-off-by: Simon Egli <4662005+Deadolus@users.noreply.github.com>
+---
+ src/tpm2-provider-semaphore.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/tpm2-provider-semaphore.c b/src/tpm2-provider-semaphore.c
+index 2479cc2..45ff964 100644
+--- a/src/tpm2-provider-semaphore.c
++++ b/src/tpm2-provider-semaphore.c
+@@ -68,7 +68,7 @@ int tpm2_semaphore_unlock(tpm2_semaphore_t sem)
+ 
+ void tpm2_semaphore_free(tpm2_semaphore_t sem)
+ {
+-    sem_close(sem);
++    sem_destroy(sem);
+     munmap(sem, sizeof(sem_t));
+ }
+ 
