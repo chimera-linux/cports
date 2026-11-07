@@ -1,0 +1,12 @@
+diff --git a/test/bpf_cp.c b/test/bpf_cp.c
+index 110135da..031831bd 100644
+--- a/test/bpf_cp.c
++++ b/test/bpf_cp.c
+@@ -4,6 +4,7 @@
+ #include <signal.h>
+ #include <stdlib.h>
+ #include <bpf/libbpf.h>
++#include <unistd.h>
+ 
+ #include "liburing.h"
+ #include "cp.skel.h"
