@@ -1,9 +1,9 @@
 pkgname = "atf-rk3588-bl31"
-pkgver = "2.12.6"
+pkgver = "2.14.13"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "makefile"
-hostmakedepends = ["gcc-aarch64-none-elf", "gcc-arm-none-eabi"]
+hostmakedepends = ["gcc-aarch64-none-elf", "gcc-arm-none-eabi", "gsed"]
 pkgdesc = "ARM Trusted Firmware for Rockchip rk3588 boards"
 subdesc = "bl31"
 license = "BSD-3-Clause"
@@ -11,10 +11,11 @@ url = "https://developer.trustedfirmware.org/dashboard/view/6"
 # unstable tarball checksum
 # source = f"https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+archive/refs/tags/lts-v{pkgver}.tar.gz"
 source = f"https://ftp.octaforge.org/q66/random/lts-v{pkgver}.tar.gz"
-sha256 = "bc709b5a795de3bd1c42e2a0b98c9dfb99cafb0bc6a49a1c90eca59ef541802b"
+sha256 = "c5330da0e7f7435affc2f25bb88a7901d889feb39fc4092c5742732a7a3e2917"
 hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
+exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 
 def build(self):
