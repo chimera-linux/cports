@@ -169,7 +169,6 @@ def configure(self):
     match self.profile.arch:
         case "x86_64" | "aarch64":
             conf_opts += ["--enable-rust-simd"]
-            pass
         case _:
             conf_opts += ["--disable-crashreporter"]
 

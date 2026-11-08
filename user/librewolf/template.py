@@ -170,7 +170,6 @@ def configure(self):
     match self.profile.arch:
         case "x86_64" | "aarch64":
             conf_opts += ["--enable-rust-simd"]
-            pass
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
