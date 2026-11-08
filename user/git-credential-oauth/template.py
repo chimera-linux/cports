@@ -1,13 +1,13 @@
 pkgname = "git-credential-oauth"
-pkgver = "0.17.2"
-pkgrel = 4
+pkgver = "0.18.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Oauth credential manager for git"
 license = "Apache-2.0"
 url = "https://github.com/hickford/git-credential-oauth"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "23769afc87f82fe21b5519d059bb5ce56b2fad2c4abc7ecde9bff49a4e065ab6"
+sha256 = "2acf2c1c9197e179e3068e318da67ec1af26feae63d8661c930963e3a7704ba2"
 
 
 def post_install(self):
