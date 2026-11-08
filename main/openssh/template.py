@@ -1,6 +1,6 @@
 pkgname = "openssh"
 pkgver = "10.6_p2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/ssh",
@@ -64,8 +64,10 @@ def post_install(self):
         self.files_path / "sshd.pam", "usr/lib/pam.d", name="sshd"
     )
 
-    self.install_bin("contrib/ssh-copy-id")
-    self.install_man("contrib/ssh-copy-id.1")
+    # the version from NetBSD; version in contrib/ is not portable
+    # https://gitlab.com/phil_hands/ssh-copy-id/-/work_items/5
+    self.install_bin(self.files_path / "ssh-copy-id")
+    self.install_man(self.files_path / "ssh-copy-id.1")
 
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
