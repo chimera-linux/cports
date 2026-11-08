@@ -1,7 +1,7 @@
 # mirrors firefox package; own patches as version may drift
 # always incorporate changes from firefox commits to keep in sync
 pkgname = "librewolf"
-pkgver = "159.0"
+pkgver = "159.0.1"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -61,7 +61,7 @@ pkgdesc = "LibreWolf web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://librewolf.net"
 source = f"https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/{pkgver}-1/librewolf-{pkgver}-1.source.tar.gz"
-sha256 = "c2119c24ffbf22dcc998ac399bd95b97e8fdc785f1e57776847b468f3f9928cb"
+sha256 = "955a51063d15612260d993fb70794dc28a8c6e33d0380193e91ce44570ee3ff3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/librewolf", "-Wl,-z,stack-size=2097152"]
@@ -73,6 +73,7 @@ env = {
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "MOZ_APP_REMOTINGNAME": "librewolf",
+    "MOZ_OBJDIR": "obj",
     "MOZ_NOSPAM": "1",
     "MOZ_CRASHREPORTER": "0",
     "MOZ_DATA_REPORTING": "0",
@@ -168,16 +169,13 @@ def configure(self):
 
     match self.profile.arch:
         case "x86_64" | "aarch64":
-            # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
-            # conf_opts += ["--enable-rust-simd"]
+            conf_opts += ["--enable-rust-simd"]
             pass
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
 
-    # crashes during profiling on x86_64 starting with 158.x
-    _use_pgo = False
-    # _use_pgo = self.has_lto()
+    _use_pgo = self.has_lto()
 
     # aarch64: gets stuck busy-looping in profiling pass in ff140
     # ppc64le: takes long to link and generates a broken binary
@@ -185,17 +183,23 @@ def configure(self):
         _use_pgo = False
 
     if _use_pgo:
+        _ppath = f"{self.chroot_cwd}/{env['MOZ_OBJDIR']}/dist/librewolf"
         # configure for profiling
         self.log("bootstrapping profile...")
         with self.stamp("profile_configure") as s:
             s.check()
             self.log("configuring profile build...")
+            _tflags = list(self.tool_flags["LDFLAGS"])
+            # replace rpath for profile build
+            # https://bugzilla.mozilla.org/show_bug.cgi?id=2088571
+            self.tool_flags["LDFLAGS"][0] = f"-Wl,-rpath={_ppath}"
             self.do(
                 "./mach",
                 "configure",
                 *conf_opts,
                 "--enable-profile-generate=cross",
             )
+            self.tool_flags["LDFLAGS"] = _tflags
         # do the profiling build
         with self.stamp("profile_build") as s:
             s.check()
@@ -210,8 +214,6 @@ def configure(self):
         with self.stamp("profile_generate") as s:
             s.check()
             self.log("generating profile...")
-            for d in self.cwd.glob("obj-*"):
-                ldp = self.chroot_cwd / d.name / "dist/librewolf"
             self.do(
                 "dbus-run-session",
                 "--",
@@ -222,7 +224,7 @@ def configure(self):
                 env={
                     "HOME": str(self.chroot_cwd),
                     "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
-                    "LD_LIBRARY_PATH": ldp,
+                    "LD_LIBRARY_PATH": _ppath,
                     "LIBGL_ALWAYS_SOFTWARE": "1",
                     "LLVM_PROFDATA": "llvm-profdata",
                     "XDG_RUNTIME_DIR": "/tmp",
