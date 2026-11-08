@@ -20,7 +20,7 @@ index 3fce2bf7b..e709f6d35 100644
 +SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) $(EXTRA_LDFLAGS)'
  
  # Project packages.
- PACKAGES=$(shell $(GO) list ${GO_TAGS} ./... | grep -v /vendor/ | grep -v /integration)
+ PACKAGES := $(shell $(GO) list ${GO_TAGS} ./... | grep -v /integration)
 -- 
 2.49.0
 
