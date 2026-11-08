@@ -1,11 +1,11 @@
 pkgname = "spotify-player"
-pkgver = "0.24.1"
+pkgver = "0.25.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
     "--features",
-    "pulseaudio-backend,streaming,media-control,image,sixel,notify",
+    "pulseaudio-backend,streaming,media-control,image,sixel,notify,rustls-tls",
 ]
 make_check_args = [*make_build_args]
 hostmakedepends = [
@@ -26,18 +26,12 @@ pkgdesc = "Spotify player in the terminal with full feature parity"
 license = "MIT"
 url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "211da7f76d412708315ccd36b77424bd53bc4ad19813ed69de44451779812f1f"
+sha256 = "60cc7cd60f66729039c0a48b134d8032c14817c88210d420722ad08340ad15cc"
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
 elif self.profile.arch == "loongarch64":
     broken = "rustix/libc interaction garbage strikes again"
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    cargo.clear_vendor_checksums(self, "aws-lc-sys-0.43.0")
 
 
 def install(self):
