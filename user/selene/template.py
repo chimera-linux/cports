@@ -1,5 +1,5 @@
 pkgname = "selene"
-pkgver = "0.30.1"
+pkgver = "0.32.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -9,7 +9,7 @@ pkgdesc = "Lua linter"
 license = "MPL-2.0"
 url = "https://github.com/Kampfkarren/selene"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "61c66d7e40d8d00fe8364a2696c7f87bcb976d838bd681fd802d427c7675a872"
+sha256 = "cd208a4b3bae38decc9c7bb797c19615caaecf67606b3e593ca60b64d3416cd5"
 
 
 def pre_prepare(self):
@@ -31,7 +31,7 @@ def pre_prepare(self):
         "--package",
         "libc",
         "--precise",
-        "0.2.174",
+        "0.2.191",
         allow_network=True,
     )
 
