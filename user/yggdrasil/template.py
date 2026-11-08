@@ -1,6 +1,6 @@
 pkgname = "yggdrasil"
-pkgver = "0.5.13"
-pkgrel = 7
+pkgver = "0.5.15"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -16,7 +16,7 @@ pkgdesc = "Experiment in scalable routing as an encrypted IPv6 overlay network"
 license = "LGPL-3.0-only"
 url = "https://yggdrasil-network.github.io"
 source = f"https://github.com/yggdrasil-network/yggdrasil-go/archive/v{pkgver}.tar.gz"
-sha256 = "e19a3c3121d6a5e9abdc9f4d42decbd62ed97ccbe301c842f2d30ac1eba9c4c2"
+sha256 = "f1b2202d27e7a250eead4f76e4f83c3e9d9eee7ca5b148c3ae1504d430e7c7ee"
 
 
 def pre_build(self):
