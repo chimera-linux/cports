@@ -8,6 +8,7 @@ import pathlib
 import threading
 from time import time as timer
 from urllib import request
+from urllib.error import HTTPError
 from http.client import responses
 from multiprocessing.pool import ThreadPool
 
@@ -201,11 +202,15 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
         )
         with request.urlopen(rq, context=fctx) as rqf:
             return fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf)
-    except Exception as e:
+    except HTTPError as e:
         # don't retry for 4xx status codes, it will just fail again
-        if ntry > 3 or (e.status >= 400 and e.status < 500):
+        if ntry > 3 or (e.code >= 400 and e.code < 500):
             return url, dfile, str(e)
         # try a few times on failures
+        return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
+    except Exception as e:
+        if ntry > 3:
+            return url, dfile, str(e)
         return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
 
 
