@@ -1,7 +1,11 @@
 pkgname = "zrepl"
-pkgver = "1.0.0"
-pkgrel = 8
+pkgver = "1.4.3"
+pkgrel = 0
 build_style = "go"
+prepare_after_patch = True
+make_build_args = [
+    f"-ldflags=-X github.com/dsh2dsh/zrepl/internal/version.zreplVersion={pkgver}"
+]
 hostmakedepends = ["go"]
 makedepends = ["dinit-chimera"]
 depends = ["zfs"]
@@ -9,7 +13,7 @@ pkgdesc = "ZFS backup and replication tool - dsh2dsh's enhanced fork"
 license = "MIT"
 url = "https://github.com/dsh2dsh/zrepl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "33f5c42b423bb0c38ecab909d3a641a3218a6baae97e5c70ebf70b2b9b346017"
+sha256 = "86a6161e70ba51ac8106ce0defc45fe0ee247193eb4483eb04cb22f61d2b59fd"
 # check: needs to run zfs command
 # cross: generates completions with built binary
 options = ["!check", "!cross"]

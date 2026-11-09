@@ -1,0 +1,26 @@
+diff --git a/go.mod b/go.mod
+index 65b438e..35c1aab 100644
+--- a/go.mod
++++ b/go.mod
+@@ -23,7 +23,7 @@ require (
+ 	github.com/yudai/gojsondiff v1.0.0
+ 	go.yaml.in/yaml/v4 v4.0.0-rc.6
+ 	golang.org/x/sync v0.24.0
+-	golang.org/x/sys v0.49.0
++	golang.org/x/sys v0.48.0
+ 	golang.org/x/text v0.43.0
+ )
+ 
+diff --git a/go.sum b/go.sum
+index 4b13229..36a2d49 100644
+--- a/go.sum
++++ b/go.sum
+@@ -150,6 +150,8 @@ golang.org/x/sync v0.24.0 h1:iqiDrGoDgyuvAKrhLQthUEzU/R378N78gXbBjxed7oA=
+ golang.org/x/sync v0.24.0/go.mod h1:sUUOizhqBxiL6pEWpqNLUiaJn1ShEbZ6BBqskPbjZm0=
+ golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+ golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
++golang.org/x/sys v0.48.0 h1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=
++golang.org/x/sys v0.48.0/go.mod h1:hNLxWAXmnKAxqDtdwIYC4bM9oQPEecfsnNMuSxOs3og=
+ golang.org/x/sys v0.49.0 h1:XbzkgYJHdqh/8m2Uu0W/dQv8nktxx4BFHp1M0gROTXA=
+ golang.org/x/sys v0.49.0/go.mod h1:hNLxWAXmnKAxqDtdwIYC4bM9oQPEecfsnNMuSxOs3og=
+ golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
