@@ -1,7 +1,7 @@
 pkgname = "python"
 pkgver = "3.14.6"
 _majver = pkgver[: pkgver.rfind(".")]
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",

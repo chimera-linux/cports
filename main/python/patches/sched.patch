@@ -1,8 +1,13 @@
-lol musl
+musl ENOSYS these because of posix obtusery, fall back on raw syscalls
 
+setting scheduling attrs on posix_spawn is still unsupported as that we
+cannot easily work around, and the tests need that so disable those
+
+diff --git a/Modules/posixmodule.c b/Modules/posixmodule.c
+index 69e28a1..07ab639 100644
 --- a/Modules/posixmodule.c
 +++ b/Modules/posixmodule.c
-@@ -7833,7 +7833,7 @@ os_sched_getscheduler_impl(PyObject *module, pid_t pid)
+@@ -8274,7 +8274,7 @@ os_sched_getscheduler_impl(PyObject *module, pid_t pid)
  {
      int policy;
  
@@ -11,12 +16,30 @@ lol musl
      if (policy < 0)
          return posix_error();
      return PyLong_FromLong(policy);
-@@ -7933,7 +7933,7 @@ os_sched_setscheduler_impl(PyObject *module, pid_t pid, int policy,
+@@ -8384,7 +8384,7 @@ os_sched_setscheduler_impl(PyObject *module, pid_t pid, int policy,
      ** scheduling policy under Solaris/Illumos, and others.
      ** On error, -1 is returned in all Operating Systems.
      */
 -    if (sched_setscheduler(pid, policy, &param) == -1)
 +    if (syscall(__NR_sched_setscheduler, pid, policy, &param) < 0)
+         return posix_error();
+     Py_RETURN_NONE;
+ }
+@@ -8411,7 +8411,7 @@ os_sched_getparam_impl(PyObject *module, pid_t pid)
+     PyObject *result;
+     PyObject *priority;
+ 
+-    if (sched_getparam(pid, &param))
++    if (syscall(__NR_sched_getparam, pid, &param) < 0)
+         return posix_error();
+     PyObject *SchedParamType = get_posix_state(module)->SchedParamType;
+     result = PyStructSequence_New((PyTypeObject *)SchedParamType);
+@@ -8448,7 +8448,7 @@ os_sched_setparam_impl(PyObject *module, pid_t pid, PyObject *param_obj)
+         return NULL;
+     }
+ 
+-    if (sched_setparam(pid, &param))
++    if (syscall(__NR_sched_setparam, pid, &param) < 0)
          return posix_error();
      Py_RETURN_NONE;
  }
