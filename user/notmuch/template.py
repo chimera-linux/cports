@@ -1,10 +1,11 @@
 pkgname = "notmuch"
 pkgver = "0.40"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
 hostmakedepends = [
     "bash-completion",
+    "emacs-console",
     "pkgconf",
     "python-sphinx",
 ]
@@ -30,3 +31,12 @@ options = ["!check", "!lintcomp"]
 @subpackage("notmuch-devel")
 def _(self):
     return self.default_devel()
+
+
+@subpackage("notmuch-emacs")
+def _(self):
+    self.depends = [self.parent, "virtual:emacs!emacs-console"]
+    self.subdesc = "emacs support"
+    self.install_if = [self.parent, "emacs"]
+
+    return ["cmd:notmuch-emacs-mua", "usr/share/emacs"]
