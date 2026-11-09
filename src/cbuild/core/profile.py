@@ -479,12 +479,18 @@ class Profile:
 _all_profiles = {}
 
 
-def init(cparser):
+def get_profile_paths():
     profiles = paths.distdir() / "etc/build_profiles"
+    archret = []
 
     for pf in profiles.glob("*.ini"):
-        archn = pf.with_suffix("").name
+        archret.append((pf, pf.with_suffix("").name))
 
+    return archret
+
+
+def init(cparser):
+    for pf, archn in get_profile_paths():
         cp = configparser.ConfigParser(
             interpolation=configparser.ExtendedInterpolation()
         )
