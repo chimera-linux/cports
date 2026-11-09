@@ -17,9 +17,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdegames"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "766fe0a439c62f20193ec5dd4b609a72e2beee505f5bfa5739cccc9f5aada28b"
-hardening = ["!int", "!format"]
-options = ["!lto"]
-
 tool_flags = {
     "CXXFLAGS": [
         "-Wno-format-security",
@@ -28,3 +25,5 @@ tool_flags = {
         "-Wno-c++11-compat-deprecated-writable-strings",
     ],
 }
+hardening = ["!int", "!format"]
+options = ["!lto"]

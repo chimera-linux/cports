@@ -8,11 +8,9 @@ license = "GPL-2.0-or-later"
 url = "https://packages.debian.org/sid/mac-fdisk"
 source = f"http://deb.debian.org/debian/pool/main/m/mac-fdisk/mac-fdisk_{pkgver}.orig.tar.gz"
 sha256 = "7059fc4ba41ca2ef857e1092e9c56e910f27693d407b5c3d78f7102ad0c56a66"
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_LARGEFILE64_SOURCE"]}
 # no tests
 options = ["!check"]
-
-
-tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_LARGEFILE64_SOURCE"]}
 
 
 def install(self):

@@ -52,12 +52,6 @@ license = "GPL-3.0-or-later"
 url = "https://tenacityaudio.org"
 source = f"https://codeberg.org/tenacityteam/tenacity/releases/download/v{pkgver}/tenacity-{pkgver}-src.tar.gz"
 sha256 = "0446e14e09046a0c72d0fdfbbf3823a2ba3451204de7b93f715cc4fe2333e781"
-# vis breaks symbols
-hardening = []
-# check: dont care
-# no need to scan for library providers, we don't have a devel package
-options = ["!check", "linkundefver", "!scanshlibs"]
-
 tool_flags = {
     # disarm debug
     "CFLAGS": ["-DNDEBUG"],
@@ -71,6 +65,11 @@ tool_flags = {
         "-Wno-unqualified-std-cast-call",
     ],
 }
+# vis breaks symbols
+hardening = []
+# check: dont care
+# no need to scan for library providers, we don't have a devel package
+options = ["!check", "linkundefver", "!scanshlibs"]
 
 if self.profile.endian == "big":
     broken = "unimplemented bits"

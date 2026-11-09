@@ -26,7 +26,6 @@ file_modes = {
     "usr/bin/icedax": ("root", "root", 0o755),
     "usr/bin/readom": ("root", "root", 0o755),
 }
-
 file_xattrs = {
     "usr/bin/wodim": {
         "security.capability": "cap_sys_resource,cap_dac_override,cap_sys_admin,cap_sys_nice,cap_net_bind_service,cap_ipc_lock,cap_sys_rawio+ep",

@@ -38,14 +38,13 @@ license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"
 sha256 = "e8ea44b13a1c70032a35128a8c4c8c29c90a7cfbe0ad4f6aa2927a057d10f83e"
-# nah
-options = ["!cross"]
-
 tool_flags = {
     # musl/posix ioctl int argument crap
     "CFLAGS": ["-Wno-error=overflow"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
+# nah
+options = ["!cross"]
 
 
 def prepare(self):

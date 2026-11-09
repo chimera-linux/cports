@@ -38,12 +38,11 @@ license = "GPL-2.0-only AND BSD-3-Clause AND MIT"
 url = "https://developers.hp.com/hp-linux-imaging-and-printing"
 source = f"https://downloads.sourceforge.net/hplip/hplip-{pkgver}.tar.gz"
 sha256 = "a6af314a7af0572f2ab6967b2fe68760e64d74628ef0e6237f8504d81047edbe"
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-Wno-incompatible-pointer-types"]}
 # nuh uh
 hardening = ["!vis"]
 # TODO: probably ignores CC
 options = ["etcfiles", "!cross"]
-
-tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-Wno-incompatible-pointer-types"]}
 
 
 def post_extract(self):

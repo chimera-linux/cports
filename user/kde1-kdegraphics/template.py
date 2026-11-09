@@ -18,12 +18,11 @@ license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdegraphics"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "dffc55ea4552324a4fbb025c8ed5baea5fe80995ead0b60b4edb08f7e256bce7"
-hardening = ["!int", "!format"]
-options = ["!lto"]
-
 tool_flags = {
     "CXXFLAGS": [
         "-std=gnu++98",
         "-Wno-c++11-compat-deprecated-writable-strings",
     ],
 }
+hardening = ["!int", "!format"]
+options = ["!lto"]

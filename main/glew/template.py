@@ -14,12 +14,11 @@ license = "BSD-3-Clause"
 url = "https://github.com/nigels-com/glew"
 source = f"https://github.com/nigels-com/glew/releases/download/glew-{pkgver}/glew-{pkgver}.tgz"
 sha256 = "d4fc82893cfb00109578d0a1a2337fb8ca335b3ceccf97b97e5cc7f08e4353e1"
-# no tests
-options = ["!check"]
-
 tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
+# no tests
+options = ["!check"]
 
 
 def init_configure(self):

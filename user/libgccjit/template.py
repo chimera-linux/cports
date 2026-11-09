@@ -69,11 +69,6 @@ license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
 sha256 = "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e"
-hardening = ["!int", "!format", "!var-init"]
-# no tests to run
-options = ["!check", "!lto", "!cross"]
-
-_trip = self.profile.triplet
 # we cannot use clang, gcc expects binutils
 tools = {
     "AS": "as",
@@ -82,6 +77,9 @@ tools = {
     "LD": "ld.bfd",
     "OBJDUMP": "gobjdump",
 }
+hardening = ["!int", "!format", "!var-init"]
+# no tests to run
+options = ["!check", "!lto", "!cross"]
 
 match self.profile.arch:
     case "aarch64":

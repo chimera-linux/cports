@@ -39,9 +39,6 @@ license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = f"$(GNOME_SITE)/vte/{pkgver[: pkgver.rfind('.')]}/vte-{pkgver}.tar.xz"
 sha256 = "aca1caa8478aebcdbb1d67897fb3511eb7601debae6810e16a15b6fa25f31ac8"
-# assert in meson
-options = ["etcfiles", "!lto", "!cross"]
-
 tool_flags = {
     "CFLAGS": ["-Wno-cast-function-type-strict"],
     "CXXFLAGS": [
@@ -51,6 +48,8 @@ tool_flags = {
         "-Wno-float-equal",
     ],
 }
+# assert in meson
+options = ["etcfiles", "!lto", "!cross"]
 
 
 @subpackage("vte-gtk3")

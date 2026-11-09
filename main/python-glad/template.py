@@ -8,7 +8,6 @@ hostmakedepends = [
     "python-jinja2",
     "python-setuptools",
 ]
-
 depends = ["python-jinja2"]
 pkgdesc = "Multi-language graphics API loader generator"
 license = "MIT"

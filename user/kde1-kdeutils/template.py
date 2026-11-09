@@ -19,9 +19,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdeutils"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "a93ae34b6eee502ec131ee0cba4ba222b200bfd2a3e20ebc1b12a646dd7d7fb0"
-hardening = ["!int", "!format"]
-options = ["!lto"]
-
 tool_flags = {
     "CXXFLAGS": [
         "-std=gnu++98",
@@ -30,3 +27,5 @@ tool_flags = {
         "-Wno-implicit-const-int-float-conversion",
     ],
 }
+hardening = ["!int", "!format"]
+options = ["!lto"]

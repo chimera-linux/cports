@@ -3,6 +3,7 @@ pkgver = "22.1.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
+cmake_dir = "libclc"
 hostmakedepends = [
     "cmake",
     "libedit-devel",
@@ -23,8 +24,6 @@ sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 hardening = ["vis", "!cfi"]
 # external-calls-clspv broken
 options = ["!check"]
-
-cmake_dir = "libclc"
 
 
 # configure with host toolchain

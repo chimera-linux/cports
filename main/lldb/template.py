@@ -12,6 +12,7 @@ configure_args = [
     "-DLIBIPT_INCLUDE_PATH=/usr/include",
     "-DLIBIPT_LIBRARY_PATH=/usr/lib",
 ]
+cmake_dir = "lldb"
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -39,8 +40,6 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 # tests are not enabled
 options = ["!check"]
-
-cmake_dir = "lldb"
 
 
 def init_configure(self):

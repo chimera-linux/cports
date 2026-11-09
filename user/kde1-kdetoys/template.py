@@ -17,9 +17,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdetoys"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "1ed02bca7a0eb825a62feb9099124939436969f2a839a056cef02e53503e7c6a"
-hardening = ["!int", "!format"]
-options = ["!lto"]
-
 tool_flags = {
     "CFLAGS": [
         "-Wno-deprecated-non-prototype",
@@ -29,3 +26,5 @@ tool_flags = {
         "-Wno-c++11-compat-deprecated-writable-strings",
     ],
 }
+hardening = ["!int", "!format"]
+options = ["!lto"]

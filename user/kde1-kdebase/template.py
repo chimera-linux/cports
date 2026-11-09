@@ -32,9 +32,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdebase"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "480b847c73cf00bed6c8f6095e73bf61e41e6ae38d9fb0e1d97d3b149521107d"
-hardening = ["!int", "!format"]
-options = ["!lto"]
-
 tool_flags = {
     "CFLAGS": [
         "-Wno-deprecated-non-prototype",
@@ -46,6 +43,8 @@ tool_flags = {
         "-Wno-c++11-compat-deprecated-writable-strings",
     ],
 }
+hardening = ["!int", "!format"]
+options = ["!lto"]
 
 
 # conflicts with kde6

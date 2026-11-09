@@ -1572,21 +1572,37 @@ class Template(Package):
         midx_line = None
         msg = None
         mblock = 0
+        hadblank = False
+        hadesc = False
         for ln in io.StringIO(contents):
-            # an empty line aborts the lint
-            if ln == "\n":
-                break
             mblock += len(ln)
-            sln = ln.strip()
-            # non-empty or commented line skips the line
-            if len(sln) == 0:
+            if hadesc:
+                hadesc = ln.endswith(("\\", "\\\n"))
                 continue
+            # strip trailing for the below checks
+            sln = ln.rstrip()
+            # stuff that ends blocks is skipped
+            if sln == "]" or sln == "}" or sln == ")":
+                continue
+            # insides of blocks are skipped
+            if sln.startswith(" "):
+                if ln.endswith("\\\n"):
+                    hadesc = True
+                continue
+            sln = sln.strip()
+            # comments skip the line
             if sln.startswith("#"):
                 precomment = True
                 continue
-            # a non-assignment skips the line
-            ass = ln.find("=")
-            if ass < 0:
+            # other non-assignments terminate the lint
+            ass = sln.find(" = ")
+            if ass < 0 and len(sln) != 0:
+                # unconsider the line
+                mblock -= len(ln)
+                break
+            # track newlines, they can't be inside a linted block
+            if len(sln) == 0:
+                hadblank = True
                 continue
             # self-assignment is an error
             if sln.startswith("self."):
@@ -1599,6 +1615,14 @@ class Template(Package):
             # not an actual name or it starts with underscore, so skip it
             if not vnm.isidentifier() or vnm.startswith("_"):
                 continue
+            # had a blank and a "proper" variable was assigned
+            # we do this after checking the _ prefixed ones because
+            # ending the block with those is fine
+            if hadblank:
+                self.error(
+                    "lint failed: blank line in primary block",
+                    hint="remove extra separation between variable assignments",
+                )
             # if options has check disabled, a reason must be given
             if vnm == "options":
                 if not self.options["check"] and not precomment:

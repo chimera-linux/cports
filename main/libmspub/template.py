@@ -21,7 +21,6 @@ source = (
     f"https://dev-www.libreoffice.org/src/libmspub/libmspub-{pkgver}.tar.xz"
 )
 sha256 = "3671095f5a10bee8a755052a30576952c5b16d8b0f2ba9f2fb998338c18cb119"
-
 tool_flags = {"CXXFLAGS": ["-D_HAS_AUTO_PTR_ETC=0"]}
 
 

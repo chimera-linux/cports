@@ -25,6 +25,7 @@ configure_args = [
     "-DLIBCXX_HARDENING_MODE=fast",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
+cmake_dir = "runtimes"
 hostmakedepends = ["cmake", "ninja", "python"]
 makedepends = [
     "clang-devel",
@@ -50,8 +51,6 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
-
-cmake_dir = "runtimes"
 
 _targetlist = [
     "aarch64",

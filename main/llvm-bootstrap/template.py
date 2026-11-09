@@ -45,6 +45,7 @@ configure_args = [
     "-DLLVM_ENABLE_PROJECTS=clang;lld",
     "-DLLVM_ENABLE_RUNTIMES=compiler-rt;libcxx;libcxxabi;libunwind",
 ]
+cmake_dir = "llvm"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python"]
 makedepends = [
     "libatomic-chimera-devel",
@@ -59,6 +60,10 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 debug_level = 0
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+    "CXXFLAGS": ["-fPIC"],
+}
 # see llvm template
 hardening = ["!int"]
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
@@ -77,13 +82,6 @@ options = [
     "!scanrundeps",
     "!autosplit",
 ]
-
-cmake_dir = "llvm"
-
-tool_flags = {
-    "CFLAGS": ["-fPIC"],
-    "CXXFLAGS": ["-fPIC"],
-}
 
 match self.profile.arch:
     case "x86_64":

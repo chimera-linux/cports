@@ -30,6 +30,7 @@ configure_args = [
     # use multiarch style paths
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
+cmake_dir = "compiler-rt"
 hostmakedepends = [
     "cmake",
     "llvm-devel",
@@ -50,15 +51,12 @@ sha256 = [
     "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888",
     "d585fd3b613c66151fc3249e8ed44f77020cb5e6c1e635a616d3f9f82460512a",
 ]
-# crosstoolchain
-options = ["!cross", "!check", "!lto", "empty"]
-
-cmake_dir = "compiler-rt"
-
 tool_flags = {
     "CFLAGS": ["-fPIC"],
     "CXXFLAGS": ["-fPIC"],
 }
+# crosstoolchain
+options = ["!cross", "!check", "!lto", "empty"]
 
 _targetlist = [
     "aarch64",

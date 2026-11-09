@@ -65,11 +65,6 @@ license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
 sha256 = "0c9850a48e99792768b85d7ed9ce7c56e372f24af375afef5c0428749ce9a206"
-# FIXME: SIGILL in jvm
-hardening = ["!int"]
-# TODO later
-options = ["!parallel", "!check", "linkundefver", "empty"]
-
 _java_base = "usr/lib/jvm"
 _java_name = "java-17-openjdk"
 _java_home = f"{_java_base}/{_java_name}"
@@ -77,6 +72,10 @@ env = {
     "LD_LIBRARY_PATH": f"/{_java_home}/lib:/{_java_home}/lib/server",
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
+# FIXME: SIGILL in jvm
+hardening = ["!int"]
+# TODO later
+options = ["!parallel", "!check", "linkundefver", "empty"]
 
 # we want this on BE too, and on LE the buildsystem skips it for clang
 # skipping it means generating code for ELFv1 ABI and that does not work

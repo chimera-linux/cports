@@ -31,7 +31,6 @@ sha256 = "d9b30c7aa983fcff5eed2084d54ae83eaafe7ff3a84d8fb754d854165a6e521c"
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
 hardening = ["!int", "!scp", "!ssp", "!var-init"]
 options = ["!lto"]
-
 restricted = "work in progress (needs to either not need llvm or for us to multiversion llvm)"
 
 match self.profile.arch:

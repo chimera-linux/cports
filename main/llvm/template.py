@@ -34,6 +34,7 @@ configure_args = [
     "-DLIBUNWIND_USE_COMPILER_RT=ON",
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF",
 ]
+cmake_dir = "llvm"
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -56,12 +57,11 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 # reduce size of debug symbols
 debug_level = 1
-# lto does not kick in until stage 2
-# tests are not enabled
-# runtimes build may invoke built clang during install, which has
-# rpath and fakeroot effectively overrides rpath, so disable that
-options = ["bootstrap", "!ci", "!check", "!installroot"]
-
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+    "CXXFLAGS": ["-fPIC"],
+    "LDFLAGS": [],
+}
 # disable ubsan integer checks, it breaks aarch64/riscv64/ppc64 targets
 # when lto-linking lld with ubsan'd clang/lld, it causes
 # that to crash in 'AArch64 Instruction Selection'
@@ -69,16 +69,13 @@ options = ["bootstrap", "!ci", "!check", "!installroot"]
 # when building graphviz)
 # while on riscv it prevents rust from building
 hardening = ["!int"]
+# lto does not kick in until stage 2
+# tests are not enabled
+# runtimes build may invoke built clang during install, which has
+# rpath and fakeroot effectively overrides rpath, so disable that
+options = ["bootstrap", "!ci", "!check", "!installroot"]
 
 _llvmgen = pkgver[0 : pkgver.find(".")]
-
-cmake_dir = "llvm"
-
-tool_flags = {
-    "CFLAGS": ["-fPIC"],
-    "CXXFLAGS": ["-fPIC"],
-    "LDFLAGS": [],
-}
 
 _enabled_projects = ["clang", "clang-tools-extra", "lld"]
 _enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]

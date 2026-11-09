@@ -75,11 +75,6 @@ sha256 = "143b1dddefaec3bd2e21e3b839b34a2b7fb9842272883c576420d605e9f30c63"
 # (e.g. python gtk programs, gtk loads icons from a threadpool and it may
 # result in librsvg rust stack overflowing) so assume a bigger default
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# FIXME int cfi; cfi ftbfs, int fails ctypes test
-# we cannot enable ubsan stuff because there is known UB where tests
-# are just skipped and so on, so be on the safe side for the time being
-hardening = ["vis", "!cfi", "!int"]
-
 env = {
     # emulate python's configure stuff but with -O2
     "OPT": "-g -fwrapv -O2 -Wall",
@@ -88,6 +83,10 @@ env = {
     "CFLAGS": "",
     "LDFLAGS": "",
 }
+# FIXME int cfi; cfi ftbfs, int fails ctypes test
+# we cannot enable ubsan stuff because there is known UB where tests
+# are just skipped and so on, so be on the safe side for the time being
+hardening = ["vis", "!cfi", "!int"]
 
 if self.profile.cross:
     hostmakedepends += ["python"]

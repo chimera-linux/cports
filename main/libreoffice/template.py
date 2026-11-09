@@ -166,14 +166,9 @@ makedepends = [
 pkgdesc = "Free office suite"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
-# big and not particularly useful testsuite
-# FIXME: lto breaks LO with clang 17
-options = ["!ci", "!lto", "!cross", "!check", "linkundefver", "empty"]
-
 _surl = f"https://download.documentfoundation.org/libreoffice/src/{pkgver[:-2]}"
 _aurl = "!https://dev-www.libreoffice.org/src"
 _eurl = "!https://dev-www.libreoffice.org/extern"
-
 source = [
     f"{_surl}/libreoffice-{pkgver}.tar.xz",
     f"{_surl}/libreoffice-dictionaries-{pkgver}.tar.xz",
@@ -259,7 +254,9 @@ sha256 = [
 tool_flags = {
     "CXXFLAGS": ["-DGLM_ENABLE_EXPERIMENTAL", "-DU_USING_ICU_NAMESPACE=1"]
 }
-
+# big and not particularly useful testsuite
+# FIXME: lto breaks LO with clang 17
+options = ["!ci", "!lto", "!cross", "!check", "linkundefver", "empty"]
 
 _langs = []
 

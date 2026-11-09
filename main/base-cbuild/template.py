@@ -2,22 +2,18 @@ pkgname = "base-cbuild"
 pkgver = "0.1"
 pkgrel = 13
 build_style = "meta"
-pkgdesc = "Core package set for cbuild containers"
-license = "custom:meta"
-url = "https://chimera-linux.org"
-
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
-    "musl-devel",
-    "llvm",
-    "clang",
-    "lld",
-    "ncurses",
-    "chimerautils-extra",
     "apk-tools",
+    "chimerautils-extra",
+    "clang",
+    "fakeroot-core",
     "gmake",
     "libarchive-progs",
-    "fakeroot-core",
+    "lld",
+    "llvm",
+    "musl-devel",
+    "ncurses",
     self.with_pkgver("base-cbuild-progs"),
 ]
 # bootstrap-llvm is temporary until next llvm release, don't feel like rebuild
@@ -27,7 +23,9 @@ provides = [
 ]
 replaces = ["apk-tools"]
 replaces_priority = 100
-
+pkgdesc = "Core package set for cbuild containers"
+license = "custom:meta"
+url = "https://chimera-linux.org"
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 0:

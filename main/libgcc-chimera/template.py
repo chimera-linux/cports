@@ -24,6 +24,7 @@ configure_args = [
     # simplifies lookup
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
+cmake_dir = "compiler-rt"
 hostmakedepends = ["cmake", "ninja", "python", "perl"]
 makedepends = [
     "libffi8-devel",
@@ -40,8 +41,6 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 # shim
 options = ["!check", "!lto"]
-
-cmake_dir = "compiler-rt"
 
 _trip = self.profile.triplet
 _basename = "libgcc_s.so"

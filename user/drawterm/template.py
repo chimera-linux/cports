@@ -18,7 +18,6 @@ license = "MIT"
 url = "https://drawterm.9front.org"
 source = f"https://git.9front.org/git/plan9front/drawterm/{_commit}/snap.tar.gz>snap-{_commit}.tar.gz"
 sha256 = "c69531147b109a276944f47b80de2602349feb682ebebe1d018af0c26f82fbdc"
-
 # no tests
 options = ["!check", "!cross"]
 

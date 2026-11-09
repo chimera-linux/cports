@@ -4,7 +4,6 @@ pkgrel = 1
 pkgdesc = "Google Noto Sans CJK fonts"
 license = "OFL-1.1"
 url = "https://github.com/googlefonts/noto-cjk"
-
 source = [
     f"{url}/releases/download/Sans{pkgver}/03_NotoSansCJK-OTC.zip",
     f"{url}/releases/download/Sans{pkgver}/04_NotoSansCJK-OTF.zip",

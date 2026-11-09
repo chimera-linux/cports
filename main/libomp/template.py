@@ -8,6 +8,7 @@ configure_args = [
     "-DLIBOMP_INSTALL_ALIASES=ON",
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
 ]
+cmake_dir = "openmp"
 hostmakedepends = ["cmake", "ninja", "perl", "python"]
 makedepends = [
     "libffi8-devel",
@@ -23,8 +24,6 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
 # no lit
 options = ["!check"]
-
-cmake_dir = "openmp"
 
 
 def post_install(self):

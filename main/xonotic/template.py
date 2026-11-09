@@ -21,13 +21,12 @@ license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://xonotic.org"
 source = f"https://dl.xonotic.org/xonotic-{pkgver}-source.zip"
 sha256 = "8b92ac781cff4ae89c121a23eacd7dec05a2aabedaccc23a19d1a0958b4012a8"
-hardening = ["!int"]
-# no tests
-options = ["!check", "!cross"]
-
 tool_flags = {
     "CFLAGS": ["-fno-math-errno", "-fno-rounding-math", "-fno-trapping-math"]
 }
+hardening = ["!int"]
+# no tests
+options = ["!check", "!cross"]
 
 
 def configure(self):
