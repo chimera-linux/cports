@@ -13,6 +13,7 @@ import gzip
 import io
 import re
 
+from urllib.error import URLError, HTTPError
 from cbuild.apk import util as autil
 
 
@@ -97,7 +98,7 @@ class UpdateCheck:
 
     def _fetch(self, u):
         if u in self._urlcache:
-            return False
+            return False, True
 
         req = ureq.Request(
             u,
@@ -114,15 +115,19 @@ class UpdateCheck:
             else:
                 resp = f.read()
             ret = resp.decode("utf-8", "ignore")
-        except Exception:
-            return None
+        except HTTPError as e:
+            return None, int(e.code)
+        except URLError as e:
+            return None, str(e.reason)
+        except Exception as e:
+            return None, str(e)
 
         self._urlcache[u] = True
 
         if len(ret) == 0:
-            return None
+            return None, int(f.status)
 
-        return ret
+        return ret, int(f.status)
 
     def collect_sources(self):
         if isinstance(self.url, str):
@@ -241,7 +246,7 @@ class UpdateCheck:
             re.VERBOSE,
         )
 
-        req = self._fetch(urlpfx)
+        req, _ = self._fetch(urlpfx)
         if not req:
             return ret
 
@@ -378,19 +383,36 @@ class UpdateCheck:
         if self.verbose:
             print(f"Fetching '{url}' for version checks...")
 
-        req = self._fetch(url)
+        req, succ = self._fetch(url)
 
         if not req:
-            if req is False and self.verbose:
-                print(f"Already fetched '{url}', skipping...")
+            if self.verbose:
+                if req is False:
+                    print(f"Already fetched '{url}', skipping...")
+                    return []
+                elif isinstance(succ, str):
+                    print(f"Fetching '{url}' failed ({succ})")
+                else:
+                    print(f"Fetching '{url}' failed with status {succ}")
+            # record the failed status
+            self.status[url] = (False, succ, 0)
+            # and return empty
             return []
 
         reqs = re.findall(rx, req)
 
         if rxg is not None:
-            return list(map(lambda v: v[rxg].replace("_", "."), reqs))
+            vl = list(map(lambda v: v[rxg].replace("_", "."), reqs))
+        else:
+            vl = list(map(lambda v: v.replace("_", "."), reqs))
 
-        return list(map(lambda v: v.replace("_", "."), reqs))
+        # record for a summary
+        self.status[url] = (True, succ, len(vl))
+
+        if self.verbose:
+            print(f"Got {len(vl)} versions from '{url}' with status {succ}")
+
+        return vl
 
 
 def update_check(pkg, verbose=False, error=False):
@@ -489,24 +511,54 @@ def update_check(pkg, verbose=False, error=False):
             cs += uc.expand_source(u)
 
     retry_delays = [0, 2, 5, 10]
-    vers = None
+    vers = []
+    status = {}
 
     for d in retry_delays:
-        vers = []
+        # urls to retry
+        rurls = []
+        # reset the cache too
+        uc._urlcache = {}
 
         for src in cs:
+            # reset status map
+            uc.status = {}
+            # now do the fetching
             if fetch_versions:
-                vers += fetch_versions(uc, src)
+                verl = list(fetch_versions(uc, src))
             else:
-                vers += uc.fetch_versions(src)
+                verl = list(uc.fetch_versions(src))
+            # update collective statuses
+            status.update(uc.status)
+            # got versions, yay?
+            if len(verl) > 0:
+                vers += verl
+                # skip trying this url again
+                continue
+            for u, st in uc.status.items():
+                if not isinstance(st[1], int) or st[1] >= 300:
+                    break
+            else:
+                # all success, so skip
+                continue
+            # something not as expected, so retry
+            rurls.append(src)
 
+        # got some versions, so stay silent
         if len(vers) > 0:
             break
+
+        # nothing left to try
+        if len(rurls) == 0:
+            break
+
+        # replace the old list with just the urls we're missing
+        cs = rurls
 
         time.sleep(d)
 
         if verbose:
-            print("No versions fetched, retrying...")
+            print("Some URLs did not succeed, retrying them...")
 
     vers = list(set(vers))
     vers.sort(key=_ver_conv)
@@ -515,7 +567,16 @@ def update_check(pkg, verbose=False, error=False):
         if error:
             return None
 
-        print(f"CAUTION: no version found for '{pkg.full_pkgname}'")
+        print(f"CAUTION: no versions found for '{pkg.full_pkgname}':")
+        for u, st in status.items():
+            if st[0] and st[1] == 200:
+                print(f"  * {u} fetched successfully")
+            elif st[0]:
+                print(f"  * {u} returned {st[1]}")
+            elif isinstance(st[1], str):
+                print(f"  * {u} failed ({st[1]})")
+            else:
+                print(f"  * {u} failed with status {st[1]}")
 
     for v in vers:
         if verbose:
