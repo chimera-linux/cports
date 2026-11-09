@@ -1800,8 +1800,6 @@ def do_print_mismatched(tgt):
 
 
 def do_print_broken(tgt):
-    from cbuild.core import profile
-
     pl, skipmap = _get_unbuilt(False, True)
 
     for pkgn, pkgr in skipmap.items():
