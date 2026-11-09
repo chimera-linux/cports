@@ -1,0 +1,11 @@
+pkgname = "perltidy"
+pkgver = "20260826"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+pkgdesc = "Indent and reformat perl scripts"
+license = "GPL-2.0-or-later"
+url = "https://metacpan.org/dist/Perl-Tidy"
+source = f"$(CPAN_SITE)/Perl/SHANCOCK/Perl-Tidy-{pkgver}.tar.gz"
+sha256 = "104e3e5ee5c84524d5e50324d664c7859b1ac422ab97a3e7a248985a4b4f7f64"

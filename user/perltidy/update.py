@@ -1,0 +1,1 @@
+pkgname = "Perl-Tidy"
