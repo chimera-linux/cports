@@ -347,6 +347,7 @@ def _(self):
     self.depends = [
         self.with_pkgver("libcxx-devel"),
         self.with_pkgver("clang-rt-devel"),
+        self.with_pkgver("lld"),
         self.with_pkgver("llvm-binutils"),
         "fortify-headers",
         "libatomic-chimera-devel",
