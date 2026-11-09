@@ -5,7 +5,7 @@ pkgver = "16.2.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
 _trip = self.profile.triplet
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-cet",
@@ -73,7 +73,9 @@ makedepends = [
 depends = [
     f"binutils-{self.profile.arch}",
     f"clang-rt-devel~{_clangver}",
+    "cmd:ld!lld",
     f"libcxx-devel~{_clangver}",
+    "musl-devel",
 ]
 pkgdesc = "GNU Compiler Collection"
 license = "GPL-3.0-or-later"
