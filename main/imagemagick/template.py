@@ -1,6 +1,6 @@
 pkgname = "imagemagick"
 pkgver = "7.1.2.28"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",

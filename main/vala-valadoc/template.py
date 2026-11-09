@@ -1,6 +1,6 @@
 pkgname = "vala-valadoc"
 pkgver = "0.56.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
