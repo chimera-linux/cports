@@ -1,5 +1,5 @@
 pkgname = "graphviz"
-pkgver = "13.1.2"
+pkgver = "16.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
@@ -34,10 +34,10 @@ checkdepends = ["fonts-liberation-otf"]
 depends = ["fonts-liberation"]
 triggers = ["/usr/lib/graphviz"]
 pkgdesc = "Graph visualization software"
-license = "EPL-1.0"
+license = "EPL-2.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/graphviz/graphviz/-/archive/{pkgver}/graphviz-{pkgver}.tar.gz"
-sha256 = "0e79b8402e8ea13f05c0fc0e30604f1d0731cd3f60f85850cedac7e0ee420ef8"
+sha256 = "4cd5fb0d78bfd9a328006a777f385e1f4b4d873eec291307279ea3b15832299c"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
@@ -48,7 +48,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_license("epl-v10.txt")
+    self.install_license("COPYING")
     # useless
     self.rm(self.destdir / "usr/bin/dot_builtins")
 
