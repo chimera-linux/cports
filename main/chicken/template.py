@@ -1,5 +1,5 @@
 pkgname = "chicken"
-pkgver = "6.0.0"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
@@ -8,7 +8,7 @@ pkgdesc = "Practical and portable Scheme system"
 license = "BSD-3-Clause"
 url = "https://call-cc.org"
 source = f"https://code.call-cc.org/releases/{pkgver}/chicken-{pkgver}.tar.gz"
-sha256 = "92835552b1b687ad26737e429b5aba36510bf429f8816ec0f6d336c8cb41f443"
+sha256 = "c6aee9a5374102ba318e0cfae62ded5e1825346577137952d7fb15b3094d49d8"
 # is fwrapv so it mostly does not matter, still breaks tests on loongarch
 hardening = ["!int"]
 
