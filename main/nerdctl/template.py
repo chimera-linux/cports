@@ -17,9 +17,14 @@ license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "f73026262a1cab7b6a8f3df66da54dbe52268184359c41408468d9b75d3b41d8"
+hardening = []
 # can't run tests inside namespaces
 # cross: generates completions with host binary
 options = ["!check", "!cross"]
+
+if self.profile.arch == "ppc64le":
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 
 def post_build(self):
