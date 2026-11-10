@@ -1,6 +1,6 @@
 pkgname = "intel-lpmd"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
@@ -23,7 +23,10 @@ makedepends = [
     "linux-headers",
     "upower-devel",
 ]
-depends = ["dinit-dbus"]
+depends = [
+    "dinit-dbus",
+    "upower",
+]
 pkgdesc = "Intel Low Power Mode Daemon"
 license = "GPL-2.0-or-later"
 url = "https://github.com/intel/intel-lpmd"
