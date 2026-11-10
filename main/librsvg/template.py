@@ -1,9 +1,14 @@
 pkgname = "librsvg"
-pkgver = "2.63.2"
+pkgver = "2.63.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     f"-Dtriplet={self.profile.triplet}",
+    # when building both (our default), rsvg/meson.build creates a special
+    # rsvg-gir shared library target for gir generation, which then results
+    # in the typelib containing a wrong shlib reference (librsvg-gir.so instead
+    # of librsvg-2.so.2), so work aorund this by disabling static library
+    "-Ddefault_library=shared",
     "-Davif=enabled",
     "-Ddocs=disabled",
     "-Dintrospection=enabled",
@@ -39,7 +44,7 @@ pkgdesc = "SVG library for GNOME"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
-sha256 = "852b18e1a00b8605528825a27dc7748bff2a5dd254028f59dc22a34ea57e81b6"
+sha256 = "31f07d9350dad3f8964fd613c31309ac160fdef13dfac59df6fd082de78d6e8f"
 # check: sample files may differ based on pango/freetype/harfbuzz version
 # cross: no introspection in cross
 options = ["!check", "!cross"]
