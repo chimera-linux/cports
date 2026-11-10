@@ -16,8 +16,13 @@ source = (
     f"https://github.com/hetznercloud/cli/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "0a1de1b3f2b6ee7a1cb45b482d4fde6d88d555fe5e93894d551910987e959542"
+hardening = []
 # generates completions with host binary
 options = ["!cross"]
+
+if self.profile.arch == "ppc64le":
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 
 def post_build(self):
