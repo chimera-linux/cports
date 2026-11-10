@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "157.0.8103.38"
+pkgver = "157.0.8103.50"
 # tools/rust/update_rust.py -> CRUBIT_REVISION
 _crubit_ver = "40fbac34597084a0863256d633889eac2c23b91b"
 pkgrel = 0
@@ -152,7 +152,7 @@ source = [
 ]
 source_paths = [".", "crubit", "typescript"]
 sha256 = [
-    "29904f34e47900e96b595e744a91ed23afc5f3060bf0e9f65817a043957ce7ad",
+    "a216ef754a1528d6df863a0033379f11d21565c04ab9328d83c4f29c4d16a0c6",
     "07b57fedcffc8c1e8df4875fc314c2290c8cd50ab8d04340b12c945e9c331f5a",
 ]
 debug_level = 1
