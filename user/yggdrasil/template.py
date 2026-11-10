@@ -17,6 +17,11 @@ license = "LGPL-3.0-only"
 url = "https://yggdrasil-network.github.io"
 source = f"https://github.com/yggdrasil-network/yggdrasil-go/archive/v{pkgver}.tar.gz"
 sha256 = "f1b2202d27e7a250eead4f76e4f83c3e9d9eee7ca5b148c3ae1504d430e7c7ee"
+hardening = []
+
+if self.profile.arch == "ppc64le":
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 
 def pre_build(self):
