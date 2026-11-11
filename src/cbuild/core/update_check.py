@@ -124,10 +124,15 @@ class UpdateCheck:
 
         self._urlcache[u] = True
 
-        if len(ret) == 0:
-            return None, int(f.status)
+        st = f.status
+        if st is None:
+            # probably an ftp
+            st = 200
 
-        return ret, int(f.status)
+        if len(ret) == 0:
+            return None, int(st)
+
+        return ret, int(st)
 
     def collect_sources(self):
         if isinstance(self.url, str):
