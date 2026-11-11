@@ -1,6 +1,6 @@
 pkgname = "python-pycares"
-pkgver = "4.9.0"
-pkgrel = 1
+pkgver = "5.2.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"PYCARES_USE_SYSTEM_LIB": "1"}
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "Python bindings for c-ares"
 license = "MIT"
 url = "https://github.com/saghul/pycares"
 source = f"$(PYPI_SITE)/p/pycares/pycares-{pkgver}.tar.gz"
-sha256 = "8ee484ddb23dbec4d88d14ed5b6d592c1960d2e93c385d5e52b6fad564d82395"
+sha256 = "3e89edc56a3745046676207958bf3dbf2971c5df0d64de9f7a893eba8bf255b4"
 # tests requires internet access
 options = ["!check"]
 
