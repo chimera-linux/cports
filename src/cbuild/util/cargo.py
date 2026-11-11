@@ -180,6 +180,8 @@ class Cargo:
             dirn = dirn / wrksrc
         elif self.wrksrc is not None:
             dirn = dirn / self.wrksrc
+        else:
+            dirn = dirn / self.template.make_dir
 
         # Make sure to append in case a config is already present;
         # `parents` ensures the directory is allowed to exist already
