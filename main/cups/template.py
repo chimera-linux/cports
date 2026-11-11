@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -47,7 +47,7 @@ makedepends = [
     "linux-pam-devel",
     "openssl3-devel",
 ]
-depends = ["xdg-utils"]
+depends = ["xdg-utils", "virtual:cups-filters!cups-filters-none"]
 pkgdesc = "Common Unix Printing System"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
@@ -112,3 +112,12 @@ def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()
+
+
+@subpackage("cups-filters-none")
+def _(self):
+    self.subdesc = "no filters"
+    self.provides = ["cups-filters=0"]
+    self.options = ["empty"]
+
+    return []
