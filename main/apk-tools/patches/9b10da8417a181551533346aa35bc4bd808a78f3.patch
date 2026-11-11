@@ -1,0 +1,149 @@
+From 9b10da8417a181551533346aa35bc4bd808a78f3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Timo=20Ter=C3=A4s?= <timo.teras@iki.fi>
+Date: Mon, 9 Nov 2026 10:33:17 +0000
+Subject: [PATCH] process: fix handling of long lines and EINTR/EWOULDBLOCK
+
+Fix handling of long lines and retryable errors to not close
+the pipe. Disambiguate continuation lines to be prefixed with "> ".
+
+fixes #11226
+---
+ src/apk_process.h        |  3 ++-
+ src/process.c            | 43 ++++++++++++++++++++++++++++------------
+ test/unit/process_test.c | 37 +++++++++++++++++++++++++++++++++-
+ 3 files changed, 68 insertions(+), 15 deletions(-)
+
+diff --git a/src/apk_process.h b/src/apk_process.h
+index ed1211f1..87f05506 100644
+--- a/src/apk_process.h
++++ b/src/apk_process.h
+@@ -25,7 +25,8 @@ struct apk_process {
+ 	unsigned int is_eof : 1;
+ 	struct buf {
+ 		uint16_t len;
+-		uint8_t buf[1022];
++		uint16_t cont : 1;
++		uint8_t buf[1020];
+ 	} buf_stdout, buf_stderr;
+ };
+ 
+diff --git a/src/process.c b/src/process.c
+index dfdf132b..f33d1c3c 100644
+--- a/src/process.c
++++ b/src/process.c
+@@ -110,27 +110,44 @@ static uint8_t *sanitize_prefix(uint8_t *pos, uint8_t *end)
+ 	}
+ }
+ 
++static void buf_emit(struct apk_process *p, struct buf *b, struct apk_out *out, const char *prefix, uint8_t *pos, uint8_t *end)
++{
++	size_t len = strlen(p->logpfx);
++
++	if (b->cont) {
++		if (len && p->logpfx[len-1] == ' ') len--;
++		apk_out_fmt(out, prefix, "%.*s> %.*s", (int)len, p->logpfx, (int)(end - pos), pos);
++	} else {
++		pos = sanitize_prefix(pos, end);
++		apk_out_fmt(out, prefix, "%s%.*s", p->logpfx, (int)(end - pos), pos);
++	}
++	p->logpfx = p->linepfx;
++}
++
+ static int buf_process(struct buf *b, int fd, struct apk_out *out, const char *prefix, struct apk_process *p)
+ {
+ 	ssize_t n = read(fd, &b->buf[b->len], sizeof b->buf - b->len);
+-	if (n > 0) b->len += n;
++	if (n <= 0) {
++		if (n < 0 && (errno == EINTR || errno == EWOULDBLOCK)) return 1;
++		if (b->len) buf_emit(p, b, out, prefix, b->buf, &b->buf[b->len]);
++		return 0;
++	}
+ 
+-	uint8_t *pos, *lf, *end = &b->buf[b->len];
++	uint8_t *pos, *lf, *end = &b->buf[b->len + n];
+ 	for (pos = b->buf; (lf = memchr(pos, '\n', end - pos)) != NULL; pos = lf + 1) {
+-		pos = sanitize_prefix(pos, lf);
+-		apk_out_fmt(out, prefix, "%s%.*s", p->logpfx, (int)(lf - pos), pos);
+-		p->logpfx = p->linepfx;
++		buf_emit(p, b, out, prefix, pos, lf);
++		b->cont = 0;
+ 	}
+-	if (n > 0) {
+-		b->len = end - pos;
++	b->len = end - pos;
++
++	if (b->len == sizeof b->buf) {
++		buf_emit(p, b, out, prefix, pos, end);
++		b->len = 0;
++		b->cont = 1;
++	} else {
+ 		memmove(b->buf, pos, b->len);
+-		return 1;
+ 	}
+-	if (pos != end) {
+-		pos = sanitize_prefix(pos, end);
+-		apk_out_fmt(out, prefix, "%s%.*s", p->logpfx, (int)(end - pos), pos);
+-	}
+-	return 0;
++	return 1;
+ }
+ 
+ pid_t apk_process_fork(struct apk_process *p)
+diff --git a/test/unit/process_test.c b/test/unit/process_test.c
+index a4a8932b..7723edf0 100644
+--- a/test/unit/process_test.c
++++ b/test/unit/process_test.c
+@@ -6,7 +6,7 @@
+ #include "apk_process.h"
+ #include "apk_io.h"
+ 
+-#define writestr(fd, str) write(fd, str, sizeof(str)-1)
++#define writestr(fd, str) do { if (write(fd, str, sizeof(str)-1) != sizeof(str)-1) exit(100); } while (0)
+ 
+ APK_TEST(pid_logging) {
+ 	struct test_out to;
+@@ -34,6 +34,41 @@ APK_TEST(pid_logging) {
+ 		"test0: hello2\n");
+ }
+ 
++APK_TEST(pid_long_lines) {
++	static const char prefix[] = "test4: ";
++	static const char cont_prefix[] = "test4:> ";
++	char expected[4096], *exp = expected;
++	struct test_out to;
++	struct apk_process p;
++	const int buf_size = sizeof p.buf_stdout.buf;
++
++	test_out_open(&to);
++	assert_int_equal(0, apk_process_init(&p, "test4", prefix, &to.out, NULL));
++	if (apk_process_fork(&p) == 0) {
++		char line[2 * buf_size + 12];
++		memset(line, 'x', sizeof line);
++		line[sizeof line - 2] = '\n';
++		line[sizeof line - 1] = 0;
++		writestr(STDOUT_FILENO, line);
++		usleep(100000);
++		writestr(STDOUT_FILENO, "short\n");
++		exit(0);
++	}
++
++	assert_int_equal(0, apk_process_run(&p));
++
++	for (int i = 0; i < 3; i++) {
++		int len = (i < 2) ? buf_size : 10;
++		exp = stpcpy(exp, (i > 0) ? cont_prefix : prefix);
++		memset(exp, 'x', len);
++		exp += len;
++		*exp++ = '\n';
++	}
++	exp = stpcpy(exp, prefix);
++	strcpy(exp, "short\n");
++	assert_output_equal(&to, "", expected);
++}
++
+ APK_TEST(pid_error_exit) {
+ 	struct test_out to;
+ 	struct apk_process p;
+-- 
+GitLab
+
