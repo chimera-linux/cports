@@ -1,0 +1,16 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+
+if [ "$1" = "start" ]; then
+    # aardvark-dns requires resolv.conf to exist, so avoid a race here
+    while [ ! -r /etc/resolv.conf ]; do
+        echo "waiting for resolv.conf..."
+        sleep 1
+    done
+    exec podman start --all --filter restart-policy=always --filter restart-policy=unless-stopped
+elif [ "$1" = "stop" ]; then
+    exec podman stop --all
+else
+    exit 1
+fi

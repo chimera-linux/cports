@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "6.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 # for install.bin compat
 make_dir = "bin"
@@ -71,14 +71,14 @@ def install(self):
     )
     self.install_service(self.files_path / "podman")
     self.install_service(self.files_path / "podman.user")
-    self.install_service(self.files_path / "podman-docker")
-    self.install_service(self.files_path / "podman-restart")
-    self.install_file(
-        self.files_path / "podman-docker.libexec",
-        "usr/lib",
-        name="podman-docker",
-        mode=0o755,
-    )
+    for f in ["docker", "healthcheck", "restart"]:
+        self.install_service(self.files_path / f"podman-{f}")
+        self.install_file(
+            self.files_path / f"podman-{f}.libexec",
+            "usr/lib",
+            name=f"podman-{f}",
+            mode=0o755,
+        )
 
     self.uninstall("usr/share/man/man?/podman-quadlet*", glob=True)
     self.uninstall("usr/share/man/man?/quadlet.*", glob=True)

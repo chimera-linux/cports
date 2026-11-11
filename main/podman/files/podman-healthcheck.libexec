@@ -1,0 +1,13 @@
+#!/bin/sh
+# TODO add something proper
+
+export PATH=/usr/bin
+
+while :; do
+    for cid in $(podman ps -q); do
+        podman healthcheck run "$cid" 2>/dev/null || :
+    done
+    sleep 30
+done
+
+exit 0

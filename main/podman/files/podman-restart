@@ -1,6 +1,7 @@
-# start containers on boot with restart policy set to always or unless-stopped
 type = scripted
-command = /usr/bin/podman start --all --filter restart-policy=always --filter restart-policy=unless-stopped
-after = podman
-depends-on = local.target
-depends-on = network.target
+command = /usr/lib/podman-restart start
+stop-command = /usr/lib/podman-restart stop
+log-type = buffer
+depends-on: local.target
+depends-on: network.target
+after: podman
