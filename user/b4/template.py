@@ -1,9 +1,11 @@
-pkgname = "python-b4"
-pkgver = "0.14.2"
-pkgrel = 2
+pkgname = "b4"
+pkgver = "0.16.0"
+pkgrel = 0
 build_style = "python_pep517"
-# it tries to run the tests from the build dir if we don't do this...
-make_check_args = ["src/tests"]
+make_check_args = [
+    # tries to run tests from the build dir
+    "src/tests",
+]
 hostmakedepends = [
     "python-build",
     "python-installer",
@@ -11,16 +13,26 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
+    "python-aiodns",
     "python-dkimpy",
     "python-dnspython",
+    "python-ezgb",
     "python-git-filter-repo",
+    "python-liblore",
     "python-patatt",
+    "python-pygit2",
     "python-requests",
+    # optional, TODO
+    # "python-textual",
 ]
-checkdepends = ["python-git-filter-repo", "python-pytest", "python-requests"]
+checkdepends = [
+    "python-pytest",
+    *depends,
+]
+renames = ["python-b4"]
 pkgdesc = "Tool to help with email-based patch workflows"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mricon/b4"
 # pypi tarball doesn't contain tests
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ba79ca0a67f106f20e3d10db8a63bc8097deb4c33ea1f00a90496ea00b985783"
+sha256 = "56dd7e8953d50cb316e1ff3193d1bcba521f298e38722999c64c31847dc9b1d6"
