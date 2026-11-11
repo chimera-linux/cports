@@ -1,0 +1,10 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,6 @@
+     "wheel",
+     "looseversion",
+     "packaging",
+-    "importlib-metadata>=8.7.0",
+ ]
+ build-backend = "salt_build_backend"
+ backend-path = ["tools/pkg"]
