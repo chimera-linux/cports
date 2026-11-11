@@ -1,5 +1,5 @@
 pkgname = "snow"
-pkgver = "1.5.0"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Classic Macintosh emulator"
 license = "MIT"
 url = "https://snowemu.com"
 source = f"https://github.com/twvd/snow/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "00ee7515a8ed5e977e46b5f87a02ce964049613a5b909203b77b2feb277193a0"
+sha256 = "d18eb6894e5e19f7057c84724236aa1f26bdcb1f0850ba490dabaf3d2eb0a90a"
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
