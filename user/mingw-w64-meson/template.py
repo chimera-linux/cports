@@ -1,6 +1,6 @@
 pkgname = "mingw-w64-meson"
 pkgver = "0.1"
-pkgrel = 2
+pkgrel = 0
 makedepends = [
     "gmake",
     "python",
@@ -44,7 +44,7 @@ def configure(self):
 def build(self):
     for an in _targets:
         at = an + "-w64-mingw32"
-        # in order to be able to pass linker flags to clang when cross compiling the fuse-ld has to be specified directly
+        # in order to be able to pass linker flags to clang when cross compiling linker has to be specified explicitly
         # see: https://github.com/mstorsjo/llvm-mingw/issues/379#issuecomment-1798016620
         _cross_clang_flags = f"-fuse-ld=lld -target {at}"
         self.do(
