@@ -260,8 +260,8 @@ def shell_update(rnet, dirty):
                 for cr in get_confrepos():
                     if cr.startswith("/"):
                         continue
-                    rfh.write(cr.replace("@section@", rd))
-                    rfh.write("\n")
+                    cr = cr.replace("@section@", rd)
+                    rfh.write(f"v3 {cr}\n")
 
     # ensure any local apk commands can write into cache
     (paths.cbuild_cache() / "apk" / hcpu).mkdir(parents=True, exist_ok=True)

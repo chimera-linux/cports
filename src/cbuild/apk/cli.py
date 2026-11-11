@@ -46,7 +46,8 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
                 if cr not in rrepos:
                     continue
                 ret.append("--repository")
-                ret.append(r.replace("@section@", cr))
+                cr = r.replace("@section@", cr)
+                ret.append(f"{cr}/{arch}/Packages.adb")
                 use_cache = True
             continue
         r = r.lstrip("/")
