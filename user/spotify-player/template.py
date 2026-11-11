@@ -30,8 +30,6 @@ sha256 = "60cc7cd60f66729039c0a48b134d8032c14817c88210d420722ad08340ad15cc"
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
-elif self.profile.arch == "loongarch64":
-    broken = "rustix/libc interaction garbage strikes again"
 
 
 def install(self):
