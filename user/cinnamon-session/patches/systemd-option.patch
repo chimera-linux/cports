@@ -1,0 +1,14 @@
+Make -Dsystemd=disabled actually disable the systemd user units.
+elogind ships a libsystemd.pc which would otherwise always be found.
+
+--- a/meson.build
++++ b/meson.build
+@@ -59,7 +59,7 @@
+ conf.set('HAVE_LOGIND', logind.found())
+ 
+ systemd_opt = get_option('systemd')
+-systemd_dep = dependency('libsystemd', required: systemd_opt.enabled())
++systemd_dep = dependency('libsystemd', required: systemd_opt)
+ if systemd_dep.found()
+   systemduserunitdir = systemd_dep.get_variable(
+     pkgconfig: 'systemduserunitdir',

@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-xapp"
-pkgver = "1.1.2"
+pkgver = "1.1.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemduserunitdir=/tmp"]
@@ -10,7 +10,7 @@ pkgdesc = "Backend implementation for xdg-desktop-portal for Cinnamon and Xfce"
 license = "LGPL-2.1-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xdg-desktop-portal-xapp/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7bd4d0439218d00d9fe55c308292b1dc70716cb8464970fe8d2245769a7dd18a"
+sha256 = "0c163f39a33746aec14a12ebe30f13e0f210e3b383979e7597512eabddca64b6"
 hardening = ["vis"]
 
 

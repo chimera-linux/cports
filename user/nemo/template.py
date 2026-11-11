@@ -1,6 +1,6 @@
 pkgname = "nemo"
-pkgver = "6.4.5"
-pkgrel = 1
+pkgver = "6.6.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=true", "-Dtracker=true"]
 hostmakedepends = [
@@ -34,7 +34,7 @@ pkgdesc = "File browser for Cinnamon"
 license = "GPL-2.0-or-later AND GFDL-1.1-or-later AND LGPL-2.0-or-later"
 url = "https://projects.linuxmint.com/cinnamon"
 source = f"https://github.com/linuxmint/nemo/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "06dc3c7884dc0ec8ce4d55ed48f0cd77cbf7bd6be5dba9ed883d49a43118ebdf"
+sha256 = "258807feb2e7bac523707d6b3daf2d9439e7135123cbe795183d5aaa6fd691ed"
 # Tests require its own GSettings schemas to be installed
 options = ["!check", "!cross"]
 
