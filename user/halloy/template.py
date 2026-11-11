@@ -26,6 +26,19 @@ if self.profile.wordsize == 32:
     broken = "needs atomic64"
 
 
+def pre_prepare(self):
+    # ppc64le: https://github.com/bytecodealliance/rustix/issues/1675
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "rustix@1.1.4",
+        "--precise",
+        "1.1.6",
+        allow_network=True,
+    )
+
+
 def install(self):
     from cbuild.util import cargo
 
