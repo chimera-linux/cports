@@ -1,6 +1,6 @@
 pkgname = "keyutils"
 pkgver = "1.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     "NO_ARLIB=1",

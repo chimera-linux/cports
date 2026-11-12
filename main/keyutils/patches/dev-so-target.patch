@@ -1,0 +1,20 @@
+the old behavior creates a libkeyutils.so that points to absolute
+target /usr/lib/libkeyutils.so.1, which may be wrong because e.g.
+when installed into a cross-compiling sysroot it will become a broken
+link (/usr/sysroot/usr/lib/libkeyutils.so -> /usr/lib/libkeyutils.so.1)
+
+fix it by creating a relative link as it should be
+
+diff --git a/Makefile b/Makefile
+index 599b145..5a39e49 100644
+--- a/Makefile
++++ b/Makefile
+@@ -200,7 +200,7 @@ ifeq ($(NO_SOLIB),0)
+ 	$(INSTALL) -D $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
+ 	$(LNS) $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
+ 	mkdir -p $(DESTDIR)$(USRLIBDIR)
+-	$(LNS) $(LIBDIR)/$(SONAME) $(DESTDIR)$(USRLIBDIR)/$(DEVELLIB)
++	$(LNS) $(SONAME) $(DESTDIR)$(USRLIBDIR)/$(DEVELLIB)
+ 	sed \
+ 	-e 's,@VERSION\@,$(VERSION),g' \
+ 	-e 's,@prefix\@,$(PREFIX),g' \
