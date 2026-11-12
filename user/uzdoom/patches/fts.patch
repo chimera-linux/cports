@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1ba030a..22c9e78 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -350,7 +350,7 @@ else()
+ 		include(CheckSymbolExists)
+ 		check_symbol_exists( "fts_set" "sys/types.h;sys/stat.h;fts.h" HAVE_FTS )
+ 		if ( NOT HAVE_FTS )
+-			pkg_check_modules( MUSL_FTS musl-fts )
++			pkg_check_modules( MUSL_FTS chimerautils )
+ 			if ( MUSL_FTS_FOUND )
+ 				list(JOIN MUSL_FTS_LDFLAGS " " MUSL_FTS_LDFLAGS_JOINED)
+ 				set ( ALL_C_FLAGS "${ALL_C_FLAGS} ${MUSL_FTS_LDFLAGS_JOINED}" )

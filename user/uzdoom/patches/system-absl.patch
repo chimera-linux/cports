@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1ba030a..8a6b686 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -409,7 +409,7 @@ endif()
+ if( MSVC )
+ 	set(ABSL_MSVC_STATIC_RUNTIME ON)
+ endif()
+-add_subdirectory( libraries/abseil )
++find_package(absl REQUIRED)
+ 
+ set(ZWIDGET_BUILD_EXAMPLE OFF CACHE INTERNAL "" FORCE)
+ add_subdirectory( libraries/ZWidget )
