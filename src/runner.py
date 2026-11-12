@@ -3012,6 +3012,27 @@ def do_compare(tgt):
             f"  {pfx}{fname}: {_humanize(local)} (\f[{color}]{prn}\f[])"
         )
 
+    def _compare_deps(fname, fdesc, remote, local):
+        remote = remote.get(fname, [])
+        local = local.get(fname, [])
+        added = []
+        removed = []
+        for d in remote:
+            if d not in local:
+                removed.append(d)
+        for d in local:
+            if d not in remote:
+                added.append(d)
+        if removed:
+            log.out_plain(f"\n  \f[bold]Removed {fdesc}:\f[]")
+            for d in sorted(removed):
+                log.out_plain(f"    \f[red]-{d}\f[]")
+        if added:
+            log.out_plain(f"\n  \f[bold]Added {fdesc}:\f[]")
+            for d in sorted(added):
+                log.out_plain(f"    \f[green]+{d}\f[]")
+        return (len(added) + len(removed)) > 0
+
     # now we can finally do some comparisons...
     for pn, ptup in allpkgs.items():
         changed = False
@@ -3033,7 +3054,12 @@ def do_compare(tgt):
         if _compare_size("installed-size", rpkg, lpkg):
             changed = True
         # optional: depends, provides, install-if
-        # TODO
+        if _compare_deps("depends", "dependencies", rpkg, lpkg):
+            changed = True
+        if _compare_deps("provides", "providers", rpkg, lpkg):
+            changed = True
+        if _compare_deps("install-if", "install-if", rpkg, lpkg):
+            changed = True
         # finally, paths
         # TODO
         if not changed:
