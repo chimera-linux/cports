@@ -83,7 +83,6 @@ def invoke(pkg):
             _sanitize_exemode(pkg, v, str(vr))
             log.out_plain(f"  \f[green]static executable:\f[] {vr}")
             strip_list.append(vr)
-            strip_noslist.append(vr)
             continue
 
         # pie or nopie?
