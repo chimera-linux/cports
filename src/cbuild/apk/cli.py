@@ -15,7 +15,9 @@ def set_network(use_net):
     _use_net = use_net
 
 
-def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
+def collect_repos(
+    mrepo, intree, arch, use_altrepo, use_stage, use_net, use_local
+):
     ret = []
     # sometimes we need no repos
     if not mrepo:
@@ -49,6 +51,9 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
                 cr = r.replace("@section@", cr)
                 ret.append(f"{cr}/{arch}/Packages.adb")
                 use_cache = True
+            continue
+        # rare special case
+        if not use_local:
             continue
         r = r.lstrip("/")
         for cr in srepos:
@@ -118,6 +123,7 @@ def call(
     use_altrepo=True,
     use_stage=True,
     allow_network=True,
+    allow_local=True,
     return_repos=False,
     chroot=False,
 ):
@@ -139,7 +145,7 @@ def call(
         cmd += ["--clean-protected"]
 
     crepos = collect_repos(
-        mrepo, chroot, arch, use_altrepo, use_stage, allow_network
+        mrepo, chroot, arch, use_altrepo, use_stage, allow_network, allow_local
     )
     cmd += crepos
 

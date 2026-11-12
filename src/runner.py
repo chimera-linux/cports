@@ -2721,6 +2721,325 @@ def do_commit(tgt):
             )
 
 
+def do_compare(tgt):
+    import hashlib
+    import json
+    import subprocess
+
+    from cbuild.core import chroot, errors, logger, paths, template
+    from cbuild.apk import cli
+
+    if len(cmdline.command) < 2:
+        raise errors.CbuildException("compare needs a template name")
+
+    # we need a bldroot in place
+    chroot.chroot_check()
+
+    # just in case
+    paths.prepare()
+
+    pkgn = cmdline.command[1]
+    tarch = opt_arch if opt_arch else chroot.host_cpu()
+
+    acache = paths.cbuild_cache() / "apk" / tarch
+
+    tmpl = template.Template(
+        pkgn,
+        tarch,
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        target="lint",
+    )
+    if not tmpl.is_built(True):
+        raise errors.CbuildException(f"'{pkgn}' is not built locally")
+
+    # do a total origin query, remote only
+    if not opt_nonet:
+        # fetch remote indexes
+        chroot.update(tmpl)
+        # only then query
+        rq = cli.query(
+            ["name", "version", "repositories"],
+            ["--match", "origin", tmpl.pkgname],
+            tmpl,
+            allow_local=False,
+            use_stage=False,
+        )
+        if rq is None:
+            raise errors.CbuildException(f"failed to query remote for '{pkgn}'")
+    else:
+        rq = []
+
+    # define a function we'll be using to dump both indexes and packages
+    def _adbdump(file):
+        sp = subprocess.run(
+            [paths.apk(), "adbdump", "--format=json", file],
+            capture_output=True,
+            check=False,
+        )
+        if sp.returncode != 0 or len(sp.stdout) == 0:
+            raise errors.CbuildException(f"failed to dump ADB '{file}'")
+        return json.loads(sp.stdout.decode())
+
+    # build a map of repo hashes for querying cache files
+    # then use it to build a mapping of pkg names to truncated hashes for cache
+    repoh = {}
+    pkg_hashes = {}
+    for entry in rq:
+        for rp in entry["repositories"]:
+            if rp not in repoh:
+                hf = hashlib.sha256(rp.encode()).hexdigest()[0:8]
+                idxp = acache / f"APKINDEX.{hf}.tar.gz"
+                if not idxp.is_file():
+                    raise errors.CbuildException(
+                        f"no matching index file for '{rp}'"
+                    )
+                repoh[rp] = idxp
+    for ip in repoh.values():
+        jl = _adbdump(ip)
+        if "packages" not in jl:
+            raise errors.CbuildException(f"malformed index '{ip}'")
+        for entry in jl["packages"]:
+            en = entry["name"]
+            eh = entry["hashes"][0:8]
+            pkg_hashes[en] = eh
+
+    trepo = tmpl.repository
+    repop = paths.repository()
+
+    def _resolve_pkg(
+        pkgname,
+        pkgver,
+        pkgrel,
+        repob,
+    ):
+        pkgf = f"{pkgname}-{pkgver}-r{pkgrel}.apk"
+        if pkgname.endswith("-dbg"):
+            return repob / "debug" / tarch / pkgf
+        return repob / tarch / pkgf
+
+    def _resolve_pkgs(pkg, pkgm):
+        pkgr = repop / trepo
+        mpkg = _resolve_pkg(pkg.pkgname, pkg.pkgver, pkg.pkgrel, pkgr)
+        if not mpkg.is_file():
+            raise errors.CbuildException(
+                f"'{pkg.pkgname}' does not exist in '{pkgr}'"
+            )
+        pkgm[pkg.pkgname] = mpkg
+        for apkg, adesc, iif, takef in template.autopkgs:
+            mpkg = _resolve_pkg(
+                f"{pkg.pkgname}-{apkg}", pkg.pkgver, pkg.pkgrel, pkgr
+            )
+            if mpkg.is_file():
+                pkgm[f"{pkg.pkgname}-{apkg}"] = mpkg
+
+    # resolve local package paths
+    lpkg_map = {}
+    _resolve_pkgs(tmpl, lpkg_map)
+    # resolve each subpackage
+    for sp in tmpl.subpkg_list:
+        _resolve_pkgs(sp, lpkg_map)
+
+    # resolve and fetch all remote packages, build an equivalent list
+    rpkg_map = {}
+    missing_list = []
+
+    # go over each remote entry and build its real filename and map it
+    # also build a list of missing packages to fetch
+    for entry in rq:
+        fn = f"{entry['name']}-{entry['version']}.{pkg_hashes[entry['name']]}.apk"
+        pkgp = acache / fn
+        rpkg_map[entry["name"]] = pkgp
+        if not pkgp.is_file():
+            missing_list.append(entry["name"])
+
+    # fetch anything that's missing
+    if missing_list:
+        fl = subprocess.run(
+            [
+                paths.apk(),
+                "fetch",
+                "-o",
+                acache,
+                "--pkgname-spec",
+                "${name}-${version}.${hash:8}.apk",
+                *missing_list,
+            ],
+            check=False,
+        )
+        if fl.returncode != 0:
+            raise errors.CbuildException("failed to fetch packages")
+
+    # verify we have everything
+    for en, pkgp in rpkg_map.items():
+        if not pkgp.is_file():
+            raise errors.CbuildException(f"missing remote file '{pkgp}'")
+
+    # also transform the adbdumps into something useful
+    def _dump_pkg(f):
+        ad = _adbdump(f)
+        inf = ad["info"]
+        # direct field mappings
+        res = {
+            "version": inf["version"],
+            "description": inf["description"],
+            "license": inf["license"],
+            "url": inf["url"],
+            "installed-size": int(inf["installed-size"]),
+        }
+        # any optional metadata we track
+        res["depends"] = inf.get("depends", [])
+        res["provides"] = inf.get("provides", [])
+        res["install-if"] = inf.get("install-if", [])
+        # now translate paths into something nicer
+        paths = []
+        for p in ad.get("paths", []):
+            if "name" not in p:
+                # root, skip it, we don't care
+                continue
+            # path (dirs end with /), acl, size; -1 size is directory or link
+            dpath = f"/{p['name']}/"
+            paths.append((dpath, p["acl"], -1))
+            # now files
+            for fp in p.get("files", []):
+                fsz = -1
+                if "target" not in fp:
+                    # not a symlink
+                    fsz = int(fp["size"])
+                paths.append((f"{dpath}{fp['name']}", fp["acl"], fsz))
+        # sorted
+        paths.sort(key=lambda tup: tup[0].removesuffix("/"))
+        res["paths"] = paths
+        return res
+
+    ldumps = {}
+    rdumps = {}
+
+    for en, pkgp in lpkg_map.items():
+        ldumps[en] = _dump_pkg(pkgp)
+    for en, pkgp in rpkg_map.items():
+        rdumps[en] = _dump_pkg(pkgp)
+
+    log = logger.get()
+    need_nl = False
+
+    # initial comparison: check if the package list changed at all
+    lpkgs = sorted(lpkg_map.keys())
+    rpkgs = sorted(rpkg_map.keys())
+    if lpkgs != rpkgs:
+        dropped = []
+        added = []
+        for p in rpkgs:
+            if p not in lpkg_map:
+                dropped.append(p)
+        for p in lpkgs:
+            if p not in rpkg_map:
+                added.append(p)
+        if added or dropped:
+            log.out_plain("\f[bold]ADDED/REMOVED PACKAGES:\f[]")
+        for d in dropped:
+            log.out_plain(f" \f[bold,red]- {d}\f[]")
+        for d in added:
+            log.out_plain(f" \f[bold,green]+ {d}\f[]")
+        # marker
+        need_nl = True
+
+    # just so it's easier to compare
+    dummy_pkg = {
+        "version": None,
+        "description": None,
+        "license": None,
+        "url": None,
+        "installed-size": None,
+        "paths": [],
+    }
+
+    # make a sorted list of all package names (on either end)
+    # and build a map containing 2-tuples, with each (may be None)
+    allpkgs = {}
+    allnames = {}
+    for pn in lpkgs:
+        allnames[pn] = True
+    for pn in rpkgs:
+        allnames[pn] = True
+    for pn in sorted(allnames.keys()):
+        allpkgs[pn] = (rdumps.get(pn, dummy_pkg), ldumps.get(pn, dummy_pkg))
+
+    def _compare_field(fname, remote, local):
+        remote = remote[fname]
+        local = local[fname]
+        # now compare
+        if local == remote:
+            return False
+        elif local and remote and local != remote:
+            log.out_plain(f"  -{fname}: \f[red]{remote}\f[]")
+            log.out_plain(f"  +{fname}: \f[green]{local}\f[]")
+        elif local:
+            log.out_plain(f"  +{fname}: \f[green]{local}\f[]")
+        else:
+            log.out_plain(f"  -{fname}: \f[red]{remote}\f[]")
+        return True
+
+    def _humanize(bsz):
+        if bsz > (1024 * 1024):
+            return f"{bsz / (1024 * 1024):.2f} MiB"
+        elif bsz > 1024:
+            return f"{bsz / 1024:.2f} KiB"
+        else:
+            return f"{bsz} B"
+
+    def _compare_size(fname, remote, local):
+        remote = remote[fname] or 0
+        local = local[fname] or 0
+        diff = local - remote
+        if diff == 0:
+            return False
+        elif diff > 0:
+            color = "green"
+            prn = f"+{_humanize(diff)}"
+            if not remote:
+                pfx = "+"
+        else:
+            color = "red"
+            prn = _humanize(diff)
+            if not local:
+                pfx = "-"
+        log.out_plain(
+            f"  {pfx}{fname}: {_humanize(local)} (\f[{color}]{prn}\f[])"
+        )
+
+    # now we can finally do some comparisons...
+    for pn, ptup in allpkgs.items():
+        changed = False
+        if need_nl:
+            log.out_plain("")
+        need_nl = True
+        # deconstruct to get each side
+        rpkg, lpkg = ptup
+        log.out_plain(f"\f[bold]{pn}:\f[]")
+        # mandatory: version, description, license, url, installed-size
+        if _compare_field("version", rpkg, lpkg):
+            changed = True
+        if _compare_field("description", rpkg, lpkg):
+            changed = True
+        if _compare_field("license", rpkg, lpkg):
+            changed = True
+        if _compare_field("url", rpkg, lpkg):
+            changed = True
+        if _compare_size("installed-size", rpkg, lpkg):
+            changed = True
+        # optional: depends, provides, install-if
+        # TODO
+        # finally, paths
+        # TODO
+        if not changed:
+            log.out_plain(" No changes.")
+
+
 def do_interactive(tgt):
     import os
     import shlex
@@ -2802,6 +3121,7 @@ command_handlers = {
     "chroot": (do_pkg, "Enter an interactive bldroot chroot"),
     "clean": (do_clean, "Clean the build directory"),
     "commit": (do_commit, "Commit the changes in the template"),
+    "compare": (do_compare, "Compare the local build with the remote repo"),
     "configure": (do_pkg, "Run up to configure phase of a template"),
     "cycle-check": (
         do_cycle_check,
