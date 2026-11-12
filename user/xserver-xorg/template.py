@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg"
-pkgver = "21.1.24"
-pkgrel = 1
+pkgver = "21.1.26"
+pkgrel = 0
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
@@ -92,7 +92,7 @@ pkgdesc = "X.org X server"
 license = "MIT AND BSD-3-Clause"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xorg-server-{pkgver}/xserver-xorg-server-{pkgver}.tar.gz"
-sha256 = "5051b8a339b9497cb573b57871fa7311a2d55c39c3d1cecd051804bbfe9c18e2"
+sha256 = "83f31046a1d8656dfcd2e95b92c3eed7ef42a50af7ab1512d0af27d94b8c4f99"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE", "-D__uid_t=uid_t", "-D__gid_t=gid_t"],
     "LDFLAGS": ["-Wl,-z,lazy"],  # must be set for modules to work
@@ -161,7 +161,7 @@ def _(self):
     self.subdesc = "default server"
     # check if this needs to be updated when updating
     self.depends += [
-        "so:libEGL.so.1!mesa-egl-libs",
+        "so:libEGL.so.1!libglvnd",
         "xserver-xorg-protocol>=20180227",
         "xkeyboard-config",
     ]
