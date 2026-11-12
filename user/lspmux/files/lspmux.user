@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/lspmux server
+log-type = buffer
+depends-on: dbus
+before: login.target

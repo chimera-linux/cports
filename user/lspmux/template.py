@@ -1,15 +1,16 @@
-pkgname = "ra-multiplex"
-pkgver = "0.2.5"
-pkgrel = 3
+pkgname = "lspmux"
+pkgver = "0.3.0"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["dinit-chimera", "dinit-dbus", "rust-std"]
 depends = ["dinit-dbus"]
+renames = ["ra-multiplex"]
 pkgdesc = "Share a language server instance between multiple clients"
-license = "MIT"
-url = "https://github.com/pr2502/ra-multiplex"
+license = "EUPL-1.2"
+url = "https://codeberg.org/p2502/lspmux"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c24a7e277adce9bbfb86641905d75f166e46459cf4e5b5f3aaa7456b052392dc"
+sha256 = "28caab4a2f74dc4b8117ac5eed3af2b30258eab1affb47f47363afece0982243"
 
 if self.profile.wordsize == 32:
     broken = "needs atomic64"
@@ -17,4 +18,4 @@ if self.profile.wordsize == 32:
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "ra-multiplex.user")
+    self.install_service(self.files_path / "lspmux.user")
