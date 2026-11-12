@@ -1,0 +1,30 @@
+Fix duplicate symbols.
+---
+diff --git a/lib/md5-stream.c b/lib/md5-stream.c
+index fdd2bd8..2cbdda6 100644
+--- a/lib/md5-stream.c
++++ b/lib/md5-stream.c
+@@ -22,9 +22,6 @@
+ #include <config.h>
+ 
+ /* Specification.  */
+-#if HAVE_OPENSSL_MD5
+-# define GL_OPENSSL_INLINE _GL_EXTERN_INLINE
+-#endif
+ #include "md5.h"
+ 
+ #include <stdlib.h>
+diff --git a/lib/sha1-stream.c b/lib/sha1-stream.c
+index cbdf95a..b713e67 100644
+--- a/lib/sha1-stream.c
++++ b/lib/sha1-stream.c
+@@ -24,9 +24,6 @@
+ #include <config.h>
+ 
+ /* Specification.  */
+-#if HAVE_OPENSSL_SHA1
+-# define GL_OPENSSL_INLINE _GL_EXTERN_INLINE
+-#endif
+ #include "sha1.h"
+ 
+ #include <stdlib.h>
