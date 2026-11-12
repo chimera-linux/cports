@@ -1,0 +1,14 @@
+make the build system aware of all cbuild targets, following https://github.com/intelxed/xed/issues/239
+
+diff -ruN a/mbuild/mbuild/env.py b/mbuild/mbuild/env.py
+--- a/mbuild/mbuild/env.py	2026-08-24 20:16:09.000000000 +0200
++++ b/mbuild/mbuild/env.py	2026-11-12 11:28:31.470597827 +0100
+@@ -1255,7 +1255,7 @@
+         elif name in ['aarch64', 'arm64']:
+             return 'aarch64'
+         else:
+-            die("Unknown cpu " + name)
++            return name
+ 
+     def _normalize_os_name(self,name):
+         """Internal function. Standardize various O/S identifiers"""
