@@ -1,6 +1,6 @@
 pkgname = "rsgain"
-pkgver = "3.6"
-pkgrel = 1
+pkgver = "3.8"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_MANPAGE=ON",
@@ -22,7 +22,7 @@ pkgdesc = "ReplayGain 2.0 tagging utility"
 license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"
-sha256 = "26d46f1240a83366e82cbc9121a467fc1dcc977c7adfb4e15c99ead6b3d07ec8"
+sha256 = "0c590fa8ecd084e181dca6d4776f29d532d36c53cb8fde56f87f1270ce45a3cd"
 
 
 def post_install(self):
