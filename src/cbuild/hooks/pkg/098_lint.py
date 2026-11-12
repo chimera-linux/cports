@@ -230,6 +230,10 @@ def invoke(pkg):
         )
         lintfail = True
 
+    if (pkg.destdir / "etc/skel").exists():
+        pkg.log_red("forbidden path '/etc/skel' (reserved for machine admin)")
+        lintfail = True
+
     if (
         dirempty
         and pkg.build_style != "meta"
