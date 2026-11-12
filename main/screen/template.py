@@ -1,6 +1,6 @@
 pkgname = "screen"
 pkgver = "5.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pam",
@@ -31,9 +31,10 @@ options = ["etcfiles", "!check"]
 
 
 def post_install(self):
-    # bundled configs
     self.install_file("etc/etcscreenrc", "etc", name="screenrc")
-    self.install_file("etc/screenrc", "etc/skel", name=".screenrc")
+    self.install_file(
+        "etc/screenrc", "usr/share/examples/screen", name="dotscreenrc"
+    )
     # our configs
     self.install_file(self.files_path / "screen", "usr/lib/pam.d")
     self.install_tmpfiles(self.files_path / "screen.conf")
