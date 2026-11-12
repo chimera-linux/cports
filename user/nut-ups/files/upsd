@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/upsd -F
+depends-ms: ups-rundir
+depends-on: network.target
+depends-on: local.target
