@@ -1,0 +1,23 @@
+diff --git a/Makefile.am b/Makefile.am
+index 7877823..38416ea 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-AM_CFLAGS = -Wall -Wextra -D_FORTIFY_SOURCE=2 $(PIE_CFLAGS) $(RELRO_CFLAGS)
++AM_CFLAGS = -Wall -Wextra
+ ACLOCAL_AMFLAGS = -I aclocal
+ 
+ root_exec_sbindir = $(ROOTSBINDIR)
+diff --git a/Makefile.in b/Makefile.in
+index fc8af96..535f945 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -469,7 +469,7 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AM_CFLAGS = -Wall -Wextra -D_FORTIFY_SOURCE=2 $(PIE_CFLAGS) $(RELRO_CFLAGS)
++AM_CFLAGS = -Wall -Wextra
+ ACLOCAL_AMFLAGS = -I aclocal
+ root_exec_sbindir = $(ROOTSBINDIR)
+ mount_cifs_SOURCES = mount.cifs.c mtab.c $(resolve_hosts_SOURCES) util.c
