@@ -2724,6 +2724,7 @@ def do_commit(tgt):
 def do_compare(tgt):
     import hashlib
     import json
+    import stat
     import subprocess
 
     from cbuild.core import chroot, errors, logger, paths, template
@@ -2901,19 +2902,62 @@ def do_compare(tgt):
             if "name" not in p:
                 # root, skip it, we don't care
                 continue
-            # path (dirs end with /), acl, size; -1 size is directory or link
-            dpath = f"/{p['name']}/"
-            paths.append((dpath, p["acl"], -1))
+            # path (dirs end with /), acl, size; -1 size is a link
+            dpath = f"/{p['name']}"
+            pfiles = p.get("files", [])
+            paths.append((dpath, p["acl"], "directory", len(pfiles)))
             # now files
-            for fp in p.get("files", []):
+            for fp in pfiles:
                 fsz = -1
+                ftype = "link"
                 if "target" not in fp:
                     # not a symlink
                     fsz = int(fp["size"])
-                paths.append((f"{dpath}{fp['name']}", fp["acl"], fsz))
-        # sorted
-        paths.sort(key=lambda tup: tup[0].removesuffix("/"))
-        res["paths"] = paths
+                    ftype = "file"
+                paths.append((f"{dpath}/{fp['name']}", fp["acl"], ftype, fsz))
+        # sort the paths in reverse order so we can drop extra directories
+        paths.sort(key=lambda v: v[0], reverse=True)
+        defacl = {"mode": 0o755, "user": "root", "group": "root"}
+        # now go over it and if we encounter a directory with default mode
+        # (root:root 755) that has files, drop its entry; additionally, for
+        # any directory entry first encountered, drop any parent entries
+        # that have no files and have default mode
+        maxl = len(paths)
+        for idx in range(maxl):
+            if paths[idx] is None:
+                # skip over whatever may have been removed before
+                continue
+            path, acl, ftype, fsz = paths[idx]
+            if ftype != "directory":
+                continue
+            if fsz != 0 and acl == defacl:
+                paths[idx] = None
+            # now descend
+            spath = path
+            for sidx in range(idx + 1, maxl):
+                rsl = spath.rfind("/")
+                if rsl < 0:
+                    break
+                spath = spath[0:rsl]
+                ppath, pacl, pftype, pfsz = paths[sidx]
+                if ppath != spath:
+                    # we encountered probably a file; handle on parent iter
+                    break
+                if pftype != "directory":
+                    # this should never happen given the above but
+                    break
+                if pfsz != 0 or pacl != defacl:
+                    # non-empty or different acl; handle on next iter
+                    break
+                # else this matches, drop the entry
+                paths[sidx] = None
+        # now remove gaps
+        npaths = []
+        for p in paths:
+            if p is None:
+                continue
+            npaths.append(p)
+        res["paths"] = npaths
         return res
 
     ldumps = {}
@@ -2985,9 +3029,9 @@ def do_compare(tgt):
         return True
 
     def _humanize(bsz):
-        if bsz > (1024 * 1024):
+        if abs(bsz) > (1024 * 1024):
             return f"{bsz / (1024 * 1024):.2f} MiB"
-        elif bsz > 1024:
+        elif abs(bsz) > 1024:
             return f"{bsz / 1024:.2f} KiB"
         else:
             return f"{bsz} B"
@@ -2996,6 +3040,7 @@ def do_compare(tgt):
         remote = remote[fname] or 0
         local = local[fname] or 0
         diff = local - remote
+        pfx = "~"
         if diff == 0:
             return False
         elif diff > 0:
@@ -3033,6 +3078,113 @@ def do_compare(tgt):
                 log.out_plain(f"    \f[green]+{d}\f[]")
         return (len(added) + len(removed)) > 0
 
+    def _strmode(mode):
+        ret = []
+        ret.append("r" if mode & stat.S_IRUSR else "-")
+        ret.append("w" if mode & stat.S_IWUSR else "-")
+        match mode & (stat.S_IXUSR | stat.S_ISUID):
+            case 0:
+                ret.append("-")
+            case stat.S_IXUSR:
+                ret.append("x")
+            case stat.S_ISUID:
+                ret.append("S")
+            case _:
+                ret.append("s")
+        ret.append("r" if mode & stat.S_IRGRP else "-")
+        ret.append("w" if mode & stat.S_IWGRP else "-")
+        match mode & (stat.S_IXGRP | stat.S_ISGID):
+            case 0:
+                ret.append("-")
+            case stat.S_IXGRP:
+                ret.append("x")
+            case stat.S_ISGID:
+                ret.append("S")
+            case _:
+                ret.append("s")
+        ret.append("r" if mode & stat.S_IROTH else "-")
+        ret.append("w" if mode & stat.S_IWOTH else "-")
+        match mode & (stat.S_IXOTH | stat.S_ISVTX):
+            case 0:
+                ret.append("-")
+            case stat.S_IXOTH:
+                ret.append("x")
+            case stat.S_ISVTX:
+                ret.append("T")
+            case _:
+                ret.append("t")
+        return "".join(ret)
+
+    def _compare_path(remf, locf, oldsz=None):
+        if remf is None:
+            path, acl, ftype, fsz = locf
+            color = "green"
+            sign = "+"
+        elif locf is None:
+            path, acl, ftype, fsz = remf
+            color = "red"
+            sign = "-"
+        else:
+            _compare_path(remf, None)
+            _compare_path(None, locf, remf[3])
+            return
+        # print one path
+        stype = ftype[0].upper()
+        smode = _strmode(acl["mode"])
+        bstr = f"\f[{color},bold]{sign}{stype}:\f[] {path}"
+        if stype != "L":
+            bstr += f" [\f[bold]{smode}\f[]]"
+        bstr += f" {{\f[bold]{acl['user']}:{acl['group']}\f[]}}"
+        if stype == "D" and fsz > 0:
+            bstr += f" (\f[bold]{fsz} entries\f[])"
+        elif stype == "F":
+            diffs = None
+            if oldsz:
+                diff = fsz - oldsz
+                if diff > 0:
+                    diffs = f"\f[green]+{_humanize(diff)}\f[]"
+                elif diff < 0:
+                    diffs = f"\f[red]{_humanize(diff)}\f[]"
+            if diffs:
+                bstr += f" (\f[bold]{_humanize(fsz)}, {diffs})"
+            else:
+                bstr += f" (\f[bold]{_humanize(fsz)}\f[])"
+        log.out_plain(f"    {bstr}")
+
+    def _compare_paths(remote, local):
+        remote = remote["paths"]
+        local = local["paths"]
+        # build a combined path map
+        pathmap = {}
+        for p in remote:
+            pathmap[p[0]] = (p, None)
+        for p in local:
+            pn = p[0]
+            if pn in pathmap:
+                # remote path exists
+                remp = pathmap[pn][0]
+                if remp == p:
+                    # remote path is identical so we don't care
+                    del pathmap[pn]
+                else:
+                    # local path is changed from remote
+                    pathmap[pn] = (pathmap[pn][0], p)
+            else:
+                # only local path exists
+                pathmap[pn] = (None, p)
+        # flatten it and sort for presentation
+        pathlist = sorted(pathmap.keys())
+        if len(pathlist) > 0:
+            log.out_plain("\n  \f[bold]Changed paths:\f[]")
+        else:
+            # bail
+            return False
+        # now dump the information
+        for cp in pathlist:
+            a, b = pathmap[cp]
+            _compare_path(*pathmap[cp])
+        return True
+
     # now we can finally do some comparisons...
     for pn, ptup in allpkgs.items():
         changed = False
@@ -3061,7 +3213,8 @@ def do_compare(tgt):
         if _compare_deps("install-if", "install-if", rpkg, lpkg):
             changed = True
         # finally, paths
-        # TODO
+        if _compare_paths(rpkg, lpkg):
+            changed = True
         if not changed:
             log.out_plain(" No changes.")
 
