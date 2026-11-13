@@ -1,5 +1,5 @@
 pkgname = "slang-compiler"
-pkgver = "2026.20"
+pkgver = "2026.22.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -29,6 +29,7 @@ hostmakedepends = [
 makedepends = [
     "glm",
     "glslang-devel",
+    "linux-headers",
     "lz4-devel-static",
     "nlohmann-json",
     "spirv-headers",
@@ -44,7 +45,7 @@ source = [
     "https://github.com/martinus/unordered_dense/archive/73f3cbb237e84d483afafc743f1f14ec53e12314.tar.gz",
     "https://github.com/richgel999/miniz/archive/6ef6c68f4fcbb8287aa8edf9c6670804932f41c6.tar.gz",
     "https://github.com/swiftlang/swift-cmark/archive/924936d0427cb25a61169739a7660230bffa6ea6.tar.gz",
-    "https://github.com/shader-slang/slang-rhi/archive/b856e6350ea09f63a16a6c7497faa1d741fdd735.tar.gz",
+    "https://github.com/shader-slang/slang-rhi/archive/4b4067df36942343199cfd09904f1ceead8d31da.tar.gz",
     "https://github.com/fastfloat/fast_float/archive/e0b53eaf63c6d00e0725788ef1dbb759aa321d79.tar.gz",
     "https://github.com/lua/lua/archive/3fe7be956f23385aa1950dc31e2f25127ccfc0ea.tar.gz",
     "https://github.com/tinyobjloader/tinyobjloader/archive/d541711a794343de4ef5ea76f037c9fb9c127a55.tar.gz",
@@ -62,17 +63,17 @@ source_paths = [
     "external/imgui",
 ]
 sha256 = [
-    "f58bda28ae5ad57e098b1b028d03b0ef466bb70b7d4f9fe266722938ec6453cb",
+    "e1c69bc2f45b23fa97eb9b74263cd6a48548095ce0f75a8b06c857945056665e",
     "16188ed4804a670f6b00637a53e135190668dddc12b10f5233e20b403b9df9e2",
     "d9ef3c09f98b0dba3aa60e520284ed54042b0baa86116312be3f36e26393ae27",
     "1c51659bd47c34df1c8976f893adc43ba039a98f6eac4fa95d53d1e08ba6072a",
-    "4c629dc48692fadfdb9dccaa035b18bf85573a1462094823f0078d7577f64c71",
+    "d79489999afe2a498aedf4edf10be49b190315bb416577bb9265b148675b3030",
     "f6259a3543e75ae705ec80835d1568622b444d389922dcc314af7250c26e8643",
     "4776526f89abeea61cce41a056577859180dbb2d4cb6c1dad00955872a1007bb",
     "95d14866c083640365245a3241b421c0bbad5c9d7c816bb2cbd61a00ff4d40be",
     "a1e4443190d78976e0901039dd2207e1d59a4b5b818489232568bdb69ff79ce6",
 ]
-hardening = []
+hardening = ["vis"]
 
 
 @subpackage("slang-compiler-libs")
