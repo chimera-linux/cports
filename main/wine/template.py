@@ -1,6 +1,6 @@
 # keep in sync with user/wine-staging
 pkgname = "wine"
-pkgver = "11.20"
+pkgver = "11.22"
 pkgrel = 0
 archs = ["aarch64", "x86_64"]
 build_style = "gnu_configure"
@@ -28,9 +28,11 @@ makedepends = [
     "gettext",
     "gnutls-devel",
     "gst-plugins-base-devel",
+    "libatomic-chimera-devel-static",
     "libgphoto2-devel",
     "libpcap-devel",
     "libpulse-devel",
+    "libunwind-devel-static",
     "libusb-devel",
     "libxcomposite-devel",
     "libxcursor-devel",
@@ -40,6 +42,7 @@ makedepends = [
     "libxrender-devel",
     "linux-headers",
     "mesa-devel",
+    "musl-devel-static",
     "ncurses-devel",
     "ocl-icd-devel",
     "pcsc-lite-devel",
@@ -58,7 +61,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
 source = f"https://dl.winehq.org/wine/source/11.x/wine-{pkgver}.tar.xz"
-sha256 = "eac8ca448f9c0087f963026b4dc276d1e2b7fbb64056edc093e59bbb7e56fe28"
+sha256 = "f172e9c1be73e862057deae1f0e03ce95919986c5df8a18e1c0829c34863c9ee"
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
 # which isn't the case for loader/preloader.o:(map_so_lib)
