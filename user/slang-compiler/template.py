@@ -1,5 +1,5 @@
 pkgname = "slang-compiler"
-pkgver = "2026.20"
+pkgver = "2026.22"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -62,7 +62,7 @@ source_paths = [
     "external/imgui",
 ]
 sha256 = [
-    "f58bda28ae5ad57e098b1b028d03b0ef466bb70b7d4f9fe266722938ec6453cb",
+    "9196469663e7120907354e1eba3f939e0b051e3dccb35c2c39b0db987bd686fd",
     "16188ed4804a670f6b00637a53e135190668dddc12b10f5233e20b403b9df9e2",
     "d9ef3c09f98b0dba3aa60e520284ed54042b0baa86116312be3f36e26393ae27",
     "1c51659bd47c34df1c8976f893adc43ba039a98f6eac4fa95d53d1e08ba6072a",
@@ -72,7 +72,7 @@ sha256 = [
     "95d14866c083640365245a3241b421c0bbad5c9d7c816bb2cbd61a00ff4d40be",
     "a1e4443190d78976e0901039dd2207e1d59a4b5b818489232568bdb69ff79ce6",
 ]
-hardening = []
+hardening = ["vis"]
 
 
 @subpackage("slang-compiler-libs")
