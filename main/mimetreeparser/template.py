@@ -1,5 +1,5 @@
 pkgname = "mimetreeparser"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 # unable to detect a launcher
@@ -32,7 +32,7 @@ url = "https://invent.kde.org/pim/mimetreeparser"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/mimetreeparser-{pkgver}.tar.xz"
 )
-sha256 = "82b4e37cb59b7264ef13b6e8c18be7d59666f4cbfb51b5ae0f1d7ab6ea35cd09"
+sha256 = "dc98b618ee66ba38a519be421793a752bae1252acfce9e0389e7d0668a9fa13d"
 
 
 @subpackage("mimetreeparser-devel")

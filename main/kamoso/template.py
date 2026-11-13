@@ -1,5 +1,5 @@
 pkgname = "kamoso"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ pkgdesc = "KDE camera app"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kamoso"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kamoso-{pkgver}.tar.xz"
-sha256 = "c26e7d00bd15eedbaa252694cf9c991d7995bfd2ddd2c39a9cf19be73a6ded1f"
+sha256 = "624187492dd4ca1fae17d5e48681b3b3ad3bab1be92a010cd2cf74b386f8e5e9"

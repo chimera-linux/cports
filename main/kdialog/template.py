@@ -1,5 +1,5 @@
 pkgname = "kdialog"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "KDE dialog displayer"
 license = "GPL-2.0-or-later"
 url = "https://develop.kde.org/docs/administration/kdialog"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdialog-{pkgver}.tar.xz"
-sha256 = "ed4a6fde2832d2c0265c855b2a871a6b2bb5a22a1949edaed67f44dbda84bf20"
+sha256 = "64cbdf30d29f26c0535d66494a3032860e700922deb44b3839e2ab171e639a66"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

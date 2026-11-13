@@ -1,5 +1,5 @@
 pkgname = "kget"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -42,4 +42,4 @@ pkgdesc = "KDE download manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kget"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kget-{pkgver}.tar.xz"
-sha256 = "3a99c78592e1d53940002a0e57e4dd3fc058dc4b3af6ba372b77f8123c7730ae"
+sha256 = "63803251d8915de653c73eb177c66b786369cf7bbc8cfe80f4f96bcc21f941a3"

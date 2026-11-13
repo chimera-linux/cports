@@ -1,5 +1,5 @@
 pkgname = "kpat"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -36,4 +36,4 @@ pkgdesc = "KDE solitaire collection"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kpat"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpat-{pkgver}.tar.xz"
-sha256 = "6f4b69ebde5602d808fe857e989568255be2c3a9b8f36c8adaa959fe529b1a17"
+sha256 = "0681d9f0c55d2b9c1be6ee0a30954f1e73fbcf6c16511e19a602095cac09e455"

@@ -1,5 +1,5 @@
 pkgname = "korganizer"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -54,4 +54,4 @@ pkgdesc = "KDE Kontact calendar scheduler"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/korganizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/korganizer-{pkgver}.tar.xz"
-sha256 = "e0b736e452a0203e265255a1e46c27526fe23d85e8aa8b8b62c40cd79b21dcce"
+sha256 = "8876d26d6a5528b32ca7aaddfd87a96928fc7b94cf33f1e07accf5f6c72acaa4"

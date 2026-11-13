@@ -1,5 +1,5 @@
 pkgname = "itinerary"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 # fails with no output
@@ -61,4 +61,4 @@ pkgdesc = "KDE digital travel assistant"
 license = "LGPL-2.0-or-later"
 url = "https://apps.kde.org/itinerary"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/itinerary-{pkgver}.tar.xz"
-sha256 = "3a7562ef290bed88b87208aa5485f10f77885f096d976c09a1745f800e057a57"
+sha256 = "3e7a04b039f937b38e71fae0eba6fe574fe2854652236a933ee38c87196a7cc0"

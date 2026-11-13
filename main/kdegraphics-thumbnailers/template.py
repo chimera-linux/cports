@@ -1,5 +1,5 @@
 pkgname = "kdegraphics-thumbnailers"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -22,4 +22,4 @@ pkgdesc = "KDE thumbnailers for PostScript/RAW/MobiPocket/Blender"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdegraphics_thumbnailers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdegraphics-thumbnailers-{pkgver}.tar.xz"
-sha256 = "2d16907d630bce50b1b072f2f35d0c577c178b794dcc8014443130cbb52ed628"
+sha256 = "529ea393d10d8cf6d6767b739e816b570dc6490d009d95ad8ff411d0bf935b80"

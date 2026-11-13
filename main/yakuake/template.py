@@ -1,5 +1,5 @@
 pkgname = "yakuake"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -37,4 +37,4 @@ pkgdesc = "KDE drop-down terminal"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/yakuake"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/yakuake-{pkgver}.tar.xz"
-sha256 = "7f0ce86218ed13c43e0cd544c11583a9700995953cbe8642daa3e0d67585ba36"
+sha256 = "16e0ef03e8484b2841b6162509b3a0002c9bd2cdb86b9c4973e46b11c1aec44d"

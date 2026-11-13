@@ -1,6 +1,6 @@
 pkgname = "kgraphviewer"
-pkgver = "26.08.2"
-pkgrel = 1
+pkgver = "26.08.3"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -29,7 +29,7 @@ url = "https://invent.kde.org/graphics/kgraphviewer"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kgraphviewer-{pkgver}.tar.xz"
 )
-sha256 = "2841af8c2228f933febd0c3ae89923690923b29b7b9a0e0fb2ebeec74d153177"
+sha256 = "04fea783ee146267dfeb14c44d125e98b30241ff776494255dc026b2344164e8"
 hardening = ["vis"]
 
 

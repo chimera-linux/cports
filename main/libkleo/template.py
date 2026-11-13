@@ -1,5 +1,5 @@
 pkgname = "libkleo"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 # fails on aarch64 at least
@@ -36,7 +36,7 @@ pkgdesc = "KDE PIM cryptography library"
 license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/pim/libkleo"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkleo-{pkgver}.tar.xz"
-sha256 = "70dce52fad62d32a3122542bfb4efa20cd1e0e3de92273bcbaae704f32ed3f32"
+sha256 = "cd95679340af60bdbba0139c039dca4b5a334c03180dbaf7ba520e3d514cb7a7"
 options = ["etcfiles"]
 
 

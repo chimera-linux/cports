@@ -1,5 +1,5 @@
 pkgname = "kcolorchooser"
-pkgver = "26.08.2"
+pkgver = "26.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ url = "https://apps.kde.org/kcolorchooser"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kcolorchooser-{pkgver}.tar.xz"
 )
-sha256 = "dbd21ec12a220c4f3bc3ddf9dc3513b38e20f1eca5d92961a635cc7fef82dace"
+sha256 = "23b5b4a6a081cb775631059a7b2ea29fed669354c970a28db6256d06b84a6a90"
 
 
 def post_install(self):
