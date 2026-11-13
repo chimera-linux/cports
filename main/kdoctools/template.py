@@ -1,5 +1,5 @@
 pkgname = "kdoctools"
-pkgver = "6.31.0"
+pkgver = "6.32.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ pkgdesc = "KDE Documentation generation from docbook"
 license = "LGPL-2.1-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdoctools-{pkgver}.tar.xz"
-sha256 = "6a54b0319d775b8d0d5ebaffd1149b7862621e997fec564da0fb2fcbd694a060"
+sha256 = "431b6cb8c419576ed86d38a2488db35c26b720abf7b6f9bc2cfd28056229a10d"
 hardening = ["vis"]
 # the "docs" are really common stylesheets that are needed
 # by things using kdoctools so make sure they get installed

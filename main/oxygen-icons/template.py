@@ -1,5 +1,5 @@
 pkgname = "oxygen-icons"
-pkgver = "6.31.0"
+pkgver = "6.32.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,4 +18,4 @@ pkgdesc = "Oxygen icon themes"
 license = "GPL-2.0-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/oxygen-icons-{pkgver}.tar.xz"
-sha256 = "f63811206c7c01b78c625abfbe866484b71849be833272a7375bb9f86ac7d5b5"
+sha256 = "743b5277c63592d84a51a643e5381d6afbc5c7563ff775faae6005311d1bfccd"

@@ -1,5 +1,5 @@
 pkgname = "kdeclarative"
-pkgver = "6.31.0"
+pkgver = "6.32.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
@@ -16,7 +16,7 @@ pkgdesc = "KDE Integration of QML and KDE work spaces"
 license = "LGPL-2.1-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdeclarative-{pkgver}.tar.xz"
-sha256 = "458eb2b6e15cd368292fb2a9a6c49621d006c306d7c37ca3bd3090520989401e"
+sha256 = "9e187056b3e1d49ecde29b30e4a4f5f2633639b622dd596369eac86c45c7f167"
 hardening = ["vis"]
 
 

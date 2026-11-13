@@ -1,5 +1,5 @@
 pkgname = "kbookmarks"
-pkgver = "6.31.0"
+pkgver = "6.32.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -20,7 +20,7 @@ pkgdesc = "KDE Bookmarks management library"
 license = "LGPL-2.1-or-later"
 url = "https://community.kde.org/Frameworks"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"
-sha256 = "2d2c53c07fbc813e891bbc95a3ff4828c9e8e348e84a0d94fc2b69adf5897f55"
+sha256 = "a796db0d6f91bd8795ef3319f85f75074d76be315119335c339cf37c1552a472"
 hardening = ["vis"]
 
 

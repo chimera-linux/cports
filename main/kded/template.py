@@ -1,5 +1,5 @@
 pkgname = "kded"
-pkgver = "6.31.0"
+pkgver = "6.32.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ url = "https://community.kde.org/Frameworks"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kded-{pkgver}.tar.xz"
 )
-sha256 = "9a65e6dec8a51cb5e4e6e013c012a977904ca9ee74acb8d948e2031025a7233b"
+sha256 = "eade144d1e197b883529f7e262035134d7ff46b859d0beff34ab778cb5ef683b"
 hardening = ["vis"]
 
 
