@@ -1,6 +1,6 @@
 # keep in sync with main/wine
 pkgname = "wine-staging"
-pkgver = "11.20"
+pkgver = "11.22"
 pkgrel = 0
 archs = ["aarch64", "x86_64"]
 build_style = "gnu_configure"
@@ -30,9 +30,11 @@ makedepends = [
     "gettext",
     "gnutls-devel",
     "gst-plugins-base-devel",
+    "libatomic-chimera-devel-static",
     "libgphoto2-devel",
     "libpcap-devel",
     "libpulse-devel",
+    "libunwind-devel-static",
     "libusb-devel",
     "libxcomposite-devel",
     "libxcursor-devel",
@@ -42,6 +44,7 @@ makedepends = [
     "libxrender-devel",
     "linux-headers",
     "mesa-devel",
+    "musl-devel-static",
     "ncurses-devel",
     "ocl-icd-devel",
     "pcsc-lite-devel",
@@ -69,8 +72,8 @@ source = [
 ]
 source_paths = [".", "staging"]
 sha256 = [
-    "eac8ca448f9c0087f963026b4dc276d1e2b7fbb64056edc093e59bbb7e56fe28",
-    "e383e43450c55fe476b7b33e83121af9295741bc43551204604cecd603a41014",
+    "f172e9c1be73e862057deae1f0e03ce95919986c5df8a18e1c0829c34863c9ee",
+    "9c7dd979f23c551fa15caa16ba1ea039ab74c2ee5b17fdd471b5115f74a6ceb1",
 ]
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
