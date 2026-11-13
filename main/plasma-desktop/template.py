@@ -1,5 +1,5 @@
 pkgname = "plasma-desktop"
-pkgver = "6.8.2"
+pkgver = "6.8.3"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
@@ -114,7 +114,7 @@ pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "fff6177d217e60ab747cb34e35ef249afab41c72bbd5ea61d3471ef88864bd80"
+sha256 = "aa050cfb1005d6f806dc347bb11bc583d5360dd11d51b4501f6328aa7b26d370"
 hardening = ["vis"]
 options = ["etcfiles"]
 

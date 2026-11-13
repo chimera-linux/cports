@@ -1,5 +1,5 @@
 pkgname = "ksshaskpass"
-pkgver = "6.8.2"
+pkgver = "6.8.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,4 +22,4 @@ pkgdesc = "KDE askpass helper"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/ksshaskpass"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ksshaskpass-{pkgver}.tar.xz"
-sha256 = "7ec5bb7db2da000097536ffe4081028967289af4fc564f40cff54100966e5445"
+sha256 = "93acd43cc199d26714f770e5e0ce0833aee1db9ed009a3d1e96fdd0eea3e3128"

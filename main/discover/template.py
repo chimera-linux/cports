@@ -1,5 +1,5 @@
 pkgname = "discover"
-pkgver = "6.8.2"
+pkgver = "6.8.3"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot env, needs some testdata
@@ -58,7 +58,7 @@ pkgdesc = "KDE application manager"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "2bc7280155adb003498a3b31817be8815673cc665b424b98b8250cc97dff5bc6"
+sha256 = "cfb851d648d634622ed7df686110678ecd915bc893f0dda5a59a4f94c4258807"
 options = ["etcfiles"]
 
 

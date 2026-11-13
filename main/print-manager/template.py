@@ -1,5 +1,5 @@
 pkgname = "print-manager"
-pkgver = "6.8.2"
+pkgver = "6.8.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "(pm-modeltests|print-queue_smoketest)"]
@@ -31,5 +31,5 @@ pkgdesc = "KDE tool for printers"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/print-manager"
 source = f"$(KDE_SITE)/plasma/{pkgver}/print-manager-{pkgver}.tar.xz"
-sha256 = "648dc29862b49fc9eb62e0bda89016ec6b76e1236f0285f3450c8ea9c5a00cf5"
+sha256 = "b5eb208cabbfc02528d57a72a61ea92928ecfb87f7dd261cf614ce8318533b9a"
 hardening = ["vis"]
