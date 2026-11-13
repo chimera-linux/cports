@@ -1,0 +1,6 @@
+type = process
+env-file = /var/lib/kubernetes/kube-proxy-flags.env
+command = /usr/bin/kube-proxy
+logfile = /var/log/kube-proxy.log
+depends-on: network.target
+depends-on: local.target
