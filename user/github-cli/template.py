@@ -1,5 +1,5 @@
 pkgname = "github-cli"
-pkgver = "2.103.3"
+pkgver = "2.104.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -14,16 +14,11 @@ pkgdesc = "GitHub CLI tool"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bb148138a3a2fe023e57c78042fe3b42fc09171c0e8fff4cf983b227b7a2eade"
+sha256 = "779060cbdc5a354fa2fc8afb56e9277f64a29ac599daefd941558356509081e4"
 hardening = []
 # cross: uses native binary to generate completions
 # check: needs network access
 options = ["!cross", "!check"]
-
-match self.profile.arch:
-    case "ppc64le" | "ppc64":
-        # https://github.com/golang/go/issues/82324
-        hardening += ["!pie"]
 
 
 def post_build(self):
