@@ -1,5 +1,5 @@
 pkgname = "tlp"
-pkgver = "1.10.2"
+pkgver = "1.11.0"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = [
@@ -18,7 +18,7 @@ pkgdesc = "Battery life optimization utility"
 license = "GPL-2.0-or-later"
 url = "https://linrunner.de/tlp"
 source = f"https://github.com/linrunner/TLP/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a0b8bd8193d96853d2876c552b3b2bdf46bd1258fffc9ac598acc67eb73b56d5"
+sha256 = "e014b4dcfa1e41bf912857ee9f3d5a6539231b086d4f34304719ddfe3ad402f0"
 # no tests, symlinked commands
 options = ["etcfiles", "!check", "!lintcomp"]
 
