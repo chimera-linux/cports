@@ -1,16 +1,16 @@
 pkgname = "faircamp"
-pkgver = "2.0.1"
+pkgver = "2.0.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "faircamp", "--bin", "faircamp-cli"]
-hostmakedepends = ["cargo-auditable", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf", "cmake"]
 makedepends = ["fontconfig-devel", "opus-devel", "zstd-devel"]
 depends = ["ffmpeg", "rsync"]
 pkgdesc = "Static site generator for audio producers"
 license = "AGPL-3.0-or-later AND OFL-1.1"
 url = "https://faircamp.org"
 source = f"https://codeberg.org/simonrepp/faircamp/archive/{pkgver}.tar.gz"
-sha256 = "c3518bb1a54609475ba7452f2e4b0fe82199818700083a0cd69d8997f59a4585"
+sha256 = "97046d78d8c09837067ae9290fe7aecf5dbb3eb107c1346583534fcb715349f0"
 
 
 def install(self):
