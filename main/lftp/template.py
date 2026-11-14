@@ -1,6 +1,6 @@
 pkgname = "lftp"
-pkgver = "4.9.2"
-pkgrel = 1
+pkgver = "4.9.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-nls",
@@ -24,6 +24,6 @@ pkgdesc = "FTP/HTTP client"
 license = "GPL-3.0-or-later"
 url = "https://lftp.yar.ru"
 source = f"https://lftp.yar.ru/ftp/lftp-{pkgver}.tar.xz"
-sha256 = "c517c4f4f9c39bd415d7313088a2b1e313b2d386867fe40b7692b83a20f0670d"
+sha256 = "96e7199d7935be33cf6b1161e955b2aab40ab77ecdf2a19cea4fc1193f457edc"
 # tests require internet connection
 options = ["etcfiles", "!check"]
