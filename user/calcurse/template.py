@@ -1,8 +1,8 @@
 pkgname = "calcurse"
 pkgver = "4.8.2"
-pkgrel = 0
-build_style = "gnu_configure"
-make_dir = "."
+pkgrel = 1
+build_style = "configure"
+configure_args = ["--prefix=/usr"]
 hostmakedepends = [
     "asciidoc",
     "autoconf-archive",
