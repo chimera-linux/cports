@@ -1,0 +1,196 @@
+Modified by q66 for conditional compilation.
+
+Also fixed aarch64 resolver signature, see:
+
+https://sourceware.org/glibc/manual/latest/html_node/Indirect-Functions.html#IFUNC-Resolver-Calling-Conventions
+
+From fd3089b337049eba31b77a6860f8506f67a77683 Mon Sep 17 00:00:00 2001
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Date: Wed, 15 Sep 2021 16:23:31 +0300
+Subject: [PATCH] ldso/dynlink: add ifunc support
+
+---
+ arch/aarch64/reloc.h   |  1 +
+ arch/x86_64/reloc.h    |  1 +
+ include/elf.h          |  1 +
+ ldso/dynlink.c         | 40 ++++++++++++++++++++++++++++++++++++++--
+ src/internal/dynlink.h |  1 +
+ 5 files changed, 42 insertions(+), 2 deletions(-)
+
+diff --git a/arch/aarch64/reloc.h b/arch/aarch64/reloc.h
+index b1b68c7..9bb2a80 100644
+--- a/arch/aarch64/reloc.h
++++ b/arch/aarch64/reloc.h
+@@ -19,6 +19,7 @@
+ #define REL_DTPOFF      R_AARCH64_TLS_DTPREL64
+ #define REL_TPOFF       R_AARCH64_TLS_TPREL64
+ #define REL_TLSDESC     R_AARCH64_TLSDESC
++#define REL_IRELATIVE   R_AARCH64_IRELATIVE
+ 
+ #define CRTJMP(pc,sp) __asm__ __volatile__( \
+ 	"mov sp,%1 ; br %0" : : "r"(pc), "r"(sp) : "memory" )
+diff --git a/arch/x86_64/reloc.h b/arch/x86_64/reloc.h
+index fac0c0a..fb6be3e 100644
+--- a/arch/x86_64/reloc.h
++++ b/arch/x86_64/reloc.h
+@@ -10,6 +10,7 @@
+ #define REL_DTPOFF      R_X86_64_DTPOFF64
+ #define REL_TPOFF       R_X86_64_TPOFF64
+ #define REL_TLSDESC     R_X86_64_TLSDESC
++#define REL_IRELATIVE   R_X86_64_IRELATIVE
+ 
+ #define CRTJMP(pc,sp) __asm__ __volatile__( \
+ 	"mov %1,%%rsp ; jmp *%0" : : "r"(pc), "r"(sp) : "memory" )
+diff --git a/include/elf.h b/include/elf.h
+index 2555b90..98810de 100644
+--- a/include/elf.h
++++ b/include/elf.h
+@@ -2517,6 +2517,7 @@ enum
+ #define R_AARCH64_TLS_TPREL    1030
+ #define R_AARCH64_TLS_TPREL64  1030
+ #define R_AARCH64_TLSDESC      1031
++#define R_AARCH64_IRELATIVE    1032
+ 
+ 
+ #define R_ARM_NONE		0
+diff --git a/ldso/dynlink.c b/ldso/dynlink.c
+index 715948f..65c3117 100644
+--- a/ldso/dynlink.c
++++ b/ldso/dynlink.c
+@@ -301,7 +301,11 @@ static Sym *gnu_lookup_filtered(uint32_t h1, uint32_t *hashtab, struct dso *dso,
+ 	return gnu_lookup(h1, hashtab, dso, s);
+ }
+ 
++#ifdef LIBC_NVIDIA_BUILD
++#define OK_TYPES (1<<STT_NOTYPE | 1<<STT_OBJECT | 1<<STT_FUNC | 1<<STT_COMMON | 1<<STT_TLS | 1<<STT_GNU_IFUNC)
++#else
+ #define OK_TYPES (1<<STT_NOTYPE | 1<<STT_OBJECT | 1<<STT_FUNC | 1<<STT_COMMON | 1<<STT_TLS)
++#endif
+ #define OK_BINDS (1<<STB_GLOBAL | 1<<STB_WEAK | 1<<STB_GNU_UNIQUE)
+ 
+ #ifndef ARCH_SYM_REJECT_UND
+@@ -376,6 +380,26 @@ nomatch:
+ 	return (struct symdef){ 0 };
+ }
+ 
++#ifdef LIBC_NVIDIA_BUILD
++static int resolve_ifunc_addr(size_t *addr)
++{
++	if (!addr || !*addr || ldd_mode)
++		return 0;
++
++#ifdef __aarch64__
++	void *new_addr = ((void *(*)(unsigned long long, const void *))*addr)(0, NULL);
++#else
++	void *new_addr = ((void *(*)(void))*addr)();
++#endif
++
++	if (!new_addr)
++		return -1;
++
++	*addr = (size_t)new_addr;
++	return 0;
++}
++#endif
++
+ static void do_relocs(struct dso *dso, size_t *rel, size_t rel_size, size_t stride)
+ {
+ 	unsigned char *base = dso->base;
+@@ -392,17 +412,30 @@ static void do_relocs(struct dso *dso, size_t *rel, size_t rel_size, size_t stri
+ 	size_t tls_val;
+ 	size_t addend;
+ 	int skip_relative = 0, reuse_addends = 0, save_slot = 0;
++#ifdef LIBC_NVIDIA_BUILD
++	int ifunc, skip_ifunc = 0;
++#endif
+ 
+ 	if (dso == &ldso) {
+ 		/* Only ldso's REL table needs addend saving/reuse. */
+ 		if (rel == apply_addends_to)
+ 			reuse_addends = 1;
+ 		skip_relative = 1;
++#ifdef LIBC_NVIDIA_BUILD
++		/* Resolve internal ifunc's only in stage 2 */
++		skip_ifunc = head != &ldso;
++#endif
+ 	}
+ 
+ 	for (; rel_size; rel+=stride, rel_size-=stride*sizeof(size_t)) {
++#ifdef LIBC_NVIDIA_BUILD
++		ifunc = 0;
++#endif
+ 		if (skip_relative && IS_RELATIVE(rel[1], dso->syms)) continue;
+ 		type = R_TYPE(rel[1]);
++#ifdef LIBC_NVIDIA_BUILD
++		if (skip_ifunc && type == REL_IRELATIVE) continue;
++#endif
+ 		if (type == REL_NONE) continue;
+ 		reloc_addr = laddr(dso, rel[0]);
+ 
+@@ -468,10 +501,18 @@ static void do_relocs(struct dso *dso, size_t *rel, size_t rel_size, size_t stri
+ 		case REL_GOT:
+ 		case REL_PLT:
+ 			*reloc_addr = sym_val + addend;
++#ifdef LIBC_NVIDIA_BUILD
++			if (def.sym && (def.sym->st_info&0xf) == STT_GNU_IFUNC)
++				ifunc = 1;
++#endif
+ 			break;
+ 		case REL_USYMBOLIC:
+ 			memcpy(reloc_addr, &(size_t){sym_val + addend}, sizeof(size_t));
+ 			break;
++#ifdef LIBC_NVIDIA_BUILD
++		case REL_IRELATIVE:
++			ifunc = 1;
++#endif
+ 		case REL_RELATIVE:
+ 			*reloc_addr = (size_t)base + addend;
+ 			break;
+@@ -553,6 +594,13 @@ static void do_relocs(struct dso *dso, size_t *rel, size_t rel_size, size_t stri
+ 			if (runtime) longjmp(*rtld_fail, 1);
+ 			continue;
+ 		}
++
++#ifdef LIBC_NVIDIA_BUILD
++		if (ifunc && resolve_ifunc_addr(reloc_addr) < 0) {
++			error("Error relocating %s: ifunc resolver failed", dso->name);
++			if (runtime) longjmp(*rtld_fail, 1);
++		}
++#endif
+ 	}
+ }
+ 
+@@ -2286,7 +2334,17 @@ static void *do_dlsym(struct dso *p, const char *s, void *ra)
+ 		return __tls_get_addr((tls_mod_off_t []){def.dso->tls_id, def.sym->st_value-DTP_OFFSET});
+ 	if (DL_FDPIC && (def.sym->st_info&0xf) == STT_FUNC)
+ 		return def.dso->funcdescs + (def.sym - def.dso->syms);
+-	return laddr(def.dso, def.sym->st_value);
++
++	size_t sym_val = (size_t)laddr(def.dso, def.sym->st_value);
++
++#ifdef LIBC_NVIDIA_BUILD
++	if ((def.sym->st_info&0xf) == STT_GNU_IFUNC && resolve_ifunc_addr(&sym_val) < 0) {
++		error("Error in resolving ifunc address for symbol: %s", s);
++		return 0;
++	}
++#endif
++
++	return (void *)sym_val;
+ }
+ 
+ int dladdr(const void *addr_arg, Dl_info *info)
+diff --git a/src/internal/dynlink.h b/src/internal/dynlink.h
+index 40c743e..996ca6a 100644
+--- a/src/internal/dynlink.h
++++ b/src/internal/dynlink.h
+@@ -43,6 +43,7 @@ enum {
+ 	REL_TLSDESC,
+ 	REL_FUNCDESC,
+ 	REL_FUNCDESC_VAL,
++	REL_IRELATIVE,
+ };
+ 
+ struct fdpic_loadseg {
+-- 
+2.25.1
+
