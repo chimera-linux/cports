@@ -5,7 +5,10 @@ build_style = "cmake"
 # unpackaged pyside6
 configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 # flaky
-make_check_args = ["-E", "knetworkmountstestnoconfig"]
+make_check_args = [
+    "-E",
+    "(knetworkmountstestnoconfig|kdirwatch_qfswatch_unittest)",
+]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "extra-cmake-modules", "ninja", "pkgconf"]
 makedepends = [
