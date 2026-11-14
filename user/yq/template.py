@@ -1,6 +1,6 @@
 pkgname = "yq"
 pkgver = "4.54.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash", "tzdb"]
@@ -16,8 +16,14 @@ sha256 = [
     "93143d49b2a3bd6cb723477f585366b29f70c636af4653191d61b49b0c47de7f",
     "23f2af15723d51db671a647f17dc386678d9ca85bc314025db466b102d47c1f3",
 ]
+hardening = []
 # generates completions with host binary
 options = ["!cross"]
+
+match self.profile.arch:
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def check(self):
