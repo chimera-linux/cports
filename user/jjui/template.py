@@ -10,6 +10,11 @@ license = "MIT"
 url = "https://github.com/idursun/jjui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "f1f68ab9431b1ddb2bd24db68735397167d590d6fcc66035056918b97b283089"
+hardening = []
+
+if self.profile.arch in ["ppc64le", "ppc64"]:
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 
 def post_install(self):
