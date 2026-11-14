@@ -1,5 +1,5 @@
 pkgname = "lazygit"
-pkgver = "0.66.2"
+pkgver = "0.66.3"
 pkgrel = 0
 build_style = "go"
 prepare_after_patch = True
@@ -10,7 +10,7 @@ pkgdesc = "Terminal UI for git commands"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazygit"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "fcaad0909af765ef87bd873164a4de78435515ab4d8b04f58d6ad51e8ecd00e5"
+sha256 = "49e80d28e03e53048105f6ebb5afefbe5caacffa8549347d8a59eab3a00dafe1"
 # need to be in git checkout
 options = ["!check"]
 
