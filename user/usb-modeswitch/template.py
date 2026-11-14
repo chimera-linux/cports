@@ -1,6 +1,6 @@
 pkgname = "usb-modeswitch"
-pkgver = "2.6.2"
-_dataver = "20251207"
+pkgver = "2.6.3"
+_dataver = "20261111"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = [
@@ -27,8 +27,8 @@ source = [
 ]
 source_paths = [".", "data"]
 sha256 = [
-    "f7abd337784a9d1bd39cb8a587518aff6f2a43d916145eafd80b1b8b7146db66",
-    "0bb12d64aee5e467c31af61a53fb828ff7aa59c54a82ca85eeede4c5690bfa66",
+    "cddb987af80eca5bc9c364dc0ccd0e2b788de4d28626d017277a48c06b0453b6",
+    "221507574da7d11debdba94e40cf164b59fb8b19be1a3ecbec76e348b7a4fa73",
 ]
 # no tests
 options = ["!check"]
