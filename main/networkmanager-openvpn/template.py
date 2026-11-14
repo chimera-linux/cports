@@ -24,8 +24,8 @@ makedepends = [
 depends = ["openvpn"]
 pkgdesc = "OpenVPN support for NetworkManager"
 license = "GPL-2.0-or-later"
-url = "https://github.com/NetworkManager/NetworkManager-openvpn/tree/main"
-source = f"https://github.com/NetworkManager/NetworkManager-openvpn/archive/refs/tags/{pkgver}.tar.gz"
+url = "https://gitlab.gnome.org/GNOME/NetworkManager-openvpn"
+source = f"{url}/-/archive/1.12.5/NetworkManager-openvpn-{pkgver}.tar.gz"
 sha256 = "45b213ddc42ba999a9143d3770b46779dc6e8e89383dd83c12842cc7411ef00f"
 options = ["linkundefver"]
 
