@@ -1,14 +1,13 @@
 pkgname = "zvm"
-pkgver = "0.9.4"
+pkgver = "0.9.5"
 pkgrel = 0
 build_style = "go"
-prepare_after_patch = True
 hostmakedepends = ["go"]
 pkgdesc = "Zig version manager"
 license = "MIT"
 url = "https://github.com/tristanisham/zvm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "90be104398c71959939decd4a924af87a53f27577aff069fe68eb4f090b4d18b"
+sha256 = "fa11371d8d62523aa03a2b45075c39dab38ac9ee4ee901481a8098c871e7edee"
 # generates completions with host binary
 options = ["!cross"]
 
