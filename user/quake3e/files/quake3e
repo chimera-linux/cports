@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+exec /usr/lib/quake3e/quake3e "$@"
