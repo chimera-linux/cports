@@ -8,8 +8,13 @@ license = "MIT"
 url = "https://github.com/tristanisham/zvm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "fa11371d8d62523aa03a2b45075c39dab38ac9ee4ee901481a8098c871e7edee"
+hardening = []
 # generates completions with host binary
 options = ["!cross"]
+
+if self.profile.arch in ["ppc64le", "ppc64"]:
+    # https://github.com/golang/go/issues/82324
+    hardening += ["!pie"]
 
 
 def post_build(self):
