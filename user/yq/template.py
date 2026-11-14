@@ -1,6 +1,6 @@
 pkgname = "yq"
-pkgver = "4.54.1"
-pkgrel = 2
+pkgver = "4.54.3"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash", "tzdb"]
@@ -13,8 +13,8 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "0cec36e7035dd56c508bda56245cbd71e4495d2317bc2528165c4162bce79335",
-    "2f9db96faeb11a82fa80fe5af35d955f306b04e4d530e25f85b3574b41107414",
+    "93143d49b2a3bd6cb723477f585366b29f70c636af4653191d61b49b0c47de7f",
+    "23f2af15723d51db671a647f17dc386678d9ca85bc314025db466b102d47c1f3",
 ]
 # generates completions with host binary
 options = ["!cross"]
