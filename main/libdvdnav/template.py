@@ -1,14 +1,15 @@
 pkgname = "libdvdnav"
-pkgver = "6.1.1"
+pkgver = "7.0.0"
 pkgrel = 0
-build_style = "gnu_configure"
-hostmakedepends = ["automake", "pkgconf", "slibtool"]
+build_style = "meson"
+configure_args = ["-Ddefault_library=shared"]
+hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = ["libdvdcss-devel", "libdvdread-devel"]
 pkgdesc = "DVD navigation library"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/libdvdnav.html"
-source = f"https://download.videolan.org/pub/videolan/libdvdnav/{pkgver}/libdvdnav-{pkgver}.tar.bz2"
-sha256 = "c191a7475947d323ff7680cf92c0fb1be8237701885f37656c64d04e98d18d48"
+source = f"https://download.videolan.org/pub/videolan/libdvdnav/{pkgver}/libdvdnav-{pkgver}.tar.xz"
+sha256 = "a2a18f5ad36d133c74bf9106b6445806fa253b09141a46392550394b647b221e"
 
 
 @subpackage("libdvdnav-devel")
