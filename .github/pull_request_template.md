@@ -8,6 +8,10 @@ for trivial package updates you may remove this.
 
 Before this pull request is reviewed, certain conditions must be met.
 
+For draft pull requests:
+
+- [ ] This pull request is *not* ready for review (if checked, please make sure to open as draft)
+
 The following must be true for all changes:
 
 - [ ] I have read [CONTRIBUTING.md](https://github.com/chimera-linux/cports/blob/master/CONTRIBUTING.md)
