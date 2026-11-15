@@ -1,5 +1,5 @@
 pkgname = "shotwell"
-pkgver = "33.0"
+pkgver = "33.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,4 +33,4 @@ pkgdesc = "Digital photo organizer"
 license = "CC-BY-SA-3.0 AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/shotwell"
 source = f"$(GNOME_SITE)/shotwell/{'.'.join(pkgver.split('.')[:2])}/shotwell-{pkgver}.tar.xz"
-sha256 = "79f2fa2bd5df3b18d5301012085222eb9a6e548593f6d5dbcea6d1e8559cb797"
+sha256 = "d5fa762dc1e735b6e1936cce889497c58a9b5e33e93970723375bc4aff8d629f"
