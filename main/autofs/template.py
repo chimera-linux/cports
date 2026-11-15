@@ -1,6 +1,6 @@
 pkgname = "autofs"
-pkgver = "5.1.9"
-pkgrel = 1
+pkgver = "5.2.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-libtirpc",
@@ -26,7 +26,7 @@ pkgdesc = "Kernel-based automounter"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/daemons/autofs"
 source = f"{url}/v{pkgver.split('.')[0]}/autofs-{pkgver}.tar.xz"
-sha256 = "87e6af6a03794b9462ea519781e50e7d23b5f7c92cd59e1142c85d2493b3c24b"
+sha256 = "131a642acbb9fe98a41fb52b05adc979e9094e025dd18a1ae7bef00ca72351b0"
 # check: no tests
 options = ["etcfiles", "!check"]
 

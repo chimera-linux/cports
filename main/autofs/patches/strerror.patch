@@ -1,0 +1,12 @@
+diff --git a/lib/misc.c b/lib/misc.c
+index 453d713..3ff364a 100644
+--- a/lib/misc.c
++++ b/lib/misc.c
+@@ -27,6 +27,7 @@
+ #include <pthread.h>
+ #include <mntent.h>
+ 
++#include "automount.h"
+ #include "log.h"
+ #include "misc.h"
+ 

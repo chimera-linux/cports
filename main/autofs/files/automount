@@ -1,3 +1,4 @@
 type = process
 command = /usr/bin/automount -f
-depends-on = early-fs-local.target
+depends-on: early-fs-local.target
+after: network.target
