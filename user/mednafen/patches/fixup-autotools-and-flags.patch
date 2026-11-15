@@ -1,0 +1,87 @@
+diff --git a/Makefile.am b/Makefile.am
+index 1cdf970..d413f45 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS	= po intl src
++SUBDIRS	= po src
+ 
+ ACLOCAL_AMFLAGS = -I m4
+ 
+diff --git a/configure.ac b/configure.ac
+index ed31fe5..f2c3c08 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,6 +21,7 @@ AM_PROG_AS
+ AM_PROG_CC_C_O
+ AC_PROG_CXX
+ AC_PROG_CXXCPP
++AC_PROG_RANLIB
+ 
+ AC_LANG_C
+ CC="$CC -std=gnu99"
+@@ -87,7 +88,7 @@ AM_ICONV
+ if test "x$am_cv_func_iconv" != "xyes"; then
+ 	AC_MSG_ERROR([*** iconv not found!])
+ fi
+-AM_GNU_GETTEXT
++AM_GNU_GETTEXT([external])
+ 
+ AC_SUBST(LIBICONV)
+ AC_SUBST(LIBINTL)
+@@ -122,13 +123,6 @@ dnl
+ dnl -fstrict-aliasing for OpenBSD
+ dnl
+ OPTIMIZER_FLAGS=""
+-AX_APPEND_COMPILE_FLAGS([-fno-fast-math], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-unsafe-math-optimizations], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-aggressive-loop-optimizations], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-ipa-icf], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-printf-return-value], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fomit-frame-pointer], OPTIMIZER_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fstrict-aliasing], OPTIMIZER_FLAGS)
+ 
+ dnl
+ dnl Use -fwrapv instead of -fno-strict-overflow; -fno-strict-overflow is buggy on gcc and does not work as documented/implied.
+@@ -168,12 +162,6 @@ dnl simplicity of the test program and some other compiler flag usage difference
+ dnl
+ NOPICPIE_FLAGS=""
+ NOPICPIE_LDFLAGS=""
+-AX_APPEND_COMPILE_FLAGS([-fno-pic], NOPICPIE_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-pie], NOPICPIE_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-PIC], NOPICPIE_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-PIE], NOPICPIE_FLAGS)
+-AX_CHECK_LINK_FLAG([-nopie], [NOPICPIE_LDFLAGS="$NOPICPIE_LDFLAGS -nopie"])
+-AX_CHECK_LINK_FLAG([-no-pie], [NOPICPIE_LDFLAGS="$NOPICPIE_LDFLAGS -no-pie"])
+ 
+ if test "x$NOPICPIE_FLAGS" != "x" || test "x$NOPICPIE_LDFLAGS" != "x"; then
+ 	AC_MSG_CHECKING([if compiling and linking works with PIC/PIE-disabling flags])
+@@ -207,9 +195,6 @@ fi
+ # Used as needed in Makefile.am:
+ #
+ NO_STACK_PROTECTOR_FLAGS=""
+-AX_APPEND_COMPILE_FLAGS([-fno-stack-protector], NO_STACK_PROTECTOR_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-stack-protector-all], NO_STACK_PROTECTOR_FLAGS)
+-AX_APPEND_COMPILE_FLAGS([-fno-stack-protector-strong], NO_STACK_PROTECTOR_FLAGS)
+ AC_SUBST(NO_STACK_PROTECTOR_FLAGS)
+ 
+ # Used for ngp and quicklz
+@@ -238,7 +223,6 @@ AC_SUBST(SNES_EXTRA_CXXFLAGS)
+ # Begin ss flags
+ #
+ SS_EXTRA_FLAGS=""
+-AX_APPEND_COMPILE_FLAGS([-mtune=haswell], SS_EXTRA_FLAGS)
+ AC_SUBST(SS_EXTRA_FLAGS)
+ #
+ # End ss flags
+@@ -742,10 +726,6 @@ if expr x"$host" : 'x.*-mingw*' > /dev/null; then
+ 	if test x$host_cpu != xx86_64; then
+ 		# Enable larger address space support(for the 32-bit build).
+ 		LDFLAGS="$LDFLAGS -Wl,--large-address-aware"
+-		AX_APPEND_COMPILE_FLAGS([-march=i686], OPTIMIZER_FLAGS)
+-		AX_APPEND_COMPILE_FLAGS([-mtune=pentium3], OPTIMIZER_FLAGS)
+-	else
+-		AX_APPEND_COMPILE_FLAGS([-mtune=amdfam10], OPTIMIZER_FLAGS)
+ 	fi
+ 
+ 	# Always build with DirectSound support.
