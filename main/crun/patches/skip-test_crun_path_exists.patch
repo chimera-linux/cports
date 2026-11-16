@@ -1,12 +1,12 @@
-/proc/sysrq-trigger doesn't always exist.
----
-diff -uraN a/tests/tests_libcrun_utils.c b/tests/tests_libcrun_utils.c
---- a/tests/tests_libcrun_utils.c	2026-09-25 06:37:46.000000000 +0100
-+++ b/tests/tests_libcrun_utils.c	2026-09-27 23:24:48.795707336 +0100
-@@ -275,20 +275,6 @@
+diff --git a/tests/tests_libcrun_utils.c b/tests/tests_libcrun_utils.c
+index b3bda77..2d0216c 100644
+--- a/tests/tests_libcrun_utils.c
++++ b/tests/tests_libcrun_utils.c
+@@ -373,20 +373,6 @@ test_read_all_fd_with_max_size ()
+   return failed ? -1 : 0;
  }
  
- static int
+-static int
 -test_crun_path_exists ()
 -{
 -
@@ -20,18 +20,14 @@ diff -uraN a/tests/tests_libcrun_utils.c b/tests/tests_libcrun_utils.c
 -  return 0;
 -}
 -
--static int
+ static int
  test_path_is_slash_dev ()
  {
-   if (! path_is_slash_dev ("/dev"))
-@@ -882,9 +868,8 @@
- #ifdef HAVE_SYSTEMD
-   printf ("1..20\n");
- #else
--  printf ("1..17\n");
-+  printf ("1..16\n");
- #endif
+@@ -1389,7 +1375,6 @@ out:
+ int
+ main ()
+ {
 -  RUN_TEST (test_crun_path_exists);
    RUN_TEST (test_write_read_file);
+   RUN_TEST (test_read_all_fd_with_max_size);
    RUN_TEST (test_run_process);
-   RUN_TEST (test_dir_p);
