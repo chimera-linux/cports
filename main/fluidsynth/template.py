@@ -1,5 +1,5 @@
 pkgname = "fluidsynth"
-pkgver = "2.4.7"
+pkgver = "2.6.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -11,7 +11,7 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "alsa-lib-devel",
     "dbus-devel",
-    "glib-devel",
+    "gcem",
     "libedit-readline-devel",
     "libpulse-devel",
     "libsndfile-devel",
@@ -24,7 +24,7 @@ pkgdesc = "Software synthesizer based on the SoundFont 2 specifications"
 license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/fluidsynth/archive/v{pkgver}.tar.gz"
-sha256 = "7fb0e328c66a24161049e2b9e27c3b6e51a6904b31b1a647f73cc1f322523e88"
+sha256 = "ca376b42a3c1b186a4c8c248931789a455ac94a89b777394969d678010c2f91f"
 # CFI: doesn't work (run drumstick-vpiano)
 hardening = ["vis", "!cfi"]
 
