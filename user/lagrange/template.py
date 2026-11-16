@@ -1,6 +1,6 @@
 pkgname = "lagrange"
-pkgver = "1.19.3"
-pkgrel = 1
+pkgver = "2.0.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_POPUP_MENUS=OFF",
@@ -25,14 +25,14 @@ makedepends = [
     "openssl3-devel",
     "opusfile-devel",
     "pcre2-devel",
-    "sdl2-compat-devel",
+    "sdl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Beautiful gemini client"
 license = "BSD-2-Clause"
 url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"
-sha256 = "65025f37804634330cfc5442145169f2cc27bd52f26bc58d6b33683aa12a2d6b"
+sha256 = "45461159d3cb0ba09d0ba78cd34ca32728bfd8a91cff48c7d2ca4e9a135e1864"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 hardening = ["vis", "!cfi"]
 
