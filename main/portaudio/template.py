@@ -1,6 +1,6 @@
 pkgname = "portaudio"
 pkgver = "19.7.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx"]
 configure_gen = ["autoreconf", "-fi", ".", "bindings/cpp"]
