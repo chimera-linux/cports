@@ -1,5 +1,5 @@
 pkgname = "openjdk21"
-pkgver = "21.0.13.0.3_p1"
+pkgver = "21.0.13.1_p2"
 pkgrel = 0
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
@@ -65,7 +65,7 @@ pkgdesc = f"Oracle OpenJDK {_majver}"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "860df2bacc8fb971712b67493a78c9440ac4a37bb4b52f28107fd761e1a7bf08"
+sha256 = "2f00670ffe781881c6fdb60f49ecdfd12a6c0f5e2943b94d17b1f4bc714397f9"
 _java_base = "usr/lib/jvm"
 _java_name = f"java-{_majver}-openjdk"
 _java_home = f"{_java_base}/{_java_name}"
