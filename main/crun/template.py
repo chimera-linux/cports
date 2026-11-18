@@ -1,5 +1,5 @@
 pkgname = "crun"
-pkgver = "1.30.1"
+pkgver = "1.31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -22,10 +22,15 @@ pkgdesc = "Fast and lightweight OCI runtime"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"
-sha256 = "d62b89a82520a553edf63fd3ae11275be6f16ec86ed90d8ef7b113d06b239fa2"
+sha256 = "cb76a7951438205466725307e4061da6d1dfdc202bdf675cf209c7037b94002b"
 hardening = ["vis", "cfi"]
 
 
 def post_install(self):
     # useless lib that nothing uses and doesn't even come with headers
     self.uninstall("usr/lib/libcrun.a")
+
+
+@subpackage("crun-devel")
+def _(self):
+    return self.default_devel()
