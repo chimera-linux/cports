@@ -1,5 +1,5 @@
 pkgname = "bluez"
-pkgver = "5.87"
+pkgver = "5.88"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -40,7 +40,7 @@ pkgdesc = "Linux Bluetooth stack"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"
-sha256 = "26bdcf2cebd7310c6f598850606b037ef0c515fe6608ebc54d22c50c4c32b35f"
+sha256 = "6952c39eb5f8b0ee712cc50ab3bcff03be17c410dd97ca640f4849d9a1653ba3"
 tool_flags = {
     "CFLAGS": ["-Wno-deprecated-declarations"],
     # workaround for --gc-sections breaking in test files
