@@ -1,5 +1,5 @@
 pkgname = "openjdk25"
-pkgver = "25.0.5.0.3_p1"
+pkgver = "25.0.5.1_p2"
 pkgrel = 0
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
@@ -65,7 +65,7 @@ pkgdesc = f"Oracle OpenJDK {_majver}"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "957a4712571f8000851e5331a1b1510fe814771e05492b32ac828e5f55e6b4a6"
+sha256 = "b3ecd75437342ee932f71792bbbdd09cd336659324f94ad0e81e527af74d8c5c"
 _java_base = "usr/lib/jvm"
 _java_name = f"java-{_majver}-openjdk"
 _java_home = f"{_java_base}/{_java_name}"
