@@ -1,5 +1,5 @@
 pkgname = "nginx"
-pkgver = "1.30.6"
+pkgver = "1.30.7"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -81,12 +81,12 @@ license = "BSD-2-Clause"
 url = "https://nginx.org"
 source = [
     f"https://nginx.org/download/nginx-{pkgver}.tar.gz",
-    "https://github.com/nginx/nginx-tests/archive/4d1de3f357.tar.gz",
+    "https://github.com/nginx/nginx-tests/archive/cf2b5bf5f9.tar.gz",
 ]
 source_paths = [".", "nginx-tests"]
 sha256 = [
-    "3cf46f5ed7504d460125866b7bea99fb357f31d887e2e63b35503310e9b8b6c8",
-    "e6008f0883a98eb30d84b2ab5d69c19aed2dea8a2eb368402a526e1d3fd16636",
+    "2565b5c837050e958f70fb0f73c48e2bca4542ad349fd356f46fb0c72610bc6e",
+    "1555dad9e93eb55711dc4ea42b52f62b326ecd72c55add966ff71277d937070c",
 ]
 file_modes = {
     # must be present in main package
