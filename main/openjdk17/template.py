@@ -1,5 +1,5 @@
 pkgname = "openjdk17"
-pkgver = "17.0.21.0.3_p1"
+pkgver = "17.0.21.1_p2"
 pkgrel = 0
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
@@ -64,7 +64,7 @@ pkgdesc = f"Oracle OpenJDK {_majver}"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "0c9850a48e99792768b85d7ed9ce7c56e372f24af375afef5c0428749ce9a206"
+sha256 = "1358a7fbe258370744a11a4be8017bd9d30a00a5fc5b784f9221815bb7444a4d"
 _java_base = "usr/lib/jvm"
 _java_name = "java-17-openjdk"
 _java_home = f"{_java_base}/{_java_name}"
