@@ -9,7 +9,7 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 depends = ["cmd:crond!cronie", "restic~0.19"]
-pkgdesc = "Configuration profiles manager for restic"
+pkgdesc = "Configuration profiles manager and scheduler for restic backup"
 license = "GPL-3.0-only"
 url = "https://creativeprojects.github.io/resticprofile"
 source = f"https://github.com/creativeprojects/resticprofile/archive/refs/tags/v{pkgver}.tar.gz"
@@ -23,8 +23,6 @@ def install(self):
 
 
 def post_install(self):
-    self.install_license("LICENSE")
-
     self.install_completion("contrib/completion/bash-completion.sh", "bash")
     self.install_completion("contrib/completion/fish-completion.fish", "fish")
     self.install_completion("contrib/completion/zsh-completion.zsh", "zsh")
