@@ -1,5 +1,5 @@
 pkgname = "gdb"
-pkgver = "17.2"
+pkgver = "18.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "GNU debugger"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"
-sha256 = "1c036c0d72e4b3d1fb5c94c88632add6f9d76f4d7c4d2ea793c12a9f19a3228c"
+sha256 = "cd9fc3fe2b47743840e42c1592d3d87f8302eb18639c0b8b4ba0898002e2348f"
 # weird autotools bullshittery
 env = {"SED": "gsed"}
 # massive
