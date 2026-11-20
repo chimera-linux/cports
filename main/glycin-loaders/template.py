@@ -1,7 +1,7 @@
 # keep in sync with glycin
 pkgname = "glycin-loaders"
-pkgver = "2.2.1"
-pkgrel = 1
+pkgver = "2.2.6"
+pkgrel = 0
 build_style = "meson"
 prepare_after_patch = True
 configure_args = [
@@ -37,7 +37,7 @@ subdesc = "additional loaders"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
-sha256 = "937ae571d76c0de5e59db944d1194981360be37ee97875729781bc3816ddeafe"
+sha256 = "6a114aa1117ec2d7bd578c8cefd235d993304dedfd1a62575dc31be9a146b791"
 # gobject-introspection
 options = ["!cross", "!check"]
 
