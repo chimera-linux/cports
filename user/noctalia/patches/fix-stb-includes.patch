@@ -1,42 +1,35 @@
-diff --git a/meson.build b/meson.build
-index 3767c76..e5e40d1 100644
---- a/meson.build
-+++ b/meson.build
-@@ -134,11 +134,11 @@ if not gles2_dep.found()
+diff --git a/lib/meson.build b/lib/meson.build
+index 4ac0150c24..683ea3cbe7 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -39,8 +39,8 @@ if not _noctalia_ui_gles2_dep.found()
+   _noctalia_ui_gles2_dep = dependency('epoxy')
  endif
  
- # ── System: stb_image_resize2 and stb_image_write (header-only) ─────────────────────────────────
--if not cc.has_header('stb/stb_image_resize2.h')
--  error('stb/stb_image_resize2.h not found')
-+if not cc.has_header('stb_image_resize2.h')
-+  error('stb_image_resize2.h not found')
- endif
--if not cc.has_header('stb/stb_image_write.h')
--  error('stb/stb_image_write.h not found')
-+if not cc.has_header('stb_image_write.h')
-+  error('stb_image_write.h not found')
+-if not _noctalia_ui_cc.has_header('stb/stb_image_resize2.h')
+-  error('noctalia-ui: stb/stb_image_resize2.h not found')
++if not _noctalia_ui_cc.has_header('stb_image_resize2.h')
++  error('noctalia-ui: stb_image_resize2.h not found')
  endif
  
- # ── System: libwebp (WebP decode; thumbnail and screenshot encode; demux for animations) ─
-diff --git a/src/capture/screenshot_service.cpp b/src/capture/screenshot_service.cpp
-index 80212cb..6b60ff7 100644
---- a/src/capture/screenshot_service.cpp
-+++ b/src/capture/screenshot_service.cpp
-@@ -46,7 +46,7 @@
- #include <fstream>
- #include <nlohmann/json.hpp>
- #include <sstream>
--#include <stb/stb_image_resize2.h>
-+#include <stb_image_resize2.h>
- #include <sys/wait.h>
- #include <thread>
- #include <unistd.h>
-diff --git a/src/render/core/image_encoder.cpp b/src/render/core/image_encoder.cpp
-index c9979c0..1a79824 100644
---- a/src/render/core/image_encoder.cpp
-+++ b/src/render/core/image_encoder.cpp
+ _noctalia_ui_system_dependencies = [
+@@ -243,8 +243,8 @@ if get_variable('noctalia_ui_build_codecs', false)
+     _noctalia_ui_wuffs_inc = [include_directories('third_party/wuffs', is_system: true)]
+   endif
+ 
+-  if not _noctalia_ui_cc.has_header('stb/stb_image_write.h')
+-    error('noctalia-ui: stb/stb_image_write.h not found')
++  if not _noctalia_ui_cc.has_header('stb_image_write.h')
++    error('noctalia-ui: stb_image_write.h not found')
+   endif
+ 
+   _noctalia_ui_dl_dep = meson.get_compiler('cpp').find_library('dl', required: false)
+diff --git a/lib/render/codecs/image_encoder.cpp b/lib/render/codecs/image_encoder.cpp
+index fa014d4248..6f54ab8112 100644
+--- a/lib/render/codecs/image_encoder.cpp
++++ b/lib/render/codecs/image_encoder.cpp
 @@ -1,7 +1,7 @@
- #include "render/core/image_encoder.h"
+ #include "render/codecs/image_encoder.h"
  
  #define STB_IMAGE_WRITE_IMPLEMENTATION
 -#include "stb/stb_image_write.h"
@@ -44,37 +37,24 @@ index c9979c0..1a79824 100644
  
  #include <algorithm>
  #include <cmath>
-diff --git a/src/render/core/image_file_loader.cpp b/src/render/core/image_file_loader.cpp
-index 6005270..0f82ca1 100644
---- a/src/render/core/image_file_loader.cpp
-+++ b/src/render/core/image_file_loader.cpp
-@@ -10,7 +10,7 @@
- #include <cstdint>
- #include <cstring>
- #include <expected>
+diff --git a/lib/render/core/image_resize.cpp b/lib/render/core/image_resize.cpp
+index 5562827509..2b9d9a8e45 100644
+--- a/lib/render/core/image_resize.cpp
++++ b/lib/render/core/image_resize.cpp
+@@ -4,7 +4,7 @@
+ #include <cmath>
+ #include <cstddef>
+ #include <limits>
 -#include <stb/stb_image_resize2.h>
 +#include <stb_image_resize2.h>
- #include <string_view>
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored "-Wexpansion-to-defined"
-diff --git a/src/render/core/stb_image_resize_impl.cpp b/src/render/core/stb_image_resize_impl.cpp
-index 20dc1b3..2ba1cce 100644
---- a/src/render/core/stb_image_resize_impl.cpp
-+++ b/src/render/core/stb_image_resize_impl.cpp
+ 
+ namespace {
+ 
+diff --git a/lib/render/core/stb_image_resize_impl.cpp b/lib/render/core/stb_image_resize_impl.cpp
+index 20dc1b3ff7..2ba1cce54c 100644
+--- a/lib/render/core/stb_image_resize_impl.cpp
++++ b/lib/render/core/stb_image_resize_impl.cpp
 @@ -1,2 +1,2 @@
  #define STB_IMAGE_RESIZE_IMPLEMENTATION
 -#include <stb/stb_image_resize2.h>
 +#include <stb_image_resize2.h>
-diff --git a/src/render/core/thumbnail_service.cpp b/src/render/core/thumbnail_service.cpp
-index 91b8127..a560fae 100644
---- a/src/render/core/thumbnail_service.cpp
-+++ b/src/render/core/thumbnail_service.cpp
-@@ -13,7 +13,7 @@
- #include <filesystem>
- #include <fstream>
- #include <optional>
--#include <stb/stb_image_resize2.h>
-+#include <stb_image_resize2.h>
- #include <sys/eventfd.h>
- #include <system_error>
- #include <unistd.h>
