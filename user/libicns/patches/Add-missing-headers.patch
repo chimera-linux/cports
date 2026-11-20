@@ -1,0 +1,207 @@
+diff --git a/icnsutils/icns2png.c b/icnsutils/icns2png.c
+index cd53545..40b9faa 100644
+--- a/icnsutils/icns2png.c
++++ b/icnsutils/icns2png.c
+@@ -20,6 +20,7 @@ Boston, MA 02110-1301, USA.
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include <string.h>
+ 
+ #include <getopt.h>
+diff --git a/icnsutils/icontainer2icns.c b/icnsutils/icontainer2icns.c
+index 70c12dc..4b0e0db 100644
+--- a/icnsutils/icontainer2icns.c
++++ b/icnsutils/icontainer2icns.c
+@@ -18,7 +18,6 @@ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ */
+ #include <stdio.h>
+-#include <string.h>
+ 
+ // --> find icns data[i]
+ // --> data[i-9] - data[i-1] = "[######]" (id)
+diff --git a/icnsutils/png2icns.c b/icnsutils/png2icns.c
+index 93bb863..d87184f 100644
+--- a/icnsutils/png2icns.c
++++ b/icnsutils/png2icns.c
+@@ -28,6 +28,9 @@
+ #include <png.h>
+ #include <icns.h>
+ 
++#include <stdlib.h>
++#include <unistd.h>
++
+ #define	FALSE	0
+ #define	TRUE	1
+ 
+diff --git a/src/icns.h b/src/icns.h
+index f834497..917abb7 100644
+--- a/src/icns.h
++++ b/src/icns.h
+@@ -20,14 +20,12 @@ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ */
+ 
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <stdint.h>
+-#include <string.h>
+-
+ #ifndef _ICNS_H_
+ #define	_ICNS_H_
+ 
++#include <stdio.h>
++#include <stdint.h>
++
+ /* basic data types */
+ typedef uint8_t         icns_bool_t;
+ 
+diff --git a/src/icns_colormaps.h b/src/icns_colormaps.h
+index 74b9b81..522511e 100644
+--- a/src/icns_colormaps.h
++++ b/src/icns_colormaps.h
+@@ -23,6 +23,8 @@ Boston, MA 02110-1301, USA.
+ #ifndef _COLORMAPS_H_
+ #define	_COLORMAPS_H_	1
+ 
++#include "icns.h"
++
+ typedef struct icns_colormap_rgb_t
+ {
+   icns_byte_t r;
+diff --git a/src/icns_debug.c b/src/icns_debug.c
+index a3dd075..846d30f 100644
+--- a/src/icns_debug.c
++++ b/src/icns_debug.c
+@@ -18,14 +18,10 @@ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ */
+ 
++#ifdef ICNS_DEBUG
++
+ #include <stdio.h>
+-#include <stdlib.h>
+-#include <stdint.h>
+-#include <string.h>
+ 
+-#include "icns.h"
+-#include "icns_internals.h"
+-#ifdef ICNS_DEBUG
+ void bin_print_byte(int x)
+ {
+    int n;
+diff --git a/src/icns_element.c b/src/icns_element.c
+index 1b08668..5132953 100644
+--- a/src/icns_element.c
++++ b/src/icns_element.c
+@@ -22,7 +22,6 @@ Boston, MA 02110-1301, USA.
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <stdint.h>
+ #include <string.h>
+ 
+ #include "icns.h"
+diff --git a/src/icns_family.c b/src/icns_family.c
+index bcc4d70..83f7d8b 100644
+--- a/src/icns_family.c
++++ b/src/icns_family.c
+@@ -20,10 +20,7 @@ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ */
+ 
+-#include <stdio.h>
+ #include <stdlib.h>
+-#include <stdint.h>
+-#include <string.h>
+ 
+ #include "icns.h"
+ #include "icns_internals.h"
+diff --git a/src/icns_internals.h b/src/icns_internals.h
+index cfda3da..1adf671 100644
+--- a/src/icns_internals.h
++++ b/src/icns_internals.h
+@@ -20,11 +20,6 @@ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ Boston, MA 02110-1301, USA.
+ */
+ 
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <stdint.h>
+-#include <string.h>
+-
+ #include "icns.h"
+ 
+ #include "config.h"
+@@ -150,6 +145,7 @@ memory alignment. So, we try to work around this here.
+  #define ICNS_READ_UNALIGNED(val, addr, size)        icns_memcpy(&(val), (addr), size)
+  #define ICNS_WRITE_UNALIGNED(addr, val, size)       icns_memcpy((addr), &(val), size)
+ #else
++ #include <string.h>
+  #define ICNS_READ_UNALIGNED(val, addr, size)        memcpy(&(val), (addr), size)
+  #define ICNS_WRITE_UNALIGNED(addr, val, size)       memcpy((addr), &(val), size)
+ #endif
+diff --git a/src/icns_jp2.c b/src/icns_jp2.c
+index 6d809fb..7c71cc7 100644
+--- a/src/icns_jp2.c
++++ b/src/icns_jp2.c
+@@ -21,9 +21,13 @@ Boston, MA 02110-1301, USA.
+ */
+ 
+ #include <stdio.h>
++#ifdef ICNS_DEBUG
+ #include <stdlib.h>
++#endif
+ #include <stdint.h>
++#ifdef ICNS_OPENJPEG
+ #include <string.h>
++#endif
+ 
+ #include "icns.h"
+ #include "icns_internals.h"
+diff --git a/src/icns_png.c b/src/icns_png.c
+index a5b26e3..8a5facf 100644
+--- a/src/icns_png.c
++++ b/src/icns_png.c
+@@ -20,13 +20,14 @@ Boston, MA 02110-1301, USA.
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <stdint.h>
++#include <stddef.h>
+ #include <string.h>
+ 
+ #include "icns.h"
+ #include "icns_internals.h"
+ 
+ #include <png.h>
++#include <setjmp.h>
+ 
+ typedef struct icns_png_io_ref {
+ 	void*	data;
+diff --git a/src/icns_rle24.c b/src/icns_rle24.c
+index 2f07213..914542d 100644
+--- a/src/icns_rle24.c
++++ b/src/icns_rle24.c
+@@ -22,7 +22,6 @@ Boston, MA 02110-1301, USA.
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <stdint.h>
+ #include <string.h>
+ 
+ #include "icns.h"
+diff --git a/src/icns_utils.c b/src/icns_utils.c
+index 47bdbeb..2b1af72 100644
+--- a/src/icns_utils.c
++++ b/src/icns_utils.c
+@@ -19,7 +19,6 @@ Boston, MA 02110-1301, USA.
+ */
+ 
+ #include <stdio.h>
+-#include <stdlib.h>
+ #include <stdint.h>
+ #include <string.h>
+ #include <stdarg.h>
