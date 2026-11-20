@@ -1,5 +1,5 @@
 pkgname = "opam"
-pkgver = "2.5.2"
+pkgver = "2.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "OCaml package manager"
 license = "LGPL-2.1-only WITH OCaml-LGPL-linking-exception"
 url = "https://opam.ocaml.org"
 source = f"https://github.com/ocaml/opam/releases/download/{pkgver}/opam-full-{pkgver}.tar.gz"
-sha256 = "b3623809567f19ed6b5d679b8c7bbc0bdec9418bff4a875ff0799d446d8555c3"
+sha256 = "ebbaffa4192e69d612d2c1a5fc5a15b32730322d7e34bc4456ad4076bb987007"
 # check requires bubblewrap and fails within containers
 options = ["!check", "!cross", "!parallel"]
 
