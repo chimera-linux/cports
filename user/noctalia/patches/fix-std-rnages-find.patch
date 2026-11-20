@@ -1,0 +1,12 @@
+diff --git a/lib/render/backend/gles_texture_manager.cpp b/lib/render/backend/gles_texture_manager.cpp
+index f3d8245ade..08c63f3542 100644
+--- a/lib/render/backend/gles_texture_manager.cpp
++++ b/lib/render/backend/gles_texture_manager.cpp
+@@ -7,6 +7,7 @@
+ #include <atomic>
+ #include <cstring>
+ #include <vector>
++#include <algorithm>
+ 
+ namespace {
+ 
