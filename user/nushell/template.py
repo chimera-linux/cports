@@ -1,5 +1,5 @@
 pkgname = "nushell"
-pkgver = "0.116.1"
+pkgver = "0.117.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -34,7 +34,7 @@ pkgdesc = "Shell with a focus on structured data"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0cca0c5bc9d9eb608dee00c75b6b511917df6e66c784b034468bab2ff0fbb9b4"
+sha256 = "ccb5640f8f88b48787c946daf87a349972b939c2edbc5a3b4ca6fc0921bddd6b"
 _plugins = [
     "polars",
     "formats",
