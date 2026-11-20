@@ -1,0 +1,26 @@
+Suppress SyntaxWarning
+
+diff --git a/scripts/airdrop-ng/airdrop-ng b/scripts/airdrop-ng/airdrop-ng
+index 50728b3..a8202bf 100755
+--- a/scripts/airdrop-ng/airdrop-ng
++++ b/scripts/airdrop-ng/airdrop-ng
+@@ -328,7 +328,7 @@ class parseFiles:
+         If Invalid exit and print invalid mac and error msg to user
+         """
+         #regex will match format of DE:AD:BE:EF:00:00 or DE-AD-BE-EF-00-00
+-        check = '([a-fA-F0-9]{2}[:|\-]?){6}'
++        check = '([a-fA-F0-9]{2}[:|-]?){6}'
+         if re.match(check, mac): 
+             return True 
+         else: 
+diff --git a/scripts/versuck-ng/versuck-ng b/scripts/versuck-ng/versuck-ng
+index f863ae2..6507890 100755
+--- a/scripts/versuck-ng/versuck-ng
++++ b/scripts/versuck-ng/versuck-ng
+@@ -61,5 +61,5 @@ if __name__ == "__main__":
+ 	print(data["best"])
+ 	print("Key may also be one of these")
+ 	for key in list(data.keys()):
+-		if key is not "best":
++		if key != "best":
+ 			print(data[key])
