@@ -1,0 +1,21 @@
+From: David Paleino <dapal@debian.org>
+Subject: fix --help message
+Forwarded: alvaro@alobbs.com
+ <20080602214651.7451ca94@gmail.com> on Mon, 2 Jun 2008 21:46:51 +0200
+
+---
+ src/main.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- macchanger.orig/src/main.c
++++ macchanger/src/main.c
+@@ -58,7 +58,8 @@ print_help (void)
+ 		"  -r,  --random                 Set fully random MAC\n"
+ 		"  -l,  --list[=keyword]         Print known vendors\n"
+ 		"  -b,  --bia                    Pretend to be a burned-in-address\n"
+-		"  -m,  --mac=XX:XX:XX:XX:XX:XX  Set the MAC XX:XX:XX:XX:XX:XX\n\n"
++		"  -m,  --mac=XX:XX:XX:XX:XX:XX\n"
++		"       --mac XX:XX:XX:XX:XX:XX  Set the MAC XX:XX:XX:XX:XX:XX\n\n"
+ 		"Report bugs to https://github.com/alobbs/macchanger/issues\n");
+ }
+ 

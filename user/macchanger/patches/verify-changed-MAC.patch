@@ -1,0 +1,51 @@
+Description: actively verify if the MAC was changed
+ macchanger tries to detect if the new MAC is the same as the old. However,
+ it does this by calling mc_net_info_get_mac, on the same net_info structure
+ that it's called mc_net_info_set_mac on.
+ .
+ So, mc_net_info_set_mac sets the mac *in the data structure*, then calls
+ SIOCSIFHWADDR, which returns success even without doing anything if the
+ kernel driver is buggy. And then mc_net_info_get_mac examines the data
+ structure, without calling SIOCGIFHWADDR to check if the MAC was actually
+ changed.
+ .
+ This patch actively verifies if the MAC was changed.
+Origin: vendor
+Bug-Debian: https://bugs.debian.org/774898
+Forwarded: no
+Author: Joey Hess <id@joeyh.name>
+Reviewed-by: gregor herrmann <gregoa@debian.org>
+Last-Update: 2015-02-07
+
+--- a/src/main.c
++++ b/src/main.c
+@@ -276,10 +276,6 @@
+ 	/* Set the new MAC */
+ 	ret = mc_net_info_set_mac (net, mac_faked);
+ 	if (ret == 0) {
+-		/* Re-read the MAC */
+-		mc_mac_free (mac_faked);
+-		mac_faked = mc_net_info_get_mac(net);
+-
+ 		/* Print it */
+ 		print_mac ("New MAC:       ", mac_faked);
+ 
+@@ -288,6 +284,18 @@
+ 			printf ("It's the same MAC!!\n");
+ 			exit (EXIT_ERROR);
+ 		}
++
++		/* Re-read the MAC in case a driver silently ignores
++		 * attempt to set it */
++		mc_net_info_free (net);
++		if ((net = mc_net_info_new(device_name)) == NULL) {
++			exit (EXIT_ERROR);
++		}
++		mac = mc_net_info_get_mac(net);
++		if (! mc_mac_equal (mac, mac_faked)) {
++			printf ("Network driver didn't actually change to the new MAC!!\n");
++			exit (EXIT_ERROR);
++		}
+ 	}
+ 
+ 	/* Memory free */
