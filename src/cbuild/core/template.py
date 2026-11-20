@@ -368,6 +368,7 @@ default_options = {
     "scanservices": (True, False),
     "scandevelif": (True, False),
     "scancmd": (True, False),
+    "looseshlibs": (False, False),
     "textrels": (False, False),
     "execstack": (False, False),
     "foreignelf": (False, False),

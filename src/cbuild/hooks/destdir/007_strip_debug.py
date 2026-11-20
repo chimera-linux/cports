@@ -76,7 +76,7 @@ def invoke(pkg):
             # in any case continue
             continue
 
-        soname, needed, pname, static, etype, interp, foreign = vt
+        soname, needed, opkg, static, etype, interp, foreign = vt
 
         # strip static executable
         if static:

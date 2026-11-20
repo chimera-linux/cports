@@ -321,7 +321,7 @@ def scan(pkg, somap):
         somap[str(fpath)] = (
             soname,
             needed,
-            pkg.pkgname,
+            pkg,
             is_static,
             etype,
             interp,

@@ -1901,6 +1901,11 @@ for subpackages separately if needed:
   `/usr/share/icons/hicolor` (typically in scalable and bitmap versions).
   However, some packages use it privately and not for standard application
   icons, so it may be disabled.
+* `looseshlibs` *(false)* Normally, during shlib resolution, libraries
+  found in other subpackages in the template will resolve directly rather
+  than through virtual `so:` packages. Sometimes this is unwanted, so
+  one can specify this on the subpackage providing the shlib to prevent
+  others from directly resolving to it.
 * `scantrigdeps` *(true)* This specifies whether trigger dependencies should
   be scanned. See the `src/cbuild/hooks/pre_pkg/007_trigger_deps.py` for
   detailed list.

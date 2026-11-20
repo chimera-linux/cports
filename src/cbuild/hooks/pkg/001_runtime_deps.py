@@ -29,14 +29,14 @@ def _scan_so(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname, static, etype, interp, foreign = finfo
+        soname, needed, opkg, static, etype, interp, foreign = finfo
 
         if soname:
-            curso[soname] = pname
+            curso[soname] = opkg
         elif ".so" in fp.suffixes:
-            curso[fp.name] = pname
+            curso[fp.name] = opkg
 
-        if pname != pkg.pkgname:
+        if opkg.pkgname != pkg.pkgname:
             continue
 
         if not _match_skipdep(pkg, fp, True):
@@ -113,18 +113,21 @@ def _scan_so(pkg):
             continue
         # current package or a subpackage
         if dep in curso:
-            depn = curso[dep]
-            if depn == pkg.pkgname:
+            odep = curso[dep]
+            if odep.pkgname == pkg.pkgname:
                 # current package: ignore
                 log.out_plain(
-                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{depn}\f[], \f[orange]ignored\f[], same package)"
+                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{odep.pkgname}\f[], \f[orange]ignored\f[], same package)"
                 )
             else:
                 # subpackage: add
                 log.out_plain(
-                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{depn}\f[])"
+                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{odep.pkgname}\f[])"
                 )
-                subpkg_deps[depn] = True
+                if odep.options["looseshlibs"]:
+                    pkg.so_requires.append(dep)
+                else:
+                    subpkg_deps[odep.pkgname] = True
             continue
         # otherwise, check if it came from an installed dependency
         bp = pkg.rparent.profile

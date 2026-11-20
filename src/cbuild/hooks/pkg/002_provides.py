@@ -193,10 +193,10 @@ def _invoke_so(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname, static, etype, interp, foreign = finfo
+        soname, needed, opkg, static, etype, interp, foreign = finfo
 
         # we only care about our own
-        if pname != pkg.pkgname:
+        if opkg.pkgname != pkg.pkgname:
             continue
 
         if not _match_skipprov(pkg, fp, True):
