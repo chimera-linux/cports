@@ -1,6 +1,6 @@
 pkgname = "xapp"
-pkgver = "3.0.1"
-pkgrel = 1
+pkgver = "3.2.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocs=true",
@@ -28,7 +28,7 @@ pkgdesc = "Cross-desktop libraries and common resources"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xapp/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0bd907bb7def8a891386fc711b16057670c2a0212e50f7db2b9445550d282f1f"
+sha256 = "e1df3c3e803bf59d133e53a718013b0a4213057beab3ee1eeeb3bfd3b48a946e"
 # No tests
 options = ["etcfiles", "!check", "!cross"]
 
