@@ -1,0 +1,13 @@
+diff --git a/src/cdecl_term.c b/src/cdecl_term.c
+index 56ec04a..d22ab9e 100644
+--- a/src/cdecl_term.c
++++ b/src/cdecl_term.c
+@@ -106,7 +106,7 @@ static unsigned get_columns_via_tigetnum( void ) {
+ 
+   if ( unlikely( (cterm_fd = open( cterm_path, O_RDWR )) == -1 ) ) {
+     // LCOV_EXCL_START
+-    reason = STRERROR();
++    if (errno != ENXIO) reason = STRERROR();
+     goto done;
+     // LCOV_EXCL_STOP
+   }
