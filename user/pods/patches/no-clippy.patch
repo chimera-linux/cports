@@ -1,8 +1,8 @@
 diff --git a/src/meson.build b/src/meson.build
-index bca09f5b..5a3f39fd 100644
+index 024687de..82fad6f7 100644
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -172,19 +172,3 @@ cargo = find_program('cargo', required: true)
+@@ -184,19 +184,3 @@ cargo = find_program('cargo', required: true)
  cargo_target_dir = meson.project_build_root() / 'target'
  cargo_home = meson.project_build_root() / 'cargo-home'
  manifest_path = meson.project_source_root() / 'Cargo.toml'
@@ -18,7 +18,7 @@ index bca09f5b..5a3f39fd 100644
 -  ],
 -  env: [
 -    'CARGO_HOME=@0@'.format(cargo_home),
--    'PATH=/app/bin:/usr/bin:/usr/lib/sdk/llvm21/bin:/usr/lib/sdk/rust-stable/bin',
+-    'PATH=/app/bin:/usr/bin:/usr/lib/sdk/llvm22/bin:/usr/lib/sdk/rust-stable/bin',
 -  ],
 -  timeout: 300, # Give cargo more time
 -)
