@@ -81,11 +81,12 @@ for mod in /var/lib/ckms/*; do
         # otherwise check if still installed
         [ -d "${ver}/source" ] && continue
         # found a missing module; uninstall for every kernel
+        modnv="${mod#/var/lib/ckms/}=${ver#${mod}/}"
         for kern in /usr/lib/modules/*; do
             [ -d "${kern}" ] || continue
             kern="${kern#/usr/lib/modules/}"
             [ "${kern}" = "apk-backup" ] && continue
-            ckms -q -k "${kern}" uninstall "${ver}" || :
+            ckms -q -k "${kern}" uninstall "${modnv}" || :
         done
         # purge its state
         rm -rf "${ver}"
