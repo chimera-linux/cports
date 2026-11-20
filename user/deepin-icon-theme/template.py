@@ -1,5 +1,5 @@
 pkgname = "deepin-icon-theme"
-pkgver = "2026.02.27"
+pkgver = "2026.02.28"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["python", "xcursorgen", "gtk+3-update-icon-cache"]
