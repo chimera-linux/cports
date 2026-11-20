@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Faircamp
+Exec=faircamp
+Icon=faircamp
+Terminal=false
+Categories=Multimedia;Utilities;
+Comment=Static site generator for audio producers
