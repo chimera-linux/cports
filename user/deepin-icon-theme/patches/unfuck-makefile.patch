@@ -1,0 +1,41 @@
+diff --git a/Makefile b/Makefile
+index d681493..aac1e41 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,11 +18,11 @@ check: check-same-icon check-perm
+ 	-rm -f bloom-dark/icon-theme.cache
+ 
+ check-name-unique:
+-	find bloom -name "*.svg" | xargs -n1 basename | sort | uniq -d | xargs -I '{}' find -name '{}'
+-	find bloom-dark -name "*.svg" | xargs -n1 basename | sort | uniq -d | xargs -I '{}' find -name '{}'
++	find bloom -name "*.svg" | xargs -n1 basename | sort | uniq -d | xargs -I '{}' find . -name '{}'
++	find bloom-dark -name "*.svg" | xargs -n1 basename | sort | uniq -d | xargs -I '{}' find . -name '{}'
+ check-same-icon:
+-	find bloom -type f | xargs md5sum | sort | uniq --check-chars=32 -d
+-	find bloom-dark -type f | xargs md5sum | sort | uniq --check-chars=32 -d
++	find bloom -type f | xargs md5sum | sort | uniq -d
++	find bloom-dark -type f | xargs md5sum | sort | uniq -d
+ 
+ check-perm: hicolor-links
+ 	@echo "Fix icon files permission"
+@@ -43,15 +43,15 @@ clean:
+ 
+ install: hicolor-links
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/bloom
+-	cp -r bloom/* $(DESTDIR)$(PREFIX)/share/icons/bloom
++	cp -R bloom/* $(DESTDIR)$(PREFIX)/share/icons/bloom
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/bloom-dark
+-	cp -r bloom-dark/* $(DESTDIR)$(PREFIX)/share/icons/bloom-dark
++	cp -R bloom-dark/* $(DESTDIR)$(PREFIX)/share/icons/bloom-dark
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/vintage
+-	cp -r vintage/* $(DESTDIR)$(PREFIX)/share/icons/vintage
++	cp -R vintage/* $(DESTDIR)$(PREFIX)/share/icons/vintage
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/bloom-classic
+-	cp -r bloom-classic/* $(DESTDIR)$(PREFIX)/share/icons/bloom-classic
++	cp -R bloom-classic/* $(DESTDIR)$(PREFIX)/share/icons/bloom-classic
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/bloom-classic-dark
+-	cp -r bloom-classic-dark/* $(DESTDIR)$(PREFIX)/share/icons/bloom-classic-dark
++	cp -R bloom-classic-dark/* $(DESTDIR)$(PREFIX)/share/icons/bloom-classic-dark
+ 
+ hicolor-links:
+ 	./tools/hicolor.links bloom hicolor.list ./
