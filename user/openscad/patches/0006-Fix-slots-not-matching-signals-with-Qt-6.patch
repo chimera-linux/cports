@@ -1,0 +1,96 @@
+From d21a3ff2817589505590ff4374dca99c1d902f44 Mon Sep 17 00:00:00 2001
+From: Chris Mayo <aklhfex@gmail.com>
+Date: Wed, 27 Dec 2023 17:20:21 +0000
+Subject: [PATCH 06/13] Fix slots not matching signals with Qt 6
+
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_errorLogComboBox_currentIndexChanged(QString)
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_fontChooser_activated(QString)
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_fontSize_currentIndexChanged(QString)
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_syntaxHighlight_activated(QString)
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_consoleFontChooser_activated(QString)
+qt.core.qmetaobject.connectslotsbyname: QMetaObject::connectSlotsByName: No matching signal for on_consoleFontSize_currentIndexChanged(QString)
+---
+ src/ErrorLog.cc    |  2 +-
+ src/ErrorLog.h     |  2 +-
+ src/Preferences.cc | 12 ++++++------
+ src/Preferences.h  |  6 +++---
+ 4 files changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/src/ErrorLog.cc b/src/ErrorLog.cc
+index ad7f832d0..41bcaf022 100644
+--- a/src/ErrorLog.cc
++++ b/src/ErrorLog.cc
+@@ -93,7 +93,7 @@ int ErrorLog::getLine(int row,int col)
+ 	return logTable->model()->index(row,col).data().toInt();
+ }
+ 
+-void ErrorLog::on_errorLogComboBox_currentIndexChanged(const QString &group)
++void ErrorLog::on_errorLogComboBox_currentTextChanged(const QString &group)
+ {
+ 	errorLogModel->clear();
+ 	initGUI();
+diff --git a/src/ErrorLog.h b/src/ErrorLog.h
+index 65b2a3e3d..77080aa64 100644
+--- a/src/ErrorLog.h
++++ b/src/ErrorLog.h
+@@ -42,6 +42,6 @@ signals:
+ 
+ private slots:
+ 	void on_logTable_doubleClicked(const QModelIndex & index);
+-	void on_errorLogComboBox_currentIndexChanged(const QString &arg1);
++	void on_errorLogComboBox_currentTextChanged(const QString &arg1);
+ 	void on_actionRowSelected_triggered(bool);
+ };
+diff --git a/src/Preferences.cc b/src/Preferences.cc
+index 8b0a123c5..fb5b81a2f 100644
+--- a/src/Preferences.cc
++++ b/src/Preferences.cc
+@@ -371,22 +371,22 @@ void Preferences::on_colorSchemeChooser_itemSelectionChanged()
+ 	emit colorSchemeChanged( scheme );
+ }
+ 
+-void Preferences::on_fontChooser_activated(const QString &family)
++void Preferences::on_fontChooser_currentFontChanged(const QFont &font)
+ {
+ 	QSettingsCached settings;
+-	settings.setValue("editor/fontfamily", family);
+-	emit fontChanged(family, getValue("editor/fontsize").toUInt());
++	settings.setValue("editor/fontfamily", font.family());
++	emit fontChanged(font.family(), getValue("editor/fontsize").toUInt());
+ }
+ 
+-void Preferences::on_fontSize_currentIndexChanged(const QString &size)
++void Preferences::on_fontSize_currentIndexChanged(int index)
+ {
+-	uint intsize = size.toUInt();
++	uint intsize = this->fontSize->itemText(index).toUInt();
+ 	QSettingsCached settings;
+ 	settings.setValue("editor/fontsize", intsize);
+ 	emit fontChanged(getValue("editor/fontfamily").toString(), intsize);
+ }
+ 
+-void Preferences::on_syntaxHighlight_activated(const QString &s)
++void Preferences::on_syntaxHighlight_currentTextChanged(const QString &s)
+ {
+ 	QSettingsCached settings;
+ 	settings.setValue("editor/syntaxhighlight", s);
+diff --git a/src/Preferences.h b/src/Preferences.h
+index 2478edb9d..eb2fefcf7 100644
+--- a/src/Preferences.h
++++ b/src/Preferences.h
+@@ -29,9 +29,9 @@ public slots:
+ 	void featuresCheckBoxToggled(bool);
+ 	void on_stackedWidget_currentChanged(int);
+ 	void on_colorSchemeChooser_itemSelectionChanged();
+-	void on_fontChooser_activated(const QString &);
+-	void on_fontSize_currentIndexChanged(const QString &);
+-	void on_syntaxHighlight_activated(const QString &);
++	void on_fontChooser_currentFontChanged(const QFont &);
++	void on_fontSize_currentIndexChanged(int);
++	void on_syntaxHighlight_currentTextChanged(const QString &);
+ 	void on_openCSGWarningBox_toggled(bool);
+ 	void on_enableOpenCSGBox_toggled(bool);
+ 	void on_cgalCacheSizeMBEdit_textChanged(const QString &);
+-- 
+2.52.0
+
