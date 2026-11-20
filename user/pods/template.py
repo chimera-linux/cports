@@ -1,5 +1,5 @@
 pkgname = "pods"
-pkgver = "3.1.1"
+pkgver = "3.3.0"
 pkgrel = 0
 build_style = "meson"
 make_build_env = {}
@@ -27,7 +27,7 @@ pkgdesc = "GTK frontend for podman"
 license = "GPL-3.0-only"
 url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"
-sha256 = "e13a8a36f8beac8f5194b297abdef2ac4424f4c49117f83a2afb735e15c6e48b"
+sha256 = "c3f1b38343902d7ae92653db7665919414085bb11584f961caa6594288fa4314"
 options = []
 
 if self.profile.wordsize == 32:
