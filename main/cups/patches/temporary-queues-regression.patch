@@ -1,0 +1,50 @@
+From f91d0d752f1478b6910b17a63b1854fc012f92ea Mon Sep 17 00:00:00 2001
+From: Michael R Sweet <msweet@msweet.org>
+Date: Fri, 9 Oct 2026 12:01:13 -0400
+Subject: [PATCH] Fix regression with temporary queues (Issue #1751)
+
+---
+ scheduler/ipp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/scheduler/ipp.c b/scheduler/ipp.c
+index ddda3750c..7cec858ad 100644
+--- a/scheduler/ipp.c
++++ b/scheduler/ipp.c
+@@ -5883,11 +5883,11 @@ create_local_printer(
+ 
+   if (nameptr)
+   {
+-    size_t host_len,
+-        server_name_len;
++    size_t	host_len,		/* Length of hostname */
++		server_name_len;	/* Length of server name */
+ 
+     /* Get host name of device URI */
+-    httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
++    httpSeparateURI(HTTP_URI_CODING_ALL, device_uri_ptr,
+ 		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
+ 		    sizeof(host), &port, resource, sizeof(resource));
+ 
+From 831c776e30e7514636f48f85c003cbd22b7d3492 Mon Sep 17 00:00:00 2001
+From: Michael R Sweet <msweet@msweet.org>
+Date: Fri, 9 Oct 2026 12:02:04 -0400
+Subject: [PATCH] Fix regression with temporary queues (Issue #1751)
+
+---
+ scheduler/ipp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scheduler/ipp.c b/scheduler/ipp.c
+index 7cec858ad..19578d3c7 100644
+--- a/scheduler/ipp.c
++++ b/scheduler/ipp.c
+@@ -5919,7 +5919,7 @@ create_local_printer(
+     cupsdSetDeviceURI(printer, uri);
+   }
+   else
+-    cupsdSetDeviceURI(printer, ptr);
++    cupsdSetDeviceURI(printer, device_uri_ptr);
+ 
+   if (printer_geo_location)
+     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
