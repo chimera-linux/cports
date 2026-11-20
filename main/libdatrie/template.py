@@ -1,14 +1,13 @@
 pkgname = "libdatrie"
-pkgver = "0.2.13"
+pkgver = "0.2.14"
 pkgrel = 0
 build_style = "gnu_configure"
-make_install_args = ["-j1"]
-hostmakedepends = ["autoconf-archive", "automake", "pkgconf", "slibtool"]
+hostmakedepends = ["autoconf-archive", "automake", "libtool", "pkgconf"]
 pkgdesc = "Implementation of double-array structure for representing trie"
 license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/datrie"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/libdatrie-{pkgver}.tar.xz"
-sha256 = "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be"
+sha256 = "f04095010518635b51c2313efa4f290b7db828d6273e39b2b8858f859dfe81d5"
 # FIXME int
 hardening = ["!int"]
 
