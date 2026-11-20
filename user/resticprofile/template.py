@@ -1,6 +1,6 @@
 pkgname = "resticprofile"
-pkgver = "0.34.0"
-pkgrel = 1
+pkgver = "0.35.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-tags",
@@ -13,7 +13,7 @@ pkgdesc = "Configuration profiles manager and scheduler for restic backup"
 license = "GPL-3.0-only"
 url = "https://creativeprojects.github.io/resticprofile"
 source = f"https://github.com/creativeprojects/resticprofile/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "343b956215e3a9124d0ac3d94740668a905eb4b9210e9f50f91baec67144f693"
+sha256 = "890e768a98948a85f5f7594a666784159209423f3688bf87b3f9c103b3c735f7"
 # fails due to lack of systemd
 options = ["!check"]
 
