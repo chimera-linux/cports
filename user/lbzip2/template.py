@@ -1,0 +1,10 @@
+pkgname = "lbzip2"
+pkgver = "2.5"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["autoconf", "automake"]
+pkgdesc = "Parallel bzip2 utility"
+license = "GPL-3.0-only"
+url = "https://github.com/kjn/lbzip2"
+source = f"{url}/releases/download/v{pkgver}/lbzip2-{pkgver}.tar.gz"
+sha256 = "46c75ee93cc95eedc6005625442b2b8e59a2bef3ba80987d0491f055185650e9"
