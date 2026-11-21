@@ -1,0 +1,21 @@
+diff --git a/packages/pcre/pcre4pl.c b/packages/pcre/pcre4pl.c
+index 7a4f3e2..0b5b9eb 100644
+--- a/packages/pcre/pcre4pl.c
++++ b/packages/pcre/pcre4pl.c
+@@ -1298,10 +1298,12 @@ write_re_options(IOSTREAM *s, const char **sep, const re_data *re)
+     int rc_c = pcre2_config_(PCRE2_CONFIG_NEWLINE, &config_ui);
+     /* Sfprintf(s, "<newline:0x%08x/config:0x%08x>", ui, config_ui); */
+     /* TODO: verify that the following works on Unix, MacOs, Windows: */
+-    if ( rc_c >= 0 &&
+-	 ( ((config_ui == PCRE2_NEWLINE_CRLF) && (ui == PCRE2_NEWLINE_CRLF)) ||
+-	   ((config_ui == PCRE2_NEWLINE_CR)   && (ui == PCRE2_NEWLINE_CR))   ||
+-	   ((config_ui == PCRE2_NEWLINE_LF)   && (ui == PCRE2_NEWLINE_LF)) ) )
++    /* Only suppress the flag when the newline is the library default and
++       was not explicitly set.  Some pcre2 builds (e.g. Chimera Linux) use
++       ANYCRLF as the default, in which case the CR/LF/CRLF-only comparison
++       below would keep printing NEWLINE_ANYCRLF for default compiles. */
++    if ( rc_c >= 0 && config_ui == ui &&
++	 !re->compile_newline_flags.seen )
+     { /* do nothing */
+     } else
+     { const char *c;

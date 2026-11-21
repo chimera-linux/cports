@@ -1,0 +1,48 @@
+Fix predicate-options drift test to resolve recorded C source paths.
+
+Ninja records C source paths relative to the build directory
+(e.g. ./build/../src/os/pl-file.c), but ctest runs the tests from
+the package build directory, so opening them fails and the drift
+check reports a false error.  Resolve recorded paths against the
+source distribution root when they do not exist as given, so the
+drift check actually runs instead of being skipped.
+
+diff --git a/tests/library/test_predicate_options.pl b/tests/library/test_predicate_options.pl
+index bcf0eb6..5b24f65 100644
+--- a/tests/library/test_predicate_options.pl
++++ b/tests/library/test_predicate_options.pl
+@@ -74,7 +74,23 @@ source_dir(Dir) :-
+ drift_testable :-
+     source_dir(_),
+     prolog_edit:predicate_location(open(_,_,_,_), Loc),
+-    get_dict(file, Loc, _).
++    get_dict(file, Loc, File),
++    drift_source(File, _).
++
++%!  drift_source(+Recorded, -File) is semidet.
++%
++%   Recorded is the C source path recorded  in the system.  Resolve it to
++%   an existing file: as given, or  relative to the source distribution
++%   root.  Ninja records paths relative to the build directory, which is
++%   not the directory ctest runs the tests from.
++
++drift_source(File, File) :-
++    exists_file(File),
++    !.
++drift_source(Recorded, File) :-
++    source_dir(Dir),
++    directory_file_path(Dir, Recorded, File),
++    exists_file(File).
+ 
+ test_predicate_options :-
+     run_tests([ predicate_options_check,
+@@ -276,7 +292,8 @@ file_option_file(File) :-
+     spec_pi(Spec, PI),
+     pi_head(PI, Head),
+     prolog_edit:predicate_location(Head, Loc),
+-    File = Loc.get(file).
++    Recorded = Loc.get(file),
++    drift_source(Recorded, File).
+ 
+ spec_pi(internal(PI), PI) :-
+     !.
