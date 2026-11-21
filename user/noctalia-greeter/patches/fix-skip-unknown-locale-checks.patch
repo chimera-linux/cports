@@ -1,0 +1,42 @@
+diff --git a/tests/time_locale_test.cpp b/tests/time_locale_test.cpp
+index 0000000..0000000 100644
+--- a/tests/time_locale_test.cpp
++++ b/tests/time_locale_test.cpp
+@@ -114,16 +114,27 @@ int main() {
+       )
+       && passed;
+ 
++  // Some libcs accept an unknown locale from the environment and fall back
++  // instead of reporting an error. These checks are meaningful only when
++  // setlocale(LC_TIME, "") rejects such a locale.
+   resetLocale();
+-  writeFile(primary, "LC_TIME=noctalia_INVALID.UTF-8\n");
+-  passed = expect("unavailable configured locale is reported", !initialize()) && passed;
++  ::setenv("LC_TIME", "noctalia_INVALID.UTF-8", 1);
++  const bool rejectsUnavailableLocale = std::setlocale(LC_TIME, "") == nullptr;
++  resetLocale();
+ 
+-  resetLocale();
+-  ::setenv("LANG", "noctalia_INVALID.UTF-8", 1);
+-  passed = expect(
+-               "unavailable explicit locale is reported without replacement",
+-               !initialize() && environmentValue("LC_TIME").empty()
+-           )
+-      && passed;
++  if (rejectsUnavailableLocale) {
++    writeFile(primary, "LC_TIME=noctalia_INVALID.UTF-8\n");
++    passed = expect("unavailable configured locale is reported", !initialize()) && passed;
++
++    resetLocale();
++    ::setenv("LANG", "noctalia_INVALID.UTF-8", 1);
++    passed = expect(
++                 "unavailable explicit locale is reported without replacement",
++                 !initialize() && environmentValue("LC_TIME").empty()
++             )
++        && passed;
++  } else {
++    std::fprintf(stderr, "skip unknown-locale rejection checks: libc accepts unknown locale names\n");
++  }
+ 
+   resetLocale();
+   std::filesystem::remove(primary);
