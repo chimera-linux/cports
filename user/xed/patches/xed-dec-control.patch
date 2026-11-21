@@ -1,0 +1,54 @@
+remove all cpuid-calling code, including the xed-dec-control executable (see https://github.com/intelxed/xed/issues/360)
+
+diff -ruN a/xed/examples/xed-examples-util.c b/xed/examples/xed-examples-util.c
+--- a/xed/examples/xed-examples-util.c	2026-08-24 13:44:12.000000000 +0200
++++ b/xed/examples/xed-examples-util.c	2026-11-12 11:28:31.470597827 +0100
+@@ -27,8 +27,10 @@
+ # include <sys/types.h>
+ # include <sys/stat.h>
+ # include <fcntl.h>
++#if defined(__x86_64__) || defined(__i386__)
+ #include <cpuid.h>
+ #endif
++#endif
+ #include <ctype.h>
+ #include <stdlib.h>
+ #include <assert.h>
+@@ -1713,16 +1715,3 @@
+ 
+ /////////////////////////////////////
+ 
+-void get_cpuid(xed_uint32_t leaf, xed_uint32_t subleaf, 
+-               xed_uint32_t* eax, xed_uint32_t* ebx, xed_uint32_t* ecx, xed_uint32_t* edx) {
+-#if defined(XED_MAC) || defined(XED_LINUX) || defined(XED_BSD)
+-    __cpuid_count(leaf, subleaf, eax, ebx, ecx, edx);
+-#else
+-    int cpu_info[4];
+-    __cpuidex(cpu_info, leaf, subleaf);
+-    *eax = (xed_uint32_t)cpu_info[0];
+-    *ebx = (xed_uint32_t)cpu_info[1];
+-    *ecx = (xed_uint32_t)cpu_info[2];
+-    *edx = (xed_uint32_t)cpu_info[3];
+-#endif
+-}
+diff -ruN a/xed/examples/xed-examples-util.h b/xed/examples/xed-examples-util.h
+--- a/xed/examples/xed-examples-util.h	2026-08-24 13:44:12.000000000 +0200
++++ b/xed/examples/xed-examples-util.h	2026-11-12 11:28:31.470597827 +0100
+@@ -187,6 +187,4 @@
+ 
+ void xed_print_intel_asm_emit(const xed_uint8_t* array, unsigned int olen);
+ void xed_print_bytes_pseudo_op(const xed_uint8_t* array, unsigned int olen);
+-
+-void get_cpuid(xed_uint32_t leaf, xed_uint32_t subleaf, xed_uint32_t* eax, xed_uint32_t* ebx, xed_uint32_t* ecx, xed_uint32_t* edx);
+ #endif // file
+diff -ruN a/xed/examples/xed_examples_mbuild.py b/xed/examples/xed_examples_mbuild.py
+--- a/xed/examples/xed_examples_mbuild.py	2026-08-24 13:44:12.000000000 +0200
++++ b/xed/examples/xed_examples_mbuild.py	2026-11-12 11:28:31.471597821 +0100
+@@ -424,7 +424,6 @@
+     if env['decoder']:
+        ild_examples += [ 'xed-dec-ild.c' ]
+        other_c_examples += ['xed-dec.c',
+-                            'xed-dec-control.c',
+                             'xed-dec-min.c',
+                             'xed-rep-string.c',     
+                             'xed-dec-agen.c',

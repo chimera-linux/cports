@@ -1,0 +1,16 @@
+skip this test, which tries to disassemble a random object file from the build.
+this obviously breaks either with lto (it doesn't expect to find llvm bitcode)
+or (i imagine) in non-x86_64 builds
+
+diff -ruN a/xed/xed_mbuild.py b/xed/xed_mbuild.py
+--- a/xed/xed_mbuild.py	2026-08-24 13:44:12.000000000 +0200
++++ b/xed/xed_mbuild.py	2026-11-12 11:23:56.693256085 +0100
+@@ -2564,8 +2564,6 @@
+     osenv = _test_setup(env)
+     
+     retval_cmdline = 0    
+-    if env['decoder']:
+-        retval_cmdline = _test_cmdline_decoder(env,osenv)
+     retval_canned = _run_canned_tests(env,osenv)
+     if retval_canned or retval_cmdline:
+         mbuild.msgb("OVERALL TESTING", "failed")
