@@ -1,0 +1,37 @@
+index 0000000000..e69de29bb2
+diff --git a/tools/platform/model.cpp b/tools/platform/model.cpp
+index ed19a5a83e..fff90d7259 100644
+--- a/tools/platform/model.cpp
++++ b/tools/platform/model.cpp
+@@ -10,9 +10,9 @@
+ #include "stb_image.h"
+ 
+ #define STB_IMAGE_RESIZE_IMPLEMENTATION
+-#include "glm/glm/glm.hpp"
+-#include "glm/glm/gtc/constants.hpp"
+-#include "glm/glm/gtc/matrix_transform.hpp"
++#include "glm/glm.hpp"
++#include "glm/gtc/constants.hpp"
++#include "glm/gtc/matrix_transform.hpp"
+ #include "stb_image_resize.h"
+ 
+ #include <memory>
+diff --git a/tools/platform/vector-math.h b/tools/platform/vector-math.h
+index 9614f6286c..de84fe09f3 100644
+--- a/tools/platform/vector-math.h
++++ b/tools/platform/vector-math.h
+@@ -3,10 +3,10 @@
+ 
+ // We will use the GLM library for our vector math types, just for simplicity.
+ 
+-#include "glm/glm/glm.hpp"
+-#include "glm/glm/gtc/constants.hpp"
+-#include "glm/glm/gtc/matrix_transform.hpp"
+-#include "glm/glm/gtc/quaternion.hpp"
++#include "glm/glm.hpp"
++#include "glm/gtc/constants.hpp"
++#include "glm/gtc/matrix_transform.hpp"
++#include "glm/gtc/quaternion.hpp"
+ 
+ namespace gfx
+ {
