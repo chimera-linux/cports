@@ -1,6 +1,6 @@
 pkgname = "gpgme"
-pkgver = "2.0.1"
-pkgrel = 1
+pkgver = "2.3.1"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "GnuPG Made Easy"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"
-sha256 = "821ab0695c842eab51752a81980c92b0410c7eadd04103f791d5d2a526784966"
+sha256 = "2bf94e0e677e5a8fc31f79dd323f91c5416b36fb851058bc1e8bce39f2642434"
 
 
 @subpackage("gpgme-devel")
