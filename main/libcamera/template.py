@@ -1,5 +1,5 @@
 pkgname = "libcamera"
-pkgver = "0.7.2"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,7 +26,7 @@ pkgdesc = "Open source camera stack and framework"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://libcamera.org"
 source = f"https://github.com/libcamera-org/libcamera/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "edc431e93c5a4030480a0784300486507662fa0bce910e203a5643861828528f"
+sha256 = "5ecea748d40d531ba1c977f56aab7180ce81871f6267e672968c7ace2a8dfdfd"
 nostrip_files = ["usr/lib/libcamera/ipa*.so"]
 
 
