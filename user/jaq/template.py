@@ -1,5 +1,5 @@
 pkgname = "jaq"
-pkgver = "3.1.2"
+pkgver = "3.2.0"
 pkgrel = 0
 build_style = "cargo"
 # disable the default mimalloc feature and just use the system allocator
@@ -17,8 +17,8 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "54ac66fac30a1d28c54f19716215cf4256877c69964c1c0150c3976bde618b93",
-    "897aa15830beae6a357b4ff6f576dc5c76aa6ca79ad05cc16b47c809c58a9572",
+    "5478dd880f98abe4fdf13e7c38289aaa98b25e063ba40e8b9e69b22e2dc64ce7",
+    "71eb017c8de6db05d859c4ac3cb4a3c20396f839e7b128047fcfe3c56f00e2ba",
 ]
 
 
