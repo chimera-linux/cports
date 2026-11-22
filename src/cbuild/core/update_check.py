@@ -291,7 +291,7 @@ class UpdateCheck:
             # TODO: cran, crates.io
             if "sourceforge.net/sourceforge" in url:
                 pn = url.split("/")[4]
-                url = f"https://sourceforge.net/projects/{pn}/rss?limit=200"
+                url = f"https://sourceforge.net/projects/{pn}/rss?limit=100"
             elif "launchpad.net" in url:
                 pn = url.split("/")[3]
                 url = f"https://launchpad.net/{pn}/+download"
