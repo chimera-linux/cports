@@ -1,0 +1,30 @@
+From 38b7a94450a4f9d1e8da808d9725fd0d6282e319 Mon Sep 17 00:00:00 2001
+From: Brian LeBlanc <brianleblanc98@proton.me>
+Date: Sun, 22 Nov 2026 09:18:39 -0500
+Subject: [PATCH] Remove files installed for systemd
+
+---
+ meson.build | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 39948ec..c577cce 100644
+--- a/meson.build
++++ b/meson.build
+@@ -238,13 +238,6 @@ install_data('assets/mango-portals.conf', install_dir : portal_install_dir)
+ install_data('assets/config.conf', install_dir : join_paths(sysconfdir, 'mango'))
+ install_data('assets/config.toml', install_dir : join_paths(sysconfdir, 'mango'))
+ 
+-# Ship mango-session.target so that systemd user services declaring
+-# WantedBy=graphical-session.target (portals, panels, ...) are started together
+-# with the session. mango activates the target itself, see
+-# set_activation_env() in src/main.c
+-install_data('assets/mango-session.target',
+-  install_dir : join_paths(prefix, 'lib/systemd/user'))
+-
+ # generate the mmsg man page at build time so the version always
+ # matches the project version
+ mmsg_man_conf = configuration_data()
+-- 
+2.56.1
+
