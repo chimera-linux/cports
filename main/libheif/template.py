@@ -1,6 +1,6 @@
 pkgname = "libheif"
-pkgver = "1.23.5"
-pkgrel = 1
+pkgver = "1.23.7"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWITH_DAV1D=ON",
@@ -26,7 +26,7 @@ pkgdesc = "HEIF and AVIF file format decoder and encoder"
 license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/libheif/archive/v{pkgver}.tar.gz"
-sha256 = "3be49950c75d3fd9318ba775e8253248dd9e08c61ea955fca81b6b89c02d6b2b"
+sha256 = "90e389caad285ca4946461d56d1c115e56bcbb5141d9038050282af91064fbc7"
 hardening = ["!vis", "!cfi"]
 
 
