@@ -1,6 +1,6 @@
 pkgname = "wlroots0.20"
 pkgver = "0.20.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     # all auto features are needed,
@@ -42,6 +42,7 @@ license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
 source = f"{url}/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"
 sha256 = "80c567d2ed4efb2cfa6b077f22c7a710d9c78ba4e185a75e8694001114af0733"
+options = ["!lto"]
 
 
 def post_install(self):
