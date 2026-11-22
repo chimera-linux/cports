@@ -1,0 +1,37 @@
+From f39321eafe3fad728825fc2a30807b3e8c000e56 Mon Sep 17 00:00:00 2001
+From: 21Z121Z1 <89170834+21Z121Z1@users.noreply.github.com>
+Date: Sun, 15 Nov 2026 22:42:47 +0800
+Subject: [PATCH] Fix null success message in sequence decoding
+
+Return the shared non-null success error from the sequence frame decoder.
+Assert the documented message contract in the existing decoder latency test.
+---
+ libheif/api/libheif/heif_sequences.cc | 2 +-
+ tests/sequence_no_decoder_output.cc   | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/libheif/api/libheif/heif_sequences.cc b/libheif/api/libheif/heif_sequences.cc
+index 07e49dbc6c..2fdb042eac 100644
+--- a/libheif/api/libheif/heif_sequences.cc
++++ b/libheif/api/libheif/heif_sequences.cc
+@@ -219,7 +219,7 @@ heif_error heif_track_decode_next_image(heif_track* track_ptr,
+     *out_img = new heif_image();
+     (*out_img)->image = std::move(img);
+ 
+-    return {};
++    return heif_error_success;
+   });
+ }
+ 
+diff --git a/tests/sequence_no_decoder_output.cc b/tests/sequence_no_decoder_output.cc
+index 5539197541..badec741a0 100644
+--- a/tests/sequence_no_decoder_output.cc
++++ b/tests/sequence_no_decoder_output.cc
+@@ -387,6 +387,7 @@ TEST_CASE("decoder latency may exceed the length of the repeated segment")
+   for (int i = 0; i < 200; i++) {
+     heif_image* img = nullptr;
+     err = heif_track_decode_next_image(track, &img, heif_colorspace_undefined, heif_chroma_undefined, nullptr);
++    REQUIRE(err.message != nullptr);
+     INFO("error: " << err.message << ", subcode: " << err.subcode << ", pushed: " << mock_num_pushed);
+     REQUIRE(err.code == heif_error_Ok);
+     REQUIRE(img != nullptr);
