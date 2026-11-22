@@ -1,0 +1,25 @@
+From 2335f61e162e7f659e00b7565c3f925a1e8e6a4d Mon Sep 17 00:00:00 2001
+From: Brian LeBlanc <brianleblanc98@proton.me>
+Date: Sun, 22 Nov 2026 09:05:39 -0500
+Subject: [PATCH] Add shared library versioning
+
+---
+ meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/meson.build b/meson.build
+index 5422a96..0502b77 100644
+--- a/meson.build
++++ b/meson.build
+@@ -181,6 +181,8 @@ scenefx_inc = include_directories('include')
+ 
+ lib_scenefx = library(
+ 	versioned_name, scenefx_files,
++	version: version,
++	soversion: version_major,
+ 	dependencies: scenefx_deps,
+ 	include_directories:  [ scenefx_inc ],
+ 	install: true,
+-- 
+2.56.1
+
