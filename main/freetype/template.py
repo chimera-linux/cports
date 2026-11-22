@@ -1,5 +1,5 @@
 pkgname = "freetype"
-pkgver = "2.14.3"
+pkgver = "2.15.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "Font rendering engine"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"
-sha256 = "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f"
+sha256 = "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5"
 hardening = ["!vis", "!cfi"]
 # data files missing
 options = ["!check"]
