@@ -1,14 +1,26 @@
 fix --mode and the cron.hourly name aesthetic
---
+---
+diff --git a/scripts/Makefile.am b/scripts/Makefile.am
+index 714cec4f..325767f5 100644
 --- a/scripts/Makefile.am
 +++ b/scripts/Makefile.am
-@@ -17,6 +17,6 @@
- EXTRA_DIST = snapper-hourly bash-completion.bash zsh-completion.zsh $(pam_snapper_SCRIPTS)
+@@ -21,4 +21,4 @@ endif
+ EXTRA_DIST = snapper-hourly snapper-sync $(pam_snapper_SCRIPTS)
  
  install-data-local:
 -	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
--	install -D --mode a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
--	install -D --mode a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
 +	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/snapper
-+	install -D -m a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
-+	install -D -m a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
+diff --git a/scripts/completion/Makefile.am b/scripts/completion/Makefile.am
+index 3ab2c926..0fcfe21d 100644
+--- a/scripts/completion/Makefile.am
++++ b/scripts/completion/Makefile.am
+@@ -5,6 +5,6 @@
+ EXTRA_DIST = snapper-completion.bash snapper-completion.zsh snbk-completion.bash
+ 
+ install-data-local:
+-	install -D --mode a+r,u+w snapper-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
+-	install -D --mode a+r,u+w snapper-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
+-	install -D --mode a+r,u+w snbk-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snbk
++	install -D -m a+r,u+w snapper-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
++	install -D -m a+r,u+w snapper-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
++	install -D -m a+r,u+w snbk-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snbk

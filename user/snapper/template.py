@@ -1,6 +1,6 @@
 pkgname = "snapper"
-pkgver = "0.12.1"
-pkgrel = 5
+pkgver = "0.13.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
@@ -27,18 +27,18 @@ makedepends = [
     "btrfs-progs-devel",
     "dbus-devel",
     "dinit-chimera",
-    "e2fsprogs-devel",
     "json-c-devel",
     "libxml2-devel",
     "linux-pam-devel",
     "ncurses-libtinfo-devel",
+    "openssl3-devel",
     "util-linux-mount-devel",
 ]
 pkgdesc = "Filesystem snapshot manager"
 license = "GPL-2.0-only"
 url = "https://github.com/openSUSE/snapper"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "eec9de03c8c224ac06e0b2970fde4c37cf89f848b4b49c904e8ee00bb7c3aff3"
+sha256 = "6cd92e2597c35801e4ad9e2b62713db42d8884ef0d9c75d522bca3fbd78b1821"
 options = ["etcfiles"]
 
 
