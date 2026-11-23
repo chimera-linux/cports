@@ -1,0 +1,12 @@
+diff --git a/tools/f2fs_io/f2fs_io.c b/tools/f2fs_io/f2fs_io.c
+index 8b18c3a..65755a7 100644
+--- a/tools/f2fs_io/f2fs_io.c
++++ b/tools/f2fs_io/f2fs_io.c
+@@ -40,6 +40,7 @@
+ #include <sys/xattr.h>
+ #define _GNU_SOURCE
+ #include <dirent.h>
++#include <linux/falloc.h>
+ 
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>

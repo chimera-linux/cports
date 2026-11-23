@@ -1,11 +1,13 @@
 pkgname = "f2fs-tools"
-pkgver = "1.16.0"
+pkgver = "1.17.0"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."  # bad build system
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = [
     "linux-headers",
+    "lz4-devel",
+    "lzo-devel",
     "musl-bsd-headers",
     "util-linux-blkid-devel",
     "util-linux-uuid-devel",
@@ -14,7 +16,11 @@ pkgdesc = "F2FS (Flash-Friendly File System) utilities"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/f2fs-tools-{pkgver}.tar.gz"
-sha256 = "208c7a07e95383fbd7b466b5681590789dcb41f41bf197369c41a95383b57c5e"
+sha256 = "1dbc89ada373b43cc9130b47ad3f575117583ca74715e952046c88a121a2a469"
+
+
+def post_install(self):
+    self.install_file("mkfs/f2fs_format_utils.h", "usr/include")
 
 
 @subpackage("f2fs-tools-devel")
