@@ -1,5 +1,5 @@
 pkgname = "ruby"
-pkgver = "3.4.7"
+pkgver = "3.4.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,9 +28,9 @@ pkgdesc = "Ruby scripting language"
 license = "Ruby OR BSD-2-Clause"
 url = "https://www.ruby-lang.org/en"
 source = (
-    f"https://cache.ruby-lang.org/pub/ruby/{pkgver[:-2]}/ruby-{pkgver}.tar.xz"
+    f"https://cache.ruby-lang.org/pub/ruby/{pkgver[:-3]}/ruby-{pkgver}.tar.xz"
 )
-sha256 = "db425a86f6e07546957578f4946cc700a91e7fd51115a86c56e096f30e0530c7"
+sha256 = "6474dff9c02ea685fc44877a4807a27366bf109b176dad182108bb8c96d09589"
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues
@@ -56,7 +56,7 @@ def post_install(self):
 
 @subpackage("ruby-devel")
 def _(self):
-    return self.default_devel(extra=[f"usr/lib/ruby/{pkgver[:-2]}.0/mkmf.rb"])
+    return self.default_devel(extra=[f"usr/lib/ruby/{pkgver[:-3]}.0/mkmf.rb"])
 
 
 @subpackage("ruby-ri")
