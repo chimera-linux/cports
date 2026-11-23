@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/tlp-pd -F
+ready-notification = pipevar:TLP_READY_FD
+working-dir = /var/lib/tlp
+before: login.target
+depends-on: local.target
+depends-on: dbus
+waits-for: polkitd
