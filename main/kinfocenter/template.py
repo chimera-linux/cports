@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.8.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -50,6 +50,7 @@ def _(self):
         "lm-sensors",
         # graphics
         "clinfo",
+        "libva-utils",
         "mesa-demos-core",
         "vulkan-tools",
         "wayland-utils",
