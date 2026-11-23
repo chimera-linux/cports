@@ -1,17 +1,15 @@
 pkgname = "pkgconf"
-pkgver = "2.4.3"
+pkgver = "3.0.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
-checkdepends = ["kyua"]
 pkgdesc = "Provides compiler and linker configuration"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "51203d99ed573fa7344bf07ca626f10c7cc094e0846ac4aa0023bd0c83c25a41"
+sha256 = "d0cd841bc8e55b9da888106c00dc256d05b7d1d8e5a46f4be4eb4c5125bd2dc4"
 hardening = ["!vis", "!cfi"]
-# check: cycle
-options = ["bootstrap", "!check"]
+options = ["bootstrap"]
 
 
 def post_install(self):
