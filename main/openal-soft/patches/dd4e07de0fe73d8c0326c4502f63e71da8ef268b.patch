@@ -1,0 +1,64 @@
+From dd4e07de0fe73d8c0326c4502f63e71da8ef268b Mon Sep 17 00:00:00 2001
+From: Weihang Ding <798047000@qq.com>
+Date: Thu, 18 Jun 2026 16:53:14 +0800
+Subject: [PATCH] Fix compatibility with fmt 12.2.0 (#1297)
+
+---
+ alc/alc.cpp               | 2 +-
+ alc/backends/pipewire.cpp | 2 +-
+ common/pffft.cpp          | 2 +-
+ core/hrtf_loader.cpp      | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/alc/alc.cpp b/alc/alc.cpp
+index 321b185cad..e90a7a6701 100644
+--- a/alc/alc.cpp
++++ b/alc/alc.cpp
+@@ -101,7 +101,7 @@
+ #include "effects/base.h"
+ #include "export_list.h"
+ #include "flexarray.h"
+-#include "fmt/core.h"
++#include "fmt/format.h"
+ #include "fmt/ranges.h"
+ #include "gsl/gsl"
+ #include "inprogext.h"
+diff --git a/alc/backends/pipewire.cpp b/alc/backends/pipewire.cpp
+index 2555d625dd..dd103514e3 100644
+--- a/alc/backends/pipewire.cpp
++++ b/alc/backends/pipewire.cpp
+@@ -52,7 +52,7 @@
+ #include "core/device.h"
+ #include "core/helpers.h"
+ #include "dynload.h"
+-#include "fmt/core.h"
++#include "fmt/format.h"
+ #include "fmt/ranges.h"
+ #include "opthelpers.h"
+ #include "pragmadefs.h"
+diff --git a/common/pffft.cpp b/common/pffft.cpp
+index 77a9273901..f57271b17e 100644
+--- a/common/pffft.cpp
++++ b/common/pffft.cpp
+@@ -72,7 +72,7 @@
+ 
+ #include "almalloc.h"
+ #include "altypes.hpp"
+-#include "fmt/core.h"
++#include "fmt/format.h"
+ #include "fmt/ranges.h"
+ #include "gsl/gsl"
+ #include "opthelpers.h"
+diff --git a/core/hrtf_loader.cpp b/core/hrtf_loader.cpp
+index eef0acdef2..8fb74dc5ea 100644
+--- a/core/hrtf_loader.cpp
++++ b/core/hrtf_loader.cpp
+@@ -13,7 +13,7 @@
+ 
+ #include "alformat.hpp"
+ #include "alnumeric.h"
+-#include "fmt/core.h"
++#include "fmt/format.h"
+ #include "fmt/ranges.h"
+ #include "gsl/gsl"
+ #include "hrtf.h"
