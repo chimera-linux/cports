@@ -1,7 +1,7 @@
-pkgname = "fonts-iosevka-ttf"
+pkgname = "fonts-iosevka"
 pkgver = "34.9.0"
-pkgrel = 0
-pkgdesc = "Versatile typeface for code, from code"
+pkgrel = 1
+pkgdesc = "Versatile programming typeface"
 license = "OFL-1.1"
 url = "https://typeof.net/Iosevka"
 _durl = f"https://github.com/be5invis/Iosevka/releases/download/v{pkgver}"
@@ -26,6 +26,7 @@ sha256 = [
     "322a0b2e0f2d412dce8eaf2d4a80a728025c46f6111e447e211e83747dd05aca",
     "4c0c24174de7af4742405408f5c7abf989e54c77089e7be804314c75b6e6405a",
 ]
+options = ["empty"]
 
 
 def install(self):
@@ -45,6 +46,7 @@ def _subpkg(variant):
     @subpackage(f"fonts-iosevka{subpkg}-ttf")
     def _(self):
         self.subdesc = variant
+
         return [
             f"usr/share/fonts/iosevka/Iosevka{variant}-*.ttf",
         ]
@@ -66,3 +68,12 @@ for _variant in [
 ]:
     source += [f"{_durl}/PkgTTF-Iosevka{_variant}-{pkgver}.zip"]
     _subpkg(_variant)
+
+
+@subpackage("fonts-iosevka-ttf")
+def _(self):
+    self.subdesc = "TrueType"
+    self.depends = [self.parent]
+    self.install_if = [self.parent]
+
+    return ["usr/share/fonts/iosevka/*.ttf"]
