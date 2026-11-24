@@ -10,3 +10,15 @@
  #include <sys/prctl.h>
  #include <sys/syscall.h>
  
+--- a/toolkit/crashreporter/breakpad-client/linux/crash_generation/crash_generation_client.cc
++++ b/toolkit/crashreporter/breakpad-client/linux/crash_generation/crash_generation_client.cc
+@@ -32,7 +32,9 @@
+ 
+ #include <errno.h>
+ #include <stdio.h>
++#if defined(__GLIBC__)
+ #include <linux/prctl.h>
++#endif
+ #include <sys/prctl.h>
+ #include <sys/socket.h>
+ #include <sys/types.h>

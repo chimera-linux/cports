@@ -1,0 +1,10 @@
+--- a/extensions/spellcheck/hunspell/src/csutil.hxx
++++ b/extensions/spellcheck/hunspell/src/csutil.hxx
+@@ -81,6 +81,7 @@
+ #include <cassert>
+ #include <cstring>
+ #include <algorithm>
++#include <ios>
+ #include "w_char.hxx"
+ #include "htypes.hxx"
+ 
