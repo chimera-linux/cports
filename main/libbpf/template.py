@@ -1,5 +1,5 @@
 pkgname = "libbpf"
-pkgver = "1.7.0"
+pkgver = "1.8.0"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
@@ -16,7 +16,7 @@ pkgdesc = "Linux BPF userspace library"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/libbpf/libbpf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7ab5feffbf78557f626f2e3e3204788528394494715a30fc2070fcddc2051b7b"
+sha256 = "b7a1e685f90f6a63ead0dd85d053694b222975da8d09c1a966041cff6f0055ff"
 hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]
