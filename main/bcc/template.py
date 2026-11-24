@@ -1,7 +1,7 @@
 pkgname = "bcc"
 # keep in sync with main/libbpf-tools
-pkgver = "0.36.1"
-pkgrel = 1
+pkgver = "0.37.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -23,11 +23,11 @@ hostmakedepends = [
     "python-setuptools",
 ]
 makedepends = [
-    "clang-devel",
     "elfutils-devel",
     "libbpf-devel",
     "libxml2-devel",
     "linux-headers",
+    "llvm-clang-devel",
     "llvm-devel",
     "zlib-ng-compat-devel",
 ]
@@ -40,14 +40,14 @@ pkgdesc = "Toolkit for creating eBPF programs"
 license = "Apache-2.0"
 url = "https://github.com/iovisor/bcc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3b16f1eb6a5b90a5a68686c0f4195455f1c58da5ae40f004e931c19e98fa8d98"
+sha256 = "c89f63bafc688abb4749e901006321e329ab90941433d85f442f9c03bb3c7824"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
     "CXXFLAGS": ["-I/usr/include/bpf/uapi"],
 }
 # no way to run them in bwrap
-options = ["!check"]
+options = ["!check", "llvmflags"]
 
 
 def post_install(self):

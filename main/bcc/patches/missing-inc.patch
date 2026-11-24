@@ -1,0 +1,12 @@
+diff --git a/src/cc/bcc_btf.cc b/src/cc/bcc_btf.cc
+index be24861..8c4b263 100644
+--- a/src/cc/bcc_btf.cc
++++ b/src/cc/bcc_btf.cc
+@@ -17,6 +17,7 @@
+ #include "bcc_btf.h"
+ #include <stdarg.h>
+ #include <string.h>
++#include <errno.h>
+ #include "linux/btf.h"
+ #include "libbpf.h"
+ #include "bcc_libbpf_inc.h"
