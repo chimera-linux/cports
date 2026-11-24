@@ -1,11 +1,11 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
-_clangver = "22"
+_clangver = "23"
 pkgver = "16.2.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
 _trip = self.profile.triplet
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-cet",
@@ -47,7 +47,7 @@ configure_args = [
     "--with-system-zstd",
     "--with-linker-hash-style=gnu",
     f"--with-gxx-include-dir=/usr/include/c++/{_bver}",
-    "--with-gxx-libcxx-include-dir=/usr/include/c++/v1",
+    f"--with-gxx-libcxx-include-dir=/usr/lib/llvm{_clangver}/include/c++/v1",
     "libat_cv_have_ifunc=no",
 ]
 configure_gen = []
@@ -62,9 +62,8 @@ hostmakedepends = [
 makedepends = [
     "gmp-devel",
     "isl-devel",
-    "libcxx-devel-static",
     "libucontext-devel",
-    "libunwind-devel-static",
+    f"llvm{_clangver}-runtimes-devel-static",
     "mpc-devel",
     "mpfr-devel",
     "zlib-ng-compat-devel",
@@ -72,9 +71,9 @@ makedepends = [
 ]
 depends = [
     f"binutils-{self.profile.arch}",
-    f"clang-rt-devel~{_clangver}",
     "cmd:ld!lld",
-    f"libcxx-devel~{_clangver}",
+    f"llvm{_clangver}-clang-rt-devel",
+    f"llvm{_clangver}-runtimes-devel",
     "musl-devel",
 ]
 pkgdesc = "GNU Compiler Collection"
@@ -85,7 +84,9 @@ sha256 = "e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e"
 # we cannot use clang, gcc expects binutils
 tools = {"AS": "as", "LD": "ld.bfd", "OBJDUMP": "gobjdump"}
 # give the build the builtins library in all cases that use LDFLAGS
-tool_flags = {"LDFLAGS": [f"-L/usr/lib/clang/{_clangver}/lib/{_trip}"]}
+tool_flags = {
+    "LDFLAGS": [f"-L/usr/lib/llvm{_clangver}/lib/clang/{_clangver}/lib/{_trip}"]
+}
 # sigh
 nopie_files = [
     "usr/bin/*",
@@ -94,6 +95,7 @@ nopie_files = [
 ]
 # skip those
 broken_symlinks = [
+    "usr/lib/ccache/bin/*",
     f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
 ]
 hardening = ["!int", "!format", "!var-init"]
@@ -189,7 +191,7 @@ def post_install(self):
     # link the runtime and nuke libgcc
     self.install_link(
         f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
-        f"../../../clang/{_clangver}/lib/{_trip}/libclang_rt.builtins.a",
+        f"../../../llvm{_clangver}/lib/clang/{_clangver}/lib/{_trip}/libclang_rt.builtins.a",
     )
     self.uninstall(f"usr/lib/gcc/{_trip}/{_mnver}/libgcc*.a", glob=True)
     # nuke libstdc++; this build is not compatible with chimera
@@ -218,6 +220,12 @@ def post_install(self):
         f"../gcc/{_trip}/{_bver}/liblto_plugin.so",
     )
     self.install_link(f"usr/lib/gcc/{_trip}/{_bver}", _mnver)
+    # ccache links
+    cpfx = "usr/lib/ccache/bin"
+    self.install_dir(cpfx)
+    for cf in ["gcc", "g++"]:
+        self.install_link(f"{cpfx}/{cf}", "../../../bin/ccache")
+        self.install_link(f"{cpfx}/{_trip}-{cf}", "../../../bin/ccache")
 
 
 @subpackage("gcc-fortran")
