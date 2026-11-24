@@ -1,20 +1,23 @@
-pkgname = "clang-rt-builtins-mingw-w64"
-pkgver = "22.1.8"
+pkgname = "llvm23-clang-rt-crt-mingw-w64"
+pkgver = "23.1.6"
+_llvm_majver = pkgver[0:2]
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
     "-DCMAKE_SYSTEM_NAME=Windows",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0 : pkgver.find('.')]}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/llvm{_llvm_majver}/lib/clang/{_llvm_majver}",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
     # tools
-    "-DCMAKE_C_COMPILER=/usr/bin/clang",
-    "-DCMAKE_AR=/usr/bin/llvm-ar",
-    "-DCMAKE_NM=/usr/bin/llvm-nm",
-    "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
+    f"-DCMAKE_C_COMPILER=/usr/bin/clang-{_llvm_majver}",
+    f"-DCMAKE_CXX_COMPILER=/usr/bin/clang++-{_llvm_majver}",
+    f"-DCMAKE_AR=/usr/bin/llvm-ar-{_llvm_majver}",
+    f"-DCMAKE_NM=/usr/bin/llvm-nm-{_llvm_majver}",
+    f"-DCMAKE_RANLIB=/usr/bin/llvm-ranlib-{_llvm_majver}",
+    f"-DLLVM_CONFIG_PATH=/usr/bin/llvm-config-{_llvm_majver}",
     # we are only building builtins at this point
     "-DCOMPILER_RT_BUILD_BUILTINS=ON",
     # disable everything else
@@ -27,9 +30,9 @@ configure_args = [
 ]
 cmake_dir = "compiler-rt"
 hostmakedepends = [
-    "base-cross",
     "cmake",
-    "llvm-devel",
+    f"llvm{_llvm_majver}-devel",
+    "mingw-w64-headers",
     "ninja",
     "python",
 ]
@@ -38,17 +41,12 @@ pkgdesc = "Clang runtime builtins for Windows development"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
+sha256 = "d3b86ab29cfb4445a6652e5c2642ccc75e04e38084dde3701d323320f35a31da"
 hardening = ["!scp"]
 # crosstoolchain
 options = ["!check", "empty"]
 
 _targets = ["x86_64", "i686", "aarch64", "armv7"]
-
-for _an in _targets:
-    hostmakedepends += [
-        f"mingw-w64-headers-{_an}",
-    ]
 
 
 def configure(self):
@@ -87,8 +85,8 @@ def install(self):
     self.install_license("LICENSE.TXT")
 
 
-def _gen(an, at):
-    @subpackage(f"clang-rt-builtins-mingw-w64-{an}")
+def _gen(an):
+    @subpackage(f"llvm{_llvm_majver}-clang-rt-crt-mingw-w64-{an}")
     def _(self):
         match an:
             case "aarch64" | "x86_64":
@@ -99,14 +97,18 @@ def _gen(an, at):
                 suffix = "i386"
 
         self.subdesc = f"{an} support"
-        self.depends = ["clang"]
+        self.depends = [f"llvm{_llvm_majver}-clang"]
         # strip not supported for COFF
         self.options = ["!strip", "!lintstatic"]
 
-        return [f"usr/lib/clang/*/lib/windows/libclang_rt.builtins-{suffix}.a"]
+        return [
+            f"usr/lib/llvm{_llvm_majver}/lib/clang/{_llvm_majver}/lib/windows/libclang_rt.builtins-{suffix}.a"
+        ]
 
-    depends.append(self.with_pkgver(f"clang-rt-builtins-mingw-w64-{an}"))
+    depends.append(
+        self.with_pkgver(f"llvm{_llvm_majver}-clang-rt-crt-mingw-w64-{an}")
+    )
 
 
 for _an in _targets:
-    _gen(_an, _an + "-w64-mingw32")
+    _gen(_an)
