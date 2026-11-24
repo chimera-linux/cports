@@ -1,10 +1,10 @@
 pkgname = "wasm-component-ld"
 pkgver = "0.5.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
-depends = ["lld"]
+depends = ["llvm-lld"]
 checkdepends = ["rust-wasm", *depends]
 pkgdesc = "Linker for webassembly components"
 license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"

@@ -1,6 +1,6 @@
 pkgname = "hare"
 pkgver = "0.26.0.1"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_dir = "."
@@ -18,7 +18,7 @@ hostmakedepends = [
     "qbe",
     "scdoc",
 ]
-depends = ["binutils", "clang", "harec", "qbe", "tzdb"]
+depends = ["binutils", "harec", "llvm-clang", "qbe", "tzdb"]
 checkdepends = ["tzdb"]
 pkgdesc = "Hare programming language"
 license = "MPL-2.0 AND GPL-3.0-only"

@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
 pkgver = "2609a"
-pkgrel = 1
+pkgrel = 2
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -121,6 +121,7 @@ sha256 = [
 # for some reason only -lz-ng is passed but the normal symbols are used
 tool_flags = {"LDFLAGS": ["-lz"]}
 hardening = ["!int"]
+options = ["llvmflags"]
 
 
 def post_install(self):

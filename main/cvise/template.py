@@ -1,6 +1,6 @@
 pkgname = "cvise"
 pkgver = "2.12.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -8,11 +8,11 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
-    "clang-devel",
+    "llvm-clang-devel",
     "llvm-devel",
 ]
 depends = [
-    "clang",
+    "llvm-clang",
     "python-chardet",
     "python-pebble",
     "python-psutil",
@@ -27,6 +27,7 @@ license = "NCSA"
 url = "https://github.com/marxin/cvise"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "d015050cfc4015460ca5793378c4899a36104ddcf084f29f0f5f6233f6187cb1"
+options = ["llvmflags"]
 
 
 def check(self):

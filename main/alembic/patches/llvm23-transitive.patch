@@ -1,0 +1,13 @@
+diff --git a/lib/Alembic/Util/Foundation.h b/lib/Alembic/Util/Foundation.h
+index 7924ead..25ca960 100644
+--- a/lib/Alembic/Util/Foundation.h
++++ b/lib/Alembic/Util/Foundation.h
+@@ -75,6 +75,8 @@
+ 
+ // needed for mutex stuff
+ #include <windows.h>
++#else
++#include <pthread.h>
+ #endif
+ 
+ // needed for std min/max

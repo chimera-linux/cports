@@ -1,6 +1,6 @@
 pkgname = "gnome-builder"
 pkgver = "50.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dnetwork_tests=false",
@@ -18,7 +18,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "clang-devel",
     "cmark-devel",
     "editorconfig-devel",
     "enchant-devel",
@@ -38,6 +37,7 @@ makedepends = [
     "libspelling-devel",
     "libxml2-devel",
     "libyaml-devel",
+    "llvm-clang-devel",
     "ostree-devel",
     "sysprof-capture",
     "template-glib-devel",
@@ -60,7 +60,7 @@ url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"
 sha256 = "46d54fd13f4f4bdb6eed7d004b499d0b6d9a76a6fafc68ad16c389953fd92f46"
 # gobject-introspection
-options = ["!cross"]
+options = ["!cross", "llvmflags"]
 
 
 @subpackage("gnome-builder-devel")

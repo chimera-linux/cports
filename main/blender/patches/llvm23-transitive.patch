@@ -1,0 +1,25 @@
+diff --git a/extern/draco/draco/src/draco/compression/point_cloud/algorithms/float_points_tree_encoder.h b/extern/draco/draco/src/draco/compression/point_cloud/algorithms/float_points_tree_encoder.h
+index 44c1b3d..395c7d2 100644
+--- a/extern/draco/draco/src/draco/compression/point_cloud/algorithms/float_points_tree_encoder.h
++++ b/extern/draco/draco/src/draco/compression/point_cloud/algorithms/float_points_tree_encoder.h
+@@ -15,6 +15,7 @@
+ #ifndef DRACO_COMPRESSION_POINT_CLOUD_ALGORITHMS_FLOAT_POINTS_TREE_ENCODER_H_
+ #define DRACO_COMPRESSION_POINT_CLOUD_ALGORITHMS_FLOAT_POINTS_TREE_ENCODER_H_
+ 
++#include <iterator>
+ #include <memory>
+ #include <vector>
+ 
+diff --git a/source/blender/gpu/shader_tool/token_stream.hh b/source/blender/gpu/shader_tool/token_stream.hh
+index 8f9a26d..921242c 100644
+--- a/source/blender/gpu/shader_tool/token_stream.hh
++++ b/source/blender/gpu/shader_tool/token_stream.hh
+@@ -9,6 +9,8 @@
+ 
+ #pragma once
+ 
++#include <vector>
++
+ #include "enums.hh"
+ #include "utils.hh"
+ 

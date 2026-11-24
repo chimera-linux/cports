@@ -1,5 +1,5 @@
 pkgname = "openshadinglanguage"
-pkgver = "1.15.6.0"
+pkgver = "1.15.8.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -34,8 +34,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "boost-devel",
-    "clang-devel",
     "fmt-devel",
+    "llvm-clang-devel",
     "llvm-devel",
     "openexr-devel",
     "openimageio-devel",
@@ -50,7 +50,7 @@ pkgdesc = "Shading language library for renderers"
 license = "BSD-3-Clause"
 url = "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "85b71407ad28c464a7ec5c9dcb33ac67f9e98b92495568549d4b9c138c91a579"
+sha256 = "75144add390166b515e909f1abc4daa11a83eff006de26b7fab22b8d334941e2"
 # set in rel
 tool_flags = {
     "CFLAGS": ["-DNDEBUG", "-D_LARGEFILE64_SOURCE"],
@@ -60,7 +60,7 @@ tool_flags = {
 # INT: guilty until proven innocent
 hardening = ["vis", "!cfi", "!int"]
 # checks require cpu features
-options = ["linkundefver"]
+options = ["linkundefver", "llvmflags"]
 
 if self.profile.arch not in ["ppc64le", "x86_64"]:
     options += ["!check"]

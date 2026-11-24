@@ -1,0 +1,12 @@
+diff --git a/source/creator/CMakeLists.txt b/source/creator/CMakeLists.txt
+index 90758f8..e13a19c 100644
+--- a/source/creator/CMakeLists.txt
++++ b/source/creator/CMakeLists.txt
+@@ -2143,7 +2143,6 @@ detect_leaks=0\"\n\
+   )\n\
+ endif()\n\
+ "
+-        DEPENDS blender
+       )
+ 
+       if(WITH_INSTALL_PORTABLE)

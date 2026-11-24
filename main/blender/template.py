@@ -1,6 +1,6 @@
 pkgname = "blender"
 pkgver = "5.1.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -34,7 +34,6 @@ makedepends = [
     "alembic-devel",
     "boost-devel",
     "ceres-devel",
-    "clang-devel",
     "eigen",
     "ffmpeg-devel",
     "fftw-devel",
@@ -46,10 +45,10 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libomp-devel",
     "libpng-devel",
-    "libpulse-devel",
     "libsndfile-devel",
     "libtiff-devel",
     "libwebp-devel",
+    "libxi-devel",
     "libxkbcommon-devel",
     "llvm-devel",
     "onetbb-devel",
@@ -61,6 +60,7 @@ makedepends = [
     "openshadinglanguage-devel",
     "opensubdiv-devel",
     "openvdb-devel",
+    "pipewire-devel",
     "pipewire-jack-devel",
     "potrace-devel",
     "pugixml-devel",
@@ -92,7 +92,7 @@ tool_flags = {
 # there would be none and it makes rendering 5x slower
 hardening = ["!int", "!var-init"]
 # tests expect blender to be installed in /usr/bin
-options = ["!check", "linkundefver"]
+options = ["!check", "linkundefver", "llvmflags"]
 
 if self.profile.endian == "big":
     broken = "https://projects.blender.org/blender/blender/pulls/140138"

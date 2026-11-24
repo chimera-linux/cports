@@ -1,0 +1,12 @@
+diff --git a/Source/Core/VideoCommon/Assets/CustomTextureData.h b/Source/Core/VideoCommon/Assets/CustomTextureData.h
+index 048ee95..4aecd74 100644
+--- a/Source/Core/VideoCommon/Assets/CustomTextureData.h
++++ b/Source/Core/VideoCommon/Assets/CustomTextureData.h
+@@ -5,6 +5,7 @@
+ 
+ #include <span>
+ #include <string>
++#include <vector>
+ 
+ #include "Common/Buffer.h"
+ #include "Common/CommonTypes.h"

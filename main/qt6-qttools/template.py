@@ -1,6 +1,6 @@
 pkgname = "qt6-qttools"
 pkgver = "6.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
@@ -19,7 +19,7 @@ hostmakedepends = [
     "qt6-qtdeclarative-devel",
 ]
 makedepends = [
-    "clang-devel",
+    "llvm-clang-devel",
     "llvm-devel",
     "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
@@ -35,7 +35,7 @@ sha256 = "8dab8f3611496486a470ad5f115ceea584f36bc22a2b8b6f6ebdbafbb8160693"
 # FIXME
 hardening = ["!int"]
 # TODO
-options = ["!check"]
+options = ["!check", "llvmflags"]
 
 
 def post_install(self):
