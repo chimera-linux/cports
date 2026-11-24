@@ -1,0 +1,9 @@
+prefix=/usr
+datarootdir=/usr/share
+datadir=/usr/share
+pkgdatadir=${datadir}/clc
+libexecdir=${pkgdatadir}
+
+Name: libclc
+Description: Library requirements of the OpenCL C programming language
+Version: @VERSION@
