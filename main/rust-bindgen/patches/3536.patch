@@ -1,0 +1,177 @@
+From e584174c13ac6825c9675a3a8b767d00102f1c8d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Emilio=20Cobos=20=C3=81lvarez?= <emilio@crisal.io>
+Date: Tue, 27 Oct 2026 09:39:59 +0000
+Subject: [PATCH] comp: Prevent recursive layout computation with template
+ unions.
+
+More minimal version of #3419 which avoids the crash even though it
+doesn't get the right layout (we'd need to enforce rust unions for
+these).
+
+In llvm/llvm-project#185449, LLVM's libc++ changed a header to use a
+recursive self-referential type, which looks approximately like:
+
+```
+template <class A0, class... As> union RUnion { A0 arg; RUnion<As...> u; };
+template <class A> union RUnion<A> { A arg; };
+struct Wrap { RUnion<int, float> u; };
+```
+
+Uninstantiated union templates don't have a meaningful layout anyway, so
+return `None` from `CompInfo::layout` for them.
+
+Closes #3397
+---
+ .../tests/expectations/tests/transform-op.rs  |  2 -
+ .../tests/variadic_template_union.rs          | 59 +++++++++++++++++++
+ .../tests/headers/variadic_template_union.hpp |  9 +++
+ bindgen/ir/comp.rs                            | 14 +++--
+ 4 files changed, 78 insertions(+), 6 deletions(-)
+ create mode 100644 bindgen-tests/tests/expectations/tests/variadic_template_union.rs
+ create mode 100644 bindgen-tests/tests/headers/variadic_template_union.hpp
+
+diff --git a/bindgen-tests/tests/expectations/tests/transform-op.rs b/bindgen-tests/tests/expectations/tests/transform-op.rs
+index e1d27d15a4..045a298d39 100644
+--- a/bindgen-tests/tests/expectations/tests/transform-op.rs
++++ b/bindgen-tests/tests/expectations/tests/transform-op.rs
+@@ -59,14 +59,12 @@ impl<T> Default for StylePoint<T> {
+     }
+ }
+ #[repr(C)]
+-#[repr(align(1))]
+ pub struct StyleFoo<T> {
+     pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
+     pub __bindgen_anon_1: __BindgenUnionField<StyleFoo__bindgen_ty_1>,
+     pub foo: __BindgenUnionField<StyleFoo_Foo_Body<T>>,
+     pub bar: __BindgenUnionField<StyleFoo_Bar_Body<T>>,
+     pub baz: __BindgenUnionField<StyleFoo_Baz_Body<T>>,
+-    pub bindgen_union_field: [u8; 0usize],
+ }
+ pub const StyleFoo_Tag_Foo: StyleFoo_Tag = 0;
+ pub const StyleFoo_Tag_Bar: StyleFoo_Tag = 0;
+diff --git a/bindgen-tests/tests/expectations/tests/variadic_template_union.rs b/bindgen-tests/tests/expectations/tests/variadic_template_union.rs
+new file mode 100644
+index 0000000000..91c5ed4802
+--- /dev/null
++++ b/bindgen-tests/tests/expectations/tests/variadic_template_union.rs
+@@ -0,0 +1,59 @@
++#![allow(dead_code, non_snake_case, non_camel_case_types, non_upper_case_globals)]
++#[repr(C)]
++pub struct __BindgenUnionField<T>(::std::marker::PhantomData<T>);
++impl<T> __BindgenUnionField<T> {
++    #[inline]
++    pub const fn new() -> Self {
++        __BindgenUnionField(::std::marker::PhantomData)
++    }
++    #[inline]
++    pub const unsafe fn as_ref(&self) -> &T {
++        unsafe { ::std::mem::transmute(self) }
++    }
++    #[inline]
++    pub const unsafe fn as_mut(&mut self) -> &mut T {
++        unsafe { ::std::mem::transmute(self) }
++    }
++}
++impl<T> ::std::default::Default for __BindgenUnionField<T> {
++    #[inline]
++    fn default() -> Self {
++        Self::new()
++    }
++}
++impl<T> ::std::clone::Clone for __BindgenUnionField<T> {
++    #[inline]
++    fn clone(&self) -> Self {
++        *self
++    }
++}
++impl<T> ::std::marker::Copy for __BindgenUnionField<T> {}
++impl<T> ::std::fmt::Debug for __BindgenUnionField<T> {
++    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
++        fmt.write_str("__BindgenUnionField")
++    }
++}
++impl<T> ::std::hash::Hash for __BindgenUnionField<T> {
++    fn hash<H: ::std::hash::Hasher>(&self, _state: &mut H) {}
++}
++impl<T> ::std::cmp::PartialEq for __BindgenUnionField<T> {
++    fn eq(&self, _other: &__BindgenUnionField<T>) -> bool {
++        true
++    }
++}
++impl<T> ::std::cmp::Eq for __BindgenUnionField<T> {}
++#[repr(C)]
++pub struct test___union<_Arg0> {
++    pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<_Arg0>>,
++    pub __arg: __BindgenUnionField<_Arg0>,
++    pub __u: __BindgenUnionField<test___union<_Arg0>>,
++}
++impl<_Arg0> Default for test___union<_Arg0> {
++    fn default() -> Self {
++        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
++        unsafe {
++            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
++            s.assume_init()
++        }
++    }
++}
+diff --git a/bindgen-tests/tests/headers/variadic_template_union.hpp b/bindgen-tests/tests/headers/variadic_template_union.hpp
+new file mode 100644
+index 0000000000..d8ef582df8
+--- /dev/null
++++ b/bindgen-tests/tests/headers/variadic_template_union.hpp
+@@ -0,0 +1,9 @@
++// bindgen-flags: -- -std=c++14
++
++namespace test {
++template <class _Arg0, class... _Args>
++union __union {
++  _Arg0 __arg;
++  __union<_Args...> __u;
++};
++}
+diff --git a/bindgen/ir/comp.rs b/bindgen/ir/comp.rs
+index 3f02b136fc..246909de48 100644
+--- a/bindgen/ir/comp.rs
++++ b/bindgen/ir/comp.rs
+@@ -8,7 +8,7 @@ use super::item::{IsOpaque, Item};
+ use super::layout::Layout;
+ use super::template::TemplateParameters;
+ use super::traversal::{EdgeKind, Trace, Tracer};
+-use super::ty::RUST_DERIVE_IN_ARRAY_LIMIT;
++use super::ty::{TypeKind, RUST_DERIVE_IN_ARRAY_LIMIT};
+ use crate::callbacks::FieldInfo;
+ use crate::clang;
+ use crate::codegen::struct_layout::align_to;
+@@ -874,8 +874,7 @@ impl CompFields {
+ 
+                 // Check if it's a compound type with a FAM (need to resolve through type refs)
+                 let canonical_ty = resolved_ty.canonical_type(ctx);
+-                if let super::ty::TypeKind::Comp(ref comp) = canonical_ty.kind()
+-                {
++                if let TypeKind::Comp(ref comp) = canonical_ty.kind() {
+                     return comp.flex_array_member(ctx);
+                 }
+ 
+@@ -1174,6 +1173,12 @@ impl CompInfo {
+             return None;
+         }
+ 
++        if self.kind == CompKind::Union && !self.template_params.is_empty() {
++            // Uninstantiated template unions do not have layout in C++ and can
++            // cause infinite layout recursion.
++            return None;
++        }
++
+         let mut max_size = 0;
+         // Don't allow align(0)
+         let mut max_align = 1;
+@@ -1808,7 +1813,8 @@ impl CompInfo {
+ 
+         let all_can_copy = self.fields().iter().all(|f| match *f {
+             Field::DataMember(ref field_data) => {
+-                field_data.ty().can_derive_copy(ctx)
++                field_data.ty().can_derive_copy(ctx) &&
++                    !ctx.uses_any_template_parameters(field_data.ty().into())
+             }
+             Field::Bitfields(_) => true,
+         });
