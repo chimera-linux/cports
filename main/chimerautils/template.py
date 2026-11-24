@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "15.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/chimerautils",
@@ -18,7 +18,9 @@ makedepends = [
     "xz-devel",
     "zlib-ng-compat-devel",
 ]
-depends = ["base-files", "debianutils"]
+# depend on llvm-runtimes to pull in post-transition layout
+# since the provider versions are the same as libcxx etc
+depends = ["base-files", "debianutils", "llvm-runtimes"]
 # compat
 provides = [
     self.with_pkgver("musl-fts"),
