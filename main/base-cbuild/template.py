@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 13
+pkgrel = 14
 build_style = "meta"
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
@@ -57,8 +57,8 @@ def install(self):
     self.install_bin("cbuild-lld-wrapper")
 
     # replace regular ld and ld.lld symlinks
-    self.install_link("usr/bin/ld.lld", "cbuild-lld-wrapper")
-    self.install_link("usr/bin/ld64.lld", "cbuild-lld-wrapper")
+    # self.install_link("usr/bin/ld.lld", "cbuild-lld-wrapper")
+    # self.install_link("usr/bin/ld64.lld", "cbuild-lld-wrapper")
 
     # different default apk config
     self.install_file(self.files_path / "config", "usr/lib/apk")
@@ -67,8 +67,8 @@ def install(self):
 @subpackage("base-cbuild-progs")
 def _(self):
     # make sure to use our wrapper symlinks
-    self.replaces = ["lld"]
-    self.replaces_priority = 100
+    # self.replaces = ["lld"]
+    # self.replaces_priority = 100
     self.options = ["!scancmd"]
 
     return self.default_progs()
