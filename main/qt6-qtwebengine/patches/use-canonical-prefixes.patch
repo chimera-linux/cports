@@ -1,0 +1,30 @@
+with our layout this prevents c++ stdlib from including
+
+diff --git a/src/3rdparty/chromium/build/config/compiler/BUILD.gn b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+index af3dfd1..b6c0f40 100644
+--- a/src/3rdparty/chromium/build/config/compiler/BUILD.gn
++++ b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+@@ -1785,23 +1785,6 @@ config("compiler_deterministic") {
+     }
+   }
+ 
+-  # Tells the compiler not to use absolute paths when passing the default
+-  # paths to the tools it invokes. We don't want this because we don't
+-  # really need it and it can mess up the RBE cache entries.
+-  if (is_clang && !(is_qtwebengine && use_libcxx)) {
+-    cflags += [ "-no-canonical-prefixes" ]
+-
+-    # Same for links: Let the compiler driver invoke the linker
+-    # with a relative path and pass relative paths to built-in
+-    # libraries. Not needed on Windows because we call the linker
+-    # directly there, not through the compiler driver.
+-    # We don't link on RBE, so this change is just for cleaner
+-    # internal linker invocations, for people who work on the build.
+-    if (!is_win) {
+-      ldflags += [ "-no-canonical-prefixes" ]
+-    }
+-  }
+-
+   if (use_clang_modules) {
+     cflags += [
+       # This removes absolute paths from .pcm files.
