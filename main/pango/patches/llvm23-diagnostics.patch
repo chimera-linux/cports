@@ -1,0 +1,62 @@
+diff --git a/tests/testboundaries.c b/tests/testboundaries.c
+index dbc3b5b..38356c4 100644
+--- a/tests/testboundaries.c
++++ b/tests/testboundaries.c
+@@ -40,12 +40,6 @@
+  */
+ 
+ 
+-static int offset = 0;
+-static int line = 0;
+-static gunichar current_wc = 0;
+-static const char *line_start = NULL;
+-static const char *line_end = NULL;
+-
+ typedef void (* CharForeachFunc) (gunichar      wc,
+ 				  gunichar      prev_wc,
+ 				  gunichar      next_wc,
+@@ -75,18 +69,12 @@ log_attr_foreach (const char     *text,
+   if (next == end)
+     return;
+ 
+-  offset = 0;
+-  line = 1;
+-
+   prev_type = (GUnicodeType) -1;
+   prev_wc = 0;
+ 
+   next_wc = g_utf8_get_char (next);
+   next_type = g_unichar_type (next_wc);
+ 
+-  line_start = text;
+-  line_end = text;
+-
+   while (next_wc != 0)
+     {
+       GUnicodeType type;
+@@ -95,10 +83,7 @@ log_attr_foreach (const char     *text,
+       wc = next_wc;
+       type = next_type;
+ 
+-      current_wc = wc;
+-
+       next = g_utf8_next_char (next);
+-      line_end = next;
+ 
+       if (next >= end)
+ 	next_wc = 0;
+@@ -118,14 +103,6 @@ log_attr_foreach (const char     *text,
+       prev_type = type;
+       prev_wc = wc;
+       ++i;
+-      ++offset;
+-      if (wc == '\n')
+-	{
+-	  ++line;
+-	  offset = 0;
+-	  line_start = next;
+-	  line_end = next;
+-	}
+     }
+ }
+ 
