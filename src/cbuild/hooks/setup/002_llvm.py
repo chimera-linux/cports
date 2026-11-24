@@ -11,6 +11,4 @@ def invoke(pkg):
         # skip non-viable false positives
         if not (f / f"lib/libLLVM.so.{lver}.1").is_file():
             continue
-        lver = int(lver)
-        if lver > pkg.llvm_version:
-            pkg.llvm_version = lver
+        pkg.llvm_version = max(pkg.llvm_version, int(lver))
