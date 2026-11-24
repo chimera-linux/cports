@@ -835,11 +835,20 @@ class Template(Package):
     def exec_module(self, init, contents=None):
         def subpkg_deco(spkgname, cond=True, alternative=None):
             def deco(f):
+                spfx = f"{self.pkgname}-"
+                validn = spkgname.startswith(spfx)
                 if alternative:
                     pn = f"{alternative.removeprefix('!')}-{spkgname}-default"
+                    # alternatives can also be defined for main package
+                    if spkgname == self.pkgname:
+                        validn = True
                 else:
                     pn = spkgname
-                if f.__name__ != "_":
+                if not validn:
+                    self.error(
+                        f"subpackage '{spkgname}' must start with '{spfx}'"
+                    )
+                elif f.__name__ != "_":
                     self.error(
                         f"subpackage function '{f.__name__}' must be called '_'"
                     )

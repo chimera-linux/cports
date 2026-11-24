@@ -626,6 +626,10 @@ should follow the upstream name (other than case) regardless of the
 contents of the package. That is, when a library is called `foo`,
 the package should be called `foo`, not `libfoo`.
 
+All subpackages must have the main template name as the prefix. That
+is, for a template `somepackage`, subpackages must follow the pattern
+`somepackage-somesubpackage`.
+
 If you need to split one or more libraries from the main package,
 the package should take on the `-libs` suffix. If splitting off into
 multiple library subpackages, they should follow the pattern of
@@ -1486,17 +1490,18 @@ In the template file, you use a decorator. The decorator is available globally
 during the time a package is initialized. The syntax works like this:
 
 ```
-@subpackage("mysubpackage")
+@subpackage("mypackage-sub")
 def _(self):
     ...
 ```
 
 The function name must be a single underscore. The subpackage name follows the
-same conventions as the main package (notably, it must be lowercase). In order
-to cover more cases, the subpackage definition can also be conditional:
+same conventions as the main package (notably, it must be lowercase) and must
+start with the main package name followed by a dash as its prefix. In order to
+cover more cases, the subpackage definition can also be conditional:
 
 ```
-@subpackage("mysubpackage", foo == bar)
+@subpackage("package-sub", foo == bar)
 def ...
 ```
 

@@ -1793,8 +1793,6 @@ def do_print_mismatched(tgt):
     for tmpln in tmpls:
         pkgr = _read_pkg(tmpln)
         for spkg in pkgr.subpkg_list:
-            if spkg.pkgname.endswith("-default"):
-                continue
             if not spkg.pkgname.startswith(f"{pkgr.pkgname}-"):
                 print(f"{pkgr.pkgname} -> {spkg.pkgname}")
 
