@@ -1,0 +1,33 @@
+https://github.com/llvm/llvm-project/issues/212854
+
+diff --git a/boost/math/tools/utility.hpp b/boost/math/tools/utility.hpp
+index 3e22865..f60b601 100644
+--- a/boost/math/tools/utility.hpp
++++ b/boost/math/tools/utility.hpp
+@@ -15,23 +15,9 @@
+ namespace boost {
+ namespace math {
+ 
+-template <typename T>
+-constexpr T min BOOST_MATH_PREVENT_MACRO_SUBSTITUTION (const T& a, const T& b)
+-{
+-    return (std::min)(a, b);
+-}
+-
+-template <typename T>
+-constexpr T max BOOST_MATH_PREVENT_MACRO_SUBSTITUTION (const T& a, const T& b)
+-{
+-    return (std::max)(a, b);
+-}
+-
+-template <typename T>
+-void swap BOOST_MATH_PREVENT_MACRO_SUBSTITUTION (T& a, T& b)
+-{
+-    return (std::swap)(a, b);
+-}
++using std::min;
++using std::max;
++using std::swap;
+ 
+ } // namespace math
+ } // namespace boost
