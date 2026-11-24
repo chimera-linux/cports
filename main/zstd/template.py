@@ -1,8 +1,9 @@
 pkgname = "zstd"
 pkgver = "1.6.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["pkgconf"]
 makedepends = ["lz4-devel", "xz-devel", "zlib-ng-compat-devel"]
+checkdepends = ["file"]
 renames = ["libzstd"]
 pkgdesc = "Zstd compression utilities"
 license = "BSD-3-Clause"
@@ -11,8 +12,6 @@ source = f"https://github.com/facebook/zstd/releases/download/v{pkgver}/zstd-{pk
 sha256 = "2ba599ae2a257976278e7e71e998433a387bfd18aa7b78678229fd5d84f5e9b8"
 compression = "deflate"
 hardening = ["!vis", "!cfi"]
-# needs gtest
-options = ["!check"]
 
 
 def build(self):
@@ -27,6 +26,10 @@ def build(self):
         "LIB_BINDIR=../lib",
     )
     self.do("make", f"-j{self.make_jobs}", "PREFIX=/usr", "-C", "contrib/pzstd")
+
+
+def check(self):
+    self.do("make", "check")
 
 
 def install(self):
