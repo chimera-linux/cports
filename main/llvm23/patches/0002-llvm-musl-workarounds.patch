@@ -1,0 +1,32 @@
+From a58ff230d8364fddd43165ed25f05f57c34c0f74 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 08:50:28 +0100
+Subject: [PATCH 02/28] llvm: musl workarounds
+
+---
+ llvm/include/llvm/Analysis/TargetLibraryInfo.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/llvm/include/llvm/Analysis/TargetLibraryInfo.h b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
+index 629b126d..9db06786 100644
+--- a/llvm/include/llvm/Analysis/TargetLibraryInfo.h
++++ b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
+@@ -22,6 +22,15 @@
+ #include <bitset>
+ #include <optional>
+ 
++#undef fopen64
++#undef fseeko64
++#undef fstat64
++#undef fstatvfs64
++#undef ftello64
++#undef lstat64
++#undef stat64
++#undef tmpfile64
++
+ namespace llvm {
+ 
+ template <typename T> class ArrayRef;
+-- 
+2.56.1
+
