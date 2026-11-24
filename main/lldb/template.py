@@ -1,6 +1,6 @@
 pkgname = "lldb"
-pkgver = "22.1.8"
-pkgrel = 1
+pkgver = "23.1.6"
+pkgrel = 0
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -21,12 +21,12 @@ hostmakedepends = [
     "swig",
 ]
 makedepends = [
-    "clang-devel",
     "libedit-devel",
     "libffi8-devel",
     "libipt-devel",
     "libxml2-devel",
     "linux-headers",
+    "llvm-clang-devel",
     "llvm-devel",
     "ncurses-devel",
     "python-devel",
@@ -37,9 +37,9 @@ pkgdesc = "LLVM debugger"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
+sha256 = "d3b86ab29cfb4445a6652e5c2642ccc75e04e38084dde3701d323320f35a31da"
 # tests are not enabled
-options = ["!check"]
+options = ["!check", "llvmflags"]
 
 
 def init_configure(self):
