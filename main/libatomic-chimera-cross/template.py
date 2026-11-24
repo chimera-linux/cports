@@ -1,6 +1,6 @@
 pkgname = "libatomic-chimera-cross"
 pkgver = "0.90.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
@@ -87,7 +87,6 @@ def _gen_crossp(an, at):
     @subpackage(f"libatomic-chimera-cross-{an}", cond)
     def _(self):
         self.subdesc = f"{an} support"
-        self.depends = [f"clang-rt-crt-cross-{an}"]
         self.options = [
             "!scanshlibs",
             "!scanrundeps",

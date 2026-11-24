@@ -1,13 +1,14 @@
 pkgname = "musl-cross"
 pkgver = "1.2.6"
-pkgrel = 3
+pkgrel = 4
 _commit = "9fa28ece75d8a2191de7c5bb53bed224c5947417"
 _mimalloc_ver = "2.2.7"
+_llvmver = 23
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
-makedepends = ["clang-rt-crt-cross"]
-depends = ["clang-rt-crt-cross"]
+makedepends = [f"llvm{_llvmver}-clang-rt-crt-cross"]
+depends = []
 pkgdesc = "Musl C library for cross-compiling"
 license = "MIT"
 url = "http://www.musl-libc.org"
@@ -88,7 +89,8 @@ def build(self):
             eargs = []
             if pf.wordsize != 32:
                 eargs += [
-                    f"EXTRA_OBJ=$(srcdir)/src/malloc/external-{pf.arch}/mimalloc.o"
+                    f"MALLOC_DIR=external-{pf.arch}",
+                    f"EXTRA_OBJ=$(srcdir)/src/malloc/external-{pf.arch}/mimalloc.o",
                 ]
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -123,7 +125,6 @@ def _gen_crossp(an, at):
     @subpackage(f"musl-cross-{an}", cond)
     def _(self):
         self.subdesc = f"{an} support"
-        self.depends = [f"clang-rt-crt-cross-{an}"]
         self.options = [
             "!scanshlibs",
             "!scanrundeps",

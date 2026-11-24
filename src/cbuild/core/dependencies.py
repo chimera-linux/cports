@@ -324,8 +324,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     # ensure cross-toolchain is included in hostdeps
     if cross:
-        sver, sfull = _srcpkg_ver(f"base-cross-{pprof.arch}", pkg)
-        ihdeps.append((sver, f"base-cross-{pprof.arch}", sfull))
+        sver, sfull = _srcpkg_ver(f"llvm-clang-cross-{pprof.arch}", pkg)
+        ihdeps.append((sver, f"llvm-clang-cross-{pprof.arch}", sfull))
 
     chost = chroot.host_cpu()
 

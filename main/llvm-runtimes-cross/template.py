@@ -1,15 +1,19 @@
+# there is only one of this; c++ stdlib headers come from the main toolchain
+# and are shared for all, while the linked libs are abi-stable and have to
+# be latest at all times (like main toolchain)
 pkgname = "llvm-runtimes-cross"
-pkgver = "22.1.8"
+pkgver = "23.1.6"
+_llvm_majver = pkgver[0:2]
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DCMAKE_C_COMPILER=/usr/bin/clang",
-    "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
-    "-DCMAKE_AR=/usr/bin/llvm-ar",
-    "-DCMAKE_NM=/usr/bin/llvm-nm",
-    "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
-    "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
+    f"-DCMAKE_C_COMPILER=/usr/bin/clang-{_llvm_majver}",
+    f"-DCMAKE_CXX_COMPILER=/usr/bin/clang++-{_llvm_majver}",
+    f"-DCMAKE_AR=/usr/bin/llvm-ar-{_llvm_majver}",
+    f"-DCMAKE_NM=/usr/bin/llvm-nm-{_llvm_majver}",
+    f"-DCMAKE_RANLIB=/usr/bin/llvm-ranlib-{_llvm_majver}",
+    f"-DLLVM_CONFIG_PATH=/usr/bin/llvm-config-{_llvm_majver}",
     "-DCMAKE_C_COMPILER_WORKS=ON",
     "-DCMAKE_CXX_COMPILER_WORKS=ON",
     "-DCMAKE_ASM_COMPILER_WORKS=ON",
@@ -28,10 +32,10 @@ configure_args = [
 cmake_dir = "runtimes"
 hostmakedepends = ["cmake", "ninja", "python"]
 makedepends = [
-    "clang-devel",
-    "clang-rt-crt-cross",
     "libatomic-chimera-cross",
     "linux-headers-cross",
+    f"llvm{_llvm_majver}-clang-rt-crt-cross",
+    "llvm-clang-devel",
     "llvm-devel",
     "musl-cross",
 ]
@@ -48,7 +52,7 @@ pkgdesc = "Cross-toolchain LLVM runtimes"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
+sha256 = "d3b86ab29cfb4445a6652e5c2642ccc75e04e38084dde3701d323320f35a31da"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
 
@@ -119,6 +123,8 @@ def install(self):
                 f"build-{an}",
                 env={"DESTDIR": str(self.chroot_destdir / "usr" / pf.triplet)},
             )
+    # this is not used ever, for native targets the stdlib headers are general
+    self.uninstall("usr/*/usr/include/c++", glob=True)
     self.install_license("LICENSE.TXT")
 
 
