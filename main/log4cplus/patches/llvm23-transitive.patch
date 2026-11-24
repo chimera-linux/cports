@@ -1,0 +1,12 @@
+diff --git a/catch/single_include/catch2/catch.hpp b/catch/single_include/catch2/catch.hpp
+index d2a1242..f309a4d 100644
+--- a/catch/single_include/catch2/catch.hpp
++++ b/catch/single_include/catch2/catch.hpp
+@@ -476,6 +476,7 @@ namespace Catch {
+ #include <iosfwd>
+ #include <string>
+ #include <cstdint>
++#include <new>
+ 
+ // We need a dummy global operator<< so we can bring it into Catch namespace later
+ struct Catch_global_namespace_dummy {};

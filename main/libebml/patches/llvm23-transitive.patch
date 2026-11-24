@@ -1,0 +1,12 @@
+diff --git a/src/EbmlMaster.cpp b/src/EbmlMaster.cpp
+index 071eb5d..b759763 100644
+--- a/src/EbmlMaster.cpp
++++ b/src/EbmlMaster.cpp
+@@ -36,6 +36,7 @@
+ 
+ #include <cassert>
+ #include <algorithm>
++#include <iterator>
+ 
+ #include "ebml/EbmlMaster.h"
+ #include "ebml/EbmlStream.h"

@@ -1,0 +1,12 @@
+diff --git a/opensubdiv/bfr/tessellation.cpp b/opensubdiv/bfr/tessellation.cpp
+index 94a9783..0f1d446 100644
+--- a/opensubdiv/bfr/tessellation.cpp
++++ b/opensubdiv/bfr/tessellation.cpp
+@@ -7,6 +7,7 @@
+ 
+ #include "../bfr/tessellation.h"
+ 
++#include <cmath>
+ #include <cstring>
+ #include <cstdio>
+ #include <cassert>

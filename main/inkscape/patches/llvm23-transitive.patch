@@ -1,0 +1,24 @@
+diff --git a/src/io/stream/gzipstream.cpp b/src/io/stream/gzipstream.cpp
+index d1aa760..952bebc 100644
+--- a/src/io/stream/gzipstream.cpp
++++ b/src/io/stream/gzipstream.cpp
+@@ -21,6 +21,7 @@
+ #include <cstdlib>
+ #include <cstring>
+ #include <string>
++#include <new>
+ 
+ namespace Inkscape
+ {
+diff --git a/src/util/longest-common-suffix.h b/src/util/longest-common-suffix.h
+index 1f7b228..7b7ac1c 100644
+--- a/src/util/longest-common-suffix.h
++++ b/src/util/longest-common-suffix.h
+@@ -15,6 +15,7 @@
+ 
+ #include <iterator>
+ #include <functional>
++#include <vector>
+ 
+ namespace Inkscape {
+ 

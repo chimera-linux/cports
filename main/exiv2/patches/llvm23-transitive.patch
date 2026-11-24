@@ -1,0 +1,12 @@
+diff --git a/include/exiv2/value.hpp b/include/exiv2/value.hpp
+index b7abc27..f4bbe73 100644
+--- a/include/exiv2/value.hpp
++++ b/include/exiv2/value.hpp
+@@ -12,6 +12,7 @@
+ // + standard includes
+ #include <cmath>
+ #include <cstring>
++#include <ctime>
+ #include <iomanip>
+ #include <map>
+ #include <memory>

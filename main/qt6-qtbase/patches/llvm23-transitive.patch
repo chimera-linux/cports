@@ -1,0 +1,12 @@
+diff --git a/tests/auto/corelib/tools/qlist/tst_qlist.cpp b/tests/auto/corelib/tools/qlist/tst_qlist.cpp
+index a93079b..e6a0bb2 100644
+--- a/tests/auto/corelib/tools/qlist/tst_qlist.cpp
++++ b/tests/auto/corelib/tools/qlist/tst_qlist.cpp
+@@ -15,6 +15,7 @@
+ #include <QSemaphore>
+ #include <QtTest/private/qcomparisontesthelper_p.h>
+ 
++#include <istream>
+ #include <cstdio>
+ #include <QtCore/q20memory.h>
+ 

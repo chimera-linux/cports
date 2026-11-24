@@ -1,0 +1,31 @@
+diff --git a/libs/flake/KoShapeBulkActionLock.h b/libs/flake/KoShapeBulkActionLock.h
+index 92fa188..978d44d 100644
+--- a/libs/flake/KoShapeBulkActionLock.h
++++ b/libs/flake/KoShapeBulkActionLock.h
+@@ -12,6 +12,7 @@
+ #include <KisAdaptedLock.h>
+ #include <QList>
+ #include <QRect>
++#include <vector>
+ 
+ class KoShape;
+ struct KoShapeBulkActionInterface;
+diff --git a/plugins/paintops/libpaintop/KisSensorPackInterface.h b/plugins/paintops/libpaintop/KisSensorPackInterface.h
+index b279854..6bac379 100644
+--- a/plugins/paintops/libpaintop/KisSensorPackInterface.h
++++ b/plugins/paintops/libpaintop/KisSensorPackInterface.h
+@@ -9,6 +9,7 @@
+ 
+ #include "kritapaintop_export.h"
+ #include <QSharedData>
++#include <vector>
+ 
+ struct KisSensorData;
+ struct KisCurveOptionDataCommon;
+@@ -36,4 +37,4 @@ inline KisSensorPackInterface* QSharedDataPointer<KisSensorPackInterface>::clone
+     return d->clone();
+ }
+ 
+-#endif // KISSENSORPACKINTERFACE_H
+\ No newline at end of file
++#endif // KISSENSORPACKINTERFACE_H

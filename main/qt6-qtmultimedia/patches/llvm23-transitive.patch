@@ -1,0 +1,12 @@
+diff --git a/src/plugins/multimedia/gstreamer/common/qgst_p.h b/src/plugins/multimedia/gstreamer/common/qgst_p.h
+index 4d2d133..3548332 100644
+--- a/src/plugins/multimedia/gstreamer/common/qgst_p.h
++++ b/src/plugins/multimedia/gstreamer/common/qgst_p.h
+@@ -40,6 +40,7 @@
+ 
+ #include "qgst_handle_types_p.h"
+ 
++#include <mutex>
+ #include <type_traits>
+ #ifdef __cpp_lib_three_way_comparison
+ #  include <compare>

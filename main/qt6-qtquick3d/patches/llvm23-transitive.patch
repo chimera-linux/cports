@@ -1,0 +1,12 @@
+diff --git a/src/3rdparty/xatlas/xatlas.cpp b/src/3rdparty/xatlas/xatlas.cpp
+index 5513bbb..ef4b2f9 100644
+--- a/src/3rdparty/xatlas/xatlas.cpp
++++ b/src/3rdparty/xatlas/xatlas.cpp
+@@ -52,6 +52,7 @@ Copyright (c) 2012 Brandon Pelfrey
+ #include <stdint.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <stdlib.h>
+ 
+ #ifndef XA_DEBUG
+ #ifdef NDEBUG

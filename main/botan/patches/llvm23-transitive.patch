@@ -1,0 +1,48 @@
+diff --git a/src/lib/base/secmem.h b/src/lib/base/secmem.h
+index 8af798c..4eb57b4 100644
+--- a/src/lib/base/secmem.h
++++ b/src/lib/base/secmem.h
+@@ -10,6 +10,7 @@
+ 
+ #include <botan/allocator.h>
+ #include <botan/types.h>  // IWYU pragma: export
++#include <algorithm>
+ #include <span>
+ #include <type_traits>
+ #include <vector>  // IWYU pragma: export
+diff --git a/src/lib/utils/buffer_stuffer.h b/src/lib/utils/buffer_stuffer.h
+index d73fce7..160f0c9 100644
+--- a/src/lib/utils/buffer_stuffer.h
++++ b/src/lib/utils/buffer_stuffer.h
+@@ -10,6 +10,7 @@
+ #include <botan/assert.h>
+ #include <botan/strong_type.h>
+ #include <botan/types.h>
++#include <algorithm>
+ #include <span>
+ 
+ namespace Botan {
+diff --git a/src/lib/utils/mem_pool/mem_pool.cpp b/src/lib/utils/mem_pool/mem_pool.cpp
+index f6f8f09..74ff166 100644
+--- a/src/lib/utils/mem_pool/mem_pool.cpp
++++ b/src/lib/utils/mem_pool/mem_pool.cpp
+@@ -9,6 +9,7 @@
+ #include <botan/mem_ops.h>
+ #include <botan/internal/target_info.h>
+ #include <algorithm>
++#include <exception>
+ #include <optional>
+ 
+ #if defined(BOTAN_HAS_VALGRIND) || defined(BOTAN_ENABLE_DEBUG_ASSERTS)
+diff --git a/src/tests/tests.h b/src/tests/tests.h
+index 57f33fb..70623e8 100644
+--- a/src/tests/tests.h
++++ b/src/tests/tests.h
+@@ -15,6 +15,7 @@ Each include is parsed for every test file which can get quite expensive
+ */
+ 
+ #include <botan/types.h>
++#include <exception>
+ #include <functional>
+ #include <memory>
+ #include <optional>

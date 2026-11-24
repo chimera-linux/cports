@@ -1,0 +1,24 @@
+diff --git a/src/ccache/storage/storage.cpp b/src/ccache/storage/storage.cpp
+index 61942e4..a9cb5cc 100644
+--- a/src/ccache/storage/storage.cpp
++++ b/src/ccache/storage/storage.cpp
+@@ -49,6 +49,7 @@
+ #include <cxxurl/url.hpp>
+ 
+ #include <cmath>
++#include <algorithm>
+ #include <memory>
+ #include <string>
+ #include <unordered_map>
+diff --git a/src/ccache/util/path.hpp b/src/ccache/util/path.hpp
+index 3373aab..5ffb848 100644
+--- a/src/ccache/util/path.hpp
++++ b/src/ccache/util/path.hpp
+@@ -24,6 +24,7 @@
+ #endif
+ 
+ #include <filesystem>
++#include <algorithm>
+ #include <string>
+ #include <string_view>
+ #include <vector>

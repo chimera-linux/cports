@@ -1,0 +1,108 @@
+diff --git a/include/compiler.h b/include/compiler.h
+index 169247a..2a2248e 100644
+--- a/include/compiler.h
++++ b/include/compiler.h
+@@ -2,7 +2,7 @@
+ 	#define fallthrough ((void)0)
+ #else
+ 	#include <ciso646>
+-	#ifdef _LIBCPP_VERSION
++	#if 0
+ 		#define fallthrough _LIBCPP_FALLTHROUGH()
+ 	#else
+ 		#ifdef __clang__
+diff --git a/utils/cec-compliance/cec-compliance.h b/utils/cec-compliance/cec-compliance.h
+index 8cb316f..93606b2 100644
+--- a/utils/cec-compliance/cec-compliance.h
++++ b/utils/cec-compliance/cec-compliance.h
+@@ -13,6 +13,7 @@
+ 
+ #include <cec-info.h>
+ 
++#include <cstdlib>
+ #include <vector>
+ 
+ #define TAG_AUDIO_RATE_CONTROL		1
+diff --git a/utils/cec-ctl/cec-ctl.cpp b/utils/cec-ctl/cec-ctl.cpp
+index 3e81030..b86c8c0 100644
+--- a/utils/cec-ctl/cec-ctl.cpp
++++ b/utils/cec-ctl/cec-ctl.cpp
+@@ -7,6 +7,7 @@
+ #include <cctype>
+ #include <cerrno>
+ #include <cstring>
++#include <cstdlib>
+ #include <ctime>
+ #include <map>
+ #include <string>
+diff --git a/utils/edid-decode/edid-decode.h b/utils/edid-decode/edid-decode.h
+index dcd08d4..28cef8b 100644
+--- a/utils/edid-decode/edid-decode.h
++++ b/utils/edid-decode/edid-decode.h
+@@ -10,6 +10,7 @@
+ #ifndef __EDID_DECODE_H_
+ #define __EDID_DECODE_H_
+ 
++#include <cstdlib>
+ #include <string>
+ #include <vector>
+ #include <set>
+diff --git a/utils/rds-ctl/rds-ctl.cpp b/utils/rds-ctl/rds-ctl.cpp
+index 813b4f2..8ade5fe 100644
+--- a/utils/rds-ctl/rds-ctl.cpp
++++ b/utils/rds-ctl/rds-ctl.cpp
+@@ -13,6 +13,7 @@
+ #include <cmath>
+ #include <csignal>
+ #include <cstring>
++#include <cstdlib>
+ #include <ctime>
+ #include <map>
+ #include <string>
+diff --git a/utils/v4l2-compliance/v4l2-compliance.h b/utils/v4l2-compliance/v4l2-compliance.h
+index 0941f50..9c47f33 100644
+--- a/utils/v4l2-compliance/v4l2-compliance.h
++++ b/utils/v4l2-compliance/v4l2-compliance.h
+@@ -24,6 +24,7 @@
+ #include <map>
+ #include <set>
+ #include <string>
++#include <cstdlib>
+ #include <cstdint>
+ 
+ #include <linux/videodev2.h>
+diff --git a/utils/v4l2-ctl/v4l2-ctl-common.cpp b/utils/v4l2-ctl/v4l2-ctl-common.cpp
+index 5b953cb..48b4aa8 100644
+--- a/utils/v4l2-ctl/v4l2-ctl-common.cpp
++++ b/utils/v4l2-ctl/v4l2-ctl-common.cpp
+@@ -1,5 +1,6 @@
+ #include <algorithm>
+ #include <cctype>
++#include <cstdlib>
+ #include <cstring>
+ #include <list>
+ #include <map>
+diff --git a/utils/v4l2-ctl/v4l2-ctl.h b/utils/v4l2-ctl/v4l2-ctl.h
+index b0d4211..c3a663b 100644
+--- a/utils/v4l2-ctl/v4l2-ctl.h
++++ b/utils/v4l2-ctl/v4l2-ctl.h
+@@ -1,6 +1,7 @@
+ #ifndef _V4L2_CTL_H
+ #define _V4L2_CTL_H
+ 
++#include <cstdlib>
+ #include <cstdint>
+ #include <linux/videodev2.h>
+ #include <linux/v4l2-subdev.h>
+diff --git a/utils/v4l2-dbg/v4l2-dbg.cpp b/utils/v4l2-dbg/v4l2-dbg.cpp
+index bd08b4c..083c309 100644
+--- a/utils/v4l2-dbg/v4l2-dbg.cpp
++++ b/utils/v4l2-dbg/v4l2-dbg.cpp
+@@ -18,6 +18,7 @@
+ 
+ #include <cctype>
+ #include <cerrno>
++#include <cstdlib>
+ #include <cstring>
+ #include <string>
+ #include <vector>

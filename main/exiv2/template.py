@@ -1,6 +1,6 @@
 pkgname = "exiv2"
 pkgver = "0.28.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DEXIV2_BUILD_SAMPLES=OFF",

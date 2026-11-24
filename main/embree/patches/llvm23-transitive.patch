@@ -1,0 +1,12 @@
+diff --git a/common/sys/vector.h b/common/sys/vector.h
+index 2d30d67..a8138de 100644
+--- a/common/sys/vector.h
++++ b/common/sys/vector.h
+@@ -5,6 +5,7 @@
+ 
+ #include "alloc.h"
+ #include <algorithm>
++#include <type_traits>
+ 
+ namespace embree
+ {

@@ -1,0 +1,55 @@
+diff --git a/frontend/OBSApp.cpp b/frontend/OBSApp.cpp
+index fb5f8dd..ad2908e 100644
+--- a/frontend/OBSApp.cpp
++++ b/frontend/OBSApp.cpp
+@@ -49,9 +49,9 @@
+ #endif
+ 
+ #include <chrono>
++#include <sstream>
+ 
+ #ifdef _WIN32
+-#include <sstream>
+ #define WIN32_LEAN_AND_MEAN
+ #include <windows.h>
+ #else
+diff --git a/frontend/utility/BasicOutputHandler.hpp b/frontend/utility/BasicOutputHandler.hpp
+index 4d1a866..c78c3ea 100644
+--- a/frontend/utility/BasicOutputHandler.hpp
++++ b/frontend/utility/BasicOutputHandler.hpp
+@@ -5,6 +5,7 @@
+ #include <obs.hpp>
+ #include <util/dstr.hpp>
+ 
++#include <functional>
+ #include <future>
+ 
+ #define RTMP_PROTOCOL "rtmp"
+diff --git a/frontend/widgets/OBSBasic.cpp b/frontend/widgets/OBSBasic.cpp
+index b0698b2..0cf872f 100644
+--- a/frontend/widgets/OBSBasic.cpp
++++ b/frontend/widgets/OBSBasic.cpp
+@@ -59,9 +59,7 @@
+ #include <QThread>
+ #include <QWidgetAction>
+ 
+-#ifdef _WIN32
+ #include <sstream>
+-#endif
+ #include <string>
+ #include <unordered_set>
+ 
+diff --git a/frontend/widgets/OBSBasic_MainControls.cpp b/frontend/widgets/OBSBasic_MainControls.cpp
+index a4db6d5..8fcbed5 100644
+--- a/frontend/widgets/OBSBasic_MainControls.cpp
++++ b/frontend/widgets/OBSBasic_MainControls.cpp
+@@ -49,9 +49,7 @@
+ 
+ #include <QDesktopServices>
+ 
+-#ifdef _WIN32
+ #include <sstream>
+-#endif
+ 
+ extern bool restart;
+ extern bool restart_safe;
