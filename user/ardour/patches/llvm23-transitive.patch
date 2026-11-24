@@ -1,0 +1,72 @@
+diff --git a/libs/audiographer/audiographer/debug_utils.h b/libs/audiographer/audiographer/debug_utils.h
+index 410567d..2ba2a81 100644
+--- a/libs/audiographer/audiographer/debug_utils.h
++++ b/libs/audiographer/audiographer/debug_utils.h
+@@ -9,6 +9,7 @@
+ #ifdef __GNUC__
+ #include <cxxabi.h>
+ #include <cstdlib>
++#include <typeinfo>
+ #endif
+ 
+ #include "audiographer/visibility.h"
+diff --git a/libs/ctrl-interface/midi_surface/midi_byte_array.cc b/libs/ctrl-interface/midi_surface/midi_byte_array.cc
+index 1aba19d..f14b093 100644
+--- a/libs/ctrl-interface/midi_surface/midi_byte_array.cc
++++ b/libs/ctrl-interface/midi_surface/midi_byte_array.cc
+@@ -22,6 +22,7 @@
+ #include <string>
+ #include <sstream>
+ #include <vector>
++#include <iterator>
+ #include <algorithm>
+ #include <cstdarg>
+ #include <iomanip>
+diff --git a/libs/surfaces/launch_control_xl/midi_byte_array.cc b/libs/surfaces/launch_control_xl/midi_byte_array.cc
+index 64519d4..28f7898 100644
+--- a/libs/surfaces/launch_control_xl/midi_byte_array.cc
++++ b/libs/surfaces/launch_control_xl/midi_byte_array.cc
+@@ -21,6 +21,7 @@
+ #include <iostream>
+ #include <string>
+ #include <sstream>
++#include <iterator>
+ #include <vector>
+ #include <algorithm>
+ #include <cstdarg>
+diff --git a/libs/surfaces/mackie/midi_byte_array.cc b/libs/surfaces/mackie/midi_byte_array.cc
+index 3774cf2..3b84249 100644
+--- a/libs/surfaces/mackie/midi_byte_array.cc
++++ b/libs/surfaces/mackie/midi_byte_array.cc
+@@ -22,6 +22,7 @@
+ #include <iostream>
+ #include <string>
+ #include <sstream>
++#include <iterator>
+ #include <vector>
+ #include <algorithm>
+ #include <cstdarg>
+diff --git a/libs/surfaces/push2/midi_byte_array.cc b/libs/surfaces/push2/midi_byte_array.cc
+index 33440b1..3fda795 100644
+--- a/libs/surfaces/push2/midi_byte_array.cc
++++ b/libs/surfaces/push2/midi_byte_array.cc
+@@ -21,6 +21,7 @@
+ #include <iostream>
+ #include <string>
+ #include <sstream>
++#include <iterator>
+ #include <vector>
+ #include <algorithm>
+ #include <cstdarg>
+diff --git a/libs/surfaces/us2400/midi_byte_array.cc b/libs/surfaces/us2400/midi_byte_array.cc
+index 6c0175b..4af543c 100644
+--- a/libs/surfaces/us2400/midi_byte_array.cc
++++ b/libs/surfaces/us2400/midi_byte_array.cc
+@@ -21,6 +21,7 @@
+ #include <iostream>
+ #include <string>
+ #include <sstream>
++#include <iterator>
+ #include <vector>
+ #include <algorithm>
+ #include <cstdarg>

@@ -1,6 +1,6 @@
 pkgname = "ardour"
-pkgver = "9.2.0"
-pkgrel = 2
+pkgver = "9.10.0"
+pkgrel = 0
 build_style = "waf"
 configure_args = [
     "--configdir=/etc",
@@ -29,6 +29,7 @@ makedepends = [
     "hidapi-devel",
     "libarchive-devel",
     "libedit-readline-devel",
+    "libjpeg-turbo-devel",
     "liblo-devel",
     "libpng-devel",
     "libpulse-devel",
@@ -53,7 +54,7 @@ pkgdesc = "Digital audio workstation"
 license = "GPL-2.0-or-later AND CC0-1.0 AND MIT"
 url = "https://ardour.org"
 source = f"https://community.ardour.org/src/Ardour-{pkgver}.tar.bz2"
-sha256 = "cbff58fda4a2c673ebb39b80cffa994c2520a352f7505d919d5783aa0df6d314"
+sha256 = "8d534a957c724aa8eca5802b225ca4ca19b63243573cb6891287b64e33b34c76"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["!int"]
 # bundled stuff
