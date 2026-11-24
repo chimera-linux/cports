@@ -2,7 +2,7 @@ from cbuild.core import paths
 
 
 def invoke(pkg):
-    if pkg.stage < 0:
+    if pkg.stage <= 0:
         return
     # determine python version
     pypath = paths.bldroot() / "usr/bin/python"

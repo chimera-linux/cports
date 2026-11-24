@@ -85,6 +85,10 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             f"-DCMAKE_RANLIB=/usr/bin/{pkg.get_tool('RANLIB')}",
         ]
 
+    # llvm usage
+    if pkg.options["llvmflags"] and pkg.llvm_version > 0:
+        cargs += [f"-DCMAKE_PREFIX_PATH=/usr/lib/llvm{pkg.llvm_version}"]
+
     # TODO: try put these args in a toolchain file like above even for native, if it
     # silences all the warnings about unused args and actually works
     pkg.do(

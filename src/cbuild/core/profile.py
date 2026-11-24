@@ -219,6 +219,10 @@ def _get_gencflags(self, tmpl, name, extra_flags, debug, hardening, shell):
     else:
         bflags = []
 
+    # llvm linkage
+    if tmpl.options["llvmflags"] and getattr(tmpl, "llvm_version", -1) > 0:
+        bflags += ["-isystem", f"/usr/lib/llvm{tmpl.llvm_version}/include"]
+
     ret = hflags + self._flags[name] + bflags + (extra_flags or [])
 
     if debug >= 0:
@@ -238,6 +242,10 @@ def _get_ldflags(self, tmpl, name, extra_flags, debug, hardening, shell):
         ]
     else:
         bflags = []
+
+    # llvm linkage
+    if tmpl.options["llvmflags"] and getattr(tmpl, "llvm_version", -1) > 0:
+        bflags.append(f"-L/usr/lib/llvm{tmpl.llvm_version}/lib")
 
     ret = hflags + self._flags["LDFLAGS"] + bflags + (extra_flags or [])
 

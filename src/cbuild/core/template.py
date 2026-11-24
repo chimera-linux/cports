@@ -390,6 +390,7 @@ default_options = {
     "linkrelax": (True, False),
     "framepointer": (True, True),
     "fullrustflags": (False, True),
+    "llvmflags": (False, True),
     "sanruntime": (False, True),
 }
 

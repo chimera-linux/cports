@@ -1853,6 +1853,8 @@ the template including for subpackages:
   on to make profiling of resultant binaries easier.
 * `fullrustflags` *(false)* If enabled, RUSTFLAGS will also contain
   the same optimisation flags that are normally set for cargo only.
+* `llvmflags` *(false)* If enabled, compiler and linker flags will
+  be automatically set up for linking against the available LLVM toolchain.
 * `sanruntime` *(false)* If enabled, the full sanitizer runtime will
   be linked in and the code will be compiled without trapping. This allows
   for better diagnostics for debugging hardening issues, but should not
@@ -2904,6 +2906,12 @@ packages will be stored, i.e. for the main package as well as subpackages.
 ##### self.chroot_destdir_base
 
 Like `destdir_base`, but when viewed from inside the sandbox.
+
+##### self.llvm_version
+
+These variables are available from `configure` stage onwards assuming there
+is a working LLVM toolchain. It's a number specifying the LLVM major version
+(or -1 if not present).
 
 ##### self.python_version, self.python_major, self.python_minor
 

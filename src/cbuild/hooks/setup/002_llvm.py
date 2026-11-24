@@ -1,0 +1,16 @@
+from cbuild.core import paths
+
+
+def invoke(pkg):
+    if pkg.stage <= 0:
+        return
+    # determine highest llvm version
+    pkg.llvm_version = -1
+    for f in (paths.bldroot() / "usr/lib").glob("llvm*"):
+        lver = f.name.removeprefix("llvm")
+        # skip non-viable false positives
+        if not (f / f"lib/libLLVM.so.{lver}.1").is_file():
+            continue
+        lver = int(lver)
+        if lver > pkg.llvm_version:
+            pkg.llvm_version = lver
