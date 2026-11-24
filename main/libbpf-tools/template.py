@@ -1,5 +1,5 @@
 pkgname = "libbpf-tools"
-pkgver = "0.36.1"
+pkgver = "0.37.0"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "libbpf-tools"
@@ -26,7 +26,7 @@ pkgdesc = "Standalone eBPF programs from BCC"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/iovisor/bcc/tree/master/libbpf-tools"
 source = f"https://github.com/iovisor/bcc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3b16f1eb6a5b90a5a68686c0f4195455f1c58da5ae40f004e931c19e98fa8d98"
+sha256 = "c89f63bafc688abb4749e901006321e329ab90941433d85f442f9c03bb3c7824"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
@@ -35,4 +35,4 @@ tool_flags = {
 }
 # check: no tests
 # distlicense: no actual bsd license in the folders, just headers
-options = ["!check", "!distlicense"]
+options = ["!check", "!distlicense", "llvmflags"]
