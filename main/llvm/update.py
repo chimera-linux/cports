@@ -1,1 +1,1 @@
-pkgname = "llvmorg"
+ignore = True
