@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.45.1"
-_llvmver = "22.1.8"
-pkgrel = 1
+_llvmver = "23.1.6"
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -53,7 +53,7 @@ source = [
 ]
 sha256 = [
     "5fe101e6fe9d18fdec95962d81ed670fdee5f37e3f48f0bef87bddf862513aa5",
-    "210d46064ba6982a58e9b0f94e05f2d86f1b7c33a190c2a717f7c35a3b19b2fc",
+    "5fd591f23c64b65cbd03ad6d1c78ae804a98dee4ec12d78bc031fc6c7275956c",
 ]
 # resistance is futile
 options = ["!check", "!lto", "linkundefver", "empty"]
@@ -132,6 +132,8 @@ def build(self):
         ["gold-plugin.cpp"],
         "LLVMgold.so",
         flags=[
+            f"-I/usr/lib/llvm{_llvmver[0:2]}/include",
+            f"-L/usr/lib/llvm{_llvmver[0:2]}/lib",
             "-Iinclude",
             "-shared",
             "-fvisibility=hidden",
