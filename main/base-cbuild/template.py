@@ -1,26 +1,22 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 14
+pkgrel = 15
+_llvmver = 23
 build_style = "meta"
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
     "apk-tools",
     "chimerautils-extra",
-    "clang",
     "fakeroot-core",
     "gmake",
     "libarchive-progs",
-    "lld",
-    "llvm",
+    "llvm-clang",
+    "llvm-runtimes",
     "musl-devel",
     "ncurses",
     self.with_pkgver("base-cbuild-progs"),
 ]
-# bootstrap-llvm is temporary until next llvm release, don't feel like rebuild
-provides = [
-    "bootstrap:cbuild=9999-r0",
-    "bootstrap:llvm=9999-r0",
-]
+provides = ["bootstrap:cbuild=9999-r0"]
 replaces = ["apk-tools"]
 replaces_priority = 100
 pkgdesc = "Core package set for cbuild containers"
@@ -57,8 +53,14 @@ def install(self):
     self.install_bin("cbuild-lld-wrapper")
 
     # replace regular ld and ld.lld symlinks
-    # self.install_link("usr/bin/ld.lld", "cbuild-lld-wrapper")
-    # self.install_link("usr/bin/ld64.lld", "cbuild-lld-wrapper")
+    self.install_dir(f"usr/lib/llvm{_llvmver}/bin")
+    self.install_link(
+        f"usr/lib/llvm{_llvmver}/bin/ld.lld", "../../../bin/cbuild-lld-wrapper"
+    )
+    self.install_link(
+        f"usr/lib/llvm{_llvmver}/bin/ld64.lld",
+        "../../../bin/cbuild-lld-wrapper",
+    )
 
     # different default apk config
     self.install_file(self.files_path / "config", "usr/lib/apk")
@@ -67,8 +69,8 @@ def install(self):
 @subpackage("base-cbuild-progs")
 def _(self):
     # make sure to use our wrapper symlinks
-    # self.replaces = ["lld"]
-    # self.replaces_priority = 100
+    self.replaces = [f"llvm{_llvmver}-lld"]
+    self.replaces_priority = 100
     self.options = ["!scancmd"]
 
-    return self.default_progs()
+    return ["usr/bin", f"usr/lib/llvm{_llvmver}"]
