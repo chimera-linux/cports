@@ -30,9 +30,7 @@ checkdepends = ["python-pytest", *_deps]
 pkgdesc = "GUI for managing virtual machines"
 license = "GPL-2.0-or-later"
 url = "https://virt-manager.org"
-source = (
-    f"https://releases.pagure.org/virt-manager/virt-manager-{pkgver}.tar.xz"
-)
+source = f"https://github.com/virt-manager/virt-manager/releases/download/v{pkgver}/virt-manager-{pkgver}.tar.xz"
 sha256 = "ccfc44b6c1c0be8398beb687c675d9ea4ca1c721dfb67bd639209a7b0dec11b1"
 
 
