@@ -3,7 +3,6 @@ pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "clang",
     "meson",
     "pkgconf",
 ]
