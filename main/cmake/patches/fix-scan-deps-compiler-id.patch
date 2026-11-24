@@ -1,0 +1,96 @@
+clang-scan-deps needs to be passed the full path to the compiler binary, as it
+needs that to determine not just the resource dir but also the path to the c++
+standard library headers, else we will get issues like:
+
+In file included from /builddir/openal-soft-1.25.2/wrksrc/alc/context.cppm:3:
+/builddir/openal-soft-1.25.2/wrksrc/alc/context.hpp:6:10: fatal error: 'atomic' file not found
+
+it does not actually call that compiler but uses it to get the path; for llvm
+toolchains in a prefix, passing just "clang++" for instance (which is a symlink
+to /usr/lib/llvmXX/bin/clang++) will result in it searching /usr/include/c++/v1
+for stdlib, which is wrong here (as that does not exist and the path is actually
+/usr/lib/llvmXX/include/c++/v1)
+
+in a manner similar to the resource dir, call to the compiler to get its full
+binary path to use during this resolution
+
+diff --git a/Modules/CMakeCXXCompiler.cmake.in b/Modules/CMakeCXXCompiler.cmake.in
+index 52495f46..b11bbc31 100644
+--- a/Modules/CMakeCXXCompiler.cmake.in
++++ b/Modules/CMakeCXXCompiler.cmake.in
+@@ -97,6 +97,7 @@
+ set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "@CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES@")
+ set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "@CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES@")
+ set(CMAKE_CXX_COMPILER_CLANG_RESOURCE_DIR "@CMAKE_CXX_COMPILER_CLANG_RESOURCE_DIR@")
++set(CMAKE_CXX_COMPILER_CLANG_BINARY_PATH "@CMAKE_CXX_COMPILER_CLANG_BINARY_PATH@")
+ set(CMAKE_CXX_STANDARD_LIBRARY_INCLUDE_DIRECTORY "@CMAKE_CXX_STANDARD_LIBRARY_INCLUDE_DIRECTORY@")
+ 
+ set(CMAKE_CXX_COMPILER_IMPORT_STD_ERROR_MESSAGE  "@CMAKE_CXX_COMPILER_IMPORT_STD_ERROR_MESSAGE@")
+diff --git a/Modules/CMakeDetermineCompilerId.cmake b/Modules/CMakeDetermineCompilerId.cmake
+index f6fe7f5f..6757f6cc 100644
+--- a/Modules/CMakeDetermineCompilerId.cmake
++++ b/Modules/CMakeDetermineCompilerId.cmake
+@@ -392,6 +392,29 @@ function(CMAKE_DETERMINE_COMPILER_ID lang flagvar src)
+     endif ()
+   endif ()
+ 
++  # `clang-scan-deps` needs to know the compiler binary. This only matters
++  # for C++ and the GNU-frontend variant.
++  set(CMAKE_${lang}_COMPILER_CLANG_BINARY_PATH "")
++  if ("x${lang}" STREQUAL "xCXX" AND
++      "x${CMAKE_${lang}_COMPILER_ID}" STREQUAL "xClang" AND
++      "x${CMAKE_${lang}_COMPILER_FRONTEND_VARIANT}" STREQUAL "xGNU")
++    execute_process(
++      COMMAND "${CMAKE_${lang}_COMPILER}"
++        ${CMAKE_${lang}_COMPILER_ID_ARG1}
++        --print-prog-name=clang++
++      OUTPUT_VARIABLE _clang_compiler_bin_out
++      ERROR_VARIABLE _clang_compiler_bin_err
++      RESULT_VARIABLE _clang_compiler_bin_res
++      OUTPUT_STRIP_TRAILING_WHITESPACE
++      ERROR_STRIP_TRAILING_WHITESPACE)
++    if (_clang_compiler_bin_res EQUAL 0)
++      file(TO_CMAKE_PATH "${_clang_compiler_bin_out}" _clang_compiler_bin_out)
++      if(IS_EXECUTABLE "${_clang_compiler_bin_out}")
++        set(CMAKE_${lang}_COMPILER_CLANG_BINARY_PATH "${_clang_compiler_bin_out}")
++      endif()
++    endif ()
++  endif ()
++
+   set(CMAKE_${lang}_STANDARD_LIBRARY "")
+   set(CMAKE_${lang}_STANDARD_LIBRARY_INCLUDE_DIRECTORY "")
+   if ("x${lang}" STREQUAL "xCXX" AND
+@@ -489,6 +512,7 @@ function(CMAKE_DETERMINE_COMPILER_ID lang flagvar src)
+   set(CMAKE_${lang}_COMPILER_PRODUCED_OUTPUT "${COMPILER_${lang}_PRODUCED_OUTPUT}" PARENT_SCOPE)
+   set(CMAKE_${lang}_COMPILER_PRODUCED_FILES "${COMPILER_${lang}_PRODUCED_FILES}" PARENT_SCOPE)
+   set(CMAKE_${lang}_COMPILER_CLANG_RESOURCE_DIR "${CMAKE_${lang}_COMPILER_CLANG_RESOURCE_DIR}" PARENT_SCOPE)
++  set(CMAKE_${lang}_COMPILER_CLANG_BINARY_PATH "${CMAKE_${lang}_COMPILER_CLANG_BINARY_PATH}" PARENT_SCOPE)
+   set(CMAKE_${lang}_STANDARD_LIBRARY "${CMAKE_${lang}_STANDARD_LIBRARY}" PARENT_SCOPE)
+   set(CMAKE_${lang}_STANDARD_LIBRARY_INCLUDE_DIRECTORY "${CMAKE_${lang}_STANDARD_LIBRARY_INCLUDE_DIRECTORY}" PARENT_SCOPE)
+   set(CMAKE_${lang}_COMPILER_APPLE_SYSROOT "${CMAKE_${lang}_COMPILER_APPLE_SYSROOT}" PARENT_SCOPE)
+diff --git a/Modules/Compiler/Clang-CXX.cmake b/Modules/Compiler/Clang-CXX.cmake
+index 5a8bc3fd..84298f19 100644
+--- a/Modules/Compiler/Clang-CXX.cmake
++++ b/Modules/Compiler/Clang-CXX.cmake
+@@ -28,6 +28,12 @@ if((CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16.0 AND CMAKE_CXX_COMPILER
+   else()
+     set(_clang_scan_deps_resource_dir "")
+   endif ()
++  if (CMAKE_CXX_COMPILER_CLANG_BINARY_PATH)
++    set(_clang_scan_deps_binary_path
++      "\"${CMAKE_CXX_COMPILER_CLANG_BINARY_PATH}\"")
++  else()
++    set(_clang_scan_deps_binary_path "<CMAKE_CXX_COMPILER>")
++  endif ()
+   if (CMAKE_HOST_WIN32)
+     # `rename` doesn't overwrite and doesn't retry in case of "target file is
+     # busy".
+@@ -46,7 +52,7 @@ if((CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16.0 AND CMAKE_CXX_COMPILER
+     "\"${CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS}\""
+     " -format=p1689"
+     " --"
+-    " <CMAKE_CXX_COMPILER> <DEFINES> <INCLUDES> <FLAGS>"
++    " ${_clang_scan_deps_binary_path} <DEFINES> <INCLUDES> <FLAGS>"
+     " -x c++ -c ${_clang}-o ${_clang}<OBJECT>"
+     "${_clang_scan_deps_resource_dir}"
+     " ${_clang}-MT ${_clang}<DYNDEP_FILE>"
