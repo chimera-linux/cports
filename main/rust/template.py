@@ -1,30 +1,34 @@
 pkgname = "rust"
 pkgver = "1.99.1"
-pkgrel = 0
+pkgrel = 1
+_llvm_majver = 23
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
     "curl",
     "libffi8-devel",
     "libxml2-devel",
-    "llvm-devel",
-    "llvm-tools",
+    f"llvm{_llvm_majver}-devel",
+    "llvm-clang-wasi",
     "ncurses-devel",
     "pkgconf",
     "python",
-    "wasi-clang",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 makedepends = [
     "libffi8-devel",
     "libxml2-devel",
-    "llvm-devel",
+    f"llvm{_llvm_majver}-devel",
     "ncurses-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-depends = [self.with_pkgver("rust-std"), "clang", "musl-devel"]
+depends = [
+    f"llvm{_llvm_majver}-clang",
+    "musl-devel",
+    self.with_pkgver("rust-std"),
+]
 pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
@@ -42,12 +46,13 @@ env = {
     "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
     "WASI_SDK_PATH": "/usr",
+    "RUST_MIN_STACK": "8388608",
 }
 # disable check at least for now
 # lto always breaks across major llvm vers because of consumer/reader mismatch,
 # because it builds some not useful C stuff that is part of rust
 # we manually enable it below for librustc_driver itself
-options = ["!check", "!lto"]
+options = ["!check", "!lto", "llvmflags"]
 
 if self.profile.cross:
     hostmakedepends += ["rust"]
@@ -63,8 +68,8 @@ if self.current_target == "custom:bootstrap":
     #
     # since there is just one static switch, we need static llvm
     # for both host and target rustc builds
-    hostmakedepends += ["llvm-devel-static", "xz"]
-    makedepends += ["llvm-devel-static"]
+    hostmakedepends += [f"llvm{_llvm_majver}-devel-static", "xz"]
+    makedepends += [f"llvm{_llvm_majver}-devel-static"]
     # avoid debug cflags and so on for vendor libs
     options += ["!debug"]
 
@@ -238,10 +243,10 @@ compression-profile = 'fast'
 
 cc = '{self.get_tool("CC", target="host")}'
 cxx = '{self.get_tool("CXX", target="host")}'
-ar = '/usr/bin/llvm-ar'
-ranlib = '/usr/bin/llvm-ranlib'
+ar = '/usr/bin/llvm-ar-{_llvm_majver}'
+ranlib = '/usr/bin/llvm-ranlib-{_llvm_majver}'
 linker = '{self.get_tool("CC", target="host")}'
-llvm-config = '/usr/bin/llvm-config'
+llvm-config = '/usr/bin/llvm-config-{_llvm_majver}'
 crt-static = false
 
 """)
@@ -252,10 +257,10 @@ crt-static = false
 
 cc = '{self.get_tool("CC")}'
 cxx = '{self.get_tool("CXX")}'
-ar = '/usr/bin/llvm-ar'
-ranlib = '/usr/bin/llvm-ranlib'
+ar = '/usr/bin/llvm-ar-{_llvm_majver}'
+ranlib = '/usr/bin/llvm-ranlib-{_llvm_majver}'
 linker = '{self.get_tool("CC")}'
-llvm-config = '/usr/bin/llvm-config'
+llvm-config = '/usr/bin/llvm-config-{_llvm_majver}'
 crt-static = false
 """)
         # wasm targets for non-bootstrap
@@ -447,7 +452,7 @@ def install(self):
 @subpackage("rust-wasm")
 def _(self):
     self.pkgdesc = "WebAssembly targets"
-    self.depends = [self.parent, "lld", "wasi-libc"]
+    self.depends = [self.parent, "llvm-lld", "wasi-libc"]
     self.options = ["!strip"]
 
     return ["usr/lib/rustlib/wasm32-*"]
