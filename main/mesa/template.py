@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "26.2.5"
-pkgrel = 1
+pkgver = "26.3.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -27,11 +27,11 @@ hostmakedepends = [
     "python-ply",
     "python-pycparser",
     "python-pyyaml",
+    "venus-protocol",
     "wayland-progs",
     "wayland-protocols",
 ]
 makedepends = [
-    "clang-devel",
     # misc libs
     "elfutils-devel",
     "libarchive-devel",
@@ -40,6 +40,8 @@ makedepends = [
     "libexpat-devel",
     "libffi8-devel",
     "libglvnd-devel",
+    # prevent pulling in mesa back
+    "libglvnd-vendor-none",
     # video accel
     "libva-bootstrap",
     # x11
@@ -53,6 +55,7 @@ makedepends = [
     "libxshmfence-devel",
     "libxv-devel",
     "libxxf86vm-devel",
+    "llvm-clang-devel",
     "llvm-devel",
     "lm-sensors-devel",
     "lua5.4-devel",
@@ -69,12 +72,19 @@ pkgdesc = "Mesa 3D Graphics Library"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://archive.mesa3d.org/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "794b3d1729075dae7ebd47c7283b7ca0cdb5dec668f7f11cc0a5d82f6138a0a5"
+sha256 = "4e4e438eac7b840a9383988cbb7c08dad8041da544b9319fc26d319fa7348961"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
 # they banned lto upstream lol
-options = ["!cross", "linkundefver", "fullrustflags", "!lto", "!scanshlibs"]
+options = [
+    "!cross",
+    "linkundefver",
+    "fullrustflags",
+    "llvmflags",
+    "!lto",
+    "!scanshlibs",
+]
 
 _gallium_drivers = []
 _vulkan_drivers = []
