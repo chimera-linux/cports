@@ -44,7 +44,7 @@ for f in libsoftokn3.so libfreebl3.so libfreeblpriv3.so libnss3.so libnssutil3.s
 done
 
 for f in certutil cmsutil crlutil modutil pk12util shlibsign \
-    signtool signver ssltap; do
+    signver ssltap; do
     install -m755 dist/*.OBJ/bin/${f} ${DESTDIR}/usr/bin
 done
 
