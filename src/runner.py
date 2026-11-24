@@ -1983,21 +1983,21 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
     # this is visited stuff in base-cbuild, we do checks against it later
     # to figure out if to add the implicit base-cbuild "dep" in the topology
     # as without checks we'd be creating random cycles
-    cbvisit = set()
+    cbvisit = {"main/base-cbuild"}
 
-    def handle_recdeps(pn, tp, cbinit=False):
+    def handle_recdeps(pn, tp, visitset=None):
         # in raw mode we don't care about ordering, taking it as is
         if do_raw:
             return True
         # add base-cbuild "dependency" for correct implicit sorting
-        if not cbinit and pn not in cbvisit and pn != "main/base-cbuild":
+        if not visitset and pn not in cbvisit:
             depg.add(pn, "main/base-cbuild")
         # now add the rest of the stuff
         return _add_deps_graph(
             pn,
             tp,
             pvisit,
-            cbvisit,
+            visitset,
             lambda d: _do_with_exc(
                 lambda: template.Template(
                     d,
@@ -2027,7 +2027,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
             False,
             None,
         ),
-        True,
+        cbvisit,
     )
 
     # finally add the "to be done" stuff...
