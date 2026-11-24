@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "157.0.8103.50"
+pkgver = "158.0.8127.88"
 # tools/rust/update_rust.py -> CRUBIT_REVISION
 _crubit_ver = "40fbac34597084a0863256d633889eac2c23b91b"
 pkgrel = 0
@@ -80,7 +80,6 @@ makedepends = [
     "brotli-devel",
     "bzip2-devel",
     "cairo-devel",
-    "clang-devel",
     "cups-devel",
     "curl-devel",
     "dav1d-devel",
@@ -108,7 +107,6 @@ makedepends = [
     "libmtp-devel",
     "libpng-devel",
     "libpulse-devel",
-    "libsecret-devel",
     "libucontext-devel",
     "libusb-devel",
     "libva-devel",
@@ -152,7 +150,7 @@ source = [
 ]
 source_paths = [".", "crubit", "typescript"]
 sha256 = [
-    "a216ef754a1528d6df863a0033379f11d21565c04ab9328d83c4f29c4d16a0c6",
+    "603f9ff4a42f7242fdcb2294f98e0ba2eee0486c141c4cc471d82f223d4e5cba",
     "07b57fedcffc8c1e8df4875fc314c2290c8cd50ab8d04340b12c945e9c331f5a",
 ]
 debug_level = 1
@@ -330,7 +328,6 @@ def configure(self):
         "highway",
         "libjpeg",
         "libpng",
-        "libsecret",
         "libusb",
         "libwebp",
         "libxml",

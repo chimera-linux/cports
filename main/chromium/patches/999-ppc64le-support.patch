@@ -3308,15 +3308,15 @@ diff --git a/third_party/crashpad/crashpad/util/misc/capture_context_test.cc b/t
 index 2cd92c8..5c154ce 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context_test.cc
 +++ b/third_party/crashpad/crashpad/util/misc/capture_context_test.cc
-@@ -48,7 +48,7 @@ void TestCaptureContext() {
-   uintptr_t pc = ProgramCounterFromContext(context_1);
- 
+@@ -53,7 +53,7 @@
+ // in the entry block and the first `CaptureContext()` call lands more than 128
+ // bytes into `TestCaptureContext()`.
  #if !defined(ADDRESS_SANITIZER) && !defined(ARCH_CPU_MIPS_FAMILY) && \
--    !defined(MEMORY_SANITIZER)
-+    !defined(MEMORY_SANITIZER) && !defined(ARCH_CPU_PPC64_FAMILY)
+-    !defined(MEMORY_SANITIZER) &&                                    \
++    !defined(MEMORY_SANITIZER) && !defined(ARCH_CPU_PPC64_FAMILY) && \
+     !(defined(ARCH_CPU_ARM64) && !defined(NDEBUG))
    // Sanitizers can cause enough code bloat that the “nearby” check would
    // likely fail.
-   const uintptr_t kReferencePC =
 diff --git a/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc b/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc
 index 55820b9..478f978 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc

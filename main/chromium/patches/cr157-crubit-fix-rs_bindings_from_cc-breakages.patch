@@ -39,7 +39,7 @@ index 49ff40ba13fa4..82097dfe23e7a 100644
      Windows uses `lld-link` for MSVC compat.  Otherwise, we use `lld` via
      `clang` (see `GetHostLinkArgs`).
      """
-+    return os.environ.get('LD', 'clang')
++    return os.environ.get('CC', 'clang')
      bin_dir = os.path.join(RUST_HOST_LLVM_INSTALL_DIR, 'bin')
      if sys.platform == 'win32':
          return os.path.join(bin_dir, 'lld-link.exe')
