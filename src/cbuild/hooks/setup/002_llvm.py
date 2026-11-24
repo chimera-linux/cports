@@ -31,4 +31,4 @@ def invoke(pkg):
         if (usr / f"bin/ld64.lld-{pver}").exists():
             (usr / "bin/ld64.lld").symlink_to(f"ld64.lld-{pver}")
         else:
-            (usr / "bin/ld.lld").symlink_to("lld")
+            (usr / "bin/ld64.lld").symlink_to("lld")
