@@ -1,9 +1,9 @@
 pkgname = "wasi-sdk"
 pkgver = "24"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
-    "wasi-clang",
+    "llvm-clang-wasi",
     "wasm-component-ld",
 ]
 pkgdesc = "WebAssembly C/C++ toolchain"

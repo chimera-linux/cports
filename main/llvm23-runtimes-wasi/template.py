@@ -1,5 +1,6 @@
-pkgname = "libcxx-wasi"
-pkgver = "22.1.8"
+pkgname = "llvm23-runtimes-wasi"
+pkgver = "23.1.6"
+_llvm_majver = pkgver[0:2]
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -12,7 +13,7 @@ configure_args = [
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # tools
-    "-DCMAKE_C_COMPILER=/usr/bin/clang",
+    f"-DCMAKE_C_COMPILER=/usr/bin/clang-{_llvm_majver}",
     "-DCMAKE_C_COMPILER_WORKS=ON",
     "-DCMAKE_CXX_COMPILER_WORKS=ON",
     "-DCMAKE_ASM_COMPILER_WORKS=ON",
@@ -34,27 +35,29 @@ configure_args = [
     "-DLIBCXX_HARDENING_MODE=fast",
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
     "-DLLVM_ENABLE_RUNTIMES=libcxxabi;libcxx",
-    "-DCMAKE_AR=/usr/bin/llvm-ar",
-    "-DCMAKE_NM=/usr/bin/llvm-nm",
-    "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
+    f"-DCMAKE_AR=/usr/bin/llvm-ar-{_llvm_majver}",
+    f"-DCMAKE_NM=/usr/bin/llvm-nm-{_llvm_majver}",
+    f"-DCMAKE_RANLIB=/usr/bin/llvm-ranlib-{_llvm_majver}",
     "-DUNIX=ON",
 ]
 cmake_dir = "runtimes"
 hostmakedepends = [
-    "clang-devel",
-    "clang-rt-crt-wasi",
     "cmake",
-    "llvm-devel",
+    f"llvm{_llvm_majver}-clang-rt-crt-wasi",
+    f"llvm{_llvm_majver}-clang-devel",
+    f"llvm{_llvm_majver}-devel",
     "ninja",
     "python",
     "wasi-libc",
 ]
-depends = [f"clang-rt-crt-wasi~{pkgver}"]
+depends = [f"llvm{_llvm_majver}-clang-rt-crt-wasi~{pkgver}"]
+# transitional old name + new generic name as we can only have one of this
+renames = ["libcxx-wasi", "llvm-runtimes-wasi"]
 pkgdesc = "Compiler runtime for WASI"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
+sha256 = "d3b86ab29cfb4445a6652e5c2642ccc75e04e38084dde3701d323320f35a31da"
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "!strip"]

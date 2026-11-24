@@ -1,5 +1,6 @@
-pkgname = "clang-rt-crt-wasi"
-pkgver = "22.1.8"
+pkgname = "llvm23-clang-rt-crt-wasi"
+pkgver = "23.1.6"
+_llvm_majver = pkgver[0:2]
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -8,22 +9,22 @@ configure_args = [
     "-DCMAKE_SYSTEM_VERSION=1",
     "-DCMAKE_SYSTEM_PROCESSOR=wasm32",
     "-DCMAKE_SYSROOT=/usr/wasm32-unknown-wasi",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0 : pkgver.find('.')]}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/llvm{_llvm_majver}/lib/clang/{_llvm_majver}",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
     # tools
-    "-DCMAKE_C_COMPILER=/usr/bin/clang",
+    f"-DCMAKE_C_COMPILER=/usr/bin/clang-{_llvm_majver}",
     "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi",
     "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi",
     "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi",
     "-DCMAKE_C_FLAGS=-O2",
     "-DCMAKE_CXX_FLAGS=-O2",
-    "-DCMAKE_AR=/usr/bin/llvm-ar",
-    "-DCMAKE_NM=/usr/bin/llvm-nm",
-    "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
-    "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
+    f"-DCMAKE_AR=/usr/bin/llvm-ar-{_llvm_majver}",
+    f"-DCMAKE_NM=/usr/bin/llvm-nm-{_llvm_majver}",
+    f"-DCMAKE_RANLIB=/usr/bin/llvm-ranlib-{_llvm_majver}",
+    f"-DLLVM_CONFIG_PATH=/usr/bin/llvm-config-{_llvm_majver}",
     "-DCOMPILER_RT_BAREMETAL_BUILD=ON",
     "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF",
     "-DCOMPILER_RT_BUILD_MEMPROF=OFF",
@@ -38,17 +39,17 @@ configure_args = [
 cmake_dir = "compiler-rt"
 hostmakedepends = [
     "cmake",
-    "llvm-devel",
+    f"llvm{_llvm_majver}-devel",
     "ninja",
     "python",
     "wasi-libc",
 ]
-depends = ["wasi-libc"]
+depends = [f"llvm{_llvm_majver}-clang", "wasi-libc"]
 pkgdesc = "Compiler runtime for WASI"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888"
+sha256 = "d3b86ab29cfb4445a6652e5c2642ccc75e04e38084dde3701d323320f35a31da"
 debug_level = 0
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
@@ -70,8 +71,10 @@ def init_configure(self):
 def post_install(self):
     self.install_license("LICENSE.TXT")
     self.install_link(
-        f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/wasip1", "wasi"
+        f"usr/lib/llvm{_llvm_majver}/lib/clang/{_llvm_majver}/lib/wasip1",
+        "wasi",
     )
     self.install_link(
-        f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/wasip2", "wasi"
+        f"usr/lib/llvm{_llvm_majver}/lib/clang/{_llvm_majver}/lib/wasip2",
+        "wasi",
     )
