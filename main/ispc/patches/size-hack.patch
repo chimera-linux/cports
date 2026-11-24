@@ -1,0 +1,19 @@
+in musl size_t is always an unsigned long, while __SIZE_TYPE__
+is unsigned int in builtins when using -m32
+
+/usr/lib/llvm23/lib/clang/23/include/__stddef_size_t.h:18:23: error: typedef redefinition with different types ('unsigned int' vs 'unsigned long')
+   18 | typedef __SIZE_TYPE__ size_t;
+
+diff --git a/builtins/builtins-c-cpu.cpp b/builtins/builtins-c-cpu.cpp
+index 140419c..2249b0f 100644
+--- a/builtins/builtins-c-cpu.cpp
++++ b/builtins/builtins-c-cpu.cpp
+@@ -48,6 +48,8 @@
+ 
+ #endif // !WASM
+ 
++#define _SIZE_T
++
+ #include "array.hpp"
+ #include <stdarg.h>
+ #include <stdint.h>

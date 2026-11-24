@@ -1,5 +1,5 @@
 pkgname = "ispc"
-pkgver = "1.30.0"
+pkgver = "1.32.0"
 pkgrel = 0
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
@@ -9,12 +9,11 @@ hostmakedepends = [
     "bison",
     "cmake",
     "flex",
-    "llvm-tools",
     "ninja",
     "python",
 ]
 makedepends = [
-    "clang-devel",
+    "llvm-clang-devel",
     "llvm-devel",
     "ncurses-devel",
     "onetbb-devel",
@@ -25,11 +24,12 @@ pkgdesc = "Implicit SPMD program compiler"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
 source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "73b30c74fdfc56c3097015476df14d0a4bcb6705d9e286c6d51c1ed578d49e22"
+sha256 = "705b818062602a0c6b62965a8aa011508ef7f9decce716cf1645f2b04ba1e9f8"
 tool_flags = {
     # `warning: '_FORTIFY_SOURCE' macro redefined` noise
     "CXXFLAGS": ["-Wno-macro-redefined"],
 }
+options = ["llvmflags"]
 
 
 def pre_check(self):
