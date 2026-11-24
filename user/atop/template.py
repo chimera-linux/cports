@@ -8,7 +8,6 @@ make_build_args = [
 make_install_target = "genericinstall"
 make_install_args = [*make_build_args]
 hostmakedepends = [
-    "clang",
     "gmake",
     "pkgconf",
 ]

@@ -32,7 +32,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "clang-devel",
     "colord-devel",
     "colord-gtk-devel",
     "cups-devel",
@@ -68,6 +67,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
 sha256 = "02f1aa9ae93949e7bc54c34eeb5ff92c2b87f95d2547865df55c60467564ee11"
+options = ["llvmflags"]
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
 # without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...

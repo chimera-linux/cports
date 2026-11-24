@@ -17,8 +17,7 @@ makedepends = [
     "libcap-devel",
     "libcap-devel-static",
     "libseccomp-devel",
-    "libunwind-devel",
-    "libunwind-devel-static",
+    "llvm-runtimes-devel-static",
     "musl-devel-static",
     "openssl3-devel",
 ]

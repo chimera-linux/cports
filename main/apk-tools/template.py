@@ -27,8 +27,8 @@ options = ["bootstrap"]
 if self.stage > 0:
     makedepends += [
         "libatomic-chimera-devel-static",
-        "libunwind-devel-static",
         "linux-headers",
+        "llvm-runtimes-devel-static",
         "musl-devel-static",
         "openssl3-devel-static",
         "zlib-ng-compat-devel-static",

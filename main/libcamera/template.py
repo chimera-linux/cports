@@ -17,7 +17,6 @@ makedepends = [
     "gstreamer-devel",
     "gtest-devel",
     "libevent-devel",
-    "libunwind-devel",
     "libyaml-devel",
     "mesa-devel",
     "openssl3-devel",

@@ -43,7 +43,7 @@ elif self.profile.cross:
 
 @subpackage("linux-stable-devel")
 def _(self):
-    self.depends += ["clang"]
+    self.depends += ["llvm-clang"]
     self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 

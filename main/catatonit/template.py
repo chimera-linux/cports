@@ -9,7 +9,7 @@ hostmakedepends = [
 # copied into containers so has to be static to work
 makedepends = [
     "libatomic-chimera-devel-static",
-    "libunwind-devel-static",
+    "llvm-runtimes-devel-static",
     "musl-devel-static",
 ]
 pkgdesc = "Init for containers"

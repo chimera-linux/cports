@@ -13,7 +13,7 @@ configure_args = [
     "-DCPPTRACE_UNWIND_WITH_LIBUNWIND=ON",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["libdwarf-devel", "libunwind-devel", "zstd-devel"]
+makedepends = ["libdwarf-devel", "zstd-devel"]
 checkdepends = ["gtest-devel"]
 pkgdesc = "Stacktrace library for C++11 and newer"
 license = "MIT"

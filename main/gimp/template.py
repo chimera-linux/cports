@@ -52,7 +52,6 @@ makedepends = [
     "libpng-devel",
     "librsvg-devel",
     "libtiff-devel",
-    "libunwind-devel",
     "libwebp-devel",
     "libxcursor-devel",
     "libxmu-devel",

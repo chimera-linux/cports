@@ -8,7 +8,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "libatomic-chimera-devel-static",
     "libucontext-devel",
-    "libunwind-devel-static",
+    "llvm-runtimes-devel-static",
     "musl-devel-static",
 ]
 pkgdesc = "Glibc compatibility shim for musl"

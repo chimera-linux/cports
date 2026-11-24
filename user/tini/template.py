@@ -10,8 +10,7 @@ hostmakedepends = [
 makedepends = [
     "libatomic-chimera-devel",
     "libatomic-chimera-devel-static",
-    "libunwind-devel",
-    "libunwind-devel-static",
+    "llvm-runtimes-devel-static",
     "musl-devel",
     "musl-devel-static",
 ]

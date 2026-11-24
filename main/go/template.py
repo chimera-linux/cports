@@ -4,7 +4,7 @@ pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
     "libatomic-chimera-devel-static",
-    "libunwind-devel-static",
+    "llvm-runtimes-devel-static",
     "musl-devel-static",
 ]
 pkgdesc = "Go programming language"
