@@ -87,7 +87,8 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
     # llvm usage
     if pkg.options["llvmflags"] and pkg.llvm_version > 0:
-        cargs += [f"-DCMAKE_PREFIX_PATH=/usr/lib/llvm{pkg.llvm_version}"]
+        proot = pkg.profile.sysroot / f"usr/lib/llvm{pkg.llvm_version}"
+        cargs += [f"-DCMAKE_PREFIX_PATH={proot}"]
 
     # TODO: try put these args in a toolchain file like above even for native, if it
     # silences all the warnings about unused args and actually works
