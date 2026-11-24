@@ -1,5 +1,5 @@
 pkgname = "lagrange"
-pkgver = "2.0.3"
+pkgver = "2.0.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "Beautiful gemini client"
 license = "BSD-2-Clause"
 url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"
-sha256 = "45461159d3cb0ba09d0ba78cd34ca32728bfd8a91cff48c7d2ca4e9a135e1864"
+sha256 = "c45e80c13cf327570f67ae2ea94e91fd24483c7b447cf31b473b3fbb3394513b"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 hardening = ["vis", "!cfi"]
 
