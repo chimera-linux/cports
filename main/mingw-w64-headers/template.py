@@ -51,7 +51,7 @@ def install(self):
 
 
 def _gen(an, at):
-    @subpackage(f"mingw-w64-headers-{an}")
+    @split(an)
     def _(self):
         self.subdesc = f"{an} support"
         return [f"usr/{at}"]

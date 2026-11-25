@@ -238,7 +238,7 @@ def _spkg(sname, wordsize):
     if self.profile.wordsize == 32 and wordsize == 64:
         do_epkg = False
 
-    @subpackage(f"qemu-system-{sname}", do_epkg)
+    @split(f"system-{sname}", do_epkg)
     def _(self):
         self.subdesc = f"system-{sname}"
         self.depends = [self.parent]

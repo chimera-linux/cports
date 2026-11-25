@@ -178,21 +178,21 @@ def install(self):
         )
 
 
-@subpackage(f"openjdk{_majver}-demos")
+@split("demos")
 def _(self):
     self.subdesc = "demos"
 
     return [f"{_java_home}/demo"]
 
 
-@subpackage(f"openjdk{_majver}-jmods")
+@split("jmods")
 def _(self):
     self.subdesc = "jmods"
 
     return [f"{_java_home}/jmods"]
 
 
-@subpackage(f"openjdk{_majver}-src")
+@split("src")
 def _(self):
     self.subdesc = "sources"
     self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
@@ -200,7 +200,7 @@ def _(self):
     return [f"{_java_home}/lib/src.zip"]
 
 
-@subpackage(f"openjdk{_majver}-jre")
+@split("jre")
 def _(self):
     self.subdesc = "runtime"
     self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
@@ -216,7 +216,7 @@ def _(self):
     ]
 
 
-@subpackage(f"openjdk{_majver}-jre-headless")
+@split("jre-headless")
 def _(self):
     self.subdesc = "headless runtime"
     self.depends = ["java-cacerts", "java-common"]
@@ -250,7 +250,7 @@ def _(self):
     ]
 
 
-@subpackage(f"openjdk{_majver}-jdk")
+@split("jdk")
 def _(self):
     self.subdesc = "JDK"
     self.depends = [

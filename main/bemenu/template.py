@@ -30,7 +30,7 @@ def _(self):
 
 
 def _subpkg(sname, sdesc):
-    @subpackage(f"bemenu-{sname}")
+    @split(sname)
     def _(self):
         self.subdesc = f"{sdesc} backend"
         self.depends = [self.parent]

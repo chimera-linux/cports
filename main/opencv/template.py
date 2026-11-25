@@ -213,7 +213,7 @@ def _(self):
 
 
 def _gen_libpkg(libname):
-    @subpackage(f"opencv-{libname}-libs")
+    @split(f"{libname}-libs")
     def _(self):
         self.subdesc = libname
         self.depends = [self.parent]

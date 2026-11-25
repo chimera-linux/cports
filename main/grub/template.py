@@ -214,7 +214,7 @@ def _(self):
 
 
 def _genplatform(arch, platform, desc):
-    @subpackage(f"grub-{arch}-{platform}-dbg", arch in _archs)
+    @split(f"{arch}-{platform}-dbg", arch in _archs)
     def _(self):
         self.subdesc = f"{desc} debug files"
         self.depends = [self.with_pkgver(f"grub-{arch}-{platform}")]
@@ -229,7 +229,7 @@ def _genplatform(arch, platform, desc):
 
         return _install
 
-    @subpackage(f"grub-{arch}-{platform}", arch in _archs)
+    @split(f"{arch}-{platform}", arch in _archs)
     def _(self):
         self.subdesc = f"{desc} support"
         self.depends = [self.parent]

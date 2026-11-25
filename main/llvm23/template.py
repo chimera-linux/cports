@@ -429,7 +429,7 @@ def _verbins(self, binl, default):
             _verbin(self, b)
 
 
-@subpackage(f"llvm{_majver}-clang-tools-extra-static")
+@split("clang-tools-extra-static")
 def _(self):
     self.subdesc = "extra Clang tools static libraries"
     self.depends = []
@@ -443,7 +443,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-tools-extra")
+@split("clang-tools-extra")
 def _(self):
     self.subdesc = "extra Clang tools"
     self.depends = [
@@ -459,21 +459,21 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-tools-extra-default")
+@split("clang-tools-extra-default")
 def _(self):
     self.subdesc = "extra Clang tools default links"
 
     return lambda: _verbins(self, "clang-tools-extra", True)
 
 
-@subpackage(f"llvm{_majver}-binutils")
+@split("binutils")
 def _(self):
     self.subdesc = "binary manipulation tools"
 
     return lambda: _verbins(self, "binutils", False)
 
 
-@subpackage(f"llvm{_majver}-binutils-default")
+@split("binutils-default")
 def _(self):
     self.subdesc = "binary manipulation tools default links"
     self.replaces = ["elftoolchain<0.7.1_svn20230501"]
@@ -481,7 +481,7 @@ def _(self):
     return lambda: _verbins(self, "binutils", True)
 
 
-@subpackage(f"llvm{_majver}-clang")
+@split("clang")
 def _(self):
     self.subdesc = "C language family frontend"
     self.depends = [
@@ -506,7 +506,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-default")
+@split("clang-default")
 def _(self):
     self.subdesc = "C language family frontend default links"
     self.replaces = ["ccache<4.14"]
@@ -520,7 +520,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-rt-devel")
+@split("clang-rt-devel")
 def _(self):
     self.subdesc = "Clang runtime development files"
     self.options = ["ltostrip", "!splitstatic"]  # these are explicitly -fno-lto
@@ -528,7 +528,7 @@ def _(self):
     return lambda: _vergen(self, "lib/clang")
 
 
-@subpackage(f"llvm{_majver}-clang-devel-static")
+@split("clang-devel-static")
 def _(self):
     self.subdesc = "Clang static libraries"
     self.depends = []
@@ -537,7 +537,7 @@ def _(self):
     return lambda: _vergen(self, "lib/libclang*.a")
 
 
-@subpackage(f"llvm{_majver}-clang-devel")
+@split("clang-devel")
 def _(self):
     self.subdesc = "Clang development files"
     # unfortunately cmake files reference the static libs and force their
@@ -558,7 +558,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-analyzer")
+@split("clang-analyzer")
 def _(self):
     self.subdesc = "source code analysis"
     self.depends = [self.with_pkgver(f"llvm{_majver}-clang")]
@@ -578,28 +578,28 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-clang-analyzer-default")
+@split("clang-analyzer-default")
 def _(self):
     self.subdesc = "source code analysis default links"
 
     return lambda: _verbins(self, "clang-analyzer", True)
 
 
-@subpackage(f"llvm{_majver}-clang-libs")
+@split("clang-libs")
 def _(self):
     self.subdesc = "Clang runtime library"
 
     return lambda: _verlib(self, "libclang.so.*")
 
 
-@subpackage(f"llvm{_majver}-clang-cpp-libs")
+@split("clang-cpp-libs")
 def _(self):
     self.subdesc = "Clang C++ runtime library"
 
     return lambda: _verlib(self, "libclang-cpp.so.*")
 
 
-@subpackage(f"llvm{_majver}-flang", _enable_flang)
+@split("flang", _enable_flang)
 def _(self):
     self.subdesc = "Fortran frontend"
     self.depends = [
@@ -610,14 +610,14 @@ def _(self):
     return lambda: _verbins(self, "flang", False)
 
 
-@subpackage(f"llvm{_majver}-flang-default", _enable_flang)
+@split("flang-default", _enable_flang)
 def _(self):
     self.subdesc = "Fortran frontend default links"
 
     return lambda: _verbins(self, "flang", True)
 
 
-@subpackage(f"llvm{_majver}-flang-devel-static", _enable_flang)
+@split("flang-devel-static", _enable_flang)
 def _(self):
     self.subdesc = "Flang static libraries"
     self.depends = []
@@ -632,7 +632,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-flang-devel", _enable_flang)
+@split("flang-devel", _enable_flang)
 def _(self):
     self.subdesc = "Flang development files"
     self.depends = [self.with_pkgver(f"llvm{_majver}-flang-devel-static")]
@@ -644,21 +644,21 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-mlir", _enable_mlir)
+@split("mlir", _enable_mlir)
 def _(self):
     self.subdesc = "MLIR"
 
     return lambda: _verbins(self, "mlir", False)
 
 
-@subpackage(f"llvm{_majver}-mlir-default", _enable_mlir)
+@split("mlir-default", _enable_mlir)
 def _(self):
     self.subdesc = "MLIR default links"
 
     return lambda: _verbins(self, "mlir", True)
 
 
-@subpackage(f"llvm{_majver}-mlir-devel-static", _enable_mlir)
+@split("mlir-devel-static", _enable_mlir)
 def _(self):
     self.subdesc = "MLIR static libraries"
     self.depends = []
@@ -667,7 +667,7 @@ def _(self):
     return lambda: _vergen(self, "lib/libMLIR*.a")
 
 
-@subpackage(f"llvm{_majver}-mlir-devel", _enable_mlir)
+@split("mlir-devel", _enable_mlir)
 def _(self):
     self.subdesc = "MLIR development files"
     self.depends = [self.with_pkgver(f"llvm{_majver}-mlir-devel-static")]
@@ -681,7 +681,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-mlir-libs", _enable_mlir)
+@split("mlir-libs", _enable_mlir)
 def _(self):
     self.subdesc = "MLIR runtime libraries"
 
@@ -692,7 +692,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-runtimes")
+@split("runtimes")
 def _(self):
     self.subdesc = "runtimes"
     self.renames = [
@@ -712,7 +712,7 @@ def _(self):
 # we only allow one system copy of the runtimes (libunwind/libcxxabi/libcxx),
 # with the exception of c++ stdlib headers which are specific to the toolchain
 # (as newer stdlib may not work with older toolchain)
-@subpackage(f"llvm{_majver}-runtimes-base-devel")
+@split("runtimes-base-devel")
 def _(self):
     self.subdesc = "runtimes base devel files"
     # don't resolve via symlink
@@ -734,7 +734,7 @@ def _(self):
 
 
 # the same goes for static, the linked lib should be reasonably abi-stable
-@subpackage(f"llvm{_majver}-runtimes-devel-static")
+@split("runtimes-devel-static")
 def _(self):
     self.subdesc = "static runtimes"
     # in global path and only one is installable
@@ -747,7 +747,7 @@ def _(self):
     ]
 
 
-@subpackage(f"llvm{_majver}-runtimes-devel")
+@split("runtimes-devel")
 def _(self):
     self.subdesc = "runtimes development files"
     self.depends += [
@@ -762,7 +762,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-libs")
+@split("libs")
 def _(self):
     def install():
         _verlib(self, "libLLVM.so.*")
@@ -772,21 +772,21 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-lld")
+@split("lld")
 def _(self):
     self.subdesc = "linker"
 
     return lambda: _verbins(self, "lld", False)
 
 
-@subpackage(f"llvm{_majver}-lld-default")
+@split("lld-default")
 def _(self):
     self.subdesc = "linker default links"
 
     return lambda: _verbins(self, "lld", True)
 
 
-@subpackage(f"llvm{_majver}-lld-devel-static")
+@split("lld-devel-static")
 def _(self):
     self.subdesc = "linker static libraries"
     self.depends = []
@@ -795,7 +795,7 @@ def _(self):
     return lambda: _vergen(self, "lib/liblld*.a")
 
 
-@subpackage(f"llvm{_majver}-lld-devel")
+@split("lld-devel")
 def _(self):
     self.subdesc = "linker development files"
     self.depends = [
@@ -810,7 +810,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -818,7 +818,7 @@ def _(self):
     return lambda: _vergen(self, "lib/*.a")
 
 
-@subpackage(f"llvm{_majver}-devel")
+@split("devel")
 def _(self):
     # unfortunately cmake files reference the static libs and force their
     # installation onto the target system, nothing much we can do about that
@@ -843,7 +843,7 @@ def _(self):
     return install
 
 
-@subpackage(f"llvm{_majver}-default")
+@split("default")
 def _(self):
     self.subdesc = "default links"
 

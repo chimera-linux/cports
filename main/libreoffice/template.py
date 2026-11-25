@@ -312,7 +312,7 @@ def _take_list(self, listn):
 def _add_lang(langc, langd, langs):
     _langs.append(langc.replace("_", "-"))
 
-    @subpackage(f"libreoffice-lang_{langc.lower()}")
+    @split(f"lang_{langc.lower()}")
     def _(self):
         self.subdesc = f"{langd} language pack"
 
@@ -452,7 +452,7 @@ for _langc, _langd in [
 
 
 def _gensub(subn, subd):
-    @subpackage(f"libreoffice-{subn}")
+    @split(subn)
     def _(self):
         self.subdesc = f"{subd}"
         if subn == "writer" or subn == "gnome":
