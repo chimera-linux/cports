@@ -5,7 +5,7 @@ target-version = ['py312']
 [tool.ruff]
 line-length = 80
 target-version = 'py312'
-builtins = ['alternative', 'custom_target', 'self', 'split', 'subpackage']
+builtins = ['alternative', 'custom_target', 'self', 'split']
 
 [tool.ruff.lint]
 extend-select = [

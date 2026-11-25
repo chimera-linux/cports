@@ -8,4 +8,3 @@ builtins =
     custom_target,
     self,
     split,
-    subpackage,
