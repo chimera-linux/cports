@@ -22,8 +22,6 @@ makedepends = [
     "libxkbcommon-devel",
     "libxml2-devel",
     "linux-pam-devel",
-    # FIXME temporary
-    "llvm23-runtimes-base-devel-static",
     "md4c-devel",
     "mesa-devel",
     "nlohmann-json",

@@ -1,7 +1,7 @@
 pkgname = "llvm23"
 pkgver = "23.1.6"
 _majver = pkgver[0:2]
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 _pfx = f"usr/lib/llvm{_majver}"
 configure_args = [

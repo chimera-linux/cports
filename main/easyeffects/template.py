@@ -29,8 +29,6 @@ makedepends = [
     "libportal-qt6-devel",
     "libsndfile-devel",
     "lilv-devel",
-    # FIXME temporary
-    "llvm23-runtimes-base-devel-static",
     "lv2",
     "nlohmann-json",
     "onetbb-devel",
