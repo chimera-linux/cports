@@ -1,5 +1,5 @@
 pkgname = "gurk"
-pkgver = "0.9.3"
+pkgver = "0.10.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf", "protobuf-protoc"]
@@ -14,13 +14,7 @@ pkgdesc = "Signal Messenger client TUI"
 license = "AGPL-3.0-only"
 url = "https://github.com/boxdot/gurk-rs"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1c8ee4466374375a3df2ccd94fcc86d76bfcdd868820f3f9d4a1f2cbed2be22b"
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    cargo.clear_vendor_checksums(self, "libc-0.2.180")
+sha256 = "d047915916bceb221cd96a8afe53e5ba3b897f8d8798a4d36ca4cf354aa63b03"
 
 
 def install(self):
