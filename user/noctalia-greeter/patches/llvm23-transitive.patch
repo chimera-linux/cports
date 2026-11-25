@@ -1,0 +1,12 @@
+diff --git a/src/render/programs/rect_program.cpp b/src/render/programs/rect_program.cpp
+index 8e5dd0d..3da39d9 100644
+--- a/src/render/programs/rect_program.cpp
++++ b/src/render/programs/rect_program.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <array>
+ #include <stdexcept>
++#include <algorithm>
+ 
+ namespace {
+ 
