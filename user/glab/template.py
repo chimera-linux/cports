@@ -1,5 +1,5 @@
 pkgname = "glab"
-pkgver = "1.132.0"
+pkgver = "1.133.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Command-line frontend to interact with GitLab"
 license = "MIT"
 url = "https://gitlab.com/gitlab-org/cli"
 source = f"{url}/-/releases/v{pkgver}/downloads/glab_{pkgver}_source.tar.gz"
-sha256 = "0781af2a979ae82bc3b7d688d5fcaae6801ea3489a27f9a54cc42a28f069faf8"
+sha256 = "1d73d6d638522eef823d05aac528e5994468984eb66031e437d05214e35ec9a2"
 # check may be disabled
 options = ["!cross"]
 
