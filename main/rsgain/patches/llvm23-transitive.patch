@@ -1,0 +1,11 @@
+diff --git a/src/scan.hpp b/src/scan.hpp
+index 777c840..4b3012a 100644
+--- a/src/scan.hpp
++++ b/src/scan.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ 
++#include <cmath>
+ #include <mutex>
+ #include <vector>
+ #include <filesystem>
