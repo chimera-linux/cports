@@ -304,7 +304,6 @@ def _(self):
     return []
 
 
-
 @alternative("java-jdk")
 def _(self):
     # default version
