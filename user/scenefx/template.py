@@ -30,7 +30,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("scenefx-devel")
+@split("devel")
 def _(self):
     # no .so symlink
     self.depends += [self.parent]
