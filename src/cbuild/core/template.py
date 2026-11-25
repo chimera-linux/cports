@@ -921,8 +921,9 @@ class Template(Package):
         modspec.loader.exec_module(modh)
         self._mod_handle = None
 
+        delattr(builtins, "alternative")
         delattr(builtins, "self")
-        delattr(builtins, "subpackage")
+        delattr(builtins, "split")
 
         self._raw_mod = modh
 
