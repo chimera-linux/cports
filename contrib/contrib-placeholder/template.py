@@ -10,7 +10,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-@subpackage("contrib-placeholder-dbg")
+@split("dbg")
 def _(self):
     self.depends = ["virtual:meta:do-not-use!base-files"]
     return []
