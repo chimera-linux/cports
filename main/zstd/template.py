@@ -1,17 +1,19 @@
 pkgname = "zstd"
-pkgver = "1.5.7"
-pkgrel = 1
+pkgver = "1.6.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = ["lz4-devel", "xz-devel", "zlib-ng-compat-devel"]
+checkdepends = ["file"]
 renames = ["libzstd"]
 pkgdesc = "Zstd compression utilities"
 license = "BSD-3-Clause"
 url = "http://www.zstd.net"
-source = f"https://github.com/facebook/zstd/releases/download/v{pkgver}/zstd-{pkgver}.tar.gz"
-sha256 = "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3"
+source = f"https://github.com/meta/zstd/releases/download/v{pkgver}/zstd-{pkgver}.tar.gz"
+sha256 = "2ba599ae2a257976278e7e71e998433a387bfd18aa7b78678229fd5d84f5e9b8"
 compression = "deflate"
 hardening = ["!vis", "!cfi"]
-# needs gtest
+# testing does a completely separate build of zstd which defeats the purpose
+# also, replaces zstd program that is then installed with a different, static one
 options = ["!check"]
 
 
@@ -27,6 +29,10 @@ def build(self):
         "LIB_BINDIR=../lib",
     )
     self.do("make", f"-j{self.make_jobs}", "PREFIX=/usr", "-C", "contrib/pzstd")
+
+
+def check(self):
+    self.do("make", "check")
 
 
 def install(self):
