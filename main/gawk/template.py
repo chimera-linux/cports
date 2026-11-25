@@ -14,7 +14,12 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
 sha256 = "b95e4909533b5f988c6b5e5539b3b3ddf76e7d7df02ca2e5b5b7d6f62db78e6a"
+# check may be disabled
 options = ["etcfiles"]
+
+if self.profile.arch in ["loongarch64"]:
+    # broken intformat
+    options += ["!check"]
 
 
 def post_install(self):
