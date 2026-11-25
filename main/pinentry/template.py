@@ -37,7 +37,7 @@ def post_install(self):
 
 
 def _frontend(name):
-    @subpackage(f"pinentry-{name}")
+    @split(name)
     def _(self):
         self.subdesc = f"{name} frontend"
 
@@ -53,7 +53,7 @@ def _frontend(name):
 
         return [f"usr/bin/pinentry-{name}"]
 
-    @subpackage(f"pinentry-{name}-default")
+    @split(f"{name}-default")
     def _(self):
         self.depends = [self.with_pkgver(f"pinentry-{name}")]
         self.provides = ["pinentry-default=0"]

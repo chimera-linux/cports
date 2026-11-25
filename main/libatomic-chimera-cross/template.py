@@ -78,13 +78,13 @@ def install(self):
 def _gen_crossp(an, at):
     cond = an in _targets
 
-    @subpackage(f"libatomic-chimera-cross-{an}-static", cond)
+    @split(f"{an}-static", cond)
     def _(self):
         self.subdesc = f"static {an} support"
         self.depends = [self.with_pkgver(f"libatomic-chimera-cross-{an}")]
         return [f"usr/{at}/usr/lib/libatomic.a"]
 
-    @subpackage(f"libatomic-chimera-cross-{an}", cond)
+    @split(an, cond)
     def _(self):
         self.subdesc = f"{an} support"
         self.options = [

@@ -190,8 +190,7 @@ def _take_list(self, pn):
 
 
 def _contrib_pkg(pn):
-    # build a subpackage for each contrib item
-    @subpackage(f"postgresql16-contrib-{pn}")
+    @split(f"contrib-{pn}")
     def _(self):
         self.subdesc = f"contrib-{pn}"
         self.depends += [self.parent]

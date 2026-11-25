@@ -50,7 +50,7 @@ def _(self):
 
 
 def _plugin(name):
-    @subpackage(f"weechat-{name}")
+    @split(name)
     def _(self):
         self.subdesc = f"{name.capitalize()} plugin"
         self.depends = [self.parent]

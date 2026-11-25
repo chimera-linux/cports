@@ -114,7 +114,7 @@ def _(self):
 
 
 def _genmod(modn, modl):
-    @subpackage(f"syslog-ng-{modn}_module")
+    @split(f"{modn}_module")
     def _(self):
         self.subdesc = f"{modn} module"
 

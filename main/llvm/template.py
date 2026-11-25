@@ -205,7 +205,7 @@ def _genpkg(
         rsname = sname
         sname = sname.removeprefix("llvm-")
 
-    @subpackage(rsname, enable)
+    @split(sname, enable)
     def _(self):
         self.subdesc = desc
         self.depends = []
@@ -238,7 +238,7 @@ def _genpkg(
     if not gen_dbg:
         return
 
-    @subpackage(f"{rsname}-dbg", enable and pkg.build_dbg)
+    @split(f"{sname}-dbg", enable and pkg.build_dbg)
     def _(self):
         self.subdec = "{desc} debug files"
         self.depends = [

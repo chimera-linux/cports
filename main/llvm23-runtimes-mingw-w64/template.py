@@ -136,7 +136,7 @@ def install(self):
 
 
 def _gen(an, at):
-    @subpackage(f"llvm{_llvm_majver}-runtimes-mingw-w64-{an}")
+    @split(an)
     def _(self):
         self.subdesc = an
         self.depends = [

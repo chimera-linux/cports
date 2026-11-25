@@ -86,7 +86,7 @@ def post_install(self):
 
 
 def _genlib(pkgn, desc):
-    @subpackage(f"heimdal-{pkgn}-libs")
+    @split(f"{pkgn}-libs")
     def _(self):
         self.pkgdesc = f"{desc} library from Heimdal Kerberos"
         # transitional

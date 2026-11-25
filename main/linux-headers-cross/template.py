@@ -70,7 +70,7 @@ def install(self):
 def _crosshdr(an, arch):
     _cond = (an, arch) in _targets
 
-    @subpackage(f"linux-headers-cross-{an}", _cond)
+    @split(an, _cond)
     def _(self):
         self.subdesc = f"{an} support"
         with self.rparent.use_profile(an) as pf:

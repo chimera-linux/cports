@@ -254,7 +254,7 @@ def _(self):
 
 
 def _gen_subp(an, native):
-    @subpackage(f"binutils-{an}")
+    @split(an)
     def _(self):
         self.subdesc = an
         self.depends = [self.with_pkgver("binutils-common")]

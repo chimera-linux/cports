@@ -557,7 +557,7 @@ def _(self):
 
 
 def _gen_pkg(name, desc, iifcond, iifpkg, cont):
-    @subpackage(f"firmware-linux-{name}")
+    @split(name)
     def _(self):
         self.subdesc = desc
         self.options = ["!strip", "foreignelf", "execstack"]

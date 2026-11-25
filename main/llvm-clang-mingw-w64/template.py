@@ -42,7 +42,7 @@ def install(self):
 def _gen(an):
     at = an + "-w64-mingw32"
 
-    @subpackage(f"llvm-clang-mingw-w64-{an}")
+    @split(an)
     def _(self):
         self.subdesc = f"{an} support"
         self.depends = [f"llvm{_llvmver}-clang-mingw-w64-{an}"]

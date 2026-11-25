@@ -60,7 +60,7 @@ def post_install(self):
 
 
 def _subpkg(lv):
-    @subpackage(f"luarocks-lua{lv}")
+    @split(f"lua{lv}")
     def _(self):
         self.subdesc = f"Lua {lv} support"
         self.options = ["etcfiles"]

@@ -30,7 +30,7 @@ sha256 = "31d0e35a4ca567ec9b5ebda6c3062bb4435d6d3eacd6ef0d95cadd7854dc03ee"
 
 
 def _genlib(libn, descn, iif):
-    @subpackage(f"mpg123-output-{libn}")
+    @split(f"output-{libn}")
     def _(self):
         self.subdesc = f"{descn} output plugin"
         if iif:

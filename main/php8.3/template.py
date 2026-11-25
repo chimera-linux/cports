@@ -277,7 +277,7 @@ def _(self):
 
 
 def _extension(extn, iif):
-    @subpackage(f"php{_majver}-{extn}")
+    @split(extn)
     def _(self):
         self.subdesc = f"{extn} extension"
         self.depends += [self.parent]
@@ -342,7 +342,7 @@ for _extn, _iif in [
     _extension(_extn, _iif)
 
 
-@subpackage(f"php{_majver}-pear")
+@split("pear")
 def _(self):
     self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
     self.depends = [self.parent, f"{pkgname}-xml"]
@@ -358,7 +358,7 @@ def _(self):
     ]
 
 
-@subpackage(f"php{_majver}-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

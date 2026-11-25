@@ -16,7 +16,7 @@ def install(self):
 
 
 def _gen_scriptp(code, name):
-    @subpackage(f"tesseract-data-script-{code.lower()}")
+    @split(f"script-{code.lower()}")
     def _(self):
         self.subdesc = f"language files for {name} script"
         self.install_if = [self.parent]
@@ -69,7 +69,7 @@ for _code, _name in _scripts:
 
 
 def _gen_langp(code, name):
-    @subpackage(f"tesseract-data-{code}")
+    @split(code)
     def _(self):
         self.subdesc = f"language files for {name}"
         self.install_if = [self.parent]

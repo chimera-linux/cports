@@ -153,7 +153,7 @@ def install(self):
 
 
 def _gen_subp(an):
-    @subpackage(f"llvm{_llvm_majver}-clang-rt-crt-cross-{an}", an in _targets)
+    @split(an, an in _targets)
     def _(self):
         self.subdesc = f"{an} support"
         self.depends = [f"llvm{_llvm_majver}-clang"]

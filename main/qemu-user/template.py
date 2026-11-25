@@ -108,7 +108,7 @@ def _upkg(uname, wordsize):
     if self.profile.wordsize == 32 and wordsize == 64:
         do_epkg = False
 
-    @subpackage(f"qemu-user-{uname}", do_epkg)
+    @split(uname, do_epkg)
     def _(self):
         self.subdesc = uname
         self.install_if = [self.parent]
@@ -129,7 +129,7 @@ def _upkg(uname, wordsize):
         do_bpkg = False
 
     # binfmt package is not generated for current arch
-    @subpackage(f"qemu-user-{uname}-binfmt", do_bpkg)
+    @split(f"{uname}-binfmt", do_bpkg)
     def _(self):
         self.subdesc = f"{uname} binfmt"
         self.install_if = [self.with_pkgver(f"qemu-user-{uname}")]

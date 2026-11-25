@@ -198,7 +198,7 @@ def init_configure(self):
 
 
 def _genlib(lname, ldesc):
-    @subpackage(f"ffmpeg-{lname}-libs")
+    @split(f"{lname}-libs")
     def _(self):
         self.pkgdesc = f"FFmpeg {ldesc} library"
         self.renames = [f"lib{lname}"]

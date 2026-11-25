@@ -185,7 +185,7 @@ def _(self):
 
 
 def _gen_libp(libname):
-    @subpackage(f"boost-{libname}-libs")
+    @split(f"{libname}-libs")
     def _(self):
         self.subdesc = libname
         self.depends = [self.parent]

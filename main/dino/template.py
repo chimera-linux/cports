@@ -42,7 +42,7 @@ if self.profile.endian != "big":
 
 
 def _genmod(pname, pdesc):
-    @subpackage(f"dino-plugin-{pname}")
+    @split(f"plugin-{pname}")
     def _(self):
         self.subdesc = f"{pdesc} plugin"
         # this is not normally built with default settings

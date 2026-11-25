@@ -138,7 +138,7 @@ def post_install(self):
 
 
 def _module(modn, eiif):
-    @subpackage(f"nginx-module-{modn}")
+    @split(f"module-{modn}")
     def _(self):
         self.subdesc = f"{modn} module"
         self.options = ["etcfiles"]

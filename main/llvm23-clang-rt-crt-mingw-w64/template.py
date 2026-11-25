@@ -86,7 +86,7 @@ def install(self):
 
 
 def _gen(an):
-    @subpackage(f"llvm{_llvm_majver}-clang-rt-crt-mingw-w64-{an}")
+    @split(an)
     def _(self):
         match an:
             case "aarch64" | "x86_64":

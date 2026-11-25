@@ -55,7 +55,7 @@ def install(self):
 def _gen(an):
     cond = an in _targets
 
-    @subpackage(f"llvm-clang-cross-{an}", cond)
+    @split(an, cond)
     def _(self):
         self.subdesc = f"{an} support"
         self.depends = [f"llvm{_llvmver}-clang-cross-{an}"]

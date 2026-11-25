@@ -80,7 +80,7 @@ def install(self):
 def _gen(an):
     cond = an in _targets
 
-    @subpackage(f"llvm{_llvm_majver}-clang-cross-{an}", cond)
+    @split(an, cond)
     def _(self):
         self.subdesc = f"{an} support"
         self.depends = [

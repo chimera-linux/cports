@@ -152,7 +152,7 @@ def _(self):
 def _gen_crossp(an, at):
     cond = an in _targets
 
-    @subpackage(f"llvm-runtimes-cross-{an}-static", cond)
+    @split(f"{an}-static", cond)
     def _(self):
         self.subdesc = f"{an} static libraries"
         self.renames = [
@@ -166,7 +166,7 @@ def _gen_crossp(an, at):
         self.depends = [self.with_pkgver(f"llvm-runtimes-cross-{an}")]
         return [f"usr/{at}/usr/lib/*.a"]
 
-    @subpackage(f"llvm-runtimes-cross-{an}", cond)
+    @split(an, cond)
     def _(self):
         self.subdesc = an
         self.renames = [

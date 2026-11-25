@@ -36,7 +36,7 @@ def post_install(self):
 
 
 def _gen_subp(name, desc, iif):
-    @subpackage(f"apr-util-{name}")
+    @split(name)
     def _(self):
         self.subdesc = f"{desc} module"
         self.depends = [self.parent]

@@ -43,7 +43,7 @@ def install(self):
 def _subpkg(variant):
     subpkg = "".join(["-" + c.lower() if c.isupper() else c for c in _variant])
 
-    @subpackage(f"fonts-iosevka{subpkg}-ttf")
+    @split(f"{subpkg[1:]}-ttf")
     def _(self):
         self.subdesc = variant
 

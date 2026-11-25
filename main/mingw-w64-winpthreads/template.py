@@ -66,7 +66,7 @@ def install(self):
 
 
 def _gen(an, at):
-    @subpackage(f"mingw-w64-winpthreads-{an}")
+    @split(an)
     def _(self):
         self.subdesc = an
         self.depends = [f"mingw-w64-crt-{an}"]

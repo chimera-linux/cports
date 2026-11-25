@@ -70,7 +70,7 @@ def post_install(self):
 
 
 def _genmod(pname):
-    @subpackage(f"nushell-plugin-{pname}")
+    @split(f"plugin-{pname}")
     def _(self):
         self.subdesc = f"{pname} plugin"
         # The scripts enabling the nushell plugins automatically are no completions

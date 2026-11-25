@@ -239,7 +239,7 @@ def _(self):
 
 
 def _libpkg(name, libname, desc, extra=None):
-    @subpackage(f"qt6-qtbase-{name}")
+    @split(name)
     def _(self):
         self.subdesc = desc
 
