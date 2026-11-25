@@ -1,6 +1,6 @@
 pkgname = "mtxclient"
 pkgver = "0.10.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = ["-DBUILD_LIB_EXAMPLES=OFF"]
 make_check_args = [
@@ -17,6 +17,7 @@ makedepends = [
     "boost-devel",
     "coeurl-devel",
     "curl-devel",
+    "fmt-devel",
     "gtest-devel",
     "libevent-devel",
     "nlohmann-json",

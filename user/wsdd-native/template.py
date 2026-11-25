@@ -1,6 +1,6 @@
 pkgname = "wsdd-native"
 pkgver = "1.28"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # external.cmake (bundled in the prefetch tarball) sets

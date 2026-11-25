@@ -1,7 +1,7 @@
 pkgname = "nxengine-evo"
 # change source on update
 pkgver = "2.6.5.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = [
@@ -9,6 +9,7 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
+    "fmt-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "nlohmann-json",

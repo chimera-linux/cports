@@ -1,6 +1,6 @@
 pkgname = "mpdscribble"
 pkgver = "0.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

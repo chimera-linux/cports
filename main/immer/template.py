@@ -1,6 +1,6 @@
 pkgname = "immer"
 pkgver = "0.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DDISABLE_WERROR=ON"]
 make_check_target = "check"

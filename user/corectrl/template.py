@@ -1,6 +1,6 @@
 pkgname = "corectrl"
 pkgver = "1.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs https://github.com/rollbear/trompeloeil
 configure_args = ["-DBUILD_TESTING=OFF"]
@@ -9,6 +9,7 @@ makedepends = [
     "botan-devel",
     "bzip2-devel",
     "dbus-devel",
+    "fmt-devel",
     "polkit-devel",
     "pugixml-devel",
     "qt6-qt5compat-devel",

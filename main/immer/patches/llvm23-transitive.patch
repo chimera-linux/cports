@@ -1,0 +1,12 @@
+diff --git a/immer/table.hpp b/immer/table.hpp
+index 9306fb0..06d2cfa 100644
+--- a/immer/table.hpp
++++ b/immer/table.hpp
+@@ -4,6 +4,7 @@
+ #include <immer/detail/hamts/champ.hpp>
+ #include <immer/detail/hamts/champ_iterator.hpp>
+ #include <immer/memory_policy.hpp>
++#include <stdexcept>
+ #include <type_traits>
+ 
+ namespace immer {

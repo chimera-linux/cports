@@ -1,6 +1,6 @@
 pkgname = "nheko"
 pkgver = "0.12.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "cmake"
 hostmakedepends = [
     "asciidoctor",
@@ -13,6 +13,7 @@ makedepends = [
     "cmark-devel",
     "coeurl-devel",
     "curl-devel",
+    "fmt-devel",
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "kdsingleapplication-devel",

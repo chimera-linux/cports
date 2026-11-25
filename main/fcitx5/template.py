@@ -1,6 +1,6 @@
 pkgname = "fcitx5"
 pkgver = "5.1.23"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DUSE_SYSTEM_YOGA=ON"]
 hostmakedepends = [
