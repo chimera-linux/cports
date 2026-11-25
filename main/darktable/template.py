@@ -1,6 +1,6 @@
 pkgname = "darktable"
-pkgver = "5.2.1"
-pkgrel = 6
+pkgver = "5.6.2"
+pkgrel = 0
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -59,6 +59,7 @@ makedepends = [
     "lua5.4-devel",
     "ncurses-devel",
     "openexr-devel",
+    "potrace-devel",
     "pugixml-devel",
     "sqlite-devel",
 ]
@@ -66,7 +67,7 @@ pkgdesc = "Open source photography workflow application and raw developer"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
-sha256 = "02f1aa9ae93949e7bc54c34eeb5ff92c2b87f95d2547865df55c60467564ee11"
+sha256 = "d2da92c670401d350b576431f21e58bee40348e1f5078201a8a1b8c270585834"
 options = ["llvmflags"]
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
