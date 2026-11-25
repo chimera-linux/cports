@@ -1,7 +1,7 @@
 # mirrors firefox package; own patches as version may drift
 # always incorporate changes from firefox commits to keep in sync
 pkgname = "librewolf"
-pkgver = "159.0.1"
+pkgver = "161.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -59,7 +59,7 @@ pkgdesc = "LibreWolf web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://librewolf.net"
 source = f"https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/{pkgver}-1/librewolf-{pkgver}-1.source.tar.gz"
-sha256 = "955a51063d15612260d993fb70794dc28a8c6e33d0380193e91ce44570ee3ff3"
+sha256 = "81646ff5d0fda58239270ede958bd6655f502b2e3891cc7e9ce95c33629640d3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/librewolf", "-Wl,-z,stack-size=2097152"]
