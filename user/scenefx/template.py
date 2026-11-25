@@ -22,7 +22,7 @@ makedepends = [
 pkgdesc = "Drop-in replacement for the wlroots scene API with eye-candy effects"
 license = "MIT"
 url = "https://github.com/wlrfx/scenefx"
-source = f"https://github.com/wlrfx/scenefx/archive/refs/tags/{pkgver}.tar.gz"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "0fa8ecca0e310f813efd052624c5ed7d9153d6a0fdead5cc957d34c07f9a86c6"
 
 
