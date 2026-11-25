@@ -12,6 +12,6 @@ source = f"$(KERNEL_SITE)/bluetooth/sbc-{pkgver}.tar.xz"
 sha256 = "a1ada76ef35e5af9c2fbd063754dc9e37a8d989417c6eb1ecebb089b1383ae9e"
 
 
-@subpackage("sbc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

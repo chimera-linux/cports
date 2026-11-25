@@ -63,11 +63,11 @@ def init_build(self):
     self.make_env.update(renv)
 
 
-@subpackage("librsvg-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("librsvg-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

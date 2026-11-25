@@ -24,6 +24,6 @@ source = f"{url}/releases/download/v{pkgver}/recode-{pkgver}.tar.gz"
 sha256 = "f590407fc51badb351973fc1333ee33111f05ec83a8f954fd8cf0c5e30439806"
 
 
-@subpackage("recode-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,6 +15,6 @@ sha256 = "7c7091e9c86196148bd41177b4590dccb1510bfe6cea5bf7407ff194482eb049"
 options = ["!check"]
 
 
-@subpackage("libftdi1-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

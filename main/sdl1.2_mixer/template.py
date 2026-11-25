@@ -27,6 +27,6 @@ sha256 = "1644308279a975799049e4826af2cfc787cad2abb11aa14562e402521f86992a"
 options = ["!check"]
 
 
-@subpackage("sdl1.2_mixer-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

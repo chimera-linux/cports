@@ -20,6 +20,6 @@ sha256 = "2fc1ab6900df8488fe69811fde58ab37c7c6fdf6c1f1b32a01c20f3b3d9f6d9c"
 hardening = ["vis"]
 
 
-@subpackage("kcodecs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -34,11 +34,11 @@ def post_install(self):
     self.install_file(self.files_path / "gpm.sh", "etc/profile.d")
 
 
-@subpackage("gpm-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("gpm-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

@@ -81,6 +81,6 @@ hardening = ["!int"]
 options = ["!check", "!cross"]
 
 
-@subpackage("mutter-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/lib/mutter-51/*.gir"])

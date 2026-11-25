@@ -36,6 +36,6 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("thunar-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

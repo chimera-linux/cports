@@ -12,6 +12,6 @@ source = f"https://librdf.org/dist/source/rasqal-{pkgver}.tar.gz"
 sha256 = "6924c9ac6570bd241a9669f83b467c728a322470bf34f4b2da4f69492ccfd97c"
 
 
-@subpackage("rasqal-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

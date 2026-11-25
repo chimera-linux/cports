@@ -45,7 +45,7 @@ source = (
 sha256 = "931517a43e6f908baafc67502ed63de6ca33e9e731d5ac497b1019be4893ce93"
 
 
-@subpackage("incidenceeditor-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-mime-devel",

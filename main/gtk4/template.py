@@ -106,7 +106,7 @@ def post_install(self):
     self.uninstall("usr/share/man/man1/gtk4-update-icon-cache.1")
 
 
-@subpackage("gtk4-devel")
+@split("devel")
 def _(self):
     self.depends += ["vulkan-headers"]
 
@@ -119,7 +119,7 @@ def _(self):
     )
 
 
-@subpackage("gtk4-demo")
+@split("demo")
 def _(self):
     self.subdesc = "demo applications"
 

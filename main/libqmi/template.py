@@ -25,6 +25,6 @@ source = f"https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/{pkg
 sha256 = "8ee3b3a9002f2b45c825deade85710db006e01674f5f9359d351c192cc926015"
 
 
-@subpackage("libqmi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

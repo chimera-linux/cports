@@ -22,6 +22,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "b334658edd35efcf06a99d9be21e4e93e092bd5f95074c1673d5c8705d95c104"
 
 
-@subpackage("benchmark-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

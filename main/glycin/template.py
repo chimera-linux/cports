@@ -53,7 +53,7 @@ def init_build(self):
     del self.make_env["CARGO_BUILD_TARGET"]
 
 
-@subpackage("glycin-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libglycin-devel")]
@@ -61,7 +61,7 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("glycin-loaders-none")
+@split("loaders-none")
 def _(self):
     self.subdesc = "no additional loaders"
     self.depends = [self.parent]

@@ -29,7 +29,7 @@ source = (
 sha256 = "603ad9793eb63151ac08d0d32fc1a18bc9cb4a3d5c6d05e41fcf7dd073de47a7"
 
 
-@subpackage("kpublictransport-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel", "zlib-ng-compat-devel"]
     return self.default_devel()

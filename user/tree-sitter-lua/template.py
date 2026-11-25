@@ -22,6 +22,6 @@ def post_install(self):
     )
 
 
-@subpackage("tree-sitter-lua-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

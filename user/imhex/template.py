@@ -63,6 +63,6 @@ if self.profile.wordsize == 32:
     broken = "uses int128"
 
 
-@subpackage("imhex-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/imhex/sdk"])

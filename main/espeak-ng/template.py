@@ -20,6 +20,6 @@ sha256 = "bb4338102ff3b49a81423da8a1a158b420124b055b60fa76cfb4b18677130a23"
 options = ["!check"]
 
 
-@subpackage("espeak-ng-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

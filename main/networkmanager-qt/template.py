@@ -21,7 +21,7 @@ sha256 = "028134ebcb8aba0394377775a15741c8dc3fc33af9651508a6d819ac1e7f31a0"
 hardening = ["vis"]
 
 
-@subpackage("networkmanager-qt-devel")
+@split("devel")
 def _(self):
     self.depends += ["networkmanager-devel"]
 

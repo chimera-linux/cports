@@ -24,6 +24,6 @@ def post_install(self):
     self.uninstall("usr/share/man/man1/lv-tool-0.4.1")
 
 
-@subpackage("libvisual-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

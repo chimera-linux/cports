@@ -58,7 +58,7 @@ for _subn, _subd, _subc in [
     _gensub(_subn, _subd, _subc)
 
 
-@subpackage("fonts-noto-extra")
+@split("extra")
 def _(self):
     self.subdesc = "additional variants"
     self.depends = [self.parent]

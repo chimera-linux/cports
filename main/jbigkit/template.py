@@ -19,11 +19,11 @@ def post_install(self):
     self.install_file("jbigkit85.pc", "usr/lib/pkgconfig")
 
 
-@subpackage("jbigkit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("jbigkit-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

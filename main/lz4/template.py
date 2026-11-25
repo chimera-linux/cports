@@ -25,7 +25,7 @@ def post_install(self):
     self.install_license("lib/LICENSE")
 
 
-@subpackage("lz4-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("liblz4-devel")]
 

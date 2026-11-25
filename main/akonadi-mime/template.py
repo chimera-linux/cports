@@ -34,7 +34,7 @@ source = (
 sha256 = "983f0984574bfdb3181f015f0358fa204a44df02c4d3abfe0390eff888700c4b"
 
 
-@subpackage("akonadi-mime-devel")
+@split("devel")
 def _(self):
     self.depends += ["akonadi-devel"]
     return self.default_devel()

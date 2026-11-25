@@ -39,6 +39,6 @@ sha256 = "23420ef619dc2cb5aebad613f4823a2fa41c07e5a1d05628d40f6ec4b35bfddd"
 options = ["!cross", "!check"]
 
 
-@subpackage("libnotify-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

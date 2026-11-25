@@ -37,7 +37,7 @@ def check(self):
     self.do("./build/test/unittest", "*")
 
 
-@subpackage("duckdb-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

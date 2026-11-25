@@ -21,7 +21,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("xdg-utils-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 integration"
     self.options = ["empty"]

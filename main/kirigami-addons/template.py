@@ -33,6 +33,6 @@ sha256 = "124b01267acf603c3afd9fb9599a33fee7a28d65756890163e9593a3932084dd"
 hardening = ["vis"]
 
 
-@subpackage("kirigami-addons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

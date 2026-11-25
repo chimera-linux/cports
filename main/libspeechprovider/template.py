@@ -13,7 +13,7 @@ source = f"https://github.com/project-spiel/libspeechprovider/archive/refs/tags/
 sha256 = "e83e32428cd8b684dff3c931601151d1202e0b6370990a605a36322804959cae"
 
 
-@subpackage("libspeechprovider-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

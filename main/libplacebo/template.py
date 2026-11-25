@@ -44,6 +44,6 @@ sha256 = [
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("libplacebo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

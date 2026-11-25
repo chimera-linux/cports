@@ -49,7 +49,7 @@ def post_install(self):
     self.install_man("cppcheck.1")
 
 
-@subpackage("cppcheck-gui")
+@split("gui")
 def _(self):
     self.subdesc = "GUI tool"
     self.depends = [self.parent]

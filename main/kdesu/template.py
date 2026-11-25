@@ -18,7 +18,7 @@ sha256 = "db3f46d8f293be7e2d4ccf6dd3da724b691fb6f816bd96352f65a72ed838c08a"
 hardening = ["vis"]
 
 
-@subpackage("kdesu-devel")
+@split("devel")
 def _(self):
     self.depends += ["kpty-devel"]
     return self.default_devel()

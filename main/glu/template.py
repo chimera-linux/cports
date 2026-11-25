@@ -12,6 +12,6 @@ source = f"https://mesa.freedesktop.org/archive/glu/glu-{pkgver}.tar.xz"
 sha256 = "bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f"
 
 
-@subpackage("glu-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -16,6 +16,6 @@ source = f"$(GNOME_SITE)/gupnp-igd/{pkgver[:-2]}/gupnp-igd-{pkgver}.tar.xz"
 sha256 = "4099978339ab22126d4968f2a332b6d094fc44c78797860781f1fc2f11771b74"
 
 
-@subpackage("gupnp-igd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

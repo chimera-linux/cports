@@ -27,6 +27,6 @@ sha256 = "a8407a5897a2e425ea1aa955ecf88485dd2fd417919de275b27c781a5d0637a5"
 options = ["!cross"]
 
 
-@subpackage("libaccounts-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

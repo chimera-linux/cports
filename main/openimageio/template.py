@@ -56,12 +56,12 @@ tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 
 
-@subpackage("openimageio-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("openimageio-devel")
+@split("devel")
 def _(self):
     # referenced by cmake
     self.depends = ["opencv-devel"]
@@ -69,7 +69,7 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("openimageio-python")
+@split("python")
 def _(self):
     self.pkgdesc = "Python bindings for openimageio"
     self.depends += ["python"]

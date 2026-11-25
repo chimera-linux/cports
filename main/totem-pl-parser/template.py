@@ -33,6 +33,6 @@ sha256 = "60d517c1acabe54ae337f64451264fc76730696eaae26b5480fb37166689b5f3"
 options = ["!check", "linkundefver"]
 
 
-@subpackage("totem-pl-parser-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

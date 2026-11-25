@@ -53,11 +53,11 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/dot_builtins")
 
 
-@subpackage("graphviz-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("graphviz-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

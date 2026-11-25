@@ -12,11 +12,11 @@ sha256 = "189baa08fd6d2dd34db099de411bd6b2e6bd5eb88e81236a3d0fa3826b9715c4"
 options = ["!check"]
 
 
-@subpackage("libde265-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libde265-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

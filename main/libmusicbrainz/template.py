@@ -11,6 +11,6 @@ source = f"https://github.com/metabrainz/libmusicbrainz/releases/download/releas
 sha256 = "6749259e89bbb273f3f5ad7acdffb7c47a2cf8fcaeab4c4695484cef5f4c6b46"
 
 
-@subpackage("libmusicbrainz-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

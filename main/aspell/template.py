@@ -14,11 +14,11 @@ source = f"https://ftp.gnu.org/gnu/aspell/aspell-{pkgver}.tar.gz"
 sha256 = "0534eae11132405120d11e46bf595bd5dd189bc124ba77a5dd6aae861b48a162"
 
 
-@subpackage("aspell-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("aspell-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

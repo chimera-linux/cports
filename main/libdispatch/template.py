@@ -20,7 +20,7 @@ sha256 = "26e8f6d661415502c10f909835961cac4edf56a0ab9512a9988489fe98601385"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("libdispatch-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

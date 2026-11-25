@@ -32,11 +32,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("imlib2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("imlib2-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

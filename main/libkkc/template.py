@@ -43,6 +43,6 @@ def post_install(self):
     self.uninstall("usr/share/libkkc/templates/libkkc-data/tools/Makefile.am")
 
 
-@subpackage("libkkc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

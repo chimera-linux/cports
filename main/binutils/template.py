@@ -242,7 +242,7 @@ def install(self):
         p.with_name(f"{tgt.triplet}-{p.name}").symlink_to(p.name)
 
 
-@subpackage("binutils-common")
+@split("common")
 def _(self):
     self.subdesc = "common files"
     self.options = ["!splitstatic"]

@@ -93,6 +93,6 @@ def build(self):
     cmake.build(self, "build")
 
 
-@subpackage("x265-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

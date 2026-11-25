@@ -22,7 +22,7 @@ source = f"https://github.com/dyne/frei0r/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "aeeefe3a9b44761b2cf110017d2b1dfa2ceeb873da96d283ba5157380c5d0ce5"
 
 
-@subpackage("frei0r-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

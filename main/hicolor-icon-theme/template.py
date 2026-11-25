@@ -10,7 +10,7 @@ source = f"http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-{pkgver
 sha256 = "db0e50a80aa3bf64bb45cbca5cf9f75efd9348cf2ac690b907435238c3cf81d7"
 
 
-@subpackage("hicolor-icon-theme-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

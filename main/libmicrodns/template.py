@@ -10,6 +10,6 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "9864a088ffef4d4255d5abf63c6f603d1dc343dfec2809ff0c3f1624045b80fa"
 
 
-@subpackage("libmicrodns-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

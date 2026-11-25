@@ -40,7 +40,7 @@ if self.profile.wordsize == 32:
     options += ["!check"]
 
 
-@subpackage("gdk-pixbuf-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

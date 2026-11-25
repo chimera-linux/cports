@@ -26,6 +26,6 @@ sha256 = "7f4a9daa7bc050d8350ee4d5feb207121e31988de0c9883478d9fbde55bed927"
 hardening = ["vis"]
 
 
-@subpackage("libkexiv2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

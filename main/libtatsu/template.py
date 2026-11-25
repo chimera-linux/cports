@@ -11,6 +11,6 @@ source = f"{url}/releases/download/{pkgver}/libtatsu-{pkgver}.tar.bz2"
 sha256 = "536fa228b14f156258e801a7f4d25a3a9dd91bb936bf6344e23171403c57e440"
 
 
-@subpackage("libtatsu-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

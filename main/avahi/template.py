@@ -69,7 +69,7 @@ def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
 
 
-@subpackage("avahi-python")
+@split("python")
 def _(self):
     self.pkgdesc = "Python utility package for Avahi"
     self.depends = ["python", "python-dbus"]
@@ -81,7 +81,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-glib-devel")
+@split("glib-devel")
 def _(self):
     self.pkgdesc = "Avahi glib libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
@@ -95,7 +95,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-glib-libs")
+@split("glib-libs")
 def _(self):
     self.pkgdesc = "Avahi glib libraries"
 
@@ -106,7 +106,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-ui-progs")
+@split("ui-progs")
 def _(self):
     self.pkgdesc = "Avahi Gtk+ utilities"
     self.depends = [self.parent]
@@ -122,7 +122,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-ui-devel")
+@split("ui-devel")
 def _(self):
     self.pkgdesc = "Avahi UI libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
@@ -134,7 +134,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-ui-libs")
+@split("ui-libs")
 def _(self):
     self.pkgdesc = "Avahi UI libraries"
 
@@ -143,7 +143,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-libevent-devel")
+@split("libevent-devel")
 def _(self):
     self.pkgdesc = "Avahi libevent libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
@@ -155,7 +155,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-libevent-libs")
+@split("libevent-libs")
 def _(self):
     self.pkgdesc = "Avahi libevent libraries"
 
@@ -164,7 +164,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-autoipd")
+@split("autoipd")
 def _(self):
     self.pkgdesc = "Avahi IPv4LL network address configuration daemon"
     self.options = ["etcfiles"]
@@ -176,7 +176,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-compat-devel")
+@split("compat-devel")
 def _(self):
     self.depends += [self.with_pkgver("avahi-devel")]
     self.subdesc = "compat development files"
@@ -189,7 +189,7 @@ def _(self):
     ]
 
 
-@subpackage("avahi-compat-libs")
+@split("compat-libs")
 def _(self):
     self.subdesc = "compat libraries"
 
@@ -199,19 +199,19 @@ def _(self):
     ]
 
 
-@subpackage("avahi-devel")
+@split("devel")
 def _(self):
     self.depends += ["dbus-devel"]
 
     return self.default_devel()
 
 
-@subpackage("avahi-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("avahi-progs")
+@split("progs")
 def _(self):
     # do not take daemon
     return [

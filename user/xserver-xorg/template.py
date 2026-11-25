@@ -129,21 +129,21 @@ def post_install(self):
     self.install_man(self.files_path / "xvfb-run.1")
 
 
-@subpackage("xserver-xorg-xnest")
+@split("xnest")
 def _(self):
     self.pkgdesc = "Nested X server that runs as an X application"
 
     return ["usr/bin/Xnest", "usr/share/man/man1/Xnest.1"]
 
 
-@subpackage("xserver-xorg-xephyr")
+@split("xephyr")
 def _(self):
     self.pkgdesc = "X server outputting to a window on a pre-existing display"
 
     return ["usr/bin/Xephyr", "usr/share/man/man1/Xephyr.1"]
 
 
-@subpackage("xserver-xorg-xvfb")
+@split("xvfb")
 def _(self):
     self.pkgdesc = "Virtual framebuffer X server"
     self.depends += ["xkeyboard-config", "xauth", "ugetopt"]
@@ -156,7 +156,7 @@ def _(self):
     ]
 
 
-@subpackage("xserver-xorg-core")
+@split("core")
 def _(self):
     self.subdesc = "default server"
     # check if this needs to be updated when updating
@@ -183,7 +183,7 @@ def _(self):
     ]
 
 
-@subpackage("xserver-xorg-minimal")
+@split("minimal")
 def _(self):
     self.subdesc = "minimal metapackage"
     self.depends += [
@@ -197,7 +197,7 @@ def _(self):
     return []
 
 
-@subpackage("xserver-xorg-input-none")
+@split("input-none")
 def _(self):
     self.subdesc = "no input driver"
     self.provides = ["xserver-xorg-input-driver=0"]
@@ -206,7 +206,7 @@ def _(self):
     return []
 
 
-@subpackage("xserver-xorg-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "xorgproto",

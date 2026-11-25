@@ -19,7 +19,7 @@ source = f"$(GNU_SITE)/libidn/libidn2-{pkgver}.tar.gz"
 sha256 = "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a"
 
 
-@subpackage("libidn2-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[
@@ -28,6 +28,6 @@ def _(self):
     )
 
 
-@subpackage("libidn2-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

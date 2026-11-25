@@ -38,7 +38,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("power-profiles-daemon-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

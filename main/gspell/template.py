@@ -27,6 +27,6 @@ sha256 = "1ecdc789e4f798e63cf49fc1718541e7974e5f67034ce152ae052a2b8f337e8e"
 options = ["!check", "!cross"]
 
 
-@subpackage("gspell-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

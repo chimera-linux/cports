@@ -11,6 +11,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "9ffb3479b15df0170eba4480e51723c3961dbe0b461ec289744622db03a69395"
 
 
-@subpackage("musl-obstack-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

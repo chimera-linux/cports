@@ -16,11 +16,11 @@ source = f"$(SOURCEFORGE_SITE)/libwpd/libwpd-{pkgver}.tar.xz"
 sha256 = "2465b0b662fdc5d4e3bebcdc9a79027713fb629ca2bff04a3c9251fdec42dd09"
 
 
-@subpackage("libwpd-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libwpd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

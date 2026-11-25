@@ -13,6 +13,6 @@ sha256 = "aa5c54e696069af26f3f1fed4a963113cc1237cddfd57ae5842abcb1acd5492c"
 options = ["!check"]
 
 
-@subpackage("zita-resampler-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

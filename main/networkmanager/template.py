@@ -119,13 +119,13 @@ def post_install(self):
     )
 
 
-@subpackage("networkmanager-libs")
+@split("libs")
 def _(self):
     self.renames = ["libnm"]
 
     return self.default_libs()
 
 
-@subpackage("networkmanager-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -24,7 +24,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("ocl-icd-devel")
+@split("devel")
 def _(self):
     self.depends += ["opencl-headers"]
 

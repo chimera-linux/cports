@@ -22,6 +22,6 @@ source = f"https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/{pk
 sha256 = "55bb88df358f8a36b6e01e63877500d7c6420f5907d2d3101812b4912eabe08f"
 
 
-@subpackage("libmbim-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

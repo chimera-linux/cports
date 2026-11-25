@@ -55,6 +55,6 @@ def post_install(self):
         self.do(cexe, "hwdb", env=cenv, stdout=uf)
 
 
-@subpackage("libgphoto2-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

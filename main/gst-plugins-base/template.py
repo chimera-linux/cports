@@ -70,6 +70,6 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-@subpackage("gst-plugins-base-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

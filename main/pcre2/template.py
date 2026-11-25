@@ -32,14 +32,14 @@ def post_install(self):
     self.install_license("LICENCE.md")
 
 
-@subpackage("pcre2-libs")
+@split("libs")
 def _(self):
     self.renames = ["libpcre2"]
 
     return self.default_libs()
 
 
-@subpackage("pcre2-devel")
+@split("devel")
 def _(self):
     self.depends += ["zlib-ng-compat-devel", "bzip2-devel"]
     return self.default_devel(extra=["usr/share/doc"])

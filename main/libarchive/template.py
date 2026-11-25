@@ -50,14 +50,14 @@ def post_install(self):
     self.rename("usr/share/man/man5/mtree.5", "libarchive-mtree.5")
 
 
-@subpackage("libarchive-progs")
+@split("progs")
 def _(self):
     self.renames = ["bsdtar"]
 
     return self.default_progs(man="15")
 
 
-@subpackage("libarchive-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

@@ -32,6 +32,6 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
-@subpackage("kwidgetsaddons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

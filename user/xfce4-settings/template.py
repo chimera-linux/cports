@@ -43,7 +43,7 @@ sha256 = "6e11776e640798a1ac4168d53877f105bb3e8cf93b443c160841e3acdab63939"
 options = ["etcfiles"]
 
 
-@subpackage("xfce4-settings-default-themes")
+@split("default-themes")
 def _(self):
     self.subdesc = "default themes"
     self.install_if = [self.parent]

@@ -21,7 +21,7 @@ def post_install(self):
     self.install_service(self.files_path / "seatd")
 
 
-@subpackage("libseat-seatd")
+@split("seatd")
 def _(self):
     self.pkgdesc = "Seat management daemon"
     self.provides = [self.with_pkgver("seatd")]
@@ -29,7 +29,7 @@ def _(self):
     return self.default_progs(extra=["usr/lib/dinit.d", "usr/lib/sysusers.d"])
 
 
-@subpackage("libseat-devel")
+@split("devel")
 def _(self):
     self.pkgdesc = "Universal seat management library"
 

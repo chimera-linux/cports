@@ -31,7 +31,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("qcoro-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "qt6-qtdeclarative-devel",

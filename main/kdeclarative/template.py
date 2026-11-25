@@ -20,7 +20,7 @@ sha256 = "9e187056b3e1d49ecde29b30e4a4f5f2633639b622dd596369eac86c45c7f167"
 hardening = ["vis"]
 
 
-@subpackage("kdeclarative-devel")
+@split("devel")
 def _(self):
     self.depends += ["kconfig-devel", "qt6-qtdeclarative-devel"]
 

@@ -33,6 +33,6 @@ hardening = ["!vis"]
 options = ["!check"]
 
 
-@subpackage("ddcutil-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

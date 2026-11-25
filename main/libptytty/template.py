@@ -17,6 +17,6 @@ sha256 = "8033ed3aadf28759660d4f11f2d7b030acf2a6890cb0f7926fb0cfa6739d31f7"
 options = ["!check"]
 
 
-@subpackage("libptytty-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

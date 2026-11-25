@@ -12,6 +12,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "8c9b9057c6cc8bce9d11701af224c8139c940f734c439a595525e073b09d19b8"
 
 
-@subpackage("ffmpegthumbnailer-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

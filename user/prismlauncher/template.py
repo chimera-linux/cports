@@ -33,7 +33,7 @@ source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
 sha256 = "9ea53f93714cd2a59dc0f38153690a59a3f06f439934d1410ec364cc7f363eb5"
 
 
-@subpackage("prismlauncher-natives")
+@split("natives")
 def _(self):
     self.subdesc = "native default libs"
     self.install_if = [self.parent]

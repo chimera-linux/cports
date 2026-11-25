@@ -54,6 +54,6 @@ hardening = ["vis"]
 options = ["etcfiles"]
 
 
-@subpackage("konqueror-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

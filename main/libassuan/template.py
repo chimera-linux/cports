@@ -13,6 +13,6 @@ source = f"https://gnupg.org/ftp/gcrypt/libassuan/libassuan-{pkgver}.tar.bz2"
 sha256 = "d2931cdad266e633510f9970e1a2f346055e351bb19f9b78912475b8074c36f6"
 
 
-@subpackage("libassuan-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

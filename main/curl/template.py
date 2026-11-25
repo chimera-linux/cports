@@ -83,7 +83,7 @@ def init_check(self):
     self.make_check_env["TFLAGS"] = f"-j{min(self.make_jobs, 8) * 7} !1510 !241"
 
 
-@subpackage("curl-libs")
+@split("libs")
 def _(self):
     self.pkgdesc = "Multiprotocol file transfer library"
     self.renames = ["libcurl"]
@@ -91,7 +91,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("curl-devel")
+@split("devel")
 def _(self):
     self.pkgdesc = "Multiprotocol file transfer library"
     self.renames = ["libcurl-devel"]

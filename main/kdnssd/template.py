@@ -22,6 +22,6 @@ sha256 = "60f8de14e4a6026c5e843355a180dadd038d6efe41eb9c9a2444971915466b41"
 hardening = ["vis"]
 
 
-@subpackage("kdnssd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

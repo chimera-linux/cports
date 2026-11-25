@@ -21,7 +21,7 @@ sha256 = "ea1bf879d181e498d1786451234a0e58827f35cfb4c667661412cd551741e81a"
 hardening = ["vis"]
 
 
-@subpackage("kguiaddons-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

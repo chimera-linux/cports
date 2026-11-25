@@ -228,7 +228,7 @@ def post_install(self):
         self.install_link(f"{cpfx}/{_trip}-{cf}", "../../../bin/ccache")
 
 
-@subpackage("gcc-fortran")
+@split("fortran")
 def _(self):
     self.subdesc = "Fortran frontend"
     self.depends = [self.parent]
@@ -250,7 +250,7 @@ def _(self):
     ]
 
 
-@subpackage("gcc-objc")
+@split("objc")
 def _(self):
     self.subdesc = "Objective-C"
     self.depends = [self.parent]
@@ -265,19 +265,19 @@ def _(self):
     ]
 
 
-@subpackage("gcc-fortran-libs")
+@split("fortran-libs")
 def _(self):
     self.subdesc = "Fortran runtime library"
     return ["usr/lib/libgfortran.so.*"]
 
 
-@subpackage("gcc-objc-libs")
+@split("objc-libs")
 def _(self):
     self.subdesc = "Objective-C runtime library"
     return ["usr/lib/libobjc.so.*"]
 
 
-@subpackage("gcc-gomp-devel")
+@split("gomp-devel")
 def _(self):
     self.subdesc = "OpenMP develpment files"
     return [
@@ -289,13 +289,13 @@ def _(self):
     ]
 
 
-@subpackage("gcc-gomp-libs")
+@split("gomp-libs")
 def _(self):
     self.subdesc = "OpenMP runtime"
     return ["usr/lib/libgomp.so.*"]
 
 
-@subpackage("gcc-itm-devel")
+@split("itm-devel")
 def _(self):
     self.subdesc = "transactional memory lib development files"
     return [
@@ -306,7 +306,7 @@ def _(self):
     ]
 
 
-@subpackage("gcc-itm-libs")
+@split("itm-libs")
 def _(self):
     self.subdesc = "transactional memory library"
     return ["usr/lib/libitm.so.*"]

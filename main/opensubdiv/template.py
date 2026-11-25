@@ -37,11 +37,11 @@ sha256 = "f843eb49daf20264007d807cbc64516a1fed9cdb1149aaf84ff47691d97491f9"
 tool_flags = {"LDFLAGS": ["-lomp"]}
 
 
-@subpackage("opensubdiv-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("opensubdiv-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

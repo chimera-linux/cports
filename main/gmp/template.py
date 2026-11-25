@@ -13,7 +13,7 @@ source = f"{url}/download/gmp/gmp-{pkgver}.tar.xz"
 sha256 = "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
 
 
-@subpackage("gmp-gmpxx")
+@split("gmpxx")
 def _(self):
     self.subdesc = "C++ support"
     # transitional
@@ -22,7 +22,7 @@ def _(self):
     return ["usr/lib/libgmpxx.so.*"]
 
 
-@subpackage("gmp-gmpxx-devel")
+@split("gmpxx-devel")
 def _(self):
     self.subdesc = "C++ development files"
     # transitional
@@ -35,6 +35,6 @@ def _(self):
     ]
 
 
-@subpackage("gmp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

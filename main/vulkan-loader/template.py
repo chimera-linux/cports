@@ -32,7 +32,7 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
-@subpackage("vulkan-loader-devel")
+@split("devel")
 def _(self):
     self.depends += ["vulkan-headers"]
     return self.default_devel()

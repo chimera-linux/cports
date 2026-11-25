@@ -38,7 +38,7 @@ def post_install(self):
     self.install_service(self.files_path / "iio-sensor-proxy")
 
 
-@subpackage("iio-sensor-proxy-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

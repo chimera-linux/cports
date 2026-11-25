@@ -23,11 +23,11 @@ source = f"$(SOURCEFORGE_SITE)/project/libebook/libe-book-{pkgver}/libe-book-{pk
 sha256 = "104b7e791b6632745898e9b6a0037b7540235771a4d8c3bde2c764466ad912f1"
 
 
-@subpackage("libe-book-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libe-book-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

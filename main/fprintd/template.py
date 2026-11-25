@@ -33,7 +33,7 @@ sha256 = "a026ef34c31b25975275cc29a5e4eba2b54524769672095a5228098a08acd82c"
 options = ["etcfiles", "!check"]
 
 
-@subpackage("fprintd-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

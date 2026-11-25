@@ -8,7 +8,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-@subpackage("base-desktop-gnome")
+@split("gnome")
 def _(self):
     self.subdesc = "GNOME"
     self.install_if = [self.parent]

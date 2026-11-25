@@ -23,6 +23,6 @@ def post_install(self):
     self.install_service(self.files_path / "pcscd")
 
 
-@subpackage("pcsc-lite-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -30,7 +30,7 @@ def post_install(self):
     self.uninstall("usr/share/ndk-modules")
 
 
-@subpackage("libquotient-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "olm-devel",

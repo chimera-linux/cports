@@ -17,6 +17,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("xcb-util-xrm-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

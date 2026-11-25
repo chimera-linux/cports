@@ -25,6 +25,6 @@ def install(self):
     self.do("scons", "install", f"--install-sandbox={self.chroot_destdir}")
 
 
-@subpackage("serf-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

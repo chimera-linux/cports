@@ -36,7 +36,7 @@ if _have_dist:
     make_install_args += _eargs
 
 
-@subpackage("sccache-dist", _have_dist)
+@split("dist", _have_dist)
 def _(self):
     self.subdesc = "distributed server"
     return ["usr/bin/sccache-dist"]

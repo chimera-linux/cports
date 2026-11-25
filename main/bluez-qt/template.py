@@ -21,7 +21,7 @@ sha256 = "53f9705366f1e142e921f3ec314d673d51341bd20d358c33ebe8fe4218d2cd6b"
 hardening = ["vis"]
 
 
-@subpackage("bluez-qt-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtdeclarative-devel"]
 

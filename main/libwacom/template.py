@@ -24,6 +24,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libwacom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

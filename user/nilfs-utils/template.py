@@ -27,6 +27,6 @@ tool_flags = {
 options = ["etcfiles"]
 
 
-@subpackage("nilfs-utils-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

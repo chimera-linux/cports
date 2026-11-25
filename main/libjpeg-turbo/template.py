@@ -34,11 +34,11 @@ def post_install(self):
     self.uninstall("usr/bin/tjbench")
 
 
-@subpackage("libjpeg-turbo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libjpeg-turbo-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

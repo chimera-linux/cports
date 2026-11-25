@@ -14,6 +14,6 @@ sha256 = "3c391f7e930c583095045cd2d10eb73a64f085c7fde9d260f2652c7cb3cfbe4a"
 options = ["!check"]
 
 
-@subpackage("startup-notification-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

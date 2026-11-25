@@ -90,7 +90,7 @@ def post_install(self):
     self.install_link("usr/share/bash-completion/completions/zpool", "zfs")
 
 
-@subpackage("zfs-dracut")
+@split("dracut")
 def _(self):
     self.subdesc = "dracut module"
     self.install_if = [self.parent, "dracut"]
@@ -99,12 +99,12 @@ def _(self):
     return ["usr/lib/dracut"]
 
 
-@subpackage("zfs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("zfs-ckms")
+@split("ckms")
 def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]

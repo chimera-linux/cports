@@ -12,7 +12,7 @@ source = f"$(GNOME_SITE)/glibmm/{pkgver[:-2]}/glibmm-{pkgver}.tar.xz"
 sha256 = "e2efa45643f16b9fea2d6299f2f403d672eaeacddf0ff7f8094e1af9b0f5980b"
 
 
-@subpackage("glibmm-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

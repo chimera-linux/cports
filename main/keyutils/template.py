@@ -27,11 +27,11 @@ sha256 = "a61d5706136ae4c05bd48f86186bcfdbd88dd8bd5107e3e195c924cfc1b39bb4"
 options = ["etcfiles", "!check", "linkundefver"]
 
 
-@subpackage("keyutils-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("keyutils-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

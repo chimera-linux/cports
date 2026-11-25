@@ -52,7 +52,7 @@ for _pname, _pdesc, _piif in [
     _gen_subp(_pname, _pdesc, _piif)
 
 
-@subpackage("apr-util-devel")
+@split("devel")
 def _(self):
     self.depends += ["libexpat-devel"]
 

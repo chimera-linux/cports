@@ -24,7 +24,7 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
-@subpackage("bemenu-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 

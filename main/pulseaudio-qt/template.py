@@ -21,6 +21,6 @@ sha256 = "6a18db76dd2bcc3df7d9a9379c025295817264baa1f2ed8caaac7da44e04e931"
 hardening = ["vis"]
 
 
-@subpackage("pulseaudio-qt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

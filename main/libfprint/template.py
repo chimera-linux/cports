@@ -30,6 +30,6 @@ sha256 = "edc90e02f330a7595ceaf37f2c6ec32ed43541347fe936d3273b0bb2524fd19c"
 options = ["!cross"]
 
 
-@subpackage("libfprint-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

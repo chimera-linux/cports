@@ -15,7 +15,7 @@ sha256 = "b2be9d84fb6035d79c642c1f6b8196d3f04e673ea61e11deea8bf04213b0fe87"
 hardening = ["vis"]
 
 
-@subpackage("modemmanager-qt-devel")
+@split("devel")
 def _(self):
     self.depends += ["modemmanager-devel"]
 

@@ -76,7 +76,7 @@ hardening = ["!int"]
 options = ["etcfiles", "!cross", "!check"]
 
 
-@subpackage("gtk+3-update-icon-cache")
+@split("update-icon-cache")
 def _(self):
     self.subdesc = "icon cache update tool"
     self.triggers = ["/usr/share/icons/*"]
@@ -88,12 +88,12 @@ def _(self):
     ]
 
 
-@subpackage("gtk+3-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("gtk+3-demo")
+@split("demo")
 def _(self):
     self.subdesc = "demo applications"
 
@@ -110,7 +110,7 @@ def _(self):
     ]
 
 
-@subpackage("gtk+3-cups")
+@split("cups")
 def _(self):
     self.subdesc = "CUPS print backend"
     self.install_if = [self.parent, "cups"]

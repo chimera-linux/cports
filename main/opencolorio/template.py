@@ -42,17 +42,17 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("opencolorio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("opencolorio-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("opencolorio-python")
+@split("python")
 def _(self):
     self.pkgdesc = "Python bindings for opencolorio"
     self.depends += ["python"]

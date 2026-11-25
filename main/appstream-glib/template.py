@@ -38,6 +38,6 @@ def post_install(self):
     self.uninstall("usr/share/installed-tests")
 
 
-@subpackage("appstream-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

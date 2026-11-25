@@ -26,6 +26,6 @@ sha256 = "7fb8517c12309ca4ddf8b42c34bc0c315e38ea077b5442bfcc4509415feada8f"
 options = ["etcfiles", "!cross"]
 
 
-@subpackage("garcon-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

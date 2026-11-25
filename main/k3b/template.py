@@ -59,6 +59,6 @@ if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
 
 
-@subpackage("k3b-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

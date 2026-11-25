@@ -163,7 +163,7 @@ def post_install(self):
         self.uninstall("usr/lib/qemu/openbios-sparc64")
 
 
-@subpackage("qemu-guest-agent")
+@split("guest-agent")
 def _(self):
     self.pkgdesc = "QEMU guest agent"
     self.depends = []
@@ -174,7 +174,7 @@ def _(self):
     ]
 
 
-@subpackage("qemu-img")
+@split("img")
 def _(self):
     self.pkgdesc = "QEMU command line tools for manipulating disk images"
     self.depends = []
@@ -187,7 +187,7 @@ def _(self):
     ]
 
 
-@subpackage("qemu-tools")
+@split("tools")
 def _(self):
     self.pkgdesc = "QEMU support tools"
     self.depends = []
@@ -199,7 +199,7 @@ def _(self):
     ]
 
 
-@subpackage("qemu-pr-helper")
+@split("pr-helper")
 def _(self):
     self.pkgdesc = "QEMU pr helper utility"
     self.depends = []
@@ -210,7 +210,7 @@ def _(self):
     ]
 
 
-@subpackage("qemu-vhost-user-gpu")
+@split("vhost-user-gpu")
 def _(self):
     self.pkgdesc = "QEMU vhost user GPU device"
     self.depends = []
@@ -221,7 +221,7 @@ def _(self):
     ]
 
 
-@subpackage("qemu-edk2-firmware")
+@split("edk2-firmware")
 def _(self):
     self.pkgdesc = "QEMU edk2 firmware files"
     self.depends = []

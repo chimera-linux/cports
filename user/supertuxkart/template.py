@@ -41,7 +41,7 @@ def post_install(self):
     self.uninstall("usr/share/supertuxkart/data/po/*.py", glob=True)
 
 
-@subpackage("supertuxkart-data")
+@split("data")
 def _(self):
     self.subdesc = "data files"
     return ["usr/share/supertuxkart"]

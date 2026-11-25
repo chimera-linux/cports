@@ -39,6 +39,6 @@ sha256 = "06dc3c7884dc0ec8ce4d55ed48f0cd77cbf7bd6be5dba9ed883d49a43118ebdf"
 options = ["!check", "!cross"]
 
 
-@subpackage("nemo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

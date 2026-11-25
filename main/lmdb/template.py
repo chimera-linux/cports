@@ -23,6 +23,6 @@ def post_install(self):
     self.install_file(self.files_path / "lmdb.pc", "usr/lib/pkgconfig")
 
 
-@subpackage("lmdb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

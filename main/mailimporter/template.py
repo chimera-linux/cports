@@ -32,7 +32,7 @@ source = (
 sha256 = "fd9dfee4e15a922f284575a68bdfb2e45613f207bdaeda07907d7562936d7f32"
 
 
-@subpackage("mailimporter-devel")
+@split("devel")
 def _(self):
     self.depends += ["karchive-devel"]
     return self.default_devel()

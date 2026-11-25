@@ -43,11 +43,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libavif-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libavif-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

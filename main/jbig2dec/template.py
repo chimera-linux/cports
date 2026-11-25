@@ -20,11 +20,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("jbig2dec-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("jbig2dec-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

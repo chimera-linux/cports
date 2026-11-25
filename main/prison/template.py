@@ -23,7 +23,7 @@ def post_install(self):
     self.install_license("LICENSES/MIT.txt")
 
 
-@subpackage("prison-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

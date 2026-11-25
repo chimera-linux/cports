@@ -18,6 +18,6 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-@subpackage("gsl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

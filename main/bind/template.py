@@ -50,19 +50,19 @@ def post_install(self):
     self.install_link("usr/bin/ddns-confgen", "tsig-keygen")
 
 
-@subpackage("bind-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("bind-libs")
+@split("libs")
 def _(self):
     # bind has libfoo.so as the symlink,
     # and libfoo-version.so as the main lib
     return ["usr/lib/lib*-*.so"]
 
 
-@subpackage("bind-progs")
+@split("progs")
 def _(self):
     # "cli" utilities that can be used standalone,
     # the rest of the progs are for running bind itself

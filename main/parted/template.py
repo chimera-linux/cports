@@ -24,11 +24,11 @@ sha256 = "a2b7811f47b0ddb1f7b1d0aa456f7c1270da70708ce231c2fe054c7199eafa63"
 options = ["!check"]
 
 
-@subpackage("parted-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("parted-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

@@ -18,11 +18,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("vamp-plugin-sdk-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("vamp-plugin-sdk-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

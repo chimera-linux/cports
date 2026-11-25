@@ -52,13 +52,13 @@ def post_install(self):
     self.install_file(self.files_path / "config", "etc/gnutls")
 
 
-@subpackage("gnutls-devel")
+@split("devel")
 def _(self):
     self.depends += ["trousers-devel"]
 
     return self.default_devel(extra=["usr/share/info"])
 
 
-@subpackage("gnutls-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -14,6 +14,6 @@ sha256 = "60ad9405c1c6b75955e0784511b173570a601491ccdb6399da53ca811c446a96"
 options = ["!check"]
 
 
-@subpackage("daq-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

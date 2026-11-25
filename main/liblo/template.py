@@ -19,11 +19,11 @@ hardening = []
 options = ["!check"]
 
 
-@subpackage("liblo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("liblo-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

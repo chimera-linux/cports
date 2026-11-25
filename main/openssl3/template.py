@@ -74,7 +74,7 @@ def init_check(self):
     self.env["HARNESS_JOBS"] = str(self.make_jobs)
 
 
-@subpackage("openssl3-libs")
+@split("libs")
 def _(self):
     self.renames = ["libcrypto3", "libssl3"]
 
@@ -83,7 +83,7 @@ def _(self):
     )
 
 
-@subpackage("openssl3-devel")
+@split("devel")
 def _(self):
     self.depends = [
         self.parent,

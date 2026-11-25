@@ -40,7 +40,7 @@ def post_install(self):
     python.precompile(self, "usr/share")
 
 
-@subpackage("virt-manager-progs")
+@split("progs")
 def _(self):
     self.depends = [*_deps]
     self.pkgdesc = "Programs to create and clone virtual machines"

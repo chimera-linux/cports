@@ -12,7 +12,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "resolv.conf", name="resolv")
 
 
-@subpackage("resolvconf-symlink")
+@split("symlink")
 def _(self):
     self.subdesc = "use symlink"
     self.install_if = [self.parent, "cmd:resolvconf"]
@@ -23,7 +23,7 @@ def _(self):
     return ["usr/lib/tmpfiles.d"]
 
 
-@subpackage("resolvconf-openresolv")
+@split("openresolv")
 def _(self):
     self.subdesc = "openresolv"
     self.install_if = [self.parent]  # prefer
@@ -37,7 +37,7 @@ def _(self):
     ]
 
 
-@subpackage("resolvconf-none")
+@split("none")
 def _(self):
     self.subdesc = "do not use"
     self.provides = [self.with_pkgver("resolvconf-any")]

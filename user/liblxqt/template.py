@@ -23,6 +23,6 @@ source = f"{url}/releases/download/{pkgver}/liblxqt-{pkgver}.tar.xz"
 sha256 = "6627215644eb370723536274555743db52baed919db6ffc32ebc2bdf3cf8ee4a"
 
 
-@subpackage("liblxqt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -54,19 +54,19 @@ def pre_install(self):
     self.install_service(self.files_path / "transmission-daemon")
 
 
-@subpackage("transmission-devel-static")
+@split("devel-static")
 def _(self):
     return ["lib:libtransmission.a"]
 
 
-@subpackage("transmission-devel")
+@split("devel")
 def _(self):
     # static-only lib so just pull it
     self.depends = [self.with_pkgver("transmission-devel-static")]
     return self.default_devel()
 
 
-@subpackage("transmission-daemon")
+@split("daemon")
 def _(self):
     self.subdesc = "daemon"
     return [
@@ -78,7 +78,7 @@ def _(self):
     ]
 
 
-@subpackage("transmission-qt")
+@split("qt")
 def _(self):
     self.subdesc = "QT client"
     # icons left in base package
@@ -90,7 +90,7 @@ def _(self):
     ]
 
 
-@subpackage("transmission-gtk")
+@split("gtk")
 def _(self):
     self.subdesc = "GTK client"
     # icons left in base package
@@ -103,7 +103,7 @@ def _(self):
     ]
 
 
-@subpackage("transmission-progs")
+@split("progs")
 def _(self):
     self.subdesc = "CLI tools"
     return [

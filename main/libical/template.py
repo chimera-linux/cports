@@ -35,6 +35,6 @@ sha256 = "e73de92f5a6ce84c1b00306446b290a2b08cdf0a80988eca0a2c9d5c3510b4c2"
 options = ["!cross"]
 
 
-@subpackage("libical-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

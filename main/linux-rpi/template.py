@@ -44,14 +44,14 @@ def post_patch(self):
     self.rm("arch/arm64/boot/dts/overlays/README")
 
 
-@subpackage("linux-rpi-devel")
+@split("devel")
 def _(self):
     self.depends += ["llvm-clang"]
     self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
-@subpackage("linux-rpi-dbg", self.build_dbg)
+@split("dbg", self.build_dbg)
 def _(self):
     self.options = [
         "!scanrundeps",

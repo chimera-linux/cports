@@ -27,11 +27,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libdeflate-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libdeflate-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

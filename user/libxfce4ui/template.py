@@ -44,6 +44,6 @@ sha256 = "5d3d67b1244a10cee0e89b045766c05fe1035f7938f0410ac6a3d8222b5df907"
 options = ["etcfiles", "!cross"]
 
 
-@subpackage("libxfce4ui-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

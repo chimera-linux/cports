@@ -84,7 +84,7 @@ def post_install(self):
     self.uninstall("usr/lib/tmpfiles.d/tmp.conf")
 
 
-@subpackage("dinit-chimera-kdump", _have_kexec_tools)
+@split("kdump", _have_kexec_tools)
 def _(self):
     self.subdesc = "kernel crash dump support"
     # don't install-if it, make it user choice to enable
@@ -95,7 +95,7 @@ def _(self):
     ]
 
 
-@subpackage("dinit-chimera-device-none")
+@split("device-none")
 def _(self):
     self.pkgdesc = "no device manager"
     self.provides = ["dinit-chimera-device=0"]
@@ -106,7 +106,7 @@ def _(self):
     ]
 
 
-@subpackage("dinit-chimera-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 support"
     self.depends = [self.parent]

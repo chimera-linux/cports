@@ -26,11 +26,11 @@ if self.profile.wordsize == 32:
     broken = "supports 64-bit only"
 
 
-@subpackage("openimagedenoise-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("openimagedenoise-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,7 +15,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("wpebackend-fdo-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     # does not include the .so file; it's dlopened by things at runtime

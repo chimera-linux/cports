@@ -66,7 +66,7 @@ def check(self):
             self.error(f"test call returned status {value}")
 
 
-@subpackage("cgit-pink-filters")
+@split("filters")
 def _(self):
     self.subdesc = "included filters"
     self.depends = [

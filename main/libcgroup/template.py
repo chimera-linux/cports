@@ -34,17 +34,17 @@ def post_install(self):
     (self.destdir / "usr/bin/cgexec").chmod(0o755)
 
 
-@subpackage("libcgroup-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libcgroup-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libcgroup-pam")
+@split("pam")
 def _(self):
     self.subdesc = "PAM"
     self.depends = [self.parent, "linux-pam"]

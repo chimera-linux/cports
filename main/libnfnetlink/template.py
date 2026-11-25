@@ -11,6 +11,6 @@ source = f"{url}/files/libnfnetlink-{pkgver}.tar.bz2"
 sha256 = "b064c7c3d426efb4786e60a8e6859b82ee2f2c5e49ffeea640cfe4fe33cbc376"
 
 
-@subpackage("libnfnetlink-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

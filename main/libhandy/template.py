@@ -34,6 +34,6 @@ sha256 = "05b497229073ff557f10b326e074c5066f8743a302d4820ab97bcb5cd2dab087"
 options = ["!check"]
 
 
-@subpackage("libhandy-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,6 +15,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "5556deb5081fb246ee92afae73efd943c889cef0cafea92b0b82422d6a18f289"
 
 
-@subpackage("tinyxml2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

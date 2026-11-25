@@ -16,11 +16,11 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("libpaper-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpaper-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

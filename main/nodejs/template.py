@@ -84,6 +84,6 @@ def check(self):
     )
 
 
-@subpackage("nodejs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

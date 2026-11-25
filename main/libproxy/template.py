@@ -34,11 +34,11 @@ sha256 = "a1fa55991998b80a567450a9e84382421a7176a84446c95caaa8b72cf09fa86f"
 hardening = ["!int"]
 
 
-@subpackage("libproxy-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libproxy-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

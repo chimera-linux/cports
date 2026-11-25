@@ -51,13 +51,13 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("colord-libs")
+@split("libs")
 def _(self):
     self.renames = ["libcolord"]
 
     return self.default_libs()
 
 
-@subpackage("colord-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

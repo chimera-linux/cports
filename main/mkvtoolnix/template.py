@@ -46,7 +46,7 @@ source = f"{url}/sources/mkvtoolnix-{pkgver}.tar.xz"
 sha256 = "74480d07a261beeaa8baf898248e668ecc56335e2527bbffa841ef056dc028a1"
 
 
-@subpackage("mkvtoolnix-gui")
+@split("gui")
 def _(self):
     self.depends += [
         self.parent,

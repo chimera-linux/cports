@@ -27,13 +27,13 @@ def init_build(self):
     self.make_install_args += self.make_install_args
 
 
-@subpackage("efivar-libs")
+@split("libs")
 def _(self):
     self.renames = ["libefivar"]
 
     return self.default_libs()
 
 
-@subpackage("efivar-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

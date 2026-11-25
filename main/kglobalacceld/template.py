@@ -30,7 +30,7 @@ hardening = ["vis"]
 options = ["etcfiles"]
 
 
-@subpackage("kglobalacceld-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

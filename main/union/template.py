@@ -31,6 +31,6 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/union-{pkgver}.tar.xz"
 sha256 = "cebe4d33d23ee3125191ea11130db41f19d4fb9d82fea8c50518906a7ca5279a"
 
 
-@subpackage("union-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

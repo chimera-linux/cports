@@ -20,6 +20,6 @@ def post_install(self):
     self.install_license("LICENCE")
 
 
-@subpackage("libunibreak-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

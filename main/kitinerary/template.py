@@ -35,7 +35,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
 sha256 = "ec6361f0ade8f657e9e53494e0c58fb99a4711dbf5665b146894abe5692011c2"
 
 
-@subpackage("kitinerary-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcalendarcore-devel",

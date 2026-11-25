@@ -45,6 +45,6 @@ def install(self):
     self.install_file("qcustomplot.h", "usr/include")
 
 
-@subpackage("qcustomplot-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

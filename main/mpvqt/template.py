@@ -19,7 +19,7 @@ sha256 = "bdd1ea69338cf3017f628a886218b8c185ca24e8257f03207a3cf1bbb51e3d32"
 hardening = ["vis"]
 
 
-@subpackage("mpvqt-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "mpv-devel",

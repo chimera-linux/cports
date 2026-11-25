@@ -37,6 +37,6 @@ def post_install(self):
     self.install_service(self.files_path / "wireplumber.user", enable=True)
 
 
-@subpackage("wireplumber-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

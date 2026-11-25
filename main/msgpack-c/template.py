@@ -12,6 +12,6 @@ source = f"https://github.com/msgpack/msgpack-c/archive/c-{pkgver}.tar.gz"
 sha256 = "c23c4070dbe01f46044bf70c5349f29453d655935b6dc710714c008bca0825a7"
 
 
-@subpackage("msgpack-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

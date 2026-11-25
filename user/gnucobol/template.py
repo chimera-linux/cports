@@ -20,11 +20,11 @@ sha256 = "3bb48af46ced4779facf41fdc2ee60e4ccb86eaa99d010b36685315df39c2ee2"
 options = ["!cross"]
 
 
-@subpackage("gnucobol-static")
+@split("static")
 def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("gnucobol-libs")
+@split("libs")
 def _(self):
     return self.default_libs(extra=["usr/lib/gnucobol"])

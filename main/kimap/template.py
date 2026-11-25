@@ -26,12 +26,12 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kimap-{pkgver}.tar.xz"
 sha256 = "b3c74e3652f0b2ced6bb10c356472ddca48b17728d23c12598d1a0f7bc2f976a"
 
 
-@subpackage("kimap-devel-static")
+@split("devel-static")
 def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("kimap-devel")
+@split("devel")
 def _(self):
     self.depends += [
         # for cmake detection.. static-only test lib

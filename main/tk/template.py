@@ -41,7 +41,7 @@ def post_install(self):
     self.install_license("../license.terms")
 
 
-@subpackage("tk-devel")
+@split("devel")
 def _(self):
     self.options = ["!splitstatic"]
     return self.default_devel(

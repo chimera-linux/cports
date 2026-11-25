@@ -22,7 +22,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmbox-{pkgver}.tar.xz"
 sha256 = "b897e2c360b2b2e0d34ab196cef4c9e840920e6001df73538fa05407c4270bad"
 
 
-@subpackage("kmbox-devel")
+@split("devel")
 def _(self):
     self.depends += ["kmime-devel"]
     return self.default_devel()

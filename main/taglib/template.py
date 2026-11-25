@@ -16,7 +16,7 @@ sha256 = "cda2d6dac7f12a84e46fbb0907bb1a1ec0679e4722b5237576be5563e295244e"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("taglib-devel")
+@split("devel")
 def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 

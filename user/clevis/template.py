@@ -47,7 +47,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("clevis-luks")
+@split("luks")
 def _(self):
     self.depends = [self.parent, "luksmeta", "jq"]
     self.subdesc = "luks integration"

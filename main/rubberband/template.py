@@ -22,11 +22,11 @@ source = f"https://breakfastquay.com/files/releases/rubberband-{pkgver}.tar.bz2"
 sha256 = "af050313ee63bc18b35b2e064e5dce05b276aaf6d1aa2b8a82ced1fe2f8028e9"
 
 
-@subpackage("rubberband-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("rubberband-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -39,7 +39,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/eventviews-{pkgver}.tar.xz"
 sha256 = "b318ad59e4f784f62f89a4b0acd29f9bbe0c4ee00afb43b2a5a0d0c070970fa7"
 
 
-@subpackage("eventviews-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-calendar-devel",

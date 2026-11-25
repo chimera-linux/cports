@@ -16,7 +16,7 @@ sha256 = "b574b381e7510cf3b14d6a16f6ed5670220f10df7f2494c21a579d20ca1d017f"
 hardening = ["vis"]
 
 
-@subpackage("ki18n-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
 

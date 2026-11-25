@@ -216,7 +216,7 @@ def post_install(self):
         self.install_link(f"usr/lib/qt6/bin/{nsname}", f.name)
 
 
-@subpackage("qt6-qtbase-gui")
+@split("gui")
 def _(self):
     self.depends += ["hicolor-icon-theme"]
     self.subdesc = "GUI"
@@ -286,7 +286,7 @@ for _sp in [
     _libpkg(*_sp)
 
 
-@subpackage("qt6-qtbase-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -294,7 +294,7 @@ def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("qt6-qtbase-private-devel")
+@split("private-devel")
 def _(self):
     self.subdesc = "private development files"
     self.depends += [self.with_pkgver("qt6-qtbase-devel")]
@@ -308,7 +308,7 @@ def _(self):
     ]
 
 
-@subpackage("qt6-qtbase-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,
@@ -334,7 +334,7 @@ def _(self):
     )
 
 
-@subpackage("qt6-qtbase-translations-none")
+@split("translations-none")
 def _(self):
     self.subdesc = "no translations"
     self.provides = ["qt6-qttranslations=0"]

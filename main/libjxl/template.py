@@ -60,11 +60,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libjxl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libjxl-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

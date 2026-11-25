@@ -39,7 +39,7 @@ def post_install(self):
     self.install_license("README.md")
 
 
-@subpackage("libglvnd-devel")
+@split("devel")
 def _(self):
     # pre-transition mesa has conflicting files
     self.depends += ["!mesa-devel<26.2.5-r1"]
@@ -47,7 +47,7 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("libglvnd-vendor-none")
+@split("vendor-none")
 def _(self):
     self.subdesc = "no default vendor"
     self.depends = [self.parent]

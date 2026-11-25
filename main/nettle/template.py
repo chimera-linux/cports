@@ -11,13 +11,13 @@ source = f"$(GNU_SITE)/nettle/nettle-{pkgver}.tar.gz"
 sha256 = "fe9ff51cb1f2abb5e65a6b8c10a92da0ab5ab6eaf26e7fc2b675c45f1fb519b5"
 
 
-@subpackage("nettle-devel")
+@split("devel")
 def _(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel(extra=["usr/share/info"])
 
 
-@subpackage("nettle-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

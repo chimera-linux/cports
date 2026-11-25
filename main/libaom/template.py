@@ -44,18 +44,18 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libaom-devel-static")
+@split("devel-static")
 def _(self):
     return self.default_static(
         extra=["usr/lib/cmake/AOM/AOMStaticTargets.cmake"]
     )
 
 
-@subpackage("libaom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libaom-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

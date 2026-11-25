@@ -36,7 +36,7 @@ def post_install(self):
         self.install_file("btf.h", "usr/include/bpf/uapi/linux")
 
 
-@subpackage("libbpf-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

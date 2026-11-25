@@ -31,7 +31,7 @@ source = (
 sha256 = "21f942d258d25cc4e60b4982a25c423460f0bebb835f38e6dfd1fcb140087f95"
 
 
-@subpackage("yt-dlp-recommends")
+@split("recommends")
 def _(self):
     self.depends = [
         "ffmpeg",

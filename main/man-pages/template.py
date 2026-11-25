@@ -71,7 +71,7 @@ def install(self):
     self.uninstall("usr/bin/grepc_mk")
 
 
-@subpackage("man-pages-devel")
+@split("devel")
 def _(self):
     self.subdesc = "development pages"
     self.options = ["!autosplit"]

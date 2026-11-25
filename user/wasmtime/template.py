@@ -63,12 +63,12 @@ def install(self):
     self.install_bin(cargo.target_path(self, "wasmtime"))
 
 
-@subpackage("wasmtime-libs")
+@split("libs")
 def _(self):
     return ["usr/lib/libwasmtime.so"]
 
 
-@subpackage("wasmtime-devel")
+@split("devel")
 def _(self):
     self.depends = [self.with_pkgver("wasmtime-libs")]
     return self.default_devel()

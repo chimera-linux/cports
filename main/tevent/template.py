@@ -33,12 +33,12 @@ env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 options = ["!cross", "!check", "linkundefver"]
 
 
-@subpackage("tevent-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("tevent-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

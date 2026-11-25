@@ -26,21 +26,21 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("protobuf-utf8range")
+@split("utf8range")
 def _(self):
     self.subdesc = "internal utf8range library"
 
     return ["usr/lib/libutf8_*"]
 
 
-@subpackage("protobuf-lite")
+@split("lite")
 def _(self):
     self.subdesc = "lite version"
 
     return ["usr/lib/libprotobuf-lite.so.*"]
 
 
-@subpackage("protobuf-protoc")
+@split("protoc")
 def _(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
     self.depends = [self.with_pkgver("protobuf-devel")]
@@ -52,12 +52,12 @@ def _(self):
     ]
 
 
-@subpackage("protobuf-devel-static")
+@split("devel-static")
 def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("protobuf-devel")
+@split("devel")
 def _(self):
     self.depends = [self.with_pkgver("protobuf-devel-static")]
     return self.default_devel()

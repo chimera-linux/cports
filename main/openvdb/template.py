@@ -37,17 +37,17 @@ if self.profile.arch != "x86_64":
     configure_args += ["-DOPENVDB_BUILD_UNITTESTS=OFF"]
 
 
-@subpackage("openvdb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("openvdb-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("openvdb-python")
+@split("python")
 def _(self):
     self.subdesc = "python bindings"
     self.renames = ["python-pyopenvdb"]

@@ -50,6 +50,6 @@ def init_build(self):
     del self.make_env["CARGO_BUILD_TARGET"]
 
 
-@subpackage("libopenraw-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -30,7 +30,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiocd-kio-{pkgver}.tar.xz"
 sha256 = "bd8256d44830b0a78eb22e52f295fce13131808cc9f1f3a44ced41b0bbcea298"
 
 
-@subpackage("audiocd-kio-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kio-devel",

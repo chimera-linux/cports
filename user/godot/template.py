@@ -169,7 +169,7 @@ def install(self):
     )
 
 
-@subpackage("godot-export-templates")
+@split("export-templates")
 def _(self):
     self.subdesc = "export templates"
 

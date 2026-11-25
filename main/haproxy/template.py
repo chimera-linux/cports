@@ -59,7 +59,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("haproxy-cli-scripts")
+@split("cli-scripts")
 def _(self):
     self.subdesc = "administration bash scripts"
     self.depends = [self.parent, "bash"]

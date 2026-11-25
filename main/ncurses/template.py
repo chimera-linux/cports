@@ -239,14 +239,14 @@ def post_install(self):
     self.uninstall("usr/lib/terminfo")
 
 
-@subpackage("ncurses-libtinfo-libs")
+@split("libtinfo-libs")
 def _(self):
     self.subdesc = "libtinfo.so symlink"
 
     return ["usr/lib/libtinfo*.so.*"]
 
 
-@subpackage("ncurses-libtinfo-devel")
+@split("libtinfo-devel")
 def _(self):
     self.subdesc = "libtinfo.so development files"
     self.depends += [self.with_pkgver("ncurses-devel")]
@@ -257,17 +257,17 @@ def _(self):
     ]
 
 
-@subpackage("ncurses-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("ncurses-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("ncurses-base")
+@split("base")
 def _(self):
     self.subdesc = "base terminfo files"
     self.replaces = [
@@ -282,7 +282,7 @@ def _(self):
     return [*map(lambda v: f"usr/share/terminfo/{v}", _base_tinfos)]
 
 
-@subpackage("ncurses-term")
+@split("term")
 def _(self):
     self.subdesc = "full terminal descriptions"
     self.depends = [self.with_pkgver("ncurses-base")]

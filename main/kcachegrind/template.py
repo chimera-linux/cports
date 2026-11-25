@@ -35,7 +35,7 @@ def post_install(self):
     self.uninstall("usr/bin/hotshot2calltree")
 
 
-@subpackage("kcachegrind-scripts")
+@split("scripts")
 def _(self):
     self.subdesc = "perl script utilities"
     self.install_if = [self.parent]

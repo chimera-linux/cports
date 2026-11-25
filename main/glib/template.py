@@ -61,7 +61,7 @@ def post_install(self):
     python.precompile(self, "usr/share/glib-2.0/gdb")
 
 
-@subpackage("glib-devel")
+@split("devel")
 def _(self):
     self.depends += ["python-packaging"]
     self.replaces = ["libgirepository-devel<1.80"]

@@ -30,7 +30,7 @@ sha256 = [
 ]
 
 
-@subpackage("opentimelineio-devel")
+@split("devel")
 def _(self):
     # sigh, unversioned .sos
     self.depends += [self.parent, *makedepends]

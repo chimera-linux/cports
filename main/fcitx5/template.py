@@ -60,12 +60,12 @@ def post_extract(self):
     )
 
 
-@subpackage("fcitx5-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("fcitx5-diagnose")
+@split("diagnose")
 def _(self):
     self.depends = [self.parent, "bash"]
     self.install_if = [self.parent, "bash"]

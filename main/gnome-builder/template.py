@@ -63,7 +63,7 @@ sha256 = "46d54fd13f4f4bdb6eed7d004b499d0b6d9a76a6fafc68ad16c389953fd92f46"
 options = ["!cross", "llvmflags"]
 
 
-@subpackage("gnome-builder-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

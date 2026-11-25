@@ -58,14 +58,14 @@ def post_install(self):
     self.install_service(self.files_path / "unbound")
 
 
-@subpackage("unbound-libs")
+@split("libs")
 def _(self):
     self.renames = ["libunbound"]
 
     return self.default_libs()
 
 
-@subpackage("unbound-devel")
+@split("devel")
 def _(self):
     self.depends += ["openssl3-devel", "libsodium-devel"]
 

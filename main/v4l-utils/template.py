@@ -34,6 +34,6 @@ tool_flags = {
 options = ["etcfiles"]
 
 
-@subpackage("v4l-utils-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

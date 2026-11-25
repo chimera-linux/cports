@@ -52,14 +52,14 @@ if not self.has_lto(force=True):
     configure_args += ["LIBS=-lcap"]
 
 
-@subpackage("cryptsetup-static-bin")
+@split("static-bin")
 def _(self):
     self.subdesc = "static binaries"
 
     return ["usr/bin/*.static"]
 
 
-@subpackage("cryptsetup-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libcryptsetup")]
@@ -67,6 +67,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("cryptsetup-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

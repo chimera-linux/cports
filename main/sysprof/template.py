@@ -49,6 +49,6 @@ def post_install(self):
     self.uninstall("usr/systemd")
 
 
-@subpackage("sysprof-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

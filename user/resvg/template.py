@@ -26,13 +26,13 @@ def install(self):
     self.install_license("LICENSE-MIT")
 
 
-@subpackage("resvg-progs")
+@split("progs")
 def _(self):
     self.subdesc = "CLI"
 
     return self.default_progs()
 
 
-@subpackage("resvg-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

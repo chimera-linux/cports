@@ -19,6 +19,6 @@ sha256 = "40d00dc223dcf2eb7f2ec422f7dec5a67373a0ca1101abca0f49c62f050cb312"
 options = ["!cross"]
 
 
-@subpackage("template-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

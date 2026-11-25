@@ -17,11 +17,11 @@ tool_flags = {"CXXFLAGS": [f"-I{self.profile.sysroot / 'usr/include/glslang'}"]}
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("shaderc-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("shaderc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

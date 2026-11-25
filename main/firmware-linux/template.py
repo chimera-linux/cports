@@ -491,7 +491,7 @@ def install(self):
         _fixup_gsp(f)
 
 
-@subpackage("firmware-linux-audio")
+@split("audio")
 def _(self):
     self.subdesc = "audio"
     self.options = ["empty"]
@@ -500,7 +500,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-gpu")
+@split("gpu")
 def _(self):
     self.subdesc = "graphics"
     self.options = ["empty"]
@@ -509,7 +509,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-network")
+@split("network")
 def _(self):
     self.subdesc = "network devices"
     self.options = ["empty"]
@@ -518,7 +518,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-storage")
+@split("storage")
 def _(self):
     self.subdesc = "storage devices"
     self.options = ["empty"]
@@ -527,7 +527,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-misc")
+@split("misc")
 def _(self):
     self.subdesc = "misc"
     self.options = ["empty"]
@@ -536,7 +536,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-soc")
+@split("soc")
 def _(self):
     self.subdesc = "systems on chip"
     self.options = ["empty"]
@@ -545,7 +545,7 @@ def _(self):
     return []
 
 
-@subpackage("firmware-linux-meta")
+@split("meta")
 def _(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]

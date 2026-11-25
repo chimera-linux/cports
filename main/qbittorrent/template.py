@@ -59,7 +59,7 @@ def install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("qbittorrent-nox")
+@split("nox")
 def _(self):
     self.subdesc = "headless daemon"
 

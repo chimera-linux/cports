@@ -23,6 +23,6 @@ sha256 = "ea5d978c66332fd377f97d683b4c3902133f22b7aec586fcc9e810307f2f1f38"
 hardening = ["vis"]
 
 
-@subpackage("kdegraphics-mobipocket-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

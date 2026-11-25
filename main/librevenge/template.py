@@ -13,7 +13,7 @@ source = f"$(SOURCEFORGE_SITE)/libwpd/librevenge-{pkgver}.tar.xz"
 sha256 = "19eacf5ce55d7fe6a990a45142589cdf7da0c7b68701797f133482cb44f189fa"
 
 
-@subpackage("librevenge-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

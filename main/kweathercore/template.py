@@ -26,7 +26,7 @@ source = (
 sha256 = "9a22fee16ba887b200c46e5add3e7250e05aa1df97768145390eaf6677e7f485"
 
 
-@subpackage("kweathercore-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

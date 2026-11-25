@@ -14,12 +14,12 @@ sha256 = "fc51ca7196f1a3f5fdf6ffd3864b50f4f9c02333be28be4eeca057e103c0dd18"
 options = ["etcfiles"]
 
 
-@subpackage("libnl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libnl-progs")
+@split("progs")
 def _(self):
     return self.default_progs(
         man="18",

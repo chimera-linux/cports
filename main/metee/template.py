@@ -15,6 +15,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "b18810875ab2e13ffe10afed54f99974ad75fbed536c680d7d1950bb90b20d68"
 
 
-@subpackage("metee-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

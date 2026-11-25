@@ -36,7 +36,7 @@ sha256 = "1afcd33da9e8f913ace6a2126788162e207e26f5d5e29c6573c0e581ffc58b99"
 options = ["etcfiles", "!check"]
 
 
-@subpackage("iptables-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [
@@ -47,7 +47,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("iptables-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [
@@ -80,7 +80,7 @@ def post_install(self):
         self.uninstall(f"usr/bin/ip6{f}")
 
 
-@subpackage("iptables-nft")
+@split("nft")
 def _(self):
     self.subdesc = "use nftables"
     self.install_if = [self.parent]  # prefer
@@ -95,7 +95,7 @@ def _(self):
     ]
 
 
-@subpackage("iptables-legacy")
+@split("legacy")
 def _(self):
     self.subdesc = "use legacy"
 

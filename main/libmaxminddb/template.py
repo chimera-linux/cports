@@ -11,6 +11,6 @@ source = f"{url}/releases/download/{pkgver}/libmaxminddb-{pkgver}.tar.gz"
 sha256 = "1bfbf8efba3ed6462e04e225906ad5ce5fe958aa3d626a1235b2a2253d600743"
 
 
-@subpackage("libmaxminddb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -22,6 +22,6 @@ def post_install(self):
     self.install_license("src/bin/dwarfgen/COPYING", name="COPYING.dwarfgen")
 
 
-@subpackage("libdwarf-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

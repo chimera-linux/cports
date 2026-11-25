@@ -33,6 +33,6 @@ def init_build(self):
     self.make_env.update(renv)
 
 
-@subpackage("libchewing-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

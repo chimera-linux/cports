@@ -23,6 +23,6 @@ sha256 = "a24eac0292b2f3f8f209a30dd7cd3da3be7814cb9b138575a77ef7bc8e7829df"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("luksmeta-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

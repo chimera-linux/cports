@@ -35,12 +35,12 @@ def install(self):
     self.install_license("COPYING")
 
 
-@subpackage("snowball-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("snowball-progs")
+@split("progs")
 def _(self):
     self.subdesc = "command line tools"
     return self.default_progs()

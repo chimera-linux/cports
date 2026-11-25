@@ -23,6 +23,6 @@ if self.profile.arch in [
     makedepends += ["libomp-devel"]
 
 
-@subpackage("soundtouch-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

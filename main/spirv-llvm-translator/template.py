@@ -35,6 +35,6 @@ def post_install(self):
     self.install_license("LICENSE.TXT")
 
 
-@subpackage("spirv-llvm-translator-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

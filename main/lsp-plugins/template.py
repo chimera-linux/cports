@@ -40,36 +40,36 @@ def configure(self):
     )
 
 
-@subpackage("lsp-plugins-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("lsp-plugins-clap")
+@split("clap")
 def _(self):
     self.subdesc = "clap plugins"
     return ["usr/lib/clap"]
 
 
-@subpackage("lsp-plugins-lv2")
+@split("lv2")
 def _(self):
     self.subdesc = "lv2 plugins"
     return ["usr/lib/lv2"]
 
 
-@subpackage("lsp-plugins-vst2")
+@split("vst2")
 def _(self):
     self.subdesc = "vst2 plugins"
     return ["usr/lib/vst"]
 
 
-@subpackage("lsp-plugins-vst3")
+@split("vst3")
 def _(self):
     self.subdesc = "vst3 plugins"
     return ["usr/lib/vst3"]
 
 
-@subpackage("lsp-plugins-gstreamer")
+@split("gstreamer")
 def _(self):
     self.subdesc = "gstreamer plugins"
     return [
@@ -78,7 +78,7 @@ def _(self):
     ]
 
 
-@subpackage("lsp-plugins-ladspa")
+@split("ladspa")
 def _(self):
     self.subdesc = "ladspa plugins"
     return ["usr/lib/ladspa"]

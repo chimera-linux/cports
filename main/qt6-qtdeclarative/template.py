@@ -92,7 +92,7 @@ def post_install(self):
     self.uninstall("usr/lib/qt6/bin/qqmldebug*", glob=True)
 
 
-@subpackage("qt6-qtdeclarative-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -103,7 +103,7 @@ def _(self):
     ]
 
 
-@subpackage("qt6-qtdeclarative-devel")
+@split("devel")
 def _(self):
     self.depends += [
         # from 6.7 cmake finding of this fails without libQt6QmlBuiltins.a

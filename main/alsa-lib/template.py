@@ -18,7 +18,7 @@ source = f"{url}/files/pub/lib/alsa-lib-{pkgver}.tar.bz2"
 sha256 = "f740db7f488255944ffd4428416ee3390a96742856916433df468c281436480e"
 
 
-@subpackage("alsa-lib-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

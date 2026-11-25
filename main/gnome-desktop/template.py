@@ -45,6 +45,6 @@ sha256 = "9ebeb9f1769d3c310caeadd921ab34c8f264b92937740518b3bc859a579a6912"
 options = ["!check", "!cross"]
 
 
-@subpackage("gnome-desktop-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

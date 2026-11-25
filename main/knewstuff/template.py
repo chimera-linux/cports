@@ -33,7 +33,7 @@ sha256 = "91ee15856bb831d1f4022fb45c8b29b15be6e9330bbc8447fadeee9d6f16ab27"
 hardening = ["vis"]
 
 
-@subpackage("knewstuff-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "attica-devel",

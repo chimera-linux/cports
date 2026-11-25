@@ -37,20 +37,20 @@ sha256 = "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a"
 hardening = ["!int"]
 
 
-@subpackage("pango-xft")
+@split("xft")
 def _(self):
     self.subdesc = "X font rendering"
 
     return ["usr/lib/libpangoxft*.so.*"]
 
 
-@subpackage("pango-view")
+@split("view")
 def _(self):
     self.subdesc = "utility to view pango files"
 
     return ["cmd:pango-view"]
 
 
-@subpackage("pango-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

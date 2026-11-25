@@ -201,7 +201,7 @@ def post_install(self):
     self.uninstall("usr/bin/grub-sparc64-setup")
 
 
-@subpackage("grub-utils")
+@split("utils")
 def _(self):
     self.subdesc = "additional utilities"
     self.depends = [self.parent]

@@ -28,7 +28,7 @@ sha256 = "23cc0077e221c7d991bd0eb02150a0d49199bcca1ddf059edccee9ffd914939d"
 options = ["!cross"]
 
 
-@subpackage("libimobiledevice-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
@@ -36,11 +36,11 @@ def _(self):
     return ["usr/lib/python3*"]
 
 
-@subpackage("libimobiledevice-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libimobiledevice-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

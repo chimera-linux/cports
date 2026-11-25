@@ -22,11 +22,11 @@ def post_install(self):
     self.rename("usr/lib/libyajl_s.a", "libyajl.a")
 
 
-@subpackage("yajl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("yajl-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

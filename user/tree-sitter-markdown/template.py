@@ -44,6 +44,6 @@ def post_install(self):
     )
 
 
-@subpackage("tree-sitter-markdown-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

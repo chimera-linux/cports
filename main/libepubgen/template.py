@@ -13,6 +13,6 @@ source = f"$(SOURCEFORGE_SITE)/libepubgen/libepubgen-{pkgver}/libepubgen-{pkgver
 sha256 = "03e084b994cbeffc8c3dd13303b2cb805f44d8f2c3b79f7690d7e3fc7f6215ad"
 
 
-@subpackage("libepubgen-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

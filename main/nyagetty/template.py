@@ -30,7 +30,7 @@ def post_install(self):
     self.install_service(self.files_path / "agetty-service")
 
 
-@subpackage("nyagetty-dinit")
+@split("dinit")
 def _(self):
     self.subdesc = "service files"
 

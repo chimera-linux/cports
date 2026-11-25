@@ -24,6 +24,6 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
-@subpackage("kitemviews-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

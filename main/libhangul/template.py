@@ -15,11 +15,11 @@ def post_extract(self):
     (self.cwd / "ChangeLog").touch()
 
 
-@subpackage("libhangul-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libhangul-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

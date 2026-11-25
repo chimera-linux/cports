@@ -18,6 +18,6 @@ source = f"https://dl.matroska.org/downloads/libebml/libebml-{pkgver}.tar.xz"
 sha256 = "4971640b0592da29c2d426f303e137a9b0b3d07e1b81d069c1e56a2f49ab221b"
 
 
-@subpackage("libebml-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

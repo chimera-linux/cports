@@ -46,7 +46,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("fltk-devel")
+@split("devel")
 def _(self):
     self.depends += ["pango-devel"]
     return self.default_devel(extra=["usr/share/fltk"])

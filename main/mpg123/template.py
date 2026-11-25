@@ -49,13 +49,13 @@ for _libn, _descn, _iif in [
     _genlib(_libn, _descn, _iif)
 
 
-@subpackage("mpg123-libs")
+@split("libs")
 def _(self):
     self.depends = [self.with_pkgver("mpg123-output-dummy")]
 
     return self.default_libs()
 
 
-@subpackage("mpg123-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

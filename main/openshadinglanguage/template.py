@@ -73,17 +73,17 @@ def post_install(self):
     self.install_license("LICENSE.md")
 
 
-@subpackage("openshadinglanguage-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("openshadinglanguage-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("openshadinglanguage-python")
+@split("python")
 def _(self):
     self.subdesc = "Python modules"
     self.depends = ["openimageio-python"]

@@ -30,7 +30,7 @@ hardening = ["vis"]
 options = ["!check"]
 
 
-@subpackage("kpipewire-devel")
+@split("devel")
 def _(self):
     self.depends += ["pipewire-devel"]
 

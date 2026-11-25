@@ -40,7 +40,7 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("qt6-qtquick3d-devel")
+@split("devel")
 def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",

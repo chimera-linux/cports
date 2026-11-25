@@ -39,7 +39,7 @@ sha256 = "9356a9718daec6deb552c5b0629f670c7817ba08a83848ad0689d2c321c01b89"
 hardening = ["vis"]
 
 
-@subpackage("oxygen-cursors")
+@split("cursors")
 def _(self):
     self.subdesc = "cursor themes"
     return [

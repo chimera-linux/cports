@@ -18,6 +18,6 @@ sha256 = "a7b53ff5a5f80bf8b8869b377de11594c9e5bccf84064c96efd6bab16974c1be"
 hardening = ["vis"]
 
 
-@subpackage("kidletime-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

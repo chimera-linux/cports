@@ -14,6 +14,6 @@ sha256 = "7360907bcf79ba49f6fc4a504767ff86e93ab9018477026fcc70d5ab77e1f2c1"
 options = ["!cross"]
 
 
-@subpackage("unibilium-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

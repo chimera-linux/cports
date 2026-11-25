@@ -37,7 +37,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("mandoc-apropos")
+@split("apropos")
 def _(self):
     self.subdesc = "apropos trigger"
     self.install_if = [self.parent]

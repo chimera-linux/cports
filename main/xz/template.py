@@ -40,7 +40,7 @@ def post_install(self):
         self.uninstall(f"usr/share/man/man1/{tool + '.1'}")
 
 
-@subpackage("xz-devel")
+@split("devel")
 def _(self):
     self.renames = ["liblzma-devel"]
 

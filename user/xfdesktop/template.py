@@ -38,7 +38,7 @@ sha256 = "acccde849265bbf4093925ba847977b7abf70bb2977e4f78216570e887c157b8"
 options = ["!lintpixmaps"]
 
 
-@subpackage("xfdesktop-backgrounds")
+@split("backgrounds")
 def _(self):
     self.pkgdesc = "Backgrounds for the Xfce desktop"
     self.install_if = [self.parent]

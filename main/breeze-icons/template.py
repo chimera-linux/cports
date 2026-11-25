@@ -27,6 +27,6 @@ hardening = ["vis"]
 options = ["brokenlinks"]
 
 
-@subpackage("breeze-icons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

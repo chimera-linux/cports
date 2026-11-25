@@ -84,14 +84,14 @@ def post_install(self):
         self.mv(f, self.destdir / "usr/share/chimerautils")
 
 
-@subpackage("chimerautils-devel-man")
+@split("devel-man")
 def _(self):
     # former conflicts with fts/rpmatch manpages
     self.replaces = ["man-pages-devel<6.9.1-r3"]
     return ["usr/share/man/man3"]
 
 
-@subpackage("chimerautils-devel")
+@split("devel")
 def _(self):
     # compat
     self.provides = [
@@ -103,7 +103,7 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("chimerautils-extra")
+@split("extra")
 def _(self):
     self.subdesc = "additional tools"
     self.depends = [self.parent]

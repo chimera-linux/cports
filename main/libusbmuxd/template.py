@@ -16,6 +16,6 @@ source = f"https://github.com/libimobiledevice/libusbmuxd/releases/download/{pkg
 sha256 = "5546f1aba1c3d1812c2b47d976312d00547d1044b84b6a461323c621f396efce"
 
 
-@subpackage("libusbmuxd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

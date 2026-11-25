@@ -66,7 +66,7 @@ def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
 
 
-@subpackage("incus-client")
+@split("client")
 def _(self):
     self.subdesc = "client only"
     self.depends = [self.parent]

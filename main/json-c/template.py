@@ -23,7 +23,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("json-c-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -32,7 +32,7 @@ def _(self):
 
 
 # cmake .a references, sigh
-@subpackage("json-c-devel")
+@split("devel")
 def _(self):
     self.depends += [self.with_pkgver("json-c-devel-static")]
 

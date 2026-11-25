@@ -21,7 +21,7 @@ def install(self):
     self.install_license(self.sources_path / "OFL.txt")
 
 
-@subpackage("fonts-stix-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-stix-ttf"]
@@ -30,7 +30,7 @@ def _(self):
     return ["usr/share/fonts/stix/*.otf"]
 
 
-@subpackage("fonts-stix-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-stix-otf"]

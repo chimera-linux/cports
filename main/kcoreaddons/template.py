@@ -24,6 +24,6 @@ sha256 = "f7373a77afae97099de4359fba13987b46618ccb952f94ddc11c9d31277fe651"
 hardening = ["vis"]
 
 
-@subpackage("kcoreaddons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

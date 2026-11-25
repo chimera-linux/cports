@@ -21,6 +21,6 @@ sha256 = "f98d15a2039a523e6ad7796bba0fb003f214db57cc4ad2e12e2f8ab12d309694"
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 
-@subpackage("liblangtag-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

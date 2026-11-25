@@ -48,6 +48,6 @@ file_xattrs = {
 hardening = ["vis"]
 
 
-@subpackage("libksysguard-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

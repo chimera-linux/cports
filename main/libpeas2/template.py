@@ -34,12 +34,12 @@ sha256 = "c2887233f084a69fabfc7fa0140d410491863d7050afb28677f9a553b2580ad9"
 options = ["!cross"]
 
 
-@subpackage("libpeas2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpeas2-python")
+@split("python")
 def _(self):
     self.subdesc = "Python support"
     self.depends += ["python-gobject"]
@@ -47,7 +47,7 @@ def _(self):
     return ["usr/lib/libpeas-2/loaders/libpythonloader.so"]
 
 
-@subpackage("libpeas2-lua")
+@split("lua")
 def _(self):
     self.subdesc = "Lua 5.1 support"
     self.depends += ["lua5.1-lgi"]
@@ -55,7 +55,7 @@ def _(self):
     return ["usr/lib/libpeas-2/loaders/liblua51loader.so"]
 
 
-@subpackage("libpeas2-gjs")
+@split("gjs")
 def _(self):
     self.subdesc = "GJS support"
     self.install_if = [self.parent, "gjs"]

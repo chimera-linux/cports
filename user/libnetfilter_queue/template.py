@@ -25,6 +25,6 @@ if self.profile.arch in ["ppc64", "ppc64le"]:
     options += ["!lto"]
 
 
-@subpackage("libnetfilter_queue-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

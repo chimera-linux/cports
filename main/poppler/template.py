@@ -55,7 +55,7 @@ def init_configure(self):
     self.configure_args.append(f"-DTESTDATADIR={self.chroot_srcdir}/testdata")
 
 
-@subpackage("poppler-cpp-libs")
+@split("cpp-libs")
 def _(self):
     self.subdesc = "C++ binding"
     self.renames = ["libpoppler-cpp"]
@@ -63,7 +63,7 @@ def _(self):
     return ["usr/lib/libpoppler-cpp.so.*"]
 
 
-@subpackage("poppler-qt6-libs")
+@split("qt6-libs")
 def _(self):
     self.subdesc = "Qt6 binding"
     self.renames = ["libpoppler-qt6", "poppler-qt"]
@@ -71,7 +71,7 @@ def _(self):
     return ["usr/lib/libpoppler-qt6.so.*"]
 
 
-@subpackage("poppler-glib-libs")
+@split("glib-libs")
 def _(self):
     self.subdesc = "GLib binding"
     self.renames = ["libpoppler-glib"]
@@ -79,7 +79,7 @@ def _(self):
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
 
 
-@subpackage("poppler-libs")
+@split("libs")
 def _(self):
     self.depends = ["poppler-data"]
     self.renames = ["libpoppler"]
@@ -87,7 +87,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("poppler-devel")
+@split("devel")
 def _(self):
     self.renames = ["libpoppler-devel", "poppler-qt-devel"]
 

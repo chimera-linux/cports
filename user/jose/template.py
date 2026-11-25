@@ -23,6 +23,6 @@ sha256 = "d480f1f30dc11b7e81cd2939f9f0ef512090b131a11f68595483a2de0550fa89"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("jose-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

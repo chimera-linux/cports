@@ -17,6 +17,6 @@ sha256 = "55a7517cd3572bd2565df0cf450944a04d5273b279ebb369a895391957f0f960"
 hardening = ["vis", "cfi"]
 
 
-@subpackage("libspectre-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

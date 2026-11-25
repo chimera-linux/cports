@@ -31,7 +31,7 @@ source = f"$(GNOME_SITE)/librest/{pkgver[:-2]}/librest-{pkgver}.tar.xz"
 sha256 = "7b6cb912bb3a22cfa7dcf005925dcb62883024db0c09099486e7d6851185c9b8"
 
 
-@subpackage("librest-devel")
+@split("devel")
 def _(self):
     self.renames = ["rest-devel"]
     return self.default_devel()

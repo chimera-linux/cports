@@ -176,17 +176,17 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
 
 
-@subpackage("udev-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("udev-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("udev-meta")
+@split("meta")
 def _(self):
     self.pkgdesc = "Base package for udev configs"
     self.depends = [self.parent]

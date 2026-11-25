@@ -20,13 +20,13 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("jasper-devel")
+@split("devel")
 def _(self):
     self.depends += ["libjpeg-turbo-devel"]
 
     return self.default_devel()
 
 
-@subpackage("jasper-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

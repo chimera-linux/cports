@@ -32,6 +32,6 @@ sha256 = "3c52fb542d65d1ec5a10f87126d7513c2bd115eaa2f87fb91b15ba588708fc7b"
 options = ["!cross"]
 
 
-@subpackage("libosinfo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

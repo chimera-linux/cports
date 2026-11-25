@@ -32,6 +32,6 @@ hardening = ["!vis"]
 options = ["!lintcomp"]
 
 
-@subpackage("libtracefs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

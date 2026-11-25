@@ -14,11 +14,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libxcvt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libxcvt-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

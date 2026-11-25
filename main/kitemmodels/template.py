@@ -13,7 +13,7 @@ sha256 = "3a280dbdfc0733ffc9607897109b70b57af89c81dfca534ab92efb948eab3179"
 hardening = ["vis"]
 
 
-@subpackage("kitemmodels-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

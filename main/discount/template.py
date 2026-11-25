@@ -29,11 +29,11 @@ def post_install(self):
     self.install_license("COPYRIGHT")
 
 
-@subpackage("discount-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("discount-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

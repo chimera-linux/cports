@@ -23,14 +23,14 @@ def install(self):
     self.install_license("LICENSE-MIT")
 
 
-@subpackage("rustc-demangle-libs")
+@split("libs")
 def _(self):
     self.subdesc = "runtime library"
     # library without soname/version
     return ["usr/lib/librustc_demangle.so"]
 
 
-@subpackage("rustc-demangle-devel")
+@split("devel")
 def _(self):
     self.depends += [self.with_pkgver("rustc-demangle-libs")]
     return self.default_devel()

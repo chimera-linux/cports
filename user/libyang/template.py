@@ -16,6 +16,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libyang-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

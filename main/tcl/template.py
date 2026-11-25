@@ -36,7 +36,7 @@ def post_install(self):
     self.install_license("../license.terms")
 
 
-@subpackage("tcl-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     self.options = ["!splitstatic"]

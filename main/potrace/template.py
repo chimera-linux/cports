@@ -12,6 +12,6 @@ source = f"$(SOURCEFORGE_SITE)/potrace/potrace-{pkgver}.tar.gz"
 sha256 = "be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc"
 
 
-@subpackage("potrace-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

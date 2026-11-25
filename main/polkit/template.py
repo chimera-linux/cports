@@ -57,6 +57,6 @@ def post_install(self):
     self.install_service(self.files_path / "polkitd")
 
 
-@subpackage("polkit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

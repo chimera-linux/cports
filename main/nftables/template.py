@@ -40,7 +40,7 @@ def post_install(self):
     self.install_service(fpath / "nftables")
 
 
-@subpackage("nftables-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libnftables")]
@@ -48,6 +48,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("nftables-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

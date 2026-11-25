@@ -26,7 +26,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("wayland-progs")
+@split("progs")
 def _(self):
     return self.default_progs(
         extra=[
@@ -37,7 +37,7 @@ def _(self):
     )
 
 
-@subpackage("wayland-devel")
+@split("devel")
 def _(self):
     self.depends += [self.with_pkgver("wayland-progs"), "libffi8-devel"]
     return self.default_devel(extra=["usr/share/wayland"])

@@ -22,6 +22,6 @@ sha256 = "af3e56be10eb95a5993600449d6c811a08d491f7905c40a1203040b5baf98f9e"
 hardening = ["vis"]
 
 
-@subpackage("layer-shell-qt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

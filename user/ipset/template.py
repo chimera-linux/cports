@@ -25,6 +25,6 @@ sha256 = "fbe3424dff222c1cb5e5c34d38b64524b2217ce80226c14fdcbb13b29ea36112"
 options = ["linkundefver", "!check"]
 
 
-@subpackage("ipset-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

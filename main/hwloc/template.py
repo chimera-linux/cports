@@ -26,7 +26,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("hwloc-progs")
+@split("progs")
 def _(self):
     # lintcomp: eager preload under different name
     self.options = ["!lintcomp"]
@@ -36,6 +36,6 @@ def _(self):
     )
 
 
-@subpackage("hwloc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

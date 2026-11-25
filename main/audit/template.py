@@ -23,12 +23,12 @@ sha256 = "d5d1b5d50ee4a2d0d17875bc6ae6bd6a7d5b34d9557ea847a39faec531faaa0a"
 options = ["etcfiles"]
 
 
-@subpackage("audit-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("audit-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

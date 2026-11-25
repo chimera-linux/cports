@@ -176,7 +176,7 @@ def post_install(self):
     self.uninstall("usr/lib/vlc/plugins/plugins.dat")
 
 
-@subpackage("vlc-qt")
+@split("qt")
 def _(self):
     self.subdesc = "Qt GUI"
     self.depends = [self.parent, "hicolor-icon-theme"]
@@ -191,7 +191,7 @@ def _(self):
     ]
 
 
-@subpackage("vlc-libs")
+@split("libs")
 def _(self):
     self.triggers = ["/usr/lib/vlc/plugins"]
 
@@ -206,6 +206,6 @@ def _(self):
     return self.default_libs(extra=_extras)
 
 
-@subpackage("vlc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

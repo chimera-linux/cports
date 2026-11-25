@@ -22,7 +22,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("yoga-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
 

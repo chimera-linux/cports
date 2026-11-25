@@ -23,7 +23,7 @@ sha256 = "b746cdd93d35ac48318051eb09c1c21eb350f4b5a9477798ee6a29b446999e02"
 options = ["!check", "empty"]
 
 
-@subpackage("cloud-initramfs-tools-dyn-netconf")
+@split("dyn-netconf")
 def _(self):
     self.subdesc = "write a network interface file in /run for BOOTIF"
     self.depends = ["initramfs-tools"]
@@ -35,7 +35,7 @@ def _(self):
     ]
 
 
-@subpackage("cloud-initramfs-tools-growroot")
+@split("growroot")
 def _(self):
     self.subdesc = "automatically resize the root partition on first boot"
     self.depends = [
@@ -51,7 +51,7 @@ def _(self):
     ]
 
 
-@subpackage("cloud-initramfs-tools-rescuevol")
+@split("rescuevol")
 def _(self):
     self.subdesc = "boot off a rescue volume rather than root filesystem"
     self.depends = ["initramfs-tools"]
@@ -63,7 +63,7 @@ def _(self):
     ]
 
 
-@subpackage("cloud-initramfs-tools-overlayroot")
+@split("overlayroot")
 def _(self):
     self.subdesc = "use an overlayfs on top of read-only root filesystem"
     self.depends = ["cryptsetup-scripts", "initramfs-tools"]

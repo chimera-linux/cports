@@ -70,7 +70,7 @@ def post_install(self):
     self.rm(self.destdir / "usr/tests", recursive=True, force=True)
 
 
-@subpackage("qt6-qtmultimedia-devel")
+@split("devel")
 def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",

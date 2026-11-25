@@ -84,6 +84,6 @@ def post_install(self):
     self.uninstall("usr/lib/tcl*", glob=True)
 
 
-@subpackage("sqlcipher-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

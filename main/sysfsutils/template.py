@@ -15,7 +15,7 @@ source = f"https://github.com/linux-ras/sysfsutils/archive/refs/tags/v{pkgver}.t
 sha256 = "f7f669d27c997d3eb3f3e014b4c0aa1aa4d07ce4d6f9e41fa835240f2bf38810"
 
 
-@subpackage("sysfsutils-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libsysfs")]
@@ -23,6 +23,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("sysfsutils-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

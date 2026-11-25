@@ -41,11 +41,11 @@ def post_install(self):
         self.uninstall("usr/lib/libxo")
 
 
-@subpackage("libxo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libxo-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

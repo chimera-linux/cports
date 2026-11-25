@@ -27,11 +27,11 @@ def post_install(self):
     self.install_man("docs/ahost.1")
 
 
-@subpackage("c-ares-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("c-ares-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

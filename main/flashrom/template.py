@@ -27,11 +27,11 @@ def post_install(self):
     )
 
 
-@subpackage("flashrom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("flashrom-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

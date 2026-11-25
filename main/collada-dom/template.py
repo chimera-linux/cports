@@ -29,7 +29,7 @@ def post_install(self):
     self.install_license("licenses/dom_license_e.txt")
 
 
-@subpackage("collada-dom-devel")
+@split("devel")
 def _(self):
     self.depends += ["boost-devel"]
     return self.default_devel()

@@ -23,13 +23,13 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("hiredis-ssl")
+@split("ssl")
 def _(self):
     self.subdesc = "hiredis_ssl library"
 
     return ["usr/lib/libhiredis_ssl.so.*"]
 
 
-@subpackage("hiredis-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

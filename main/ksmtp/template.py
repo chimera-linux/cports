@@ -25,7 +25,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksmtp-{pkgver}.tar.xz"
 sha256 = "91b0ea13523c314a628d3dd8d4d22598f3ec1de0daa68ce79ae7324afd26e8d5"
 
 
-@subpackage("ksmtp-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcoreaddons-devel"]
     return self.default_devel()

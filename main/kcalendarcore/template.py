@@ -22,6 +22,6 @@ sha256 = "65c7b0111140833a0a54cbbc303890e03d3d91469ace4e272e1b76aa2135dba7"
 options = ["!check"]
 
 
-@subpackage("kcalendarcore-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

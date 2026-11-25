@@ -15,14 +15,14 @@ source = f"{url}/releases/download/release-{pkgver}/sdl2-compat-{pkgver}.tar.gz"
 sha256 = "ec68abde77e2e459c8abc4f9587b8976b5d2a657b2bfda2fb3a079b0f8924588"
 
 
-@subpackage("sdl2-compat-devel-static")
+@split("devel-static")
 def _(self):
     self.subdesc = "static libraries"
 
     return ["usr/lib/*.a"]
 
 
-@subpackage("sdl2-compat-devel")
+@split("devel")
 def _(self):
     # pull in expected makedepends for stuff
     self.depends += [self.with_pkgver("sdl2-compat-devel-static"), "sdl3-devel"]

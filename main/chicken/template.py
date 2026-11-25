@@ -26,11 +26,11 @@ def post_install(self):
     )
 
 
-@subpackage("chicken-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("chicken-libs")
+@split("libs")
 def _(self):
     return self.default_libs(extra=["usr/lib/chicken"])

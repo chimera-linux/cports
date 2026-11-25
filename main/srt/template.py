@@ -27,11 +27,11 @@ sha256 = "d0a8b600fe1b4eaaf6277530e3cfc8f15b8ce4035f16af4a5eb5d4b123640cdd"
 options = ["!check"]
 
 
-@subpackage("srt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("srt-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

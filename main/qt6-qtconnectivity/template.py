@@ -38,7 +38,7 @@ def post_install(self):
     self.install_link("usr/bin/sdpscanner6", "../lib/qt6/libexec/sdpscanner")
 
 
-@subpackage("qt6-qtconnectivity-devel")
+@split("devel")
 def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",

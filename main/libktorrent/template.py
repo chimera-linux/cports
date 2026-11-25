@@ -32,7 +32,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libktorrent-{pkgver}.tar.xz"
 sha256 = "cc9a3f42dedaa686cf0167305c28f009a5896e520207305a5d1957d5ce1dea2b"
 
 
-@subpackage("libktorrent-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "boost-devel",

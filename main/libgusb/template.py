@@ -20,6 +20,6 @@ sha256 = "9df5ef301d6a4b361002aa52cce1165a87a89744055879bdbab31e7e86f1e846"
 options = ["!check", "!cross"]
 
 
-@subpackage("libgusb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

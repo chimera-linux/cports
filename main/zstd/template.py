@@ -45,14 +45,14 @@ def install(self):
         self.uninstall(f"usr/share/man/man1/{tool}.1")
 
 
-@subpackage("zstd-progs")
+@split("progs")
 def _(self):
     self.install_if = [self.parent]
 
     return self.default_progs()
 
 
-@subpackage("zstd-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("libzstd-devel")]
 

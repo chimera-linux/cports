@@ -29,6 +29,6 @@ source = f"{url}/archive/refs/tags/LibVNCServer-{pkgver}.tar.gz"
 sha256 = "62352c7795e231dfce044beb96156065a05a05c974e5de9e023d688d8ff675d7"
 
 
-@subpackage("libvncserver-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

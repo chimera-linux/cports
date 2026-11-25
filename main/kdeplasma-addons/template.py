@@ -62,6 +62,6 @@ def post_patch(self):
     cargo.Cargo(self, wrksrc="kdeds/kameleon/qmk/kameleon-qmk-helper").vendor()
 
 
-@subpackage("kdeplasma-addons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

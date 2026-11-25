@@ -13,6 +13,6 @@ source = (
 sha256 = "6dc2a380277688a068191245dac2ab7063a552999d8ac3ad8e841c10ff050961"
 
 
-@subpackage("usbredir-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -16,11 +16,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("sord-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("sord-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

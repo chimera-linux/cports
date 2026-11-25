@@ -51,7 +51,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("dbus-devel")
+@split("devel")
 def _(self):
     self.depends += ["libexpat-devel"]
     return self.default_devel(
@@ -62,12 +62,12 @@ def _(self):
     )
 
 
-@subpackage("dbus-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("dbus-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 support"
     self.depends = [self.parent]

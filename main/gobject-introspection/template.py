@@ -44,7 +44,7 @@ def post_install(self):
     python.precompile(self, f"usr/lib/{pkgname}/giscanner")
 
 
-@subpackage("gobject-introspection-freedesktop")
+@split("freedesktop")
 def _(self):
     self.pkgdesc = "Introspection data for some freedesktop components"
     # transitional
@@ -53,7 +53,7 @@ def _(self):
     return ["usr/lib/girepository-1.0"]
 
 
-@subpackage("gobject-introspection-libs")
+@split("libs")
 def _(self):
     self.depends += [self.with_pkgver("gobject-introspection-freedesktop")]
     # transitional
@@ -62,7 +62,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("gobject-introspection-devel")
+@split("devel")
 def _(self):
     self.depends += ["cairo-devel", "libffi8-devel"]
     # transitional

@@ -27,6 +27,6 @@ sha256 = "c176b889b75630a17f4e3d7ef24c09a3e12368e633496087459c8b53ac3a122d"
 options = ["!cross"]
 
 
-@subpackage("colord-gtk-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

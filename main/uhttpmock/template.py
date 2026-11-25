@@ -22,6 +22,6 @@ sha256 = "881b17c23b1a20b8a05b3598af584e9d1e94a4902cc53920548dc16f24c884c7"
 options = ["!cross"]
 
 
-@subpackage("uhttpmock-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

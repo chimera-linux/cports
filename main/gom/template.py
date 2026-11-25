@@ -18,12 +18,12 @@ sha256 = "ad61f05af2317a7ab1771fcfa816989fbba3b18957d2e0b5dede9ef45f09b534"
 options = ["!cross"]
 
 
-@subpackage("gom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("gom-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python-gobject"]

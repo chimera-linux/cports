@@ -90,7 +90,7 @@ def post_install(self):
     self.uninstall("usr/bin/diff*", glob=True)
 
 
-@subpackage("subversion-gnome-keyring")
+@split("gnome-keyring")
 def _(self):
     self.subdesc = "GNOME keyring integration"
     self.install_if = [self.parent, "gnome-keyring"]
@@ -98,7 +98,7 @@ def _(self):
     return ["usr/lib/libsvn_auth_gnome_keyring*.so.*"]
 
 
-@subpackage("subversion-tools")
+@split("tools")
 def _(self):
     self.subdesc = "extra tools"
 
@@ -113,7 +113,7 @@ def _(self):
     ]
 
 
-@subpackage("subversion-perl")
+@split("perl")
 def _(self):
     self.subdesc = "Perl bindings"
     self.depends += ["perl"]
@@ -125,11 +125,11 @@ def _(self):
     ]
 
 
-@subpackage("subversion-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("subversion-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

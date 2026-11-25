@@ -20,6 +20,6 @@ def pre_build(self):
     self.do("make", "-j1", "-C", "docs")
 
 
-@subpackage("audiofile-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

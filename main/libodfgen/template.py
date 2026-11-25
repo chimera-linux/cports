@@ -12,6 +12,6 @@ source = f"$(SOURCEFORGE_SITE)/libwpd/libodfgen/libodfgen-{pkgver}/libodfgen-{pk
 sha256 = "55200027fd46623b9bdddd38d275e7452d1b0ff8aeddcad6f9ae6dc25f610625"
 
 
-@subpackage("libodfgen-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

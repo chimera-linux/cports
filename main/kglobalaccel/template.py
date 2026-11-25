@@ -20,7 +20,7 @@ sha256 = "d5ad10eb041ef8f46074bb1df4cf3475888421d849bc667a7afc6c5bf8cc1640"
 hardening = ["vis"]
 
 
-@subpackage("kglobalaccel-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

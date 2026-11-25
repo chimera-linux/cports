@@ -156,6 +156,6 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("plasma-workspace-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

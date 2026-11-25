@@ -96,7 +96,7 @@ def post_install(self):
     self.uninstall("etc/xinetd.d")
 
 
-@subpackage("cups-libs")
+@split("libs")
 def _(self):
     return self.default_libs(
         extra=[
@@ -107,14 +107,14 @@ def _(self):
     )
 
 
-@subpackage("cups-devel")
+@split("devel")
 def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()
 
 
-@subpackage("cups-filters-none")
+@split("filters-none")
 def _(self):
     self.subdesc = "no filters"
     self.provides = ["cups-filters=0"]

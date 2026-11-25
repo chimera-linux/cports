@@ -26,7 +26,7 @@ def post_extract(self):
     self.rm("bin/vcs-run")
 
 
-@subpackage("cloud-utils-ec2metadata")
+@split("ec2metadata")
 def _(self):
     self.subdesc = "retrieve metadata on AWS EC2"
     self.depends = ["python-urllib3"]
@@ -35,7 +35,7 @@ def _(self):
     return ["cmd:ec2metadata"]
 
 
-@subpackage("cloud-utils-growpart")
+@split("growpart")
 def _(self):
     self.subdesc = "grow disk partitions"
     self.depends = ["util-linux-fdisk", "util-linux-mount"]
@@ -44,7 +44,7 @@ def _(self):
     return ["cmd:growpart"]
 
 
-@subpackage("cloud-utils-localds")
+@split("localds")
 def _(self):
     self.subdesc = "create cloud-init configuration disk"
     self.depends = [
@@ -59,7 +59,7 @@ def _(self):
     return ["cmd:cloud-localds"]
 
 
-@subpackage("cloud-utils-multipart")
+@split("multipart")
 def _(self):
     self.subdesc = "write files to a MIME multipart document"
     self.depends = ["python"]

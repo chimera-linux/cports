@@ -24,11 +24,11 @@ def post_install(self):
     self.install_service(self.files_path / "playerctld.user")
 
 
-@subpackage("playerctl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("playerctl-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

@@ -19,7 +19,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libspng-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("spng-devel")]
     self.replaces = ["spng-devel<0.7.5"]

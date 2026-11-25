@@ -38,12 +38,12 @@ def post_install(self):
     self.uninstall("usr/bin/xapp-gpu-offload")
 
 
-@subpackage("xapp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("xapp-progs")
+@split("progs")
 def _(self):
     self.depends += [self.parent, "python"]
     return self.default_progs()

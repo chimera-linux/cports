@@ -21,6 +21,6 @@ source = f"$(GNOME_SITE)/libgsf/{pkgver[:-3]}/libgsf-{pkgver}.tar.xz"
 sha256 = "0eb59a86e0c50f97ac9cfe4d8cc1969f623f2ae8c5296f2414571ff0a9e8bcba"
 
 
-@subpackage("libgsf-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

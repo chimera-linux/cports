@@ -26,6 +26,6 @@ sha256 = "cae2686b18f41bde6494f353e1dccc5f045e9748b63175a9ff539b3bc93466f1"
 hardening = ["vis"]
 
 
-@subpackage("sonnet-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -16,6 +16,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "72101e69aabe16937576fa30a61830309b28ce96aa3bb7de5958134fa521f7fe"
 
 
-@subpackage("libmodule-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -97,7 +97,7 @@ def post_install(self):
     self.install_link("usr/bin/wine64", "wine")
 
 
-@subpackage("wine-staging-devel")
+@split("devel")
 def _(self):
     # ditto
     self.provides = ["wine-devel=0"]

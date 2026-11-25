@@ -155,6 +155,6 @@ def post_install(self):
     self.install_license("Source/WebCore/LICENSE-LGPL-2")
 
 
-@subpackage("webkitgtk4-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

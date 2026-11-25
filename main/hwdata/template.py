@@ -26,31 +26,31 @@ sha256 = "ac7c34efc5941d5cbf739a8f7f6c84b1c2edea493fd3fca10906ef64d7afd690"
 options = ["!check", "empty"]
 
 
-@subpackage("hwdata-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
     return self.default_devel()
 
 
-@subpackage("hwdata-usb")
+@split("usb")
 def _(self):
     self.subdesc = "USB IDs"
     return ["usr/share/hwdata/usb.ids"]
 
 
-@subpackage("hwdata-pci")
+@split("pci")
 def _(self):
     self.subdesc = "PCI IDs"
     return ["usr/share/hwdata/pci.ids"]
 
 
-@subpackage("hwdata-net")
+@split("net")
 def _(self):
     self.subdesc = "Networking OUIs"
     return ["usr/share/hwdata/oui.txt", "usr/share/hwdata/iab.txt"]
 
 
-@subpackage("hwdata-pnp")
+@split("pnp")
 def _(self):
     self.subdesc = "PnP IDs"
     return ["usr/share/hwdata/pnp.ids"]

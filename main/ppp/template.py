@@ -63,7 +63,7 @@ def post_install(self):
     self.install_bin("scripts/plog")
 
 
-@subpackage("ppp-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent, "libpcap-devel"]
 

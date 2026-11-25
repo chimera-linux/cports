@@ -58,6 +58,6 @@ def post_install(self):
     )
 
 
-@subpackage("gnome-software-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

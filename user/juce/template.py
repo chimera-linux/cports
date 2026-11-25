@@ -52,7 +52,7 @@ def post_install(self):
     self.install_bin("build/extras/Projucer/Projucer_artefacts/None/Projucer")
 
 
-@subpackage("juce-projucer")
+@split("projucer")
 def _(self):
     self.pkgdesc = "Cross-platform IDE for audio plugins"
     self.depends = [self.parent]

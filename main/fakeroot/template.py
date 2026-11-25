@@ -22,7 +22,7 @@ else:
     configure_args += ["ac_cv_func_capset=0"]
 
 
-@subpackage("fakeroot-core")
+@split("core")
 def _(self):
     self.subdesc = "core"
 

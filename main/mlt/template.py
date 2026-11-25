@@ -59,12 +59,12 @@ hardening = ["!int"]
 options = ["linkundefver"]
 
 
-@subpackage("mlt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("mlt-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     self.depends += ["python"]

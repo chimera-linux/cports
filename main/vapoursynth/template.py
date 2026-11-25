@@ -19,6 +19,6 @@ source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
 sha256 = "1bb8ffe31348eaf46d8f541b138f0136d10edaef0c130c1e5a13aa4a4b057280"
 
 
-@subpackage("vapoursynth-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

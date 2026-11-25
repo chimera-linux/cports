@@ -14,6 +14,6 @@ source = f"{url}/files/libnetfilter_cttimeout-{pkgver}.tar.bz2"
 sha256 = "0b59da2f3204e1c80cb85d1f6d72285fc07b01a2f5678abf5dccfbbefd650325"
 
 
-@subpackage("libnetfilter_cttimeout-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

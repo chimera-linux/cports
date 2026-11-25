@@ -49,7 +49,7 @@ def post_install(self):
         )
 
 
-@subpackage("python-nanobind-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel(extra=["usr/share/nanobind"])

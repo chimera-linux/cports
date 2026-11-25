@@ -30,7 +30,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("flex-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = [

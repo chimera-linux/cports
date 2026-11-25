@@ -14,6 +14,6 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "5922c46cacf99b2ecc4853d28a2bda4a489292e73276e604bd9cba29dfca892d"
 
 
-@subpackage("dotconf-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

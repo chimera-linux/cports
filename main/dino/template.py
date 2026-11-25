@@ -62,6 +62,6 @@ for _plugin, _desc in [
     _genmod(_plugin, _desc)
 
 
-@subpackage("dino-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

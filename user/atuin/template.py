@@ -55,7 +55,7 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("atuin-server")
+@split("server")
 def _(self):
     self.subdesc = "server"
 

@@ -26,6 +26,6 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdepim-{pkgver}.tar.xz"
 sha256 = "e68637f6b5224542c3ca8d042fc3eb104969313ee0148119b9f93fa32711f378"
 
 
-@subpackage("libkdepim-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

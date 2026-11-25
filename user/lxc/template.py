@@ -37,6 +37,6 @@ def post_install(self):
     self.uninstall("etc/default/lxc")
 
 
-@subpackage("lxc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

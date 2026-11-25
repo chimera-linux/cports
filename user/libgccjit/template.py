@@ -147,6 +147,6 @@ def init_configure(self):
     self.env["BOOT_LDFLAGS"] = ldfl
 
 
-@subpackage("libgccjit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

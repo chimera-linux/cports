@@ -19,12 +19,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libexpat-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libexpat-progs")
+@split("progs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("xmlwf")]

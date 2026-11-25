@@ -23,7 +23,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("font-util-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

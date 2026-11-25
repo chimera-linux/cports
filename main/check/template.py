@@ -14,6 +14,6 @@ sha256 = "a8de4e0bacfb4d76dd1c618ded263523b53b85d92a146d8835eb1a52932fa20a"
 options = ["!check"]
 
 
-@subpackage("check-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

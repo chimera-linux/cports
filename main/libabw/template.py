@@ -18,11 +18,11 @@ source = f"https://dev-www.libreoffice.org/src/libabw/libabw-{pkgver}.tar.xz"
 sha256 = "fa2685a3440da6e03a66a778480d93cb95f6064e4541e58e37397680760fd6a0"
 
 
-@subpackage("libabw-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libabw-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

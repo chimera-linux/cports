@@ -30,7 +30,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "75e0a15fdc8fab9efc8a101d1d36ba3866c407889faae6c025e6aac58957da77"
 
 
-@subpackage("libphonenumber-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "abseil-cpp-devel",

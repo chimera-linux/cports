@@ -28,11 +28,11 @@ def post_install(self):
     )
 
 
-@subpackage("lilv-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("lilv-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

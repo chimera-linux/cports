@@ -34,12 +34,12 @@ sha256 = "b1bf56239269d101a6391ad4553c910eff9cc6170b803916405477ef60a66c84"
 options = ["!cross"]
 
 
-@subpackage("libadwaita-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libadwaita-demo")
+@split("demo")
 def _(self):
     self.subdesc = "demo application"
     return [

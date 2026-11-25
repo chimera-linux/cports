@@ -12,6 +12,6 @@ sha256 = "fa6e2becba0a629964b466b39c5997e72d8a6da40d82b88190aae7359065c758"
 options = ["!check"]
 
 
-@subpackage("fswatch-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,11 +15,11 @@ sha256 = "39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87"
 options = ["bootstrap", "etcfiles"]
 
 
-@subpackage("attr-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 
-@subpackage("attr-progs")
+@split("progs")
 def _(self):
     return self.default_progs(extra=["usr/share"])

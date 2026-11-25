@@ -26,6 +26,6 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("graphene-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/lib/graphene-1.0"])

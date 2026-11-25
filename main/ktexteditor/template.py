@@ -37,7 +37,7 @@ sha256 = "13d906ecac31158eb68a6d6315a64948a3e79282d6c9316e82fc38c86640d084"
 hardening = ["vis"]
 
 
-@subpackage("ktexteditor-devel")
+@split("devel")
 def _(self):
     self.depends += ["kparts-devel", "syntax-highlighting-devel"]
 

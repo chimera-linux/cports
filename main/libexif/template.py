@@ -11,6 +11,6 @@ source = f"{url}/archive/libexif-{pkgver.replace('.', '_')}-release.tar.gz"
 sha256 = "974329442c4b0515814aa700073abbac592a29d1c2c14e4ec2bf0209764dabe9"
 
 
-@subpackage("libexif-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

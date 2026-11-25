@@ -24,6 +24,6 @@ def post_extract(self):
     self.rm("acinclude/sdl2.m4")
 
 
-@subpackage("smpeg-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -82,11 +82,11 @@ def init_check(self):
     }
 
 
-@subpackage("libvpx-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libvpx-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

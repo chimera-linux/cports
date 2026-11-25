@@ -39,7 +39,7 @@ hardening = ["vis"]
 # TODO: split qt6 theme?
 
 
-@subpackage("breeze-cursors")
+@split("cursors")
 def _(self):
     self.subdesc = "cursor themes"
     return [
@@ -48,6 +48,6 @@ def _(self):
     ]
 
 
-@subpackage("breeze-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

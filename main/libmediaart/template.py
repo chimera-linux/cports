@@ -18,6 +18,6 @@ sha256 = "2b43dd9f54f0d8d0b89e2addb83341ab06d7b98cb1b2e704383584af9c560f6b"
 options = ["!cross"]
 
 
-@subpackage("libmediaart-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

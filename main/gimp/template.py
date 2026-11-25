@@ -85,11 +85,11 @@ hardening = ["!int"]
 options = ["etcfiles", "!cross", "!check"]
 
 
-@subpackage("gimp-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("gimp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

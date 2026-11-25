@@ -12,6 +12,6 @@ sha256 = "5ab5ebddf3f2eb7ce47a505b87460b00fc1ede99c70010796d3575ab31ea80bf"
 options = ["!check"]
 
 
-@subpackage("libfreeaptx-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -85,7 +85,7 @@ def install(self):
     )
 
 
-@subpackage("base-kernel-devel")
+@split("devel")
 def _(self):
     self.depends = [
         self.parent,

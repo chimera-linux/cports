@@ -32,7 +32,7 @@ sha256 = "45068697de3ffe46840ca369705f23118b34db4f7deb63f6eff079a6734ddcca"
 options = ["!check"]
 
 
-@subpackage("python-gobject-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

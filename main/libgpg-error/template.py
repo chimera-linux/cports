@@ -19,11 +19,11 @@ def post_install(self):
     self.uninstall("usr/share/common-lisp")
 
 
-@subpackage("libgpg-error-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libgpg-error-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

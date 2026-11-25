@@ -16,7 +16,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "4ae3b3db14cb84e31da3e8995653c50cf0cd5019b32dc321518b42ec894b8071"
 
 
-@subpackage("pinentry-bemenu-default")
+@split("default")
 def _(self):
     self.depends = [self.parent]
     self.provides = ["pinentry-default=0"]

@@ -18,6 +18,6 @@ sha256 = "22dc59566d73c0065350f5a97340e62ecc7b08c4df19183804bb8be24c8fe870"
 options = ["!cross"]
 
 
-@subpackage("libgnomekbd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

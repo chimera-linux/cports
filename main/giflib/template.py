@@ -15,11 +15,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("giflib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("giflib-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

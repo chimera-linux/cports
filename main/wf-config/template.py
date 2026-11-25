@@ -27,6 +27,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("wf-config-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

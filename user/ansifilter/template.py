@@ -12,7 +12,7 @@ sha256 = "cf5b95564d95d398e78071f147ee3cbf850e6dc8226a86ecff2de4356f19ff66"
 hardening = ["vis", "cfi"]
 
 
-@subpackage("ansifilter-gui")
+@split("gui")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "GUI"

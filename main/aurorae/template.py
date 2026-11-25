@@ -25,6 +25,6 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/aurorae-{pkgver}.tar.xz"
 sha256 = "cb9f38c36f32587a2821ec539974243d85f9c82909b8e4618b8fffd33761d299"
 
 
-@subpackage("aurorae-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

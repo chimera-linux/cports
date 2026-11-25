@@ -14,6 +14,6 @@ sha256 = "aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7"
 options = ["!check"]
 
 
-@subpackage("xvidcore-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

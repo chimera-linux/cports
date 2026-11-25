@@ -35,6 +35,6 @@ sha256 = "7ec9d18fb283d1f84a3a3eff3b7a72b09a10c9c006597b3fbabbb5958420a87d"
 options = ["!check", "!cross"]
 
 
-@subpackage("gtksourceview4-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

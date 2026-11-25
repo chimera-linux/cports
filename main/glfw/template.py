@@ -32,7 +32,7 @@ source = (
 sha256 = "ea79bc5feffc254c87291980c2d0bce9acebb68c4983b79f961dcd2cb8a611a0"
 
 
-@subpackage("glfw-devel")
+@split("devel")
 def _(self):
     self.depends += ["pc:gl!libglvnd-devel"]
     return self.default_devel()

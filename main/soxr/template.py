@@ -21,6 +21,6 @@ sha256 = "b111c15fdc8c029989330ff559184198c161100a59312f5dc19ddeb9b5a15889"
 hardening = ["vis", "!int"]
 
 
-@subpackage("soxr-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

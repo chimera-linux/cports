@@ -26,11 +26,11 @@ sha256 = "e2bcf62438edaf04ca961aef8dafd35a2d208aa45f00ee557000b37214c0972e"
 options = ["!cross"]
 
 
-@subpackage("ghex-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("ghex-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

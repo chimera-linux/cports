@@ -52,7 +52,7 @@ def post_install(self):
     python.precompile(self, "usr/share/gdb/python")
 
 
-@subpackage("gdb-common")
+@split("common")
 def _(self):
     self.subdesc = "common files"
 

@@ -17,14 +17,14 @@ source = f"{url}/releases/download/{pkgver}/libbytesize-{pkgver}.tar.gz"
 sha256 = "8356bac2cafd2f31f39bf1ad373cef8448cab08b817aeaee5c526d54e81c3c5a"
 
 
-@subpackage("libbytesize-devel")
+@split("devel")
 def _(self):
     self.depends += ["gmp-devel", "mpfr-devel"]
 
     return self.default_devel()
 
 
-@subpackage("libbytesize-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

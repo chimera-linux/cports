@@ -26,7 +26,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libinput-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
     return self.default_devel()

@@ -29,6 +29,6 @@ sha256 = "84cd2a481a27970ec39b5c95f72db026722904a2ccf3fdbd57b280cf2d02b5c4"
 hardening = []
 
 
-@subpackage("gmime-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

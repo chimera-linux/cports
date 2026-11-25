@@ -53,6 +53,6 @@ def init_build(self):
     del self.make_env["CARGO_BUILD_TARGET"]
 
 
-@subpackage("glycin-gtk4-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

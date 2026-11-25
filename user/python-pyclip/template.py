@@ -20,7 +20,7 @@ sha256 = "6fd5e0eaa40ff349959d1cee2872eee90ae32065cc5df9714b1066981535acde"
 options = ["!check"]
 
 
-@subpackage("python-pyclip-wayland")
+@split("wayland")
 def _(self):
     self.subdesc = "Wayland support"
     self.install_if = [self.parent]
@@ -29,7 +29,7 @@ def _(self):
     return []
 
 
-@subpackage("python-pyclip-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 support"
     self.install_if = [self.parent]

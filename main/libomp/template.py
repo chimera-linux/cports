@@ -34,7 +34,7 @@ def post_install(self):
     self.install_license("LICENSE.TXT")
 
 
-@subpackage("libomp-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -42,7 +42,7 @@ def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("libomp-devel")
+@split("devel")
 def _(self):
     self.depends = [self.with_pkgver("libomp-devel-static")]
 

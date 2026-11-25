@@ -15,6 +15,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("oniguruma-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

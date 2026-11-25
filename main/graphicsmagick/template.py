@@ -71,6 +71,6 @@ def post_install(self):
     self.install_license("Copyright.txt")
 
 
-@subpackage("graphicsmagick-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

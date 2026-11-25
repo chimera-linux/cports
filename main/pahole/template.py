@@ -31,6 +31,6 @@ tool_flags = {
 }
 
 
-@subpackage("pahole-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

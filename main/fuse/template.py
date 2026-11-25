@@ -30,6 +30,6 @@ def post_install(self):
     self.install_link("usr/share/man/man8/mount.fuse.8", "mount.fuse3.8")
 
 
-@subpackage("fuse-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

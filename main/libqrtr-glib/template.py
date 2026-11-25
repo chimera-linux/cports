@@ -12,6 +12,6 @@ source = f"{url}/-/archive/{pkgver}/libqrtr-glib-{pkgver}.tar.gz"
 sha256 = "9e5f988c6005af347f6d0ac95c872e473c9c10c3ec3714ee0b73d896db7d5766"
 
 
-@subpackage("libqrtr-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

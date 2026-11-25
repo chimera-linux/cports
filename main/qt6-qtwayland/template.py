@@ -31,7 +31,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-@subpackage("qt6-qtwayland-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

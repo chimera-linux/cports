@@ -19,6 +19,6 @@ sha256 = "4f88d152bc06fedbda9d5d65517d40254a7310c9050601a93122309d45afd2c9"
 hardening = []
 
 
-@subpackage("libsbsms-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

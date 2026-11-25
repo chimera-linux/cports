@@ -25,6 +25,6 @@ sha256 = "618fc4e8de393b719b1641c1d8eec01826d4d39d15ade92679d221c7f5e4e70d"
 options = ["!cross"]
 
 
-@subpackage("libnice-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

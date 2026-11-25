@@ -14,11 +14,11 @@ sha256 = "8550e9589dbd594bfac93b81ecf129b1dc9d0d51e90f9696f1b2f9b2af32712b"
 options = ["linkundefver"]
 
 
-@subpackage("libcdio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libcdio-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

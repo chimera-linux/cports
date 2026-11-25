@@ -51,7 +51,7 @@ def post_install(self):
     self.uninstall("usr/share/installed-tests")
 
 
-@subpackage("appstream-qt")
+@split("qt")
 def _(self):
     self.subdesc = "Qt support"
 
@@ -60,7 +60,7 @@ def _(self):
     ]
 
 
-@subpackage("appstream-qt-devel")
+@split("qt-devel")
 def _(self):
     self.depends = [self.with_pkgver("appstream-devel")]
     self.subdesc = "Qt development files"
@@ -72,6 +72,6 @@ def _(self):
     ]
 
 
-@subpackage("appstream-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

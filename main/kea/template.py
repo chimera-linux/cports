@@ -32,6 +32,6 @@ def post_install(self):
     self.install_service(self.files_path / "kea-dhcp6")
 
 
-@subpackage("kea-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

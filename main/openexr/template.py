@@ -42,12 +42,12 @@ def post_install(self):
     self.install_license("LICENSE.md")
 
 
-@subpackage("openexr-devel")
+@split("devel")
 def _(self):
     self.depends += ["imath-devel"]
     return self.default_devel()
 
 
-@subpackage("openexr-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

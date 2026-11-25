@@ -52,7 +52,7 @@ def post_install(self):
     self.uninstall("usr/lib/xorg/protocol.txt")
 
 
-@subpackage("xwayland-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

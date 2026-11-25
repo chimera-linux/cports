@@ -35,14 +35,14 @@ sha256 = "2d887c93bba13139cb50e9f61480f37258584abbb5a7f5476ec4e475aa38e3a8"
 options = ["!cross"]
 
 
-@subpackage("font-manager-nautilus")
+@split("nautilus")
 def _(self):
     self.subdesc = "nautilus plugin"
     self.install_if = [self.parent, "nautilus"]
     return ["usr/lib/nautilus"]
 
 
-@subpackage("font-manager-thunar")
+@split("thunar")
 def _(self):
     self.subdesc = "thunar plugin"
     self.install_if = [self.parent, "thunar"]

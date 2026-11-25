@@ -37,12 +37,12 @@ sha256 = "053794d6671a3e397d849e478a80b82a63cb9d8ca296bd35b73317bb5ceb87b5"
 options = ["etcfiles", "linkundefver"]
 
 
-@subpackage("libpulse-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpulse-progs")
+@split("progs")
 def _(self):
     self.pkgdesc = "PulseAudio utilities"
     # installs all zsh comps to single _pulseaudio file

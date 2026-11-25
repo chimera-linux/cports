@@ -15,11 +15,11 @@ options = ["!distlicense"]
 restricted = "non-redistributable"
 
 
-@subpackage("libvgm-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libvgm-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

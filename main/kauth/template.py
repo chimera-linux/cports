@@ -21,7 +21,7 @@ sha256 = "5bcdb298a2ee84bca93a989247fd6d6e34a1e1029caae17705a85b8ac4dbe837"
 hardening = ["vis"]
 
 
-@subpackage("kauth-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcoreaddons-devel"]
 

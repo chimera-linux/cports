@@ -62,7 +62,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("enlightenment-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

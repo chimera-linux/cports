@@ -29,6 +29,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("suil-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -20,21 +20,21 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("ngtcp2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
 # projects explicitly link against crypto helpers of their choice
 # so no install_if shenanigans or anything like that
-@subpackage("ngtcp2-crypto-gnutls")
+@split("crypto-gnutls")
 def _(self):
     self.subdesc = "GnuTLS helper"
 
     return ["usr/lib/libngtcp2_crypto_gnutls.so.*"]
 
 
-@subpackage("ngtcp2-crypto-ossl")
+@split("crypto-ossl")
 def _(self):
     self.subdesc = "OpenSSL helper"
 

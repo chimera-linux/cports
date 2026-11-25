@@ -28,7 +28,7 @@ def post_install(self):
             self.install_file(f"key-bindings.{ext}", "usr/share/fzf")
 
 
-@subpackage("fzf-tmux")
+@split("tmux")
 def _(self):
     self.subdesc = "tmux integration script"
     self.depends = [self.parent, "bash", "tmux"]

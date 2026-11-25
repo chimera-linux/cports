@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 options = ["!check"]
 
 
-@subpackage("oci-runtime-runc")
+@split("runc")
 def _(self):
     self.subdesc = "runc"
     self.depends = ["runc"]
@@ -19,7 +19,7 @@ def _(self):
     return []
 
 
-@subpackage("oci-runtime-crun")
+@split("crun")
 def _(self):
     self.subdesc = "crun"
     self.depends = ["crun"]
@@ -30,7 +30,7 @@ def _(self):
     return []
 
 
-@subpackage("oci-runtime-crun-runc")
+@split("crun-runc")
 def _(self):
     self.subdesc = "runc compatibility link"
     self.depends = ["crun", self.with_pkgver("oci-runtime-crun")]

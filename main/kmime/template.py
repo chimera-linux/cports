@@ -24,7 +24,7 @@ source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kmime-{pkgver}.t
 sha256 = "390870842f4b6afeab01a0f76b63e22f0b97f788f8815d847a43d7a4f23e7941"
 
 
-@subpackage("kmime-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcodecs-devel",

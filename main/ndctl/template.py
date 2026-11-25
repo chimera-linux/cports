@@ -35,11 +35,11 @@ hardening = ["vis", "cfi"]
 options = ["etcfiles", "!distlicense"]
 
 
-@subpackage("ndctl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("ndctl-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

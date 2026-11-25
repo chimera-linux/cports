@@ -35,6 +35,6 @@ source = (
 sha256 = "0f474f93104c42eecdb04794f5539b77ea818a25719338bc81a9cd59fe069fc7"
 
 
-@subpackage("kpimtextedit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

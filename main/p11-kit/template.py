@@ -36,6 +36,6 @@ def post_install(self):
     self.rename("etc/pkcs11/pkcs11.conf.example", "pkcs11.conf")
 
 
-@subpackage("p11-kit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

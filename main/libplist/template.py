@@ -24,7 +24,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-@subpackage("libplist-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
@@ -32,11 +32,11 @@ def _(self):
     return ["usr/lib/python3*"]
 
 
-@subpackage("libplist-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libplist-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

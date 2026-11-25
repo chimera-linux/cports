@@ -133,7 +133,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user/plasma-kaccess.service")
 
 
-@subpackage("plasma-desktop-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.install_if = [self.parent]
@@ -186,7 +186,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-apps-meta")
+@split("apps-meta")
 def _(self):
     self.subdesc = "apps recommends package"
     self.install_if = [self.with_pkgver("plasma-desktop-meta")]
@@ -252,7 +252,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-multimedia-meta")
+@split("multimedia-meta")
 def _(self):
     self.subdesc = "multimedia recommends package"
     self.install_if = [self.with_pkgver("plasma-desktop-meta")]
@@ -271,7 +271,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-devtools-meta")
+@split("devtools-meta")
 def _(self):
     self.subdesc = "devtools recommends package"
     self.install_if = [self.with_pkgver("plasma-desktop-meta")]
@@ -284,7 +284,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-games-meta")
+@split("games-meta")
 def _(self):
     self.subdesc = "games recommends package"
     self.install_if = [self.with_pkgver("plasma-desktop-meta")]
@@ -295,7 +295,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-accessibility-meta")
+@split("accessibility-meta")
 def _(self):
     self.subdesc = "accessibility recommends package"
     self.install_if = [self.with_pkgver("plasma-desktop-meta")]
@@ -311,7 +311,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-kdepim-meta", _have_kdepim)
+@split("kdepim-meta", _have_kdepim)
 def _(self):
     # contact/calendar/etc
     self.subdesc = "kdepim recommends package"
@@ -336,7 +336,7 @@ def _(self):
     return []
 
 
-@subpackage("plasma-desktop-sddm-meta")
+@split("sddm-meta")
 def _(self):
     self.subdesc = "SDDM recommends package"
     self.install_if = [self.parent]

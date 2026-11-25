@@ -19,6 +19,6 @@ source = f"https://github.com/luvit/luv/releases/download/{_distver}/luv-{_distv
 sha256 = "dc706d9141c185bdce08b6fc8a9d4df05c3ac3676809ee4e9e37e1553d821237"
 
 
-@subpackage("lua5.1-libluv-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

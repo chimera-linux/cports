@@ -28,6 +28,6 @@ def post_install(self):
     self.uninstall("usr/share/installed-tests")
 
 
-@subpackage("libjcat-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

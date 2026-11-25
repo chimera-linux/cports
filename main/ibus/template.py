@@ -74,7 +74,7 @@ def post_install(self):
     self.rename("usr/share/bash-completion/completions/ibus.bash", "ibus")
 
 
-@subpackage("ibus-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libibus")]
@@ -82,7 +82,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("ibus-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "Gtk+3 immodule"
     self.install_if = [self.parent, "gtk+3"]
@@ -90,7 +90,7 @@ def _(self):
     return ["usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so"]
 
 
-@subpackage("ibus-gtk4")
+@split("gtk4")
 def _(self):
     self.subdesc = "Gtk4 immodule"
     self.install_if = [self.parent, "gtk4"]
@@ -98,7 +98,7 @@ def _(self):
     return ["usr/lib/gtk-4.0/4.0.0/immodules/libim-ibus.so"]
 
 
-@subpackage("ibus-wayland")
+@split("wayland")
 def _(self):
     self.subdesc = "Wayland support"
     self.install_if = [self.parent, "wayland"]
@@ -106,7 +106,7 @@ def _(self):
     return ["usr/lib/ibus-wayland"]
 
 
-@subpackage("ibus-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 support"
     self.install_if = [self.parent, "libx11"]
@@ -114,6 +114,6 @@ def _(self):
     return ["usr/lib/ibus-x11"]
 
 
-@subpackage("ibus-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/gtk-doc"])

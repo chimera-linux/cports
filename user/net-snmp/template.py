@@ -43,7 +43,7 @@ def post_install(self):
     self.install_service(self.files_path / "snmptrapd")
 
 
-@subpackage("net-snmp-snmpd")
+@split("snmpd")
 def _(self):
     self.pkgdesc = "Simple Network Management Protocol daemon"
     self.depends = [self.parent]
@@ -56,7 +56,7 @@ def _(self):
     ]
 
 
-@subpackage("net-snmp-snmptrapd")
+@split("snmptrapd")
 def _(self):
     self.pkgdesc = "Simple Network Management Protocol notification receiver"
     self.depends = [self.parent]
@@ -69,6 +69,6 @@ def _(self):
     ]
 
 
-@subpackage("net-snmp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

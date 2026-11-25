@@ -19,6 +19,6 @@ def post_install(self):
     self.install_license("LICENSES/BSD-3-Clause.txt")
 
 
-@subpackage("libmpdclient-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

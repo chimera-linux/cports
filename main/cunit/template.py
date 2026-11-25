@@ -22,6 +22,6 @@ def post_extract(self):
     (self.cwd / "config.status").unlink()
 
 
-@subpackage("cunit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

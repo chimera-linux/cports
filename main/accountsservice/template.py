@@ -32,6 +32,6 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("accountsservice-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

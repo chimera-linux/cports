@@ -116,14 +116,14 @@ for _libn, _ldesc in [
 
 
 # TODO: add service
-@subpackage("heimdal-kcm")
+@split("kcm")
 def _(self):
     self.pkgdesc = "Heimdal KCM daemon"
 
     return ["usr/lib/kcm", "usr/share/man/man8/kcm.8"]
 
 
-@subpackage("heimdal-kdc")
+@split("kdc")
 def _(self):
     self.pkgdesc = "Heimdal Key Distribution Center"
 
@@ -149,7 +149,7 @@ def _(self):
     ]
 
 
-@subpackage("heimdal-clients")
+@split("clients")
 def _(self):
     self.subdesc = "clients"
     self.file_modes = {"usr/bin/ksu": ("root", "root", 0o4755)}
@@ -184,7 +184,7 @@ def _(self):
     return _install
 
 
-@subpackage("heimdal-devel")
+@split("devel")
 def _(self):
     # provides com_err
     self.depends += ["e2fsprogs-devel"]

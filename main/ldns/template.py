@@ -34,7 +34,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("ldns-libs")
+@split("libs")
 def _(self):
     self.depends = ["dns-root-data"]
     # transitional
@@ -43,7 +43,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("ldns-devel")
+@split("devel")
 def _(self):
     self.depends += ["openssl3-devel"]
     # transitional

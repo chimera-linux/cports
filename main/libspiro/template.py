@@ -12,6 +12,6 @@ source = f"{url}/releases/download/{pkgver}/libspiro-dist-{pkgver}.tar.gz"
 sha256 = "1412a21b943c6e1db834ee2d74145aad20b3f62b12152d475613b8241d9cde10"
 
 
-@subpackage("libspiro-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

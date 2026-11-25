@@ -33,7 +33,7 @@ sha256 = "6235ea0dae45ea137f59c09320406f5888383741924d98855bd2ce0d16b54f21"
 options = ["!check"]
 
 
-@subpackage("tesseract-training")
+@split("training")
 def _(self):
     self.subdesc = "training tools"
 
@@ -56,7 +56,7 @@ def _(self):
     ]
 
 
-@subpackage("tesseract-devel")
+@split("devel")
 def _(self):
     self.depends += ["curl-devel", "libarchive-devel"]
 

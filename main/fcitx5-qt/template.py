@@ -38,6 +38,6 @@ def post_install(self):
     self.install_license("LICENSES/BSD-3-Clause.txt")
 
 
-@subpackage("fcitx5-qt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

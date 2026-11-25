@@ -57,7 +57,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("monero-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

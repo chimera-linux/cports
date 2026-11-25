@@ -11,7 +11,7 @@ license = "custom:meta"
 url = "https://kde.org"
 
 
-@subpackage("kde1-apps")
+@split("apps")
 def _(self):
     self.subdesc = "apps"
     self.install_if = [self.parent]

@@ -10,7 +10,7 @@ source = f"$(GNOME_SITE)/gnome-backgrounds/{pkgver[: pkgver.find('.')]}/gnome-ba
 sha256 = "ec50534d7749be0e1503c5504f826c61d1460d2b41cb84518fa6b2f5547d1e1e"
 
 
-@subpackage("gnome-backgrounds-gnome")
+@split("gnome")
 def _(self):
     self.subdesc = "GNOME integration"
     self.depends += [

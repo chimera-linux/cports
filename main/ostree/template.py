@@ -43,6 +43,6 @@ sha256 = "164b8226aea6a0e6601036de02a5e3b62307bae25890ed557fb4e19020bd5974"
 options = ["!check"]
 
 
-@subpackage("ostree-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

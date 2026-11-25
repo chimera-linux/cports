@@ -23,6 +23,6 @@ source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"
 sha256 = "2bf94e0e677e5a8fc31f79dd323f91c5416b36fb851058bc1e8bce39f2642434"
 
 
-@subpackage("gpgme-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

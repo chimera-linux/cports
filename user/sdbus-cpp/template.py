@@ -21,6 +21,6 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("sdbus-cpp-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["cmd:sdbus-c++-xml2cpp"])

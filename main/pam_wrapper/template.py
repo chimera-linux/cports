@@ -18,7 +18,7 @@ def post_extract(self):
     self.rm(".git", recursive=True)
 
 
-@subpackage("pam_wrapper-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
@@ -26,6 +26,6 @@ def _(self):
     return ["usr/lib/python*"]
 
 
-@subpackage("pam_wrapper-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

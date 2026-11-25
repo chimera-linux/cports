@@ -31,7 +31,7 @@ source = (
 sha256 = "6df7dfed390c016ba0460cabf9b83743b78e458a2a51051cc738edadc5c7a7ce"
 
 
-@subpackage("kmailtransport-devel")
+@split("devel")
 def _(self):
     self.depends += ["kconfig-devel"]
     return self.default_devel()

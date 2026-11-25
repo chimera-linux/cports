@@ -42,26 +42,26 @@ hardening = ["vis", "!cfi"]
 options = ["!check", "linkundefver"]
 
 
-@subpackage("zam-plugins-clap")
+@split("clap")
 def _(self):
     return ["usr/lib/clap"]
 
 
-@subpackage("zam-plugins-ladspa")
+@split("ladspa")
 def _(self):
     return ["usr/lib/ladspa"]
 
 
-@subpackage("zam-plugins-lv2")
+@split("lv2")
 def _(self):
     return ["usr/lib/lv2"]
 
 
-@subpackage("zam-plugins-vst2")
+@split("vst2")
 def _(self):
     return ["usr/lib/vst"]
 
 
-@subpackage("zam-plugins-vst3")
+@split("vst3")
 def _(self):
     return ["usr/lib/vst3"]

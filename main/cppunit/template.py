@@ -11,6 +11,6 @@ source = f"https://dev-www.libreoffice.org/src/cppunit-{pkgver}.tar.gz"
 sha256 = "89c5c6665337f56fd2db36bc3805a5619709d51fb136e51937072f63fcc717a7"
 
 
-@subpackage("cppunit-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/bin"])

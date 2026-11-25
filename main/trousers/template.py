@@ -22,7 +22,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="tss")
 
 
-@subpackage("trousers-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libtspi")]
@@ -30,6 +30,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("trousers-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

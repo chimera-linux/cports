@@ -99,19 +99,19 @@ def post_install(self):
     self.install_file(self.files_path / "config", "usr/lib/apk")
 
 
-@subpackage("apk-tools-devel", self.stage > 0)
+@split("devel", self.stage > 0)
 def _(self):
     return self.default_devel()
 
 
-@subpackage("apk-tools-static-bin", self.stage > 0)
+@split("static-bin", self.stage > 0)
 def _(self):
     self.subdesc = "static binary"
 
     return ["usr/bin/apk.static"]
 
 
-@subpackage("apk-tools-cache", self.stage > 0)
+@split("cache", self.stage > 0)
 def _(self):
     self.subdesc = "transitional metapackage"
     self.depends = [self.parent]
@@ -120,7 +120,7 @@ def _(self):
     return []
 
 
-@subpackage("apk-tools-interactive", self.stage > 0)
+@split("interactive", self.stage > 0)
 def _(self):
     self.subdesc = "transitional metapackage"
     self.depends = [self.parent]

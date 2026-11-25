@@ -80,7 +80,7 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("python-numpy-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
 
@@ -91,7 +91,7 @@ def _(self):
     ]
 
 
-@subpackage("python-numpy-tests")
+@split("tests")
 def _(self):
     self.subdesc = "tests"
     self.depends = [

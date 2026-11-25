@@ -43,6 +43,6 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/krdc-{pkgver}.tar.xz"
 sha256 = "9700a20bc4b45abeaae0731e47aaf75321089ac8f4011e66e52d7e5afcd08e4c"
 
 
-@subpackage("krdc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

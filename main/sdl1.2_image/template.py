@@ -25,6 +25,6 @@ source = f"https://www.libsdl.org/projects/SDL_image/release/SDL_image-{pkgver}.
 sha256 = "0b90722984561004de84847744d566809dbb9daf732a9e503b91a1b5a84e5699"
 
 
-@subpackage("sdl1.2_image-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

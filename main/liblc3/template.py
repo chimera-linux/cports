@@ -11,6 +11,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "276752ff54ce6a77d54ec133397b9d7e71f90caf3d9afa32d8b0e891b8ecb8af"
 
 
-@subpackage("liblc3-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -51,11 +51,11 @@ source = (
 sha256 = "f296c5c662886635d4cd597e8ac0afcde7982be4486533c2b7f095b268be8668"
 
 
-@subpackage("evince-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("evince-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

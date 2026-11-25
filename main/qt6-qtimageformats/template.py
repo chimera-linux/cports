@@ -32,7 +32,7 @@ def init_check(self):
     }
 
 
-@subpackage("qt6-qtimageformats-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

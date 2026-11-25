@@ -26,6 +26,6 @@ source = f"https://github.com/KDAB/KDDockWidgets/releases/download/v{pkgver}/kdd
 sha256 = "51dbf24fe72e43dd7cb9a289d3cab47112010f1a2ed69b6fc8ac0dff31991ed2"
 
 
-@subpackage("kddockwidgets-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

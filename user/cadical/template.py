@@ -20,6 +20,6 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("cadical-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

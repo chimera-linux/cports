@@ -27,12 +27,12 @@ def post_install(self):
     self.rename("usr/share/WebP/cmake", "usr/lib/cmake/WebP", relative=False)
 
 
-@subpackage("libwebp-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
     return self.default_devel()
 
 
-@subpackage("libwebp-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -53,6 +53,6 @@ def post_install(self):
     self.install_license("COPYRIGHT")
 
 
-@subpackage("gsm-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

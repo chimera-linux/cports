@@ -20,7 +20,7 @@ hardening = ["!vis", "!cfi"]
 # and some other stuff
 
 
-@subpackage("spirv-tools-devel-static")
+@split("devel-static")
 def _(self):
     self.depends = []
     self.install_if = []
@@ -28,7 +28,7 @@ def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("spirv-tools-libs")
+@split("libs")
 def _(self):
     self.subdesc = "shared library"
     self.renames = ["libspirv-tools-shared"]
@@ -36,7 +36,7 @@ def _(self):
     return ["usr/lib/*.so"]
 
 
-@subpackage("spirv-tools-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

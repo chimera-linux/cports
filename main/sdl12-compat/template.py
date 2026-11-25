@@ -13,7 +13,7 @@ source = f"{url}/archive/refs/tags/release-{pkgver}.tar.gz"
 sha256 = "40ec5f0bab13a217ffae7aab0c450f1f798761e91fb185051b5211925c9da11a"
 
 
-@subpackage("sdl12-compat-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

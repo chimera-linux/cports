@@ -18,6 +18,6 @@ source = f"$(GNOME_SITE)/gupnp/{pkgver[:-2]}/gupnp-{pkgver}.tar.xz"
 sha256 = "2edb6ee3613558e62f538735368aee27151b7e09d4e2e2c51606833da801869b"
 
 
-@subpackage("gupnp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

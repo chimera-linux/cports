@@ -74,7 +74,7 @@ def post_install(self):
     self.install_service(self.files_path / "syncthing.user")
 
 
-@subpackage("syncthing-relaysrv")
+@split("relaysrv")
 def _(self):
     self.subdesc = "relay server"
     self.license = "MIT"
@@ -86,7 +86,7 @@ def _(self):
     ]
 
 
-@subpackage("syncthing-discosrv")
+@split("discosrv")
 def _(self):
     self.subdesc = "discovery server"
 

@@ -192,7 +192,7 @@ def post_install(self):
     self.install_file(self.files_path / "systemd-boot", "usr/lib/systemd/boot")
 
 
-@subpackage("systemd-boot-efi")
+@split("efi")
 def _(self):
     self.pkgdesc = "UEFI boot manager"
     self.subdesc = "EFI binaries"
@@ -206,7 +206,7 @@ def _(self):
 
 
 # only practical for efi so we constrain it by sd-boot
-@subpackage("systemd-boot-ukify")
+@split("ukify")
 def _(self):
     self.pkgdesc = "Tool to generate Unified Kernel Images"
     self.provides = [self.with_pkgver("ukify")]

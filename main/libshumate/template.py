@@ -29,6 +29,6 @@ sha256 = "b36aad34500791785f546684d0f2ed644e4819ff4e85ae67a2245f159eccb2d4"
 options = ["!cross"]
 
 
-@subpackage("libshumate-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

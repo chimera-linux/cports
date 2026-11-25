@@ -25,13 +25,13 @@ source = f"https://github.com/project-spiel/libspiel/archive/refs/tags/SPIEL_{pk
 sha256 = "6060024bd640c1d94d3860731e15a7171aa440b3a52d3bebf83d23088096eb75"
 
 
-@subpackage("libspiel-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()
 
 
-@subpackage("libspiel-provider-espeak")
+@split("provider-espeak")
 def _(self):
     self.depends += ["speech-provider-espeak"]
     # the preferred provider

@@ -12,6 +12,6 @@ source = f"http://files.libburnia-project.org/releases/libisofs-{pkgver[:-2]}.pl
 sha256 = "ac1fd338d641744ca1fb1567917188b79bc8c2506832dd56885fec98656b9f25"
 
 
-@subpackage("libisofs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

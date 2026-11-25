@@ -36,12 +36,12 @@ source = f"{url}/libcanberra-{pkgver}.tar.xz"
 sha256 = "c2b671e67e0c288a69fc33dc1b6f1b534d07882c2aceed37004bf48c601afa72"
 
 
-@subpackage("libcanberra-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libcanberra-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "Gtk+3 support"
     self.install_if = [self.parent, "gtk+3"]
@@ -55,7 +55,7 @@ def _(self):
     ]
 
 
-@subpackage("libcanberra-pulse")
+@split("pulse")
 def _(self):
     self.subdesc = "PulseAudio support"
     self.install_if = [self.parent, "libpulse"]
@@ -63,7 +63,7 @@ def _(self):
     return ["usr/lib/libcanberra-*/libcanberra-pulse.so"]
 
 
-@subpackage("libcanberra-gstreamer")
+@split("gstreamer")
 def _(self):
     self.subdesc = "GStreamer support"
     self.install_if = [self.parent, "gstreamer"]
@@ -71,7 +71,7 @@ def _(self):
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
 
 
-@subpackage("libcanberra-gnome")
+@split("gnome")
 def _(self):
     self.subdesc = "GNOME support"
     self.depends += [self.with_pkgver("libcanberra-gtk3")]

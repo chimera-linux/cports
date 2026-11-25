@@ -36,6 +36,6 @@ sha256 = "d68f74617519d1ebc88f152c29d51333f600b9f0aa8757c0a4fe49a40a5107fa"
 hardening = ["vis"]
 
 
-@subpackage("kwallet-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

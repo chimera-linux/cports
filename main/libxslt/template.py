@@ -26,12 +26,12 @@ def post_install(self):
     self.install_license("Copyright")
 
 
-@subpackage("libxslt-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/lib/xsltConf.sh"])
 
 
-@subpackage("libxslt-progs")
+@split("progs")
 def _(self):
     self.renames = ["xsltproc"]
 

@@ -16,7 +16,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libvdpau-devel")
+@split("devel")
 def _(self):
     self.depends += ["libx11-devel"]
     return self.default_devel()

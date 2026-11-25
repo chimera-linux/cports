@@ -31,11 +31,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("librist-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("librist-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

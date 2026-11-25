@@ -21,6 +21,6 @@ sha256 = "77435cc9dda43ff14e6b99cfb08498ace7730f995fc4ab4c21d6be2d1a6c73a1"
 hardening = ["vis"]
 
 
-@subpackage("kdecoration-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

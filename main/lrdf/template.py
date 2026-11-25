@@ -12,7 +12,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "d579417c477ac3635844cd1b94f273ee2529a8c3b6b21f9b09d15f462b89b1ef"
 
 
-@subpackage("lrdf-devel")
+@split("devel")
 def _(self):
     self.depends += ["raptor-devel"]
 

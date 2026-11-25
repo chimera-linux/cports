@@ -25,11 +25,11 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("glslang-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("glslang-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

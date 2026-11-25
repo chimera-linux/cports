@@ -48,7 +48,7 @@ def post_install(self):
     self.uninstall("usr/share/caja-python")
 
 
-@subpackage("blueman-nautilus")
+@split("nautilus")
 def _(self):
     self.subdesc = "Nautilus integration"
     self.install_if = [self.parent, "nautilus"]

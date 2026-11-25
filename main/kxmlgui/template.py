@@ -29,7 +29,7 @@ sha256 = "3b9be65d4f30e372bc9b77321da5a31dec9fe997a946a6a8a03b64377856ab38"
 hardening = ["vis"]
 
 
-@subpackage("kxmlgui-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kconfig-devel",

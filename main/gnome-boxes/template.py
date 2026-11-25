@@ -45,6 +45,6 @@ match _arch:
         depends += ["qemu-system-ppc64"]
 
 
-@subpackage("gnome-boxes-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

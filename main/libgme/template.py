@@ -22,6 +22,6 @@ else:
     tool_flags = {"CXXFLAGS": ["-DLSB_FIRST=1"]}
 
 
-@subpackage("libgme-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

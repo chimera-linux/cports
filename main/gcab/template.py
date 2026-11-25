@@ -20,6 +20,6 @@ sha256 = "2f0c9615577c4126909e251f9de0626c3ee7a152376c15b5544df10fc87e560b"
 options = ["!cross"]
 
 
-@subpackage("gcab-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

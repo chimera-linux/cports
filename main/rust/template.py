@@ -449,7 +449,7 @@ def install(self):
         f.symlink_to(rlibf.relative_to(f.parent))
 
 
-@subpackage("rust-wasm")
+@split("wasm")
 def _(self):
     self.pkgdesc = "WebAssembly targets"
     self.depends = [self.parent, "llvm-lld", "wasi-libc"]
@@ -458,7 +458,7 @@ def _(self):
     return ["usr/lib/rustlib/wasm32-*"]
 
 
-@subpackage("rust-clippy")
+@split("clippy")
 def _(self):
     self.pkgdesc = "Lints to catch common mistakes"
     self.depends = [self.parent]
@@ -469,7 +469,7 @@ def _(self):
     ]
 
 
-@subpackage("rust-rustfmt")
+@split("rustfmt")
 def _(self):
     self.pkgdesc = "Rust code formatter"
     self.depends = [self.parent]
@@ -481,7 +481,7 @@ def _(self):
     ]
 
 
-@subpackage("rust-std")
+@split("std")
 def _(self):
     self.subdesc = "static rlibs"
     self.options = ["!strip"]
@@ -492,7 +492,7 @@ def _(self):
     ]
 
 
-@subpackage("rust-src")
+@split("src")
 def _(self):
     self.subdesc = "source"
 

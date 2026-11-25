@@ -129,7 +129,7 @@ def post_install(self):
     self.uninstall("usr/lib/ecore/system/systemd")
 
 
-@subpackage("efl-ibus")
+@split("ibus")
 def _(self):
     self.subdesc = "IBus support"
     self.install_if = [self.parent, "ibus"]
@@ -137,6 +137,6 @@ def _(self):
     return ["usr/lib/ecore_imf/modules/ibus"]
 
 
-@subpackage("efl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -64,7 +64,7 @@ def check(self):
     self.do("node", "--test")
 
 
-@subpackage("yt-dlp-ejs-nodejs")
+@split("nodejs")
 def _(self):
     self.subdesc = "nodejs runtime"
     self.install_if = [self.parent]

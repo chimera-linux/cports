@@ -13,11 +13,11 @@ source = f"https://download.videolan.org/pub/videolan/libbluray/{pkgver}/libblur
 sha256 = "478ffd68a0f5dde8ef6ca989b7f035b5a0a22c599142e5cd3ff7b03bbebe5f2b"
 
 
-@subpackage("libbluray-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libbluray-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

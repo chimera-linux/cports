@@ -24,6 +24,6 @@ sha256 = "6af8ac41a8f067ade1d3caaed254a83423b5f61ad3f7a460fcacbac2e192bdf7"
 options = ["!cross"]
 
 
-@subpackage("libwnck-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

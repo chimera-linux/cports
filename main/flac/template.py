@@ -35,7 +35,7 @@ def post_install(self):
     self.install_license("COPYING.Xiph")
 
 
-@subpackage("flac-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libflac")]
@@ -43,6 +43,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("flac-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

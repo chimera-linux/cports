@@ -65,7 +65,7 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
-@subpackage("okular-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kconfig-devel",

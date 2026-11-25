@@ -80,7 +80,7 @@ sha256 = "a7670ed900d3d03be744d25c1873b239896e9a82ce6d17f8febc6fffbaee9521"
 hardening = ["!int"]
 
 
-@subpackage("gst-plugins-good-qt6")
+@split("qt6")
 def _(self):
     self.subdesc = "Qt6 plugin"
 

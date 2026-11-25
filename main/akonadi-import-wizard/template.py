@@ -36,7 +36,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-import-wizard-{pkgve
 sha256 = "e1b71ef5de5f29b317d129dd1c3e3fa45386726050bf2d46ae03cd52b201a03c"
 
 
-@subpackage("akonadi-import-wizard-devel")
+@split("devel")
 def _(self):
     self.depends += ["kmailtransport-devel"]
     return self.default_devel()

@@ -76,7 +76,7 @@ def post_install(self):
     self.install_file("nfs.conf", "etc")
 
 
-@subpackage("nfs-utils-server")
+@split("server")
 def _(self):
     self.subdesc = "server components"
     self.depends = [self.parent]
@@ -119,11 +119,11 @@ def _(self):
     ]
 
 
-@subpackage("nfs-utils-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("nfs-utils-libs")
+@split("libs")
 def _(self):
     return ["usr/lib/libnfsidmap.so.*", "usr/lib/libnfsidmap"]

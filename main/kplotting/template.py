@@ -20,7 +20,7 @@ source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kplotting-{pkgve
 sha256 = "cc4ef616f4ef7384f7652771998447644789c0f99c507bca81d318443b54c31c"
 
 
-@subpackage("kplotting-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

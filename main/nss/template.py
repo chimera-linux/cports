@@ -110,7 +110,7 @@ def install(self):
     )
 
 
-@subpackage("nss-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

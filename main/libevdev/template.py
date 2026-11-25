@@ -19,12 +19,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libevdev-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
 
-@subpackage("libevdev-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

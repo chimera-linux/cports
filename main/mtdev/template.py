@@ -15,7 +15,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("mtdev-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

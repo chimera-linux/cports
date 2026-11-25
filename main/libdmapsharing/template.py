@@ -32,6 +32,6 @@ options = ["!check", "!cross"]
 # FIXME: Otherwise tests fail with
 
 
-@subpackage("libdmapsharing-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

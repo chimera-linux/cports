@@ -44,7 +44,7 @@ source = f"$(KDE_SITE)/ktextaddons/ktextaddons-{pkgver}.tar.xz"
 sha256 = "f3b4448904f1656d6d7cd5a557d22fe1c50624eb32ed369f34726beff9ce0589"
 
 
-@subpackage("ktextaddons-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kconfigwidgets-devel",

@@ -38,12 +38,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libpwquality-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpwquality-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python", "cracklib-devel"]

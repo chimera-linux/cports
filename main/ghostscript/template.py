@@ -90,7 +90,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("ghostscript-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libgs")]
@@ -98,7 +98,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("ghostscript-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libgs-devel")]

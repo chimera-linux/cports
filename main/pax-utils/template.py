@@ -35,7 +35,7 @@ match self.profile.arch:
         options += ["!check"]
 
 
-@subpackage("pax-utils-lddtree")
+@split("lddtree")
 def _(self):
     self.depends += ["python-pyelftools"]
     self.install_if = [self.parent, "python"]
@@ -44,7 +44,7 @@ def _(self):
     return ["usr/bin/lddtree"]
 
 
-@subpackage("pax-utils-symtree")
+@split("symtree")
 def _(self):
     self.depends += [self.parent, "bash"]
     self.install_if = [self.parent, "bash"]

@@ -36,6 +36,6 @@ source = f"https://gitlab.com/inkscape/lib2geom/-/archive/{pkgver}/lib2geom-{pkg
 sha256 = "edef330f557f188afc11ab505b6ffcfafb075da73e5dde95b9ecf96d20ab6374"
 
 
-@subpackage("lib2geom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

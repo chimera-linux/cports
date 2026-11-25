@@ -166,7 +166,7 @@ using clang ;
     self.install_license("LICENSE_1_0.txt")
 
 
-@subpackage("boost-build")
+@split("build")
 def _(self):
     self.subdesc = "Boost.Build framework"
     self.depends = [self.parent]
@@ -176,7 +176,7 @@ def _(self):
     return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
 
 
-@subpackage("boost-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent, *makedepends]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]

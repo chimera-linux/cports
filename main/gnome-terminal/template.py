@@ -35,7 +35,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("gnome-terminal-nautilus-extension")
+@split("nautilus-extension")
 def _(self):
     self.pkgdesc = "GNOME terminal extension for Nautilus"
     self.depends += [self.parent]

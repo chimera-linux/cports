@@ -30,7 +30,7 @@ sha256 = "7274daae2ccfac64f79752443ee797d80e550f33beabebd5ed93bcc989a56f53"
 hardening = ["vis"]
 
 
-@subpackage("baloo-widgets-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kio-devel",

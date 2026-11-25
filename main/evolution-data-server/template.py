@@ -54,6 +54,6 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("evolution-data-server-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

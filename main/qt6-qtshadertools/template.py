@@ -20,12 +20,12 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-@subpackage("qt6-qtshadertools-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("qt6-qtshadertools-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

@@ -44,7 +44,7 @@ def post_install(self):
     self.install_file(self.files_path / "dinit-console", "usr/lib", mode=0o755)
 
 
-@subpackage("console-setup-xkb")
+@split("xkb")
 def _(self):
     self.subdesc = "optional XKB keymap support"
     self.depends = [self.parent, "xkeyboard-config", "perl"]

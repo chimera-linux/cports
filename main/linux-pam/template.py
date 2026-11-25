@@ -40,11 +40,11 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("linux-pam-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 
-@subpackage("linux-pam-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

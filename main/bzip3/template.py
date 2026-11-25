@@ -14,14 +14,14 @@ source = f"{url}/releases/download/{pkgver}/bzip3-{pkgver}.tar.zst"
 sha256 = "26e0eaf81668219727cc25529337277e87df989174b555a8ecc5ce61b95e76e0"
 
 
-@subpackage("bzip3-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libbzip3")]
     return self.default_libs()
 
 
-@subpackage("bzip3-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libbzip3-devel")]

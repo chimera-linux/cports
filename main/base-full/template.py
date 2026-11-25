@@ -8,7 +8,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-@subpackage("base-full-console")
+@split("console")
 def _(self):
     self.subdesc = "console tools"
     self.install_if = [self.parent]
@@ -23,7 +23,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-core")
+@split("core")
 def _(self):
     self.subdesc = "core tools"
     self.install_if = [self.parent]
@@ -38,7 +38,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-firmware")
+@split("firmware")
 def _(self):
     self.subdesc = "firmware"
     self.install_if = [self.parent, "linux", "!base-full-minimal"]
@@ -53,7 +53,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-fonts")
+@split("fonts")
 def _(self):
     self.subdesc = "fonts"
     self.install_if = [self.parent, "fontconfig", "!base-full-minimal"]
@@ -67,7 +67,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-fs")
+@split("fs")
 def _(self):
     self.subdesc = "filesystem tools"
     self.install_if = [self.parent]
@@ -90,7 +90,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-kernel")
+@split("kernel")
 def _(self):
     self.subdesc = "kernel tooling"
     self.install_if = [self.parent, "linux", "!base-full-minimal"]
@@ -103,7 +103,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-locale")
+@split("locale")
 def _(self):
     self.subdesc = "locale"
     self.install_if = [self.parent]
@@ -113,7 +113,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-man")
+@split("man")
 def _(self):
     self.subdesc = "manpages"
     self.install_if = [self.parent]
@@ -126,7 +126,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-misc")
+@split("misc")
 def _(self):
     self.subdesc = "miscellaneous"
     self.install_if = [self.parent, "!base-full-minimal"]
@@ -150,7 +150,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-net-tools")
+@split("net-tools")
 def _(self):
     self.subdesc = "network tools"
     self.install_if = [self.parent]
@@ -167,7 +167,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-net")
+@split("net")
 def _(self):
     self.subdesc = "network"
     self.install_if = [self.parent, "!base-full-minimal"]
@@ -179,7 +179,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-session")
+@split("session")
 def _(self):
     self.subdesc = "session management"
     self.install_if = [self.parent, "!base-full-minimal"]
@@ -190,7 +190,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-sound")
+@split("sound")
 def _(self):
     self.subdesc = "sound"
     self.install_if = [self.parent, "!base-full-minimal"]
@@ -200,7 +200,7 @@ def _(self):
     return []
 
 
-@subpackage("base-full-minimal")
+@split("minimal")
 def _(self):
     self.subdesc = "metapackage for small installations"
     self.depends = [self.parent]

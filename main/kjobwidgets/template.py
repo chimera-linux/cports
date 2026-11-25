@@ -21,6 +21,6 @@ sha256 = "98eaee2846181b82b357067db00ac65e3bcf02c11322bb636aa6021a6eb65dd2"
 hardening = ["vis"]
 
 
-@subpackage("kjobwidgets-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

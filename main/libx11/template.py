@@ -25,6 +25,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libx11-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

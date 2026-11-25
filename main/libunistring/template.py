@@ -10,6 +10,6 @@ source = f"$(GNU_SITE)/libunistring/libunistring-{pkgver}.tar.gz"
 sha256 = "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8"
 
 
-@subpackage("libunistring-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share"])

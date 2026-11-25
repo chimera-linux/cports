@@ -39,11 +39,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libgit2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libgit2-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

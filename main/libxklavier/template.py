@@ -31,6 +31,6 @@ sha256 = "17a34194df5cbcd3b7bfd0f561d95d1f723aa1c87fca56bc2c209514460a9320"
 options = ["!cross"]
 
 
-@subpackage("libxklavier-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

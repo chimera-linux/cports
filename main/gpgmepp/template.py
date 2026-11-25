@@ -15,6 +15,6 @@ source = f"https://gnupg.org/ftp/gcrypt/gpgmepp/gpgmepp-{pkgver}.tar.xz"
 sha256 = "d4796049c06708a26f3096f748ef095347e1a3c1e570561701fe952c3f565382"
 
 
-@subpackage("gpgmepp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

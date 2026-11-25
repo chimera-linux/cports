@@ -47,12 +47,12 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("openldap-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("openldap-devel")
+@split("devel")
 def _(self):
     self.depends += ["libsasl-devel"]
     return self.default_devel()

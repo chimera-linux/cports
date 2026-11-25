@@ -35,6 +35,6 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("icecream-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -21,6 +21,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "73d71c908b803f12e4a5ecd8392511b58afbdd0c82ad7909611a17bb7847c5c8"
 
 
-@subpackage("libayatana-indicator-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

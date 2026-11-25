@@ -39,7 +39,7 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
-@subpackage("kfilemetadata-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
 

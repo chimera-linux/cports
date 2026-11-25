@@ -99,11 +99,11 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 hardening = ["!int", "vis", "!cfi"]
 
 
-@subpackage("mpv-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("mpv-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

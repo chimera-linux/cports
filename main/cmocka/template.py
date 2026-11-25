@@ -11,6 +11,6 @@ source = f"{url}/files/{pkgver[:-2]}/cmocka-{pkgver}.tar.xz"
 sha256 = "58435b558766d7f4c729ba163bdf3aec38bed3bc766dab684e3526ed0aa7c780"
 
 
-@subpackage("cmocka-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

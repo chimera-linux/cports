@@ -13,6 +13,6 @@ sha256 = "9f676e504f73fa43e394833e514522baac3f3ca2b8c63908eef7f6bdf1053046"
 hardening = ["vis"]
 
 
-@subpackage("kquickcharts-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

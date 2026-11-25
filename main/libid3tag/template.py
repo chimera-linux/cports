@@ -21,6 +21,6 @@ sha256 = "0561009778513a95d91dac33cee8418d6622f710450a7cb56a74636d53b588cb"
 hardening = []
 
 
-@subpackage("libid3tag-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

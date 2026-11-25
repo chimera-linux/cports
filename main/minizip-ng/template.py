@@ -18,6 +18,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "c362e35ee973fa7be58cc5e38a4a6c23cc8f7e652555daf4f115a9eb2d3a6be7"
 
 
-@subpackage("minizip-ng-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

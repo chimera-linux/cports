@@ -40,7 +40,7 @@ def post_install(self):
     self.install_file("leap-seconds.list", "usr/share/zoneinfo")
 
 
-@subpackage("tzdb-right")
+@split("right")
 def _(self):
     self.subdesc = "TAI"
     self.options = ["hardlinks"]
@@ -50,7 +50,7 @@ def _(self):
     return ["usr/share/zoneinfo/right"]
 
 
-@subpackage("tzdb-progs")
+@split("progs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("tzutils")]

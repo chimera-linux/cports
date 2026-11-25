@@ -40,7 +40,7 @@ def post_install(self):
     self.uninstall(f"usr/lib/ecl-{pkgver}/build-stamp")
 
 
-@subpackage("ecl-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[
@@ -52,7 +52,7 @@ def _(self):
     )
 
 
-@subpackage("ecl-libs")
+@split("libs")
 def _(self):
     return self.default_libs(
         extra=[

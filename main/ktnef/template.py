@@ -23,7 +23,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktnef-{pkgver}.tar.xz"
 sha256 = "badb933874840b1fc2566297be4182b00f1ea2ecf0385d800a8537f7cd209fa1"
 
 
-@subpackage("ktnef-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcalendarcore-devel"]
     return self.default_devel()

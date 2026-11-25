@@ -74,7 +74,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("akonadi-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kconfig-devel",

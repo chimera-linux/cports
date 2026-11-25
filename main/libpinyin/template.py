@@ -12,6 +12,6 @@ source = f"{url}/releases/download/{pkgver}/libpinyin-{pkgver}.tar.gz"
 sha256 = "3fe786ff2c2059bdbdf9d8d752db691a516a941a977521955fe0af3f0b4db299"
 
 
-@subpackage("libpinyin-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

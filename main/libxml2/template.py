@@ -34,11 +34,11 @@ def post_install(self):
     self.install_license("Copyright")
 
 
-@subpackage("libxml2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libxml2-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

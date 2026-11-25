@@ -32,7 +32,7 @@ source = (
 sha256 = "17d50f800a51f87671d8f21fcf4d275401372f918a20edd90ecad30b5572ba4a"
 
 
-@subpackage("grantleetheme-devel")
+@split("devel")
 def _(self):
     self.depends += ["ktexttemplate-devel"]
     return self.default_devel()

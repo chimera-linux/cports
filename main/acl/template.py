@@ -16,13 +16,13 @@ sha256 = "73c853c3d44e1f693e5a96a986f1bd19d3d0dac2c7d453e796177774bc4e5f6a"
 options = ["bootstrap", "!check"]
 
 
-@subpackage("acl-devel")
+@split("devel")
 def _(self):
     self.depends += ["attr-devel"]
 
     return self.default_devel(man="5")
 
 
-@subpackage("acl-progs")
+@split("progs")
 def _(self):
     return self.default_progs(extra=["usr/share"])

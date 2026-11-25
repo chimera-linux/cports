@@ -24,6 +24,6 @@ sha256 = "97423a779002b3be8751c75f9d79049dfccca3616a26159fc162486772ba785f"
 options = ["!cross", "!check"]
 
 
-@subpackage("libgit2-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

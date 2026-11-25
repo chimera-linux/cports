@@ -19,7 +19,7 @@ source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"
 sha256 = "1d850d5a871559abf641d6e6b63bb86047e4cb26f3ad144597c2c64b3cff7231"
 
 
-@subpackage("libnvme-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
@@ -27,6 +27,6 @@ def _(self):
     return ["usr/lib/python*"]
 
 
-@subpackage("libnvme-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

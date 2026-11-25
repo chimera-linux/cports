@@ -101,6 +101,6 @@ if self.profile.arch in [
     makedepends += ["libomp-devel"]
 
 
-@subpackage("digikam-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

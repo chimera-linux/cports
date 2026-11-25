@@ -38,17 +38,17 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 options = ["etcfiles"]
 
 
-@subpackage("speechd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("speechd-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("speechd-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

@@ -32,6 +32,6 @@ sha256 = "1bd4fe3246af5527c136afc650703e5231b8b2de32ca1eac48fa310adece8db8"
 hardening = ["vis"]
 
 
-@subpackage("kiconthemes-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

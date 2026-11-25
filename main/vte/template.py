@@ -52,7 +52,7 @@ tool_flags = {
 options = ["etcfiles", "!lto", "!cross"]
 
 
-@subpackage("vte-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "Gtk+3"
     self.depends = [self.parent]
@@ -62,7 +62,7 @@ def _(self):
     ]
 
 
-@subpackage("vte-gtk4")
+@split("gtk4")
 def _(self):
     self.subdesc = "Gtk4"
     self.depends = [self.parent]
@@ -72,7 +72,7 @@ def _(self):
     ]
 
 
-@subpackage("vte-gtk3-devel")
+@split("gtk3-devel")
 def _(self):
     self.subdesc = "Gtk+3 development files"
     return [
@@ -84,7 +84,7 @@ def _(self):
     ]
 
 
-@subpackage("vte-gtk4-devel")
+@split("gtk4-devel")
 def _(self):
     self.subdesc = "Gtk4 development files"
     return [
@@ -96,7 +96,7 @@ def _(self):
     ]
 
 
-@subpackage("vte-demos")
+@split("demos")
 def _(self):
     self.subdesc = "example applications"
     self.depends = [self.parent]

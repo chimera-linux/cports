@@ -52,11 +52,11 @@ def post_install(self):
     self.install_service(self.files_path / "modemmanager")
 
 
-@subpackage("modemmanager-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("modemmanager-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

@@ -32,7 +32,7 @@ def post_install(self):
     self.uninstall("var/db/xbps")
 
 
-@subpackage("xbps-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

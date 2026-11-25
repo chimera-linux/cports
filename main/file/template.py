@@ -24,7 +24,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("file-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libmagic")]
@@ -37,7 +37,7 @@ def _(self):
     )
 
 
-@subpackage("file-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

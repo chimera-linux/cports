@@ -36,6 +36,6 @@ source = f"{url}/neon-{pkgver}.tar.gz"
 sha256 = "f98ce3c74300be05eddf05dccbdca498b14d40c289f773195dd1a559cffa5856"
 
 
-@subpackage("neon-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -22,11 +22,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("dav1d-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("dav1d-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

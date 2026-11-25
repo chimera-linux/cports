@@ -105,7 +105,7 @@ def post_install(self):
     self.rename("etc/security", "usr/share/pam/security", relative=False)
 
 
-@subpackage("pipewire-bluetooth")
+@split("bluetooth")
 def _(self):
     self.subdesc = "Bluetooth support"
     self.depends += [self.parent, "bluez"]
@@ -115,7 +115,7 @@ def _(self):
     return ["usr/lib/spa-0.2/bluez5"]
 
 
-@subpackage("pipewire-libs")
+@split("libs")
 def _(self):
     self.subdesc = "runtime library"
     self.provides = [self.with_pkgver("libpipewire")]
@@ -129,7 +129,7 @@ def _(self):
     ]
 
 
-@subpackage("pipewire-jack-devel")
+@split("jack-devel")
 def _(self):
     self.subdesc = "JACK development files"
     self.provides = [self.with_pkgver("jack-devel")]
@@ -141,7 +141,7 @@ def _(self):
     ]
 
 
-@subpackage("pipewire-jack")
+@split("jack")
 def _(self):
     self.subdesc = "JACK support"
     self.provides = [self.with_pkgver("jack")]
@@ -154,12 +154,12 @@ def _(self):
     ]
 
 
-@subpackage("pipewire-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("pipewire-gstreamer")
+@split("gstreamer")
 def _(self):
     self.subdesc = "gstreamer plugin"
     self.install_if = [self.parent, "gst-plugins-base"]
@@ -168,7 +168,7 @@ def _(self):
     return ["usr/lib/gstreamer-1.0"]
 
 
-@subpackage("pipewire-alsa")
+@split("alsa")
 def _(self):
     self.subdesc = "ALSA client library"
     self.install_if = [self.parent, "alsa-lib"]
@@ -180,7 +180,7 @@ def _(self):
     ]
 
 
-@subpackage("pipewire-alsa-default")
+@split("alsa-default")
 def _(self):
     self.subdesc = "use for ALSA by default"
     self.install_if = [self.with_pkgver("pipewire-alsa")]
@@ -192,7 +192,7 @@ def _(self):
     ]
 
 
-@subpackage("pipewire-session-manager-none")
+@split("session-manager-none")
 def _(self):
     self.subdesc = "no session manager"
     self.provides = ["pipewire-session-manager=0"]

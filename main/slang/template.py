@@ -34,6 +34,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/slsh", recursive=True)
 
 
-@subpackage("slang-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -23,7 +23,7 @@ sha256 = "473395787e6921d37298e191cc1718f8818f630b98bdf312583ad25606f6a09e"
 hardening = ["vis"]
 
 
-@subpackage("kcmutils-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kconfigwidgets-devel",

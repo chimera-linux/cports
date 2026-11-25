@@ -19,7 +19,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "bc7c4dc1a3c86498efcbc9d61b4ff8c38630153c4a8f7e3af39c7f03c1c049bc"
 
 
-@subpackage("mu-mu4e-emacs")
+@split("mu4e-emacs")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "emacs mu4e"

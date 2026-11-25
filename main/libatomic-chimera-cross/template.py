@@ -104,7 +104,7 @@ for _an in _targetlist:
         _gen_crossp(_an, _pf.triplet)
 
 
-@subpackage("libatomic-chimera-cross-static")
+@split("static")
 def _(self):
     self.options = ["empty"]
     self.subdesc = "static"

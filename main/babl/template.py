@@ -23,6 +23,6 @@ sha256 = "3f090f4b2a61fecf7c8dc60a5804bbc77cefd8d778af2ded059f0e367a52930e"
 hardening = ["!int"]
 
 
-@subpackage("babl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

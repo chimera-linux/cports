@@ -25,14 +25,14 @@ source = f"https://github.com/Qalculate/libqalculate/archive/refs/tags/v{pkgver}
 sha256 = "85a17abe83461f1b9a1eba15b4bf610363c772bf886aa9cb743e9b6d1002c46d"
 
 
-@subpackage("libqalculate-devel")
+@split("devel")
 def _(self):
     self.depends += ["gmp-devel", "mpfr-devel"]
 
     return self.default_devel()
 
 
-@subpackage("libqalculate-progs")
+@split("progs")
 def _(self):
     self.renames = ["qalc"]
 

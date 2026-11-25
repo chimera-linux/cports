@@ -11,6 +11,6 @@ source = f"$(GNOME_SITE)/pangomm/{pkgver[:-2]}/pangomm-{pkgver}.tar.xz"
 sha256 = "539f5aa60e9bdc6b955bb448e2a62cc14562744df690258040fbb74bf885755d"
 
 
-@subpackage("pangomm-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/lib/pangomm-2.48"])

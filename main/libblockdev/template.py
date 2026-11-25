@@ -36,6 +36,6 @@ tool_flags = {
 options = ["etcfiles"]
 
 
-@subpackage("libblockdev-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

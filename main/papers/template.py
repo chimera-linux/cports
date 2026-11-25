@@ -71,12 +71,12 @@ def post_install(self):
     )
 
 
-@subpackage("papers-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("papers-nautilus")
+@split("nautilus")
 def _(self):
     self.subdesc = "nautilus integration"
     self.install_if = [self.parent, "nautilus"]

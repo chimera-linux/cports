@@ -16,7 +16,7 @@ source = f"https://gnupg.org/ftp/gcrypt/qgpgme/qgpgme-{pkgver}.tar.xz"
 sha256 = "15645b2475cca6118eb2ed331b3a8d9442c9d4019c3846ba3f6d25321b4a61ad"
 
 
-@subpackage("qgpgme-devel")
+@split("devel")
 def _(self):
     self.renames = ["gpgme-qt-devel"]
     self.depends = ["gpgmepp-devel"]

@@ -34,6 +34,6 @@ sha256 = "cca6b6a86e4389d89b370288761ce2385ddeceb10c4412da78689bc30c88af2d"
 options = ["etcfiles", "!check", "!cross"]
 
 
-@subpackage("at-spi2-core-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

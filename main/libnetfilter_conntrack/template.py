@@ -13,6 +13,6 @@ source = f"{url}/files/libnetfilter_conntrack-{pkgver}.tar.xz"
 sha256 = "769d3eaf57fa4fbdb05dd12873b6cb9a5be7844d8937e222b647381d44284820"
 
 
-@subpackage("libnetfilter_conntrack-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

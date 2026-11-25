@@ -18,6 +18,6 @@ source = f"$(GNOME_SITE)/gssdp/{pkgver[:-2]}/gssdp-{pkgver}.tar.xz"
 sha256 = "ff97fdfb7f561d3e6813b4f6a2145259e7c2eff43cc0e63f3fd031d0b6266032"
 
 
-@subpackage("gssdp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

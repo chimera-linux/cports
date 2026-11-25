@@ -30,6 +30,6 @@ def post_install(self):
     self.install_service(self.files_path / "gmid")
 
 
-@subpackage("gmid-progs")
+@split("progs")
 def _(self):
     return ["cmd:gemexp", "cmd:gg", "cmd:titan"]

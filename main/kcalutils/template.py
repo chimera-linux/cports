@@ -32,7 +32,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcalutils-{pkgver}.tar.xz"
 sha256 = "aa1f880da7c0ebdc24708ca94d5930348a709c6241f0ed2b31e2dab7b73e823d"
 
 
-@subpackage("kcalutils-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcalendarcore-devel",

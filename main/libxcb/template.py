@@ -18,7 +18,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libxcb-devel")
+@split("devel")
 def _(self):
     self.depends += ["xcbproto"]
     return self.default_devel(extra=["usr/share/doc"])

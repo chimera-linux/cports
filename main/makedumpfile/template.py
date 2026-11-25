@@ -42,7 +42,7 @@ def install(self):
     self.install_file("makedumpfile.conf", "usr/share/examples/makedumpfile")
 
 
-@subpackage("makedumpfile-perl")
+@split("perl")
 def _(self):
     self.depends = [self.parent, "perl"]
     self.install_if = [self.parent, "perl"]

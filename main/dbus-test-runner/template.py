@@ -24,6 +24,6 @@ source = f"{url}/{pkgver[: pkgver.rfind('.')]}/{pkgver}/+download/dbus-test-runn
 sha256 = "645a32fbd909baf2c01438f0cbda29dc9cd01a7aba5504c45610d88e8a57cb76"
 
 
-@subpackage("dbus-test-runner-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -31,7 +31,7 @@ hardening = ["!int", "!format"]
 options = ["!lto"]
 
 
-@subpackage("kde1-kdelibs-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
     return self.default_devel()

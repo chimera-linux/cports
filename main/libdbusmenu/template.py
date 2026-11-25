@@ -33,7 +33,7 @@ source = f"{url}/{pkgver[: pkgver.rfind('.')]}/{pkgver}/+download/libdbusmenu-{p
 sha256 = "b9cc4a2acd74509435892823607d966d424bd9ad5d0b00938f27240a1bfa878a"
 
 
-@subpackage("libdbusmenu-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "GTK+3"
     return [
@@ -42,6 +42,6 @@ def _(self):
     ]
 
 
-@subpackage("libdbusmenu-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

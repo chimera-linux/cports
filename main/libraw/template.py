@@ -20,11 +20,11 @@ def post_install(self):
     self.install_license("COPYRIGHT")
 
 
-@subpackage("libraw-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libraw-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

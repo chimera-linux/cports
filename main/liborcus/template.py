@@ -17,12 +17,12 @@ source = f"{url}/-/archive/{pkgver}/liborcus-{pkgver}.tar.gz"
 sha256 = "2dc9bc0e4e22acf9752ff62d388c68fc66bd68138cbed8594982b147b415e186"
 
 
-@subpackage("liborcus-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("liborcus-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
@@ -30,6 +30,6 @@ def _(self):
     return ["usr/lib/python*"]
 
 
-@subpackage("liborcus-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

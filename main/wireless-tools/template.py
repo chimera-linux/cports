@@ -21,7 +21,7 @@ def init_install(self):
     ]
 
 
-@subpackage("wireless-tools-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

@@ -60,12 +60,12 @@ def post_install(self):
     self.install_file("wxwin.m4", "usr/share/aclocal")
 
 
-@subpackage("wxwidgets-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("wxwidgets-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "GTK3 components"
     return ["usr/lib/libwx_gtk3u*.so.*"]

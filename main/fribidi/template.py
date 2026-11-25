@@ -11,6 +11,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "5a1d187a33daa58fcee2ad77f0eb9d136dd6fa4096239199ba31e850d397e8a8"
 
 
-@subpackage("fribidi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -20,6 +20,6 @@ sha256 = "cafdf739b1ec4b276441c6aedae6411434bbd870071f66154b909cc6e2d9e8ba"
 options = ["!check"]
 
 
-@subpackage("oath-toolkit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

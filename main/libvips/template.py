@@ -42,11 +42,11 @@ sha256 = "5baaead3b0bb20ffdb9e9ff09aa9fda08620923df77b63b436654cb5e0b3bf94"
 options = ["!cross"]
 
 
-@subpackage("libvips-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libvips-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

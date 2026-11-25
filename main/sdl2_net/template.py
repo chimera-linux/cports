@@ -19,7 +19,7 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl2_net-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("sdl_net-devel")]
 

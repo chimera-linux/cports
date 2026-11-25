@@ -22,11 +22,11 @@ def post_install(self):
     self.install_license("COPYING.txt")
 
 
-@subpackage("qhull-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("qhull-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

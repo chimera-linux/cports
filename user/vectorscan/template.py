@@ -29,12 +29,12 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("vectorscan-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("vectorscan-progs")
+@split("progs")
 def _(self):
     self.subdesc = "command line tools"
     return self.default_progs()

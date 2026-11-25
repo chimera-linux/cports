@@ -19,6 +19,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("webrtc-audio-processing-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

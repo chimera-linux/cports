@@ -47,6 +47,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("qt1-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

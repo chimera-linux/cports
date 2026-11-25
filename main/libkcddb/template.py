@@ -29,7 +29,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkcddb-{pkgver}.tar.xz"
 sha256 = "8c8b77ac7e907f8f660cd6adebe4095b38f7394018b5d026ab236d52b9ab1c9f"
 
 
-@subpackage("libkcddb-devel")
+@split("devel")
 def _(self):
     self.depends += ["kconfig-devel"]
     return self.default_devel()

@@ -127,7 +127,7 @@ def install(self):
     self.install_license("Copyright")
 
 
-@subpackage("gnuplot-common-x11")
+@split("common-x11")
 def _(self):
     self.subdesc = "X11 common files"
     self.depends += [self.with_pkgver("gnuplot-common")]
@@ -135,7 +135,7 @@ def _(self):
     return ["usr/lib/gnuplot/*/gnuplot_x11"]
 
 
-@subpackage("gnuplot-qt")
+@split("qt")
 def _(self):
     self.subdesc = "Qt frontend"
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
@@ -147,7 +147,7 @@ def _(self):
     ]
 
 
-@subpackage("gnuplot-wx")
+@split("wx")
 def _(self):
     self.subdesc = "wxWidgets frontend"
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
@@ -155,7 +155,7 @@ def _(self):
     return ["usr/bin/gnuplot-wx"]
 
 
-@subpackage("gnuplot-common")
+@split("common")
 def _(self):
     self.subdesc = "common files"
 

@@ -26,12 +26,12 @@ def post_install(self):
     self.uninstall("usr/share/man/man3")
 
 
-@subpackage("tangle-progs")
+@split("progs")
 def _(self):
     self.replaces = ["elogind<255.5-r4"]
     return self.default_progs()
 
 
-@subpackage("tangle-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

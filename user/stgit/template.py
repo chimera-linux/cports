@@ -65,7 +65,7 @@ def install(self):
     )
 
 
-@subpackage("stgit-emacs")
+@split("emacs")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "emacs stgit"
@@ -73,7 +73,7 @@ def _(self):
     return ["usr/share/emacs"]
 
 
-@subpackage("stgit-vim")
+@split("vim")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "vim stgit"

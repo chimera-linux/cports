@@ -27,12 +27,12 @@ def post_install(self):
     self.install_file("v4l2loopback_formats.h", destp)
 
 
-@subpackage("v4l2loopback-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("v4l2loopback-ckms")
+@split("ckms")
 def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]

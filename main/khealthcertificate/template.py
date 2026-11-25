@@ -24,7 +24,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/khealthcertificate-{pkgver}.
 sha256 = "1d795c1d1fe5a294065e7d093f37fbe3d2059d65979c7aef04bf84ea1be61d7d"
 
 
-@subpackage("khealthcertificate-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

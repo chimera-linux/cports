@@ -37,7 +37,7 @@ def post_install(self):
             self.mv(f, ff)
 
 
-@subpackage("libpcap-devel")
+@split("devel")
 def _(self):
     self.depends += ["libnl-devel"]
 

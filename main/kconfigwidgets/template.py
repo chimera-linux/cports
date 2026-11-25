@@ -35,7 +35,7 @@ sha256 = "9d7f60aec2c8153e944d0916852942abb7a28459146b1383f3c540e49dd3da8d"
 hardening = ["vis"]
 
 
-@subpackage("kconfigwidgets-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcodecs-devel",

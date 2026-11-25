@@ -29,6 +29,6 @@ def post_install(self):
     self.install_file(self.files_path / "sysctl.conf", "etc")
 
 
-@subpackage("procps-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

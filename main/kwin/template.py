@@ -139,7 +139,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("kwin-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

@@ -60,14 +60,14 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl3-devel-static")
+@split("devel-static")
 def _(self):
     self.subdesc = "static libraries"
 
     return ["usr/lib/*.a"]
 
 
-@subpackage("sdl3-devel")
+@split("devel")
 def _(self):
     # cmake dependencies shenanigans
     self.depends += [self.with_pkgver("sdl3-devel-static")]

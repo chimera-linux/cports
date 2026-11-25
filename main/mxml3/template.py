@@ -19,6 +19,6 @@ def init_install(self):
     self.make_install_args += [f"BUILDROOT={self.chroot_destdir}"]
 
 
-@subpackage("mxml3-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -29,7 +29,7 @@ def install(self):
     self.install_file(self.files_path / "ucode-intel", "etc/default")
 
 
-@subpackage("ucode-intel-full")
+@split("full")
 def _(self):
     self.subdesc = "full cpio image"
 

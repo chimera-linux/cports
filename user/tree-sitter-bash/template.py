@@ -22,6 +22,6 @@ def post_install(self):
     )
 
 
-@subpackage("tree-sitter-bash-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

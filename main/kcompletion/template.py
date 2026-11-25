@@ -23,6 +23,6 @@ sha256 = "1ec8c0f952af1b18b07c30265610c220acadf429ef1a16558d2c64679b93dcc7"
 hardening = ["vis"]
 
 
-@subpackage("kcompletion-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -34,6 +34,6 @@ def post_install(self):
     self.install_license("LICENSE.md")
 
 
-@subpackage("intel-media-driver-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

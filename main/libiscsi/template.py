@@ -15,6 +15,6 @@ sha256 = "2b2a773ea0d3a708c1cafe61bbee780325fb1aafec6477f17d3f403e8732c9bf"
 tool_flags = {"CFLAGS": ["-Wno-strict-prototypes"]}
 
 
-@subpackage("libiscsi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

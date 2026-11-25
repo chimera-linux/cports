@@ -18,6 +18,6 @@ source = f"{url}/-/archive/{pkgver}/libcloudproviders-{pkgver}.tar.gz"
 sha256 = "ff65b1d4ed685f5f1659370e7dc503e891fdc0c9174661b1447e04798b98ed83"
 
 
-@subpackage("libcloudproviders-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -33,7 +33,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("glog-devel")
+@split("devel")
 def _(self):
     self.depends += ["gflags-devel-static"]
     return self.default_devel()

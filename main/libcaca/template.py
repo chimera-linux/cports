@@ -27,11 +27,11 @@ def post_install(self):
     python.precompile(self, "usr/lib")
 
 
-@subpackage("libcaca-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libcaca-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -67,6 +67,6 @@ def check(self):
     )
 
 
-@subpackage("wabt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

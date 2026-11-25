@@ -25,11 +25,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libgbinder-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libgbinder-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

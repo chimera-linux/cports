@@ -21,6 +21,6 @@ sha256 = "34d25949ae7b6275fb54da46187dd8ba41771600353405b15e53bdc90b9e287a"
 options = ["etcfiles"]
 
 
-@subpackage("libqtxdg-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

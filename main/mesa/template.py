@@ -239,7 +239,7 @@ def post_install(self):
     self.install_license("docs/license.rst")
 
 
-@subpackage("mesa-gbm-libs")
+@split("gbm-libs")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
     self.renames = ["libgbm"]
@@ -250,7 +250,7 @@ def _(self):
     ]
 
 
-@subpackage("mesa-gbm-devel")
+@split("gbm-devel")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
     self.renames = ["libgbm-devel"]
@@ -262,7 +262,7 @@ def _(self):
     ]
 
 
-@subpackage("mesa-opencl", _have_opencl)
+@split("opencl", _have_opencl)
 def _(self):
     self.pkgdesc = "Mesa implementation of OpenCL"
     self.depends += [self.parent, "libclc"]
@@ -274,7 +274,7 @@ def _(self):
     ]
 
 
-@subpackage("mesa-libgallium")
+@split("libgallium")
 def _(self):
     self.pkgdesc = "Mesa gallium loader"
     self.renames = ["libglapi", "mesa-glapi-libs"]
@@ -282,7 +282,7 @@ def _(self):
     return ["usr/lib/libgallium-*.so"]
 
 
-@subpackage("mesa-dri")
+@split("dri")
 def _(self):
     self.pkgdesc = "Mesa DRI drivers"
     self.depends += [self.parent]
@@ -292,7 +292,7 @@ def _(self):
     return ["usr/lib/dri"]
 
 
-@subpackage("mesa-vulkan", _have_vulkan)
+@split("vulkan", _have_vulkan)
 def _(self):
     self.pkgdesc = "Mesa Vulkan drivers"
     self.depends += [self.parent]
@@ -309,7 +309,7 @@ def _(self):
     ]
 
 
-@subpackage("mesa-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

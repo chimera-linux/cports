@@ -41,7 +41,7 @@ def post_install(self):
     self.uninstall("usr/share/signon-oauth2plugin-tests")
 
 
-@subpackage("signon-plugin-oauth2-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

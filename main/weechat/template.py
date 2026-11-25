@@ -44,7 +44,7 @@ source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
 sha256 = "84207fc87f19274e2d9efb3f229b3594af6ca5d54e2ee25b10f07015e681b8d1"
 
 
-@subpackage("weechat-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 

@@ -29,12 +29,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libgd-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libgd-progs")
+@split("progs")
 def _(self):
     self.depends += ["perl"]
 

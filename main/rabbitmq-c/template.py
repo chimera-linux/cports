@@ -23,11 +23,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("rabbitmq-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("rabbitmq-c-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

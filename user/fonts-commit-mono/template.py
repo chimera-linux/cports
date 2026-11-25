@@ -18,7 +18,7 @@ def install(self):
     self.install_license("license.txt")
 
 
-@subpackage("fonts-commit-mono-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-commit-mono-ttf"]
@@ -27,7 +27,7 @@ def _(self):
     return ["usr/share/fonts/commit-mono/*.otf"]
 
 
-@subpackage("fonts-commit-mono-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-commit-mono-otf"]

@@ -62,7 +62,7 @@ tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 options = ["etcfiles", "!check"]
 
 
-@subpackage("gnome-settings-daemon-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

@@ -21,6 +21,6 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/kwayland-{pkgver}.tar.xz"
 sha256 = "00090254b86f1774e296b4dc7d69d073ee08efb75419c9b5d0955eeae0378a56"
 
 
-@subpackage("kwayland-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

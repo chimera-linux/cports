@@ -16,6 +16,6 @@ source = f"https://github.com/signalapp/libsignal-protocol-c/archive/v{pkgver}.t
 sha256 = "c22e7690546e24d46210ca92dd808f17c3102e1344cd2f9a370136a96d22319d"
 
 
-@subpackage("libsignal-protocol-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

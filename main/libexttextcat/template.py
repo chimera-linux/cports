@@ -18,11 +18,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libexttextcat-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libexttextcat-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

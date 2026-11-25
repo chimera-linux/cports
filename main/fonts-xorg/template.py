@@ -7,7 +7,7 @@ license = "custom:none"
 url = "https://xorg.freedesktop.org"
 
 
-@subpackage("fonts-xorg-100dpi")
+@split("100dpi")
 def _(self):
     self.subdesc = "100dpi"
     # don't install 100dpi by default
@@ -22,7 +22,7 @@ def _(self):
     return []
 
 
-@subpackage("fonts-xorg-75dpi")
+@split("75dpi")
 def _(self):
     self.subdesc = "100dpi"
     self.install_if = [self.parent]
@@ -37,7 +37,7 @@ def _(self):
     return []
 
 
-@subpackage("fonts-xorg-cyrillic")
+@split("cyrillic")
 def _(self):
     self.subdesc = "cyrillic"
     self.install_if = [self.parent]
@@ -51,7 +51,7 @@ def _(self):
     return []
 
 
-@subpackage("fonts-xorg-misc")
+@split("misc")
 def _(self):
     self.subdesc = "misc"
     self.install_if = [self.parent]
@@ -75,7 +75,7 @@ def _(self):
     return []
 
 
-@subpackage("fonts-xorg-type1")
+@split("type1")
 def _(self):
     self.subdesc = "type1"
     self.install_if = [self.parent]

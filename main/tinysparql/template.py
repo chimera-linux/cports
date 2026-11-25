@@ -45,13 +45,13 @@ sha256 = "cfd46021ee1514ad435e714f7aa1ec7a787c7f516a94f4c7438897ee3d6eca1e"
 options = ["!cross"]
 
 
-@subpackage("tinysparql-devel")
+@split("devel")
 def _(self):
     self.renames = ["tracker-devel"]
     return self.default_devel()
 
 
-@subpackage("tinysparql-libs")
+@split("libs")
 def _(self):
     self.renames = ["tracker-libs"]
     return self.default_libs()

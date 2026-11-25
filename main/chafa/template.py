@@ -37,6 +37,6 @@ def post_install(self):
         )
 
 
-@subpackage("chafa-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,7 +15,7 @@ source = f"$(GNOME_SITE)/atkmm/{pkgver[:-2]}/atkmm-{pkgver}.tar.xz"
 sha256 = "6ec264eaa0c4de0adb7202c600170bde9a7fbe4d466bfbe940eaf7faaa6c5974"
 
 
-@subpackage("atkmm-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

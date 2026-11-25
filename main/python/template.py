@@ -145,7 +145,7 @@ def install(self):
     self.install_link("usr/share/man/man1/python.1", "python" + _majver + ".1")
 
 
-@subpackage("python-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
 
@@ -163,7 +163,7 @@ def _(self):
     return install
 
 
-@subpackage("python-tests")
+@split("tests")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "test module"
@@ -171,7 +171,7 @@ def _(self):
     return ["usr/lib/python*/test"]
 
 
-@subpackage("python-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

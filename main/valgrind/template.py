@@ -55,7 +55,7 @@ if self.profile.arch in [
     makedepends += ["libomp-devel"]
 
 
-@subpackage("valgrind-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
 

@@ -40,6 +40,6 @@ def post_install(self):
     self.uninstall("usr/lib/CLuceneConfig.cmake")
 
 
-@subpackage("clucene-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

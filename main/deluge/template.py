@@ -51,7 +51,7 @@ def post_install(self):
     self.install_service(self.files_path / "deluge-web")
 
 
-@subpackage("deluge-gtk")
+@split("gtk")
 def _(self):
     self.subdesc = "Gtk+3 frontend"
     self.depends = [self.parent, "python-gobject", "gtk+3"]
@@ -72,7 +72,7 @@ def _(self):
     ]
 
 
-@subpackage("deluge-web")
+@split("web")
 def _(self):
     self.subdesc = "Web frontend"
     self.depends = [self.parent]

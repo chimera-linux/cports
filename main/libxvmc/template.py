@@ -17,6 +17,6 @@ def post_install(self):
     self.uninstall("usr/include/X11/extensions/vldXvMC.h")
 
 
-@subpackage("libxvmc-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

@@ -43,14 +43,14 @@ elif self.profile.cross:
     broken = "linux-devel does not come out right"
 
 
-@subpackage("linux-lts-devel")
+@split("devel")
 def _(self):
     self.depends += ["llvm-clang"]
     self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
-@subpackage("linux-lts-dbg", self.build_dbg)
+@split("dbg", self.build_dbg)
 def _(self):
     self.options = [
         "!scanrundeps",

@@ -45,7 +45,7 @@ def post_install(self):
     self.install_completion("btrfs-completion", "bash", "btrfs")
 
 
-@subpackage("btrfs-progs-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [
@@ -56,7 +56,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("btrfs-progs-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [
@@ -67,7 +67,7 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("btrfs-progs-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     # transitional

@@ -169,7 +169,7 @@ else:
     makedepends += ["ldacbt-devel", "webrtc-audio-processing-devel"]
 
 
-@subpackage("gst-plugins-bad-devel")
+@split("devel")
 def _(self):
     self.depends += [f"gst-plugins-base-devel~{pkgver}"]
 

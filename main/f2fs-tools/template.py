@@ -20,6 +20,6 @@ source = f"{url}/snapshot/f2fs-tools-{pkgver}.tar.gz"
 sha256 = "1dbc89ada373b43cc9130b47ad3f575117583ca74715e952046c88a121a2a469"
 
 
-@subpackage("f2fs-tools-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -32,6 +32,6 @@ sha256 = "f11d063c7ecb86b98803e9a22ade0655d979b334f6c90fdd1cc6f50bbe6e9992"
 options = ["!cross"]
 
 
-@subpackage("cinnamon-desktop-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

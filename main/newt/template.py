@@ -16,12 +16,12 @@ sha256 = "ef0ca9ee27850d1a5c863bb7ff9aa08096c9ed312ece9087b30f3a426828de82"
 options = ["!check"]
 
 
-@subpackage("newt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("newt-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

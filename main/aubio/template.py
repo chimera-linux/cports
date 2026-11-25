@@ -38,11 +38,11 @@ def post_extract(self):
     self.mv(self.sources_path / f"waf-{_waf_ver}", "waf")
 
 
-@subpackage("aubio-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("aubio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

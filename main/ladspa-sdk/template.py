@@ -34,13 +34,13 @@ def install(self):
     )
 
 
-@subpackage("ladspa-sdk-plugins")
+@split("plugins")
 def _(self):
     self.subdesc = "example plugins"
 
     return ["usr/lib/ladspa"]
 
 
-@subpackage("ladspa-sdk-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

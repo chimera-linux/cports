@@ -27,7 +27,7 @@ def post_install(self):
     self.install_service(self.files_path / "tlp")
 
 
-@subpackage("tlp-rdw")
+@split("rdw")
 def _(self):
     self.depends = [self.parent, "networkmanager"]
     self.install_if = [self.parent, "networkmanager"]

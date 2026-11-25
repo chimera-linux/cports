@@ -19,7 +19,7 @@ hardening = ["vis"]
 options = ["!check"]
 
 
-@subpackage("kdsoap-ws-discover-client-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kdsoap-devel",

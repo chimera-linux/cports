@@ -56,7 +56,7 @@ def install(self):
         )
 
 
-@subpackage("chimera-artwork-kde")
+@split("kde")
 def _(self):
     self.subdesc = "KDE files"
     self.replaces = ["plasma-workspace<6.1.1-r1"]

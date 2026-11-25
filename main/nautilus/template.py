@@ -38,11 +38,11 @@ sha256 = "a00db908fd65026cbd5dc634e12d189de8eba2b03f105d2425341768a5ee92fb"
 options = ["!cross"]
 
 
-@subpackage("nautilus-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("nautilus-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

@@ -34,7 +34,7 @@ broken_symlinks = ["usr/bin/kinfocenter"]
 hardening = ["vis"]
 
 
-@subpackage("kinfocenter-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.install_if = [self.parent]

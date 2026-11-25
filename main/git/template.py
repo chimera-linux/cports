@@ -126,7 +126,7 @@ def install(self):
     self.install_shell("/usr/bin/git-shell")
 
 
-@subpackage("git-gitk")
+@split("gitk")
 def _(self):
     self.depends += [self.parent, "tk"]
     self.pkgdesc = "Git repository browser"
@@ -135,7 +135,7 @@ def _(self):
     return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
 
 
-@subpackage("git-gui")
+@split("gui")
 def _(self):
     self.depends += [self.parent, "tk"]
     self.subdesc = "GUI tool"
@@ -149,7 +149,7 @@ def _(self):
     ]
 
 
-@subpackage("git-credential-libsecret")
+@split("credential-libsecret")
 def _(self):
     self.depends += [self.parent]
     self.install_if = [self.parent, "libsecret"]
@@ -158,7 +158,7 @@ def _(self):
     return ["usr/lib/git-core/git-credential-libsecret"]
 
 
-@subpackage("git-scalar")
+@split("scalar")
 def _(self):
     self.depends += [self.parent]
     self.pkgdesc = "Git scalar monorepo tool"
@@ -170,7 +170,7 @@ def _(self):
     ]
 
 
-@subpackage("git-svn")
+@split("svn")
 def _(self):
     self.subdesc = "Subversion support"
     self.depends += [self.parent, "subversion-perl", "perl-termreadkey"]

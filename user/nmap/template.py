@@ -38,7 +38,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("nmap-ncat")
+@split("ncat")
 def _(self):
     self.subdesc = "Netcat tool"
     return ["usr/bin/ncat"]

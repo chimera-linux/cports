@@ -42,12 +42,12 @@ def build(self):
     self.make.build(["cli_shared", "gmic_qt_shared"])
 
 
-@subpackage("gmic-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("gmic-qt")
+@split("qt")
 def _(self):
     self.pkgdesc = "Qt GUI for GMIC"
     return [

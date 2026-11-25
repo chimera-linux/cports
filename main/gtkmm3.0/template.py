@@ -22,7 +22,7 @@ source = (
 sha256 = "19e383c82d5dd89db275e00b82864e90414d4c3fb3d100b2f996bcc2338a4cc7"
 
 
-@subpackage("gtkmm3.0-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

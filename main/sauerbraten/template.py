@@ -34,14 +34,14 @@ def post_install(self):
     self.install_files("../packages", "usr/share/sauerbraten")
 
 
-@subpackage("sauerbraten-data")
+@split("data")
 def _(self):
     self.subdesc = "data files"
 
     return ["usr/share/sauerbraten"]
 
 
-@subpackage("sauerbraten-server")
+@split("server")
 def _(self):
     self.subdesc = "dedicated server"
     self.options = ["etcfiles"]

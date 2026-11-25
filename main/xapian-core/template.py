@@ -28,11 +28,11 @@ if self.profile.arch == "ppc64":
     options += ["!check"]
 
 
-@subpackage("xapian-core-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("xapian-core-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

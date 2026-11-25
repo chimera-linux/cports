@@ -40,7 +40,7 @@ def check(self):
     )
 
 
-@subpackage("erlang-wx")
+@split("wx")
 def _(self):
     self.subdesc = "wxWidgets binding"
     self.depends = [self.parent]

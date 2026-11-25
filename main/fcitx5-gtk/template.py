@@ -30,12 +30,12 @@ sha256 = "73f63d10078c62e5b6d82e6b16fcb03d2038cc204fc00052a34ab7962b0b7815"
 options = ["!cross"]
 
 
-@subpackage("fcitx5-gtk-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("fcitx5-gtk-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "GTK+3 variant"
     self.install_if = [self.parent, "gtk+3"]
@@ -47,7 +47,7 @@ def _(self):
     ]
 
 
-@subpackage("fcitx5-gtk-gtk4")
+@split("gtk4")
 def _(self):
     self.subdesc = "GTK4 variant"
     self.install_if = [self.parent, "gtk4"]

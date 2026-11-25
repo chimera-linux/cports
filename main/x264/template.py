@@ -29,6 +29,6 @@ match self.profile.endian:
         configure_env = {"CPU_ENDIAN": "little-endian"}
 
 
-@subpackage("x264-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

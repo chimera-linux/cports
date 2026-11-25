@@ -20,7 +20,7 @@ source = (
 sha256 = "6e1aee535473414164bf83e4ebc40240dec71a4701f8a642d906e95bea1aea0c"
 
 
-@subpackage("abseil-cpp-testing")
+@split("testing")
 def _(self):
     self.subdesc = "testing libraries"
 
@@ -34,6 +34,6 @@ def _(self):
     ]
 
 
-@subpackage("abseil-cpp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

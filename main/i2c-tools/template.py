@@ -16,14 +16,14 @@ sha256 = "8b15f0a880ab87280c40cfd7235cfff28134bf14d5646c07518b1ff6642a2473"
 options = ["!check"]
 
 
-@subpackage("i2c-tools-devel")
+@split("devel")
 def _(self):
     self.license = "LGPL-2.1-or-later"
 
     return self.default_devel()
 
 
-@subpackage("i2c-tools-python")
+@split("python")
 def _(self):
     self.pkgdesc = "Python bindings for Linux SMBus access through i2c-dev"
     self.depends += ["python"]

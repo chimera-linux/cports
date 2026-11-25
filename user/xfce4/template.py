@@ -23,7 +23,7 @@ license = "custom:meta"
 url = "https://www.xfce.org"
 
 
-@subpackage("xfce4-apps")
+@split("apps")
 def _(self):
     self.subdesc = "apps"
     self.install_if = [self.parent]
@@ -49,7 +49,7 @@ def _(self):
     return []
 
 
-@subpackage("xfce4-panel-plugins")
+@split("panel-plugins")
 def _(self):
     self.subdesc = "panel plugins"
     self.install_if = [self.parent]

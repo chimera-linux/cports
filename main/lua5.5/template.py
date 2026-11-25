@@ -55,6 +55,6 @@ def post_install(self):
     self.install_link(f"usr/lib/liblua{_lver}.so.{_lver}", _libf)
 
 
-@subpackage("lua5.5-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

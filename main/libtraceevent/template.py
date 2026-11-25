@@ -24,6 +24,6 @@ sha256 = "dc456d4d2bf4b4cd4d0c737d3374a8093f9e5ca18c1d7fc2279a4bf41e613121"
 hardening = ["!vis"]
 
 
-@subpackage("libtraceevent-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

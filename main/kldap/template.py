@@ -26,6 +26,6 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kldap-{pkgver}.tar.xz"
 sha256 = "a3460ece61ab2bb48f6eef24375317c22e897336912bc95ba9fecfb0d21597c2"
 
 
-@subpackage("kldap-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

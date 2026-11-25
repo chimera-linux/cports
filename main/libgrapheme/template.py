@@ -18,6 +18,6 @@ def post_install(self):
     self.install_license("data/LICENSE", name="LICENSE-UNICODE")
 
 
-@subpackage("libgrapheme-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

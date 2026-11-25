@@ -14,11 +14,11 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "daf972a89577f8772602bf2eb38b6a3dd3d922bf5724d45e7f9589b5e830442c"
 
 
-@subpackage("argon2-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("argon2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

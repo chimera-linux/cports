@@ -48,11 +48,11 @@ def post_install(self):
     self.rename("usr/share/zsh/site-functions/_udisks2", "_udisksctl")
 
 
-@subpackage("udisks-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("udisks-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

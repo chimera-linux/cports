@@ -18,6 +18,6 @@ source = f"{url}/files/libnetfilter_cthelper-{pkgver}.tar.bz2"
 sha256 = "14073d5487233897355d3ff04ddc1c8d03cc5ba8d2356236aa88161a9f2dc912"
 
 
-@subpackage("libnetfilter_cthelper-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

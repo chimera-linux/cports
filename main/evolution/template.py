@@ -56,6 +56,6 @@ sha256 = "7fc2cc40e1699bf706b5cfcf0255650fc4623b99edbc72c5ad026cea2587a3d6"
 options = ["!check"]
 
 
-@subpackage("evolution-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

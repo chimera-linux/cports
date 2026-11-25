@@ -38,7 +38,7 @@ if self.profile.arch == "ppc":
     broken = "Pre-boot error; key: wrong-type-arg, args: ..."
 
 
-@subpackage("guile-devel")
+@split("devel")
 def _(self):
     self.depends += ["gc-devel", "gmp-devel"]
     return self.default_devel()

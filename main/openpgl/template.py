@@ -17,6 +17,6 @@ sha256 = "d62d24241232a526491328f341df9add274fc84ae9818470d3edb5ae6141ac63"
 hardening = ["vis", "cfi"]
 
 
-@subpackage("openpgl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

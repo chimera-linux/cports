@@ -28,7 +28,7 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("ifupdown-ng-batman")
+@split("batman")
 def _(self):
     self.subdesc = "batman integration"
     # self.depends = ["batctl"]
@@ -39,7 +39,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-ethtool")
+@split("ethtool")
 def _(self):
     self.subdesc = "ethtool integration"
     self.depends = ["ethtool"]
@@ -50,7 +50,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-iproute2")
+@split("iproute2")
 def _(self):
     self.subdesc = "iproute2 integration"
     self.depends = ["iproute2"]
@@ -64,7 +64,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-ppp")
+@split("ppp")
 def _(self):
     self.subdesc = "ppp integration"
     self.depends = ["ppp"]
@@ -75,7 +75,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-wifi")
+@split("wifi")
 def _(self):
     self.subdesc = "wifi integration"
     self.depends = ["wpa_supplicant"]
@@ -86,7 +86,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-wireguard")
+@split("wireguard")
 def _(self):
     self.subdesc = "wireguard integration"
     self.depends = ["wireguard-tools"]
@@ -97,7 +97,7 @@ def _(self):
     ]
 
 
-@subpackage("ifupdown-ng-wireguard-quick")
+@split("wireguard-quick")
 def _(self):
     self.subdesc = "wg-quick integration"
     self.depends = ["wireguard-tools-wg-quick"]

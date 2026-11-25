@@ -27,7 +27,7 @@ match self.profile.arch:
         ]
 
 
-@subpackage("libdrm-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
     return self.default_devel()

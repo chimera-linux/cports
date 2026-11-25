@@ -74,6 +74,6 @@ def post_install(self):
     self.install_license("COPYRIGHT")
 
 
-@subpackage("luajit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

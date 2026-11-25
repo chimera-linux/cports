@@ -14,6 +14,6 @@ sha256 = "c97abc3409f8fa396b4462b2bb7f147a3a47a4ddc97cfa0b2f18890c9cfde8b0"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("libnftnl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

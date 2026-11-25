@@ -30,12 +30,12 @@ sha256 = "90e389caad285ca4946461d56d1c115e56bcbb5141d9038050282af91064fbc7"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("libheif-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libheif-thumbnailer")
+@split("thumbnailer")
 def _(self):
     self.subdesc = "thumbnailer"
     self.install_if = [self.parent]
@@ -46,6 +46,6 @@ def _(self):
     ]
 
 
-@subpackage("libheif-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

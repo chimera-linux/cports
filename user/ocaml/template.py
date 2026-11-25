@@ -43,7 +43,7 @@ def post_install(self):
     self.uninstall("usr/lib/ocaml/**/*.ml", glob=True)
 
 
-@subpackage("ocaml-byte")
+@split("byte")
 def _(self):
     self.subdesc = "bytecode executables"
     self.depends = [self.with_pkgver("ocaml-runtime")]
@@ -51,7 +51,7 @@ def _(self):
     return ["cmd:*.byte"]
 
 
-@subpackage("ocaml-ocamldoc")
+@split("ocamldoc")
 def _(self):
     self.subdesc = "documentation generator"
     self.install_if = [self.parent]
@@ -60,7 +60,7 @@ def _(self):
     return ["cmd:ocamldoc*", "usr/lib/ocaml/ocamldoc"]
 
 
-@subpackage("ocaml-compiler-libs")
+@split("compiler-libs")
 def _(self):
     self.subdesc = "compiler libraries"
     self.depends = [self.parent]
@@ -69,7 +69,7 @@ def _(self):
     return ["usr/lib/ocaml/compiler-libs"]
 
 
-@subpackage("ocaml-runtime")
+@split("runtime")
 def _(self):
     self.subdesc = "runtime environment"
 

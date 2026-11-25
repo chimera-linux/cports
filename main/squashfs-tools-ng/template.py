@@ -22,7 +22,7 @@ source = f"https://infraroot.at/pub/squashfs/squashfs-tools-ng-{pkgver}.tar.xz"
 sha256 = "0d907ac3e735c351e47c867fb51d94bffa3b05fb95bec01f31e848b7c44215a9"
 
 
-@subpackage("squashfs-tools-ng-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libsquashfs")]
@@ -30,6 +30,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("squashfs-tools-ng-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

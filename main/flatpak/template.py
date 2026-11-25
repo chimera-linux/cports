@@ -82,6 +82,6 @@ def post_install(self):
     )
 
 
-@subpackage("flatpak-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

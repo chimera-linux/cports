@@ -29,7 +29,7 @@ if self.profile.cross:
     configure_env["CHOST"] = self.profile.triplet
 
 
-@subpackage("zlib-ng-compat-devel")
+@split("devel")
 def _(self):
     self.renames = [f"zlib-devel={_cver}-r99"]
 

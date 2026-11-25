@@ -31,6 +31,6 @@ def post_install(self):
     self.uninstall("usr/lib/libjq.a")
 
 
-@subpackage("jq-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

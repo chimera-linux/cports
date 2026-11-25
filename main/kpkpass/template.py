@@ -22,7 +22,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpkpass-{pkgver}.tar.xz"
 sha256 = "8dc57d083b02d5f1777547ffee25b55c46b866969e5c11eddb2e82b1e0f151dc"
 
 
-@subpackage("kpkpass-devel")
+@split("devel")
 def _(self):
     self.depends += ["karchive-devel"]
     return self.default_devel()

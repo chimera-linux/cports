@@ -49,6 +49,6 @@ def post_install(self):
     self.install_license("LICENSES/MIT.txt")
 
 
-@subpackage("kwindowsystem-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -23,7 +23,7 @@ sha256 = "4c50c448622dc9c5041ed10da7d87b3e4e71ccb49d4831a849211d423c5f5d33"
 hardening = ["vis"]
 
 
-@subpackage("libqaccessibilityclient-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

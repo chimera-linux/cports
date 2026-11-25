@@ -35,6 +35,6 @@ tool_flags = {"LDFLAGS": ["-Wl,--rpath=/usr/lib/gstreamer-1.0"]}
 options = ["!cross"]
 
 
-@subpackage("clapper-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -36,7 +36,7 @@ source = (
 sha256 = "a7d811f14c84a1a736cdfe7dbd9c18a14cd4a44c4a8cfcf72ff84dfbb476706f"
 
 
-@subpackage("calendarsupport-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-calendar-devel",

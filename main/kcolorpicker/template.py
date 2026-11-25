@@ -25,6 +25,6 @@ sha256 = "e78c785ec4a8a22a48a91835c97601f5704b5076b154415353b0d2697dc0b4f7"
 hardening = ["vis", "cfi"]
 
 
-@subpackage("kcolorpicker-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -11,6 +11,6 @@ source = f"https://mediaarea.net/download/source/libzen/{pkgver}/libzen_{pkgver}
 sha256 = "eb237d7d3dca6dc6ba068719420a27de0934a783ccaeb2867562b35af3901e2d"
 
 
-@subpackage("libzen-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

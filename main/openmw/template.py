@@ -69,7 +69,7 @@ else:
     configure_args += ["-DUSE_LUAJIT=OFF"]
 
 
-@subpackage("openmw-cs")
+@split("cs")
 def _(self):
     self.pkgdesc = "Open implementation of Morrowind Creation Set"
     self.depends = [self.parent]
@@ -82,7 +82,7 @@ def _(self):
     ]
 
 
-@subpackage("openmw-esmtool")
+@split("esmtool")
 def _(self):
     self.pkgdesc = "Tool for inspecting and extracitng Morrowind ESM files"
     # transitional
@@ -91,7 +91,7 @@ def _(self):
     return ["usr/bin/esmtool"]
 
 
-@subpackage("openmw-bsatool")
+@split("bsatool")
 def _(self):
     self.pkgdesc = "Tool for inspecting Bethesda BSA archives"
     # transitional

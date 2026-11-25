@@ -63,6 +63,6 @@ def post_install(self):
     self.install_link("usr/lib/pkgconfig/lua.pc", f"lua{_lver}.pc")
 
 
-@subpackage("lua5.4-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

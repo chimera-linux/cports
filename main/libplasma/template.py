@@ -50,7 +50,7 @@ sha256 = "76f081f2d96c7dccf1f29fa0a301572d0115b0c5bec1b32ede0fea4a45c254c4"
 hardening = ["vis"]
 
 
-@subpackage("libplasma-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kirigami-devel",

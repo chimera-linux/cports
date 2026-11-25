@@ -25,11 +25,11 @@ source = f"https://github.com/rrthomas/enchant/releases/download/v{pkgver}/encha
 sha256 = "dd2a762697c463148a8f59867089a5ebf2dd1449d869f93764b76c12bcf8acc0"
 
 
-@subpackage("enchant-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("enchant-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

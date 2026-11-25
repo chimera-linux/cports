@@ -12,11 +12,11 @@ sha256 = "f210501445ce21bf607ba51ef8c125e10e22dffdffec377646462df5f01915ec"
 options = ["etcfiles"]
 
 
-@subpackage("unixodbc-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("unixodbc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

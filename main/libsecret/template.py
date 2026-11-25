@@ -27,11 +27,11 @@ sha256 = "142948339c5b971d8f6a8c7099521f6fd319b6fe73d2694b4e6d3310ed28b6e6"
 options = ["!check", "!cross"]
 
 
-@subpackage("libsecret-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libsecret-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

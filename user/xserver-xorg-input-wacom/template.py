@@ -30,6 +30,6 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/system")
 
 
-@subpackage("xserver-xorg-input-wacom-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -26,12 +26,12 @@ sha256 = "4b4e4f7f86eb3f55116faec42ebd87e04c3e424d82715ecd967ed39540dca5ef"
 options = ["!cross"]
 
 
-@subpackage("granite-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("granite-demo")
+@split("demo")
 def _(self):
     self.subdesc = "demo application"
     return ["usr/bin", "usr/share"]

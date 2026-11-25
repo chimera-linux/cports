@@ -42,7 +42,7 @@ def post_install(self):
     self.install_service(self.files_path / "foot.user")
 
 
-@subpackage("foot-terminfo")
+@split("terminfo")
 def _(self):
     self.subdesc = "extra terminfo data"
 

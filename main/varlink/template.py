@@ -15,6 +15,6 @@ sha256 = "ca3ecd13005309e0322bc64a26f2960e613f2a9a9cedee845865c2d042f73b3c"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("varlink-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

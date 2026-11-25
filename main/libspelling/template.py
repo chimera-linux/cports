@@ -34,6 +34,6 @@ sha256 = "7fa6185d9fc621b890ef01b2bb7943951dc2ad94d31cbf6e16bc468589571e17"
 options = ["!cross"]
 
 
-@subpackage("libspelling-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

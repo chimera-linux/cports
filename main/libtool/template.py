@@ -30,7 +30,7 @@ def pre_configure(self):
         (self.cwd / "libltdl" / f).touch()
 
 
-@subpackage("libtool-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libltdl-devel")]
@@ -44,7 +44,7 @@ def _(self):
     ]
 
 
-@subpackage("libtool-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libltdl")]

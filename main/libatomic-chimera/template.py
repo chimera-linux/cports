@@ -14,6 +14,6 @@ if self.profile.arch == "aarch64":
     tool_flags = {"CFLAGS": ["-mno-outline-atomics"]}
 
 
-@subpackage("libatomic-chimera-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

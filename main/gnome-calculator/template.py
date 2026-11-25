@@ -34,6 +34,6 @@ source = f"$(GNOME_SITE)/gnome-calculator/{pkgver[:2]}/gnome-calculator-{pkgver}
 sha256 = "03edf5972adc020b7e872233caba42f759e9879fc4b96f014580f136179c4fa0"
 
 
-@subpackage("gnome-calculator-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

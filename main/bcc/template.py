@@ -58,18 +58,18 @@ def post_install(self):
     self.install_link("usr/share/bcc/introspection/bps", "../../../bin/bps")
 
 
-@subpackage("bcc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("bcc-libs")
+@split("libs")
 def _(self):
     self.subdesc = "runtime libraries"
     return self.default_libs()
 
 
-@subpackage("bcc-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     self.depends += [self.with_pkgver("bcc-libs")]

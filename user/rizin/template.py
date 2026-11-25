@@ -52,6 +52,6 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-@subpackage("rizin-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

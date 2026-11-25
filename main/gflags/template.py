@@ -29,6 +29,6 @@ def post_install(self):
     self.uninstall("usr/bin/gflags_completions.sh")
 
 
-@subpackage("gflags-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

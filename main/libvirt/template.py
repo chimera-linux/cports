@@ -111,12 +111,12 @@ def post_install(self):
         self.install_service(self.files_path / f"virt{service}d")
 
 
-@subpackage("libvirt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libvirt-firewalld")
+@split("firewalld")
 def _(self):
     self.install_if = [self.parent, "firewalld"]
     self.depends = [self.parent, "iptables-nft"]

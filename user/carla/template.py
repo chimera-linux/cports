@@ -32,6 +32,6 @@ def configure(self):
     self.make.invoke(["features"])
 
 
-@subpackage("carla-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

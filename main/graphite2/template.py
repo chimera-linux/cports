@@ -17,6 +17,6 @@ sha256 = "c6bc8b4252724665297f7cad0c55897285c673f9b8e6db3522ace833593fe0b1"
 hardening = ["!int"]
 
 
-@subpackage("graphite2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

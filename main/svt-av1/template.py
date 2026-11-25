@@ -30,11 +30,11 @@ def post_install(self):
     self.install_license("LICENSE.md")
 
 
-@subpackage("svt-av1-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("svt-av1-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

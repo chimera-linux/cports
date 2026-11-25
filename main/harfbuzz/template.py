@@ -41,11 +41,11 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("harfbuzz-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("harfbuzz-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

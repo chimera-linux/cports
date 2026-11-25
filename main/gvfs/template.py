@@ -59,7 +59,7 @@ source = f"$(GNOME_SITE)/gvfs/{pkgver[:-2]}/gvfs-{pkgver}.tar.xz"
 sha256 = "648273f069e92c7e3c013b92148e82c901f08044e2b3b14c6cfbd52269f6b646"
 
 
-@subpackage("gvfs-afc")
+@split("afc")
 def _(self):
     self.subdesc = "Apple mobile device backend"
     self.depends += [self.parent]
@@ -73,7 +73,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-afp")
+@split("afp")
 def _(self):
     self.subdesc = "Apple Filing Protocol backend"
     self.depends += [self.parent]
@@ -85,7 +85,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-cdda")
+@split("cdda")
 def _(self):
     self.subdesc = "CD-ROM backend"
     self.depends += [self.parent]
@@ -97,7 +97,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-goa")
+@split("goa")
 def _(self):
     self.subdesc = "Gnome Online Accounts backend"
     self.depends += [self.parent]
@@ -114,7 +114,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-gphoto2")
+@split("gphoto2")
 def _(self):
     self.subdesc = "gphoto2 backend"
     self.depends += [self.parent]
@@ -127,7 +127,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-mtp")
+@split("mtp")
 def _(self):
     self.subdesc = "MTP backend"
     self.depends += [self.parent]
@@ -141,7 +141,7 @@ def _(self):
     ]
 
 
-@subpackage("gvfs-smb")
+@split("smb")
 def _(self):
     self.subdesc = "SMB/CIFS backend"
     self.depends += [self.parent]

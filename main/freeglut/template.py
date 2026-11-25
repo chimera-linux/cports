@@ -22,7 +22,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("freeglut-devel")
+@split("devel")
 def _(self):
     # untraced
     self.depends += [

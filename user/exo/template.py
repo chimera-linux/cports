@@ -22,6 +22,6 @@ sha256 = "4277f799245f1efde01cd917fd538ba6b12cf91c9f8a73fe2035fd5456ec078d"
 options = ["!lintpixmaps"]
 
 
-@subpackage("exo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

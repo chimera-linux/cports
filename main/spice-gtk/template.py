@@ -72,6 +72,6 @@ hardening = ["!int"]
 options = ["linkundefver"]
 
 
-@subpackage("spice-gtk-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

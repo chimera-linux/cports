@@ -41,7 +41,7 @@ sha256 = "97063f4f714ceb76ce02b9ed806c3177216b3a39f6ddd05980d2dbb3f8c7ca7a"
 options = ["etcfiles"]
 
 
-@subpackage("ark-computils")
+@split("computils")
 def _(self):
     self.subdesc = "default de/compression utilities"
     self.install_if = [self.parent]

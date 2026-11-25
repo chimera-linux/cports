@@ -34,7 +34,7 @@ if _have_omp:
     makedepends += ["libomp-devel"]
 
 
-@subpackage("kirigami-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtdeclarative-devel"]
     if _have_omp:

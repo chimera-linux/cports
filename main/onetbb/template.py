@@ -30,6 +30,6 @@ hardening = ["!vis"]
 options = ["!check", "linkundefver"]
 
 
-@subpackage("onetbb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

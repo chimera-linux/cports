@@ -68,7 +68,7 @@ def post_install(self):
     self.uninstall("usr/bin/binaryen-unittests")
 
 
-@subpackage("binaryen-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

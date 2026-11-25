@@ -12,7 +12,7 @@ sha256 = "b3ee9e6cdfdb3dec7c7df8e7f66ace6a94e73a531ba4f1d8f7b74360e7201e05"
 hardening = ["vis"]
 
 
-@subpackage("threadweaver-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
 

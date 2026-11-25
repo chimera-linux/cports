@@ -22,6 +22,6 @@ if self.profile.endian == "big":
     broken = "big endian is not supported"
 
 
-@subpackage("ldacbt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

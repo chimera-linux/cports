@@ -68,19 +68,19 @@ def post_install(self):
     self.uninstall("usr/share/zsh/site-functions/_busctl")
 
 
-@subpackage("elogind-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("elogind-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
     return []
 
 
-@subpackage("elogind-polkit")
+@split("polkit")
 def _(self):
     self.subdesc = "polkit"
     self.install_if = [self.parent]
@@ -91,7 +91,7 @@ def _(self):
     return []
 
 
-@subpackage("elogind-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libelogind")]
@@ -99,7 +99,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("elogind-pam")
+@split("pam")
 def _(self):
     self.subdesc = "PAM"
     self.depends = [self.parent, "linux-pam"]

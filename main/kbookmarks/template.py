@@ -24,7 +24,7 @@ sha256 = "a796db0d6f91bd8795ef3319f85f75074d76be315119335c339cf37c1552a472"
 hardening = ["vis"]
 
 
-@subpackage("kbookmarks-devel")
+@split("devel")
 def _(self):
     self.depends += ["kwidgetsaddons-devel"]
 

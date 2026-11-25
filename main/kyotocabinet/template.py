@@ -18,6 +18,6 @@ source = f"{url}/pkg/kyotocabinet-{pkgver}.tar.gz"
 sha256 = "4c85d736668d82920bfdbdb92ac3d66b7db1108f09581a769dd9160a02def349"
 
 
-@subpackage("kyotocabinet-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

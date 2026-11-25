@@ -35,7 +35,7 @@ source = f"$(XFCE_SITE)/xfce/xfwm4/{pkgver[:-2]}/xfwm4-{pkgver}.tar.bz2"
 sha256 = "a58b63e49397aa0d8d1dcf0636be93c8bb5926779aef5165e0852890190dcf06"
 
 
-@subpackage("xfwm4-default-themes")
+@split("default-themes")
 def _(self):
     self.subdesc = "default themes"
     self.install_if = [self.parent]

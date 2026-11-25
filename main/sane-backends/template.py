@@ -60,7 +60,7 @@ def post_install(self):
     )
 
 
-@subpackage("sane-backends-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libsane")]
@@ -68,6 +68,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("sane-backends-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

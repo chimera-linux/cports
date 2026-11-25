@@ -80,7 +80,7 @@ def post_install(self):
     self.install_link("usr/bin/wine64", "wine")
 
 
-@subpackage("wine-devel")
+@split("devel")
 def _(self):
     # llvm-strip/objcopy cannot handle windows .a's
     self.nostrip_files = [

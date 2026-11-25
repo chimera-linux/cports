@@ -41,7 +41,7 @@ source = (
 sha256 = "debe3b4a2d8df00a42f3406d965e2edec8df3451981034984f223725fd0b9963"
 
 
-@subpackage("akonadi-contacts-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-devel",

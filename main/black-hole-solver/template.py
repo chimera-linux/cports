@@ -31,6 +31,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("black-hole-solver-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

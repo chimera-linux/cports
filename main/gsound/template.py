@@ -21,6 +21,6 @@ source = f"$(GNOME_SITE)/gsound/{pkgver[:-2]}/gsound-{pkgver}.tar.xz"
 sha256 = "ca2d039e1ebd148647017a7f548862350bc9af01986d39f10cfdc8e95f07881a"
 
 
-@subpackage("gsound-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

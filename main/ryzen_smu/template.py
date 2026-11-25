@@ -26,7 +26,7 @@ def install(self):
     self.install_file("smu.h", destp)
 
 
-@subpackage("ryzen_smu-ckms")
+@split("ckms")
 def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]

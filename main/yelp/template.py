@@ -30,6 +30,6 @@ source = f"$(GNOME_SITE)/yelp/{pkgver[:-2]}/yelp-{pkgver}.tar.xz"
 sha256 = "5afc8e77308451ee45ee919efee5a154ca3c153a90e2a1b58cebf7827ab88ad0"
 
 
-@subpackage("yelp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

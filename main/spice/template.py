@@ -43,6 +43,6 @@ if self.profile.endian == "big":
     broken = "only supports little-endian"
 
 
-@subpackage("spice-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

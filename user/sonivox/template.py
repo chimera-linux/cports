@@ -16,6 +16,6 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8e9adf39a5e60c5b9ce4d1b79c83680cfab97d6e8eec6ffb6a3d0bad41413531"
 
 
-@subpackage("sonivox-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

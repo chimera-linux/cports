@@ -48,7 +48,7 @@ def post_install(self):
     self.uninstall("usr/lib/udev/rules.d/64-ext4.rules")
 
 
-@subpackage("e2fsprogs-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 
@@ -64,12 +64,12 @@ def _(self):
     )
 
 
-@subpackage("e2fsprogs-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("e2fsprogs-fuse")
+@split("fuse")
 def _(self):
     self.pkgdesc = "Ext2/3/4 FUSE driver"
     self.depends += ["fuse"]

@@ -20,6 +20,6 @@ sha256 = "1198a91cdbdcfb232df94e71ef5427617d26029e327be3f860c3b0921c448118"
 options = ["etcfiles"]
 
 
-@subpackage("gnome-menus-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

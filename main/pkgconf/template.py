@@ -21,7 +21,7 @@ def post_install(self):
     self.install_link("usr/share/man/man1/pkg-config.1", "pkgconf.1")
 
 
-@subpackage("pkgconf-libs")
+@split("libs")
 def _(self):
     self.subdesc = "runtime library"
     # transitional
@@ -30,7 +30,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("pkgconf-devel")
+@split("devel")
 def _(self):
     self.options = ["!scanpkgconf"]
     self.provides = [f"pc:libpkgconf={pkgver}"]

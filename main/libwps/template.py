@@ -13,11 +13,11 @@ source = f"$(SOURCEFORGE_SITE)/libwps/libwps-{pkgver}.tar.xz"
 sha256 = "365b968e270e85a8469c6b160aa6af5619a4e6c995dbb04c1ecc1b4dd13e80de"
 
 
-@subpackage("libwps-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libwps-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

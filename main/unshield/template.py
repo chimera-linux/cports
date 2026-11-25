@@ -17,11 +17,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("unshield-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("unshield-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

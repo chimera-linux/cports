@@ -18,6 +18,6 @@ def post_install(self):
     self.uninstall("usr/bin")
 
 
-@subpackage("ijs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

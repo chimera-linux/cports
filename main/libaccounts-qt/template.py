@@ -42,6 +42,6 @@ def post_install(self):
     self.uninstall("usr/bin/accountstest")
 
 
-@subpackage("libaccounts-qt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -34,7 +34,7 @@ def install(self):
     self.install_link("usr/lib/qemu/virtiofsd", "../virtiofsd")
 
 
-@subpackage("virtiofsd-meta")
+@split("meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]

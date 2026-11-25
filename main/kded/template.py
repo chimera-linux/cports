@@ -30,7 +30,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("kded-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

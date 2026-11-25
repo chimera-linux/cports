@@ -32,6 +32,6 @@ def init_install(self):
     self.make_install_args += [f"INSTALL_ROOT={self.chroot_destdir}"]
 
 
-@subpackage("signond-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -21,12 +21,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("source-highlight-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("source-highlight-devel")
+@split("devel")
 def _(self):
     self.depends += ["boost-devel"]
     return self.default_devel()

@@ -23,7 +23,7 @@ sha256 = "8c67fafff1c9cb84fdc7ca6bb66988e3084bb44ba1b2e5fd0f2ebe40ca8f2198"
 hardening = ["vis"]
 
 
-@subpackage("kcontacts-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcodecs-devel",

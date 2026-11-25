@@ -26,7 +26,7 @@ sha256 = "30687d9be0aea05a4ef887212abd91d7c4337cb9f166610f98eac2b01407fb1f"
 hardening = ["vis"]
 
 
-@subpackage("karchive-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

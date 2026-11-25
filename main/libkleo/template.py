@@ -40,7 +40,7 @@ sha256 = "cd95679340af60bdbba0139c039dca4b5a334c03180dbaf7ba520e3d514cb7a7"
 options = ["etcfiles"]
 
 
-@subpackage("libkleo-devel")
+@split("devel")
 def _(self):
     self.depends += ["qgpgme-devel"]
     return self.default_devel()

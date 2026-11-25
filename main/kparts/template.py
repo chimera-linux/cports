@@ -23,7 +23,7 @@ sha256 = "f2e437b038a0b0b3c40f0dfc81eb5689542c2d4e1f6025436a29e17f11caa79d"
 hardening = ["vis"]
 
 
-@subpackage("kparts-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kio-devel",

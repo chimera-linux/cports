@@ -19,6 +19,6 @@ source = f"$(GNOME_SITE)/libmanette/{pkgver[:-3]}/libmanette-{pkgver}.tar.xz"
 sha256 = "48b349267180f1dc34d405a9e1e90ba16f054a19ce907930e679493d911ea1d8"
 
 
-@subpackage("libmanette-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

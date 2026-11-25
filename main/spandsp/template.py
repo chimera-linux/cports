@@ -13,7 +13,7 @@ sha256 = "3dcdc611b8a119f1f26540d05e6279c4c1e5cd576271f6d45df431359fc190f9"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("spandsp-devel")
+@split("devel")
 def _(self):
     self.depends += ["libtiff-devel"]
 

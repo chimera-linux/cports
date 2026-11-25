@@ -35,6 +35,6 @@ source = f"$(GNOME_SITE)/gtk-vnc/{pkgver[:-2]}/gtk-vnc-{pkgver}.tar.xz"
 sha256 = "c0beb4747528ad931da43acc567c6a0190f7fc624465571ed9ccece02c34dd23"
 
 
-@subpackage("gtk-vnc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

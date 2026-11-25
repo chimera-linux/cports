@@ -19,6 +19,6 @@ source = f"{url}/archive/refs/tags/V{pkgver}.tar.gz"
 sha256 = "2c6440cb459ca897dc84e405f32a7e120c9fa0eb9038ea04319cc929ef58ec5c"
 
 
-@subpackage("igsc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

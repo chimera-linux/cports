@@ -26,6 +26,6 @@ sha256 = "156cadff9de487538440a7f6cfce4a4f0240dc22ccbe4d48f37fb1bd84c75ee5"
 hardening = ["vis"]
 
 
-@subpackage("kuserfeedback-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

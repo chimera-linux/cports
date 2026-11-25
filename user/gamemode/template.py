@@ -36,6 +36,6 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("gamemode-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

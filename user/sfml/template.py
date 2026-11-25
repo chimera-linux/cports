@@ -43,6 +43,6 @@ sha256 = [
 ]
 
 
-@subpackage("sfml-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -15,7 +15,7 @@ sha256 = "6a10e7f7430510600af25fabf466e1df61aaae910bf1dc5d10c44a4433ccc81d"
 options = ["!cross"]
 
 
-@subpackage("apr-devel")
+@split("devel")
 def _(self):
     self.depends += ["util-linux-uuid-devel"]
 

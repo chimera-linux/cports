@@ -19,6 +19,6 @@ sha256 = "cc12e8e10f1e4977bd12ad3ffaedcd52ac176348b4af6fe5da686b96325bfe01"
 options = ["!cross"]
 
 
-@subpackage("libpanel-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -30,6 +30,6 @@ sha256 = "2335678bc5ff4f876dcdb6985407a5312b0f3bb470da29e2926f57f942ce3b94"
 options = ["etcfiles"]
 
 
-@subpackage("snort-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

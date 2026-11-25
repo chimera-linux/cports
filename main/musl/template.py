@@ -174,7 +174,7 @@ def post_install(self):
     self.install_link("usr/bin/ldconfig", "true")
 
 
-@subpackage("musl-ldso")
+@split("ldso")
 def _(self):
     self.subdesc = "dynamic linker"
     # should work with any variant
@@ -183,7 +183,7 @@ def _(self):
     return ["usr/lib/ld-musl-*.so.1"]
 
 
-@subpackage("musl-progs")
+@split("progs")
 def _(self):
     # we can't have a versioned symlink dep on musl
     self.options = ["brokenlinks", "!scanrundeps"]
@@ -191,12 +191,12 @@ def _(self):
     return self.default_progs()
 
 
-@subpackage("musl-devel-static")
+@split("devel-static")
 def _(self):
     return ["usr/lib/libc.a"]
 
 
-@subpackage("musl-libssp-static")
+@split("libssp-static")
 def _(self):
     self.subdesc = "libssp_nonshared for some targets"
     self.depends = []
@@ -204,7 +204,7 @@ def _(self):
     return ["usr/lib/libssp_nonshared.a"]
 
 
-@subpackage("musl-mallocng", _variant_mng)
+@split("mallocng", _variant_mng)
 def _(self):
     self.subdesc = "malloc-ng allocator"
     self.depends = [
@@ -227,7 +227,7 @@ def _(self):
     return _take
 
 
-@subpackage("musl-mallocng-devel-static", _variant_mng)
+@split("mallocng-devel-static", _variant_mng)
 def _(self):
     self.subdesc = "static libraries for malloc-ng allocator"
     self.depends = [self.with_pkgver("musl-devel")]
@@ -241,7 +241,7 @@ def _(self):
     return _take
 
 
-@subpackage("musl-devel")
+@split("devel")
 def _(self):
     # empty depends so libc.so can be switched with alternatives
     # the libc itself installs as a solib dep of everything anyway

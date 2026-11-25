@@ -15,6 +15,6 @@ source = f"https://github.com/knik0/faad2/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "3fcbd305e4abd34768c62050e18ca0986f7d9c5eca343fb98275418013065c0e"
 
 
-@subpackage("faad2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

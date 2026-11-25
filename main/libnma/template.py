@@ -37,6 +37,6 @@ def post_install(self):
     self.uninstall("usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml")
 
 
-@subpackage("libnma-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

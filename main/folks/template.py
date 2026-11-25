@@ -32,6 +32,6 @@ tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 options = ["!check", "!cross"]
 
 
-@subpackage("folks-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

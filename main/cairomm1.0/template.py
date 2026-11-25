@@ -13,7 +13,7 @@ source = f"https://cairographics.org/releases/cairomm-{pkgver}.tar.xz"
 sha256 = "70136203540c884e89ce1c9edfb6369b9953937f6cd596d97c78c9758a5d48db"
 
 
-@subpackage("cairomm1.0-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

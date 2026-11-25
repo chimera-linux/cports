@@ -20,6 +20,6 @@ source = f"https://github.com/zeromq/libzmq/releases/download/v{pkgver}/zeromq-{
 sha256 = "6653ef5910f17954861fe72332e68b03ca6e4d9c7160eb3a8de5a5a913bfab43"
 
 
-@subpackage("libzmq-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

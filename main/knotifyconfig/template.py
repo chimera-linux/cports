@@ -23,6 +23,6 @@ sha256 = "708e19857b4ac7ccf82541319d2a3bac30c1b451e79e4b0c71e6f58bc1b5307a"
 hardening = ["vis"]
 
 
-@subpackage("knotifyconfig-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -27,7 +27,7 @@ source = (
 sha256 = "035f6d8dec6b578d7b0f9ab7f6dbee05163fb39606b37bb1c410157f03eb2fe5"
 
 
-@subpackage("kontactinterface-devel")
+@split("devel")
 def _(self):
     self.depends += ["kparts-devel"]
     return self.default_devel()

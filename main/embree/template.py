@@ -23,6 +23,6 @@ def post_install(self):
     self.uninstall("usr/embree-vars.*", glob=True)
 
 
-@subpackage("embree-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -28,6 +28,6 @@ sha256 = "6c20bd16c87aba15869e56444424481f632ac302989a203e8ce4dcc73dea33a5"
 options = ["!cross"]
 
 
-@subpackage("gnome-autoar-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

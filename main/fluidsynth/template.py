@@ -29,12 +29,12 @@ sha256 = "7fb0e328c66a24161049e2b9e27c3b6e51a6904b31b1a647f73cc1f322523e88"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("fluidsynth-libs")
+@split("libs")
 def _(self):
     self.renames = ["libfluidsynth"]
     return self.default_libs()
 
 
-@subpackage("fluidsynth-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

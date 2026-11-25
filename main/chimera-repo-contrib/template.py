@@ -10,7 +10,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-@subpackage("chimera-repo-contrib-debug")
+@split("debug")
 def _(self):
     self.subdesc = "debug packages"
     self.depends = [self.parent]

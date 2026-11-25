@@ -23,11 +23,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("librime-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("librime-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -25,6 +25,6 @@ def post_install(self):
     self.install_license("LICENSE-MIT")
 
 
-@subpackage("ada-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

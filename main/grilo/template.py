@@ -31,6 +31,6 @@ source = f"$(GNOME_SITE)/grilo/{pkgver[:-3]}/grilo-{pkgver}.tar.xz"
 sha256 = "0869c81d19ab139c667d79567c14ddcb6cb5cbfc0108d04cade287eb29536706"
 
 
-@subpackage("grilo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

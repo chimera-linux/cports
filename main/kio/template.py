@@ -52,7 +52,7 @@ hardening = ["vis"]
 options = ["!check"]
 
 
-@subpackage("kio-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kbookmarks-devel",

@@ -29,7 +29,7 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("qt6-qtwebsockets-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

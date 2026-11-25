@@ -38,6 +38,6 @@ sha256 = "607b7cb63730a97d447454b17713b73ba7d237aa033b5580e247cc753dbf35e1"
 hardening = ["vis"]
 
 
-@subpackage("purpose-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

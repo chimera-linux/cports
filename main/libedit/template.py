@@ -25,7 +25,7 @@ def post_install(self):
     self.install_link("usr/lib/pkgconfig/readline.pc", "libedit.pc")
 
 
-@subpackage("libedit-readline-devel")
+@split("readline-devel")
 def _(self):
     self.subdesc = "readline compatibility"
     self.depends = ["!readline-devel"]
@@ -37,7 +37,7 @@ def _(self):
     ]
 
 
-@subpackage("libedit-devel")
+@split("devel")
 def _(self):
     # ncurses apk's do not provide any .pc files during stage 0
     if self.stage == 0:

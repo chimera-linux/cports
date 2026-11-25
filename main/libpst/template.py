@@ -13,11 +13,11 @@ sha256 = "3d291beebbdb48d2b934608bc06195b641da63d2a8f5e0d386f2e9d6d05a0b42"
 hardening = ["!vis", "!cfi"]
 
 
-@subpackage("libpst-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpst-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

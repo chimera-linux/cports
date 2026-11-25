@@ -34,6 +34,6 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-@subpackage("cairo-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -29,7 +29,7 @@ if self.profile.arch == "armv7":
     options += ["!check"]
 
 
-@subpackage("redland-storage-virtuoso")
+@split("storage-virtuoso")
 def _(self):
     self.subdesc = "virtuoso storage backend"
     self.install_if = [self.parent, "unixodbc-libs"]
@@ -37,7 +37,7 @@ def _(self):
     return ["usr/lib/redland/librdf_storage_virtuoso.so"]
 
 
-@subpackage("redland-storage-sqlite")
+@split("storage-sqlite")
 def _(self):
     self.subdesc = "SQLite storage backend"
     self.install_if = [self.parent, "sqlite"]
@@ -45,6 +45,6 @@ def _(self):
     return ["usr/lib/redland/librdf_storage_sqlite.so"]
 
 
-@subpackage("redland-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -25,6 +25,6 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("catch2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

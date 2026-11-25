@@ -63,7 +63,7 @@ sha256 = "9a9c64ccd5c722cb5b6e605d4804ea2be50f0687377737cba82553bbe7856cf2"
 options = ["!check"]
 
 
-@subpackage("messagelib-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-devel",

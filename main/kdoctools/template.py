@@ -31,6 +31,6 @@ hardening = ["vis"]
 options = ["!splitdoc"]
 
 
-@subpackage("kdoctools-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

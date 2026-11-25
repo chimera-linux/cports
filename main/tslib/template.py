@@ -12,11 +12,11 @@ sha256 = "58d9941ffaa269c399f00d0d308184c96087f7acf69aa8e3c6645e852f993ba2"
 options = ["etcfiles"]
 
 
-@subpackage("tslib-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("tslib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -11,6 +11,6 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "dbdc159dc8e5c6f3f254e50bce689dd9e439064ff06c165d5653410a5714ab66"
 
 
-@subpackage("gumbo-parser-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

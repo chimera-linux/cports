@@ -20,6 +20,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("liblsdj-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

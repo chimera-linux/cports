@@ -17,6 +17,6 @@ hardening = []
 options = ["!check"]
 
 
-@subpackage("zita-convolver-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

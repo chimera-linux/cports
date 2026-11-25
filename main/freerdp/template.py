@@ -74,11 +74,11 @@ sha256 = "e2687d02dea6fede004d36391dac1a74ce57a210f8867fd95033171d4909590c"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
-@subpackage("freerdp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("freerdp-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

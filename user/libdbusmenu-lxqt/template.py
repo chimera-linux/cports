@@ -15,6 +15,6 @@ source = f"{url}/releases/download/{pkgver}/libdbusmenu-lxqt-{pkgver}.tar.xz"
 sha256 = "b7f94d653559f021932aada76291e933535431a337c39c1a146d0461dd27a103"
 
 
-@subpackage("libdbusmenu-lxqt-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

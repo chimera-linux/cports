@@ -22,7 +22,7 @@ source = f"https://librdf.org/dist/source/raptor2-{pkgver}.tar.gz"
 sha256 = "089db78d7ac982354bdbf39d973baf09581e6904ac4c92a98c5caadb3de44680"
 
 
-@subpackage("raptor-devel")
+@split("devel")
 def _(self):
     # Requires are not listed
     self.depends += makedepends
@@ -30,6 +30,6 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("raptor-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

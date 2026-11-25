@@ -33,12 +33,12 @@ def post_install(self):
     self.install_license("LICENSE.md")
 
 
-@subpackage("libtiff-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
     return self.default_devel(extra=["usr/share/doc"])
 
 
-@subpackage("libtiff-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

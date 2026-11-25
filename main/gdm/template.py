@@ -86,7 +86,7 @@ def post_install(self):
     self.uninstall("usr/lib/udev/rules.d/61-gdm.rules")
 
 
-@subpackage("gdm-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libgdm")]
@@ -94,6 +94,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("gdm-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

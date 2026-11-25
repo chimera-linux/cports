@@ -40,7 +40,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libffi8-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("libffi-devel")]
 

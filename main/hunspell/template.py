@@ -13,11 +13,11 @@ source = f"https://github.com/hunspell/hunspell/releases/download/v{pkgver}/huns
 sha256 = "433274dac0619cb00c2e18b43a3dd3a9d50da5b5613fa9b5c21781e35dd76bc1"
 
 
-@subpackage("hunspell-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("hunspell-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

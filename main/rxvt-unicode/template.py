@@ -64,7 +64,7 @@ def post_install(self):
     )
 
 
-@subpackage("rxvt-unicode-terminfo")
+@split("terminfo")
 def _(self):
     self.subdesc = "terminfo data"
 

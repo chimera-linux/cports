@@ -13,6 +13,6 @@ source = (
 sha256 = "dafb6cdca524c628df832b6dd0bf8fabceb103248edb21762c02d3068fca4503"
 
 
-@subpackage("libdbi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

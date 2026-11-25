@@ -23,11 +23,11 @@ source = f"http://dev-www.libreoffice.org/src/libvisio-{pkgver}.tar.xz"
 sha256 = "2a6efd40b6d9dbcb70fba3be53112366882ba97b57151df3698dfa478c8d8dd3"
 
 
-@subpackage("libvisio-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libvisio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

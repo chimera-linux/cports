@@ -32,7 +32,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("ceres-devel")
+@split("devel")
 def _(self):
     self.depends += makedepends
 

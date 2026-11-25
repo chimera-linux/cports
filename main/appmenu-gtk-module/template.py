@@ -18,6 +18,6 @@ sha256 = "48d0be87b260056a65a9056a9be7e190b67a508540ebcb1fc18a67349cca0177"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("appmenu-gtk-module-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -28,11 +28,11 @@ def pre_configure(self):
     self.do("python3", "scripts/config.py", "set", "MBEDTLS_THREADING_PTHREAD")
 
 
-@subpackage("mbedtls-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("mbedtls-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

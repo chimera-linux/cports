@@ -20,11 +20,11 @@ source = f"{url}/releases/download/v{pkgver}/zxing-cpp-{pkgver}.tar.gz"
 sha256 = "c3c02c29c0b519de7bd4e25b376e606e87f0761befd1282815642a2246613d14"
 
 
-@subpackage("zxing-cpp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("zxing-cpp-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

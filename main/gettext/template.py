@@ -41,7 +41,7 @@ def post_install(self):
     )
 
 
-@subpackage("gettext-libs")
+@split("libs")
 def _(self):
     return self.default_libs(
         extra=[
@@ -51,7 +51,7 @@ def _(self):
     )
 
 
-@subpackage("gettext-libintl")
+@split("libintl")
 def _(self):
     self.subdesc = "libintl stub"
     self.options = ["!splitstatic", "ltostrip"]
@@ -59,7 +59,7 @@ def _(self):
     return ["usr/lib/libintl.a"]
 
 
-@subpackage("gettext-devel")
+@split("devel")
 def _(self):
     self.depends += [
         self.parent,

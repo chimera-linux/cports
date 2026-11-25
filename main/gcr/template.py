@@ -38,11 +38,11 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-@subpackage("gcr-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("gcr-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

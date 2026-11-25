@@ -35,7 +35,7 @@ def post_install(self):
     self.install_service(self.files_path / "wg-quick-all")
 
 
-@subpackage("wireguard-tools-wg-quick")
+@split("wg-quick")
 def _(self):
     self.depends = [
         self.parent,
@@ -54,7 +54,7 @@ def _(self):
     ]
 
 
-@subpackage("wireguard-tools-wg-quick-nftables")
+@split("wg-quick-nftables")
 def _(self):
     self.depends = ["nftables"]
     self.subdesc = "wg-quick nftables recommends package"

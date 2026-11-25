@@ -29,6 +29,6 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libgravatar-{pkgver}.tar.xz"
 sha256 = "264a7e7bbd66067c7613367143ff13705682d6381864c85991634a9f993fddac"
 
 
-@subpackage("libgravatar-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

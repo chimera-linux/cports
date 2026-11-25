@@ -34,7 +34,7 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("fonts-liberation-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-liberation-ttf"]
@@ -43,7 +43,7 @@ def _(self):
     return ["usr/share/fonts/liberation/*.otf"]
 
 
-@subpackage("fonts-liberation-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-liberation-otf"]

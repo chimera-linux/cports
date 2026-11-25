@@ -35,7 +35,7 @@ source = (
 sha256 = "dc98b618ee66ba38a519be421793a752bae1252acfce9e0389e7d0668a9fa13d"
 
 
-@subpackage("mimetreeparser-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "ki18n-devel",

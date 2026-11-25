@@ -48,7 +48,7 @@ sha256 = "c4d639b37e0fadf51d2ab97612bbfa1899fdb4810a24c0c9ebd9d5b35ec92d0c"
 options = ["etcfiles"]
 
 
-@subpackage("akonadi-calendar-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-devel",

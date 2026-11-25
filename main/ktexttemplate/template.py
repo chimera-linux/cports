@@ -12,7 +12,7 @@ sha256 = "074a1616a41600b358e20c40cab16113906c2394600a4fdc62a22696cc3d4156"
 hardening = ["vis"]
 
 
-@subpackage("ktexttemplate-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
 

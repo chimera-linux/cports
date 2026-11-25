@@ -73,7 +73,7 @@ def post_install(self):
     )
 
 
-@subpackage("luanti-common")
+@split("common")
 def _(self):
     self.subdesc = "common files"
     self.renames = ["minetest-common"]
@@ -81,7 +81,7 @@ def _(self):
     return ["usr/share/luanti/builtin"]
 
 
-@subpackage("luanti-server")
+@split("server")
 def _(self):
     self.subdesc = "server"
     self.depends = [self.with_pkgver("luanti-common")]

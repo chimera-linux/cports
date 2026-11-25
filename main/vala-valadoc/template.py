@@ -36,7 +36,7 @@ def install(self):
     self.install_man("doc/valadoc.1")
 
 
-@subpackage("vala-valadoc-libs")
+@split("libs")
 def _(self):
     self.pkgdesc = "Vala documentation tool"
     self.renames = ["libvaladoc"]
@@ -44,7 +44,7 @@ def _(self):
     return self.default_libs(extra=["usr/lib/valadoc-*", "usr/share/valadoc-*"])
 
 
-@subpackage("vala-valadoc-devel")
+@split("devel")
 def _(self):
     self.renames = ["valadoc-devel"]
 

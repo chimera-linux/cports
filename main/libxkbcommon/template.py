@@ -38,18 +38,18 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libxkbcommon-x11")
+@split("x11")
 def _(self):
     self.subdesc = "X11 support"
 
     return ["usr/lib/*x11*.so.*"]
 
 
-@subpackage("libxkbcommon-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libxkbcommon-progs")
+@split("progs")
 def _(self):
     return self.default_progs(extra=["usr/lib/xkbcommon"])

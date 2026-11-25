@@ -14,6 +14,6 @@ sha256 = "ed8a6feee493a1b98930fb78d40e09a5a7983ec2f29ced0afc83ffbdb54f6152"
 hardening = ["vis"]
 
 
-@subpackage("kpty-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

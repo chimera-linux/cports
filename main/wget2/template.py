@@ -43,7 +43,7 @@ def post_install(self):
     self.install_link("usr/share/man/man1/wget.1", "wget2.1")
 
 
-@subpackage("wget2-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libwget")]
@@ -51,7 +51,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("wget2-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libwget-devel")]

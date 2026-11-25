@@ -27,6 +27,6 @@ source = f"$(SOURCEFORGE_SITE)/drumstick/drumstick-{pkgver}.tar.gz"
 sha256 = "92f5fc2a94b8c9067200897fd14027f707bf0103871ea942e388f9afe95e0f34"
 
 
-@subpackage("drumstick-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

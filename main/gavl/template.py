@@ -17,6 +17,6 @@ sha256 = "51aaac41391a915bd9bad07710957424b046410a276e7deaff24a870929d33ce"
 tool_flags = {"CFLAGS": ["-Wno-ignored-optimization-argument"]}
 
 
-@subpackage("gavl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

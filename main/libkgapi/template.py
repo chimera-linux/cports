@@ -26,7 +26,7 @@ sha256 = "204b05b32d50f269c0a633201d21d66bf6ae93a72ce572a24c6afd38aeffe5c4"
 options = ["!check"]
 
 
-@subpackage("libkgapi-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcontacts-devel",

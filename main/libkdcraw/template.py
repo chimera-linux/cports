@@ -26,6 +26,6 @@ sha256 = "835f43299d97afd37a5e03bd48f977bad388553c5cd079fa51b1bda6151e1917"
 hardening = ["vis"]
 
 
-@subpackage("libkdcraw-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

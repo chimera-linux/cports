@@ -49,17 +49,17 @@ source = f"https://github.com/apache/thrift/archive/v{pkgver}.tar.gz"
 sha256 = "c4649c5879dd56c88f1e7a1c03e0fbfcc3b2a2872fb81616bffba5aa8a225a37"
 
 
-@subpackage("thrift-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("thrift-glib-libs")
+@split("glib-libs")
 def _(self):
     self.subdesc = "Thrift C glib library"
     return ["usr/lib/libthrift_*glib*.so.*"]
 
 
-@subpackage("thrift-libs")
+@split("libs")
 def _(self):
     return self.default_libs()

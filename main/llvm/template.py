@@ -256,7 +256,7 @@ def _genpkg(
         return []
 
 
-@subpackage("llvm-dbg", self.build_dbg)
+@split("dbg", self.build_dbg)
 def _(self):
     self.depends = [self.parent, f"llvm{_majver}-dbg"]
     self.provides = [

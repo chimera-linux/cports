@@ -40,12 +40,12 @@ def configure(self):
     )
 
 
-@subpackage("talloc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("talloc-python-libs")
+@split("python-libs")
 def _(self):
     self.subdesc = "Python utility library"
     # transitional
@@ -54,7 +54,7 @@ def _(self):
     return ["usr/lib/libpytalloc-util.so.*"]
 
 
-@subpackage("talloc-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
 

@@ -31,6 +31,6 @@ source = f"https://github.com/linuxmint/pix/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "47ac74d19399fdde5d0e2e5d1c2b4a29c3281a549ca7881a1fb8457b1bf5c5eb"
 
 
-@subpackage("pix-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

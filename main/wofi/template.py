@@ -15,6 +15,6 @@ hardening = ["!vis"]
 options = ["!check"]
 
 
-@subpackage("wofi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

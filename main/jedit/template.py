@@ -66,7 +66,7 @@ def install(self):
     self.install_bin(self.files_path / "jedit")
 
 
-@subpackage("jedit-doc")
+@split("doc")
 def _(self):
     self.subdesc = "docs"
 

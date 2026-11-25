@@ -23,6 +23,6 @@ sha256 = "84dd9e0775ccff18eb751f6a86ea909bf9eb4a95596baef097684b6646e33764"
 hardening = ["vis"]
 
 
-@subpackage("kdbusaddons-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

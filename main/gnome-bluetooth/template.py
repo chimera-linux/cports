@@ -33,6 +33,6 @@ sha256 = "41f20e6d6176b72590af63552b232d83f2fffdd77ecfaa5eaf32c5a4a86fad64"
 options = ["!cross"]
 
 
-@subpackage("gnome-bluetooth-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

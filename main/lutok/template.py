@@ -19,7 +19,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("lutok-devel")
+@split("devel")
 def _(self):
     self.depends += ["lua5.4-devel"]
 

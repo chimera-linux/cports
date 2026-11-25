@@ -89,7 +89,7 @@ def post_install(self):
     self.uninstall("usr/sbin")
 
 
-@subpackage("lvm2-devel")
+@split("devel")
 def _(self):
     # rest ist tracked by udev
     self.depends += ["linux-headers"]
@@ -107,14 +107,14 @@ def _(self):
     ]
 
 
-@subpackage("lvm2-static-bin")
+@split("static-bin")
 def _(self):
     self.subdesc = "static binaries"
 
     return ["usr/bin/*.static"]
 
 
-@subpackage("lvm2-dm")
+@split("dm")
 def _(self):
     self.subdesc = "Device Mapper"
     self.renames = ["device-mapper"]

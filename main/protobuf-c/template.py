@@ -18,6 +18,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("protobuf-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/bin"])

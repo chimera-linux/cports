@@ -42,7 +42,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("fonts-dejavu-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-dejavu-ttf"]
@@ -51,7 +51,7 @@ def _(self):
     return ["usr/share/fonts/dejavu/*.otf"]
 
 
-@subpackage("fonts-dejavu-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-dejavu-otf"]

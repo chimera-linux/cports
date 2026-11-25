@@ -61,6 +61,6 @@ def post_build(self):
     self.make.build(["sqlite3", "CFLAGS=-DSQLITE_ENABLE_DBPAGE_VTAB"])
 
 
-@subpackage("sqlite-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

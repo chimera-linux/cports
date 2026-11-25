@@ -36,7 +36,7 @@ def init_configure(self):
     ]
 
 
-@subpackage("rtmpdump-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("librtmp")]
@@ -44,7 +44,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("rtmpdump-devel")
+@split("devel")
 def _(self):
     self.depends += ["zlib-ng-compat-devel"]
     # transitional

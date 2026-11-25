@@ -51,7 +51,7 @@ hardening = ["vis", "cfi"]
 options = ["!cross"]
 
 
-@subpackage("fcitx5-configtool-kde")
+@split("kde")
 def _(self):
     self.subdesc = "KCM integration"
     self.depends += [self.parent]

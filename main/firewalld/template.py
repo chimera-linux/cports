@@ -42,7 +42,7 @@ def post_install(self):
     self.install_service(self.files_path / "firewalld")
 
 
-@subpackage("firewalld-firewall-config")
+@split("firewall-config")
 def _(self):
     self.pkgdesc = "GTK-based configuration utility for firewalld"
     self.depends = [self.parent, "gtk+3"]
@@ -59,7 +59,7 @@ def _(self):
     ]
 
 
-@subpackage("firewalld-firewall-applet")
+@split("firewall-applet")
 def _(self):
     self.pkgdesc = "systray applet"
     self.depends = [

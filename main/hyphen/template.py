@@ -17,11 +17,11 @@ def post_install(self):
     self.install_license("COPYING.MPL")
 
 
-@subpackage("hyphen-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("hyphen-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

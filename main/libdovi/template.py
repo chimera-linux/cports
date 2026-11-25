@@ -34,6 +34,6 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libdovi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

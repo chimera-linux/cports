@@ -65,12 +65,12 @@ def post_install(self):
     )
 
 
-@subpackage("openh264-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("openh264-firefox-plugin")
+@split("firefox-plugin")
 def _(self):
     self.subdesc = "Plugin for Firefox"
     # installed in special path; the libgmpopenh264.so also has a soname of
@@ -84,7 +84,7 @@ def _(self):
     ]
 
 
-@subpackage("openh264-firefox-plugin-meta")
+@split("firefox-plugin-meta")
 def _(self):
     self.subdesc = "recommends package for firefox plugin"
     self.options = ["empty"]

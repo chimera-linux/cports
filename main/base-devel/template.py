@@ -8,7 +8,7 @@ url = "https://chimera-linux.org"
 options = ["empty"]
 
 
-@subpackage("base-devel-static")
+@split("static")
 def _(self):
     self.pkgdesc = "Base package for static development packages"
     self.depends = []

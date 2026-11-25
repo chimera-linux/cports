@@ -17,11 +17,11 @@ source = f"$(GNU_SITE)/libtasn1/libtasn1-{pkgver}.tar.gz"
 sha256 = "1d8a444a223cc5464240777346e125de51d8e6abf0b8bac742ac84609167dc87"
 
 
-@subpackage("libtasn1-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/info"])
 
 
-@subpackage("libtasn1-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

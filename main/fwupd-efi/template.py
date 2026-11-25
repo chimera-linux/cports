@@ -40,7 +40,7 @@ if _sbat:
     ]
 
 
-@subpackage("fwupd-efi-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

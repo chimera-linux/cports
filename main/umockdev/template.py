@@ -26,6 +26,6 @@ if self.profile.arch in ["ppc64", "ppc64le"]:
     options += ["!check"]
 
 
-@subpackage("umockdev-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

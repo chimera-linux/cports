@@ -41,7 +41,7 @@ def post_install(self):
     self.uninstall("usr/bin/line")
 
 
-@subpackage("mesa-demos-core")
+@split("core")
 def _(self):
     self.subdesc = "most useful utilities"
     self.provides = [self.with_pkgver("mesa-utils")]

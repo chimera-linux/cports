@@ -43,11 +43,11 @@ def post_install(self):
     self.uninstall("usr/lib/installed-tests")
 
 
-@subpackage("swtpm-libs")
+@split("libs")
 def _(self):
     return ["usr/lib/swtpm/*.so.*"]
 
 
-@subpackage("swtpm-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/lib/swtpm/libswtpm_libtpms.a"])

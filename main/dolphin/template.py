@@ -58,7 +58,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("dolphin-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kio-devel",

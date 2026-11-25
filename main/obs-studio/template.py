@@ -75,6 +75,6 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
-@subpackage("obs-studio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -11,6 +11,6 @@ source = f"$(SOURCEFORGE_SITE)/fuse-emulator/libspectrum/{pkgver}/libspectrum-{p
 sha256 = "a353cb46e9b1a281061d816353ea010d0a6fe78e6a17aa0b7b74271ca5e4acfc"
 
 
-@subpackage("libspectrum-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -19,7 +19,7 @@ source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
 sha256 = "7fd9cea356e7d3b74bf7d2a51d7e0e6763f3f9f1cddc5e77c8b0b5b7fa9d5e5a"
 
 
-@subpackage("gtkmm-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

@@ -45,12 +45,12 @@ def post_install(self):
             f.unlink()
 
 
-@subpackage("cracklib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("cracklib-words")
+@split("words")
 def _(self):
     self.subdesc = "large word list"
     self.depends = [self.parent]

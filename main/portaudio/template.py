@@ -31,7 +31,7 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("portaudio-devel")
+@split("devel")
 def _(self):
     self.depends += ["alsa-lib-devel"]
     return self.default_devel()

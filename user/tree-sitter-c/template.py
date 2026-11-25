@@ -20,6 +20,6 @@ def post_install(self):
     self.install_link("usr/lib/tree-sitter/c.so", "../libtree-sitter-c.so.15")
 
 
-@subpackage("tree-sitter-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

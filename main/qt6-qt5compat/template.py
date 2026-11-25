@@ -19,7 +19,7 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("qt6-qt5compat-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel(

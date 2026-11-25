@@ -30,13 +30,13 @@ source = (
 sha256 = "0d785277e38bf37e1bed5d85749c48f7fc228a3f94b995236f4bf52db445241a"
 
 
-@subpackage("kopeninghours-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()
 
 
-@subpackage("kopeninghours-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     # transitional

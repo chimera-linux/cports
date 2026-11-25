@@ -25,7 +25,7 @@ sha256 = "874e13434e808cb0b2081af0f993e09236d0c3e44a6ae37d4fe724ee7547a912"
 hardening = ["vis"]
 
 
-@subpackage("frameworkintegration-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcolorscheme-devel",

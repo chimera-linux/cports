@@ -28,17 +28,17 @@ hardening = ["vis", "!cfi"]
 options = ["!cross", "linkundefver"]
 
 
-@subpackage("tdb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("tdb-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("tdb-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

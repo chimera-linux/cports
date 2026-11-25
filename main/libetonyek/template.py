@@ -31,11 +31,11 @@ def init_configure(self):
         self.configure_args += ["--with-mdds=" + f.name.removeprefix("mdds-")]
 
 
-@subpackage("libetonyek-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libetonyek-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

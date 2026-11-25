@@ -22,6 +22,6 @@ def post_install(self):
     self.install_license("COPYING.BSD")
 
 
-@subpackage("pkcs11-helper-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

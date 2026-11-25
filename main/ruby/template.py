@@ -54,12 +54,12 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("ruby-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=[f"usr/lib/ruby/{pkgver[:-3]}.0/mkmf.rb"])
 
 
-@subpackage("ruby-ri")
+@split("ri")
 def _(self):
     self.depends += [self.parent]
 

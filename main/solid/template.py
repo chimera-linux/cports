@@ -25,6 +25,6 @@ sha256 = "9620a6065403c5097fce0518abb7d4f038f4f11327e7ce94094ae9561bce0008"
 hardening = ["vis"]
 
 
-@subpackage("solid-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

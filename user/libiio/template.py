@@ -34,11 +34,11 @@ def post_install(self):
     self.install_service(self.files_path / "iiod")
 
 
-@subpackage("libiio-progs")
+@split("progs")
 def _(self):
     return self.default_progs(extra=["usr/lib/iiod.wrapper", "usr/lib/dinit.d"])
 
 
-@subpackage("libiio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -23,11 +23,11 @@ source = f"http://dev-www.libreoffice.org/src/libfreehand/libfreehand-{pkgver}.t
 sha256 = "a431d78767e5aa27ade7c6d1b7a11a9f1848cb4b9260bf0a6a44689553ecccfe"
 
 
-@subpackage("libfreehand-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libfreehand-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

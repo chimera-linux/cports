@@ -44,7 +44,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libksieve-{pkgver}.tar.xz"
 sha256 = "c83f0b8b91057d10dd54b81e81b081a5bea860730d47a4233246edd6ad73dfb2"
 
 
-@subpackage("libksieve-devel")
+@split("devel")
 def _(self):
     self.depends += ["syntax-highlighting-devel"]
     return self.default_devel()

@@ -70,7 +70,7 @@ for _variant in [
     _subpkg(_variant)
 
 
-@subpackage("fonts-iosevka-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent]

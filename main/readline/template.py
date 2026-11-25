@@ -28,6 +28,6 @@ def post_install(self):
     self.uninstall("usr/share/doc")
 
 
-@subpackage("readline-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/info"])

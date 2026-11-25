@@ -38,6 +38,6 @@ def post_install(self):
     self.uninstall("usr/lib/installed-tests")
 
 
-@subpackage("gjs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -18,7 +18,7 @@ sha256 = "46c9ebf7d5319a2bde9123427edb277b871740f4f79f65e79a382dde7e1891d9"
 hardening = ["vis"]
 
 
-@subpackage("kstatusnotifieritem-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

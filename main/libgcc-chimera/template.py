@@ -93,7 +93,7 @@ def install(self):
     self.install_lib(f"build/{_soname}")
 
 
-@subpackage("libgcc-chimera-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

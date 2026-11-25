@@ -78,6 +78,6 @@ def post_install(self):
         self.install_link(f"usr/lib/{f}", "libgcompat.so.0")
 
 
-@subpackage("gcompat-libs")
+@split("libs")
 def _(self):
     return ["usr/lib/libgcompat.so.0"]

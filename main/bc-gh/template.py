@@ -41,7 +41,7 @@ def post_install(self):
     self.install_man("manuals/dc.1")
 
 
-@subpackage("bc-gh-man")
+@split("man")
 def _(self):
     self.replaces = ["chimerautils-extra-man<=14.0.1-r0"]
     self.install_if = [self.parent, "base-man"]

@@ -37,7 +37,7 @@ def post_install(self):
     self.uninstall("usr/include/nspr/md")
 
 
-@subpackage("nspr-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()

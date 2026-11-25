@@ -33,14 +33,14 @@ def post_install(self):
     self.install_initramfs(self.files_path / "kmod.initramfs-tools")
 
 
-@subpackage("kmod-devel")
+@split("devel")
 def _(self):
     self.renames = ["libkmod-devel"]
 
     return self.default_devel()
 
 
-@subpackage("kmod-libs")
+@split("libs")
 def _(self):
     self.renames = ["libkmod"]
 

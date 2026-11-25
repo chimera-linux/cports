@@ -19,6 +19,6 @@ sha256 = "37d7e12f2a990490aea21184f0b27e0b915ebb4e5096f4d6632c62051c054012"
 options = ["!cross"]
 
 
-@subpackage("msgraph-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

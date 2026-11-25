@@ -15,6 +15,6 @@ source = f"https://github.com/libtom/libtommath/releases/download/v{pkgver}/ltm-
 sha256 = "296272d93435991308eb73607600c034b558807a07e829e751142e65ccfa9d08"
 
 
-@subpackage("libtommath-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

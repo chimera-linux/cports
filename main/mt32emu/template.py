@@ -22,12 +22,12 @@ source = f"https://github.com/munt/munt/archive/refs/tags/munt_{pkgver.replace('
 sha256 = "29565cf02a213143d60e6f5c0c992eb80ce6a08874e4cc90456072c8dbcba581"
 
 
-@subpackage("mt32emu-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("mt32emu-qt")
+@split("qt")
 def _(self):
     self.pkgdesc = "Software synthesiser emulating pre-GM MIDI devices"
 

@@ -45,7 +45,7 @@ def post_install(self):
     )
 
 
-@subpackage("xdg-desktop-portal-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent]
     return self.default_devel()

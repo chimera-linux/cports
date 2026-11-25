@@ -23,6 +23,6 @@ sha256 = "3287ffe0fbcc2d4aa1363f9e15747302d0b080090fe76e5f211d809ecb43f39a"
 hardening = ["vis"]
 
 
-@subpackage("phonon-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

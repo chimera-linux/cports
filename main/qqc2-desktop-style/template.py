@@ -29,7 +29,7 @@ sha256 = "57269c662c25d0ccea96e128a54bc57c3abe0b6b97ef586ea1195c147afc3a38"
 hardening = ["vis"]
 
 
-@subpackage("qqc2-desktop-style-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcoreaddons-devel"]
 

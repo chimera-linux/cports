@@ -23,11 +23,11 @@ def post_install(self):
     self.install_license("COPYING.md")
 
 
-@subpackage("marisa-trie-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("marisa-trie-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -44,7 +44,7 @@ def post_install(self):
     self.install_link("usr/lib/qt6/bin/qtdiag", "qtdiag6")
 
 
-@subpackage("qt6-qttools-qdbus")
+@split("qdbus")
 def _(self):
     self.subdesc = "qdbus"
 
@@ -54,12 +54,12 @@ def _(self):
     ]
 
 
-@subpackage("qt6-qttools-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("qt6-qttools-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel(

@@ -31,7 +31,7 @@ match self.profile.arch:
         configure_args += ["-DSSE2_FOUND=1"]
 
 
-@subpackage("libvidstab-devel")
+@split("devel")
 def _(self):
     if _have_omp:
         self.depends += ["libomp-devel"]

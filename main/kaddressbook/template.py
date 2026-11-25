@@ -38,6 +38,6 @@ source = (
 sha256 = "c9d00b8ad1b5fff4cd51d82b85e169447f681b1d8f52ec34ec85730cdc84322b"
 
 
-@subpackage("kaddressbook-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

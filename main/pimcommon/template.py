@@ -46,7 +46,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/pimcommon-{pkgver}.tar.xz"
 sha256 = "76c76b6781779d9740eb39c283e71797a8bbf1e1c314e07d50019fcfa106d2ec"
 
 
-@subpackage("pimcommon-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-contacts-devel",

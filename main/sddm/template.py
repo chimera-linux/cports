@@ -66,7 +66,7 @@ def post_install(self):
         )
 
 
-@subpackage("sddm-default-cage")
+@split("default-cage")
 def _(self):
     self.subdesc = "use cage"
     self.install_if = [self.parent, "!plasma-desktop"]
@@ -77,7 +77,7 @@ def _(self):
     return ["usr/lib/sddm/sddm.conf.d/00-wayland-cage.conf"]
 
 
-@subpackage("sddm-default-kwin")
+@split("default-kwin")
 def _(self):
     self.subdesc = "use kwin"
     self.install_if = [self.parent, "plasma-desktop"]
@@ -93,7 +93,7 @@ def _(self):
     return ["usr/lib/sddm/sddm.conf.d/00-wayland-kwin.conf"]
 
 
-@subpackage("sddm-default-weston")
+@split("default-weston")
 def _(self):
     self.subdesc = "use weston"
     self.provides = [self.with_pkgver("sddm-compositor-default")]
@@ -103,7 +103,7 @@ def _(self):
     return ["usr/lib/sddm/sddm.conf.d/00-wayland-weston.conf"]
 
 
-@subpackage("sddm-default-none")
+@split("default-none")
 def _(self):
     self.subdesc = "custom compositor"
     self.provides = [self.with_pkgver("sddm-compositor-default")]
@@ -113,7 +113,7 @@ def _(self):
     return []
 
 
-@subpackage("sddm-theme-none")
+@split("theme-none")
 def _(self):
     self.subdesc = "no theme"
     self.provides = ["sddm-theme-default=0"]

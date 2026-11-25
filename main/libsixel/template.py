@@ -22,11 +22,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libsixel-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libsixel-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

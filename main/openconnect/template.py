@@ -34,6 +34,6 @@ source = f"{url}/download/openconnect-{pkgver}.tar.gz"
 sha256 = "a2bedce3aa4dfe75e36e407e48e8e8bc91d46def5335ac9564fbf91bd4b2413e"
 
 
-@subpackage("openconnect-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

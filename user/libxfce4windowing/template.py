@@ -30,6 +30,6 @@ sha256 = "db467f9ac4bac8f1c4e82667902841fc0957af835c29603d6659a57440b6f8cb"
 options = ["!cross"]
 
 
-@subpackage("libxfce4windowing-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

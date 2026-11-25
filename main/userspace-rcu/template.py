@@ -17,6 +17,6 @@ else:
     tool_flags["CFLAGS"] += ["-DBYTE_ORDER=4321"]
 
 
-@subpackage("userspace-rcu-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

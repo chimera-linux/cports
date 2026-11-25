@@ -33,6 +33,6 @@ sha256 = "04fea783ee146267dfeb14c44d125e98b30241ff776494255dc026b2344164e8"
 hardening = ["vis"]
 
 
-@subpackage("kgraphviewer-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

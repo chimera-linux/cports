@@ -12,11 +12,11 @@ source = f"$(SOURCEFORGE_SITE)/libmwaw/libmwaw-{pkgver}.tar.xz"
 sha256 = "ac3590f691a2904eb8c7dc8b757b8a29f125f592449e421459ae8fa928b399eb"
 
 
-@subpackage("libmwaw-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libmwaw-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

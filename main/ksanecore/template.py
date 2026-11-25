@@ -26,7 +26,7 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
-@subpackage("ksanecore-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

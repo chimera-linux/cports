@@ -16,6 +16,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "385f91a0b542ebe8b81c8f8500310dcd575fd028ea0cd2ede8807fa920dcf604"
 
 
-@subpackage("raft-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

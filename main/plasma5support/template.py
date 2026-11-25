@@ -40,7 +40,7 @@ sha256 = "e97329a0b0d200df15ec30cbf14c8572c72869eef65629a96e8cb3706361d105"
 hardening = ["vis"]
 
 
-@subpackage("plasma5support-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcoreaddons-devel", "kservice-devel"]
 

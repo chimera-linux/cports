@@ -19,11 +19,11 @@ sha256 = "d4a2b3aa0272d73ea0c4cd2140960177fa34ddc2030e59a48ecfb80c757572c3"
 hardening = ["vis"]
 
 
-@subpackage("qca-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("qca-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

@@ -28,6 +28,6 @@ sha256 = "8f0e2157bb55aa36ac632c85bd4411bcbf2424c477cca3126b8b42ad33fa4fb8"
 hardening = ["!int"]
 
 
-@subpackage("libkscreen-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

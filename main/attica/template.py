@@ -14,6 +14,6 @@ sha256 = "4f2b525649c6a23924bdf2647e9cd6c591285d33d8d4f01db45b37622e3b839b"
 hardening = ["vis"]
 
 
-@subpackage("attica-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

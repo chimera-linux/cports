@@ -27,6 +27,6 @@ sha256 = "73501d76471781d1205c6f8e094cadbe9d65443de34246a218a1a802771a9d45"
 hardening = ["vis"]
 
 
-@subpackage("qqc2-breeze-style-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

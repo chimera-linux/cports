@@ -35,12 +35,12 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdegames-{pkgver}.tar.xz"
 sha256 = "a543fe657621366b4cd9da7cba56a1844f66f8c9cc9fb616f08f0c5513f33d1a"
 
 
-@subpackage("libkdegames-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libkdegames-carddecks")
+@split("carddecks")
 def _(self):
     self.subdesc = "card decks for KDE card games"
     return ["usr/share/carddecks"]

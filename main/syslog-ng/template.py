@@ -84,14 +84,14 @@ def post_install(self):
     python.precompile(self, "usr/lib/syslog-ng/python")
 
 
-@subpackage("syslog-ng-scl")
+@split("scl")
 def _(self):
     self.subdesc = "configuration library"
 
     return ["usr/share/syslog-ng/include/scl"]
 
 
-@subpackage("syslog-ng-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[
@@ -101,7 +101,7 @@ def _(self):
     )
 
 
-@subpackage("syslog-ng-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     self.options = ["etcfiles"]

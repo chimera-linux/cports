@@ -21,7 +21,7 @@ sha256 = "495545ac7120305e3c13d5d1c7760c5607527db5816c6ceedf8c9a623b051e2e"
 hardening = ["vis"]
 
 
-@subpackage("kservice-devel")
+@split("devel")
 def _(self):
     self.depends += ["kconfig-devel", "kcoreaddons-devel"]
 

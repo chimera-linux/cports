@@ -17,7 +17,7 @@ tool_flags = {"CFLAGS": ["-Du_int16_t=uint16_t", "-Du_int32_t=uint32_t"]}
 options = ["!check", "!parallel"]
 
 
-@subpackage("cdparanoia-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libcdparanoia")]
@@ -25,6 +25,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("cdparanoia-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

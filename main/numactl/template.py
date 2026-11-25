@@ -18,7 +18,7 @@ def post_install(self):
     self.uninstall("usr/share/man/man2")
 
 
-@subpackage("numactl-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libnuma")]
@@ -26,7 +26,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("numactl-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libnuma-devel")]

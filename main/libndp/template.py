@@ -15,11 +15,11 @@ sha256 = "a8ab214e01dc3a9b615276905395637f391298c84d77651f0cbf0b1082dd2dd4"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("libndp-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libndp-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

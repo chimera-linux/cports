@@ -56,6 +56,6 @@ def install(self):
     self.uninstall("usr/share/man/man8/update-pciids.8")
 
 
-@subpackage("pciutils-devel")
+@split("devel")
 def _(self):
     return self.default_devel(man="37")

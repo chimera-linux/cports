@@ -26,6 +26,6 @@ if self.profile.arch == "x86_64":
     tool_flags = {"CXXFLAGS": ["-DHWY_COMPILE_ONLY_STATIC"]}
 
 
-@subpackage("kquickimageeditor-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

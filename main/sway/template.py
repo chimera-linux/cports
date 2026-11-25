@@ -43,7 +43,7 @@ def post_install(self):
     )
 
 
-@subpackage("sway-backgrounds")
+@split("backgrounds")
 def _(self):
     self.subdesc = "backgrounds"
     self.install_if = [self.parent]

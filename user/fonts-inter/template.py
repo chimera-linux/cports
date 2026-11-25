@@ -16,7 +16,7 @@ def install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("fonts-inter-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-inter-ttf"]
@@ -25,7 +25,7 @@ def _(self):
     return ["usr/share/fonts/inter/*.otf"]
 
 
-@subpackage("fonts-inter-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-inter-otf"]

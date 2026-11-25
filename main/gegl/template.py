@@ -62,6 +62,6 @@ if self.profile.arch in [
     makedepends += ["libomp-devel"]
 
 
-@subpackage("gegl-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

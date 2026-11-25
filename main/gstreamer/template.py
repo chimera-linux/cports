@@ -47,7 +47,7 @@ file_xattrs = {
 options = ["!cross"]
 
 
-@subpackage("gstreamer-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=["usr/share/gdb", "usr/share/gstreamer-1.0"]

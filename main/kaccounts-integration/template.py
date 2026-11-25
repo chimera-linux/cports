@@ -38,7 +38,7 @@ if self.profile.arch in ["aarch64", "ppc64le", "x86_64"]:
     depends += ["signon-ui"]
 
 
-@subpackage("kaccounts-integration-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "intltool",  # yes, really

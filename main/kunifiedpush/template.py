@@ -35,7 +35,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
 
 
-@subpackage("kunifiedpush-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

@@ -38,6 +38,6 @@ def post_install(self):
     self.install_file("alsoftrc.sample", "usr/share/examples/openal-soft")
 
 
-@subpackage("openal-soft-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

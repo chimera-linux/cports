@@ -19,11 +19,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libpng-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libpng-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

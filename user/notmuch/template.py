@@ -28,12 +28,12 @@ hardening = ["vis", "!cfi"]
 options = ["!check", "!lintcomp"]
 
 
-@subpackage("notmuch-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("notmuch-emacs")
+@split("emacs")
 def _(self):
     self.depends = [self.parent, "virtual:emacs!emacs-console"]
     self.subdesc = "emacs support"

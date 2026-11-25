@@ -23,6 +23,6 @@ sha256 = "6f7fb82337bd06823f698df5a1e631059e99e544bfa9a1d7c5b67fd01ff9319a"
 options = ["etcfiles"]
 
 
-@subpackage("lxqt-globalkeys-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

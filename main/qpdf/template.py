@@ -25,14 +25,14 @@ source = f"{url}/releases/download/v{pkgver}/qpdf-{pkgver}.tar.gz"
 sha256 = "8a58af5b6141319287c1883bec8bd1bd545b7567b7fc5e6ce5d25a1c85f36397"
 
 
-@subpackage("qpdf-devel")
+@split("devel")
 def _(self):
     self.renames = ["libqpdf-devel"]
 
     return self.default_devel()
 
 
-@subpackage("qpdf-libs")
+@split("libs")
 def _(self):
     self.renames = ["libqpdf-libs"]
 

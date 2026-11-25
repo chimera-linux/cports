@@ -41,6 +41,6 @@ sha256 = "9ec1900cc51409c2067c07c828c10be06fe3bf68d2999bb72d7d5ed325ed9bbc"
 options = ["!cross"]
 
 
-@subpackage("gnome-online-accounts-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

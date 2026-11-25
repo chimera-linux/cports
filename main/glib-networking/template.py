@@ -30,7 +30,7 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("glib-networking-openssl")
+@split("openssl")
 def _(self):
     self.subdesc = "OpenSSL backend"
     # autoinstall if openssl is installed
@@ -39,7 +39,7 @@ def _(self):
     return ["usr/lib/gio/modules/libgioopenssl.so"]
 
 
-@subpackage("glib-networking-gnutls")
+@split("gnutls")
 def _(self):
     self.subdesc = "GnuTLS backend"
     # autoinstall if gnutls is installed

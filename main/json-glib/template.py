@@ -18,6 +18,6 @@ source = f"$(GNOME_SITE)/json-glib/{pkgver[:-2]}/json-glib-{pkgver}.tar.xz"
 sha256 = "55c5c141a564245b8f8fbe7698663c87a45a7333c2a2c56f06f811ab73b212dd"
 
 
-@subpackage("json-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

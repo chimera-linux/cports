@@ -16,6 +16,6 @@ sha256 = "af5e72a5cf7ee3d036e045441fc84a5e9c142be6d46bd36c1490d1cec5e7ecfd"
 hardening = ["vis"]
 
 
-@subpackage("kunitconversion-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

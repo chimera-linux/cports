@@ -28,28 +28,28 @@ source = f"{url}/releases/download/{pkgver}/libportal-{pkgver}.tar.xz"
 sha256 = "de801ee349ed3c255a9af3c01b1a401fab5b3fc1c35eb2fd7dfb35d4b8194d7f"
 
 
-@subpackage("libportal-gtk3")
+@split("gtk3")
 def _(self):
     self.subdesc = "Gtk+3 backend"
 
     return ["usr/lib/girepository-1.0/XdpGtk3*", "usr/lib/libportal-gtk3.so.*"]
 
 
-@subpackage("libportal-gtk4")
+@split("gtk4")
 def _(self):
     self.subdesc = "Gtk4 backend"
 
     return ["usr/lib/girepository-1.0/XdpGtk4*", "usr/lib/libportal-gtk4.so.*"]
 
 
-@subpackage("libportal-qt6")
+@split("qt6")
 def _(self):
     self.subdesc = "Qt6 backend"
 
     return ["usr/lib/libportal-qt*.so.*"]
 
 
-@subpackage("libportal-qt6-devel")
+@split("qt6-devel")
 def _(self):
     self.depends = [self.with_pkgver("libportal-devel")]
     self.subdesc = "Qt6 development files"
@@ -61,6 +61,6 @@ def _(self):
     ]
 
 
-@subpackage("libportal-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

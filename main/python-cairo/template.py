@@ -16,7 +16,7 @@ source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pyca
 sha256 = "f3f7fde97325cae80224c09f12564ef58d0d0f655da0e3b040f5807bd5bd3142"
 
 
-@subpackage("python-cairo-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent, "python-devel"]
 

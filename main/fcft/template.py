@@ -26,6 +26,6 @@ def post_install(self):
     )
 
 
-@subpackage("fcft-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

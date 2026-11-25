@@ -46,6 +46,6 @@ def post_install(self):
         self.install_file(self.files_path / f"{f}.pam", "usr/lib/pam.d", name=f)
 
 
-@subpackage("kscreenlocker-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -54,7 +54,7 @@ def post_install(self):
     self.uninstall("cmd:view")
 
 
-@subpackage("vim-classic-xxd")
+@split("xxd")
 def _(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
     self.provides = [self.with_pkgver("xxd")]

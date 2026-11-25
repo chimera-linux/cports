@@ -10,6 +10,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "1dfa33f80b6797ce2f6c01f454fd486d30be4dca1b0c5c2ea9ba3c30a5c39855"
 
 
-@subpackage("inotify-tools-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

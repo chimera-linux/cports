@@ -31,6 +31,6 @@ sha256 = "91d6fbd32abcbdf030d58d3f562de25ebbc9d56040d513ff8e5c19bee9dacf14"
 hardening = ["!int"]
 
 
-@subpackage("mgba-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

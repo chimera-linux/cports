@@ -18,11 +18,11 @@ source = f"https://download.videolan.org/pub/videolan/libaacs/{pkgver}/libaacs-{
 sha256 = "a88aa0ebe4c98a77f7aeffd92ab3ef64ac548c6b822e8248a8b926725bea0a39"
 
 
-@subpackage("libaacs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libaacs-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

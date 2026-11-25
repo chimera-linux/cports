@@ -193,17 +193,17 @@ def init_configure(self):
     ]
 
 
-@subpackage("opencv-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/opencv4/*.supp"])
 
 
-@subpackage("opencv-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("opencv-python")
+@split("python")
 def _(self):
     self.subdesc = "python module"
     self.depends += ["python-numpy"]

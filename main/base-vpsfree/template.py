@@ -39,7 +39,7 @@ def install(self):
     self.install_link("usr/lib/dinit.d/boot.d/sshd", "../sshd")
 
 
-@subpackage("base-vpsfree-meta")
+@split("meta")
 def _(self):
     self.subdesc = "optional dependencies"
     self.depends = [

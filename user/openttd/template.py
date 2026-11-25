@@ -31,7 +31,7 @@ def check(self):
     self.do("./build/openttd_test")
 
 
-@subpackage("openttd-locale")
+@split("locale")
 def _(self):
     self.install_if = [self.parent, "base-locale"]
     return ["usr/share/games/openttd/lang/*[!english]*.lng"]

@@ -12,7 +12,7 @@ source = f"$(CPAN_SITE)/Image/EXIFTOOL/Image-ExifTool-{pkgver}.tar.gz"
 sha256 = "5f4c81d34ad406538c2871ad72dbfceb5d9b412b2f16cbbeb4d712d270846667"
 
 
-@subpackage("perl-image-exiftool-progs")
+@split("progs")
 def _(self):
     self.depends += [self.parent]
     self.renames = ["exiftool"]

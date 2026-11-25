@@ -32,12 +32,12 @@ def init_configure(self):
     self.make_check_args += eargs
 
 
-@subpackage("libcap-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
 
-@subpackage("libcap-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

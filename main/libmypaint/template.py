@@ -22,6 +22,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libmypaint-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

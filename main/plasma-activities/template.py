@@ -23,6 +23,6 @@ sha256 = "bdd3c491e74a2c4b1afa3c8074edfbf8b024b6584c945e56ed9f3a28254c80f1"
 hardening = ["vis"]
 
 
-@subpackage("plasma-activities-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

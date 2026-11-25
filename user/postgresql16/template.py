@@ -276,7 +276,7 @@ for _pn, _pv in _extra_cmds.items():
     _contrib_alt(_pn, _pv)
 
 
-@subpackage("postgresql16-contrib")
+@split("contrib")
 def _(self):
     self.subdesc = "contrib"
     self.options = ["empty"]
@@ -284,7 +284,7 @@ def _(self):
     return []
 
 
-@subpackage("postgresql16-client-libs", _default_ver)
+@split("client-libs", _default_ver)
 def _(self):
     self.subdesc = "client library"
     # transitional
@@ -295,7 +295,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-client-devel", _default_ver)
+@split("client-devel", _default_ver)
 def _(self):
     self.subdesc = "client library development files"
     # transitional
@@ -315,7 +315,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-ecpg-libs", _default_ver)
+@split("ecpg-libs", _default_ver)
 def _(self):
     self.subdesc = "embedded PostgreSQL for C"
     # transitional
@@ -324,7 +324,7 @@ def _(self):
     return ["usr/lib/libecpg.so.*", "usr/lib/libpgtypes.so*"]
 
 
-@subpackage("postgresql16-ecpg-devel", _default_ver)
+@split("ecpg-devel", _default_ver)
 def _(self):
     self.subdesc = "embedded PostgreSQL for C development files"
     # transitional
@@ -344,7 +344,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-pltcl")
+@split("pltcl")
 def _(self):
     self.subdesc = "PL/Tcl"
     self.depends = [self.parent]
@@ -356,7 +356,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-plperl")
+@split("plperl")
 def _(self):
     self.subdesc = "PL/Perl"
     self.depends = [self.parent]
@@ -367,7 +367,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-plpython")
+@split("plpython")
 def _(self):
     self.subdesc = "PL/Python"
     self.depends = [self.parent]
@@ -378,6 +378,6 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=[f"usr/lib/{pkgname}/pgxs"])

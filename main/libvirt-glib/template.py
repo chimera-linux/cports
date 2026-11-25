@@ -22,6 +22,6 @@ source = f"http://libvirt.org/sources/glib/libvirt-glib-{pkgver}.tar.xz"
 sha256 = "9bfec346382416a3575d87299bc641b2a464aa519fd9b1287e318aa43a2f3b8b"
 
 
-@subpackage("libvirt-glib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

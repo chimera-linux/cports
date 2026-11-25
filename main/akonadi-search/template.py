@@ -68,7 +68,7 @@ def init_build(self):
     self.make_env.update(renv)
 
 
-@subpackage("akonadi-search-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-devel",

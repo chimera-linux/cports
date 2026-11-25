@@ -24,6 +24,6 @@ if self.profile.arch == "ppc64":
     make_check_args += ["-E", "ConfigTest"]
 
 
-@subpackage("opencc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

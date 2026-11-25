@@ -26,6 +26,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libtheora-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

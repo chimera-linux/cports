@@ -27,6 +27,6 @@ sha256 = "23be92ad8eb9625ce93b23b14f82f3cf88a4970c31d48581945ddfbac0441d06"
 options = ["!cross"]
 
 
-@subpackage("libayatana-appindicator-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

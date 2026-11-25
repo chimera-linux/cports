@@ -39,7 +39,7 @@ def check(self):
     )
 
 
-@subpackage("kimageannotator-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcolorpicker-devel"]
     return self.default_devel()

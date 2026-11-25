@@ -30,12 +30,12 @@ def post_install(self):
     self.install_service(self.files_path / "rrdcached")
 
 
-@subpackage("rrdtool-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("rrdtool-python")
+@split("python")
 def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

@@ -128,7 +128,7 @@ def install(self):
     self.install_license("LICENSE.TXT")
 
 
-@subpackage("llvm-runtimes-cross-static")
+@split("static")
 def _(self):
     self.subdesc = "static"
     self.renames = [

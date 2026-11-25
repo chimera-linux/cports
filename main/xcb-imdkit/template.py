@@ -21,6 +21,6 @@ sha256 = "c2f0bbad8a335a64cdc7c19ac7b6ea1f0887dd6300ca9a4fa2e2fec6b9d3f695"
 hardening = ["vis", "!cfi"]
 
 
-@subpackage("xcb-imdkit-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

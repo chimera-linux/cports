@@ -19,7 +19,7 @@ def install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("fonts-ibm-plex-sans-otf")
+@split("otf")
 def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-ibm-plex-sans-ttf"]
@@ -28,7 +28,7 @@ def _(self):
     return ["usr/share/fonts/ibm-plex/*.otf"]
 
 
-@subpackage("fonts-ibm-plex-sans-ttf")
+@split("ttf")
 def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-ibm-plex-sans-otf"]

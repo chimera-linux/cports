@@ -18,6 +18,6 @@ source = f"$(GNOME_SITE)/libgee/{pkgver[:-2]}/libgee-{pkgver}.tar.xz"
 sha256 = "189815ac143d89867193b0c52b7dc31f3aa108a15f04d6b5dca2b6adfad0b0ee"
 
 
-@subpackage("libgee-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

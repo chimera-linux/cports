@@ -217,7 +217,7 @@ for _lname, _ldesc in [
     _genlib(_lname, _ldesc)
 
 
-@subpackage("ffmpeg-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[
@@ -226,7 +226,7 @@ def _(self):
     )
 
 
-@subpackage("ffmpeg-ffplay")
+@split("ffplay")
 def _(self):
     self.pkgdesc = "Simple video player using FFmpeg and SDL"
     self.renames = ["ffplay"]

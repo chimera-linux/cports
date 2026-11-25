@@ -24,11 +24,11 @@ sha256 = "3671095f5a10bee8a755052a30576952c5b16d8b0f2ba9f2fb998338c18cb119"
 tool_flags = {"CXXFLAGS": ["-D_HAS_AUTO_PTR_ETC=0"]}
 
 
-@subpackage("libmspub-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libmspub-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

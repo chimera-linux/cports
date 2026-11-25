@@ -29,6 +29,6 @@ if self.profile.wordsize == 32:
     options += ["!check"]
 
 
-@subpackage("exiv2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

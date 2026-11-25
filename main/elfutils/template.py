@@ -62,7 +62,7 @@ def post_install(self):
     self.rename("usr/bin/eu-eustack", "eu-stack")
 
 
-@subpackage("elfutils-debuginfod")
+@split("debuginfod")
 def _(self):
     self.subdesc = "debuginfod"
     # transitional
@@ -74,7 +74,7 @@ def _(self):
     ]
 
 
-@subpackage("elfutils-debuginfod-libs")
+@split("debuginfod-libs")
 def _(self):
     self.subdesc = "debuginfod library"
     # transitional
@@ -88,7 +88,7 @@ def _(self):
     ]
 
 
-@subpackage("elfutils-libs")
+@split("libs")
 def _(self):
     # since the resolved (after symlinks) filename of the .so is without
     # a suffix, the automatic virtual version would be 0, which would
@@ -104,7 +104,7 @@ def _(self):
     return self.default_libs(extra=[f"usr/lib/*-{pkgver}.so"])
 
 
-@subpackage("elfutils-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("elftoolchain-devel")]

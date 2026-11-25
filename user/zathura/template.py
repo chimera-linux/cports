@@ -36,12 +36,12 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("zathura-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("zathura-backends")
+@split("backends")
 def _(self):
     self.subdesc = "backends"
     self.install_if = [self.parent]

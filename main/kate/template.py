@@ -40,12 +40,12 @@ options = ["!check"]
 
 
 # for kwrite to not pull in kate
-@subpackage("kate-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("kate-kwrite")
+@split("kwrite")
 def _(self):
     self.subdesc = "KWrite"
     self.provides = [self.with_pkgver("kwrite")]

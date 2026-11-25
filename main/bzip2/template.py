@@ -55,7 +55,7 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("bzip2-devel")
+@split("devel")
 def _(self):
     self.provides = [self.with_pkgver("libbz2-devel")]
 

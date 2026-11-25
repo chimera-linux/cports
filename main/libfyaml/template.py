@@ -17,11 +17,11 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libfyaml-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libfyaml-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

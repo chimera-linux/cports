@@ -14,6 +14,6 @@ sha256 = "716c7059703247344eb066b54ecbc3ca2134f0103307192e6c2b7dab5f9528ab"
 hardening = ["!ssp"]
 
 
-@subpackage("libaio-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

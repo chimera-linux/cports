@@ -54,19 +54,19 @@ def post_install(self):
     self.install_service(self.files_path / "mpris-proxy.user")
 
 
-@subpackage("bluez-libs")
+@split("libs")
 def _(self):
     self.renames = ["libbluetooth"]
 
     return self.default_libs()
 
 
-@subpackage("bluez-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("bluez-cups")
+@split("cups")
 def _(self):
     self.pkgdesc = "CUPS printer backend for Bluetooth printers"
     self.install_if = [self.parent, "cups"]

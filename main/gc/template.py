@@ -21,6 +21,6 @@ def post_install(self):
     self.install_license("README.QUICK")
 
 
-@subpackage("gc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

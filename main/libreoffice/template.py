@@ -487,7 +487,7 @@ for _subn, _subd in [
     _gensub(_subn, _subd)
 
 
-@subpackage("libreoffice-qt6")
+@split("qt6")
 def _(self):
     self.subdesc = "Qt6 integration"
     self.depends = [self.with_pkgver(f"{pkgname}-common")]
@@ -497,7 +497,7 @@ def _(self):
     return ["usr/lib/libreoffice/program/libvclplug_qt6lo.so"]
 
 
-@subpackage("libreoffice-kf6")
+@split("kf6")
 def _(self):
     self.subdesc = "KF6 integration"
     self.depends = [self.with_pkgver(f"{pkgname}-common")]
@@ -511,7 +511,7 @@ def _(self):
     return ["usr/lib/libreoffice/program/libvclplug_kf6lo.so"]
 
 
-@subpackage("libreoffice-common")
+@split("common")
 def _(self):
     self.subdesc = "common files"
     self.options = ["!lintcomp"]

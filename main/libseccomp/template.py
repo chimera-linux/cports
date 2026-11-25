@@ -21,7 +21,7 @@ sha256 = "f9a13e4c633d319a9240189760ca348caa0837c0ebe2a09b17061da8ceaf60f0"
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 
-@subpackage("libseccomp-devel")
+@split("devel")
 def _(self):
     self.depends += ["linux-headers"]
 

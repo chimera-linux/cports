@@ -21,6 +21,6 @@ sha256 = "95d8e2cae530c546d9437459deb8a1bea38d572f0f9772cc2860dc143637f256"
 hardening = ["vis"]
 
 
-@subpackage("polkit-qt-1-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

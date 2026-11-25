@@ -21,6 +21,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "86edb75048eec7fcd8d74f9568f051d50b4781982215095b96ba9c2c9c7c159b"
 
 
-@subpackage("pcaudiolib-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

@@ -30,6 +30,6 @@ else:
     configure_args += ["-DBUILD_TESTS=OFF"]
 
 
-@subpackage("lensfun-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

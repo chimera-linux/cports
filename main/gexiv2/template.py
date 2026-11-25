@@ -19,6 +19,6 @@ source = f"$(GNOME_SITE)/gexiv2/{pkgver[:-2]}/gexiv2-{pkgver}.tar.xz"
 sha256 = "aad9e240fdffbe85e390f46ee0a567e251baea5c29c3d8690260388683dc8d0a"
 
 
-@subpackage("gexiv2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

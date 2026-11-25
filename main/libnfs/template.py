@@ -10,6 +10,6 @@ source = f"{url}/archive/libnfs-{pkgver}.tar.gz"
 sha256 = "d945cb4f4c8f82ee1f3640893a168810f794a28e1010bb007ec5add345e9df3e"
 
 
-@subpackage("libnfs-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

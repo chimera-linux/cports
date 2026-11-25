@@ -11,6 +11,6 @@ source = f"https://download.savannah.nongnu.org/releases/libpipeline/libpipeline
 sha256 = "1b1203ca152ccd63983c3f2112f7fe6fa5afd453218ede5153d1b31e11bb8405"
 
 
-@subpackage("libpipeline-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

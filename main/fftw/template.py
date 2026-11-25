@@ -71,11 +71,11 @@ def check(self):
         self.make.check(wrksrc=f"build-{f}")
 
 
-@subpackage("fftw-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("fftw-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/info"])

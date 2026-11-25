@@ -13,6 +13,6 @@ source = (
 sha256 = "fbbf4de8cb7db5bdff5ecb672ff0dbe6939fb9f344b900d51ba6295329a332e7"
 
 
-@subpackage("libcacard-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

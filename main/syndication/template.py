@@ -16,6 +16,6 @@ def post_install(self):
     self.install_license("LICENSES/BSD-2-Clause.txt")
 
 
-@subpackage("syndication-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

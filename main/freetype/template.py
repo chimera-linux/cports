@@ -35,6 +35,6 @@ def post_install(self):
     self.install_license("docs/FTL.TXT")
 
 
-@subpackage("freetype-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

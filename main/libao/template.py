@@ -12,6 +12,6 @@ source = f"https://github.com/xiph/libao/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "df8a6d0e238feeccb26a783e778716fb41a801536fe7b6fce068e313c0e2bf4d"
 
 
-@subpackage("libao-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

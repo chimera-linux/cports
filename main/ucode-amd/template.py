@@ -43,7 +43,7 @@ def install(self):
     self.install_file(self.files_path / "ucode-amd", "etc/default")
 
 
-@subpackage("ucode-amd-full")
+@split("full")
 def _(self):
     self.subdesc = "full cpio image"
 

@@ -14,6 +14,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("fcgi-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

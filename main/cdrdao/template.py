@@ -37,7 +37,7 @@ def post_install(self):
     )
 
 
-@subpackage("cdrdao-gcdmaster")
+@split("gcdmaster")
 def _(self):
     self.subdesc = "GTK interface"
     self.depends = [self.parent]

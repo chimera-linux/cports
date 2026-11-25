@@ -38,7 +38,7 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("qt6-qtwebview-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "qt6-qtbase-devel",

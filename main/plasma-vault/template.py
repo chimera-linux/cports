@@ -33,7 +33,7 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-vault-{pkgver}.tar.xz"
 sha256 = "98552279fa15995a1329455f42b8dd1e4397df9f3b95d8ffdfbd2255ce49ebe6"
 
 
-@subpackage("plasma-vault-none")
+@split("none")
 def _(self):
     self.subdesc = "no backend"
     self.provides = ["plasma-vault-backend=0"]

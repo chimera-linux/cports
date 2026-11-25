@@ -22,7 +22,7 @@ def post_install(self):
     self.uninstall("usr/tests")
 
 
-@subpackage("qt6-qtsvg-devel")
+@split("devel")
 def _(self):
     return self.default_devel(
         extra=[

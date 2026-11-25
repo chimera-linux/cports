@@ -27,7 +27,7 @@ def install(self):
     )
 
 
-@subpackage("chimera-repo-user-debug")
+@split("debug")
 def _(self):
     self.subdesc = "debug packages"
     self.depends = [self.parent]

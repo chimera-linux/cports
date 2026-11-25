@@ -45,6 +45,6 @@ sha256 = "8e3ce74ee717c3c322d0cb0f8df26bb0914028a5d016e28055ffb49cc9a46c5e"
 options = ["!check"]
 
 
-@subpackage("grilo-plugins-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

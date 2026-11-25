@@ -120,7 +120,7 @@ def check(self):
     self.do("objdir/dist/bin/jsapi-tests")
 
 
-@subpackage("mozjs140-devel")
+@split("devel")
 def _(self):
     # include the interactive interpreter
     return self.default_devel(extra=["usr/bin"])

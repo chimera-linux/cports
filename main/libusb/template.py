@@ -11,7 +11,7 @@ source = f"https://github.com/libusb/libusb/releases/download/v{pkgver}/libusb-{
 sha256 = "fea36f34f9156400209595e300840767ab1a385ede1dc7ee893015aea9c6dbaf"
 
 
-@subpackage("libusb-devel")
+@split("devel")
 def _(self):
     self.depends = ["pc:libudev!udev-devel"]
     return self.default_devel()

@@ -19,7 +19,7 @@ source = f"$(KDE_SITE)/futuresql/futuresql-{pkgver}.tar.xz"
 sha256 = "e44ed8d5a9618b3ca7ba2983ed9c5f7572e6e0a5b199f94868834b71ccbebd43"
 
 
-@subpackage("futuresql-devel")
+@split("devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

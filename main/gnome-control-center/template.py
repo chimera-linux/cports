@@ -72,7 +72,7 @@ sha256 = "1054976c2f1977f770ba134b872f547c89db7005e4422f09a96d521379c083cb"
 options = ["!lintpixmaps"]
 
 
-@subpackage("gnome-control-center-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

@@ -28,6 +28,6 @@ sha256 = "bd59abd5f1314e411d0d55ce3643e91cef633271f58126be529de5fb71c5ab38"
 options = ["!cross"]
 
 
-@subpackage("ayatana-ido-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

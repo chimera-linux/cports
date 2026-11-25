@@ -39,17 +39,17 @@ def post_install(self):
     self.install_service(self.files_path / "knotd")
 
 
-@subpackage("knot-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("knot-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("knot-progs")
+@split("progs")
 def _(self):
     def func():
         for prog in ["kdig", "khost", "knsupdate"]:

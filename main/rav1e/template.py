@@ -35,11 +35,11 @@ def install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("rav1e-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("rav1e-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

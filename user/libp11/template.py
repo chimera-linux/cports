@@ -14,6 +14,6 @@ sha256 = "9292de67ca73aba1deacf577c9086b595765f36ef47712cfeb49fa31f6e772fb"
 options = ["!check"]
 
 
-@subpackage("libp11-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

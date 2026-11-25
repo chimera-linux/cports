@@ -19,6 +19,6 @@ source = f"https://github.com/dino/libomemo-c/releases/download/v{pkgver}/libome
 sha256 = "766827c07ff2cdc4deaf87bd9485474ed4aeea2fa5152593bf49fabe22b5865f"
 
 
-@subpackage("libomemo-c-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

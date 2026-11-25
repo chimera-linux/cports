@@ -27,7 +27,7 @@ sha256 = "7d8bf911d600bd695d2c9a9bdd0ff26e40092195aa18926adf89aef46a330e84"
 hardening = ["vis"]
 
 
-@subpackage("ktextwidgets-devel")
+@split("devel")
 def _(self):
     self.depends += ["sonnet-devel", "ki18n-devel"]
 

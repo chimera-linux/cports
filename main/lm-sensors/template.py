@@ -17,7 +17,7 @@ options = ["etcfiles", "!check"]
 # TODO: service for fancontrol
 
 
-@subpackage("lm-sensors-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libsensors")]
@@ -25,7 +25,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("lm-sensors-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libsensors-devel")]

@@ -78,11 +78,11 @@ def post_install(self):
     self.install_license(self.srcdir / "LICENSE")
 
 
-@subpackage("icu-libs")
+@split("libs")
 def _(self):
     return self.default_libs(extra=[f"usr/share/icu/{pkgver}/icudt*.dat"])
 
 
-@subpackage("icu-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/icu", "usr/lib/icu"])

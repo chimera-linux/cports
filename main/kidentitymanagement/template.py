@@ -30,7 +30,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kidentitymanagement-{pkgver}
 sha256 = "1472ce2572d2126c5cdd6f028eb1e974e4bba05eecfce9ea431236caf14b64a5"
 
 
-@subpackage("kidentitymanagement-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "kcoreaddons-devel",

@@ -37,6 +37,6 @@ def post_install(self):
     self.uninstall("usr/lib/sysusers.d/geoclue-sysusers.conf")
 
 
-@subpackage("geoclue-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

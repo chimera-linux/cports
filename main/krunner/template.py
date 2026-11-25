@@ -30,7 +30,7 @@ sha256 = "5f9729b5f160fdf17c676b8dd1c5edad861576d4793c1a20cd0cb23ff9d2052b"
 hardening = ["vis"]
 
 
-@subpackage("krunner-devel")
+@split("devel")
 def _(self):
     self.depends += ["kcoreaddons-devel"]
 

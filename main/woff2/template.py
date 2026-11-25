@@ -18,7 +18,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("woff2-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [
@@ -29,6 +29,6 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("woff2-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

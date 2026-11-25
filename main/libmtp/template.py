@@ -14,7 +14,7 @@ sha256 = "c3fcf411aea9cb9643590cbc9df99fa5fe30adcac695024442973d76fa5f87bc"
 options = ["!cross"]
 
 
-@subpackage("libmtp-devel")
+@split("devel")
 def _(self):
     self.depends += ["libgcrypt-devel"]
 

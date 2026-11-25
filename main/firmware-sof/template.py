@@ -31,7 +31,7 @@ def install(self):
     self.install_license("LICENCE.Intel")
 
 
-@subpackage("firmware-sof-meta")
+@split("meta")
 def _(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]

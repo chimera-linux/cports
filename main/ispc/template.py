@@ -43,11 +43,11 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("ispc-libs")
+@split("libs")
 def _(self):
     return self.default_libs()
 
 
-@subpackage("ispc-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

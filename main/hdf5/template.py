@@ -40,11 +40,11 @@ def post_install(self):
     self.install_license("COPYING_LBNL_HDF5")
 
 
-@subpackage("hdf5-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("hdf5-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

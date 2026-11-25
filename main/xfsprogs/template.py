@@ -47,7 +47,7 @@ def post_install(self):
     self.uninstall("usr/lib/udev/rules.d/64-xfs.rules")
 
 
-@subpackage("xfsprogs-devel")
+@split("devel")
 def _(self):
     self.depends += ["util-linux-uuid-devel"]
 

@@ -53,7 +53,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/mailcommon-{pkgver}.tar.xz"
 sha256 = "2f8d76f8318f32065e375c87044cdf007563846c9a24e78db84e6fbb013b3531"
 
 
-@subpackage("mailcommon-devel")
+@split("devel")
 def _(self):
     self.depends += [
         "akonadi-devel",

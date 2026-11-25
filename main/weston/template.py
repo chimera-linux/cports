@@ -52,7 +52,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("weston-x11")
+@split("x11")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "X11 backend"
@@ -60,7 +60,7 @@ def _(self):
     return ["usr/lib/libweston*/x11-backend.so"]
 
 
-@subpackage("weston-xwayland")
+@split("xwayland")
 def _(self):
     self.depends = [self.parent]
     self.subdesc = "Xwayland plugin"
@@ -68,11 +68,11 @@ def _(self):
     return ["usr/lib/libweston*/xwayland.so"]
 
 
-@subpackage("weston-libs")
+@split("libs")
 def _(self):
     return self.default_libs(extra=[f"usr/lib/libweston-{pkgver[0:2]}"])
 
 
-@subpackage("weston-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

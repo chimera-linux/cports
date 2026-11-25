@@ -75,14 +75,14 @@ def install(self):
     self.install_files("linux-package", "", name="usr")
 
 
-@subpackage("kitty-terminfo")
+@split("terminfo")
 def _(self):
     self.subdesc = "terminfo data"
 
     return ["usr/share/terminfo"]
 
 
-@subpackage("kitty-kitten")
+@split("kitten")
 def _(self):
     self.subdesc = "kitten client"
 

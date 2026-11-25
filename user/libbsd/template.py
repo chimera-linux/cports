@@ -28,7 +28,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libbsd-devel")
+@split("devel")
 def _(self):
     self.depends = [self.parent, "libmd-devel"]
     return self.default_devel()

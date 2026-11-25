@@ -24,6 +24,6 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("duktape-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

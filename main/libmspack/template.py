@@ -16,6 +16,6 @@ sha256 = "70dd1fb2f0aecc36791b71a1e1840e62173079eadaa081192d1c323a0eeea21b"
 hardening = []
 
 
-@subpackage("libmspack-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

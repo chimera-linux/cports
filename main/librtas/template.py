@@ -13,6 +13,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "b88ca9ac5acafb924cd0aaf56c89a7f149c84ade0fc6840f3ef8356ab96a1254"
 
 
-@subpackage("librtas-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

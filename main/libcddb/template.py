@@ -12,11 +12,11 @@ sha256 = "68e9b53918b9bea727fb2db78936526671c039dcd7396cb82ecd6854e866048c"
 options = ["!check"]
 
 
-@subpackage("libcddb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()
 
 
-@subpackage("libcddb-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

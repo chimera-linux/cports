@@ -13,12 +13,12 @@ source = f"http://dev-www.libreoffice.org/src/libcdr/libcdr-{pkgver}.tar.xz"
 sha256 = "f7bb6abdd7f226820f288a93dd8d07759833c0250d9e202af90f9b312c4665a3"
 
 
-@subpackage("libcdr-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libcdr-devel")
+@split("devel")
 def _(self):
     self.depends += ["boost-devel"]
 

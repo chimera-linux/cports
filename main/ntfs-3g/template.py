@@ -38,7 +38,7 @@ def post_install(self):
     self.uninstall("sbin")
 
 
-@subpackage("ntfs-3g-libs")
+@split("libs")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libntfs-3g")]
@@ -46,7 +46,7 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("ntfs-3g-devel")
+@split("devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("libntfs-3g-devel")]

@@ -34,6 +34,6 @@ def post_install(self):
     self.install_license("LICENSES/BSD-2-Clause.txt")
 
 
-@subpackage("cxx-rust-cssparser-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

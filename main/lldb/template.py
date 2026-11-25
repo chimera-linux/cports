@@ -89,6 +89,6 @@ def post_install(self):
     python.precompile(self, "usr/lib")
 
 
-@subpackage("lldb-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

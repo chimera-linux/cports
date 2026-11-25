@@ -24,6 +24,6 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libva-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

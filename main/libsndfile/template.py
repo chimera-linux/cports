@@ -19,11 +19,11 @@ source = f"https://github.com/libsndfile/libsndfile/releases/download/{pkgver}/l
 sha256 = "3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e"
 
 
-@subpackage("libsndfile-progs")
+@split("progs")
 def _(self):
     return self.default_progs()
 
 
-@subpackage("libsndfile-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])

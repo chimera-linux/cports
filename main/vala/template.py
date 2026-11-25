@@ -25,14 +25,14 @@ source = (
 sha256 = "5ad7cbbfcc0de61b403d6797c9ef60455bfbebd8e162aec33b5b0b097adfb9d5"
 
 
-@subpackage("vala-libs")
+@split("libs")
 def _(self):
     self.renames = ["libvala"]
 
     return ["usr/lib/libvala-*.so.*"]
 
 
-@subpackage("vala-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
 

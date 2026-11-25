@@ -16,6 +16,6 @@ def post_install(self):
     self.uninstall("usr/include/minizip/crypt.h")
 
 
-@subpackage("minizip-devel")
+@split("devel")
 def _(self):
     return self.default_devel()

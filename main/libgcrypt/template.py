@@ -27,11 +27,11 @@ def post_extract(self):
     self.rm("m4/gpg-error.m4")
 
 
-@subpackage("libgcrypt-devel")
+@split("devel")
 def _(self):
     return self.default_devel(extra=["usr/share/info"])
 
 
-@subpackage("libgcrypt-progs")
+@split("progs")
 def _(self):
     return self.default_progs()

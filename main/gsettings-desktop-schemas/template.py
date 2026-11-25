@@ -31,7 +31,7 @@ def post_install(self):
     )
 
 
-@subpackage("gsettings-desktop-schemas-devel")
+@split("devel")
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()
