@@ -10,3 +10,16 @@ index 8e5dd0d..3da39d9 100644
  
  namespace {
  
+diff --git a/src/ui/controls/image.h b/src/ui/controls/image.h
+index 1193b90..bcdc883 100644
+--- a/src/ui/controls/image.h
++++ b/src/ui/controls/image.h
+@@ -1,5 +1,8 @@
+ #pragma once
+ #include "render/scene/node.h"
++
++#include <string>
++
+ class Image : public Node {
+ public:
+   Image();
