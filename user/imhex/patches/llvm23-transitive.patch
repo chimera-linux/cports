@@ -1,0 +1,156 @@
+diff --git a/lib/external/disassembler/lib/source/spec/opcode.cpp b/lib/external/disassembler/lib/source/spec/opcode.cpp
+index 61dc804..5269d16 100644
+--- a/lib/external/disassembler/lib/source/spec/opcode.cpp
++++ b/lib/external/disassembler/lib/source/spec/opcode.cpp
+@@ -5,6 +5,7 @@
+ #include <wolv/utils/string.hpp>
+ #include <wolv/math_eval/math_evaluator.hpp>
+ 
++#include <fmt/format.h>
+ #include <fmt/core.h>
+ 
+ namespace disasm::spec {
+diff --git a/lib/external/libromfs/lib/include/romfs/romfs.hpp b/lib/external/libromfs/lib/include/romfs/romfs.hpp
+index 043719b..5312f0e 100644
+--- a/lib/external/libromfs/lib/include/romfs/romfs.hpp
++++ b/lib/external/libromfs/lib/include/romfs/romfs.hpp
+@@ -6,6 +6,7 @@
+ #include <string_view>
+ #include <span>
+ #include <vector>
++#include <type_traits>
+ 
+ #define ROMFS_CONCAT_IMPL(x, y) x##y
+ #define ROMFS_CONCAT(x, y) ROMFS_CONCAT_IMPL(x, y)
+@@ -95,4 +96,4 @@ namespace romfs {
+     [[nodiscard]] ROMFS_VISIBILITY inline std::string_view name() { return impl::ROMFS_CONCAT(name_, LIBROMFS_PROJECT_NAME)(); }
+ 
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/external/libwolv/libs/math_eval/source/math_eval/math_evaluator.cpp b/lib/external/libwolv/libs/math_eval/source/math_eval/math_evaluator.cpp
+index 7b1589f..30116f1 100644
+--- a/lib/external/libwolv/libs/math_eval/source/math_eval/math_evaluator.cpp
++++ b/lib/external/libwolv/libs/math_eval/source/math_eval/math_evaluator.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <wolv/utils/core.hpp>
+ 
++#include <cstdlib>
+ #include <bit>
+ #include <string>
+ #include <queue>
+diff --git a/lib/external/libwolv/libs/utils/include/wolv/utils/charconv.hpp b/lib/external/libwolv/libs/utils/include/wolv/utils/charconv.hpp
+index fbfdd0d..ba4bddd 100644
+--- a/lib/external/libwolv/libs/utils/include/wolv/utils/charconv.hpp
++++ b/lib/external/libwolv/libs/utils/include/wolv/utils/charconv.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ 
++#include <cstdlib>
+ #include <charconv>
+ #include <wolv/utils/string.hpp>
+ 
+@@ -57,4 +58,4 @@ namespace wolv::util {
+         }
+     }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/external/pattern_language/lib/include/pl/core/errors/error.hpp b/lib/external/pattern_language/lib/include/pl/core/errors/error.hpp
+index edbc507..f95a64a 100644
+--- a/lib/external/pattern_language/lib/include/pl/core/errors/error.hpp
++++ b/lib/external/pattern_language/lib/include/pl/core/errors/error.hpp
+@@ -4,6 +4,7 @@
+ #include <pl/core/location.hpp>
+ 
+ #include <fmt/core.h>
++#include <fmt/format.h>
+ 
+ #include <string>
+ #include <utility>
+@@ -192,4 +193,4 @@ namespace pl::core::err {
+         std::vector<CompileError> m_errors;
+     };
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/libimhex/include/hex/api/content_registry/data_formatter.hpp b/lib/libimhex/include/hex/api/content_registry/data_formatter.hpp
+index 9c52b11..cf82490 100644
+--- a/lib/libimhex/include/hex/api/content_registry/data_formatter.hpp
++++ b/lib/libimhex/include/hex/api/content_registry/data_formatter.hpp
+@@ -4,6 +4,7 @@
+ 
+ #include <hex/api/localization_manager.hpp>
+ 
++#include <bit>
+ #include <string>
+ #include <functional>
+ #include <vector>
+@@ -70,4 +71,4 @@ EXPORT_MODULE namespace hex {
+ 
+     }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/libimhex/include/hex/api/localization_manager.hpp b/lib/libimhex/include/hex/api/localization_manager.hpp
+index be8c40b..a62c28c 100644
+--- a/lib/libimhex/include/hex/api/localization_manager.hpp
++++ b/lib/libimhex/include/hex/api/localization_manager.hpp
+@@ -8,6 +8,7 @@
+ #include <vector>
+ #include <functional>
+ 
++#include <fmt/format.h>
+ #include <fmt/core.h>
+ #include <wolv/types/static_string.hpp>
+ 
+@@ -169,4 +170,4 @@ namespace fmt {
+         return fmt::format(fmt::runtime(entry.get()), std::forward<Args>(args)...);
+     }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/libimhex/include/hex/api/task_manager.hpp b/lib/libimhex/include/hex/api/task_manager.hpp
+index 4d0f754..88c10d2 100644
+--- a/lib/libimhex/include/hex/api/task_manager.hpp
++++ b/lib/libimhex/include/hex/api/task_manager.hpp
+@@ -3,6 +3,7 @@
+ #include <hex.hpp>
+ #include <hex/api/localization_manager.hpp>
+ 
++#include <atomic>
+ #include <functional>
+ #include <mutex>
+ #include <memory>
+@@ -252,4 +253,4 @@ EXPORT_MODULE namespace hex {
+         static TaskHolder createTask(const UnlocalizedString &unlocalizedName, u64 maxValue, bool background, bool blocking, std::function<void(Task &)> function);
+     };
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/lib/libimhex/include/hex/helpers/udp_server.hpp b/lib/libimhex/include/hex/helpers/udp_server.hpp
+index ef49b76..a5c315a 100644
+--- a/lib/libimhex/include/hex/helpers/udp_server.hpp
++++ b/lib/libimhex/include/hex/helpers/udp_server.hpp
+@@ -6,6 +6,7 @@
+ #include <thread>
+ #include <atomic>
+ #include <span>
++#include <vector>
+ 
+ namespace hex {
+ 
+@@ -56,4 +57,4 @@ namespace hex {
+         int m_socketFd = -1;
+     };
+ 
+-}
+\ No newline at end of file
++}

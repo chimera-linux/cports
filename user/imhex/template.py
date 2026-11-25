@@ -33,9 +33,8 @@ makedepends = [
     "glfw-devel",
     "libarchive-devel",
     "libedit-devel",
+    "linux-headers",
     "llvm-devel",
-    # LLVMdemangle is static only
-    "llvm-devel-static",
     "mbedtls-devel",
     "nlohmann-json",
     "xz-devel",
