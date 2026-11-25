@@ -721,7 +721,7 @@ def _(self):
         f"so:libc++.so.1!llvm{_majver}-runtimes",
         f"so:libunwind.so.1!llvm{_majver}-runtimes",
     ]
-    self.options = ["!scanrundeps"]
+    self.options = ["!scanrundeps", "ltostrip", "!splitstatic"]
     self.provides = [self.with_pkgver("llvm-runtimes-devel-default")]
 
     return [
@@ -750,7 +750,6 @@ def _(self):
 @subpackage(f"llvm{_majver}-runtimes-devel")
 def _(self):
     self.subdesc = "runtimes development files"
-    self.options = ["ltostrip", "!splitstatic"]
     self.depends += [
         f"virtual:llvm-runtimes-devel-default!llvm{_majver}-runtimes-base-devel"
     ]
