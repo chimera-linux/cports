@@ -96,7 +96,6 @@ if self.profile.arch == "riscv64":
 def post_patch(self):
     from cbuild.util import cargo
 
-    self.rm("lw/mozconfig.new")
     self.rm("mozconfig")
 
     for crate in []:
