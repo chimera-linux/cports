@@ -267,7 +267,7 @@ def _(self):
     ]
 
 
-@subpackage(pkgname, alternative="java-jre-headless")
+@alternative("java-jre-headless")
 def _(self):
     # default version
     self.provider_priority = 120
@@ -287,7 +287,7 @@ def _(self):
     ]
 
 
-@subpackage(pkgname, alternative="java-jre")
+@alternative("java-jre")
 def _(self):
     # default version
     self.provider_priority = 120
@@ -302,7 +302,7 @@ def _(self):
     return []
 
 
-@subpackage(pkgname, alternative="java-jdk")
+@alternative("java-jdk")
 def _(self):
     # default version
     self.provider_priority = 120

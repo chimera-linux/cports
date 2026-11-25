@@ -222,7 +222,7 @@ for _cont in _contrib_list:
     _contrib_pkg(_cont)
 
 
-@subpackage(pkgname, alternative="postgresql")
+@alternative("postgresql")
 def _(self):
     # the default version
     if _default_ver:
@@ -256,7 +256,7 @@ def _(self):
 # these are provided by contribs, can't put them in the default alt
 # nor should we make them actual alternatives (autoinstall instead)
 def _contrib_alt(pn, pl):
-    @subpackage(f"{pkgname}-{pn}", alternative="!postgresql")
+    @alternative("!postgresql", base=pn)
     def _(self):
         self.subdesc = f"default links for {pn}"
         self.depends = [self.with_pkgver(f"postgresql-{pkgname}-default")]

@@ -257,7 +257,7 @@ def post_install(self):
         self.uninstall(f)
 
 
-@subpackage(pkgname, alternative="php")
+@alternative("php")
 def _(self):
     # this is the default version
     self.provider_priority = 100

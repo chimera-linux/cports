@@ -833,17 +833,10 @@ class Template(Package):
         self.exec_module(init, contents)
 
     def exec_module(self, init, contents=None):
-        def subpkg_deco(spkgname, cond=True, alternative=None):
+        def subpkg_deco(spkgname, cond=True):
             def deco(f):
                 spfx = f"{self.pkgname}-"
                 validn = spkgname.startswith(spfx)
-                if alternative:
-                    pn = f"{alternative.removeprefix('!')}-{spkgname}-default"
-                    # alternatives can also be defined for main package
-                    if spkgname == self.pkgname:
-                        validn = True
-                else:
-                    pn = spkgname
                 if not validn:
                     self.error(
                         f"subpackage '{spkgname}' must start with '{spfx}'"
@@ -852,7 +845,24 @@ class Template(Package):
                     self.error(
                         f"subpackage function '{f.__name__}' must be called '_'"
                     )
-                self.all_subpackages.append(pn)
+                self.all_subpackages.append(spkgname)
+                if cond:
+                    self.subpackages.append((spkgname, f, None))
+
+            return deco
+
+        def alternative_deco(alternative, cond=True, base=None):
+            def deco(f):
+                spkgname = self.pkgname
+                if base:
+                    spkgname += f"-{base}"
+                if f.__name__ != "_":
+                    self.error(
+                        f"alternative function '{f.__name__}' must be called '_'"
+                    )
+                self.all_subpackages.append(
+                    f"{alternative.removeprefix('!')}-{spkgname}-default"
+                )
                 if cond:
                     self.subpackages.append((spkgname, f, alternative))
 
@@ -869,6 +879,7 @@ class Template(Package):
             return deco
 
         builtins.subpackage = subpkg_deco
+        builtins.alternative = alternative_deco
         builtins.custom_target = target_deco
         builtins.self = self
 
