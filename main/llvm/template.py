@@ -191,7 +191,7 @@ _subpkgs = {
 
 def _genpkg(
     pkg,
-    sname,
+    osname,
     desc,
     use_default,
     gen_dbg,
@@ -199,11 +199,12 @@ def _genpkg(
     internal_deps,
     provides,
 ):
-    if not sname.startswith("llvm-"):
-        rsname = f"llvm-{sname}"
+    if not osname.startswith("llvm-"):
+        rsname = f"llvm-{osname}"
+        sname = osname
     else:
-        rsname = sname
-        sname = sname.removeprefix("llvm-")
+        rsname = osname
+        sname = osname.removeprefix("llvm-")
 
     @split(sname, enable)
     def _(self):
@@ -228,8 +229,8 @@ def _genpkg(
             else:
                 self.depends.append(self.with_pkgver(f"llvm-{dep}"))
         # any extra providers
-        if not sname.startswith("llvm-"):
-            self.provides.append(self.with_pkgver(sname))
+        if not osname.startswith("llvm-"):
+            self.provides.append(self.with_pkgver(osname))
         for prov in provides:
             self.provides.append(self.with_pkgver(prov))
 
@@ -248,8 +249,8 @@ def _genpkg(
         self.provides = []
         self.options = ["empty"]
         # any extra providers
-        if not sname.startswith("llvm-"):
-            self.provides.append(self.with_pkgver(f"{sname}-dbg"))
+        if not osname.startswith("llvm-"):
+            self.provides.append(self.with_pkgver(f"{osname}-dbg"))
         for prov in provides:
             self.provides.append(self.with_pkgver(f"{prov}-dbg"))
 
