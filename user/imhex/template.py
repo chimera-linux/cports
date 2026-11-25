@@ -57,7 +57,7 @@ sha256 = [
     "3aae4c0970bc1b85bf4dc566bdf31de33c7dce593375645600549643ce6f9841",
 ]
 # FIXME lintpixmaps
-options = ["!lintpixmaps"]
+options = ["!lintpixmaps", "llvmflags"]
 
 if self.profile.wordsize == 32:
     broken = "uses int128"
