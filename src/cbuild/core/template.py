@@ -836,12 +836,24 @@ class Template(Package):
         def subpkg_deco(spkgname, cond=True):
             def deco(f):
                 spfx = f"{self.pkgname}-"
-                validn = spkgname.startswith(spfx)
-                if not validn:
+                if not spkgname.startswith(spfx):
                     self.error(
                         f"subpackage '{spkgname}' must start with '{spfx}'"
                     )
                 elif f.__name__ != "_":
+                    self.error(
+                        f"subpackage function '{f.__name__}' must be called '_'"
+                    )
+                self.all_subpackages.append(spkgname)
+                if cond:
+                    self.subpackages.append((spkgname, f, None))
+
+            return deco
+
+        def splitpkg_deco(subname, cond=True):
+            def deco(f):
+                spkgname = f"{self.pkgname}-{subname}"
+                if f.__name__ != "_":
                     self.error(
                         f"subpackage function '{f.__name__}' must be called '_'"
                     )
@@ -879,6 +891,7 @@ class Template(Package):
             return deco
 
         builtins.subpackage = subpkg_deco
+        builtins.split = splitpkg_deco
         builtins.alternative = alternative_deco
         builtins.custom_target = target_deco
         builtins.self = self

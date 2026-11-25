@@ -4,6 +4,8 @@
 extend-ignore = E501,W503,E203
 max-line-length = 80
 builtins =
+    alternative,
     custom_target,
     self,
+    split,
     subpackage,

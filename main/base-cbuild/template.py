@@ -66,7 +66,7 @@ def install(self):
     self.install_file(self.files_path / "config", "usr/lib/apk")
 
 
-@subpackage("base-cbuild-progs")
+@split("progs")
 def _(self):
     # make sure to use our wrapper symlinks
     self.replaces = [f"llvm{_llvmver}-lld"]
