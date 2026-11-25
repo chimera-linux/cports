@@ -626,10 +626,6 @@ should follow the upstream name (other than case) regardless of the
 contents of the package. That is, when a library is called `foo`,
 the package should be called `foo`, not `libfoo`.
 
-All subpackages must have the main template name as the prefix. That
-is, for a template `somepackage`, subpackages must follow the pattern
-`somepackage-somesubpackage`.
-
 If you need to split one or more libraries from the main package,
 the package should take on the `-libs` suffix. If splitting off into
 multiple library subpackages, they should follow the pattern of
@@ -1490,18 +1486,19 @@ In the template file, you use a decorator. The decorator is available globally
 during the time a package is initialized. The syntax works like this:
 
 ```
-@subpackage("mypackage-sub")
+@split("sub")
 def _(self):
     ...
 ```
 
 The function name must be a single underscore. The subpackage name follows the
-same conventions as the main package (notably, it must be lowercase) and must
-start with the main package name followed by a dash as its prefix. In order to
-cover more cases, the subpackage definition can also be conditional:
+same conventions as the main package (notably, it must be lowercase). Using the
+decorator already facilitates properly prefixing the package, so in this case
+the declared subpackage is called `somepackage-sub`. In order to cover more
+cases, the subpackage definition can also be conditional:
 
 ```
-@subpackage("package-sub", foo == bar)
+@split("sub", foo == bar)
 def ...
 ```
 
@@ -1516,12 +1513,12 @@ for better introspection/analysis by tooling.
 The subpackage body function can look like this:
 
 ```
-@subpackage("foo-devel")
+@split("sub")
 def _(self):
     self.depends = [...]
     self.options = ["textrels"]
 
-    return ["usr/include", "usr/lib/*.so", "usr/lib/*.a"]
+    return ["cmd:foo", "usr/share/foo"]
 ```
 
 How this works should be fairly self-explanatory, but to make it clearer,
@@ -2499,7 +2496,7 @@ to access them from inside functions.
 <a id="api_builtins"></a>
 ### Builtins
 
-#### @subpackage(name, cond = True)
+#### @split(name, cond = True)
 
 This is a subpackage decorator, see [Subpackages](#subpackages).
 
