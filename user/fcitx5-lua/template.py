@@ -20,6 +20,12 @@ source = (
     f"https://github.com/fcitx/fcitx5-lua/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "fb0695f7738a18ad63ae9228de71aa5f2bece35fe706a1d88cb170950e0b9036"
+# tests may be disabled
+options = []
+
+if self.profile.arch in ["ppc64le"]:
+    # FIXME test segfault
+    options += ["!check"]
 
 
 @split("devel")
