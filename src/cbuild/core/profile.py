@@ -166,7 +166,7 @@ def _get_hldflags(prof, tmpl, tharden):
         hflags.append("-Wl,-z,pack-relative-relocs")
 
     # cfi uses the ubsan runtime for error printing
-    lver = tmpl.llvm_version
+    lver = getattr(tmpl, "llvm_version", -1)
     if tmpl.options["sanruntime"] and (hard["int"] or hard["cfi"]) and lver > 0:
         hflags += [
             f"/usr/lib/llvm{lver}/lib/clang/{lver}/lib/{prof._triplet}/libclang_rt.ubsan_standalone.a"
