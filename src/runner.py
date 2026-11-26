@@ -2679,7 +2679,7 @@ def do_commit(tgt):
 
     # now for each, run git commit...
     for tmpln in stmpls:
-        tmpl, otmpls, tfiles = bulkmap[tmpln]
+        tmpl, otmpl, tfiles = bulkmap[tmpln]
         if otmpl is False:
             # new package
             msg = f"{tmpl.full_pkgname}: new package"

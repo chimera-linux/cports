@@ -893,8 +893,9 @@ class Template(Package):
                 modspec.loader.exec_module(self._mod_handle)
                 self._raw_mod = self._mod_handle
                 self._mod_handle = None
+                delattr(builtins, "alternative")
                 delattr(builtins, "self")
-                delattr(builtins, "subpackage")
+                delattr(builtins, "split")
             if init:
                 self.init_from_mod()
             return
