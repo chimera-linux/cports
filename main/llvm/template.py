@@ -1,7 +1,7 @@
 pkgname = "llvm"
 pkgver = "23.1.6"
 _majver = pkgver[0:2]
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     f"llvm{_majver}-default",
