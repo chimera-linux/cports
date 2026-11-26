@@ -1,6 +1,6 @@
 pkgname = "ckms"
-pkgver = "0.1.1"
-pkgrel = 4
+pkgver = "0.1.2"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
@@ -8,7 +8,7 @@ pkgdesc = "Chimera Kernel Module System"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/ckms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d15e252fc5a9fa6d9a9187979512849b1634a52c4b98d44839a3f42464964021"
+sha256 = "b18de2c60927191725b91bda5f297bff7ed1f2a9da7239435c66a9012ad16dc9"
 # no tests
 options = ["etcfiles", "!check"]
 
