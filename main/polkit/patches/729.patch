@@ -1,0 +1,36 @@
+From f8ab421abcf81ebb8e109b468ad17a6a59f58a33 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 26 Nov 2026 17:24:52 +0100
+Subject: [PATCH] pkexec: fix use after free when given no arguments
+
+The shell path from passwd is copied and the pointer is put into
+the argv array, and then used in realpath() resolution; if that
+returns a resolved path, it is freed and replaced with resolved
+path, which leaves a dangling pointer in the constructed argv.
+
+Then, when we exec() into the shell, we get garbage in argv,
+crashing the dynamic linker.
+
+Using command_line is fine because that has the same contents
+as path (in this case) and is our own private copy that survives
+exec.
+---
+ src/programs/pkexec.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/programs/pkexec.c b/src/programs/pkexec.c
+index c144c4b7..add74568 100644
+--- a/src/programs/pkexec.c
++++ b/src/programs/pkexec.c
+@@ -715,7 +715,10 @@ main (int argc, char *argv[])
+ 	 case below too */
+       command_line = g_strdup (path);
+       shell_argv = g_ptr_array_new ();
+-      g_ptr_array_add (shell_argv, path);
++      /* It is important to not set use path here, as that is freed below in
++       * realpath resolution and we need it preserved at least until exec happens
++       */
++      g_ptr_array_add (shell_argv, command_line);
+       g_ptr_array_add (shell_argv, NULL);
+       exec_argv = (char**)g_ptr_array_free (shell_argv, FALSE);
+     }
