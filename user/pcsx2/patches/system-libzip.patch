@@ -1,0 +1,17 @@
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index f3b71b7dd..7d8ff49fa 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -92,11 +92,11 @@ add_subdirectory(3rdparty/simpleini EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/imgui EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/cpuinfo EXCLUDE_FROM_ALL)
+ disable_compiler_warnings_for_target(cpuinfo)
+-add_subdirectory(3rdparty/libzip EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/rcheevos EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/rapidjson EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/discord-rpc EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/freesurround EXCLUDE_FROM_ALL)
++find_package(libzip REQUIRED)
+ 
+ if(USE_OPENGL)
+ 	add_subdirectory(3rdparty/glad EXCLUDE_FROM_ALL)

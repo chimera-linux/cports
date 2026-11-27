@@ -1,0 +1,25 @@
+diff --git a/pcsx2-qt/QtUtils.cpp b/pcsx2-qt/QtUtils.cpp
+index 58f98f4a0..c672ea289 100644
+--- a/pcsx2-qt/QtUtils.cpp
++++ b/pcsx2-qt/QtUtils.cpp
+@@ -32,9 +32,6 @@
+ 
+ #include <fmt/format.h>
+ 
+-#ifdef Q_OS_LINUX
+-#include <QtGui/private/qtx11extras_p.h>
+-#endif
+ 
+ #include <algorithm>
+ #include <array>
+@@ -464,10 +461,6 @@ namespace QtUtils
+ 		if (qEnvironmentVariableIsSet("PCSX2_NO_COMPOSITING"))
+ 			return false;
+ 
+-#ifdef Q_OS_LINUX
+-		if (QX11Info::isPlatformX11() && !QX11Info::isCompositingManagerRunning())
+-			return false;
+-#endif
+ 
+ 		return true;
+ 	}

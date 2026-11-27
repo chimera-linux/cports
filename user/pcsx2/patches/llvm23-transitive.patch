@@ -1,0 +1,36 @@
+diff --git a/common/Linux/LnxHostSys.cpp b/common/Linux/LnxHostSys.cpp
+index 523e6eaaa..47f28e391 100644
+--- a/common/Linux/LnxHostSys.cpp
++++ b/common/Linux/LnxHostSys.cpp
+@@ -9,6 +9,7 @@
+ #include "common/HostSys.h"
+ 
+ #include <cstdio>
++#include <cstdlib>
+ #include <csignal>
+ #include <cerrno>
+ #include <fcntl.h>
+diff --git a/common/SmallString.cpp b/common/SmallString.cpp
+index 7960cbeb8..caa8c7732 100644
+--- a/common/SmallString.cpp
++++ b/common/SmallString.cpp
+@@ -7,6 +7,7 @@
+ #include <algorithm>
+ #include <cctype>
+ #include <cstdio>
++#include <cstdlib>
+ #include <cstring>
+ 
+ #ifdef _MSC_VER
+diff --git a/common/YAML.cpp b/common/YAML.cpp
+index 8751fb96d..b71d55cd5 100644
+--- a/common/YAML.cpp
++++ b/common/YAML.cpp
+@@ -10,6 +10,7 @@
+ #endif
+ 
+ #include <csetjmp>
++#include <exception>
+ 
+ struct RapidYAMLContext
+ {
