@@ -1,6 +1,6 @@
 pkgname = "stunnel"
 pkgver = "5.82"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["autoconf-archive", "automake", "libtool"]
 makedepends = ["openssl3-devel"]
