@@ -1,5 +1,5 @@
 pkgname = "lxqt-runner"
-pkgver = "2.4.0"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,5 +22,5 @@ pkgdesc = "Tool used to launch programs quickly by typing their names"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-runner"
 source = f"{url}/releases/download/{pkgver}/lxqt-runner-{pkgver}.tar.xz"
-sha256 = "d0441f18922162db5ef6a5a9617aa20b0b437d2ddc76d0542fb32c7fd68f9029"
+sha256 = "f9c6b9eb9e1f91f6669436e5cf5e1fd5bcfe279eca75c2f9779b9115aad8108c"
 options = ["etcfiles"]
