@@ -817,7 +817,7 @@ class Template(Package):
                     self.error(
                         f"subpackage function '{f.__name__}' must be called '_'"
                     )
-                self.all_subpackages.append(subname)
+                self.all_subpackages.append((subname, None))
                 if cond:
                     self.used_subpackages.append((subname, f, None))
 
@@ -829,6 +829,7 @@ class Template(Package):
                     self.error(
                         f"alternative function '{f.__name__}' must be called '_'"
                     )
+                self.all_subpackages.append((base, alternative))
                 if cond:
                     self.used_subpackages.append((base, f, alternative))
 
