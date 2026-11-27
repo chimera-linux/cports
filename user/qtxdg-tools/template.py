@@ -1,5 +1,5 @@
 pkgname = "qtxdg-tools"
-pkgver = "4.4.0"
+pkgver = "4.5.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,4 +15,4 @@ pkgdesc = "User tools for libqtxdg"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/qtxdg-tools"
 source = f"{url}/releases/download/{pkgver}/qtxdg-tools-{pkgver}.tar.xz"
-sha256 = "f21ba4308eac0effd417d910cc4916df7b6202aaeee777b51bb120f7abc6c5ac"
+sha256 = "4532035802a8b08d5475ed8b054e417366327e85f43dd3c1bf1ab1864e422701"
