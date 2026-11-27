@@ -1,13 +1,14 @@
 pkgname = "cni-plugins"
-pkgver = "1.9.1"
-pkgrel = 3
+pkgver = "1.10.0"
+pkgrel = 0
+prepare_after_patch = True
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
 license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "34bd82d47e981940751619c9cc44c095bb90bfcaf8d71865cbb822c37690a764"
+sha256 = "15a36f0a88e90704126d2d523a9704c4cab2439a4a19c9ac23961b31c2a311c6"
 # can't run tests inside namespaces
 options = ["!check"]
 
@@ -22,18 +23,15 @@ def post_prepare(self):
     golang.Golang(self).mod_download()
 
 
-def init_build(self):
+def build(self):
     from cbuild.util import golang
 
-    self.make_env.update(golang.get_go_env(self))
-
-
-def build(self):
     self.do(
         "bash",
         "build_linux.sh",
         "-ldflags",
         f"-X github.com/containernetworking/plugins/pkg/utils/buildversion.BuildVersion=v{pkgver}",
+        env=golang.get_go_env(self),
     )
 
 
