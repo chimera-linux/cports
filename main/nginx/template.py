@@ -111,7 +111,7 @@ def check(self):
         self.do(
             "prove",
             # annoyingly racy test suite
-            f"--jobs=1",
+            "--jobs=1",
             ".",
             env={"TEST_NGINX_BINARY": "../objs/nginx"},
         )
