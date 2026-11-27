@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/bin/install -d -m 0750 /run/nginx
+
+exec /usr/bin/nginx -g "daemon off;" "$@"

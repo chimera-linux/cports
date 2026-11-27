@@ -1,5 +1,5 @@
 pkgname = "nginx"
-pkgver = "1.30.7"
+pkgver = "1.30.8"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -85,7 +85,7 @@ source = [
 ]
 source_paths = [".", "nginx-tests"]
 sha256 = [
-    "2565b5c837050e958f70fb0f73c48e2bca4542ad349fd356f46fb0c72610bc6e",
+    "f867314ada32e717b949930859656c48a72dc6657aec598db58af2f98a40e1c1",
     "1555dad9e93eb55711dc4ea42b52f62b326ecd72c55add966ff71277d937070c",
 ]
 file_modes = {
@@ -110,7 +110,7 @@ def check(self):
     with self.pushd("nginx-tests"):
         self.do(
             "prove",
-            f"--jobs={max(self.make_jobs, 16)}",
+            f"--jobs={max(self.make_jobs, 8)}",
             ".",
             env={"TEST_NGINX_BINARY": "../objs/nginx"},
         )
@@ -122,6 +122,7 @@ def post_install(self):
     self.install_man("man/nginx.8")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_file(self.files_path / "nginx.wrapper", "usr/lib", mode=0o755)
     self.install_service(self.files_path / "nginx")
     # better default configs, mostly adapted from alpine
     self.uninstall("etc/nginx/nginx.conf")

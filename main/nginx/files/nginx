@@ -1,4 +1,4 @@
 type = process
-command = /usr/bin/nginx -g "daemon off;"
+command = /usr/lib/nginx.wrapper
 smooth-recovery = true
 depends-on: local.target
