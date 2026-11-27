@@ -1,5 +1,5 @@
 pkgname = "appstream"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -42,7 +42,7 @@ url = "https://www.freedesktop.org/wiki/Distributions/AppStream"
 source = (
     f"https://github.com/ximion/appstream/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "6b554b90c2139aceef65e1aebe811cfe398af4ea749eb5ffa0b7286053ff9e50"
+sha256 = "12f01e127081c485a3e3056b6d30f54d003101689ff815adac6f1ef2b19af6ab"
 # gir
 options = ["!cross"]
 
