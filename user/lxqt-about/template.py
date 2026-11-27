@@ -1,0 +1,11 @@
+pkgname = "lxqt-about"
+pkgver = "2.5.0"
+pkgrel = 0
+build_style = "cmake"
+hostmakedepends = ["cmake", "lxqt-build-tools", "ninja", "perl"]
+makedepends = ["liblxqt-devel", "kwindowsystem-devel", "qt6-qttools-devel"]
+pkgdesc = "Information provider about LXQt and the system"
+license = "LGPL-2.0-or-later"
+url = "https://github.com/lxqt/lxqt-about"
+source = f"{url}/releases/download/{pkgver}/lxqt-about-{pkgver}.tar.xz"
+sha256 = "9ad20edb62b177a6149c5d9f15550944339a938801a9a11b2fc3ac11d9c6fc7c"
