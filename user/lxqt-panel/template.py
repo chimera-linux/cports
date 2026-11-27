@@ -1,9 +1,8 @@
 pkgname = "lxqt-panel"
-pkgver = "2.4.1"
-pkgrel = 2
+pkgver = "2.5.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DSYSSTAT_PLUGIN=OFF",
     "-DVOLUME_USE_ALSA=OFF",
 ]
 hostmakedepends = [
@@ -20,6 +19,7 @@ makedepends = [
     "liblxqt-devel",
     "libpulse-devel",
     "libstatgrab-devel",
+    "libsysstat-devel",
     "lm-sensors-devel",
     "lxqt-globalkeys-devel",
     "lxqt-menu-data",
@@ -34,5 +34,5 @@ pkgdesc = "LXQt desktop panel"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"
-sha256 = "7828d7e8fabf66ef1491e50b609b8eb041d74c433554f7d073ac07af26843d02"
+sha256 = "7a96abec41355d2e42d4e4d8a03cfb064647729e9e292781c126f12e2a699e7d"
 options = ["etcfiles"]
