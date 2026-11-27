@@ -324,7 +324,7 @@ def install():
         irun = apki.call(
             "add",
             ["--usermode", "--no-scripts", *_extra_pkgs],
-            template.get_cats().keys(),
+            list(template.get_cats()),
             arch=host_cpu(),
         )
 
@@ -584,7 +584,7 @@ def cleanup_world(bootstrapping, prof=None, perform=True):
     f_ret = apki.call(
         "fix",
         [],
-        template.get_cats().keys(),
+        list(template.get_cats()),
         capture_output=True,
         chroot=True,
     )
