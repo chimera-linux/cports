@@ -1,6 +1,6 @@
 pkgname = "openjdk21"
 pkgver = "21.0.13.1_p2"
-pkgrel = 0
+pkgrel = 1
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
 _bver = pkgver.split("_p")[-1]
