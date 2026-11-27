@@ -1,24 +1,25 @@
 pkgname = "shadow"
-pkgver = "4.17.2"
+pkgver = "4.20.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
     "--enable-lastlog",
+    "--disable-logind",
     "--disable-static",
     "--with-libpam",
     "--with-acl",
-    "--with-attr",
     "--without-libbsd",
     "--without-selinux",
+    "--without-sssd",
     "--without-nscd",
     "--disable-nls",
     "--enable-subordinate-ids",
-    "--disable-account-tools-setuid",
 ]
 configure_gen = []
 # out of tree is broken with libsubid
 make_dir = "."
+hostmakedepends = ["pkgconf"]
 makedepends = ["acl-devel", "linux-pam-devel", "linux-headers"]
 depends = ["linux-pam", "base-shells"]
 # self-trigger
@@ -27,12 +28,11 @@ pkgdesc = "Shadow password file utilities"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "a21cf0d34bffc4314cede01cff258689174fab30ca494ae8f45784d3d56c9849"
+sha256 = "639d03cd7821b4086deba50485a1b8041acbb0d1d3c33c20ebd4708e0eeb9bc7"
 file_modes = {
     "usr/bin/chage": ("root", "root", 0o4755),
     "usr/bin/chfn": ("root", "root", 0o4755),
     "usr/bin/chsh": ("root", "root", 0o4755),
-    "usr/bin/expiry": ("root", "root", 0o4755),
     "usr/bin/gpasswd": ("root", "root", 0o4755),
     "usr/bin/newgidmap": ("root", "root", 0o4755),
     "usr/bin/newuidmap": ("root", "root", 0o4755),
@@ -72,7 +72,6 @@ def post_install(self):
         "chgpasswd",
         "groupadd",
         "groupdel",
-        "groupmems",
         "groupmod",
         "newusers",
         "useradd",

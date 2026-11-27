@@ -1,13 +1,13 @@
-We want to enable man pages without regenerating them.
-
+diff --git a/Makefile.in b/Makefile.in
+index dcb4573..49d06fd 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -390,7 +390,7 @@
- top_build_prefix = @top_build_prefix@
+@@ -410,7 +410,7 @@ top_build_prefix = @top_build_prefix@
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
--SUBDIRS = lib $(am__append_1) src po contrib doc etc tests/unit \
-+SUBDIRS = lib $(am__append_1) src po contrib doc etc man tests/unit \
+ ACLOCAL_AMFLAGS = -I m4
+-SUBDIRS = lib $(am__append_1) src po doc etc tests/unit \
++SUBDIRS = lib $(am__append_1) src po doc etc man tests/unit \
  	$(am__append_2)
  CLEANFILES = man/8.out man/po/remove-potcdate.* man/*/login.defs.d man/*/*.mo
  EXTRA_DIST = NEWS README tests/
