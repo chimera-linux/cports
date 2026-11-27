@@ -1,5 +1,5 @@
 pkgname = "kmscon"
-pkgver = "10.1.1"
+pkgver = "10.1.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlibseat=enabled"]
@@ -28,7 +28,7 @@ pkgdesc = "Linux KMS/DRM virtual console terminal emulator"
 license = "MIT"
 url = "https://github.com/kmscon/kmscon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0459d111eb9a12d7b8981492957043b5326a6ee91b7351575f8fd402d745eeb3"
+sha256 = "ba683806d517b1dfc9cfbca0e9d5c2653b62d1fbf41918c00fa1d5c837626044"
 options = ["etcfiles"]
 
 
