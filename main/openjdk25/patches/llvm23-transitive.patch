@@ -1,0 +1,12 @@
+diff --git a/src/jdk.jpackage/share/native/common/tstrings.h b/src/jdk.jpackage/share/native/common/tstrings.h
+index 0a2ade0..ddafd3d 100644
+--- a/src/jdk.jpackage/share/native/common/tstrings.h
++++ b/src/jdk.jpackage/share/native/common/tstrings.h
+@@ -48,6 +48,7 @@
+ #include <sstream>
+ #include <iostream>
+ #include <vector>
++#include <new>
+ 
+ #ifdef _MSC_VER
+ #   pragma warning(pop)
