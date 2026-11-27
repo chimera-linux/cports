@@ -1,5 +1,5 @@
 pkgname = "forgejo"
-pkgver = "17.0.1"
+pkgver = "17.0.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
@@ -12,7 +12,7 @@ pkgdesc = "Git forge"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
 source = f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz"
-sha256 = "1fd4d883b90d3c5ee273943eec4f2484ea6a70dcc53ba0e25e6334d15028c426"
+sha256 = "2db0dbda822c42a8c4e7b94bef74ff2d4978a2e1a848d57779fd3378ba101107"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
