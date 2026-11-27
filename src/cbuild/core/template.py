@@ -808,28 +808,6 @@ class Template(Package):
 
         self.run_check = run_check and not self._current_profile.cross
 
-        # resolve all source repos available to this package
-        self.source_repositories = [self.repository]
-        crepo = self.repository
-        # the toplevel repo is already added
-        while True:
-            # check if the current repo has a parent link
-            rp = paths.distdir() / crepo / ".parent"
-            if not rp.is_symlink():
-                break
-            # try resolving it, if it resolves, consider it
-            try:
-                rp = rp.readlink()
-            except Exception:
-                break
-            # it resolved, consider the name
-            crepo = rp.name
-            # skip if it does not resolve to a repository
-            if not (paths.distdir() / crepo).is_dir():
-                break
-            # append and repeat
-            self.source_repositories.append(crepo)
-
         self.exec_module(init, contents)
 
     def exec_module(self, init, contents=None):
@@ -1136,7 +1114,7 @@ class Template(Package):
         from cbuild.core import dependencies
 
         def _resolve_bdep(opkg, depn):
-            for sr in opkg.source_repositories:
+            for sr in get_cats()[opkg.repository]:
                 rp = paths.distdir() / sr
                 tp = rp / depn / "template.py"
                 if tp.is_file():
@@ -2925,9 +2903,42 @@ def sanitize_pkgname(pkgname, error=True):
     return tmplpath.resolve().parent
 
 
+# main is always allowed and has no dependencies
+_allow_cats = {"main": ["main"]}
+
+
 def register_cats(cats):
-    global _allow_cats
-    _allow_cats = cats
+    for cat in cats:
+        if cat == "main":
+            continue
+        # full category repo name
+        catrepo = f"main/chimera-repo-{cat}"
+        # check if this is a valid category
+        tmplpath = paths.distdir() / catrepo / "template.py"
+        if not tmplpath.is_file():
+            raise errors.CbuildException(
+                f"missing repository template for '{cat}'"
+            )
+        # figure out category dependencies
+        catdeps = [cat]
+        tmplp = Template(
+            catrepo,
+            None,
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+        )
+        for d in tmplp.depends:
+            cd = d.removeprefix("chimera-repo-")
+            if d == cd:
+                continue
+            catdeps.append(cd)
+        # register
+        _allow_cats[cat] = catdeps
 
 
 def get_cats():

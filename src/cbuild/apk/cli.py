@@ -18,6 +18,8 @@ def set_network(use_net):
 def collect_repos(
     mrepo, intree, arch, use_altrepo, use_stage, use_net, use_local
 ):
+    from cbuild.core import template
+
     ret = []
     # sometimes we need no repos
     if not mrepo:
@@ -28,7 +30,7 @@ def collect_repos(
     elif isinstance(mrepo, list):
         srepos = mrepo
     else:
-        srepos = mrepo.rparent.source_repositories
+        srepos = template.get_cats()[mrepo.rparent.repository]
 
     if not arch:
         arch = cbroot.host_cpu()

@@ -11,8 +11,10 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
+    tcats = template.get_cats()[pkgb.repository]
+
     tmplpath = None
-    for r in pkgb.source_repositories:
+    for r in tcats:
         tmplpath = paths.distdir() / r / pkgn / "template.py"
         if tmplpath.is_file():
             break
@@ -26,7 +28,7 @@ def _srcpkg_ver(pkgn, pkgb):
                 altname = pkgn.removesuffix(f"-{apkg}")
                 break
         if altname:
-            for r in pkgb.source_repositories:
+            for r in tcats:
                 rpath = paths.distdir() / r
                 tmplpath = rpath / altname / "template.py"
                 if tmplpath.is_file():
