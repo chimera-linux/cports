@@ -894,7 +894,7 @@ class Template(Package):
                 self._raw_mod = self._mod_handle
                 self._mod_handle = None
                 delattr(builtins, "self")
-                delattr(builtins, "subpackage")
+                delattr(builtins, "split")
             if init:
                 self.init_from_mod()
             return
