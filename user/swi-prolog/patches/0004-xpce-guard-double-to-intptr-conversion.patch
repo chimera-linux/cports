@@ -1,0 +1,41 @@
+xpce: guard the double->intptr_t conversion in pceToC()
+
+pceToC() casts a double to intptr_t and uses a round-trip
+comparison to decide between PCE_INTEGER and PCE_REAL.  Casting a
+double that does not fit intptr_t is undefined behaviour: on
+x86-64 the conversion produces INT64_MIN, which makes round-trip
+checks fold away at -O2.  Dividing by zero (get(1/0, value, V))
+produces Inf and hits exactly this.  Check the range first and
+return PCE_REAL for out-of-range values.
+
+diff --git a/packages/xpce/src/itf/interface.c b/packages/xpce/src/itf/interface.c
+index f17040b..09e33a0 100644
+--- a/packages/xpce/src/itf/interface.c
++++ b/packages/xpce/src/itf/interface.c
+@@ -525,13 +525,20 @@ int
+ pceToC(Any obj, PceCValue *rval)
+ { if ( isInteger(obj) )
+   { double v = valNumShortest(obj);	/* 0.6, not 0.5999999999999999 */
+-    rval->integer = (intptr_t)v;
+-    if ( (double)rval->integer == v )
+-    { return PCE_INTEGER;
+-    } else
+-    { rval->real = v;
+-      return PCE_REAL;
++    /* Converting a double that does not */
++    /* fit intptr_t is undefined; guard */
++    /* the range first.  In particular, */
++    /* dividing by zero yields Inf. */
++    if ( v >= (double)INTPTR_MIN && v < -(double)INTPTR_MIN )
++    { intptr_t i = (intptr_t)v;
++
++      if ( (double)i == v )
++      { rval->integer = i;
++	return PCE_INTEGER;
++      }
+     }
++    rval->real = v;
++    return PCE_REAL;
+   }
+
+   assert(obj);

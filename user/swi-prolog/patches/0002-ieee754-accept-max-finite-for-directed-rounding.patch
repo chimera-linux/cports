@@ -1,0 +1,35 @@
+diff --git a/tests/rational/test_ieee754.pl b/tests/rational/test_ieee754.pl
+index 9294cca..d25aec3 100644
+--- a/tests/rational/test_ieee754.pl
++++ b/tests/rational/test_ieee754.pl
+@@ -588,13 +588,26 @@ test(ieee_rndto) :-
+     assertion(test_roundto(float(MPZInt-1))),
+     assertion(test_roundto(float(-(MPZInt-1)))),
+       Overflow is 2^1024, current_prolog_flag(float_max,FMax), NMax is -FMax,  % all results exact
+-    assertion(rounding(float( Overflow),r( 1.0Inf, 1.0Inf, 1.0Inf, 1.0Inf))),
+-    assertion(rounding(float( Overflow+1),r( 1.0Inf, 1.0Inf, 1.0Inf, 1.0Inf))),
++    % GMP builds differ in converting integers >= 2^1024 to a float: where
++    % the truncated conversion overflows to infinity the result is Inf for
++    % all rounding modes, but other builds return the maximum finite value
++    % for the directed rounding modes.  Accept both.
++    assertion((rounding(float( Overflow),r( 1.0Inf, 1.0Inf, P1, P2)),
++	       pos_overflow(P1,FMax), pos_overflow(P2,FMax))),
++    assertion((rounding(float( Overflow+1),r( 1.0Inf, 1.0Inf, P3, P4)),
++	       pos_overflow(P3,FMax), pos_overflow(P4,FMax))),
+     assertion(rounding(float( Overflow-1),r( 1.0Inf, 1.0Inf, FMax, FMax))),
+-    assertion(rounding(float(-Overflow),r(-1.0Inf,-1.0Inf,-1.0Inf,-1.0Inf))),
+-    assertion(rounding(float(-(Overflow+1)),r(-1.0Inf,-1.0Inf,-1.0Inf,-1.0Inf))),
++    assertion((rounding(float(-Overflow),r(-1.0Inf,-1.0Inf, N1, N2)),
++	       neg_overflow(N1,NMax), neg_overflow(N2,NMax))),
++    assertion((rounding(float(-(Overflow+1)),r(-1.0Inf,-1.0Inf, N3, N4)),
++	       neg_overflow(N3,NMax), neg_overflow(N4,NMax))),
+     assertion(rounding(float(-(Overflow-1)),r(-1.0Inf,NMax,-1.0Inf,NMax))).
+ 
++pos_overflow(V, _FMax) :- V == 1.0Inf, !.
++pos_overflow(V, FMax) :- V == FMax.
++neg_overflow(V, _NMax) :- V == -1.0Inf, !.
++neg_overflow(V, NMax) :- V == NMax.
++
+ test(bounded) :-
+     assertion(bounded_number(0,10,1)),
+     assertion(\+(bounded_number(0,1r2,1))),
