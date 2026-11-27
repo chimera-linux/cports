@@ -1347,12 +1347,7 @@ def do_relink_subpkgs(tgt):
     # erase all symlinks first if parsing all
     for d in cats:
         for el in (ddir / d).iterdir():
-            if el.name == ".parent" and el.is_symlink():
-                continue
             if el.is_symlink():
-                if el.name == ".parent":
-                    continue
-                # symlink, erase
                 el.unlink()
             elif el.is_dir():
                 if not (el / "template.py").is_file():
