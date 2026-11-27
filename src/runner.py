@@ -1377,7 +1377,7 @@ def do_relink_subpkgs(tgt):
     for pn, pv in links.items():
         repo, jpn = pn.split("/")
         for sn in pv:
-            fp = ddir / repo / sn
+            fp = ddir / repo / f"{jpn}-{sn}"
             if fp.exists():
                 if not fp.is_symlink():
                     logger.get().out(

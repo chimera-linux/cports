@@ -768,7 +768,7 @@ class Template(Package):
         self.parent = None
         self.rparent = self
         self.autopkg = None
-        self.subpackages = []
+        self.used_subpackages = []
         self.all_subpackages = []
         self.subpkg_list = []
         self.source_date_epoch = None
@@ -835,31 +835,24 @@ class Template(Package):
     def exec_module(self, init, contents=None):
         def splitpkg_deco(subname, cond=True):
             def deco(f):
-                spkgname = f"{self.pkgname}-{subname}"
                 if f.__name__ != "_":
                     self.error(
                         f"subpackage function '{f.__name__}' must be called '_'"
                     )
-                self.all_subpackages.append(spkgname)
+                self.all_subpackages.append(subname)
                 if cond:
-                    self.subpackages.append((spkgname, f, None))
+                    self.used_subpackages.append((subname, f, None))
 
             return deco
 
         def alternative_deco(alternative, cond=True, base=None):
             def deco(f):
-                spkgname = self.pkgname
-                if base:
-                    spkgname += f"-{base}"
                 if f.__name__ != "_":
                     self.error(
                         f"alternative function '{f.__name__}' must be called '_'"
                     )
-                self.all_subpackages.append(
-                    f"{alternative.removeprefix('!')}-{spkgname}-default"
-                )
                 if cond:
-                    self.subpackages.append((spkgname, f, alternative))
+                    self.used_subpackages.append((base, f, alternative))
 
             return deco
 
@@ -1039,7 +1032,13 @@ class Template(Package):
 
         spdupes = {}
         # link subpackages and fill in their fields
-        for spn, spf, spa in self.subpackages:
+        for spb, spf, spa in self.used_subpackages:
+            # construct the name, spb can only be None for alternatives
+            if spb:
+                spn = f"{self.pkgname}-{spb}"
+            else:
+                spn = self.pkgname
+            # construct the alternative name
             if spa:
                 spn = f"{spa.removeprefix('!')}-{spn}-default"
                 if spa.startswith("!"):
