@@ -1,5 +1,5 @@
 pkgname = "php8.3"
-pkgver = "8.3.36"
+pkgver = "8.3.37"
 _majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 0
 _apiver = "20230831"
@@ -118,6 +118,7 @@ makedepends = [
     "libxml2-devel",
     "libxslt-devel",
     "libzip-devel",
+    "linux-headers",
     "oniguruma-devel",
     "openldap-devel",
     "openssl3-devel",
@@ -133,7 +134,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "c93f3441f87f6ab156bef4432db215d7e61ca2c0183bb3a2aa28d9886ab59f53"
+sha256 = "cdd2ed867cb104ececff7c0292142c807c68a6b6da1b114ead4d586fba628a4f"
 options = ["etcfiles"]
 
 if self.profile.arch in ["loongarch64"]:
@@ -182,6 +183,7 @@ def post_patch(self):
         "sapi/cli/tests/009.phpt",
         "sapi/cli/tests/012-2.phpt",
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
+        "sapi/fpm/tests/ghsa-g3vh-838c-65v7.phpt",
         # probably fails because of zlib-ng-compat
         "ext/zlib/tests/bug48725.phpt",
         "ext/zlib/tests/001.phpt",
