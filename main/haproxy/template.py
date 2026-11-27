@@ -1,5 +1,5 @@
 pkgname = "haproxy"
-pkgver = "3.4.6"
+pkgver = "3.4.9"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -38,7 +38,7 @@ url = "https://www.haproxy.org"
 source = (
     f"{url}/download/{pkgver[: pkgver.rfind('.')]}/src/haproxy-{pkgver}.tar.gz"
 )
-sha256 = "791e1815f8af6e8b850a227a9a0a190f3d3478c9e8d38a0f51c98b7f4bfe368b"
+sha256 = "896c55b6029ec2a841617e92a327a335f36a8968e7d51a47eada159673c2f320"
 # builds successfully but fails to run if enabled
 hardening = ["!vis", "!cfi", "!int"]
 # hard depends on vtest which doesn't have releases
