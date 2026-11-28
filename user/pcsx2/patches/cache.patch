@@ -1,0 +1,30 @@
+diff --git a/cmake/Pcsx2Utils.cmake b/cmake/Pcsx2Utils.cmake
+index 42135790e..51daf647c 100644
+--- a/cmake/Pcsx2Utils.cmake
++++ b/cmake/Pcsx2Utils.cmake
+@@ -257,9 +257,7 @@ function(detect_cache_line_size)
+ #include <stdlib.h>
+ #include <unistd.h>
+ int main() {
+-	int l1i = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+-	int l1d = sysconf(_SC_LEVEL1_ICACHE_LINESIZE);
+-	int res = (l1i > l1d) ? l1i : l1d;
++	int res = 0;
+ 	for (int index = 0; index < 16; index++) {
+ 		char buf[128];
+ 		snprintf(buf, sizeof(buf), \"/sys/devices/system/cpu/cpu0/cache/index%d/coherency_line_size\", index);
+diff --git a/common/Linux/LnxHostSys.cpp b/common/Linux/LnxHostSys.cpp
+index 523e6eaaa..d495f4fa1 100644
+--- a/common/Linux/LnxHostSys.cpp
++++ b/common/Linux/LnxHostSys.cpp
+@@ -114,9 +114,7 @@ size_t HostSys::GetRuntimeCacheLineSize()
+ 
+ 	return static_cast<size_t>(max_line_size);
+ #else
+-	int l1i = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+-	int l1d = sysconf(_SC_LEVEL1_ICACHE_LINESIZE);
+-	int res = (l1i > l1d) ? l1i : l1d;
++	int res = 0;
+ 	for (int index = 0; index < 16; index++)
+ 	{
+ 		char buf[128];
