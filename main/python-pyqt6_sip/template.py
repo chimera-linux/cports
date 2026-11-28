@@ -1,5 +1,5 @@
 pkgname = "python-pyqt6_sip"
-pkgver = "13.13.0"
+pkgver = "13.13.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "PyQt6 support for python-sip"
 license = "custom:sip"
 url = "https://www.riverbankcomputing.com/software/sip"
 source = f"$(PYPI_SITE)/P/PyQt6_sip/pyqt6_sip-{pkgver}.tar.gz"
-sha256 = "2cd55f575cde208c398d6cfdecc5a13394ed2afb54226210c50e3a6df7c3a997"
+sha256 = "83c3c9cb93b6c631af7048084fb0f234b610a01edbf9b2b44c4ee4bda4197efe"
 # no tests
 options = ["!check"]
 
