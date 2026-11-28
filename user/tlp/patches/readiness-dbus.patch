@@ -1,0 +1,27 @@
+diff --git a/tlp-pd.dbus.service b/tlp-pd.dbus.service
+index 31e9b7a..37eb646 100644
+--- a/tlp-pd.dbus.service
++++ b/tlp-pd.dbus.service
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=@BUS_NAME@
+-Exec=/bin/false
++Exec=/usr/bin/dinitctl --quiet start tlp-pd
+ User=root
+ SystemdService=tlp-pd.service
+diff --git a/tlp-pd.in b/tlp-pd.in
+index 4e78066..fd27d8c 100644
+--- a/tlp-pd.in
++++ b/tlp-pd.in
+@@ -958,6 +958,11 @@ def main() -> None:
+         )
+         warnings.filterwarnings("default", category=DeprecationWarning)
+ 
++        if (ready_fd := os.environ.get("TLP_READY_FD")) is not None:
++            ready_fd = int(ready_fd)
++            os.write(ready_fd, b"READY=1\n")
++            os.close(ready_fd)
++
+         mainloop.run()
+     except KeyboardInterrupt:
+         logger.info(f"{DAEMON_NAME} received keyboard interrupt, shutting down...")

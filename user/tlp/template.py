@@ -1,18 +1,19 @@
 pkgname = "tlp"
 pkgver = "1.11.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = [
-    "-j1",
-    "TLP_SBIN=/usr/bin",
-    "TLP_ULIB=/usr/lib/udev",
-    "TLP_ELOD=/usr/lib/elogind/system-sleep",
     "TLP_NO_INIT=1",
+    "TLP_SBIN=/usr/bin",
     "TLP_WITH_ELOGIND=1",
     "TLP_WITH_SYSTEMD=0",
     "install-man",
 ]
-makedepends = ["dinit-chimera"]
+makedepends = [
+    "dinit-chimera",
+    "dinit-dbus",
+    "polkit-devel",
+]
 depends = ["perl", "ethtool", "hdparm"]
 pkgdesc = "Battery life optimization utility"
 license = "GPL-2.0-or-later"
@@ -25,19 +26,21 @@ options = ["etcfiles", "!check", "!lintcomp"]
 
 def post_install(self):
     self.install_service(self.files_path / "tlp")
+    self.install_service(self.files_path / "tlp-pd")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.uninstall("usr/share/dbus-1/*/*.sedbackup", glob=True)
 
 
 @split("rdw")
 def _(self):
     self.depends = [self.parent, "networkmanager"]
     self.install_if = [self.parent, "networkmanager"]
-    return [
-        "usr/bin/tlp-rdw",
-        "usr/lib/NetworkManager",
-        "usr/lib/udev/tlp-rdw-udev",
-        "usr/lib/udev/rules.d/85-tlp-rdw.rules",
-        "usr/share/man/man8/tlp-rdw.8",
-        "usr/share/zsh/site-functions/_tlp-rdw",
-        "usr/share/bash-completion/completions/tlp-rdw",
-        "usr/share/fish/vendor_completions.d/tlp-rdw.fish",
-    ]
+    return ["**/*rdw*"]
+
+
+@subpackage("tlp-pd")
+def _(self):
+    self.provides = ["power-profiles-daemon"]
+    self.depends = [self.parent, "python-gobject"]
+    self.install_if = [self.parent, "power-profiles-daemon-meta"]
+    return ["**/*tlpctl*", "**/*tlp-pd*", "usr/share/dbus-1"]
