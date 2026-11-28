@@ -1,4 +1,4 @@
-From e39c9fa1fd684a8393682eb3018402486551354f Mon Sep 17 00:00:00 2001
+From 51dac7e83741907e7f872c81193181232fae8482 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:44:45 +0100
 Subject: [PATCH 10/16] do not export LD_LIBRARY_PATH
@@ -30,5 +30,5 @@ index fcec091fe..786e12a15 100644
              os.path.join(self.bin_root(), "lib") + (os.pathsep + env["LIBRARY_PATH"])
              if "LIBRARY_PATH" in env
 -- 
-2.55.0
+2.56.1
 

@@ -1,18 +1,18 @@
-From 27d38a1c5a47903133da491a3b055ab83df99010 Mon Sep 17 00:00:00 2001
+From 99b7f7bd7d0a03e072b387433f7311576da51da9 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Oct 2025 23:00:12 +0200
 Subject: [PATCH 15/16] work around broken ecosystem hackery when bootstrapping
 
 ---
  src/bootstrap/src/core/build_steps/compile.rs | 5 ++++-
- src/bootstrap/src/lib.rs                      | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ src/bootstrap/src/core/session.rs             | 3 ++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index db3c85465..c2648101b 100644
+index 6c43a1e61..b61845bf1 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -762,7 +762,10 @@ impl Step for StdLink {
+@@ -755,7 +755,10 @@ impl Step for StdLink {
                  let _ = fs::remove_dir_all(sysroot.join("lib/rustlib/src/rust"));
              }
  
@@ -24,18 +24,20 @@ index db3c85465..c2648101b 100644
          } else {
              if builder.download_rustc() {
                  // Ensure there are no CI-rustc std artifacts.
-diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index e9adbbec2..f5f661ab8 100644
---- a/src/bootstrap/src/lib.rs
-+++ b/src/bootstrap/src/lib.rs
-@@ -478,6 +478,7 @@ impl Build {
+diff --git a/src/bootstrap/src/core/session.rs b/src/bootstrap/src/core/session.rs
+index ce39b4978..1e9c95cbc 100644
+--- a/src/bootstrap/src/core/session.rs
++++ b/src/bootstrap/src/core/session.rs
+@@ -294,7 +294,8 @@ impl Session {
+             .args(["--print", "sysroot", "--print", "target-libdir"])
+             .run_in_dry_run()
              .run_capture_stdout(&config)
-             .stdout()
-             .trim()
-+            .replace("lib64", "lib").replace("lib32", "lib")
-             .to_owned();
- 
-         let initial_target_dir = Path::new(&initial_target_libdir)
+-            .stdout();
++            .stdout()
++            .replace("lib64", "lib").replace("lib32", "lib");
+         let mut rustc_paths = rustc_paths.lines();
+         let initial_sysroot =
+             rustc_paths.next().map(PathBuf::from).expect("Missing sysroot from initial rustc");
 -- 
-2.55.0
+2.56.1
 

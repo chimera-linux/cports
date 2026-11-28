@@ -1,4 +1,4 @@
-From 8ee20def80333a5263ec8055852025b04b283041 Mon Sep 17 00:00:00 2001
+From fbdbb6be1d1a0ba2540b2cd9f56fd84dba28973d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 30 May 2025 12:33:02 +0200
 Subject: [PATCH 02/16] remove a bunch of unused junk
@@ -13,12 +13,12 @@ Subject: [PATCH 02/16] remove a bunch of unused junk
  src/bootstrap/src/core/config/toml/rust.rs    |   2 -
  src/bootstrap/src/core/config/toml/target.rs  |   4 -
  src/bootstrap/src/core/sanity.rs              |  16 ---
- src/bootstrap/src/lib.rs                      |  29 -----
+ src/bootstrap/src/core/session.rs             |  29 -----
  src/bootstrap/src/utils/cc_detect.rs          |  24 -----
  11 files changed, 1 insertion(+), 269 deletions(-)
 
 diff --git a/compiler/rustc_target/src/spec/crt_objects.rs b/compiler/rustc_target/src/spec/crt_objects.rs
-index 2d84e78f2..0e6cb0f42 100644
+index 39037132c..de9b980fb 100644
 --- a/compiler/rustc_target/src/spec/crt_objects.rs
 +++ b/compiler/rustc_target/src/spec/crt_objects.rs
 @@ -62,28 +62,6 @@ pub(super) fn all(obj: &'static str) -> CrtObjects {
@@ -162,10 +162,10 @@ index a707a22af..75b7c0c62 100755
      "qemu-armhf-rootfs",
      "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 6b659206f..db3c85465 100644
+index b1157ef38..6c43a1e61 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -382,54 +382,7 @@ fn copy_self_contained_objects(
+@@ -383,54 +383,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -221,7 +221,7 @@ index 6b659206f..db3c85465 100644
          let srcdir = builder.wasi_libdir(target).unwrap_or_else(|| {
              panic!(
                  "Target {:?} does not have a \"wasi-root\" key in bootstrap.toml \
-@@ -670,15 +623,6 @@ pub fn std_cargo(
+@@ -664,15 +617,6 @@ pub fn std_cargo(
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -238,10 +238,10 @@ index 6b659206f..db3c85465 100644
              && let Some(dir) = builder.wasi_libdir(target)
          {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index 739f0d6c1..5059da367 100644
+index 7f0aa2a27..5c7369fcd 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -1763,9 +1763,6 @@ impl CommandLineStep for CrtBeginEnd {
+@@ -1986,9 +1986,6 @@ impl CommandLineStep for CrtBeginEnd {
      }
  
      fn make_run(run: RunConfig<'_>) {
@@ -252,10 +252,10 @@ index 739f0d6c1..5059da367 100644
  
      /// Build crtbegin.o/crtend.o for musl target.
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index 20319e4f4..657231fd3 100644
+index f8b00094a..aea0f5fcc 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -273,8 +273,6 @@ pub struct Config {
+@@ -273,8 +273,6 @@ pub(crate) struct Config {
      pub print_step_timings: bool,
      pub print_step_rusage: bool,
  
@@ -264,7 +264,7 @@ index 20319e4f4..657231fd3 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -579,7 +577,6 @@ impl Config {
+@@ -582,7 +580,6 @@ impl Config {
              randomize_layout: rust_randomize_layout,
              default_linker: rust_default_linker,
              channel: rust_channel,
@@ -272,7 +272,7 @@ index 20319e4f4..657231fd3 100644
              rpath: rust_rpath,
              verbose_tests: rust_verbose_tests,
              optimize_tests: rust_optimize_tests,
-@@ -970,8 +967,6 @@ impl Config {
+@@ -951,8 +948,6 @@ impl Config {
                      rpath: target_rpath,
                      rustflags: target_rustflags,
                      crt_static: target_crt_static,
@@ -281,7 +281,7 @@ index 20319e4f4..657231fd3 100644
                      wasi_root: target_wasi_root,
                      qemu_rootfs: target_qemu_rootfs,
                      no_std: target_no_std,
-@@ -1045,8 +1040,6 @@ impl Config {
+@@ -1026,8 +1021,6 @@ impl Config {
                  target.crt_static = target_crt_static;
                  target.default_linker = target_default_linker;
                  target.default_linker_linux_override = default_linker_linux_override;
@@ -290,14 +290,14 @@ index 20319e4f4..657231fd3 100644
                  target.wasi_root = target_wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = target_qemu_rootfs.map(PathBuf::from);
                  target.runner = target_runner;
-@@ -1520,7 +1513,6 @@ NOTE: Please add `--stage 2` to your command line, or if you're sure you want to
+@@ -1511,7 +1504,6 @@ NOTE: Please add `--stage 2` to your command line, or if you're sure you want to
              low_priority: build_low_priority.unwrap_or(false),
              mandir: install_mandir.map(PathBuf::from),
              miri_info,
 -            musl_root: rust_musl_root.map(PathBuf::from),
              ninja_in_file: llvm_ninja.unwrap_or(true),
              nodejs: build_nodejs.map(PathBuf::from),
-             omit_git_hash,
+             offload_clang_dir: offload_clang_dir.map(PathBuf::from),
 diff --git a/src/bootstrap/src/core/config/target_selection.rs b/src/bootstrap/src/core/config/target_selection.rs
 index 4835755dd..d6e1d2b8f 100644
 --- a/src/bootstrap/src/core/config/target_selection.rs
@@ -314,7 +314,7 @@ index 4835755dd..d6e1d2b8f 100644
      pub fn filepath(&self) -> Option<&Path> {
          self.file.as_ref().map(Path::new)
 diff --git a/src/bootstrap/src/core/config/toml/rust.rs b/src/bootstrap/src/core/config/toml/rust.rs
-index 86056d489..686839f38 100644
+index 0c88a3d8d..72a288958 100644
 --- a/src/bootstrap/src/core/config/toml/rust.rs
 +++ b/src/bootstrap/src/core/config/toml/rust.rs
 @@ -38,7 +38,6 @@ define_config! {
@@ -334,7 +334,7 @@ index 86056d489..686839f38 100644
          optimize_tests: _,
          codegen_tests: _,
 diff --git a/src/bootstrap/src/core/config/toml/target.rs b/src/bootstrap/src/core/config/toml/target.rs
-index 32e0477f1..8ddb5dab4 100644
+index cc3d066a8..61ad19128 100644
 --- a/src/bootstrap/src/core/config/toml/target.rs
 +++ b/src/bootstrap/src/core/config/toml/target.rs
 @@ -41,8 +41,6 @@ define_config! {
@@ -356,16 +356,16 @@ index 32e0477f1..8ddb5dab4 100644
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index 0256aabe5..c2efcae97 100644
+index 6983030fe..ed0208a24 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
-@@ -350,22 +350,6 @@ than building it.
+@@ -349,22 +349,6 @@ than building it.
              continue;
          }
  
 -        // Make sure musl-root is valid.
 -        if target.contains("musl") && !target.contains("unikraft") {
--            match build.musl_libdir(*target) {
+-            match sess.musl_libdir(*target) {
 -                Some(libdir) => {
 -                    if fs::metadata(libdir.join("libc.a")).is_err() {
 -                        panic!("couldn't find libc.a in musl libdir: {}", libdir.display());
@@ -382,11 +382,11 @@ index 0256aabe5..c2efcae97 100644
          if need_cmake && target.is_msvc() {
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
-diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index eb68daa0c..e9adbbec2 100644
---- a/src/bootstrap/src/lib.rs
-+++ b/src/bootstrap/src/lib.rs
-@@ -1345,35 +1345,6 @@ impl Build {
+diff --git a/src/bootstrap/src/core/session.rs b/src/bootstrap/src/core/session.rs
+index 4ad04df75..ce39b4978 100644
+--- a/src/bootstrap/src/core/session.rs
++++ b/src/bootstrap/src/core/session.rs
+@@ -1122,35 +1122,6 @@ impl Session {
          }
      }
  
@@ -394,7 +394,7 @@ index eb68daa0c..e9adbbec2 100644
 -    ///
 -    /// If this is a native target (host is also musl) and no musl-root is given,
 -    /// it falls back to the system toolchain in /usr.
--    fn musl_root(&self, target: TargetSelection) -> Option<&Path> {
+-    pub(crate) fn musl_root(&self, target: TargetSelection) -> Option<&Path> {
 -        let configured_root = self
 -            .config
 -            .target_config
@@ -411,7 +411,7 @@ index eb68daa0c..e9adbbec2 100644
 -    }
 -
 -    /// Returns the "musl libdir" for this `target`.
--    fn musl_libdir(&self, target: TargetSelection) -> Option<PathBuf> {
+-    pub(crate) fn musl_libdir(&self, target: TargetSelection) -> Option<PathBuf> {
 -        self.config
 -            .target_config
 -            .get(&target)
@@ -423,10 +423,10 @@ index eb68daa0c..e9adbbec2 100644
      /// configured.
      ///
 diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
-index 5a3fac5af..d74ed2eed 100644
+index b73a18a91..a976092cd 100644
 --- a/src/bootstrap/src/utils/cc_detect.rs
 +++ b/src/bootstrap/src/utils/cc_detect.rs
-@@ -205,30 +205,6 @@ fn default_compiler(
+@@ -204,30 +204,6 @@ fn default_compiler(
              }
          }
  
@@ -446,7 +446,7 @@ index 5a3fac5af..d74ed2eed 100644
 -        }
 -
 -        t if t.contains("musl") && compiler == Language::C => {
--            if let Some(root) = build.musl_root(target) {
+-            if let Some(root) = sess.musl_root(target) {
 -                let guess = root.join("bin/musl-gcc");
 -                if guess.exists() { Some(guess) } else { None }
 -            } else {
@@ -455,8 +455,8 @@ index 5a3fac5af..d74ed2eed 100644
 -        }
 -
          t if t.contains("-wasi") => {
-             let root = if let Some(path) = build.wasi_sdk_path.as_ref() {
+             let root = if let Some(path) = sess.wasi_sdk_path.as_ref() {
                  path
 -- 
-2.55.0
+2.56.1
 

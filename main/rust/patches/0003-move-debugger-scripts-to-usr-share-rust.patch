@@ -1,4 +1,4 @@
-From a8c5e4d81ddc53ee106562048dc90f5cfc9a2c47 Mon Sep 17 00:00:00 2001
+From 514836efca38a0b5e5ac4cc28dba36c07a4a62c3 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/16] move debugger scripts to /usr/share/rust
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 43ac42a81..cea3edddd 100644
+index 954e54547..c9502af14 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -712,7 +712,7 @@ impl Step for DebuggerScripts {
+@@ -739,7 +739,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let target = self.target;
          let sysroot = self.sysroot;
@@ -50,7 +50,7 @@ index 471810cbb..ba4e27241 100755
  RUSTC_COMMIT_HASH="$("$RUSTC" -vV | sed -n 's/commit-hash: \([a-zA-Z0-9_]*\)/\1/p')"
  
 diff --git a/src/etc/rust-lldb b/src/etc/rust-lldb
-index 91c659117..6ecc6b994 100755
+index c99357f32..a5671876a 100755
 --- a/src/etc/rust-lldb
 +++ b/src/etc/rust-lldb
 @@ -30,7 +30,7 @@ EOF
@@ -60,8 +60,8 @@ index 91c659117..6ecc6b994 100755
 -script_import="command script import \"$RUSTC_SYSROOT/lib/rustlib/etc/lldb_lookup.py\""
 +script_import="command script import \"$RUSTC_SYSROOT/share/rust/lldb_lookup.py\""
  
- # Call LLDB with the commands added to the argument list
- exec "$lldb" --one-line-before-file "$script_import" "$@"
+ # Unstable (nightly-only) trim-paths feature, activated only if
+ #  - RUST_LLDB_TRIM_PATHS=unstable is set
 -- 
-2.55.0
+2.56.1
 

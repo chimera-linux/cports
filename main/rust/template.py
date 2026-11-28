@@ -1,6 +1,6 @@
 pkgname = "rust"
-pkgver = "1.99.1"
-pkgrel = 1
+pkgver = "1.100.1"
+pkgrel = 0
 _llvm_majver = 23
 hostmakedepends = [
     "cargo-bootstrap",
@@ -33,7 +33,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "6451598a99e77f07571960f6b21d577399d3a30f33e80cbd2e3a4aae6535d265"
+sha256 = "0478d9d8c0e462dfc51bc277c77dab80de8f93d83a39ad8f258bf92e6678a5ad"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -81,14 +81,11 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
     cargo.clear_vendor_checksums(self, "libc-0.2.158")
     cargo.clear_vendor_checksums(self, "libc-0.2.164")
-    cargo.clear_vendor_checksums(self, "libc-0.2.168")
     cargo.clear_vendor_checksums(self, "libc-0.2.169")
     cargo.clear_vendor_checksums(self, "libc-0.2.172")
-    cargo.clear_vendor_checksums(self, "libc-0.2.183")
     cargo.clear_vendor_checksums(self, "libc-0.2.184")
     cargo.clear_vendor_checksums(self, "libc-0.2.186")
     cargo.clear_vendor_checksums(self, "libc-0.2.189")
-    cargo.clear_vendor_checksums(self, "cc-1.2.0")
     cargo.clear_vendor_checksums(self, "cc-1.2.13")
     cargo.clear_vendor_checksums(self, "cc-1.2.16")
     cargo.clear_vendor_checksums(self, "cc-1.2.19")
@@ -169,7 +166,7 @@ unsafe extern "C" {}
     # check src/bootstrap/src/utils/change_tracker.rs
     with open(self.cwd / "bootstrap.toml", "w") as cfg:
         cfg.write(f"""
-change-id = 160100
+change-id = 162423
 
 [llvm]
 ninja = false

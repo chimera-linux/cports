@@ -1,4 +1,4 @@
-From 4401c1893abb644f490f39331940970d0825eb5a Mon Sep 17 00:00:00 2001
+From aa462bc30738e754289741ab193f8c27cf795d8c Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 9 Jan 2025 22:39:56 +0100
 Subject: [PATCH 08/16] link stage 2 tools dynamically to libstd
@@ -11,19 +11,19 @@ about unstable ABI
  1 file changed, 3 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder/cargo.rs b/src/bootstrap/src/core/builder/cargo.rs
-index cd4e40a58..52dc08b12 100644
+index 754f4a547..ee3c4e3ab 100644
 --- a/src/bootstrap/src/core/builder/cargo.rs
 +++ b/src/bootstrap/src/core/builder/cargo.rs
-@@ -1438,6 +1438,9 @@ impl Builder<'_> {
-         if matches!(mode, Mode::Rustc) && !self.link_std_into_rustc_driver(target) {
+@@ -1436,6 +1436,9 @@ impl Builder<'_> {
+         if matches!(mode, Mode::Std) {
              rustflags.arg("-Cprefer-dynamic");
          }
 +        if compiler.stage >= 2 {
 +            rustflags.arg("-Cprefer-dynamic");
 +        }
  
-         cargo.env(
-             "RUSTC_LINK_STD_INTO_RUSTC_DRIVER",
+         // When building incrementally we default to a lower ThinLTO import limit
+         // (unless explicitly specified otherwise). This will produce a somewhat
 -- 
-2.55.0
+2.56.1
 

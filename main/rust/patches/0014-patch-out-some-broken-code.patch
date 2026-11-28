@@ -1,4 +1,4 @@
-From 64fa2465eac73161f8ec1ef08e966b8eeebdace1 Mon Sep 17 00:00:00 2001
+From 0b6c4a00cdf76d2c99cb01eaf1b7aa051758c3f4 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 1 Nov 2025 15:19:24 +0100
 Subject: [PATCH 14/16] patch out some broken code
@@ -8,10 +8,10 @@ Subject: [PATCH 14/16] patch out some broken code
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index f8fcee324..196b27454 100644
+index e7acd43cf..9ecd4c12e 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -587,7 +587,7 @@ impl CommandLineStep for Rustc {
+@@ -614,7 +614,7 @@ impl CommandLineStep for Rustc {
              t!(fs::create_dir_all(&dst_dir));
  
              // Copy over lld if it's there
@@ -21,5 +21,5 @@ index f8fcee324..196b27454 100644
                  let rust_lld = exe("rust-lld", target_compiler.host);
                  builder.copy_link(
 -- 
-2.55.0
+2.56.1
 

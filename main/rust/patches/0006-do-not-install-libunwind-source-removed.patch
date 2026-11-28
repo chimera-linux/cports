@@ -1,4 +1,4 @@
-From f56dca8c642d96224ee1ac5511c9702e1955655d Mon Sep 17 00:00:00 2001
+From 6c9c82bb5f201fb1306ad0ea2ef2d9f7192bc3f8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:05:54 +0100
 Subject: [PATCH 06/16] do not install libunwind source (removed)
@@ -8,10 +8,10 @@ Subject: [PATCH 06/16] do not install libunwind source (removed)
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index cea3edddd..f8fcee324 100644
+index c9502af14..e7acd43cf 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -1198,7 +1198,7 @@ impl CommandLineStep for Src {
+@@ -1228,7 +1228,7 @@ impl CommandLineStep for Src {
          copy_src_dirs(
              builder,
              &builder.src,
@@ -21,5 +21,5 @@ index cea3edddd..f8fcee324 100644
                  // not needed and contains symlinks which rustup currently
                  // chokes on when unpacking.
 -- 
-2.55.0
+2.56.1
 
