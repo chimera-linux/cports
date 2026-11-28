@@ -1,0 +1,36 @@
+diff --git a/src/dos/dos_code_page.cpp b/src/dos/dos_code_page.cpp
+index 8d866ac..488a5e0 100644
+--- a/src/dos/dos_code_page.cpp
++++ b/src/dos/dos_code_page.cpp
+@@ -6,6 +6,7 @@
+ #include <algorithm>
+ #include <array>
+ #include <fstream>
++#include <iterator>
+ #include <optional>
+ #include <set>
+ #include <unordered_map>
+diff --git a/src/dosbox.h b/src/dosbox.h
+index 4409d36..f72d9b3 100644
+--- a/src/dosbox.h
++++ b/src/dosbox.h
+@@ -12,6 +12,7 @@
+ 
+ #include <functional>
+ #include <memory>
++#include <vector>
+ 
+ // Project name, lower-case and without spaces
+ #define DOSBOX_PROJECT_NAME "dosbox-staging"
+diff --git a/src/gui/render/shader_manager.cpp b/src/gui/render/shader_manager.cpp
+index 4d3fe7d..06c4a4d 100644
+--- a/src/gui/render/shader_manager.cpp
++++ b/src/gui/render/shader_manager.cpp
+@@ -7,6 +7,7 @@
+ #include <cassert>
+ #include <fstream>
+ #include <regex>
++#include <sstream>
+ #include <unordered_map>
+ 
+ #include <SDL.h>
