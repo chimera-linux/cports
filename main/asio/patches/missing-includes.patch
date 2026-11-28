@@ -1,0 +1,13 @@
+diff --git a/include/asio/detail/impl/posix_thread.ipp b/include/asio/detail/impl/posix_thread.ipp
+index 5851f69..910e0b2 100644
+--- a/include/asio/detail/impl/posix_thread.ipp
++++ b/include/asio/detail/impl/posix_thread.ipp
+@@ -19,6 +19,8 @@
+ 
+ #if defined(ASIO_HAS_PTHREADS)
+ 
++#include <exception>
++
+ #include "asio/detail/posix_thread.hpp"
+ #include "asio/detail/throw_error.hpp"
+ #include "asio/error.hpp"
