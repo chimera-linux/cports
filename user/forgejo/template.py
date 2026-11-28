@@ -13,11 +13,16 @@ license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
 source = f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz"
 sha256 = "2db0dbda822c42a8c4e7b94bef74ff2d4978a2e1a848d57779fd3378ba101107"
+hardening = []
 # check takes quite a bit
 options = ["!check", "!cross"]
 
-if self.profile.arch == "riscv64":
-    broken = "runs out of memory on builder"
+match self.profile.arch:
+    case "riscv64":
+        broken = "runs out of memory on builder"
+    case "ppc64le" | "ppc64":
+        # https://github.com/golang/go/issues/82324
+        hardening += ["!pie"]
 
 
 def prepare(self):
