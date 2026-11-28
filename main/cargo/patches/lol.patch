@@ -1,6 +1,6 @@
-From a264109014537c1b1d511293e1e22e4c55928153 Mon Sep 17 00:00:00 2001
+From f1f0ad3e3bdc4a222cf849604c4b671ac9ad370f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 2 Oct 2026 15:47:51 +0200
+Date: Sat, 28 Nov 2026 10:44:03 +0100
 Subject: [PATCH] Selectively downgrade some crates in cargo
 
 Until we can figure out why it's busted on ppc64le, downgrade
@@ -12,7 +12,7 @@ sustainable forever but for now it makes it work.
  2 files changed, 10 insertions(+), 8 deletions(-)
 
 diff --git a/src/tools/cargo/Cargo.lock b/src/tools/cargo/Cargo.lock
-index 4780a2427..9c01bdb33 100644
+index a8337c041..e9f0bf8d2 100644
 --- a/src/tools/cargo/Cargo.lock
 +++ b/src/tools/cargo/Cargo.lock
 @@ -148,9 +148,9 @@ dependencies = [
@@ -27,7 +27,7 @@ index 4780a2427..9c01bdb33 100644
  
  [[package]]
  name = "arc-swap"
-@@ -2830,16 +2830,18 @@ dependencies = [
+@@ -2692,16 +2692,18 @@ dependencies = [
  
  [[package]]
  name = "ignore"
@@ -50,7 +50,7 @@ index 4780a2427..9c01bdb33 100644
   "winapi-util",
  ]
 diff --git a/src/tools/cargo/Cargo.toml b/src/tools/cargo/Cargo.toml
-index b2fc229f6..a0db0611a 100644
+index 6d8001085..d39957c37 100644
 --- a/src/tools/cargo/Cargo.toml
 +++ b/src/tools/cargo/Cargo.toml
 @@ -22,7 +22,7 @@ anstream = "1.0.0"
@@ -60,7 +60,7 @@ index b2fc229f6..a0db0611a 100644
 -anyhow = "1.0.102"
 +anyhow = "1.0.75"
  async-trait = "0.1.89"
- base64 = "0.22.1"
+ base64 = "0.23.0"
  blake3 = "1.8.4"
 @@ -64,7 +64,7 @@ hmac = "0.13.0"
  home = "0.5.12"
@@ -81,5 +81,5 @@ index b2fc229f6..a0db0611a 100644
  miow = "0.6.1"
  opener = "0.8.4"
 -- 
-2.55.0
+2.56.1
 
