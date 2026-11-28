@@ -1,0 +1,23 @@
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 2c32ddde..9523a45e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -636,13 +636,13 @@ endif # *NIX platforms
+ endif # !MINGW
+ 
+ 
+-TARGET_CLIENT = $(CNAME)$(ARCHEXT)$(BINEXT)
++TARGET_CLIENT = $(CNAME)$(BINEXT)
+ 
+ TARGET_REND1 = $(RENDERER_PREFIX)_opengl_$(SHLIBNAME)
+ TARGET_REND2 = $(RENDERER_PREFIX)_opengl2_$(SHLIBNAME)
+ TARGET_RENDV = $(RENDERER_PREFIX)_vulkan_$(SHLIBNAME)
+ 
+-TARGET_SERVER = $(DNAME)$(ARCHEXT)$(BINEXT)
++TARGET_SERVER = $(DNAME)$(BINEXT)
+ 
+ STRINGIFY = $(B)/rend2/stringify$(BINEXT)
+ 
