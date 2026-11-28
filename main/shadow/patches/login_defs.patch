@@ -1,14 +1,5 @@
-From 4a423b29d89041c030414e8e218a33702cffe697 Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Tue, 31 Jan 2023 00:55:50 +0100
-Subject: [PATCH] clean up login.defs defaults
-
----
- etc/login.defs | 130 ++++---------------------------------------------
- 1 file changed, 10 insertions(+), 120 deletions(-)
-
 diff --git a/etc/login.defs b/etc/login.defs
-index 114dbcd..70643ee 100644
+index c052d5b7..ff7c08bd 100644
 --- a/etc/login.defs
 +++ b/etc/login.defs
 @@ -4,13 +4,6 @@
@@ -17,7 +8,7 @@ index 114dbcd..70643ee 100644
  
 -#
 -# Delay in seconds before being allowed another attempt after a login failure
--# Note: When PAM is used, some modules may enforce a minimum delay (e.g.
+-# Note: when PAM is used, some modules may enforce a minimum delay (e.g.
 -#       pam_unix(8) enforces a 2s delay)
 -#
 -FAIL_DELAY		3
@@ -167,17 +158,8 @@ index 114dbcd..70643ee 100644
 +HOME_MODE	0700
  
  #
- # Password aging controls:
-@@ -216,7 +134,7 @@ UMASK		022
- #
- PASS_MAX_DAYS	99999
- PASS_MIN_DAYS	0
--PASS_MIN_LEN	5
-+PASS_MIN_LEN	0
- PASS_WARN_AGE	7
- 
- #
-@@ -238,7 +156,7 @@ CRACKLIB_DICTPATH	/var/cache/cracklib/cracklib_dict
+ # If "yes", the user must be listed as a member of the first gid 0 group
+@@ -220,7 +138,7 @@ SU_WHEEL_ONLY	no
  UID_MIN			 1000
  UID_MAX			60000
  # System accounts
@@ -186,7 +168,7 @@ index 114dbcd..70643ee 100644
  SYS_UID_MAX		  999
  # Extra per user uids
  SUB_UID_MIN		   100000
-@@ -251,7 +169,7 @@ SUB_UID_COUNT		    65536
+@@ -268,7 +186,7 @@ SUB_UID_COUNT		    65536
  GID_MIN			 1000
  GID_MAX			60000
  # System accounts
@@ -195,7 +177,7 @@ index 114dbcd..70643ee 100644
  SYS_GID_MAX		  999
  # Extra per user group ids
  SUB_GID_MIN		   100000
-@@ -268,16 +186,6 @@ LOGIN_RETRIES		5
+@@ -320,23 +238,11 @@ LOGIN_RETRIES		5
  #
  LOGIN_TIMEOUT		60
  
@@ -204,27 +186,23 @@ index 114dbcd..70643ee 100644
 -#
 -PASS_CHANGE_TRIES	5
 -
--#
+ #
+ # Password strength controls:
+ #
 -# Warn about weak passwords (but still allow them) if you are root.
--#
 -PASS_ALWAYS_WARN	yes
+ # Minimum acceptable password length.
+-PASS_MIN_LEN	5
 -
- #
- # Number of significant characters in the password for crypt().
- # Default is 8, don't change unless your crypt() is better.
-@@ -285,11 +193,6 @@ PASS_ALWAYS_WARN	yes
- #
- #PASS_MAX_LEN		8
- 
 -#
 -# Require password before chfn(1)/chsh(1) can make any changes.
 -#
 -CHFN_AUTH		yes
--
++PASS_MIN_LEN	0
+ 
  #
  # Which fields may be changed by regular users using chfn(1) - use
- # any combination of letters "frwh" (full name, room number, work
-@@ -298,13 +201,6 @@ CHFN_AUTH		yes
+@@ -346,13 +252,6 @@ CHFN_AUTH		yes
  #
  CHFN_RESTRICT		rwh
  
@@ -236,18 +214,9 @@ index 114dbcd..70643ee 100644
 -#LOGIN_STRING		"%s's Password: "
 -
  #
- # Only works if compiled with MD5_CRYPT defined:
- # If set to "yes", new passwords will be encrypted using the MD5-based
-@@ -334,7 +230,7 @@ CHFN_RESTRICT		rwh
- # Note: If you use PAM, it is recommended to use a value consistent with
- # the PAM modules configuration.
- #
--#ENCRYPT_METHOD DES
-+#ENCRYPT_METHOD SHA512
- 
- #
- # Only works if ENCRYPT_METHOD is set to SHA256 or SHA512.
-@@ -406,18 +302,12 @@ DEFAULT_HOME	yes
+ # Only works if compiled with ENCRYPTMETHOD_SELECT defined:
+ # If set to SHA256, SHA256-based algorithm will be used for encrypting password
+@@ -435,18 +334,12 @@ DEFAULT_HOME	yes
  #
  NONEXISTENT	/nonexistent
  
@@ -267,7 +236,7 @@ index 114dbcd..70643ee 100644
  
  #
  # Enable setting of the umask group bits to be the same as owner bits
-@@ -445,7 +335,7 @@ USERGROUPS_ENAB yes
+@@ -474,7 +367,7 @@ USERGROUPS_ENAB yes
  # This option is overridden with the -M or -m flags on the useradd(8)
  # command-line.
  #
@@ -276,6 +245,3 @@ index 114dbcd..70643ee 100644
  
  #
  # Force use shadow, even if shadow passwd & shadow group files are
--- 
-2.39.0
-

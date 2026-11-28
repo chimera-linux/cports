@@ -1,11 +1,8 @@
+diff --git a/src/useradd.c b/src/useradd.c
+index 5404b46c..e65c3902 100644
 --- a/src/useradd.c
 +++ b/src/useradd.c
-@@ -87,14 +87,14 @@ const char *Prog;
- /*
-  * These defaults are used if there is no defaults file.
-  */
--static gid_t def_group = 1000;
-+static gid_t def_group = 100;
+@@ -110,10 +110,10 @@ static gid_t def_group = 1000;
  static const char *def_groups = "";
  static const char *def_gname = "other";
  static const char *def_home = "/home";
@@ -15,6 +12,6 @@
  static const char *def_usrtemplate = USRSKELDIR;
 -static const char *def_create_mail_spool = "yes";
 +static const char *def_create_mail_spool = "no";
+ static const char *def_btrfs_subvolume_home = "no";
+ static const char *def_btrfs_subvolume_system = "no";
  static const char *def_log_init = "yes";
- 
- static long def_inactive = -1;
