@@ -1,0 +1,70 @@
+From fcf8703079a76350866c51a8fb67a2d2078c1b9e Mon Sep 17 00:00:00 2001
+From: Brian LeBlanc <brianleblanc98@proton.me>
+Date: Thu, 26 Nov 2026 12:18:51 -0500
+Subject: [PATCH] Remove calls to systemctl
+
+---
+ src/main.c | 40 ----------------------------------------
+ 1 file changed, 40 deletions(-)
+
+diff --git a/src/main.c b/src/main.c
+index 66f13618..2868d639 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -312,24 +312,6 @@ void set_activation_env() {
+ 	spawn(&(Arg){.v = cmd1});
+ 	free(cmd1);
+ 
+-	/* Second command: import the environment into systemd and bring up the
+-	 * session target from the same shell, so that user services with
+-	 * WantedBy=graphical-session.target (portals, panels, ...) do not start
+-	 * before those variables are in place. xdg-desktop-portal only starts
+-	 * while graphical-session.target is active, which this target pulls in
+-	 * via BindsTo. */
+-	const char *action = "import-environment";
+-	char *cmd2 = string_printf("systemctl --user %s %s; "
+-							   "systemctl --user --no-block start "
+-							   "mango-session.target",
+-							   action, env_keys);
+-	if (!cmd2) {
+-		mango_error(true, WLR_ERROR, "Failed to allocate command string");
+-		goto cleanup;
+-	}
+-	spawn_shell(&(Arg){.v = cmd2});
+-	free(cmd2);
+-
+ cleanup:
+ 	free(env_keys);
+ }
+@@ -351,28 +333,6 @@ void unset_activation_env(void) {
+ 		goto cleanup;
+ 	}
+ 
+-	/* These are fired off asynchronously: doing them synchronously (blocking
+-	 * on the child) deadlocks when mango itself belongs to the systemd user
+-	 * session, because stopping graphical-session.target then waits for mango
+-	 * to exit while mango waits for the command to finish. */
+-	char *cmd0 = string_printf(
+-		"systemctl --user --no-block stop graphical-session.target");
+-	if (!cmd0) {
+-		mango_error(true, WLR_ERROR, "Failed to allocate command string");
+-		goto cleanup;
+-	}
+-	spawn_shell(&(Arg){.v = cmd0});
+-	free(cmd0);
+-
+-	char *cmd1 =
+-		string_printf("systemctl --user unset-environment %s", env_keys);
+-	if (!cmd1) {
+-		mango_error(true, WLR_ERROR, "Failed to allocate command string");
+-		goto cleanup;
+-	}
+-	spawn_shell(&(Arg){.v = cmd1});
+-	free(cmd1);
+-
+ 	char *cmd2 =
+ 		string_printf("dbus-update-activation-environment %s", env_unset_keys);
+ 	if (!cmd2) {
+-- 
+2.56.1
+
