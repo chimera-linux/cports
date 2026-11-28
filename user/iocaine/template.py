@@ -1,5 +1,5 @@
 pkgname = "iocaine"
-pkgver = "3.5.1"
+pkgver = "3.6.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -18,7 +18,7 @@ pkgdesc = "LLM crawler abuse defense mechanism"
 license = "MIT"
 url = "https://iocaine.madhouse-project.org"
 source = f"https://git.madhouse-project.org/iocaine/iocaine/archive/iocaine-{pkgver}.tar.gz"
-sha256 = "fec4238c2b7735545f7a6de7188b2891cb3c8980d378d24f5ab8da6e378c7bd5"
+sha256 = "854eff515b4666d7a92c4cd79c1bef88f6224bf11f773b0af83ceed33dda0b64"
 
 if self.profile.wordsize == 32:
     broken = "atomic64"
